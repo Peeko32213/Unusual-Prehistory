@@ -1,0 +1,129 @@
+{
+  "minecraft:recipes/decorations/smoker": {
+    "criteria": {
+      "has_furnace": "2022-09-02 12:22:51 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_porkchop_from_campfire_cooking": {
+    "criteria": {
+      "has_porkchop": "2022-09-03 21:54:15 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_chicken_from_smoking": {
+    "criteria": {
+      "has_chicken": "2022-09-04 12:53:55 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/dark_oak_boat": {
+    "criteria": {
+      "in_water": "2022-09-03 17:12:46 -0700"
+    },
+    "done": true
+  },
+  "minecraft:husbandry/root": {
+    "criteria": {
+      "consumed_item": "2022-09-04 11:03:26 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/chest": {
+    "criteria": {
+      "has_lots_of_items": "2022-09-01 12:55:43 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/birch_boat": {
+    "criteria": {
+      "in_water": "2022-09-03 17:12:46 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_chicken": {
+    "criteria": {
+      "has_chicken": "2022-09-04 12:53:55 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/acacia_boat": {
+    "criteria": {
+      "in_water": "2022-09-03 17:12:46 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/oak_boat": {
+    "criteria": {
+      "in_water": "2022-09-03 17:12:46 -0700"
+    },
+    "done": true
+  },
+  "minecraft:husbandry/balanced_diet": {
+    "criteria": {
+      "cooked_beef": "2022-09-04 12:51:58 -0700",
+      "porkchop": "2022-09-04 11:03:26 -0700"
+    },
+    "done": false
+  },
+  "minecraft:recipes/food/cooked_porkchop_from_smoking": {
+    "criteria": {
+      "has_porkchop": "2022-09-03 21:54:15 -0700"
+    },
+    "done": true
+  },
+  "minecraft:adventure/root": {
+    "criteria": {
+      "killed_something": "2022-09-03 19:08:19 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_porkchop": {
+    "criteria": {
+      "has_porkchop": "2022-09-03 21:54:15 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_chicken_from_campfire_cooking": {
+    "criteria": {
+      "has_chicken": "2022-09-04 12:53:55 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/yellow_dye_from_sunflower": {
+    "criteria": {
+      "has_sunflower": "2022-09-04 13:00:21 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/jungle_boat": {
+    "criteria": {
+      "in_water": "2022-09-03 17:12:46 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/spruce_boat": {
+    "criteria": {
+      "in_water": "2022-09-03 17:12:46 -0700"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:taiga": "2022-09-03 17:33:49 -0700",
+      "minecraft:frozen_river": "2022-09-01 12:25:14 -0700",
+      "minecraft:birch_forest": "2022-09-04 11:01:19 -0700",
+      "minecraft:sparse_jungle": "2022-09-04 09:21:51 -0700",
+      "minecraft:river": "2022-09-04 09:21:56 -0700",
+      "minecraft:stony_shore": "2022-09-01 12:53:50 -0700",
+      "minecraft:snowy_plains": "2022-09-01 12:53:48 -0700",
+      "minecraft:snowy_taiga": "2022-09-01 12:19:16 -0700",
+      "minecraft:grove": "2022-09-01 12:54:48 -0700",
+      "minecraft:forest": "2022-09-04 11:01:33 -0700",
+      "minecraft:jungle": "2022-09-04 09:22:08 -0700",
+      "minecraft:plains": "2022-09-04 11:01:42 -0700"
+    },
+    "done": false
+  },
+  "DataVersion": 2975
+}

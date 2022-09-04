@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="MIT"
+
+[[mods]]
+modId="unusualprehistory"
+version="1.0"
+displayName= "Unusual Prehistory"
+logoFile= "examplemod.png"
+credits= "Thanks to Fred for textures!"
+authors= "Peeko32213"
+description='''
+A Mod that adds a variety of prehistoric creatures and a way to revive them
+'''
+
+[[dependencies.examplemod]]
+modId="forge"
+mandatory=true
+versionRange="[40,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.examplemod]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.18.2,1.19)"
+ordering="NONE"
+side="BOTH"
+
+

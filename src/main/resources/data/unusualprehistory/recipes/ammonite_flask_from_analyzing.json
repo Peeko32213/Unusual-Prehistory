@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:analyzing",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:paleo_fossil"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:ammonite_flask"
+  }
+}

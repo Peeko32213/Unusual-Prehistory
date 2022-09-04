@@ -1,0 +1,30 @@
+{
+  "itemGroup.unusualprehistory": "Unusual Prehistory",
+
+  "item.unusualprehistory.ammonite_shell": "Ammonite Shell",
+  "item.unusualprehistory.flask": "Flask",
+  "item.unusualprehistory.paleo_fossil": "Paleozoic Fossil",
+  "item.unusualprehistory.mezo_fossil": "Mesozoic Fossil",
+  "item.unusualprehistory.ammonite_flask": "Ammonite Flask",
+  "item.unusualprehistory.anuro_flask": "Anurognathus Flask",
+  "item.unusualprehistory.beelz_flask": "Beelzebufo Flask",
+  "item.unusualprehistory.coty_flask": "Cotylorhynchus Flask",
+  "item.unusualprehistory.dunk_flask": "Dunkleosteus Flask",
+  "item.unusualprehistory.majunga_flask": "Majungasaurus Flask",
+  "item.unusualprehistory.stetha_flask": "Stethacanthus Flask",
+  "item.unusualprehistory.stetha_spawn_egg": "Stethacanthus Spawn Egg",
+  "item.unusualprehistory.stetha_bucket": "Bucket of Stethacanthus",
+  "item.unusualprehistory.majunga_spawn_egg": "Majungasaurus Spawn Egg",
+  "item.unusualprehistory.anuro_spawn_egg": "Anurognathus Spawn Egg",
+
+  "entity.unusualprehistory.stethacanthus": "Stethacanthus",
+  "entity.unusualprehistory.majunga": "Majungasaurus",
+  "entity.unusualprehistory.anuro": "Anurognathus",
+
+
+  "block.unusualprehistory.stone_fossil": "Stone Fossil",
+  "block.unusualprehistory.deepslate_fossil": "Deepslate Fossil",
+  "block.unusualprehistory.analyzer": "Analyzer"
+
+
+}
