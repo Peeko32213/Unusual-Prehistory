@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.core.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
+import com.peeko32213.unusualprehistory.common.entity.EntityBeelzebufo;
 import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -24,6 +25,7 @@ public class CommonModEvents {
         event.put(UPEntities.STETHACANTHUS.get(), EntityStethacanthus.createAttributes().build());
         event.put(UPEntities.MAJUNGA.get(), EntityMajungasaurus.createAttributes().build());
         event.put(UPEntities.ANURO.get(), EntityAnurognathus.createAttributes().build());
+        event.put(UPEntities.BEELZ.get(), EntityBeelzebufo.createAttributes().build());
 
     }
 

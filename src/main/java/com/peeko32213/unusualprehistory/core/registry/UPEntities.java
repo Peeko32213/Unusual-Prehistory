@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
+import com.peeko32213.unusualprehistory.common.entity.EntityBeelzebufo;
 import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
 import net.minecraft.resources.ResourceLocation;
@@ -32,4 +33,8 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityAnurognathus>> ANURO = ENTITIES.register("anuro",
             () -> EntityType.Builder.of(EntityAnurognathus::new, MobCategory.CREATURE).sized(0.8f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "anuro").toString()));
+
+    public static final RegistryObject<EntityType<EntityBeelzebufo>> BEELZ = ENTITIES.register("beelz",
+            () -> EntityType.Builder.of(EntityBeelzebufo::new, MobCategory.CREATURE).sized(1.3f, 0.8f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "beelz").toString()));
 }

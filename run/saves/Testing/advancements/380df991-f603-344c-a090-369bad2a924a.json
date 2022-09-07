@@ -41,6 +41,12 @@
     },
     "done": true
   },
+  "minecraft:recipes/food/cake": {
+    "criteria": {
+      "has_egg": "2022-09-05 16:32:17 -0700"
+    },
+    "done": true
+  },
   "minecraft:recipes/food/cooked_chicken": {
     "criteria": {
       "has_chicken": "2022-09-04 12:53:55 -0700"
@@ -121,6 +127,7 @@
       "minecraft:grove": "2022-09-01 12:54:48 -0700",
       "minecraft:forest": "2022-09-04 11:01:33 -0700",
       "minecraft:jungle": "2022-09-04 09:22:08 -0700",
+      "minecraft:meadow": "2022-09-05 20:23:57 -0700",
       "minecraft:plains": "2022-09-04 11:01:42 -0700"
     },
     "done": false

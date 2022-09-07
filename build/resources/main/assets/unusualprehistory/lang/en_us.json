@@ -16,10 +16,12 @@
   "item.unusualprehistory.stetha_bucket": "Bucket of Stethacanthus",
   "item.unusualprehistory.majunga_spawn_egg": "Majungasaurus Spawn Egg",
   "item.unusualprehistory.anuro_spawn_egg": "Anurognathus Spawn Egg",
+  "item.unusualprehistory.beelz_spawn_egg": "Beelzebufo Spawn Egg",
 
   "entity.unusualprehistory.stethacanthus": "Stethacanthus",
   "entity.unusualprehistory.majunga": "Majungasaurus",
   "entity.unusualprehistory.anuro": "Anurognathus",
+  "entity.unusualprehistory.beelz": "Beelzebufo",
 
 
   "block.unusualprehistory.stone_fossil": "Stone Fossil",
