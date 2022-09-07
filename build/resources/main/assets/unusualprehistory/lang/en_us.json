@@ -12,16 +12,19 @@
   "item.unusualprehistory.dunk_flask": "Dunkleosteus Flask",
   "item.unusualprehistory.majunga_flask": "Majungasaurus Flask",
   "item.unusualprehistory.stetha_flask": "Stethacanthus Flask",
-  "item.unusualprehistory.stetha_spawn_egg": "Stethacanthus Spawn Egg",
   "item.unusualprehistory.stetha_bucket": "Bucket of Stethacanthus",
+  "item.unusualprehistory.ammon_bucket": "Bucket of Ammonite",
+  "item.unusualprehistory.stetha_spawn_egg": "Stethacanthus Spawn Egg",
   "item.unusualprehistory.majunga_spawn_egg": "Majungasaurus Spawn Egg",
   "item.unusualprehistory.anuro_spawn_egg": "Anurognathus Spawn Egg",
   "item.unusualprehistory.beelz_spawn_egg": "Beelzebufo Spawn Egg",
+  "item.unusualprehistory.ammon_spawn_egg": "Ammonite Spawn Egg",
 
   "entity.unusualprehistory.stethacanthus": "Stethacanthus",
   "entity.unusualprehistory.majunga": "Majungasaurus",
   "entity.unusualprehistory.anuro": "Anurognathus",
   "entity.unusualprehistory.beelz": "Beelzebufo",
+  "entity.unusualprehistory.ammon": "Ammonite",
 
 
   "block.unusualprehistory.stone_fossil": "Stone Fossil",

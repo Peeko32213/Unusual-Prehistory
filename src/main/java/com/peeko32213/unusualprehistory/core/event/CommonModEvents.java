@@ -1,10 +1,7 @@
 package com.peeko32213.unusualprehistory.core.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
-import com.peeko32213.unusualprehistory.common.entity.EntityBeelzebufo;
-import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
-import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
+import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,6 +23,7 @@ public class CommonModEvents {
         event.put(UPEntities.MAJUNGA.get(), EntityMajungasaurus.createAttributes().build());
         event.put(UPEntities.ANURO.get(), EntityAnurognathus.createAttributes().build());
         event.put(UPEntities.BEELZ.get(), EntityBeelzebufo.createAttributes().build());
+        event.put(UPEntities.AMMON.get(), EntityAmmonite.createAttributes().build());
 
     }
 

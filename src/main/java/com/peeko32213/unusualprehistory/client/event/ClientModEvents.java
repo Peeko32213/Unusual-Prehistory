@@ -1,10 +1,7 @@
 package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.render.AnurognathusRenderer;
-import com.peeko32213.unusualprehistory.client.render.BeelzebufoRenderer;
-import com.peeko32213.unusualprehistory.client.render.MajungasaurusRenderer;
-import com.peeko32213.unusualprehistory.client.render.StethacanthusRenderer;
+import com.peeko32213.unusualprehistory.client.render.*;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -23,6 +20,7 @@ public final class ClientModEvents {
         event.registerEntityRenderer(UPEntities.MAJUNGA.get(), MajungasaurusRenderer::new);
         event.registerEntityRenderer(UPEntities.ANURO.get(), AnurognathusRenderer::new);
         event.registerEntityRenderer(UPEntities.BEELZ.get(), BeelzebufoRenderer::new);
+        event.registerEntityRenderer(UPEntities.AMMON.get(), AmmoniteRenderer::new);
 
     }
 

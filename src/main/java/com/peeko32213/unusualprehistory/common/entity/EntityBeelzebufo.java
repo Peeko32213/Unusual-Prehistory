@@ -55,7 +55,11 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
 
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.16D).add(Attributes.ATTACK_DAMAGE, 8.0D).add(Attributes.FOLLOW_RANGE, 12.0D);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.16D)
+                .add(Attributes.ATTACK_DAMAGE, 8.0D)
+                .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
     protected void registerGoals() {

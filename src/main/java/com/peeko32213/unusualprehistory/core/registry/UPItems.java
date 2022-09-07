@@ -56,6 +56,10 @@ public class UPItems {
             () -> new ItemModFishBucket(UPEntities.STETHACANTHUS, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB).stacksTo(1)));
 
+    public static final RegistryObject<Item> AMMON_BUCKET = ITEMS.register("ammon_bucket",
+            () -> new ItemModFishBucket(UPEntities.AMMON, () -> Fluids.WATER, Items.BUCKET, false,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB).stacksTo(1)));
+
     public static final RegistryObject<ForgeSpawnEggItem> STETHA_EGG = ITEMS.register("stetha_spawn_egg",
             () -> new ForgeSpawnEggItem(UPEntities.STETHACANTHUS , 0x754123, 0xb59a6e,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
@@ -71,5 +75,10 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> BEELZ_EGG = ITEMS.register("beelz_spawn_egg",
             () -> new ForgeSpawnEggItem(UPEntities.BEELZ , 0x443f13, 0xa5db90,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<ForgeSpawnEggItem> AMMON_EGG = ITEMS.register("ammon_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.AMMON , 0x402018, 0x99895c,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
 
 }

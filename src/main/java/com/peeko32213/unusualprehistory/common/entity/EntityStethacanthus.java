@@ -69,7 +69,10 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 5.0D).add(Attributes.ATTACK_DAMAGE, 1.0D).add(Attributes.MOVEMENT_SPEED, 1.0D);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 5.0D)
+                .add(Attributes.ATTACK_DAMAGE, 1.0D)
+                .add(Attributes.MOVEMENT_SPEED, 1.0D);
     }
 
     protected void registerGoals() {

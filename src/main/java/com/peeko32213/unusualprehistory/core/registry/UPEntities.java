@@ -1,10 +1,7 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
-import com.peeko32213.unusualprehistory.common.entity.EntityBeelzebufo;
-import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
-import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
+import com.peeko32213.unusualprehistory.common.entity.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -37,4 +34,8 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityBeelzebufo>> BEELZ = ENTITIES.register("beelz",
             () -> EntityType.Builder.of(EntityBeelzebufo::new, MobCategory.CREATURE).sized(1.3f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "beelz").toString()));
+
+    public static final RegistryObject<EntityType<EntityAmmonite>> AMMON = ENTITIES.register("ammon",
+            () -> EntityType.Builder.of(EntityAmmonite::new, MobCategory.CREATURE).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "ammon").toString()));
 }

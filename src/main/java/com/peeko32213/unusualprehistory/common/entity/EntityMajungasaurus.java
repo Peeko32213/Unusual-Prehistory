@@ -75,7 +75,12 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 25.0D).add(Attributes.MOVEMENT_SPEED, 0.2D).add(Attributes.ATTACK_DAMAGE, 6.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.6D).add(Attributes.FOLLOW_RANGE, 12.0D);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 25.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.2D)
+                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D)
+                .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
     @Override
@@ -100,6 +105,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Animal.class, 10, false, false, (p_28604_) -> {
             return p_28604_ instanceof Chicken || p_28604_ instanceof Rabbit || p_28604_ instanceof Cow || p_28604_ instanceof Sheep || p_28604_ instanceof Horse; }));

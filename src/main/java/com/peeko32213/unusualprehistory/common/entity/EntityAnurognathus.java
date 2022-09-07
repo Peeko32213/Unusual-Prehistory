@@ -21,6 +21,7 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
@@ -80,7 +81,11 @@ public class EntityAnurognathus extends PathfinderMob implements IAnimatable, Fl
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0F).add(Attributes.FLYING_SPEED, 0.6F).add(Attributes.MOVEMENT_SPEED, 0.4F).add(Attributes.ATTACK_DAMAGE, 4.0F);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 10.0F)
+                .add(Attributes.FLYING_SPEED, 0.6F)
+                .add(Attributes.MOVEMENT_SPEED, 0.4F)
+                .add(Attributes.ATTACK_DAMAGE, 4.0F);
     }
 
     @Override
@@ -93,6 +98,7 @@ public class EntityAnurognathus extends PathfinderMob implements IAnimatable, Fl
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Bee.class, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Silverfish.class, true));
