@@ -12,6 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -76,6 +77,24 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Rabbit.class, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, CaveSpider.class, true));
     }
+
+    @Override
+    public boolean doHurtTarget(Entity entityIn) {
+        this.level.broadcastEntityEvent(this, (byte)4);
+        float f = this.getAttackDamage();
+        float f1 = (int)f > 0 ? f / 2.0F + (float)this.random.nextInt((int)f) : f;
+        boolean flag = entityIn.hurt(DamageSource.mobAttack(this), f1);
+        if (flag) {
+            entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, (double)0.4F, 0.0D));
+            this.doEnchantDamageEffects(this, entityIn);
+        }
+        return flag;
+    }
+
+    private float getAttackDamage() {
+        return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+    }
+
 
     @Nullable
     public Entity getControllingPassenger() {

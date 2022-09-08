@@ -42,7 +42,7 @@ public class AmmoniteModel extends AnimatedGeoModel<EntityAmmonite>
         }
         else {
             body.setRotationX(extraData.headPitch * (float)Math.PI / 220F);
-            body.setRotationY(extraData.netHeadYaw * (float)Math.PI / 180F);
+            body.setRotationY(extraData.netHeadYaw * (float)Math.PI / 220F);
         }
     }
 

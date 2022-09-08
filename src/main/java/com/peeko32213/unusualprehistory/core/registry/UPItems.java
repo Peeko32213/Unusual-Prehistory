@@ -80,5 +80,13 @@ public class UPItems {
             () -> new ForgeSpawnEggItem(UPEntities.AMMON , 0x402018, 0x99895c,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<ForgeSpawnEggItem> DUNK_EGG = ITEMS.register("dunk_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.DUNK , 0x611f0d, 0xb07b42,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<ForgeSpawnEggItem> COTY_EGG = ITEMS.register("coty_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.COTY , 0xab211e, 0xf2d0c3,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
 
 }

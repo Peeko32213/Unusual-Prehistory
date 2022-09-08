@@ -21,6 +21,8 @@ public final class ClientModEvents {
         event.registerEntityRenderer(UPEntities.ANURO.get(), AnurognathusRenderer::new);
         event.registerEntityRenderer(UPEntities.BEELZ.get(), BeelzebufoRenderer::new);
         event.registerEntityRenderer(UPEntities.AMMON.get(), AmmoniteRenderer::new);
+        event.registerEntityRenderer(UPEntities.DUNK.get(), DunkleosteusRenderer::new);
+        event.registerEntityRenderer(UPEntities.COTY.get(), CotylorhynchusRenderer::new);
 
     }
 

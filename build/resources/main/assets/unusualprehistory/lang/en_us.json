@@ -19,12 +19,16 @@
   "item.unusualprehistory.anuro_spawn_egg": "Anurognathus Spawn Egg",
   "item.unusualprehistory.beelz_spawn_egg": "Beelzebufo Spawn Egg",
   "item.unusualprehistory.ammon_spawn_egg": "Ammonite Spawn Egg",
+  "item.unusualprehistory.dunk_spawn_egg": "Dunkleosteus Spawn Egg",
+  "item.unusualprehistory.coty_spawn_egg": "Cotylorhynchus Spawn Egg",
 
   "entity.unusualprehistory.stethacanthus": "Stethacanthus",
   "entity.unusualprehistory.majunga": "Majungasaurus",
   "entity.unusualprehistory.anuro": "Anurognathus",
   "entity.unusualprehistory.beelz": "Beelzebufo",
   "entity.unusualprehistory.ammon": "Ammonite",
+  "entity.unusualprehistory.dunk": "Dunkleosteus",
+  "entity.unusualprehistory.coty": "Cotylorhynchus",
 
 
   "block.unusualprehistory.stone_fossil": "Stone Fossil",

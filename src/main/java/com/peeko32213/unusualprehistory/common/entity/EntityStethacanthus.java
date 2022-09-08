@@ -97,8 +97,6 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
         });
     }
 
-    //Squid Games
-
     @Override
     public boolean doHurtTarget(Entity entityIn) {
         this.level.broadcastEntityEvent(this, (byte)4);
@@ -246,9 +244,6 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     }
 
 
-    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
-        fallDistance = 0;
-    }
 
     public void setRemainingPersistentAngerTime(int p_34448_) {
         this.remainingPersistentAngerTime = p_34448_;
@@ -259,7 +254,7 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     }
 
     protected void randomizeReinforcementsChance() {
-        this.getAttribute(Attributes.SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(3.0D);
+        this.getAttribute(Attributes.SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(0.0D);
     }
 
     @javax.annotation.Nullable
