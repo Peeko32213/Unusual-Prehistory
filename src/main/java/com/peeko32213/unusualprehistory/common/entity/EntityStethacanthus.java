@@ -58,6 +58,7 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     private int ticksUntilNextAlert;
     protected int attackCooldown = 0;
     private boolean isSchool = true;
+    public static float HITBOX_WIDTH = 0.4F;
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityStethacanthus.class, EntityDataSerializers.BOOLEAN);
 

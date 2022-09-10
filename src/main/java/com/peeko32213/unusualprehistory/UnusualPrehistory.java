@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory;
 
+import com.peeko32213.unusualprehistory.client.event.ClientModEvents;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -46,6 +47,7 @@ public class UnusualPrehistory {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
+        ClientModEvents.registerBlockRenderers();
 
     }
 

@@ -47,7 +47,7 @@ Details:
 	Exception message: java.lang.IllegalArgumentException: Cannot set property DirectionProperty{name=facing, clazz=class net.minecraft.core.Direction, values=[north, east, south, west, up, down]} as it does not exist in Block{null}
 Stacktrace:
 	at net.minecraft.world.level.block.state.StateHolder.setValue(StateHolder.java:106) ~[forge-1.18.2-40.1.74_mapped_official_1.18.2-recomp.jar%2379!/:?] {re:classloading}
-	at com.peeko32213.unusualprehistory.common.block.AnalyzerBlock.<init>(AnalyzerBlock.java:31) ~[%2384!/:?] {re:classloading}
+	at com.peeko32213.unusualprehistory.common.block.BlockAnalyzer.<init>(AnalyzerBlock.java:31) ~[%2384!/:?] {re:classloading}
 	at com.peeko32213.unusualprehistory.core.registry.UPBlocks.lambda$static$2(UPBlocks.java:28) ~[%2384!/:?] {re:classloading}
 	at net.minecraftforge.registries.DeferredRegister.lambda$register$0(DeferredRegister.java:214) ~[forge-1.18.2-40.1.74_mapped_official_1.18.2-recomp.jar%2378%2385!/:?] {re:classloading}
 	at net.minecraftforge.registries.DeferredRegister.addEntries(DeferredRegister.java:446) ~[forge-1.18.2-40.1.74_mapped_official_1.18.2-recomp.jar%2378%2385!/:?] {re:classloading}
