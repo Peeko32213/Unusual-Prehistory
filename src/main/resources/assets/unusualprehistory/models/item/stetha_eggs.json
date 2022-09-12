@@ -1,3 +1,6 @@
 {
-  "parent": "unusualprehistory:block/stetha_eggs"
+  "parent" : "item/generated",
+  "textures" : {
+    "layer0" : "unusualprehistory:item/stetha_eggs"
+  }
 }

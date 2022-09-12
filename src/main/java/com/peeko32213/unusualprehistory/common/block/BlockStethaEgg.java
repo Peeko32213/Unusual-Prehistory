@@ -48,99 +48,86 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 public class BlockStethaEgg extends Block {
-    private static final int MIN_STETHA_SPAWN = 1;
-    private static final int MAX_STETHA_SPAWN = 4;
-    private static final int DEFAULT_MIN_HATCH_TICK_DELAY = 3600;
-    private static final int DEFAULT_MAX_HATCH_TICK_DELAY = 12000;
-    protected static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 0, 16);
-    private static int minHatchTickDelay = 3600;
-    private static int maxHatchTickDelay = 12000;
+    protected static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 1.5, 16);
 
-    public BlockStethaEgg(BlockBehaviour.Properties p_221177_) {
-        super(p_221177_);
+    public BlockStethaEgg(Properties properties) {
+        super(properties);
     }
 
-    public VoxelShape getShape(BlockState p_221199_, BlockGetter p_221200_, BlockPos p_221201_, CollisionContext p_221202_) {
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
-    public boolean canSurvive(BlockState p_221209_, LevelReader p_221210_, BlockPos p_221211_) {
-        return mayPlaceOn(p_221210_, p_221211_.below());
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader reader, BlockPos pos) {
+        return mayPlaceOn(reader, pos.below());
     }
 
-    public void onPlace(BlockState p_221227_, Level p_221228_, BlockPos p_221229_, BlockState p_221230_, boolean p_221231_) {
-        p_221228_.scheduleTick(p_221229_, this, getFrogspawnHatchDelay(p_221228_.getRandom()));
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean notify) {
+        level.scheduleTick(pos, this, hatchTime(level.getRandom()));
     }
 
-    private static int getFrogspawnHatchDelay(Random p_221186_) {
-        return p_221186_.nextInt(minHatchTickDelay, maxHatchTickDelay);
+    private static int hatchTime(Random random) {
+        return random.nextInt(3600, 12000);
     }
 
-    public BlockState updateShape(BlockState p_221213_, Direction p_221214_, BlockState p_221215_, LevelAccessor p_221216_, BlockPos p_221217_, BlockPos p_221218_) {
-        return !this.canSurvive(p_221213_, p_221216_, p_221217_) ? Blocks.AIR.defaultBlockState() : super.updateShape(p_221213_, p_221214_, p_221215_, p_221216_, p_221217_, p_221218_);
+    @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor access, BlockPos pos, BlockPos neighborPos) {
+        return !this.canSurvive(state, access, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, access, pos, neighborPos);
     }
 
-    public void tick(BlockState p_221194_, ServerLevel p_221195_, BlockPos p_221196_, Random p_221197_) {
-        if (!this.canSurvive(p_221194_, p_221195_, p_221196_)) {
-            this.destroyBlock(p_221195_, p_221196_);
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+        if (!this.canSurvive(state, level, pos)) {
+            this.hatch(level, pos);
         } else {
-            this.hatchFrogspawn(p_221195_, p_221196_, p_221197_);
+            this.onHatch(level, pos, random);
         }
     }
 
-    public void entityInside(BlockState p_221204_, Level p_221205_, BlockPos p_221206_, Entity p_221207_) {
-        if (p_221207_.getType().equals(EntityType.FALLING_BLOCK)) {
-            this.destroyBlock(p_221205_, p_221206_);
+    @Override
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
+            this.hatch(level, pos);
         }
-
     }
 
-    private static boolean mayPlaceOn(BlockGetter p_221188_, BlockPos p_221189_) {
-        FluidState fluidstate = p_221188_.getFluidState(p_221189_);
-        FluidState fluidstate1 = p_221188_.getFluidState(p_221189_.above());
-        return fluidstate.getType() == Fluids.WATER && fluidstate1.getType() == Fluids.EMPTY;
+    private static boolean mayPlaceOn(LevelReader reader, BlockPos pos) {
+        FluidState fluidState = reader.getFluidState(pos);
+        FluidState topFluidState = reader.getFluidState(pos.above());
+        return fluidState.getType() == Fluids.WATER && topFluidState.getType() == Fluids.EMPTY;
     }
 
-    private void hatchFrogspawn(ServerLevel p_221182_, BlockPos p_221183_, Random p_221184_) {
-        this.destroyBlock(p_221182_, p_221183_);
-        p_221182_.playSound((Player)null, p_221183_, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 1.0F, 1.0F);
-        this.spawnTadpoles(p_221182_, p_221183_, p_221184_);
+    private void onHatch(ServerLevel level, BlockPos pos, Random random) {
+        this.hatch(level, pos);
+        level.playSound(null, pos, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 1.0F, 1.0F);
+        this.createTadpole(level, pos, random);
     }
 
-    private void destroyBlock(Level p_221191_, BlockPos p_221192_) {
-        p_221191_.destroyBlock(p_221192_, false);
+    private void hatch(Level level, BlockPos blockPos) {
+        level.destroyBlock(blockPos, false);
     }
 
-    private void spawnTadpoles(ServerLevel serverLevel, BlockPos blockPos, Random random) {
-        int i = random.nextInt(2, 6);
+    private void createTadpole(ServerLevel level, BlockPos pos, Random random) {
+        int i = random.nextInt(2, 4);
 
-        for(int j = 1; j <= i; ++j) {
-            EntityStethacanthus tadpole = UPEntities.STETHACANTHUS.get().create(serverLevel);
-            double d0 = (double)blockPos.getX() + this.getRandomTadpolePositionOffset(random);
-            double d1 = (double)blockPos.getZ() + this.getRandomTadpolePositionOffset(random);
-            int k = random.nextInt(1, 361);
-            tadpole.moveTo(d0, (double)blockPos.getY() - 0.5D, d1, (float)k, 0.0F);
-            tadpole.setPersistenceRequired();
-            serverLevel.addFreshEntity(tadpole);
+        for (int index = 1; index <= i; ++index) {
+            EntityStethacanthus tadpole = UPEntities.STETHACANTHUS.get().create(level);
+            if (tadpole != null) {
+                double x = (double)pos.getX() + this.getSpawnOffset(random);
+                double z = (double)pos.getZ() + this.getSpawnOffset(random);
+                int yaw = random.nextInt(1, 361);
+                tadpole.moveTo(x, (double)pos.getY() - 0.5, z, yaw, 0.0F);
+                tadpole.setPersistenceRequired();
+                level.addFreshEntity(tadpole);
+            }
         }
-
     }
 
-    private double getRandomTadpolePositionOffset(Random p_221225_) {
-        double d0 = (double)(EntityStethacanthus.HITBOX_WIDTH / 2.0F);
-        return Mth.clamp(p_221225_.nextDouble(), d0, 1.0D - d0);
-    }
-
-    @VisibleForTesting
-    public static void setHatchDelay(int p_221179_, int p_221180_) {
-        minHatchTickDelay = p_221179_;
-        maxHatchTickDelay = p_221180_;
-    }
-
-    @VisibleForTesting
-    public static void setDefaultHatchDelay() {
-        minHatchTickDelay = 3600;
-        maxHatchTickDelay = 12000;
+    private double getSpawnOffset(Random random) {
+        return Mth.clamp(random.nextDouble(), 0.2F, 0.8F);
     }
 }
 
