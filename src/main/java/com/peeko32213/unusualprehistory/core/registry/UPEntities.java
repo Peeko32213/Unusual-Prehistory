@@ -2,16 +2,16 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
+import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
+import com.peeko32213.unusualprehistory.common.entity.baby.EntityBeelzebufoTadpole;
+import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UPEntities {
@@ -32,7 +32,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "anuro").toString()));
 
     public static final RegistryObject<EntityType<EntityBeelzebufo>> BEELZ = ENTITIES.register("beelz",
-            () -> EntityType.Builder.of(EntityBeelzebufo::new, MobCategory.CREATURE).sized(1.3f, 0.8f)
+            () -> EntityType.Builder.of(EntityBeelzebufo::new, MobCategory.CREATURE).sized(1.5f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "beelz").toString()));
 
     public static final RegistryObject<EntityType<EntityAmmonite>> AMMON = ENTITIES.register("ammon",
@@ -45,6 +45,14 @@ public class UPEntities {
 
     public static final RegistryObject<EntityType<EntityCotylorhynchus>> COTY = ENTITIES.register("coty",
             () -> EntityType.Builder.of(EntityCotylorhynchus::new, MobCategory.CREATURE).sized(1.3f, 0.8f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "beelz").toString()));
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "coty").toString()));
+
+    public static final RegistryObject<EntityType<EntityBeelzebufoTadpole>> BEELZE_TADPOLE = ENTITIES.register("beelz_tadpole",
+            () -> EntityType.Builder.of(EntityBeelzebufoTadpole::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.3f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "beelz_tadpole").toString()));
+
+    public static final RegistryObject<EntityType<EntityBabyDunk>> BABY_DUNK = ENTITIES.register("baby_dunk",
+            () -> EntityType.Builder.of(EntityBabyDunk::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.3f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_dunk").toString()));
 
 }

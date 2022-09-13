@@ -30,6 +30,9 @@ public final class ClientModEvents {
         RenderType translucent = RenderType.translucent();
 
         render(UPBlocks.STETHA_EGGS, translucent);
+        render(UPBlocks.BEELZE_EGGS, translucent);
+        render(UPBlocks.AMON_EGGS, translucent);
+        render(UPBlocks.DUNK_EGGS, translucent);
 
     }
 
@@ -43,6 +46,8 @@ public final class ClientModEvents {
         event.registerEntityRenderer(UPEntities.AMMON.get(), AmmoniteRenderer::new);
         event.registerEntityRenderer(UPEntities.DUNK.get(), DunkleosteusRenderer::new);
         event.registerEntityRenderer(UPEntities.COTY.get(), CotylorhynchusRenderer::new);
+        event.registerEntityRenderer(UPEntities.BEELZE_TADPOLE.get(), BeelzebufoTadpoleRenderer::new);
+        event.registerEntityRenderer(UPEntities.BABY_DUNK.get(), BabyDunkRenderer::new);
 
     }
 

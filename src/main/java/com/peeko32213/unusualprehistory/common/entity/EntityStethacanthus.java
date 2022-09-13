@@ -279,7 +279,6 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.stethacanthus.swim", true));
-            event.getController().setAnimationSpeed(1.5D);
         }
         return PlayState.CONTINUE;
     }

@@ -14,6 +14,8 @@
   "item.unusualprehistory.stetha_flask": "Stethacanthus Flask",
   "item.unusualprehistory.stetha_bucket": "Bucket of Stethacanthus",
   "item.unusualprehistory.ammon_bucket": "Bucket of Ammonite",
+  "item.unusualprehistory.beelze_bucket": "Bucket of Beelzebufo Tadpole",
+
   "item.unusualprehistory.stetha_spawn_egg": "Stethacanthus Spawn Egg",
   "item.unusualprehistory.majunga_spawn_egg": "Majungasaurus Spawn Egg",
   "item.unusualprehistory.anuro_spawn_egg": "Anurognathus Spawn Egg",
@@ -26,15 +28,20 @@
   "entity.unusualprehistory.majunga": "Majungasaurus",
   "entity.unusualprehistory.anuro": "Anurognathus",
   "entity.unusualprehistory.beelz": "Beelzebufo",
+  "entity.unusualprehistory.beelz_tadpole": "Beelzebufo Tadpole",
   "entity.unusualprehistory.ammon": "Ammonite",
   "entity.unusualprehistory.dunk": "Dunkleosteus",
   "entity.unusualprehistory.coty": "Cotylorhynchus",
+  "entity.unusualprehistory.baby_dunk": "Baby Dunkleosteus",
 
 
   "block.unusualprehistory.stone_fossil": "Stone Fossil",
   "block.unusualprehistory.deepslate_fossil": "Deepslate Fossil",
   "block.unusualprehistory.analyzer": "Analyzer",
-  "block.unusualprehistory.stetha_eggs": "Stethacanthus Eggs"
+  "block.unusualprehistory.stetha_eggs": "Stethacanthus Eggs",
+  "block.unusualprehistory.beelze_eggs": "Beelzebufo Eggs",
+  "block.unusualprehistory.ammon_eggs": "Ammonite Eggs",
+  "block.unusualprehistory.dunk_eggs": "Dunkleosteus Eggs"
 
 
 }

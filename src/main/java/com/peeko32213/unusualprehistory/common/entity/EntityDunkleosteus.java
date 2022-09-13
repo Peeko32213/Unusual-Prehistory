@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.util.SchoolingWaterAnimal;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -135,8 +134,8 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, Neut
 
         if (this.level.isClientSide && this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.03D) {
             Vec3 vec3 = this.getViewVector(0.0F);
-            float f = Mth.cos(this.getYRot() * ((float)Math.PI / 220F)) * 0.3F;
-            float f1 = Mth.sin(this.getYRot() * ((float)Math.PI / 220F)) * 0.3F;
+            float f = Mth.cos(this.getYRot() * ((float)Math.PI / 320F)) * 0.3F;
+            float f1 = Mth.sin(this.getYRot() * ((float)Math.PI / 320F)) * 0.3F;
 
         }
 
@@ -200,7 +199,6 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, Neut
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dunk.swim", true));
-            event.getController().setAnimationSpeed(1.1D);
         }
         return PlayState.CONTINUE;
     }

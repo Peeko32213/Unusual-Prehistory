@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityAmmonite;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
@@ -40,8 +39,8 @@ public class DunkleosteusModel extends AnimatedGeoModel<EntityDunkleosteus>
             body.setRotationZ(1.5708f);
         }
         else {
-            body.setRotationX(extraData.headPitch * (float)Math.PI / 220F);
-            body.setRotationY(extraData.netHeadYaw * (float)Math.PI / 220F);
+            body.setRotationX(extraData.headPitch * (float)Math.PI / 320F);
+            body.setRotationY(extraData.netHeadYaw * (float)Math.PI / 320F);
         }
     }
 

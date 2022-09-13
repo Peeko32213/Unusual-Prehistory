@@ -202,7 +202,6 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.ammonite.swim", true));
-            event.getController().setAnimationSpeed(0.8D);
         }
         return PlayState.CONTINUE;
     }
