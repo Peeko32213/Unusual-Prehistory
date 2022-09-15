@@ -25,10 +25,10 @@ public class UPBlocks {
             UnusualPrehistory.MODID);
 
     public static final RegistryObject<Block> STONE_FOSSIL = registerBlock("stone_fossil",
-            () -> new OreBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE)));
+            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil",
-            () -> new OreBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE)));
+            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> ANALYZER = registerBlock("analyzer",
             () -> new BlockAnalyzer(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));

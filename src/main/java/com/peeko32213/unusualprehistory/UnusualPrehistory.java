@@ -1,7 +1,9 @@
 package com.peeko32213.unusualprehistory;
 
-import com.peeko32213.unusualprehistory.client.event.ClientModEvents;
+import com.peeko32213.unusualprehistory.client.event.ClientEvents;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerScreen;
+import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
+import com.peeko32213.unusualprehistory.core.event.WorldEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
@@ -9,9 +11,11 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
@@ -31,24 +35,30 @@ public class UnusualPrehistory {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public UnusualPrehistory() {
-        var bus = FMLJavaModLoadingContext.get().getModEventBus();
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus eventBus = MinecraftForge.EVENT_BUS;
+        modEventBus.addListener(this::commonSetup);
 
-        UPItems.ITEMS.register(bus);
-        UPBlocks.BLOCKS.register(bus);
-        UPBlockEntities.BLOCK_ENTITIES.register(bus);
-        UPMenuTypes.MENUS.register(bus);
-        UPRecipes.SERIALIZERS.register(bus);
-        UPEntities.ENTITIES.register(bus);
+        UPItems.ITEMS.register(modEventBus);
+        UPBlocks.BLOCKS.register(modEventBus);
+        UPBlockEntities.BLOCK_ENTITIES.register(modEventBus);
+        UPMenuTypes.MENUS.register(modEventBus);
+        UPRecipes.SERIALIZERS.register(modEventBus);
+        UPEntities.ENTITIES.register(modEventBus);
 
-        eventBus.addListener(this::clientSetup);
+        eventBus.register(this);
+        eventBus.register(new WorldEvents());
+
 
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
-        MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
-        ClientModEvents.registerBlockRenderers();
 
+
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            UPConfiguredFeatures.init();
+            UPPlacedFeatures.init();
+        });
     }
 
     @Nonnull
