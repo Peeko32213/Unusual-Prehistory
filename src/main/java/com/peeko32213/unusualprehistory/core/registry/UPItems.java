@@ -2,6 +2,9 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.ItemModFishBucket;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.FoodOnAStickItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluids;
@@ -30,6 +33,10 @@ public class UPItems {
 
     public static final RegistryObject<Item> FLASK = ITEMS.register("flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> MEAT_ON_A_STICK = ITEMS.register("meat_on_a_stick",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB).durability(130)));
+
 
     public static final RegistryObject<Item> STETHA_FLASK = ITEMS.register("stetha_flask",
             () -> new Item(new Item.Properties().stacksTo(8).tab(UnusualPrehistory.DINO_TAB)));

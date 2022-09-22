@@ -21,7 +21,7 @@
 					"rotation": {
 						"vector": [
 							"Math.cos((query.anim_time - 0.4) * 180) * -4",
-							"0Math.cos((query.anim_time - 0.4) * 180) * -4",
+							"Math.cos((query.anim_time - 0.4) * 180) * -4",
 							"Math.cos((query.anim_time - 0.4) * 180) * -4"
 						]
 					},

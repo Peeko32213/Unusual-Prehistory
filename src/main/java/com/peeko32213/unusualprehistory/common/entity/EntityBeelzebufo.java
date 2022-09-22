@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -20,15 +21,13 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.animal.horse.Horse;
-import net.minecraft.world.entity.monster.CaveSpider;
-import net.minecraft.world.entity.monster.Endermite;
-import net.minecraft.world.entity.monster.Silverfish;
-import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -70,6 +69,7 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.4D, true));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Bee.class, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Silverfish.class, true));
@@ -78,18 +78,28 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, CaveSpider.class, true));
     }
 
+
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
-        this.level.broadcastEntityEvent(this, (byte)4);
-        float f = this.getAttackDamage();
-        float f1 = (int)f > 0 ? f / 2.0F + (float)this.random.nextInt((int)f) : f;
-        boolean flag = entityIn.hurt(DamageSource.mobAttack(this), f1);
-        if (flag) {
-            entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, (double)0.4F, 0.0D));
-            this.doEnchantDamageEffects(this, entityIn);
+    public boolean doHurtTarget(Entity target) {
+        boolean shouldHurt;
+        float damage = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        float knockback = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        if (target instanceof LivingEntity livingEntity) {
+            damage += livingEntity.getMobType().equals(MobType.ARTHROPOD) ? damage : 0;
+            knockback += (float) EnchantmentHelper.getKnockbackBonus(this);
         }
-        return flag;
+        if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
+            if (knockback > 0.0f && target instanceof LivingEntity) {
+                ((LivingEntity)target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float)Math.PI / 180)), -Mth.cos(this.getYRot() * ((float)Math.PI / 180)));
+                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
+            }
+            this.doEnchantDamageEffects(this, target);
+            this.setLastHurtMob(target);
+        }
+        return shouldHurt;
     }
+
+
 
     private float getAttackDamage() {
         return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
@@ -107,7 +117,7 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
             return false;
         } else {
             Player player = (Player)entity;
-            return player.getMainHandItem().is(Items.CARROT_ON_A_STICK) || player.getOffhandItem().is(Items.CARROT_ON_A_STICK);
+            return player.getMainHandItem().is(UPItems.MEAT_ON_A_STICK.get()) || player.getOffhandItem().is(UPItems.MEAT_ON_A_STICK.get());
         }
     }
 

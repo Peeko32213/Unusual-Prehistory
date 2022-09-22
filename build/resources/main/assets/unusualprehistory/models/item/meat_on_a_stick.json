@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld_rod",
+  "textures": {
+    "layer0": "unusualprehistory:item/meat_on_a_stick"
+  }
+}

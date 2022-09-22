@@ -47,9 +47,8 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         // render background image
         this.blit(pPoseStack, leftPos, topPos, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         // render progress bars
-        if(/*menu.isCrafting()*/true) {
+        if(menu.isCrafting()) {
             int vHeight = menu.getScaledProgress(PROGRESS_HEIGHT);
-            vHeight = Minecraft.getInstance().player.tickCount % PROGRESS_HEIGHT;
             int blitY = PROGRESS_HEIGHT - vHeight;
             blit(pPoseStack, leftPos + LEFT_PROGRESS_X, topPos + LEFT_PROGRESS_Y + blitY, 176, blitY, PROGRESS_WIDTH, vHeight);
             blit(pPoseStack, leftPos + RIGHT_PROGRESS_X, topPos + RIGHT_PROGRESS_Y + blitY, 187, blitY, PROGRESS_WIDTH, vHeight);

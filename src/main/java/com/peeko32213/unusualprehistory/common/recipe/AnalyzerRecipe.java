@@ -3,19 +3,22 @@ package com.peeko32213.unusualprehistory.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
+import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
 public class AnalyzerRecipe implements Recipe<SimpleContainer> {
-
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
@@ -28,17 +31,17 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer p_44002_, Level p_44003_) {
-        return false;
+    public boolean matches(SimpleContainer pContainer, Level pLevel) {
+        return recipeItems.get(0).test(pContainer.getItem(1));
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer p_44001_) {
-        return null;
+    public ItemStack assemble(SimpleContainer pContainer) {
+        return output;
     }
 
     @Override
-    public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
+    public boolean canCraftInDimensions(int pWidth, int pHeight) {
         return true;
     }
 
@@ -65,7 +68,7 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
     public static class Type implements RecipeType<AnalyzerRecipe> {
         private Type() { }
         public static final Type INSTANCE = new Type();
-        public static final String ID = "analyzing";
+        public static final String ID = "gem_cutting";
     }
 
     public static class Serializer implements RecipeSerializer<AnalyzerRecipe> {
@@ -86,7 +89,6 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
 
             return new AnalyzerRecipe(id, output, inputs);
         }
-
 
         @Override
         public AnalyzerRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
@@ -130,5 +132,4 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
             return (Class<G>)cls;
         }
     }
-
 }
