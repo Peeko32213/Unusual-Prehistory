@@ -18,7 +18,8 @@ public class UPMenuTypes {
     public static final RegistryObject<MenuType<AnalyzerMenu>> ANALYZER_MENU =
             registerMenuType(AnalyzerMenu::new, "analyzer_menu");
 
-
+    public static final RegistryObject<MenuType<AnalyzerMenu>> CULTIVATOR_MENU =
+            registerMenuType(AnalyzerMenu::new, "cultivator_menu");
 
     private static <T extends AnalyzerMenu>RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));

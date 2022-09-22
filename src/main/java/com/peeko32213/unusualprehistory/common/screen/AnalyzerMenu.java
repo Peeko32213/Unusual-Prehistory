@@ -3,8 +3,10 @@ package com.peeko32213.unusualprehistory.common.screen;
 import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
 import com.peeko32213.unusualprehistory.common.screen.slot.UPResultSlot;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -12,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class AnalyzerMenu extends AbstractContainerMenu {
@@ -35,17 +38,17 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 33, 7));
-            this.addSlot(new SlotItemHandler(handler, 1, 62, 7));
-            this.addSlot(new SlotItemHandler(handler, 2, 81, 7));
-            this.addSlot(new SlotItemHandler(handler, 3, 98, 7));
+            this.addSlot(new UPFlaskSlot(handler, 0, 33, 4));
+            this.addSlot(new SlotItemHandler(handler, 1, 62, 5));
+            this.addSlot(new SlotItemHandler(handler, 2, 81, 5));
+            this.addSlot(new SlotItemHandler(handler, 3, 98, 5));
 
-            this.addSlot(new UPResultSlot(handler, 4, 35, 54));
-            this.addSlot(new UPResultSlot(handler, 5, 53, 54));
-            this.addSlot(new UPResultSlot(handler, 6, 71, 54));
-            this.addSlot(new UPResultSlot(handler, 7, 89, 54));
-            this.addSlot(new UPResultSlot(handler, 8, 107, 54));
-            this.addSlot(new UPResultSlot(handler, 9, 125, 54));
+            this.addSlot(new UPResultSlot(handler, 4, 35, 52));
+            this.addSlot(new UPResultSlot(handler, 5, 53, 52));
+            this.addSlot(new UPResultSlot(handler, 6, 71, 52));
+            this.addSlot(new UPResultSlot(handler, 7, 89, 52));
+            this.addSlot(new UPResultSlot(handler, 8, 107, 52));
+            this.addSlot(new UPResultSlot(handler, 9, 125, 52));
 
         });
         addDataSlots(data);
@@ -57,12 +60,13 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         return data.get(0) > 0;
     }
 
-    public int getScaledProgress() {
+    public int getScaledProgress(int scale) {
         int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);  // Max Progress
-        int progressArrowSize = 26; // This is the height in pixels of your arrow
-
-        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+        int maxProgress = this.data.get(1);
+        if(progress == 0 || maxProgress == 0) {
+            return 0;
+        }
+        return Mth.ceil((float) scale * (float) progress / (float) maxProgress);
     }
 
     private static final int HOTBAR_SLOT_COUNT = 9;
@@ -74,7 +78,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 9;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 10;  // must be the number of slots you have!
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
@@ -96,7 +100,6 @@ public class AnalyzerMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            System.out.println("Invalid slotIndex:" + index);
             return ItemStack.EMPTY;
         }
         // If stack size == 0 (the entire stack was moved) set slot contents to null
@@ -118,14 +121,26 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 86 + i * 18));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 84 + i * 18));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 144));
+            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+        }
+    }
+
+    private static class UPFlaskSlot extends SlotItemHandler {
+
+        public UPFlaskSlot(IItemHandler itemHandler, int index, int x, int y) {
+            super(itemHandler, index, x, y);
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack itemStack) {
+            return super.mayPlace(itemStack) && itemStack.is(UPItems.FLASK.get());
         }
     }
 
