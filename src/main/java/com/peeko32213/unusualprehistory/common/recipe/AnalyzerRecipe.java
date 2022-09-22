@@ -5,25 +5,38 @@ import com.google.gson.JsonObject;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class AnalyzerRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
-    private final ItemStack output;
+    private final ResourceLocation output;
     private final NonNullList<Ingredient> recipeItems;
 
-    public AnalyzerRecipe(ResourceLocation id, ItemStack output,
+    public AnalyzerRecipe(ResourceLocation id, ResourceLocation output,
                                    NonNullList<Ingredient> recipeItems) {
         this.id = id;
         this.output = output;
@@ -37,7 +50,24 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack assemble(SimpleContainer pContainer) {
-        return output;
+        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        ServerLevel level = server.getLevel(Level.OVERWORLD);
+        // ensure level exists
+        if(null == level) {
+            return ItemStack.EMPTY;
+        }
+        // locate loot table
+        LootTable loottable = ServerLifecycleHooks.getCurrentServer().getLootTables().get(getResultLootTable());
+        List<ItemStack> randomItems = loottable.getRandomItems(new LootContext.Builder(level)
+                .withRandom(level.getRandom())
+                .withParameter(LootContextParams.ORIGIN, Vec3.ZERO)
+                .create(LootContextParamSets.CHEST));
+        // ensure loot table resolved
+        if(randomItems.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+        // return first element
+        return randomItems.get(0);
     }
 
     @Override
@@ -47,7 +77,7 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack getResultItem() {
-        return output.copy();
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -65,21 +95,22 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
         return Type.INSTANCE;
     }
 
+    public ResourceLocation getResultLootTable() {
+        return output;
+    }
+
     public static class Type implements RecipeType<AnalyzerRecipe> {
         private Type() { }
         public static final Type INSTANCE = new Type();
-        public static final String ID = "gem_cutting";
     }
 
     public static class Serializer implements RecipeSerializer<AnalyzerRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID =
-                new ResourceLocation(UnusualPrehistory.MODID,"analyzing");
+        public static final ResourceLocation ID = new ResourceLocation(UnusualPrehistory.MODID,"analyzing");
 
         @Override
         public AnalyzerRecipe fromJson(ResourceLocation id, JsonObject json) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-
+            ResourceLocation output = ResourceLocation.tryParse(GsonHelper.getAsString(json, "output"));
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
 
@@ -98,7 +129,7 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
                 inputs.set(i, Ingredient.fromNetwork(buf));
             }
 
-            ItemStack output = buf.readItem();
+            ResourceLocation output = buf.readResourceLocation();
             return new AnalyzerRecipe(id, output, inputs);
         }
 
@@ -108,7 +139,7 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
             for (Ingredient ing : recipe.getIngredients()) {
                 ing.toNetwork(buf);
             }
-            buf.writeItemStack(recipe.getResultItem(), false);
+            buf.writeResourceLocation(recipe.output);
         }
 
         @Override

@@ -5,7 +5,5 @@
       "item": "unusualprehistory:paleo_fossil"
     }
   ],
-  "output": {
-    "item": "unusualprehistory:ammonite_flask"
-  }
+  "output": "unusualprehistory:gameplay/analyzer/paleo_fossil"
 }

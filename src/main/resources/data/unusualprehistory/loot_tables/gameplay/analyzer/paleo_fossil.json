@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "minecraft:coal"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "minecraft:cobblestone"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "unusualprehistory:ammonite_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "unusualprehistory:coty_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "unusualprehistory:stetha_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "unusualprehistory:dunk_flask"
+        }
+      ]
+    }
+  ]
+}
