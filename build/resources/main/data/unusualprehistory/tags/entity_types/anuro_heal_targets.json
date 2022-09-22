@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cat",
+    "minecraft:chicken",
+    "minecraft:cow",
+    "minecraft:donkey",
+    "minecraft:frog",
+    "minecraft:horse",
+    "minecraft:mooshroom",
+    "minecraft:mule",
+    "minecraft:ocelot",
+    "minecraft:parrot",
+    "minecraft:pig",
+    "minecraft:rabbit",
+    "minecraft:sheep",
+    "minecraft:skeleton_horse",
+    "minecraft:snow_golem",
+    "minecraft:strider",
+    "minecraft:villager",
+    "minecraft:wandering_trader",
+    "minecraft:bee",
+    "minecraft:goat",
+    "minecraft:iron_golem",
+    "minecraft:llama",
+    "minecraft:panda",
+    "minecraft:polar_bear",
+    "minecraft:wolf",
+    "unusualprehistory:majunga",
+    "unusualprehistory:beelz",
+    "unusualprehistory:coty"
+  ]
+}

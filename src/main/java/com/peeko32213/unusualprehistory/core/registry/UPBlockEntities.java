@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
+import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -16,6 +17,11 @@ public class UPBlockEntities {
             BLOCK_ENTITIES.register("analyzer_block_entity", () ->
                     BlockEntityType.Builder.of(AnalyzerBlockEntity::new,
                             UPBlocks.ANALYZER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<CultivatorBlockEntity>> CULTIVATOR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("cultivator_block_entity", () ->
+                    BlockEntityType.Builder.of(CultivatorBlockEntity::new,
+                            UPBlocks.CULTIVATOR.get()).build(null));
 
 
     public static void register(IEventBus eventBus) {

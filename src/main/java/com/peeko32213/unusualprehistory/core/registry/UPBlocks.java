@@ -33,6 +33,9 @@ public class UPBlocks {
     public static final RegistryObject<Block> ANALYZER = registerBlock("analyzer",
             () -> new BlockAnalyzer(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
+    public static final RegistryObject<Block> CULTIVATOR = registerBlock("cultivator",
+            () -> new BlockAnalyzer(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+
     public static final Supplier<Block> STETHA_EGGS = create("stetha_eggs",
             () -> new BlockStethaEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noDrops().noOcclusion().noCollission()),
             entry -> new WaterLilyBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

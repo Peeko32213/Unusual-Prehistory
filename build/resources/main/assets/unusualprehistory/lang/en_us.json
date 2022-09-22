@@ -3,6 +3,8 @@
 
   "item.unusualprehistory.ammonite_shell": "Ammonite Shell",
   "item.unusualprehistory.flask": "Flask",
+  "item.unusualprehistory.meat_on_a_stick": "Meat On A Stick",
+
   "item.unusualprehistory.paleo_fossil": "Paleozoic Fossil",
   "item.unusualprehistory.mezo_fossil": "Mesozoic Fossil",
   "item.unusualprehistory.ammonite_flask": "Ammonite Flask",
@@ -39,6 +41,7 @@
   "block.unusualprehistory.stone_fossil": "Stone Fossil",
   "block.unusualprehistory.deepslate_fossil": "Deepslate Fossil",
   "block.unusualprehistory.analyzer": "Analyzer",
+  "block.unusualprehistory.cultivator": "Cultivator",
   "block.unusualprehistory.stetha_eggs": "Stethacanthus Eggs",
   "block.unusualprehistory.beelze_eggs": "Beelzebufo Eggs",
   "block.unusualprehistory.ammon_eggs": "Ammonite Eggs",
