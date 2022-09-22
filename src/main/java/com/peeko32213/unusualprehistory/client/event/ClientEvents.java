@@ -3,6 +3,8 @@ package com.peeko32213.unusualprehistory.client.event;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.render.*;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
+import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
+import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPMenuTypes;
@@ -28,7 +30,7 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
 
         MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
-
+        MenuScreens.register(UPMenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
 
     }
 

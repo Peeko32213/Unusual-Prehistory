@@ -1,36 +1,38 @@
 package com.peeko32213.unusualprehistory.common.screen;
 
-import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
+import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import com.peeko32213.unusualprehistory.common.screen.slot.UPResultSlot;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class AnalyzerMenu extends AbstractContainerMenu {
-    private final AnalyzerBlockEntity blockEntity;
+public class CultivatorMenu extends AbstractContainerMenu {
+    private final CultivatorBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
 
-    public AnalyzerMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(10));
+    public CultivatorMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
+        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(3));
     }
 
 
-    public AnalyzerMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
-        super(UPMenuTypes.ANALYZER_MENU.get(), pContainerId);
-        checkContainerSize(inv, 10);
-        blockEntity = ((AnalyzerBlockEntity) entity);
+    public CultivatorMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
+        super(UPMenuTypes.CULTIVATOR_MENU.get(), pContainerId);
+        checkContainerSize(inv, 3);
+        blockEntity = ((CultivatorBlockEntity) entity);
         this.level = inv.player.level;
         this.data = data;
 
@@ -38,17 +40,10 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            this.addSlot(new UPFlaskSlot(handler, 0, 33, 5));
-            this.addSlot(new SlotItemHandler(handler, 1, 62, 5));
-            this.addSlot(new SlotItemHandler(handler, 2, 80, 5));
-            this.addSlot(new SlotItemHandler(handler, 3, 98, 5));
+            this.addSlot(new SlotItemHandler(handler, 0, 33, 31));
+            this.addSlot(new SlotItemHandler(handler, 1, 80, 64));
 
-            this.addSlot(new UPResultSlot(handler, 4, 35, 52));
-            this.addSlot(new UPResultSlot(handler, 5, 53, 52));
-            this.addSlot(new UPResultSlot(handler, 6, 71, 52));
-            this.addSlot(new UPResultSlot(handler, 7, 89, 52));
-            this.addSlot(new UPResultSlot(handler, 8, 107, 52));
-            this.addSlot(new UPResultSlot(handler, 9, 125, 52));
+            this.addSlot(new UPResultSlot(handler, 2, 128, 31));
 
         });
         addDataSlots(data);
@@ -61,6 +56,16 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     }
 
     public int getScaledProgress(int scale) {
+        int progress = this.data.get(0);
+        int maxProgress = this.data.get(1);
+        if (progress == 0 || maxProgress == 0) {
+            return 0;
+        }
+        return Mth.ceil((float) scale * (float) progress / (float) maxProgress);
+    }
+
+    public int getScaledFuel(int scale) {
+        // TODO save and load fuel from data
         int progress = this.data.get(0);
         int maxProgress = this.data.get(1);
         if(progress == 0 || maxProgress == 0) {
@@ -78,7 +83,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 10;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 3;  // must be the number of slots you have!
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
@@ -115,7 +120,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player pPlayer) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                pPlayer, UPBlocks.ANALYZER.get());
+                pPlayer, UPBlocks.CULTIVATOR.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -129,18 +134,6 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    private static class UPFlaskSlot extends SlotItemHandler {
-
-        public UPFlaskSlot(IItemHandler itemHandler, int index, int x, int y) {
-            super(itemHandler, index, x, y);
-        }
-
-        @Override
-        public boolean mayPlace(ItemStack itemStack) {
-            return super.mayPlace(itemStack) && itemStack.is(UPItems.FLASK.get());
         }
     }
 

@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
+import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,15 +20,11 @@ public class UPMenuTypes {
     public static final RegistryObject<MenuType<AnalyzerMenu>> ANALYZER_MENU =
             registerMenuType(AnalyzerMenu::new, "analyzer_menu");
 
-    public static final RegistryObject<MenuType<AnalyzerMenu>> CULTIVATOR_MENU =
-            registerMenuType(AnalyzerMenu::new, "cultivator_menu");
+    public static final RegistryObject<MenuType<CultivatorMenu>> CULTIVATOR_MENU =
+            registerMenuType(CultivatorMenu::new, "cultivator_menu");
 
-    private static <T extends AnalyzerMenu>RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
+    private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
-    }
-
-    public static void register(IEventBus eventBus) {
-        MENUS.register(eventBus);
     }
 
 }

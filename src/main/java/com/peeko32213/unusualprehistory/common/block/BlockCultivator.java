@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.block;
 
-import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -32,7 +31,7 @@ import java.util.stream.Stream;
 
 public class BlockCultivator extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    private static final VoxelShape SHAPE =  Block.box(0, 24, 0, 16, 32, 16);
+    private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 32, 16);
 
 
     @Override
@@ -58,8 +57,8 @@ public class BlockCultivator extends BaseEntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof AnalyzerBlockEntity) {
-                ((AnalyzerBlockEntity) blockEntity).drops();
+            if (blockEntity instanceof CultivatorBlockEntity) {
+                ((CultivatorBlockEntity) blockEntity).drops();
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
@@ -70,8 +69,8 @@ public class BlockCultivator extends BaseEntityBlock {
                                  Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof AnalyzerBlockEntity) {
-                NetworkHooks.openGui(((ServerPlayer)pPlayer), (AnalyzerBlockEntity)entity, pPos);
+            if(entity instanceof CultivatorBlockEntity) {
+                NetworkHooks.openGui(((ServerPlayer)pPlayer), (CultivatorBlockEntity)entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
@@ -83,7 +82,7 @@ public class BlockCultivator extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new AnalyzerBlockEntity(pPos, pState);
+        return new CultivatorBlockEntity(pPos, pState);
     }
 
     @Nullable

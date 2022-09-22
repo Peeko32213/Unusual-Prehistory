@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
+import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.BlockPos;
@@ -37,7 +38,7 @@ import java.util.Random;
 public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
 
     public CultivatorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(UPBlockEntities.ANALYZER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        super(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         this.data = new ContainerData() {
             public int get(int index) {
                 switch (index) {
@@ -55,12 +56,12 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
             }
 
             public int getCount() {
-                return 10;
+                return 3;
             }
         };
     }
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(10) {
+    private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -76,7 +77,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return new TextComponent("                             Analyzer");
+        return new TextComponent("Cultivator");
     }
 
     @Nonnull
@@ -194,6 +195,6 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new AnalyzerMenu(pContainerId, pInventory, this, this.data);
+        return new CultivatorMenu(pContainerId, pInventory, this, this.data);
     }
 }

@@ -12,6 +12,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -20,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -125,9 +127,9 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
 
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, AnalyzerBlockEntity pBlockEntity) {
         if(hasRecipe(pBlockEntity)) {
-            pBlockEntity.progress++;
+            pBlockEntity.progress = Math.min(pBlockEntity.progress + 1, pBlockEntity.maxProgress);
             setChanged(pLevel, pPos, pState);
-            if(pBlockEntity.progress > pBlockEntity.maxProgress) {
+            if(pBlockEntity.progress >= pBlockEntity.maxProgress && !pLevel.isClientSide()) {
                 craftItem(pBlockEntity);
             }
         } else {
@@ -139,7 +141,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     private static boolean hasRecipe(AnalyzerBlockEntity entity) {
         Level level = entity.level;
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
+        for (int i = 1; i < 4; i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
@@ -166,14 +168,27 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
                 .getRecipeFor(AnalyzerRecipe.Type.INSTANCE, inventory, level);
 
         if(match.isPresent()) {
+            // damage and/or remove inputs
             entity.itemHandler.extractItem(0,1, false);
             entity.itemHandler.extractItem(1,1, false);
             entity.itemHandler.getStackInSlot(2).hurt(1, new Random(), null);
-
-            entity.itemHandler.setStackInSlot(3, new ItemStack(match.get().getResultItem().getItem(),
-                    entity.itemHandler.getStackInSlot(3).getCount() + 1));
-
+            // determine result item
+            ItemStack result = match.get().assemble(inventory);
+            // attempt to insert result item
+            boolean success = false;
+            for(int i = 4, n = entity.itemHandler.getSlots(); i < n; i++) {
+                if(entity.itemHandler.insertItem(i, result, false).isEmpty()) {
+                    success = true;
+                    break;
+                }
+            }
+            // reset progress
             entity.resetProgress();
+            // drop item when full
+            if(!success) {
+                Vec3 vec = Vec3.atBottomCenterOf(entity.worldPosition.above());
+                entity.level.addFreshEntity(new ItemEntity(entity.level, vec.x, vec.y, vec.z, result));
+            }
         }
     }
 

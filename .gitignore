@@ -26,6 +26,14 @@ out
 *.iml
 .idea
 
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
 # gradle
 build
 .gradle
