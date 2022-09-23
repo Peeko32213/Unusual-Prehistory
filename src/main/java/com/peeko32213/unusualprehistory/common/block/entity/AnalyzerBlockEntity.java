@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
@@ -9,6 +10,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -17,6 +20,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -27,6 +31,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -34,6 +39,9 @@ import java.util.Optional;
 import java.util.Random;
 
 public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
+
+    // Add new flasks to the item tag
+    private static final TagKey<Item> FILLED_FLASKS = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "filled_flasks"));
 
     public AnalyzerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(UPBlockEntities.ANALYZER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -141,7 +149,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     private static boolean hasRecipe(AnalyzerBlockEntity entity) {
         Level level = entity.level;
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < entity.itemHandler.getSlots(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
@@ -149,7 +157,6 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
                 .getRecipeFor(AnalyzerRecipe.Type.INSTANCE, inventory, level);
 
         return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
-                && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem())
                 && hasFlaskInWaterSlot(entity);
     }
 
@@ -168,12 +175,14 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
                 .getRecipeFor(AnalyzerRecipe.Type.INSTANCE, inventory, level);
 
         if(match.isPresent()) {
-            // damage and/or remove inputs
-            entity.itemHandler.extractItem(0,1, false);
-            entity.itemHandler.extractItem(1,1, false);
-            entity.itemHandler.getStackInSlot(2).hurt(1, new Random(), null);
             // determine result item
             ItemStack result = match.get().assemble(inventory);
+            // remove first input
+            entity.itemHandler.extractItem(1, 1, false);
+            // attempt to remove flask
+            if(isFilledFlask(result)) {
+                entity.itemHandler.extractItem(0, 1, false);
+            }
             // attempt to insert result item
             boolean success = false;
             for(int i = 4, n = entity.itemHandler.getSlots(); i < n; i++) {
@@ -184,11 +193,6 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
             }
             // reset progress
             entity.resetProgress();
-            // drop item when full
-            if(!success) {
-                Vec3 vec = Vec3.atBottomCenterOf(entity.worldPosition.above());
-                entity.level.addFreshEntity(new ItemEntity(entity.level, vec.x, vec.y, vec.z, result));
-            }
         }
     }
 
@@ -196,12 +200,17 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
         this.progress = 0;
     }
 
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
-        return inventory.getItem(5).getItem() == output.getItem() || inventory.getItem(5).isEmpty();
+    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
+        for(int slot = 4, n = inventory.getContainerSize(); slot < n; slot++) {
+            if(inventory.getItem(slot).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(5).getMaxStackSize() > inventory.getItem(5).getCount();
+    private static boolean isFilledFlask(ItemStack itemStack) {
+        return itemStack.is(FILLED_FLASKS);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
-import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
-import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
+import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -20,20 +19,16 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RangedWrapper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
-import java.util.Random;
 
 public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -44,6 +39,8 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
                 switch (index) {
                     case 0: return CultivatorBlockEntity.this.progress;
                     case 1: return CultivatorBlockEntity.this.maxProgress;
+                    case 2: return CultivatorBlockEntity.this.fuel;
+                    case 3: return CultivatorBlockEntity.this.maxFuel;
                     default: return 0;
                 }
             }
@@ -52,16 +49,18 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
                 switch(index) {
                     case 0: CultivatorBlockEntity.this.progress = value; break;
                     case 1: CultivatorBlockEntity.this.maxProgress = value; break;
+                    case 2: CultivatorBlockEntity.this.fuel = value; break;
+                    case 3: CultivatorBlockEntity.this.maxFuel = value; break;
                 }
             }
 
             public int getCount() {
-                return 3;
+                return 4;
             }
         };
     }
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
+    private final ItemStackHandler itemHandler = new ItemStackHandler(4) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -74,6 +73,8 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 72;
+    private int fuel = 0;
+    private int maxFuel = 144;
 
     @Override
     public Component getDisplayName() {
@@ -130,12 +131,16 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, CultivatorBlockEntity pBlockEntity) {
         if(hasRecipe(pBlockEntity)) {
             pBlockEntity.progress++;
+            pBlockEntity.depleteFuel();
             setChanged(pLevel, pPos, pState);
             if(pBlockEntity.progress > pBlockEntity.maxProgress) {
                 craftItem(pBlockEntity);
             }
         } else {
             pBlockEntity.resetProgress();
+            if(!pBlockEntity.hasFuel()) {
+                pBlockEntity.refuel();
+            }
             setChanged(pLevel, pPos, pState);
         }
     }
@@ -146,17 +151,13 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
-
-        Optional<AnalyzerRecipe> match = level.getRecipeManager()
-                .getRecipeFor(AnalyzerRecipe.Type.INSTANCE, inventory, level);
+        Optional<CultivatorRecipe> match = level.getRecipeManager()
+                .getRecipeFor(CultivatorRecipe.Type.INSTANCE, inventory, level);
 
         return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
-                && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem())
-                && hasFlaskInWaterSlot(entity);
-    }
-
-    private static boolean hasFlaskInWaterSlot(CultivatorBlockEntity entity) {
-        return entity.itemHandler.getStackInSlot(0).getItem() == UPItems.FLASK.get();
+                && canInsertItemIntoOutputSlot(inventory, match.get().assemble(inventory))
+                && canDiscardFlask(inventory, new ItemStack(UPItems.FLASK.get()))
+                && entity.hasFuel();
     }
 
     private static void craftItem(CultivatorBlockEntity entity) {
@@ -166,17 +167,13 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        Optional<AnalyzerRecipe> match = level.getRecipeManager()
-                .getRecipeFor(AnalyzerRecipe.Type.INSTANCE, inventory, level);
+        Optional<CultivatorRecipe> match = level.getRecipeManager()
+                .getRecipeFor(CultivatorRecipe.Type.INSTANCE, inventory, level);
 
         if(match.isPresent()) {
             entity.itemHandler.extractItem(0,1, false);
-            entity.itemHandler.extractItem(1,1, false);
-            entity.itemHandler.getStackInSlot(2).hurt(1, new Random(), null);
-
-            entity.itemHandler.setStackInSlot(3, new ItemStack(match.get().getResultItem().getItem(),
-                    entity.itemHandler.getStackInSlot(3).getCount() + 1));
-
+            entity.itemHandler.insertItem(2, match.get().assemble(inventory), false);
+            entity.itemHandler.insertItem(3, new ItemStack(UPItems.FLASK.get()), false);
             entity.resetProgress();
         }
     }
@@ -185,12 +182,48 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         this.progress = 0;
     }
 
+    private void depleteFuel() {
+        // reduce fuel amount
+        this.fuel--;
+        if(this.fuel <= 0) {
+            fuel = 0;
+            refuel();
+        }
+    }
+
+    private void refuel() {
+        // attempt to refuel
+        ItemStack fuelStack = itemHandler.getStackInSlot(1);
+        int fuelAmount = getFuelAmount(fuelStack);
+        if(fuelAmount > 0) {
+            // reduce stack size
+            itemHandler.extractItem(1, 1, false);
+            fuel = fuelAmount;
+        }
+    }
+
+    private boolean hasFuel() {
+        return fuel > 0;
+    }
+
+    private int getFuelAmount(final ItemStack fuelStack) {
+        if(!fuelStack.isEmpty() && fuelStack.is(UPItems.ORGANIC_OOZE.get())) {
+            return maxFuel;
+        }
+        return 0;
+    }
+
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
-        return inventory.getItem(5).getItem() == output.getItem() || inventory.getItem(5).isEmpty();
+        return inventory.getItem(2).getItem() == output.getItem() || inventory.getItem(2).isEmpty();
+    }
+
+    private static boolean canDiscardFlask(SimpleContainer inventory, ItemStack output) {
+        return inventory.getItem(3).getItem() == output.getItem() || inventory.getItem(3).isEmpty();
     }
 
     private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(5).getMaxStackSize() > inventory.getItem(5).getCount();
+        return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount()
+                && inventory.getItem(3).getMaxStackSize() > inventory.getItem(3).getCount();
     }
 
     @Override
