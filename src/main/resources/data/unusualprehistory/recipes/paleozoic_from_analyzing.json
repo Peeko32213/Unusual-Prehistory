@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:analyzing",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:paleo_fossil"
+    }
+  ],
+  "output": "unusualprehistory:gameplay/analyzer/paleo_fossil"
+}

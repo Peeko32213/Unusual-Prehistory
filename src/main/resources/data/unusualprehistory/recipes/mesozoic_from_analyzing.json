@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:analyzing",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:mezo_fossil"
+    }
+  ],
+  "output": "unusualprehistory:gameplay/analyzer/mezo_fossil"
+}

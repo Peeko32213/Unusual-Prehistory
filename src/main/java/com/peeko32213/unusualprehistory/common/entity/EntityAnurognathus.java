@@ -101,7 +101,7 @@ public class EntityAnurognathus extends PathfinderMob implements IAnimatable, Fl
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(2, new EntityAnurognathus.HealMobGoal(this, 4.0D));
+        this.goalSelector.addGoal(4, new HealMobGoal());
         this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Bee.class, true));
@@ -305,58 +305,109 @@ public class EntityAnurognathus extends PathfinderMob implements IAnimatable, Fl
         }
     }
 
-    static class HealMobGoal extends Goal {
-        private final EntityAnurognathus dolphin;
-        protected int executionChance = 8;
-        private final double speed;
-        private Animal targetPlayer;
+    private class HealMobGoal extends Goal {
+        protected final Sorter theNearestAttackableTargetSorter;
+        protected final Predicate<? super Entity> targetEntitySelector;
+        protected int executionChance = 20;
+        protected boolean mustUpdate;
+        private Entity targetEntity;
         private int cooldown = 0;
 
-
-        HealMobGoal(EntityAnurognathus dolphinIn, double speedIn) {
-            this.dolphin = dolphinIn;
-            this.speed = speedIn;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        HealMobGoal() {
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.theNearestAttackableTargetSorter = new Sorter(EntityAnurognathus.this);
+            this.targetEntitySelector = new Predicate<Entity>() {
+                @Override
+                public boolean apply(@Nullable Entity e) {
+                    return e.isAlive() && e.getType().is(UPTags.ANURO_TARGETS) && (!(e instanceof LivingEntity) || ((LivingEntity) e).getHealth() >= 2D);
+                }
+            };
         }
 
+        @Override
         public boolean canUse() {
-            this.targetPlayer = this.dolphin.level.getNearestEntity(Animal.class, ENTITY_PREDICATE, this.dolphin, this.dolphin.getX(), this.dolphin.getY(), this.dolphin.getZ(), this.dolphin.getBoundingBox().inflate(6.0D, 2.0D, 6.0D));
-            if (this.targetPlayer == null) {
+            if (EntityAnurognathus.this.isPassenger() || EntityAnurognathus.this.isVehicle()) {
+                return false;
+            }
+            if (!this.mustUpdate) {
+                long worldTime = EntityAnurognathus.this.level.getGameTime() % 10;
+                if (EntityAnurognathus.this.getNoActionTime() >= 100 && worldTime != 0) {
+                    return false;
+                }
+                if (EntityAnurognathus.this.getRandom().nextInt(this.executionChance) != 0 && worldTime != 0) {
+                    return false;
+                }
+            }
+            List<Entity> list = EntityAnurognathus.this.level.getEntitiesOfClass(Entity.class, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
+            if (list.isEmpty()) {
                 return false;
             } else {
-                return this.targetPlayer.isAlive() && this.dolphin.getTarget() != this.targetPlayer;
+                Collections.sort(list, this.theNearestAttackableTargetSorter);
+                this.targetEntity = list.get(0);
+                this.mustUpdate = false;
+                return true;
             }
         }
 
+        @Override
         public boolean canContinueToUse() {
-            return this.targetPlayer != null  && this.dolphin.getTarget() != this.targetPlayer && this.targetPlayer.isAlive() && this.dolphin.distanceToSqr(this.targetPlayer) < 256.0D;
-        }
-
-        public void start() {
+            return targetEntity != null;
         }
 
         public void stop() {
-            this.targetPlayer = null;
-            this.dolphin.getNavigation().stop();
+            this.targetEntity = null;
         }
 
+        @Override
         public void tick() {
             if(cooldown > 0){
                 cooldown--;
             }
-            this.dolphin.getLookControl().setLookAt(this.targetPlayer, (float) (this.dolphin.getMaxHeadYRot() + 20), (float) this.dolphin.getMaxHeadXRot());
-            if (this.dolphin.distanceToSqr(this.targetPlayer) < 10D) {
-                this.dolphin.getNavigation().stop();
-            } else {
-                this.dolphin.getNavigation().moveTo(this.targetPlayer, this.speed);
+            if(targetEntity != null){
+                if (EntityAnurognathus.this.getNavigation().isDone()) {
+                    int i = EntityAnurognathus.this.getRandom().nextInt(3) - 1;
+                    int k = EntityAnurognathus.this.getRandom().nextInt(3) - 1;
+                    int l = (int) ((EntityAnurognathus.this.getRandom().nextInt(3) - 1) * Math.ceil(targetEntity.getBbHeight()));
+                    EntityAnurognathus.this.getNavigation().moveTo(this.targetEntity.getX() + i, this.targetEntity.getY() + l, this.targetEntity.getZ() + k, 1);
+                }
+                if(EntityAnurognathus.this.distanceToSqr(targetEntity) < 3.0F){
+                    if(targetEntity instanceof LivingEntity && ((LivingEntity) targetEntity).getHealth() > 2D){
+                        if(cooldown == 0){
+                            ((LivingEntity) targetEntity).heal(2.0F);
+                            cooldown = 100;
+                        }
+                    }else{
+                        this.stop();
+                    }
+
+                }
+            }
+        }
+
+        protected double getTargetDistance() {
+            return 16D;
+        }
+
+        protected AABB getTargetableArea(double targetDistance) {
+            Vec3 renderCenter = new Vec3(EntityAnurognathus.this.getX() + 0.5, EntityAnurognathus.this.getY() + 0.5, EntityAnurognathus.this.getZ() + 0.5D);
+            double renderRadius = 5;
+            AABB aabb = new AABB(-renderRadius, -renderRadius, -renderRadius, renderRadius, renderRadius, renderRadius);
+            return aabb.move(renderCenter);
+        }
+
+
+        public class Sorter implements Comparator<Entity> {
+            private final Entity theEntity;
+
+            public Sorter(Entity theEntityIn) {
+                this.theEntity = theEntityIn;
             }
 
-            if (this.targetPlayer.isAlive() && this.targetPlayer.level.random.nextInt(6) == 0 && cooldown == 0) {
-                this.targetPlayer.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 1000));
-                cooldown = 100;
+            public int compare(Entity p_compare_1_, Entity p_compare_2_) {
+                double d0 = this.theEntity.distanceToSqr(p_compare_1_);
+                double d1 = this.theEntity.distanceToSqr(p_compare_2_);
+                return d0 < d1 ? -1 : (d0 > d1 ? 1 : 0);
             }
-
-
         }
     }
 

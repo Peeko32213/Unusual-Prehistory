@@ -45,6 +45,7 @@ public class CultivatorMenu extends AbstractContainerMenu {
 
             this.addSlot(new UPResultSlot(handler, 2, 128, 31));
 
+
         });
         addDataSlots(data);
 

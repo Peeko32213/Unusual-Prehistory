@@ -39,26 +39,28 @@ public class UPItems {
 
 
     public static final RegistryObject<Item> STETHA_FLASK = ITEMS.register("stetha_flask",
-            () -> new Item(new Item.Properties().stacksTo(8).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> DUNK_FLASK = ITEMS.register("dunk_flask",
-            () -> new Item(new Item.Properties().stacksTo(8).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> COTY_FLASK = ITEMS.register("coty_flask",
-            () -> new Item(new Item.Properties().stacksTo(8).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> ANURO_FLASK = ITEMS.register("anuro_flask",
-            () -> new Item(new Item.Properties().stacksTo(8).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> BEELZ_FLASK = ITEMS.register("beelz_flask",
-            () -> new Item(new Item.Properties().stacksTo(8).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> MAJUNGA_FLASK = ITEMS.register("majunga_flask",
-            () -> new Item(new Item.Properties().stacksTo(8).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> AMMONITE_FLASK = ITEMS.register("ammonite_flask",
-            () -> new Item(new Item.Properties().stacksTo(8).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> STETHA_BUCKET = ITEMS.register("stetha_bucket",
             () -> new ItemModFishBucket(UPEntities.STETHACANTHUS, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB).stacksTo(1)));
