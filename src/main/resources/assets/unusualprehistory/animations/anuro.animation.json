@@ -3,7 +3,6 @@
 	"animations": {
 		"animation.anuro.idle": {
 			"loop": true,
-			"override_previous_animation": true,
 			"bones": {
 				"Body": {
 					"position": {
@@ -39,6 +38,7 @@
 		},
 		"animation.anuro.fly": {
 			"loop": true,
+			"override_previous_animation": true,
 			"bones": {
 				"Body": {
 					"rotation": {
@@ -188,6 +188,48 @@
 						"0.25": {
 							"vector": [0, 0, 0]
 						}
+					}
+				}
+			}
+		},
+		"animation.anuro.walk": {
+			"loop": true,
+			"bones": {
+				"Body": {
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 420) * 0.2", 0]
+					}
+				},
+				"Wing1": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * -0.7", 0]
+					},
+					"position": {
+						"vector": ["Ma0", "Math.cos((query.anim_time - 0.0) * 180) * 0.7", "Math.cos((query.anim_time - 0.8) * 180) * -1.5"]
+					}
+				},
+				"Wing2": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * 0.7", 0]
+					},
+					"position": {
+						"vector": ["Ma0", "Math.cos((query.anim_time - 0.0) * 180) * -0.7", "Math.cos((query.anim_time - 0.8) * 180) * 1.5"]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.0) * 360) * -20", "Math.cos((query.anim_time - 0.1) * 360) * 0.1", 0]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 180) * -0.4", "Math.cos((query.anim_time - 0.8) * 180) * 0.5"]
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.0) * 360) * 20", "Math.cos((query.anim_time - 0.1) * 360) * -0.1", 0]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 180) * 0.4", "Math.cos((query.anim_time - 0.8) * 180) * -0.5"]
 					}
 				}
 			}

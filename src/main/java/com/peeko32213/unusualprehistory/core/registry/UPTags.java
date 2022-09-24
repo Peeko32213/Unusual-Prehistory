@@ -10,14 +10,15 @@ import net.minecraft.world.level.block.Block;
 public class UPTags {
 
 
-        public static final TagKey<Block> ANURO_PERCH_BLOCKS = tag("anuro_perch_blocks");
-        public static final TagKey<EntityType<?>> ANURO_TARGETS = registerEntityTag("anuro_heal_targets");
+    public static final TagKey<EntityType<?>> ANURO_TARGETS = registerEntityTag("anuro_targets");
+    public static final TagKey<Block> ANURO_PERCHES = registerBlockTag("anuro_perches");
 
-    private static TagKey<Block> tag(String name) {
+    private static TagKey<Block> registerBlockTag(String name) {
         return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
     }
-        private static TagKey<EntityType<?>> registerEntityTag(String name) {
-            return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
-        }
+
+    private static TagKey<EntityType<?>> registerEntityTag(String name) {
+        return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
+    }
 
 }

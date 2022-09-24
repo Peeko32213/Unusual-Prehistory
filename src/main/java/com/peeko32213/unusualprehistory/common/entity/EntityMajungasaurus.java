@@ -51,11 +51,8 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     private final AnimationFactory factory = new AnimationFactory(this);
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
     private int stunnedTick;
     private boolean canBePushed = true;
-    int lastTimeSinceHungry;
 
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     @javax.annotation.Nullable
@@ -121,15 +118,6 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
                         if (this.mob.getNoActionTime() >= 100) {
                             return false;
                         }
-                        if (((EntityMajungasaurus) this.mob).isHungry()) {
-                            if (this.mob.getRandom().nextInt(60) != 0) {
-                                return false;
-                            }
-                        } else {
-                            if (this.mob.getRandom().nextInt(30) != 0) {
-                                return false;
-                            }
-                        }
                     }
 
                     Vec3 vec3d = this.getPosition();
@@ -160,40 +148,18 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         super.defineSynchedData();
         this.entityData.define(CHARGE_COOLDOWN_TICKS, 0);
         this.entityData.define(HAS_TARGET, false);
-        this.entityData.define(HUNGRY, true);
-        this.entityData.define(TIME_TILL_HUNGRY, 0);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("StunTick", this.stunnedTick);
-        compound.putBoolean("IsHungry", this.isHungry());
-        compound.putInt("TimeTillHungry", this.getTimeTillHungry());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.stunnedTick = compound.getInt("StunTick");
-        this.setHungry(compound.getBoolean("IsHungry"));
-        this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
-    }
-
-    public boolean isHungry() {
-        return this.entityData.get(HUNGRY);
-    }
-
-    public void setHungry(boolean hungry) {
-        this.entityData.set(HUNGRY, hungry);
-    }
-
-    public int getTimeTillHungry() {
-        return this.entityData.get(TIME_TILL_HUNGRY);
-    }
-
-    public void setTimeTillHungry(int ticks) {
-        this.entityData.set(TIME_TILL_HUNGRY, ticks);
     }
 
     public void setChargeCooldownTicks(int ticks) {
@@ -335,26 +301,6 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     @Override
     public AnimationFactory getFactory() {
         return factory;
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        if (!this.isHungry() && lastTimeSinceHungry < this.getTimeTillHungry()) {
-            lastTimeSinceHungry++;
-        }
-        if (lastTimeSinceHungry >= this.getTimeTillHungry()) {
-            this.setHungry(true);
-            lastTimeSinceHungry = 0;
-        }
-    }
-
-    private void attack(LivingEntity entity) {
-        if (entity.hurt(DamageSource.mobAttack(this), 2.0F)) {
-            if (entity instanceof Player) {
-                this.setTarget(entity);
-            }
-        }
     }
 
     @Override
@@ -551,19 +497,11 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
             }
             return super.canUse();
         }
-        @Override
-        protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
-            double d0 = this.getAttackReachSqr(enemy);
-            if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
-                this.resetAttackCooldown();
-                ((EntityMajungasaurus) this.mob).setHungry(false);
-                ((EntityMajungasaurus) this.mob).setTimeTillHungry(mob.getRandom().nextInt(300) + 300);
-                if (enemy instanceof Player) {
-                    mob.setTarget(null);
-                    this.stop();
-                }
-            }
+
+        protected double getAttackReachSqr(LivingEntity p_25556_) {
+            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.5F + p_25556_.getBbWidth());
         }
+
     }
 
 
