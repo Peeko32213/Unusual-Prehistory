@@ -25,13 +25,13 @@ public class CultivatorMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public CultivatorMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(3));
+        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
 
     public CultivatorMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
         super(UPMenuTypes.CULTIVATOR_MENU.get(), pContainerId);
-        checkContainerSize(inv, 3);
+        checkContainerSize(inv, 4);
         blockEntity = ((CultivatorBlockEntity) entity);
         this.level = inv.player.level;
         this.data = data;
@@ -44,6 +44,7 @@ public class CultivatorMenu extends AbstractContainerMenu {
             this.addSlot(new SlotItemHandler(handler, 1, 80, 64));
 
             this.addSlot(new UPResultSlot(handler, 2, 128, 31));
+            this.addSlot(new UPResultSlot(handler, 3, 152, 64));
 
 
         });
@@ -66,13 +67,12 @@ public class CultivatorMenu extends AbstractContainerMenu {
     }
 
     public int getScaledFuel(int scale) {
-        // TODO save and load fuel from data
-        int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);
-        if(progress == 0 || maxProgress == 0) {
+        int fuel = this.data.get(2);
+        int maxFuel = this.data.get(3);
+        if(fuel == 0 || maxFuel == 0) {
             return 0;
         }
-        return Mth.ceil((float) scale * (float) progress / (float) maxProgress);
+        return Mth.ceil((float) scale * (float) fuel / (float) maxFuel);
     }
 
     private static final int HOTBAR_SLOT_COUNT = 9;
@@ -84,7 +84,7 @@ public class CultivatorMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 3;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 4;  // must be the number of slots you have!
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
