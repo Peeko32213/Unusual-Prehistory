@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -196,6 +197,11 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         if (this.stunnedTick > 0) {
             --this.stunnedTick;
             this.stunEffect();
+            if (random.nextFloat() <= 0.1F) {
+                if (random.nextFloat() < 0.1F) {
+                    this.spawnAtLocation(UPItems.MAJUNGA_SCUTE.get());
+                }
+            }
         }
     }
 
@@ -223,6 +229,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         defender.push(this);
         defender.hurtMarked = true;
     }
+
 
     @Override
     public void handleEntityEvent(byte id) {
@@ -423,7 +430,6 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         }
 
 
-
         @Override
         public void tick() {
             this.mob.getLookControl().setLookAt(Vec3.atCenterOf(this.path.getTarget()));
@@ -485,6 +491,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     }
 
     static class MajungaMeleeAttackGoal extends MeleeAttackGoal {
+
         public MajungaMeleeAttackGoal(PathfinderMob pathfinderMob, double speedModifier, boolean followEvenIfNotSeen) {
             super(pathfinderMob, speedModifier, followEvenIfNotSeen);
         }
@@ -499,7 +506,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.5F + p_25556_.getBbWidth());
+            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.8F + p_25556_.getBbWidth());
         }
 
     }

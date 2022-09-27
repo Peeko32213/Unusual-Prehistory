@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:beelz_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:beelze_eggs"
+  }
+}

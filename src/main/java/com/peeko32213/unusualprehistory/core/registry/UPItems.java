@@ -2,7 +2,9 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.ItemModFishBucket;
+import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.FoodOnAStickItem;
 import net.minecraft.world.item.Item;
@@ -37,6 +39,8 @@ public class UPItems {
     public static final RegistryObject<Item> MEAT_ON_A_STICK = ITEMS.register("meat_on_a_stick",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB).durability(130)));
 
+    public static final RegistryObject<Item> MAJUNGA_SCUTE = ITEMS.register("majunga_scute",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> STETHA_FLASK = ITEMS.register("stetha_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
@@ -105,7 +109,9 @@ public class UPItems {
             () -> new ForgeSpawnEggItem(UPEntities.COTY , 0xab211e, 0xf2d0c3,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
-
+    public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
+            () -> new ItemMajungaHelmet(UPArmorMaterials.MAJUNGA, EquipmentSlot.HEAD,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
 
 }

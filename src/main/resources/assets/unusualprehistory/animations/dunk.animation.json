@@ -5,6 +5,21 @@
 			"loop": true,
 			"override_previous_animation": true,
 			"bones": {
+				"Jaw": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.2) * 180) * 1", 0, 0]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 15", 0]
+					}
+				},
+				"LowerJaw": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.2) * 180) * 2", 0, 0]
+					}
+				},
 				"Body": {
 					"rotation": {
 						"vector": [0, "Math.cos((query.anim_time - 0.2) * 180) * 10", 0]
@@ -17,14 +32,9 @@
 						]
 					}
 				},
-				"Jaw": {
+				"Fin1": {
 					"rotation": {
-						"vector": ["Math.sin((query.anim_time - 0.2) * 180) * 1", 0, 0]
-					}
-				},
-				"Tail": {
-					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 15", 0]
+						"vector": [0, "Math.cos((query.anim_time - 0.2) * 180) * 2", 0]
 					}
 				},
 				"Tailfin": {
@@ -32,9 +42,9 @@
 						"vector": [0, "Math.cos((query.anim_time - 0.8) * 180) * 20", 0]
 					}
 				},
-				"Fin1": {
+				"Backfin1": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.2) * 180) * 2", 0]
+						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 3", 0]
 					}
 				},
 				"Fin2": {
@@ -42,12 +52,7 @@
 						"vector": [0, "Math.cos((query.anim_time - 0.2) * 180) * 2", 0]
 					}
 				},
-				"BackFin1": {
-					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 3", 0]
-					}
-				},
-				"BackFin2": {
+				"Backfin2": {
 					"rotation": {
 						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 3", 0]
 					}
@@ -58,6 +63,31 @@
 			"animation_length": 0.25,
 			"bones": {
 				"Jaw": {
+					"rotation": {
+						"0.0": {
+							"vector": [57.5, 0, 0]
+						},
+						"0.0417": {
+							"vector": [30, 0, 0]
+						},
+						"0.0833": {
+							"vector": [10, 0, 0]
+						},
+						"0.125": {
+							"vector": [0, 0, 0]
+						},
+						"0.1667": {
+							"vector": [0, 0, 0]
+						},
+						"0.2083": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"LowerJaw": {
 					"rotation": {
 						"0.0": {
 							"vector": [57.5, 0, 0]
