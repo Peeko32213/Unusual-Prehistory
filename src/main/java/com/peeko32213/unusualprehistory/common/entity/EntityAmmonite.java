@@ -55,7 +55,6 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 5.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8D)
                 .add(Attributes.ARMOR, 5.0);
     }
     protected void registerGoals() {
@@ -64,13 +63,13 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.8D, 1) {
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.5D, 1) {
             @Override
             public boolean canUse() {
                 return super.canUse() && isInWater();
             }
         });
-        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.8D, 15) {
+        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.5D, 15) {
             @Override
             public boolean canUse() {
                 return !this.mob.isInWater() && super.canUse();
@@ -200,7 +199,7 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.ammonite.swim", true));
         }
         return PlayState.CONTINUE;

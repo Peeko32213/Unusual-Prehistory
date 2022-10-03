@@ -3,7 +3,6 @@
 	"animations": {
 		"animation.dunk.swim": {
 			"loop": true,
-			"override_previous_animation": true,
 			"bones": {
 				"Jaw": {
 					"rotation": {
@@ -55,6 +54,11 @@
 				"Backfin2": {
 					"rotation": {
 						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 3", 0]
+					}
+				},
+				"BackBody": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.4) * 180) * 20", 0]
 					}
 				}
 			}

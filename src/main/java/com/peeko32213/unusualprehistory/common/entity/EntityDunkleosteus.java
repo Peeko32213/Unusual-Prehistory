@@ -56,7 +56,6 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, Neut
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.0D)
                 .add(Attributes.ARMOR, 10.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D)
                 .add(Attributes.FOLLOW_RANGE, 12.0D);
@@ -72,13 +71,13 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, Neut
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, EntityAmmonite.class, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, EntityStethacanthus.class, true));
         this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.8D, 1) {
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.6D, 1) {
             @Override
             public boolean canUse() {
                 return super.canUse() && isInWater();
             }
         });
-        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.8D, 15) {
+        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.6D, 15) {
             @Override
             public boolean canUse() {
                 return !this.mob.isInWater() && super.canUse();
@@ -197,7 +196,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, Neut
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dunk.swim", true));
         }
         return PlayState.CONTINUE;

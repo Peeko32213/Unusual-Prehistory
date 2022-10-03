@@ -50,4 +50,7 @@
   "block.unusualprehistory.beelze_eggs": "Beelzebufo Eggs",
   "block.unusualprehistory.ammon_eggs": "Ammonite Eggs",
   "block.unusualprehistory.dunk_eggs": "Dunkleosteus Eggs,",
+  "block.unusualprehistory.majunga_eggs": "Majungasaurus Egg",
+
+  "block.unusualprehistory.majunga_egg.desc": "%s x %s"
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "unusualprehistory:block/template_three_coty_eggs",
+  "textures": {
+    "0": "unusualprehistory:block/coty_eggs"
+  }
+}

@@ -52,7 +52,6 @@ public class EntityBabyDunk extends AbstractFish implements IAnimatable {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.MAX_HEALTH, 12.0D);
     }
 
@@ -61,13 +60,13 @@ public class EntityBabyDunk extends AbstractFish implements IAnimatable {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.8D, 1) {
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.6D, 1) {
             @Override
             public boolean canUse() {
                 return super.canUse() && isInWater();
             }
         });
-        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.8D, 15) {
+        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.6D, 15) {
             @Override
             public boolean canUse() {
                 return !this.mob.isInWater() && super.canUse();
@@ -231,7 +230,7 @@ public class EntityBabyDunk extends AbstractFish implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.babydunk.swim", true));
         }
         return PlayState.CONTINUE;

@@ -1,5 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.util.BabyHurtByTargetGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -98,17 +100,19 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         this.goalSelector.addGoal(1, new MajungaMeleeAttackGoal(this, 1.2D, false));
         this.goalSelector.addGoal(2, new MajungaPrepareChargeGoal(this));
         this.goalSelector.addGoal(3, new MajungaChargeGoal(this, 2.5F));
+        this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
-        this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Animal.class, 10, false, false, (p_28604_) -> {
+        this.targetSelector.addGoal(1, new BabyHurtByTargetGoal(this));
+        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(9, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
+        this.targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(this, Animal.class, 10, false, false, (p_28604_) -> {
             return p_28604_ instanceof Chicken || p_28604_ instanceof Rabbit || p_28604_ instanceof Cow || p_28604_ instanceof Sheep || p_28604_ instanceof Horse; }));
-        this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.35D, 30) {
+        this.targetSelector.addGoal(10, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.goalSelector.addGoal(11, new RandomStrollGoal(this, 1.35D, 30) {
 
             @Override
             public boolean canUse() {

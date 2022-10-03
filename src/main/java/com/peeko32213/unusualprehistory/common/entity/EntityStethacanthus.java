@@ -72,8 +72,7 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 5.0D)
-                .add(Attributes.ATTACK_DAMAGE, 1.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.0D);
+                .add(Attributes.ATTACK_DAMAGE, 1.0D);
     }
 
     protected void registerGoals() {
@@ -84,13 +83,13 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 3.0D, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.8D, 1) {
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.6D, 1) {
             @Override
             public boolean canUse() {
                 return super.canUse() && isInWater();
             }
         });
-        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.8D, 15) {
+        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.6D, 15) {
             @Override
             public boolean canUse() {
                 return !this.mob.isInWater() && super.canUse();
@@ -277,7 +276,7 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.stethacanthus.swim", true));
         }
         return PlayState.CONTINUE;

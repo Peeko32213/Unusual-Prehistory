@@ -1,0 +1,158 @@
+
+{
+  "variants": {
+    "eggs=1,hatch=0": [
+      {
+        "model": "unusualprehistory:block/majunga_egg"
+      },
+      {
+        "model": "unusualprehistory:block/majunga_egg",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/majunga_egg",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/majunga_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=1": [
+      {
+        "model": "unusualprehistory:block/slightly_cracked_majunga_egg"
+      },
+      {
+        "model": "unusualprehistory:block/slightly_cracked_majunga_egg",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/slightly_cracked_majunga_egg",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/slightly_cracked_majunga_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=2": [
+      {
+        "model": "unusualprehistory:block/very_cracked_majunga_egg"
+      },
+      {
+        "model": "unusualprehistory:block/very_cracked_majunga_egg",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/very_cracked_majunga_egg",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/very_cracked_majunga_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=0": [
+      {
+        "model": "unusualprehistory:block/two_majunga_eggs"
+      },
+      {
+        "model": "unusualprehistory:block/two_majunga_eggs",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/two_majunga_eggs",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/two_majunga_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=1": [
+      {
+        "model": "unusualprehistory:block/two_slightly_cracked_majunga_eggs"
+      },
+      {
+        "model": "unusualprehistory:block/two_slightly_cracked_majunga_eggs",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/two_slightly_cracked_majunga_eggs",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/two_slightly_cracked_majunga_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=2": [
+      {
+        "model": "unusualprehistory:block/two_very_cracked_majunga_eggs"
+      },
+      {
+        "model": "unusualprehistory:block/two_very_cracked_majunga_eggs",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/two_very_cracked_majunga_eggs",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/two_very_cracked_majunga_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=0": [
+      {
+        "model": "unusualprehistory:block/three_majunga_eggs"
+      },
+      {
+        "model": "unusualprehistory:block/three_majunga_eggs",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/three_majunga_eggs",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/three_majunga_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=1": [
+      {
+        "model": "unusualprehistory:block/three_slightly_cracked_majunga_eggs"
+      },
+      {
+        "model": "unusualprehistory:block/three_slightly_cracked_majunga_eggs",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/three_slightly_cracked_majunga_eggs",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/three_slightly_cracked_majunga_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=2": [
+      {
+        "model": "unusualprehistory:block/three_very_cracked_majunga_eggs"
+      },
+      {
+        "model": "unusualprehistory:block/three_very_cracked_majunga_eggs",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/three_very_cracked_majunga_eggs",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/three_very_cracked_majunga_eggs",
+        "y": 270
+      }
+    ]
+  }
+}

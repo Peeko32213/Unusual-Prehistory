@@ -3,8 +3,37 @@
 	"animations": {
 		"animation.babydunk.swim": {
 			"loop": true,
-			"override_previous_animation": true,
 			"bones": {
+				"BackBody": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 15", 0]
+					}
+				},
+				"Fin1": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.2) * 180) * 2", 0]
+					}
+				},
+				"Fin2": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.2) * 180) * 2", 0]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 20", 0]
+					}
+				},
+				"Tailfin": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.8) * 180) * 20", 0]
+					}
+				},
+				"Backfin1": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 3", 0]
+					}
+				},
 				"Body": {
 					"rotation": {
 						"vector": [0, "Math.cos((query.anim_time - 0.2) * 180) * 10", 0]
@@ -17,34 +46,9 @@
 						]
 					}
 				},
-				"BackBody": {
-					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 15", 0]
-					}
-				},
-				"Tail": {
-					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.8) * 180) * 20", 0]
-					}
-				},
-				"Fin1": {
-					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.2) * 180) * 2", 0]
-					}
-				},
-				"BackFin1": {
+				"Backfin2": {
 					"rotation": {
 						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 3", 0]
-					}
-				},
-				"BackFin2": {
-					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.5) * 180) * 3", 0]
-					}
-				},
-				"Fin2": {
-					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.2) * 180) * 2", 0]
 					}
 				}
 			}
