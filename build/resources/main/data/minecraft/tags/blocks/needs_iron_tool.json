@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "unusualprehistory:deepslate_fossil",
-    "unusualprehistory:stone_fossil"
+    "unusualprehistory:stone_fossil",
+    "unusualprehistory:plant_fossil"
   ]
 }

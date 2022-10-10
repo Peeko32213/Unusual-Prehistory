@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:tall_horsetail_seeds"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:tall_horsetail"
+  }
+}

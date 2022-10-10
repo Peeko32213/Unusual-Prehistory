@@ -101,6 +101,7 @@ public class EntityAnurognathus extends PathfinderMob implements IAnimatable, Ne
         this.goalSelector.addGoal(4, new AIPerch());
         this.goalSelector.addGoal(4, new AnuroPolinateGoal(this));
         this.goalSelector.addGoal(6, new AIFlyIdle());
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityMajungasaurus.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0D, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.ANURO_TARGETS)));
     }

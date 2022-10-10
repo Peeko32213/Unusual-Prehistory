@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=lower": { "model": "unusualprehistory:block/tall_horsetail_bottom" },
+    "half=upper":    { "model": "unusualprehistory:block/tall_horsetail_top" }
+  }
+}

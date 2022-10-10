@@ -55,18 +55,43 @@
 						"vector": [0, "Math.cos((query.anim_time - 0.1) * 360) * 12", 0]
 					}
 				},
-				"SideArms2": {
-					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.1) * 360) * -12", 0]
-					}
-				},
 				"UpperArms": {
 					"rotation": {
 						"vector": ["Math.cos((query.anim_time - 0.1) * 360) * -12", 0, 0]
 					}
+				},
+				"SideArms2": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.1) * 360) * -12", 0]
+					}
+				}
+			}
+		},
+		"animation.ammonite.retreat": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"Body": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, -3]
+						}
+					}
+				},
+				"Head": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 1, 8]
+						}
+					}
 				}
 			}
 		}
-	},
-	"geckolib_format_version": 2
+	}
 }

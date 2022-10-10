@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.ammonite",
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 3,
@@ -15,14 +15,21 @@
 					"name": "Body",
 					"pivot": [0, 0, 0],
 					"cubes": [
+						{"origin": [-3, 0, -9], "size": [6, 12, 12], "inflate": 0.1, "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Head",
+					"parent": "Body",
+					"pivot": [0, 5, 3],
+					"cubes": [
 						{"origin": [-3, 0, 3], "size": [6, 5, 3], "uv": [0, 24]},
-						{"origin": [-3, 0, -9], "size": [6, 12, 12], "uv": [0, 0]},
-						{"origin": [-3, 2, 3], "size": [6, 3, 3], "inflate": 0.1, "uv": [24, 0]}
+						{"origin": [-3, 2, 3], "size": [6, 3, 3], "inflate": 0.01, "uv": [24, 0]}
 					]
 				},
 				{
 					"name": "LowerArms",
-					"parent": "Body",
+					"parent": "Head",
 					"pivot": [0, 0, 6],
 					"cubes": [
 						{"origin": [-2.5, 0, 6], "size": [5, 0, 4], "uv": [20, 6]}
@@ -30,7 +37,7 @@
 				},
 				{
 					"name": "UpperArms",
-					"parent": "Body",
+					"parent": "Head",
 					"pivot": [0, 4, 6],
 					"cubes": [
 						{"origin": [-2.5, 4, 6], "size": [5, 0, 4], "uv": [20, 6]}
@@ -38,7 +45,7 @@
 				},
 				{
 					"name": "SideArms1",
-					"parent": "Body",
+					"parent": "Head",
 					"pivot": [-2.5, 2, 6],
 					"cubes": [
 						{"origin": [-2.5, -0.5, 6], "size": [0, 5, 4], "uv": [0, 0]}
@@ -46,7 +53,7 @@
 				},
 				{
 					"name": "SideArms2",
-					"parent": "Body",
+					"parent": "Head",
 					"pivot": [2.5, 2, 6],
 					"cubes": [
 						{"origin": [2.5, -0.5, 6], "size": [0, 5, 4], "uv": [0, 0], "mirror": true}

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "minecraft:coal"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "minecraft:cobblestone"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "unusualprehistory:horsetail_seeds"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2.5,
+          "name": "unusualprehistory:tall_horsetail_seeds"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2.5,
+          "name": "minecraft:moss_block"
+        }
+      ]
+    }
+  ]
+}

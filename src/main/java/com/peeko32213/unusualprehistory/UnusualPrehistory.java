@@ -8,6 +8,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -49,7 +50,6 @@ public class UnusualPrehistory {
     }
 
 
-
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             UPConfiguredFeatures.init();
@@ -64,10 +64,16 @@ public class UnusualPrehistory {
         return block.orElse(Blocks.AIR);
     }
 
+    private void setup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(UPBlocks.HORSETAIL.getId(), UPBlocks.POTTED_HORSETAIL);
+        });
+    }
+
     public static final CreativeModeTab DINO_TAB = new CreativeModeTab(MODID) {
         @Override
         public ItemStack makeIcon() {
-            return UPItems.AMMONITE_SHELL.get().getDefaultInstance();
+            return UPItems.AMMONITE_SHELL_ICON.get().getDefaultInstance();
         }
     };
 

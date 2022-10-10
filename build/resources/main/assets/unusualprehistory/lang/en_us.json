@@ -1,7 +1,7 @@
 {
   "itemGroup.unusualprehistory": "Unusual Prehistory",
 
-  "item.unusualprehistory.ammonite_shell": "Ammonite Shell",
+  "item.unusualprehistory.ammonite_shell_icon": "Ammonite Shell",
   "item.unusualprehistory.flask": "Flask",
   "item.unusualprehistory.meat_on_a_stick": "Meat On A Stick",
 
@@ -21,6 +21,11 @@
   "item.unusualprehistory.dunk_bucket": "Bucket of Dunkleosteus",
   "item.unusualprehistory.majunga_scute": "Majungasaurus Scute",
   "item.unusualprehistory.majunga_helmet": "Majungasaurus Helmet",
+  "item.unusualprehistory.shell_shard": "Shell Shard",
+  "item.unusualprehistory.plant_fossil_item": "Plant Fossil",
+  "item.unusualprehistory.horsetail_seeds": "Horsetail Seeds",
+  "item.unusualprehistory.tall_horsetail_seeds": "Tall Horsetail Seeds",
+  "item.unusualprehistory.warpick": "Warpick",
 
   "item.unusualprehistory.stetha_spawn_egg": "Stethacanthus Spawn Egg",
   "item.unusualprehistory.majunga_spawn_egg": "Majungasaurus Spawn Egg",
@@ -51,6 +56,15 @@
   "block.unusualprehistory.ammon_eggs": "Ammonite Eggs",
   "block.unusualprehistory.dunk_eggs": "Dunkleosteus Eggs,",
   "block.unusualprehistory.majunga_eggs": "Majungasaurus Egg",
+  "block.unusualprehistory.coty_eggs": "Cotylorhynchus Egg",
+  "block.unusualprehistory.ammonite_shell": "Ammonite Shell",
+  "block.unusualprehistory.horsetail": "Horsetail",
+  "block.unusualprehistory.potted_horsetail": "Potted Horsetail",
+  "block.unusualprehistory.tall_horsetail": "Tall Horsetail",
+  "block.unusualprehistory.plant_fossil": "Plant Fossil Block",
 
-  "block.unusualprehistory.majunga_egg.desc": "%s x %s"
+
+  "block.unusualprehistory.majunga_egg.desc": "%s x %s",
+  "block.unusualprehistory.coty_egg.desc": "%s x %s"
+
 }

@@ -2,13 +2,12 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.*;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.WaterLilyBlockItem;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.OreBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.DeferredRegister;
@@ -29,6 +28,9 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil",
             () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> PLANT_FOSSIL = registerBlock("plant_fossil",
+            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> ANALYZER = registerBlock("analyzer",
             () -> new BlockAnalyzer(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
@@ -58,11 +60,27 @@ public class UPBlocks {
     public static final RegistryObject<Block> COTY_EGG = registerBlock("coty_eggs",
             () -> new BlockCotyEggs());
 
+    public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
+            () -> new BlockAmmoniteShell(BlockBehaviour.Properties.of(Material.EGG).strength(0.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail",
+            () -> new FlowerBlock(MobEffects.MOVEMENT_SLOWDOWN, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
+
+    public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutBlockItem("potted_horsetail",
+            () -> new FlowerPotBlock(null, UPBlocks.HORSETAIL, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+
+    public static final RegistryObject<Block> TALL_HORSETAIL = registerBlock("tall_horsetail",
+            () -> new BlockUPTallPlant(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
+
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
         UPItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
         return block;
+    }
+
+    private static <T extends Block> RegistryObject<T> registerBlockWithoutBlockItem(String name, Supplier<T> block) {
+        return BLOCKS.register(name, block);
     }
 
     private static <T extends Block> Supplier<T> create(String key, Supplier<T> block, CreativeModeTab tab) {

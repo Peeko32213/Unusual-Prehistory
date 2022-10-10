@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.monster.*;
@@ -52,6 +54,10 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         super(entityType, level);
     }
 
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        return new LandCreaturePathNavigation(this, level);
+    }
 
 
     public static AttributeSupplier.Builder createAttributes() {
