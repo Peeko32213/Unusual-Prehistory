@@ -3,6 +3,9 @@
   "values": [
     "unusualprehistory:deepslate_fossil",
     "unusualprehistory:stone_fossil",
-    "unusualprehistory:plant_fossil"
+    "unusualprehistory:analyzer",
+    "unusualprehistory:cultivator",
+    "unusualprehistory:plant_fossil",
+    "unusualprehistory:ammonite_shell"
   ]
 }

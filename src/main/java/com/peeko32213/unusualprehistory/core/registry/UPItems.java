@@ -1,13 +1,12 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.item.ItemEncyclopedia;
 import com.peeko32213.unusualprehistory.common.item.ItemModFishBucket;
-import com.peeko32213.unusualprehistory.common.item.ItemUPPickaxe;
+import com.peeko32213.unusualprehistory.common.item.ItemModFood;
+import com.peeko32213.unusualprehistory.common.item.ItemModPickaxe;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.FoodOnAStickItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluids;
@@ -24,6 +23,9 @@ public class UPItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
             UnusualPrehistory.MODID);
+
+    public static final RegistryObject<Item> ENCYLOPEDIA = ITEMS.register("encyclopedia",
+            () -> new ItemEncyclopedia(new Item.Properties().tab(UnusualPrehistory.DINO_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> AMMONITE_SHELL_ICON = ITEMS.register("ammonite_shell_icon",
             () -> new Item(new Item.Properties()));
@@ -70,17 +72,31 @@ public class UPItems {
     public static final RegistryObject<Item> AMMONITE_FLASK = ITEMS.register("ammonite_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
-    public static final RegistryObject<Item> HORSETAIL_SEEDS = ITEMS.register("horsetail_seeds",
+    public static final RegistryObject<Item> HORSETAIL_SEEDS = ITEMS.register("horsetail_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
-    public static final RegistryObject<Item> TALL_HORSETAIL_SEEDS = ITEMS.register("tall_horsetail_seeds",
+    public static final RegistryObject<Item> TALL_HORSETAIL_SEEDS = ITEMS.register("tall_horsetail_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
-    public static final RegistryObject<Item> WARPICK = ITEMS.register("warpick",
-            () -> new ItemUPPickaxe(UPItemTiers.SHELL, 2, -2.8F));
+    public static final RegistryObject<Item> FROG_SALIVA = ITEMS.register("frog_saliva",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Item> WARPICK = ITEMS.register("warpick",
+            () -> new ItemModPickaxe(UPItemTiers.SHELL, 2, -2.8F));
+
+    public static final RegistryObject<Item> RAW_STETHA = ITEMS.register("raw_stetha",
+            () -> new Item(new Item.Properties().food(ItemModFood.RAW_STETHA).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> COOKED_STETHA = ITEMS.register("cooked_stetha",
+            () -> new Item(new Item.Properties().food(ItemModFood.COOKED_STETHA).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> RAW_COTY = ITEMS.register("raw_coty",
+            () -> new Item(new Item.Properties().food(ItemModFood.RAW_COTY).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> COOKED_COTY = ITEMS.register("cooked_coty",
+            () -> new Item(new Item.Properties().food(ItemModFood.COOKED_COTY).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> STETHA_BUCKET = ITEMS.register("stetha_bucket",
             () -> new ItemModFishBucket(UPEntities.STETHACANTHUS, () -> Fluids.WATER, Items.BUCKET, false,

@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBeelzebufoTadpole;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
+import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -55,4 +56,31 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityBabyDunk::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.3f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_dunk").toString()));
 
+    public static final RegistryObject<EntityType<BaseEntityRender>> AMMON_RENDER = ENTITIES.register("ammon_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "ammon_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> MAJUNGA_RENDER = ENTITIES.register("majunga_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "majunga_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> DUNK_RENDER = ENTITIES.register("dunk_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "dunk_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> COTY_RENDER = ENTITIES.register("coty_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "coty_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> BEELZ_RENDER = ENTITIES.register("beelz_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "beelz_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> ANURO_RENDER = ENTITIES.register("anuro_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "anuro_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> STETHA_RENDER = ENTITIES.register("stetha_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "stetha_render").toString()));
 }

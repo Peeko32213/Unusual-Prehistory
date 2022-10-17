@@ -1,6 +1,7 @@
 {
   "itemGroup.unusualprehistory": "Unusual Prehistory",
 
+  "item.unusualprehistory.encyclopedia": "Encyclopedia of Prehistory",
   "item.unusualprehistory.ammonite_shell_icon": "Ammonite Shell",
   "item.unusualprehistory.flask": "Flask",
   "item.unusualprehistory.meat_on_a_stick": "Meat On A Stick",
@@ -8,6 +9,7 @@
   "item.unusualprehistory.paleo_fossil": "Paleozoic Fossil",
   "item.unusualprehistory.mezo_fossil": "Mesozoic Fossil",
   "item.unusualprehistory.organic_ooze": "Organic Ooze",
+  "item.unusualprehistory.frog_saliva": "Frog Saliva",
   "item.unusualprehistory.ammonite_flask": "Ammonite DNA Flask",
   "item.unusualprehistory.anuro_flask": "Anurognathus DNA Flask",
   "item.unusualprehistory.beelz_flask": "Beelzebufo DNA Flask",
@@ -23,9 +25,13 @@
   "item.unusualprehistory.majunga_helmet": "Majungasaurus Helmet",
   "item.unusualprehistory.shell_shard": "Shell Shard",
   "item.unusualprehistory.plant_fossil_item": "Plant Fossil",
-  "item.unusualprehistory.horsetail_seeds": "Horsetail Seeds",
-  "item.unusualprehistory.tall_horsetail_seeds": "Tall Horsetail Seeds",
-  "item.unusualprehistory.warpick": "Warpick",
+  "item.unusualprehistory.horsetail_flask": "Horsetail Flask",
+  "item.unusualprehistory.tall_horsetail_flask": "Tall Horsetail Flask",
+  "item.unusualprehistory.warpick": "War Pick",
+  "item.unusualprehistory.raw_stetha": "Raw Stethacanthus",
+  "item.unusualprehistory.cooked_stetha": "Cooked Stethacanthus",
+  "item.unusualprehistory.raw_coty": "Raw Cotylorhynchus",
+  "item.unusualprehistory.cooked_coty": "Cooked Cotylorhynchus",
 
   "item.unusualprehistory.stetha_spawn_egg": "Stethacanthus Spawn Egg",
   "item.unusualprehistory.majunga_spawn_egg": "Majungasaurus Spawn Egg",
@@ -57,6 +63,7 @@
   "block.unusualprehistory.dunk_eggs": "Dunkleosteus Eggs,",
   "block.unusualprehistory.majunga_eggs": "Majungasaurus Egg",
   "block.unusualprehistory.coty_eggs": "Cotylorhynchus Egg",
+  "block.unusualprehistory.anuro_eggs": "Anurognathus Egg",
   "block.unusualprehistory.ammonite_shell": "Ammonite Shell",
   "block.unusualprehistory.horsetail": "Horsetail",
   "block.unusualprehistory.potted_horsetail": "Potted Horsetail",
@@ -65,6 +72,8 @@
 
 
   "block.unusualprehistory.majunga_egg.desc": "%s x %s",
-  "block.unusualprehistory.coty_egg.desc": "%s x %s"
+  "block.unusualprehistory.coty_egg.desc": "%s x %s",
+
+  "item.unusualprehistory.encyclopedia.desc": "By Award Winning Scientist, Peeko Noneyah "
 
 }

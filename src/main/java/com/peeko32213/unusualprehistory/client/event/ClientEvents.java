@@ -1,8 +1,10 @@
 package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.client.model.render.*;
 import com.peeko32213.unusualprehistory.client.render.*;
 import com.peeko32213.unusualprehistory.client.render.armor.MajungaHelmetRenderer;
+import com.peeko32213.unusualprehistory.client.render.renders.*;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
@@ -53,6 +55,25 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.COTY.get(), CotylorhynchusRenderer::new);
         event.registerEntityRenderer(UPEntities.BEELZE_TADPOLE.get(), BeelzebufoTadpoleRenderer::new);
         event.registerEntityRenderer(UPEntities.BABY_DUNK.get(), BabyDunkRenderer::new);
+
+        event.registerEntityRenderer(UPEntities.AMMON_RENDER.get(), AmmoniteRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.MAJUNGA_RENDER.get(), MajungaRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.ANURO_RENDER.get(), AnuroRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.BEELZ_RENDER.get(), BeelzRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.COTY_RENDER.get(), CotyRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.DUNK_RENDER.get(), DunkRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.STETHA_RENDER.get(), StethaRenderRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(AmmoniteRenderModel.LAYER_LOCATION, AmmoniteRenderModel::createBodyLayer);
+        event.registerLayerDefinition(MajungaRenderModel.LAYER_LOCATION, MajungaRenderModel::createBodyLayer);
+        event.registerLayerDefinition(AnuroRenderModel.LAYER_LOCATION, AnuroRenderModel::createBodyLayer);
+        event.registerLayerDefinition(BeelzRenderModel.LAYER_LOCATION, BeelzRenderModel::createBodyLayer);
+        event.registerLayerDefinition(CotyRenderModel.LAYER_LOCATION, CotyRenderModel::createBodyLayer);
+        event.registerLayerDefinition(DunkRenderModel.LAYER_LOCATION, DunkRenderModel::createBodyLayer);
+        event.registerLayerDefinition(StethaRenderModel.LAYER_LOCATION, StethaRenderModel::createBodyLayer);
 
     }
 

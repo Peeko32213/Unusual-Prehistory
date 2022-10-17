@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forge:crops"
+    },
+    {
+      "item": "forge:slimeballs"
+    },
+    {
+      "item": "unusualprehistory:raw_meats"
+    }
+  ],
+  "result": {
+    "item": "unusualprehistory:organic_ooze"
+  }
+}

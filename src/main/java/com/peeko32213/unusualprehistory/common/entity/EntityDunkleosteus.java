@@ -1,10 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -16,10 +21,11 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -30,9 +36,8 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.EnumSet;
-
 public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
+    private static final EntityDataAccessor<Integer> PASSIVETICKS = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
     protected int attackCooldown = 0;
 
@@ -58,6 +63,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, EntityAmmonite.class, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, EntityStethacanthus.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::isAngryAt));
         this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0D, 1) {
             @Override
             public boolean canUse() {
@@ -70,6 +76,34 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
                 return !this.mob.isInWater() && super.canUse();
             }
         });
+    }
+
+    public boolean isAngryAt(LivingEntity p_21675_) {
+        return this.canAttack(p_21675_);
+    }
+
+    @Override
+    public boolean canAttack(LivingEntity entity) {
+        boolean prev = super.canAttack(entity);
+
+        if (entity instanceof Player && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().equals(entity))) {
+            if (this.getPassiveTicks() > 0 || isStetha(entity.getItemInHand(InteractionHand.MAIN_HAND)) || isStetha(entity.getItemInHand(InteractionHand.OFF_HAND))) {
+                return false;
+            }
+        }
+        return prev;
+    }
+
+    public boolean isStetha(ItemStack stack) {
+        return stack.is(UPItems.RAW_STETHA.get());
+    }
+
+    public int getPassiveTicks() {
+        return this.entityData.get(PASSIVETICKS);
+    }
+
+    private void setPassiveTicks(int passiveTicks) {
+        this.entityData.set(PASSIVETICKS, passiveTicks);
     }
 
     protected PathNavigation createNavigation(Level p_27480_) {
@@ -92,6 +126,37 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         return SoundEvents.COD_FLOP;
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.getEntityData().define(PASSIVETICKS, 0);
+    }
+
+    public void addAdditionalSaveData(CompoundTag p_31808_) {
+        super.addAdditionalSaveData(p_31808_);
+        p_31808_.putInt("PassiveTicks", this.getPassiveTicks());
+    }
+
+    public void readAdditionalSaveData(CompoundTag p_31795_) {
+        super.readAdditionalSaveData(p_31795_);
+        this.setPassiveTicks(p_31795_.getInt("PassiveTicks"));
+    }
+
+
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        Item item = itemstack.getItem();
+        if (isStetha(itemstack) && (this.getPassiveTicks() <= 0 || this.getHealth() < this.getMaxHealth())) {
+            if (!player.isCreative()) {
+                itemstack.shrink(1);
+            }
+            this.heal(6);
+            this.setPassiveTicks(this.getPassiveTicks() + 1200);
+            return InteractionResult.SUCCESS;
+        }
+        InteractionResult type = super.mobInteract(player, hand);
+        return type;
+    }
+
     public void tick() {
         super.tick();
 
@@ -99,18 +164,6 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
             Vec3 vec3 = this.getViewVector(0.0F);
             float f = Mth.cos(this.getYRot() * ((float) Math.PI / 320F)) * 0.3F;
             float f1 = Mth.sin(this.getYRot() * ((float) Math.PI / 320F)) * 0.3F;
-        }
-
-        if (!level.isClientSide && this.getTarget() != null) {
-            float f1 = this.getYRot() * ((float) Math.PI / 180F);
-            this.setDeltaMovement(this.getDeltaMovement().add(-Mth.sin(f1) * 0.06F, 0.0D, Mth.cos(f1) * 0.06F));
-            if (this.getTarget().hurt(DamageSource.mobAttack(this), (float) this.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue())) {
-                if (random.nextInt(15) == 0 && this.getTarget() instanceof EntityAmmonite) {
-                    this.spawnAtLocation(UPItems.SHELL_SHARD.get());
-                }
-            }
-
-
         }
     }
 
@@ -153,97 +206,19 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
     }
 
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.hasCustomName();
+    }
+
+    public boolean removeWhenFarAway(double d) {
+        return !this.hasCustomName();
+    }
+
     @Override
     public AnimationFactory getFactory() {
         return factory;
     }
 
-    private class AIMelee extends Goal {
-        protected final EntityDunkleosteus mob;
-        private int ticksUntilNextPathRecalculation;
-        private long lastCanUseCheck;
-        private boolean canPenalize = false;
-        private int ticksUntilNextAttack;
-        private Path path;
-
-        public AIMelee(EntityDunkleosteus mob) {
-            this.setFlags(EnumSet.of(Flag.MOVE));
-            this.mob = mob;
-        }
-
-        @Override
-        public boolean canUse() {
-            long i = this.mob.level.getGameTime();
-            if (i - this.lastCanUseCheck < 20L) {
-                return false;
-            } else {
-                this.lastCanUseCheck = i;
-                LivingEntity livingentity = this.mob.getTarget();
-                if (livingentity == null) {
-                    return false;
-                } else if (!livingentity.isAlive()) {
-                    return false;
-                } else {
-                    if (canPenalize) {
-                        if (--this.ticksUntilNextPathRecalculation <= 0) {
-                            this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                            this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                            return this.path != null;
-                        } else {
-                            return true;
-                        }
-                    }
-                    this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                    if (this.path != null) {
-                        return true;
-                    } else {
-                        return this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                    }
-                }
-            }
-        }
-
-        public void tick() {
-            LivingEntity target = EntityDunkleosteus.this.getTarget();
-            double d0 = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
-            double speed = 1.0F;
-            boolean move = true;
-            if (EntityDunkleosteus.this.distanceTo(target) < 10) {
-                if (EntityDunkleosteus.this.distanceTo(target) < 1.9D) {
-                    EntityDunkleosteus.this.doHurtTarget(target);
-                    speed = 0.8F;
-                } else {
-                    speed = 0.6F;
-                    EntityDunkleosteus.this.lookAt(target, 70, 70);
-                }
-            }
-            if (target instanceof Drowned || target instanceof Player) {
-                speed = 1.0F;
-            }
-            EntityDunkleosteus.this.getNavigation().moveTo(target, speed);
-            this.checkAndPerformAttack(target, d0);
-
-        }
-
-        protected void checkAndPerformAttack(LivingEntity p_25557_, double p_25558_) {
-            double d0 = this.getAttackReachSqr(p_25557_);
-            if (p_25558_ <= d0 && this.ticksUntilNextAttack <= 0) {
-                this.resetAttackCooldown();
-                this.mob.swing(InteractionHand.MAIN_HAND);
-                this.mob.doHurtTarget(p_25557_);
-            }
-
-        }
-
-        protected void resetAttackCooldown() {
-            this.ticksUntilNextAttack = this.adjustedTickDelay(20);
-        }
-
-        protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.7F + p_25556_.getBbWidth());
-        }
-
-    }
 
     class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {

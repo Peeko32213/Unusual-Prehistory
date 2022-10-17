@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  S",
+    " ST",
+    "S M"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "T": {
+      "item": "minecraft:string"
+    },
+    "M": {
+      "item": "minecraft:beef"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:meat_on_a_stick"
+  }
+}

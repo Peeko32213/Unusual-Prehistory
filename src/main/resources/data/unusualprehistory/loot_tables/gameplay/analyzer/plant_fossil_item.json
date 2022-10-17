@@ -17,12 +17,12 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "unusualprehistory:horsetail_seeds"
+          "name": "unusualprehistory:horsetail_flask"
         },
         {
           "type": "minecraft:item",
           "weight": 2.5,
-          "name": "unusualprehistory:tall_horsetail_seeds"
+          "name": "unusualprehistory:tall_horsetail_flask"
         },
         {
           "type": "minecraft:item",

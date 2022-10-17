@@ -75,7 +75,7 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.4D, true));
+        this.goalSelector.addGoal(2, new EntityBeelzebufo.IMeleeAttackGoal());
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Bee.class, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Silverfish.class, true));
@@ -102,8 +102,15 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
             this.doEnchantDamageEffects(this, target);
             this.setLastHurtMob(target);
         }
+        if (shouldHurt && target instanceof LivingEntity livingEntity) {
+            if(random.nextInt(15) == 0 && this.getTarget() instanceof Rabbit){
+                this.spawnAtLocation(UPItems.FROG_SALIVA.get());
+            }
+        }
         return shouldHurt;
     }
+
+
 
 
 
@@ -248,6 +255,13 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
     }
 
 
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.hasCustomName();
+    }
+
+    public boolean removeWhenFarAway(double d) {
+        return !this.hasCustomName();
+    }
 
 
     public void positionRider(Entity passenger) {
@@ -284,6 +298,17 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
     @Override
     public AnimationFactory getFactory() {
         return factory;
+    }
+
+    class IMeleeAttackGoal extends MeleeAttackGoal {
+        public IMeleeAttackGoal() {
+            super(EntityBeelzebufo.this, 1.0D, true);
+        }
+
+        protected double getAttackReachSqr(LivingEntity p_25556_) {
+            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
+        }
+
     }
 
 }

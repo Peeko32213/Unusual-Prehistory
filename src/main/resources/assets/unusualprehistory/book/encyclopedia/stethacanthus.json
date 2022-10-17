@@ -1,0 +1,28 @@
+{
+  "parent": "root.json",
+  "text": "stetha.txt",
+  "title": "Stethacanthus",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "tabula_renders": [
+  ],
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:stetha_render",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 1.8,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ]
+}

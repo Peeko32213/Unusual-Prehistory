@@ -54,6 +54,9 @@ public class UPBlocks {
             () -> new BlockDunkEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noDrops().noOcclusion().noCollission()),
             entry -> new WaterLilyBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Block> ANURO_EGG = registerBlock("anuro_eggs",
+            () -> new BlockAnuroEggs());
+
     public static final RegistryObject<Block> MAJUNGA_EGG = registerBlock("majunga_eggs",
             () -> new BlockMajungaEggs());
 

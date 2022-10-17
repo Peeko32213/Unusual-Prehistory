@@ -95,5 +95,13 @@ public class EntityCotylorhynchus extends Animal implements IAnimatable {
         return factory;
     }
 
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.hasCustomName();
+    }
+
+    public boolean removeWhenFarAway(double d) {
+        return !this.hasCustomName();
+    }
+
 
 }

@@ -340,6 +340,15 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.hasCustomName();
+    }
+
+    public boolean removeWhenFarAway(double d) {
+        return !this.hasCustomName();
+    }
+
+
     static class MajungaPrepareChargeGoal extends Goal {
         protected final EntityMajungasaurus majunga;
 

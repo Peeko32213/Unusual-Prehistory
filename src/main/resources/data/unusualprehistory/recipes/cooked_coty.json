@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "unusualprehistory:raw_coty"
+  },
+  "result": "unusualprehistory:cooked_coty",
+  "experience": 0.1,
+  "cookingtime": 300
+}

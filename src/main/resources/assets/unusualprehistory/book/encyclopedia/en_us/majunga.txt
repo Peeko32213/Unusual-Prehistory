@@ -1,0 +1,12 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+A medium sized abelisaurid theropod dinosaur from the late cretaceous. These theropods have a somewhat odd appearance,
+with small forearms and strange faces with large eyes. These eyes allow for very precise hunting, being able to make precise
+movements at its targets. These dinosaurs are fairly tolerable of any humanoids though the same cannot be said of any small
+animals. When provoked, these animals will charge at their foe launching them far away while dealing decent damage.
+<NEWLINE>
+If one were to block one of these charges, they could possibly cause a scute to fall off the theropod.
+These scutes can be forged into a tough helmet that boosts one strength.
+

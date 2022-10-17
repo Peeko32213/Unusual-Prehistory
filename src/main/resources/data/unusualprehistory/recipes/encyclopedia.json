@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:mezo_fossil"
+    },
+    {
+      "item": "unusualprehistory:paleo_fossil"
+    },
+    {
+      "item": "unusualprehistory:plant_fossil_item"
+    },
+    {
+      "item": "minecraft:book"
+    }
+  ],
+  "result": {
+    "item": "unusualprehistory:encyclopedia"
+  }
+}

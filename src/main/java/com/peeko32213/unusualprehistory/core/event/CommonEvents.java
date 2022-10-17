@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBeelzebufoTadpole;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
+import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -37,6 +38,13 @@ public class CommonEvents {
         event.put(UPEntities.BEELZE_TADPOLE.get(), EntityBeelzebufoTadpole.createAttributes().build());
         event.put(UPEntities.BABY_DUNK.get(), EntityDunkleosteus.createAttributes().build());
 
+        event.put(UPEntities.AMMON_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.MAJUNGA_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.DUNK_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.COTY_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.BEELZ_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.ANURO_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.STETHA_RENDER.get(), BaseEntityRender.createAttributes().build());
     }
 
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag){

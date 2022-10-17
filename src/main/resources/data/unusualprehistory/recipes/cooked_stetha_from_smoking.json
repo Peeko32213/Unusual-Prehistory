@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "unusualprehistory:raw_stetha"
+  },
+  "result": "unusualprehistory:cooked_stetha",
+  "experience": 0.35,
+  "cookingtime": 75
+}
