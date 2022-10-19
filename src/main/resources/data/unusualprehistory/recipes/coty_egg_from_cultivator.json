@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:coty_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:coty_egg"
+  }
+}

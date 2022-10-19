@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:anuro_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:anuro_egg"
+  }
+}

@@ -8,5 +8,7 @@ as they start off as tadpoles that can be bucketed and moved to other bodies of 
 up they will become quite voracious to any livestock or smaller animals nearby. However, remarkably enough one can
 place a saddle on their backs and use a little sliver of meat on a stick to ride these animals around.
 <NEWLINE>
-After eating prey, they sometimes leave behind the
+After eating prey, they sometimes leave behind their saliva. This saliva exhibits unique
+binding properties unlike those seen in honey and slime balls. These properties allow
+for the creation of items such as name tags.
 

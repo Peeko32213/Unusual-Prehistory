@@ -40,6 +40,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     private static final EntityDataAccessor<Integer> PASSIVETICKS = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
     protected int attackCooldown = 0;
+    private boolean wasOnGround;
 
     public EntityDunkleosteus(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
@@ -168,12 +169,6 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     }
 
     public void aiStep() {
-        if (!this.isInWater() && this.onGround && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((double) ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), (double) 0.4F, (double) ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.onGround = false;
-            this.hasImpulse = true;
-            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-        }
 
         super.aiStep();
     }
@@ -188,6 +183,8 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         }
         return PlayState.CONTINUE;
     }
+
+
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
@@ -222,7 +219,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {
-            super(EntityDunkleosteus.this, 1.0D, true);
+            super(EntityDunkleosteus.this, 1.5D, true);
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
