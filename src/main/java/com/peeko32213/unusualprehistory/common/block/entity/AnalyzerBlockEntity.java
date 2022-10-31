@@ -62,12 +62,12 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
             }
 
             public int getCount() {
-                return 10;
+                return 8;
             }
         };
     }
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(10) {
+    private final ItemStackHandler itemHandler = new ItemStackHandler(8) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -185,7 +185,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
             }
             // attempt to insert result item
             boolean success = false;
-            for(int i = 4, n = entity.itemHandler.getSlots(); i < n; i++) {
+            for(int i = 2, n = entity.itemHandler.getSlots(); i < n; i++) {
                 if(entity.itemHandler.insertItem(i, result, false).isEmpty()) {
                     success = true;
                     break;
@@ -201,7 +201,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        for(int slot = 4, n = inventory.getContainerSize(); slot < n; slot++) {
+        for(int slot = 2, n = inventory.getContainerSize(); slot < n; slot++) {
             if(inventory.getItem(slot).isEmpty()) {
                 return true;
             }
@@ -217,4 +217,6 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
         return new AnalyzerMenu(pContainerId, pInventory, this, this.data);
     }
+
+
 }

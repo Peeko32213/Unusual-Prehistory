@@ -46,7 +46,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:grass_block"
+          "name": "unusualprehistory:tall_horsetail"
         }
       ],
       "rolls": 1.0
@@ -96,7 +96,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:grass_block"
+          "name": "unusualprehistory:tall_horsetail"
         }
       ],
       "rolls": 1.0

@@ -18,7 +18,7 @@ public class BeelzebufoModel extends AnimatedGeoModel<EntityBeelzebufo>
     @Override
     public ResourceLocation getTextureLocation(EntityBeelzebufo object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelze2.png");
     }
 
     @Override

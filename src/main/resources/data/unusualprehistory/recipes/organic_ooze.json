@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "forge:crops"
+      "item": "minecraft:bone"
     },
     {
-      "item": "forge:slimeballs"
+      "item": "minecraft:slime_ball"
     },
     {
-      "item": "unusualprehistory:raw_meats"
+      "item": "minecraft:wheat"
     }
   ],
   "result": {

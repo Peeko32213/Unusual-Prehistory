@@ -23,13 +23,13 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public AnalyzerMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(10));
+        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(8));
     }
 
 
     public AnalyzerMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
         super(UPMenuTypes.ANALYZER_MENU.get(), pContainerId);
-        checkContainerSize(inv, 10);
+        checkContainerSize(inv, 8);
         blockEntity = ((AnalyzerBlockEntity) entity);
         this.level = inv.player.level;
         this.data = data;
@@ -39,16 +39,14 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
             this.addSlot(new UPFlaskSlot(handler, 0, 33, 5));
-            this.addSlot(new SlotItemHandler(handler, 1, 62, 5));
-            this.addSlot(new SlotItemHandler(handler, 2, 80, 5));
-            this.addSlot(new SlotItemHandler(handler, 3, 98, 5));
+            this.addSlot(new SlotItemHandler(handler, 1, 80, 5));
 
-            this.addSlot(new UPResultSlot(handler, 4, 35, 52));
-            this.addSlot(new UPResultSlot(handler, 5, 53, 52));
-            this.addSlot(new UPResultSlot(handler, 6, 71, 52));
-            this.addSlot(new UPResultSlot(handler, 7, 89, 52));
-            this.addSlot(new UPResultSlot(handler, 8, 107, 52));
-            this.addSlot(new UPResultSlot(handler, 9, 125, 52));
+            this.addSlot(new UPResultSlot(handler, 2, 35, 52));
+            this.addSlot(new UPResultSlot(handler, 3, 53, 52));
+            this.addSlot(new UPResultSlot(handler, 4, 71, 52));
+            this.addSlot(new UPResultSlot(handler, 5, 89, 52));
+            this.addSlot(new UPResultSlot(handler, 6, 107, 52));
+            this.addSlot(new UPResultSlot(handler, 7, 125, 52));
 
         });
         addDataSlots(data);
@@ -78,7 +76,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 10;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 8;  // must be the number of slots you have!
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {

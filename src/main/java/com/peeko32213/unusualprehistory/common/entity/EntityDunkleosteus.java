@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.util.SwimmingMoveControlSink;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -44,13 +45,14 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     public EntityDunkleosteus(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
+        this.moveControl = new SwimmingMoveControlSink(this, 1, 1, 6);
         this.moveControl = new SmoothSwimmingMoveControl(this, 45, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0D)
+                .add(Attributes.MAX_HEALTH, 50.0D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.ARMOR, 10.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D)
@@ -63,7 +65,6 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, EntityAmmonite.class, true));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, EntityStethacanthus.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::isAngryAt));
         this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0D, 1) {
             @Override
@@ -219,7 +220,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {
-            super(EntityDunkleosteus.this, 1.5D, true);
+            super(EntityDunkleosteus.this, 1.65D, true);
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {

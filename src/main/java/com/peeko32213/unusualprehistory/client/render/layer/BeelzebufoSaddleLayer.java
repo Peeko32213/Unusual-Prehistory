@@ -16,7 +16,7 @@ import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 import static net.minecraft.client.renderer.entity.layers.SpinAttackEffectLayer.TEXTURE;
 
 public class BeelzebufoSaddleLayer extends GeoLayerRenderer<EntityBeelzebufo> {
-    private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelze_saddle.png");
+    private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelze_saddle2.png");
     private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/beelzebufo.geo.json");
 
     public BeelzebufoSaddleLayer(IGeoRenderer<EntityBeelzebufo> entityRendererIn) {

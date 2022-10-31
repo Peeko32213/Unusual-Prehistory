@@ -72,10 +72,13 @@ public class UPItems {
     public static final RegistryObject<Item> AMMONITE_FLASK = ITEMS.register("ammonite_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
-    public static final RegistryObject<Item> HORSETAIL_SEEDS = ITEMS.register("horsetail_flask",
+    public static final RegistryObject<Item> HORSETAIL_FLASK = ITEMS.register("horsetail_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
-    public static final RegistryObject<Item> TALL_HORSETAIL_SEEDS = ITEMS.register("tall_horsetail_flask",
+    public static final RegistryObject<Item> TALL_HORSETAIL_FLASK = ITEMS.register("tall_horsetail_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> LEEFRUCTUS_FLASK = ITEMS.register("leefructus_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
@@ -84,7 +87,7 @@ public class UPItems {
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> WARPICK = ITEMS.register("warpick",
-            () -> new ItemModPickaxe(UPItemTiers.SHELL, 2, -2.8F));
+            () -> new ItemModPickaxe(UPItemTiers.SHELL, 3, -2.8F));
 
     public static final RegistryObject<Item> RAW_STETHA = ITEMS.register("raw_stetha",
             () -> new Item(new Item.Properties().food(ItemModFood.RAW_STETHA).tab(UnusualPrehistory.DINO_TAB)));

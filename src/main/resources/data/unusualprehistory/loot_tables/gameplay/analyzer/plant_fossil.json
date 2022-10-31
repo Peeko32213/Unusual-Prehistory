@@ -17,17 +17,37 @@
         {
           "type": "minecraft:item",
           "weight": 3,
+          "name": "minecraft:moss_block"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "minecraft:moss_carpet"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "minecraft:fern"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "minecraft:large_fern"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
           "name": "unusualprehistory:horsetail_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 2.5,
+          "weight": 3,
           "name": "unusualprehistory:tall_horsetail_flask"
         },
         {
           "type": "minecraft:item",
           "weight": 2.5,
-          "name": "minecraft:moss_block"
+          "name": "unusualprehistory:leefructus_flask"
         }
       ]
     }

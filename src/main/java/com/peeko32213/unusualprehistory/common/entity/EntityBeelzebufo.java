@@ -33,6 +33,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -73,7 +74,7 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, FOOD_ITEMS, false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(2, new EntityBeelzebufo.IMeleeAttackGoal());
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -279,7 +280,7 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.beelzebufo.walk", true));
-                event.getController().setAnimationSpeed(1.5D);
+                event.getController().setAnimationSpeed(0.8D);
             }
         }
         else {
@@ -289,10 +290,23 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         return PlayState.CONTINUE;
     }
 
+    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
+        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+            event.getController().markNeedsReload();
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.beelzebufo.bite", false));
+            event.getController().setAnimationSpeed(0.9D);
+
+            this.swinging = false;
+        }
+        return PlayState.CONTINUE;
+    }
+
     @Override
     public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+        data.setResetSpeedInTicks(5);
+        AnimationController<EntityBeelzebufo> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        data.addAnimationController(controller);
+        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
     }
 
     @Override

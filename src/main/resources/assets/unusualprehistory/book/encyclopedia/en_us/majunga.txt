@@ -2,11 +2,14 @@
 <NEWLINE>
 <NEWLINE>
 <NEWLINE>
-A medium sized abelisaurid theropod dinosaur from the late cretaceous. These theropods have a somewhat odd appearance,
-with small forearms and strange faces with large eyes. These eyes allow for very precise hunting, being able to make precise
-movements at its targets. These dinosaurs are fairly tolerable of any humanoids though the same cannot be said of any small
-animals. When provoked, these animals will charge at their foe launching them far away while dealing decent damage.
+Strange island - borne abelisaurs of the late cretaceous, these natives of Madagascar were thought to be pachycephalosaurs
+in times long forgotten, but the current scientific consensus for these strange theropods are that they are closely related
+to other abelisaurs such as rugops and rajasaurus. A Majungasaurus’ binocular eyes allow them to track mobile prey with ease,
+and their powerfully long legs propel them towards their prey with a surprising burst of speed.
 <NEWLINE>
-If one were to block one of these charges, they could possibly cause a scute to fall off the theropod.
-These scutes can be forged into a tough helmet that boosts one strength.
+They are not the most skittish of creatures within their group, but an agitated Majungasaurus will charge at their
+stressor at a dangerous speed. Their singular cephalic horn is not sufficient to penetrate a shield however,
+and a loosened scute or two is typically enough to discourage an annoyed Majungasaurus from advancing its offence.
+
+
 

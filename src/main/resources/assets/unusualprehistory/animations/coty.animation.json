@@ -3,14 +3,15 @@
 	"animations": {
 		"animation.cotylorhynchus.walk": {
 			"loop": true,
+			"override_previous_animation": true,
 			"bones": {
 				"Body": {
 					"rotation": {
-						"vector": [0, 0, "Math.cos((query.anim_time - 0.1) * 180) * -4"]
+						"vector": [0, 0, 0]
 					},
 					"position": {
 						"vector": [
-							"Math.sin((query.anim_time - 0.1) * 180) * -0.2",
+							"Math.cos((query.anim_time - 0.1) * 180) * -0.2",
 							"Math.cos((query.anim_time - 0.1) * 180) * -0.2",
 							"Math.cos((query.anim_time - 0.1) * 180) * -0.2"
 						]
@@ -34,15 +35,15 @@
 				},
 				"Arm1": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * 0.7", 0]
+						"vector": ["Math.cos((query.anim_time - 0.0) * 180) * -15", "Math.cos((query.anim_time - 0.0) * 180) * -1.1", 0]
 					},
 					"position": {
-						"vector": ["Ma0", "Math.cos((query.anim_time - 0.0) * 180) * -1.1", "Math.cos((query.anim_time - 0.8) * 180) * 2"]
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 180) * -1.1", "Math.cos((query.anim_time - 0.8) * 180) * 2"]
 					}
 				},
 				"Leg1": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * -0.7", 0]
+						"vector": ["Math.cos((query.anim_time - 0.0) * 180) * 15", "Math.cos((query.anim_time - 0.01) * 360) * -0.7", 0]
 					},
 					"position": {
 						"vector": ["Ma0", "Math.cos((query.anim_time - 0.0) * 180) * 1.1", "Math.cos((query.anim_time - 0.8) * 180) * -2"]
@@ -50,7 +51,7 @@
 				},
 				"Leg2": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * 0.7", 0]
+						"vector": ["Math.cos((query.anim_time - 0.0) * 180) * 15", "Math.cos((query.anim_time - 0.01) * 360) * 0.7", 0]
 					},
 					"position": {
 						"vector": ["Ma0", "Math.cos((query.anim_time - 0.0) * 180) * -1.1", "Math.cos((query.anim_time - 0.8) * 180) * 2"]
@@ -58,7 +59,7 @@
 				},
 				"Arm2": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * -0.7", 0]
+						"vector": ["Math.cos((query.anim_time - 0.0) * 180) * 15", "Math.cos((query.anim_time - 0.0) * 180) * -1.1", 0]
 					},
 					"position": {
 						"vector": ["Ma0", "Math.cos((query.anim_time - 0.0) * 180) * 1.1", "Math.cos((query.anim_time - 0.8) * 180) * -2"]

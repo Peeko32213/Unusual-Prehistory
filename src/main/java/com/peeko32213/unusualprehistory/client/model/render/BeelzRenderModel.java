@@ -18,46 +18,61 @@ import net.minecraft.resources.ResourceLocation;
 public class BeelzRenderModel<T extends BaseEntityRender> extends EntityModel<T> {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(
 			new ResourceLocation(UnusualPrehistory.MODID, "beelz_render"), "main");
-	private final ModelPart Body;
-	private final ModelPart Arm1;
-	private final ModelPart Arm2;
 	private final ModelPart Leg1;
 	private final ModelPart Leg2;
+	private final ModelPart Arm1;
+	private final ModelPart Arm2;
+	private final ModelPart Body;
 
 	public BeelzRenderModel(ModelPart root) {
-		this.Body = root.getChild("Body");
-		this.Arm1 = root.getChild("Arm1");
-		this.Arm2 = root.getChild("Arm2");
 		this.Leg1 = root.getChild("Leg1");
 		this.Leg2 = root.getChild("Leg2");
+		this.Arm1 = root.getChild("Arm1");
+		this.Arm2 = root.getChild("Arm2");
+		this.Body = root.getChild("Body");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition Body = partdefinition.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(0, 0).addBox(-8.5F, -12.25F, -8.5F, 17.0F, 12.0F, 17.0F, new CubeDeformation(0.0F))
-		.texOffs(52, 12).addBox(-8.5F, -12.25F, -8.5F, 17.0F, 12.0F, 17.0F, new CubeDeformation(0.1F))
-		.texOffs(0, 8).addBox(4.5F, -15.25F, -8.5F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 15).addBox(4.5F, -17.25F, -8.5F, 6.0F, 2.0F, 0.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 0).addBox(8.5F, -14.25F, -4.5F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 0).addBox(2.5F, -14.25F, -8.5F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 15).mirror().addBox(-10.5F, -17.25F, -8.5F, 6.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(0, 8).mirror().addBox(-8.5F, -15.25F, -8.5F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(0, 0).mirror().addBox(-4.5F, -14.25F, -8.5F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(0, 0).mirror().addBox(-8.5F, -14.25F, -4.5F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition Leg1 = partdefinition.addOrReplaceChild("Leg1", CubeListBuilder.create().texOffs(24, 44).addBox(-4.5F, 0.0F, -6.5F, 8.0F, 6.0F, 10.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 7).addBox(-6.5F, 5.9F, -8.5F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-8.0F, 16.5F, 6.0F));
 
-		PartDefinition Arm1 = partdefinition.addOrReplaceChild("Arm1", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 0.0F, -4.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
-		.texOffs(23, 29).addBox(-2.0F, 3.975F, -7.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(6.75F, 19.0F, -6.5F));
+		PartDefinition Leg2 = partdefinition.addOrReplaceChild("Leg2", CubeListBuilder.create().texOffs(24, 44).mirror().addBox(-3.5F, 0.0F, -6.5F, 8.0F, 6.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(0, 7).mirror().addBox(1.5F, 5.9F, -8.5F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(8.0F, 16.5F, 6.0F));
 
-		PartDefinition Arm2 = partdefinition.addOrReplaceChild("Arm2", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-4.0F, 0.0F, -4.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(23, 29).mirror().addBox(-2.0F, 3.975F, -7.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.75F, 19.0F, -6.5F));
+		PartDefinition Arm1 = partdefinition.addOrReplaceChild("Arm1", CubeListBuilder.create().texOffs(0, 48).addBox(-3.75F, 0.0F, -4.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 11).addBox(-0.75F, 4.4F, -7.5F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-8.0F, 19.0F, -6.0F));
 
-		PartDefinition Leg1 = partdefinition.addOrReplaceChild("Leg1", CubeListBuilder.create().texOffs(0, 29).addBox(0.0F, 0.0F, -7.0F, 4.0F, 6.0F, 9.0F, new CubeDeformation(0.0F))
-		.texOffs(13, 29).addBox(1.0F, 5.975F, -9.0F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(8.5F, 16.5F, 7.5F));
+		PartDefinition Arm2 = partdefinition.addOrReplaceChild("Arm2", CubeListBuilder.create().texOffs(0, 48).mirror().addBox(-1.25F, 0.0F, -4.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(0, 11).mirror().addBox(-3.25F, 4.4F, -7.5F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(8.0F, 19.0F, -6.0F));
 
-		PartDefinition Leg2 = partdefinition.addOrReplaceChild("Leg2", CubeListBuilder.create().texOffs(0, 29).mirror().addBox(-4.0F, 0.0F, -7.0F, 4.0F, 6.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(13, 29).mirror().addBox(-6.0F, 5.975F, -9.0F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-8.5F, 15.5F, 7.5F));
+		PartDefinition Body = partdefinition.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(0, 0).addBox(-8.5F, -4.25F, -8.5F, 17.0F, 5.0F, 17.0F, new CubeDeformation(0.0F))
+				.texOffs(68, 0).addBox(7.5F, -6.25F, -8.5F, 1.0F, 2.0F, 17.0F, new CubeDeformation(0.0F))
+				.texOffs(68, 0).mirror().addBox(-8.5F, -6.25F, -8.5F, 1.0F, 2.0F, 17.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(68, 20).addBox(-7.5F, -6.25F, 7.5F, 15.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(68, 28).addBox(3.5F, -6.25F, -8.5F, 4.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(68, 28).mirror().addBox(-7.5F, -6.25F, -8.5F, 4.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(68, 23).addBox(2.5F, -5.25F, -8.5F, 1.0F, 1.0F, 0.0F, new CubeDeformation(0.0F))
+				.texOffs(68, 23).mirror().addBox(-3.5F, -5.25F, -8.5F, 1.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 21.5F, 0.0F));
+
+		PartDefinition TopJaw = Body.addOrReplaceChild("TopJaw", CubeListBuilder.create().texOffs(67, 24).addBox(-4.5F, 0.0F, -17.0F, 9.0F, 1.0F, 1.0F, new CubeDeformation(0.01F))
+				.texOffs(67, 27).addBox(-3.5F, 1.0F, -17.0F, 7.0F, 1.0F, 0.0F, new CubeDeformation(0.01F))
+				.texOffs(0, 22).addBox(-8.5F, -5.0F, -17.0F, 17.0F, 5.0F, 17.0F, new CubeDeformation(0.0F))
+				.texOffs(60, 55).addBox(-8.5F, -5.0F, -17.0F, 17.0F, 12.0F, 17.0F, new CubeDeformation(0.1F)), PartPose.offset(0.0F, -6.25F, 8.5F));
+
+		PartDefinition Eye1 = TopJaw.addOrReplaceChild("Eye1", CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -2.25F, -0.5F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 0).addBox(-3.5F, -3.25F, -4.5F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 15).addBox(-5.5F, -5.25F, -4.5F, 6.0F, 2.0F, 0.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 0).addBox(0.5F, -2.25F, -4.5F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, -4.75F, -10.5F));
+
+		PartDefinition Eye2 = TopJaw.addOrReplaceChild("Eye2", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(3.5F, -2.25F, -0.5F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(0, 0).mirror().addBox(-0.5F, -3.25F, -4.5F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(0, 15).mirror().addBox(-0.5F, -5.25F, -4.5F, 6.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(0, 0).mirror().addBox(-2.5F, -2.25F, -4.5F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, -4.75F, -10.5F));
+
+		PartDefinition Tounge = Body.addOrReplaceChild("Tounge", CubeListBuilder.create().texOffs(50, 44).addBox(-5.5F, -2.0F, -8.0F, 10.0F, 2.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, -4.0F, 1.0F));
 
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
@@ -69,10 +84,10 @@ public class BeelzRenderModel<T extends BaseEntityRender> extends EntityModel<T>
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		Body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		Arm1.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		Arm2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		Leg1.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		Leg2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		Arm1.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		Arm2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		Body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 }

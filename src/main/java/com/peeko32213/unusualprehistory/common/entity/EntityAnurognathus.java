@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.base.Predicate;
 import com.peeko32213.unusualprehistory.common.entity.util.*;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,6 +31,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -228,12 +230,6 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         this.pollinateCooldown = compound.getInt("PollinateCooldown");
     }
 
-    public boolean isValidPerchFromSide(BlockPos pos, Direction direction) {
-        BlockPos offset = pos.relative(direction);
-        BlockState state = level.getBlockState(pos);
-        return state.is(UPTags.ANURO_PERCHES) && (!level.getBlockState(pos.above()).isCollisionShapeFullBlock(level, pos.above()) || level.isEmptyBlock(pos.above())) && (!level.getBlockState(offset).isCollisionShapeFullBlock(level, offset) && !level.getBlockState(offset).is(UPTags.ANURO_PERCHES) || level.isEmptyBlock(offset));
-    }
-
     public Vec3 getBlockGrounding(Vec3 fleePos) {
         float radius = 10 + this.getRandom().nextInt(15);
         float neg = this.getRandom().nextBoolean() ? 1 : -1;
@@ -242,7 +238,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         double extraX = radius * Mth.sin((float) (Math.PI + angle));
         double extraZ = radius * Mth.cos(angle);
         BlockPos radialPos = new BlockPos(fleePos.x() + extraX, getY(), fleePos.z() + extraZ);
-        BlockPos ground = this.getToucanGround(radialPos);
+        BlockPos ground = this.getAnuroGround(radialPos);
         if (ground.getY() < -64) {
             return null;
         } else {
@@ -271,15 +267,12 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         double extraX = radius * Mth.sin((float) (Math.PI + angle));
         double extraZ = radius * Mth.cos(angle);
         BlockPos radialPos = new BlockPos(fleePos.x() + extraX, 0, fleePos.z() + extraZ);
-        BlockPos ground = getToucanGround(radialPos);
+        BlockPos ground = getAnuroGround(radialPos);
         int distFromGround = (int) this.getY() - ground.getY();
         int flightHeight = 5 + this.getRandom().nextInt(5);
         int j = this.getRandom().nextInt(5) + 5;
 
         BlockPos newPos = ground.above(distFromGround > 5 ? flightHeight : j);
-        if (level.getBlockState(ground).is(BlockTags.LEAVES)) {
-            newPos = ground.above(1 + this.getRandom().nextInt(3));
-        }
         if (!this.isTargetBlocked(Vec3.atCenterOf(newPos)) && this.distanceToSqr(Vec3.atCenterOf(newPos)) > 1) {
             return Vec3.atCenterOf(newPos);
         }
@@ -301,7 +294,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         return !level.getFluidState(position).isEmpty() || level.getBlockState(position).is(Blocks.VINE) || position.getY() <= -65;
     }
 
-    public BlockPos getToucanGround(BlockPos in) {
+    public BlockPos getAnuroGround(BlockPos in) {
         BlockPos position = new BlockPos(in.getX(), this.getY(), in.getZ());
         while (position.getY() < 320 && !level.getFluidState(position).isEmpty()) {
             position = position.above();
@@ -320,7 +313,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         float knockback = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
         if (target instanceof LivingEntity livingEntity) {
             damage += livingEntity.getMobType().equals(MobType.ARTHROPOD) ? damage : 0;
-            knockback += (float)EnchantmentHelper.getKnockbackBonus(this);
+            knockback += (float) EnchantmentHelper.getKnockbackBonus(this);
         }
         if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
             if (knockback > 0.0f && target instanceof LivingEntity) {

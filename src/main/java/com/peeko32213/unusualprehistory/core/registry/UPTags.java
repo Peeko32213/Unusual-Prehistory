@@ -14,7 +14,6 @@ public class UPTags {
     public static final TagKey<EntityType<?>> ANURO_TARGETS = registerEntityTag("anuro_targets");
     public static final TagKey<Block> ANURO_PERCHES = registerBlockTag("anuro_perches");
 
-    public static final TagKey<Item> RAW_MEATS = registerItemTag("raw_meats");
 
 
     private static TagKey<Block> registerBlockTag(String name) {

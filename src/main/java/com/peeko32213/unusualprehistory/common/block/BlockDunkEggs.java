@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
+import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -91,7 +92,7 @@ public class BlockDunkEggs extends Block {
         int i = random.nextInt(2, 4);
 
         for (int index = 1; index <= i; ++index) {
-            EntityStethacanthus tadpole = UPEntities.STETHACANTHUS.get().create(level);
+            EntityBabyDunk tadpole = UPEntities.BABY_DUNK.get().create(level);
             if (tadpole != null) {
                 double x = (double)pos.getX() + this.getSpawnOffset(random);
                 double z = (double)pos.getZ() + this.getSpawnOffset(random);

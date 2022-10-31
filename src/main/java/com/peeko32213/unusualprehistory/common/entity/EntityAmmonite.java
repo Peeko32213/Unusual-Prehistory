@@ -156,7 +156,7 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
     }
 
     public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.fromBucket();
+        return super.requiresCustomPersistence() || this.fromBucket()|| this.hasCustomName();
     }
 
     public boolean removeWhenFarAway(double p_213397_1_) {

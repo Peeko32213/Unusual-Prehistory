@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -19,7 +20,7 @@ public class AnuroPolinateGoal extends MoveToBlockGoal {
 
     private EntityAnurognathus anuro;
     private int idleAtFlowerTime = 0;
-    private boolean isAboveDestinationBear;
+    private boolean isAboveDestination;
 
     public AnuroPolinateGoal(EntityAnurognathus anuro) {
         super(anuro, 1D, 32, 8);
@@ -42,16 +43,16 @@ public class AnuroPolinateGoal extends MoveToBlockGoal {
         super.tick();
         BlockPos blockpos = this.getMoveToTarget();
         if (!isWithinXZDist(blockpos, this.mob.position(), this.acceptedDistance())) {
-            this.isAboveDestinationBear = false;
+            this.isAboveDestination = false;
             ++this.tryTicks;
             double speedLoc = speedModifier;
             if(this.mob.distanceToSqr(blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D) >= 3){
-                speedLoc = speedModifier * 0.3D;
+                speedLoc = speedModifier * 0.8D;
             }
             this.mob.getMoveControl().setWantedPosition((double) ((float) blockpos.getX()) + 0.5D, blockpos.getY(), (double) ((float) blockpos.getZ()) + 0.5D, speedLoc);
 
         } else {
-            this.isAboveDestinationBear = true;
+            this.isAboveDestination = true;
             --this.tryTicks;
         }
 
@@ -67,6 +68,8 @@ public class AnuroPolinateGoal extends MoveToBlockGoal {
 
     }
 
+
+
     private boolean isGrowable(BlockPos pos, ServerLevel world) {
         BlockState blockstate = world.getBlockState(pos);
         Block block = blockstate.getBlock();
@@ -78,7 +81,7 @@ public class AnuroPolinateGoal extends MoveToBlockGoal {
     }
 
     protected boolean isReachedTarget() {
-        return this.isAboveDestinationBear;
+        return this.isAboveDestination;
     }
 
     private void pollinate() {
