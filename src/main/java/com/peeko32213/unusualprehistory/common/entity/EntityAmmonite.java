@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.util.SchoolingWaterAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -102,10 +103,9 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
         return SoundEvents.COD_DEATH;
     }
 
-    protected SoundEvent getHurtSound(DamageSource p_28281_) {
-        return SoundEvents.COD_HURT;
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return SoundEvents.SHULKER_HURT_CLOSED;
     }
-
     protected SoundEvent getFlopSound() {
         return SoundEvents.COD_FLOP;
     }

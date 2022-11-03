@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:analyzing",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:raw_coty"
+    }
+  ],
+  "output": "unusualprehistory:gameplay/analyzer/raw_coty"
+}

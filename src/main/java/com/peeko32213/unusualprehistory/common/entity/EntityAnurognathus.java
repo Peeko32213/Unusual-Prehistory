@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.google.common.base.Predicate;
 import com.peeko32213.unusualprehistory.common.entity.util.*;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
@@ -229,6 +231,20 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         this.setCropsPollinated(compound.getInt("CropsPollinated"));
         this.pollinateCooldown = compound.getInt("PollinateCooldown");
     }
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.ANURO_IDLE;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.ANURO_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.ANURO_DEATH;
+    }
+
+
 
     public Vec3 getBlockGrounding(Vec3 fleePos) {
         float radius = 10 + this.getRandom().nextInt(15);

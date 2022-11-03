@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:analyzing",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:raw_stetha"
+    }
+  ],
+  "output": "unusualprehistory:gameplay/analyzer/raw_stetha"
+}

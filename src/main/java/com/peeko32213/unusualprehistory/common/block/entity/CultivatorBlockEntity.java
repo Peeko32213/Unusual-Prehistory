@@ -74,7 +74,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     private int progress = 0;
     private int maxProgress = 1152;
     private int fuel = 0;
-    private int maxFuel = 228;
+    private int maxFuel = 790;
 
     @Override
     public Component getDisplayName() {

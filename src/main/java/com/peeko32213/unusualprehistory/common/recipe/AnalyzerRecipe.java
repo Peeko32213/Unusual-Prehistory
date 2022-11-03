@@ -43,9 +43,11 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
         this.recipeItems = recipeItems;
     }
 
+
+
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        return recipeItems.get(0).test(pContainer.getItem(1));
+        return !recipeItems.isEmpty() && recipeItems.get(0).test(pContainer.getItem(1));
     }
 
     @Override

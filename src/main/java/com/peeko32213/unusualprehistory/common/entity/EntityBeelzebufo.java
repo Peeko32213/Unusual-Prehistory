@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -9,6 +11,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -31,6 +34,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.AnimationState;
@@ -78,11 +82,8 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(2, new EntityBeelzebufo.IMeleeAttackGoal());
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Bee.class, true));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Silverfish.class, true));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Chicken.class, true));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Rabbit.class, true));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, CaveSpider.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.BEELZE_TARGETS)));
+
     }
 
 
@@ -104,6 +105,7 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
             this.setLastHurtMob(target);
         }
         if (shouldHurt && target instanceof LivingEntity livingEntity) {
+            this.playSound(UPSounds.BEELZE_ATTACK, 0.1F, 1.0F);
             if(random.nextInt(15) == 0 && this.getTarget() instanceof Rabbit){
                 this.spawnAtLocation(UPItems.FROG_SALIVA.get());
             }
@@ -264,6 +266,21 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         return !this.hasCustomName();
     }
 
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.BEELZE_IDLE;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.BEELZE_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.BEELZE_DEATH;
+    }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(SoundEvents.COW_STEP, 0.15F, 1.0F);
+    }
 
     public void positionRider(Entity passenger) {
         float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));

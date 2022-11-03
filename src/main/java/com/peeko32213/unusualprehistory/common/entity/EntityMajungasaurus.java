@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavig
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -114,9 +115,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(9, new ResetUniversalAngerTargetGoal<>(this, true));
         this.targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(this, Animal.class, 10, false, false, (p_28604_) -> {
-            return p_28604_ instanceof Chicken || p_28604_ instanceof Rabbit || p_28604_ instanceof Cow || p_28604_ instanceof Sheep || p_28604_ instanceof Horse; }));
-        this.targetSelector.addGoal(10, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.MAJUNGA_TARGETS)));
         this.goalSelector.addGoal(11, new RandomStrollGoal(this, 1.35D, 30) {
 
             @Override
@@ -190,7 +189,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
 
     public boolean doHurtTarget(Entity entityIn) {
         if (super.doHurtTarget(entityIn)) {
-            this.playSound(UPSounds.MAJUNGA_ATTACK, this.getSoundVolume(), this.getVoicePitch());
+            this.playSound(UPSounds.MAJUNGA_ATTACK, 0.1F, 1.0F);
             return true;
         } else {
             return false;

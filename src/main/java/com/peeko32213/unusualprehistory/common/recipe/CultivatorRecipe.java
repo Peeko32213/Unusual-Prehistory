@@ -41,7 +41,7 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        return recipeItems.get(0).test(pContainer.getItem(0));
+        return !recipeItems.isEmpty() && recipeItems.get(0).test(pContainer.getItem(0));
     }
 
     @Override
@@ -138,4 +138,7 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
             return (Class<G>)cls;
         }
     }
+
+
+
 }

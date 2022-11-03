@@ -22,6 +22,27 @@ public class UPSounds {
 
     public static final SoundEvent MAJUNGA_STEP = createSoundEvent("majunga_step");
 
+    public static final SoundEvent ANURO_IDLE = createSoundEvent("anuro_idle");
+
+    public static final SoundEvent ANURO_HURT = createSoundEvent("anuro_hurt");
+
+    public static final SoundEvent ANURO_DEATH = createSoundEvent("anuro_death");
+
+    public static final SoundEvent COTY_IDLE = createSoundEvent("coty_idle");
+
+    public static final SoundEvent COTY_HURT = createSoundEvent("coty_hurt");
+
+    public static final SoundEvent COTY_DEATH = createSoundEvent("coty_death");
+
+    public static final SoundEvent DUNK_ATTACK = createSoundEvent("dunk_attack");
+
+    public static final SoundEvent BEELZE_IDLE = createSoundEvent("beelze_idle");
+
+    public static final SoundEvent BEELZE_HURT = createSoundEvent("beelze_hurt");
+
+    public static final SoundEvent BEELZE_ATTACK = createSoundEvent("beelze_attack");
+
+    public static final SoundEvent BEELZE_DEATH = createSoundEvent("beelze_death");
 
     private static SoundEvent createSoundEvent(final String soundName) {
         final ResourceLocation soundID = new ResourceLocation(UnusualPrehistory.MODID, soundName);

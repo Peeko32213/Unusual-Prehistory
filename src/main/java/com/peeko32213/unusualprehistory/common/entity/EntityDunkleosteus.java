@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.util.SwimmingMoveControlSink;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -64,7 +66,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         this.goalSelector.addGoal(2, new EntityDunkleosteus.IMeleeAttackGoal());
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, EntityAmmonite.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.DUNK_TARGETS)));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::isAngryAt));
         this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0D, 1) {
             @Override
@@ -228,4 +230,14 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         }
 
     }
+
+    public boolean doHurtTarget(Entity entityIn) {
+        if (super.doHurtTarget(entityIn)) {
+            this.playSound(UPSounds.DUNK_ATTACK, 0.1F, 1.0F);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

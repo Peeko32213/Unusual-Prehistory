@@ -61,5 +61,146 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.majunga_stomp"
+  },
+  "anuro_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:anuro_idle_0"
+      },
+      {
+        "name": "unusualprehistory:anuro_idle_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.anuro_idle"
+  },
+  "anuro_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:anuro_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:anuro_hurt_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.anuro_hurt"
+  },
+  "anuro_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:anuro_death_0"
+      },
+      {
+        "name": "unusualprehistory:anuro_death_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.anuro_death"
+  },
+  "coty_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:coty_idle_0"
+      },
+      {
+        "name": "unusualprehistory:coty_idle_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.coty_idle"
+  },
+  "coty_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:coty_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:coty_hurt_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.coty_hurt"
+  },
+  "coty_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:coty_death_0"
+      },
+      {
+        "name": "unusualprehistory:coty_death_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.coty_death"
+  },
+  "dunk_attack": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:dunk_attack_0"
+      },
+      {
+        "name": "unusualprehistory:dunk_attack_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.dunk_attack"
+  },
+  "beelze_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:beelze_idle_0"
+      },
+      {
+        "name": "unusualprehistory:beelze_idle_1"
+      },
+      {
+        "name": "unusualprehistory:beelze_idle_2"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.beelze_idle"
+  },
+  "beelze_attack": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:beelze_attack_0"
+      },
+      {
+        "name": "unusualprehistory:beelze_attack_1"
+      },
+      {
+        "name": "unusualprehistory:beelze_attack_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.beelze_attack"
+  },
+  "beelze_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:beelze_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:beelze_hurt_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.beelze_hurt"
+  },
+  "beelze_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:beelze_death_0"
+      },
+      {
+        "name": "unusualprehistory:beelze_death_1"
+      },
+      {
+        "name": "unusualprehistory:beelze_death_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.beelze_death"
   }
 }
