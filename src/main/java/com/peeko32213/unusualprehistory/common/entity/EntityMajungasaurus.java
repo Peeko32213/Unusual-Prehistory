@@ -20,6 +20,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -35,9 +36,11 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
@@ -82,11 +85,11 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 25.0D)
+                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.ARMOR, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D)
-                .add(Attributes.FOLLOW_RANGE, 12.0D);
+                .add(Attributes.ATTACK_DAMAGE, 8.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D);
     }
 
     @Override
@@ -103,7 +106,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MajungaMeleeAttackGoal(this, 1.2D, false));
+        this.goalSelector.addGoal(1, new MajungaMeleeAttackGoal(this, 1.5D, false));
         this.goalSelector.addGoal(2, new MajungaPrepareChargeGoal(this));
         this.goalSelector.addGoal(3, new MajungaChargeGoal(this, 2.5F));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
@@ -111,39 +114,9 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new BabyHurtByTargetGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(9, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.MAJUNGA_TARGETS)));
-        this.goalSelector.addGoal(11, new RandomStrollGoal(this, 1.35D, 30) {
-
-            @Override
-            public boolean canUse() {
-                if (this.mob.isVehicle()) {
-                    return false;
-                } else {
-                    if (!this.forceTrigger) {
-                        if (this.mob.getNoActionTime() >= 100) {
-                            return false;
-                        }
-                    }
-
-                    Vec3 vec3d = this.getPosition();
-                    if (vec3d == null) {
-                        return false;
-                    } else {
-                        this.wantedX = vec3d.x;
-                        this.wantedY = vec3d.y;
-                        this.wantedZ = vec3d.z;
-                        this.forceTrigger = false;
-                        return true;
-                    }
-                }
-            }
-
-        });
-        this.targetSelector.addGoal(2, new MajungaNearestAttackablePlayerTargetGoal(this));
     }
 
     @Nullable
@@ -479,7 +452,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
                 this.mob.jumpFromGround();
             }
             if (this.mob.level.getGameTime() % 2L == 0L) {
-                this.mob.playSound(SoundEvents.HOGLIN_STEP, 0.5F, this.mob.getVoicePitch());
+                this.mob.playSound(UPSounds.MAJUNGA_STEP, 0.5F, this.mob.getVoicePitch());
             }
             this.tryToHurt();
         }
@@ -504,34 +477,6 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         }
     }
 
-    static class MajungaNearestAttackablePlayerTargetGoal extends NearestAttackableTargetGoal<Player> {
-        private final EntityMajungasaurus majunga;
-
-        public MajungaNearestAttackablePlayerTargetGoal(EntityMajungasaurus mob) {
-            super(mob, Player.class, 10, true, true, EntitySelector.NO_CREATIVE_OR_SPECTATOR::test);
-            this.majunga = mob;
-        }
-
-        @Override
-        public boolean canUse() {
-            if (this.majunga.isBaby()) {
-                return false;
-            }
-            if (super.canUse()) {
-                if (!majunga.isWithinYRange(target)) {
-                    return false;
-                }
-                List<EntityMajungasaurus> nearbyEntities = this.majunga.level.getEntitiesOfClass(EntityMajungasaurus.class, this.majunga.getBoundingBox().inflate(8.0, 4.0, 8.0));
-                for (EntityMajungasaurus mob : nearbyEntities) {
-                    if (!mob.isBaby()) continue;
-                    return true;
-                }
-            }
-            return false;
-        }
-
-    }
-
     static class MajungaMeleeAttackGoal extends MeleeAttackGoal {
 
         public MajungaMeleeAttackGoal(PathfinderMob pathfinderMob, double speedModifier, boolean followEvenIfNotSeen) {
@@ -548,10 +493,21 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.8F + p_25556_.getBbWidth());
+            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.9F + p_25556_.getBbWidth());
         }
 
     }
 
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
+        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
+        Level level = p_28134_.getLevel();
+        if (level instanceof ServerLevel) {
+            {
+                this.setPersistenceRequired();
+            }
+        }
+        return p_28137_;
+    }
 
 }

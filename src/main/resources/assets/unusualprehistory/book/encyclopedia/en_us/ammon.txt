@@ -2,10 +2,10 @@
 <NEWLINE>
 <NEWLINE>
 <NEWLINE>
-A rather broad group of shelled cephalopods found commonly throughout history, only going extinct during the
-Cretaceous–Paleogene extinction event. These animals filled a variety of niches from small filter feeders to stealthy predators.
-They can be captured in buckets and be transplanted to other bodies of water or aquariums.
+A rather broad group of cephalopods that lived all throughout time, only going extinct during at the end of the cretaceous
+period. Like many smaller aquatic animals, they can be bucketed.
 <NEWLINE>
-On death they drop shell shards which can be used to create a full ammonite shell, a must-have for many fossil collectors, or a War Pick.
 <NEWLINE>
- War picks are equally good at mining as they are in combat situations, allowing for good damage in combat situations.
+<NEWLINE>
+On death these animals drop shell shards, which can be used to recreate
+an ammonite shell or it can be made into a war pick. war picks act as both a way to mine and engage in combat.

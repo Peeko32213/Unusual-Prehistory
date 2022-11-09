@@ -6,8 +6,8 @@
     {
       "entity": "unusualprehistory:majunga_render",
       "x": 230,
-      "y": 10,
-      "page" : 2,
+      "y": 40,
+      "page" : 0,
       "scale": 1.2,
       "entity_scale": 1.1,
       "offset_x": -8,
@@ -18,8 +18,8 @@
     {
       "entity": "unusualprehistory:anuro_render",
       "x": 260,
-      "y": 10,
-      "page" : 2,
+      "y": 40,
+      "page" : 0,
       "scale": 1.2,
       "entity_scale": 1.5,
       "offset_x": -12,
@@ -30,8 +30,8 @@
     {
       "entity": "unusualprehistory:ammon_render",
       "x": 290,
-      "y": 10,
-      "page" : 2,
+      "y": 40,
+      "page" : 0,
       "scale": 1.2,
       "entity_scale": 2.2,
       "offset_x": -25,
@@ -42,8 +42,8 @@
     {
       "entity": "unusualprehistory:beelz_render",
       "x": 320,
-      "y": 10,
-      "page" : 2,
+      "y": 40,
+      "page" : 0,
       "scale": 1.2,
       "entity_scale": 1.1,
       "offset_x": -4,
@@ -54,8 +54,8 @@
     {
       "entity": "unusualprehistory:dunk_render",
       "x": 350,
-      "y": 10,
-      "page" : 2,
+      "y": 40,
+      "page" : 0,
       "scale": 1.2,
       "entity_scale": 0.8,
       "offset_x": -5,
@@ -66,8 +66,8 @@
     {
       "entity": "unusualprehistory:coty_render",
       "x": 230,
-      "y": 40,
-      "page" : 2,
+      "y": 80,
+      "page" : 0,
       "scale": 1.2,
       "entity_scale": 0.8,
       "offset_x": -5,
@@ -78,17 +78,37 @@
     {
       "entity": "unusualprehistory:stetha_render",
       "x": 260,
-      "y": 40,
-      "page" : 2,
+      "y": 80,
+      "page" : 0,
       "scale": 1.2,
       "entity_scale": 2.6,
       "offset_x": -32,
       "offset_y": -30,
       "linked_page": "stethacanthus.json",
       "hover_text": "Stethacanthus"
+    },
+    {
+      "entity": "unusualprehistory:scau_render",
+      "x": 290,
+      "y": 80,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 2.2,
+      "offset_x": -25,
+      "offset_y": -25,
+      "linked_page": "scau.json",
+      "hover_text": "Scaumenacia"
     }
-    ],
+  ],
   "linked_page_buttons": [
+    {
+      "linked_page": "tutorial.json",
+      "text": "How to Revive Mobs",
+      "x": 300,
+      "y": 10,
+      "page": 0,
+      "item" : "unusualprehistory:stone_fossil"
+    }
   ],
   "images": [
 
@@ -100,46 +120,9 @@
       "y": 14,
       "page" : 0,
       "scale": 2.75
-    },
-    {
-      "item" : "unusualprehistory:deepslate_fossil",
-      "x": 200,
-      "y": 10,
-      "page" : 0,
-      "scale": 1.2
-    },
-    {
-      "item" : "unusualprehistory:stone_fossil",
-      "x": 230,
-      "y": 10,
-      "page" : 0,
-      "scale": 1.2
-    },
-    {
-      "item" : "unusualprehistory:plant_fossil",
-      "x": 260,
-      "y": 10,
-      "page" : 0,
-      "scale": 1.2
     }
   ],
   "recipes": [
-    {
-      "recipe": "unusualprehistory:analyzer",
-      "shapeless": false,
-      "x": 25,
-      "y": 14,
-      "page": 1,
-      "scale": 1.2
-    },
-    {
-      "recipe": "unusualprehistory:cultivator",
-      "shapeless": false,
-      "x": 210,
-      "y": 40,
-      "page": 1,
-      "scale": 1.2
-    }
   ],
 
   "entity_renders": [

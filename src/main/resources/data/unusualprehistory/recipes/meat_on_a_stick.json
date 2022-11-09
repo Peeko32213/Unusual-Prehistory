@@ -1,21 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "  S",
-    " ST",
-    "S M"
-  ],
-  "key": {
-    "S": {
-      "item": "minecraft:stick"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:fishing_rod"
     },
-    "T": {
-      "item": "minecraft:string"
-    },
-    "M": {
-      "item": "minecraft:beef"
+    {
+      "item": "minecraft:raw_coty"
     }
-  },
+  ],
   "result": {
     "item": "unusualprehistory:meat_on_a_stick"
   }

@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.util.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -15,6 +16,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,15 +27,20 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.DismountHelper;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -47,45 +54,135 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
-public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable, ItemSteerable {
-    private final AnimationFactory factory = new AnimationFactory(this);
-    private static final EntityDataAccessor<Boolean> DATA_SADDLE_ID = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> DATA_BOOST_TIME = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.INT);
+public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRideableJumping {
+    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Byte> DATA_FLAG = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BYTE);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.BEEF, Items.PORKCHOP, Items.CHICKEN);
-    private final ItemBasedSteering steering = new ItemBasedSteering(this.entityData, DATA_BOOST_TIME, DATA_SADDLE_ID);
+    private static final int FLAG_STANDING = 32;
+
+    private final AnimationFactory factory = new AnimationFactory(this);
+    protected float playerJumpPendingScale;
+    private boolean allowStandSliding;
+    private int standCounter;
+    protected boolean isJumping;
+
+
 
     public EntityBeelzebufo(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
 
-    @Override
-    protected PathNavigation createNavigation(Level level) {
-        return new LandCreaturePathNavigation(this, level);
-    }
-
-
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.13D)
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, 30D)
+                .add(Attributes.ARMOR, 0.0D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0D)
-                .add(Attributes.FOLLOW_RANGE, 12.0D);
+                .add(Attributes.MOVEMENT_SPEED, 0.23F)
+                .add(Attributes.JUMP_STRENGTH);
     }
 
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, FOOD_ITEMS, false));
-        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
+        this.goalSelector.addGoal(2, new CustomRideGoal(this, 1.5D));
+        this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1D, 50));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(2, new EntityBeelzebufo.IMeleeAttackGoal());
+        this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2, new EntityBeelzebufo.IMeleeAttackGoal());
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.BEELZE_TARGETS)));
 
     }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SADDLED, Boolean.valueOf(false));
+        this.entityData.define(DATA_FLAG, (byte)0);
+
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setSaddled(compound.getBoolean("Saddle"));
+
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("Saddle", this.isSaddled());
+    }
+
+    public void tick() {
+        super.tick();
+        if(this.getControllingPassenger() != null && this.getControllingPassenger() instanceof Player){
+            Player rider = (Player)this.getControllingPassenger();
+        }
+        if ((this.isControlledByLocalInstance() || this.isEffectiveAi()) && this.standCounter > 0 && ++this.standCounter > 20) {
+            this.standCounter = 0;
+            this.setStanding(false);
+        }
+    }
+
+    public void travel(Vec3 p_30633_) {
+        if (this.isAlive()) {
+            if (this.isVehicle() && this.canBeControlledByRider() && this.isSaddled()) {
+                LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
+                this.setYRot(livingentity.getYRot());
+                this.yRotO = this.getYRot();
+                this.setXRot(livingentity.getXRot() * 0.5F);
+                this.setRot(this.getYRot(), this.getXRot());
+                this.yBodyRot = this.getYRot();
+                this.yHeadRot = this.yBodyRot;
+                float f = livingentity.xxa * 0.5F;
+                float f1 = livingentity.zza;
+
+                if (this.onGround && this.playerJumpPendingScale == 0.0F && this.isStanding() && !this.allowStandSliding) {
+                    f = 0.0F;
+                    f1 = 0.0F;
+                }
+
+                if (this.playerJumpPendingScale > 0.0F && !this.isJumping() && this.onGround) {
+                    double d0 = this.getCustomJump() * (double)this.playerJumpPendingScale * (double)this.getBlockJumpFactor();
+                    double d1 = d0 + this.getJumpBoostPower();
+                    Vec3 vec3 = this.getDeltaMovement();
+                    this.setDeltaMovement(vec3.x, d1, vec3.z);
+                    this.setIsJumping(true);
+                    this.hasImpulse = true;
+                    net.minecraftforge.common.ForgeHooks.onLivingJump(this);
+                    if (f1 > 0.0F) {
+                        float f2 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F));
+                        float f3 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F));
+                        this.setDeltaMovement(this.getDeltaMovement().add((double)(-0.4F * f2 * this.playerJumpPendingScale), 0.0D, (double)(0.4F * f3 * this.playerJumpPendingScale)));
+                    }
+
+                    this.playerJumpPendingScale = 0.0F;
+                }
+
+                this.flyingSpeed = this.getSpeed() * 0.1F;
+                if (this.isControlledByLocalInstance()) {
+                    this.setSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    super.travel(new Vec3((double)f, p_30633_.y, (double)f1));
+                } else if (livingentity instanceof Player) {
+                    this.setDeltaMovement(Vec3.ZERO);
+                }
+
+                if (this.onGround) {
+                    this.playerJumpPendingScale = 0.0F;
+                    this.setIsJumping(false);
+                }
+
+                this.calculateEntityAnimation(this, false);
+                this.tryCheckInsideBlocks();
+            } else {
+                this.flyingSpeed = 0.02F;
+                super.travel(p_30633_);
+            }
+        }
+    }
 
     @Override
     public boolean doHurtTarget(Entity target) {
@@ -106,157 +203,72 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         }
         if (shouldHurt && target instanceof LivingEntity livingEntity) {
             this.playSound(UPSounds.BEELZE_ATTACK, 0.1F, 1.0F);
-            if(random.nextInt(15) == 0 && this.getTarget() instanceof Rabbit){
+            if(random.nextInt(15) == 0 && this.getTarget() instanceof LivingEntity){
                 this.spawnAtLocation(UPItems.FROG_SALIVA.get());
             }
         }
         return shouldHurt;
     }
 
-
-
-
-
-    private float getAttackDamage() {
-        return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-    }
-
-
     @Nullable
     public Entity getControllingPassenger() {
-        return this.getFirstPassenger();
-    }
-
-    public boolean canBeControlledByRider() {
-        Entity entity = this.getControllingPassenger();
-        if (!(entity instanceof Player)) {
-            return false;
-        } else {
-            Player player = (Player)entity;
-            return player.getMainHandItem().is(UPItems.MEAT_ON_A_STICK.get()) || player.getOffhandItem().is(UPItems.MEAT_ON_A_STICK.get());
-        }
-    }
-
-    public void onSyncedDataUpdated(EntityDataAccessor<?> p_29480_) {
-        if (DATA_BOOST_TIME.equals(p_29480_) && this.level.isClientSide) {
-            this.steering.onSynced();
-        }
-
-        super.onSyncedDataUpdated(p_29480_);
-    }
-
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_SADDLE_ID, false);
-        this.entityData.define(DATA_BOOST_TIME, 0);
-    }
-
-    public void addAdditionalSaveData(CompoundTag p_29495_) {
-        super.addAdditionalSaveData(p_29495_);
-        this.steering.addAdditionalSaveData(p_29495_);
-    }
-
-    public void readAdditionalSaveData(CompoundTag p_29478_) {
-        super.readAdditionalSaveData(p_29478_);
-        this.steering.readAdditionalSaveData(p_29478_);
-    }
-
-    public InteractionResult mobInteract(Player p_29489_, InteractionHand p_29490_) {
-        boolean flag = this.isFood(p_29489_.getItemInHand(p_29490_));
-        if (!flag && this.isSaddled() && !this.isVehicle() && !p_29489_.isSecondaryUseActive()) {
-            if (!this.level.isClientSide) {
-                p_29489_.startRiding(this);
-            }
-
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
-        } else {
-            InteractionResult interactionresult = super.mobInteract(p_29489_, p_29490_);
-            if (!interactionresult.consumesAction()) {
-                ItemStack itemstack = p_29489_.getItemInHand(p_29490_);
-                return itemstack.is(Items.SADDLE) ? itemstack.interactLivingEntity(p_29489_, this, p_29490_) : InteractionResult.PASS;
-            } else {
-                return interactionresult;
-            }
-        }
-    }
-
-    public boolean isSaddleable() {
-        return this.isAlive() && !this.isBaby();
-    }
-
-    protected void dropEquipment() {
-        super.dropEquipment();
-        if (this.isSaddled()) {
-            this.spawnAtLocation(Items.SADDLE);
-        }
-
-    }
-
-    public boolean isSaddled() {
-        return this.steering.hasSaddle();
-    }
-
-    public void equipSaddle(@Nullable SoundSource p_29476_) {
-        this.steering.setSaddle(true);
-        if (p_29476_ != null) {
-            this.level.playSound((Player)null, this, SoundEvents.PIG_SADDLE, p_29476_, 0.5F, 1.0F);
-        }
-
-    }
-
-    public Vec3 getDismountLocationForPassenger(LivingEntity p_29487_) {
-        Direction direction = this.getMotionDirection();
-        if (direction.getAxis() == Direction.Axis.Y) {
-            return super.getDismountLocationForPassenger(p_29487_);
-        } else {
-            int[][] aint = DismountHelper.offsetsForDirection(direction);
-            BlockPos blockpos = this.blockPosition();
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-
-            for(Pose pose : p_29487_.getDismountPoses()) {
-                AABB aabb = p_29487_.getLocalBoundsForPose(pose);
-
-                for(int[] aint1 : aint) {
-                    blockpos$mutableblockpos.set(blockpos.getX() + aint1[0], blockpos.getY(), blockpos.getZ() + aint1[1]);
-                    double d0 = this.level.getBlockFloorHeight(blockpos$mutableblockpos);
-                    if (DismountHelper.isBlockFloorValid(d0)) {
-                        Vec3 vec3 = Vec3.upFromBottomCenterOf(blockpos$mutableblockpos, d0);
-                        if (DismountHelper.canDismountTo(this.level, p_29487_, aabb.move(vec3))) {
-                            p_29487_.setPose(pose);
-                            return vec3;
-                        }
-                    }
+        for (Entity passenger : this.getPassengers()) {
+            if (passenger instanceof Player) {
+                Player player = (Player) passenger;
+                if (player.getMainHandItem().getItem() == UPItems.MEAT_ON_A_STICK.get() || player.getOffhandItem().getItem() == UPItems.MEAT_ON_A_STICK.get()) {
+                    return player;
                 }
             }
-
-            return super.getDismountLocationForPassenger(p_29487_);
         }
-    }
-
-    public void travel(Vec3 p_29506_) {
-        this.travel(this, this.steering, p_29506_);
-    }
-
-    public float getSteeringSpeed() {
-        return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.225F;
-    }
-
-    public void travelWithInput(Vec3 p_29482_) {
-        super.travel(p_29482_);
-    }
-
-    public boolean boost() {
-        return this.steering.boost(this.getRandom());
-    }
-
-    public Pig getBreedOffspring(ServerLevel p_149001_, AgeableMob p_149002_) {
         return null;
     }
 
-    public boolean isFood(ItemStack p_29508_) {
-        return FOOD_ITEMS.test(p_29508_);
+    public void positionRider(Entity passenger) {
+        float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));
+        float yCos = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));
+        passenger.setPos(this.getX() + (double)(0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 0.1F, this.getZ() - (double)(0.5F * yCos));
     }
 
+    public double getPassengersRidingOffset() {
+        return 0.6D;
+    }
+
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        Item item = itemstack.getItem();
+        if (item == Items.SADDLE && !this.isSaddled()) {
+            if (!player.isCreative()) {
+                itemstack.shrink(1);
+            }
+            this.setSaddled(true);
+            return InteractionResult.SUCCESS;
+        }
+        InteractionResult type = super.mobInteract(player, hand);
+        if (type != InteractionResult.SUCCESS && !isFood(itemstack)) {
+            if (!player.isShiftKeyDown() && this.isSaddled()) {
+                player.startRiding(this);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return type;
+    }
+
+    public boolean isFood(ItemStack stack) {
+        return stack.getItem() == Items.PORKCHOP;
+    }
+
+    public boolean isSaddled() {
+        return this.entityData.get(SADDLED).booleanValue();
+    }
+
+    public void setSaddled(boolean saddled) {
+        this.entityData.set(SADDLED, Boolean.valueOf(saddled));
+    }
+
+
+    protected float getWaterSlowDown() {
+        return 0.98F;
+    }
 
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.hasCustomName();
@@ -278,20 +290,15 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         return UPSounds.BEELZE_DEATH;
     }
 
-    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(SoundEvents.COW_STEP, 0.15F, 1.0F);
+    protected void dropEquipment() {
+        super.dropEquipment();
+        if (this.isSaddled()) {
+            if (!this.level.isClientSide) {
+                this.spawnAtLocation(Items.SADDLE);
+            }
+        }
+        this.setSaddled(false);
     }
-
-    public void positionRider(Entity passenger) {
-        float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));
-        float yCos = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));
-        passenger.setPos(this.getX() + (double)(0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 0.1F, this.getZ() - (double)(0.5F * yCos));
-    }
-
-    public double getPassengersRidingOffset() {
-        return 0.6D;
-    }
-
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
@@ -331,6 +338,87 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
         return factory;
     }
 
+    public void onPlayerJump(int p_30591_) {
+        if (this.isSaddled()) {
+            if (p_30591_ < 0) {
+                p_30591_ = 0;
+            } else {
+                this.allowStandSliding = true;
+                this.stand();
+            }
+
+            if (p_30591_ >= 90) {
+                this.playerJumpPendingScale = 1.0F;
+            } else {
+                this.playerJumpPendingScale = 0.4F + 0.4F * (float)p_30591_ / 90.0F;
+            }
+
+        }
+    }
+
+    public void setStanding(boolean p_30666_) {
+        this.setFlag(32, p_30666_);
+    }
+
+    private void stand() {
+        if (this.isControlledByLocalInstance() || this.isEffectiveAi()) {
+            this.standCounter = 1;
+            this.setStanding(true);
+        }
+
+    }
+
+    protected boolean getFlag(int p_30648_) {
+        return (this.entityData.get(DATA_FLAG) & p_30648_) != 0;
+    }
+
+    public boolean isStanding() {
+        return this.getFlag(32);
+    }
+
+    protected void setFlag(int p_30598_, boolean p_30599_) {
+        byte b0 = this.entityData.get(DATA_FLAG);
+        if (p_30599_) {
+            this.entityData.set(DATA_FLAG, (byte)(b0 | p_30598_));
+        } else {
+            this.entityData.set(DATA_FLAG, (byte)(b0 & ~p_30598_));
+        }
+
+    }
+
+    @Override
+    public boolean canJump() {
+        return this.isSaddled();
+    }
+
+    @Override
+    public void handleStartJump(int p_21695_)
+    {
+        this.allowStandSliding = true;
+        this.stand();
+    }
+
+    @Override
+    public void handleStopJump() {
+
+    }
+
+    protected double generateRandomJumpStrength() {
+        return (double)0.4F + this.random.nextDouble() * 0.2D + this.random.nextDouble() * 0.2D + this.random.nextDouble() * 0.2D;
+    }
+
+    public double getCustomJump() {
+        return this.getAttributeValue(Attributes.JUMP_STRENGTH);
+    }
+
+    public boolean isJumping() {
+        return this.isJumping;
+    }
+
+    public void setIsJumping(boolean p_30656_) {
+        this.isJumping = p_30656_;
+    }
+
     class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {
             super(EntityBeelzebufo.this, 1.0D, true);
@@ -340,6 +428,54 @@ public class EntityBeelzebufo extends Animal implements Saddleable, IAnimatable,
             return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
         }
 
+    }
+
+    protected void randomizeAttributes() {
+    }
+
+    public void travelWithInput(Vec3 p_29482_) {
+        super.travel(p_29482_);
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
+        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
+        Level level = p_28134_.getLevel();
+        if (level instanceof ServerLevel) {
+            {
+                this.setPersistenceRequired();
+            }
+        }
+        this.randomizeAttributes();
+        return p_28137_;
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
+        return null;
+    }
+
+    public boolean causeFallDamage(float p_149499_, float p_149500_, DamageSource p_149501_) {
+
+        int i = this.calculateFallDamage(p_149499_, p_149500_);
+        if (i <= 0) {
+            return false;
+        } else {
+            this.hurt(p_149501_, (float)i);
+            if (this.isVehicle()) {
+                for(Entity entity : this.getIndirectPassengers()) {
+                    entity.hurt(p_149501_, (float)i);
+                }
+            }
+
+            this.playBlockFallSound();
+            return true;
+        }
+    }
+
+    protected int calculateFallDamage(float p_149389_, float p_149390_) {
+        return super.calculateFallDamage(p_149389_, p_149390_) - 10;
     }
 
 }

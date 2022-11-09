@@ -19,7 +19,6 @@ import java.util.function.Supplier;
 
 public class UPBlocks {
 
-
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
             UnusualPrehistory.MODID);
 
@@ -57,6 +56,10 @@ public class UPBlocks {
             () -> new BlockDunkEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noDrops().noOcclusion().noCollission()),
             entry -> new WaterLilyBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final Supplier<Block> SCAU_EGGS = create("scau_eggs",
+            () -> new BlockScauEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noDrops().noOcclusion().noCollission()),
+            entry -> new WaterLilyBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     public static final RegistryObject<Block> ANURO_EGG = registerBlock("anuro_eggs",
             () -> new BlockAnuroEggs());
 
@@ -70,7 +73,8 @@ public class UPBlocks {
             () -> new BlockAmmoniteShell(BlockBehaviour.Properties.of(Material.EGG).strength(0.5F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail",
-            () -> new FlowerBlock(MobEffects.MOVEMENT_SLOWDOWN, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
+            () -> new BlockUPPlant(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
+
 
     public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutBlockItem("potted_horsetail",
             () -> new FlowerPotBlock(null, UPBlocks.HORSETAIL, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));

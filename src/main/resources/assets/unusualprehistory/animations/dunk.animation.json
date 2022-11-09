@@ -26,9 +26,9 @@
 					},
 					"position": {
 						"vector": [
-							"Math.sin((query.anim_time - 0.1) * 180) * -0.5",
-							"Math.cos((query.anim_time - 0.1) * 180) * -0.5",
-							"Math.cos((query.anim_time - 0.1) * 180) * -0.5"
+							"Math.sin((query.anim_time - 0.1) * 180) * -0.1",
+							"Math.cos((query.anim_time - 0.1) * 180) * -0.1",
+							"Math.cos((query.anim_time - 0.1) * 180) * -0.1"
 						]
 					}
 				},
@@ -39,7 +39,7 @@
 				},
 				"Tailfin": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.8) * 180) * 20", 0]
+						"vector": [0, "Math.cos((query.anim_time - 0.8) * 180) * 35", 0]
 					}
 				},
 				"Backfin1": {
@@ -59,7 +59,7 @@
 				},
 				"BackBody": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.4) * 180) * 20", 0]
+						"vector": [0, "Math.cos((query.anim_time - 0.4) * 180) * 25", 0]
 					}
 				}
 			}

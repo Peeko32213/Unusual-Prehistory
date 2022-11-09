@@ -2,14 +2,13 @@
 <NEWLINE>
 <NEWLINE>
 <NEWLINE>
-Strange island - borne abelisaurs of the late cretaceous, these natives of Madagascar were thought to be pachycephalosaurs
-in times long forgotten, but the current scientific consensus for these strange theropods are that they are closely related
-to other abelisaurs such as rugops and rajasaurus. A Majungasaurus’ binocular eyes allow them to track mobile prey with ease,
-and their powerfully long legs propel them towards their prey with a surprising burst of speed.
+Strange island-borne abelisaurs of the late cretaceous. A Majungasaurus’ binocular eyes allow them to track mobile prey with ease,
+and their powerfully long legs propel them towards their prey with a surprising burst of speed.They are not the most skittish
+of creatures within their group, but an agitated Majungasaurus will charge at their stressor at a dangerous speed. Do be wary
+keeping individuals together, as the species is known for cannibalism.
 <NEWLINE>
-They are not the most skittish of creatures within their group, but an agitated Majungasaurus will charge at their
-stressor at a dangerous speed. Their singular cephalic horn is not sufficient to penetrate a shield however,
-and a loosened scute or two is typically enough to discourage an annoyed Majungasaurus from advancing its offence.
+heir horn is not tough enough to penetrate a shield, if they ram into a shield they may get stunned and scutes on their
+heads may loosen and fall off, these can be collected by the player. These scutes can be made into a helmet that grants strengths.
 
 
 

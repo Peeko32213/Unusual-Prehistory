@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.core.event;
 import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
+import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBeelzebufoTadpole;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
@@ -36,7 +37,8 @@ public class CommonEvents {
         event.put(UPEntities.DUNK.get(), EntityDunkleosteus.createAttributes().build());
         event.put(UPEntities.COTY.get(), EntityCotylorhynchus.createAttributes().build());
         event.put(UPEntities.BEELZE_TADPOLE.get(), EntityBeelzebufoTadpole.createAttributes().build());
-        event.put(UPEntities.BABY_DUNK.get(), EntityDunkleosteus.createAttributes().build());
+        event.put(UPEntities.BABY_DUNK.get(), EntityBabyDunk.createAttributes().build());
+        event.put(UPEntities.SCAU.get(), EntityStethacanthus.createAttributes().build());
 
         event.put(UPEntities.AMMON_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.MAJUNGA_RENDER.get(), BaseEntityRender.createAttributes().build());
@@ -45,6 +47,8 @@ public class CommonEvents {
         event.put(UPEntities.BEELZ_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.ANURO_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.STETHA_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.SCAU_RENDER.get(), BaseEntityRender.createAttributes().build());
+
     }
 
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag){

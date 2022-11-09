@@ -14,7 +14,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.0'
+version = '1.0.1'
 group = 'com.peeko32213.unusualprehistory'
 archivesBaseName = 'unusualprehistory'
 
@@ -96,12 +96,10 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
     maven {
-        // Location of the maven that hosts JEI files (and TiC)
         name 'Progwml6 maven'
         url 'https://dvs1.progwml6.com/files/maven'
     }
     maven {
-        // Location of the maven for vazkii's mods
         name 'blamejared'
         url 'https://maven.blamejared.com'
     }
@@ -119,7 +117,7 @@ jar {
         attributes([
                 "Specification-Title"     : "unusualprehistory",
                 "Specification-Vendor"    : "Peeko32213",
-                "Specification-Version"   : "1.0", // We are version 1 of ourselves
+                "Specification-Version"   : "1.0.1", // We are version 1.0.1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "unusualprehistory",

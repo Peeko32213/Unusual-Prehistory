@@ -18,10 +18,13 @@ public class UPPlacedFeatures {
     public static void init() {
     }
 
-    public static final Holder<PlacedFeature> STONE_FOSSIL_ORE = registerPlacedFeature("stone_fossil_ore", UPConfiguredFeatures.STONE_FOSSIL_ORE, commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(58))));
-    public static final Holder<PlacedFeature> DEEPSLATE_FOSSIL_ORE = registerPlacedFeature("deepslate_fossil_ore", UPConfiguredFeatures.DEEPSLATE_FOSSIL_ORE, commonOrePlacement(30, HeightRangePlacement.uniform(VerticalAnchor.absolute(136), VerticalAnchor.top())));
+    public static final Holder<PlacedFeature> STONE_FOSSIL_ORE = registerPlacedFeature("stone_fossil_ore", UPConfiguredFeatures.STONE_FOSSIL_ORE, commonOrePlacement(10,
+            HeightRangePlacement.triangle(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(58))));
+    public static final Holder<PlacedFeature> DEEPSLATE_FOSSIL_ORE = registerPlacedFeature("deepslate_fossil_ore", UPConfiguredFeatures.DEEPSLATE_FOSSIL_ORE,  commonOrePlacement(15, // VeinsPerChunk
+            HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
 
-    public static final Holder<PlacedFeature> PLANT_FOSSIL_ORE = registerPlacedFeature("plant_fossil_ore", UPConfiguredFeatures.PLANT_FOSSIL_ORE, commonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48))));
+    public static final Holder<PlacedFeature> PLANT_FOSSIL_ORE = registerPlacedFeature("plant_fossil_ore", UPConfiguredFeatures.PLANT_FOSSIL_ORE, commonOrePlacement(10,
+            HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48))));
 
 
     public static <FC extends FeatureConfiguration> Holder<PlacedFeature> registerPlacedFeature(String id, Holder<ConfiguredFeature<FC, ?>> feature, PlacementModifier... placementModifiers) {

@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class MajungaRenderRenderer extends MobRenderer<BaseEntityRender, MajungaRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/majungasaurus_pane.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/majungasaurus2_render.png");
 
 	public MajungaRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new MajungaRenderModel<>(renderManagerIn.bakeLayer(MajungaRenderModel.LAYER_LOCATION)), 0.2F);

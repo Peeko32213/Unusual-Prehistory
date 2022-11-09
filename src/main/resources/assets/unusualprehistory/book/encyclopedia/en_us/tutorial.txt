@@ -1,0 +1,14 @@
+Revival of ancient beasts is a fairly straightforward process. The first step in this process is finding fossils.
+Fossils can be found in all layers in the world however depth affects age of them. There are 3 types of fossils:
+Paleozoic Fossils, Mesozoic Fossils, and Plant Fossils.
+<NEWLINE>
+<NEWLINE>
+To actually extract DNA however one must craft an Analyzer. Analyzers are a strange contraption
+that allows for the extraction of DNA from fossils. To actually use this machine you have to use
+flasks to hold the DNA in a stable place. This machine will then search for any traces
+of DNA in the fossil.
+<NEWLINE>
+<NEWLINE>
+Any DNA found will then have to be placed into a Cultivator. Cultivators are a curious machine that
+turns DNA into actual creatures. All one needs is DNA and some organic ooze, a curious slush of organic material
+that allows for the revival process.

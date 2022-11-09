@@ -4,7 +4,7 @@
   "item.unusualprehistory.encyclopedia": "Encyclopedia of Prehistory",
   "item.unusualprehistory.ammonite_shell_icon": "Ammonite Shell",
   "item.unusualprehistory.flask": "Flask",
-  "item.unusualprehistory.meat_on_a_stick": "Meat On A Stick",
+  "item.unusualprehistory.meat_on_a_stick": "Coty Chop On A Stick",
 
   "item.unusualprehistory.paleo_fossil": "Paleozoic Fossil",
   "item.unusualprehistory.mezo_fossil": "Mesozoic Fossil",
@@ -17,10 +17,13 @@
   "item.unusualprehistory.dunk_flask": "Dunkleosteus DNA Flask",
   "item.unusualprehistory.majunga_flask": "Majungasaurus DNA Flask",
   "item.unusualprehistory.stetha_flask": "Stethacanthus DNA Flask",
+  "item.unusualprehistory.scau_flask": "Scaumenacia DNA Flask",
   "item.unusualprehistory.stetha_bucket": "Bucket of Stethacanthus",
   "item.unusualprehistory.ammon_bucket": "Bucket of Ammonite",
   "item.unusualprehistory.beelze_bucket": "Bucket of Beelzebufo Tadpole",
   "item.unusualprehistory.dunk_bucket": "Bucket of Dunkleosteus",
+  "item.unusualprehistory.scau_bucket": "Bucket of Scaumenacia",
+
   "item.unusualprehistory.majunga_scute": "Majungasaurus Scute",
   "item.unusualprehistory.majunga_helmet": "Majungasaurus Helmet",
   "item.unusualprehistory.shell_shard": "Shell Shard",
@@ -31,8 +34,11 @@
   "item.unusualprehistory.warpick": "War Pick",
   "item.unusualprehistory.raw_stetha": "Raw Stethacanthus",
   "item.unusualprehistory.cooked_stetha": "Cooked Stethacanthus",
-  "item.unusualprehistory.raw_coty": "Raw Cotylorhynchus",
-  "item.unusualprehistory.cooked_coty": "Cooked Cotylorhynchus",
+  "item.unusualprehistory.raw_coty": "Raw Cotylorhynchus Chops",
+  "item.unusualprehistory.cooked_coty": "Cooked Cotylorhynchus Chops",
+  "item.unusualprehistory.raw_scau": "Raw Scaumenacia",
+  "item.unusualprehistory.cooked_scau": "Cooked Scaumenacia",
+  "item.unusualprehistory.golden_scau": "Golden Scaumenacia",
 
   "item.unusualprehistory.stetha_spawn_egg": "Stethacanthus Spawn Egg",
   "item.unusualprehistory.majunga_spawn_egg": "Majungasaurus Spawn Egg",
@@ -41,6 +47,7 @@
   "item.unusualprehistory.ammon_spawn_egg": "Ammonite Spawn Egg",
   "item.unusualprehistory.dunk_spawn_egg": "Dunkleosteus Spawn Egg",
   "item.unusualprehistory.coty_spawn_egg": "Cotylorhynchus Spawn Egg",
+  "item.unusualprehistory.scau_spawn_egg": "Scaumenacia Spawn Egg",
 
   "entity.unusualprehistory.stethacanthus": "Stethacanthus",
   "entity.unusualprehistory.majunga": "Majungasaurus",
@@ -51,6 +58,7 @@
   "entity.unusualprehistory.dunk": "Dunkleosteus",
   "entity.unusualprehistory.coty": "Cotylorhynchus",
   "entity.unusualprehistory.baby_dunk": "Baby Dunkleosteus",
+  "entity.unusualprehistory.scau": "Scaumenacia",
 
   "armor.unusualprehistory.majunga_helmet": "Majungasaurus Helmet",
 
@@ -73,6 +81,7 @@
   "block.unusualprehistory.tall_horsetail": "Tall Horsetail",
   "block.unusualprehistory.plant_fossil": "Plant Fossil Block",
   "block.unusualprehistory.deepslate_plant_fossil": "Deepslate Plant Fossil",
+  "block.unusualprehistory.scau_eggs": "Scaumenacia Eggs",
 
   "unusualprehistory.sound.subtitle.beelze_idle": "Massive Croaks",
   "unusualprehistory.sound.subtitle.beelze_attack": "Slimey Chomp",

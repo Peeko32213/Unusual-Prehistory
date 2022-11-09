@@ -32,6 +32,7 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.BEELZE_EGGS.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.AMON_EGGS.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.DUNK_EGGS.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.SCAU_EGGS.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.HORSETAIL.get(), RenderType.cutout());
@@ -59,6 +60,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.COTY.get(), CotylorhynchusRenderer::new);
         event.registerEntityRenderer(UPEntities.BEELZE_TADPOLE.get(), BeelzebufoTadpoleRenderer::new);
         event.registerEntityRenderer(UPEntities.BABY_DUNK.get(), BabyDunkRenderer::new);
+        event.registerEntityRenderer(UPEntities.SCAU.get(), ScaumenaciaRenderer::new);
 
         event.registerEntityRenderer(UPEntities.AMMON_RENDER.get(), AmmoniteRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.MAJUNGA_RENDER.get(), MajungaRenderRenderer::new);
@@ -67,6 +69,8 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.COTY_RENDER.get(), CotyRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.DUNK_RENDER.get(), DunkRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.STETHA_RENDER.get(), StethaRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.SCAU_RENDER.get(), ScaumenaciaRenderRenderer::new);
+
     }
 
     @SubscribeEvent
@@ -78,6 +82,7 @@ public final class ClientEvents {
         event.registerLayerDefinition(CotyRenderModel.LAYER_LOCATION, CotyRenderModel::createBodyLayer);
         event.registerLayerDefinition(DunkRenderModel.LAYER_LOCATION, DunkRenderModel::createBodyLayer);
         event.registerLayerDefinition(StethaRenderModel.LAYER_LOCATION, StethaRenderModel::createBodyLayer);
+        event.registerLayerDefinition(ScaumenaciaRenderModel.LAYER_LOCATION, ScaumenaciaRenderModel::createBodyLayer);
 
     }
 

@@ -7,6 +7,9 @@
     "minecraft:horse",
     "minecraft:chicken",
     "minecraft:rabbit",
-    "minecraft:llama"
+    "minecraft:llama",
+    "minecraft:turtle",
+    "unusualprehistory:coty",
+    "unusualprehistory:majunga"
   ]
 }

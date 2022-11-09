@@ -41,11 +41,6 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "unusualprehistory:tall_horsetail_flask"
-        },
-        {
-          "type": "minecraft:item",
           "weight": 2.5,
           "name": "unusualprehistory:leefructus_flask"
         }

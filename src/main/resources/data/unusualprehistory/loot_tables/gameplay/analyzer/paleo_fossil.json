@@ -26,6 +26,11 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 3,
+          "name": "unusualprehistory:scau_flask"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 2.5,
           "name": "unusualprehistory:coty_flask"
         },

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GSG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "unusualprehistory:cooked_scau"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:golden_scau"
+  }
+}
+
