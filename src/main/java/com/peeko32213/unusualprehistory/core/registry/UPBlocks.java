@@ -88,6 +88,17 @@ public class UPBlocks {
     public static final RegistryObject<Block> TALL_HORSETAIL = registerBlock("tall_horsetail",
             () -> new BlockUPTallPlant(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
 
+    public static final RegistryObject<Block> BENNETTITALES = registerBlock("bennett",
+            () -> new FlowerBlock(MobEffects.DIG_SPEED, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
+
+    public static final RegistryObject<Block> ARCHAEOSIGILARIA  = registerBlock("archaeos",
+            () -> new FlowerBlock(MobEffects.CONFUSION, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
+
+    public static final RegistryObject<Block> SARACENIA  = registerBlock("sarracenia",
+            () -> new FlowerBlock(MobEffects.NIGHT_VISION, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
+
+    public static final RegistryObject<Block> TALL_SARACENIA = registerBlock("tall_sarracenia",
+            () -> new BlockUPTallPlant(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

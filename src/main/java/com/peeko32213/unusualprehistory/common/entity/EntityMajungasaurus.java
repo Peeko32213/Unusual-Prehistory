@@ -70,13 +70,6 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     @javax.annotation.Nullable
     private UUID persistentAngerTarget;
     private int remainingPersistentAngerTime;
-    private static final Predicate<LivingEntity> ENEMY_MATCHER = (entity) -> {
-        if (entity == null) {
-            return false;
-        } else {
-            return !(entity instanceof EntityMajungasaurus) && !(entity instanceof Pig);
-        }
-    };
 
     public EntityMajungasaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);

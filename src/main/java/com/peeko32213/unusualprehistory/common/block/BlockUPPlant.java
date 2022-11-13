@@ -37,7 +37,7 @@ public class BlockUPPlant extends BushBlock implements BonemealableBlock {
 
     @Override
     public void performBonemeal(ServerLevel p_50893_, Random p_50894_, BlockPos p_50895_, BlockState p_50896_) {
-        DoublePlantBlock doubleplantblock = (DoublePlantBlock) (this == UPBlocks.HORSETAIL.get() ? UPBlocks.TALL_HORSETAIL.get() : UPBlocks.TALL_HORSETAIL.get());
+        DoublePlantBlock doubleplantblock = (DoublePlantBlock) (this == UPBlocks.HORSETAIL.get() ? UPBlocks.TALL_HORSETAIL.get() : UPBlocks.TALL_SARACENIA.get());
         if (doubleplantblock.defaultBlockState().canSurvive(p_50893_, p_50895_) && p_50893_.isEmptyBlock(p_50895_.above())) {
             DoublePlantBlock.placeAt(p_50893_, doubleplantblock.defaultBlockState(), p_50895_, 2);
         }

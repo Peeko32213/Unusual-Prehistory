@@ -48,6 +48,10 @@
   "item.unusualprehistory.dunk_spawn_egg": "Dunkleosteus Spawn Egg",
   "item.unusualprehistory.coty_spawn_egg": "Cotylorhynchus Spawn Egg",
   "item.unusualprehistory.scau_spawn_egg": "Scaumenacia Spawn Egg",
+  "item.unusualprehistory.trike_spawn_egg": "Triceratops Spawn Egg",
+  "item.unusualprehistory.pachy_spawn_egg": "Pachycephalosaurus Spawn Egg",
+  "item.unusualprehistory.brachi_spawn_egg": "Brachiosaurus Spawn Egg",
+  "item.unusualprehistory.veloci_spawn_egg": "Velociraptor Spawn Egg",
 
   "entity.unusualprehistory.stethacanthus": "Stethacanthus",
   "entity.unusualprehistory.majunga": "Majungasaurus",
@@ -59,6 +63,10 @@
   "entity.unusualprehistory.coty": "Cotylorhynchus",
   "entity.unusualprehistory.baby_dunk": "Baby Dunkleosteus",
   "entity.unusualprehistory.scau": "Scaumenacia",
+  "entity.unusualprehistory.trike": "Triceratops",
+  "entity.unusualprehistory.pachy": "Pachycephalosaurus",
+  "entity.unusualprehistory.brachi": "Brachiosaurus",
+  "entity.unusualprehistory.veloci": "Velociraptor",
 
   "armor.unusualprehistory.majunga_helmet": "Majungasaurus Helmet",
 
@@ -82,6 +90,10 @@
   "block.unusualprehistory.plant_fossil": "Plant Fossil Block",
   "block.unusualprehistory.deepslate_plant_fossil": "Deepslate Plant Fossil",
   "block.unusualprehistory.scau_eggs": "Scaumenacia Eggs",
+  "block.unusualprehistory.bennett": "Bennettitales",
+  "block.unusualprehistory.archaeos": "Archaeosigillaria ",
+  "block.unusualprehistory.sarracenia": "Sarracenia ",
+  "block.unusualprehistory.tall_sarracenia": "Tall Sarracenia ",
 
   "unusualprehistory.sound.subtitle.beelze_idle": "Massive Croaks",
   "unusualprehistory.sound.subtitle.beelze_attack": "Slimey Chomp",
@@ -102,6 +114,9 @@
 
   "block.unusualprehistory.majunga_egg.desc": "%s x %s",
   "block.unusualprehistory.coty_egg.desc": "%s x %s",
+  "entity.unusualprehistory.all.command_0": "%s is wandering",
+  "entity.unusualprehistory.all.command_1": "%s is following",
+  "entity.unusualprehistory.all.command_2": "%s is staying",
 
   "item.unusualprehistory.encyclopedia.desc": "By Award Winning Scientist, Peeko Noneyah "
 

@@ -164,6 +164,22 @@ public class UPItems {
             () -> new ForgeSpawnEggItem(UPEntities.SCAU , 0x909da1, 0x5094c1,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<ForgeSpawnEggItem> TRIKE_EGG = ITEMS.register("trike_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.TRIKE , 0x47302c, 0xffcb23,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<ForgeSpawnEggItem> PACHY_EGG = ITEMS.register("pachy_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.PACHY , 0x282d3d, 0x5d7170,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<ForgeSpawnEggItem> BRACHI_EGG = ITEMS.register("brachi_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.BRACHI , 0x5e6f9a, 0xc7e1e4,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<ForgeSpawnEggItem> VELOCI_EGG = ITEMS.register("veloci_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.VELOCI , 0x774228, 0xcb09464,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterials.MAJUNGA, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

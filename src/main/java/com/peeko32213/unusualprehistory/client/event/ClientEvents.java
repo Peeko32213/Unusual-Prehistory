@@ -38,6 +38,10 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.HORSETAIL.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.POTTED_HORSETAIL.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.TALL_HORSETAIL.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.BENNETTITALES.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.ARCHAEOSIGILARIA.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.SARACENIA.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.TALL_SARACENIA.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.LEEFRUCTUS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.POTTED_LEEFRUCTUS.get(), RenderType.cutout());
@@ -61,6 +65,10 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BEELZE_TADPOLE.get(), BeelzebufoTadpoleRenderer::new);
         event.registerEntityRenderer(UPEntities.BABY_DUNK.get(), BabyDunkRenderer::new);
         event.registerEntityRenderer(UPEntities.SCAU.get(), ScaumenaciaRenderer::new);
+        event.registerEntityRenderer(UPEntities.TRIKE.get(), TriceratopsRenderer::new);
+        event.registerEntityRenderer(UPEntities.PACHY.get(), PachycephalosaurusRenderer::new);
+        event.registerEntityRenderer(UPEntities.BRACHI.get(), BrachiosaurusRenderer::new);
+        event.registerEntityRenderer(UPEntities.VELOCI.get(), VelociraptorRenderer::new);
 
         event.registerEntityRenderer(UPEntities.AMMON_RENDER.get(), AmmoniteRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.MAJUNGA_RENDER.get(), MajungaRenderRenderer::new);
