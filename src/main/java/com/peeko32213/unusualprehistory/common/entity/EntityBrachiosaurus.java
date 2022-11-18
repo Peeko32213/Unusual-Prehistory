@@ -72,7 +72,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 150.0D)
+                .add(Attributes.MAX_HEALTH, 200.0D)
                 .add(Attributes.ARMOR, 15.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .add(Attributes.ATTACK_DAMAGE, 20.0D)

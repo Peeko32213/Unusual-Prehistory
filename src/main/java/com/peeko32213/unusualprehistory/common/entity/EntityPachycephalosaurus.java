@@ -353,9 +353,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
                 this.mob.setTarget((LivingEntity) null);
             }
-
             this.mob.setAnimationState(0);
-
             this.mob.setAggressive(false);
         }
 

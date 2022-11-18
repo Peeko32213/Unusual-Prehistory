@@ -72,10 +72,12 @@ public class UPBlocks {
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
             () -> new BlockAmmoniteShell(BlockBehaviour.Properties.of(Material.EGG).strength(0.5F).requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<StoneButtonBlock> FOSSIL_BUTTON = registerBlock("fossil_button",
+            () -> new StoneButtonBlock(BlockBehaviour.Properties.copy(Blocks.BONE_BLOCK).noCollission()));
+
+
     public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail",
-            () -> new BlockUPPlant(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
-
-
+            () -> new BlockHorsetail(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
     public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutBlockItem("potted_horsetail",
             () -> new FlowerPotBlock(null, UPBlocks.HORSETAIL, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
 
@@ -94,8 +96,8 @@ public class UPBlocks {
     public static final RegistryObject<Block> ARCHAEOSIGILARIA  = registerBlock("archaeos",
             () -> new FlowerBlock(MobEffects.CONFUSION, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
 
-    public static final RegistryObject<Block> SARACENIA  = registerBlock("sarracenia",
-            () -> new FlowerBlock(MobEffects.NIGHT_VISION, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> SARACENIA = registerBlock("sarracenia",
+            () -> new BlockSaracenia(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
 
     public static final RegistryObject<Block> TALL_SARACENIA = registerBlock("tall_sarracenia",
             () -> new BlockUPTallPlant(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));

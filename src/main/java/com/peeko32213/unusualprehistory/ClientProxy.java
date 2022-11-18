@@ -5,7 +5,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, value = Dist.CLIENT)
@@ -18,5 +21,7 @@ public class ClientProxy extends CommonProxy  {
     public void openBookGUI(ItemStack itemStackIn, String page) {
         Minecraft.getInstance().setScreen(new EncyclopediaScreen(itemStackIn, page));
     }
-
 }
+
+
+

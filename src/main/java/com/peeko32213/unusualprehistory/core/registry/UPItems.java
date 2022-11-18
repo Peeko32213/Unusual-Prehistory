@@ -1,14 +1,13 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.item.ItemEncyclopedia;
-import com.peeko32213.unusualprehistory.common.item.ItemModFishBucket;
-import com.peeko32213.unusualprehistory.common.item.ItemModFood;
-import com.peeko32213.unusualprehistory.common.item.ItemModPickaxe;
+import com.peeko32213.unusualprehistory.common.item.*;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
+import com.peeko32213.unusualprehistory.common.item.tool.ItemVelociShield;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
@@ -20,6 +19,11 @@ public class UPItems {
 
     private UPItems() {
     }
+
+    public static Item.Properties drinkItem() {
+        return new Item.Properties().craftRemainder(UPItems.FLASK.get()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB);
+    }
+
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
             UnusualPrehistory.MODID);
@@ -44,10 +48,13 @@ public class UPItems {
 
     public static final RegistryObject<Item> FLASK = ITEMS.register("flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-
     public static final RegistryObject<Item> MEAT_ON_A_STICK = ITEMS.register("meat_on_a_stick",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB).durability(130)));
 
+    public static final RegistryObject<Item> VELOCI_SHIELD = ITEMS.register("veloci_shield",
+            () -> new ItemVelociShield(new Item.Properties().durability(800).rarity(Rarity.UNCOMMON).tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<Item> GROG = ITEMS.register("grog",
+            () -> new ModItemDrinkable(drinkItem().food(ModFood.GROG), true, false));
     public static final RegistryObject<Item> MAJUNGA_SCUTE = ITEMS.register("majunga_scute",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
@@ -94,25 +101,25 @@ public class UPItems {
             () -> new ItemModPickaxe(UPItemTiers.SHELL, 3, -2.8F));
 
     public static final RegistryObject<Item> RAW_STETHA = ITEMS.register("raw_stetha",
-            () -> new Item(new Item.Properties().food(ItemModFood.RAW_STETHA).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().food(ModFood.RAW_STETHA).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> COOKED_STETHA = ITEMS.register("cooked_stetha",
-            () -> new Item(new Item.Properties().food(ItemModFood.COOKED_STETHA).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().food(ModFood.COOKED_STETHA).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> RAW_COTY = ITEMS.register("raw_coty",
-            () -> new Item(new Item.Properties().food(ItemModFood.RAW_COTY).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().food(ModFood.RAW_COTY).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> COOKED_COTY = ITEMS.register("cooked_coty",
-            () -> new Item(new Item.Properties().food(ItemModFood.COOKED_COTY).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().food(ModFood.COOKED_COTY).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> RAW_SCAU = ITEMS.register("raw_scau",
-            () -> new Item(new Item.Properties().food(ItemModFood.RAW_SCAU).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().food(ModFood.RAW_SCAU).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> COOKED_SCAU = ITEMS.register("cooked_scau",
-            () -> new Item(new Item.Properties().food(ItemModFood.COOKED_SCAU).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().food(ModFood.COOKED_SCAU).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> GOLDEN_SCAU = ITEMS.register("golden_scau",
-            () -> new Item(new Item.Properties().food(ItemModFood.GOLDEN_SCAU).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new Item(new Item.Properties().food(ModFood.GOLDEN_SCAU).tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> STETHA_BUCKET = ITEMS.register("stetha_bucket",
             () -> new ItemModFishBucket(UPEntities.STETHACANTHUS, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB).stacksTo(1)));
@@ -178,6 +185,10 @@ public class UPItems {
 
     public static final RegistryObject<ForgeSpawnEggItem> VELOCI_EGG = ITEMS.register("veloci_spawn_egg",
             () -> new ForgeSpawnEggItem(UPEntities.VELOCI , 0x774228, 0xcb09464,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<ForgeSpawnEggItem> REX_EGG = ITEMS.register("rex_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.REX , 0x31171c, 0xb96a53,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",

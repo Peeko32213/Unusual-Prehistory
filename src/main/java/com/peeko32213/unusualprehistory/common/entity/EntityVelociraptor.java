@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.peeko32213.unusualprehistory.common.entity.util.AnuroPolinateGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -65,7 +66,6 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(5, new PushButtonsGoal(this, 0.8D, 10));
-        this.goalSelector.addGoal(5, new PulLeverGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new EntityVelociraptor.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
@@ -144,31 +144,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         protected void onReachedTarget() {
             if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(EntityVelociraptor.this.level, EntityVelociraptor.this)) {
                 BlockState blockstate = EntityVelociraptor.this.level.getBlockState(this.blockPos);
-                if (blockstate.is(Blocks.ACACIA_BUTTON)) {
-                    this.pushButton(blockstate);
-                }
-                if (blockstate.is(Blocks.BIRCH_BUTTON)) {
-                    this.pushButton(blockstate);
-                }
-                if (blockstate.is(Blocks.CRIMSON_BUTTON)) {
-                    this.pushButton(blockstate);
-                }
-                if (blockstate.is(Blocks.JUNGLE_BUTTON)) {
-                    this.pushButton(blockstate);
-                }
-                if (blockstate.is(Blocks.OAK_BUTTON)) {
-                    this.pushButton(blockstate);
-                }
-                if (blockstate.is(Blocks.DARK_OAK_BUTTON)) {
-                    this.pushButton(blockstate);
-                }
-                if (blockstate.is(Blocks.POLISHED_BLACKSTONE_BUTTON)) {
-                    this.pushButton(blockstate);
-                }
-                if (blockstate.is(Blocks.WARPED_BUTTON)) {
-                    this.pushButton(blockstate);
-                }
-                if (blockstate.is(Blocks.SPRUCE_BUTTON)) {
+                if (blockstate.is(UPBlocks.FOSSIL_BUTTON.get())) {
                     this.pushButton(blockstate);
                 }
 
@@ -200,80 +176,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
 
     }
 
-    public class PulLeverGoal extends MoveToBlockGoal {
-        private EntityVelociraptor raptor;
 
-        private static final int WAIT_TICKS = 20;
-        protected int ticksWaited;
-        public PulLeverGoal(EntityVelociraptor raptor) {
-            super(raptor, 1D, 32, 8);
-            this.raptor = raptor;
-        }
-
-        public double getDesiredSquaredDistanceToTarget() {
-            return 1.5D;
-        }
-
-        public boolean canUse() {
-            return super.canUse();
-        }
-
-        protected int nextStartTick(PathfinderMob mob) {
-            return 100 + mob.getRandom().nextInt(500);
-        }
-
-        public boolean canContinueToUse() {
-            return super.canContinueToUse();
-        }
-
-        public void tick() {
-            if (this.isReachedTarget()) {
-                if (this.ticksWaited >= 40) {
-                    this.onReachedTarget();
-                } else {
-                    ++this.ticksWaited;
-                }
-            } else if (!this.isReachedTarget() && EntityVelociraptor.this.random.nextFloat() < 0.05F) {
-                EntityVelociraptor.this.playSound(SoundEvents.FOX_SNIFF, 1.0F, 1.0F);
-            }
-
-            super.tick();
-        }
-
-        protected void onReachedTarget() {
-            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(EntityVelociraptor.this.level, EntityVelociraptor.this)) {
-                BlockState blockstate = EntityVelociraptor.this.level.getBlockState(this.blockPos);
-                if (blockstate.is(Blocks.LEVER)) {
-                    this.pullLever(blockstate);
-                }
-
-            }
-        }
-
-        @Override
-        protected BlockPos getMoveToTarget() {
-            return this.blockPos;
-        }
-
-        @Override
-        protected boolean isValidTarget(LevelReader world, BlockPos pos) {
-            BlockState blockState = world.getBlockState(pos);
-            return blockState.getBlock() instanceof LeverBlock;
-        }
-
-        private void pullLever(BlockState p_148929_) {
-            ((EntityVelociraptor) this.mob).pushingState = true;
-            this.nextStartTick = this.nextStartTick(this.mob);
-            BlockState state = this.mob.level.getBlockState(this.blockPos);
-            ((LeverBlock) state.getBlock()).use(state, this.mob.level, this.blockPos, null, null, null);
-        }
-
-        public void start() {
-            this.ticksWaited = 0;
-            super.start();
-        }
-
-    }
 
     @Nullable
     @Override

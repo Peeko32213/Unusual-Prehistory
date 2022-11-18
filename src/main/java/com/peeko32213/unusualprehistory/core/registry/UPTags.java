@@ -15,6 +15,7 @@ public class UPTags {
     public static final TagKey<EntityType<?>> MAJUNGA_TARGETS = registerEntityTag("majunga_targets");
     public static final TagKey<EntityType<?>> DUNK_TARGETS = registerEntityTag("dunk_targets");
     public static final TagKey<EntityType<?>> BEELZE_TARGETS = registerEntityTag("beelze_targets");
+    public static final TagKey<EntityType<?>> REX_TARGETS = registerEntityTag("rex_targets");
 
     public static final TagKey<Block> TRIKE_BREAKABLES = registerBlockTag("trike_breakables");
 

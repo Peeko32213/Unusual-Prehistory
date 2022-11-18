@@ -1,5 +1,7 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
@@ -7,7 +9,9 @@ import com.peeko32213.unusualprehistory.common.entity.baby.EntityBeelzebufoTadpo
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -76,6 +80,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityVelociraptor::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "veloci").toString()));
 
+    public static final RegistryObject<EntityType<EntityTyrannosaurusRex>> REX = ENTITIES.register("rex",
+            () -> EntityType.Builder.of(EntityTyrannosaurusRex::new, MobCategory.CREATURE).sized(3.4F, 5.0F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "rex").toString()));
+
     public static final RegistryObject<EntityType<BaseEntityRender>> AMMON_RENDER = ENTITIES.register("ammon_render",
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "ammon_render").toString()));
@@ -107,4 +115,13 @@ public class UPEntities {
     public static final RegistryObject<EntityType<BaseEntityRender>> SCAU_RENDER = ENTITIES.register("scau_render",
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "scau_render").toString()));
+
+    public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag){
+        if(entityTag == null){
+            return Predicates.alwaysFalse();
+        }else{
+            return (com.google.common.base.Predicate<LivingEntity>) e -> e.isAlive() && e.getType().is(entityTag);
+        }
+    }
+
 }

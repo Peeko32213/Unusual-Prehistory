@@ -4,7 +4,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 
-public class ItemModFood {
+public class ModFood {
+
 
     //Raw
     public static final FoodProperties RAW_STETHA = (new FoodProperties.Builder()).nutrition(2).saturationMod(0.1F).meat().fast().build();
@@ -22,5 +23,12 @@ public class ItemModFood {
 
     public static final FoodProperties GOLDEN_SCAU = (new FoodProperties.Builder()).nutrition(15).saturationMod(2.2F).meat().build();
 
+    //Grogs
+    public static final FoodProperties GROG = (new FoodProperties.Builder())
+            .alwaysEat()
+            .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 1200, 0), 0.5F)
+            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 0), 0.5F)
+            .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 1200, 0), 0.5F)
+            .build();
 
 }

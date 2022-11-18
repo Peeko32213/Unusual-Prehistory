@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.item;
+package com.peeko32213.unusualprehistory.common.item.tool;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;

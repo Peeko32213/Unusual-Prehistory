@@ -10,18 +10,17 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.Random;
 
-public class BlockUPPlant extends BushBlock implements BonemealableBlock {
+public class BlockHorsetail extends BushBlock implements BonemealableBlock {
 
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
-    public BlockUPPlant(Properties properties) {
+    public BlockHorsetail(Properties properties) {
         super(properties);
     }
 
@@ -37,7 +36,7 @@ public class BlockUPPlant extends BushBlock implements BonemealableBlock {
 
     @Override
     public void performBonemeal(ServerLevel p_50893_, Random p_50894_, BlockPos p_50895_, BlockState p_50896_) {
-        DoublePlantBlock doubleplantblock = (DoublePlantBlock) (this == UPBlocks.HORSETAIL.get() ? UPBlocks.TALL_HORSETAIL.get() : UPBlocks.TALL_SARACENIA.get());
+        DoublePlantBlock doubleplantblock = (DoublePlantBlock) (this == UPBlocks.HORSETAIL.get() ? UPBlocks.TALL_HORSETAIL.get() : UPBlocks.TALL_HORSETAIL.get());
         if (doubleplantblock.defaultBlockState().canSurvive(p_50893_, p_50895_) && p_50893_.isEmptyBlock(p_50895_.above())) {
             DoublePlantBlock.placeAt(p_50893_, doubleplantblock.defaultBlockState(), p_50895_, 2);
         }

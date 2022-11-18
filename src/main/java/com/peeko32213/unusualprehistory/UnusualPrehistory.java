@@ -13,9 +13,12 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +36,9 @@ public class UnusualPrehistory {
     public static final List<Runnable> CALLBACKS = new ArrayList<>();
     public static final Logger LOGGER = LogManager.getLogger();
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+
+    public static SimpleChannel NETWORK;
+
 
     public UnusualPrehistory() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

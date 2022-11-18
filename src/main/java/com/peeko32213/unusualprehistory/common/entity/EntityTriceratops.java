@@ -604,8 +604,8 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(5);
-        AnimationController<EntityTriceratops> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::eatPredicate));
+        AnimationController<EntityTriceratops> controller = new AnimationController<>(this, "controller", 2, this::predicate);
+        data.addAnimationController(new AnimationController<>(this, "eatController", 2, this::eatPredicate));
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
         data.addAnimationController(controller);
     }

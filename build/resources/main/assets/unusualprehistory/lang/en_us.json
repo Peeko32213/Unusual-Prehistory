@@ -39,6 +39,7 @@
   "item.unusualprehistory.raw_scau": "Raw Scaumenacia",
   "item.unusualprehistory.cooked_scau": "Cooked Scaumenacia",
   "item.unusualprehistory.golden_scau": "Golden Scaumenacia",
+  "item.unusualprehistory.grog": "Flask of Grog",
 
   "item.unusualprehistory.stetha_spawn_egg": "Stethacanthus Spawn Egg",
   "item.unusualprehistory.majunga_spawn_egg": "Majungasaurus Spawn Egg",
@@ -52,6 +53,8 @@
   "item.unusualprehistory.pachy_spawn_egg": "Pachycephalosaurus Spawn Egg",
   "item.unusualprehistory.brachi_spawn_egg": "Brachiosaurus Spawn Egg",
   "item.unusualprehistory.veloci_spawn_egg": "Velociraptor Spawn Egg",
+  "item.unusualprehistory.rex_spawn_egg": "Tyrannosaurus Rex Spawn Egg",
+  "item.unusualprehistory.veloci_shield": "Velocishield",
 
   "entity.unusualprehistory.stethacanthus": "Stethacanthus",
   "entity.unusualprehistory.majunga": "Majungasaurus",
@@ -67,6 +70,7 @@
   "entity.unusualprehistory.pachy": "Pachycephalosaurus",
   "entity.unusualprehistory.brachi": "Brachiosaurus",
   "entity.unusualprehistory.veloci": "Velociraptor",
+  "entity.unusualprehistory.rex": "Tyrannosaurus Rex",
 
   "armor.unusualprehistory.majunga_helmet": "Majungasaurus Helmet",
 
@@ -93,7 +97,8 @@
   "block.unusualprehistory.bennett": "Bennettitales",
   "block.unusualprehistory.archaeos": "Archaeosigillaria ",
   "block.unusualprehistory.sarracenia": "Sarracenia ",
-  "block.unusualprehistory.tall_sarracenia": "Tall Sarracenia ",
+  "block.unusualprehistory.tall_sarracenia": "Tall Sarracenia",
+  "block.unusualprehistory.fossil_button": "Fossil Button",
 
   "unusualprehistory.sound.subtitle.beelze_idle": "Massive Croaks",
   "unusualprehistory.sound.subtitle.beelze_attack": "Slimey Chomp",

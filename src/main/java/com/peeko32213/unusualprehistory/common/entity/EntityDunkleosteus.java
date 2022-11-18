@@ -61,7 +61,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
-    private static final EntityDataAccessor<Integer> PASSIVETICKS = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
     protected int attackCooldown = 0;
     private boolean wasOnGround;
@@ -145,11 +145,11 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     }
 
     public int getPassiveTicks() {
-        return this.entityData.get(PASSIVETICKS);
+        return this.entityData.get(PASSIVE);
     }
 
     private void setPassiveTicks(int passiveTicks) {
-        this.entityData.set(PASSIVETICKS, passiveTicks);
+        this.entityData.set(PASSIVE, passiveTicks);
     }
 
     protected PathNavigation createNavigation(Level p_27480_) {
@@ -174,7 +174,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.getEntityData().define(PASSIVETICKS, 0);
+        this.getEntityData().define(PASSIVE, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {

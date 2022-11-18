@@ -8,7 +8,6 @@ import com.peeko32213.unusualprehistory.client.render.renders.*;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
-import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPMenuTypes;
@@ -69,6 +68,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PACHY.get(), PachycephalosaurusRenderer::new);
         event.registerEntityRenderer(UPEntities.BRACHI.get(), BrachiosaurusRenderer::new);
         event.registerEntityRenderer(UPEntities.VELOCI.get(), VelociraptorRenderer::new);
+        event.registerEntityRenderer(UPEntities.REX.get(), TyrannosaurusRexRenderer::new);
 
         event.registerEntityRenderer(UPEntities.AMMON_RENDER.get(), AmmoniteRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.MAJUNGA_RENDER.get(), MajungaRenderRenderer::new);
