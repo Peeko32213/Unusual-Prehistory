@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.core.event;
+package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;

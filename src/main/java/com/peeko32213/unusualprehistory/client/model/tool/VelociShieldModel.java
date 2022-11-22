@@ -9,7 +9,7 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class VelociShieldModel extends AnimatedGeoModel<ItemVelociShield> {
     @Override
     public ResourceLocation getModelLocation(ItemVelociShield object) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/velocishield.geo.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/veloci_shield.geo.json");
     }
 
     @Override

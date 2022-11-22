@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "unusualprehistory:block/rex_head",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "unusualprehistory:block/rex_head",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "unusualprehistory:block/rex_head"
+    },
+    "facing=south": {
+      "model": "unusualprehistory:block/rex_head",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "unusualprehistory:block/rex_head",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "unusualprehistory:block/rex_head",
+      "y": 270
+    }
+  }
+}

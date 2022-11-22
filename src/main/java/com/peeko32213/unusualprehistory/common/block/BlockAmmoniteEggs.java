@@ -37,6 +37,7 @@ public class BlockAmmoniteEggs extends Block {
         return SHAPE;
     }
 
+
     @Override
     public boolean canSurvive(BlockState state, LevelReader reader, BlockPos pos) {
         return mayPlaceOn(reader, pos.below());

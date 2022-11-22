@@ -265,50 +265,6 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         return (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.stunnedTick > 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.stunned", true));
-            event.getController().setAnimationSpeed(1.0F);
-        } else if (event.isMoving()) {
-            if (this.isSprinting()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.run", true));
-                event.getController().setAnimationSpeed(3.0F);
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.walk", true));
-                event.getController().setAnimationSpeed(1.0F);
-            }
-        } else if (this.hasChargeCooldown() && this.hasTarget()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.prep", true));
-            event.getController().setAnimationSpeed(1.0F);
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.idle", true));
-            event.getController().setAnimationSpeed(1.0F);
-        }
-        return PlayState.CONTINUE;
-    }
-
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.bite", false));
-            this.swinging = false;
-        }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityMajungasaurus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
-        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
-    }
-
     @Override
     public int getRemainingPersistentAngerTime() {
         return this.remainingPersistentAngerTime;
@@ -489,6 +445,50 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
             return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.9F + p_25556_.getBbWidth());
         }
 
+    }
+
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if (this.stunnedTick > 0) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.stunned", true));
+            event.getController().setAnimationSpeed(1.0F);
+        } else if (event.isMoving()) {
+            if (this.isSprinting()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.run", true));
+                event.getController().setAnimationSpeed(3.0F);
+            } else {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.walk", true));
+                event.getController().setAnimationSpeed(1.0F);
+            }
+        } else if (this.hasChargeCooldown() && this.hasTarget()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.prep", true));
+            event.getController().setAnimationSpeed(1.0F);
+        } else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.idle", true));
+            event.getController().setAnimationSpeed(1.0F);
+        }
+        return PlayState.CONTINUE;
+    }
+
+    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
+        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+            event.getController().markNeedsReload();
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.bite", false));
+            this.swinging = false;
+        }
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.setResetSpeedInTicks(5);
+        AnimationController<EntityMajungasaurus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        data.addAnimationController(controller);
+        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
     }
 
     @Nullable

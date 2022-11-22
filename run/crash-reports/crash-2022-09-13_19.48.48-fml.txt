@@ -60,7 +60,7 @@ Details:
 		java.lang.reflect.InvocationTargetException: null
 	Mod Version: 1.0
 	Mod Issue URL: NOT PROVIDED
-	Exception message: java.lang.IllegalArgumentException: Method public void com.peeko32213.unusualprehistory.core.event.WorldEvents.onBiomeLoad(net.minecraftforge.event.world.BiomeLoadingEvent) has @SubscribeEvent annotation, but takes an argument that is not a subtype of the base type interface net.minecraftforge.fml.event.IModBusEvent: class net.minecraftforge.event.world.BiomeLoadingEvent
+	Exception message: java.lang.IllegalArgumentException: Method public void com.peeko32213.unusualprehistory.core.events.WorldEvents.onBiomeLoad(net.minecraftforge.event.world.BiomeLoadingEvent) has @SubscribeEvent annotation, but takes an argument that is not a subtype of the base type interface net.minecraftforge.fml.event.IModBusEvent: class net.minecraftforge.event.world.BiomeLoadingEvent
 Stacktrace:
 	at net.minecraftforge.eventbus.EventBus.registerListener(EventBus.java:145) ~[eventbus-5.0.7.jar%2310!/:?] {}
 	at net.minecraftforge.eventbus.EventBus.lambda$registerObject$6(EventBus.java:98) ~[eventbus-5.0.7.jar%2310!/:?] {}

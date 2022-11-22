@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:analyzing",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:amber_fossil"
+    }
+  ],
+  "output": "unusualprehistory:gameplay/analyzer/amber_fossil"
+}

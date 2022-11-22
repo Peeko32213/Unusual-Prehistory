@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "unusualprehistory:brachi_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "unusualprehistory:rex_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "unusualprehistory:trike_flask"
+        }
+      ]
+    }
+  ]
+}

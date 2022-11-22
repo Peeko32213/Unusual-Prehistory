@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
-import com.peeko32213.unusualprehistory.core.event.ServerEvents;
-import com.peeko32213.unusualprehistory.core.event.WorldEvents;
+import com.peeko32213.unusualprehistory.core.events.ServerEvents;
+import com.peeko32213.unusualprehistory.core.events.WorldEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,9 +13,7 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.simple.SimpleChannel;

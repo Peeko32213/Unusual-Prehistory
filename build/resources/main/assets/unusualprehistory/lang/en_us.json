@@ -40,6 +40,14 @@
   "item.unusualprehistory.cooked_scau": "Cooked Scaumenacia",
   "item.unusualprehistory.golden_scau": "Golden Scaumenacia",
   "item.unusualprehistory.grog": "Flask of Grog",
+  "item.unusualprehistory.veloci_shield": "Veloci-Shield",
+  "item.unusualprehistory.adorned_staff": "Adorned Staff",
+  "item.unusualprehistory.amber_fossil": "Amber Fossil",
+  "item.unusualprehistory.amber_shard": "Amber Chunk",
+  "item.unusualprehistory.rex_tooth": "Rex Tooth",
+  "item.unusualprehistory.trike_shield": "Trike Shield",
+  "item.unusualprehistory.trike_horn": "Triceratops Horn",
+  "item.unusualprehistory.rex_scale": "Rex Scale",
 
   "item.unusualprehistory.stetha_spawn_egg": "Stethacanthus Spawn Egg",
   "item.unusualprehistory.majunga_spawn_egg": "Majungasaurus Spawn Egg",
@@ -54,7 +62,6 @@
   "item.unusualprehistory.brachi_spawn_egg": "Brachiosaurus Spawn Egg",
   "item.unusualprehistory.veloci_spawn_egg": "Velociraptor Spawn Egg",
   "item.unusualprehistory.rex_spawn_egg": "Tyrannosaurus Rex Spawn Egg",
-  "item.unusualprehistory.veloci_shield": "Velocishield",
 
   "entity.unusualprehistory.stethacanthus": "Stethacanthus",
   "entity.unusualprehistory.majunga": "Majungasaurus",
@@ -99,6 +106,8 @@
   "block.unusualprehistory.sarracenia": "Sarracenia ",
   "block.unusualprehistory.tall_sarracenia": "Tall Sarracenia",
   "block.unusualprehistory.fossil_button": "Fossil Button",
+  "block.unusualprehistory.amber_glass": "Amber Glass",
+  "block.unusualprehistory.rex_head": "Rex Head Mount",
 
   "unusualprehistory.sound.subtitle.beelze_idle": "Massive Croaks",
   "unusualprehistory.sound.subtitle.beelze_attack": "Slimey Chomp",

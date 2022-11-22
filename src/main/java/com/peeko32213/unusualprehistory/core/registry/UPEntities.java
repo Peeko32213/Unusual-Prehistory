@@ -69,7 +69,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "trike").toString()));
 
     public static final RegistryObject<EntityType<EntityPachycephalosaurus>> PACHY = ENTITIES.register("pachy",
-            () -> EntityType.Builder.of(EntityPachycephalosaurus::new, MobCategory.CREATURE).sized(1.8F, 3.3F)
+            () -> EntityType.Builder.of(EntityPachycephalosaurus::new, MobCategory.CREATURE).sized(1.8F, 2.1F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "pachy").toString()));
 
     public static final RegistryObject<EntityType<EntityBrachiosaurus>> BRACHI = ENTITIES.register("brachi",

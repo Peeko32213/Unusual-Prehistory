@@ -5,7 +5,12 @@ import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.*;
@@ -13,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.GoalUtils;
@@ -38,6 +44,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nullable;
 
 public class EntityVelociraptor extends Animal implements IAnimatable {
+    private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimationFactory factory = new AnimationFactory(this);
     protected boolean pushingState = false;
@@ -65,7 +72,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(5, new PushButtonsGoal(this, 0.8D, 10));
+        this.goalSelector.addGoal(5, new PushButtonsGoal(this, 1.0F, 5, 2));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new EntityVelociraptor.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
@@ -73,6 +80,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(2, new EntityVelociraptor.RaptorOpenDoorGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.RAPTOR_TARGETS)));
 
     }
 
@@ -97,6 +105,27 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
 
     }
 
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("Press", this.hasPressed());
+
+
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setPress(compound.getBoolean("Press"));
+
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(PRESS, false);
+    }
+
     protected class RaptorOpenDoorGoal extends OpenDoorGoal {
         public RaptorOpenDoorGoal(EntityVelociraptor p_32128_) {
             super(p_32128_, false);
@@ -107,12 +136,23 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         }
     }
 
-    public class PushButtonsGoal extends MoveToBlockGoal {
+    public void setPress(boolean eepy) {
+        this.entityData.set(PRESS, Boolean.valueOf(eepy));
+    }
+
+    public boolean hasPressed() {
+        return this.entityData.get(PRESS).booleanValue();
+    }
+
+    private static class PushButtonsGoal extends MoveToBlockGoal {
+        private final EntityVelociraptor raptor;
 
         private static final int WAIT_TICKS = 20;
         protected int ticksWaited;
-        public PushButtonsGoal(PathfinderMob pathAwareEntity, double d, int i) {
-            super(pathAwareEntity, d, i);
+
+        public PushButtonsGoal(EntityVelociraptor pMob, double pSpeedModifier, int pSearchRange, int pVerticalSearchRange) {
+            super(pMob, pSpeedModifier, pSearchRange, pVerticalSearchRange);
+            this.raptor = pMob;
         }
 
         public double getDesiredSquaredDistanceToTarget() {
@@ -134,16 +174,16 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
                 } else {
                     ++this.ticksWaited;
                 }
-            } else if (!this.isReachedTarget() && EntityVelociraptor.this.random.nextFloat() < 0.05F) {
-                EntityVelociraptor.this.playSound(SoundEvents.FOX_SNIFF, 1.0F, 1.0F);
+            } else if (!this.isReachedTarget() && raptor.random.nextFloat() < 0.05F) {
+                raptor.playSound(SoundEvents.FOX_SNIFF, 1.0F, 1.0F);
             }
 
             super.tick();
         }
 
         protected void onReachedTarget() {
-            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(EntityVelociraptor.this.level, EntityVelociraptor.this)) {
-                BlockState blockstate = EntityVelociraptor.this.level.getBlockState(this.blockPos);
+            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(raptor.level, raptor)) {
+                BlockState blockstate = raptor.level.getBlockState(this.blockPos);
                 if (blockstate.is(UPBlocks.FOSSIL_BUTTON.get())) {
                     this.pushButton(blockstate);
                 }

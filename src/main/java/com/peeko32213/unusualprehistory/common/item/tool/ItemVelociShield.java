@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 
 import com.peeko32213.unusualprehistory.ClientProxy;
 import com.peeko32213.unusualprehistory.client.render.tool.VelociShieldRenderer;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.particles.ParticleTypes;
@@ -61,13 +62,22 @@ public class ItemVelociShield extends ShieldItem  implements IAnimatable {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        return !playerIn.isInWaterRainOrBubble() ? super.use(worldIn, playerIn, handIn)
-                : InteractionResultHolder.pass(playerIn.getItemInHand(handIn));
+    public InteractionResultHolder<ItemStack> use(Level level, Player livingEntityIn, InteractionHand hand) {
+        ItemStack itemstack = livingEntityIn.getItemInHand(hand);
+        Vec3 view = livingEntityIn.getViewVector(1.0F);
+
+        livingEntityIn.setDeltaMovement(view.multiply(2.0D, 1.0D, 2.0D));
+        livingEntityIn.getCooldowns().addCooldown(this, 50);
+
+        itemstack.hurtAndBreak(1, livingEntityIn, (player) -> {
+            player.broadcastBreakEvent(livingEntityIn.getUsedItemHand());
+        });
+        return super.use(level, livingEntityIn, hand);
     }
 
+
     public boolean isValidRepairItem(ItemStack p_82789_1_, ItemStack p_82789_2_) {
-        return Items.COPPER_INGOT == p_82789_2_.getItem() || super.isValidRepairItem(p_82789_1_, p_82789_2_);
+        return UPItems.AMBER_SHARDS.get() == p_82789_2_.getItem() || super.isValidRepairItem(p_82789_1_, p_82789_2_);
     }
 
     @Override

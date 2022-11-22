@@ -40,6 +40,11 @@ public class UPBlocks {
     public static final RegistryObject<Block> CULTIVATOR = registerBlock("cultivator",
             () -> new BlockCultivator(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> AMBER_GLASS = registerBlock("amber_glass",
+            () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(3.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistryObject<Block> REX_HEAD = registerBlock("rex_head", () -> new BlockRexHead());
+
     public static final Supplier<Block> STETHA_EGGS = create("stetha_eggs",
             () -> new BlockStethaEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noDrops().noOcclusion().noCollission()),
             entry -> new WaterLilyBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
