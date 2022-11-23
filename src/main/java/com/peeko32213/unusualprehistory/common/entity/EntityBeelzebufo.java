@@ -1,20 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.util.CustomRideGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -25,15 +20,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.animal.horse.Horse;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,9 +30,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeHooks;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -54,13 +42,11 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRideableJumping {
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> DATA_FLAG = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BYTE);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.BEEF, Items.PORKCHOP, Items.CHICKEN);
-    private static final int FLAG_STANDING = 32;
 
     private final AnimationFactory factory = new AnimationFactory(this);
     protected float playerJumpPendingScale;
@@ -100,7 +86,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(SADDLED, Boolean.valueOf(false));
+        this.entityData.define(SADDLED, false);
         this.entityData.define(DATA_FLAG, (byte)0);
 
     }
@@ -118,8 +104,8 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
     public void tick() {
         super.tick();
-        if(this.getControllingPassenger() != null && this.getControllingPassenger() instanceof Player){
-            Player rider = (Player)this.getControllingPassenger();
+        if (this.getControllingPassenger() != null && this.getControllingPassenger() instanceof Player rider) {
+
         }
         if ((this.isControlledByLocalInstance() || this.isEffectiveAi()) && this.standCounter > 0 && ++this.standCounter > 20) {
             this.standCounter = 0;
@@ -152,11 +138,11 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
                     this.setDeltaMovement(vec3.x, d1, vec3.z);
                     this.setIsJumping(true);
                     this.hasImpulse = true;
-                    net.minecraftforge.common.ForgeHooks.onLivingJump(this);
+                    ForgeHooks.onLivingJump(this);
                     if (f1 > 0.0F) {
                         float f2 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F));
                         float f3 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F));
-                        this.setDeltaMovement(this.getDeltaMovement().add((double)(-0.4F * f2 * this.playerJumpPendingScale), 0.0D, (double)(0.4F * f3 * this.playerJumpPendingScale)));
+                        this.setDeltaMovement(this.getDeltaMovement().add((-0.4F * f2 * this.playerJumpPendingScale), 0.0D, (0.4F * f3 * this.playerJumpPendingScale)));
                     }
 
                     this.playerJumpPendingScale = 0.0F;
@@ -165,7 +151,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
                 this.flyingSpeed = this.getSpeed() * 0.1F;
                 if (this.isControlledByLocalInstance()) {
                     this.setSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                    super.travel(new Vec3((double)f, p_30633_.y, (double)f1));
+                    super.travel(new Vec3(f, p_30633_.y, f1));
                 } else if (livingentity instanceof Player) {
                     this.setDeltaMovement(Vec3.ZERO);
                 }
@@ -262,9 +248,8 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     }
 
     public void setSaddled(boolean saddled) {
-        this.entityData.set(SADDLED, Boolean.valueOf(saddled));
+        this.entityData.set(SADDLED, saddled);
     }
-
 
     protected float getWaterSlowDown() {
         return 0.98F;
@@ -392,8 +377,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     }
 
     @Override
-    public void handleStartJump(int p_21695_)
-    {
+    public void handleStartJump(int p_21695_) {
         this.allowStandSliding = true;
         this.stand();
     }
@@ -425,7 +409,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
+            return (this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
         }
 
     }
@@ -433,24 +417,18 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     protected void randomizeAttributes() {
     }
 
-    public void travelWithInput(Vec3 p_29482_) {
-        super.travel(p_29482_);
-    }
-
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
         p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
         Level level = p_28134_.getLevel();
         if (level instanceof ServerLevel) {
-            {
-                this.setPersistenceRequired();
-            }
+            this.setPersistenceRequired();
         }
         this.randomizeAttributes();
         return p_28137_;
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
         return null;
