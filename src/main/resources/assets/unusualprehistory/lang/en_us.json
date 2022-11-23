@@ -27,7 +27,7 @@
   "item.unusualprehistory.stetha_bucket": "Bucket of Stethacanthus",
   "item.unusualprehistory.ammon_bucket": "Bucket of Ammonite",
   "item.unusualprehistory.beelze_bucket": "Bucket of Beelzebufo Tadpole",
-  "item.unusualprehistory.dunk_bucket": "Bucket of Dunkleosteus",
+  "item.unusualprehistory.dunk_bucket": "Bucket of Baby Dunkleosteus",
   "item.unusualprehistory.scau_bucket": "Bucket of Scaumenacia",
 
   "item.unusualprehistory.majunga_scute": "Majungasaurus Scute",
@@ -94,7 +94,7 @@
   "block.unusualprehistory.stetha_eggs": "Stethacanthus Eggs",
   "block.unusualprehistory.beelze_eggs": "Beelzebufo Eggs",
   "block.unusualprehistory.ammon_eggs": "Ammonite Eggs",
-  "block.unusualprehistory.dunk_eggs": "Dunkleosteus Eggs,",
+  "block.unusualprehistory.dunk_eggs": "Dunkleosteus Eggs",
   "block.unusualprehistory.majunga_eggs": "Majungasaurus Egg",
   "block.unusualprehistory.coty_eggs": "Cotylorhynchus Egg",
   "block.unusualprehistory.anuro_eggs": "Anurognathus Egg",
@@ -115,22 +115,22 @@
   "block.unusualprehistory.amber_glass": "Amber Glass",
   "block.unusualprehistory.rex_head": "Rex Head Mount",
 
-  "unusualprehistory.sound.subtitle.beelze_idle": "Massive Croaks",
-  "unusualprehistory.sound.subtitle.beelze_attack": "Slimey Chomp",
-  "unusualprehistory.sound.subtitle.beelze_hurt": "Slimed Hurt",
-  "unusualprehistory.sound.subtitle.beelze_death": "Croaking Death",
+  "unusualprehistory.sound.subtitle.beelze_idle": "Massive croaks",
+  "unusualprehistory.sound.subtitle.beelze_attack": "Slimey chomp",
+  "unusualprehistory.sound.subtitle.beelze_hurt": "Slimed hurt",
+  "unusualprehistory.sound.subtitle.beelze_death": "Croaking death",
   "unusualprehistory.sound.subtitle.majunga_stomp": "Stomping",
-  "unusualprehistory.sound.subtitle.anuro_idle": "Small Squak",
-  "unusualprehistory.sound.subtitle.anuro_hurt": "Small Hurt",
-  "unusualprehistory.sound.subtitle.anuro_death": "Dying Squeal",
-  "unusualprehistory.sound.subtitle.coty_idle": "Low Groans",
-  "unusualprehistory.sound.subtitle.coty_hurt": "Painful Groan",
-  "unusualprehistory.sound.subtitle.coty_death": "Last Groans",
-  "unusualprehistory.sound.subtitle.dunk_attack": "Strong Bite",
-  "unusualprehistory.sound.subtitle.majunga_idle": "Unusual Idling",
-  "unusualprehistory.sound.subtitle.majunga_attack": "Unusual Bite",
-  "unusualprehistory.sound.subtitle.majunga_hurt": "Unusual Hurt",
-  "unusualprehistory.sound.subtitle.majunga_death": "Dying Groans",
+  "unusualprehistory.sound.subtitle.anuro_idle": "Small squak",
+  "unusualprehistory.sound.subtitle.anuro_hurt": "Small hurt",
+  "unusualprehistory.sound.subtitle.anuro_death": "Dying squeal",
+  "unusualprehistory.sound.subtitle.coty_idle": "Low groans",
+  "unusualprehistory.sound.subtitle.coty_hurt": "Painful groan",
+  "unusualprehistory.sound.subtitle.coty_death": "Last groans",
+  "unusualprehistory.sound.subtitle.dunk_attack": "Strong bite",
+  "unusualprehistory.sound.subtitle.majunga_idle": "Unusual idling",
+  "unusualprehistory.sound.subtitle.majunga_attack": "Unusual bite",
+  "unusualprehistory.sound.subtitle.majunga_hurt": "Unusual hurt",
+  "unusualprehistory.sound.subtitle.majunga_death": "Dying groans",
 
   "block.unusualprehistory.majunga_egg.desc": "%s x %s",
   "block.unusualprehistory.coty_egg.desc": "%s x %s",
@@ -138,6 +138,6 @@
   "entity.unusualprehistory.all.command_1": "%s is following",
   "entity.unusualprehistory.all.command_2": "%s is staying",
 
-  "item.unusualprehistory.encyclopedia.desc": "By Award Winning Scientist, Peeko Noneyah "
+  "item.unusualprehistory.encyclopedia.desc": "By Award Winning Scientist, Peeko Noneyah"
 
 }
