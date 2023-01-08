@@ -1,0 +1,55 @@
+{
+  "variants": {
+    "eggs=1,hatch=0": [
+      {
+        "model": "unusualprehistory:block/encrusted_sack"
+      },
+      {
+        "model": "unusualprehistory:block/encrusted_sack",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/encrusted_sack",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/encrusted_sack",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=1": [
+      {
+        "model": "unusualprehistory:block/slightly_cracked_encrusted_sack"
+      },
+      {
+        "model": "unusualprehistory:block/slightly_cracked_encrusted_sack",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/slightly_cracked_encrusted_sack",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/slightly_cracked_encrusted_sack",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=2": [
+      {
+        "model": "unusualprehistory:block/very_cracked_encrusted_sack"
+      },
+      {
+        "model": "unusualprehistory:block/very_cracked_encrusted_sack",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/very_cracked_encrusted_sack",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/very_cracked_encrusted_sack",
+        "y": 270
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:adorned_staff"
+    },
+    "title": "Hammond's Staff",
+    "description": "Craft a Adorned Staff!",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:amber_fossil",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:adorned_staff"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

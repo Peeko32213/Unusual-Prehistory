@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:mezo_fossil"
+    },
+    "title": "Odd Looking Rocks",
+    "description": "Find your first Fossil",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:root",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:mezo_fossil",
+              "unusualprehistory:paleo_fossil",
+              "unusualprehistory:plant_fossil"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

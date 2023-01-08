@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:grog"
+    },
+    "title": "Drunken Sailor",
+    "description": "Gather some Grog!",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:coty",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:grog"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

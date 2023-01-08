@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:bennet_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:bennett"
+  }
+}

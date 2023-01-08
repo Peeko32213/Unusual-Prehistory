@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:pachy_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:pachy_eggs"
+  }
+}

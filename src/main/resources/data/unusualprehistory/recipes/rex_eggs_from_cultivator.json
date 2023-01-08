@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:rex_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:rex_eggs"
+  }
+}

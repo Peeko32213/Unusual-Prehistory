@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -44,11 +45,11 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
 import java.util.Random;
-
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 public class EntityScaumenacia extends WaterAnimal implements Bucketable, IAnimatable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
-    private final AnimationFactory factory = new AnimationFactory(this);
-
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public EntityScaumenacia(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
@@ -75,6 +76,14 @@ public class EntityScaumenacia extends WaterAnimal implements Bucketable, IAnima
                 return !this.mob.isInWater() && super.canUse();
             }
         });
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
     }
 
     public void tick() {
@@ -193,7 +202,7 @@ public class EntityScaumenacia extends WaterAnimal implements Bucketable, IAnima
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.scaumenacia.swim", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.scaumenacia.swim"));
         }
         return PlayState.CONTINUE;
     }
@@ -207,7 +216,7 @@ public class EntityScaumenacia extends WaterAnimal implements Bucketable, IAnima
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
     @Nullable

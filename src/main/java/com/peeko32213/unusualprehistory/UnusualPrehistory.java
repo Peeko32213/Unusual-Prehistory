@@ -49,6 +49,8 @@ public class UnusualPrehistory {
         UPMenuTypes.MENUS.register(modEventBus);
         UPRecipes.SERIALIZERS.register(modEventBus);
         UPEntities.ENTITIES.register(modEventBus);
+        UPFeatureModifiers.FOLIAGE_PLACERS.register(modEventBus);
+        UPFeatureModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         eventBus.register(this);

@@ -3,7 +3,9 @@ package com.peeko32213.unusualprehistory.core.events;
 import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
+import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyBrachi;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
+import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyRex;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBeelzebufoTadpole;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
@@ -44,6 +46,9 @@ public class CommonEvents {
         event.put(UPEntities.BRACHI.get(), EntityBrachiosaurus.createAttributes().build());
         event.put(UPEntities.VELOCI.get(), EntityVelociraptor.createAttributes().build());
         event.put(UPEntities.REX.get(), EntityTyrannosaurusRex.createAttributes().build());
+        event.put(UPEntities.ENCRUSTED.get(), EntityEncrusted.createAttributes().build());
+        event.put(UPEntities.BABY_REX.get(), EntityBabyRex.createAttributes().build());
+        event.put(UPEntities.BABY_BRACHI.get(), EntityBabyBrachi.createAttributes().build());
 
         event.put(UPEntities.AMMON_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.MAJUNGA_RENDER.get(), BaseEntityRender.createAttributes().build());
@@ -53,7 +58,12 @@ public class CommonEvents {
         event.put(UPEntities.ANURO_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.STETHA_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.SCAU_RENDER.get(), BaseEntityRender.createAttributes().build());
-
+        event.put(UPEntities.TRIKE_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.PACHY_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.BRACHI_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.RAPTOR_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.REX_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.ENCRUSTED_RENDER.get(), BaseEntityRender.createAttributes().build());
     }
 
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag) {

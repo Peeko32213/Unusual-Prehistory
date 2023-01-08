@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:trike_shield"
+    },
+    "title": "Parry This!",
+    "description": "Aquire a Trike Shield",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:trike",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:trike_shield"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

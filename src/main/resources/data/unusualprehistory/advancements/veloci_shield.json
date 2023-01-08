@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:veloci_shield"
+    },
+    "title": "Zooooooom",
+    "description": "Craft a Veolcishield",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:raptor",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:veloci_shield"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

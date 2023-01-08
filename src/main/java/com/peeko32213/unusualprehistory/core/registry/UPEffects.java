@@ -1,6 +1,8 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.effect.EffectBrachisProtection;
+import com.peeko32213.unusualprehistory.common.effect.EffectPachysMight;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.event.RegistryEvent;
@@ -12,6 +14,8 @@ import java.lang.reflect.Field;
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UPEffects {
 
+    public static final MobEffect BRACHI_PROTECTION = new EffectBrachisProtection();
+    public static final MobEffect PACHYS_MIGHT = new EffectPachysMight();
 
     @SubscribeEvent
     public static void registerEffects(RegistryEvent.Register<MobEffect> event) {

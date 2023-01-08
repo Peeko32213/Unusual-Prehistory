@@ -1,0 +1,46 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:scau_flask"
+    },
+    "title": "Shark Bait Hoo Ha Ha",
+    "description": "Revive a Scaumenacia",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:egg",
+  "criteria": {
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:scau"
+        }
+      }
+    },
+    "killed_by": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:scau"
+        }
+      }
+    },
+    "interact": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:scau"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "killed",
+      "killed_by",
+      "interact"
+    ]
+  ]
+}

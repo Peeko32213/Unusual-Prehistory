@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:ginkgo_planks"
+    }
+  ],
+  "result": {
+    "item": "unusualprehistory:ginkgo_button"
+  }
+}

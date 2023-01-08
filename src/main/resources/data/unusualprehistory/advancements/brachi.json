@@ -1,0 +1,46 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:brachi_flask"
+    },
+    "title": "Hows the View Up There?",
+    "description": "Revive a Brachiosaurus",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:egg",
+  "criteria": {
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:brachi"
+        }
+      }
+    },
+    "killed_by": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:brachi"
+        }
+      }
+    },
+    "interact": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:brachi"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "killed",
+      "killed_by",
+      "interact"
+    ]
+  ]
+}

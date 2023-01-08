@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:sarr_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:sarracenia"
+  }
+}

@@ -2,17 +2,19 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.util.AnuroPolinateGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
-import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -24,6 +26,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
@@ -42,12 +45,12 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
-
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 public class EntityVelociraptor extends Animal implements IAnimatable {
     private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.BOOLEAN);
 
-    private final AnimationFactory factory = new AnimationFactory(this);
-    protected boolean pushingState = false;
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    protected boolean pushingState = false;
 
     public EntityVelociraptor(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -55,10 +58,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
     }
 
 
-    @Override
-    protected PathNavigation createNavigation(Level level) {
-        return new LandCreaturePathNavigation(this, level);
-    }
+
 
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -76,7 +76,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new EntityVelociraptor.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(2, new EntityVelociraptor.RaptorOpenDoorGoal(this));
@@ -84,14 +84,48 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
 
     }
 
-
-    protected void customServerAiStep() {
-        if (!this.isNoAi() && GoalUtils.hasGroundPathNavigation(this)) {
-            ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
-        }
-
-        super.customServerAiStep();
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.RAPTOR_IDLE;
     }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.RAPTOR_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.RAPTOR_DEATH;
+    }
+
+    public boolean doHurtTarget(Entity entityIn) {
+        if (super.doHurtTarget(entityIn)) {
+            this.playSound(UPSounds.RAPTOR_ATTACK, 0.1F, 1.0F);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
+    }
+
+    @Override
+    public boolean canAttack(LivingEntity entity) {
+        boolean prev = super.canAttack(entity);
+        if(prev && isBaby()){
+            return false;
+        }
+        return prev;
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
+    }
+
 
 
         class IMeleeAttackGoal extends MeleeAttackGoal {
@@ -171,11 +205,16 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
             if (this.isReachedTarget()) {
                 if (this.ticksWaited >= 40) {
                     this.onReachedTarget();
+                    if (raptor.random.nextFloat() <= 0.05F) {
+                        if (raptor.random.nextFloat() < 0.1F) {
+                            raptor.spawnAtLocation(UPItems.RAPTOR_FEATHERS.get());
+                        }
+                    }
                 } else {
                     ++this.ticksWaited;
                 }
             } else if (!this.isReachedTarget() && raptor.random.nextFloat() < 0.05F) {
-                raptor.playSound(SoundEvents.FOX_SNIFF, 1.0F, 1.0F);
+                raptor.playSound(UPSounds.RAPTOR_SEARCH, 0.1F, 1.0F);
             }
 
             super.tick();
@@ -184,7 +223,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         protected void onReachedTarget() {
             if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(raptor.level, raptor)) {
                 BlockState blockstate = raptor.level.getBlockState(this.blockPos);
-                if (blockstate.is(UPBlocks.FOSSIL_BUTTON.get())) {
+                if (blockstate.is(UPBlocks.GINKGO_BUTTON.get())) {
                     this.pushButton(blockstate);
                 }
 
@@ -199,7 +238,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         @Override
         protected boolean isValidTarget(LevelReader world, BlockPos pos) {
             BlockState blockState = world.getBlockState(pos);
-            return blockState.getBlock() instanceof ButtonBlock;
+            return (blockState.is(UPBlocks.GINKGO_BUTTON.get()));
         }
 
         private void pushButton(BlockState p_148929_) {
@@ -207,6 +246,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
             this.nextStartTick = this.nextStartTick(this.mob);
             BlockState state = this.mob.level.getBlockState(this.blockPos);
             ((ButtonBlock) state.getBlock()).use(state, this.mob.level, this.blockPos, null, null, null);
+
         }
 
         public void start() {
@@ -216,7 +256,10 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
 
     }
 
-
+    public void killed(ServerLevel world, LivingEntity entity) {
+        this.heal(5);
+        super.killed(world, entity);
+    }
 
     @Nullable
     @Override
@@ -227,12 +270,12 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.velociraptor.walk", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.velociraptor.walk"));
                 event.getController().setAnimationSpeed(1.5D);
             }
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.velociraptor.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.velociraptor.idle"));
             event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
@@ -241,7 +284,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.velociraptor.attack", false));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.velociraptor.attack"));
             this.swinging = false;
         }
         return PlayState.CONTINUE;
@@ -257,7 +300,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
 

@@ -19,6 +19,11 @@
           "type": "minecraft:item",
           "weight": 5,
           "name": "unusualprehistory:trike_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 8,
+          "name": "unusualprehistory:encrusted_flask"
         }
       ]
     }

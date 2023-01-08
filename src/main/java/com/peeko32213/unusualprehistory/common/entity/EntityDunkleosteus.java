@@ -1,9 +1,11 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.NearestTargetAI;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -46,6 +48,9 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.Node;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -58,13 +63,18 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
-
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
-    private final AnimationFactory factory = new AnimationFactory(this);
-    protected int attackCooldown = 0;
-    private boolean wasOnGround;
+    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
     private int passiveFor = 0;
 
     public EntityDunkleosteus(EntityType<? extends WaterAnimal> entityType, Level level) {
@@ -85,7 +95,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(2, new EntityDunkleosteus.IMeleeAttackGoal());
+        this.goalSelector.addGoal(1, new EntityDunkleosteus.DunkMeleeAttackGoal(this, 2F, true));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(Items.CHICKEN, Items.COOKED_CHICKEN), false));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
@@ -98,7 +108,13 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         });
     }
 
-
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
+    }
 
     @Override
     @Nonnull
@@ -108,7 +124,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
             if(!player.isCreative()){
                 lvt_3_1_.shrink(1);
             }
-            this.heal(2);
+            this.heal(20);
             this.setTarget(null);
             this.passiveFor = 1000000000 + random.nextInt(1000000000);
             return InteractionResult.SUCCESS;
@@ -140,9 +156,6 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     }
 
-    public boolean isStetha(ItemStack stack) {
-        return stack.is(UPItems.RAW_STETHA.get());
-    }
 
     public int getPassiveTicks() {
         return this.entityData.get(PASSIVE);
@@ -174,6 +187,9 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(ANIMATION_STATE, 0);
+        this.entityData.define(COMBAT_STATE, 0);
+        this.entityData.define(ENTITY_STATE, 0);
         this.getEntityData().define(PASSIVE, 0);
     }
 
@@ -207,32 +223,35 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dunk.swim", true));
-        }
-        else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dunk.idle", true));
+        int animState = this.getAnimationState();
+        {
+            switch (animState) {
+
+                case 21:
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.dunkle.bite"));
+                    break;
+                default:
+                    if (event.isMoving()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunkle.swim"));
+                    }
+                    else {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunkle.idle"));
+                    }
+                    break;
+
+            }
         }
         return PlayState.CONTINUE;
     }
 
 
 
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dunk.bite", false));
-            this.swinging = false;
-        }
-        return PlayState.CONTINUE;
-    }
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityDunkleosteus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        data.setResetSpeedInTicks(1);
+        AnimationController<EntityDunkleosteus> controller = new AnimationController<>(this, "controller", 2, this::predicate);
         data.addAnimationController(controller);
-        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
     }
 
     public boolean requiresCustomPersistence() {
@@ -245,7 +264,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
 
@@ -260,28 +279,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     }
 
-    @Override
-    public boolean doHurtTarget(Entity target) {
-        boolean shouldHurt;
-        float damage = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        float knockback = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        if (target instanceof LivingEntity livingEntity) {
-            damage += livingEntity.getMobType().equals(MobType.ARTHROPOD) ? damage : 0;
-            knockback += (float) EnchantmentHelper.getKnockbackBonus(this);
-        }
-        if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
-            if (knockback > 0.0f && target instanceof LivingEntity) {
-                ((LivingEntity)target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float)Math.PI / 180)), -Mth.cos(this.getYRot() * ((float)Math.PI / 180)));
-                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
-            }
-            this.doEnchantDamageEffects(this, target);
-            this.setLastHurtMob(target);
-        }
-        if (shouldHurt && target instanceof LivingEntity livingEntity) {
-            this.playSound(UPSounds.DUNK_ATTACK, 0.1F, 1.0F);
-        }
-        return shouldHurt;
-    }
+
 
     static class MoveHelperController extends MoveControl {
         private final EntityDunkleosteus dolphin;
@@ -331,6 +329,272 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
             }
         }
     }
+
+    static class DunkMeleeAttackGoal extends Goal {
+
+        protected final EntityDunkleosteus mob;
+        private final double speedModifier;
+        private final boolean followingTargetEvenIfNotSeen;
+        private Path path;
+        private double pathedTargetX;
+        private double pathedTargetY;
+        private double pathedTargetZ;
+        private int ticksUntilNextPathRecalculation;
+        private int ticksUntilNextAttack;
+        private long lastCanUseCheck;
+        private int failedPathFindingPenalty = 0;
+        private boolean canPenalize = false;
+        private int animTime = 0;
+
+
+        public DunkMeleeAttackGoal(EntityDunkleosteus p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
+            this.mob = p_i1636_1_;
+            this.speedModifier = p_i1636_2_;
+            this.followingTargetEvenIfNotSeen = p_i1636_4_;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            long i = this.mob.level.getGameTime();
+
+             {
+                this.lastCanUseCheck = i;
+                LivingEntity livingentity = this.mob.getTarget();
+                if (livingentity == null) {
+                    return false;
+                } else if (!livingentity.isAlive()) {
+                    return false;
+                } else {
+                    if (canPenalize) {
+                        if (--this.ticksUntilNextPathRecalculation <= 0) {
+                            this.path = this.mob.getNavigation().createPath(livingentity, 0);
+                            this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
+                            return this.path != null;
+                        } else {
+                            return true;
+                        }
+                    }
+                    this.path = this.mob.getNavigation().createPath(livingentity, 0);
+                    if (this.path != null) {
+                        return true;
+                    } else {
+                        return this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
+                    }
+                }
+            }
+
+
+        }
+
+        public boolean canContinueToUse() {
+
+            LivingEntity livingentity = this.mob.getTarget();
+
+            if (livingentity == null) {
+                return false;
+            }
+            else if (!livingentity.isAlive()) {
+                return false;
+            } else if (!this.followingTargetEvenIfNotSeen) {
+                return !this.mob.getNavigation().isDone();
+            } else if (!this.mob.isWithinRestriction(livingentity.blockPosition())) {
+                return false;
+            } else {
+                return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
+            }
+
+
+        }
+
+        public void start() {
+            this.mob.getNavigation().moveTo(this.path, this.speedModifier);
+            this.ticksUntilNextPathRecalculation = 0;
+            this.ticksUntilNextAttack = 0;
+            this.animTime = 0;
+            this.mob.setAnimationState(0);
+        }
+
+        public void stop() {
+            LivingEntity livingentity = this.mob.getTarget();
+            if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
+                this.mob.setTarget((LivingEntity) null);
+            }
+            this.mob.setAnimationState(0);
+
+        }
+
+        public void tick() {
+
+
+            LivingEntity target = this.mob.getTarget();
+            double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
+            double reach = this.getAttackReachSqr(target);
+            int animState = this.mob.getAnimationState();
+            Vec3 aim = this.mob.getLookAngle();
+            Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
+
+
+            switch (animState) {
+                case 21:
+                    tickBiteAttack();
+                    break;
+                default:
+                    this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                    this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                    this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                    this.doMovement(target, distance);
+                    this.checkForCloseRangeAttack(distance, reach);
+                    break;
+
+            }
+        }
+
+        protected void doMovement (LivingEntity livingentity, Double d0){
+
+
+            this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+
+
+            if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
+                this.pathedTargetX = livingentity.getX();
+                this.pathedTargetY = livingentity.getY();
+                this.pathedTargetZ = livingentity.getZ();
+                this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
+                if (this.canPenalize) {
+                    this.ticksUntilNextPathRecalculation += failedPathFindingPenalty;
+                    if (this.mob.getNavigation().getPath() != null) {
+                        Node finalPathPoint = this.mob.getNavigation().getPath().getEndNode();
+                        if (finalPathPoint != null && livingentity.distanceToSqr(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
+                            failedPathFindingPenalty = 0;
+                        else
+                            failedPathFindingPenalty += 10;
+                    } else {
+                        failedPathFindingPenalty += 10;
+                    }
+                }
+                if (d0 > 1024.0D) {
+                    this.ticksUntilNextPathRecalculation += 10;
+                } else if (d0 > 256.0D) {
+                    this.ticksUntilNextPathRecalculation += 5;
+                }
+
+                if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
+                    this.ticksUntilNextPathRecalculation += 15;
+                }
+            }
+
+        }
+
+
+        protected void checkForCloseRangeAttack ( double distance, double reach){
+            if (distance <= reach && this.ticksUntilNextAttack <= 0) {
+                int r = this.mob.getRandom().nextInt(2048);
+                if (r <= 600) {
+                    this.mob.setAnimationState(21);
+                }
+
+            }
+        }
+
+
+        protected boolean getRangeCheck () {
+
+            return
+                    this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
+                            <=
+                            1.8F * this.getAttackReachSqr(this.mob.getTarget());
+        }
+
+
+
+        protected void tickBiteAttack () {
+            animTime++;
+            if(animTime==4) {
+                preformBiteAttack();
+            }
+            if(animTime>=8) {
+                animTime=0;
+                if (this.getRangeCheck()) {
+                    this.mob.setAnimationState(22);
+                }else {
+                    this.mob.setAnimationState(0);
+                    this.resetAttackCooldown();
+                    this.ticksUntilNextPathRecalculation = 0;
+                }
+            }
+        }
+
+
+        protected void preformBiteAttack () {
+
+
+            Vec3 pos = mob.position();
+            this.mob.playSound(UPSounds.DUNK_ATTACK, 0.1F, 1.0F);
+            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+
+        }
+
+
+        protected void resetAttackCooldown () {
+            this.ticksUntilNextAttack = 0;
+        }
+
+        protected boolean isTimeToAttack () {
+            return this.ticksUntilNextAttack <= 0;
+        }
+
+        protected int getTicksUntilNextAttack () {
+            return this.ticksUntilNextAttack;
+        }
+
+        protected int getAttackInterval () {
+            return 5;
+        }
+
+        protected double getAttackReachSqr(LivingEntity p_179512_1_) {
+            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+        }
+    }
+
+    public boolean canDisableShield() {
+        return true;
+    }
+
+    public int getAnimationState() {
+
+        return this.entityData.get(ANIMATION_STATE);
+    }
+
+    public void setAnimationState(int anim) {
+
+        this.entityData.set(ANIMATION_STATE, anim);
+    }
+
+    public int getCombatState() {
+
+        return this.entityData.get(COMBAT_STATE);
+    }
+
+    public void setCombatState(int anim) {
+
+        this.entityData.set(COMBAT_STATE, anim);
+    }
+
+    public int getEntityState() {
+
+        return this.entityData.get(ENTITY_STATE);
+    }
+
+    public void setEntityState(int anim) {
+
+        this.entityData.set(ENTITY_STATE, anim);
+    }
+
+    public void killed(ServerLevel world, LivingEntity entity) {
+        this.heal(15);
+        super.killed(world, entity);
+    }
+
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {

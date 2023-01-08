@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AA ",
+    "AA ",
+    "   "
+  ],
+  "key": {
+    "A": {
+      "item": "unusualprehistory:amber_shard"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:amber_glass",
+    "count": 4
+  }
+}

@@ -43,6 +43,26 @@
           "type": "minecraft:item",
           "weight": 2.5,
           "name": "unusualprehistory:leefructus_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2.5,
+          "name": "unusualprehistory:bennet_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2.5,
+          "name": "unusualprehistory:sarr_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2.5,
+          "name": "unusualprehistory:archao_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1.5,
+          "name": "unusualprehistory:gingko_flask"
         }
       ]
     }

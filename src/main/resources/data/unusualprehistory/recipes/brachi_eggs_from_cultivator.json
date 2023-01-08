@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:brachi_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:brachi_egg"
+  }
+}

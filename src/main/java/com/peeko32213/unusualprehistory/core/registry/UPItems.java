@@ -56,6 +56,8 @@ public class UPItems {
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> REX_SCALE = ITEMS.register("rex_scale",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<Item> RAPTOR_FEATHERS = ITEMS.register("raptor_feathers",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> VELOCI_SHIELD = ITEMS.register("veloci_shield",
             () -> new ItemVelociShield(new Item.Properties().durability(800).rarity(Rarity.UNCOMMON).tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> TRIKE_SHIELD = ITEMS.register("trike_shield",
@@ -64,16 +66,13 @@ public class UPItems {
             () -> new ModItemDrinkable(drinkItem().food(ModFood.GROG), true, false));
     public static final RegistryObject<Item> MAJUNGA_SCUTE = ITEMS.register("majunga_scute",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-
     public static final RegistryObject<Item> AMBER_SHARDS = ITEMS.register("amber_shard",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> AMBER_FOSSIL = ITEMS.register("amber_fossil",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-
     public static final RegistryObject<Item> ADORNED_STAFF = ITEMS.register("adorned_staff",
             () -> new Item(new Item.Properties().durability(100).rarity(Rarity.UNCOMMON).tab(UnusualPrehistory.DINO_TAB)));
-
     public static final RegistryObject<Item> REX_TOOTH = ITEMS.register("rex_tooth",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
@@ -107,6 +106,18 @@ public class UPItems {
     public static final RegistryObject<Item> LEEFRUCTUS_FLASK = ITEMS.register("leefructus_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Item> ARCHAO_FLASK = ITEMS.register("archao_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> BENNET_FLASK = ITEMS.register("bennet_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> GINKGO_FLASK = ITEMS.register("ginkgo_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> SARR_FLASK = ITEMS.register("sarr_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     public static final RegistryObject<Item> SCAU_FLASK = ITEMS.register("scau_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
@@ -125,10 +136,15 @@ public class UPItems {
     public static final RegistryObject<Item> PACHY_FLASK = ITEMS.register("pachy_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
-    public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
+    public static final RegistryObject<Item> ENCRUSTED_FLASK = ITEMS.register("encrusted_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> FROG_SALIVA = ITEMS.register("frog_saliva",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> ENCRUSTED_ORGAN = ITEMS.register("encrusted_organ",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> WARPICK = ITEMS.register("warpick",
@@ -152,6 +168,14 @@ public class UPItems {
     public static final RegistryObject<Item> COOKED_SCAU = ITEMS.register("cooked_scau",
             () -> new Item(new Item.Properties().food(ModFood.COOKED_SCAU).tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Item> GINKGO_FRUIT = ITEMS.register("ginkgo_fruit",
+            () -> new Item(new Item.Properties().food(ModFood.GINKGO_FRUIT).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> RAW_GINKGO_SEEDS = ITEMS.register("raw_ginkgo_seeds",
+            () -> new Item(new Item.Properties().food(ModFood.RAW_GINKGO_SEEDS).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> COOKED_GINKGO_SEEDS = ITEMS.register("cooked_ginkgo_seeds",
+            () -> new Item(new Item.Properties().food(ModFood.COOKED_GINKGO_SEEDS).tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> GOLDEN_SCAU = ITEMS.register("golden_scau",
             () -> new Item(new Item.Properties().food(ModFood.GOLDEN_SCAU).tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> STETHA_BUCKET = ITEMS.register("stetha_bucket",
@@ -223,6 +247,10 @@ public class UPItems {
 
     public static final RegistryObject<ForgeSpawnEggItem> REX_EGG = ITEMS.register("rex_spawn_egg",
             () -> new ForgeSpawnEggItem(UPEntities.REX , 0x31171c, 0xb96a53,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<ForgeSpawnEggItem> ENCRUSTED_EGG = ITEMS.register("encrusted_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.ENCRUSTED , 0x482300, 0xffc656,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",

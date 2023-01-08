@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:majunga_helmet"
+    },
+    "title": "Thy Strength Befits a Crown",
+    "description": "Craft a Majunga Helmet",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:majunga",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:majunga_helmet"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

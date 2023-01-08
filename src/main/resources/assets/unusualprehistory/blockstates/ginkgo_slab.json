@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "unusualprehistory:block/ginkgo_slab"
+    },
+    "type=double": {
+      "model": "unusualprehistory:block/ginkgo_planks"
+    },
+    "type=top": {
+      "model": "unusualprehistory:block/ginkgo_slab_top"
+    }
+  }
+}

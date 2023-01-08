@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -53,10 +54,10 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.UUID;
-
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketable, NeutralMob, IAnimatable {
-    private final AnimationFactory factory = new AnimationFactory(this);
-    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private int remainingPersistentAngerTime;
     @javax.annotation.Nullable
     private UUID persistentAngerTarget;
@@ -91,18 +92,26 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 3.0D, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.6D, 1) {
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.7D, 1) {
             @Override
             public boolean canUse() {
                 return super.canUse() && isInWater();
             }
         });
-        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.6D, 15) {
+        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.7D, 15) {
             @Override
             public boolean canUse() {
                 return !this.mob.isInWater() && super.canUse();
             }
         });
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
     }
 
     @Override
@@ -162,6 +171,12 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
         super.aiStep();
     }
 
+    public void killed(ServerLevel world, LivingEntity entity) {
+        this.heal(5);
+        super.killed(world, entity);
+    }
+
+
     protected PathNavigation createNavigation(Level p_27480_) {
         return new WaterBoundPathNavigation(this, p_27480_);
     }
@@ -195,13 +210,6 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
         return this.entityData.get(FROM_BUCKET);
     }
 
-    @Override
-    public void saveToBucketTag(ItemStack bucket) {
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putFloat("Health", this.getHealth());
-
-    }
-
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket() || this.hasCustomName();
     }
@@ -219,8 +227,18 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     }
 
     @Override
-    public void loadFromBucketTag(CompoundTag p_148832_) {
+    public void loadFromBucketTag(CompoundTag compound) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compound);
+    }
 
+    @Override
+    public void saveToBucketTag(ItemStack bucket) {
+        CompoundTag compoundnbt = bucket.getOrCreateTag();
+        Bucketable.saveDefaultDataToBucketTag(this, bucket);
+        compoundnbt.putFloat("Health", this.getHealth());
+        if (this.hasCustomName()) {
+            bucket.setHoverName(this.getCustomName());
+        }
     }
 
     @Override
@@ -285,7 +303,7 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.stethacanthus.swim", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.stethacanthus.swim"));
         }
         return PlayState.CONTINUE;
     }
@@ -299,7 +317,7 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
     @Nullable

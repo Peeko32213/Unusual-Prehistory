@@ -1,0 +1,21 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.amber_shot.move": {
+			"loop": true,
+			"bones": {
+				"amber_shot": {
+					"rotation": {
+						"vector": [0, 0, "((query.anim_time - 0.8) * 360) * 2"]
+					}
+				},
+				"part1": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

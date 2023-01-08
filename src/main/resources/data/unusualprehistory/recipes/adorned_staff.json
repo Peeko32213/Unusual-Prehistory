@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "A": {
+      "item": "unusualprehistory:amber_fossil"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:adorned_staff"
+  }
+}

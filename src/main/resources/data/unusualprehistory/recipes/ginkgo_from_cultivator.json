@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:ginkgo_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:ginkgo_sapling"
+  }
+}

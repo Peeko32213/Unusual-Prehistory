@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.CustomRideGoal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -11,6 +12,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,6 +42,9 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
@@ -48,8 +53,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     private static final EntityDataAccessor<Byte> DATA_FLAG = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BYTE);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.BEEF, Items.PORKCHOP, Items.CHICKEN);
 
-    private final AnimationFactory factory = new AnimationFactory(this);
-    protected float playerJumpPendingScale;
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    protected float playerJumpPendingScale;
     private boolean allowStandSliding;
     private int standCounter;
     protected boolean isJumping;
@@ -74,7 +78,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(2, new CustomRideGoal(this, 1.5D));
-        this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1D, 50));
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -82,6 +86,20 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.BEELZE_TARGETS)));
 
     }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
+    }
+
+    public void killed(ServerLevel world, LivingEntity entity) {
+        this.heal(10);
+        super.killed(world, entity);
+    }
+
 
     @Override
     protected void defineSynchedData() {
@@ -229,6 +247,11 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
             this.setSaddled(true);
             return InteractionResult.SUCCESS;
         }
+        else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+            this.setSaddled(false);
+            this.spawnAtLocation(Items.SADDLE);
+            return InteractionResult.SUCCESS;
+        }
         InteractionResult type = super.mobInteract(player, hand);
         if (type != InteractionResult.SUCCESS && !isFood(itemstack)) {
             if (!player.isShiftKeyDown() && this.isSaddled()) {
@@ -288,12 +311,12 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.beelzebufo.walk", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
                 event.getController().setAnimationSpeed(0.8D);
             }
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.beelzebufo.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.idle"));
             event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
@@ -302,7 +325,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.beelzebufo.bite", false));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.bite"));
             event.getController().setAnimationSpeed(0.9D);
 
             this.swinging = false;
@@ -314,13 +337,13 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(5);
         AnimationController<EntityBeelzebufo> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
+        data.addAnimationController(controller);
     }
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
     public void onPlayerJump(int p_30591_) {

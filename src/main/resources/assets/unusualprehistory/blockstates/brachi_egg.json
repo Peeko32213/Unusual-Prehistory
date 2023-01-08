@@ -1,0 +1,55 @@
+{
+  "variants": {
+    "eggs=1,hatch=0": [
+      {
+        "model": "unusualprehistory:block/brachi_egg"
+      },
+      {
+        "model": "unusualprehistory:block/brachi_egg",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/brachi_egg",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/brachi_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=1": [
+      {
+        "model": "unusualprehistory:block/slightly_cracked_brachi_egg"
+      },
+      {
+        "model": "unusualprehistory:block/slightly_cracked_brachi_egg",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/slightly_cracked_brachi_egg",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/slightly_cracked_brachi_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=2": [
+      {
+        "model": "unusualprehistory:block/very_cracked_brachi_egg"
+      },
+      {
+        "model": "unusualprehistory:block/very_cracked_brachi_egg",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/very_cracked_brachi_egg",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/very_cracked_brachi_egg",
+        "y": 270
+      }
+    ]
+  }
+}

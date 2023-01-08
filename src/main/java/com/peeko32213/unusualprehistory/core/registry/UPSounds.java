@@ -44,6 +44,32 @@ public class UPSounds {
 
     public static final SoundEvent BEELZE_DEATH = createSoundEvent("beelze_death");
 
+    public static final SoundEvent REX_BITE = createSoundEvent("rex_bite");
+    public static final SoundEvent REX_DEATH = createSoundEvent("rex_death");
+    public static final SoundEvent REX_HURT = createSoundEvent("rex_hurt");
+    public static final SoundEvent REX_IDLE = createSoundEvent("rex_idle");
+    public static final SoundEvent REX_STEP = createSoundEvent("rex_step");
+    public static final SoundEvent REX_STOMP_ATTACK = createSoundEvent("rex_stomp_attack");
+    public static final SoundEvent REX_TAIL_SWIPE = createSoundEvent("rex_tail_swipe");
+    public static final SoundEvent TRIKE_DEATH = createSoundEvent("trike_death");
+    public static final SoundEvent TRIKE_HURT = createSoundEvent("trike_hurt");
+    public static final SoundEvent TRIKE_IDLE = createSoundEvent("trike_idle");
+    public static final SoundEvent BRACHI_DEATH = createSoundEvent("brachi_death");
+    public static final SoundEvent BRACHI_HURT = createSoundEvent("brachi_hurt");
+    public static final SoundEvent BRACHI_IDLE = createSoundEvent("brachi_idle");
+    public static final SoundEvent BRACHI_STEP = createSoundEvent("brachi_step");
+    public static final SoundEvent BRACHI_TOSS = createSoundEvent("brachi_toss");
+    public static final SoundEvent ENCRUSTED_DEATH = createSoundEvent("encrusted_death");
+    public static final SoundEvent ENCRUSTED_HURT = createSoundEvent("encrusted_hurt");
+    public static final SoundEvent ENCRUSTED_IDLE = createSoundEvent("encrusted_idle");
+    public static final SoundEvent ENCRUSTED_MELEE = createSoundEvent("encrusted_step");
+    public static final SoundEvent ENCRUSTED_SPIT = createSoundEvent("encrusted_spit");
+    public static final SoundEvent RAPTOR_ATTACK = createSoundEvent("raptor_attack");
+    public static final SoundEvent RAPTOR_DEATH = createSoundEvent("raptor_death");
+    public static final SoundEvent RAPTOR_HURT = createSoundEvent("raptor_hurt");
+    public static final SoundEvent RAPTOR_IDLE = createSoundEvent("raptor_idle");
+    public static final SoundEvent RAPTOR_SEARCH = createSoundEvent("raptor_search");
+
     private static SoundEvent createSoundEvent(final String soundName) {
         final ResourceLocation soundID = new ResourceLocation(UnusualPrehistory.MODID, soundName);
         return new SoundEvent(soundID).setRegistryName(soundID);

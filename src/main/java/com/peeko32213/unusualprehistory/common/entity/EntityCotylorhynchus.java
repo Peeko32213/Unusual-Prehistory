@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -13,6 +14,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,13 +44,14 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class EntityCotylorhynchus extends Animal implements IAnimatable {
     private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.MELON, Items.MELON_SLICE, Items.MELON_SEEDS, Items.GLISTERING_MELON_SLICE);
-    private static final EntityDataAccessor<Boolean> FERMENTED = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FERMENTED = SynchedEntityData.defineId(EntityCotylorhynchus.class, EntityDataSerializers.BOOLEAN);
 
-    private final AnimationFactory factory = new AnimationFactory(this);
-
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public EntityCotylorhynchus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.maxUpStep = 1.0f;
@@ -67,9 +70,17 @@ public class EntityCotylorhynchus extends Animal implements IAnimatable {
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, FOOD_ITEMS, false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityMajungasaurus.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
     }
 
     @Nullable
@@ -157,21 +168,16 @@ public class EntityCotylorhynchus extends Animal implements IAnimatable {
         return SoundEvents.PLAYER_BURP;
     }
 
-    @Override
-    protected PathNavigation createNavigation(Level level) {
-        return new LandCreaturePathNavigation(this, level);
-    }
-
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.cotylorhynchus.walk", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.walk"));
                 event.getController().setAnimationSpeed(1.5D);
             }
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.cotylorhynchus.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.idle"));
             event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
@@ -201,7 +207,7 @@ public class EntityCotylorhynchus extends Animal implements IAnimatable {
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
     public boolean requiresCustomPersistence() {

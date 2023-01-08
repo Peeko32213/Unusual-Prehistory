@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:cultivator"
+    },
+    "title": "Its time to Cook Jesse",
+    "description": "Craft a Cultivator",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:analyzer",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:cultivator"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

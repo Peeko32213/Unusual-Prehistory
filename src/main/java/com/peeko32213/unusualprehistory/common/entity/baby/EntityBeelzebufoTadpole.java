@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -41,12 +42,12 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
-
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 public class EntityBeelzebufoTadpole extends AbstractFish implements IAnimatable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityBeelzebufoTadpole.class, EntityDataSerializers.BOOLEAN);
     public static final int MAX_TADPOLE_AGE = Math.abs(-24000);
-    private final AnimationFactory factory = new AnimationFactory(this);
-
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private int age;
     public EntityBeelzebufoTadpole(EntityType<? extends AbstractFish> entityType, Level level) {
         super(entityType, level);
@@ -105,18 +106,21 @@ public class EntityBeelzebufoTadpole extends AbstractFish implements IAnimatable
     }
 
     @Override
-    public void saveToBucketTag(ItemStack bucket) {
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putFloat("Health", this.getHealth());
-        compoundnbt.putInt("Age", this.getAge());
-
+    public void loadFromBucketTag(CompoundTag compound) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compound);
+        if (compound.contains("Age")) {
+            this.setAge(compound.getInt("Age"));
+        }
     }
 
     @Override
-    public void loadFromBucketTag(CompoundTag nbt) {
-        Bucketable.loadDefaultDataFromBucketTag(this, nbt);
-        if (nbt.contains("Age")) {
-            this.setAge(nbt.getInt("Age"));
+    public void saveToBucketTag(ItemStack bucket) {
+        CompoundTag compoundnbt = bucket.getOrCreateTag();
+        Bucketable.saveDefaultDataToBucketTag(this, bucket);
+        compoundnbt.putFloat("Health", this.getHealth());
+        compoundnbt.putInt("Age", this.getAge());
+        if (this.hasCustomName()) {
+            bucket.setHoverName(this.getCustomName());
         }
     }
 
@@ -235,7 +239,7 @@ public class EntityBeelzebufoTadpole extends AbstractFish implements IAnimatable
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.babybeelze.swim", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.babybeelze.swim"));
         }
         return PlayState.CONTINUE;
     }
@@ -249,7 +253,7 @@ public class EntityBeelzebufoTadpole extends AbstractFish implements IAnimatable
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
     @Nullable
@@ -262,6 +266,14 @@ public class EntityBeelzebufoTadpole extends AbstractFish implements IAnimatable
             }
         }
         return p_28137_;
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
     }
 
 }

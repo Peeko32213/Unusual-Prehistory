@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.util.BabyHurtByTargetGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -58,10 +59,10 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
-
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralMob {
-    private final AnimationFactory factory = new AnimationFactory(this);
-    private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.BOOLEAN);
     private int stunnedTick;
     private boolean canBePushed = true;
@@ -91,11 +92,6 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     }
 
     @Override
-    protected PathNavigation createNavigation(Level level) {
-        return new LandCreaturePathNavigation(this, level);
-    }
-
-    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -104,12 +100,20 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         this.goalSelector.addGoal(3, new MajungaChargeGoal(this, 2.5F));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(9, new ResetUniversalAngerTargetGoal<>(this, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.MAJUNGA_TARGETS)));
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
     }
 
     @Nullable
@@ -161,6 +165,12 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
             return false;
         }
     }
+
+    public void killed(ServerLevel world, LivingEntity entity) {
+        this.heal(10);
+        super.killed(world, entity);
+    }
+
 
     public void setChargeCooldownTicks(int ticks) {
         this.entityData.set(CHARGE_COOLDOWN_TICKS, ticks);
@@ -449,21 +459,21 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.stunnedTick > 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.stunned", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.stunned"));
             event.getController().setAnimationSpeed(1.0F);
         } else if (event.isMoving()) {
             if (this.isSprinting()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.run", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.run"));
                 event.getController().setAnimationSpeed(3.0F);
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.walk", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.walk"));
                 event.getController().setAnimationSpeed(1.0F);
             }
         } else if (this.hasChargeCooldown() && this.hasTarget()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.prep", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.prep"));
             event.getController().setAnimationSpeed(1.0F);
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.idle"));
             event.getController().setAnimationSpeed(1.0F);
         }
         return PlayState.CONTINUE;
@@ -472,7 +482,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.majungasaurus.bite", false));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.majungasaurus.bite"));
             this.swinging = false;
         }
         return PlayState.CONTINUE;
@@ -482,13 +492,13 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(5);
         AnimationController<EntityMajungasaurus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
+        data.addAnimationController(controller);
     }
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
     @Nullable

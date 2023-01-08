@@ -4,9 +4,12 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
+import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyBrachi;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
+import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyRex;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBeelzebufoTadpole;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
+import com.peeko32213.unusualprehistory.common.entity.projectile.EntityAmberShot;
 import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -25,7 +28,7 @@ public class UPEntities {
             UnusualPrehistory.MODID);
 
     public static final RegistryObject<EntityType<EntityStethacanthus>> STETHACANTHUS = ENTITIES.register("stethacanthus",
-            () -> EntityType.Builder.of(EntityStethacanthus::new, MobCategory.WATER_CREATURE).sized(1.1f, 0.6f)
+            () -> EntityType.Builder.of(EntityStethacanthus::new, MobCategory.WATER_CREATURE).sized(0.6f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "stethacanthus").toString()));
 
     public static final RegistryObject<EntityType<EntityMajungasaurus>> MAJUNGA = ENTITIES.register("majunga",
@@ -84,6 +87,23 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityTyrannosaurusRex::new, MobCategory.CREATURE).sized(3.4F, 5.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "rex").toString()));
 
+    public static final RegistryObject<EntityType<EntityEncrusted>> ENCRUSTED = ENTITIES.register("encrusted",
+            () -> EntityType.Builder.of(EntityEncrusted::new, MobCategory.MONSTER).sized(2.3F, 1.95F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "encrusted").toString()));
+
+    public static final RegistryObject<EntityType<EntityAmberShot>> AMBER_SHOT = ENTITIES.register(
+            "amber_shot", () -> EntityType.Builder.<EntityAmberShot>of(EntityAmberShot::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(9)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "amber_shot").toString()));
+
+    public static final RegistryObject<EntityType<EntityBabyRex>> BABY_REX = ENTITIES.register("baby_rex",
+            () -> EntityType.Builder.of(EntityBabyRex::new, MobCategory.CREATURE).sized(1.1f, 0.6f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_rex").toString()));
+
+    public static final RegistryObject<EntityType<EntityBabyBrachi>> BABY_BRACHI = ENTITIES.register("baby_brachi",
+            () -> EntityType.Builder.of(EntityBabyBrachi::new, MobCategory.CREATURE).sized(1.3f, 2.1f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_brachi").toString()));
+
     public static final RegistryObject<EntityType<BaseEntityRender>> AMMON_RENDER = ENTITIES.register("ammon_render",
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "ammon_render").toString()));
@@ -115,6 +135,33 @@ public class UPEntities {
     public static final RegistryObject<EntityType<BaseEntityRender>> SCAU_RENDER = ENTITIES.register("scau_render",
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "scau_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> TRIKE_RENDER = ENTITIES.register("trike_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "trike_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> PACHY_RENDER = ENTITIES.register("pachy_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "pachy_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> BRACHI_RENDER = ENTITIES.register("brachi_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> RAPTOR_RENDER = ENTITIES.register("raptor_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "raptor_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> REX_RENDER = ENTITIES.register("rex_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "rex_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> ENCRUSTED_RENDER = ENTITIES.register("encrusted_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "encrusted_render").toString()));
+    private static final EntityType registerEntity(EntityType.Builder builder, String entityName) {
+        return (EntityType) builder.build(entityName);
+    }
 
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag){
         if(entityTag == null){

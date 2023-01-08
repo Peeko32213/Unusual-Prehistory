@@ -19,7 +19,6 @@ public class MajungaHelmetModel extends AnimatedGeoModel<ItemMajungaHelmet> {
 
     @Override
     public ResourceLocation getAnimationFileLocation(ItemMajungaHelmet animatable) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/armor.animation.json");
-
+        return null;
     }
 }

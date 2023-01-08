@@ -17,8 +17,10 @@ public class UPTags {
     public static final TagKey<EntityType<?>> BEELZE_TARGETS = registerEntityTag("beelze_targets");
     public static final TagKey<EntityType<?>> REX_TARGETS = registerEntityTag("rex_targets");
     public static final TagKey<EntityType<?>> RAPTOR_TARGETS = registerEntityTag("raptor_targets");
+    public static final TagKey<EntityType<?>> ENCRUSTED_TARGETS = registerEntityTag("encrusted_targets");
 
     public static final TagKey<Block> TRIKE_BREAKABLES = registerBlockTag("trike_breakables");
+    public static final TagKey<Block> BRACHI_BREAKABLES = registerBlockTag("brachi_breakables");
 
     private static TagKey<Item> registerItemTag(String name) {
         return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));

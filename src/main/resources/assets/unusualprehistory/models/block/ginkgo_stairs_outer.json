@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "unusualprehistory:block/ginkgo_planks",
+    "side": "unusualprehistory:block/ginkgo_planks",
+    "top": "unusualprehistory:block/ginkgo_planks"
+  }
+}

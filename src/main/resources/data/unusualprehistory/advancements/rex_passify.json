@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:rex_tooth"
+    },
+    "title": "Down With the King!",
+    "description": "Beat a T Rex to its last breaths and spare it",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:rex",
+  "criteria": {
+    "interact": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:rex"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "interact"
+    ]
+  ]
+}

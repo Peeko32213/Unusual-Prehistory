@@ -4,7 +4,7 @@ license="MIT"
 
 [[mods]]
 modId="unusualprehistory"
-version="1.0.1"
+version="1.1.0-beta-1"
 displayName= "Unusual Prehistory"
 logoFile= "examplemod.png"
 credits= "Thanks to Fred, Omatypaty, and Crydigo for textures! Thanks to skyjay1#2076 for help on GUI code! Thanks to Shroomy for sound help!"
@@ -27,11 +27,10 @@ versionRange="[1.18.2,1.19)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.unusualprehistory]]
+[[dependencies.geckolib]]
 modId="geckolib3"
 mandatory=true
-versionRange="[3.0.32,)"
-ordering="NONE"
+versionRange="[3.0.52,)"
+ordering="BEFORE"
 side="BOTH"
-
 

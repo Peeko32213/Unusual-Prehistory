@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:analyzer"
+    },
+    "title": "Sciency Science Doodad",
+    "description": "Craft a Analyzer",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:fossil",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:analyzer"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

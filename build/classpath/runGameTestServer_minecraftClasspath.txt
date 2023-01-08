@@ -1,4 +1,4 @@
-C:\Users\jake\Desktop\UnusualPrehistory\build\fg_cache\net\minecraftforge\forge\1.18.2-40.1.74_mapped_official_1.18.2\forge-1.18.2-40.1.74_mapped_official_1.18.2.jar
+C:\Users\jake\Desktop\UnusualPrehistory\build\fg_cache\net\minecraftforge\forge\1.18.2-40.1.74_mapped_official_1.18.2\forge-1.18.2-40.1.74_mapped_official_1.18.2-recomp.jar
 C:\Users\jake\.gradle\caches\forge_gradle\minecraft_repo\versions\1.18.2\client-extra.jar
 C:\Users\jake\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.18.2-40.1.74\b0ea28032bd34b5d0b149d90b3c3bc09cac40935\javafmllanguage-1.18.2-40.1.74.jar
 C:\Users\jake\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.18.2-40.1.74\62c67c89932b1719b02dc0af3550da6a5cff4437\lowcodelanguage-1.18.2-40.1.74.jar

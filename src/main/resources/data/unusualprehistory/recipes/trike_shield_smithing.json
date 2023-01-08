@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "addition": {
+    "item": "unusualprehistory:trike_horn"
+  },
+  "base": {
+    "item": "minecraft:shield"
+  },
+  "result": {
+    "item": "unusualprehistory:trike_shield"
+  }
+}

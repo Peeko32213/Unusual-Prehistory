@@ -22,6 +22,8 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import software.bernie.example.client.renderer.armor.GeckoArmorRenderer;
+import software.bernie.example.item.GeckoArmorItem;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -35,6 +37,8 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.DUNK_EGGS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.SCAU_EGGS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_DOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_TRAPDOOR.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.HORSETAIL.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.POTTED_HORSETAIL.get(), RenderType.cutout());
@@ -44,11 +48,13 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.SARACENIA.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.TALL_SARACENIA.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.REX_HEAD.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_SAPLING.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.LEEFRUCTUS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.POTTED_LEEFRUCTUS.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.AMBER_GLASS.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
 
 
         MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
@@ -73,7 +79,10 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BRACHI.get(), BrachiosaurusRenderer::new);
         event.registerEntityRenderer(UPEntities.VELOCI.get(), VelociraptorRenderer::new);
         event.registerEntityRenderer(UPEntities.REX.get(), TyrannosaurusRexRenderer::new);
-
+        event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), EncrustedRenderer::new);
+        event.registerEntityRenderer(UPEntities.AMBER_SHOT.get(), AmberShotRenderer::new);
+        event.registerEntityRenderer(UPEntities.BABY_BRACHI.get(), BabyBrachiRenderer::new);
+        event.registerEntityRenderer(UPEntities.BABY_REX.get(), BabyRexRenderer::new);
         try {
             ItemProperties.register(UPItems.VELOCI_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
             ItemProperties.register(UPItems.TRIKE_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
@@ -89,6 +98,12 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.DUNK_RENDER.get(), DunkRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.STETHA_RENDER.get(), StethaRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.SCAU_RENDER.get(), ScaumenaciaRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.TRIKE_RENDER.get(), TrikeRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.PACHY_RENDER.get(), PachyRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.BRACHI_RENDER.get(), BrachiRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.RAPTOR_RENDER.get(), RaptorRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.REX_RENDER.get(), RexRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.ENCRUSTED_RENDER.get(), EncrustedRenderRenderer::new);
 
     }
 
@@ -102,12 +117,17 @@ public final class ClientEvents {
         event.registerLayerDefinition(DunkRenderModel.LAYER_LOCATION, DunkRenderModel::createBodyLayer);
         event.registerLayerDefinition(StethaRenderModel.LAYER_LOCATION, StethaRenderModel::createBodyLayer);
         event.registerLayerDefinition(ScaumenaciaRenderModel.LAYER_LOCATION, ScaumenaciaRenderModel::createBodyLayer);
-
+        event.registerLayerDefinition(TrikeRenderModel.LAYER_LOCATION, TrikeRenderModel::createBodyLayer);
+        event.registerLayerDefinition(PachyRenderModel.LAYER_LOCATION, PachyRenderModel::createBodyLayer);
+        event.registerLayerDefinition(BrachiRenderModel.LAYER_LOCATION, BrachiRenderModel::createBodyLayer);
+        event.registerLayerDefinition(RaptorRenderModel.LAYER_LOCATION, RaptorRenderModel::createBodyLayer);
+        event.registerLayerDefinition(RexRenderModel.LAYER_LOCATION, RexRenderModel::createBodyLayer);
+        event.registerLayerDefinition(EncrustedRenderModel.LAYER_LOCATION, EncrustedRenderModel::createBodyLayer);
     }
 
     @SubscribeEvent
-    public static void registerArmorRenderers(final EntityRenderersEvent.AddLayers event) {
-        GeoArmorRenderer.registerArmorRenderer(ItemMajungaHelmet.class, MajungaHelmetRenderer::new);
+    public static void registerRenderers(final EntityRenderersEvent.AddLayers event) {
+        GeoArmorRenderer.registerArmorRenderer(ItemMajungaHelmet.class, () -> new MajungaHelmetRenderer());
     }
 
 }

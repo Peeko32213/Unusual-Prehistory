@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CIC",
+    "ROR",
+    "CIC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "I": {
+      "item": "minecraft:blue_ice"
+    },
+    "R": {
+      "item": "minecraft:iron_ingot"
+    },
+    "O": {
+      "item": "unusualprehistory:encrusted_organ"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:dna_fridge"
+  }
+}
+

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "down": "unusualprehistory:block/analyzer_bottom",
+    "east": "unusualprehistory:block/dna_fridge_side",
+    "north": "unusualprehistory:block/dna_fridge_side",
+    "particle": "unusualprehistory:block/dna_fridge_side",
+    "south": "unusualprehistory:block/dna_fridge_side",
+    "up": "unusualprehistory:block/dna_fridge_top",
+    "west": "unusualprehistory:block/dna_fridge_side"
+  }
+}

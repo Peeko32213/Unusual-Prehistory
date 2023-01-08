@@ -1,20 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:pig",
-    "minecraft:cow",
-    "minecraft:sheep",
-    "minecraft:horse",
-    "minecraft:chicken",
-    "minecraft:rabbit",
-    "minecraft:llama",
-    "minecraft:turtle",
-    "minecraft:goat",
-    "unusualprehistory:coty",
-    "unusualprehistory:majunga",
-    "unusualprehistory:pachy",
-    "unusualprehistory:trike",
-    "unusualprehistory:veloci"
-
+    "unusualprehistory:trike"
   ]
 }

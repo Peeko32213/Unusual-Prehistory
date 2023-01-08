@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FTF",
+    "ASA",
+    "FTF"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:shield"
+    },
+    "F": {
+      "item": "unusualprehistory:raptor_feathers"
+    },
+    "T": {
+      "item": "unusualprehistory:rex_tooth"
+    },
+    "A": {
+      "item": "unusualprehistory:amber_shard"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:veloci_shield"
+  }
+}

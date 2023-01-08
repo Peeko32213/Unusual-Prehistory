@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.util.*;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
@@ -8,9 +9,12 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,6 +28,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
@@ -37,6 +42,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -50,17 +56,19 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
-
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 public class EntityTriceratops extends TamableAnimal implements IAnimatable, CustomFollower {
-    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GOLDEN_SCAU.get());
+    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
+
+    private static final TagKey<Item> FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "trike_food"));
 
     private EatBlockGoal eatBlockGoal;
     private int eatAnimationTick;
     private int riderAttackCooldown = 0;
     public float prevSitProgress;
     public float sitProgress;
-    private final AnimationFactory factory = new AnimationFactory(this);
-    private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.INT);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.BOOLEAN);
@@ -73,21 +81,23 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         this.maxUpStep = 1.0f;
     }
 
-    @Override
-    protected PathNavigation createNavigation(Level level) {
-        return new LandCreaturePathNavigation(this, level);
-    }
-
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 90.0D)
                 .add(Attributes.ARMOR, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
-                .add(Attributes.ATTACK_DAMAGE, 18.0D)
+                .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.3D);
     }
 
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
+    }
 
     @Override
     protected void registerGoals() {
@@ -98,9 +108,9 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         this.goalSelector.addGoal(2, new EntityTriceratops.TrikePrepareChargeGoal(this));
         this.goalSelector.addGoal(3, new EntityTriceratops.TrikeChargeGoal(this, 2.5F));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(5, this.eatBlockGoal);
+        this.goalSelector.addGoal(2, this.eatBlockGoal);
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(2, new TrikeNearestAttackablePlayerTargetGoal(this));
@@ -110,9 +120,13 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(5, new TameableTempt(this, 1.1D, TEMPTATION_ITEMS, false));
+        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, EntityTyrannosaurusRex.class, false));
 
 
+    }
 
+    public boolean isFood(ItemStack stack) {
+        return stack.is(FOOD);
     }
 
     public boolean isAngryAt(LivingEntity p_21675_) {
@@ -120,15 +134,15 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.COTY_IDLE;
+        return UPSounds.TRIKE_IDLE;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.COTY_HURT;
+        return UPSounds.TRIKE_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.COTY_DEATH;
+        return UPSounds.TRIKE_DEATH;
     }
 
     @Nullable
@@ -175,6 +189,15 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         this.setCommand(compound.getInt("TrikeCommand"));
 
 
+    }
+
+    @Override
+    public boolean canAttack(LivingEntity entity) {
+        boolean prev = super.canAttack(entity);
+        if(prev && isBaby()){
+            return false;
+        }
+        return prev;
     }
 
     public int getCommand() {
@@ -257,14 +280,14 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
         Item item = itemstack.getItem();
-        if (itemstack.getItem() == UPItems.ORGANIC_OOZE.get() && this.getHealth() < this.getMaxHealth()) {
+        if (isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
             this.heal(6);
             return InteractionResult.SUCCESS;
         }
-        if (item == UPItems.GOLDEN_SCAU.get() && !isTame()) {
+        if (isFood(itemstack) && !isTame()) {
             int size = itemstack.getCount();
             this.tame(player);
             itemstack.shrink(size);
@@ -273,7 +296,6 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
             if (isFood(itemstack)) {
-                this.setInLoveTime(600);
                 this.usePlayerItem(player, hand, itemstack);
                 return InteractionResult.SUCCESS;
             } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
@@ -403,9 +425,8 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
             super(pathfinderMob, speedMultiplier, followingTargetEvenIfNotSeen);
         }
 
-        @Override
-        protected double getAttackReachSqr(LivingEntity attackTarget) {
-            return Mth.square(this.mob.getBbWidth());
+        protected double getAttackReachSqr(LivingEntity p_179512_1_) {
+            return (double)(this.mob.getBbWidth() * 1.8F * this.mob.getBbWidth() * 1.1F + p_179512_1_.getBbWidth());
         }
     }
 
@@ -488,7 +509,7 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
                 this.mob.jumpFromGround();
             }
             if (this.mob.level.getGameTime() % 2L == 0L) {
-                this.mob.playSound(UPSounds.MAJUNGA_STEP, 0.5F, this.mob.getVoicePitch());
+                this.mob.playSound(UPSounds.REX_STEP, 0.5F, this.mob.getVoicePitch());
             }
             this.tryToHurt();
         }
@@ -572,22 +593,22 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             if (this.isSprinting() || !this.getPassengers().isEmpty()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.trike.run", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.run"));
                 event.getController().setAnimationSpeed(2.0D);
             } else if (event.isMoving() ) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.trike.walk", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.walk"));
                 event.getController().setAnimationSpeed(1.0D);
             }
         }
          else if (this.hasChargeCooldown() && this.hasTarget()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.trike.prep", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.prep"));
             event.getController().setAnimationSpeed(1.0F);
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.trike.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.idle"));
             event.getController().setAnimationSpeed(1.0F);
         }
          if (this.isInSittingPose()){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.trike.sit", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.sit"));
              event.getController().setAnimationSpeed(1.0F);
          }
         return PlayState.CONTINUE;
@@ -596,7 +617,7 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.trike.attack", false));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.trike.attack"));
             this.swinging = false;
         }
         return PlayState.CONTINUE;
@@ -604,7 +625,7 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
 
     private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
         if (this.isEating()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.trike.eat", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.eat"));
             return PlayState.CONTINUE;
         }
         event.getController().markNeedsReload();
@@ -622,7 +643,7 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
     static class TrikeNearestAttackablePlayerTargetGoal extends NearestAttackableTargetGoal<Player> {

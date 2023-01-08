@@ -35,14 +35,14 @@ public class AnuroRenderModel<T extends BaseEntityRender> extends EntityModel<T>
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
 		PartDefinition Body = partdefinition.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(4, 7).addBox(-1.5F, -1.0F, -4.0F, 3.0F, 1.0F, 0.0F, new CubeDeformation(0.01F))
-		.texOffs(0, 0).addBox(-4.5F, -4.0F, -4.0F, 9.0F, 3.0F, 11.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(0.0F, 20.0F, -1.0F, -0.3927F, 0.0F, 0.0F));
+				.texOffs(0, 0).addBox(-4.5F, -4.0F, -4.0F, 9.0F, 3.0F, 11.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(0.0F, 20.0F, -1.0F, -0.3927F, 0.0F, 0.0F));
 
 		PartDefinition LowerJaw = Body.addOrReplaceChild("LowerJaw", CubeListBuilder.create().texOffs(0, 0).addBox(4.5F, -2.0F, -6.0F, 0.0F, 2.0F, 5.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 0).mirror().addBox(-4.5F, -2.0F, -6.0F, 0.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(0, 14).addBox(-4.5F, 0.0F, -6.0F, 9.0F, 1.0F, 11.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 2).addBox(1.5F, -2.0F, -6.0F, 3.0F, 2.0F, 0.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 2).mirror().addBox(-4.5F, -2.0F, -6.0F, 3.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(0, 4).addBox(-1.5F, -1.0F, -6.0F, 3.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 2.0F));
+				.texOffs(0, 0).mirror().addBox(-4.5F, -2.0F, -6.0F, 0.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(0, 14).addBox(-4.5F, 0.0F, -6.0F, 9.0F, 1.0F, 11.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 2).addBox(1.5F, -2.0F, -6.0F, 3.0F, 2.0F, 0.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 2).mirror().addBox(-4.5F, -2.0F, -6.0F, 3.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(0, 4).addBox(-1.5F, -1.0F, -6.0F, 3.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 2.0F));
 
 		PartDefinition Tail = Body.addOrReplaceChild("Tail", CubeListBuilder.create().texOffs(1, 26).addBox(-2.0F, 0.0F, 0.0F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.01F)), PartPose.offset(-0.5F, -2.0F, 7.0F));
 
@@ -50,9 +50,13 @@ public class AnuroRenderModel<T extends BaseEntityRender> extends EntityModel<T>
 
 		PartDefinition Wingtip1 = Wing1.addOrReplaceChild("Wingtip1", CubeListBuilder.create().texOffs(20, 0).addBox(-9.0F, 0.0F, -1.0F, 9.0F, 0.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-8.5F, 0.0F, 1.0F, 0.0F, 0.0F, 1.7453F));
 
+		PartDefinition Claw1 = Wing1.addOrReplaceChild("Claw1", CubeListBuilder.create().texOffs(47, 0).addBox(-1.0F, 0.0F, -1.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-8.75F, -0.5F, -1.0F, 0.0F, 0.0F, 0.7854F));
+
 		PartDefinition Wing2 = partdefinition.addOrReplaceChild("Wing2", CubeListBuilder.create().texOffs(20, 14).mirror().addBox(-0.5F, 0.0F, 0.0F, 9.0F, 0.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(4.5F, 18.5F, -3.0F, 0.0F, 0.0F, 0.6981F));
 
 		PartDefinition Wingtip2 = Wing2.addOrReplaceChild("Wingtip2", CubeListBuilder.create().texOffs(20, 0).mirror().addBox(0.0F, 0.0F, -1.0F, 9.0F, 0.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(8.5F, 0.0F, 1.0F, 0.0F, 0.0F, -1.7453F));
+
+		PartDefinition Claw2 = Wing2.addOrReplaceChild("Claw2", CubeListBuilder.create().texOffs(47, 0).mirror().addBox(-2.0F, 0.0F, -1.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(8.75F, -0.5F, -1.0F, 0.0F, 0.0F, -0.7854F));
 
 		PartDefinition Leg1 = partdefinition.addOrReplaceChild("Leg1", CubeListBuilder.create().texOffs(0, 7).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 4.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-4.5F, 21.0F, 4.0F));
 

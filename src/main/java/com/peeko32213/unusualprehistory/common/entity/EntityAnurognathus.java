@@ -17,6 +17,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -54,12 +55,13 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
 public class EntityAnurognathus extends AgeableMob implements IAnimatable, NeutralMob {
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    
     @javax.annotation.Nullable
     private UUID persistentAngerTarget;
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(EntityAnurognathus.class, EntityDataSerializers.BOOLEAN);
@@ -102,10 +104,18 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new PanicGoal(this, 1D));
         this.goalSelector.addGoal(4, new AnuroPolinateGoal(this));
-        this.goalSelector.addGoal(6, new AIFlyIdle());
+        this.goalSelector.addGoal(1, new AIFlyIdle());
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityMajungasaurus.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.ANURO_TARGETS)));
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
     }
 
 
@@ -242,6 +252,10 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         return UPSounds.ANURO_DEATH;
     }
 
+    public void killed(ServerLevel world, LivingEntity entity) {
+        this.heal(10);
+        super.killed(world, entity);
+    }
 
 
     public Vec3 getBlockGrounding(Vec3 fleePos) {
@@ -344,22 +358,22 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
         if (event.isMoving() && this.isOnGround() && this.onGround) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.anuro.walk", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.anuro.walk"));
             event.getController().setAnimationSpeed(1.05);
             return PlayState.CONTINUE;
         }
         if (!event.isMoving() && this.isOnGround() && this.onGround) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.anuro.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.anuro.idle"));
             return PlayState.CONTINUE;
         }
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.anuro.fly", true));
+        event.getController().setAnimation(new AnimationBuilder().loop("animation.anuro.fly"));
         return PlayState.CONTINUE;
     }
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.anuro.bite", false));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.anuro.bite"));
             this.swinging = false;
         }
         return PlayState.CONTINUE;
@@ -369,8 +383,8 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(5);
         AnimationController<EntityAnurognathus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
+        data.addAnimationController(controller);
     }
 
     private class AIFlyIdle extends Goal {
@@ -443,7 +457,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
     @Override

@@ -23,6 +23,7 @@ public class WorldEvents {
 
 
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, UPPlacedFeatures.STONE_FOSSIL_ORE);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, UPPlacedFeatures.AMBER_FOSSIL_ORE);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, UPPlacedFeatures.DEEPSLATE_FOSSIL_ORE);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, UPPlacedFeatures.PLANT_FOSSIL_ORE);
 

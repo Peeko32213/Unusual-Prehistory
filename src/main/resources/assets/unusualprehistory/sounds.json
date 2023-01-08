@@ -198,9 +198,321 @@
         "name": "unusualprehistory:beelze_death_1"
       },
       {
-        "name": "unusualprehistory:beelze_death_1"
+        "name": "unusualprehistory:beelze_death_2"
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.beelze_death"
+  },
+  "rex_bite": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:rex_bite_0"
+      },
+      {
+        "name": "unusualprehistory:rex_bite_1"
+      },
+      {
+        "name": "unusualprehistory:rex_bite_2"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.rex_bite"
+  },
+  "rex_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:rex_death_0"
+      },
+      {
+        "name": "unusualprehistory:rex_death_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.rex_death"
+  },
+  "rex_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:rex_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:rex_hurt_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.rex_hurt"
+  },
+  "rex_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:rex_idle_0"
+      },
+      {
+        "name": "unusualprehistory:rex_idle_1"
+      },
+      {
+        "name": "unusualprehistory:rex_idle_2"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.rex_idle"
+  },
+  "rex_step": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:rex_step"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.rex_step"
+  },
+  "rex_stomp_attack": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:rex_stomp_attack_0"
+      },
+      {
+        "name": "unusualprehistory:rex_stomp_attack_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.rex_stomp_attack"
+  },
+  "rex_tail_swipe": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:rex_tail_swipe"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.rex_tail_swipe"
+  },
+  "trike_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:trike_death_0"
+      },
+      {
+        "name": "unusualprehistory:trike_death_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.trike_death"
+  },
+  "trike_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:trike_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:trike_hurt_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.trike_hurt"
+  },
+  "trike_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:trike_idle_0"
+      },
+      {
+        "name": "unusualprehistory:trike_idle_1"
+      },
+      {
+        "name": "unusualprehistory:trike_idle_2"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.trike_idle"
+  },
+  "brachi_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:brachi_death_0"
+      },
+      {
+        "name": "unusualprehistory:brachi_death_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.brachi_death"
+  },
+  "brachi_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:brachi_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:brachi_hurt_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.brachi_hurt"
+  },
+  "brachi_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:brachi_idle_0"
+      },
+      {
+        "name": "unusualprehistory:brachi_idle_1"
+      },
+      {
+        "name": "unusualprehistory:brachi_idle_2"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.brachi_idle"
+  },
+  "brachi_step": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:brachi_step_0"
+      },
+      {
+        "name": "unusualprehistory:brachi_step_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.brachi_step"
+  },
+  "brachi_toss": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:brachi_toss"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.brachi_toss"
+  },
+  "encrusted_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:encrusted_death_0"
+      },
+      {
+        "name": "unusualprehistory:encrusted_death_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.encrusted_death"
+  },
+  "encrusted_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:encrusted_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:encrusted_hurt_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.encrusted_hurt"
+  },
+  "encrusted_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:encrusted_idle_0"
+      },
+      {
+        "name": "unusualprehistory:encrusted_idle_1"
+      },
+      {
+        "name": "unusualprehistory:encrusted_idle_2"
+      },
+      {
+        "name": "unusualprehistory:encrusted_idle_3"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.encrusted_idle"
+  },
+  "encrusted_melee": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:encrusted_melee_0"
+      },
+      {
+        "name": "unusualprehistory:encrusted_melee_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.encrusted_melee"
+  },
+  "encrusted_spit": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:encrusted_spit_0"
+      },
+      {
+        "name": "unusualprehistory:encrusted_spit_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.encrusted_spit"
+  },
+  "raptor_attack": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:raptor_attack_0"
+      },
+      {
+        "name": "unusualprehistory:raptor_attack_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.raptor_attack"
+  },
+  "raptor_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:raptor_death_0"
+      },
+      {
+        "name": "unusualprehistory:raptor_death_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.raptor_death"
+  },
+  "raptor_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:raptor_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:raptor_hurt_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.raptor_hurt"
+  },
+  "raptor_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:raptor_idle_0"
+      },
+      {
+        "name": "unusualprehistory:raptor_idle_1"
+      },
+      {
+        "name": "unusualprehistory:raptor_idle_2"
+      },
+      {
+        "name": "unusualprehistory:raptor_idle_3"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.raptor_idle"
+  },
+  "raptor_search": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:raptor_search"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.raptor_search"
   }
 }

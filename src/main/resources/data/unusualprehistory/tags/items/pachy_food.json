@@ -1,9 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:leaves",
-    "minecraft:sugar_cane",
-    "minecraft:apple",
-    "minecraft:bamboo"
+    "unusualprehistory:raw_ginkgo_seeds"
   ]
 }

@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
+import com.peeko32213.unusualprehistory.common.block.entity.DNAFridgeBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -23,6 +24,10 @@ public class UPBlockEntities {
                     BlockEntityType.Builder.of(CultivatorBlockEntity::new,
                             UPBlocks.CULTIVATOR.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<DNAFridgeBlockEntity>> DNA_FRIDGE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("dna_fridge_block_entity", () ->
+                    BlockEntityType.Builder.of(DNAFridgeBlockEntity::new,
+                            UPBlocks.DNA_FRIDGE.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

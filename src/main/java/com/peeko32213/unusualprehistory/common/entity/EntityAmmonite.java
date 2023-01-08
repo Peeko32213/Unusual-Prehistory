@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,12 +41,14 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
 public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, IAnimatable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private boolean isSchool = true;
 
     public EntityAmmonite(EntityType<? extends SchoolingWaterAnimal> entityType, Level level) {
@@ -83,6 +86,14 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
                 return !this.mob.isInWater() && super.canUse();
             }
         });
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
     }
 
     public int getMaxSpawnClusterSize() {
@@ -151,10 +162,18 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
     }
 
     @Override
+    public void loadFromBucketTag(CompoundTag compound) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compound);
+    }
+
+    @Override
     public void saveToBucketTag(ItemStack bucket) {
         CompoundTag compoundnbt = bucket.getOrCreateTag();
+        Bucketable.saveDefaultDataToBucketTag(this, bucket);
         compoundnbt.putFloat("Health", this.getHealth());
-
+        if (this.hasCustomName()) {
+            bucket.setHoverName(this.getCustomName());
+        }
     }
 
     public boolean requiresCustomPersistence() {
@@ -171,11 +190,6 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
 
     public void setFromBucket(boolean p_203706_1_) {
         this.entityData.set(FROM_BUCKET, p_203706_1_);
-    }
-
-    @Override
-    public void loadFromBucketTag(CompoundTag p_148832_) {
-
     }
 
     @Override
@@ -207,7 +221,7 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.ammonite.swim", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.ammonite.swim"));
         }
         return PlayState.CONTINUE;
     }
@@ -221,7 +235,7 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
     @Nullable

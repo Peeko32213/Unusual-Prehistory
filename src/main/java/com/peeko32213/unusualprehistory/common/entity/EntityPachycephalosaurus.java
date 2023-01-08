@@ -2,19 +2,25 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -35,6 +41,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
@@ -54,7 +61,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 public class EntityPachycephalosaurus extends Animal implements IAnimatable {
     private static final TagKey<Item> FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "pachy_food"));
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
@@ -62,17 +70,10 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
 
-    private final AnimationFactory factory = new AnimationFactory(this);
-
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public EntityPachycephalosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.maxUpStep = 1.0f;
-    }
-
-
-    @Override
-    protected PathNavigation createNavigation(Level level) {
-        return new LandCreaturePathNavigation(this, level);
     }
 
 
@@ -92,7 +93,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
         this.goalSelector.addGoal(1, new EntityPachycephalosaurus.PachyMeleeAttackGoal(this,  1.3F, true));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, Ingredient.of(Items.WHEAT), false));
-        this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 15.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -100,8 +101,41 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
     }
 
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.COTY_IDLE;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.TRIKE_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.TRIKE_DEATH;
+    }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(SoundEvents.COW_STEP, 0.15F, 1.0F);
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
+    }
+
     public boolean isAngryAt(LivingEntity p_21675_) {
         return this.canAttack(p_21675_);
+    }
+
+    @Override
+    public boolean canAttack(LivingEntity entity) {
+        boolean prev = super.canAttack(entity);
+        if(prev && isBaby()){
+            return false;
+        }
+        return prev;
     }
 
     @Override
@@ -178,7 +212,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
             }
             this.heal(2);
             this.setPassiveTicks(this.getPassiveTicks() + 1500);
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 12000));
+            player.addEffect(new MobEffectInstance(UPEffects.PACHYS_MIGHT, 2400));
             return InteractionResult.SUCCESS;
         }
         InteractionResult type = super.mobInteract(player, hand);
@@ -193,7 +227,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
     public void tick() {
         super.tick();
-        if (this.getTarget() != null && this.getTarget().hasEffect(MobEffects.DAMAGE_RESISTANCE)) {
+        if (this.getTarget() != null && this.getTarget().hasEffect(UPEffects.PACHYS_MIGHT)) {
             this.setTarget(null);
             this.setLastHurtByMob(null);
         }
@@ -206,8 +240,8 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
             if (source.getEntity() != null) {
                 if (source.getEntity() instanceof LivingEntity) {
                     LivingEntity hurter = (LivingEntity) source.getEntity();
-                    if (hurter.hasEffect(MobEffects.DAMAGE_RESISTANCE)) {
-                        hurter.removeEffect(MobEffects.DAMAGE_RESISTANCE);
+                    if (hurter.hasEffect(UPEffects.PACHYS_MIGHT)) {
+                        hurter.removeEffect(UPEffects.PACHYS_MIGHT);
                     }
                 }
             }
@@ -223,23 +257,23 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pachy.headswing1", false));
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.pachy.headswing1"));
                     break;
                 case 22:
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pachy.headswing2", false));
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.pachy.headswing2"));
                     break;
                 case 23:
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pachy.attack", false));
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.pachy.attack"));
                     break;
                 case 24:
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pachy.kick", false));
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.pachy.kick"));
                     break;
                 default:
                     if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pachy.walk", true));
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.pachy.walk"));
 
                     } else {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pachy.idle", true));
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.pachy.idle"));
                         event.getController().setAnimationSpeed(1.0F);
 
                     }
@@ -260,7 +294,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
     static class PachyMeleeAttackGoal extends Goal {
