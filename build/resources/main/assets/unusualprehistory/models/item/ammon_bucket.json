@@ -2,6 +2,6 @@
   "parent" : "item/generated",
   "textures" : {
     "layer0" : "unusualprehistory:item/lower_bucket",
-    "layer1" : "unusualprehistory:item/bucket_content/ammonite"
+    "layer1" : "unusualprehistory:item/bucket_content/ammon"
   }
 }
