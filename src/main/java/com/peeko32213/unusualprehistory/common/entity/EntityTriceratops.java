@@ -591,26 +591,31 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()) {
             if (this.isSprinting() || !this.getPassengers().isEmpty()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.run"));
                 event.getController().setAnimationSpeed(2.0D);
-            } else if (event.isMoving() ) {
+                return PlayState.CONTINUE;
+            } else if (event.isMoving()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.walk"));
                 event.getController().setAnimationSpeed(1.0D);
+                return PlayState.CONTINUE;
             }
-        }
-         else if (this.hasChargeCooldown() && this.hasTarget()) {
+        } else if (this.hasChargeCooldown() && this.hasTarget() && !this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.prep"));
             event.getController().setAnimationSpeed(1.0F);
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.idle"));
-            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
         }
-         if (this.isInSittingPose()){
+
+        if (this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.sit"));
-             event.getController().setAnimationSpeed(1.0F);
-         }
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+
+        event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.idle"));
+        event.getController().setAnimationSpeed(1.0F);
         return PlayState.CONTINUE;
     }
 
