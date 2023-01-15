@@ -22,6 +22,7 @@
       "rolls": 1,
       "entries": [
         {
+          "type": "minecraft:item",
           "name": "unusualprehistory:amber_shard"
         }
       ],

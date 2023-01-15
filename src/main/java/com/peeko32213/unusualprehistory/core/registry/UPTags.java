@@ -20,7 +20,8 @@ public class UPTags {
     public static final TagKey<EntityType<?>> ENCRUSTED_TARGETS = registerEntityTag("encrusted_targets");
 
     public static final TagKey<Block> TRIKE_BREAKABLES = registerBlockTag("trike_breakables");
-    public static final TagKey<Block> BRACHI_BREAKABLES = registerBlockTag("brachi_breakables");
+    public static final TagKey<Block> PASSIVE_BRACHI_BREAKABLES = registerBlockTag("passive_brachi_breakables");
+    public static final TagKey<Block> ANGRY_BRACHI_BREAKABLES = registerBlockTag("angry_brachi_breakables");
 
     private static TagKey<Item> registerItemTag(String name) {
         return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));

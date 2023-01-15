@@ -78,8 +78,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         this.neck = new EntityBrachiosaurusPart(this, 3,5.3F);
         this.theEntireNeck = new EntityBrachiosaurusPart[]{this.neck};
         this.allParts = new EntityBrachiosaurusPart[]{this.neck};
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0f);
-
     }
 
     public PathNavigation createNavigation(Level world) {
@@ -98,6 +96,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new EntityBrachiosaurus.BrachiMeleeAttackGoal(this,  1.3F, true));
         this.goalSelector.addGoal(3, new CustomRideGoal(this, 1.2D, false) {
             @Override
@@ -143,7 +142,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
     }
 
     public double getPassengersRidingOffset() {
-        return 10.5D;
+        return 11.5D;
     }
 
     public boolean canBeCollidedWith() {
@@ -173,7 +172,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
             return InteractionResult.SUCCESS;
         }
         InteractionResult type = super.mobInteract(player, hand);
-        if (type != InteractionResult.SUCCESS && !isFood(itemstack)) {
+        if (type != InteractionResult.SUCCESS && !isFood(itemstack) && isSaddled()) {
             if (!player.isShiftKeyDown()) {
                 player.startRiding(this);
                 return InteractionResult.SUCCESS;
@@ -328,7 +327,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                 ridingTime = 0;
                 this.setLaunching(false);
             }
-            if (this.isAlive() && ridingTime > 0 && this.getDeltaMovement().horizontalDistanceSqr() > 0.1D) {
+            if (this.isAlive() && ridingTime > 0 && this.getDeltaMovement().horizontalDistanceSqr() > 0.1D && this.isLaunching()) {
                 for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0D))) {
                     if (!(entity instanceof EntityBrachiosaurus) && !entity.isPassengerOfSameVehicle(this)) {
                         entity.hurt(DamageSource.mobAttack(this), 4F + random.nextFloat() * 3.0F);
@@ -352,16 +351,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                 float mot = (float) this.getDeltaMovement().lengthSqr();
                 this.setHeadHeight(Mth.clamp(this.getHeadHeight() + 0.1F - 0.2F * mot, 0, 2));
                 headPeakCooldown = 5;
-            }
-        }
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-            boolean flag = false;
-            AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
-            for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                BlockState blockstate = this.level.getBlockState(blockpos);
-                if (blockstate.is(UPTags.BRACHI_BREAKABLES)) {
-                    flag = this.level.destroyBlock(blockpos, true, this) || flag;
-                }
             }
         }
 
@@ -465,15 +454,23 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         super.aiStep();
         scaleParts();
 
-        if (this.isAlive()) {
-            if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                boolean flag = false;
-                AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
-                for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                    BlockState blockstate = this.level.getBlockState(blockpos);
-                    if (blockstate.is(UPTags.BRACHI_BREAKABLES)) {
-                        flag = this.level.destroyBlock(blockpos, true, this) || flag;
-                    }
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+            boolean flag = false;
+            AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
+            for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
+                BlockState blockstate = this.level.getBlockState(blockpos);
+                if (blockstate.is(UPTags.PASSIVE_BRACHI_BREAKABLES)) {
+                    flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                }
+            }
+        }
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.isAggressive()) {
+            boolean flag = false;
+            AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
+            for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
+                BlockState blockstate = this.level.getBlockState(blockpos);
+                if (blockstate.is(UPTags.ANGRY_BRACHI_BREAKABLES)) {
+                    flag = this.level.destroyBlock(blockpos, true, this) || flag;
                 }
             }
         }

@@ -27,7 +27,7 @@ import org.apache.http.util.TextUtils;
 
 public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
 {
-    private NonNullList<ItemStack> contents = NonNullList.withSize(45, ItemStack.EMPTY);
+    private NonNullList<ItemStack> contents = NonNullList.withSize(54, ItemStack.EMPTY);
     private ContainerOpenersCounter openersCounter = new ContainerOpenersCounter()
     {
         protected void onOpen(Level level, BlockPos pos, BlockState state) {
@@ -74,7 +74,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
 
     @Override
     public int getContainerSize() {
-        return 45;
+        return 54;
     }
 
     @Override
@@ -94,7 +94,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
 
     @Override
     protected AbstractContainerMenu createMenu(int id, Inventory player) {
-        return ChestMenu.fiveRows(id, player);
+        return ChestMenu.sixRows(id, player, this);
     }
 
     public void startOpen(Player pPlayer) {
