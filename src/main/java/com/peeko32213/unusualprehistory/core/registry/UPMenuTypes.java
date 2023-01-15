@@ -23,6 +23,9 @@ public class UPMenuTypes {
     public static final RegistryObject<MenuType<CultivatorMenu>> CULTIVATOR_MENU =
             registerMenuType(CultivatorMenu::new, "cultivator_menu");
 
+        public static final RegistryObject<MenuType<DNAFridgeMenu>> DNA_FRIDGE_MENU =
+            registerMenuType(DNAFridgeMenu::new,"dna_fridge_menu");
+    
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }
