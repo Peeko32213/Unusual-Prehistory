@@ -1,8 +1,10 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.common.block.BlockDNAFridge;
+import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
@@ -18,6 +20,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,8 +45,8 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
         }
 
         protected boolean isOwnContainer(Player p_155060_) {
-            if (p_155060_.containerMenu instanceof ChestMenu) {
-                Container container = ((ChestMenu) p_155060_.containerMenu).getContainer();
+            if (p_155060_.containerMenu instanceof DNAFridgeMenu) {
+                Container container = ((DNAFridgeMenu) p_155060_.containerMenu).getContainer();
                 return container == DNAFridgeBlockEntity.this;
             } else {
                 return false;
@@ -58,18 +61,14 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
     @Override
     public void saveAdditional(CompoundTag compound) {
         super.saveAdditional(compound);
-        if (!trySaveLootTable(compound)) {
-            ContainerHelper.saveAllItems(compound, contents);
-        }
+        ContainerHelper.saveAllItems(compound, this.contents);
     }
 
     @Override
     public void load(CompoundTag compound) {
         super.load(compound);
-        contents = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-        if (!tryLoadLootTable(compound)) {
-            ContainerHelper.loadAllItems(compound, contents);
-        }
+        this.contents = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(compound, this.contents);
     }
 
     @Override
@@ -79,12 +78,12 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
 
     @Override
     protected NonNullList<ItemStack> getItems() {
-        return contents;
+        return this.contents;
     }
 
     @Override
     protected void setItems(NonNullList<ItemStack> itemsIn) {
-        contents = itemsIn;
+        this.contents = itemsIn;
     }
 
     @Override
@@ -94,7 +93,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
 
     @Override
     protected AbstractContainerMenu createMenu(int id, Inventory player) {
-        return ChestMenu.sixRows(id, player, this);
+          return ChestMenu.sixRows(id, player, this);
     }
 
     public void startOpen(Player pPlayer) {
@@ -116,9 +115,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
     }
 
     void updateBlockState(BlockState state, boolean open) {
-        if (level != null) {
-            this.level.setBlock(this.getBlockPos(), state.setValue(BlockDNAFridge.OPEN, open), 3);
-        }
+        this.level.setBlock(this.getBlockPos(), state.setValue(BlockDNAFridge.OPEN, open), 3);
     }
 
     private void playSound(BlockState state, SoundEvent sound) {
