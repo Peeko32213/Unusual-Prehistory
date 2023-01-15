@@ -21,7 +21,8 @@ public class UPTags {
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");
     
     public static final TagKey<Block> TRIKE_BREAKABLES = registerBlockTag("trike_breakables");
-    public static final TagKey<Block> BRACHI_BREAKABLES = registerBlockTag("brachi_breakables");
+    public static final TagKey<Block> PASSIVE_BRACHI_BREAKABLES = registerBlockTag("passive_brachi_breakables");
+    public static final TagKey<Block> ANGRY_BRACHI_BREAKABLES = registerBlockTag("angry_brachi_breakables");
 
     private static TagKey<Item> registerItemTag(String name) {
         return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));

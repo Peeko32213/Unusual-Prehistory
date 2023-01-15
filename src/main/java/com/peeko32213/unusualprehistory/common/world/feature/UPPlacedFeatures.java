@@ -28,7 +28,6 @@ import net.minecraft.world.level.levelgen.placement.*;
 import java.util.List;
 
 public class UPPlacedFeatures {
-    private final static int LEAF_SHAG_FACTOR = 10;
 
     public static void init() {
     }
@@ -36,11 +35,10 @@ public class UPPlacedFeatures {
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> GINKGO_TREE =
             FeatureUtils.register("ginkgo", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                     BlockStateProvider.simple(UPBlocks.GINKGO_LOG.get()),
-                    new StraightTrunkPlacer(10, 5, 5),
+                    new StraightTrunkPlacer(7, 5, 0),
                     BlockStateProvider.simple(UPBlocks.GINKGO_LEAVES.get()),
-                    new GinkgoFoliagePlacer(2.25f, 6.25f, ConstantInt.of(0), 0, 1, 0.0f, 1),
-                    new TwoLayersFeatureSize(2, 1, 2)).build());
-
+                    new GinkgoFoliagePlacer( 1.25f, 5.25f, ConstantInt.of(0), 1, 0, 0.5f, 1),
+                    new TwoLayersFeatureSize(1, 1, 1)).build());
 
 
     public static final Holder<PlacedFeature> GINKGO_CHECKED = PlacementUtils.register("ginkgo_checked", GINKGO_TREE,
@@ -48,7 +46,7 @@ public class UPPlacedFeatures {
 
     public static final Holder<PlacedFeature> STONE_FOSSIL_ORE = registerPlacedFeature("stone_fossil_ore", UPConfiguredFeatures.STONE_FOSSIL_ORE, commonOrePlacement(10,
             HeightRangePlacement.triangle(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(58))));
-    public static final Holder<PlacedFeature> AMBER_FOSSIL_ORE = registerPlacedFeature("amber_fossil_ore", UPConfiguredFeatures.STONE_FOSSIL_ORE, commonOrePlacement(2,
+    public static final Holder<PlacedFeature> AMBER_FOSSIL_ORE = registerPlacedFeature("amber_fossil_ore", UPConfiguredFeatures.AMBER_FOSSIL_ORE, commonOrePlacement(4,
             HeightRangePlacement.triangle(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(58))));
     public static final Holder<PlacedFeature> DEEPSLATE_FOSSIL_ORE = registerPlacedFeature("deepslate_fossil_ore", UPConfiguredFeatures.DEEPSLATE_FOSSIL_ORE,  commonOrePlacement(15, // VeinsPerChunk
             HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));

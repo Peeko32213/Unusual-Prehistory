@@ -54,7 +54,8 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
 
     public EntityVelociraptor(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 2.0f;
+        ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
+        this.maxUpStep = 1.0f;
     }
 
 
@@ -166,7 +167,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         }
 
         public boolean canUse() {
-            return super.canUse();
+            return isAlive() && super.canUse();
         }
     }
 

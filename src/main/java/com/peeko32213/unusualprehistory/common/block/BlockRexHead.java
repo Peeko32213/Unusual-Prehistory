@@ -18,18 +18,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BlockRexHead extends Block {
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
-    private static final VoxelShape UP_SHAPE = Shapes.or(Block.box(0.0D, 0.0D, 0.0D, 16.0D, 7.0D, 16.0D),
-            Block.box(4.0D, 6.0D, 4.0D, 12.0D, 16.0D, 12.0D));
-    private static final VoxelShape DOWN_SHAPE = Shapes.or(Block.box(0.0D, 9.0D, 0.0D, 16.0D, 16.0D, 16.0D),
-            Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D));
-    private static final VoxelShape SOUTH_SHAPE = Shapes.or(Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 7.0D),
-            Block.box(4.0D, 4.0D, 6.0D, 12.0D, 12.0D, 16.0D));
-    private static final VoxelShape NORTH_SHAPE = Shapes.or(Block.box(0.0D, 0.0D, 9.0D, 16.0D, 16.0D, 16.0D),
-            Block.box(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 10.0D));
-    private static final VoxelShape EAST_SHAPE = Shapes.or(Block.box(0.0D, 0.0D, 0.0D, 7.0D, 16.0D, 16.0D),
-            Block.box(6.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D));
-    private static final VoxelShape WEST_SHAPE = Shapes.or(Block.box(9.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
-            Block.box(0.0D, 4.0D, 4.0D, 10.0D, 12.0D, 12.0D));
+    private static final VoxelShape UP_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 32, 24),
+            Block.box(0, 0, 0, 16, 32, 24));
+    private static final VoxelShape DOWN_SHAPE = Shapes.or(Block.box(0, -16, 0, 16, 16, 24),
+            Block.box(0, -16, 0, 16, 16, 24));
+    private static final VoxelShape SOUTH_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 24, 32),
+            Block.box(0, 0, 0, 16, 24, 32));
+    private static final VoxelShape NORTH_SHAPE = Shapes.or(Block.box(0, 0, -16, 16, 24, 16),
+            Block.box(0, 0, -16, 16, 24, 16));
+    private static final VoxelShape EAST_SHAPE = Shapes.or(Block.box(-16, 0, 0, 16, 24, 16),
+            Block.box(-16, 0, 0, 16, 24, 16));
+    private static final VoxelShape WEST_SHAPE = Shapes.or(Block.box(0, 0, 0, 32, 24, 16),
+            Block.box(0, 0, 0, 32, 24, 16));
 
     public BlockRexHead() {
         super(Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F).noOcclusion());

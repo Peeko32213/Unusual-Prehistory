@@ -29,11 +29,13 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
@@ -41,11 +43,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.Node;
-import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.level.pathfinder.*;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -91,6 +93,8 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
     }
 
+
+
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -98,7 +102,13 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 15.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this) {
+
+            public boolean canUse() {
+                return !isEepy();
+            }
+
+        }));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.REX_TARGETS)));
     }
 
@@ -125,7 +135,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
     @Override
     public boolean canAttack(LivingEntity entity) {
         boolean prev = super.canAttack(entity);
-        if(prev && isEepy()){
+        if(isEepy()){
             return false;
         }
         return prev;
@@ -160,8 +170,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         super.addAdditionalSaveData(compound);
         compound.putInt("StunTick", this.stunnedTick);
         compound.putBoolean("Eepy", this.hasEepy());
-
-
     }
 
     @Override
@@ -209,30 +217,18 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             this.level.broadcastEntityEvent(this, (byte)39);
             this.setEepy(true);
             this.setAggressive(false);
-            this.stunEffect();
         }
-        if (this.isAggressive()) {
-            if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                boolean flag = false;
-                AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
-                for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                    BlockState blockstate = this.level.getBlockState(blockpos);
-                    if (blockstate.is(UPTags.TRIKE_BREAKABLES)) {
-                        flag = this.level.destroyBlock(blockpos, true, this) || flag;
-                    }
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.isSprinting()) {
+            boolean flag = false;
+            AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
+            for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
+                BlockState blockstate = this.level.getBlockState(blockpos);
+                if (blockstate.is(UPTags.TRIKE_BREAKABLES)) {
+                    flag = this.level.destroyBlock(blockpos, true, this) || flag;
                 }
             }
         }
 
-    }
-
-    private void stunEffect() {
-        if (this.random.nextInt(6) == 0) {
-            double d = this.getX() - (double)this.getBbWidth() * Math.sin(this.yBodyRot * ((float)Math.PI / 180)) + (this.random.nextDouble() * 0.1 - 0.1);
-            double e = this.getY() + (double)this.getBbHeight() - 0.1;
-            double f = this.getZ() + (double)this.getBbWidth() * Math.cos(this.yBodyRot * ((float)Math.PI / 180)) + (this.random.nextDouble() * 0.1 - 0.1);
-            level.addParticle(ParticleTypes.EFFECT, true, this.getX(), this.getEyeY() + 0.1F, this.getZ(), 0, 0, 0);
-        }
     }
 
     @Nullable
@@ -476,10 +472,10 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
         protected void tickBiteAttack () {
             animTime++;
-            if(animTime==4) {
+            if(animTime==5) {
                 preformBiteAttack();
             }
-            if(animTime>=8) {
+            if(animTime>=9) {
                 animTime=0;
                 if (this.getRangeCheck()) {
                     this.mob.setAnimationState(22);
@@ -493,10 +489,11 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
         protected void tickWhipAttack () {
             animTime++;
-            if(animTime==4) {
+            this.mob.getNavigation().stop();
+            if(animTime==8) {
                 preformWhipAttack();
             }
-            if(animTime>=7) {
+            if(animTime>=11) {
                 animTime=0;
 
                 this.mob.setAnimationState(0);
@@ -509,10 +506,11 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
         protected void tickStompLeftAttack () {
             animTime++;
-            if(animTime==8) {
+            this.mob.getNavigation().stop();
+            if(animTime==20) {
                 preformStompAttack();
             }
-            if(animTime>=14) {
+            if(animTime>=21) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -523,10 +521,11 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
         protected void tickStompRightAttack () {
             animTime++;
-            if(animTime==7) {
+            this.mob.getNavigation().stop();
+            if(animTime==20) {
                 preformStompAttack();
             }
-            if(animTime>=13) {
+            if(animTime>=21) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -659,10 +658,10 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
                     event.getController().setAnimation(new AnimationBuilder().playOnce("rex.whip"));
                     break;
                 case 23:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompleft"));
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompl"));
                     break;
                 case 24:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompright"));
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompr"));
                     break;
                 default:
                     if (this.isEepy()) {
@@ -717,6 +716,27 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             this.discard();
         } else {
             this.noActionTime = 0;
+        }
+    }
+
+    protected PathNavigation createNavigation(Level p_33348_) {
+        return new EntityTyrannosaurusRex.RexNavigation(this, p_33348_);
+    }
+
+    static class RexNavigation extends GroundPathNavigation {
+        public RexNavigation(Mob p_33379_, Level p_33380_) {
+            super(p_33379_, p_33380_);
+        }
+
+        protected PathFinder createPathFinder(int p_33382_) {
+            this.nodeEvaluator = new EntityTyrannosaurusRex.RexNodeEvaluator();
+            return new PathFinder(this.nodeEvaluator, p_33382_);
+        }
+    }
+
+    static class RexNodeEvaluator extends WalkNodeEvaluator {
+        protected BlockPathTypes evaluateBlockPathType(BlockGetter p_33387_, boolean p_33388_, boolean p_33389_, BlockPos p_33390_, BlockPathTypes p_33391_) {
+            return p_33391_ == BlockPathTypes.LEAVES ? BlockPathTypes.OPEN : super.evaluateBlockPathType(p_33387_, p_33388_, p_33389_, p_33390_, p_33391_);
         }
     }
 
