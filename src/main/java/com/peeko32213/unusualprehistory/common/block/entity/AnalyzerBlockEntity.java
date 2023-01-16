@@ -45,9 +45,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
 
     // Add new flasks to the item tag
     private static final TagKey<Item> FILLED_FLASKS = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "filled_flasks"));
-    private static final int[] SLOTS_FOR_UP = new int[]{0};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{2, 3, 4, 5,6,7};
-    private static final int[] SLOTS_FOR_SIDES = new int[]{1};
+
     public AnalyzerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(UPBlockEntities.ANALYZER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         this.data = new ContainerData() {
