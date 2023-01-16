@@ -42,7 +42,6 @@ public class DNAFridgeMenu extends AbstractContainerMenu {
         container.startOpen(inventory.player);
         int i = (this.containerRows - 4) * 18;
 
-
         for(int j = 0; j < this.containerRows; ++j) {
             for(int k = 0; k < 9; ++k) {
                 this.addSlot(new DNAFridgeMenu.DNAFridgeSlot(container, k + j * 9, 8 + k * 18, 18 + j * 18));
@@ -51,16 +50,15 @@ public class DNAFridgeMenu extends AbstractContainerMenu {
 
         for(int l = 0; l < 3; ++l) {
             for(int j1 = 0; j1 < 9; ++j1) {
-                this.addSlot(new Slot(inventory, j1 + l * 9 + 9, 8 + j1 * 18, 103 + l * 18 + i));
+                this.addSlot(new DNAFridgeMenu.DNAFridgeSlot(inventory, j1 + l * 9 + 9, 8 + j1 * 18, 103 + l * 18 + i));
             }
         }
 
         for(int i1 = 0; i1 < 9; ++i1) {
-            this.addSlot(new Slot(inventory, i1, 8 + i1 * 18, 161 + i));
+            this.addSlot(new DNAFridgeMenu.DNAFridgeSlot(inventory, i1, 8 + i1 * 18, 161 + i));
         }
 
     }
-
 
     @Override
     public boolean stillValid(Player player) {
@@ -105,13 +103,17 @@ public class DNAFridgeMenu extends AbstractContainerMenu {
     }
 
 
+
     static class DNAFridgeSlot extends Slot {
         public DNAFridgeSlot(Container container, int slots, int x, int y) {
             super(container, slots, x, y);
         }
 
         public boolean mayPlace(ItemStack stack) {
-            return super.mayPlace(stack) && stack.is(UPTags.ALLOWED_FRIDGE_ITEMS);
+            return mayPlaceItem(stack);
+        }
+        public static boolean mayPlaceItem(ItemStack stack) {
+            return stack.is(UPTags.ALLOWED_FRIDGE_ITEMS);
         }
     }
 }
