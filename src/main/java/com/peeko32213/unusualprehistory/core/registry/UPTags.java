@@ -19,7 +19,8 @@ public class UPTags {
     public static final TagKey<EntityType<?>> RAPTOR_TARGETS = registerEntityTag("raptor_targets");
     public static final TagKey<EntityType<?>> ENCRUSTED_TARGETS = registerEntityTag("encrusted_targets");
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");
-    
+    public static final TagKey<Item> ANALYZER_ITEMS_INPUT = registerItemTag("analyzer_items");
+    public static final TagKey<Item> DNA_FLASKS = registerItemTag("filled_flasks");
     public static final TagKey<Block> TRIKE_BREAKABLES = registerBlockTag("trike_breakables");
     public static final TagKey<Block> PASSIVE_BRACHI_BREAKABLES = registerBlockTag("passive_brachi_breakables");
     public static final TagKey<Block> ANGRY_BRACHI_BREAKABLES = registerBlockTag("angry_brachi_breakables");

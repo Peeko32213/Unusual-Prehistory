@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -22,6 +23,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,6 +37,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Random;
 
@@ -72,10 +75,67 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
         protected void onContentsChanged(int slot) {
             setChanged();
         }
+
+
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return 64;
+        }
     };
 
+    private IItemHandler hopperHandler = new IItemHandler() {
+        @Override
+        public int getSlots() {
+            return itemHandler.getSlots();
+        }
 
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+        @NotNull
+        @Override
+        public ItemStack getStackInSlot(int slot) {
+            return itemHandler.getStackInSlot(slot);
+        }
+
+        @NotNull
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+
+
+            if(slot != 0 && slot != 1){
+                return itemHandler.extractItem(slot, amount, simulate);
+            }
+            return ItemStack.EMPTY;
+        }
+
+        @NotNull
+        @Override
+        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if(stack.isEmpty()){
+                return stack;
+            }
+
+            if(slot == 0 && stack.is(UPItems.FLASK.get())){
+                return itemHandler.insertItem(slot, stack, simulate);
+            }
+            if(slot == 1 && stack.is(UPTags.ANALYZER_ITEMS_INPUT)) {
+                return itemHandler.insertItem(slot, stack, simulate);
+            }
+            return stack;
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return itemHandler.getSlotLimit(slot);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return itemHandler.isItemValid(slot, stack);
+        }
+    };
+
+    private LazyOptional<IItemHandler> lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
+    private LazyOptional<IItemHandler> hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
 
     protected final ContainerData data;
     private int progress = 0;
@@ -90,7 +150,12 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return lazyItemHandler.cast();
+            if (side == null) {
+                return lazyItemHandlerOptional.cast();
+            } else{
+                return hopperHandlerOptional.cast();
+            }
+
         }
 
         return super.getCapability(cap, side);
@@ -99,13 +164,15 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public void onLoad() {
         super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
+        hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
     }
 
     @Override
     public void invalidateCaps()  {
         super.invalidateCaps();
-        lazyItemHandler.invalidate();
+        lazyItemHandlerOptional.invalidate();
+        hopperHandlerOptional.invalidate();
     }
 
     @Override
@@ -216,6 +283,16 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
         return new AnalyzerMenu(pContainerId, pInventory, this, this.data);
+    }
+
+    public boolean canPlaceItem(int pIndex, ItemStack pStack) {
+        if (pIndex == 0) {
+            return pStack.is(UPItems.FLASK.get());
+        } else if (pIndex == 1) {
+            return pStack.is(UPTags.ALLOWED_FRIDGE_ITEMS);
+        } else {
+            return false;
+        }
     }
 
 

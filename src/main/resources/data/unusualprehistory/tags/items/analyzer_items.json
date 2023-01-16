@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "unusualprehistory:amber_fossil",
+    "unusualprehistory:plant_fossil_item",
+    "unusualprehistory:paleo_fossil",
+    "unusualprehistory:mezo_fossil"
+  ]
+}
