@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -73,8 +74,58 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         }
     };
 
+    private IItemHandler hopperHandler = new IItemHandler() {
+        @Override
+        public int getSlots() {
+            return itemHandler.getSlots();
+        }
 
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+        @NotNull
+        @Override
+        public ItemStack getStackInSlot(int slot) {
+            return itemHandler.getStackInSlot(slot);
+        }
+
+        @NotNull
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+
+
+            if((slot == 2) || (slot == 3)){
+                return itemHandler.extractItem(slot, amount, simulate);
+            }
+            return ItemStack.EMPTY;
+        }
+
+        @NotNull
+        @Override
+        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if(stack.isEmpty()){
+                return stack;
+            }
+
+            if(slot == 0 && stack.is(UPTags.DNA_FLASKS)){
+                return itemHandler.insertItem(slot, stack, simulate);
+            }
+            if(slot == 1 && stack.is(UPItems.ORGANIC_OOZE.get())) {
+                return itemHandler.insertItem(slot, stack, simulate);
+            }
+            return stack;
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return itemHandler.getSlotLimit(slot);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return itemHandler.isItemValid(slot, stack);
+        }
+    };
+
+    private LazyOptional<IItemHandler> lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
+    private LazyOptional<IItemHandler> hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
 
     protected final ContainerData data;
     private int progress = 0;
@@ -91,7 +142,12 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return lazyItemHandler.cast();
+            if (side == null) {
+                return lazyItemHandlerOptional.cast();
+            } else{
+                return hopperHandlerOptional.cast();
+            }
+
         }
 
         return super.getCapability(cap, side);
@@ -100,13 +156,15 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public void onLoad() {
         super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
+        hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
     }
 
     @Override
     public void invalidateCaps()  {
         super.invalidateCaps();
-        lazyItemHandler.invalidate();
+        lazyItemHandlerOptional.invalidate();
+        hopperHandlerOptional.invalidate();
     }
 
     @Override
