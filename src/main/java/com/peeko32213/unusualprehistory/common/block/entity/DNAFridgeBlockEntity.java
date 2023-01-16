@@ -93,7 +93,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
 
     @Override
     protected AbstractContainerMenu createMenu(int id, Inventory player) {
-          return ChestMenu.sixRows(id, player, this);
+          return DNAFridgeMenu.fiveRows(id, player, this);
     }
 
     public void startOpen(Player pPlayer) {
