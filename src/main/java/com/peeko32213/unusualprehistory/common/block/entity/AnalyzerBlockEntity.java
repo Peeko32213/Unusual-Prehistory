@@ -83,6 +83,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
         }
     };
 
+
     private IItemHandler hopperHandler = new IItemHandler() {
         @Override
         public int getSlots() {
