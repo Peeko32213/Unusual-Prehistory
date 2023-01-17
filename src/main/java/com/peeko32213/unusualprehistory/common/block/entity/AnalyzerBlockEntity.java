@@ -77,7 +77,6 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
         }
 
 
-
         @Override
         public int getSlotLimit(int slot) {
             return 64;
@@ -122,7 +121,6 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
             }
             return stack;
         }
-
         @Override
         public int getSlotLimit(int slot) {
             return itemHandler.getSlotLimit(slot);
@@ -284,16 +282,4 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
         return new AnalyzerMenu(pContainerId, pInventory, this, this.data);
     }
-
-    public boolean canPlaceItem(int pIndex, ItemStack pStack) {
-        if (pIndex == 0) {
-            return pStack.is(UPItems.FLASK.get());
-        } else if (pIndex == 1) {
-            return pStack.is(UPTags.ALLOWED_FRIDGE_ITEMS);
-        } else {
-            return false;
-        }
-    }
-
-
 }
