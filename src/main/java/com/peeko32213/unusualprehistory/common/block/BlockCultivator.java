@@ -2,42 +2,48 @@ package com.peeko32213.unusualprehistory.common.block;
 
 import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.stream.Stream;
+import java.util.Optional;
 
 public class BlockCultivator extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 32, 16);
 
-
-    @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return SHAPE;
-    }
 
     public BlockCultivator(Properties properties) {
         super(properties);
@@ -45,8 +51,58 @@ public class BlockCultivator extends BaseEntityBlock {
     }
 
     /* BLOCK ENTITY */
+    //Vanilla Copy
+    public BlockState updateShape(BlockState state, Direction direction, BlockState state2, LevelAccessor levelAccessor, BlockPos pos1, BlockPos pos2) {
+        DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
+        if (direction.getAxis() != Direction.Axis.Y || doubleblockhalf == DoubleBlockHalf.LOWER != (direction == Direction.UP) || state2.is(this) && state2.getValue(HALF) != doubleblockhalf) {
+            return doubleblockhalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canSurvive(levelAccessor, pos1) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, state2, levelAccessor, pos1, pos2);
+        } else {
+            return Blocks.AIR.defaultBlockState();
+        }
+    }
 
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity livingEntity, ItemStack stack) {
+        BlockPos blockpos = pos.above();
+        level.setBlock(blockpos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER), 3);
+    }
 
+    @javax.annotation.Nullable
+    public BlockState getStateForPlacement(BlockPlaceContext state) {
+        BlockPos blockpos = state.getClickedPos();
+        Level level = state.getLevel();
+        if (blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(state)) {
+            return this.defaultBlockState().setValue(FACING, state.getHorizontalDirection().getOpposite()).setValue(HALF, DoubleBlockHalf.LOWER);
+        } else {
+            return null;
+        }
+    }
+    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        if (!level.isClientSide && player.isCreative()) {
+            BlockCultivator.preventCreativeDropFromBottomPart(level, pos, state, player);
+        }
+
+        super.playerWillDestroy(level, pos, state, player);
+    }
+
+    protected static void preventCreativeDropFromBottomPart(Level level, BlockPos pos, BlockState state, Player player) {
+        DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
+        if (doubleblockhalf == DoubleBlockHalf.UPPER) {
+            BlockPos blockpos = pos.below();
+            BlockState blockstate = level.getBlockState(blockpos);
+            if (blockstate.is(state.getBlock()) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
+                BlockState blockstate1 = Blocks.AIR.defaultBlockState();
+                level.setBlock(blockpos, blockstate1, 35);
+                level.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
+            }
+        }
+    }
+
+    public boolean canSurvive(BlockState state, LevelReader levelReader, BlockPos pos) {
+        BlockPos blockpos = pos.below();
+        BlockState blockstate = levelReader.getBlockState(blockpos);
+        return state.getValue(HALF) == DoubleBlockHalf.LOWER ? !blockstate.is(Blocks.AIR) : blockstate.is(this);
+    }
+    //
 
     @Override
     public RenderShape getRenderShape(BlockState pState) {
@@ -69,6 +125,10 @@ public class BlockCultivator extends BaseEntityBlock {
                                  Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
+            if(pState.getValue(HALF) == DoubleBlockHalf.UPPER){
+                pPlayer.sendMessage(new TranslatableComponent("cultivator.upper_half.use").withStyle(ChatFormatting.AQUA), Util.NIL_UUID);
+                return InteractionResult.FAIL;
+            }
             if(entity instanceof CultivatorBlockEntity) {
                 NetworkHooks.openGui(((ServerPlayer)pPlayer), (CultivatorBlockEntity)entity, pPos);
             } else {
@@ -82,7 +142,10 @@ public class BlockCultivator extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new CultivatorBlockEntity(pPos, pState);
+        if(pState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            return new CultivatorBlockEntity(pPos, pState);
+        }
+        return null;
     }
 
     @Nullable
@@ -90,11 +153,6 @@ public class BlockCultivator extends BaseEntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
         return createTickerHelper(pBlockEntityType, UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(),
                 CultivatorBlockEntity::tick);
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
 
     @Override
@@ -109,7 +167,7 @@ public class BlockCultivator extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(FACING, HALF);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.block.BlockCultivator;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
@@ -25,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -36,11 +38,14 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
+import static com.peeko32213.unusualprehistory.common.block.BlockCultivator.HALF;
+
 public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     private static final TagKey<Item> ORGANIC_OOZE = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "organic_ooze"));
-
+    private BlockState blockstate;
     public CultivatorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        this.blockstate = pBlockState;
         this.data = new ContainerData() {
             public int get(int index) {
                 switch (index) {
@@ -89,7 +94,9 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         @NotNull
         @Override
         public ItemStack extractItem(int slot, int amount, boolean simulate) {
-
+            if(blockstate.getValue(HALF) == DoubleBlockHalf.UPPER){
+                return itemHandler.extractItem(slot, amount, simulate);
+            }
 
             if((slot == 2) || (slot == 3)){
                 return itemHandler.extractItem(slot, amount, simulate);

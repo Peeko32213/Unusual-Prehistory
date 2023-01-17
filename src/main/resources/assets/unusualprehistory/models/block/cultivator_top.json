@@ -1,0 +1,93 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"texture_size": [48, 32],
+	"textures": {
+		"0": "unusualprehistory:block/cultivator",
+		"particle": "unusualprehistory:block/cultivator"
+	},
+	"elements": [
+		{
+			"name": "UpperCylinder",
+			"from": [0, 8, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [10.66667, 8, 16, 12], "texture": "#0"},
+				"east": {"uv": [10.66667, 8, 16, 12], "texture": "#0"},
+				"south": {"uv": [10.66667, 8, 16, 12], "texture": "#0"},
+				"west": {"uv": [10.66667, 8, 16, 12], "texture": "#0"},
+				"up": {"uv": [16, 8, 10.66667, 0], "texture": "#0"},
+				"down": {"uv": [0, 8, 5.33333, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Liquid",
+			"from": [1, 0, 1],
+			"to": [15, 8, 15],
+			"faces": {
+				"north": {"uv": [5.33333, 8, 10.66667, 16], "texture": "#0"},
+				"east": {"uv": [5.33333, 8, 10.66667, 16], "texture": "#0"},
+				"south": {"uv": [5.33333, 8, 10.66667, 16], "texture": "#0"},
+				"west": {"uv": [5.33333, 8, 10.66667, 16], "texture": "#0"},
+				"up": {"uv": [5.33333, 8, 10.66667, 16], "texture": "#0"},
+				"down": {"uv": [6.66666, 2, 6.66667, 2], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Glass",
+			"from": [0, 0, 0],
+			"to": [16, 8, 16],
+			"faces": {
+				"north": {"uv": [5.33333, 8, 10.66667, 4], "texture": "#0"},
+				"east": {"uv": [5.33333, 8, 10.66667, 4], "texture": "#0"},
+				"south": {"uv": [5.33333, 8, 10.66667, 4], "texture": "#0"},
+				"west": {"uv": [5.33333, 8, 10.66667, 4], "texture": "#0"},
+				"up": {"uv": [5.33333, 8, 10.66667, 4], "texture": "#0"},
+				"down": {"uv": [6.33333, 3, 6.33334, 3], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 0.5, 0],
+			"scale": [0.15, 0.15, 0.15]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, 0.5, 0],
+			"scale": [0.15, 0.15, 0.15]
+		},
+		"firstperson_righthand": {
+			"translation": [0, -1.75, 0],
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"firstperson_lefthand": {
+			"translation": [0, -1.75, 0],
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"ground": {
+			"translation": [0, -1.25, 0],
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"gui": {
+			"rotation": [30, 45, 0],
+			"translation": [0, -2.75, 0],
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"head": {
+			"translation": [0, -8, 0],
+			"scale": [1.01, 1.01, 1.01]
+		},
+		"fixed": {
+			"translation": [0, -4, 0],
+			"scale": [0.5, 0.5, 0.5]
+		}
+	},
+	"groups": [
+		{
+			"name": "VoxelShapes",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
+}

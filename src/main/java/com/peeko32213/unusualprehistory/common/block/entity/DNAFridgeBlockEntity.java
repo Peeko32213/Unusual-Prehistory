@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.block.entity;
 import com.peeko32213.unusualprehistory.common.block.BlockDNAFridge;
 import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -14,25 +15,24 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import org.apache.http.util.TextUtils;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import org.jetbrains.annotations.Nullable;
 
-public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
-{
+import java.util.stream.IntStream;
+
+public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     private NonNullList<ItemStack> contents = NonNullList.withSize(54, ItemStack.EMPTY);
-    private ContainerOpenersCounter openersCounter = new ContainerOpenersCounter()
-    {
+    private ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         protected void onOpen(Level level, BlockPos pos, BlockState state) {
             DNAFridgeBlockEntity.this.updateBlockState(state, true);
         }
@@ -93,7 +93,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
 
     @Override
     protected AbstractContainerMenu createMenu(int id, Inventory player) {
-          return DNAFridgeMenu.fiveRows(id, player, this);
+        return DNAFridgeMenu.fiveRows(id, player, this);
     }
 
     public void startOpen(Player pPlayer) {
@@ -127,4 +127,35 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity
         double z = (double) worldPosition.getZ() + 0.5D + (double) cabinetFacingVector.getZ() / 2.0D;
         level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
     }
+    @Override
+    public int[] getSlotsForFace(Direction direction) {
+        return IntStream.range(0, this.getContainerSize()).toArray();
+    }
+
+
+    @Override
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction direction) {
+        return direction != Direction.DOWN && stack.is(UPTags.ALLOWED_FRIDGE_ITEMS) && stack.getItem().canFitInsideContainerItems();
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
+        return direction == Direction.DOWN ;
+    }
+
+    @Override
+    public boolean triggerEvent(int i, int i1) {
+        if (i == 1) {
+            return true;
+        }
+        else {
+            return super.triggerEvent(i, i1);
+        }
+    }
+
+    @Override
+    protected IItemHandler createUnSidedHandler() {
+        return new SidedInvWrapper(this, Direction.DOWN);
+    }
+
 }

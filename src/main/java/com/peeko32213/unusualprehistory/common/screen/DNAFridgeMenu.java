@@ -111,7 +111,11 @@ public class DNAFridgeMenu extends AbstractContainerMenu {
         }
 
         public boolean mayPlace(ItemStack stack) {
-            return super.mayPlace(stack) && stack.is(UPTags.ALLOWED_FRIDGE_ITEMS);
+            return mayPlaceItem(stack);
+        }
+
+        public static boolean mayPlaceItem(ItemStack stack) {
+            return stack.is(UPTags.ALLOWED_FRIDGE_ITEMS);
         }
     }
 }
