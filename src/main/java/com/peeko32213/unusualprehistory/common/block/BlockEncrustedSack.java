@@ -81,10 +81,12 @@ public class BlockEncrustedSack extends Block  {
     private void removeOneEgg(Level worldIn, BlockPos pos, BlockState state) {
         worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + worldIn.random.nextFloat() * 0.2F);
         int i = state.getValue(EGGS);
+        if(i <= 1){
         worldIn.destroyBlock(pos, false);
-        worldIn.setBlock(pos, state.setValue(EGGS, Integer.valueOf(i - 1)), 1);
-        worldIn.levelEvent(4001, pos, Block.getId(state));
-
+        } else {
+            worldIn.setBlock(pos, state.setValue(EGGS, Integer.valueOf(i - 1)), 1);
+            worldIn.levelEvent(4001, pos, Block.getId(state));
+        }
     }
 
 
