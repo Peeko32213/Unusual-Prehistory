@@ -218,9 +218,10 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    public static void spawnParticles(LevelAccessor levelAccessor, BlockPos pos, Random random, double speedXZModifier, double speedYModifier){
-        Level level = (Level) levelAccessor;
-        level.addAlwaysVisibleParticle(ParticleTypes.BUBBLE_POP, true,(double)pos.getX() + 0.2 + random.nextDouble() * 0.4 , (double)(pos.getY() + 0.5 + random.nextDouble()), (double)pos.getZ() + 0.2 + random.nextDouble() * 0.6,  speedXZModifier, speedYModifier, speedXZModifier);
+    public static void spawnParticles(LevelAccessor levelAccessor, BlockPos pos, Random random, double speedXZModifier, double speedYModifier, double initYSpeed, int numberOfParticles){
+        if(levelAccessor.isClientSide()) return;
+        ServerLevel serverLevel = (ServerLevel) levelAccessor;
+        serverLevel.sendParticles(ParticleTypes.BUBBLE, (double)pos.getX() + random.nextDouble(), (double)(pos.getY() + 1), (double)pos.getZ() + random.nextDouble(), 1, 0.0D, 0.01D, 0.0D, 0.2D);
     }
 
     public ItemStack getRenderStack() {
@@ -241,9 +242,8 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
 
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, CultivatorBlockEntity pBlockEntity) {
         pBlockEntity.tickCount++;
-
         if(hasRecipe(pBlockEntity)) {
-            spawnParticles(pLevel, pPos, pLevel.random, 0D,0.02);
+            spawnParticles(pLevel, pPos, pLevel.random, 0,0,0,0);
             pBlockEntity.progress++;
             pBlockEntity.depleteFuel();
             setChanged(pLevel, pPos, pState);

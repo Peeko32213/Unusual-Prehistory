@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.peeko32213.unusualprehistory.common.entity.util.*;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -99,7 +98,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, LivingEntity.class,10, false, false, (entity) -> entity.getType().is(UPTags.REX_TARGETS)));
         this.goalSelector.addGoal(1, new EntityTyrannosaurusRex.RexMeleeAttackGoal(this, 2F, true));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 15.0F));
@@ -111,6 +109,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             }
 
         }));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.REX_TARGETS)));
     }
 
 
@@ -171,8 +170,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         super.addAdditionalSaveData(compound);
         compound.putInt("StunTick", this.stunnedTick);
         compound.putBoolean("Eepy", this.hasEepy());
-        compound.putInt("animation_state", this.getAnimationState());
-        compound.putInt("combat_state", this.getCombatState());
     }
 
     @Override
@@ -180,8 +177,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         super.readAdditionalSaveData(compound);
         this.stunnedTick = compound.getInt("StunTick");
         this.setEepy(compound.getBoolean("Eepy"));
-        this.setAnimationState(compound.getInt("animation_state"));
-        this.setCombatState(compound.getInt("combat_state"));
+
     }
 
     @Override
@@ -296,8 +292,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         private boolean canPenalize = false;
         private int animTime = 0;
 
-        private int animState;
-
 
         public RexMeleeAttackGoal(EntityTyrannosaurusRex p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
@@ -364,10 +358,8 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             this.mob.getNavigation().moveTo(this.path, this.speedModifier);
             this.ticksUntilNextPathRecalculation = 0;
             this.ticksUntilNextAttack = 0;
-
-            //this.mob.setAnimationState(0);
-
-
+            this.animTime = 0;
+            this.mob.setAnimationState(0);
         }
 
         public void stop() {
@@ -375,6 +367,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
                 this.mob.setTarget((LivingEntity) null);
             }
+            this.mob.setAnimationState(0);
 
         }
 
@@ -384,33 +377,31 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             LivingEntity target = this.mob.getTarget();
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
-
+            int animState = this.mob.getAnimationState();
             Vec3 aim = this.mob.getLookAngle();
             Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-            this.animState = this.mob.getAnimationState();
-
 
 
             switch (animState) {
                 case 21:
                     tickBiteAttack();
-                    return;
+                    break;
                 case 22:
                     tickWhipAttack();
-                    return;
+                    break;
                 case 23:
                     tickStompLeftAttack();
-                    return;
+                    break;
                 case 24:
                     tickStompRightAttack();
-                    return;
+                    break;
                 default:
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
                     this.doMovement(target, distance);
                     this.checkForCloseRangeAttack(distance, reach);
-                    return;
+                    break;
 
             }
         }
@@ -454,19 +445,15 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
         protected void checkForCloseRangeAttack ( double distance, double reach){
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
-                int r = this.mob.getRandom().nextInt(100);
-                if (r <= 25) {
+                int r = this.mob.getRandom().nextInt(2048);
+                if (r <= 600) {
                     this.mob.setAnimationState(21);
-                    return;
-                } else if (r <= 50 && r > 25) {
+                } else if (r <= 800) {
                     this.mob.setAnimationState(22);
-                    return;
-                } else if (r <= 75 && r > 50) {
+                } else if (r <= 1400) {
                     this.mob.setAnimationState(23);
-                    return;
                 } else {
                     this.mob.setAnimationState(24);
-                    return;
                 }
 
             }
@@ -660,39 +647,41 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(event.isMoving()){
-            if(this.isSprinting()) {
-                event.getController().setAnimation(new AnimationBuilder().loop("rex.charge"));
-                event.getController().setAnimationSpeed(1.0F);
-                return PlayState.CONTINUE;
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().loop("rex.walk"));
-                event.getController().setAnimationSpeed(1.0F);
-                return PlayState.CONTINUE;
-            }
-        }
-        event.getController().setAnimation(new AnimationBuilder().loop("rex.idle"));
-        event.getController().setAnimationSpeed(1.0F);
-        return PlayState.CONTINUE;
-    }
-
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         int animState = this.getAnimationState();
         {
             switch (animState) {
 
                 case 21:
                     event.getController().setAnimation(new AnimationBuilder().playOnce("rex.bite"));
-                    return PlayState.CONTINUE;
+                    break;
                 case 22:
                     event.getController().setAnimation(new AnimationBuilder().playOnce("rex.whip"));
-                    return PlayState.CONTINUE;
+                    break;
                 case 23:
                     event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompl"));
-                    return PlayState.CONTINUE;
+                    break;
                 case 24:
                     event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompr"));
-                    return PlayState.CONTINUE;
+                    break;
+                default:
+                    if (this.isEepy()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("rex.eepy"));
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
+                    else if(event.isMoving()){
+                        if(this.isSprinting()) {
+                            event.getController().setAnimation(new AnimationBuilder().loop("rex.charge"));
+                            event.getController().setAnimationSpeed(1.0F);
+                        } else {
+                            event.getController().setAnimation(new AnimationBuilder().loop("rex.walk"));
+                            event.getController().setAnimationSpeed(1.0F);
+                        }
+                    }else{
+                        event.getController().setAnimation(new AnimationBuilder().loop("rex.idle"));
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
+                    break;
+
             }
         }
         return PlayState.CONTINUE;
@@ -702,10 +691,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(1);
         AnimationController<EntityTyrannosaurusRex> controller = new AnimationController<>(this, "controller", 1, this::predicate);
-        AnimationController<EntityTyrannosaurusRex> attackController = new AnimationController<>(this, "attackController", 1, this::attackPredicate);
-
         data.addAnimationController(controller);
-        data.addAnimationController(attackController);
     }
 
     @Override
