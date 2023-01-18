@@ -1,9 +1,11 @@
 package com.peeko32213.unusualprehistory.common.block;
 
+import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.DNAFridgeBlockEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
@@ -15,8 +17,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -63,6 +68,7 @@ public class BlockDNAFridge extends BaseEntityBlock {
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, Random rand) {
         BlockEntity tileEntity = level.getBlockEntity(pos);
+
         if (tileEntity instanceof DNAFridgeBlockEntity) {
             ((DNAFridgeBlockEntity) tileEntity).recheckOpen();
         }
@@ -103,6 +109,15 @@ public class BlockDNAFridge extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return UPBlockEntities.DNA_FRIDGE_BLOCK_ENTITY.get().create(pos, state);
+    }
+
+
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return createTickerHelper(pBlockEntityType, UPBlockEntities.DNA_FRIDGE_BLOCK_ENTITY.get(),
+                DNAFridgeBlockEntity::tick);
     }
 
     @Override

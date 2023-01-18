@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -21,6 +22,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +31,10 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
 import java.util.stream.IntStream;
+
+import static com.peeko32213.unusualprehistory.common.block.BlockDNAFridge.OPEN;
 
 public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     private NonNullList<ItemStack> contents = NonNullList.withSize(54, ItemStack.EMPTY);
@@ -115,7 +121,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity imple
     }
 
     void updateBlockState(BlockState state, boolean open) {
-        this.level.setBlock(this.getBlockPos(), state.setValue(BlockDNAFridge.OPEN, open), 3);
+        this.level.setBlock(this.getBlockPos(), state.setValue(OPEN, open), 3);
     }
 
     private void playSound(BlockState state, SoundEvent sound) {
@@ -158,4 +164,13 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity imple
         return new SidedInvWrapper(this, Direction.DOWN);
     }
 
+    public static void spawnParticles(LevelAccessor levelAccessor, BlockPos pos, Random random, double speedXZModifier, double speedYModifier){
+        Level level = (Level) levelAccessor;
+        level.addAlwaysVisibleParticle(ParticleTypes.SNOWFLAKE, true,(double)pos.getX() + 0.2 + random.nextDouble() * 0.6 , (double)(pos.getY() + 0.5 + (random.nextDouble() * 0.8)), (double)pos.getZ() + 0.2 + random.nextDouble() * 0.6,  speedXZModifier, speedYModifier, speedXZModifier);
+    }
+    public static <E extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, E e) {
+        if(state.getValue(OPEN) == true) {
+            spawnParticles(level, pos, level.random, 0, 0.04);
+        }
+    }
 }
