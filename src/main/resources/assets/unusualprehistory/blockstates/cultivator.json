@@ -1,14 +1,14 @@
 {
   "variants": {
     "half=lower,facing=north": {
-      "model": "unusualprehistory:block/cultivator_bottom"
+      "model": "unusualprehistory:block/cultivator"
 
     },
     "half=upper,facing=north": {
       "model": "unusualprehistory:block/cultivator_top"
     },
     "half=lower,facing=east": {
-      "model": "unusualprehistory:block/cultivator_bottom",
+      "model": "unusualprehistory:block/cultivator",
       "y": 90
 
     },
@@ -18,7 +18,7 @@
 
     },
     "half=lower,facing=south": {
-      "model": "unusualprehistory:block/cultivator_bottom",
+      "model": "unusualprehistory:block/cultivator",
       "y": 180
 
     },
@@ -27,7 +27,7 @@
       "y": 180
     },
     "half=lower,facing=west": {
-      "model": "unusualprehistory:block/cultivator_bottom",
+      "model": "unusualprehistory:block/cultivator",
       "y": 270
 
     },

@@ -4,14 +4,12 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.render.*;
 import com.peeko32213.unusualprehistory.client.render.*;
 import com.peeko32213.unusualprehistory.client.render.armor.MajungaHelmetRenderer;
+import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.renders.*;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
-import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPMenuTypes;
+import com.peeko32213.unusualprehistory.core.registry.*;
 import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -21,6 +19,7 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -56,7 +55,7 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.POTTED_LEEFRUCTUS.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.AMBER_GLASS.get(), RenderType.translucent());
-        //ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
 
         MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
         MenuScreens.register(UPMenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
@@ -106,6 +105,8 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.RAPTOR_RENDER.get(), RaptorRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.REX_RENDER.get(), RexRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.ENCRUSTED_RENDER.get(), EncrustedRenderRenderer::new);
+
+        event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
 
     }
 

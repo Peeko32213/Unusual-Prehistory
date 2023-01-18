@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory;
 
+import com.peeko32213.unusualprehistory.common.networking.UPMessages;
 import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.events.WorldEvents;
@@ -65,6 +66,8 @@ public class UnusualPrehistory {
             UPConfiguredFeatures.init();
             UPPlacedFeatures.init();
         });
+
+        UPMessages.register();
     }
 
     @Nonnull

@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.BlockCultivator;
+import com.peeko32213.unusualprehistory.common.networking.UPMessages;
+import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
@@ -9,10 +11,12 @@ import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -24,25 +28,30 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.logging.log4j.core.jmx.Server;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
+import java.util.Random;
 
 import static com.peeko32213.unusualprehistory.common.block.BlockCultivator.HALF;
 
 public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     private static final TagKey<Item> ORGANIC_OOZE = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "organic_ooze"));
     private BlockState blockstate;
+
     public CultivatorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         this.blockstate = pBlockState;
@@ -53,6 +62,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
                     case 1: return CultivatorBlockEntity.this.maxProgress;
                     case 2: return CultivatorBlockEntity.this.fuel;
                     case 3: return CultivatorBlockEntity.this.maxFuel;
+                    case 4: return CultivatorBlockEntity.this.tickCount;
                     default: return 0;
                 }
             }
@@ -63,19 +73,23 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
                     case 1: CultivatorBlockEntity.this.maxProgress = value; break;
                     case 2: CultivatorBlockEntity.this.fuel = value; break;
                     case 3: CultivatorBlockEntity.this.maxFuel = value; break;
+                    case 4: CultivatorBlockEntity.this.tickCount = value; break;
+
                 }
             }
 
             public int getCount() {
-                return 4;
+                return 5;
             }
         };
     }
-
     private final ItemStackHandler itemHandler = new ItemStackHandler(4) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
+            if(!level.isClientSide){
+                UPMessages.sendToClients(new SyncItemStackC2SPacket(this, worldPosition));
+            }
         }
     };
 
@@ -140,6 +154,8 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     private int fuel = 0;
     private int maxFuel = 790;
 
+    public int tickCount = 0;
+
     @Override
     public Component getDisplayName() {
         return new TextComponent("Cultivator");
@@ -165,6 +181,9 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         super.onLoad();
         lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
         hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
+        if(!level.isClientSide){
+            UPMessages.sendToClients(new SyncItemStackC2SPacket(this.itemHandler, worldPosition));
+        }
     }
 
     @Override
@@ -199,8 +218,32 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
+    public static void spawnParticles(LevelAccessor levelAccessor, BlockPos pos, Random random, double speedXZModifier, double speedYModifier, double initYSpeed, int numberOfParticles){
+        if(levelAccessor.isClientSide()) return;
+        ServerLevel serverLevel = (ServerLevel) levelAccessor;
+        serverLevel.sendParticles(ParticleTypes.BUBBLE, (double)pos.getX() + random.nextDouble(), (double)(pos.getY() + 1), (double)pos.getZ() + random.nextDouble(), 1, 0.0D, 0.01D, 0.0D, 0.2D);
+    }
+
+    public ItemStack getRenderStack() {
+        ItemStack stack;
+
+        if(!itemHandler.getStackInSlot(2).isEmpty()){
+            stack = itemHandler.getStackInSlot(2);
+        } else{
+            stack = itemHandler.getStackInSlot(0);
+        }
+        return stack;
+    }
+    public void setHandler(ItemStackHandler itemStackHandler) {
+        for(int i = 0; i < itemStackHandler.getSlots(); i++){
+            itemHandler.setStackInSlot(i, itemStackHandler.getStackInSlot(i));
+        }
+    }
+
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, CultivatorBlockEntity pBlockEntity) {
+        pBlockEntity.tickCount++;
         if(hasRecipe(pBlockEntity)) {
+            spawnParticles(pLevel, pPos, pLevel.random, 0,0,0,0);
             pBlockEntity.progress++;
             pBlockEntity.depleteFuel();
             setChanged(pLevel, pPos, pState);
@@ -301,4 +344,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
         return new CultivatorMenu(pContainerId, pInventory, this, this.data);
     }
+
+
+
 }
