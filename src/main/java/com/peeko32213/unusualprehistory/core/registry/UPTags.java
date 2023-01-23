@@ -7,20 +7,21 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraftforge.registries.DeferredRegister;
 
 public class UPTags {
 
 
     public static final TagKey<EntityType<?>> ANURO_TARGETS = registerEntityTag("anuro_targets");
     public static final TagKey<EntityType<?>> MAJUNGA_TARGETS = registerEntityTag("majunga_targets");
-    public static final TagKey<EntityType<?>> DUNK_TARGETS = registerEntityTag("dunk_targets");
     public static final TagKey<EntityType<?>> BEELZE_TARGETS = registerEntityTag("beelze_targets");
     public static final TagKey<EntityType<?>> REX_TARGETS = registerEntityTag("rex_targets");
     public static final TagKey<EntityType<?>> RAPTOR_TARGETS = registerEntityTag("raptor_targets");
     public static final TagKey<EntityType<?>> ENCRUSTED_TARGETS = registerEntityTag("encrusted_targets");
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");
     public static final TagKey<Item> ANALYZER_ITEMS_INPUT = registerItemTag("analyzer_items");
-    public static final TagKey<Item> DNA_FLASKS = registerItemTag("filled_flasks");
+    public static final TagKey<Item> DNA_FLASKS = registerItemTag("dna_flasks");
     public static final TagKey<Block> TRIKE_BREAKABLES = registerBlockTag("trike_breakables");
     public static final TagKey<Block> PASSIVE_BRACHI_BREAKABLES = registerBlockTag("passive_brachi_breakables");
     public static final TagKey<Block> ANGRY_BRACHI_BREAKABLES = registerBlockTag("angry_brachi_breakables");
@@ -36,5 +37,7 @@ public class UPTags {
     private static TagKey<EntityType<?>> registerEntityTag(String name) {
         return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
     }
+
+
 
 }

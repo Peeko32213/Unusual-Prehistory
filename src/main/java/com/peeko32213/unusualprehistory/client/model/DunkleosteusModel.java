@@ -20,7 +20,7 @@ public class DunkleosteusModel extends AnimatedGeoModel<EntityDunkleosteus>
     @Override
     public ResourceLocation getTextureLocation(EntityDunkleosteus object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/dunk.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/dunkleosteus.png");
     }
 
     @Override

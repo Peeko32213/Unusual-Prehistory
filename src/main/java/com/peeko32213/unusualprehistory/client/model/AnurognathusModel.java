@@ -18,7 +18,7 @@ public class AnurognathusModel extends AnimatedGeoModel<EntityAnurognathus>
     @Override
     public ResourceLocation getTextureLocation(EntityAnurognathus object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/anuro.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/anurognathus.png");
     }
 
     @Override

@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class TrikeRenderRenderer extends MobRenderer<BaseEntityRender, TrikeRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/trike2.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/triceratops.png");
 
 	public TrikeRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new TrikeRenderModel<>(renderManagerIn.bakeLayer(TrikeRenderModel.LAYER_LOCATION)), 0.2F);

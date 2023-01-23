@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class BeelzRenderRenderer extends MobRenderer<BaseEntityRender, BeelzRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/beelze2.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/renders/beelzebufo_render.png");
 
 	public BeelzRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new BeelzRenderModel<>(renderManagerIn.bakeLayer(BeelzRenderModel.LAYER_LOCATION)), 0.2F);

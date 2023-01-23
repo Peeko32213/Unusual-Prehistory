@@ -1,28 +1,29 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.util.BabyHurtByTargetGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -39,12 +40,14 @@ import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -61,16 +64,15 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
 import software.bernie.geckolib3.util.GeckoLibUtil;
-public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralMob {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
+public class EntityMajungasaurus extends Animal implements IAnimatable {
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
+    private static final TagKey<Item> FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "majunga_food"));
+    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.BOOLEAN);
     private int stunnedTick;
     private boolean canBePushed = true;
-
-    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    @javax.annotation.Nullable
-    private UUID persistentAngerTarget;
-    private int remainingPersistentAngerTime;
 
     public EntityMajungasaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -87,11 +89,6 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     }
 
     @Override
-    public boolean isFood(ItemStack stack) {
-        return false;
-    }
-
-    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -104,8 +101,22 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
-        this.targetSelector.addGoal(9, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.MAJUNGA_TARGETS)));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::isAngryAt));
+    }
+
+    public boolean isAngryAt(LivingEntity p_21675_) {
+        return this.canAttack(p_21675_);
+    }
+
+    @Override
+    public boolean canAttack(LivingEntity entity) {
+        boolean prev = super.canAttack(entity);
+        if(isBaby() || getPassiveTicks() > 0){
+            return false;
+        }
+        return prev;
     }
 
     public void checkDespawn() {
@@ -127,18 +138,48 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
         super.defineSynchedData();
         this.entityData.define(CHARGE_COOLDOWN_TICKS, 0);
         this.entityData.define(HAS_TARGET, false);
+        this.getEntityData().define(PASSIVE, 0);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("StunTick", this.stunnedTick);
+        compound.putInt("PassiveTicks", this.getPassiveTicks());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.stunnedTick = compound.getInt("StunTick");
+        this.setPassiveTicks(compound.getInt("PassiveTicks"));
+    }
+
+    public boolean isFood(ItemStack stack) {
+        return stack.is(FOOD);
+    }
+
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        Item item = itemstack.getItem();
+        if (isFood(itemstack) && (this.getPassiveTicks() <= 0 || this.getHealth() < this.getMaxHealth())) {
+            if (!player.isCreative()) {
+                itemstack.shrink(1);
+            }
+            this.heal(10);
+            this.setPassiveTicks(this.getPassiveTicks() + 2500);
+            return InteractionResult.SUCCESS;
+        }
+        InteractionResult type = super.mobInteract(player, hand);
+        return type;
+    }
+
+    public int getPassiveTicks() {
+        return this.entityData.get(PASSIVE);
+    }
+
+    private void setPassiveTicks(int passiveTicks) {
+        this.entityData.set(PASSIVE, passiveTicks);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -273,32 +314,6 @@ public class EntityMajungasaurus extends Animal implements IAnimatable, NeutralM
     @Override
     public float getVoicePitch() {
         return (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f;
-    }
-
-    @Override
-    public int getRemainingPersistentAngerTime() {
-        return this.remainingPersistentAngerTime;
-    }
-
-    @Override
-    public void setRemainingPersistentAngerTime(int p_21673_) {
-        this.remainingPersistentAngerTime = p_21673_;
-    }
-
-    @org.jetbrains.annotations.Nullable
-    @Override
-    public UUID getPersistentAngerTarget() {
-        return this.persistentAngerTarget;
-    }
-
-    @Override
-    public void setPersistentAngerTarget(@org.jetbrains.annotations.Nullable UUID p_21672_) {
-        this.persistentAngerTarget = p_21672_;
-    }
-
-    @Override
-    public void startPersistentAngerTimer() {
-        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
     public boolean requiresCustomPersistence() {

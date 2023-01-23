@@ -26,7 +26,7 @@ public class CotylorhynchusModel extends AnimatedGeoModel<EntityCotylorhynchus>
     @Override
     public ResourceLocation getTextureLocation(EntityCotylorhynchus object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/coty.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/cotylorhynchus.png");
     }
 
     @Override

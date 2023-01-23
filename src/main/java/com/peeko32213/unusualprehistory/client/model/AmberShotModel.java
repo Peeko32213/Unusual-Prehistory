@@ -18,7 +18,7 @@ public class AmberShotModel extends AnimatedGeoModel<EntityAmberShot>
     @Override
     public ResourceLocation getTextureLocation(EntityAmberShot object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/amber_shot2.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/amber_shot.png");
     }
 
     @Override

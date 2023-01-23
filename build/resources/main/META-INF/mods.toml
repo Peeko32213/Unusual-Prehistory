@@ -4,10 +4,10 @@ license="MIT"
 
 [[mods]]
 modId="unusualprehistory"
-version="1.1.0-beta-4"
+version="1.1.0-release-canidate-2"
 displayName= "Unusual Prehistory"
 logoFile= "examplemod.png"
-credits= "Thanks to Fred, Omatypaty, and Crydigo for textures! Thanks to skyjay1#2076 for help on GUI code! Thanks to Shroomy for sound help!"
+credits= "Thanks to Fred, Omatypaty, and Crydigo for textures! Thanks to skyjay1#2076 for help on GUI code! Thanks to Scouter456 and Codyy for Coding Help! Thanks to Shroomy for sound help!"
 authors= "Peeko32213"
 description='''
 A Mod that adds a variety of prehistoric creatures and a way to revive them

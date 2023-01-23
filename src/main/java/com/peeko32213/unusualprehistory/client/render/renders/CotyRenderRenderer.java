@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class CotyRenderRenderer extends MobRenderer<BaseEntityRender, CotyRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/coty.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/cotylorhynchus.png");
 
 	public CotyRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new CotyRenderModel<>(renderManagerIn.bakeLayer(CotyRenderModel.LAYER_LOCATION)), 0.2F);

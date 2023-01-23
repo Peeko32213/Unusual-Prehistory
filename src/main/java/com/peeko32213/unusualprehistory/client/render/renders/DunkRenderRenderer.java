@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class DunkRenderRenderer extends MobRenderer<BaseEntityRender, DunkRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/dunk_pane.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/renders/dunkleosteus_render.png");
 
 	public DunkRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new DunkRenderModel<>(renderManagerIn.bakeLayer(DunkRenderModel.LAYER_LOCATION)), 0.2F);

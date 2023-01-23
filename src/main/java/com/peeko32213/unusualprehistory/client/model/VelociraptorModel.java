@@ -25,7 +25,7 @@ public class VelociraptorModel extends AnimatedGeoModel<EntityVelociraptor>
     @Override
     public ResourceLocation getTextureLocation(EntityVelociraptor object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/velociraptor2.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/velociraptor.png");
     }
 
     @Override

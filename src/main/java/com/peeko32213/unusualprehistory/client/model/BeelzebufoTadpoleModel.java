@@ -20,7 +20,7 @@ public class BeelzebufoTadpoleModel extends AnimatedGeoModel<EntityBeelzebufoTad
     @Override
     public ResourceLocation getTextureLocation(EntityBeelzebufoTadpole object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebaby.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_baby.png");
     }
 
     @Override

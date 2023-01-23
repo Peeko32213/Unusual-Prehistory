@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "unusualprehistory:trike"
+    "unusualprehistory:trike",
+    "minecraft:sheep"
   ]
 }

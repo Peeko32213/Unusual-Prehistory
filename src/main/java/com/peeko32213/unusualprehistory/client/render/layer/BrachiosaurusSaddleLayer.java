@@ -12,7 +12,7 @@ import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 public class BrachiosaurusSaddleLayer extends GeoLayerRenderer<EntityBrachiosaurus> {
-    private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachi_saddle.png");
+    private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus_saddle.png");
     private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/brachi.geo.json");
 
     public BrachiosaurusSaddleLayer(IGeoRenderer<EntityBrachiosaurus> entityRendererIn) {

@@ -69,6 +69,11 @@ public class UPSounds {
     public static final SoundEvent RAPTOR_HURT = createSoundEvent("raptor_hurt");
     public static final SoundEvent RAPTOR_IDLE = createSoundEvent("raptor_idle");
     public static final SoundEvent RAPTOR_SEARCH = createSoundEvent("raptor_search");
+    public static final SoundEvent PACHY_DEATH = createSoundEvent("pachy_death");
+    public static final SoundEvent PACHY_HEADBUTT = createSoundEvent("pachy_headbutt");
+    public static final SoundEvent PACHY_HURT = createSoundEvent("pachy_hurt");
+    public static final SoundEvent PACHY_IDLE = createSoundEvent("pachy_idle");
+    public static final SoundEvent PACHY_KICK = createSoundEvent("pachy_kick");
 
     private static SoundEvent createSoundEvent(final String soundName) {
         final ResourceLocation soundID = new ResourceLocation(UnusualPrehistory.MODID, soundName);

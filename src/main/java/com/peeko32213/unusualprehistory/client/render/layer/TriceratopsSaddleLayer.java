@@ -12,7 +12,7 @@ import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 public class TriceratopsSaddleLayer extends GeoLayerRenderer<EntityTriceratops> {
-    private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/trike2_saddle.png");
+    private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops_saddle.png");
     private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/trike.geo.json");
 
     public TriceratopsSaddleLayer(IGeoRenderer<EntityTriceratops> entityRendererIn) {

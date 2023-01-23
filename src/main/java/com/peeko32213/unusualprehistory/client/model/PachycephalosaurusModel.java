@@ -25,7 +25,7 @@ public class PachycephalosaurusModel extends AnimatedGeoModel<EntityPachycephalo
     @Override
     public ResourceLocation getTextureLocation(EntityPachycephalosaurus object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/pachy.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/pachycephalosaurus.png");
     }
 
     @Override

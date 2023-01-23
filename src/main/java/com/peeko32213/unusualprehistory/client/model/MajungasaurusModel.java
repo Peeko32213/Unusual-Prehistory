@@ -25,7 +25,7 @@ public class MajungasaurusModel extends AnimatedGeoModel<EntityMajungasaurus>
     @Override
     public ResourceLocation getTextureLocation(EntityMajungasaurus object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/majungasaurus2.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/majungasaurus.png");
     }
 
     @Override

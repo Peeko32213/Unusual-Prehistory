@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class ScaumenaciaRenderRenderer extends MobRenderer<BaseEntityRender, ScaumenaciaRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/scaumenacia_render.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/renders/scaumenacia_render.png");
 
 	public ScaumenaciaRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new ScaumenaciaRenderModel<>(renderManagerIn.bakeLayer(ScaumenaciaRenderModel.LAYER_LOCATION)), 0.2F);

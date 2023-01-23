@@ -38,6 +38,16 @@
           "type": "minecraft:item",
           "weight": 2,
           "name": "unusualprehistory:majunga_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "unusualprehistory:raptor_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "unusualprehistory:pachy_flask"
         }
       ]
     }

@@ -91,6 +91,8 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new EntityPachycephalosaurus.PachyMeleeAttackGoal(this,  1.3F, true));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityMajungasaurus.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, Ingredient.of(Items.WHEAT), false));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
@@ -102,15 +104,15 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.COTY_IDLE;
+        return UPSounds.PACHY_IDLE;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.TRIKE_HURT;
+        return UPSounds.PACHY_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.TRIKE_DEATH;
+        return UPSounds.PACHY_DEATH;
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
@@ -160,6 +162,8 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
 
     }
+
+
 
     public int getPassiveTicks() {
         return this.entityData.get(PASSIVE);
@@ -569,7 +573,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
 
             Vec3 pos = mob.position();
-            this.mob.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 2.0f, 0.2f);
+            this.mob.playSound(UPSounds.PACHY_HEADBUTT, 0.5F, 0.5F);
             HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),8.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
 
         }
@@ -579,7 +583,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
 
             Vec3 pos = mob.position();
-            this.mob.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 2.0f, 0.2f);
+            this.mob.playSound(UPSounds.PACHY_KICK, 0.5F, 0.5F);
             HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),10.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
 
         }

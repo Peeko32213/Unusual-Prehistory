@@ -65,7 +65,8 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
     private static final EntityDataAccessor<Boolean> LAUNCHING = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Float> HEAD_HEIGHT = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.BOOLEAN);
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    public float prevHeadHeight = 0F;
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    public float prevHeadHeight = 0F;
     private int headPeakCooldown = 0;
     public final EntityBrachiosaurusPart neck;
     public final EntityBrachiosaurusPart[] theEntireNeck;
@@ -96,7 +97,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new EntityBrachiosaurus.BrachiMeleeAttackGoal(this,  1.3F, true));
         this.goalSelector.addGoal(3, new CustomRideGoal(this, 1.2D, false) {
             @Override
@@ -120,6 +120,10 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
     @Override
     protected float getWaterSlowDown() {
         return 0.98F;
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 
 
@@ -365,7 +369,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
     }
 
     private double getMaxFluidHeight() {
-        return Math.max(this.getFluidHeight(FluidTags.LAVA), this.getFluidHeight(FluidTags.WATER));
+        return 11.5f;
     }
 
     public float getLowHeadHeight() {

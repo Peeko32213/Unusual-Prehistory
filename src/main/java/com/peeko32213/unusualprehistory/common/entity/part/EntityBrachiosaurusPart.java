@@ -24,8 +24,8 @@ public class EntityBrachiosaurusPart extends PartEntity<EntityBrachiosaurus> {
         this.refreshDimensions();
     }
 
-    public EntityBrachiosaurusPart(EntityBrachiosaurus entityCachalotWhale, float sizeX, float sizeY, EntityDimensions size) {
-        super(entityCachalotWhale);
+    public EntityBrachiosaurusPart(EntityBrachiosaurus entityBrachiosaurus, float sizeX, float sizeY, EntityDimensions size) {
+        super(entityBrachiosaurus);
         this.size = size;
     }
 
@@ -40,6 +40,10 @@ public class EntityBrachiosaurusPart extends PartEntity<EntityBrachiosaurus> {
 
     public void collideWithNearbyEntities() {
 
+    }
+
+    public boolean isPushedByFluid() {
+        return false;
     }
 
     public InteractionResult getEntityInteractionResult(Player player, InteractionHand hand) {

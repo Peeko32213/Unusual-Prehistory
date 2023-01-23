@@ -32,7 +32,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "stethacanthus").toString()));
 
     public static final RegistryObject<EntityType<EntityMajungasaurus>> MAJUNGA = ENTITIES.register("majunga",
-            () -> EntityType.Builder.of(EntityMajungasaurus::new, MobCategory.CREATURE).sized(2.3F, 1.95F)
+            () -> EntityType.Builder.of(EntityMajungasaurus::new, MobCategory.CREATURE).sized(1.95F, 2.2F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "majunga").toString()));
 
     public static final RegistryObject<EntityType<EntityAnurognathus>> ANURO = ENTITIES.register("anuro",

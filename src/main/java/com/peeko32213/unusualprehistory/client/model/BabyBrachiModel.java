@@ -18,7 +18,7 @@ public class BabyBrachiModel extends AnimatedGeoModel<EntityBabyBrachi>
     @Override
     public ResourceLocation getTextureLocation(EntityBabyBrachi object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/babybrachi.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_brachiosaurus.png");
     }
 
     @Override

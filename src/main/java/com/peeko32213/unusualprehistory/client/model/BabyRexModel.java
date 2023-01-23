@@ -18,7 +18,7 @@ public class BabyRexModel extends AnimatedGeoModel<EntityBabyRex>
     @Override
     public ResourceLocation getTextureLocation(EntityBabyRex object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/babyrex.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_tyrannosaurus_rex.png");
     }
 
     @Override

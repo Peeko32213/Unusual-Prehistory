@@ -4,6 +4,8 @@ package com.peeko32213.unusualprehistory.client.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.TyrannosaurusRexModel;
+import com.peeko32213.unusualprehistory.client.render.layer.TriceratopsSaddleLayer;
+import com.peeko32213.unusualprehistory.client.render.layer.TyrannosaurusRexEepyLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,6 +15,7 @@ public class TyrannosaurusRexRenderer extends GeoEntityRenderer<EntityTyrannosau
 
     public TyrannosaurusRexRenderer(EntityRendererProvider.Context context) {
         super(context, new TyrannosaurusRexModel());
+        this.addLayer(new TyrannosaurusRexEepyLayer(this));
     }
 
     @Override

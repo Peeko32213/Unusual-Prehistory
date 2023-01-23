@@ -20,7 +20,7 @@ public class ScaumenaciaModel extends AnimatedGeoModel<EntityScaumenacia>
     public ResourceLocation getTextureLocation(EntityScaumenacia object)
     {
         if (object.isGolden()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/golden_homer.png");
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/scaumenacia_buddah.png");
         }
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/scaumenacia.png");
     }

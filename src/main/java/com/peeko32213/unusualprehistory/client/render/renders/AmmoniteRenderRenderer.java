@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class AmmoniteRenderRenderer extends MobRenderer<BaseEntityRender, AmmoniteRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/ammonite_pane.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/renders/ammonite_render.png");
 
 	public AmmoniteRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new AmmoniteRenderModel<>(renderManagerIn.bakeLayer(AmmoniteRenderModel.LAYER_LOCATION)), 0.2F);

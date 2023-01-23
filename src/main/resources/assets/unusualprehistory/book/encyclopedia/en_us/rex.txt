@@ -14,4 +14,5 @@ resistance and regeneration. When the beast is almost near death it will fall in
 or move. When an Adorned Staff is used on it in this state it will heal up and drop some rewards.
 <NEWLINE>
 These rewards consist of scales and teeth. Scales can be used to craft a fine trophy of the beast while
-the teeth can be used to craft a veloci-shield.
+the teeth can be used to craft a veloci-shield. Another by product of the pacification is that they will
+become completely pacified, not attacking humans nor animals that hurt it.

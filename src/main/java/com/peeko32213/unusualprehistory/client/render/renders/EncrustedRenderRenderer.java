@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class EncrustedRenderRenderer extends MobRenderer<BaseEntityRender, EncrustedRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/encrusted_pane.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/renders/encrusted_render.png");
 
 	public EncrustedRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new EncrustedRenderModel<>(renderManagerIn.bakeLayer(EncrustedRenderModel.LAYER_LOCATION)), 0.2F);

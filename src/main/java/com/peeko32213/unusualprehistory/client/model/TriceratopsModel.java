@@ -25,7 +25,7 @@ public class TriceratopsModel extends AnimatedGeoModel<EntityTriceratops>
     @Override
     public ResourceLocation getTextureLocation(EntityTriceratops object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/trike2.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops.png");
     }
 
     @Override

@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class StethaRenderRenderer extends MobRenderer<BaseEntityRender, StethaRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/stethacanthus_pane.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/renders/stethacanthus_render.png");
 
 	public StethaRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new StethaRenderModel<>(renderManagerIn.bakeLayer(StethaRenderModel.LAYER_LOCATION)), 0.2F);

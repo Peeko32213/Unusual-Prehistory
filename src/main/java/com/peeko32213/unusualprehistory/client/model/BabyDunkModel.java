@@ -21,7 +21,7 @@ public class BabyDunkModel extends AnimatedGeoModel<EntityBabyDunk>
     @Override
     public ResourceLocation getTextureLocation(EntityBabyDunk object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/babydunk.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_dunkleosteus.png");
     }
 
     @Override

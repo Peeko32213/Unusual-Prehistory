@@ -74,13 +74,14 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(5, new PushButtonsGoal(this, 1.0F, 5, 2));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new EntityVelociraptor.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
-        this.goalSelector.addGoal(2, new EntityVelociraptor.RaptorOpenDoorGoal(this));
+        this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.RAPTOR_TARGETS)));
 
     }
@@ -161,13 +162,13 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         this.entityData.define(PRESS, false);
     }
 
-    protected class RaptorOpenDoorGoal extends OpenDoorGoal {
+    protected static class RaptorOpenDoorGoal extends OpenDoorGoal {
         public RaptorOpenDoorGoal(EntityVelociraptor p_32128_) {
             super(p_32128_, false);
         }
 
         public boolean canUse() {
-            return isAlive() && super.canUse();
+            return super.canUse();
         }
     }
 
@@ -224,7 +225,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         protected void onReachedTarget() {
             if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(raptor.level, raptor)) {
                 BlockState blockstate = raptor.level.getBlockState(this.blockPos);
-                if (blockstate.is(UPBlocks.GINKGO_BUTTON.get())) {
+                if (blockstate.is(UPBlocks.AMBER_BUTTON.get())) {
                     this.pushButton(blockstate);
                 }
 
@@ -239,7 +240,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         @Override
         protected boolean isValidTarget(LevelReader world, BlockPos pos) {
             BlockState blockState = world.getBlockState(pos);
-            return (blockState.is(UPBlocks.GINKGO_BUTTON.get()));
+            return (blockState.is(UPBlocks.AMBER_BUTTON.get()));
         }
 
         private void pushButton(BlockState p_148929_) {

@@ -119,7 +119,7 @@ public class BlockCultivator extends BaseEntityBlock {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if(pState.getValue(HALF) == DoubleBlockHalf.UPPER){
-                pPlayer.sendMessage(new TranslatableComponent("cultivator.upper_half.use").withStyle(ChatFormatting.AQUA), Util.NIL_UUID);
+                pPlayer.sendMessage(new TranslatableComponent("There doesn't appear to be any controls on top of this machine....").withStyle(ChatFormatting.WHITE), Util.NIL_UUID);
                 return InteractionResult.FAIL;
             }
             if(entity instanceof CultivatorBlockEntity) {

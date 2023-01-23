@@ -29,6 +29,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
@@ -112,7 +113,13 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this){
+
+            public boolean canUse() {
+                return !isTame();
+            }
+
+        }));
         this.targetSelector.addGoal(2, new TrikeNearestAttackablePlayerTargetGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(2, new CustomRideGoal(this, 2.5F));
@@ -120,9 +127,6 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(5, new TameableTempt(this, 1.1D, TEMPTATION_ITEMS, false));
-        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, EntityTyrannosaurusRex.class, false));
-
-
     }
 
     public boolean isFood(ItemStack stack) {
@@ -213,13 +217,17 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         if(riderAttackCooldown > 0){
             riderAttackCooldown--;
         }
-        if(this.getControllingPassenger() != null && this.getControllingPassenger() instanceof Player){
-            Player rider = (Player)this.getControllingPassenger();
-            if(rider.getLastHurtMob() != null && this.distanceTo(rider.getLastHurtMob()) < this.getBbWidth() + 3F && !this.isAlliedTo(rider.getLastHurtMob())){
-                UUID preyUUID = rider.getLastHurtMob().getUUID();
-                if (!this.getUUID().equals(preyUUID) && riderAttackCooldown == 0) {
-                    doHurtTarget(rider.getLastHurtMob());
-                    riderAttackCooldown = 20;
+        if (this.isAlive()  && this.getDeltaMovement().horizontalDistanceSqr() > 0.1D) {
+            for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0D))) {
+                if (!(entity instanceof EntityTriceratops) && !entity.isPassengerOfSameVehicle(this) & riderAttackCooldown == 0 && !(entity instanceof Villager)) {
+                    entity.hurt(DamageSource.mobAttack(this), 8F + random.nextFloat() * 3.0F);
+                    if (entity.isOnGround()) {
+                        double d0 = entity.getX() - this.getX();
+                        double d1 = entity.getZ() - this.getZ();
+                        double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
+                        float f = 0.3F;
+                        entity.push(d0 / d2 * f, f, d1 / d2 * f);
+                    }
                 }
             }
         }
@@ -556,7 +564,7 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         if (this.level.isClientSide) {
             this.eatAnimationTick = Math.max(0, this.eatAnimationTick - 1);
         }
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.isAggressive()) {
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.isAggressive() && !this.isTame()) {
             boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {

@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class RaptorRenderRenderer extends MobRenderer<BaseEntityRender, RaptorRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/velociraptor2_pane.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/renders/velociraptor_render.png");
 
 	public RaptorRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new RaptorRenderModel<>(renderManagerIn.bakeLayer(RaptorRenderModel.LAYER_LOCATION)), 0.2F);

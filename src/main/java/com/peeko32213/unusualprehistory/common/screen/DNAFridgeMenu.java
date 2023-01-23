@@ -12,11 +12,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-
-import static net.minecraft.world.level.block.ChestBlock.getContainer;
 
 public class DNAFridgeMenu extends AbstractContainerMenu {
 
@@ -106,6 +101,7 @@ public class DNAFridgeMenu extends AbstractContainerMenu {
 
 
     static class DNAFridgeSlot extends Slot {
+
         public DNAFridgeSlot(Container container, int slots, int x, int y) {
             super(container, slots, x, y);
         }

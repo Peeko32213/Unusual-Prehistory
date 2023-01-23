@@ -17,6 +17,8 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -26,7 +28,6 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
 import java.util.Random;
-
 @SuppressWarnings("deprecation")
 public class BlockDNAFridge extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -63,6 +64,7 @@ public class BlockDNAFridge extends BaseEntityBlock {
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, Random rand) {
         BlockEntity tileEntity = level.getBlockEntity(pos);
+
         if (tileEntity instanceof DNAFridgeBlockEntity) {
             ((DNAFridgeBlockEntity) tileEntity).recheckOpen();
         }
@@ -103,6 +105,15 @@ public class BlockDNAFridge extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return UPBlockEntities.DNA_FRIDGE_BLOCK_ENTITY.get().create(pos, state);
+    }
+
+
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return createTickerHelper(pBlockEntityType, UPBlockEntities.DNA_FRIDGE_BLOCK_ENTITY.get(),
+                DNAFridgeBlockEntity::tick);
     }
 
     @Override

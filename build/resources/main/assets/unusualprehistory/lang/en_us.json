@@ -181,6 +181,11 @@
   "unusualprehistory.sound.subtitle.raptor_hurt": "Painful scream",
   "unusualprehistory.sound.subtitle.raptor_idle": "Docile cooing",
   "unusualprehistory.sound.subtitle.raptor_search": "Curious coos",
+  "unusualprehistory.sound.subtitle.pachy_death": "Dying crys",
+  "unusualprehistory.sound.subtitle.pachy_headbutt": "Sternful Bonk",
+  "unusualprehistory.sound.subtitle.pachy_hurt": "Painful Grunt",
+  "unusualprehistory.sound.subtitle.pachy_idle": "Gruff Grunts",
+  "unusualprehistory.sound.subtitle.pachy_kick": "Powerful Kick",
 
   "block.unusualprehistory.stripped_ginkgo_log": "Stripped Ginkgo Log",
   "block.unusualprehistory.ginkgo_button": "Ginkgo Button",
@@ -197,6 +202,7 @@
   "block.unusualprehistory.ginkgo_trapdoor": "Ginkgo Trapdoor",
   "block.unusualprehistory.ginkgo_wood": "Ginkgo Wood",
   "block.unusualprehistory.stripped_ginkgo_wood": "Stripped Ginkgo Wood",
+  "block.unusualprehistory.amber_button": "Amber Button",
 
   "block.unusualprehistory.majunga_egg.desc": "%s x %s",
   "block.unusualprehistory.coty_egg.desc": "%s x %s",

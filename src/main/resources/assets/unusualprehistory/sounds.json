@@ -511,5 +511,68 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.raptor_search"
+  },
+  "pachy_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:pachy_death"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.pachy_death"
+  },
+  "pachy_headbutt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:pachy_headbutt_0"
+      },
+      {
+        "name": "unusualprehistory:pachy_headbutt_1"
+      },
+      {
+        "name": "unusualprehistory:pachy_headbutt_2"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.pachy_headbutt"
+  },
+  "pachy_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:pachy_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:pachy_hurt_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.pachy_hurt"
+  },
+  "pachy_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:pachy_idle_0"
+      },
+      {
+        "name": "unusualprehistory:pachy_idle_1"
+      },
+      {
+        "name": "unusualprehistory:pachy_idle_2"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.pachy_idle"
+  },
+  "pachy_kick": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:pachy_kick_0"
+      },
+      {
+        "name": "unusualprehistory:pachy_kick_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.pachy_kick"
   }
 }

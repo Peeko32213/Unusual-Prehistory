@@ -3,9 +3,9 @@
 <NEWLINE>
 <NEWLINE>
 Strange island-borne abelisaurs of the late Cretaceous period. A Majungasaurus’ binocular eyes allow them to track mobile prey with ease,
-and their powerfully long legs propel them towards their prey with a surprising burst of speed. They are not the most skittish
-of creatures within their group, but an agitated Majungasaurus will charge at their stressor at a dangerous speed. Do be wary
-keeping individuals together, as the species is known for cannibalism.
+and their powerfully long legs propel them towards their prey with a surprising burst of speed. While aggressive, these creatures are rather clumsy,
+unlike there relatives there charges are fairly inaccurate, though this does not mean there bite is not strong. Do be wary keeping individuals
+together, as the species is known for cannibalism. Feeding these animals a chunk of raw Cotlyorhynchus passifies them for awhile.
 <NEWLINE>
 Their horn is not tough enough to penetrate a shield, if they ram into a shield they may get stunned and scutes on their
 head may loosen and fall off, these can be collected by the player. These scutes can be made into a helmet that grants strengths.

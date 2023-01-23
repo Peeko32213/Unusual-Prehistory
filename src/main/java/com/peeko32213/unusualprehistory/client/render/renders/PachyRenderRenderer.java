@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class PachyRenderRenderer extends MobRenderer<BaseEntityRender, PachyRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/pachy_pane.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/renders/pachycephalosaurus_render.png");
 
 	public PachyRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new PachyRenderModel<>(renderManagerIn.bakeLayer(PachyRenderModel.LAYER_LOCATION)), 0.2F);
