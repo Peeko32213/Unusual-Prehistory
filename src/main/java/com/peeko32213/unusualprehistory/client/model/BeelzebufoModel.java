@@ -10,19 +10,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class BeelzebufoModel extends AnimatedGeoModel<EntityBeelzebufo>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityBeelzebufo object)
+    public ResourceLocation getModelResource(EntityBeelzebufo object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/beelzebufo.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityBeelzebufo object)
+    public ResourceLocation getTextureResource(EntityBeelzebufo object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityBeelzebufo object)
+    public ResourceLocation getAnimationResource(EntityBeelzebufo object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/beelz.animation.json");
     }

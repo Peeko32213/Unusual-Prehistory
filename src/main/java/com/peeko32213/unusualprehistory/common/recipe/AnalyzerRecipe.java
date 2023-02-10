@@ -144,18 +144,17 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
             buf.writeResourceLocation(recipe.output);
         }
 
-        @Override
+
         public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
             return INSTANCE;
         }
 
-        @Nullable
-        @Override
+
         public ResourceLocation getRegistryName() {
             return ID;
         }
 
-        @Override
+
         public Class<RecipeSerializer<?>> getRegistryType() {
             return Serializer.castClass(RecipeSerializer.class);
         }

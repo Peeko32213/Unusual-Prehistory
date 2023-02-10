@@ -8,7 +8,6 @@ import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavig
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -87,7 +86,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 200.0D)
+                .add(Attributes.MAX_HEALTH, 400.0D)
                 .add(Attributes.ARMOR, 15.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .add(Attributes.ATTACK_DAMAGE, 20.0D)
@@ -241,19 +240,19 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.BRACHI_IDLE;
+        return UPSounds.BRACHI_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.BRACHI_HURT;
+        return UPSounds.BRACHI_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.BRACHI_DEATH;
+        return UPSounds.BRACHI_DEATH.get();
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.BRACHI_STEP, 0.15F, 1.0F);
+        this.playSound(UPSounds.BRACHI_STEP.get(), 0.15F, 1.0F);
     }
 
     public void tick() {
@@ -292,7 +291,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
             entityToLaunchId = -1;
             if (launch != null && !launch.isPassenger()) {
                 if (launch instanceof LivingEntity) {
-                    this.playSound(UPSounds.BRACHI_TOSS, 0.5F, 0.5F);
+                    this.playSound(UPSounds.BRACHI_TOSS.get(), 0.5F, 0.5F);
                     launch.setPos(this.getEyePosition().add(0, 1, 0));
                     float rot = 180F + this.getYRot();
                     float strength = (float) (getLaunchStrength() * (1.0D - ((LivingEntity) launch).getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)));
@@ -315,7 +314,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                 for (Entity rider : this.getPassengers()) {
                     if (rider instanceof Player) {
                         Player player = (Player) rider;
-                        player.addEffect(new MobEffectInstance(UPEffects.BRACHI_PROTECTION, 200));
+                        player.addEffect(new MobEffectInstance(UPEffects.BRACHI_PROTECTION.get(), 200));
                     }
                 }
             }

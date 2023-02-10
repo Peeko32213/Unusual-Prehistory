@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.block;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -30,17 +31,18 @@ public class BlockSaracenia extends BushBlock implements BonemealableBlock {
     }
 
     @Override
-    public boolean isBonemealSuccess(Level p_50901_, Random p_50902_, BlockPos p_50903_, BlockState p_50904_) {
+    public boolean isBonemealSuccess(Level p_220878_, RandomSource p_220879_, BlockPos p_220880_, BlockState p_220881_) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel p_50893_, Random p_50894_, BlockPos p_50895_, BlockState p_50896_) {
+    public void performBonemeal(ServerLevel p_220874_, RandomSource p_220875_, BlockPos p_220876_, BlockState p_220877_) {
         DoublePlantBlock doubleplantblock = (DoublePlantBlock) (this == UPBlocks.SARACENIA.get() ? UPBlocks.TALL_SARACENIA.get() : UPBlocks.TALL_SARACENIA.get());
-        if (doubleplantblock.defaultBlockState().canSurvive(p_50893_, p_50895_) && p_50893_.isEmptyBlock(p_50895_.above())) {
-            DoublePlantBlock.placeAt(p_50893_, doubleplantblock.defaultBlockState(), p_50895_, 2);
+        if (doubleplantblock.defaultBlockState().canSurvive(p_220874_, p_220876_) && p_220874_.isEmptyBlock(p_220876_.above())) {
+            DoublePlantBlock.placeAt(p_220874_, doubleplantblock.defaultBlockState(), p_220876_, 2);
         }
     }
+
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {

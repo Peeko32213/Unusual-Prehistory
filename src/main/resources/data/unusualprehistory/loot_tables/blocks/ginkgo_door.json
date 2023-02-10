@@ -2,19 +2,14 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "minecraft:jungle_door",
               "condition": "minecraft:block_state_property",
+              "block": "unusualprehistory:ginkgo_door",
               "properties": {
                 "half": "lower"
               }
@@ -23,7 +18,11 @@
           "name": "unusualprehistory:ginkgo_door"
         }
       ],
-      "rolls": 1
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
     }
   ]
 }

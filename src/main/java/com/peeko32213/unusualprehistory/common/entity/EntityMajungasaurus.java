@@ -101,7 +101,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.MAJUNGA_TARGETS)));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::isAngryAt));
     }
@@ -183,24 +183,24 @@ public class EntityMajungasaurus extends Animal implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.MAJUNGA_IDLE;
+        return UPSounds.MAJUNGA_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.MAJUNGA_HURT;
+        return UPSounds.MAJUNGA_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.MAJUNGA_DEATH;
+        return UPSounds.MAJUNGA_DEATH.get();
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.MAJUNGA_STEP, 0.1F, 1.0F);
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
     public boolean doHurtTarget(Entity entityIn) {
         if (super.doHurtTarget(entityIn)) {
-            this.playSound(UPSounds.MAJUNGA_ATTACK, 0.1F, 1.0F);
+            this.playSound(UPSounds.MAJUNGA_ATTACK.get(), 0.1F, 1.0F);
             return true;
         } else {
             return false;
@@ -209,7 +209,6 @@ public class EntityMajungasaurus extends Animal implements IAnimatable {
 
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(10);
-        super.killed(world, entity);
     }
 
 
@@ -426,7 +425,7 @@ public class EntityMajungasaurus extends Animal implements IAnimatable {
                 this.mob.jumpFromGround();
             }
             if (this.mob.level.getGameTime() % 2L == 0L) {
-                this.mob.playSound(UPSounds.MAJUNGA_STEP, 0.5F, this.mob.getVoicePitch());
+                this.mob.playSound(UPSounds.MAJUNGA_STEP.get(), 0.5F, this.mob.getVoicePitch());
             }
             this.tryToHurt();
         }

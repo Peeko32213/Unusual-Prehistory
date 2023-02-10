@@ -1,6 +1,9 @@
 {
   "credit": "Made with Blockbench",
   "parent": "builtin/entity",
+  "textures": {
+    "particle": "block/netherrack"
+  },
   "texture_size": [
     64,
     64
@@ -107,5 +110,13 @@
         0.6
       ]
     }
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "unusualprehistory:item/trike_shield_blocking"
+    }
+  ]
 }

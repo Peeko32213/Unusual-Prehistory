@@ -17,19 +17,19 @@ import java.util.List;
 public class TriceratopsModel extends AnimatedGeoModel<EntityTriceratops>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityTriceratops object)
+    public ResourceLocation getModelResource(EntityTriceratops object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/trike.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityTriceratops object)
+    public ResourceLocation getTextureResource(EntityTriceratops object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityTriceratops object)
+    public ResourceLocation getAnimationResource(EntityTriceratops object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/trike.animation.json");
     }

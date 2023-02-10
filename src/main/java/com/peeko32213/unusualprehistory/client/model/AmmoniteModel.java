@@ -14,19 +14,19 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 public class AmmoniteModel extends AnimatedGeoModel<EntityAmmonite>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityAmmonite object)
+    public ResourceLocation getModelResource(EntityAmmonite object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/ammonite.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityAmmonite object)
+    public ResourceLocation getTextureResource(EntityAmmonite object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ammonite.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityAmmonite object)
+    public ResourceLocation getAnimationResource(EntityAmmonite object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/ammonite.animation.json");
     }

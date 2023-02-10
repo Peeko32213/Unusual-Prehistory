@@ -10,19 +10,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class AnurognathusModel extends AnimatedGeoModel<EntityAnurognathus>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityAnurognathus object)
+    public ResourceLocation getModelResource(EntityAnurognathus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/anuro.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityAnurognathus object)
+    public ResourceLocation getTextureResource(EntityAnurognathus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/anurognathus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityAnurognathus object)
+    public ResourceLocation getAnimationResource(EntityAnurognathus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/anuro.animation.json");
     }

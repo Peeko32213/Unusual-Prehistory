@@ -16,7 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class UPMenuTypes {
 
     public static final DeferredRegister<MenuType<?>> MENUS =
-            DeferredRegister.create(ForgeRegistries.CONTAINERS, UnusualPrehistory.MODID);
+            DeferredRegister.create(ForgeRegistries.MENU_TYPES, UnusualPrehistory.MODID);
 
     public static final RegistryObject<MenuType<AnalyzerMenu>> ANALYZER_MENU =
             registerMenuType(AnalyzerMenu::new, "analyzer_menu");

@@ -6,10 +6,7 @@ import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoTreeGrow
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.WaterLilyBlockItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -29,22 +26,22 @@ public class UPBlocks {
             UnusualPrehistory.MODID);
 
     public static final RegistryObject<Block> STONE_FOSSIL = registerBlock("stone_fossil",
-            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil",
-            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> DEEPSLATE_PLANT_FOSSIL = registerBlock("deepslate_plant_fossil",
-            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> PLANT_FOSSIL = registerBlock("plant_fossil",
-            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> STONE_AMBER_FOSSIL = registerBlock("stone_amber_ore",
-            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> DEEPSLATE_AMBER_FOSSIL = registerBlock("deepslate_amber_ore",
-            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> ANALYZER = registerBlock("analyzer",
             () -> new BlockAnalyzer(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
 
@@ -59,24 +56,24 @@ public class UPBlocks {
     public static final RegistryObject<Block> DNA_FRIDGE = registerBlock("dna_fridge",
             () -> new BlockDNAFridge(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
     public static final Supplier<Block> STETHA_EGGS = create("stetha_eggs",
-            () -> new BlockStethaEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noDrops().noOcclusion().noCollission()),
-            entry -> new WaterLilyBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new BlockStethaEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission()),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final Supplier<Block> BEELZE_EGGS = create("beelze_eggs",
-            () -> new BlockBeelzeEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noDrops().noOcclusion().noCollission()),
-            entry -> new WaterLilyBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new BlockBeelzeEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission()),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final Supplier<Block> AMON_EGGS = create("ammon_eggs",
-            () -> new BlockAmmoniteEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noDrops().noOcclusion().noCollission()),
-            entry -> new WaterLilyBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new BlockAmmoniteEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission()),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final Supplier<Block> DUNK_EGGS = create("dunk_eggs",
-            () -> new BlockDunkEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noDrops().noOcclusion().noCollission()),
-            entry -> new WaterLilyBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new BlockDunkEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission()),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final Supplier<Block> SCAU_EGGS = create("scau_eggs",
-            () -> new BlockScauEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noDrops().noOcclusion().noCollission()),
-            entry -> new WaterLilyBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new BlockScauEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission()),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Block> ANURO_EGG = registerBlock("anuro_eggs",
             () -> new BlockAnuroEggs());
@@ -156,16 +153,16 @@ public class UPBlocks {
             });
 
     public static final RegistryObject<RotatedPillarBlock> GINKGO_LOG = registerBlock("ginkgo_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
 
     public static final RegistryObject<RotatedPillarBlock> GINKGO_WOOD = registerBlock("ginkgo_wood",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
 
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_GINKGO_WOOD = registerBlock("stripped_ginkgo_wood",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
 
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_GINKGO_LOG = registerBlock("stripped_ginkgo_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)));
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
 
     public static final RegistryObject<StairBlock> GINKGO_STAIRS = registerBlock("ginkgo_stairs",
             () -> new StairBlock(() -> GINKGO_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(GINKGO_PLANKS.get())));

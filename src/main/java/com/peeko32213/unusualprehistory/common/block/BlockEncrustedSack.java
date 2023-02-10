@@ -9,12 +9,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ambient.Bat;
+import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -91,16 +94,16 @@ public class BlockEncrustedSack extends Block  {
 
 
 
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource p_222647_) {
         if (this.canGrow(worldIn) && hasProperHabitat(worldIn, pos)) {
             int i = state.getValue(HATCH);
             float f = (float) 1.0F;
-            int k = 2 + this.RANDOM.nextInt(3);
+            int k = 5;
             if (i < 2) {
-                worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+                worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + p_222647_.nextFloat() * 0.2F);
                 worldIn.setBlock(pos, state.setValue(HATCH, Integer.valueOf(i + 1)), 2);
             } else {
-                worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+                worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + p_222647_.nextFloat() * 0.2F);
                 worldIn.removeBlock(pos, false);
                 for (int j = 0; j < state.getValue(EGGS); ++j) {
                     for(int l = 0; l < k; ++l) {
@@ -109,7 +112,7 @@ public class BlockEncrustedSack extends Block  {
                         worldIn.levelEvent(4001, pos, Block.getId(state));
                         EntityEncrusted turtleentity = UPEntities.ENCRUSTED.get().create(worldIn);
                         turtleentity.restrictTo(pos, 20);
-                        turtleentity.moveTo(pos.getX() + (double)f1, pos.getY() + 0.5D, pos.getZ() + (double)f2, this.RANDOM.nextFloat() * 360.0F, 0.0F);
+                        turtleentity.moveTo(pos.getX() + (double)f1, pos.getY() + 0.5D, pos.getZ() + (double)f2, 2.0F * 360.0F, 0.0F);
                         if (!worldIn.isClientSide) {
                             worldIn.addFreshEntity(turtleentity);
                         }
@@ -135,7 +138,7 @@ public class BlockEncrustedSack extends Block  {
     }
 
     private boolean canGrow(Level worldIn) {
-        return worldIn.random.nextInt(10) == 0;
+        return worldIn.random.nextInt(5) == 0;
     }
 
     public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity te, ItemStack stack) {

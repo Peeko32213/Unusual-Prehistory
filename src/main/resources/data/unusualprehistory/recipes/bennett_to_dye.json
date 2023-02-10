@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:bennett"
+    }
+  ],
+  "result": {
+    "item": "minecraft:brown_dye"
+  }
+}

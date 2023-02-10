@@ -24,7 +24,7 @@ import net.minecraftforge.registries.RegistryObject;
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UPEntities {
 
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES,
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES,
             UnusualPrehistory.MODID);
 
     public static final RegistryObject<EntityType<EntityStethacanthus>> STETHACANTHUS = ENTITIES.register("stethacanthus",
@@ -159,6 +159,7 @@ public class UPEntities {
     public static final RegistryObject<EntityType<BaseEntityRender>> ENCRUSTED_RENDER = ENTITIES.register("encrusted_render",
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "encrusted_render").toString()));
+
     private static final EntityType registerEntity(EntityType.Builder builder, String entityName) {
         return (EntityType) builder.build(entityName);
     }

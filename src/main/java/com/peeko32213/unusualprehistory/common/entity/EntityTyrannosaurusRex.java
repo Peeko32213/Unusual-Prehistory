@@ -60,6 +60,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.BOOLEAN);
+    public int timeUntilDrops = this.random.nextInt(12000) + 24000;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private int passiveFor = 0;
 
@@ -72,7 +73,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 200.0D)
+                .add(Attributes.MAX_HEALTH, 300.0D)
                 .add(Attributes.ARMOR, 15.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
@@ -109,6 +110,8 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             }
 
         });
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
 
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -123,8 +126,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             this.setTarget(null);
             this.setEepy(false);
             this.passiveFor = 1000000000 + random.nextInt(1000000000);
-            this.spawnAtLocation(UPItems.REX_TOOTH.get(), 4);
-            this.spawnAtLocation(UPItems.REX_SCALE.get(), 9);
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
@@ -158,7 +159,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
     public boolean isEepy() {
         this.setTarget(null);
         this.setAggressive(false);
-        return this.getHealth() <= this.getMaxHealth() / 4.0F;
+        return this.getHealth() <= this.getMaxHealth() / 15.0F;
     }
 
     public void travel(Vec3 vec3d) {
@@ -177,6 +178,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         compound.putInt("StunTick", this.stunnedTick);
         compound.putBoolean("Eepy", this.hasEepy());
         compound.putInt("PassiveFor", passiveFor);
+        compound.putInt("DropTime", this.timeUntilDrops);
     }
 
     @Override
@@ -185,6 +187,9 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         this.stunnedTick = compound.getInt("StunTick");
         this.setEepy(compound.getBoolean("Eepy"));
         passiveFor = compound.getInt("PassiveFor");
+        if (compound.contains("SpitTime")) {
+            this.timeUntilDrops = compound.getInt("DropTime");
+        }
 
     }
 
@@ -205,6 +210,15 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         }
         else {
             super.handleEntityEvent(pId);
+        }
+    }
+
+    public void tick() {
+        super.tick();
+        if (!this.level.isClientSide && this.isAlive() && this.passiveFor > 0 && --this.timeUntilDrops <= 0) {
+            this.spawnAtLocation(UPItems.REX_TOOTH.get(), 4);
+            this.spawnAtLocation(UPItems.REX_SCALE.get(), 9);
+            this.timeUntilDrops = this.random.nextInt(12000) + 24000;
         }
     }
 
@@ -478,7 +492,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
         protected void tickBiteAttack () {
             animTime++;
-            this.mob.getNavigation().stop();
             if(animTime==5) {
                 preformBiteAttack();
             }
@@ -526,8 +539,8 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.REX_BITE, 0.5F, 0.5F);
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),5.0f, 0.1f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            this.mob.playSound(UPSounds.REX_BITE.get(), 1.0F, 1.0F);
+            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),10.0f, 0.1f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
         }
 
@@ -535,33 +548,15 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
 
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.REX_TAIL_SWIPE, 0.5F, 0.5F);
+            this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
             HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),10.0f, 2.0f, mob, pos,  8.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
         }
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
-            List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(4.0D, 2.0D, 4.0D));
-            this.mob.playSound(UPSounds.REX_STOMP_ATTACK, 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),5.0f, 1.0f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.mob.level, this.mob.getX(), this.mob.getY(), this.mob.getZ());
-            areaeffectcloud.setParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE);
-            areaeffectcloud.setRadius(0.5F);
-            areaeffectcloud.setDuration(200);
-            areaeffectcloud.setRadiusPerTick((1.0F - areaeffectcloud.getRadius()) / (float)areaeffectcloud.getDuration());
-            areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 10));
-            if (!list.isEmpty()) {
-                for(LivingEntity livingentity : list) {
-                    double d0 = this.mob.distanceToSqr(livingentity);
-                    if (d0 < 16.0D) {
-                        areaeffectcloud.setPos(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                        break;
-                    }
-                }
-            }
-
-            this.mob.level.addFreshEntity(areaeffectcloud);
+            this.mob.playSound(UPSounds.REX_STOMP_ATTACK.get(), 1.9F, 1.9F);
+            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
 
@@ -588,7 +583,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(50);
-        super.killed(world, entity);
     }
 
     public boolean canBeCollidedWith() {
@@ -610,7 +604,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
     public boolean canBeAffected(MobEffectInstance p_33809_) {
         if (p_33809_.getEffect() == MobEffects.WEAKNESS) {
-            net.minecraftforge.event.entity.living.PotionEvent.PotionApplicableEvent event = new net.minecraftforge.event.entity.living.PotionEvent.PotionApplicableEvent(this, p_33809_);
+            net.minecraftforge.event.entity.living.MobEffectEvent.Applicable event = new net.minecraftforge.event.entity.living.MobEffectEvent.Applicable(this, p_33809_);
             net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
             return event.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW;
         }
@@ -618,19 +612,19 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.REX_IDLE;
+        return UPSounds.REX_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.REX_HURT;
+        return UPSounds.REX_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.REX_DEATH;
+        return UPSounds.REX_DEATH.get();
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.REX_STEP, 0.3F, 1.0F);
+        this.playSound(UPSounds.REX_STEP.get(), 0.3F, 1.0F);
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {

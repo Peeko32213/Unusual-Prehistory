@@ -1,10 +1,10 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[43,)"
 license="MIT"
 
 [[mods]]
 modId="unusualprehistory"
-version="1.1.0-release-canidate-3"
+version="1.1.2"
 displayName= "Unusual Prehistory"
 logoFile= "examplemod.png"
 credits= "Thanks to Fred, Omatypaty, and Crydigo for textures! Thanks to skyjay1#2076 for help on GUI code! Thanks to Scouter456 and Codyy for Coding Help! Thanks to Shroomy for sound help!"
@@ -23,14 +23,14 @@ side="BOTH"
 [[dependencies.examplemod]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.18.2,1.19)"
+versionRange="[1.19.2,1.20)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.geckolib]]
 modId="geckolib3"
 mandatory=true
-versionRange="[3.0.52,)"
+versionRange="[3.1.27,3.1.39]"
 ordering="BEFORE"
 side="BOTH"
 

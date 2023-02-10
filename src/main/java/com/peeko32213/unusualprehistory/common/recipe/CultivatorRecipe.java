@@ -117,18 +117,16 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
             buf.writeItemStack(recipe.output, false);
         }
 
-        @Override
+
         public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
             return INSTANCE;
         }
 
-        @Nullable
-        @Override
+
         public ResourceLocation getRegistryName() {
             return ID;
         }
 
-        @Override
         public Class<RecipeSerializer<?>> getRegistryType() {
             return Serializer.castClass(RecipeSerializer.class);
         }

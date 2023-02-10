@@ -10,19 +10,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class BabyRexModel extends AnimatedGeoModel<EntityBabyRex>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityBabyRex object)
+    public ResourceLocation getModelResource(EntityBabyRex object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/baby_rex.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityBabyRex object)
+    public ResourceLocation getTextureResource(EntityBabyRex object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_tyrannosaurus_rex.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityBabyRex object)
+    public ResourceLocation getAnimationResource(EntityBabyRex object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/babyrex.animation.json");
     }

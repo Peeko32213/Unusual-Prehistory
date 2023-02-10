@@ -12,19 +12,19 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 public class DunkleosteusModel extends AnimatedGeoModel<EntityDunkleosteus>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityDunkleosteus object)
+    public ResourceLocation getModelResource(EntityDunkleosteus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/dunkle.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityDunkleosteus object)
+    public ResourceLocation getTextureResource(EntityDunkleosteus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/dunkleosteus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityDunkleosteus object)
+    public ResourceLocation getAnimationResource(EntityDunkleosteus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/dunkle.animation.json");
     }

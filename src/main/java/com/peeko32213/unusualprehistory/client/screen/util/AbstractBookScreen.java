@@ -22,7 +22,6 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.sounds.SoundEvents;
@@ -167,7 +166,7 @@ public abstract class AbstractBookScreen extends Screen {
             if (linkData.getPage() == this.currentPageCounter) {
                 int maxLength = Math.max(100, Minecraft.getInstance().font.width(linkData.getTitleText()) + 20);
                 yIndexesToSkip.add(new Whitespace(linkData.getPage(), linkData.getX() - maxLength / 2, linkData.getY(), 100, 20));
-                this.addRenderableWidget(new Button(k + linkData.getX() - maxLength / 2, l + linkData.getY(), maxLength, 20, new TextComponent(linkData.getTitleText()), (p_213021_1_) -> {
+                this.addRenderableWidget(new Button(k + linkData.getX() - maxLength / 2, l + linkData.getY(), maxLength, 20, Component.translatable(linkData.getTitleText()), (p_213021_1_) -> {
                     prevPageJSON = this.currentPageJSON;
                     currentPageJSON = new ResourceLocation(getTextFileDirectory() + linkData.getLinkedPage());
                     preservedPageIndex = this.currentPageCounter;
@@ -257,7 +256,7 @@ public abstract class AbstractBookScreen extends Screen {
         if (this.entityTooltip != null) {
             matrixStack.pushPose();
             matrixStack.translate(0, 0, 550);
-            renderTooltip(matrixStack, Minecraft.getInstance().font.split(new TextComponent(entityTooltip), Math.max(this.width / 2 - 43, 170)), x, y);
+            renderTooltip(matrixStack, Minecraft.getInstance().font.split(Component.translatable(entityTooltip), Math.max(this.width / 2 - 43, 170)), x, y);
             entityTooltip = null;
             matrixStack.popPose();
         }
@@ -270,7 +269,8 @@ public abstract class AbstractBookScreen extends Screen {
             boolean invalid = false;
             try {
                 //test if it exists. if no exception, then the language is supported
-                Resource res = Minecraft.getInstance().getResourceManager().getResource(currentPageText);
+                InputStream is = Minecraft.getInstance().getResourceManager().open(currentPageText);
+                is.close();
             } catch (Exception e) {
                 invalid = true;
                 UnusualPrehistory.LOGGER.warn("Could not find language file for translation, defaulting to english");
@@ -412,7 +412,7 @@ public abstract class AbstractBookScreen extends Screen {
         for (EntityRenderData data : entityRenders) {
             if (data.getPage() == this.currentPageCounter) {
                 Entity model = null;
-                EntityType type = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(data.getEntity()));
+                EntityType type = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(data.getEntity()));
                 if (type != null) {
                     model = renderedEntites.putIfAbsent(data.getEntity(), type.create(Minecraft.getInstance().level));
                 }
@@ -535,23 +535,25 @@ public abstract class AbstractBookScreen extends Screen {
 
     @Nullable
     protected BookPage generatePage(ResourceLocation res) {
-        Resource resource = null;
+        Optional<Resource> resource = null;
         BookPage page = null;
         try {
             resource = Minecraft.getInstance().getResourceManager().getResource(res);
             try {
                 resource = Minecraft.getInstance().getResourceManager().getResource(res);
-                InputStream inputstream = resource.getInputStream();
-                Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
-                page = BookPage.deserialize(reader);
+                if (resource.isPresent()) {
+                    BufferedReader inputstream = resource.get().openAsReader();
+                    page = BookPage.deserialize(inputstream);
+                }
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             return null;
         }
         return page;
-        }
+    }
 
 
     protected void readInPageWidgets(BookPage page) {
@@ -576,9 +578,9 @@ public abstract class AbstractBookScreen extends Screen {
         int actualTextX = 0;
         int yIndex = 0;
         try {
-            resource = Minecraft.getInstance().getResourceManager().getResource(res);
+            BufferedReader bufferedreader = Minecraft.getInstance().getResourceManager().openAsReader(res);
             try {
-                List<String> readStrings = IOUtils.readLines(resource.getInputStream(), StandardCharsets.UTF_8);
+                List<String> readStrings = IOUtils.readLines(bufferedreader);
                 this.linesFromJSON = readStrings.size();
                 this.lines.clear();
                 List<String> splitBySpaces = new ArrayList<>();

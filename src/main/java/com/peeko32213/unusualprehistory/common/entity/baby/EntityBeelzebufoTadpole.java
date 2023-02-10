@@ -178,7 +178,7 @@ public class EntityBeelzebufoTadpole extends AbstractFish implements IAnimatable
     }
 
     @Override
-    protected boolean shouldDropExperience() {
+    public boolean shouldDropExperience() {
         return false;
     }
 

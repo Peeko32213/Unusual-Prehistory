@@ -5,44 +5,19 @@ import com.peeko32213.unusualprehistory.common.effect.EffectBrachisProtection;
 import com.peeko32213.unusualprehistory.common.effect.EffectPachysMight;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.lang.reflect.Field;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UPEffects {
+    public static final DeferredRegister<MobEffect> EFFECT_DEF_REG = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, UnusualPrehistory.MODID);
 
-    public static final MobEffect BRACHI_PROTECTION = new EffectBrachisProtection();
-    public static final MobEffect PACHYS_MIGHT = new EffectPachysMight();
-
-    @SubscribeEvent
-    public static void registerEffects(RegistryEvent.Register<MobEffect> event) {
-        try {
-            for (Field f : UPEffects.class.getDeclaredFields()) {
-                Object obj = f.get(null);
-                if (obj instanceof MobEffect) {
-                    event.getRegistry().register((MobEffect) obj);
-                }
-            }
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @SubscribeEvent
-    public static void registerPotions(RegistryEvent.Register<Potion> event) {
-        try {
-            for (Field f : UPEffects.class.getDeclaredFields()) {
-                Object obj = f.get(null);
-                if (obj instanceof Potion) {
-                    event.getRegistry().register((Potion) obj);
-                }
-            }
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    public static final RegistryObject<MobEffect> BRACHI_PROTECTION = EFFECT_DEF_REG.register("brachi_protection", ()-> new EffectBrachisProtection());
+    public static final RegistryObject<MobEffect> PACHYS_MIGHT = EFFECT_DEF_REG.register("pachys_might", ()-> new EffectPachysMight());
 
 }

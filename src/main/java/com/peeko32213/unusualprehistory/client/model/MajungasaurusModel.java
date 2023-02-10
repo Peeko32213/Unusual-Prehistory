@@ -17,19 +17,19 @@ import java.util.List;
 public class MajungasaurusModel extends AnimatedGeoModel<EntityMajungasaurus>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityMajungasaurus object)
+    public ResourceLocation getModelResource(EntityMajungasaurus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/majungasaurus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityMajungasaurus object)
+    public ResourceLocation getTextureResource(EntityMajungasaurus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/majungasaurus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityMajungasaurus object)
+    public ResourceLocation getAnimationResource(EntityMajungasaurus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/majungasaurus.animation.json");
     }

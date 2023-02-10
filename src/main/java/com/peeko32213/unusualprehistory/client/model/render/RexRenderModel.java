@@ -28,7 +28,7 @@ public class RexRenderModel <T extends BaseEntityRender> extends EntityModel<T> 
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition Body = partdefinition.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(0, 102).addBox(-15.5F, -14.0F, -30.0F, 29.0F, 29.0F, 53.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -21.0F, -3.0F));
+        PartDefinition Body = partdefinition.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(0, 102).addBox(-15.5F, -14.0F, -30.0F, 29.0F, 29.0F, 53.0F, new CubeDeformation(0.0F)), PartPose.offset(1.0F, -21.0F, -3.0F));
 
         PartDefinition Neck = Body.addOrReplaceChild("Neck", CubeListBuilder.create().texOffs(117, 48).addBox(-7.0F, -5.0F, -11.0F, 17.0F, 25.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, -9.0F, -30.0F, 0.0873F, 0.0F, 0.0F));
 
@@ -46,7 +46,9 @@ public class RexRenderModel <T extends BaseEntityRender> extends EntityModel<T> 
                 .texOffs(165, 164).addBox(-6.975F, -11.0F, -9.0F, 1.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
                 .texOffs(165, 164).addBox(8.975F, -11.0F, -9.0F, 1.0F, 10.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, -7.0F));
 
-        PartDefinition Tail = Body.addOrReplaceChild("Tail", CubeListBuilder.create().texOffs(0, 0).addBox(-9.0F, 0.0F, 0.0F, 15.0F, 15.0F, 87.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.5F, -14.0F, 23.0F, -0.0436F, 0.0F, 0.0F));
+        PartDefinition TailPart = Body.addOrReplaceChild("TailPart", CubeListBuilder.create().texOffs(43, 43).addBox(-9.0F, 0.0F, 0.0F, 15.0F, 15.0F, 44.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.5F, -14.0F, 23.0F, -0.0436F, 0.0F, 0.0F));
+
+        PartDefinition TailTip = TailPart.addOrReplaceChild("TailTip", CubeListBuilder.create().texOffs(136, 95).addBox(-6.0F, 0.0F, 0.0F, 10.0F, 10.0F, 50.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 0.0F, 44.0F));
 
         PartDefinition Arm1 = Body.addOrReplaceChild("Arm1", CubeListBuilder.create().texOffs(50, 0).addBox(0.0F, 0.0F, -3.0F, 5.0F, 10.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(151, 201).addBox(3.0F, 10.0F, -3.0F, 2.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(13.0F, 9.0F, -18.0F));

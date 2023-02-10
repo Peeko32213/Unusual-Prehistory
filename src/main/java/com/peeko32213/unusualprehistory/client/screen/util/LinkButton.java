@@ -40,7 +40,7 @@ public class LinkButton extends Button {
         posestack.scale(f, f, 1);
         this.drawBtn(false, posestack, 0, 0, lvt_5_1_, lvt_6_1_, 24, 24);
         Entity model = null;
-        EntityType type = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(data.getEntity()));
+        EntityType type = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(data.getEntity()));
         if (type != null) {
             model = renderedEntites.putIfAbsent(data.getEntity(), type.create(Minecraft.getInstance().level));
         }

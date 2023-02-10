@@ -17,19 +17,19 @@ import java.util.List;
 public class BrachiosaurusModel extends AnimatedGeoModel<EntityBrachiosaurus>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityBrachiosaurus object)
+    public ResourceLocation getModelResource(EntityBrachiosaurus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/brachi.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityBrachiosaurus object)
+    public ResourceLocation getTextureResource(EntityBrachiosaurus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityBrachiosaurus object)
+    public ResourceLocation getAnimationResource(EntityBrachiosaurus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/brachi.animation.json");
     }

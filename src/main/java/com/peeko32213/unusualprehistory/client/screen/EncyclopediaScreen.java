@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.client.screen.util.AbstractBookScreen;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,11 +15,11 @@ public class EncyclopediaScreen extends AbstractBookScreen {
     private static final ResourceLocation ROOT = new ResourceLocation("unusualprehistory:book/encyclopedia/root.json");
 
     public EncyclopediaScreen(ItemStack bookStack) {
-        super(bookStack, new TranslatableComponent("encyclopedia.title"));
+        super(bookStack, Component.translatable("encyclopedia.title"));
     }
 
     public EncyclopediaScreen(ItemStack bookStack, String page) {
-        super(bookStack, new TranslatableComponent("encyclopedia.title"));
+        super(bookStack, Component.translatable("encyclopedia.title"));
         this.currentPageJSON = new ResourceLocation(this.getTextFileDirectory() + page + ".json");
     }
 

@@ -78,19 +78,19 @@ public class EntityBabyRex extends PathfinderMob implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.REX_IDLE;
+        return UPSounds.REX_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.REX_HURT;
+        return UPSounds.REX_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.REX_DEATH;
+        return UPSounds.REX_DEATH.get();
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.REX_STEP, 0.1F, 1.0F);
+        this.playSound(UPSounds.REX_STEP.get(), 0.1F, 1.0F);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class EntityBabyRex extends PathfinderMob implements IAnimatable {
     }
 
     @Override
-    protected boolean shouldDropExperience() {
+    public boolean shouldDropExperience() {
         return false;
     }
 

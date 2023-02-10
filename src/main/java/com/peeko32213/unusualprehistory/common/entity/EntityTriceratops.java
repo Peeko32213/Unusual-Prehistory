@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.*;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -138,15 +138,15 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.TRIKE_IDLE;
+        return UPSounds.TRIKE_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.TRIKE_HURT;
+        return UPSounds.TRIKE_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.TRIKE_DEATH;
+        return UPSounds.TRIKE_DEATH.get();
     }
 
     @Nullable
@@ -324,7 +324,7 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
                     if (this.getCommand() == 3) {
                         this.setCommand(0);
                     }
-                    player.displayClientMessage(new TranslatableComponent("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
+                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
                     boolean sit = this.getCommand() == 2;
                     if (sit) {
                         this.setOrderedToSit(true);
@@ -517,7 +517,7 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
                 this.mob.jumpFromGround();
             }
             if (this.mob.level.getGameTime() % 2L == 0L) {
-                this.mob.playSound(UPSounds.REX_STEP, 0.5F, this.mob.getVoicePitch());
+                this.mob.playSound(UPSounds.REX_STEP.get(), 0.5F, this.mob.getVoicePitch());
             }
             this.tryToHurt();
         }

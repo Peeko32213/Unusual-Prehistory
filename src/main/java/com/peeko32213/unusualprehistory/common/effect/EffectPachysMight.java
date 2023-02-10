@@ -11,7 +11,6 @@ public class EffectPachysMight extends MobEffect {
 
     public EffectPachysMight() {
         super(MobEffectCategory.BENEFICIAL, 0Xc61f1f);
-        this.setRegistryName(UnusualPrehistory.MODID, "pachys_might");
         this.addAttributeModifier(Attributes.ATTACK_KNOCKBACK, "03C3C89D-7037-4B42-869F-B146BCB64D2F", 1.5D, AttributeModifier.Operation.ADDITION);
     }
 

@@ -6,7 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -119,11 +119,11 @@ public class BlockCultivator extends BaseEntityBlock {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if(pState.getValue(HALF) == DoubleBlockHalf.UPPER){
-                pPlayer.sendMessage(new TranslatableComponent("There doesn't appear to be any controls on top of this machine....").withStyle(ChatFormatting.WHITE), Util.NIL_UUID);
+                pPlayer.displayClientMessage(Component.translatable("There doesn't appear to be any controls on top of this machine...."), true);
                 return InteractionResult.FAIL;
             }
             if(entity instanceof CultivatorBlockEntity) {
-                NetworkHooks.openGui(((ServerPlayer)pPlayer), (CultivatorBlockEntity)entity, pPos);
+                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (CultivatorBlockEntity)entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
@@ -140,13 +140,11 @@ public class BlockCultivator extends BaseEntityBlock {
         }
         return null;
     }
-
     @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(),
-                CultivatorBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
+        return createTickerHelper(p_152182_, UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntity::commonTick);
     }
+
 
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {

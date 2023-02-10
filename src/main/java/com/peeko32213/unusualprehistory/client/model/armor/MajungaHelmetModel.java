@@ -7,18 +7,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class MajungaHelmetModel extends AnimatedGeoModel<ItemMajungaHelmet> {
     @Override
-    public ResourceLocation getModelLocation(ItemMajungaHelmet object) {
+    public ResourceLocation getModelResource(ItemMajungaHelmet object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/majunga_helmet.geo.json");
 
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ItemMajungaHelmet object) {
+    public ResourceLocation getTextureResource(ItemMajungaHelmet object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/armor/majunga_helmet.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(ItemMajungaHelmet animatable) {
+    public ResourceLocation getAnimationResource(ItemMajungaHelmet animatable) {
         return null;
     }
+
 }

@@ -28,6 +28,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.horse.Llama;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -71,7 +72,7 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable {
         this.goalSelector.addGoal(2, new CustomRangedAttackGoal(this, new RangedAttack(this)
                                 .setProjectileOriginOffset(0.8, 0.4, 0.8)
                                 .setDamage(5)
-                                .setSound(UPSounds.ENCRUSTED_SPIT, 1.0F, 1.0F),
+                                .setSound(UPSounds.ENCRUSTED_SPIT.get(), 1.0F, 1.0F),
                         1.1D));
         this.goalSelector.addGoal(2, new EntityEncrusted.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
@@ -88,13 +89,15 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable {
             super(parentEntity, xOffSetModifier, entityHeightFraction, zOffSetModifier, damage);
         }
 
+
+
         public RangedAttack(RangedMeleeMob parentEntity) {
             super(parentEntity);
         }
 
         @Override
         public AttackSound getDefaultAttackSound() {
-            return new AttackSound(UPSounds.ENCRUSTED_SPIT, 1, 1);
+            return new AttackSound(UPSounds.ENCRUSTED_SPIT.get(), 1, 1);
         }
 
         @Override
@@ -123,7 +126,7 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable {
 
     public boolean doHurtTarget(Entity entityIn) {
         if (super.doHurtTarget(entityIn)) {
-            this.playSound(UPSounds.ENCRUSTED_MELEE, 0.1F, 1.0F);
+            this.playSound(UPSounds.ENCRUSTED_MELEE.get(), 0.1F, 1.0F);
             return true;
         } else {
             return false;
@@ -132,20 +135,19 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable {
 
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(10);
-        super.killed(world, entity);
     }
 
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.ENCRUSTED_IDLE;
+        return UPSounds.ENCRUSTED_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.ENCRUSTED_HURT;
+        return UPSounds.ENCRUSTED_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.ENCRUSTED_DEATH;
+        return UPSounds.ENCRUSTED_DEATH.get();
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {

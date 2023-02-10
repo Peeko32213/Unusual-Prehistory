@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class UPBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, UnusualPrehistory.MODID);
+            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, UnusualPrehistory.MODID);
 
     public static final RegistryObject<BlockEntityType<AnalyzerBlockEntity>> ANALYZER_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("analyzer_block_entity", () ->

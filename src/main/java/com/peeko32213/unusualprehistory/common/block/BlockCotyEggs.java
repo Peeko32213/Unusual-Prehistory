@@ -120,7 +120,7 @@ public class BlockCotyEggs extends Block  {
     }
 
     private boolean canGrow(Level worldIn) {
-        return worldIn.random.nextInt(40) == 0;
+        return worldIn.random.nextInt(15) == 0;
     }
     public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity te, ItemStack stack) {
         super.playerDestroy(worldIn, player, pos, state, te, stack);

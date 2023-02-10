@@ -18,19 +18,19 @@ import java.util.List;
 public class CotylorhynchusModel extends AnimatedGeoModel<EntityCotylorhynchus>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityCotylorhynchus object)
+    public ResourceLocation getModelResource(EntityCotylorhynchus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/cotylorhynchus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityCotylorhynchus object)
+    public ResourceLocation getTextureResource(EntityCotylorhynchus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/cotylorhynchus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityCotylorhynchus object)
+    public ResourceLocation getAnimationResource(EntityCotylorhynchus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/coty.animation.json");
     }

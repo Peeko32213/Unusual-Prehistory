@@ -14,7 +14,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -24,11 +24,12 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
 public class ItemTrikeShield extends ShieldItem  implements IAnimatable {
-    public AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 
     public ItemTrikeShield(Properties group) {
@@ -67,20 +68,19 @@ public class ItemTrikeShield extends ShieldItem  implements IAnimatable {
     }
 
     @Override
-    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-        super.initializeClient(consumer);
-        consumer.accept(new IItemRenderProperties() {
-            private final BlockEntityWithoutLevelRenderer renderer = new TrikeShieldRenderer();
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            private final TrikeShieldRenderer renderer = new TrikeShieldRenderer();
 
             @Override
-            public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
-                return renderer;
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                return this.renderer;
             }
         });
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
+        event.getController().setAnimation(new AnimationBuilder().loop("idle"));
 
         return PlayState.CONTINUE;
     }

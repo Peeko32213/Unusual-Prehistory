@@ -80,19 +80,19 @@ public class EntityBabyBrachi extends PathfinderMob implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.BRACHI_IDLE;
+        return UPSounds.BRACHI_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.BRACHI_HURT;
+        return UPSounds.BRACHI_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.BRACHI_DEATH;
+        return UPSounds.BRACHI_DEATH.get();
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.BRACHI_STEP, 0.15F, 1.0F);
+        this.playSound(UPSounds.BRACHI_STEP.get(), 0.15F, 1.0F);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class EntityBabyBrachi extends PathfinderMob implements IAnimatable {
     }
 
     @Override
-    protected boolean shouldDropExperience() {
+    public boolean shouldDropExperience() {
         return false;
     }
 

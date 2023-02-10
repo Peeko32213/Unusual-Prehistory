@@ -17,26 +17,28 @@ import java.util.List;
 public class PachycephalosaurusModel extends AnimatedGeoModel<EntityPachycephalosaurus>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityPachycephalosaurus object)
+    public ResourceLocation getModelResource(EntityPachycephalosaurus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/pachy.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityPachycephalosaurus object)
+    public ResourceLocation getTextureResource(EntityPachycephalosaurus object)
     {
+        if (object.isUlti()) {
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/pachycephalosaurus_ulti.png");
+        }
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/pachycephalosaurus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityPachycephalosaurus object)
+    public ResourceLocation getAnimationResource(EntityPachycephalosaurus object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/pachy.animation.json");
     }
 
-    @Override
-    public void setLivingAnimations(EntityPachycephalosaurus dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(dino, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityPachycephalosaurus dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;
 

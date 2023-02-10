@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory;
 import com.peeko32213.unusualprehistory.common.networking.UPMessages;
 import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
-import com.peeko32213.unusualprehistory.core.events.WorldEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -52,10 +51,11 @@ public class UnusualPrehistory {
         UPEntities.ENTITIES.register(modEventBus);
         UPFeatureModifiers.FOLIAGE_PLACERS.register(modEventBus);
         UPFeatureModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
+        UPSounds.DEF_REG.register(modEventBus);
+        UPEffects.EFFECT_DEF_REG.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         eventBus.register(this);
-        eventBus.register(new WorldEvents());
 
 
     }
@@ -68,13 +68,6 @@ public class UnusualPrehistory {
         });
 
         UPMessages.register();
-    }
-
-    @Nonnull
-    public Block retreiveBlock(ResourceLocation name) {
-        final Optional<Block> block = ForgeRegistries.BLOCKS.getEntries().stream()
-                .filter(entry -> entry.getKey().getRegistryName().equals(name)).map(Map.Entry::getValue).findFirst();
-        return block.orElse(Blocks.AIR);
     }
 
     private void setup(final FMLCommonSetupEvent event) {

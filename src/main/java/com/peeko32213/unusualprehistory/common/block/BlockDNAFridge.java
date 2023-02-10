@@ -61,7 +61,6 @@ public class BlockDNAFridge extends BaseEntityBlock {
         }
     }
 
-    @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, Random rand) {
         BlockEntity tileEntity = level.getBlockEntity(pos);
 

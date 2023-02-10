@@ -14,7 +14,6 @@ public class EffectBrachisProtection extends MobEffect {
 
     public EffectBrachisProtection() {
         super(MobEffectCategory.BENEFICIAL, 0X5e6f9a);
-        this.setRegistryName(UnusualPrehistory.MODID, "brachi_protection");
     }
 
     public void applyEffectTick(LivingEntity entity, int amplifier) {

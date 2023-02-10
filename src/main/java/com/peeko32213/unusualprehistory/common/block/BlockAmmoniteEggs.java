@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FrogspawnBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -27,7 +29,6 @@ import java.util.Random;
 
 public class BlockAmmoniteEggs extends Block {
     protected static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 1.5, 16);
-
     public BlockAmmoniteEggs(Properties properties) {
         super(properties);
     }
@@ -43,21 +44,22 @@ public class BlockAmmoniteEggs extends Block {
         return mayPlaceOn(reader, pos.below());
     }
 
-    @Override
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean notify) {
-        level.scheduleTick(pos, this, hatchTime(level.getRandom()));
+    public void onPlace(BlockState p_221227_, Level p_221228_, BlockPos p_221229_, BlockState p_221230_, boolean p_221231_) {
+        p_221228_.scheduleTick(p_221229_, this, getFrogspawnHatchDelay(p_221228_.getRandom()));
     }
 
-    private static int hatchTime(Random random) {
-        return random.nextInt(3600, 12000);
+    private static int getFrogspawnHatchDelay(RandomSource p_221186_) {
+        return p_221186_.nextInt(3600, 12000);
     }
+
+
 
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor access, BlockPos pos, BlockPos neighborPos) {
         return !this.canSurvive(state, access, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, access, pos, neighborPos);
     }
 
-    @Override
+
     public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
         if (!this.canSurvive(state, level, pos)) {
             this.hatch(level, pos);

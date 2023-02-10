@@ -9,6 +9,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -79,10 +80,10 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 13.0D)
+                .add(Attributes.MAX_HEALTH, 25.0D)
                 .add(Attributes.ARMOR, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
-                .add(Attributes.ATTACK_DAMAGE, 4.0D)
+                .add(Attributes.ATTACK_DAMAGE, 8.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.ATTACK_KNOCKBACK, 2.0D);
     }
@@ -104,15 +105,15 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.PACHY_IDLE;
+        return UPSounds.PACHY_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.PACHY_HURT;
+        return UPSounds.PACHY_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.PACHY_DEATH;
+        return UPSounds.PACHY_DEATH.get();
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
@@ -138,6 +139,11 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
             return false;
         }
         return prev;
+    }
+
+    public boolean isUlti() {
+        String s = ChatFormatting.stripFormatting(this.getName().getString());
+        return s != null && (s.toLowerCase().contains("ulti") || s.toLowerCase().contains("Ulti"));
     }
 
     @Override
@@ -216,7 +222,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
             }
             this.heal(2);
             this.setPassiveTicks(this.getPassiveTicks() + 1500);
-            player.addEffect(new MobEffectInstance(UPEffects.PACHYS_MIGHT, 2400));
+            player.addEffect(new MobEffectInstance(UPEffects.PACHYS_MIGHT.get(), 2400));
             return InteractionResult.SUCCESS;
         }
         InteractionResult type = super.mobInteract(player, hand);
@@ -231,7 +237,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
     public void tick() {
         super.tick();
-        if (this.getTarget() != null && this.getTarget().hasEffect(UPEffects.PACHYS_MIGHT)) {
+        if (this.getTarget() != null && this.getTarget().hasEffect(UPEffects.PACHYS_MIGHT.get())) {
             this.setTarget(null);
             this.setLastHurtByMob(null);
         }
@@ -244,8 +250,8 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
             if (source.getEntity() != null) {
                 if (source.getEntity() instanceof LivingEntity) {
                     LivingEntity hurter = (LivingEntity) source.getEntity();
-                    if (hurter.hasEffect(UPEffects.PACHYS_MIGHT)) {
-                        hurter.removeEffect(UPEffects.PACHYS_MIGHT);
+                    if (hurter.hasEffect(UPEffects.PACHYS_MIGHT.get())) {
+                        hurter.removeEffect(UPEffects.PACHYS_MIGHT.get());
                     }
                 }
             }
@@ -564,8 +570,8 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
 
                 Vec3 pos = mob.position();
-                this.mob.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 2.0f, 0.2f);
-                HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),4.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
+                this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 2.0f, 0.2f);
+                HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),8.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
 
             }
 
@@ -573,8 +579,8 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
 
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.PACHY_HEADBUTT, 0.5F, 0.5F);
-            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),8.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
+            this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 0.5F, 0.5F);
+            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),12.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
 
         }
 
@@ -583,8 +589,8 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
 
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.PACHY_KICK, 0.5F, 0.5F);
-            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),10.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
+            this.mob.playSound(UPSounds.PACHY_KICK.get(), 0.5F, 0.5F);
+            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),15.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
 
         }
 

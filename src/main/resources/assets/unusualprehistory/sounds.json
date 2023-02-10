@@ -142,9 +142,48 @@
       },
       {
         "name": "unusualprehistory:dunk_attack_1"
+      },
+      {
+        "name": "unusualprehistory:dunk_attack_2"
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.dunk_attack"
+  },
+  "dunk_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:dunk_death_0"
+      },
+      {
+        "name": "unusualprehistory:dunk_death_1"
+      },
+      {
+        "name": "unusualprehistory:dunk_death_2"
+      },
+      {
+        "name": "unusualprehistory:dunk_death_3"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.dunk_death"
+  },
+  "dunk_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:dunk_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:dunk_hurt_1"
+      },
+      {
+        "name": "unusualprehistory:dunk_hurt_2"
+      },
+      {
+        "name": "unusualprehistory:dunk_hurt_3"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.dunk_hurt"
   },
   "beelze_idle": {
     "category": "neutral",

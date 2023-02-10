@@ -98,7 +98,6 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(10);
-        super.killed(world, entity);
     }
 
 
@@ -134,7 +133,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
     public void travel(Vec3 p_30633_) {
         if (this.isAlive()) {
-            if (this.isVehicle() && this.canBeControlledByRider() && this.isSaddled()) {
+            if (this.isVehicle() && this.isSaddled()) {
                 LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
                 this.setYRot(livingentity.getYRot());
                 this.yRotO = this.getYRot();
@@ -207,7 +206,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
             this.setLastHurtMob(target);
         }
         if (shouldHurt && target instanceof LivingEntity livingEntity) {
-            this.playSound(UPSounds.BEELZE_ATTACK, 0.1F, 1.0F);
+            this.playSound(UPSounds.BEELZE_ATTACK.get(), 0.1F, 1.0F);
             if(random.nextInt(15) == 0 && this.getTarget() instanceof LivingEntity){
                 this.spawnAtLocation(UPItems.FROG_SALIVA.get());
             }
@@ -288,15 +287,15 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.BEELZE_IDLE;
+        return UPSounds.BEELZE_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.BEELZE_HURT;
+        return UPSounds.BEELZE_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.BEELZE_DEATH;
+        return UPSounds.BEELZE_DEATH.get();
     }
 
     protected void dropEquipment() {

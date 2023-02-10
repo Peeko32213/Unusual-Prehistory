@@ -242,20 +242,19 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.ANURO_IDLE;
+        return UPSounds.ANURO_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.ANURO_HURT;
+        return UPSounds.ANURO_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.ANURO_DEATH;
+        return UPSounds.ANURO_DEATH.get();
     }
 
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(10);
-        super.killed(world, entity);
     }
 
 

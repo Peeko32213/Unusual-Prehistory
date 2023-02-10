@@ -116,6 +116,8 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         }
     }
 
+
+
     @Override
     @Nonnull
     protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -173,13 +175,14 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         return SoundEvents.COD_AMBIENT;
     }
 
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.COD_DEATH;
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.DUNK_HURT.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource p_28281_) {
-        return SoundEvents.COD_HURT;
+    protected SoundEvent getDeathSound() {
+        return UPSounds.DUNK_DEATH.get();
     }
+
 
     protected SoundEvent getFlopSound() {
         return SoundEvents.COD_FLOP;
@@ -529,7 +532,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
 
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.DUNK_ATTACK, 0.1F, 1.0F);
+            this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
             HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
         }
@@ -592,7 +595,6 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(15);
-        super.killed(world, entity);
     }
 
 

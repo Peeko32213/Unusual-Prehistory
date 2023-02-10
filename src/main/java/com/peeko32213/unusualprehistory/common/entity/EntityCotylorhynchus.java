@@ -191,15 +191,15 @@ public class EntityCotylorhynchus extends Animal implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.COTY_IDLE;
+        return UPSounds.COTY_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.COTY_HURT;
+        return UPSounds.COTY_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.COTY_DEATH;
+        return UPSounds.COTY_DEATH.get();
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {

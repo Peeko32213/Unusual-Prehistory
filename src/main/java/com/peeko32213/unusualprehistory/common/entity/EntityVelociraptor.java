@@ -64,7 +64,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 13.0D)
+                .add(Attributes.MAX_HEALTH, 15.0D)
                 .add(Attributes.ARMOR, 0.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
@@ -87,20 +87,20 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.RAPTOR_IDLE;
+        return UPSounds.RAPTOR_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.RAPTOR_HURT;
+        return UPSounds.RAPTOR_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.RAPTOR_DEATH;
+        return UPSounds.RAPTOR_DEATH.get();
     }
 
     public boolean doHurtTarget(Entity entityIn) {
         if (super.doHurtTarget(entityIn)) {
-            this.playSound(UPSounds.RAPTOR_ATTACK, 0.1F, 1.0F);
+            this.playSound(UPSounds.RAPTOR_ATTACK.get(), 0.1F, 1.0F);
             return true;
         } else {
             return false;
@@ -216,7 +216,7 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
                     ++this.ticksWaited;
                 }
             } else if (!this.isReachedTarget() && raptor.random.nextFloat() < 0.05F) {
-                raptor.playSound(UPSounds.RAPTOR_SEARCH, 0.1F, 1.0F);
+                raptor.playSound(UPSounds.RAPTOR_SEARCH.get(), 0.1F, 1.0F);
             }
 
             super.tick();
@@ -260,7 +260,6 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
 
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(5);
-        super.killed(world, entity);
     }
 
     @Nullable

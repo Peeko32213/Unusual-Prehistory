@@ -121,7 +121,7 @@ public class BlockAnuroEggs extends Block  {
     }
 
     private boolean canGrow(Level worldIn) {
-        return worldIn.random.nextInt(40) == 0;
+        return worldIn.random.nextInt(15) == 0;
     }
 
 

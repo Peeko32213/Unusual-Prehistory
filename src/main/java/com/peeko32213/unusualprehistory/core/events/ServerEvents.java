@@ -27,11 +27,11 @@ public class ServerEvents {
 
     @SubscribeEvent
     public void onLivingAttack(LivingAttackEvent event) {
-        if (!event.getEntityLiving().getUseItem().isEmpty() && event.getSource() != null && event.getSource().getEntity() != null) {
-            if (event.getEntityLiving().getUseItem().getItem() == UPItems.TRIKE_SHIELD.get()) {
+        if (!event.getEntity().getUseItem().isEmpty() && event.getSource() != null && event.getSource().getEntity() != null) {
+            if (event.getEntity().getUseItem().getItem() == UPItems.TRIKE_SHIELD.get()) {
                 if (event.getSource().getEntity() instanceof LivingEntity living) {
                     boolean flag = false;
-                    if (living.distanceTo(event.getEntityLiving()) <= 4
+                    if (living.distanceTo(event.getEntity()) <= 4
                             && !living.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
                         living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10, 1));
                         flag = true;

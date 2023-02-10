@@ -17,19 +17,19 @@ import java.util.List;
 public class VelociraptorModel extends AnimatedGeoModel<EntityVelociraptor>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityVelociraptor object)
+    public ResourceLocation getModelResource(EntityVelociraptor object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/velociraptor.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityVelociraptor object)
+    public ResourceLocation getTextureResource(EntityVelociraptor object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/velociraptor.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityVelociraptor object)
+    public ResourceLocation getAnimationResource(EntityVelociraptor object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/velociraptor.animation.json");
     }

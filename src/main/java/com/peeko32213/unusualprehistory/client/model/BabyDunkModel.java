@@ -13,19 +13,19 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 public class BabyDunkModel extends AnimatedGeoModel<EntityBabyDunk>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityBabyDunk object)
+    public ResourceLocation getModelResource(EntityBabyDunk object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/babydunk.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityBabyDunk object)
+    public ResourceLocation getTextureResource(EntityBabyDunk object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_dunkleosteus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityBabyDunk object)
+    public ResourceLocation getAnimationResource(EntityBabyDunk object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/babydunk.animation.json");
     }

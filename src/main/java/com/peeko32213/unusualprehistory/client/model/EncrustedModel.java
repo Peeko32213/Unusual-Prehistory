@@ -10,19 +10,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class EncrustedModel extends AnimatedGeoModel<EntityEncrusted>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityEncrusted object)
+    public ResourceLocation getModelResource(EntityEncrusted object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/encrusted.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityEncrusted object)
+    public ResourceLocation getTextureResource(EntityEncrusted object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/encrusted.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityEncrusted object)
+    public ResourceLocation getAnimationResource(EntityEncrusted object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/encrusted.animation.json");
     }

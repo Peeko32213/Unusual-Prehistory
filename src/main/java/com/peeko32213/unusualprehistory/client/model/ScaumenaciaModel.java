@@ -11,13 +11,13 @@ public class ScaumenaciaModel extends AnimatedGeoModel<EntityScaumenacia>
 {
 
     @Override
-    public ResourceLocation getModelLocation(EntityScaumenacia object)
+    public ResourceLocation getModelResource(EntityScaumenacia object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/scaumenacia.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityScaumenacia object)
+    public ResourceLocation getTextureResource(EntityScaumenacia object)
     {
         if (object.isGolden()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/scaumenacia_buddah.png");
@@ -26,7 +26,7 @@ public class ScaumenaciaModel extends AnimatedGeoModel<EntityScaumenacia>
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityScaumenacia object)
+    public ResourceLocation getAnimationResource(EntityScaumenacia object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/scaumenacia.animation.json");
     }

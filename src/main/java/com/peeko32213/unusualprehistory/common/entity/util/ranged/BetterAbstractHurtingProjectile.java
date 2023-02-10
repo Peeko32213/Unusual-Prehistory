@@ -5,6 +5,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkHooks;
 
 public class BetterAbstractHurtingProjectile extends Projectile {
     public double xPower;
@@ -96,7 +98,7 @@ public class BetterAbstractHurtingProjectile extends Projectile {
     }
 
     protected ParticleOptions getTrailParticle() {
-        return ParticleTypes.SPIT;
+        return ParticleTypes.DRIPPING_HONEY;
     }
 
     protected boolean canHitEntity(Entity p_36842_) {
@@ -164,10 +166,9 @@ public class BetterAbstractHurtingProjectile extends Projectile {
         return 1.0F;
     }
 
-    public Packet<?> getAddEntityPacket() {
-        Entity entity = this.getOwner();
-        int i = entity == null ? 0 : entity.getId();
-        return new ClientboundAddEntityPacket(this.getId(), this.getUUID(), this.getX(), this.getY(), this.getZ(), this.getXRot(), this.getYRot(), this.getType(), i, new Vec3(this.xPower, this.yPower, this.zPower));
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return (Packet<ClientGamePacketListener>) NetworkHooks.getEntitySpawningPacket(this);
     }
 
     public void recreateFromPacket(ClientboundAddEntityPacket p_150128_) {

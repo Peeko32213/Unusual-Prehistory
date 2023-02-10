@@ -14,10 +14,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -51,6 +51,15 @@ import static com.peeko32213.unusualprehistory.common.block.BlockCultivator.HALF
 public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     private static final TagKey<Item> ORGANIC_OOZE = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "organic_ooze"));
     private BlockState blockstate;
+    public int ticksExisted;
+
+    public static void commonTick(Level level, BlockPos pos, BlockState state, CultivatorBlockEntity entity) {
+        entity.tick();
+    }
+
+    public void tick() {
+        ticksExisted++;
+    }
 
     public CultivatorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -92,6 +101,9 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
             }
         }
     };
+
+
+
 
     private IItemHandler hopperHandler = new IItemHandler() {
         @Override
@@ -158,7 +170,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return new TextComponent("Cultivator");
+        return Component.translatable("Cultivator");
     }
 
     @Nonnull
@@ -218,7 +230,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    public static void spawnParticles(LevelAccessor levelAccessor, BlockPos pos, Random random, double speedXZModifier, double speedYModifier){
+    public static void spawnParticles(LevelAccessor levelAccessor, BlockPos pos, RandomSource random, double speedXZModifier, double speedYModifier){
         Level level = (Level) levelAccessor;
         level.addAlwaysVisibleParticle(ParticleTypes.BUBBLE_POP, true,(double)pos.getX() + 0.2 + random.nextDouble() * 0.4 , (double)(pos.getY() + 0.5 + random.nextDouble()), (double)pos.getZ() + 0.2 + random.nextDouble() * 0.6,  speedXZModifier, speedYModifier, speedXZModifier);
     }
@@ -239,7 +251,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, CultivatorBlockEntity pBlockEntity) {
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, CultivatorBlockEntity pBlockEntity, RandomSource random) {
         pBlockEntity.tickCount++;
 
         if(hasRecipe(pBlockEntity)) {
@@ -258,6 +270,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
             setChanged(pLevel, pPos, pState);
         }
     }
+
 
     private static boolean hasRecipe(CultivatorBlockEntity entity) {
         Level level = entity.level;

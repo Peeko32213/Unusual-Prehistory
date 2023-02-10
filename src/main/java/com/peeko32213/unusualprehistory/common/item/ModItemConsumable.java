@@ -42,7 +42,7 @@ public class ModItemConsumable extends Item
             this.affectConsumer(stack, level, consumer);
         }
 
-        ItemStack containerStack = stack.getContainerItem();
+        ItemStack containerStack = stack.getCraftingRemainingItem();
 
         if (stack.isEdible()) {
             super.finishUsingItem(stack, level, consumer);

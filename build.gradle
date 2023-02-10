@@ -14,7 +14,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.1.0-release-canidate-3'
+version = '1.1.2'
 group = 'com.peeko32213.unusualprehistory'
 archivesBaseName = 'unusualprehistory'
 
@@ -22,7 +22,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    mappings channel: 'official', version: '1.18.2'
+    mappings channel: 'official', version: '1.19.2'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
@@ -96,22 +96,14 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
     maven {
-        name 'Progwml6 maven'
-        url 'https://dvs1.progwml6.com/files/maven'
-    }
-    maven {
-        name 'blamejared'
-        url 'https://maven.blamejared.com'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
     }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.74'
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.53')
-    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
+    minecraft 'net.minecraftforge:forge:1.19.2-43.1.0'
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.39')
 }
 
 jar {
@@ -119,7 +111,7 @@ jar {
         attributes([
                 "Specification-Title"     : "unusualprehistory",
                 "Specification-Vendor"    : "Peeko32213",
-                "Specification-Version"   : "1.1.0-release-canidate-3", // We are version 1.0.1 of ourselves
+                "Specification-Version"   : "1.1.2", // We are version 1.1.1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "unusualprehistory",

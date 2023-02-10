@@ -11,9 +11,9 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
@@ -93,7 +93,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity imple
 
     @Override
     protected Component getDefaultName() {
-        return new TranslatableComponent("DNA Fridge");
+        return Component.translatable("DNA Fridge");
     }
 
     @Override
@@ -163,7 +163,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity imple
         return new SidedInvWrapper(this, Direction.DOWN);
     }
 
-    public static void spawnParticles(LevelAccessor levelAccessor, BlockPos pos, Random random, double speedXZModifier, double speedYModifier){
+    public static void spawnParticles(LevelAccessor levelAccessor, BlockPos pos, RandomSource random, double speedXZModifier, double speedYModifier){
         Level level = (Level) levelAccessor;
         level.addAlwaysVisibleParticle(ParticleTypes.SNOWFLAKE, true,(double)pos.getX() + 0.2 + random.nextDouble() * 0.6 , (double)(pos.getY() + 0.5 + (random.nextDouble() * 0.8)), (double)pos.getZ() + 0.2 + random.nextDouble() * 0.6,  speedXZModifier, speedYModifier, speedXZModifier);
     }

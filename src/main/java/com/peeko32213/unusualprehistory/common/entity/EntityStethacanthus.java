@@ -39,8 +39,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -174,7 +172,6 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
 
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(5);
-        super.killed(world, entity);
     }
 
 

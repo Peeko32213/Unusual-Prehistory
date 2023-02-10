@@ -180,7 +180,7 @@ public class EntityBabyDunk extends AbstractFish implements IAnimatable, IAnimat
     }
 
     @Override
-    protected boolean shouldDropExperience() {
+    public boolean shouldDropExperience() {
         return false;
     }
 

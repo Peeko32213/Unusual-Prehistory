@@ -12,19 +12,19 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 public class BeelzebufoTadpoleModel extends AnimatedGeoModel<EntityBeelzebufoTadpole>
 {
     @Override
-    public ResourceLocation getModelLocation(EntityBeelzebufoTadpole object)
+    public ResourceLocation getModelResource(EntityBeelzebufoTadpole object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/beelze_baby.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityBeelzebufoTadpole object)
+    public ResourceLocation getTextureResource(EntityBeelzebufoTadpole object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_baby.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EntityBeelzebufoTadpole object)
+    public ResourceLocation getAnimationResource(EntityBeelzebufoTadpole object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/beelze_tadpole.animation.json");
     }

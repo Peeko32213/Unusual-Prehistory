@@ -66,23 +66,14 @@ public class BlockBrachiEggs extends Block  {
     private void tryTrample(Level worldIn, BlockPos pos, Entity trampler, int chances) {
         if (this.canTrample(worldIn, trampler)) {
             if (!worldIn.isClientSide && worldIn.random.nextInt(chances) == 0) {
-                BlockState blockstate = worldIn.getBlockState(pos);
-                this.removeOneEgg(worldIn, pos, blockstate);
+                worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + worldIn.random.nextFloat() * 0.2F);
+                worldIn.destroyBlock(pos, false);
 
             }
 
         }
     }
 
-
-    private void removeOneEgg(Level worldIn, BlockPos pos, BlockState state) {
-        worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + worldIn.random.nextFloat() * 0.2F);
-        int i = state.getValue(EGGS);
-        worldIn.destroyBlock(pos, false);
-        worldIn.setBlock(pos, state.setValue(EGGS, Integer.valueOf(i - 1)), 1);
-        worldIn.levelEvent(4001, pos, Block.getId(state));
-
-    }
 
     public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
         if (this.canGrow(worldIn) && hasProperHabitat(worldIn, pos)) {
@@ -115,13 +106,14 @@ public class BlockBrachiEggs extends Block  {
     }
 
     private boolean canGrow(Level worldIn) {
-        return worldIn.random.nextInt(40) == 0;
+        return worldIn.random.nextInt(20) == 0;
     }
 
 
     public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity te, ItemStack stack) {
         super.playerDestroy(worldIn, player, pos, state, te, stack);
-        this.removeOneEgg(worldIn, pos, state);
+        worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + worldIn.random.nextFloat() * 0.2F);
+        worldIn.destroyBlock(pos, false);
     }
 
 

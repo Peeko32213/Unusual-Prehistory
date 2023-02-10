@@ -9,17 +9,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class TrikeShieldModel extends AnimatedGeoModel<ItemTrikeShield> {
     @Override
-    public ResourceLocation getModelLocation(ItemTrikeShield object) {
+    public ResourceLocation getModelResource(ItemTrikeShield object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/trike_shield.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ItemTrikeShield object) {
+    public ResourceLocation getTextureResource(ItemTrikeShield object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/item/trike_shield.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(ItemTrikeShield animatable) {
+    public ResourceLocation getAnimationResource(ItemTrikeShield animatable) {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/armor.animation.json");
     }
 }
