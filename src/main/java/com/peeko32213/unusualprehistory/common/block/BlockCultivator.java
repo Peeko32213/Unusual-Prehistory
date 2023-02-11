@@ -14,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
@@ -36,7 +38,6 @@ public class BlockCultivator extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 32, 16);
-
 
     public BlockCultivator(Properties properties) {
         super(properties);
@@ -59,7 +60,7 @@ public class BlockCultivator extends BaseEntityBlock {
         level.setBlock(blockpos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER), 3);
     }
 
-    @javax.annotation.Nullable
+    @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext state) {
         BlockPos blockpos = state.getClickedPos();
         Level level = state.getLevel();
@@ -69,6 +70,7 @@ public class BlockCultivator extends BaseEntityBlock {
             return null;
         }
     }
+
     public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide && player.isCreative()) {
             BlockCultivator.preventCreativeDropFromBottomPart(level, pos, state, player);
@@ -95,7 +97,6 @@ public class BlockCultivator extends BaseEntityBlock {
         BlockState blockstate = levelReader.getBlockState(blockpos);
         return state.getValue(HALF) == DoubleBlockHalf.LOWER ? !blockstate.is(Blocks.AIR) : blockstate.is(this);
     }
-    //
 
     @Override
     public RenderShape getRenderShape(BlockState pState) {

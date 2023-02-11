@@ -92,6 +92,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
             }
         };
     }
+
     private final ItemStackHandler itemHandler = new ItemStackHandler(4) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -101,9 +102,6 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
             }
         }
     };
-
-
-
 
     private IItemHandler hopperHandler = new IItemHandler() {
         @Override
@@ -193,7 +191,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         super.onLoad();
         lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
         hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
-        if(!level.isClientSide){
+        if(level != null && !level.isClientSide){
             UPMessages.sendToClients(new SyncItemStackC2SPacket(this.itemHandler, worldPosition));
         }
     }
