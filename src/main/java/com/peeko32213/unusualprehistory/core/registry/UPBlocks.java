@@ -220,11 +220,11 @@ public class UPBlocks {
     public static final RegistryObject<Block> ANOSTYLOSTROMA_BLOCK = registerBlock("anostylostroma_block", () ->
             new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
 
-    public static final RegistryObject<Block> CLATHRODICTYON_FAN = registerBlock("clathrodictyon_fan", () ->
-            new BaseCoralFanBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().noCollission().instabreak().sound(SoundType.CORAL_BLOCK)));
+    public static final RegistryObject<Block> CLATHRODICTYON_FAN = BLOCKS.register("clathrodictyon_fan", () ->
+            new BaseCoralFanBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().noCollission().instabreak().sound(SoundType.CORAL_BLOCK)));
 
-    public static final RegistryObject<Block> CLATHRODICTYON_WALL_FAN = registerBlock("clathrodictyon_wall_fan", () ->
-            new BaseCoralWallFanBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().noCollission().instabreak().sound(SoundType.CORAL_BLOCK)));
+    public static final RegistryObject<Block> CLATHRODICTYON_WALL_FAN = BLOCKS.register("clathrodictyon_wall_fan", () ->
+            new BaseCoralWallFanBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().noCollission().instabreak().sound(SoundType.CORAL_BLOCK)));
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

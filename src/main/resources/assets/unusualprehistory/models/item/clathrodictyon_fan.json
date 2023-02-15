@@ -1,3 +1,6 @@
 {
-  "parent": "unusualprehistory:block/clathrodictyon_fan"
+  "parent" : "item/generated",
+  "textures" : {
+    "layer0" : "unusualprehistory:block/clathrodictyon_fan"
+  }
 }
