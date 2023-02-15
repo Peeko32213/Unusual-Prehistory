@@ -253,6 +253,10 @@ public class UPItems {
             () -> new ForgeSpawnEggItem(UPEntities.ENCRUSTED , 0x482300, 0xffc656,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<ForgeSpawnEggItem> ERYON_EGG = ITEMS.register("eryon_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.ERYON , 0x1d2110, 0xe4b423,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterials.MAJUNGA, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

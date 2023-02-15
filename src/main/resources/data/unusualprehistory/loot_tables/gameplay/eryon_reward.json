@@ -1,0 +1,59 @@
+{
+  "type": "minecraft:barter",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "functions": [
+          ],
+          "name": "minecraft:bone"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "functions": [
+          ],
+          "name": "minecraft:gold_nugget"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "functions": [
+          ],
+          "name": "minecraft:iron_nugget"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "functions": [
+          ],
+          "name": "minecraft:string"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "functions": [
+          ],
+          "name": "unusualprehistory:mezo_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "functions": [
+          ],
+          "name": "unusualprehistory:paleo_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "functions": [
+          ],
+          "name": "unusualprehistory:plant_fossil"
+        }
+      ]
+    }
+  ]
+}

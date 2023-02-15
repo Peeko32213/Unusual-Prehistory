@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:sarracenia"
+    }
+  ],
+  "result": {
+    "item": "minecraft:red_dye",
+    "count": 3
+  }
+}

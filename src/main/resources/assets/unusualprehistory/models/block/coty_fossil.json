@@ -1,0 +1,156 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"texture_size": [128, 128],
+	"textures": {
+		"1": "unusualprehistory:block/coty_fossil",
+		"particle": "unusualprehistory:block/coty_fossil"
+	},
+	"elements": [
+		{
+			"from": [16, 2, 8],
+			"to": [16, 17, 10],
+			"faces": {
+				"north": {"uv": [7.75, 4.5, 7.75, 6.375], "texture": "#1"},
+				"east": {"uv": [8, 4.5, 7.75, 6.375], "texture": "#1"},
+				"south": {"uv": [8, 4.5, 8, 6.375], "texture": "#1"},
+				"west": {"uv": [7.75, 4.5, 7.5, 6.375], "texture": "#1"},
+				"up": {"uv": [7.75, 4.5, 7.75, 4.25], "texture": "#1"},
+				"down": {"uv": [7.75, 4.25, 7.75, 4.5], "texture": "#1"}
+			}
+		},
+		{
+			"from": [0, 2, 8],
+			"to": [0, 17, 10],
+			"faces": {
+				"north": {"uv": [7.75, 4.5, 7.75, 6.375], "texture": "#1"},
+				"east": {"uv": [7.5, 4.5, 7.75, 6.375], "texture": "#1"},
+				"south": {"uv": [8, 4.5, 8, 6.375], "texture": "#1"},
+				"west": {"uv": [7.75, 4.5, 8, 6.375], "texture": "#1"},
+				"up": {"uv": [7.75, 4.5, 7.75, 4.25], "texture": "#1"},
+				"down": {"uv": [7.75, 4.25, 7.75, 4.5], "texture": "#1"}
+			}
+		},
+		{
+			"from": [-1, 0, 10],
+			"to": [17, 2, 10],
+			"faces": {
+				"north": {"uv": [7.5, 4.25, 9.75, 4.5], "texture": "#1"},
+				"east": {"uv": [7.5, 4.25, 7.5, 4.5], "texture": "#1"},
+				"south": {"uv": [9.75, 4.25, 12, 4.5], "texture": "#1"},
+				"west": {"uv": [9.75, 4.25, 9.75, 4.5], "texture": "#1"},
+				"up": {"uv": [9.75, 4.25, 7.5, 4.25], "texture": "#1"},
+				"down": {"uv": [12, 4.25, 9.75, 4.25], "texture": "#1"}
+			}
+		},
+		{
+			"from": [0, 0, 5],
+			"to": [0, 2, 10],
+			"faces": {
+				"north": {"uv": [8.25, 6.375, 8.25, 6.625], "texture": "#1"},
+				"east": {"uv": [7.625, 6.375, 8.25, 6.625], "texture": "#1"},
+				"south": {"uv": [8.875, 6.375, 8.875, 6.625], "texture": "#1"},
+				"west": {"uv": [8.25, 6.375, 8.875, 6.625], "texture": "#1"},
+				"up": {"uv": [8.25, 6.375, 8.25, 5.75], "texture": "#1"},
+				"down": {"uv": [8.25, 5.75, 8.25, 6.375], "texture": "#1"}
+			}
+		},
+		{
+			"from": [16, 0, 5],
+			"to": [16, 2, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 0, 0]},
+			"faces": {
+				"north": {"uv": [8.25, 6.375, 8.25, 6.625], "texture": "#1"},
+				"east": {"uv": [8.875, 6.375, 8.25, 6.625], "texture": "#1"},
+				"south": {"uv": [8.875, 6.375, 8.875, 6.625], "texture": "#1"},
+				"west": {"uv": [8.25, 6.375, 7.625, 6.625], "texture": "#1"},
+				"up": {"uv": [8.25, 6.375, 8.25, 5.75], "texture": "#1"},
+				"down": {"uv": [8.25, 5.75, 8.25, 6.375], "texture": "#1"}
+			}
+		},
+		{
+			"from": [-7, 0.08658, 0.9806],
+			"to": [23, 30.08658, 0.9806],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 0, 5]},
+			"faces": {
+				"north": {"uv": [0, 4.25, 3.75, 8], "texture": "#1"},
+				"east": {"uv": [0, 4.25, 0, 8], "texture": "#1"},
+				"south": {"uv": [3.75, 4.25, 7.5, 8], "texture": "#1"},
+				"west": {"uv": [3.75, 4.25, 3.75, 8], "texture": "#1"},
+				"up": {"uv": [3.75, 4.25, 0, 4.25], "texture": "#1"},
+				"down": {"uv": [7.5, 4.25, 3.75, 4.25], "texture": "#1"}
+			}
+		},
+		{
+			"from": [-7, 0.08658, 1.3806],
+			"to": [23, 30.08658, 5.3806],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 0, 5]},
+			"faces": {
+				"north": {"uv": [0.5, 0.5, 4.25, 4.25], "texture": "#1"},
+				"east": {"uv": [0, 0.5, 0.5, 4.25], "texture": "#1"},
+				"south": {"uv": [4.75, 0.5, 8.5, 4.25], "texture": "#1"},
+				"west": {"uv": [4.25, 0.5, 4.75, 4.25], "texture": "#1"},
+				"up": {"uv": [4.25, 0.5, 0.5, 0], "texture": "#1"},
+				"down": {"uv": [8, 0, 4.25, 0.5], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [54, 0, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [54, 0, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, -1, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"gui": {
+			"rotation": [0, 144, 0],
+			"translation": [0, -2.5, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"fixed": {
+			"rotation": [-19, 0, 0],
+			"translation": [0, -2, 0],
+			"scale": [0.4, 0.4, 0.4]
+		}
+	},
+	"groups": [
+		{
+			"name": "CotyFossil",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				0,
+				1,
+				2,
+				3,
+				4,
+				{
+					"name": "Slab",
+					"origin": [0, 0, 0],
+					"color": 0,
+					"children": [
+						5,
+						{
+							"name": "VoxelShapes",
+							"origin": [0, 0, 0],
+							"color": 0,
+							"children": [6]
+						}
+					]
+				}
+			]
+		}
+	]
+}

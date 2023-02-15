@@ -79,6 +79,7 @@
   "item.unusualprehistory.veloci_spawn_egg": "Velociraptor Spawn Egg",
   "item.unusualprehistory.rex_spawn_egg": "Tyrannosaurus Rex Spawn Egg",
   "item.unusualprehistory.encrusted_spawn_egg": "Encrusted Spawn Egg",
+  "item.unusualprehistory.eryon_spawn_egg": "Eryon Spawn Egg",
 
   "entity.unusualprehistory.stethacanthus": "Stethacanthus",
   "entity.unusualprehistory.majunga": "Majungasaurus",
@@ -98,6 +99,7 @@
   "entity.unusualprehistory.encrusted": "Encrusted",
   "entity.unusualprehistory.baby_rex": "Baby Tyrannosaurus Rex",
   "entity.unusualprehistory.baby_brachi": "Baby Brachiosaurus",
+  "entity.unusualprehistory.eryon": "Eryon",
 
   "entity.unusualprehistory.amber_shot": "Amber Shot",
 
@@ -139,6 +141,15 @@
   "block.unusualprehistory.pachy_eggs": "Pachycephalosaurus Egg",
   "block.unusualprehistory.encrusted_sack": "Encrusted Sack",
   "block.unusualprehistory.amber_block": "Amber Block",
+  "block.unusualprehistory.coty_fossil": "Cotylorhynchus Fossil",
+  "block.unusualprehistory.stetha_fossil": "Stethacanthus Fossil",
+  "block.unusualprehistory.anuro_fossil": "Anurognathus Fossil",
+  "block.unusualprehistory.scau_fossil": "Scaumenacia Fossil",
+  "block.unusualprehistory.clathrodictyon": "Clathrodictyon Coral",
+  "block.unusualprehistory.clathrodictyon_block": "Clathrodictyon Coral Block",
+  "block.unusualprehistory.anostylostroma_block": "Anostylostroma Coral Block",
+  "block.unusualprehistory.clathrodictyon_fan": "Clathrodictyon Coral Fan",
+  "block.unusualprehistory.clathrodictyon_wall_fan": "Clathrodictyon Coral Wall Fan",
 
   "unusualprehistory.sound.subtitle.beelze_idle": "Massive croaks",
   "unusualprehistory.sound.subtitle.beelze_attack": "Slimey chomp",

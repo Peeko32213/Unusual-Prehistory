@@ -2,6 +2,10 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.*;
+import com.peeko32213.unusualprehistory.common.block.decorations.BlockAnuroFossil;
+import com.peeko32213.unusualprehistory.common.block.decorations.BlockCotyFossil;
+import com.peeko32213.unusualprehistory.common.block.decorations.BlockScauFossil;
+import com.peeko32213.unusualprehistory.common.block.decorations.BlockStethaFossil;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -194,6 +198,33 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> AMBER_BLOCK = registerBlock("amber_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
+
+    public static final RegistryObject<Block> COTY_FOSSIL = registerBlock("coty_fossil",
+            () -> new BlockCotyFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> STETHA_FOSSIL = registerBlock("stetha_fossil",
+            () -> new BlockStethaFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> ANURO_FOSSIL = registerBlock("anuro_fossil",
+            () -> new BlockAnuroFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> SCAU_FOSSIL = registerBlock("scau_fossil",
+            () -> new BlockScauFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> CLATHRODICTYON = registerBlock("clathrodictyon", () ->
+            new BaseCoralPlantBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+
+    public static final RegistryObject<Block> CLATHRODICTYON_BLOCK = registerBlock("clathrodictyon_block", () ->
+            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+
+    public static final RegistryObject<Block> ANOSTYLOSTROMA_BLOCK = registerBlock("anostylostroma_block", () ->
+            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+
+    public static final RegistryObject<Block> CLATHRODICTYON_FAN = registerBlock("clathrodictyon_fan", () ->
+            new BaseCoralFanBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().noCollission().instabreak().sound(SoundType.CORAL_BLOCK)));
+
+    public static final RegistryObject<Block> CLATHRODICTYON_WALL_FAN = registerBlock("clathrodictyon_wall_fan", () ->
+            new BaseCoralWallFanBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().noCollission().instabreak().sound(SoundType.CORAL_BLOCK)));
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

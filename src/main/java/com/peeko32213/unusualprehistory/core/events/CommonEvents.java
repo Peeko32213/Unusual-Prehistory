@@ -49,6 +49,7 @@ public class CommonEvents {
         event.put(UPEntities.ENCRUSTED.get(), EntityEncrusted.createAttributes().build());
         event.put(UPEntities.BABY_REX.get(), EntityBabyRex.createAttributes().build());
         event.put(UPEntities.BABY_BRACHI.get(), EntityBabyBrachi.createAttributes().build());
+        event.put(UPEntities.ERYON.get(), EntityEryon.createAttributes().build());
 
         event.put(UPEntities.AMMON_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.MAJUNGA_RENDER.get(), BaseEntityRender.createAttributes().build());

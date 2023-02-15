@@ -104,6 +104,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityBabyBrachi::new, MobCategory.CREATURE).sized(1.3f, 2.1f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_brachi").toString()));
 
+    public static final RegistryObject<EntityType<EntityEryon>> ERYON = ENTITIES.register("eryon",
+            () -> EntityType.Builder.of(EntityEryon::new, MobCategory.CREATURE).sized(0.8f, 0.8f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "eryon").toString()));
+
     public static final RegistryObject<EntityType<BaseEntityRender>> AMMON_RENDER = ENTITIES.register("ammon_render",
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "ammon_render").toString()));

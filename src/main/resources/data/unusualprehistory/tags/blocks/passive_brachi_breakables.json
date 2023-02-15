@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#minecraft:leaves",
     "minecraft:lily_pad",
     "minecraft:cactus",
     "minecraft:bamboo",
