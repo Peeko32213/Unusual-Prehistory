@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
@@ -30,6 +31,7 @@ public class UPMessages {
         net.messageBuilder(SyncItemStackC2SPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(SyncItemStackC2SPacket::new)
                 .encoder(SyncItemStackC2SPacket::toBytes)
+                .consumerMainThread(SyncItemStackC2SPacket::handle)
                 .add();
     }
 
