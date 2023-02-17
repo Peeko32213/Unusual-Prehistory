@@ -226,6 +226,13 @@ public class UPBlocks {
     public static final RegistryObject<Block> CLATHRODICTYON_WALL_FAN = BLOCKS.register("clathrodictyon_wall_fan", () ->
             new BaseCoralWallFanBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().noCollission().instabreak().sound(SoundType.CORAL_BLOCK)));
 
+    public static final RegistryObject<Block> ARCHAEFRUCTUS = registerBlock("archaefructus", () ->
+            new BlockArchaefructus(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+
+    public static final Supplier<Block> NELUMBITES = create("nelumbites",
+            () -> new WaterlilyBlock(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion()),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
         UPItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

@@ -167,7 +167,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
             this.yHeadRot = this.getYRot();
             BlockState state = level.getBlockState(feedingPos);
             if(random.nextInt(2) == 0 && !state.isAir()){
-                Vec3 mouth = new Vec3(0, this.getBbHeight() * 0.5F, 0.4F * -0.4).xRot(this.getXRot() * ((float)Math.PI / 180F)).yRot(-this.getYRot() * ((float)Math.PI / 180F));
+                Vec3 mouth = new Vec3(0, this.getBbHeight() * 0.5F, 0.4F * -0.5).xRot(this.getXRot() * ((float)Math.PI / 180F)).yRot(-this.getYRot() * ((float)Math.PI / 180F));
                 for (int i = 0; i < 4 + random.nextInt(2); i++) {
                     double motX = this.random.nextGaussian() * 0.02D;
                     double motY = 0.1F + random.nextFloat() * 0.2F;
@@ -226,12 +226,14 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
                     crab.setFeedingTime(crab.getFeedingTime() + 1);
                     if(crab.getFeedingTime() > maxFeedTime){
                         destinationBlock = null;
-                        List<ItemStack> lootList = getDigLoot(crab);
-                        if (lootList.size() > 0) {
-                            for (ItemStack stack : lootList) {
-                                ItemEntity e = crab.spawnAtLocation(stack.copy());
-                                e.hasImpulse = true;
-                                e.setDeltaMovement(e.getDeltaMovement().multiply(0.2, 0.2, 0.2));
+                        if(random.nextInt(1) == 0) {
+                            List<ItemStack> lootList = getDigLoot(crab);
+                            if (lootList.size() > 0) {
+                                for (ItemStack stack : lootList) {
+                                    ItemEntity e = crab.spawnAtLocation(stack.copy());
+                                    e.hasImpulse = true;
+                                    e.setDeltaMovement(e.getDeltaMovement().multiply(0.2, 0.2, 0.2));
+                                }
                             }
                         }
                     }

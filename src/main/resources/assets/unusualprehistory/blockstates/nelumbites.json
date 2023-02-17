@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "unusualprehistory:block/nelumbites"
+      },
+      {
+        "model": "unusualprehistory:block/nelumbites",
+        "y": 90
+      },
+      {
+        "model": "unusualprehistory:block/nelumbites",
+        "y": 180
+      },
+      {
+        "model": "unusualprehistory:block/nelumbites",
+        "y": 270
+      }
+    ]
+  }
+}
