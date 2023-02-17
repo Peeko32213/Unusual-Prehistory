@@ -30,6 +30,7 @@ public class UPMessages {
         net.messageBuilder(SyncItemStackC2SPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(SyncItemStackC2SPacket::new)
                 .encoder(SyncItemStackC2SPacket::toBytes)
+                .consumerMainThread(SyncItemStackC2SPacket::handle)
                 .add();
     }
 
