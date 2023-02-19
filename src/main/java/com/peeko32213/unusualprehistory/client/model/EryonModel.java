@@ -1,14 +1,20 @@
 package com.peeko32213.unusualprehistory.client.model;
 
 
+import com.google.common.collect.Maps;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
 import com.peeko32213.unusualprehistory.common.entity.EntityEryon;
+import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-public class EryonModel extends AnimatedGeoModel<EntityEryon>
-{
+import java.util.Map;
+
+public class EryonModel extends AnimatedGeoModel<EntityEryon> {
+    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/eryon.png");
+    private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation("unusualprehistory:textures/entity/eryon_blue.png");
+
     @Override
     public ResourceLocation getModelResource(EntityEryon object)
     {
@@ -18,7 +24,12 @@ public class EryonModel extends AnimatedGeoModel<EntityEryon>
     @Override
     public ResourceLocation getTextureResource(EntityEryon object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/eryon.png");
+        switch (object.getVariant()){
+            case 1:
+                return TEXTURE_BLUE;
+            default:
+                return TEXTURE_NORMAL;
+        }
     }
 
     @Override

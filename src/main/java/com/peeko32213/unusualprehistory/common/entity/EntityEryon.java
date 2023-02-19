@@ -58,8 +58,8 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
-
     private static final TagKey<Block> ERYON_DIGGABLES = ForgeRegistries.BLOCKS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "eryon_diggables"));
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private Ingredient temptationItems;
@@ -93,6 +93,25 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
     }
 
+    public static String getVariantName(int variant) {
+        switch (variant) {
+            case 1:
+                return "blue";
+            default:
+                return "normal";
+        }
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Variant", this.getVariant());
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setVariant(compound.getInt("Variant"));
+    }
+
     public void checkDespawn() {
         if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
@@ -113,10 +132,12 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
         p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
         Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {
-            {
-                this.setPersistenceRequired();
-            }
+        this.setPersistenceRequired();
+        float variantChange = this.getRandom().nextFloat();
+        if(variantChange <= 0.001){
+            this.setVariant(1);
+        }else{
+            this.setVariant(0);
         }
         return p_28137_;
     }
@@ -137,7 +158,16 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FEEDING_TIME, 0);
+        this.entityData.define(VARIANT, 0);
         this.entityData.define(FEEDING_POS, Optional.empty());
+    }
+
+    public int getVariant() {
+        return this.entityData.get(VARIANT).intValue();
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, Integer.valueOf(variant));
     }
 
     public int getFeedingTime() {
@@ -158,7 +188,10 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
             feedProgress--;
         }
         BlockPos feedingPos = this.entityData.get(FEEDING_POS).orElse(null);
-        if(this.getFeedingTime() > 0){
+        if(feedingPos == null){
+            float f2 = (float) -((float) this.getDeltaMovement().y * 2.2F * (double) (180F / (float) Math.PI));
+            this.setXRot(f2);
+        }else if(this.getFeedingTime() > 0){
             Vec3 face = Vec3.atCenterOf(feedingPos).subtract(this.position());
             double d0 = face.horizontalDistance();
             this.setXRot((float)(-Mth.atan2(face.y, d0) * (double)(180F / (float)Math.PI)));
