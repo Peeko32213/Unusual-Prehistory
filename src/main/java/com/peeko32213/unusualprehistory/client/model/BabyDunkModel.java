@@ -40,8 +40,8 @@ public class BabyDunkModel extends AnimatedGeoModel<EntityBabyDunk>
             body.setRotationZ(1.5708f);
         }
         else {
-            body.setRotationX(extraData.headPitch * (float)Math.PI / 180F);
-            body.setRotationY(extraData.netHeadYaw * (float)Math.PI / 180F);
+            body.setRotationX(extraData.headPitch * (float)Math.PI / 250F);
+            body.setRotationY(extraData.netHeadYaw * (float)Math.PI / 250F);
         }
     }
 

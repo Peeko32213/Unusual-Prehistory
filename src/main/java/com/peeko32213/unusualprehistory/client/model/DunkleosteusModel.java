@@ -39,8 +39,8 @@ public class DunkleosteusModel extends AnimatedGeoModel<EntityDunkleosteus>
             body.setRotationZ(1.5708f);
         }
         else {
-            body.setRotationX(extraData.headPitch * (float)Math.PI / 320F);
-            body.setRotationY(extraData.netHeadYaw * (float)Math.PI / 320F);
+            body.setRotationX(extraData.headPitch * (float)Math.PI / 250F);
+            body.setRotationY(extraData.netHeadYaw * (float)Math.PI / 250F);
         }
     }
 

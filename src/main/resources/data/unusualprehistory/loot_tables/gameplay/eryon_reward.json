@@ -34,24 +34,31 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
+          "weight": 1,
           "functions": [
           ],
-          "name": "unusualprehistory:mezo_fossil"
+          "name": "unusualprehistory:coty_fossil"
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
+          "weight": 1,
           "functions": [
           ],
-          "name": "unusualprehistory:paleo_fossil"
+          "name": "unusualprehistory:stetha_fossil"
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
+          "weight": 1,
           "functions": [
           ],
-          "name": "unusualprehistory:plant_fossil"
+          "name": "unusualprehistory:anuro_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:scau_fossil"
         }
       ]
     }

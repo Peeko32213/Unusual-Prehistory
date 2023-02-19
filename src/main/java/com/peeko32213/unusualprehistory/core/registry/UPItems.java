@@ -140,6 +140,8 @@ public class UPItems {
     public static final RegistryObject<Item> ENCRUSTED_FLASK = ITEMS.register("encrusted_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Item> ERYON_FLASK = ITEMS.register("eryon_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> FROG_SALIVA = ITEMS.register("frog_saliva",

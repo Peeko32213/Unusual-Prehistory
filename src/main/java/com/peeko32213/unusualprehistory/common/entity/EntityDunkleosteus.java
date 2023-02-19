@@ -214,8 +214,8 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         }
         if (this.level.isClientSide && this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.03D) {
             Vec3 vec3 = this.getViewVector(0.0F);
-            float f = Mth.cos(this.getYRot() * ((float) Math.PI / 320F)) * 0.3F;
-            float f1 = Mth.sin(this.getYRot() * ((float) Math.PI / 320F)) * 0.3F;
+            float f = Mth.cos(this.getYRot() * ((float) Math.PI / 360F)) * 0.3F;
+            float f1 = Mth.sin(this.getYRot() * ((float) Math.PI / 360F)) * 0.3F;
         }
     }
 
