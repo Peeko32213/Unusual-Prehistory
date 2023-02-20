@@ -44,7 +44,6 @@ public class BookBlit {
         lvt_10_1_.vertex(p_238460_0_, (float) p_238460_3_, (float) p_238460_4_, 0.0F).color(lvt_7_1_, lvt_8_1_, lvt_9_1_, lvt_6_3_).endVertex();
         lvt_10_1_.vertex(p_238460_0_, (float) p_238460_3_, (float) p_238460_2_, 0.0F).color(lvt_7_1_, lvt_8_1_, lvt_9_1_, lvt_6_3_).endVertex();
         lvt_10_1_.vertex(p_238460_0_, (float) p_238460_1_, (float) p_238460_2_, 0.0F).color(lvt_7_1_, lvt_8_1_, lvt_9_1_, lvt_6_3_).endVertex();
-        lvt_10_1_.end();
         BufferUploader.drawWithShader(lvt_10_1_.end());
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
@@ -89,7 +88,7 @@ public class BookBlit {
         bufferbuilder.vertex(p_238461_0_, (float) p_238461_2_, (float) p_238461_4_, (float) p_238461_5_).color(r, g, b, a).uv(p_238461_7_, p_238461_9_).endVertex();
         bufferbuilder.vertex(p_238461_0_, (float) p_238461_2_, (float) p_238461_3_, (float) p_238461_5_).color(r, g, b, a).uv(p_238461_7_, p_238461_8_).endVertex();
         bufferbuilder.vertex(p_238461_0_, (float) p_238461_1_, (float) p_238461_3_, (float) p_238461_5_).color(r, g, b, a).uv(p_238461_6_, p_238461_8_).endVertex();
-        bufferbuilder.end();
+        //bufferbuilder.end();
         //RenderSystem.enableAlphaTest();
         BufferUploader.drawWithShader(bufferbuilder.end());
     }
