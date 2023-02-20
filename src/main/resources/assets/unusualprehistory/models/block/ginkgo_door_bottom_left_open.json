@@ -1,5 +1,6 @@
 {
-  "parent": "minecraft:block/door_top",
+  "parent": "minecraft:block/door_bottom_left_open",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "unusualprehistory:block/ginkgo_door_bottom",
     "top": "unusualprehistory:block/ginkgo_door_top"
