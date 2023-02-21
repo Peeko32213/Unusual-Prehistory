@@ -106,6 +106,9 @@ public class UPBlocks {
     public static final RegistryObject<Block> ENCRUSTED_SACK = registerBlock("encrusted_sack",
             () -> new BlockEncrustedSack());
 
+    public static final RegistryObject<Block> ERYON_EGGS = registerBlock("eryon_eggs",
+            () -> new BlockEryonEggs());
+
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
             () -> new BlockAmmoniteShell(BlockBehaviour.Properties.of(Material.EGG).strength(0.5F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail",

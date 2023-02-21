@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:archaefructus_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:archaefructus"
+  }
+}

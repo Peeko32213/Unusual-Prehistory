@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:clathrodictyon_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:clathrodictyon"
+  }
+}

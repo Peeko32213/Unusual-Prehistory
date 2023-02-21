@@ -65,6 +65,7 @@ public class CommonEvents {
         event.put(UPEntities.RAPTOR_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.REX_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.ENCRUSTED_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.ERYON_RENDER.get(), BaseEntityRender.createAttributes().build());
     }
 
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag) {

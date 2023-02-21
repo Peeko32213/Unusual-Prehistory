@@ -170,6 +170,18 @@
       "offset_y": 4,
       "linked_page": "encrusted.json",
       "hover_text": "Encrusted"
+    },
+    {
+      "entity": "unusualprehistory:eryon_render",
+      "x": 350,
+      "y": 120,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 1.5,
+      "offset_x": -14,
+      "offset_y": -14,
+      "linked_page": "eryon.json",
+      "hover_text": "Eryon"
     }
   ],
   "linked_page_buttons": [

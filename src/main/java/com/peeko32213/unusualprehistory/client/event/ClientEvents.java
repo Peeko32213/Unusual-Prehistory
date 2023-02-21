@@ -40,6 +40,7 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_DOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_TRAPDOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.ERYON_EGGS.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.HORSETAIL.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.POTTED_HORSETAIL.get(), RenderType.cutout());
@@ -110,6 +111,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.RAPTOR_RENDER.get(), RaptorRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.REX_RENDER.get(), RexRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.ENCRUSTED_RENDER.get(), EncrustedRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.ERYON_RENDER.get(), EryonRenderRenderer::new);
 
         event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
@@ -141,6 +143,8 @@ public final class ClientEvents {
         event.registerLayerDefinition(RaptorRenderModel.LAYER_LOCATION, RaptorRenderModel::createBodyLayer);
         event.registerLayerDefinition(RexRenderModel.LAYER_LOCATION, RexRenderModel::createBodyLayer);
         event.registerLayerDefinition(EncrustedRenderModel.LAYER_LOCATION, EncrustedRenderModel::createBodyLayer);
+        event.registerLayerDefinition(EryonRenderModel.LAYER_LOCATION, EryonRenderModel::createBodyLayer);
+
     }
 
     @SubscribeEvent

@@ -44,7 +44,7 @@ public class BlockEncrustedSack extends Block  {
     private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);
 
     public BlockEncrustedSack() {
-        super(Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion());
+        super(Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.HONEY_BLOCK).randomTicks().noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(EGGS, Integer.valueOf(1)));
     }
 

@@ -65,6 +65,10 @@
   "item.unusualprehistory.raw_ginkgo_seeds": "Raw Ginkgo Seeds",
   "item.unusualprehistory.cooked_ginkgo_seeds": "Cooked Ginkgo Seeds",
   "item.unusualprehistory.encrusted_organ": "Encrusted Organ",
+  "item.unusualprehistory.anostylostroma_flask": "Anostylostroma Flask",
+  "item.unusualprehistory.archaefructus_flask": "Archaefructus Flask",
+  "item.unusualprehistory.clathrodictyon_flask": "Clathrodictyon Flask",
+  "item.unusualprehistory.nelumbites_flask": "Nelumbites Flask",
 
   "item.unusualprehistory.stetha_spawn_egg": "Stethacanthus Spawn Egg",
   "item.unusualprehistory.majunga_spawn_egg": "Majungasaurus Spawn Egg",
@@ -152,6 +156,7 @@
   "block.unusualprehistory.clathrodictyon_fan": "Clathrodictyon Coral Fan",
   "block.unusualprehistory.nelumbites": "Nelumbites",
   "block.unusualprehistory.archaefructus": "Archaefructus",
+  "block.unusualprehistory.eryon_eggs": "Eryon Eggs",
 
   "unusualprehistory.sound.subtitle.beelze_idle": "Massive croaks",
   "unusualprehistory.sound.subtitle.beelze_attack": "Slimey chomp",

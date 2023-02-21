@@ -41,6 +41,16 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 3,
+          "name": "unusualprehistory:nelumbites_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "unusualprehistory:anostylostroma_flask"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 2,
           "name": "unusualprehistory:leefructus_flask"
         },
@@ -63,6 +73,16 @@
           "type": "minecraft:item",
           "weight": 1,
           "name": "unusualprehistory:ginkgo_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "unusualprehistory:clathrodictyon_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "unusualprehistory:archaefructus_flask"
         }
       ]
     }

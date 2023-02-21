@@ -164,6 +164,11 @@ public class UPEntities {
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "encrusted_render").toString()));
 
+    public static final RegistryObject<EntityType<BaseEntityRender>> ERYON_RENDER = ENTITIES.register("eryon_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "eryon_render").toString()));
+
+
     private static final EntityType registerEntity(EntityType.Builder builder, String entityName) {
         return (EntityType) builder.build(entityName);
     }
