@@ -143,7 +143,7 @@ public class BlockCultivator extends BaseEntityBlock {
     }
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
-        return createTickerHelper(p_152182_, UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntity::commonTick);
+        return createTickerHelper(p_152182_, UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntity::tick);
     }
 
 

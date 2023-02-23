@@ -53,13 +53,13 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     private BlockState blockstate;
     public int ticksExisted;
 
-    public static void commonTick(Level level, BlockPos pos, BlockState state, CultivatorBlockEntity entity) {
-        entity.tick();
-    }
-
-    public void tick() {
-        ticksExisted++;
-    }
+   // public static void commonTick(Level level, BlockPos pos, BlockState state, CultivatorBlockEntity entity) {
+   //     entity.tick();
+   // }
+//
+   // public void tick() {
+   //     ticksExisted++;
+   // }
 
     public CultivatorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -249,7 +249,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, CultivatorBlockEntity pBlockEntity, RandomSource random) {
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, CultivatorBlockEntity pBlockEntity) {
         pBlockEntity.tickCount++;
 
         if(hasRecipe(pBlockEntity)) {
