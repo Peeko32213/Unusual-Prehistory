@@ -22,8 +22,8 @@ public abstract class GrowingPlantDoubleHeadBlock extends GrowingPlantHeadBlock 
 
     @Override
     public void randomTick(BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource randomSource) {
+        BlockPos blockpos = pos.relative(this.growthDirection);
         if (state.getValue(AGE) < 25 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(serverLevel, pos.relative(this.growthDirection), serverLevel.getBlockState(pos.relative(this.growthDirection)), randomSource.nextDouble() < this.growPerTickProbability)) {
-            BlockPos blockpos = pos.relative(this.growthDirection);
             if (this.canGrowInto(serverLevel.getBlockState(blockpos))) {
                 if (serverLevel.getBlockState(blockpos.above()).is(Blocks.AIR) || serverLevel.getBlockState(blockpos.above()).is(UPBlocks.QUEREUXIA_TOP.get())) {
                     serverLevel.setBlockAndUpdate(blockpos.above(), UPBlocks.QUEREUXIA_TOP.get().defaultBlockState());
@@ -35,31 +35,34 @@ public abstract class GrowingPlantDoubleHeadBlock extends GrowingPlantHeadBlock 
                 net.minecraftforge.common.ForgeHooks.onCropsGrowPost(serverLevel, blockpos, serverLevel.getBlockState(blockpos));
             }
         }
-
+        if (serverLevel.getBlockState(blockpos).is(UPBlocks.QUEREUXIA_TOP.get())) {
+            serverLevel.setBlockAndUpdate(blockpos.below(), UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
+            serverLevel.setBlockAndUpdate(blockpos.below(), UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
+        }
     }
 
     @Override
-    public void performBonemeal(ServerLevel serverLevel, RandomSource p_221338_, BlockPos p_221339_, BlockState p_221340_) {
-        BlockPos blockpos = p_221339_.relative(this.growthDirection);
-        int i = Math.min(p_221340_.getValue(AGE) + 1, 25);
-        int j = this.getBlocksToGrowWhenBonemealed(p_221338_);
-
-        for (int k = 0; k < j && this.canGrowInto(serverLevel.getBlockState(blockpos)); ++k) {
-            if (serverLevel.getBlockState(blockpos.above()).is(Blocks.AIR)) {
-                serverLevel.setBlock(blockpos, UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState(), 3);
-                serverLevel.setBlock(blockpos.above(), UPBlocks.QUEREUXIA_TOP.get().defaultBlockState(), 3);
-                return;
-            }
-            if (serverLevel.getBlockState(blockpos.above()).is(UPBlocks.QUEREUXIA_TOP.get())) {
-                serverLevel.setBlockAndUpdate(blockpos, UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
-                return;
-            }
-
-            serverLevel.setBlockAndUpdate(blockpos, p_221340_.setValue(AGE, Integer.valueOf(i)));
-            blockpos = blockpos.relative(this.growthDirection);
-            i = Math.min(i + 1, 25);
-
+    public void tick(BlockState state, ServerLevel serverLevel, BlockPos blockpos, RandomSource randomSource) {
+        if (serverLevel.getBlockState(blockpos.above()).is(UPBlocks.QUEREUXIA_TOP.get())) {
+            serverLevel.setBlockAndUpdate(blockpos, UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
         }
-
+        super.tick(state, serverLevel, blockpos, randomSource);
     }
+
+    @Override
+    public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos pos, BlockState state) {
+        BlockPos blockpos = pos.relative(this.growthDirection);
+        if (this.canGrowInto(serverLevel.getBlockState(blockpos))) {
+            if (serverLevel.getBlockState(blockpos.above()).is(Blocks.AIR) || serverLevel.getBlockState(blockpos.above()).is(UPBlocks.QUEREUXIA_TOP.get())) {
+                serverLevel.setBlockAndUpdate(blockpos, UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
+                serverLevel.setBlockAndUpdate(blockpos.above(), UPBlocks.QUEREUXIA_TOP.get().defaultBlockState());
+                serverLevel.setBlockAndUpdate(blockpos, UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
+                serverLevel.scheduleTick(blockpos, this, 1);
+                return;
+            }
+            serverLevel.setBlockAndUpdate(blockpos, this.getGrowIntoState(state, serverLevel.random));
+            serverLevel.scheduleTick(blockpos, this, 1);
+        }
+    }
+
 }
