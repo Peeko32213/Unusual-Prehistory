@@ -61,10 +61,11 @@ public class DoubleHeadBlock extends GrowingPlantDoubleHeadBlock implements Liqu
         }
         FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
         BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
+        BlockState blockstateBelow = context.getLevel().getBlockState(context.getClickedPos().below());
         Level level = context.getLevel();
 
 
-        if(blockstate.is(Blocks.AIR)){
+        if(blockstate.is(Blocks.AIR) && blockstateBelow.is(UPBlocks.QUEREUXIA.get())){
             level.setBlockAndUpdate(context.getClickedPos(),UPBlocks.QUEREUXIA_TOP.get().defaultBlockState());
             level.setBlockAndUpdate(context.getClickedPos().below(),UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
             return null;
