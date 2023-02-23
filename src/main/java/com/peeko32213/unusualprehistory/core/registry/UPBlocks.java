@@ -6,6 +6,8 @@ import com.peeko32213.unusualprehistory.common.block.decorations.BlockAnuroFossi
 import com.peeko32213.unusualprehistory.common.block.decorations.BlockCotyFossil;
 import com.peeko32213.unusualprehistory.common.block.decorations.BlockScauFossil;
 import com.peeko32213.unusualprehistory.common.block.decorations.BlockStethaFossil;
+import com.peeko32213.unusualprehistory.common.block.plant.DoubleHeadBlock;
+import com.peeko32213.unusualprehistory.common.block.plant.DoubleHeadPlantBlock;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -235,6 +237,12 @@ public class UPBlocks {
     public static final Supplier<Block> NELUMBITES = create("nelumbites",
             () -> new WaterlilyBlock(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion()),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<Block> QUEREUXIA_PLANT  = registerBlockWithoutBlockItem("quereuxia_plant", () -> new DoubleHeadPlantBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> QUEREUXIA  = registerBlock("quereuxia", () -> new DoubleHeadBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noCollission().noOcclusion().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
+    public static final Supplier<Block> QUEREUXIA_TOP  = create("quereuxia_top",
+            () -> new WaterlilyBlock(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion()),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
