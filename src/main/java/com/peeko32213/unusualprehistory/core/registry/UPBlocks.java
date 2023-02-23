@@ -237,8 +237,10 @@ public class UPBlocks {
     public static final Supplier<Block> NELUMBITES = create("nelumbites",
             () -> new WaterlilyBlock(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion()),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-    public static final RegistryObject<Block> QUEREUXIA_PLANT  = registerBlockWithoutBlockItem("quereuxia_plant", () -> new DoubleHeadPlantBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
-    public static final RegistryObject<Block> QUEREUXIA  = registerBlock("quereuxia", () -> new DoubleHeadBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noCollission().noOcclusion().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> QUEREUXIA_PLANT  = registerBlockWithoutBlockItem("quereuxia_plant",
+            () -> new DoubleHeadPlantBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> QUEREUXIA  = registerBlock("quereuxia",
+            () -> new DoubleHeadBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noCollission().noOcclusion().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
     public static final Supplier<Block> QUEREUXIA_TOP  = create("quereuxia_top",
             () -> new WaterlilyBlock(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion()),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
