@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/tinted_cross",
   "textures": {
-    "cross": "unusualprehistory:block/quereuxia_base"
+    "cross": "unusualprehistory:block/quereuxia_stalks"
   }
 }
