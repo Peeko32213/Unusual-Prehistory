@@ -70,7 +70,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
                 .add(Attributes.ARMOR, 0.0D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.19F)
-                .add(Attributes.JUMP_STRENGTH);
+                .add(Attributes.JUMP_STRENGTH, 1.5);
     }
 
     protected void registerGoals() {
@@ -133,8 +133,8 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
     public void travel(Vec3 p_30633_) {
         if (this.isAlive()) {
-            if (this.isVehicle() && this.isSaddled()) {
-                LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
+            LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
+            if (this.isVehicle() && this.isSaddled() && livingentity != null) {
                 this.setYRot(livingentity.getYRot());
                 this.yRotO = this.getYRot();
                 this.setXRot(livingentity.getXRot() * 0.5F);
