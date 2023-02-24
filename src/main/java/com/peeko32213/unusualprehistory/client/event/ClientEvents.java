@@ -12,13 +12,16 @@ import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -155,6 +158,18 @@ public final class ClientEvents {
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.AddLayers event) {
         GeoArmorRenderer.registerArmorRenderer(ItemMajungaHelmet.class, () -> new MajungaHelmetRenderer());
+    }
+
+
+    @SubscribeEvent
+    public void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
+        if (Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()) != null && !Minecraft.getInstance().isPaused()) {
+            int duration = Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()).getDuration();
+            float f = (Math.min(10, duration) + Minecraft.getInstance().getFrameTime()) * 0.1F;
+            double intensity = f * Minecraft.getInstance().options.screenEffectScale().get();
+            RandomSource rng = Minecraft.getInstance().player.getRandom();
+            event.getCamera().move(rng.nextFloat() * 0.1F * intensity, rng.nextFloat() * 0.2F * intensity, rng.nextFloat() * 0.4F * intensity);
+        }
     }
 
 }

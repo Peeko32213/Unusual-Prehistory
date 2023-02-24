@@ -63,6 +63,7 @@ import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class EntityBrachiosaurus extends Animal implements IAnimatable {
@@ -77,6 +78,8 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
     public final EntityBrachiosaurusPart[] allParts;
     private int ridingTime = 0;
     private int entityToLaunchId = -1;
+
+    private int shakeCooldown = 0;
     public EntityBrachiosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.maxUpStep = 2.0f;
@@ -361,7 +364,17 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                 headPeakCooldown = 5;
             }
         }
-
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && this.shakeCooldown <= 0){
+            List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(15, 8, 15));
+            for (LivingEntity e : list) {
+                if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                    e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, 0, false, false, false));
+                    this.playSound(UPSounds.BRACHI_STEP.get(), 4.0F, 0.40F);
+                }
+            }
+            shakeCooldown = 20;
+        }
+        shakeCooldown--;
     }
 
     private float getLaunchStrength() {
