@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.block;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
 import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityVelociraptor;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;

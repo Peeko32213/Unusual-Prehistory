@@ -1,11 +1,14 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.part.EntityBrachiosaurusPart;
+import com.peeko32213.unusualprehistory.common.entity.trail.EntityTrail;
 import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.CustomRideGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
-import com.peeko32213.unusualprehistory.core.registry.*;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
+import com.peeko32213.unusualprehistory.core.registry.UPParticles;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -13,11 +16,9 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -26,31 +27,31 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
-import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -59,7 +60,6 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -70,6 +70,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
     private static final EntityDataAccessor<Boolean> LAUNCHING = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Float> HEAD_HEIGHT = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.BOOLEAN);
+    public static final Logger LOGGER = LogManager.getLogger();
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public float prevHeadHeight = 0F;
     private int headPeakCooldown = 0;
@@ -80,6 +81,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
     private int entityToLaunchId = -1;
 
     private int shakeCooldown = 0;
+    private int footPrintCooldown = 0;
     public EntityBrachiosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.maxUpStep = 2.0f;
@@ -364,17 +366,35 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                 headPeakCooldown = 5;
             }
         }
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && this.shakeCooldown <= 0){
-            List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(15, 8, 15));
-            for (LivingEntity e : list) {
-                if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
-                    e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, 0, false, false, false));
-                    this.playSound(UPSounds.BRACHI_STEP.get(), 4.0F, 0.40F);
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6){
+            if(this.shakeCooldown <= 0) {
+                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(15, 8, 15));
+                for (LivingEntity e : list) {
+                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, 0, false, false, false));
+                        this.playSound(UPSounds.BRACHI_STEP.get(), 4.0F, 0.40F);
+                    }
                 }
+                shakeCooldown = 20;
             }
-            shakeCooldown = 20;
+
+            if(this.footPrintCooldown <= 0) {
+                float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+                float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+                LOGGER.info("angle" + this.getLookAngle().x);
+                EntityTrail entityTrail = new EntityTrail(this, this.position().add(1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x, 1.0F);
+                EntityTrail entityTrail2 = new EntityTrail(this, this.position().add(1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
+                EntityTrail entityTrail3 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
+                EntityTrail entityTrail4 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
+                this.level.addFreshEntity(entityTrail);
+                this.level.addFreshEntity(entityTrail2);
+                this.level.addFreshEntity(entityTrail3);
+                this.level.addFreshEntity(entityTrail4);
+                footPrintCooldown = 100;
+            }
         }
         shakeCooldown--;
+        footPrintCooldown--;
     }
 
     private float getLaunchStrength() {

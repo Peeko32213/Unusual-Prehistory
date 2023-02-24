@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.entity.util.ranged;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;

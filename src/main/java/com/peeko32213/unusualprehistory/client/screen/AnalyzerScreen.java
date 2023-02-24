@@ -5,7 +5,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;

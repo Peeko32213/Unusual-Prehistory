@@ -3,11 +3,8 @@ package com.peeko32213.unusualprehistory.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.client.model.MajungasaurusModel;
 import com.peeko32213.unusualprehistory.client.model.TriceratopsModel;
-import com.peeko32213.unusualprehistory.client.render.layer.BeelzebufoSaddleLayer;
 import com.peeko32213.unusualprehistory.client.render.layer.TriceratopsSaddleLayer;
-import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityTriceratops;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityAmmonite;
-import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,7 +17,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FrogspawnBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;

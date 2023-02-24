@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.block.BlockCultivator;
 import com.peeko32213.unusualprehistory.common.networking.UPMessages;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
@@ -15,7 +14,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
@@ -32,19 +30,16 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.logging.log4j.core.jmx.Server;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
-import java.util.Random;
 
 import static com.peeko32213.unusualprehistory.common.block.BlockCultivator.HALF;
 

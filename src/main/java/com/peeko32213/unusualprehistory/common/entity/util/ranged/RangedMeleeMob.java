@@ -5,18 +5,12 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.NetworkHooks;
 
-import java.util.Random;
 import java.util.UUID;
 
 public class RangedMeleeMob extends PathfinderMob implements NeutralMob {

@@ -1,9 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.util.AnuroPolinateGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -22,18 +20,10 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Fox;
-import net.minecraft.world.entity.boss.wither.WitherBoss;
-import net.minecraft.world.entity.monster.AbstractIllager;
-import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -43,10 +33,9 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 public class EntityVelociraptor extends Animal implements IAnimatable {
     private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.BOOLEAN);
 

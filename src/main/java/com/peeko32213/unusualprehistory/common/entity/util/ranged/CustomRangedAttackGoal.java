@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.ranged;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;

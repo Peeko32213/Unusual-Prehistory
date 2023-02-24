@@ -3,10 +3,6 @@ package com.peeko32213.unusualprehistory.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -14,12 +10,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -28,7 +23,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class AnalyzerRecipe implements Recipe<SimpleContainer> {

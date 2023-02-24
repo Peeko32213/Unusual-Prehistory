@@ -1,14 +1,8 @@
 package com.peeko32213.unusualprehistory.common.effect;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.phys.Vec3;
 
 public class EffectBrachisProtection extends MobEffect {
 

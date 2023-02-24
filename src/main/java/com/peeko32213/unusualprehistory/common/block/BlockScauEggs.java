@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.block;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityAmmonite;
 import com.peeko32213.unusualprehistory.common.entity.EntityScaumenacia;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;

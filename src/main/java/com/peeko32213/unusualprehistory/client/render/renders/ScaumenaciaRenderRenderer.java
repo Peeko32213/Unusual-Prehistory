@@ -1,9 +1,7 @@
 package com.peeko32213.unusualprehistory.client.render.renders;
 
 
-
 import com.peeko32213.unusualprehistory.client.model.render.ScaumenaciaRenderModel;
-import com.peeko32213.unusualprehistory.client.model.render.StethaRenderModel;
 import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

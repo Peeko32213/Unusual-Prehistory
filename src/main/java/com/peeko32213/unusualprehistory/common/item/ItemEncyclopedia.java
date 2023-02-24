@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.item;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

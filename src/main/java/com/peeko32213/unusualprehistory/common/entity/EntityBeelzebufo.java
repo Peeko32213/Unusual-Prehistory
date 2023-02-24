@@ -43,8 +43,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
-import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 

@@ -7,7 +7,6 @@ import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyBrachi;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyRex;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBeelzebufoTadpole;
-import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.tags.TagKey;

@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -24,9 +23,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;

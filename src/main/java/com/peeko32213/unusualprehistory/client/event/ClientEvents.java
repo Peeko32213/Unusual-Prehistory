@@ -6,12 +6,12 @@ import com.peeko32213.unusualprehistory.client.render.*;
 import com.peeko32213.unusualprehistory.client.render.armor.MajungaHelmetRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.renders.*;
+import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
+import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.core.registry.*;
-import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
-import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -26,8 +26,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import software.bernie.example.client.renderer.armor.GeckoArmorRenderer;
-import software.bernie.example.item.GeckoArmorItem;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -120,6 +118,8 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.REX_RENDER.get(), RexRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.ENCRUSTED_RENDER.get(), EncrustedRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.ERYON_RENDER.get(), EryonRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.ENTITY_TRAIL.get(), EntityTrailRenderer::new);
+
 
         event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
@@ -171,5 +171,4 @@ public final class ClientEvents {
             event.getCamera().move(rng.nextFloat() * 0.1F * intensity, rng.nextFloat() * 0.2F * intensity, rng.nextFloat() * 0.4F * intensity);
         }
     }
-
 }

@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.render.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -11,12 +10,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
-import org.apache.commons.lang3.ArrayUtils;
 
 public class CultivatorBlockEntityRenderer implements BlockEntityRenderer<CultivatorBlockEntity> {
     public CultivatorBlockEntityRenderer(BlockEntityRendererProvider.Context context) {

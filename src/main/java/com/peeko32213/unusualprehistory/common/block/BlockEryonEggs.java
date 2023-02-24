@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.block;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityAmmonite;
 import com.peeko32213.unusualprehistory.common.entity.EntityEryon;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
@@ -21,8 +20,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.CollisionContext;

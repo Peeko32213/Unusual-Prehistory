@@ -3,13 +3,10 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.lang.reflect.Field;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UPSounds {

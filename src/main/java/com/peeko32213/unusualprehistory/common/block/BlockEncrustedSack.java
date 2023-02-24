@@ -16,7 +16,6 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ambient.Bat;
-import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +23,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -36,7 +34,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class BlockEncrustedSack extends Block  {
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;

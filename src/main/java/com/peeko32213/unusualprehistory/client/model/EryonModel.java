@@ -1,15 +1,10 @@
 package com.peeko32213.unusualprehistory.client.model;
 
 
-import com.google.common.collect.Maps;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
 import com.peeko32213.unusualprehistory.common.entity.EntityEryon;
-import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
-
-import java.util.Map;
 
 public class EryonModel extends AnimatedGeoModel<EntityEryon> {
     private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/eryon.png");

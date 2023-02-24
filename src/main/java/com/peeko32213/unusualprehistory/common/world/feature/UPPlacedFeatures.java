@@ -10,18 +10,13 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.SpruceFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.*;
 
