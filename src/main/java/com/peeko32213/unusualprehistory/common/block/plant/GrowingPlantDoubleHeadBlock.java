@@ -8,7 +8,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class GrowingPlantDoubleHeadBlock extends GrowingPlantHeadBlock {
@@ -37,7 +36,6 @@ public abstract class GrowingPlantDoubleHeadBlock extends GrowingPlantHeadBlock 
         }
         if (serverLevel.getBlockState(blockpos).is(UPBlocks.QUEREUXIA_TOP.get())) {
             serverLevel.setBlockAndUpdate(blockpos.below(), UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
-            serverLevel.setBlockAndUpdate(blockpos.below(), UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
         }
     }
 
@@ -56,7 +54,6 @@ public abstract class GrowingPlantDoubleHeadBlock extends GrowingPlantHeadBlock 
             if (serverLevel.getBlockState(blockpos.above()).is(Blocks.AIR) || serverLevel.getBlockState(blockpos.above()).is(UPBlocks.QUEREUXIA_TOP.get())) {
                 serverLevel.setBlockAndUpdate(blockpos, UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
                 serverLevel.setBlockAndUpdate(blockpos.above(), UPBlocks.QUEREUXIA_TOP.get().defaultBlockState());
-                serverLevel.setBlockAndUpdate(blockpos, UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
                 serverLevel.scheduleTick(blockpos, this, 1);
                 return;
             }
