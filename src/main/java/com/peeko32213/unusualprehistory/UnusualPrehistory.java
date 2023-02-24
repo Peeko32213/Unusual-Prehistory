@@ -4,10 +4,8 @@ import com.peeko32213.unusualprehistory.common.networking.UPMessages;
 import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.MinecraftForge;
@@ -17,15 +15,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(UnusualPrehistory.MODID)
@@ -53,7 +47,6 @@ public class UnusualPrehistory {
         UPFeatureModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
         UPSounds.DEF_REG.register(modEventBus);
         UPEffects.EFFECT_DEF_REG.register(modEventBus);
-
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         eventBus.register(this);
 

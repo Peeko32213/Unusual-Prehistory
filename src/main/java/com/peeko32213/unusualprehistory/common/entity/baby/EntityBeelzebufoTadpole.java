@@ -40,10 +40,9 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 public class EntityBeelzebufoTadpole extends AbstractFish implements IAnimatable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityBeelzebufoTadpole.class, EntityDataSerializers.BOOLEAN);
     public static final int MAX_TADPOLE_AGE = Math.abs(-24000);

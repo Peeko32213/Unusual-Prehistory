@@ -3,9 +3,7 @@ package com.peeko32213.unusualprehistory.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.client.model.PachycephalosaurusModel;
 import com.peeko32213.unusualprehistory.client.model.VelociraptorModel;
-import com.peeko32213.unusualprehistory.common.entity.EntityPachycephalosaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityVelociraptor;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

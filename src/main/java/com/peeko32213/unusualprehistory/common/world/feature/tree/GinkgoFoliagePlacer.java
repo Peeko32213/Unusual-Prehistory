@@ -15,7 +15,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-import java.util.Random;
 import java.util.function.BiConsumer;
 
 public class GinkgoFoliagePlacer extends FoliagePlacer {

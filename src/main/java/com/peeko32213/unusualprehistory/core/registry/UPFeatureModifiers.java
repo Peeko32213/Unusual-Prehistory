@@ -9,9 +9,8 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import java.util.function.Supplier;
 
-import static net.minecraft.core.Registry.PLACEMENT_MODIFIERS;
+import java.util.function.Supplier;
 
 public class UPFeatureModifiers {
 

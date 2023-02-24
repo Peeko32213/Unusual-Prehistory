@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.item.tool;
 
 import com.peeko32213.unusualprehistory.client.render.tool.TrikeShieldRenderer;
-import com.peeko32213.unusualprehistory.client.render.tool.VelociShieldRenderer;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.InteractionHand;
@@ -13,7 +12,6 @@ import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;

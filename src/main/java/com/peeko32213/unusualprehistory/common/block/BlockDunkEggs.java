@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.block;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;

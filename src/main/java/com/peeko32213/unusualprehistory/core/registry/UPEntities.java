@@ -8,9 +8,9 @@ import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyBrachi;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyRex;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBeelzebufoTadpole;
-import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.projectile.EntityAmberShot;
 import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
+import com.peeko32213.unusualprehistory.common.entity.trail.EntityTrail;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -167,6 +167,14 @@ public class UPEntities {
     public static final RegistryObject<EntityType<BaseEntityRender>> ERYON_RENDER = ENTITIES.register("eryon_render",
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "eryon_render").toString()));
+
+    public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
+            () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
+                    .fireImmune().noSave().sized(3, 3)
+                    .clientTrackingRange(4)
+                    .updateInterval(5)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "entity_trail").toString()));
+
 
 
     private static final EntityType registerEntity(EntityType.Builder builder, String entityName) {

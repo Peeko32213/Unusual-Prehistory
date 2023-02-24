@@ -4,7 +4,6 @@ package com.peeko32213.unusualprehistory.client.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.TyrannosaurusRexModel;
-import com.peeko32213.unusualprehistory.client.render.layer.TriceratopsSaddleLayer;
 import com.peeko32213.unusualprehistory.client.render.layer.TyrannosaurusRexEepyLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import net.minecraft.client.renderer.MultiBufferSource;

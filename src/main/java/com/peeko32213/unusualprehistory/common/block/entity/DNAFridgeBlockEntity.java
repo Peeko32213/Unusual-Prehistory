@@ -31,8 +31,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
 import java.util.stream.IntStream;
+
 import static com.peeko32213.unusualprehistory.common.block.BlockDNAFridge.OPEN;
 
 public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {

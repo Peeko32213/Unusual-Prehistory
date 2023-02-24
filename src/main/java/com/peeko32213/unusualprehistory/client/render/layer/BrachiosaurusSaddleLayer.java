@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.client.render.layer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
-import com.peeko32213.unusualprehistory.common.entity.EntityTriceratops;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;

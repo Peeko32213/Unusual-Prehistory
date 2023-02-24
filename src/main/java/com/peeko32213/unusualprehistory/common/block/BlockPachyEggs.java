@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.block;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityPachycephalosaurus;
-import com.peeko32213.unusualprehistory.common.entity.EntityVelociraptor;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
