@@ -4,10 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
-import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyBrachi;
-import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
-import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyRex;
-import com.peeko32213.unusualprehistory.common.entity.baby.EntityBeelzebufoTadpole;
+import com.peeko32213.unusualprehistory.common.entity.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.projectile.EntityAmberShot;
 import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
 import com.peeko32213.unusualprehistory.common.entity.trail.EntityTrail;
@@ -75,8 +72,12 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityPachycephalosaurus::new, MobCategory.CREATURE).sized(1.8F, 2.1F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "pachy").toString()));
 
+    public static final RegistryObject<EntityType<EntityBrachiosaurusTeen>> BRACHI_TEEN = ENTITIES.register("brachi_teen",
+            () -> EntityType.Builder.of(EntityBrachiosaurusTeen::new, MobCategory.CREATURE).sized(5.2F, 5.4F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi").toString()));
+
     public static final RegistryObject<EntityType<EntityBrachiosaurus>> BRACHI = ENTITIES.register("brachi",
-            () -> EntityType.Builder.of(EntityBrachiosaurus::new, MobCategory.CREATURE).sized(5.2F, 5.4F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
+            () -> EntityType.Builder.of(EntityBrachiosaurus::new, MobCategory.CREATURE).sized(7.2F, 8.4F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi").toString()));
 
     public static final RegistryObject<EntityType<EntityVelociraptor>> VELOCI = ENTITIES.register("veloci",
@@ -170,7 +171,7 @@ public class UPEntities {
 
     public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
             () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
-                    .fireImmune().noSave().sized(3, 3)
+                    .fireImmune().noSave().sized(1, 1)
                     .clientTrackingRange(4)
                     .updateInterval(5)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "entity_trail").toString()));

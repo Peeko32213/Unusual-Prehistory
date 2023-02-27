@@ -71,6 +71,11 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 2,
+          "name": "unusualprehistory:quereuxia_flask"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 1,
           "name": "unusualprehistory:ginkgo_flask"
         },

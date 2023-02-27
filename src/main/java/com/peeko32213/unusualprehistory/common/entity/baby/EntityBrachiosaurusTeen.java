@@ -1,24 +1,27 @@
-package com.peeko32213.unusualprehistory.common.entity;
+package com.peeko32213.unusualprehistory.common.entity.baby;
 
-import com.peeko32213.unusualprehistory.common.entity.part.EntityBrachiosaurusPart;
+import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
+import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
+import com.peeko32213.unusualprehistory.common.entity.part.EntityBrachiosaurusTeenPart;
 import com.peeko32213.unusualprehistory.common.entity.trail.EntityTrail;
 import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.HitboxHelper;
-import com.peeko32213.unusualprehistory.core.registry.UPEffects;
-import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -41,7 +44,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
@@ -67,32 +69,32 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class EntityBrachiosaurus extends Animal implements IAnimatable {
-    private static final EntityDataAccessor<Boolean> LAUNCHING = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Float> HEAD_HEIGHT = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.INT);
-
-    public static final Logger LOGGER = LogManager.getLogger();
+public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
+    public static final Ingredient FOOD_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
+    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityBrachiosaurusTeen.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityBrachiosaurusTeen.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityBrachiosaurusTeen.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> HEAD_HEIGHT = SynchedEntityData.defineId(EntityBrachiosaurusTeen.class, EntityDataSerializers.FLOAT);
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    public static final Logger LOGGER = LogManager.getLogger();
+
     public float prevHeadHeight = 0F;
     private int headPeakCooldown = 0;
-    public final EntityBrachiosaurusPart neck;
-    public final EntityBrachiosaurusPart[] theEntireNeck;
-    public final EntityBrachiosaurusPart[] allParts;
-    private int ridingTime = 0;
-    private int entityToLaunchId = -1;
+    public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
+    private int age;
 
     private int shakeCooldown = 0;
     private int footPrintCooldown = 0;
-    public EntityBrachiosaurus(EntityType<? extends Animal> entityType, Level level) {
+
+    public final EntityBrachiosaurusTeenPart neck;
+    public final EntityBrachiosaurusTeenPart[] theEntireNeck;
+    public final EntityBrachiosaurusTeenPart[] allParts;
+    public EntityBrachiosaurusTeen(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.maxUpStep = 2.0f;
-        this.neck = new EntityBrachiosaurusPart(this, 3,9.3F);
-        this.theEntireNeck = new EntityBrachiosaurusPart[]{this.neck};
-        this.allParts = new EntityBrachiosaurusPart[]{this.neck};
+        this.neck = new EntityBrachiosaurusTeenPart(this, 3,5.3F);
+        this.theEntireNeck = new EntityBrachiosaurusTeenPart[]{this.neck};
+        this.allParts = new EntityBrachiosaurusTeenPart[]{this.neck};
     }
 
     public PathNavigation createNavigation(Level world) {
@@ -101,28 +103,17 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 400.0D)
+                .add(Attributes.MAX_HEALTH, 200.0D)
                 .add(Attributes.ARMOR, 15.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 20.0D)
+                .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10.5D)
-                .add(Attributes.ATTACK_KNOCKBACK, 2.0D);
+                .add(Attributes.ATTACK_KNOCKBACK, 1.0D);
     }
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new EntityBrachiosaurus.BrachiMeleeAttackGoal(this,  1.3F, true));
-        this.goalSelector.addGoal(3, new CustomRideGoal(this, 1.2D, false) {
-            @Override
-            public boolean shouldMoveForward() {
-                return true;
-            }
-
-            @Override
-            public boolean shouldMoveBackwards() {
-                return false;
-            }
-        });
+        this.goalSelector.addGoal(1, new EntityBrachiosaurusTeen.BrachiMeleeAttackGoal(this,  1.3F, true));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, Ingredient.of(Items.MELON), false));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
@@ -140,29 +131,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         return true;
     }
 
-
-    @Nullable
-    public Entity getControllingPassenger() {
-        if (this.isSaddled()) {
-            for (Entity passenger : this.getPassengers()) {
-                if (passenger instanceof Player) {
-                    Player player = (Player) passenger;
-                    return player;
-                }
-            }
-        }
-        return null;
-    }
-    public void positionRider(Entity passenger) {
-        float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));
-        float yCos = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));
-        passenger.setPos(this.getX() + (double)(-1.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 0.1F, this.getZ() - (double)(-1.5F * yCos));
-    }
-
-    public double getPassengersRidingOffset() {
-        return 15.3D;
-    }
-
     public boolean canBeCollidedWith() {
         return true;
     }
@@ -175,77 +143,85 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
     }
 
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
-        if (item == Items.SADDLE && !this.isSaddled() && !this.isBaby()) {
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
-            }
-            this.setSaddled(true);
-            return InteractionResult.SUCCESS;
-        } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
-            this.setSaddled(false);
-            this.spawnAtLocation(Items.SADDLE);
-            return InteractionResult.SUCCESS;
+    public InteractionResult mobInteract(Player p_218703_, InteractionHand p_218704_) {
+        ItemStack itemstack = p_218703_.getItemInHand(p_218704_);
+        if (this.isFood(itemstack)) {
+            this.eatFood(p_218703_, itemstack);
         }
-        InteractionResult type = super.mobInteract(player, hand);
-        if (type != InteractionResult.SUCCESS && !isFood(itemstack) && isSaddled()) {
-            if (!player.isShiftKeyDown()) {
-                player.startRiding(this);
-                return InteractionResult.SUCCESS;
-            }
+        return InteractionResult.sidedSuccess(this.level.isClientSide);
+    }
+
+    public boolean isFood(ItemStack stack) {
+        return EntityBrachiosaurusTeen.FOOD_ITEMS.test(stack);
+    }
+
+    private void decrementItem(Player player, ItemStack stack) {
+        if (!player.getAbilities().instabuild) {
+            stack.shrink(1);
         }
-        return type;
+    }
+
+    private void increaseAge(int seconds) {
+        this.setAge(this.age + seconds * 20);
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+        if (this.age >= MAX_TADPOLE_AGE) this.growUp();
+    }
+
+    private void growUp() {
+        if (this.level instanceof ServerLevel server) {
+            EntityBrachiosaurus frog = UPEntities.BRACHI.get().create(this.level);
+            if (frog == null) return;
+
+            frog.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+            frog.finalizeSpawn(server, this.level.getCurrentDifficultyAt(frog.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            frog.setNoAi(this.isNoAi());
+            if (this.hasCustomName()) {
+                frog.setCustomName(this.getCustomName());
+                frog.setCustomNameVisible(this.isCustomNameVisible());
+            }
+
+            frog.setPersistenceRequired();
+            this.playSound(SoundEvents.PLAYER_LEVELUP, 0.15F, 1.0F);
+            server.addFreshEntityWithPassengers(frog);
+            this.discard();
+        }
+    }
+
+    public void checkDespawn() {
+        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
+    }
+
+    private int getTicksUntilGrowth() {
+        return Math.max(0, MAX_TADPOLE_AGE - this.age);
+    }
+
+    @Override
+    public boolean shouldDropExperience() {
+        return false;
+    }
+
+
+    private void eatFood(Player player, ItemStack stack) {
+        this.decrementItem(player, stack);
+        this.increaseAge((int)((float)(this.getTicksUntilGrowth() / 20) * 0.1F));
+        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(HEAD_HEIGHT, 0F);
-        this.getEntityData().define(SADDLED, false);
-        this.entityData.define(LAUNCHING, Boolean.valueOf(false));
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
 
-    }
-
-    public void addAdditionalSaveData(CompoundTag p_31808_) {
-        super.addAdditionalSaveData(p_31808_);
-        p_31808_.putBoolean("Saddle", this.isSaddled());
-    }
-
-    public void readAdditionalSaveData(CompoundTag p_31795_) {
-        super.readAdditionalSaveData(p_31795_);
-        this.setSaddled(p_31795_.getBoolean("Saddle"));
-    }
-
-    public boolean isLaunching() {
-        return this.entityData.get(LAUNCHING).booleanValue();
-    }
-
-    public void setLaunching(boolean charging) {
-        this.entityData.set(LAUNCHING, Boolean.valueOf(charging));
-    }
-
-
-    public boolean isSaddled() {
-        return this.entityData.get(SADDLED).booleanValue();
-    }
-
-    public void setSaddled(boolean saddled) {
-        this.entityData.set(SADDLED, Boolean.valueOf(saddled));
-    }
-
-    protected void dropEquipment() {
-        super.dropEquipment();
-        if (this.isSaddled()) {
-            if (!this.level.isClientSide) {
-                this.spawnAtLocation(Items.SADDLE);
-            }
-        }
-        this.setSaddled(false);
     }
 
     public int getMaxHeadXRot() {
@@ -303,67 +279,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                 this.allParts[l].zOld = avector3d[l].z;
             }
         }
-        if (entityToLaunchId != -1 && this.isAlive()) {
-            Entity launch = this.level.getEntity(entityToLaunchId);
-            this.ejectPassengers();
-            entityToLaunchId = -1;
-            if (launch != null && !launch.isPassenger()) {
-                if (launch instanceof LivingEntity) {
-                    this.playSound(UPSounds.BRACHI_TOSS.get(), 0.5F, 0.5F);
-                    launch.setPos(this.getEyePosition().add(0, 1, 0));
-                    float rot = 180F + this.getYRot();
-                    float strength = (float) (getLaunchStrength() * (1.0D - ((LivingEntity) launch).getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)));
-                    float x = Mth.sin(rot * ((float) Math.PI / 180F));
-                    float z = -Mth.cos(rot * ((float) Math.PI / 180F));
-                    if (!(strength <= 0.0D)) {
-                        launch.hasImpulse = true;
-                        Vec3 vec3 = this.getDeltaMovement();
-                        Vec3 vec31 = vec3.add((new Vec3(x, 0.0D, z)).normalize().scale(strength));
-                        launch.setDeltaMovement(vec31.x, strength, vec31.z);
-                    }
-                }
-            }
-        }
-        if (this.isLaunching()) {
-            Entity passenger = this.getControllingPassenger();
-            if (passenger instanceof LivingEntity) {
-                entityToLaunchId = passenger.getId();
-                this.setLaunching(false);
-                for (Entity rider : this.getPassengers()) {
-                    if (rider instanceof Player) {
-                        Player player = (Player) rider;
-                        player.addEffect(new MobEffectInstance(UPEffects.BRACHI_PROTECTION.get(), 200));
-                    }
-                }
-            }
-        }
-        if (!level.isClientSide) {
-            if (this.isVehicle()) {
-                ridingTime++;
-                if (ridingTime >= this.getMaxRidingTime()) {
-                    this.setLaunching(true);
-                    this.isLaunching();
-                }
-            } else {
-                ridingTime = 0;
-                this.setLaunching(false);
-            }
-            if (this.isAlive() && ridingTime > 0 && this.getDeltaMovement().horizontalDistanceSqr() > 0.1D && this.isLaunching()) {
-                for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0D))) {
-                    if (!(entity instanceof EntityBrachiosaurus) && !entity.isPassengerOfSameVehicle(this)) {
-                        entity.hurt(DamageSource.mobAttack(this), 4F + random.nextFloat() * 3.0F);
-                        if (entity.isOnGround()) {
-                            double d0 = entity.getX() - this.getX();
-                            double d1 = entity.getZ() - this.getZ();
-                            double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
-                            float f = 0.5F;
-                            entity.push(d0 / d2 * f, f, d1 / d2 * f);
-                        }
-                    }
-                }
-                maxUpStep = 2;
-            }
-        }
         if ( headPeakCooldown == 0) {
             float low = getLowHeadHeight();
             this.setHeadHeight(this.getHeadHeight() + (0.5F + ((getLowHeadHeight() + getHighHeadHeight(low)) / 2F) - this.getHeadHeight()) * 0.2F);
@@ -403,14 +318,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         }
         shakeCooldown--;
         footPrintCooldown--;
-    }
-
-    private float getLaunchStrength() {
-        return 5.0F;
-    }
-
-    private int getMaxRidingTime() {
-        return 40;
     }
 
     private double getMaxFluidHeight() {
@@ -471,7 +378,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         return Mth.clamp(Mth.wrapDegrees(f), -50, 50);
     }
 
-    private void setPartPosition(EntityBrachiosaurusPart part, double offsetX, double offsetY, double offsetZ) {
+    private void setPartPosition(EntityBrachiosaurusTeenPart part, double offsetX, double offsetY, double offsetZ) {
         part.setPos(this.getX() + offsetX * part.scale, this.getY() + offsetY * part.scale, this.getZ() + offsetZ * part.scale);
     }
 
@@ -479,7 +386,15 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         return blockstate.getBlock() == Blocks.BAMBOO || blockstate.is(BlockTags.LEAVES);
     }
 
+    public void addAdditionalSaveData(CompoundTag p_218709_) {
+        super.addAdditionalSaveData(p_218709_);
+        p_218709_.putInt("Age", this.age);
+    }
 
+    public void readAdditionalSaveData(CompoundTag p_218698_) {
+        super.readAdditionalSaveData(p_218698_);
+        this.setAge(p_218698_.getInt("Age"));
+    }
 
     @Override
     public boolean isMultipartEntity() {
@@ -491,12 +406,12 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         return this.allParts;
     }
 
-    public boolean attackEntityPartFrom(EntityBrachiosaurusPart part, DamageSource source, float amount) {
+    public boolean attackEntityPartFrom(EntityBrachiosaurusTeenPart part, DamageSource source, float amount) {
         return this.hurt(source, amount);
     }
 
     public void scaleParts() {
-        for (EntityBrachiosaurusPart parts : allParts) {
+        for (EntityBrachiosaurusTeenPart parts : allParts) {
             float prev = parts.scale;
             parts.scale = this.isBaby() ? 0.5F : 1F;
             if (prev != parts.scale) {
@@ -508,6 +423,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
     public void aiStep() {
         super.aiStep();
         scaleParts();
+        if (!this.level.isClientSide) this.setAge(this.age + 1);
 
         if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
             boolean flag = false;
@@ -531,13 +447,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         }
     }
 
-
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
-    }
 
 
     public int getAnimationState() {
@@ -572,7 +481,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
     static class BrachiMeleeAttackGoal extends Goal {
 
-        protected final EntityBrachiosaurus mob;
+        protected final EntityBrachiosaurusTeen mob;
         private final double speedModifier;
         private final boolean followingTargetEvenIfNotSeen;
         private Path path;
@@ -587,7 +496,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         private int animTime = 0;
 
 
-        public BrachiMeleeAttackGoal(EntityBrachiosaurus p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
+        public BrachiMeleeAttackGoal(EntityBrachiosaurusTeen p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
             this.speedModifier = p_i1636_2_;
             this.followingTargetEvenIfNotSeen = p_i1636_4_;
@@ -765,7 +674,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             if (this.mob.shakeCooldown <= 0) {
                 List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(15, 8, 15));
                 for (LivingEntity e : list) {
@@ -800,6 +709,17 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         }
     }
 
+
+
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+        return null;
+    }
+
+
+
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         int animState = this.getAnimationState();
         {
@@ -809,10 +729,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.brachiosaurus.attack"));
                     break;
                 default:
-                    if (this.isLaunching()) {
-                        event.getController().setAnimation(new AnimationBuilder().playOnce("animation.brachiosaurus.launch"));
-                        event.getController().setAnimationSpeed(1.0F);
-                    }
                     if(event.isMoving()){
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.walk"));
                         event.getController().setAnimationSpeed(1.5D);
@@ -830,7 +746,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(5);
-        AnimationController<EntityBrachiosaurus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        AnimationController<EntityBrachiosaurusTeen> controller = new AnimationController<>(this, "controller", 5, this::predicate);
         data.addAnimationController(controller);
     }
 

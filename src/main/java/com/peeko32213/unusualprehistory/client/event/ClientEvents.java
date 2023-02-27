@@ -9,9 +9,10 @@ import com.peeko32213.unusualprehistory.client.render.renders.*;
 import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
-import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.core.registry.*;
+import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
+import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -26,6 +27,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import software.bernie.example.client.renderer.armor.GeckoArmorRenderer;
+import software.bernie.example.item.GeckoArmorItem;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -94,6 +97,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.TRIKE.get(), TriceratopsRenderer::new);
         event.registerEntityRenderer(UPEntities.PACHY.get(), PachycephalosaurusRenderer::new);
         event.registerEntityRenderer(UPEntities.BRACHI.get(), BrachiosaurusRenderer::new);
+        event.registerEntityRenderer(UPEntities.BRACHI_TEEN.get(), BrachiosaurusTeenRenderer::new);
         event.registerEntityRenderer(UPEntities.VELOCI.get(), VelociraptorRenderer::new);
         event.registerEntityRenderer(UPEntities.REX.get(), TyrannosaurusRexRenderer::new);
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), EncrustedRenderer::new);
@@ -117,9 +121,8 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.RAPTOR_RENDER.get(), RaptorRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.REX_RENDER.get(), RexRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.ENCRUSTED_RENDER.get(), EncrustedRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.ERYON_RENDER.get(), EryonRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.ENTITY_TRAIL.get(), EntityTrailRenderer::new);
-
+        event.registerEntityRenderer(UPEntities.ERYON_RENDER.get(), EryonRenderRenderer::new);
 
         event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
@@ -160,7 +163,6 @@ public final class ClientEvents {
         GeoArmorRenderer.registerArmorRenderer(ItemMajungaHelmet.class, () -> new MajungaHelmetRenderer());
     }
 
-
     @SubscribeEvent
     public void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
         if (Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()) != null && !Minecraft.getInstance().isPaused()) {
@@ -168,7 +170,8 @@ public final class ClientEvents {
             float f = (Math.min(10, duration) + Minecraft.getInstance().getFrameTime()) * 0.1F;
             double intensity = f * Minecraft.getInstance().options.screenEffectScale().get();
             RandomSource rng = Minecraft.getInstance().player.getRandom();
-            event.getCamera().move(rng.nextFloat() * 0.1F * intensity, rng.nextFloat() * 0.2F * intensity, rng.nextFloat() * 0.4F * intensity);
+            event.getCamera().move(rng.nextFloat() * 0.1F * intensity, rng.nextFloat() * 0.1F * intensity, rng.nextFloat() * 0.2F * intensity);
         }
     }
+
 }

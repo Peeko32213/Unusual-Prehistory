@@ -6,10 +6,10 @@
 			"bones": {
 				"Arm1": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * 0.7", 0]
+						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * + 0.7", 0]
 					},
 					"position": {
-						"vector": ["Ma0", "Math.cos((query.anim_time - 0.0) * 360) * 0.7", "Math.cos((query.anim_time - 0.8) * 360) * 1.9"]
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 360) *  0.1", "Math.cos((query.anim_time - 0.8) * 360) *  1.9"]
 					}
 				},
 				"Leg1": {
@@ -17,7 +17,7 @@
 						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * 0.7", 0]
 					},
 					"position": {
-						"vector": ["Ma0", "Math.cos((query.anim_time - 0.0) * 360) * -2", "Math.cos((query.anim_time - 0.8) * 360) * -3"]
+						"vector": ["Ma0", "Math.cos((query.anim_time - 0.0) * 360) * -1.5", "Math.cos((query.anim_time - 0.8) * 360) * -3"]
 					}
 				},
 				"Leg2": {
@@ -25,15 +25,15 @@
 						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * 0.7", 0]
 					},
 					"position": {
-						"vector": [0, "Math.cos((query.anim_time - 0.0) * 360) * 2", "Math.cos((query.anim_time - 0.8) * 360) * 3"]
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 360) * 1.5", "Math.cos((query.anim_time - 0.8) * 360) * 3"]
 					}
 				},
 				"Arm2": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * 0.7", 0]
+						"vector": [0, "Math.cos((query.anim_time - 0.01) * 360) * -0.7", 0]
 					},
 					"position": {
-						"vector": ["Ma0", "Math.cos((query.anim_time - 0.0) * 360) * -0.7", "Math.cos((query.anim_time - 0.8) * 360) * -1.9"]
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 360) * - 0.1", "Math.cos((query.anim_time - 0.8) * 360) * - 1.9"]
 					}
 				},
 				"Body": {
@@ -43,7 +43,7 @@
 					"position": {
 						"vector": [
 							"Math.sin((query.anim_time - 0.1) * 360) * -0.2",
-							"Math.cos((query.anim_time - 0.1) * 360) * -0.2",
+							"Math.cos((query.anim_time - 0.1) * 360) * +1.8",
 							"Math.cos((query.anim_time - 0.1) * 360) * -0.2"
 						]
 					}
@@ -85,7 +85,7 @@
 				},
 				"Body": {
 					"position": {
-						"vector": [0, "Math.cos((query.anim_time - 0.1) * 180) * -0.3", "Math.cos((query.anim_time - 0.1) * 180) * -0.3"]
+						"vector": [0, "Math.cos((query.anim_time - 0.1) * 180) * -0.3", 0]
 					}
 				},
 				"Eye1": {

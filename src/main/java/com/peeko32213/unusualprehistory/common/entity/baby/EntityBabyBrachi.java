@@ -145,7 +145,7 @@ public class EntityBabyBrachi extends PathfinderMob implements IAnimatable {
 
     private void growUp() {
         if (this.level instanceof ServerLevel server) {
-            EntityBrachiosaurus frog = UPEntities.BRACHI.get().create(this.level);
+            EntityBrachiosaurusTeen frog = UPEntities.BRACHI_TEEN.get().create(this.level);
             if (frog == null) return;
 
             frog.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());

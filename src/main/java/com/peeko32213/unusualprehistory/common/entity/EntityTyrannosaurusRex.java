@@ -1,7 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.trail.EntityTrail;
 import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.HitboxHelper;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -56,6 +58,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.List;
+
 public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
@@ -67,7 +71,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
     public int timeUntilDrops = this.random.nextInt(12000) + 24000;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private int passiveFor = 0;
-
+    private int shakeCooldown = 0;
     private int stunnedTick;
 
     public EntityTyrannosaurusRex(EntityType<? extends Animal> entityType, Level level) {
@@ -134,6 +138,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         }
         return super.mobInteract(player, hand);
     }
+
 
     @Override
     public boolean canAttack(LivingEntity entity) {
@@ -559,8 +564,17 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.REX_STOMP_ATTACK.get(), 1.9F, 1.9F);
             HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            if (this.mob.shakeCooldown <= 0) {
+                List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(15, 8, 15));
+                for (LivingEntity e : list) {
+                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 0, false, false, false));
+                        this.mob.playSound(UPSounds.REX_STOMP_ATTACK.get(), 1.9F, 1.9F);
+                    }
+                }
+                this.mob.shakeCooldown = 10;
+            }
         }
 
 
@@ -604,7 +618,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source == DamageSource.FALL || source == DamageSource.MAGIC || source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || source == DamageSource.CACTUS || source.isProjectile() || source.isFire() || super.isInvulnerableTo(source);
+        return source == DamageSource.FALL || source == DamageSource.MAGIC || source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || source == DamageSource.CACTUS || source.isProjectile() || source.isFire();
     }
 
     @Override

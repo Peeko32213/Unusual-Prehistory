@@ -613,5 +613,47 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.pachy_kick"
+  },
+  "eryon_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:eryon_death_0"
+      },
+      {
+        "name": "unusualprehistory:eryon_death_1"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.eryon_death"
+  },
+  "eryon_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:eryon_hurt_0"
+      },
+      {
+        "name": "unusualprehistory:eryon_hurt_1"
+      },
+      {
+        "name": "unusualprehistory:eryon_hurt_2"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.eryon_hurt"
+  },
+  "eryon_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:eryon_idle_0"
+      },
+      {
+        "name": "unusualprehistory:eryon_idle_1"
+      },
+      {
+        "name": "unusualprehistory:eryon_idle_2"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.eryon_idle"
   }
 }

@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,12 +12,14 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -88,6 +91,18 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.ERYON_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.ERYON_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.ERYON_DEATH.get();
     }
 
     public static String getVariantName(int variant) {
@@ -254,6 +269,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
                     Vec3 face = vec.subtract(crab.position());
                     crab.setDeltaMovement(crab.getDeltaMovement().add(face.normalize().scale(0.1F)));
                     crab.setFeedingTime(crab.getFeedingTime() + 1);
+                    crab.playSound(SoundEvents.SAND_BREAK, crab.getSoundVolume(), crab.getVoicePitch());
                     if(crab.getFeedingTime() > maxFeedTime){
                         destinationBlock = null;
                         if(random.nextInt(1) == 0) {
@@ -318,6 +334,10 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     private static List<ItemStack> getDigLoot(EntityEryon crab) {
         LootTable loottable = crab.level.getServer().getLootTables().get(ERYON_REWARD);
         return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level)).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level.random).create(LootContextParamSets.PIGLIN_BARTER));
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {

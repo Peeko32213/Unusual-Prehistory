@@ -67,9 +67,10 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
                 .add(Attributes.MAX_HEALTH, 30D)
                 .add(Attributes.ARMOR, 0.0D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.19F)
+                .add(Attributes.MOVEMENT_SPEED, 0.1F)
                 .add(Attributes.JUMP_STRENGTH, 1.5);
     }
+
 
     protected void registerGoals() {
         super.registerGoals();
