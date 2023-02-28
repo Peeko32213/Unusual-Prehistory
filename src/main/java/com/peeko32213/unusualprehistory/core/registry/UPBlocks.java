@@ -2,10 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.*;
-import com.peeko32213.unusualprehistory.common.block.decorations.BlockAnuroFossil;
-import com.peeko32213.unusualprehistory.common.block.decorations.BlockCotyFossil;
-import com.peeko32213.unusualprehistory.common.block.decorations.BlockScauFossil;
-import com.peeko32213.unusualprehistory.common.block.decorations.BlockStethaFossil;
+import com.peeko32213.unusualprehistory.common.block.decorations.*;
 import com.peeko32213.unusualprehistory.common.block.plant.DoubleHeadBlock;
 import com.peeko32213.unusualprehistory.common.block.plant.DoubleHeadPlantBlock;
 import com.peeko32213.unusualprehistory.common.block.plant.WaterLilyUpdate;
@@ -220,6 +217,27 @@ public class UPBlocks {
     public static final RegistryObject<Block> SCAU_FOSSIL = registerBlock("scau_fossil",
             () -> new BlockScauFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> BEELZE_FOSSIL = registerBlock("beelze_fossil",
+            () -> new BlockBeelzeFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> BRACHI_FOSSIL = registerBlock("brachi_fossil",
+            () -> new BlockBrachiFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> DUNK_FOSSIL = registerBlock("dunk_fossil",
+            () -> new BlockDunkFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> MAJUNGA_FOSSIL = registerBlock("majunga_fossil",
+            () -> new BlockMajungaFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> PACHY_FOSSIL = registerBlock("pachy_fossil",
+            () -> new BlockPachyFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> VELOCI_FOSSIL = registerBlock("veloci_fossil",
+            () -> new BlockVelociFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> ERYON_FOSSIL = registerBlock("eryon_fossil",
+            () -> new BlockEryonFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
     public static final RegistryObject<Block> CLATHRODICTYON = registerBlock("clathrodictyon", () ->
             new BaseCoralPlantBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
 
@@ -237,6 +255,9 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> ARCHAEFRUCTUS = registerBlock("archaefructus", () ->
             new BlockArchaefructus(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+
+    public static final RegistryObject<Block> GINKGO_SIGN = BLOCKS.register("ginkgo_sign", () -> new BlockUPStandingSign(BlockBehaviour.Properties.of(Material.WOOD, GINKGO_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPSignTypes.GINKGO));
+    public static final RegistryObject<Block> GINKGO_WALL_SIGN = BLOCKS.register("ginkgo_wall_sign", () -> new BlockUPWallSign(BlockBehaviour.Properties.of(Material.WOOD, GINKGO_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPSignTypes.GINKGO));
 
     public static final Supplier<Block> NELUMBITES = create("nelumbites",
             () -> new WaterlilyBlock(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion()),

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "unusualprehistory:block/veloci_fossil",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "unusualprehistory:block/veloci_fossil"
+    },
+    "facing=south": {
+      "model": "unusualprehistory:block/veloci_fossil",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "unusualprehistory:block/veloci_fossil",
+      "y": 270
+    }
+  }
+}

@@ -153,6 +153,14 @@
   "block.unusualprehistory.stetha_fossil": "Stethacanthus Fossil",
   "block.unusualprehistory.anuro_fossil": "Anurognathus Fossil",
   "block.unusualprehistory.scau_fossil": "Scaumenacia Fossil",
+  "block.unusualprehistory.beelze_fossil": "Beelzebufo Fossil",
+  "block.unusualprehistory.brachi_fossil": "Brachiosaurus Fossil",
+  "block.unusualprehistory.dunk_fossil": "Dunkleosteus Fossil",
+  "block.unusualprehistory.majunga_fossil": "Majungasaurus Fossil",
+  "block.unusualprehistory.pachy_fossil": "Pachycephalosaurus Fossil",
+  "block.unusualprehistory.veloci_fossil": "Velociraptor Fossil",
+  "block.unusualprehistory.eryon_fossil": "Eryon Fossil",
+
   "block.unusualprehistory.clathrodictyon": "Clathrodictyon Coral",
   "block.unusualprehistory.clathrodictyon_block": "Clathrodictyon Coral Block",
   "block.unusualprehistory.anostylostroma_block": "Anostylostroma Coral Block",
@@ -230,6 +238,7 @@
   "block.unusualprehistory.ginkgo_trapdoor": "Ginkgo Trapdoor",
   "block.unusualprehistory.ginkgo_wood": "Ginkgo Wood",
   "block.unusualprehistory.stripped_ginkgo_wood": "Stripped Ginkgo Wood",
+  "block.unusualprehistory.ginkgo_sign": "Ginkgo Sign",
   "block.unusualprehistory.amber_button": "Amber Button",
 
   "block.unusualprehistory.majunga_egg.desc": "%s x %s",

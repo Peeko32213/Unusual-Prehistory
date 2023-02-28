@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.block.BlockUPSignBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.DNAFridgeBlockEntity;
@@ -28,6 +29,13 @@ public class UPBlockEntities {
             BLOCK_ENTITIES.register("dna_fridge_block_entity", () ->
                     BlockEntityType.Builder.of(DNAFridgeBlockEntity::new,
                             UPBlocks.DNA_FRIDGE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<BlockUPSignBlockEntity>> UP_SIGN =
+            BLOCK_ENTITIES.register("sign", () -> BlockEntityType.Builder.of(BlockUPSignBlockEntity::new,
+                    UPBlocks.GINKGO_SIGN.get(),
+                    UPBlocks.GINKGO_WALL_SIGN.get())
+                    .build(null));
+
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
