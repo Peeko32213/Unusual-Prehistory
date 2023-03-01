@@ -32,7 +32,7 @@ public class UPPlacedFeatures {
                     BlockStateProvider.simple(UPBlocks.GINKGO_LOG.get()),
                     new StraightTrunkPlacer(7, 5, 0),
                     BlockStateProvider.simple(UPBlocks.GINKGO_LEAVES.get()),
-                    new GinkgoFoliagePlacer( 1.25f, 5.25f, ConstantInt.of(0), 1, 0, 0.5f, 1),
+                    new GinkgoFoliagePlacer( 2F, 6F, ConstantInt.of(0), 1, 0, 0.5f, 2),
                     new TwoLayersFeatureSize(1, 1, 1)).build());
 
 

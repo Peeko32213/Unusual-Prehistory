@@ -380,7 +380,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                 List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(15, 8, 15));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, 0, false, false, false));
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, 2, false, false, false));
                         this.playSound(UPSounds.BRACHI_STEP.get(), 4.0F, 0.40F);
                     }
                 }
@@ -390,7 +390,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
             if(this.footPrintCooldown <= 0) {
                 float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
                 float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-                LOGGER.info("angle" + this.getLookAngle().x);
                 EntityTrail entityTrail = new EntityTrail(this, this.position().add(1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x, 1.0F);
                 EntityTrail entityTrail2 = new EntityTrail(this, this.position().add(1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
                 EntityTrail entityTrail3 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
@@ -771,7 +770,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                 List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(15, 8, 15));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 0, false, false, false));
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 6, false, false, false));
                         this.mob.playSound(UPSounds.BRACHI_STEP.get(), 1.9F, 1.9F);
                     }
                 }
