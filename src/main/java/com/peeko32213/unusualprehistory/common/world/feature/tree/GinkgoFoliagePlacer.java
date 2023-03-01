@@ -25,7 +25,7 @@ public class GinkgoFoliagePlacer extends FoliagePlacer {
                     IntProvider.codec(0, 8).fieldOf("offset").forGetter(obj -> obj.offset),
                     Codec.intRange(0, 16).fieldOf("random_add_horizontal").orElse(0).forGetter(o -> o.randomHorizontal),
                     Codec.intRange(0, 16).fieldOf("random_add_vertical").orElse(0).forGetter(o -> o.randomVertical),
-                    Codec.floatRange(-0.5f, 0.5f).fieldOf("vertical_filler_bias").orElse(0f).forGetter(o -> o.verticalBias),
+                    Codec.floatRange(-2f, 2.0f).fieldOf("vertical_filler_bias").orElse(0f).forGetter(o -> o.verticalBias),
                     Codec.intRange(0, 256).fieldOf("shag_factor").orElse(0).forGetter(o -> o.shag_factor) // Shhh
             ).apply(instance, GinkgoFoliagePlacer::new)
     );

@@ -184,10 +184,11 @@ public final class ClientEvents {
     public void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
         if (Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()) != null && !Minecraft.getInstance().isPaused() && UnusualPrehistoryConfig.SCREEN_SHAKE.get()) {
             int duration = Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()).getDuration();
+            int amplifier = Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()).getAmplifier();
             float f = (Math.min(10, duration) + Minecraft.getInstance().getFrameTime()) * 0.1F;
             double intensity = f * Minecraft.getInstance().options.screenEffectScale().get();
             RandomSource rng = Minecraft.getInstance().player.getRandom();
-            event.getCamera().move(rng.nextFloat() * 0.1F * intensity, rng.nextFloat() * 0.1F * intensity, rng.nextFloat() * 0.2F * intensity);
+            event.getCamera().move(rng.nextFloat() * 0.1F * intensity * amplifier, rng.nextFloat() * 0.1F * intensity * amplifier, rng.nextFloat() * 0.2F * intensity * amplifier);
         }
     }
 
