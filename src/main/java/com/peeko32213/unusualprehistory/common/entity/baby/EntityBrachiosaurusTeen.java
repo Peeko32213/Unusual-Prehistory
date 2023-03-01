@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.baby;
 
+import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import com.peeko32213.unusualprehistory.common.entity.part.EntityBrachiosaurusTeenPart;
@@ -289,7 +290,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
                 headPeakCooldown = 5;
             }
         }
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6){
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()){
             if(this.shakeCooldown <= 0) {
                 List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(15, 8, 15));
                 for (LivingEntity e : list) {
@@ -675,7 +676,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
             HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-            if (this.mob.shakeCooldown <= 0) {
+            if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(15, 8, 15));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {

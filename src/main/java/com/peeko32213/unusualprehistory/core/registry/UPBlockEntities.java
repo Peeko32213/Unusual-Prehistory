@@ -32,8 +32,8 @@ public class UPBlockEntities {
 
     public static final RegistryObject<BlockEntityType<BlockUPSignBlockEntity>> UP_SIGN =
             BLOCK_ENTITIES.register("sign", () -> BlockEntityType.Builder.of(BlockUPSignBlockEntity::new,
-                    UPBlocks.GINKGO_SIGN.get(),
-                    UPBlocks.GINKGO_WALL_SIGN.get())
+                    UPBlocks.GINKGO_WALL_SIGN.get(),
+                            UPBlocks.GINKGO_SIGN.get())
                     .build(null));
 
 

@@ -8,11 +8,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class UPSignTypes {
 
-    public static final WoodType GINKGO = WoodType.register(new WoodType(UnusualPrehistory.MODID + ":ginkgo"));
+    public static final WoodType GINKGO = WoodType.create("ginkgo");
 
-    @OnlyIn(Dist.CLIENT)
-    public static void init() {
-        Sheets.addWoodType(GINKGO);
-    }
 
 }
