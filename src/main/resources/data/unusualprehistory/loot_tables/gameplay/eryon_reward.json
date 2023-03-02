@@ -59,6 +59,55 @@
           "functions": [
           ],
           "name": "unusualprehistory:scau_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:beelze_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:brachi_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:dunk_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:majunga_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:pachy_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:veloci_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:eryon_fossil"
         }
       ]
     }
