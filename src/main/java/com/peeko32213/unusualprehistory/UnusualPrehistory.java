@@ -46,6 +46,8 @@ public class UnusualPrehistory {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.CONFIG_BUILDER);
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
+        UPConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
+        UPPlacedFeatures.PLACED_FEATURES.register(modEventBus);
         UPBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         UPMenuTypes.MENUS.register(modEventBus);
         UPRecipes.SERIALIZERS.register(modEventBus);
@@ -62,8 +64,7 @@ public class UnusualPrehistory {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            UPConfiguredFeatures.init();
-            UPPlacedFeatures.init();
+
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(UPBlocks.HORSETAIL.getId(), UPBlocks.POTTED_HORSETAIL);
             Sheets.addWoodType(GINKGO);
         });

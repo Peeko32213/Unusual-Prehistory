@@ -163,7 +163,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("Cultivator");
+        return Component.translatable(UnusualPrehistory.MODID + ".blockentity.cultivator");
     }
 
     @Nonnull

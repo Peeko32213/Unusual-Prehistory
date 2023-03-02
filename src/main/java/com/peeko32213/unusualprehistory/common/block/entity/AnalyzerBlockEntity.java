@@ -136,7 +136,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("                             Analyzer");
+        return Component.translatable(UnusualPrehistory.MODID + ".blockentity.analyzer");
     }
 
     @Nonnull
