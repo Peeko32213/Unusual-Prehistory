@@ -17,10 +17,6 @@ public class WaterLilyUpdate extends WaterlilyBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        if(context.getLevel().isClientSide){
-            return null;
-        }
-
         FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
         BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
         BlockState blockstateBelow = context.getLevel().getBlockState(context.getClickedPos().below());
