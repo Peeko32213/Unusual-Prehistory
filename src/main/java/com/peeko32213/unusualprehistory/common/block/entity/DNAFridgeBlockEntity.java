@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.BlockDNAFridge;
 import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
@@ -93,7 +94,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity imple
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("DNA Fridge");
+        return Component.translatable(UnusualPrehistory.MODID + ".blockentity.dna_fridge");
     }
 
     @Override
