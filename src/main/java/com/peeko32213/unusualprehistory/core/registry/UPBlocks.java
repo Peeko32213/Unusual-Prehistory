@@ -284,7 +284,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> QUEREUXIA  = registerBlock("quereuxia",
             () -> new DoubleHeadBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noCollission().noOcclusion().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
     public static final Supplier<Block> QUEREUXIA_TOP  = create("quereuxia_top",
-            () -> new WaterLilyUpdate(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission()),
+            () -> new WaterLilyUpdate(BlockBehaviour.Properties.of(Material.WATER_PLANT).instabreak().noOcclusion().noCollission()),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
 
