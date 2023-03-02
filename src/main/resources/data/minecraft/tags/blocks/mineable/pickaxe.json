@@ -9,7 +9,8 @@
     "unusualprehistory:ammonite_shell",
     "unusualprehistory:deepslate_plant_fossil",
     "unusualprehistory:stone_amber_ore",
-    "unusualprehistory:deepslate_amber_ore"
-
+    "unusualprehistory:deepslate_amber_ore",
+    "unusualprehistory:clathrodictyon_block",
+    "unusualprehistory:anostylostroma_block"
   ]
 }

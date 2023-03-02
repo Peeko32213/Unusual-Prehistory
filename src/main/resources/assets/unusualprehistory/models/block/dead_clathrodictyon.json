@@ -1,0 +1,6 @@
+{
+	"parent": "block/cross",
+	"textures": {
+		"cross": "unusualprehistory:block/dead_clathrodictyon"
+	}
+}

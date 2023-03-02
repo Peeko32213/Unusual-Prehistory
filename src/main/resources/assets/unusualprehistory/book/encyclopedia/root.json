@@ -128,10 +128,10 @@
       "x": 230,
       "y": 120,
       "page" : 0,
-      "scale": 1.2,
+      "scale": 1,
       "entity_scale": 0.8,
       "offset_x": -10,
-      "offset_y": 55,
+      "offset_y": 85,
       "linked_page": "brachi.json",
       "hover_text": "Brachiosaurus"
     },

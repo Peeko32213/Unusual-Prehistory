@@ -280,6 +280,10 @@ public class UPItems {
             () -> new StandingAndWallBlockItem(UPBlocks.CLATHRODICTYON_FAN.get(), UPBlocks.CLATHRODICTYON_WALL_FAN.get(),
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Item> DEAD_CLATHRODICTYON_FAN = ITEMS.register("dead_clathrodictyon_fan",
+            () -> new StandingAndWallBlockItem(UPBlocks.DEAD_CLATHRODICTYON_FAN.get(), UPBlocks.DEAD_CLATHRODICTYON_WALL_FAN.get(),
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     public static final RegistryObject<Item> GINKGO_SIGN = ITEMS.register("ginkgo_sign",
             () -> new SignItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPBlocks.GINKGO_SIGN.get(), UPBlocks.GINKGO_WALL_SIGN.get()));
 

@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class BrachiRenderRenderer extends MobRenderer<BaseEntityRender, BrachiRenderModel<BaseEntityRender>> {
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/brachiosaurus_teen.png");
+	protected static final ResourceLocation TEXTURE = new ResourceLocation("unusualprehistory:textures/entity/brachiosaurus.png");
 
 	public BrachiRenderRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new BrachiRenderModel<>(renderManagerIn.bakeLayer(BrachiRenderModel.LAYER_LOCATION)), 0.2F);

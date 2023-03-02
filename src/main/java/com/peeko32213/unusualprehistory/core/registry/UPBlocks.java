@@ -238,26 +238,43 @@ public class UPBlocks {
     public static final RegistryObject<Block> ERYON_FOSSIL = registerBlock("eryon_fossil",
             () -> new BlockEryonFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<Block> CLATHRODICTYON = registerBlock("clathrodictyon", () ->
-            new BaseCoralPlantBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_BLOCK = registerBlock("dead_clathrodictyon_block", () ->
+            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
 
     public static final RegistryObject<Block> CLATHRODICTYON_BLOCK = registerBlock("clathrodictyon_block", () ->
-            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+            new CoralBlock(DEAD_CLATHRODICTYON_BLOCK.get(), BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+
+
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON = registerBlock("dead_clathrodictyon", () ->
+            new BaseCoralPlantBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().noCollission().instabreak()));
+
+    public static final RegistryObject<Block> CLATHRODICTYON = registerBlock("clathrodictyon", () ->
+            new CoralPlantBlock(DEAD_CLATHRODICTYON.get(), BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
 
     public static final RegistryObject<Block> ANOSTYLOSTROMA_BLOCK = registerBlock("anostylostroma_block", () ->
-            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.GRASS)));
+
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_FAN = BLOCKS.register("dead_clathrodictyon_fan", () ->
+            new BaseCoralFanBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().noCollission().instabreak()));
+
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_WALL_FAN = BLOCKS.register("dead_clathrodictyon_wall_fan", () ->
+            new BaseCoralWallFanBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().noCollission().instabreak().dropsLike(DEAD_CLATHRODICTYON_FAN.get())));
 
     public static final RegistryObject<Block> CLATHRODICTYON_FAN = BLOCKS.register("clathrodictyon_fan", () ->
-            new BaseCoralFanBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().noCollission().instabreak().sound(SoundType.CORAL_BLOCK)));
+            new CoralFanBlock(DEAD_CLATHRODICTYON_FAN.get(), BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
 
     public static final RegistryObject<Block> CLATHRODICTYON_WALL_FAN = BLOCKS.register("clathrodictyon_wall_fan", () ->
-            new BaseCoralWallFanBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().noCollission().instabreak().sound(SoundType.CORAL_BLOCK)));
+            new CoralWallFanBlock(DEAD_CLATHRODICTYON_WALL_FAN.get(), BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.WET_GRASS).dropsLike(CLATHRODICTYON_FAN.get())));
 
     public static final RegistryObject<Block> ARCHAEFRUCTUS = registerBlock("archaefructus", () ->
             new BlockArchaefructus(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS)));
 
-    public static final RegistryObject<Block> GINKGO_SIGN = BLOCKS.register("ginkgo_sign", () -> new BlockUPStandingSign(BlockBehaviour.Properties.of(Material.WOOD, GINKGO_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPSignTypes.GINKGO));
-    public static final RegistryObject<Block> GINKGO_WALL_SIGN = BLOCKS.register("ginkgo_wall_sign", () -> new BlockUPWallSign(BlockBehaviour.Properties.of(Material.WOOD, GINKGO_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPSignTypes.GINKGO));
+    public static final RegistryObject<Block> GINKGO_SIGN = BLOCKS.register("ginkgo_sign", ()
+            -> new BlockUPStandingSign(BlockBehaviour.Properties.of(Material.WOOD, GINKGO_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPSignTypes.GINKGO));
+    public static final RegistryObject<Block> GINKGO_WALL_SIGN = BLOCKS.register("ginkgo_wall_sign", ()
+            -> new BlockUPWallSign(BlockBehaviour.Properties.of(Material.WOOD, GINKGO_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPSignTypes.GINKGO));
 
     public static final Supplier<Block> NELUMBITES = create("nelumbites",
             () -> new WaterlilyBlock(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion()),
