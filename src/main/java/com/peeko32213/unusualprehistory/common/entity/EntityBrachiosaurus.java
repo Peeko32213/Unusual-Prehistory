@@ -377,11 +377,14 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         }
         if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6){
             if(this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
-                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(15, 8, 15));
+                double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
+                int brachiShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_AMPLIFIER.get();
+                float brachiMoveSoundVolume= UnusualPrehistoryConfig.BRACHI_SOUND_VOLUME.get();
+                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, 2, false, false, false));
-                        this.playSound(UPSounds.BRACHI_STEP.get(), 4.0F, 0.40F);
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiShakeAmp, false, false, false));
+                        this.playSound(UPSounds.BRACHI_STEP.get(), brachiMoveSoundVolume, 0.40F);
                     }
                 }
                 shakeCooldown = 10;
@@ -390,6 +393,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
             if(this.footPrintCooldown <= 0) {
                 float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
                 float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+                //TODO fix the position of the trail
                 EntityTrail entityTrail = new EntityTrail(this, this.position().add(1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x, 1.0F);
                 EntityTrail entityTrail2 = new EntityTrail(this, this.position().add(1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
                 EntityTrail entityTrail3 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
@@ -767,11 +771,12 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
             Vec3 pos = mob.position();
             HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
-                List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(15, 8, 15));
+                double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
+                List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 6, false, false, false));
-                        this.mob.playSound(UPSounds.BRACHI_STEP.get(), 1.9F, 1.9F);
+                        this.mob.playSound(UPSounds.BRACHI_STEP.get(), 2F, 0.4F);
                     }
                 }
                 this.mob.shakeCooldown = 10;

@@ -292,11 +292,14 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
         }
         if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()){
             if(this.shakeCooldown <= 0) {
-                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(15, 8, 15));
+                double brachiTeenShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_TEEN_BRACHI_RANGE.get();
+                int brachiTeenShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER.get();
+                float brachiTeenMoveSoundVolume= UnusualPrehistoryConfig.BRACHI_TEEN_SOUND_VOLUME.get();
+                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiTeenShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, 1, false, false, false));
-                        this.playSound(UPSounds.BRACHI_STEP.get(), 4.0F, 0.40F);
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiTeenShakeAmp, false, false, false));
+                        this.playSound(UPSounds.BRACHI_STEP.get(), brachiTeenMoveSoundVolume, 0.40F);
                     }
                 }
                 shakeCooldown = 10;
