@@ -15,6 +15,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -233,7 +234,19 @@ public class EntityBeelzebufoTadpole extends AbstractFish implements IAnimatable
 
     @Override
     protected SoundEvent getFlopSound() {
-        return null;
+        return SoundEvents.TADPOLE_FLOP;
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_21239_) {
+        return SoundEvents.TADPOLE_HURT;
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.TADPOLE_DEATH;
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {

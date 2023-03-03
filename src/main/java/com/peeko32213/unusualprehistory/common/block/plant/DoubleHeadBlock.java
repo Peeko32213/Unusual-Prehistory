@@ -3,6 +3,8 @@ package com.peeko32213.unusualprehistory.common.block.plant;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -55,15 +57,18 @@ public class DoubleHeadBlock extends GrowingPlantDoubleHeadBlock implements Liqu
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-        BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
-        BlockState blockstateBelow = context.getLevel().getBlockState(context.getClickedPos().below());
+        BlockPos blockPos = context.getClickedPos();
+        FluidState fluidstate = context.getLevel().getFluidState(blockPos);
+        BlockState blockstate = context.getLevel().getBlockState(blockPos);
+        BlockState blockstateBelow = context.getLevel().getBlockState(blockPos.below());
+
         Level level = context.getLevel();
 
 
         if(blockstate.is(Blocks.AIR) && blockstateBelow.is(UPBlocks.QUEREUXIA.get())){
             level.setBlockAndUpdate(context.getClickedPos(),UPBlocks.QUEREUXIA_TOP.get().defaultBlockState());
             level.setBlockAndUpdate(context.getClickedPos().below(),UPBlocks.QUEREUXIA_PLANT.get().defaultBlockState());
+            level.playSound(context.getPlayer(),blockPos, SoundEvents.LILY_PAD_PLACE, SoundSource.BLOCKS,1.0F, 1.0F );
             return null;
         }
         return fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8 ? super.getStateForPlacement(context) : null;

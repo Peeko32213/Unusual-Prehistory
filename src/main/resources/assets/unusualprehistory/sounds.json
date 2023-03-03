@@ -630,13 +630,16 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:eryon_hurt_0"
+        "name": "unusualprehistory:eryon_hurt_0",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:eryon_hurt_1"
+        "name": "unusualprehistory:eryon_hurt_1",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:eryon_hurt_2"
+        "name": "unusualprehistory:eryon_hurt_2",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.eryon_hurt"
