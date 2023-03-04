@@ -3,25 +3,34 @@ package com.peeko32213.unusualprehistory.common.block;
 import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyBrachi;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -29,14 +38,22 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.function.Supplier;
 
-public class BlockBrachiEggs extends Block  {
+public class BlockDinosaurLandEggs extends Block {
+
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
     public static final IntegerProperty EGGS = BlockStateProperties.EGGS;
-    private static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 12, 13);
-
-    public BlockBrachiEggs() {
+    private VoxelShape ONE_SHAPE;
+    private  VoxelShape MULTI_SHAPE;
+    private Supplier<?extends EntityType> dinosaur;
+    private int eggCount;
+    public BlockDinosaurLandEggs(Properties properties, Supplier<?extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg, VoxelShape multiEgg) {
         super(Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion());
+        this.eggCount = eggCount;
+        this.dinosaur = dinosaur;
+        this.ONE_SHAPE = oneEgg;
+        this.MULTI_SHAPE = multiEgg;
         this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(EGGS, Integer.valueOf(1)));
     }
 
@@ -46,6 +63,16 @@ public class BlockBrachiEggs extends Block  {
 
     public static boolean isProperHabitat(BlockGetter reader, BlockPos pos) {
         return reader.getBlockState(pos).is(BlockTags.BAMBOO_PLANTABLE_ON);
+    }
+
+    protected boolean mayPlaceOn(BlockState p_56127_, BlockGetter p_56128_, BlockPos p_56129_) {
+        return !p_56127_.getCollisionShape(p_56128_, p_56129_).getFaceShape(Direction.UP).isEmpty() || p_56127_.isFaceSturdy(p_56128_, p_56129_, Direction.UP);
+    }
+
+
+    public boolean canSurvive(BlockState p_56109_, LevelReader p_56110_, BlockPos p_56111_) {
+        BlockPos blockpos = p_56111_.below();
+        return this.mayPlaceOn(p_56110_.getBlockState(blockpos), p_56110_, blockpos);
     }
 
     public void stepOn(Level worldIn, BlockPos pos, BlockState state, Entity entityIn) {
@@ -64,16 +91,13 @@ public class BlockBrachiEggs extends Block  {
     private void tryTrample(Level worldIn, BlockPos pos, Entity trampler, int chances) {
         if (this.canTrample(worldIn, trampler)) {
             if (!worldIn.isClientSide && worldIn.random.nextInt(chances) == 0) {
-                worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + worldIn.random.nextFloat() * 0.2F);
-                worldIn.destroyBlock(pos, false);
-
+                BlockState blockstate = worldIn.getBlockState(pos);
+                this.removeOneEgg(worldIn, pos, blockstate);
             }
-
         }
     }
 
-
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         if (this.canGrow(worldIn) && hasProperHabitat(worldIn, pos)) {
             int i = state.getValue(HATCH);
             if (i < 2) {
@@ -84,11 +108,11 @@ public class BlockBrachiEggs extends Block  {
                 worldIn.removeBlock(pos, false);
                 for (int j = 0; j < state.getValue(EGGS); ++j) {
                     worldIn.levelEvent(4001, pos, Block.getId(state));
-                    EntityBabyBrachi turtleentity = UPEntities.BABY_BRACHI.get().create(worldIn);
-                    turtleentity.restrictTo(pos, 20);
-                    turtleentity.moveTo((double) pos.getX() + 0.3D + (double) j * 0.2D, pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);
+                    Mob dinosaurToSpawn = (Mob)dinosaur.get().create(worldIn);
+                    dinosaurToSpawn.restrictTo(pos, 20);
+                    dinosaurToSpawn.moveTo((double) pos.getX() + 0.3D + (double) j * 0.2D, pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);
                     if (!worldIn.isClientSide) {
-                        worldIn.addFreshEntity(turtleentity);
+                        worldIn.addFreshEntity(dinosaurToSpawn);
                     }
                 }
             }
@@ -107,17 +131,35 @@ public class BlockBrachiEggs extends Block  {
         return worldIn.random.nextInt(20) == 0;
     }
 
-
     public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity te, ItemStack stack) {
         super.playerDestroy(worldIn, player, pos, state, te, stack);
+        this.removeOneEgg(worldIn, pos, state);
+    }
+
+    private void removeOneEgg(Level worldIn, BlockPos pos, BlockState state) {
         worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + worldIn.random.nextFloat() * 0.2F);
-        worldIn.destroyBlock(pos, false);
+        int i = state.getValue(EGGS);
+        if (i <= 1) {
+            worldIn.destroyBlock(pos, false);
+        } else {
+            worldIn.setBlock(pos, state.setValue(EGGS, Integer.valueOf(i - 1)), 2);
+            worldIn.levelEvent(2001, pos, Block.getId(state));
+        }
+    }
+
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
+        return useContext.getItemInHand().getItem() == this.asItem() && state.getValue(EGGS) < eggCount || super.canBeReplaced(state, useContext);
+    }
+
+    @Nullable
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
+        return blockstate.getBlock() == this ? blockstate.setValue(EGGS, Integer.valueOf(Math.min(4, blockstate.getValue(EGGS) + 1))) : super.getStateForPlacement(context);
     }
 
 
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return state.getValue(EGGS) > 1 ? MULTI_SHAPE : ONE_SHAPE;
     }
 
 
@@ -126,7 +168,7 @@ public class BlockBrachiEggs extends Block  {
     }
 
     private boolean canTrample(Level worldIn, Entity trampler) {
-        if (!(trampler instanceof EntityBabyBrachi) && !(trampler instanceof Bat)) {
+        if (!(trampler instanceof Bat) && trampler.getType() != dinosaur) {
             if (!(trampler instanceof LivingEntity)) {
                 return false;
             } else {
@@ -136,4 +178,6 @@ public class BlockBrachiEggs extends Block  {
             return false;
         }
     }
+
+
 }

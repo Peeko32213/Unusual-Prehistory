@@ -1,16 +1,14 @@
 package com.peeko32213.unusualprehistory.common.block;
 
-import com.peeko32213.unusualprehistory.common.entity.baby.EntityBabyDunk;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -24,12 +22,18 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
-public class BlockDunkEggs extends Block {
+public class BlockDinosaurWaterEggs extends Block {
+
     protected static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 1.5, 16);
+    private Supplier<?extends EntityType> dinosaur;
 
-    public BlockDunkEggs(Properties properties) {
+    private boolean properHabitat;
+    public BlockDinosaurWaterEggs(Properties properties, Supplier<?extends EntityType> dinosaur, boolean placableOnLand) {
         super(properties);
+        this.dinosaur = dinosaur;
+        this.properHabitat = placableOnLand;
     }
 
     @Override
@@ -37,8 +41,12 @@ public class BlockDunkEggs extends Block {
         return SHAPE;
     }
 
+
     @Override
     public boolean canSurvive(BlockState state, LevelReader reader, BlockPos pos) {
+        if(properHabitat){
+            return isProperHabitat(reader, pos.below());
+        }
         return mayPlaceOn(reader, pos.below());
     }
 
@@ -46,16 +54,22 @@ public class BlockDunkEggs extends Block {
         p_221228_.scheduleTick(p_221229_, this, getFrogspawnHatchDelay(p_221228_.getRandom()));
     }
 
+    public static boolean isProperHabitat(BlockGetter reader, BlockPos pos) {
+        return reader.getBlockState(pos).is(BlockTags.BAMBOO_PLANTABLE_ON);
+    }
     private static int getFrogspawnHatchDelay(RandomSource p_221186_) {
         return p_221186_.nextInt(3600, 12000);
     }
+
+
 
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor access, BlockPos pos, BlockPos neighborPos) {
         return !this.canSurvive(state, access, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, access, pos, neighborPos);
     }
 
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!this.canSurvive(state, level, pos)) {
             this.hatch(level, pos);
         } else {
@@ -76,34 +90,32 @@ public class BlockDunkEggs extends Block {
         return fluidState.getType() == Fluids.WATER && topFluidState.getType() == Fluids.EMPTY;
     }
 
-    private void onHatch(ServerLevel level, BlockPos pos, Random random) {
+    private void onHatch(ServerLevel level, BlockPos pos, RandomSource random) {
         this.hatch(level, pos);
         level.playSound(null, pos, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 1.0F, 1.0F);
-        this.createTadpole(level, pos, random);
+        this.createDinosaur(level, pos, random);
     }
 
     private void hatch(Level level, BlockPos blockPos) {
         level.destroyBlock(blockPos, false);
     }
 
-    private void createTadpole(ServerLevel level, BlockPos pos, Random random) {
-        int i = random.nextInt(2, 4);
-
+    private void createDinosaur(ServerLevel level, BlockPos pos, RandomSource random) {
+        int i = random.nextInt(3, 6);
         for (int index = 1; index <= i; ++index) {
-            EntityBabyDunk tadpole = UPEntities.BABY_DUNK.get().create(level);
-            if (tadpole != null) {
+            Mob entityToSpawn = (Mob) dinosaur.get().create(level);
+            if (entityToSpawn != null) {
                 double x = (double)pos.getX() + this.getSpawnOffset(random);
                 double z = (double)pos.getZ() + this.getSpawnOffset(random);
                 int yaw = random.nextInt(1, 361);
-                tadpole.moveTo(x, (double)pos.getY() - 0.5, z, yaw, 0.0F);
-                tadpole.setPersistenceRequired();
-                level.addFreshEntity(tadpole);
+                entityToSpawn.moveTo(x, (double)pos.getY() - 0.5, z, yaw, 0.0F);
+                entityToSpawn.setPersistenceRequired();
+                level.addFreshEntity(entityToSpawn);
             }
         }
     }
 
-    private double getSpawnOffset(Random random) {
+    private double getSpawnOffset(RandomSource random) {
         return Mth.clamp(random.nextDouble(), 0.2F, 0.8F);
     }
 }
-
