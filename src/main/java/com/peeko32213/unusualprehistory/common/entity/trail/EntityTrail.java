@@ -122,7 +122,7 @@ public class EntityTrail extends Projectile implements IEntityAdditionalSpawnDat
         super.recreateFromPacket(pPacket);
         if (this.getEntityOwner() == null) {
             int i = pPacket.getData();
-            LOGGER.error("Failed to recreate footprint  on client. {} (id: {}) is not a valid owner.", this.level.getEntity(i), i);
+            LOGGER.error("Failed to recreate footprint on client. {} (id: {}) is not a valid owner.", this.level.getEntity(i), i);
             this.kill();
         }
     }

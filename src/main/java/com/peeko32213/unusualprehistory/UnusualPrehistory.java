@@ -6,9 +6,13 @@ import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -25,6 +29,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.GINKGO;
 
@@ -64,12 +69,25 @@ public class UnusualPrehistory {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            //Todo add this to own class
+            addToFlowerPot(UPBlocks.HORSETAIL.getId(), UPBlocks.POTTED_HORSETAIL);
+            addToFlowerPot(UPBlocks.LEEFRUCTUS.getId(), UPBlocks.POTTED_LEEFRUCTUS);
 
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(UPBlocks.HORSETAIL.getId(), UPBlocks.POTTED_HORSETAIL);
+            //Todo add this to own class
+            addToComposter(UPBlocks.HORSETAIL.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.TALL_HORSETAIL.get().asItem(), 0.8f);
+
             Sheets.addWoodType(GINKGO);
         });
 
         UPMessages.register();
+    }
+
+    public static void addToFlowerPot(ResourceLocation plantBlockLoc, Supplier<? extends Block> pottedPlantBlock){
+        ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(plantBlockLoc,pottedPlantBlock);
+    }
+    public static void addToComposter(ItemLike item, float amountOfCompost){
+        ComposterBlock.COMPOSTABLES.put(item, amountOfCompost);
     }
 
     public static final CreativeModeTab DINO_TAB = new CreativeModeTab(MODID) {
