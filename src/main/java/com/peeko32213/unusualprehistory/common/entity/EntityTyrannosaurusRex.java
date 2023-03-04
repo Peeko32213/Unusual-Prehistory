@@ -236,7 +236,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
                 float brachiMoveSoundVolume= UnusualPrehistoryConfig.REX_SOUND_VOLUME.get();
                 List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                    if (!(e instanceof EntityTyrannosaurusRex) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiShakeAmp, false, false, false));
                         this.playSound(UPSounds.REX_STEP.get(), brachiMoveSoundVolume, 0.70F);
                     }
@@ -583,9 +583,10 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             this.mob.playSound(UPSounds.REX_STOMP_ATTACK.get(), 1.9F, 1.9F);
             HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
-                List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(10, 5, 10));
+                double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
+                List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(rexShakeRange));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                    if (!(e instanceof EntityTyrannosaurusRex) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, 3, false, false, false));
                     }
                 }
