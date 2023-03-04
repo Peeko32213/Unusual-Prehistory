@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/flower_pot_cross",
+  "ambientocclusion": false,
   "textures": {
     "plant": "unusualprehistory:block/horsetail"
   }

@@ -238,7 +238,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityTyrannosaurusRex) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiShakeAmp, false, false, false));
-                        this.playSound(UPSounds.REX_STEP.get(), brachiMoveSoundVolume, 0.70F);
+                        this.playSound(UPSounds.REX_STEP.get(), brachiMoveSoundVolume, 0.05F);
                     }
                 }
                 shakeCooldown = 10;
@@ -665,10 +665,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
     protected SoundEvent getDeathSound() {
         return UPSounds.REX_DEATH.get();
-    }
-
-    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.REX_STEP.get(), 0.3F, 1.0F);
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
