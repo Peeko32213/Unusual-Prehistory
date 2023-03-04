@@ -20,7 +20,7 @@ public class UPSounds {
 
     public static final RegistryObject<SoundEvent> MAJUNGA_DEATH = createSoundEvent("majunga_death");
 
-    public static final RegistryObject<SoundEvent> MAJUNGA_STEP = createSoundEvent("majunga_step");
+    public static final RegistryObject<SoundEvent> MAJUNGA_STEP = createSoundEvent("majunga_stomp");
 
     public static final RegistryObject<SoundEvent> ANURO_IDLE = createSoundEvent("anuro_idle");
 

@@ -2,11 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "unusualprehistory:tall_sarracenia"
+      "item": "unusualprehistory:archaefructus"
     }
   ],
   "result": {
-    "item": "minecraft:red_dye",
-    "count": 2
+    "item": "minecraft:yellow_dye"
   }
 }

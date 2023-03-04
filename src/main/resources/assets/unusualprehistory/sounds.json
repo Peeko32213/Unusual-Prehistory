@@ -495,10 +495,12 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:raptor_attack_0"
+        "name": "unusualprehistory:raptor_attack_0",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:raptor_attack_1"
+        "name": "unusualprehistory:raptor_attack_1",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.raptor_attack"
@@ -507,10 +509,12 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:raptor_death_0"
+        "name": "unusualprehistory:raptor_death_0",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:raptor_death_1"
+        "name": "unusualprehistory:raptor_death_1",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.raptor_death"
@@ -519,10 +523,12 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:raptor_hurt_0"
+        "name": "unusualprehistory:raptor_hurt_0",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:raptor_hurt_1"
+        "name": "unusualprehistory:raptor_hurt_1",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.raptor_hurt"
@@ -531,13 +537,16 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:raptor_idle_0"
+        "name": "unusualprehistory:raptor_idle_0",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:raptor_idle_1"
+        "name": "unusualprehistory:raptor_idle_1",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:raptor_idle_2"
+        "name": "unusualprehistory:raptor_idle_2",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.raptor_idle"
@@ -546,7 +555,8 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:raptor_search"
+        "name": "unusualprehistory:raptor_search",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.raptor_search"
@@ -555,7 +565,8 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:pachy_death"
+        "name": "unusualprehistory:pachy_death",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.pachy_death"
@@ -579,10 +590,12 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:pachy_hurt_0"
+        "name": "unusualprehistory:pachy_hurt_0",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:pachy_hurt_1"
+        "name": "unusualprehistory:pachy_hurt_1",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.pachy_hurt"
@@ -591,13 +604,16 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:pachy_idle_0"
+        "name": "unusualprehistory:pachy_idle_0",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:pachy_idle_1"
+        "name": "unusualprehistory:pachy_idle_1",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:pachy_idle_2"
+        "name": "unusualprehistory:pachy_idle_2",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.pachy_idle"
@@ -606,10 +622,12 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:pachy_kick_0"
+        "name": "unusualprehistory:pachy_kick_0",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:pachy_kick_1"
+        "name": "unusualprehistory:pachy_kick_1",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.pachy_kick"
@@ -618,10 +636,12 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:eryon_death_0"
+        "name": "unusualprehistory:eryon_death_0",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:eryon_death_1"
+        "name": "unusualprehistory:eryon_death_1",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.eryon_death"
@@ -648,13 +668,16 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:eryon_idle_0"
+        "name": "unusualprehistory:eryon_idle_0",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:eryon_idle_1"
+        "name": "unusualprehistory:eryon_idle_1",
+        "volume": 0.5
       },
       {
-        "name": "unusualprehistory:eryon_idle_2"
+        "name": "unusualprehistory:eryon_idle_2",
+        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.eryon_idle"

@@ -1,7 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.HitboxHelper;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -56,6 +58,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.List;
+
 public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
@@ -67,6 +71,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
     public int timeUntilDrops = this.random.nextInt(12000) + 24000;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private int passiveFor = 0;
+    private int shakeCooldown = 0;
 
     private int stunnedTick;
 
@@ -224,6 +229,19 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             this.spawnAtLocation(UPItems.REX_SCALE.get(), 9);
             this.timeUntilDrops = this.random.nextInt(12000) + 24000;
         }
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+            if (this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
+                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(8, 5, 8));
+                for (LivingEntity e : list) {
+                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 5, 1, false, false, false));
+                        this.playSound(UPSounds.BRACHI_STEP.get(), 4.0F, 0.40F);
+                    }
+                }
+                shakeCooldown = 10;
+            }
+        }
+        shakeCooldown--;
     }
 
     @Override
@@ -561,6 +579,16 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_STOMP_ATTACK.get(), 1.9F, 1.9F);
             HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
+                List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(10, 5, 10));
+                for (LivingEntity e : list) {
+                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, 3, false, false, false));
+                    }
+                }
+                mob.shakeCooldown = 10;
+            }
+            mob.shakeCooldown--;
         }
 
 

@@ -19,7 +19,9 @@
             "items": [
               "unusualprehistory:mezo_fossil",
               "unusualprehistory:paleo_fossil",
-              "unusualprehistory:plant_fossil"
+              "unusualprehistory:plant_fossil",
+              "unusualprehistory:plant_fossil_item",
+              "unusualprehistory:amber_fossil"
             ]
           }
         ]

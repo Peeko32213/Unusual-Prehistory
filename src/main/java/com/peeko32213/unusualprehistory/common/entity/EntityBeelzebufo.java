@@ -309,10 +309,12 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
-            {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
-                event.getController().setAnimationSpeed(0.8D);
-            }
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
+            event.getController().setAnimationSpeed(0.8D);
+
+        }
+        else if (this.isJumping) {
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.jump"));
         }
         else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.idle"));
@@ -335,7 +337,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(5);
-        AnimationController<EntityBeelzebufo> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        AnimationController<EntityBeelzebufo> controller = new AnimationController<>(this, "controller", 2, this::predicate);
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
         data.addAnimationController(controller);
     }

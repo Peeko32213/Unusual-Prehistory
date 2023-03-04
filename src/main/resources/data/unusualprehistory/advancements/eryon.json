@@ -1,0 +1,46 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:eryon_flask"
+    },
+    "title": "Diggy Diggy Hole",
+    "description": "Revive a Eryon",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:egg",
+  "criteria": {
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:eryon"
+        }
+      }
+    },
+    "killed_by": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:eryon"
+        }
+      }
+    },
+    "interact": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:eryon"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "killed",
+      "killed_by",
+      "interact"
+    ]
+  ]
+}

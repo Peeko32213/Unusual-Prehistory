@@ -163,7 +163,7 @@
 
   "block.unusualprehistory.clathrodictyon": "Clathrodictyon Coral",
   "block.unusualprehistory.clathrodictyon_block": "Clathrodictyon Coral Block",
-  "block.unusualprehistory.anostylostroma_block": "Anostylostroma Coral Block",
+  "block.unusualprehistory.anostylostroma_block": "Anostylostroma Sponge Block",
   "block.unusualprehistory.clathrodictyon_fan": "Clathrodictyon Coral Fan",
   "block.unusualprehistory.dead_clathrodictyon": "Dead Clathrodictyon Coral",
   "block.unusualprehistory.dead_clathrodictyon_block": "Dead Clathrodictyon Coral Block",
@@ -178,7 +178,7 @@
   "unusualprehistory.sound.subtitle.beelze_attack": "Slimey chomp",
   "unusualprehistory.sound.subtitle.beelze_hurt": "Slimed hurt",
   "unusualprehistory.sound.subtitle.beelze_death": "Croaking death",
-  "unusualprehistory.sound.subtitle.majunga_stomp": "Stomping",
+  "unusualprehistory.sound.subtitle.majunga_stomp": "Unusual Step",
   "unusualprehistory.sound.subtitle.anuro_idle": "Small squak",
   "unusualprehistory.sound.subtitle.anuro_hurt": "Small hurt",
   "unusualprehistory.sound.subtitle.anuro_death": "Dying squeal",
