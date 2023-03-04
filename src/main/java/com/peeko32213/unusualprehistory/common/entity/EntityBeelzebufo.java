@@ -76,7 +76,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_CREATIVE_OR_SPECTATOR::test));
         this.goalSelector.addGoal(2, new CustomRideGoal(this, 1.5D));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -308,14 +308,12 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isJumping) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
             event.getController().setAnimationSpeed(0.8D);
 
         }
-        else if (this.isJumping) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.jump"));
-        }
+
         else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.idle"));
             event.getController().setAnimationSpeed(1.0D);
@@ -323,6 +321,13 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         return PlayState.CONTINUE;
     }
 
+    private <E extends IAnimatable> PlayState jumpPredicate(AnimationEvent<E> event) {
+        if (this.isJumping) {
+            //event.getController().markNeedsReload();
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.beelzebufo.jump", false).addAnimation("animation.beelzebufo.jump_hold"));
+        }
+        return PlayState.CONTINUE;
+    }
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
@@ -339,6 +344,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         data.setResetSpeedInTicks(5);
         AnimationController<EntityBeelzebufo> controller = new AnimationController<>(this, "controller", 2, this::predicate);
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
+        data.addAnimationController(new AnimationController<>(this, "jumpController", 0, this::jumpPredicate));
         data.addAnimationController(controller);
     }
 
