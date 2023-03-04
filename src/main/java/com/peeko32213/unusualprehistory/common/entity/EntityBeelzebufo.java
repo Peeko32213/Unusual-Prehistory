@@ -51,11 +51,11 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     private static final EntityDataAccessor<Byte> DATA_FLAG = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BYTE);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.BEEF, Items.PORKCHOP, Items.CHICKEN);
 
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    protected float playerJumpPendingScale;
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    protected float playerJumpPendingScale;
     private boolean allowStandSliding;
     private int standCounter;
     protected boolean isJumping;
-
 
 
     public EntityBeelzebufo(EntityType<? extends Animal> entityType, Level level) {
@@ -76,7 +76,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_CREATIVE_OR_SPECTATOR::test));
         this.goalSelector.addGoal(2, new CustomRideGoal(this, 1.5D));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -104,7 +104,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SADDLED, false);
-        this.entityData.define(DATA_FLAG, (byte)0);
+        this.entityData.define(DATA_FLAG, (byte) 0);
 
     }
 
@@ -132,7 +132,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
     public void travel(Vec3 p_30633_) {
         if (this.isAlive()) {
-            LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
+            LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
             if (this.isVehicle() && this.isSaddled() && livingentity != null) {
                 this.setYRot(livingentity.getYRot());
                 this.yRotO = this.getYRot();
@@ -149,7 +149,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
                 }
 
                 if (this.playerJumpPendingScale > 0.0F && !this.isJumping() && this.onGround) {
-                    double d0 = this.getCustomJump() * (double)this.playerJumpPendingScale * (double)this.getBlockJumpFactor();
+                    double d0 = this.getCustomJump() * (double) this.playerJumpPendingScale * (double) this.getBlockJumpFactor();
                     double d1 = d0 + this.getJumpBoostPower();
                     Vec3 vec3 = this.getDeltaMovement();
                     this.setDeltaMovement(vec3.x, d1, vec3.z);
@@ -157,8 +157,8 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
                     this.hasImpulse = true;
                     ForgeHooks.onLivingJump(this);
                     if (f1 > 0.0F) {
-                        float f2 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F));
-                        float f3 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F));
+                        float f2 = Mth.sin(this.getYRot() * ((float) Math.PI / 180F));
+                        float f3 = Mth.cos(this.getYRot() * ((float) Math.PI / 180F));
                         this.setDeltaMovement(this.getDeltaMovement().add((-0.4F * f2 * this.playerJumpPendingScale), 0.0D, (0.4F * f3 * this.playerJumpPendingScale)));
                     }
 
@@ -167,7 +167,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
                 this.flyingSpeed = this.getSpeed() * 0.1F;
                 if (this.isControlledByLocalInstance()) {
-                    this.setSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
                     super.travel(new Vec3(f, p_30633_.y, f1));
                 } else if (livingentity instanceof Player) {
                     this.setDeltaMovement(Vec3.ZERO);
@@ -190,15 +190,15 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     @Override
     public boolean doHurtTarget(Entity target) {
         boolean shouldHurt;
-        float damage = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        float knockback = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        float knockback = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
         if (target instanceof LivingEntity livingEntity) {
             damage += livingEntity.getMobType().equals(MobType.ARTHROPOD) ? damage : 0;
             knockback += (float) EnchantmentHelper.getKnockbackBonus(this);
         }
         if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
             if (knockback > 0.0f && target instanceof LivingEntity) {
-                ((LivingEntity)target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float)Math.PI / 180)), -Mth.cos(this.getYRot() * ((float)Math.PI / 180)));
+                ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
             }
             this.doEnchantDamageEffects(this, target);
@@ -206,7 +206,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         }
         if (shouldHurt && target instanceof LivingEntity livingEntity) {
             this.playSound(UPSounds.BEELZE_ATTACK.get(), 0.1F, 1.0F);
-            if(random.nextInt(15) == 0 && this.getTarget() instanceof LivingEntity){
+            if (random.nextInt(15) == 0 && this.getTarget() instanceof LivingEntity) {
                 this.spawnAtLocation(UPItems.FROG_SALIVA.get());
             }
         }
@@ -227,9 +227,9 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     }
 
     public void positionRider(Entity passenger) {
-        float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));
-        float yCos = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));
-        passenger.setPos(this.getX() + (double)(0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 0.1F, this.getZ() - (double)(0.5F * yCos));
+        float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+        float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+        passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 0.1F, this.getZ() - (double) (0.5F * yCos));
     }
 
     public double getPassengersRidingOffset() {
@@ -245,8 +245,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
             }
             this.setSaddled(true);
             return InteractionResult.SUCCESS;
-        }
-        else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+        } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
             this.setSaddled(false);
             this.spawnAtLocation(Items.SADDLE);
             return InteractionResult.SUCCESS;
@@ -308,20 +307,20 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isJumping) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
             event.getController().setAnimationSpeed(0.8D);
+            return PlayState.CONTINUE;
+        } else if (this.isJumping()) {
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.jump").addRepeatingAnimation("animation.beelzebufo.jump_hold", 1));
+            return PlayState.CONTINUE;
+        }
+        event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.idle"));
+        event.getController().setAnimationSpeed(1.0D);
 
-        }
-        else if (this.isJumping) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.jump"));
-        }
-        else {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.idle"));
-            event.getController().setAnimationSpeed(1.0D);
-        }
         return PlayState.CONTINUE;
     }
+
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
@@ -359,7 +358,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
             if (p_30591_ >= 90) {
                 this.playerJumpPendingScale = 1.0F;
             } else {
-                this.playerJumpPendingScale = 0.4F + 0.4F * (float)p_30591_ / 90.0F;
+                this.playerJumpPendingScale = 0.4F + 0.4F * (float) p_30591_ / 90.0F;
             }
 
         }
@@ -388,9 +387,9 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     protected void setFlag(int p_30598_, boolean p_30599_) {
         byte b0 = this.entityData.get(DATA_FLAG);
         if (p_30599_) {
-            this.entityData.set(DATA_FLAG, (byte)(b0 | p_30598_));
+            this.entityData.set(DATA_FLAG, (byte) (b0 | p_30598_));
         } else {
-            this.entityData.set(DATA_FLAG, (byte)(b0 & ~p_30598_));
+            this.entityData.set(DATA_FLAG, (byte) (b0 & ~p_30598_));
         }
 
     }
@@ -412,7 +411,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     }
 
     protected double generateRandomJumpStrength() {
-        return (double)0.4F + this.random.nextDouble() * 0.2D + this.random.nextDouble() * 0.2D + this.random.nextDouble() * 0.2D;
+        return (double) 0.4F + this.random.nextDouble() * 0.2D + this.random.nextDouble() * 0.2D + this.random.nextDouble() * 0.2D;
     }
 
     public double getCustomJump() {
@@ -464,10 +463,10 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         if (i <= 0) {
             return false;
         } else {
-            this.hurt(p_149501_, (float)i);
+            this.hurt(p_149501_, (float) i);
             if (this.isVehicle()) {
-                for(Entity entity : this.getIndirectPassengers()) {
-                    entity.hurt(p_149501_, (float)i);
+                for (Entity entity : this.getIndirectPassengers()) {
+                    entity.hurt(p_149501_, (float) i);
                 }
             }
 
