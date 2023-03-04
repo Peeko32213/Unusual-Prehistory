@@ -45,10 +45,11 @@ public class BlockDinosaurLandEggs extends Block {
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
     public static final IntegerProperty EGGS = BlockStateProperties.EGGS;
     private VoxelShape ONE_SHAPE;
-    private  VoxelShape MULTI_SHAPE;
-    private Supplier<?extends EntityType> dinosaur;
+    private VoxelShape MULTI_SHAPE;
+    private Supplier<? extends EntityType> dinosaur;
     private int eggCount;
-    public BlockDinosaurLandEggs(Properties properties, Supplier<?extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg, VoxelShape multiEgg) {
+
+    public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg, VoxelShape multiEgg) {
         super(Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion());
         this.eggCount = eggCount;
         this.dinosaur = dinosaur;
@@ -108,7 +109,7 @@ public class BlockDinosaurLandEggs extends Block {
                 worldIn.removeBlock(pos, false);
                 for (int j = 0; j < state.getValue(EGGS); ++j) {
                     worldIn.levelEvent(4001, pos, Block.getId(state));
-                    Mob dinosaurToSpawn = (Mob)dinosaur.get().create(worldIn);
+                    Mob dinosaurToSpawn = (Mob) dinosaur.get().create(worldIn);
                     dinosaurToSpawn.restrictTo(pos, 20);
                     dinosaurToSpawn.moveTo((double) pos.getX() + 0.3D + (double) j * 0.2D, pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);
                     if (!worldIn.isClientSide) {
@@ -168,16 +169,10 @@ public class BlockDinosaurLandEggs extends Block {
     }
 
     private boolean canTrample(Level worldIn, Entity trampler) {
-        if (!(trampler instanceof Bat) && trampler.getType() != dinosaur) {
-            if (!(trampler instanceof LivingEntity)) {
-                return false;
-            } else {
-                return trampler instanceof Player || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(worldIn, trampler);
-            }
-        } else {
+        if ((trampler instanceof Bat) || trampler.getType() == dinosaur.get() || !(trampler instanceof LivingEntity)) {
             return false;
         }
+        return trampler instanceof Player || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(worldIn, trampler);
     }
-
-
 }
+
