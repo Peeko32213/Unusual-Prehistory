@@ -11,6 +11,7 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
+import org.apache.logging.log4j.core.jmx.Server;
 import org.slf4j.Logger;
 
 import javax.annotation.Nonnull;
@@ -69,6 +71,7 @@ public class EntityTrail extends Projectile implements IEntityAdditionalSpawnDat
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
+        tag.putUUID("owner", this.getOwner().getUUID());
         tag.putInt("duration", this.getDuration());
         tag.putFloat("rot_angle", this.getAngle());
         tag.putFloat("scale", this.getScale());
@@ -80,6 +83,9 @@ public class EntityTrail extends Projectile implements IEntityAdditionalSpawnDat
         setDuration(tag.getInt("duration"));
         setAngle(tag.getFloat("rot_angle"));
         setScale(tag.getFloat("scale"));
+        if(this.level instanceof ServerLevel serverLevel){
+            this.setOwner(serverLevel.getEntity(tag.getUUID("owner")));
+        }
     }
 
     @Override
