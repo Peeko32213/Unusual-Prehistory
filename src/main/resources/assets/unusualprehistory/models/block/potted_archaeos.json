@@ -2,6 +2,6 @@
   "parent": "minecraft:block/flower_pot_cross",
   "ambientocclusion": false,
   "textures": {
-    "plant": "unusualprehistory:block/leefructus"
+    "plant": "unusualprehistory:block/archaeos"
   }
 }

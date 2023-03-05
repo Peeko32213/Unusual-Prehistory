@@ -72,10 +72,27 @@ public class UnusualPrehistory {
             //Todo add this to own class
             addToFlowerPot(UPBlocks.HORSETAIL.getId(), UPBlocks.POTTED_HORSETAIL);
             addToFlowerPot(UPBlocks.LEEFRUCTUS.getId(), UPBlocks.POTTED_LEEFRUCTUS);
+            addToFlowerPot(UPBlocks.BENNETTITALES.getId(), UPBlocks.POTTED_BENNETTITALES);
+            addToFlowerPot(UPBlocks.ARCHAEOSIGILARIA.getId(), UPBlocks.POTTED_ARCHAEOSIGILARIA);
+            addToFlowerPot(UPBlocks.SARACENIA.getId(), UPBlocks.POTTED_SARACENIA);
+            addToFlowerPot(UPBlocks.GINKGO_SAPLING.getId(), UPBlocks.POTTED_GINKGO_SAPLING);
 
             //Todo add this to own class
             addToComposter(UPBlocks.HORSETAIL.get().asItem(), 0.4f);
             addToComposter(UPBlocks.TALL_HORSETAIL.get().asItem(), 0.8f);
+            addToComposter(UPBlocks.LEEFRUCTUS.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.BENNETTITALES.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.ARCHAEOSIGILARIA.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.SARACENIA.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.TALL_SARACENIA.get().asItem(), 0.8f);
+            addToComposter(UPBlocks.GINKGO_LEAVES.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.GINKGO_SAPLING.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.ARCHAEFRUCTUS.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.NELUMBITES.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.NELUMBITES.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.QUEREUXIA_PLANT.get().asItem(), 0.2f);
+            addToComposter(UPBlocks.QUEREUXIA.get().asItem(), 0.2f);
+            addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
 
             Sheets.addWoodType(GINKGO);
         });

@@ -667,10 +667,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         return UPSounds.REX_DEATH.get();
     }
 
-    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.REX_STEP.get(), 0.3F, 1.0F);
-    }
-
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         int animState = this.getAnimationState();
         {
