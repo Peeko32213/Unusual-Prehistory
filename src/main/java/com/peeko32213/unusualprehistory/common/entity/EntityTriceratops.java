@@ -122,7 +122,7 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
         }));
         this.targetSelector.addGoal(2, new TrikeNearestAttackablePlayerTargetGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new CustomRideGoal(this, 2.5F));
+        this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
         this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 6.0F, 3.0F, false));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));

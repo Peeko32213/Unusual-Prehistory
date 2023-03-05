@@ -101,7 +101,7 @@ public class BlockDinosaurWaterEggs extends Block {
     }
 
     private void createDinosaur(ServerLevel level, BlockPos pos, RandomSource random) {
-        int i = random.nextInt(3, 6);
+        int i = random.nextInt(1, 2);
         for (int index = 1; index <= i; ++index) {
             Mob entityToSpawn = (Mob) dinosaur.get().create(level);
             if (entityToSpawn != null) {

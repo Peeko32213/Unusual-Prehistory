@@ -143,7 +143,7 @@ public class BlockDinosaurLandEggs extends Block {
     }
 
     private boolean canGrow(Level worldIn) {
-        return worldIn.random.nextInt(20) == 0;
+        return worldIn.random.nextInt(10) == 0;
     }
 
     public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity te, ItemStack stack) {

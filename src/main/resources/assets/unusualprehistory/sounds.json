@@ -637,11 +637,11 @@
     "sounds": [
       {
         "name": "unusualprehistory:eryon_death_0",
-        "volume": 0.5
+        "volume": 0.2
       },
       {
         "name": "unusualprehistory:eryon_death_1",
-        "volume": 0.5
+        "volume": 0.2
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.eryon_death"
@@ -651,15 +651,15 @@
     "sounds": [
       {
         "name": "unusualprehistory:eryon_hurt_0",
-        "volume": 0.5
+        "volume": 0.2
       },
       {
         "name": "unusualprehistory:eryon_hurt_1",
-        "volume": 0.5
+        "volume": 0.2
       },
       {
         "name": "unusualprehistory:eryon_hurt_2",
-        "volume": 0.5
+        "volume": 0.2
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.eryon_hurt"
@@ -669,15 +669,15 @@
     "sounds": [
       {
         "name": "unusualprehistory:eryon_idle_0",
-        "volume": 0.5
+        "volume": 0.2
       },
       {
         "name": "unusualprehistory:eryon_idle_1",
-        "volume": 0.5
+        "volume": 0.2
       },
       {
         "name": "unusualprehistory:eryon_idle_2",
-        "volume": 0.5
+        "volume": 0.2
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.eryon_idle"

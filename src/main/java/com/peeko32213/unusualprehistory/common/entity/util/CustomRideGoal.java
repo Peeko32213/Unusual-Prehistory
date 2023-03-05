@@ -9,22 +9,22 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class CustomRideGoal extends Goal {
+public class CustomRideGoal  extends Goal {
 
-    private PathfinderMob tameableEntity;
+    private final PathfinderMob tameableEntity;
     private LivingEntity player;
-    private double speed;
-    private boolean strafe;
+    private final double speed;
+    private final boolean strafe;
 
-    public CustomRideGoal(PathfinderMob mob, double speed) {
-        this(mob, speed, true);
+    public CustomRideGoal(PathfinderMob dragon, double speed) {
+        this(dragon, speed, true);
     }
 
     public CustomRideGoal(PathfinderMob dragon, double speed, boolean strafe) {
         this.tameableEntity = dragon;
         this.speed = speed;
         this.strafe = strafe;
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     @Override
@@ -32,8 +32,7 @@ public class CustomRideGoal extends Goal {
         if (tameableEntity.getControllingPassenger() instanceof Player && tameableEntity.isVehicle()) {
             player = (Player) tameableEntity.getControllingPassenger();
             return true;
-        }
-        else{
+        } else {
             tameableEntity.setSprinting(false);
             return false;
         }
@@ -46,12 +45,16 @@ public class CustomRideGoal extends Goal {
 
     @Override
     public void tick() {
+        tameableEntity.maxUpStep = 1;
         tameableEntity.getNavigation().stop();
         tameableEntity.setTarget(null);
         double x = tameableEntity.getX();
         double y = tameableEntity.getY();
         double z = tameableEntity.getZ();
-        if (shouldMoveForward() && tameableEntity.isVehicle()){
+        if (strafe) {
+            tameableEntity.xxa = player.xxa * 0.15F;
+        }
+        if (shouldMoveForward() && tameableEntity.isVehicle()) {
             tameableEntity.setSprinting(true);
             Vec3 lookVec = player.getLookAngle();
             if (shouldMoveBackwards()) {
@@ -59,27 +62,23 @@ public class CustomRideGoal extends Goal {
             }
             x += lookVec.x * 10;
             z += lookVec.z * 10;
-            if(tameableEntity instanceof FlyingAnimal){
-                y += lookVec.y * 10;
-            }
-        }
-        else{
+            y += modifyYPosition(lookVec.y);
+            tameableEntity.getMoveControl().setWantedPosition(x, y, z, speed);
+        } else {
             tameableEntity.setSprinting(false);
-
         }
-        if(strafe){
-            tameableEntity.xxa = player.xxa * 0.15F;
-        }
-        tameableEntity.maxUpStep = 1;
-        tameableEntity.getMoveControl().setWantedPosition(x, y, z, speed);
     }
 
-    public boolean shouldMoveForward(){
+    public double modifyYPosition(double lookVecY) {
+        return tameableEntity instanceof FlyingAnimal ? lookVecY * 10 : 0;
+    }
+
+    public boolean shouldMoveForward() {
         return player.zza != 0;
     }
 
 
-    public boolean shouldMoveBackwards(){
+    public boolean shouldMoveBackwards() {
         return player.zza < 0;
     }
 }
