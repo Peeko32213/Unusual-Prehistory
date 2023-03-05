@@ -231,14 +231,14 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         }
         if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             if(this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
-                double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_REX_RANGE.get();
-                int brachiShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_REX_AMPLIFIER.get();
-                float brachiMoveSoundVolume= UnusualPrehistoryConfig.REX_SOUND_VOLUME.get();
-                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
+                double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_REX_RANGE.get();
+                int rexShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_REX_AMPLIFIER.get();
+                float rexMoveSoundVolume= UnusualPrehistoryConfig.REX_SOUND_VOLUME.get();
+                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(rexShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityTyrannosaurusRex) && e.isAlive()) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiShakeAmp, false, false, false));
-                        this.playSound(UPSounds.REX_STEP.get(), brachiMoveSoundVolume, 0.05F);
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, rexShakeAmp, false, false, false));
+                        this.playSound(UPSounds.REX_STEP.get(), rexMoveSoundVolume, 0.70F);
                     }
                 }
                 shakeCooldown = 10;
