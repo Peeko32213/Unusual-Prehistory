@@ -47,10 +47,13 @@ public class BlockDinosaurLandEggs extends Block {
     private VoxelShape ONE_SHAPE;
     private VoxelShape MULTI_SHAPE;
     public static final VoxelShape EMPTY_BLOCK_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+    public static final VoxelShape ONE_EGG_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D);
+    public static final VoxelShape MULTI_EGG_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D);
 
     private Supplier<? extends EntityType> dinosaur;
     private int eggCount;
 
+    //This can be called for eggs that have multiple eggs and different egg shapes
     public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg, VoxelShape multiEgg) {
         super(Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion());
         this.eggCount = eggCount;
@@ -60,13 +63,15 @@ public class BlockDinosaurLandEggs extends Block {
         this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(EGGS, Integer.valueOf(1)));
     }
 
-
+    //This can be called for eggs that have only a single egg and egg shape
     public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg) {
         this(properties, dinosaur, eggCount, oneEgg, EMPTY_BLOCK_SHAPE);
-
     }
 
-
+    //This can be called for eggs that have the standard egg shape/ the most common one
+    public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount) {
+        this(properties, dinosaur, eggCount, ONE_EGG_SHAPE, MULTI_EGG_SHAPE);
+    }
         public static boolean hasProperHabitat(BlockGetter reader, BlockPos blockReader) {
         return isProperHabitat(reader, blockReader.below());
     }
