@@ -32,8 +32,6 @@ public class UPBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
             UnusualPrehistory.MODID);
-    public static final VoxelShape EMPTY_BLOCK_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
-
 
     public static final RegistryObject<Block> STONE_FOSSIL = registerBlock("stone_fossil",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
@@ -128,9 +126,7 @@ public class UPBlocks {
             () -> new BlockDinosaurLandEggs(
                     BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.BABY_BRACHI, 1,
-                    Block.box(3, 0, 3, 13, 12, 13),
-                    //This does nothing since we only got one egg but we just put one there
-                    EMPTY_BLOCK_SHAPE
+                    Block.box(3, 0, 3, 13, 12, 13)
             ));
 
     public static final RegistryObject<Block> REX_EGG = registerBlock("rex_eggs",
@@ -169,9 +165,7 @@ public class UPBlocks {
             () -> new BlockDinosaurLandEggs(
                     BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.ENCRUSTED, 1,
-                    Block.box(4, 0, 4, 12, 8, 12),
-                    //This does nothing since we only got one egg but we just put one there
-                    EMPTY_BLOCK_SHAPE
+                    Block.box(4, 0, 4, 12, 8, 12)
             ));
 
     public static final RegistryObject<Block> ERYON_EGGS = registerBlock("eryon_eggs",

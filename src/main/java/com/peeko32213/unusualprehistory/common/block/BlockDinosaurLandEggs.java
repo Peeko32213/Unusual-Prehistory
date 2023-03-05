@@ -46,6 +46,8 @@ public class BlockDinosaurLandEggs extends Block {
     public static final IntegerProperty EGGS = BlockStateProperties.EGGS;
     private VoxelShape ONE_SHAPE;
     private VoxelShape MULTI_SHAPE;
+    public static final VoxelShape EMPTY_BLOCK_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+
     private Supplier<? extends EntityType> dinosaur;
     private int eggCount;
 
@@ -58,7 +60,14 @@ public class BlockDinosaurLandEggs extends Block {
         this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(EGGS, Integer.valueOf(1)));
     }
 
-    public static boolean hasProperHabitat(BlockGetter reader, BlockPos blockReader) {
+
+    public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg) {
+        this(properties, dinosaur, eggCount, oneEgg, EMPTY_BLOCK_SHAPE);
+
+    }
+
+
+        public static boolean hasProperHabitat(BlockGetter reader, BlockPos blockReader) {
         return isProperHabitat(reader, blockReader.below());
     }
 
