@@ -390,22 +390,22 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                 shakeCooldown = 10;
             }
 
-            if(this.footPrintCooldown <= 0 && UnusualPrehistoryConfig.BRACHI_EXPERIMENTAL_FOOTPRINTS.get()) {
-                float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
-                float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-                EntityTrail entityTrail = new EntityTrail(this, this.position().add(1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x, 1.0F);
-                EntityTrail entityTrail2 = new EntityTrail(this, this.position().add(1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
-                EntityTrail entityTrail3 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
-                EntityTrail entityTrail4 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
-                this.level.addFreshEntity(entityTrail);
-                this.level.addFreshEntity(entityTrail2);
-                this.level.addFreshEntity(entityTrail3);
-                this.level.addFreshEntity(entityTrail4);
-                footPrintCooldown = 100;
-            }
+//            if(this.footPrintCooldown <= 0) {
+//                float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+//                float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+//                EntityTrail entityTrail = new EntityTrail(this, this.position().add(1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x, 1.0F);
+//                EntityTrail entityTrail2 = new EntityTrail(this, this.position().add(1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
+//                EntityTrail entityTrail3 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
+//                EntityTrail entityTrail4 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
+//                this.level.addFreshEntity(entityTrail);
+//                this.level.addFreshEntity(entityTrail2);
+//                this.level.addFreshEntity(entityTrail3);
+//                this.level.addFreshEntity(entityTrail4);
+//                footPrintCooldown = 100;
+//            }
         }
         shakeCooldown--;
-        footPrintCooldown--;
+//        footPrintCooldown--;
     }
 
     private float getLaunchStrength() {
