@@ -65,9 +65,9 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAW_SCAU, "Raw Scaumenacia");
         addItem(UPItems.COOKED_SCAU, "Cooked Scaumenacia");
         addItem(UPItems.GOLDEN_SCAU, "Golden Scaumenacia");
-        addItem(UPItems.GINKGO_FRUIT, "Ginko Fruit");
-        addItem(UPItems.RAW_GINKGO_SEEDS, "Raw Ginko Seeds");
-        addItem(UPItems.COOKED_GINKGO_SEEDS, "Cooked Ginko Seeds");
+        addItem(UPItems.GINKGO_FRUIT, "Ginkgo Fruit");
+        addItem(UPItems.RAW_GINKGO_SEEDS, "Raw Ginkgo Seeds");
+        addItem(UPItems.COOKED_GINKGO_SEEDS, "Cooked Ginkgo Seeds");
 
         //BUCKETS
         addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");
@@ -186,7 +186,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ARCHAEOSIGILARIA, "Archaeosigillaria");
         addBlock(UPBlocks.SARACENIA, "Sarracenia");
         addBlock(UPBlocks.TALL_SARACENIA, "Tall Sarracenia");
-        addBlock(UPBlocks.GINKGO_SAPLING, "Ginko Sapling");
+        addBlock(UPBlocks.GINKGO_SAPLING, "Ginkgo Sapling");
         addBlock(UPBlocks.ARCHAEFRUCTUS, "Archaefructus");
         addBlock(UPBlocks.NELUMBITES, "Nelumbites");
         addBlock(UPBlocks.QUEREUXIA, "Quereuxia");
