@@ -33,8 +33,8 @@ public class UnusualPrehistoryConfig {
         SCREEN_SHAKE_BRACHI = builder.comment("Screen shake brachi").define("screen_shake_brachi", true);
         SCREEN_SHAKE_BRACHI_RANGE = builder.comment("Screen shake brachi range").define("screen_shake_brachi_range", 10.0D);
         SCREEN_SHAKE_TEEN_BRACHI_RANGE = builder.comment("Screen shake brachi teen range").define("screen_shake_brachi_teen_range", 5.0D);
-        SCREEN_SHAKE_BRACHI_AMPLIFIER = builder.comment("Screen shake brachi amplifier").define("screen_shake_brachi_amplifier", 2);
-        SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER = builder.comment("Screen shake brachi teen amplifier").define("screen_shake_brachi_teen_amplifier", 1);
+        SCREEN_SHAKE_BRACHI_AMPLIFIER = builder.comment("Screen shake brachi amplifier").define("screen_shake_brachi_amplifier", 1);
+        SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER = builder.comment("Screen shake brachi teen amplifier").define("screen_shake_brachi_teen_amplifier", 0);
         BRACHI_SOUND_VOLUME = builder.comment("Brachi sound volume").define("brachi_sound_volume", 3.0F);
         BRACHI_TEEN_SOUND_VOLUME = builder.comment("Brachi teen sound volume").define("brachi_teen_sound_volume", 1.5F);
         BRACHI_EXPERIMENTAL_FOOTPRINTS = builder.comment("Brachi footprints").define("brachi_experimental_footprints", false);
@@ -42,7 +42,7 @@ public class UnusualPrehistoryConfig {
 
         SCREEN_SHAKE_REX = builder.comment("Screen shake rex").define("screen_shake_rex", true);
         SCREEN_SHAKE_REX_RANGE = builder.comment("Screen shake rex range").define("screen_shake_rex_range", 10.0D);
-        SCREEN_SHAKE_REX_AMPLIFIER = builder.comment("Screen shake rex amplifier").define("screen_shake_rex_amplifier", 2);
+        SCREEN_SHAKE_REX_AMPLIFIER = builder.comment("Screen shake rex amplifier").define("screen_shake_rex_amplifier", 1);
         REX_SOUND_VOLUME = builder.comment("Rex sound volume").define("rex_sound_volume", 0.5F);
     }
 }

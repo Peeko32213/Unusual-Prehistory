@@ -230,7 +230,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             this.spawnAtLocation(UPItems.REX_SCALE.get(), 9);
             this.timeUntilDrops = this.random.nextInt(12000) + 24000;
         }
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
             if(this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_REX_RANGE.get();
                 int rexShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_REX_AMPLIFIER.get();
@@ -242,7 +242,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
                         this.playSound(UPSounds.REX_STEP.get(), rexMoveSoundVolume, 0.70F);
                     }
                 }
-                shakeCooldown = 10;
+                shakeCooldown = 30;
             }
         }
         shakeCooldown--;
@@ -591,7 +591,7 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, 3, false, false, false));
                     }
                 }
-                mob.shakeCooldown = 10;
+                mob.shakeCooldown = 100;
             }
             mob.shakeCooldown--;
         }

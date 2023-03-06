@@ -290,7 +290,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
                 headPeakCooldown = 5;
             }
         }
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()){
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get() && !this.isSwimming()){
             if(this.shakeCooldown <= 0) {
                 double brachiTeenShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_TEEN_BRACHI_RANGE.get();
                 int brachiTeenShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER.get();
@@ -302,7 +302,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
                         this.playSound(UPSounds.BRACHI_STEP.get(), brachiTeenMoveSoundVolume, 0.40F);
                     }
                 }
-                shakeCooldown = 10;
+                shakeCooldown = 40;
             }
 
             if(this.footPrintCooldown <= 0 && UnusualPrehistoryConfig.BRACHI_EXPERIMENTAL_FOOTPRINTS.get()) {
