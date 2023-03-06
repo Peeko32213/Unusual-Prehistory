@@ -169,11 +169,10 @@ public class UPBlocks {
             ));
 
     public static final RegistryObject<Block> ERYON_EGGS = registerBlock("eryon_eggs",
-            () -> new BlockDinosaurWaterEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.HONEY_BLOCK).randomTicks().noOcclusion(),
-                    UPEntities.ERYON,
-                    //Turn this to false if you want it to be placed on water.
-                    true
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.HONEY_BLOCK).randomTicks().noOcclusion().noCollission(),
+                    UPEntities.ERYON, 1,
+                    Block.box(0, 0, 0, 16, 1.5, 16)
             ));
 
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
