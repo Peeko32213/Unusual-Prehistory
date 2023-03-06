@@ -305,7 +305,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
                 shakeCooldown = 10;
             }
 
-            if(this.footPrintCooldown <= 0) {
+            if(this.footPrintCooldown <= 0 && UnusualPrehistoryConfig.BRACHI_EXPERIMENTAL_FOOTPRINTS.get()) {
                 float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
                 float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
                 LOGGER.info("angle" + this.getLookAngle().x);

@@ -25,6 +25,7 @@ public class UnusualPrehistoryConfig {
     public static ForgeConfigSpec.ConfigValue<Integer> SCREEN_SHAKE_BRACHI_AMPLIFIER;
     public static ForgeConfigSpec.ConfigValue<Integer> SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER;
     public static ForgeConfigSpec.ConfigValue<Integer> SCREEN_SHAKE_REX_AMPLIFIER;
+    public static ForgeConfigSpec.ConfigValue<Boolean> BRACHI_EXPERIMENTAL_FOOTPRINTS;
     private static void setupConfig(ForgeConfigSpec.Builder builder) {
         builder.comment(UnusualPrehistory.MODID + " Config");
 
@@ -36,6 +37,8 @@ public class UnusualPrehistoryConfig {
         SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER = builder.comment("Screen shake brachi teen amplifier").define("screen_shake_brachi_teen_amplifier", 1);
         BRACHI_SOUND_VOLUME = builder.comment("Brachi sound volume").define("brachi_sound_volume", 3.0F);
         BRACHI_TEEN_SOUND_VOLUME = builder.comment("Brachi teen sound volume").define("brachi_teen_sound_volume", 1.5F);
+        BRACHI_EXPERIMENTAL_FOOTPRINTS = builder.comment("Brachi footprints").define("brachi_experimental_footprints", false);
+
 
         SCREEN_SHAKE_REX = builder.comment("Screen shake rex").define("screen_shake_rex", true);
         SCREEN_SHAKE_REX_RANGE = builder.comment("Screen shake rex range").define("screen_shake_rex_range", 10.0D);

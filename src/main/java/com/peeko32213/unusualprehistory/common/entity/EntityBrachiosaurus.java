@@ -390,7 +390,7 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
                 shakeCooldown = 10;
             }
 
-            if(this.footPrintCooldown <= 0) {
+            if(this.footPrintCooldown <= 0 && UnusualPrehistoryConfig.BRACHI_EXPERIMENTAL_FOOTPRINTS.get()) {
                 float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
                 float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
                 EntityTrail entityTrail = new EntityTrail(this, this.position().add(1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x, 1.0F);
