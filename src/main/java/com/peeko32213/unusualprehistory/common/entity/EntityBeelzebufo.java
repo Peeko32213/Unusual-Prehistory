@@ -21,6 +21,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
@@ -84,7 +85,8 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(2, new EntityBeelzebufo.IMeleeAttackGoal());
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.BEELZE_TARGETS)));
-
+        //If its attacked they will now fight back
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
     }
 
     public void checkDespawn() {
