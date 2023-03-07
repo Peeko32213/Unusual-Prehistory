@@ -1,6 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity.util;
 
+import com.peeko32213.unusualprehistory.common.entity.EntityTriceratops;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
@@ -70,7 +72,7 @@ public class CustomRideGoal  extends Goal {
     }
 
     public double modifyYPosition(double lookVecY) {
-        return tameableEntity instanceof FlyingAnimal ? lookVecY * 10 : 0;
+        return tameableEntity instanceof Mob ? lookVecY * 10 : 0;
     }
 
     public boolean shouldMoveForward() {

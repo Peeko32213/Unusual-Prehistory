@@ -260,7 +260,31 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
 
         return super.isAlliedTo(entityIn);
     }
+    @Override
+    public void travel(Vec3 pos) {
+        if (this.isAlive()) {
+            LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
+            if (this.isVehicle() && livingentity !=null) {
 
+                this.setYRot(livingentity.getYRot());
+                this.yRotO = this.getYRot();
+                this.setXRot(livingentity.getXRot() * 0.5F);
+                this.setRot(this.getYRot(), this.getXRot());
+                this.yBodyRot = this.getYRot();
+                this.yHeadRot = this.yBodyRot;
+                float f = livingentity.xxa * 0.5F;
+                float f1 = livingentity.zza;
+                if (f1 <= 0.0F) {
+                    f1 *= 0.25F;
+                }
+
+                this.setSpeed(0.3F);
+                super.travel(new Vec3((double) f, pos.y, (double) f1));
+            }else{
+                super.travel(pos);
+            }
+        }
+    }
     @Nullable
     public Entity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {
