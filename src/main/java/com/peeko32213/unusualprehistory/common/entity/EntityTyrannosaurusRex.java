@@ -38,6 +38,7 @@ import net.minecraft.world.entity.animal.Dolphin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -127,7 +128,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        InteractionResult type = super.mobInteract(player, hand);
         if(item == UPItems.ADORNED_STAFF.get() && this.isEepy()) {
             itemstack.hurtAndBreak(5, player, (p_29822_) -> {
                 p_29822_.broadcastBreakEvent(hand);
@@ -138,7 +138,12 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
             this.passiveFor = 1000000000 + random.nextInt(1000000000);
             return InteractionResult.SUCCESS;
         }
-        return super.mobInteract(player, hand);
+        return InteractionResult.FAIL;
+    }
+
+    @Override
+    public boolean canBeLeashed(Player p_21418_) {
+        return this.hasEepy();
     }
 
     @Override
