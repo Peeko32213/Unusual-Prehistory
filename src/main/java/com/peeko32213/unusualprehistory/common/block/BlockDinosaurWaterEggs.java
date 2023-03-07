@@ -51,17 +51,15 @@ public class BlockDinosaurWaterEggs extends Block {
     }
 
     public void onPlace(BlockState p_221227_, Level p_221228_, BlockPos p_221229_, BlockState p_221230_, boolean p_221231_) {
-        p_221228_.scheduleTick(p_221229_, this, getFrogspawnHatchDelay(p_221228_.getRandom()));
+        p_221228_.scheduleTick(p_221229_, this, getSpawnHatchDelay(p_221228_.getRandom()));
     }
 
     public static boolean isProperHabitat(BlockGetter reader, BlockPos pos) {
         return reader.getBlockState(pos).is(BlockTags.BAMBOO_PLANTABLE_ON);
     }
-    private static int getFrogspawnHatchDelay(RandomSource p_221186_) {
-        return p_221186_.nextInt(3600, 12000);
+    private static int getSpawnHatchDelay(RandomSource randomSource) {
+        return randomSource.nextInt(3600, 12000);
     }
-
-
 
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor access, BlockPos pos, BlockPos neighborPos) {

@@ -112,12 +112,14 @@ public class BlockDinosaurLandEggs extends Block {
         }
     }
 
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
+    public void growEgg(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         if (this.canGrow(worldIn) && hasProperHabitat(worldIn, pos)) {
             int i = state.getValue(HATCH);
             if (i < 2) {
                 worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
                 worldIn.setBlock(pos, state.setValue(HATCH, Integer.valueOf(i + 1)), 2);
+                //Schedule tick between 2 to 10 minutes when its not hatched yet
+                worldIn.scheduleTick(pos, this, worldIn.getRandom().nextInt(2400,12000));
             } else {
                 worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
                 worldIn.removeBlock(pos, false);
@@ -135,11 +137,23 @@ public class BlockDinosaurLandEggs extends Block {
 
     }
 
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        growEgg(state, level, pos, random);
+    }
+    //We also add a randomTick and if they are lucky it will give them some more progress
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if(random.nextBoolean() && hasProperHabitat(level, pos)) {
+            this.tick(state, level, pos, random);
+        }
+    }
+
     public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (hasProperHabitat(worldIn, pos) && !worldIn.isClientSide) {
             worldIn.levelEvent(2005, pos, 0);
+            //Schedule tick between 2 to 10 minutes on place (I believe for every hatch it "places" it again so this will trigger again.
+            worldIn.scheduleTick(pos, this, worldIn.getRandom().nextInt(2400,12000));
         }
-
     }
 
     private boolean canGrow(Level worldIn) {
@@ -169,7 +183,7 @@ public class BlockDinosaurLandEggs extends Block {
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
-        return blockstate.getBlock() == this ? blockstate.setValue(EGGS, Integer.valueOf(Math.min(4, blockstate.getValue(EGGS) + 1))) : super.getStateForPlacement(context);
+        return blockstate.getBlock() == this ? blockstate.setValue(EGGS, Integer.valueOf(Math.min(eggCount, blockstate.getValue(EGGS) + 1))) : super.getStateForPlacement(context);
     }
 
 
