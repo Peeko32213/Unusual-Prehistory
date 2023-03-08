@@ -9,6 +9,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -58,7 +59,7 @@ public class BlockDinosaurWaterEggs extends Block {
         return reader.getBlockState(pos).is(BlockTags.BAMBOO_PLANTABLE_ON);
     }
     private static int getSpawnHatchDelay(RandomSource randomSource) {
-        return randomSource.nextInt(3600, 12000);
+        return randomSource.nextInt(1600, 3600);
     }
 
     @Override
@@ -88,6 +89,8 @@ public class BlockDinosaurWaterEggs extends Block {
         return fluidState.getType() == Fluids.WATER && topFluidState.getType() == Fluids.EMPTY;
     }
 
+
+
     private void onHatch(ServerLevel level, BlockPos pos, RandomSource random) {
         this.hatch(level, pos);
         level.playSound(null, pos, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -102,6 +105,10 @@ public class BlockDinosaurWaterEggs extends Block {
         int i = random.nextInt(1, 2);
         for (int index = 1; index <= i; ++index) {
             Mob entityToSpawn = (Mob) dinosaur.get().create(level);
+            if(entityToSpawn instanceof Animal animal){
+                animal.setAge(-24000);
+                animal.restrictTo(pos, 20);
+            }
             if (entityToSpawn != null) {
                 double x = (double)pos.getX() + this.getSpawnOffset(random);
                 double z = (double)pos.getZ() + this.getSpawnOffset(random);
