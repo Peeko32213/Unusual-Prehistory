@@ -43,6 +43,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
     private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
     int lastTimeSinceHungry;
 
     protected EntityBaseDinosaurAnimal(EntityType<? extends Animal> entityType, Level level) {
@@ -131,7 +132,8 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         super.defineSynchedData();
         this.entityData.define(HUNGRY, true);
         this.entityData.define(TIME_TILL_HUNGRY, 0);
-        this.getEntityData().define(SADDLED, false);
+        this.entityData.define(SADDLED, false);
+        this.entityData.define(PASSIVE, 0);
     }
 
     @Override
@@ -140,6 +142,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         compound.putBoolean("IsHungry", this.isHungry());
         compound.putInt("TimeTillHungry", this.getTimeTillHungry());
         compound.putBoolean("Saddle", this.isSaddled());
+        compound.putInt("PassiveTicks", this.getPassiveTicks());
     }
 
     @Override
@@ -148,6 +151,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.setHungry(compound.getBoolean("IsHungry"));
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
+        this.setPassiveTicks(compound.getInt("PassiveTicks"));
     }
 
     public boolean isHungry() {
@@ -172,6 +176,14 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
 
     public void setSaddled(boolean saddled) {
         this.entityData.set(SADDLED, Boolean.valueOf(saddled));
+    }
+
+    public int getPassiveTicks() {
+        return this.entityData.get(PASSIVE);
+    }
+
+    public void setPassiveTicks(int passiveTicks) {
+        this.entityData.set(PASSIVE, passiveTicks);
     }
 
     public boolean requiresCustomPersistence() {

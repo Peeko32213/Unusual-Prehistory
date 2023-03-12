@@ -58,7 +58,6 @@ import java.util.List;
 public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
 
     private static final TagKey<Item> FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "majunga_food"));
-    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.BOOLEAN);
 
@@ -152,21 +151,19 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
         super.defineSynchedData();
         this.entityData.define(CHARGE_COOLDOWN_TICKS, 0);
         this.entityData.define(HAS_TARGET, false);
-        this.entityData.define(PASSIVE, 0);
+
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("StunTick", this.stunnedTick);
-        compound.putInt("PassiveTicks", this.getPassiveTicks());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.stunnedTick = compound.getInt("StunTick");
-        this.setPassiveTicks(compound.getInt("PassiveTicks"));
     }
 
 
@@ -193,13 +190,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
         return type;
     }
 
-    public int getPassiveTicks() {
-        return this.entityData.get(PASSIVE);
-    }
 
-    private void setPassiveTicks(int passiveTicks) {
-        this.entityData.set(PASSIVE, passiveTicks);
-    }
 
     protected SoundEvent getAmbientSound() {
         return UPSounds.MAJUNGA_IDLE.get();

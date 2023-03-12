@@ -66,8 +66,6 @@ import java.util.List;
 public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
-
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.BOOLEAN);
@@ -200,14 +198,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         return null;
     }
 
-    //Todo remove there or not?, they are not used
-    public int getPassiveTicks() {
-        return this.entityData.get(PASSIVE);
-    }
-
-    private void setPassiveTicks(int passiveTicks) {
-        this.entityData.set(PASSIVE, passiveTicks);
-    }
 
     public void setEepy(boolean eepy) {
         this.entityData.set(EEPY, Boolean.valueOf(eepy));
@@ -261,7 +251,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
         this.entityData.define(EEPY, false);
-        this.getEntityData().define(PASSIVE, 0);
     }
 
     @Override
