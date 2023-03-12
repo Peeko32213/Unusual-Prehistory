@@ -127,9 +127,8 @@ public class BlockDinosaurLandEggs extends Block {
                 for (int j = 0; j < state.getValue(EGGS); ++j) {
                     worldIn.levelEvent(4001, pos, Block.getId(state));
                     Mob dinosaurToSpawn = (Mob) dinosaur.get().create(worldIn);
-                    if(dinosaurToSpawn instanceof Animal animal){
+                    if(dinosaurToSpawn instanceof AgeableMob animal){
                         animal.setAge(-24000);
-                        animal.restrictTo(pos, 20);
                     }
                     dinosaurToSpawn.restrictTo(pos, 20);
                     dinosaurToSpawn.moveTo((double) pos.getX() + 0.3D + (double) j * 0.2D, pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);

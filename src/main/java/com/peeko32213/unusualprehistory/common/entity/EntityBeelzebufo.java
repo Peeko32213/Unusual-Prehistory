@@ -51,7 +51,9 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> DATA_FLAG = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BYTE);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.BEEF, Items.PORKCHOP, Items.CHICKEN);
-
+    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.INT);
+    int lastTimeSinceHungry;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     protected float playerJumpPendingScale;
     private boolean allowStandSliding;
@@ -79,12 +81,54 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_CREATIVE_OR_SPECTATOR::test));
         this.goalSelector.addGoal(2, new CustomRideGoal(this, 1.5D));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
+                {
+                    @Override
+                    public boolean canUse() {
+                        if (this.mob.isVehicle()) {
+                            return false;
+                        } else {
+                            if (!this.forceTrigger) {
+                                if (this.mob.getNoActionTime() >= 100) {
+                                    return false;
+                                }
+                                if (((EntityBeelzebufo) this.mob).isHungry()) {
+                                    if (this.mob.getRandom().nextInt(60) != 0) {
+                                        return false;
+                                    }
+                                } else {
+                                    if (this.mob.getRandom().nextInt(30) != 0) {
+                                        return false;
+                                    }
+                                }
+                            }
+
+                            Vec3 vec3d = this.getPosition();
+                            if (vec3d == null) {
+                                return false;
+                            } else {
+                                this.wantedX = vec3d.x;
+                                this.wantedY = vec3d.y;
+                                this.wantedZ = vec3d.z;
+                                this.forceTrigger = false;
+                                return true;
+                            }
+                        }
+                    }
+                }
+        );
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(2, new EntityBeelzebufo.IMeleeAttackGoal());
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.BEELZE_TARGETS)));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.BEELZE_TARGETS))
+        {
+            @Override
+            public boolean canUse() {
+                return ((EntityMajungasaurus) this.mob).isHungry() && super.canUse();
+            }
+        }
+        );
         //If its attacked they will now fight back
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
     }
@@ -113,12 +157,19 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setSaddled(compound.getBoolean("Saddle"));
-
+        this.setHungry(compound.getBoolean("IsHungry"));
+        this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Saddle", this.isSaddled());
+        compound.putBoolean("IsHungry", this.isHungry());
+        compound.putInt("TimeTillHungry", this.getTimeTillHungry());
+    }
+
+    private void attack(LivingEntity entity) {
+        entity.hurt(DamageSource.mobAttack(this), 8.0F);
     }
 
     public void tick() {
@@ -130,6 +181,29 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
             this.standCounter = 0;
             this.setStanding(false);
         }
+        if (!this.isHungry() && lastTimeSinceHungry < this.getTimeTillHungry()) {
+            lastTimeSinceHungry++;
+        }
+        if (lastTimeSinceHungry >= this.getTimeTillHungry()) {
+            this.setHungry(true);
+            lastTimeSinceHungry = 0;
+        }
+    }
+
+    public boolean isHungry() {
+        return this.entityData.get(HUNGRY);
+    }
+
+    public void setHungry(boolean hungry) {
+        this.entityData.set(HUNGRY, hungry);
+    }
+
+    public int getTimeTillHungry() {
+        return this.entityData.get(TIME_TILL_HUNGRY);
+    }
+
+    public void setTimeTillHungry(int ticks) {
+        this.entityData.set(TIME_TILL_HUNGRY, ticks);
     }
 
     public void travel(Vec3 p_30633_) {
@@ -435,6 +509,17 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
             return (this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
+        }
+
+        @Override
+        protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
+            double d0 = this.getAttackReachSqr(enemy);
+            if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
+                this.resetAttackCooldown();
+                ((EntityBeelzebufo) this.mob).setHungry(false);
+                ((EntityBeelzebufo) this.mob).attack(enemy);
+                ((EntityBeelzebufo) this.mob).setTimeTillHungry(mob.getRandom().nextInt(100) + 100);
+            }
         }
 
     }

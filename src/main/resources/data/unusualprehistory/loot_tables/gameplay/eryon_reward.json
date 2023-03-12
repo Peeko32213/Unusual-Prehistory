@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 10,
           "functions": [
           ],
           "name": "minecraft:bone"
@@ -27,10 +27,17 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 10,
           "functions": [
           ],
           "name": "minecraft:string"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "functions": [
+          ],
+          "name": "minecraft:stick"
         },
         {
           "type": "minecraft:item",

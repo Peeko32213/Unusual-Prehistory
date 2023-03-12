@@ -61,6 +61,9 @@ public class EntityMajungasaurus extends Animal implements IAnimatable {
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
+    int lastTimeSinceHungry;
     private int stunnedTick;
     private boolean canBePushed = true;
 
@@ -87,17 +90,71 @@ public class EntityMajungasaurus extends Animal implements IAnimatable {
         this.goalSelector.addGoal(3, new MajungaChargeGoal(this, 2.5F));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
+                {
+                    @Override
+                    public boolean canUse() {
+                        if (this.mob.isVehicle()) {
+                            return false;
+                        } else {
+                            if (!this.forceTrigger) {
+                                if (this.mob.getNoActionTime() >= 100) {
+                                    return false;
+                                }
+                                if (((EntityMajungasaurus) this.mob).isHungry()) {
+                                    if (this.mob.getRandom().nextInt(60) != 0) {
+                                        return false;
+                                    }
+                                } else {
+                                    if (this.mob.getRandom().nextInt(30) != 0) {
+                                        return false;
+                                    }
+                                }
+                            }
+
+                            Vec3 vec3d = this.getPosition();
+                            if (vec3d == null) {
+                                return false;
+                            } else {
+                                this.wantedX = vec3d.x;
+                                this.wantedY = vec3d.y;
+                                this.wantedZ = vec3d.z;
+                                this.forceTrigger = false;
+                                return true;
+                            }
+                        }
+                    }
+                }
+        );
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.MAJUNGA_TARGETS)));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.MAJUNGA_TARGETS))
+                {
+                    @Override
+                    public boolean canUse() {
+                        return ((EntityMajungasaurus) this.mob).isHungry() && super.canUse();
+                    }
+                }
+        );
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::isAngryAt));
     }
 
     public boolean isAngryAt(LivingEntity p_21675_) {
         return this.canAttack(p_21675_);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.isHungry() && lastTimeSinceHungry < this.getTimeTillHungry()) {
+            lastTimeSinceHungry++;
+        }
+        if (lastTimeSinceHungry >= this.getTimeTillHungry()) {
+            this.setHungry(true);
+            lastTimeSinceHungry = 0;
+        }
     }
 
     @Override
@@ -128,7 +185,9 @@ public class EntityMajungasaurus extends Animal implements IAnimatable {
         super.defineSynchedData();
         this.entityData.define(CHARGE_COOLDOWN_TICKS, 0);
         this.entityData.define(HAS_TARGET, false);
-        this.getEntityData().define(PASSIVE, 0);
+        this.entityData.define(PASSIVE, 0);
+        this.entityData.define(HUNGRY, true);
+        this.entityData.define(TIME_TILL_HUNGRY, 0);
     }
 
     @Override
@@ -136,6 +195,8 @@ public class EntityMajungasaurus extends Animal implements IAnimatable {
         super.addAdditionalSaveData(compound);
         compound.putInt("StunTick", this.stunnedTick);
         compound.putInt("PassiveTicks", this.getPassiveTicks());
+        compound.putBoolean("IsHungry", this.isHungry());
+        compound.putInt("TimeTillHungry", this.getTimeTillHungry());
     }
 
     @Override
@@ -143,12 +204,33 @@ public class EntityMajungasaurus extends Animal implements IAnimatable {
         super.readAdditionalSaveData(compound);
         this.stunnedTick = compound.getInt("StunTick");
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
+        this.setHungry(compound.getBoolean("IsHungry"));
+        this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
+    }
+
+    public boolean isHungry() {
+        return this.entityData.get(HUNGRY);
+    }
+
+    public void setHungry(boolean hungry) {
+        this.entityData.set(HUNGRY, hungry);
+    }
+
+    public int getTimeTillHungry() {
+        return this.entityData.get(TIME_TILL_HUNGRY);
+    }
+
+    public void setTimeTillHungry(int ticks) {
+        this.entityData.set(TIME_TILL_HUNGRY, ticks);
     }
 
     public boolean isFood(ItemStack stack) {
         return stack.is(FOOD);
     }
 
+    private void attack(LivingEntity entity) {
+        entity.hurt(DamageSource.mobAttack(this), 8.0F);
+    }
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
@@ -453,6 +535,17 @@ public class EntityMajungasaurus extends Animal implements IAnimatable {
                 return false;
             }
             return super.canUse();
+        }
+
+        @Override
+        protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
+            double d0 = this.getAttackReachSqr(enemy);
+            if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
+                this.resetAttackCooldown();
+                ((EntityMajungasaurus) this.mob).setHungry(false);
+                ((EntityMajungasaurus) this.mob).attack(enemy);
+                ((EntityMajungasaurus) this.mob).setTimeTillHungry(mob.getRandom().nextInt(300) + 300);
+            }
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {

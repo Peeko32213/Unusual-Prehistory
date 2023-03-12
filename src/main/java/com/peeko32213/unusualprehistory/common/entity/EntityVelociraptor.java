@@ -25,6 +25,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -38,7 +39,9 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 public class EntityVelociraptor extends Animal implements IAnimatable {
     private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.BOOLEAN);
-
+    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.INT);
+    int lastTimeSinceHungry;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);    protected boolean pushingState = false;
 
     public EntityVelociraptor(EntityType<? extends Animal> entityType, Level level) {
@@ -46,9 +49,6 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
         this.maxUpStep = 1.0f;
     }
-
-
-
 
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -67,11 +67,54 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new EntityVelociraptor.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
+                {
+                    @Override
+                    public boolean canUse() {
+                        if (this.mob.isVehicle()) {
+                            return false;
+                        } else {
+                            if (!this.forceTrigger) {
+                                if (this.mob.getNoActionTime() >= 100) {
+                                    return false;
+                                }
+                                if (((EntityVelociraptor) this.mob).isHungry()) {
+                                    if (this.mob.getRandom().nextInt(60) != 0) {
+                                        return false;
+                                    }
+                                } else {
+                                    if (this.mob.getRandom().nextInt(30) != 0) {
+                                        return false;
+                                    }
+                                }
+                            }
+
+                            Vec3 vec3d = this.getPosition();
+                            if (vec3d == null) {
+                                return false;
+                            } else {
+                                this.wantedX = vec3d.x;
+                                this.wantedY = vec3d.y;
+                                this.wantedZ = vec3d.z;
+                                this.forceTrigger = false;
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+        );
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.RAPTOR_TARGETS)));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.RAPTOR_TARGETS))
+                {
+            @Override
+            public boolean canUse() {
+                return ((EntityVelociraptor) this.mob).isHungry() && super.canUse();
+            }
+        }
+        );
 
     }
 
@@ -86,6 +129,19 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
     protected SoundEvent getDeathSound() {
         return UPSounds.RAPTOR_DEATH.get();
     }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.isHungry() && lastTimeSinceHungry < this.getTimeTillHungry()) {
+            lastTimeSinceHungry++;
+        }
+        if (lastTimeSinceHungry >= this.getTimeTillHungry()) {
+            this.setHungry(true);
+            lastTimeSinceHungry = 0;
+        }
+    }
+
 
     public boolean doHurtTarget(Entity entityIn) {
         if (super.doHurtTarget(entityIn)) {
@@ -118,6 +174,9 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
     }
 
 
+    private void attack(LivingEntity entity) {
+        entity.hurt(DamageSource.mobAttack(this), 5.0F);
+    }
 
         class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {
@@ -128,27 +187,57 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
             return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
         }
 
+            @Override
+            protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
+                double d0 = this.getAttackReachSqr(enemy);
+                if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
+                    this.resetAttackCooldown();
+                    ((EntityVelociraptor) this.mob).setHungry(false);
+                    ((EntityVelociraptor) this.mob).attack(enemy);
+                    ((EntityVelociraptor) this.mob).setTimeTillHungry(mob.getRandom().nextInt(300) + 300);
+                }
+            }
+
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Press", this.hasPressed());
-
-
+        compound.putBoolean("IsHungry", this.isHungry());
+        compound.putInt("TimeTillHungry", this.getTimeTillHungry());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setPress(compound.getBoolean("Press"));
-
+        this.setHungry(compound.getBoolean("IsHungry"));
+        this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(PRESS, false);
+        this.entityData.define(HUNGRY, true);
+        this.entityData.define(TIME_TILL_HUNGRY, 0);
+    }
+
+    public boolean isHungry() {
+        return this.entityData.get(HUNGRY);
+    }
+
+    public void setHungry(boolean hungry) {
+        this.entityData.set(HUNGRY, hungry);
+    }
+
+    public int getTimeTillHungry() {
+        return this.entityData.get(TIME_TILL_HUNGRY);
+    }
+
+    public void setTimeTillHungry(int ticks) {
+        this.entityData.set(TIME_TILL_HUNGRY, ticks);
     }
 
     protected static class RaptorOpenDoorGoal extends OpenDoorGoal {

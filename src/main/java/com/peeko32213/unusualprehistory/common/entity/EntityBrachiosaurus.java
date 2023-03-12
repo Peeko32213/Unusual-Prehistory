@@ -33,18 +33,19 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.pathfinder.Node;
-import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.level.pathfinder.*;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -96,9 +97,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
         this.allParts = new EntityBrachiosaurusPart[]{this.neck};
     }
 
-    public PathNavigation createNavigation(Level world) {
-        return new GroundPathNavigation(this, world);
-    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
@@ -408,6 +406,13 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 //        footPrintCooldown--;
     }
 
+    public void makeStuckInBlock(BlockState blockstate, Vec3 vec3) {
+        if (!(blockstate.getBlock() == Blocks.BAMBOO) || blockstate.is(BlockTags.LEAVES)) {
+            super.makeStuckInBlock(blockstate, vec3);
+        }
+
+    }
+
     private float getLaunchStrength() {
         return 5.0F;
     }
@@ -476,10 +481,6 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
     private void setPartPosition(EntityBrachiosaurusPart part, double offsetX, double offsetY, double offsetZ) {
         part.setPos(this.getX() + offsetX * part.scale, this.getY() + offsetY * part.scale, this.getZ() + offsetZ * part.scale);
-    }
-
-    public boolean canPassThrough(BlockPos mutablePos, BlockState blockstate, VoxelShape voxelshape) {
-        return blockstate.getBlock() == Blocks.BAMBOO || blockstate.is(BlockTags.LEAVES);
     }
 
 
@@ -801,6 +802,27 @@ public class EntityBrachiosaurus extends Animal implements IAnimatable {
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
             return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+        }
+    }
+
+    protected PathNavigation createNavigation(Level p_33348_) {
+        return new EntityBrachiosaurus.RexNavigation(this, p_33348_);
+    }
+
+    static class RexNavigation extends GroundPathNavigation {
+        public RexNavigation(Mob p_33379_, Level p_33380_) {
+            super(p_33379_, p_33380_);
+        }
+
+        protected PathFinder createPathFinder(int p_33382_) {
+            this.nodeEvaluator = new EntityBrachiosaurus.RexNodeEvaluator();
+            return new PathFinder(this.nodeEvaluator, p_33382_);
+        }
+    }
+
+    static class RexNodeEvaluator extends WalkNodeEvaluator {
+        protected BlockPathTypes evaluateBlockPathType(BlockGetter p_33387_, boolean p_33388_, boolean p_33389_, BlockPos p_33390_, BlockPathTypes p_33391_) {
+            return p_33391_ == BlockPathTypes.LEAVES ? BlockPathTypes.OPEN : super.evaluateBlockPathType(p_33387_, p_33388_, p_33389_, p_33390_, p_33391_);
         }
     }
 
