@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -33,6 +34,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
 import software.bernie.geckolib3.core.AnimationState;
@@ -47,14 +49,9 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRideableJumping {
-    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BOOLEAN);
+public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements PlayerRideableJumping {
     private static final EntityDataAccessor<Byte> DATA_FLAG = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BYTE);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.BEEF, Items.PORKCHOP, Items.CHICKEN);
-    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.INT);
-    int lastTimeSinceHungry;
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     protected float playerJumpPendingScale;
     private boolean allowStandSliding;
     private int standCounter;
@@ -77,9 +74,7 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_CREATIVE_OR_SPECTATOR::test));
         this.goalSelector.addGoal(2, new CustomRideGoal(this, 1.5D));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
                 {
@@ -121,51 +116,22 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(2, new EntityBeelzebufo.IMeleeAttackGoal());
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.BEELZE_TARGETS))
-        {
-            @Override
-            public boolean canUse() {
-                return ((EntityMajungasaurus) this.mob).isHungry() && super.canUse();
-            }
-        }
-        );
         //If its attacked they will now fight back
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
     }
 
-    public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
-    }
-
-    public void killed(ServerLevel world, LivingEntity entity) {
-        this.heal(10);
-    }
-
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(SADDLED, false);
         this.entityData.define(DATA_FLAG, (byte) 0);
-
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setSaddled(compound.getBoolean("Saddle"));
-        this.setHungry(compound.getBoolean("IsHungry"));
-        this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("Saddle", this.isSaddled());
-        compound.putBoolean("IsHungry", this.isHungry());
-        compound.putInt("TimeTillHungry", this.getTimeTillHungry());
     }
 
     private void attack(LivingEntity entity) {
@@ -181,29 +147,6 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
             this.standCounter = 0;
             this.setStanding(false);
         }
-        if (!this.isHungry() && lastTimeSinceHungry < this.getTimeTillHungry()) {
-            lastTimeSinceHungry++;
-        }
-        if (lastTimeSinceHungry >= this.getTimeTillHungry()) {
-            this.setHungry(true);
-            lastTimeSinceHungry = 0;
-        }
-    }
-
-    public boolean isHungry() {
-        return this.entityData.get(HUNGRY);
-    }
-
-    public void setHungry(boolean hungry) {
-        this.entityData.set(HUNGRY, hungry);
-    }
-
-    public int getTimeTillHungry() {
-        return this.entityData.get(TIME_TILL_HUNGRY);
-    }
-
-    public void setTimeTillHungry(int ticks) {
-        this.entityData.set(TIME_TILL_HUNGRY, ticks);
     }
 
     public void travel(Vec3 p_30633_) {
@@ -340,14 +283,6 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         return stack.getItem() == Items.PORKCHOP;
     }
 
-    public boolean isSaddled() {
-        return this.entityData.get(SADDLED).booleanValue();
-    }
-
-    public void setSaddled(boolean saddled) {
-        this.entityData.set(SADDLED, saddled);
-    }
-
     protected float getWaterSlowDown() {
         return 0.98F;
     }
@@ -370,6 +305,47 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
     protected SoundEvent getDeathSound() {
         return UPSounds.BEELZE_DEATH.get();
+    }
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+    @Override
+    protected int getKillHealAmount() {
+        return 10;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return true;
+    }
+    @Override
+    protected boolean hasTargets() {
+        return true;
+    }
+    @Override
+    protected boolean hasAvoidEntity() {
+        return true;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return UPTags.BEELZE_TARGETS;
     }
 
     protected void dropEquipment() {
@@ -415,11 +391,6 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
         AnimationController<EntityBeelzebufo> controller = new AnimationController<>(this, "controller", 2, this::predicate);
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
         data.addAnimationController(controller);
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
     }
 
     public void onPlayerJump(int p_30591_) {
@@ -486,6 +457,8 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
     }
 
+
+    //TODO keep or remove? This is never used
     protected double generateRandomJumpStrength() {
         return (double) 0.4F + this.random.nextDouble() * 0.2D + this.random.nextDouble() * 0.2D + this.random.nextDouble() * 0.2D;
     }
@@ -524,20 +497,6 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
 
     }
 
-    protected void randomizeAttributes() {
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
-        Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {
-            this.setPersistenceRequired();
-        }
-        this.randomizeAttributes();
-        return p_28137_;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
@@ -565,5 +524,4 @@ public class EntityBeelzebufo extends Animal implements IAnimatable, PlayerRidea
     protected int calculateFallDamage(float p_149389_, float p_149390_) {
         return super.calculateFallDamage(p_149389_, p_149390_) - 10;
     }
-
 }
