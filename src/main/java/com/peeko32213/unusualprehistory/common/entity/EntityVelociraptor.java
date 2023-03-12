@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -37,12 +38,10 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-public class EntityVelociraptor extends Animal implements IAnimatable {
+public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.INT);
-    int lastTimeSinceHungry;
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    protected boolean pushingState = false;
+
+    protected boolean pushingState = false;
 
     public EntityVelociraptor(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -63,8 +62,6 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(5, new PushButtonsGoal(this, 1.0F, 5, 2));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new EntityVelociraptor.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
@@ -107,15 +104,6 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.RAPTOR_TARGETS))
-                {
-            @Override
-            public boolean canUse() {
-                return ((EntityVelociraptor) this.mob).isHungry() && super.canUse();
-            }
-        }
-        );
-
     }
 
     protected SoundEvent getAmbientSound() {
@@ -130,49 +118,53 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         return UPSounds.RAPTOR_DEATH.get();
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-        if (!this.isHungry() && lastTimeSinceHungry < this.getTimeTillHungry()) {
-            lastTimeSinceHungry++;
-        }
-        if (lastTimeSinceHungry >= this.getTimeTillHungry()) {
-            this.setHungry(true);
-            lastTimeSinceHungry = 0;
-        }
-    }
-
-
-    public boolean doHurtTarget(Entity entityIn) {
-        if (super.doHurtTarget(entityIn)) {
-            this.playSound(UPSounds.RAPTOR_ATTACK.get(), 0.1F, 1.0F);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
     }
+    @Override
+    protected SoundEvent getAttackSound() {
+        return UPSounds.RAPTOR_ATTACK.get();
+    }
 
     @Override
-    public boolean canAttack(LivingEntity entity) {
-        boolean prev = super.canAttack(entity);
-        if(prev && isBaby()){
-            return false;
-        }
-        return prev;
+    protected int getKillHealAmount() {
+        return 5;
     }
 
-    public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
+    @Override
+    protected boolean canGetHungry() {
+        return true;
     }
 
+    @Override
+    protected boolean hasTargets() {
+        return true;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return true;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return UPTags.RAPTOR_TARGETS;
+    }
 
     private void attack(LivingEntity entity) {
         entity.hurt(DamageSource.mobAttack(this), 5.0F);
@@ -204,41 +196,20 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Press", this.hasPressed());
-        compound.putBoolean("IsHungry", this.isHungry());
-        compound.putInt("TimeTillHungry", this.getTimeTillHungry());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setPress(compound.getBoolean("Press"));
-        this.setHungry(compound.getBoolean("IsHungry"));
-        this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(PRESS, false);
-        this.entityData.define(HUNGRY, true);
-        this.entityData.define(TIME_TILL_HUNGRY, 0);
     }
 
-    public boolean isHungry() {
-        return this.entityData.get(HUNGRY);
-    }
-
-    public void setHungry(boolean hungry) {
-        this.entityData.set(HUNGRY, hungry);
-    }
-
-    public int getTimeTillHungry() {
-        return this.entityData.get(TIME_TILL_HUNGRY);
-    }
-
-    public void setTimeTillHungry(int ticks) {
-        this.entityData.set(TIME_TILL_HUNGRY, ticks);
-    }
 
     protected static class RaptorOpenDoorGoal extends OpenDoorGoal {
         public RaptorOpenDoorGoal(EntityVelociraptor p_32128_) {
@@ -336,10 +307,6 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
 
     }
 
-    public void killed(ServerLevel world, LivingEntity entity) {
-        this.heal(5);
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
@@ -376,11 +343,5 @@ public class EntityVelociraptor extends Animal implements IAnimatable {
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
         data.addAnimationController(controller);
     }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
 
 }

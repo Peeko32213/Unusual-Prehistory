@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -62,16 +63,13 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
+public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
-
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.BOOLEAN);
     public int timeUntilDrops = this.random.nextInt(12000) + 24000;
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private int passiveFor = 0;
     private int shakeCooldown = 0;
 
@@ -115,7 +113,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
 
         }));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.REX_TARGETS)){
-
             public boolean canUse() {
                 return !isEepy() && passiveFor == 0 && super.canUse();
             }
@@ -155,13 +152,52 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         return prev;
     }
 
-    public int getPassiveTicks() {
-        return this.entityData.get(PASSIVE);
+    @Override
+    protected SoundEvent getAttackSound() {
+        //Rex has custom so null
+        return null;
     }
 
-    private void setPassiveTicks(int passiveTicks) {
-        this.entityData.set(PASSIVE, passiveTicks);
+    @Override
+    protected int getKillHealAmount() {
+        return 50;
     }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return true;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+    //This one has custom goal so just return null since we wont be using goal in super class
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
+    }
+
 
     public void setEepy(boolean eepy) {
         this.entityData.set(EEPY, Boolean.valueOf(eepy));
@@ -215,7 +251,6 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
         this.entityData.define(EEPY, false);
-        this.getEntityData().define(PASSIVE, 0);
     }
 
     @Override
@@ -623,14 +658,10 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         }
     }
 
-    public void killed(ServerLevel world, LivingEntity entity) {
-        this.heal(50);
-    }
-
     public boolean canBeCollidedWith() {
         return true;
     }
-
+        //Todo remove there?, they are never used
     protected void collideWithEntity(Entity entityIn) {
         entityIn.push(this);
     }
@@ -717,52 +748,4 @@ public class EntityTyrannosaurusRex extends Animal implements IAnimatable {
         AnimationController<EntityTyrannosaurusRex> controller = new AnimationController<>(this, "controller", 1, this::predicate);
         data.addAnimationController(controller);
     }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
-        Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {
-            {
-                this.setPersistenceRequired();
-            }
-        }
-        return p_28137_;
-    }
-
-    public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
-    }
-
-    protected PathNavigation createNavigation(Level p_33348_) {
-        return new EntityTyrannosaurusRex.RexNavigation(this, p_33348_);
-    }
-
-    static class RexNavigation extends GroundPathNavigation {
-        public RexNavigation(Mob p_33379_, Level p_33380_) {
-            super(p_33379_, p_33380_);
-        }
-
-        protected PathFinder createPathFinder(int p_33382_) {
-            this.nodeEvaluator = new EntityTyrannosaurusRex.RexNodeEvaluator();
-            return new PathFinder(this.nodeEvaluator, p_33382_);
-        }
-    }
-
-    static class RexNodeEvaluator extends WalkNodeEvaluator {
-        protected BlockPathTypes evaluateBlockPathType(BlockGetter p_33387_, boolean p_33388_, boolean p_33389_, BlockPos p_33390_, BlockPathTypes p_33391_) {
-            return p_33391_ == BlockPathTypes.LEAVES ? BlockPathTypes.OPEN : super.evaluateBlockPathType(p_33387_, p_33388_, p_33389_, p_33390_, p_33391_);
-        }
-    }
-
-
 }
