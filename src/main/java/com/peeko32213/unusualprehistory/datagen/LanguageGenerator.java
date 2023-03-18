@@ -54,6 +54,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.TRIKE_HORN, "Triceratops Horn");
         addItem(UPItems.FROG_SALIVA, "Frog Saliva");
         addItem(UPItems.ENCRUSTED_ORGAN, "Encrusted Organ");
+        addItem(UPItems.AUSTRO_FEATHER, "Austroraptor Feather");
 
         //FOODS
         addItem(UPItems.GROG, "Flask of Grog");
@@ -112,6 +113,10 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PACHY_EGG, "Pachycephalosaurus Spawn Egg");
         addItem(UPItems.ENCRUSTED_EGG, "Encrusted Spawn Egg");
         addItem(UPItems.ERYON_EGG, "Eryon Spawn Egg");
+        addItem(UPItems.AUSTRO_EGG, "Austroraptor Spawn Egg");
+        addItem(UPItems.ANTARCO_EGG, "Antarctopelta Spawn Egg");
+        addItem(UPItems.ULUG_EGG, "Ulughbegsaurus Spawn Egg");
+        addItem(UPItems.KENTRO_EGG, "Kentrosaurus Spawn Egg");
 
 
         //ARMOR
@@ -248,6 +253,10 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.SCAU, "Scaumenacia");
         addEntityType(UPEntities.AMBER_SHOT, "Amber Shot");
         addEntityType(UPEntities.ENTITY_TRAIL, "Trail");
+        addEntityType(UPEntities.AUSTRO, "Austroraptor");
+        addEntityType(UPEntities.ANTARCO, "Antarctopelta");
+        addEntityType(UPEntities.ULUG, "Ulughbegsaurus");
+        addEntityType(UPEntities.KENTRO, "Kentrosaurus");
 
 
         //SOUNDS

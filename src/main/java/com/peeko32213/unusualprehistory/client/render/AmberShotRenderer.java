@@ -4,7 +4,7 @@ package com.peeko32213.unusualprehistory.client.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.AmberShotModel;
-import com.peeko32213.unusualprehistory.common.entity.projectile.EntityAmberShot;
+import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

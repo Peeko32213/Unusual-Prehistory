@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.render.renders;
 
 
 import com.peeko32213.unusualprehistory.client.model.render.RaptorRenderModel;
-import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
+import com.peeko32213.unusualprehistory.common.entity.msc.render.BaseEntityRender;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;

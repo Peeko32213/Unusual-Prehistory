@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.util.AnuroPolinateGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.FlyingMoveController;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.AnuroPolinateGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.FlyingMoveController;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;

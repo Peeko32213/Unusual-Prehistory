@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.util.SchoolingWaterAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.SchoolingWaterAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

@@ -4,10 +4,10 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
-import com.peeko32213.unusualprehistory.common.entity.baby.*;
-import com.peeko32213.unusualprehistory.common.entity.projectile.EntityAmberShot;
-import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
-import com.peeko32213.unusualprehistory.common.entity.trail.EntityTrail;
+import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
+import com.peeko32213.unusualprehistory.common.entity.msc.render.BaseEntityRender;
+import com.peeko32213.unusualprehistory.common.entity.msc.trail.EntityTrail;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -108,6 +108,22 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityEryon>> ERYON = ENTITIES.register("eryon",
             () -> EntityType.Builder.of(EntityEryon::new, MobCategory.CREATURE).sized(0.8f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "eryon").toString()));
+
+    public static final RegistryObject<EntityType<EntityAustroraptor>> AUSTRO = ENTITIES.register("austroraptor",
+            () -> EntityType.Builder.of(EntityAustroraptor::new, MobCategory.CREATURE).sized(1.95F, 2.2F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "austroraptor").toString()));
+
+    public static final RegistryObject<EntityType<EntityAntarctopelta>> ANTARCO = ENTITIES.register("antarctopelta",
+            () -> EntityType.Builder.of(EntityAntarctopelta::new, MobCategory.CREATURE).sized(2.2F, 1.9F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "antarctopelta").toString()));
+
+    public static final RegistryObject<EntityType<EntityUlughbegsaurus>> ULUG = ENTITIES.register("ulughbegsaurus",
+            () -> EntityType.Builder.of(EntityUlughbegsaurus::new, MobCategory.CREATURE).sized(1.95F, 2.8F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "ulughbegsaurus").toString()));
+
+    public static final RegistryObject<EntityType<EntityKentrosaurus>> KENTRO = ENTITIES.register("kentrosaurus",
+            () -> EntityType.Builder.of(EntityKentrosaurus::new, MobCategory.CREATURE).sized(2.2F, 1.9F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "kentrosaurus").toString()));
 
     public static final RegistryObject<EntityType<BaseEntityRender>> AMMON_RENDER = ENTITIES.register("ammon_render",
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()

@@ -1,7 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.CustomRideGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRideGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -13,8 +14,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,7 +22,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -31,9 +29,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
@@ -44,8 +40,6 @@ import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
@@ -211,10 +205,6 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         boolean shouldHurt;
         float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float knockback = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        if (target instanceof LivingEntity livingEntity) {
-            damage += livingEntity.getMobType().equals(MobType.ARTHROPOD) ? damage : 0;
-            knockback += (float) EnchantmentHelper.getKnockbackBonus(this);
-        }
         if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
             if (knockback > 0.0f && target instanceof LivingEntity) {
                 ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
@@ -481,7 +471,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
+            return (this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1F + p_25556_.getBbWidth());
         }
 
         @Override

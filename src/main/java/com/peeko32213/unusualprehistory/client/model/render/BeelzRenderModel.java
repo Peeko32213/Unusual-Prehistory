@@ -7,7 +7,7 @@ package com.peeko32213.unusualprehistory.client.model.render;// Made with Blockb
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
+import com.peeko32213.unusualprehistory.common.entity.msc.render.BaseEntityRender;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;

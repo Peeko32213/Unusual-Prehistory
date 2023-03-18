@@ -1,12 +1,9 @@
 package com.peeko32213.unusualprehistory.client.render;
 
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.BrachiosaurusTeenModel;
-import com.peeko32213.unusualprehistory.common.entity.baby.EntityBrachiosaurusTeen;
-import com.peeko32213.unusualprehistory.common.entity.part.EntityBrachiosaurusTeenPart;
-import net.minecraft.client.renderer.MultiBufferSource;
+import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBrachiosaurusTeen;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityBrachiosaurusTeenPart;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;

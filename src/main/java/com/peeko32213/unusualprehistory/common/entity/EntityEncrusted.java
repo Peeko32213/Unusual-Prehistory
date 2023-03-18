@@ -1,11 +1,11 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.projectile.EntityAmberShot;
-import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.ranged.AttackSound;
-import com.peeko32213.unusualprehistory.common.entity.util.ranged.CustomAbstractRangedAttack;
-import com.peeko32213.unusualprehistory.common.entity.util.ranged.CustomRangedAttackGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.ranged.RangedMeleeMob;
+import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.AttackSound;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.CustomAbstractRangedAttack;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.CustomRangedAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.RangedMeleeMob;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -32,7 +32,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.DirtPathBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;

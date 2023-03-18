@@ -23,6 +23,8 @@ public class UPTags {
     public static final TagKey<EntityType<?>> BEELZE_TARGETS = registerEntityTag("beelze_targets");
     public static final TagKey<EntityType<?>> REX_TARGETS = registerEntityTag("rex_targets");
     public static final TagKey<EntityType<?>> RAPTOR_TARGETS = registerEntityTag("raptor_targets");
+    public static final TagKey<EntityType<?>> ANTARCTO_TARGETS = registerEntityTag("antarcto_targets");
+
     public static final TagKey<EntityType<?>> ENCRUSTED_TARGETS = registerEntityTag("encrusted_targets");
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");
     public static final TagKey<Item> ANALYZER_ITEMS_INPUT = registerItemTag("analyzer_items");

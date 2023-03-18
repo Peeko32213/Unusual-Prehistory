@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;

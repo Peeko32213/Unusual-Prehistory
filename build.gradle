@@ -14,7 +14,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.2.3'
+version = '1.2.4'
 group = 'com.peeko32213.unusualprehistory'
 archivesBaseName = 'unusualprehistory'
 
@@ -111,7 +111,7 @@ jar {
         attributes([
                 "Specification-Title"     : "unusualprehistory",
                 "Specification-Vendor"    : "Peeko32213",
-                "Specification-Version"   : "1.2.3", // We are version 1.2.2 of ourselves
+                "Specification-Version"   : "1.2.4", // We are version 1.2.2 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "unusualprehistory",

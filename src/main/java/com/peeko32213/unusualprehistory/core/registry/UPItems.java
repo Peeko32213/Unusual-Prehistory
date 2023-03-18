@@ -159,6 +159,8 @@ public class UPItems {
     public static final RegistryObject<Item> FROG_SALIVA = ITEMS.register("frog_saliva",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Item> AUSTRO_FEATHER = ITEMS.register("austro_feather",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> ENCRUSTED_ORGAN = ITEMS.register("encrusted_organ",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
@@ -271,7 +273,21 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> ERYON_EGG = ITEMS.register("eryon_spawn_egg",
             () -> new ForgeSpawnEggItem(UPEntities.ERYON , 0x1d2110, 0xe4b423,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> AUSTRO_EGG = ITEMS.register("austroraptor_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.AUSTRO , 0xcfb9b4, 0xcf683a,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<ForgeSpawnEggItem> ANTARCO_EGG = ITEMS.register("antarcto_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.ANTARCO , 0x5a120d, 0xe5ce7a,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<ForgeSpawnEggItem> ULUG_EGG = ITEMS.register("ulugh_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.ULUG , 0x3a2424, 0xdbd8ce,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<ForgeSpawnEggItem> KENTRO_EGG = ITEMS.register("kentro_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.KENTRO , 0x122407, 0xddcca4,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterials.MAJUNGA, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

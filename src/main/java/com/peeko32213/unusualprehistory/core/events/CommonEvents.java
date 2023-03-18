@@ -3,8 +3,8 @@ package com.peeko32213.unusualprehistory.core.events;
 import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
-import com.peeko32213.unusualprehistory.common.entity.baby.*;
-import com.peeko32213.unusualprehistory.common.entity.render.BaseEntityRender;
+import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.render.BaseEntityRender;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -47,6 +47,10 @@ public class CommonEvents {
         event.put(UPEntities.BABY_REX.get(), EntityBabyRex.createAttributes().build());
         event.put(UPEntities.BABY_BRACHI.get(), EntityBabyBrachi.createAttributes().build());
         event.put(UPEntities.ERYON.get(), EntityEryon.createAttributes().build());
+        event.put(UPEntities.AUSTRO.get(), EntityAustroraptor.createAttributes().build());
+        event.put(UPEntities.ANTARCO.get(), EntityAntarctopelta.createAttributes().build());
+        event.put(UPEntities.ULUG.get(), EntityUlughbegsaurus.createAttributes().build());
+        event.put(UPEntities.KENTRO.get(), EntityUlughbegsaurus.createAttributes().build());
 
         event.put(UPEntities.AMMON_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.MAJUNGA_RENDER.get(), BaseEntityRender.createAttributes().build());

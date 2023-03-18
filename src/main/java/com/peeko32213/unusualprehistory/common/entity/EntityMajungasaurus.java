@@ -1,8 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -19,8 +20,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -36,7 +35,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
@@ -48,8 +46,6 @@ import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -125,6 +121,28 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::isAngryAt));
     }
+
+
+
+    @Override
+    public boolean doHurtTarget(Entity target) {
+        boolean shouldHurt;
+        float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        float knockback = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
+            if (knockback > 0.0f && target instanceof LivingEntity) {
+                ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
+                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
+            }
+            this.doEnchantDamageEffects(this, target);
+            this.setLastHurtMob(target);
+        }
+        if (shouldHurt && target instanceof LivingEntity livingEntity) {
+            this.playSound(UPSounds.RAPTOR_HURT.get(), 0.1F, 1.0F);
+        }
+        return shouldHurt;
+    }
+
 
     public boolean isAngryAt(LivingEntity p_21675_) {
         return this.canAttack(p_21675_);

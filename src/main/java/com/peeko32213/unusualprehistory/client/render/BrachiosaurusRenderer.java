@@ -1,16 +1,10 @@
 package com.peeko32213.unusualprehistory.client.render;
 
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.BrachiosaurusModel;
-import com.peeko32213.unusualprehistory.client.model.PachycephalosaurusModel;
 import com.peeko32213.unusualprehistory.client.render.layer.BrachiosaurusSaddleLayer;
-import com.peeko32213.unusualprehistory.client.render.layer.TriceratopsSaddleLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
-import com.peeko32213.unusualprehistory.common.entity.EntityPachycephalosaurus;
-import com.peeko32213.unusualprehistory.common.entity.part.EntityBrachiosaurusPart;
-import net.minecraft.client.renderer.MultiBufferSource;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityBrachiosaurusPart;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;

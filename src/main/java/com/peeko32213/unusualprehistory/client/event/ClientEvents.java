@@ -126,7 +126,10 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BABY_BRACHI.get(), BabyBrachiRenderer::new);
         event.registerEntityRenderer(UPEntities.BABY_REX.get(), BabyRexRenderer::new);
         event.registerEntityRenderer(UPEntities.ERYON.get(), EryonRenderer::new);
-
+        event.registerEntityRenderer(UPEntities.AUSTRO.get(), AustroraptorRenderer::new);
+        event.registerEntityRenderer(UPEntities.ANTARCO.get(), AntarctopeltaRenderer::new);
+        event.registerEntityRenderer(UPEntities.ULUG.get(), UlughbegsaurusRenderer::new);
+        event.registerEntityRenderer(UPEntities.KENTRO.get(), KentrosaurusRenderer::new);
 
         event.registerEntityRenderer(UPEntities.AMMON_RENDER.get(), AmmoniteRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.MAJUNGA_RENDER.get(), MajungaRenderRenderer::new);

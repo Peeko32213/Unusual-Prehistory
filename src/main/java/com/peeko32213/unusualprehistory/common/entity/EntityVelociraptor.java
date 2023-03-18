@@ -1,7 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.util.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -12,14 +13,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.Difficulty;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
@@ -34,8 +34,6 @@ import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
@@ -61,6 +59,7 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
 
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(5, new PushButtonsGoal(this, 1.0F, 5, 2));
         this.goalSelector.addGoal(2, new EntityVelociraptor.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
@@ -104,6 +103,25 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity target) {
+        boolean shouldHurt;
+        float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        float knockback = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
+            if (knockback > 0.0f && target instanceof LivingEntity) {
+                ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
+                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
+            }
+            this.doEnchantDamageEffects(this, target);
+            this.setLastHurtMob(target);
+        }
+        if (shouldHurt && target instanceof LivingEntity livingEntity) {
+            this.playSound(UPSounds.RAPTOR_HURT.get(), 0.1F, 1.0F);
+        }
+        return shouldHurt;
     }
 
     protected SoundEvent getAmbientSound() {
@@ -208,17 +226,6 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(PRESS, false);
-    }
-
-
-    protected static class RaptorOpenDoorGoal extends OpenDoorGoal {
-        public RaptorOpenDoorGoal(EntityVelociraptor p_32128_) {
-            super(p_32128_, false);
-        }
-
-        public boolean canUse() {
-            return super.canUse();
-        }
     }
 
     public void setPress(boolean eepy) {
