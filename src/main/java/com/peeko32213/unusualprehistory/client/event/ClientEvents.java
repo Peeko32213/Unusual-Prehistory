@@ -197,7 +197,7 @@ public final class ClientEvents {
             float f = (Math.min(10, duration) + Minecraft.getInstance().getFrameTime()) * 0.1F;
             double intensity = f * Minecraft.getInstance().options.screenEffectScale().get();
             RandomSource rng = Minecraft.getInstance().player.getRandom();
-            double totalAmp = (0.25 + 0.25*amplifier);
+            double totalAmp = (0.1 + 0.1*amplifier);
             event.getCamera().move(rng.nextFloat() * 0.4F * intensity * totalAmp  , rng.nextFloat() * 0.2F * intensity * totalAmp , rng.nextFloat() * 0.4F * intensity * totalAmp );
         }
     }

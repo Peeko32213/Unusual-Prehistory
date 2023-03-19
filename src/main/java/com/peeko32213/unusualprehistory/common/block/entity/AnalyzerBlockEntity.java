@@ -38,7 +38,6 @@ import java.util.Optional;
 public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
 
     // Add new flasks to the item tag
-    private static final TagKey<Item> FILLED_FLASKS = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "filled_flasks"));
 
     public AnalyzerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(UPBlockEntities.ANALYZER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -270,7 +269,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private static boolean isFilledFlask(ItemStack itemStack) {
-        return itemStack.is(FILLED_FLASKS);
+        return itemStack.is(UPTags.FILLED_FLASKS);
     }
 
     @Override

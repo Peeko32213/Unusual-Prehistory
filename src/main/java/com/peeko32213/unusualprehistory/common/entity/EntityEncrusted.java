@@ -146,6 +146,11 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable {
         return UPSounds.ENCRUSTED_DEATH.get();
     }
 
+    @Override
+    public MobType getMobType() {
+        return MobType.ARTHROPOD;
+    }
+
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
     }

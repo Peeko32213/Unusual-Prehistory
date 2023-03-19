@@ -12,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -26,6 +27,9 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
@@ -34,7 +38,9 @@ public class BlockCultivator extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 32, 16);
-
+    private static final VoxelShape SHAPE_BOTTOM =  Shapes.join(Block.box(1, 8, 1, 15, 16, 15), Block.box(0, 0, 0, 16, 8, 16), BooleanOp.OR);
+    private static final VoxelShape SHAPE_TOP =  Shapes.join(Block.box(0.0, 8, 0, 16, 16, 16), Block.box(1, 0, 1, 15, 8, 15), BooleanOp.OR);
+//VoxelShapes.join(Block.box(-0.001, 8, -0.001, 16.001, 16, 16.001), Block.box(1, 0, 1, 15, 8, 15), IBooleanFunction.OR)
     public BlockCultivator(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
@@ -50,6 +56,15 @@ public class BlockCultivator extends BaseEntityBlock {
             return Blocks.AIR.defaultBlockState();
         }
     }
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext context) {
+        if(state.getValue(HALF) == DoubleBlockHalf.UPPER) {
+            return SHAPE_TOP;
+        } else{
+            return SHAPE_BOTTOM;
+        }
+    }
+
 
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity livingEntity, ItemStack stack) {
         BlockPos blockpos = pos.above();

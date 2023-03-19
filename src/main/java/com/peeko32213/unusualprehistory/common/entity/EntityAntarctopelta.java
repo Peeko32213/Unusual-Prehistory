@@ -116,6 +116,10 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
         return !(blockState.getBlock() == Blocks.BAMBOO) || blockState.is(BlockTags.LEAVES);
     }
 
+    @Override
+    public boolean isPushable() {
+        return false;
+    }
 
     @Nullable
     @Override

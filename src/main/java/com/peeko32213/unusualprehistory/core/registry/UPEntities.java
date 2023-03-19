@@ -187,7 +187,7 @@ public class UPEntities {
 
     public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
             () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
-                    .fireImmune().noSave().sized(1, 1)
+                    .fireImmune().noSave().sized(1, 1).noSummon()
                     .clientTrackingRange(4)
                     .updateInterval(5)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "entity_trail").toString()));

@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -58,7 +59,6 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
-    private static final TagKey<Block> ERYON_DIGGABLES = ForgeRegistries.BLOCKS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "eryon_diggables"));
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -319,7 +319,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         }
 
         private boolean isDigBlock(Level world, BlockPos.MutableBlockPos pos) {
-            return world.getBlockState(pos).is(ERYON_DIGGABLES);
+            return world.getBlockState(pos).is(UPTags.ERYON_DIGGABLES);
         }
 
     }

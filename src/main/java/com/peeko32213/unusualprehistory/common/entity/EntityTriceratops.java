@@ -62,7 +62,6 @@ import java.util.List;
 public class EntityTriceratops extends TamableAnimal implements IAnimatable, CustomFollower {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
 
-    private static final TagKey<Item> FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "trike_food"));
 
     private EatBlockGoal eatBlockGoal;
     private int eatAnimationTick;
@@ -130,7 +129,7 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
     }
 
     public boolean isFood(ItemStack stack) {
-        return stack.is(FOOD);
+        return stack.is(UPTags.TRIKE_FOOD);
     }
 
     public boolean isAngryAt(LivingEntity p_21675_) {

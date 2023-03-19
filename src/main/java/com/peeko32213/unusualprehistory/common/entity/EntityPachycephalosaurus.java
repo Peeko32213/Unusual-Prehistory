@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -54,7 +55,6 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 public class EntityPachycephalosaurus extends Animal implements IAnimatable {
-    private static final TagKey<Item> FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "pachy_food"));
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
@@ -199,7 +199,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
     }
 
     public boolean isFood(ItemStack stack) {
-        return stack.is(FOOD);
+        return stack.is(UPTags.PACHY_FOOD);
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {

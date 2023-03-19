@@ -60,10 +60,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     private static final EntityDataAccessor<Boolean> WHITE = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> ORANGE = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
-    private static final TagKey<Item> YELLOW_FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "yellow_ulugh_food"));
-    private static final TagKey<Item> BLUE_FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "blue_ulugh_food"));
-    private static final TagKey<Item> ORANGE_FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "orange_ulugh_food"));
-    private static final TagKey<Item> WHITE_FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "white_ulugh_food"));
 
     private static final EntityDataAccessor<Integer> EATING_TIME = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
 
@@ -141,17 +137,17 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
 
     public boolean isYellowFood(ItemStack stack) {
-        return stack.is(YELLOW_FOOD);
+        return stack.is(UPTags.YELLOW_ULUGH_FOOD);
     }
 
     public boolean isBlueFood(ItemStack stack) {
-        return stack.is(BLUE_FOOD);
+        return stack.is(UPTags.BLUE_ULUGH_FOOD);
     }
 
-    public boolean isWhiteFood(ItemStack stack) {return stack.is(WHITE_FOOD);}
+    public boolean isWhiteFood(ItemStack stack) {return stack.is(UPTags.WHITE_ULUGH_FOOD);}
 
     public boolean isOrangeFood(ItemStack stack) {
-        return stack.is(ORANGE_FOOD);
+        return stack.is(UPTags.ORANGE_ULUGH_FOOD);
     }
 
     public boolean isEating() {

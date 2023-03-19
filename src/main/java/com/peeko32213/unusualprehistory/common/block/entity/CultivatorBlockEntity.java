@@ -44,7 +44,6 @@ import java.util.Optional;
 import static com.peeko32213.unusualprehistory.common.block.BlockCultivator.HALF;
 
 public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
-    private static final TagKey<Item> ORGANIC_OOZE = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "organic_ooze"));
     private BlockState blockstate;
     public int ticksExisted;
 
@@ -327,7 +326,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private int getFuelAmount(final ItemStack fuelStack) {
-        if(!fuelStack.isEmpty() && fuelStack.is(ORGANIC_OOZE)) {
+        if(!fuelStack.isEmpty() && fuelStack.is(UPTags.ORGANIC_OOZE)) {
             return maxFuel;
         }
         return 0;
