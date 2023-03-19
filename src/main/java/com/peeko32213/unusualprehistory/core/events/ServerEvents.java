@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -9,6 +10,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -41,7 +44,57 @@ public class ServerEvents {
         }
     }
 
+    @SubscribeEvent
+    //cant be canceled
+    public void preventClick(PlayerInteractEvent.LeftClickEmpty event){
+        if(event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())){
+            event.setCanceled(true);
+        }
     }
+
+    @SubscribeEvent
+    public void preventClick(PlayerInteractEvent.LeftClickBlock event){
+        if(event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void preventClick(PlayerInteractEvent.RightClickBlock event){
+        if(event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    //cant be canceled
+    public void preventClick(PlayerInteractEvent.RightClickEmpty event){
+        if(event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void preventClick(PlayerInteractEvent.RightClickItem event){
+        if(event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void preventInteract(PlayerInteractEvent.EntityInteract event){
+        if(event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void preventDamage(AttackEntityEvent event){
+        if(event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())){
+            event.setCanceled(true);
+        }
+    }
+}
 
 
 

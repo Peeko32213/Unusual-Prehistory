@@ -20,7 +20,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
@@ -29,6 +32,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -205,6 +209,10 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         boolean shouldHurt;
         float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float knockback = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        if (target instanceof LivingEntity livingEntity) {
+            damage += livingEntity.getMobType().equals(MobType.ARTHROPOD) ? damage : 0;
+            knockback += (float) EnchantmentHelper.getKnockbackBonus(this);
+        }
         if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
             if (knockback > 0.0f && target instanceof LivingEntity) {
                 ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
@@ -471,7 +479,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1F + p_25556_.getBbWidth());
+            return (this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
         }
 
         @Override

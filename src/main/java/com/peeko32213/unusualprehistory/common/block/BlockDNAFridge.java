@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -61,9 +62,8 @@ public class BlockDNAFridge extends BaseEntityBlock {
         }
     }
 
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
         BlockEntity tileEntity = level.getBlockEntity(pos);
-
         if (tileEntity instanceof DNAFridgeBlockEntity) {
             ((DNAFridgeBlockEntity) tileEntity).recheckOpen();
         }

@@ -23,7 +23,6 @@ import java.util.List;
 
 public class ItemEncyclopedia extends Item {
 
-    private static final TagKey<Item> FOSSILS = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "fossils"));
     public ItemEncyclopedia(Properties properties) {
         super(properties);
     }

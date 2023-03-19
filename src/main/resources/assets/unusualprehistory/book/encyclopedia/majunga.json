@@ -12,9 +12,9 @@
     {
       "recipe": "unusualprehistory:majunga_helmet",
       "shapeless": false,
-      "x": 210,
-      "y": 55,
-      "page": 0,
+      "x": 10,
+      "y": 130,
+      "page": 1,
       "scale": 1.3
     }
   ],

@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -47,7 +48,6 @@ import java.util.function.Predicate;
 
 public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(EntityKentrosaurus.class, EntityDataSerializers.BYTE);
-    private static final TagKey<Item> KENTRO_FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "kentro_food"));
     private static final Predicate<LivingEntity> SCARY_MOB = (p_29634_) -> {
         if (p_29634_ instanceof Player && ((Player)p_29634_).isCreative()) {
             return false;
@@ -111,7 +111,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     }
 
     public boolean isKentroFood(ItemStack stack) {
-        return stack.is(KENTRO_FOOD);
+        return stack.is(UPTags.KENTRO_FOOD);
     }
 
     public void tick() {

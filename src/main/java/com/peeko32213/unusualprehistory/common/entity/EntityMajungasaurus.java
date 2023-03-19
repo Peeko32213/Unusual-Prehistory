@@ -53,7 +53,6 @@ import java.util.List;
 
 public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
 
-    private static final TagKey<Item> FOOD = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(UnusualPrehistory.MODID, "majunga_food"));
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EntityMajungasaurus.class, EntityDataSerializers.BOOLEAN);
 
@@ -186,7 +185,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
 
 
     public boolean isFood(ItemStack stack) {
-        return stack.is(FOOD);
+        return stack.is(UPTags.MAJUNGA_FOOD);
     }
 
     private void attack(LivingEntity entity) {

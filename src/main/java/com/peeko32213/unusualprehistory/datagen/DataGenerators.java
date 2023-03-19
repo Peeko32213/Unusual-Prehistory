@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.datagen;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
 import com.peeko32213.unusualprehistory.core.registry.UPConfiguredFeatures;
 import net.minecraft.core.Registry;
@@ -53,7 +52,7 @@ public class DataGenerators {
         BlockTagsGenerator blockTags = new BlockTagsGenerator(generator, helper);
         Set<BlockStateGenerator> set = Sets.newHashSet();
         Consumer<BlockStateGenerator> consumer = set::add;
-        generator.addProvider(true,new EntityTags(generator, helper));
+        generator.addProvider(true,new EntityTagsGenerator(generator, helper));
         generator.addProvider(true,new RecipeGenerator(generator));
         generator.addProvider(true,new BlockstateGenerator(generator, helper));
         generator.addProvider(true,new ItemTagsGenerator(generator, blockTags, helper));

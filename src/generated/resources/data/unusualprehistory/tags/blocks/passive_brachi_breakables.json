@@ -1,0 +1,15 @@
+{
+  "values": [
+    "#minecraft:leaves",
+    "#minecraft:planks",
+    "#minecraft:crops",
+    "#minecraft:flowers",
+    "minecraft:lily_pad",
+    "minecraft:cactus",
+    "minecraft:bamboo",
+    "minecraft:grass",
+    "minecraft:fern",
+    "minecraft:large_fern",
+    "minecraft:tall_grass"
+  ]
+}
