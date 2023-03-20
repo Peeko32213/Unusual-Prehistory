@@ -288,6 +288,9 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> KENTRO_EGG = ITEMS.register("kentro_spawn_egg",
             () -> new ForgeSpawnEggItem(UPEntities.KENTRO , 0x122407, 0xddcca4,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> HWACHA_EGG = ITEMS.register("hwacha_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.HWACHA , 0x14191b, 0xf4f435,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterials.MAJUNGA, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

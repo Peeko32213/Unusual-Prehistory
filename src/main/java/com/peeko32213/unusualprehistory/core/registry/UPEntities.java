@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
+import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
 import com.peeko32213.unusualprehistory.common.entity.msc.render.BaseEntityRender;
 import com.peeko32213.unusualprehistory.common.entity.msc.trail.EntityTrail;
 import net.minecraft.resources.ResourceLocation;
@@ -97,6 +98,10 @@ public class UPEntities {
                     .sized(0.5F, 0.5F).clientTrackingRange(9)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "amber_shot").toString()));
 
+    public static final RegistryObject<EntityType<EntityHwachaSpike>> HWACHA_SPIKE = ENTITIES.register(
+            "hwacha_spike", () -> EntityType.Builder.<EntityHwachaSpike>of(EntityHwachaSpike::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(9)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "hwacha_spike").toString()));
     public static final RegistryObject<EntityType<EntityBabyRex>> BABY_REX = ENTITIES.register("baby_rex",
             () -> EntityType.Builder.of(EntityBabyRex::new, MobCategory.CREATURE).sized(1.1f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_rex").toString()));
@@ -124,6 +129,10 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityKentrosaurus>> KENTRO = ENTITIES.register("kentrosaurus",
             () -> EntityType.Builder.of(EntityKentrosaurus::new, MobCategory.CREATURE).sized(2.2F, 1.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "kentrosaurus").toString()));
+
+    public static final RegistryObject<EntityType<EntityHwachavenator>> HWACHA = ENTITIES.register("hwachavenator",
+            () -> EntityType.Builder.of(EntityHwachavenator::new, MobCategory.CREATURE).sized(1.95F, 2.8F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "hwachavenator").toString()));
 
     public static final RegistryObject<EntityType<BaseEntityRender>> AMMON_RENDER = ENTITIES.register("ammon_render",
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()

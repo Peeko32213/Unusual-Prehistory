@@ -123,6 +123,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.REX.get(), TyrannosaurusRexRenderer::new);
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), EncrustedRenderer::new);
         event.registerEntityRenderer(UPEntities.AMBER_SHOT.get(), AmberShotRenderer::new);
+        event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
         event.registerEntityRenderer(UPEntities.BABY_BRACHI.get(), BabyBrachiRenderer::new);
         event.registerEntityRenderer(UPEntities.BABY_REX.get(), BabyRexRenderer::new);
         event.registerEntityRenderer(UPEntities.ERYON.get(), EryonRenderer::new);
@@ -130,6 +131,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.ANTARCO.get(), AntarctopeltaRenderer::new);
         event.registerEntityRenderer(UPEntities.ULUG.get(), UlughbegsaurusRenderer::new);
         event.registerEntityRenderer(UPEntities.KENTRO.get(), KentrosaurusRenderer::new);
+        event.registerEntityRenderer(UPEntities.HWACHA.get(), HwachavenatorRenderer::new);
 
         event.registerEntityRenderer(UPEntities.AMMON_RENDER.get(), AmmoniteRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.MAJUNGA_RENDER.get(), MajungaRenderRenderer::new);

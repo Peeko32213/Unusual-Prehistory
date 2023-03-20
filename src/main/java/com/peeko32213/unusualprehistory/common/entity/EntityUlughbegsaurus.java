@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -173,7 +174,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
             }
             if (target instanceof LivingEntity && this.isYellow()) {
-                ((LivingEntity)target).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200), this);
+                ((LivingEntity)target).addEffect(new MobEffectInstance(UPEffects.PREVENT_CLICK.get(), 200), this);
             }
             this.doEnchantDamageEffects(this, target);
             this.setLastHurtMob(target);

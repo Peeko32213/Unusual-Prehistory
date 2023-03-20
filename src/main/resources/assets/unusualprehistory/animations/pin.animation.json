@@ -1,0 +1,16 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pin.spin": {
+			"loop": true,
+			"bones": {
+				"Pin": {
+					"rotation": {
+						"vector": [0, 0, "((query.anim_time - 0.8) * 1440) * 1"]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

@@ -117,6 +117,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ANTARCO_EGG, "Antarctopelta Spawn Egg");
         addItem(UPItems.ULUG_EGG, "Ulughbegsaurus Spawn Egg");
         addItem(UPItems.KENTRO_EGG, "Kentrosaurus Spawn Egg");
+        addItem(UPItems.HWACHA_EGG, "Hwachavenator Spawn Egg");
 
 
         //ARMOR
@@ -252,11 +253,13 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.ENCRUSTED, "Encrusted");
         addEntityType(UPEntities.SCAU, "Scaumenacia");
         addEntityType(UPEntities.AMBER_SHOT, "Amber Shot");
+        addEntityType(UPEntities.HWACHA_SPIKE, "Hwachavenator Pin");
         addEntityType(UPEntities.ENTITY_TRAIL, "Trail");
         addEntityType(UPEntities.AUSTRO, "Austroraptor");
         addEntityType(UPEntities.ANTARCO, "Antarctopelta");
         addEntityType(UPEntities.ULUG, "Ulughbegsaurus");
         addEntityType(UPEntities.KENTRO, "Kentrosaurus");
+        addEntityType(UPEntities.HWACHA, "Hwachavenator");
 
 
         //SOUNDS
