@@ -10,6 +10,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.*;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,12 +24,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.ClipContext;
@@ -37,6 +38,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.slf4j.Log4jLogger;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -48,10 +52,12 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.EnumSet;
 
-public class EntityHwachavenator extends EntityRangedMeleeBaseDinosaurAnimal {
+public class EntityHwachavenator extends EntityRangedMeleeBaseDinosaurAnimal implements RangedAttackMob {
     private static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(EntityHwachavenator.class, EntityDataSerializers.BOOLEAN);
+    public static final Logger LOGGER = LogManager.getLogger();
     public float prevShootProgress;
     public float shootProgress;
+
     public EntityHwachavenator(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
@@ -69,10 +75,13 @@ public class EntityHwachavenator extends EntityRangedMeleeBaseDinosaurAnimal {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(1, new MoveAwayFromTarget(this));
+        //this.goalSelector.addGoal(1, new MoveAwayFromTarget(this));
+        this.goalSelector.addGoal(3, new RangedAttackGoal(this, 1.25D, 40, 20.0F));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+        this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
+
     }
 
 
@@ -82,23 +91,53 @@ public class EntityHwachavenator extends EntityRangedMeleeBaseDinosaurAnimal {
         this.entityData.define(SHOOTING, false);
     }
 
+
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("isShooting", this.isShooting());
+    }
+
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.setIsShooting(pCompound.getBoolean("isShooting"));
+    }
+
+    public boolean isShooting() {
+        return this.entityData.get(SHOOTING);
+    }
+
+    public void setIsShooting(boolean shooting) {
+        this.entityData.set(SHOOTING, shooting);
+    }
+
     public void tick() {
         super.tick();
-        prevShootProgress = shootProgress;
-        boolean shooting = entityData.get(SHOOTING);
-        if (shooting && shootProgress < 25) {
+        LOGGER.info("shootprogress " + shootProgress);
+
+        if (this.isShooting() && shootProgress < 50) {
+            this.spit(this.getTarget());
             shootProgress += 1;
+            return;
         }
-        if (!shooting && shootProgress > 0) {
-            shootProgress -= 1;
-        }
-        if (!level.isClientSide && shooting && shootProgress == 25F) {
-            if (this.getTarget() != null) {
-                this.spit(this.getTarget());
-                this.getNavigation().stop();
-            }
-            this.entityData.set(SHOOTING, false);
-        }
+
+        shootProgress = 0;
+        this.setIsShooting(false);
+
+        // prevShootProgress = shootProgress;
+        // boolean shooting = entityData.get(SHOOTING);
+        // if (shooting && shootProgress < 25) {
+        //     shootProgress += 1;
+        // }
+        // if (!shooting && shootProgress > 0) {
+        //     shootProgress -= 1;
+        // }
+        // if (!level.isClientSide && shooting && shootProgress == 25F) {
+        //     if (this.getTarget() != null) {
+        //         this.spit(this.getTarget());
+        //         this.getNavigation().stop();
+        //     }
+        //     this.entityData.set(SHOOTING, false);
+        // }
     }
 
     private void setupShooting() {
@@ -107,11 +146,14 @@ public class EntityHwachavenator extends EntityRangedMeleeBaseDinosaurAnimal {
 
 
     private void spit(LivingEntity target) {
+        if(target == null){
+            return;
+        }
         this.lookAt(target, 100, 100);
         for (int i = 0; i < 2 + random.nextInt(2); i++) {
             EntityHwachaSpike llamaspitentity = new EntityHwachaSpike(this.level, this);
             double d0 = target.getX() - this.getX();
-            double d1 = target.getY(0.3333333333333333D) - llamaspitentity.getY();
+            double d1 = target.getY() - llamaspitentity.getY();
             double d2 = target.getZ() - this.getZ();
             float f = Mth.sqrt((float) (d0 * d0 + d2 * d2)) * 0.2F;
             llamaspitentity.shoot(d0, d1 + (double) f, d2, 2.0F, 5.0F);
@@ -175,6 +217,10 @@ public class EntityHwachavenator extends EntityRangedMeleeBaseDinosaurAnimal {
         return null;
     }
 
+    public void performRangedAttack(LivingEntity p_30762_, float p_30763_) {
+        this.setIsShooting(true);
+    }
+
     private class MoveAwayFromTarget extends Goal {
 
         private final EntityHwachavenator parentEntity;
@@ -187,7 +233,7 @@ public class EntityHwachavenator extends EntityRangedMeleeBaseDinosaurAnimal {
         }
 
         public boolean canUse() {
-            return parentEntity.getTarget() != null && parentEntity.getTarget().isAlive()  && !parentEntity.isBaby();
+            return parentEntity.getTarget() != null && parentEntity.getTarget().isAlive() && !parentEntity.isBaby();
         }
 
         public void tick() {
@@ -233,12 +279,11 @@ public class EntityHwachavenator extends EntityRangedMeleeBaseDinosaurAnimal {
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !isShooting()) {
             {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.walk"));
             }
-        }
-        else {
+        } else if (!isShooting()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.idle"));
             event.getController().setAnimationSpeed(1.0D);
         }
@@ -246,7 +291,8 @@ public class EntityHwachavenator extends EntityRangedMeleeBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate2(AnimationEvent<E> event) {
-        if (shootProgress > 0) {
+        LOGGER.info("shooting " + isShooting());
+        if (isShooting()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.turret_firing"));
             return PlayState.CONTINUE;
         }
