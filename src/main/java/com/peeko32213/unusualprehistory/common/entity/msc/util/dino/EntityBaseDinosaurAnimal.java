@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity.msc.util;
+package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import net.minecraft.core.BlockPos;

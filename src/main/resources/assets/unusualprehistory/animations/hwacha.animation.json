@@ -84,6 +84,38 @@
 							"vector": [0, 5, 4]
 						}
 					}
+				},
+				"Reins1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 5]
+						},
+						"0.5": {
+							"vector": [0, 0, -5]
+						},
+						"1.0": {
+							"vector": [0, 0, 5]
+						}
+					},
+					"position": {
+						"vector": [0, 0, 1]
+					}
+				},
+				"Reins2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 5]
+						},
+						"0.5": {
+							"vector": [0, 0, -5]
+						},
+						"1.0": {
+							"vector": [0, 0, 5]
+						}
+					},
+					"position": {
+						"vector": [0, 0, 1]
+					}
 				}
 			}
 		},
@@ -113,7 +145,7 @@
 						"vector": ["20 + Math.cos((query.anim_time - 0.0) * 360) * 0.5", 0, "Math.sin((query.anim_time - 0.0) * 360) * 0.1"]
 					},
 					"position": {
-						"vector": [0, -11, 0]
+						"vector": [0, -9, 0]
 					}
 				},
 				"Tail": {
@@ -216,18 +248,35 @@
 					"rotation": {
 						"vector": [0, 0, 57.5]
 					}
+				},
+				"Reins1": {
+					"rotation": {
+						"vector": [7.45464, -0.95537, 2.31072]
+					},
+					"position": {
+						"vector": [0, 0, 1]
+					}
+				},
+				"Reins2": {
+					"rotation": {
+						"vector": [7.4546, 0.9554, -2.3107]
+					},
+					"position": {
+						"vector": [0, 0, 1]
+					}
 				}
 			}
 		},
 		"animation.hwacha.turret_firing": {
 			"loop": true,
+			"override_previous_animation": true,
 			"bones": {
 				"Body": {
 					"rotation": {
 						"vector": ["20 + Math.cos((query.anim_time - 0.0) * 1440) * 0.5", 0, "Math.sin((query.anim_time - 0.0) * 1440) * 0.1"]
 					},
 					"position": {
-						"vector": [0, -13, 0]
+						"vector": [0, -9, 0]
 					}
 				},
 				"Tail": {
@@ -338,6 +387,14 @@
 					},
 					"position": {
 						"vector": [0, "Math.cos((query.anim_time - 0.0) * 1440) * -0.5", 0]
+					}
+				},
+				"Reins1": {
+					"rotation": {
+						"vector": [7.45464, -0.95537, 2.31072]
+					},
+					"position": {
+						"vector": [0, 0, 1]
 					}
 				}
 			}

@@ -1,22 +1,19 @@
-package com.peeko32213.unusualprehistory.common.entity.msc.util;
+package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -24,9 +21,8 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,31 +30,30 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.scores.Team;
+import net.minecraftforge.network.NetworkHooks;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 import java.util.UUID;
 
-public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal implements IAnimatable {
+public abstract class EntityRangedBaseDinosaurAnimal extends Animal implements IAnimatable, NeutralMob {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
-
-    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BYTE);
-    protected static final EntityDataAccessor<Optional<UUID>> DATA_OWNERUUID_ID = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.OPTIONAL_UUID);
-    private boolean orderedToSit;
-
+    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityRangedBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityRangedBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ANGER_TIME = SynchedEntityData.defineId(EntityRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(EntityRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+    private static final UniformInt ANGER_TIME_RANGE = TimeUtil.rangeOfSeconds(20, 39);
+    private UUID targetUuid;
+    private BlockPos lightBlockPos = null;
     int lastTimeSinceHungry;
 
-    protected EntityTameableBaseDinosaurAnimal(EntityType<? extends TamableAnimal> entityType, Level level) {
+    protected EntityRangedBaseDinosaurAnimal(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.reassessTameGoals();
+        this.xpReward = (int) (this.getMaxHealth());
     }
 
     @Override
@@ -72,7 +67,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(getTargetTag())) {
                         @Override
                         public boolean canUse() {
-                            return ((EntityTameableBaseDinosaurAnimal) this.mob).isHungry() && super.canUse();
+                            return ((EntityRangedBaseDinosaurAnimal) this.mob).isHungry() && super.canUse();
                         }
                     }
             );
@@ -107,15 +102,79 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         }
     }
 
+    public int getAttckingState() {
+        return this.entityData.get(STATE);
+    }
+
+    public void setAttackingState(int time) {
+        this.entityData.set(STATE, time);
+    }
+
+    @Override
+    public int getRemainingPersistentAngerTime() {
+        return this.entityData.get(ANGER_TIME);
+    }
+
+    @Override
+    public void setRemainingPersistentAngerTime(int time) {
+        this.entityData.set(ANGER_TIME, time);
+    }
+
+    @Override
+    public UUID getPersistentAngerTarget() {
+        return this.targetUuid;
+    }
+
+    @Override
+    public void setPersistentAngerTarget(UUID target) {
+        this.targetUuid = target;
+    }
+
+    @Override
+    public Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    @Override
+    public void startPersistentAngerTimer() {
+        this.setRemainingPersistentAngerTime(ANGER_TIME_RANGE.sample(this.random));
+    }
+
+    @Override
+    protected boolean shouldDespawnInPeaceful() {
+        return true;
+    }
+
+    public void performRangedAttack(LivingEntity target, float pullProgress) {
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return 0.4F;
+    }
+
+    private boolean checkDistance(BlockPos blockPosA, BlockPos blockPosB, int distance) {
+        return Math.abs(blockPosA.getX() - blockPosB.getX()) <= distance
+                && Math.abs(blockPosA.getY() - blockPosB.getY()) <= distance
+                && Math.abs(blockPosA.getZ() - blockPosB.getZ()) <= distance;
+    }
+
+
+    @Override
+    protected void tickDeath() {
+        ++this.deathTime;
+        if (this.deathTime == 35) {
+            this.remove(Entity.RemovalReason.KILLED);
+            this.dropExperience();
+        }
+    }
+
+
 
     @Override
     public boolean canAttack(LivingEntity entity) {
         boolean prev = super.canAttack(entity);
         if(prev && isBaby()){
-            return false;
-        }
-        if (this.isOwnedBy(entity))
-        {
             return false;
         }
         return prev;
@@ -149,8 +208,8 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.entityData.define(TIME_TILL_HUNGRY, 0);
         this.entityData.define(SADDLED, false);
         this.entityData.define(PASSIVE, 0);
-        this.entityData.define(DATA_FLAGS_ID, (byte)0);
-        this.entityData.define(DATA_OWNERUUID_ID, Optional.empty());
+        this.entityData.define(ANGER_TIME, 0);
+        this.entityData.define(STATE, 0);
     }
 
     @Override
@@ -160,11 +219,6 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         compound.putInt("TimeTillHungry", this.getTimeTillHungry());
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
-        if (this.getOwnerUUID() != null) {
-            compound.putUUID("Owner", this.getOwnerUUID());
-        }
-
-        compound.putBoolean("Sitting", this.orderedToSit);
     }
 
     @Override
@@ -174,169 +228,6 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
-        UUID uuid;
-        if (compound.hasUUID("Owner")) {
-            uuid = compound.getUUID("Owner");
-        } else {
-            String s = compound.getString("Owner");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (uuid != null) {
-            try {
-                this.setOwnerUUID(uuid);
-                this.setTame(true);
-            } catch (Throwable throwable) {
-                this.setTame(false);
-            }
-        }
-
-        this.orderedToSit = compound.getBoolean("Sitting");
-        this.setInSittingPose(this.orderedToSit);
-    }
-
-    public boolean canBeLeashed(Player p_21813_) {
-        return !this.isLeashed();
-    }
-
-    protected void spawnTamingParticles(boolean p_21835_) {
-        ParticleOptions particleoptions = ParticleTypes.HEART;
-        if (!p_21835_) {
-            particleoptions = ParticleTypes.SMOKE;
-        }
-
-        for(int i = 0; i < 7; ++i) {
-            double d0 = this.random.nextGaussian() * 0.02D;
-            double d1 = this.random.nextGaussian() * 0.02D;
-            double d2 = this.random.nextGaussian() * 0.02D;
-            this.level.addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-        }
-
-    }
-
-    public void handleEntityEvent(byte p_21807_) {
-        if (p_21807_ == 7) {
-            this.spawnTamingParticles(true);
-        } else if (p_21807_ == 6) {
-            this.spawnTamingParticles(false);
-        } else {
-            super.handleEntityEvent(p_21807_);
-        }
-
-    }
-
-    public boolean isTame() {
-        return (this.entityData.get(DATA_FLAGS_ID) & 4) != 0;
-    }
-
-    public void setTame(boolean p_21836_) {
-        byte b0 = this.entityData.get(DATA_FLAGS_ID);
-        if (p_21836_) {
-            this.entityData.set(DATA_FLAGS_ID, (byte)(b0 | 4));
-        } else {
-            this.entityData.set(DATA_FLAGS_ID, (byte)(b0 & -5));
-        }
-
-        this.reassessTameGoals();
-    }
-
-    protected void reassessTameGoals() {
-    }
-
-    public boolean isInSittingPose() {
-        return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
-    }
-
-    public void setInSittingPose(boolean p_21838_) {
-        byte b0 = this.entityData.get(DATA_FLAGS_ID);
-        if (p_21838_) {
-            this.entityData.set(DATA_FLAGS_ID, (byte)(b0 | 1));
-        } else {
-            this.entityData.set(DATA_FLAGS_ID, (byte)(b0 & -2));
-        }
-
-    }
-
-    @Nullable
-    public UUID getOwnerUUID() {
-        return this.entityData.get(DATA_OWNERUUID_ID).orElse((UUID)null);
-    }
-
-    public void setOwnerUUID(@Nullable UUID p_21817_) {
-        this.entityData.set(DATA_OWNERUUID_ID, Optional.ofNullable(p_21817_));
-    }
-
-    public void tame(Player p_21829_) {
-        this.setTame(true);
-        this.setOwnerUUID(p_21829_.getUUID());
-        if (p_21829_ instanceof ServerPlayer) {
-            CriteriaTriggers.TAME_ANIMAL.trigger((ServerPlayer)p_21829_, this);
-        }
-
-    }
-
-    @Nullable
-    public LivingEntity getOwner() {
-        try {
-            UUID uuid = this.getOwnerUUID();
-            return uuid == null ? null : this.level.getPlayerByUUID(uuid);
-        } catch (IllegalArgumentException illegalargumentexception) {
-            return null;
-        }
-    }
-
-    public Team getTeam() {
-        if (this.isTame()) {
-            LivingEntity livingentity = this.getOwner();
-            if (livingentity != null) {
-                return livingentity.getTeam();
-            }
-        }
-
-        return super.getTeam();
-    }
-
-    public boolean isAlliedTo(Entity p_21833_) {
-        if (this.isTame()) {
-            LivingEntity livingentity = this.getOwner();
-            if (p_21833_ == livingentity) {
-                return true;
-            }
-
-            if (livingentity != null) {
-                return livingentity.isAlliedTo(p_21833_);
-            }
-        }
-
-        return super.isAlliedTo(p_21833_);
-    }
-
-    public void die(DamageSource p_21809_) {
-        // FORGE: Super moved to top so that death message would be cancelled properly
-        net.minecraft.network.chat.Component deathMessage = this.getCombatTracker().getDeathMessage();
-        super.die(p_21809_);
-
-        if (this.dead)
-            if (!this.level.isClientSide && this.level.getGameRules().getBoolean(GameRules.RULE_SHOWDEATHMESSAGES) && this.getOwner() instanceof ServerPlayer) {
-                this.getOwner().sendSystemMessage(deathMessage);
-            }
-
-    }
-
-    public boolean isOrderedToSit() {
-        return this.orderedToSit;
-    }
-
-    public void setOrderedToSit(boolean p_21840_) {
-        this.orderedToSit = p_21840_;
-    }
-
-    public boolean isOwnedBy(LivingEntity p_21831_) {
-        return p_21831_ == this.getOwner();
-    }
-
-    public boolean wantsToAttack(LivingEntity p_21810_, LivingEntity p_21811_) {
-        return true;
     }
 
     public boolean isHungry() {
@@ -407,7 +298,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
 
     protected PathNavigation createNavigation(Level level) {
         if(hasCustomNavigation()){
-            return new EntityTameableBaseDinosaurAnimal.DinoCustomNavigation(this, level);
+            return new EntityRangedBaseDinosaurAnimal.DinoCustomNavigation(this, level);
         }
         else return super.createNavigation(level);
     }
@@ -417,7 +308,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
             super(p_33379_, p_33380_);
         }
         protected PathFinder createPathFinder(int p_33382_) {
-            this.nodeEvaluator = new EntityTameableBaseDinosaurAnimal.CustomNodeEvaluator();
+            this.nodeEvaluator = new EntityRangedBaseDinosaurAnimal.CustomNodeEvaluator();
             return new PathFinder(this.nodeEvaluator, p_33382_);
         }
     }

@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -287,7 +287,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         data.setResetSpeedInTicks(5);
         data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::eatPredicate));
         AnimationController<EntityAustroraptor> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
+        data.addAnimationController(new AnimationController<>(this, "attackController", 3, this::attackPredicate));
         data.addAnimationController(controller);
     }
 

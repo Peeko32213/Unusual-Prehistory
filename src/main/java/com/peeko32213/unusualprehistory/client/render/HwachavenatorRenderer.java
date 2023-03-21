@@ -5,6 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.HwachavenatorModel;
 import com.peeko32213.unusualprehistory.client.model.KentrosaurusModel;
+import com.peeko32213.unusualprehistory.client.render.layer.HwachavenatorSaddleLayer;
+import com.peeko32213.unusualprehistory.client.render.layer.TriceratopsSaddleLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
 import com.peeko32213.unusualprehistory.common.entity.EntityKentrosaurus;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,6 +17,7 @@ public class HwachavenatorRenderer extends GeoEntityRenderer<EntityHwachavenator
 
     public HwachavenatorRenderer(EntityRendererProvider.Context context) {
         super(context, new HwachavenatorModel());
+        this.addLayer(new HwachavenatorSaddleLayer(this));
     }
 
     @Override

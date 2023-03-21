@@ -1,4 +1,4 @@
-// 1.19.2	2023-03-19T14:14:19.0796321	unusualprehistory Item Tags
+// 1.19.2	2023-03-21T08:10:12.8765431	unusualprehistory Item Tags
 fd71d8de0f83d59cd1d8f724a548b285c0ea9e11 data/minecraft/tags/items/buttons.json
 9edb75fd2a2fc58fad5cb177d8cd36a6b449e37d data/minecraft/tags/items/fishes.json
 1b64adacba7b2e3821f229f2b7f168d4f9870a51 data/minecraft/tags/items/leaves.json
@@ -15,6 +15,7 @@ fe5e1298ad2aec05d2f003a6b80b3c5754df7805 data/minecraft/tags/items/wooden_fences
 8e9ef5bfde9ad2527b9939f1109da9d0ec3357b2 data/unusualprehistory/tags/items/dna_flasks.json
 291718131b430f202c603d9f307f34ade8dc2264 data/unusualprehistory/tags/items/filled_flasks.json
 76d70bc4d08feec0b085e64458d5392dc6a544d8 data/unusualprehistory/tags/items/fossils.json
+0cfc4c92da27d037007490c029532b51268cb300 data/unusualprehistory/tags/items/hwacha_food.json
 02cf79887a691782bca02d62b0d10612edeb7c8d data/unusualprehistory/tags/items/kentro_food.json
 0cfc4c92da27d037007490c029532b51268cb300 data/unusualprehistory/tags/items/majunga_food.json
 0cfc4c92da27d037007490c029532b51268cb300 data/unusualprehistory/tags/items/orange_ulugh_food.json

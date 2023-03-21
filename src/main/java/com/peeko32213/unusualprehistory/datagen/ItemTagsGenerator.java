@@ -81,6 +81,9 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(UPTags.TRIKE_FOOD)
                 .add(UPItems.GINKGO_FRUIT.get());
 
+        tag(UPTags.HWACHA_FOOD)
+                .add(UPItems.RAW_COTY.get());
+
         tag(UPTags.PACHY_FOOD)
                 .add(UPItems.RAW_GINKGO_SEEDS.get());
 

@@ -14,6 +14,8 @@ import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
+import com.peeko32213.unusualprehistory.core.registry.util.KeyInputMessage;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -26,6 +28,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,6 +38,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import software.bernie.example.client.renderer.armor.GeckoArmorRenderer;
 import software.bernie.example.item.GeckoArmorItem;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
+
+import java.awt.event.KeyEvent;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class ClientEvents {
@@ -202,6 +208,43 @@ public final class ClientEvents {
             double totalAmp = (0.1 + 0.1*amplifier);
             event.getCamera().move(rng.nextFloat() * 0.4F * intensity * totalAmp  , rng.nextFloat() * 0.2F * intensity * totalAmp , rng.nextFloat() * 0.4F * intensity * totalAmp );
         }
+    }
+
+    @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+    public static class ForgeBusEvents {
+
+        @SubscribeEvent
+        public static void onKeyPress(InputEvent.Key event) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.level == null) return;
+            onInput(mc, event.getKey(), event.getAction());
+        }
+
+        @SubscribeEvent
+        public static void onMouseClick(InputEvent.MouseButton event) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.level == null) return;
+            onInput(mc, event.getButton(), event.getAction());
+        }
+
+        private static void onInput(Minecraft mc, int key, int action) {
+            if (mc.screen == null && roarKey.consumeClick()) {
+                UPNetwork.CHANNEL.sendToServer(new KeyInputMessage(key));
+            }
+        }
+    }
+
+    public static KeyMapping roarKey;
+
+    @SubscribeEvent
+    public static void register(final RegisterKeyMappingsEvent event) {
+        roarKey = create("attack_key", KeyEvent.VK_G);
+
+        event.register(roarKey);
+    }
+
+    private static KeyMapping create(String name, int key) {
+        return new KeyMapping("key." + UnusualPrehistory.MODID + "." + name, key, "key.category." + UnusualPrehistory.MODID);
     }
 
 }

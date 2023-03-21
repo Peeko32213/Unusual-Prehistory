@@ -48,6 +48,7 @@ public class UnusualPrehistory {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus eventBus = MinecraftForge.EVENT_BUS;
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::registerCommon);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.CONFIG_BUILDER);
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
@@ -66,6 +67,11 @@ public class UnusualPrehistory {
 
 
     }
+
+    private void registerCommon(final FMLCommonSetupEvent event) {
+        UPNetwork.init();
+    }
+
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {

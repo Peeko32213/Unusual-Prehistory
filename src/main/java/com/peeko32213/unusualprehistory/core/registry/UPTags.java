@@ -44,6 +44,8 @@ public class UPTags {
     public static final TagKey<Item> ORANGE_ULUGH_FOOD = registerItemTag( "orange_ulugh_food");
     public static final TagKey<Item> WHITE_ULUGH_FOOD = registerItemTag("white_ulugh_food");
     public static final TagKey<Item> TRIKE_FOOD = registerItemTag("trike_food");
+    public static final TagKey<Item> HWACHA_FOOD = registerItemTag("hwacha_food");
+
     public static final TagKey<Item> PACHY_FOOD = registerItemTag("pachy_food");
 
 
