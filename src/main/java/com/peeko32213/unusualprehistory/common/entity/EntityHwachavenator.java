@@ -5,6 +5,9 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityRangedBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableRangedBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.debug.DebugRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -12,10 +15,14 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -29,12 +36,17 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -45,6 +57,9 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
+import java.util.Optional;
+import java.util.function.Predicate;
+
 public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal implements RangedAttackMob, CustomFollower {
     private static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(EntityHwachavenator.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityHwachavenator.class, EntityDataSerializers.INT);
@@ -53,6 +68,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     public static final Logger LOGGER = LogManager.getLogger();
     public float shootProgress;
     public float sitProgress;
+    public int messageTimer = 0;
 
     public EntityHwachavenator(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
@@ -81,7 +97,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this){
+        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this) {
 
             public boolean canUse() {
                 return !isTame();
@@ -126,15 +142,15 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     }
 
     public void positionRider(Entity passenger) {
-        float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));
-        float yCos = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));
-        passenger.setPos(this.getX() + (double)(0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double)(0.5F * yCos));
+        float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+        float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+        passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
     }
 
     public double getPassengersRidingOffset() {
         float f = Math.min(0.25F, this.animationSpeed);
         float f1 = this.animationPosition;
-        return (double)this.getBbHeight() - 0.2D + (double)(0.12F * Mth.cos(f1 * 0.7F) * 0.7F * f);
+        return (double) this.getBbHeight() - 0.2D + (double) (0.12F * Mth.cos(f1 * 0.7F) * 0.7F * f);
     }
 
 
@@ -242,23 +258,18 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     public void tick() {
         super.tick();
 
-        if (this.isShooting() && shootProgress < 50) {
+        if (this.isShooting() && shootProgress < 50 && !this.isSaddled()) {
             this.spit(this.getTarget());
             shootProgress += 1;
             return;
         }
 
-        shootProgress = 0;
-        this.setIsShooting(false);
-
-        if (this.isSaddled() && this.isShooting() && shootProgress < 50) {
-            this.spit(this.getTarget());
+        if (this.isShooting() && shootProgress < 50 && this.isSaddled()) {
+            this.spitNoTarget();
             shootProgress += 1;
             return;
         }
 
-        shootProgress = 0;
-        this.setIsShooting(false);
 
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
@@ -266,11 +277,14 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         if (!this.isOrderedToSit() && sitProgress > 0F) {
             sitProgress--;
         }
-        if(this.getCommand() == 2 && !this.isVehicle()){
+        if (this.getCommand() == 2 && !this.isVehicle()) {
             this.setOrderedToSit(true);
-        }else{
+        } else {
             this.setOrderedToSit(false);
         }
+
+        shootProgress = 0;
+        this.setIsShooting(false);
     }
 
     public boolean hurt(DamageSource source, float amount) {
@@ -290,8 +304,8 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     public void travel(Vec3 pos) {
         if (this.isAlive()) {
             LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
-            if (this.isVehicle() && livingentity !=null) {
-
+            if (this.isVehicle() && livingentity != null) {
+                double d0 = 0.08D;
                 this.setYRot(livingentity.getYRot());
                 this.yRotO = this.getYRot();
                 this.setXRot(livingentity.getXRot() * 0.5F);
@@ -303,10 +317,16 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
+                double d8 = this.getY();
+                Vec3 vec34 = this.getDeltaMovement();
 
+                //Travel up when there is a horizontal collission  and enough space, tried jumping but was a bit funky
+                if (this.horizontalCollision && this.isFree(vec34.x, vec34.y + (double) 0.5F - this.getY() + d8, vec34.z)) {
+                    this.setDeltaMovement(vec34.x, (double) 0.5F, vec34.z);
+                }
                 this.setSpeed(0.3F);
                 super.travel(new Vec3((double) f, pos.y, (double) f1));
-            }else{
+            } else {
                 super.travel(pos);
             }
         }
@@ -318,7 +338,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
 
     public void spit(LivingEntity target) {
-        if(target == null){
+        if (target == null) {
             return;
         }
         this.lookAt(target, 100, 100);
@@ -329,10 +349,101 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
             double d2 = target.getZ() - this.getZ();
             float f = Mth.sqrt((float) (d0 * d0 + d2 * d2)) * 0.2F;
             llamaspitentity.shoot(d0, d1 + (double) f, d2, 2.0F, 4.0F);
+
             this.level.addFreshEntity(llamaspitentity);
         }
     }
 
+    public void spitNoTarget() {
+        final int MAX_SHOTS = 2;
+        final int MIN_SHOTS = 2;
+        final int VIEW_VECTOR_SCALE = 15;
+        final int NO_SPIKE_ZONE_INFLATE = 2;
+        final int MESSAGE_TIMER_LIMIT = 6000;
+        int messageTimer = 0;
+        for (int i = 0; i < MIN_SHOTS + random.nextInt(MAX_SHOTS); i++) {
+            try {
+                if (this.level.isClientSide) {
+                    return;
+                }
+                EntityHwachaSpike llamaspitentity = new EntityHwachaSpike(this.level, this);
+                Player player = (Player) this.getControllingPassenger();
+                if (player == null) {
+                    return;
+                }
+
+                //You can change the entity pov here, so for hitresult we check the hit using the player
+                //and for entity we use hwacha entity, these can be changed so see what you think is best
+                HitResult hitresult = getEntityPOVHitResult(this.level, player, ClipContext.Fluid.ANY);
+                Optional<Entity> entity = DebugRenderer.getTargetedEntity(this, VIEW_VECTOR_SCALE);
+                BlockPos blockpos = null;
+                double d0 = 0;
+                double d1 = 0;
+                double d2 = 0;
+
+
+
+
+
+                if (hitresult.getType() == HitResult.Type.BLOCK) {
+                    blockpos = ((BlockHitResult) hitresult).getBlockPos();
+                }
+
+                if (entity.isPresent()) {
+                    var entity1 = entity.get();
+                    BlockPos blockPosEntity = entity.get().getOnPos();
+                    Vec3 eyePosition = entity1.getEyePosition();
+                    BlockPos blockPos = new BlockPos(eyePosition.x, eyePosition.y, eyePosition.z);
+                    d0 = blockPos.getX() - this.getX();
+                    d1 = blockPos.getY() - this.getY();
+                    d2 = blockPos.getZ() - this.getZ();
+
+                }  if (blockpos != null) {
+                    //I added a check here that if the arrow is trying to be shot too close to hwacha it wont shoot and gives a message
+                    AABB aabb = player.getBoundingBox().inflate(NO_SPIKE_ZONE_INFLATE);
+                    if (aabb.contains(Vec3.atCenterOf(blockpos))) {
+                        player.sendSystemMessage(Component.translatable("hwachavenator.shooting_too_close.message").withStyle(ChatFormatting.RED));
+                        return;
+                    }
+                    d0 = blockpos.getX() - this.getX();
+                    d1 = blockpos.getY() - this.getY();
+                    d2 = blockpos.getZ() - this.getZ();
+                }
+
+                //I added a check here that if the arrow or hitresult will result in a miss it wont shoot and fails with a message
+                if (d0 == 0 && d1 == 0 && d2 == 0 && messageTimer == 0 || hitresult.getType() == HitResult.Type.MISS) {
+                    player.sendSystemMessage(Component.translatable("hwachavenator.fail_shoot.message").withStyle(ChatFormatting.RED));
+                    return;
+                }
+
+                llamaspitentity.shoot(d0, d1, d2, 2.0F, 0.0F);
+                //llamaspitentity.isNoGravity();
+                this.level.addFreshEntity(llamaspitentity);
+
+            } catch (NullPointerException exception) {
+                LOGGER.error("Something went wrong shooting a spike due to: {}", exception.getMessage());
+            }
+
+        }
+    }
+
+    //Vanilla Copy from Item
+    protected static BlockHitResult getEntityPOVHitResult(Level p_41436_, Entity p_41437_, ClipContext.Fluid p_41438_) {
+        float f = p_41437_.getXRot();
+        float f1 = p_41437_.getYRot();
+        Vec3 vec3 = p_41437_.getEyePosition();
+        float f2 = Mth.cos(-f1 * ((float) Math.PI / 180F) - (float) Math.PI);
+        float f3 = Mth.sin(-f1 * ((float) Math.PI / 180F) - (float) Math.PI);
+        float f4 = -Mth.cos(-f * ((float) Math.PI / 180F));
+        float f5 = Mth.sin(-f * ((float) Math.PI / 180F));
+        float f6 = f3 * f4;
+        float f7 = f2 * f4;
+
+        //Range!
+        double d0 = 35;
+        Vec3 vec31 = vec3.add((double) f6 * d0, (double) f5 * d0, (double) f7 * d0);
+        return p_41436_.clip(new ClipContext(vec3, vec31, ClipContext.Block.OUTLINE, p_41438_, p_41437_));
+    }
 
     @Override
     protected SoundEvent getAttackSound() {

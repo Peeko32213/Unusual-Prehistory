@@ -32,12 +32,9 @@ public class KeyInputMessage  {
         context.enqueueWork(() -> {
             Player player = context.getSender();
             Entity vehicle = player.getVehicle();
-            if (vehicle instanceof EntityHwachavenator ravager) {
-                if (ravager.isSaddled() && ravager.isTame() && ravager.getControllingPassenger() == player) {
-                    ravager.setIsShooting(true);
-                    if (ravager.isShooting() && ravager.shootProgress < 50) {
-                        ravager.shootProgress += 1;
-                    }
+            if (vehicle instanceof EntityHwachavenator hwachavenator) {
+                if (hwachavenator.isSaddled() && hwachavenator.isTame() && hwachavenator.getControllingPassenger() == player) {
+                    hwachavenator.setIsShooting(true);
                 }
             }
         });
