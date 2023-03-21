@@ -37,6 +37,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraftforge.network.PlayMessages;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.slf4j.Log4jLogger;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -50,6 +53,7 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class EntityHwachaSpike extends Entity implements IAnimatable{
+    public static final Logger LOGGER = LogManager.getLogger();
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private UUID ownerUUID;
@@ -99,6 +103,9 @@ public class EntityHwachaSpike extends Entity implements IAnimatable{
             this.leftOwner = this.checkLeftOwner();
         }
         super.tick();
+        if(tickCount > 50){
+            this.remove(RemovalReason.DISCARDED);
+        }
         Vec3 vector3d = this.getDeltaMovement();
         HitResult raytraceresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
         if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS) {
@@ -269,6 +276,11 @@ public class EntityHwachaSpike extends Entity implements IAnimatable{
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         event.getController().setAnimation(new AnimationBuilder().loop("animation.pin.spin"));
         return PlayState.CONTINUE;
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return true;
     }
 
     @Override

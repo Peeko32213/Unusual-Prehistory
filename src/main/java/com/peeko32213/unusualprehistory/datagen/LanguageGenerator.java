@@ -322,7 +322,8 @@ public class LanguageGenerator extends LanguageProvider {
         add("block.unusualprehistory.majunga_egg.desc", "%s x %s");
         add("block.unusualprehistory.coty_egg.desc", "%s x %s");
         add("item.unusualprehistory.encyclopedia.desc", "By Award Winning Scientist, Peeko Noneyah");
-
+        add("hwachavenator.shooting_too_close.message", "You are trying to shoot too close to Hwachavenator!");
+        add("hwachavenator.fail_shoot.message", "You failed to shoot!");
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");
