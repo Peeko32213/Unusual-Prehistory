@@ -1,0 +1,21 @@
+{
+  "parent":"forge:item/default",
+  "loader":"forge:separate-perspective",
+  "base": {
+    "parent": "unusualprehistory:item/primal_macuahuitl_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "unusualprehistory:item/primal_macuahuitl_inventory"
+      }
+    },
+    "ground": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "unusualprehistory:item/primal_macuahuitl_inventory"
+      }
+    }
+  }
+}

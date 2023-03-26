@@ -116,6 +116,42 @@
 					"position": {
 						"vector": [0, 0, 1]
 					}
+				},
+				"TurretPlate1": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02"
+						]
+					}
+				},
+				"TurretPlate2": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02"
+						]
+					}
+				},
+				"SmallTurretPlate1": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02"
+						]
+					}
+				},
+				"SmallTurretPlate2": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02"
+						]
+					}
 				}
 			}
 		},
@@ -133,6 +169,42 @@
 				"Neck": {
 					"position": {
 						"vector": [0, "Math.cos((query.anim_time - 0.0) * 90) * -0.3", 0]
+					}
+				},
+				"TurretPlate1": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01"
+						]
+					}
+				},
+				"TurretPlate2": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01"
+						]
+					}
+				},
+				"SmallTurretPlate1": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01"
+						]
+					}
+				},
+				"SmallTurretPlate2": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01"
+						]
 					}
 				}
 			}
@@ -395,6 +467,262 @@
 					},
 					"position": {
 						"vector": [0, 0, 1]
+					}
+				}
+			}
+		},
+		"animation.hwacha.sitting": {
+			"loop": true,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.0) * 90) * 1", 0, "Math.sin((query.anim_time - 0.0) * 90) * 1"]
+					},
+					"position": {
+						"vector": [0, -24, 0]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": [-10, 0, 0]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 90) * -0.3", 0]
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"vector": [-17.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 90) * -0.3", 0]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": [17.5, 0, 0]
+					}
+				},
+				"TurretPlate1": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01"
+						]
+					}
+				},
+				"TurretPlate2": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01"
+						]
+					}
+				},
+				"SmallTurretPlate1": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01"
+						]
+					}
+				},
+				"SmallTurretPlate2": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.01"
+						]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": [-42.15631, 12.81854, -73.70999]
+					},
+					"position": {
+						"vector": [0, -21, 0]
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": [-42.1563, -12.8185, 73.71]
+					},
+					"position": {
+						"vector": [0, -21, 0]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": [-33.83393, 8.0492, -79.4584]
+					},
+					"position": {
+						"vector": [0, -23, 0]
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": [-33.83393, -8.0492, 79.4584]
+					},
+					"position": {
+						"vector": [0, -23, 0]
+					}
+				}
+			}
+		},
+		"animation.hwacha.sprinting": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["11.5 + Math.cos((query.anim_time - 0.0) * 360) * 1", 0, "Math.sin((query.anim_time - 0.0) * 360) * 10"]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 360) * -0.6", 0]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": [0, "Math.sin((query.anim_time - 0.0) * 360) * -3", "Math.sin((query.anim_time - 0.0) * 360) * -3"]
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"vector": ["10 + Math.cos((query.anim_time - 0.2) * 360) * 1", 0, "Math.sin((query.anim_time - 0.2) * 360) * 3"]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.2) * 360) * -0.6", 0]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": ["-10 + Math.cos((query.anim_time - 0.2) * 360) * 1", 0, "Math.sin((query.anim_time - 0.2) * 360) * 3"]
+					},
+					"position": {
+						"vector": [0, "1.5 + Math.cos((query.anim_time - 0.5) * 360) * -0.4", 0]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.0) * 360) * -0.5", 0, 0]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 360) * -1.5", -4]
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": ["7.5 + Math.cos((query.anim_time - 0.0) * 360) * 3", 0, 0]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 360) * 1.5", -4]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.2) * 360) * 30", 0, 0]
+					},
+					"position": {
+						"0.25": {
+							"vector": [0, 0, 6]
+						},
+						"0.5": {
+							"vector": [0, 8, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 6]
+						}
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.2) * 360) * -30", 0, 0]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 8, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, 6]
+						},
+						"0.75": {
+							"vector": [0, 0, 6]
+						},
+						"1.0": {
+							"vector": [0, 8, 0]
+						}
+					}
+				},
+				"Reins1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 5]
+						},
+						"0.5": {
+							"vector": [0, 0, -5]
+						},
+						"1.0": {
+							"vector": [0, 0, 5]
+						}
+					},
+					"position": {
+						"vector": [0, 0, 1]
+					}
+				},
+				"Reins2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 5]
+						},
+						"0.5": {
+							"vector": [0, 0, -5]
+						},
+						"1.0": {
+							"vector": [0, 0, 5]
+						}
+					},
+					"position": {
+						"vector": [0, 0, 1]
+					}
+				},
+				"TurretPlate1": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02"
+						]
+					}
+				},
+				"TurretPlate2": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02"
+						]
+					}
+				},
+				"SmallTurretPlate1": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02"
+						]
+					}
+				},
+				"SmallTurretPlate2": {
+					"scale": {
+						"vector": [
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02",
+							"1 + Math.sin((query.anim_time - 0.0) * 360) * -0.02"
+						]
 					}
 				}
 			}

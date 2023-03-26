@@ -154,6 +154,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     }
 
 
+
     public boolean isAlliedTo(Entity entityIn) {
         if (this.isTame()) {
             LivingEntity livingentity = this.getOwner();
@@ -260,12 +261,14 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
         if (this.isShooting() && shootProgress < 50 && !this.isSaddled()) {
             this.spit(this.getTarget());
+            this.getNavigation().stop();
             shootProgress += 1;
             return;
         }
 
         if (this.isShooting() && shootProgress < 50 && this.isSaddled()) {
             this.spitNoTarget();
+            this.getNavigation().stop();
             shootProgress += 1;
             return;
         }
@@ -503,15 +506,26 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !isShooting()) {
-            {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !isShooting() && !this.isInSittingPose()) {
+            if (this.isSprinting() || !this.getPassengers().isEmpty() ) {
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.sprinting"));
+                event.getController().setAnimationSpeed(2.0D);
+                return PlayState.CONTINUE;
+            } else if (event.isMoving()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.walk"));
+                event.getController().setAnimationSpeed(1.0D);
+                return PlayState.CONTINUE;
             }
-        } else if (!isShooting()) {
+        } else if (!isShooting() && !this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.idle"));
             event.getController().setAnimationSpeed(1.0D);
-        } else if (isShooting()) {
+        } else if (isShooting() && !this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.turret_firing"));
+            return PlayState.CONTINUE;
+        }
+        if (this.isInSittingPose() && !isShooting()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.sitting"));
+            event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;

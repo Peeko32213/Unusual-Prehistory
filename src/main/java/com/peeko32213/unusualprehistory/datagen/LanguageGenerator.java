@@ -35,6 +35,7 @@ public class LanguageGenerator extends LanguageProvider {
 
         //TOOLS
         addItem(UPItems.WARPICK, "War Pick");
+        addItem(UPItems.PRIMAL_MACUAHUITL, "Primal Macauhuitl");
 
         //FOSSILS
         addItem(UPItems.SHELL_SHARD, "Shell Shard");
@@ -55,6 +56,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.FROG_SALIVA, "Frog Saliva");
         addItem(UPItems.ENCRUSTED_ORGAN, "Encrusted Organ");
         addItem(UPItems.AUSTRO_FEATHER, "Austroraptor Feather");
+        addItem(UPItems.ANTARCTO_PLATE, "Antarctopelta Plate");
 
         //FOODS
         addItem(UPItems.GROG, "Flask of Grog");
@@ -122,6 +124,7 @@ public class LanguageGenerator extends LanguageProvider {
 
         //ARMOR
         addItem(UPItems.MAJUNGA_HELMET, "Majungasaurus Helmet");
+        addItem(UPItems.AUSTRO_BOOTS, "Austroraptor Boots");
 
 
         //SHIELDS
@@ -327,6 +330,7 @@ public class LanguageGenerator extends LanguageProvider {
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");
+        addEffect(UPEffects.PREVENT_CLICK, "Disarmed");
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");
 
         //BLOCK ENTITY TRANSLATABLE

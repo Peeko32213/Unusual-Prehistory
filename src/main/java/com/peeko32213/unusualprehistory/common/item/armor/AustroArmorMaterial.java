@@ -1,6 +1,7 @@
-package com.peeko32213.unusualprehistory.core.registry;
+package com.peeko32213.unusualprehistory.common.item.armor;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;
@@ -10,10 +11,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
-public enum UPArmorMaterials implements ArmorMaterial {
+public enum AustroArmorMaterial implements ArmorMaterial {
 
-    MAJUNGA("majunga", 28, new int[]{2, 5, 8, 3}, 19, SoundEvents.ARMOR_EQUIP_GOLD,
-            2.0F, 0.0F, () -> Ingredient.of(UPItems.MAJUNGA_SCUTE.get()));
+    AUSTRO("austro", 28, new int[]{1, 3, 4, 1}, 19, SoundEvents.ARMOR_EQUIP_LEATHER,
+            2.0F, 0.0F, () -> Ingredient.of(UPItems.AUSTRO_FEATHER.get()));
+
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
     private final String name;
@@ -25,8 +27,8 @@ public enum UPArmorMaterials implements ArmorMaterial {
     private final float knockbackResistance;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    UPArmorMaterials(String p_40474_, int p_40475_, int[] p_40476_, int p_40477_,
-                     SoundEvent p_40478_, float p_40479_, float p_40480_, Supplier<Ingredient> p_40481_) {
+    AustroArmorMaterial(String p_40474_, int p_40475_, int[] p_40476_, int p_40477_,
+                        SoundEvent p_40478_, float p_40479_, float p_40480_, Supplier<Ingredient> p_40481_) {
         this.name = p_40474_;
         this.durabilityMultiplier = p_40475_;
         this.slotProtections = p_40476_;

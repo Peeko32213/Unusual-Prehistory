@@ -25,6 +25,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -34,6 +35,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -56,6 +58,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     private static final EntityDataAccessor<Boolean> WHITE = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> ORANGE = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDataAccessor<Integer> EATING_TIME = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
 
@@ -86,6 +89,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(2, new EntityUlughbegsaurus.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(1, new CustomRideGoal(this, 2D));
+        this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
                 {
                     @Override
@@ -225,10 +230,20 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
             if (isFood(itemstack)) {
                 this.usePlayerItem(player, hand, itemstack);
-                this.setEatingTime(50 + random.nextInt(30));
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
                 return InteractionResult.SUCCESS;
-            }  else {
+            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
+                this.usePlayerItem(player, hand, itemstack);
+                this.setSaddled(true);
+                return InteractionResult.SUCCESS;
+            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+                this.setSaddled(false);
+                this.spawnAtLocation(Items.SADDLE);
+                return InteractionResult.SUCCESS;
+            } else {
+                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
+                    player.startRiding(this);
+                    return InteractionResult.SUCCESS;
+                } else {
                     this.setCommand((this.getCommand() + 1) % 3);
 
                     if (this.getCommand() == 3) {
@@ -245,6 +260,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                     }
                 }
             }
+
+        }
         return type;
         }
 
@@ -274,6 +291,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         compound.putBoolean("Yellow", this.isYellow());
         compound.putBoolean("White", this.isWhite());
         compound.putBoolean("Orange", this.isOrange());
+        compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("TrikeCommand", this.getCommand());
     }
 
@@ -284,6 +302,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.setYellow(compound.getBoolean("Yellow"));
         this.setWhite(compound.getBoolean("White"));
         this.setOrange(compound.getBoolean("Orange"));
+        this.setSaddled(compound.getBoolean("Saddle"));
         this.setCommand(compound.getInt("TrikeCommand"));
     }
 
@@ -296,9 +315,46 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.entityData.define(YELLOW, Boolean.valueOf(false));
         this.entityData.define(WHITE, Boolean.valueOf(false));
         this.entityData.define(ORANGE, Boolean.valueOf(false));
+        this.entityData.define(SADDLED, Boolean.valueOf(false));
         this.entityData.define(COMMAND, 0);
 
     }
+
+    public boolean isSaddled() {
+        return this.entityData.get(SADDLED).booleanValue();
+    }
+
+    public void setSaddled(boolean saddled) {
+        this.entityData.set(SADDLED, Boolean.valueOf(saddled));
+    }
+
+    @javax.annotation.Nullable
+    public Entity getControllingPassenger() {
+        for (Entity passenger : this.getPassengers()) {
+            if (passenger instanceof Player) {
+                Player player = (Player) passenger;
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public void positionRider(Entity passenger) {
+        float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+        float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+        passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
+    }
+
+    public double getPassengersRidingOffset() {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+            return 2.1;
+        }
+        else {
+            return 2.35;
+        }
+    }
+
+
 
     public void tick() {
         super.tick();
@@ -322,6 +378,38 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             this.setOrderedToSit(true);
         }else{
             this.setOrderedToSit(false);
+        }
+    }
+
+    @Override
+    public void travel(Vec3 pos) {
+        if (this.isAlive()) {
+            LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
+            if (this.isVehicle() && livingentity != null) {
+                double d0 = 0.08D;
+                this.setYRot(livingentity.getYRot());
+                this.yRotO = this.getYRot();
+                this.setXRot(livingentity.getXRot() * 0.5F);
+                this.setRot(this.getYRot(), this.getXRot());
+                this.yBodyRot = this.getYRot();
+                this.yHeadRot = this.yBodyRot;
+                float f = livingentity.xxa * 0.5F;
+                float f1 = livingentity.zza;
+                if (f1 <= 0.0F) {
+                    f1 *= 0.25F;
+                }
+                double d8 = this.getY();
+                Vec3 vec34 = this.getDeltaMovement();
+
+                //Travel up when there is a horizontal collission  and enough space, tried jumping but was a bit funky
+                if (this.horizontalCollision && this.isFree(vec34.x, vec34.y + (double) 0.5F - this.getY() + d8, vec34.z)) {
+                    this.setDeltaMovement(vec34.x, (double) 0.5F, vec34.z);
+                }
+                this.setSpeed(0.3F);
+                super.travel(new Vec3((double) f, pos.y, (double) f1));
+            } else {
+                super.travel(pos);
+            }
         }
     }
 

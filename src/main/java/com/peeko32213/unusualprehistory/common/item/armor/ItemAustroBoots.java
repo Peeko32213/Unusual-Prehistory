@@ -13,11 +13,11 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.item.GeoArmorItem;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class ItemMajungaHelmet extends GeoArmorItem implements IAnimatable {
+public class ItemAustroBoots extends GeoArmorItem implements IAnimatable {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-    public ItemMajungaHelmet(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
+    public ItemAustroBoots(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
         super(material, slot, settings);
     }
 
@@ -33,7 +33,7 @@ public class ItemMajungaHelmet extends GeoArmorItem implements IAnimatable {
 
     @Override
     public void onArmorTick(ItemStack stack, Level world, Player player) {
-        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 0, 0, false, false, true));
+        player.resetFallDistance();
     }
 
 

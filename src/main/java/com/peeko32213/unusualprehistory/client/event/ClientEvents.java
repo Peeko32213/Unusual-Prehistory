@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.client.event;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.render.*;
 import com.peeko32213.unusualprehistory.client.render.*;
+import com.peeko32213.unusualprehistory.client.render.armor.AustroBootsRenderer;
 import com.peeko32213.unusualprehistory.client.render.armor.MajungaHelmetRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.renders.*;
@@ -10,6 +11,7 @@ import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
@@ -195,6 +197,7 @@ public final class ClientEvents {
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.AddLayers event) {
         GeoArmorRenderer.registerArmorRenderer(ItemMajungaHelmet.class, () -> new MajungaHelmetRenderer());
+        GeoArmorRenderer.registerArmorRenderer(ItemAustroBoots.class, () -> new AustroBootsRenderer());
     }
 
     @SubscribeEvent

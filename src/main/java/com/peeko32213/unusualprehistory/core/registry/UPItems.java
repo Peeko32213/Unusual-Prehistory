@@ -2,7 +2,11 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.*;
+import com.peeko32213.unusualprehistory.common.item.armor.AustroArmorMaterial;
+import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
+import com.peeko32213.unusualprehistory.common.item.armor.MajungaArmorMaterial;
+import com.peeko32213.unusualprehistory.common.item.tool.ItemPrimalMacuahuitl;
 import com.peeko32213.unusualprehistory.common.item.tool.ItemTrikeShield;
 import com.peeko32213.unusualprehistory.common.item.tool.ItemVelociShield;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -163,9 +167,13 @@ public class UPItems {
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> ENCRUSTED_ORGAN = ITEMS.register("encrusted_organ",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-
+    public static final RegistryObject<Item> ANTARCTO_PLATE = ITEMS.register("antarcto_plate",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> WARPICK = ITEMS.register("warpick",
             () -> new ItemModPickaxe(UPItemTiers.SHELL, 3, -2.8F));
+
+    public static final RegistryObject<Item> PRIMAL_MACUAHUITL = ITEMS.register("primal_macuahuitl",
+            () -> new ItemPrimalMacuahuitl(UPItemTiers.SHELL, 6, -1.8F));
 
     public static final RegistryObject<Item> RAW_STETHA = ITEMS.register("raw_stetha",
             () -> new Item(new Item.Properties().food(ModFood.RAW_STETHA).tab(UnusualPrehistory.DINO_TAB)));
@@ -292,7 +300,11 @@ public class UPItems {
             () -> new ForgeSpawnEggItem(UPEntities.HWACHA , 0x14191b, 0xf4f435,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
-            () -> new ItemMajungaHelmet(UPArmorMaterials.MAJUNGA, EquipmentSlot.HEAD,
+            () -> new ItemMajungaHelmet(MajungaArmorMaterial.MAJUNGA, EquipmentSlot.HEAD,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> AUSTRO_BOOTS = ITEMS.register("austro_boots",
+            () -> new ItemAustroBoots(AustroArmorMaterial.AUSTRO, EquipmentSlot.FEET,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> CLATHRODICTYON_FAN = ITEMS.register("clathrodictyon_fan",
