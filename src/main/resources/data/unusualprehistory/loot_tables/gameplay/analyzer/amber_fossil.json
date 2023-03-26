@@ -12,17 +12,17 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 15,
           "name": "unusualprehistory:rex_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 15,
           "name": "unusualprehistory:trike_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 8,
+          "weight": 25,
           "name": "unusualprehistory:encrusted_flask"
         }
       ]

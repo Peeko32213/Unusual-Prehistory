@@ -6,87 +6,87 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 50,
           "name": "minecraft:coal"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 50,
           "name": "minecraft:cobblestone"
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 50,
           "name": "minecraft:moss_block"
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 50,
           "name": "minecraft:moss_carpet"
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 50,
           "name": "minecraft:fern"
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 50,
           "name": "minecraft:large_fern"
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 40,
           "name": "unusualprehistory:horsetail_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 40,
           "name": "unusualprehistory:nelumbites_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 40,
           "name": "unusualprehistory:anostylostroma_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
+          "weight": 30,
           "name": "unusualprehistory:leefructus_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
+          "weight": 25,
           "name": "unusualprehistory:bennet_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
+          "weight": 25,
           "name": "unusualprehistory:sarr_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
+          "weight": 25,
           "name": "unusualprehistory:archao_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
+          "weight": 25,
           "name": "unusualprehistory:quereuxia_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
+          "weight": 15,
           "name": "unusualprehistory:ginkgo_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
+          "weight": 15,
           "name": "unusualprehistory:clathrodictyon_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
+          "weight": 15,
           "name": "unusualprehistory:archaefructus_flask"
         }
       ]

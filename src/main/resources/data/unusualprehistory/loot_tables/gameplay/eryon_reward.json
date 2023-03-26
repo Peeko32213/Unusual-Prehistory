@@ -6,35 +6,35 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 50,
           "functions": [
           ],
           "name": "minecraft:bone"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 15,
           "functions": [
           ],
           "name": "minecraft:gold_nugget"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 15,
           "functions": [
           ],
           "name": "minecraft:iron_nugget"
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 15,
           "functions": [
           ],
           "name": "minecraft:string"
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 15,
           "functions": [
           ],
           "name": "minecraft:stick"

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "unusualprehistory:raw_ginkgo_seeds"
+  },
+  "result": "unusualprehistory:cooked_ginkgo_seeds",
+  "experience": 0.35,
+  "cookingtime": 175
+}

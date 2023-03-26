@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:ginkgo_fruit"
+    }
+  ],
+  "result": {
+    "item": "unusualprehistory:raw_ginkgo_seeds",
+    "count": 4
+  }
+}

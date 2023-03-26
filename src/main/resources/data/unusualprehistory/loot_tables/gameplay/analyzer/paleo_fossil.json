@@ -6,42 +6,42 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 50,
           "name": "minecraft:coal"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 50,
           "name": "minecraft:cobblestone"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 50,
           "name": "minecraft:bone"
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 50,
           "name": "unusualprehistory:ammonite_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 40,
           "name": "unusualprehistory:scau_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 2.5,
+          "weight": 35,
           "name": "unusualprehistory:coty_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 2.5,
+          "weight": 35,
           "name": "unusualprehistory:stetha_flask"
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
+          "weight": 20,
           "name": "unusualprehistory:dunk_flask"
         }
       ]
