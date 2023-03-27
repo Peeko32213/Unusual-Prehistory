@@ -163,6 +163,11 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ARCHAEFRUCTUS_FLASK, "Archaefructus DNA Flask");
         addItem(UPItems.NELUMBITES_FLASK, "Nelumbites DNA Flask");
         addItem(UPItems.QUEREUXIA_FLASK, "Quereuxia DNA Flask");
+        addItem(UPItems.ANTARCTO_FLASK, "Antarctopelta DNA Flask");
+        addItem(UPItems.AUSTRO_FLASK, "Austroraptor DNA Flask");
+        addItem(UPItems.HWACHA_FLASK, "Hwachavenator DNA Flask");
+        addItem(UPItems.KENTRO_FLASK, "Kentrosaurus DNA Flask");
+        addItem(UPItems.ULUGH_FLASK, "Kentrosaurus DNA Flask");
 
         //CORALS
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");

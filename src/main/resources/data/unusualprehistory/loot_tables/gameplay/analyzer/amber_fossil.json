@@ -22,6 +22,11 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 1,
+          "name": "unusualprehistory:hwacha_flask"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 25,
           "name": "unusualprehistory:encrusted_flask"
         }

@@ -36,8 +36,23 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 40,
+          "name": "unusualprehistory:kentro_flask"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 15,
           "name": "unusualprehistory:majunga_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 15,
+          "name": "unusualprehistory:antarcto_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 15,
+          "name": "unusualprehistory:austro_flask"
         },
         {
           "type": "minecraft:item",
@@ -53,6 +68,11 @@
           "type": "minecraft:item",
           "weight": 1,
           "name": "unusualprehistory:eryon_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "unusualprehistory:ulugh_flask"
         }
       ]
     }

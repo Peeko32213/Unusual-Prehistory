@@ -52,7 +52,12 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.BEELZ_FLASK.get())
                 .add(UPItems.MAJUNGA_FLASK.get())
                 .add(UPItems.DUNK_FLASK.get())
-                .add(UPItems.STETHA_FLASK.get());
+                .add(UPItems.STETHA_FLASK.get())
+                .add(UPItems.HWACHA_FLASK.get())
+                .add(UPItems.KENTRO_FLASK.get())
+                .add(UPItems.ULUGH_FLASK.get())
+                .add(UPItems.AUSTRO_FLASK.get())
+                .add(UPItems.ANTARCTO_FLASK.get());
 
         tag(UPTags.FOSSILS)
                 .add(UPItems.AMBER_FOSSIL.get())
