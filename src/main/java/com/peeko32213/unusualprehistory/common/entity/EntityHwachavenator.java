@@ -374,7 +374,6 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 if (player == null) {
                     return;
                 }
-
                 //You can change the entity pov here, so for hitresult we check the hit using the player
                 //and for entity we use hwacha entity, these can be changed so see what you think is best
                 HitResult hitresult = getEntityPOVHitResult(this.level, player, ClipContext.Fluid.ANY);
@@ -383,10 +382,6 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 double d0 = 0;
                 double d1 = 0;
                 double d2 = 0;
-
-
-
-
 
                 if (hitresult.getType() == HitResult.Type.BLOCK) {
                     blockpos = ((BlockHitResult) hitresult).getBlockPos();

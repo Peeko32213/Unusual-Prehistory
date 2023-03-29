@@ -168,12 +168,56 @@ public class UPBlocks {
                     Block.box(4, 0, 4, 12, 8, 12)
             ));
 
+    public static final RegistryObject<Block> HWACHA_EGG = registerBlock("hwacha_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.HWACHA, 3,
+                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
+
+    public static final RegistryObject<Block> KENTRO_EGG = registerBlock("kentro_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.KENTRO, 3,
+                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
+
+    public static final RegistryObject<Block> ULUGH_EGG = registerBlock("ulugh_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.ULUG, 3,
+                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
+
+    public static final RegistryObject<Block> ANTARCO_EGG = registerBlock("antarcto_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.ANTARCO, 3,
+                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
+
+
+    public static final RegistryObject<Block> AUSTRO_EGG = registerBlock("austro_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.AUSTRO, 3,
+                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
     public static final RegistryObject<Block> ERYON_EGGS = registerBlock("eryon_eggs",
             () -> new BlockDinosaurLandEggs(
                     BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.HONEY_BLOCK).randomTicks().noOcclusion().noCollission(),
                     UPEntities.ERYON, 1,
                     Block.box(0, 0, 0, 16, 1.5, 16)
             ));
+
+
+
+
 
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
             () -> new BlockAmmoniteShell(BlockBehaviour.Properties.of(Material.EGG).strength(0.5F).requiresCorrectToolForDrops()));

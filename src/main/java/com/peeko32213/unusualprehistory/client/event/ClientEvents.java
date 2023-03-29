@@ -157,7 +157,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.ENCRUSTED_RENDER.get(), EncrustedRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.ENTITY_TRAIL.get(), EntityTrailRenderer::new);
         event.registerEntityRenderer(UPEntities.ERYON_RENDER.get(), EryonRenderRenderer::new);
-
+        event.registerEntityRenderer(UPEntities.WORLD_SPAWNABLE.get(), WorldSpawnableRenderer::new);
 
 
         event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);

@@ -201,7 +201,11 @@ public class UPEntities {
                     .updateInterval(5)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "entity_trail").toString()));
 
-
+    public static final RegistryObject<EntityType<EntityWorldSpawnable>> WORLD_SPAWNABLE = ENTITIES.register("world_spawnable",
+            () -> EntityType.Builder.<EntityWorldSpawnable>of(EntityWorldSpawnable::new, MobCategory.MISC)
+                    .fireImmune().noSave()
+                    .sized(1, 1)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "world_spawnable").toString()));
 
     private static final EntityType registerEntity(EntityType.Builder builder, String entityName) {
         return (EntityType) builder.build(entityName);

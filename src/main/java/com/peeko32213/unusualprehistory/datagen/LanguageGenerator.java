@@ -96,7 +96,11 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.PACHY_EGG, "Pachycephalosaurus Eggs");
         addBlock(UPBlocks.ENCRUSTED_SACK, "Encrusted Sack");
         addBlock(UPBlocks.ERYON_EGGS, "Eryon Eggs");
-
+        addBlock(UPBlocks.AUSTRO_EGG, "Austroraptor Eggs");
+        addBlock(UPBlocks.KENTRO_EGG, "Kentrosaurus Eggs");
+        addBlock(UPBlocks.ULUGH_EGG, "Ulughbegsaurus Eggs");
+        addBlock(UPBlocks.ANTARCO_EGG, "Antarctopelta Eggs");
+        addBlock(UPBlocks.HWACHA_EGG, "Hwachavenator Eggs");
 
 
         //SPAWN EGGS

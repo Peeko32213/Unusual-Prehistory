@@ -1,6 +1,0 @@
-{
-  "parent": "unusualprehistory:block/template_four_anuro_eggs",
-  "textures": {
-    "0": "unusualprehistory:block/anuro_eggs"
-  }
-}
