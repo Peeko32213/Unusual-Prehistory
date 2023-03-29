@@ -1,6 +1,6 @@
 {
-  "parent": "unusualprehistory:block/template_encrusted_sack",
+  "parent": "unusualprehistory:block/template_eggs/template_encrusted_sack",
   "textures": {
-    "0": "unusualprehistory:block/encrusted_sack_very_cracked"
+    "texture": "unusualprehistory:block/encrusted_sack_very_cracked"
   }
 }
