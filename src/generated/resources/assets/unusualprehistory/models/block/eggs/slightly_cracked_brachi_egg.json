@@ -1,0 +1,6 @@
+{
+  "parent": "unusualprehistory:block/template_eggs/template_brachi_egg",
+  "textures": {
+    "texture": "unusualprehistory:block/brachi_egg_slightly_cracked"
+  }
+}

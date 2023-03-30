@@ -46,7 +46,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.UUID;
 public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketable, NeutralMob, IAnimatable {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private int remainingPersistentAngerTime;
     @javax.annotation.Nullable
     private UUID persistentAngerTarget;
