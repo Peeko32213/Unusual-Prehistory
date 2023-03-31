@@ -61,6 +61,8 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> REX_HEAD = registerBlock("rex_head", () -> new BlockRexHead());
 
+    public static final RegistryObject<Block> REX_BOOMBOX = registerBlock("rex_boombox", () -> new BlockRexBoombox());
+
     public static final RegistryObject<Block> DNA_FRIDGE = registerBlock("dna_fridge",
             () -> new BlockDNAFridge(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
     public static final Supplier<Block> STETHA_EGGS = create("stetha_eggs",

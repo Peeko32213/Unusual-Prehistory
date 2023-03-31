@@ -218,6 +218,9 @@ public class UPItems {
             () -> new Item(new Item.Properties().food(ModFood.COOKED_GINKGO_SEEDS).tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> GOLDEN_SCAU = ITEMS.register("golden_scau",
             () -> new Item(new Item.Properties().food(ModFood.GOLDEN_SCAU).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> AMBER_GUMMY = ITEMS.register("amber_gummy",
+            () -> new Item(new Item.Properties().food(ModFood.AMBER_GUMMY).tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> STETHA_BUCKET = ITEMS.register("stetha_bucket",
             () -> new ItemModFishBucket(UPEntities.STETHACANTHUS, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB).stacksTo(1)));

@@ -71,6 +71,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.GINKGO_FRUIT, "Ginkgo Fruit");
         addItem(UPItems.RAW_GINKGO_SEEDS, "Raw Ginkgo Seeds");
         addItem(UPItems.COOKED_GINKGO_SEEDS, "Cooked Ginkgo Seeds");
+        addItem(UPItems.AMBER_GUMMY, "Amber Gummy");
 
         //BUCKETS
         addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");
@@ -195,6 +196,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.AMBER_GLASS, "Amber Glass");
         addBlock(UPBlocks.REX_HEAD, "Rex Head Mount");
         addBlock(UPBlocks.AMMONITE_SHELL, "Ammonite Shell");
+        addBlock(UPBlocks.REX_BOOMBOX, "Rex Boombox");
 
         //PLANTS
         addBlock(UPBlocks.HORSETAIL, "Horsetail");
