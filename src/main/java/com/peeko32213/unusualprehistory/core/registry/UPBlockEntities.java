@@ -30,11 +30,13 @@ public class UPBlockEntities {
                     BlockEntityType.Builder.of(DNAFridgeBlockEntity::new,
                             UPBlocks.DNA_FRIDGE.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<BlockUPSignBlockEntity>> UP_SIGN =
-            BLOCK_ENTITIES.register("sign", () -> BlockEntityType.Builder.of(BlockUPSignBlockEntity::new,
+    public static final RegistryObject<BlockEntityType<BlockUPSignBlockEntity>> UP_SIGN = BLOCK_ENTITIES.register("sign", () ->
+            BlockEntityType.Builder.of(BlockUPSignBlockEntity::new,
+                    UPBlocks.GINKGO_SIGN.get(),
                     UPBlocks.GINKGO_WALL_SIGN.get(),
-                            UPBlocks.GINKGO_SIGN.get())
-                    .build(null));
+                    UPBlocks.PETRIFIED_WOOD_SIGN.get(),
+                    UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get()
+            ).build(null));
 
 
     public static void register(IEventBus eventBus) {

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "unusualprehistory:block/stripped_petrified_wood_top",
+    "side": "unusualprehistory:block/stripped_petrified_wood_side"
+  }
+}

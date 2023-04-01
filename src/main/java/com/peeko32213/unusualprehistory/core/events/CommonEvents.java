@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.core.events;
 import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.render.BaseEntityRender;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -69,7 +70,7 @@ public class CommonEvents {
         event.put(UPEntities.ENCRUSTED_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.ERYON_RENDER.get(), BaseEntityRender.createAttributes().build());
 
-        event.put(UPEntities.WORLD_SPAWNABLE.get(),EntityWorldSpawnable.bakeAttributes().build());
+        event.put(UPEntities.WORLD_SPAWNABLE.get(), EntityWorldSpawnable.bakeAttributes().build());
     }
 
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag) {

@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.GINKGO;
+import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.PETRIFIED;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(UnusualPrehistory.MODID)
@@ -101,6 +102,8 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
 
             Sheets.addWoodType(GINKGO);
+            Sheets.addWoodType(PETRIFIED);
+
         });
 
         UPMessages.register();

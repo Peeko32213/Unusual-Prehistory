@@ -56,6 +56,8 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_DOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_TRAPDOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.PETRIFIED_WOOD_DOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.PETRIFIED_WOOD_TRAPDOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.ERYON_EGGS.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.HORSETAIL.get(), RenderType.cutout());
@@ -107,6 +109,8 @@ public final class ClientEvents {
 
 
         WoodType.register(UPSignTypes.GINKGO);
+        WoodType.register(UPSignTypes.PETRIFIED);
+
 
         BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
     }

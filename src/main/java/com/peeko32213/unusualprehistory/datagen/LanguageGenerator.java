@@ -231,6 +231,25 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.GINKGO_SIGN, "Ginkgo Sign");
         addBlock(UPBlocks.AMBER_BUTTON, "Amber Button");
 
+        //PETRIFIED
+        addBlock(UPBlocks.PETRIFIED_WOOD_PLANKS, "Petrified Planks");
+        addBlock(UPBlocks.PETRIFIED_WOOD, "Petrified Wood");
+        addBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD, "Stripped Petrified Wood");
+        addBlock(UPBlocks.PETRIFIED_WOOD_LOG, "Petrified Log");
+        addBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG, "Stripped Petrified Log");
+        addBlock(UPBlocks.PETRIFIED_WOOD_STAIRS, "Petrified Stairs");
+        addBlock(UPBlocks.PETRIFIED_WOOD_SLAB, "Petrified Slab");
+        addBlock(UPBlocks.PETRIFIED_WOOD_FENCE, "Petrified Fence");
+        addBlock(UPBlocks.PETRIFIED_WOOD_FENCE_GATE, "Petrified Fence Gate");
+        addBlock(UPBlocks.PETRIFIED_WOOD_DOOR, "Petrified Door");
+        addBlock(UPBlocks.PETRIFIED_WOOD_TRAPDOOR, "Petrified Trapdoor");
+        addBlock(UPBlocks.PETRIFIED_WOOD_BUTTON, "Petrified Button");
+        addBlock(UPBlocks.PETRIFIED_WOOD_PRESSURE_PLATE, "Petrified Pressure Plate");
+        addItem(UPItems.PETRIFIED_WOOD_SIGN, "Petrified Sign");
+        addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD, "Polished Petrified Wood");
+        addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS, "Polished Petrified Wood Stairs");
+        addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB, "Polished Petrified Wood Slab");
+
 
         //FOSSILS
         addBlock(UPBlocks.COTY_FOSSIL, "Cotylorhynchus Fossil");

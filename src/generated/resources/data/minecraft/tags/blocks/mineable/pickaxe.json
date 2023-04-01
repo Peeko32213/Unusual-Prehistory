@@ -11,6 +11,13 @@
     "unusualprehistory:plant_fossil",
     "unusualprehistory:dna_fridge",
     "unusualprehistory:clathrodictyon_block",
-    "unusualprehistory:anostylostroma_block"
+    "unusualprehistory:anostylostroma_block",
+    "unusualprehistory:petrified_wood_log",
+    "unusualprehistory:petrified_wood",
+    "unusualprehistory:stripped_petrified_wood",
+    "unusualprehistory:stripped_petrified_wood_log",
+    "unusualprehistory:polished_petrified_wood",
+    "unusualprehistory:polished_petrified_wood_slab",
+    "unusualprehistory:polished_petrified_wood_stairs"
   ]
 }

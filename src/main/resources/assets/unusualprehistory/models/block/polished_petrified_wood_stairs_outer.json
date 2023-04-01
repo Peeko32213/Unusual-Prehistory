@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "unusualprehistory:block/polished_petrified_wood",
+    "side": "unusualprehistory:block/polished_petrified_wood",
+    "top": "unusualprehistory:block/polished_petrified_wood"
+  }
+}

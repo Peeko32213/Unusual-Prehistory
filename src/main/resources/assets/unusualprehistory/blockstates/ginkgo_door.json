@@ -11,7 +11,7 @@
       "model": "unusualprehistory:block/ginkgo_door_bottom_right"
     },
     "facing=east,half=lower,hinge=right,open=true": {
-      "model": "unusualprehistory:block/ginkgo_door_door_bottom_right_open",
+      "model": "unusualprehistory:block/ginkgo_door_bottom_right_open",
       "y": 270
     },
     "facing=east,half=upper,hinge=left,open=false": {

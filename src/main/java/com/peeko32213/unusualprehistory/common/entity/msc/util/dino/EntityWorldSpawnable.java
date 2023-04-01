@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity;
+package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.server.level.ServerLevel;

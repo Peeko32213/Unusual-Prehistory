@@ -2,8 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityEryon;
-import com.peeko32213.unusualprehistory.common.entity.EntityWorldSpawnable;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

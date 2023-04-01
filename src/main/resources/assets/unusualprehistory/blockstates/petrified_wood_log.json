@@ -1,0 +1,17 @@
+
+{
+  "variants": {
+    "axis=x": {
+      "model": "unusualprehistory:block/petrified_wood_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "unusualprehistory:block/petrified_wood_log"
+    },
+    "axis=z": {
+      "model": "unusualprehistory:block/petrified_wood_log_horizontal",
+      "x": 90
+    }
+  }
+}

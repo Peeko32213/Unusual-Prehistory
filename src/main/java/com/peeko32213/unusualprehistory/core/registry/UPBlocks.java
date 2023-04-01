@@ -403,6 +403,56 @@ public class UPBlocks {
             () -> new WaterLilyUpdate(BlockBehaviour.Properties.of(Material.WATER_PLANT).instabreak().noOcclusion().noCollission().sound(SoundType.WET_GRASS)),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Block> PETRIFIED_WOOD_PLANKS = registerBlock("petrified_planks",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
+    public static final RegistryObject<RotatedPillarBlock> PETRIFIED_WOOD_LOG = registerBlock("petrified_wood_log",
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
+    public static final RegistryObject<RotatedPillarBlock> PETRIFIED_WOOD = registerBlock("petrified_wood",
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_PETRIFIED_WOOD = registerBlock("stripped_petrified_wood",
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_PETRIFIED_WOOD_LOG = registerBlock("stripped_petrified_wood_log",
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
+    public static final RegistryObject<StairBlock> PETRIFIED_WOOD_STAIRS = registerBlock("petrified_wood_stairs",
+            () -> new StairBlock(() -> PETRIFIED_WOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(PETRIFIED_WOOD_PLANKS.get())));
+
+    public static final RegistryObject<SlabBlock> PETRIFIED_WOOD_SLAB = registerBlock("petrified_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(PETRIFIED_WOOD_PLANKS.get())));
+
+    public static final RegistryObject<FenceBlock> PETRIFIED_WOOD_FENCE = registerBlock("petrified_wood_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
+
+    public static final RegistryObject<FenceGateBlock> PETRIFIED_WOOD_FENCE_GATE = registerBlock("petrified_wood_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
+    public static final RegistryObject<DoorBlock> PETRIFIED_WOOD_DOOR = registerBlock("petrified_wood_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
+    public static final RegistryObject<TrapDoorBlock> PETRIFIED_WOOD_TRAPDOOR = registerBlock("petrified_wood_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
+
+    public static final RegistryObject<WoodButtonBlock> PETRIFIED_WOOD_BUTTON = registerBlock("petrified_wood_button",
+            () -> new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON)));
+
+    public static final RegistryObject<PressurePlateBlock> PETRIFIED_WOOD_PRESSURE_PLATE = registerBlock("petrified_wood_pressure_plate",
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.STONE_PRESSURE_PLATE)));
+
+    public static final RegistryObject<Block> PETRIFIED_WOOD_SIGN = BLOCKS.register("petrified_wood_sign", ()
+            -> new BlockUPStandingSign(BlockBehaviour.Properties.of(Material.WOOD, PETRIFIED_WOOD_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPSignTypes.PETRIFIED));
+    public static final RegistryObject<Block> PETRIFIED_WOOD_WALL_SIGN = BLOCKS.register("petrified_wood_wall_sign", ()
+            -> new BlockUPWallSign(BlockBehaviour.Properties.of(Material.WOOD, PETRIFIED_WOOD_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(PETRIFIED_WOOD_SIGN.get()), UPSignTypes.PETRIFIED));
+
+    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD = registerBlock("polished_petrified_wood",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE)));
+
+    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_STAIRS = registerBlock("polished_petrified_wood_stairs",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE)));
+
+    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_SLAB = registerBlock("polished_petrified_wood_slab",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE)));
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

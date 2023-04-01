@@ -9,6 +9,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class UPSignTypes {
 
     public static final WoodType GINKGO = WoodType.create("ginkgo");
+    public static final WoodType PETRIFIED = WoodType.create("petrified");
 
 
 }

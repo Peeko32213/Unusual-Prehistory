@@ -99,13 +99,15 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.GINKGO_LEAVES.get().asItem());
 
         tag(ItemTags.PLANKS)
-                .add(UPBlocks.GINKGO_PLANKS.get().asItem());
+                .add(UPBlocks.GINKGO_PLANKS.get().asItem())
+                .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get().asItem());
 
         tag(ItemTags.SAPLINGS)
                 .add(UPBlocks.GINKGO_SAPLING.get().asItem());
 
         tag(ItemTags.SIGNS)
-                .add(UPBlocks.GINKGO_SIGN.get().asItem());
+                .add(UPBlocks.GINKGO_SIGN.get().asItem())
+                .add(UPBlocks.PETRIFIED_WOOD_SIGN.get().asItem());
 
         tag(ItemTags.SMALL_FLOWERS)
                 .add(UPBlocks.LEEFRUCTUS.get().asItem())
@@ -119,7 +121,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.TALL_HORSETAIL.get().asItem());
 
         tag(ItemTags.WOODEN_FENCES)
-                .add(UPBlocks.GINKGO_FENCE.get().asItem());
+                .add(UPBlocks.GINKGO_FENCE.get().asItem())
+                .add(UPBlocks.PETRIFIED_WOOD_FENCE.get().asItem());
 
         tag(ItemTags.FISHES)
                 .add(UPItems.RAW_STETHA.get())
@@ -130,10 +133,13 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(ItemTags.BUTTONS)
                 .add(UPBlocks.AMBER_BUTTON.get().asItem())
-                .add(UPBlocks.GINKGO_BUTTON.get().asItem());
+                .add(UPBlocks.GINKGO_BUTTON.get().asItem())
+                .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get().asItem());
 
         tag(ItemTags.WOODEN_BUTTONS)
-                .add(UPBlocks.GINKGO_BUTTON.get().asItem());
+                .add(UPBlocks.GINKGO_BUTTON.get().asItem())
+                .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get().asItem());
+
     }
 
 

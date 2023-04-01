@@ -9,6 +9,10 @@
     "unusualprehistory:cultivator",
     "unusualprehistory:ammonite_shell",
     "unusualprehistory:plant_fossil",
-    "unusualprehistory:dna_fridge"
+    "unusualprehistory:dna_fridge",
+    "unusualprehistory:petrified_wood_log",
+    "unusualprehistory:petrified_wood",
+    "unusualprehistory:stripped_petrified_wood",
+    "unusualprehistory:stripped_petrified_wood_log"
   ]
 }

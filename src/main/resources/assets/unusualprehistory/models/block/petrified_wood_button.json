@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "unusualprehistory:block/petrified_planks"
+  }
+}

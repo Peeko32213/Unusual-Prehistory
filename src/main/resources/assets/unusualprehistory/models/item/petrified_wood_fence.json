@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_inventory",
+  "textures": {
+    "texture": "unusualprehistory:block/petrified_planks"
+  }
+}
