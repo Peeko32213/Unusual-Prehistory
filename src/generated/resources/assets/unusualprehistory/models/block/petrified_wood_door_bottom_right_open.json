@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_right_open",
+  "textures": {
+    "bottom": "unusualprehistory:block/petrified_wood_door_bottom",
+    "top": "unusualprehistory:block/petrified_wood_door_top"
+  }
+}

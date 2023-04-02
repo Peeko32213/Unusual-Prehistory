@@ -407,16 +407,16 @@ public class UPBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
 
     public static final RegistryObject<RotatedPillarBlock> PETRIFIED_WOOD_LOG = registerBlock("petrified_wood_log",
-            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE)));
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<RotatedPillarBlock> PETRIFIED_WOOD = registerBlock("petrified_wood",
-            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE)));
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_PETRIFIED_WOOD = registerBlock("stripped_petrified_wood",
-            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE)));
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_PETRIFIED_WOOD_LOG = registerBlock("stripped_petrified_wood_log",
-            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE)));
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<StairBlock> PETRIFIED_WOOD_STAIRS = registerBlock("petrified_wood_stairs",
             () -> new StairBlock(() -> PETRIFIED_WOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(PETRIFIED_WOOD_PLANKS.get())));
@@ -446,13 +446,13 @@ public class UPBlocks {
             -> new BlockUPWallSign(BlockBehaviour.Properties.of(Material.WOOD, PETRIFIED_WOOD_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(PETRIFIED_WOOD_SIGN.get()), UPSignTypes.PETRIFIED));
 
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD = registerBlock("polished_petrified_wood",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_STAIRS = registerBlock("polished_petrified_wood_stairs",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE)));
+            () -> new StairBlock(()-> POLISHED_PETRIFIED_WOOD.get().defaultBlockState(),  BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_SLAB = registerBlock("polished_petrified_wood_slab",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE).requiresCorrectToolForDrops()));
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

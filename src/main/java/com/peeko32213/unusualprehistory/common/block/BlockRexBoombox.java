@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,6 +25,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BlockRexBoombox extends Block {
@@ -43,12 +46,16 @@ public class BlockRexBoombox extends Block {
         tickRexBoombox(state, worldIn, pos, true);
     }
 
+
     public void tickRexBoombox(BlockState state, Level worldIn, BlockPos pos, boolean tickOff) {
         boolean flag = worldIn.hasNeighborSignal(pos) || worldIn.hasNeighborSignal(pos.below()) || worldIn.hasNeighborSignal(pos.above());
         boolean flag1 = state.getValue(TRIGGERED);
-        List<BlockPos> list = this.effectBlocks;
+        List<BlockPos> list = new ArrayList<>();
         if (flag && !flag1) {
             applyEffects(worldIn, pos, list);
+            if(worldIn.isClientSide) {
+                worldIn.addAlwaysVisibleParticle(ParticleTypes.SONIC_BOOM, true, pos.getX() + 0.5, pos.getY() + 2, pos.getZ() + 0.5, 0, 0, 0);
+            }
             worldIn.setBlock(pos, state.setValue(TRIGGERED, Boolean.valueOf(true)), 2);
             worldIn.scheduleTick(pos, this, 20);
         } else if (flag1) {
@@ -59,23 +66,25 @@ public class BlockRexBoombox extends Block {
         }
     }
 
-    private static void applyEffects(Level p_155444_, BlockPos p_155445_, List<BlockPos> p_155446_) {
-        int i = p_155446_.size();
+    private static void applyEffects(Level level, BlockPos pos, List<BlockPos> listPos) {
+        int i = listPos.size();
         int j = i / 7 * 16;
-        int k = p_155445_.getX();
-        int l = p_155445_.getY();
-        int i1 = p_155445_.getZ();
-        AABB aabb = (new AABB((double)k, (double)l, (double)i1, (double)(k + 1), (double)(l + 1), (double)(i1 + 1))).inflate((double)j).expandTowards(0.0D, (double)p_155444_.getHeight(), 0.0D);
-        List<Player> list = p_155444_.getEntitiesOfClass(Player.class, aabb);
+        int k = pos.getX();
+        int l = pos.getY();
+        int i1 = pos.getZ();
+        AABB aabb = (new AABB(pos)).inflate(16);
+        List<Player> list = level.getEntitiesOfClass(Player.class, aabb);
         if (!list.isEmpty()) {
             for(Player player : list) {
-                if (p_155445_.closerThan(player.blockPosition(), (double)j) && player.isInWaterOrRain()) {
-                    player.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 260, 0, true, true));
+                if (pos.closerThan(player.blockPosition(), 16)) {
+                    player.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, 0, true, true));
                 }
             }
 
         }
     }
+
+
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());

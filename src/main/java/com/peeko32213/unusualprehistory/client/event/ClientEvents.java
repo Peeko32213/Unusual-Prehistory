@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.render.*;
+import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.render.*;
 import com.peeko32213.unusualprehistory.client.render.armor.AustroBootsRenderer;
 import com.peeko32213.unusualprehistory.client.render.armor.MajungaHelmetRenderer;
@@ -29,10 +30,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.event.ViewportEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -215,6 +213,12 @@ public final class ClientEvents {
             double totalAmp = (0.1 + 0.1*amplifier);
             event.getCamera().move(rng.nextFloat() * 0.4F * intensity * totalAmp  , rng.nextFloat() * 0.2F * intensity * totalAmp , rng.nextFloat() * 0.4F * intensity * totalAmp );
         }
+    }
+
+    @SubscribeEvent
+    public static void registerGuiOverlays(RegisterGuiOverlaysEvent event)
+    {
+        event.registerAboveAll("amber_protection", AmberProtectionOverlay.HUD_AMBER_PROTECTION);
     }
 
     @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)

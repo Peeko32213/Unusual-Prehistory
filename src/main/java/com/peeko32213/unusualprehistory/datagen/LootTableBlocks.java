@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.datagen;
 
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -27,6 +28,23 @@ public class LootTableBlocks extends BlockLoot {
     @Override
     protected void addTables() {
         /**Example**/
+
+        dropSelf(UPBlocks.PETRIFIED_WOOD.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_LOG.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_SIGN.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_FENCE_GATE.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_BUTTON.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_FENCE.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_SLAB.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_TRAPDOOR.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_PRESSURE_PLATE.get());
+        dropSelf(UPBlocks.POLISHED_PETRIFIED_WOOD.get());
+        dropSelf(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
+        dropSelf(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
+        dropSelf(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
+        dropSelf(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get());
+
+
         //dropSelf(UPBlocks.AMBER_BLOCK.get());
         //add(UPBlocks.QUEREUXIA_PLANT.get(), BlockLoot::createShearsOnlyDrop);
 

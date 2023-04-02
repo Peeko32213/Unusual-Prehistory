@@ -1,5 +1,7 @@
 package com.peeko32213.unusualprehistory;
 
+import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
+import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.networking.UPMessages;
 import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
@@ -65,8 +67,12 @@ public class UnusualPrehistory {
         UPEffects.EFFECT_DEF_REG.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         eventBus.register(this);
-
-
+        //If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that
+        // triggers the capability class otherwise it also wont hotswap
+        UPCapabilities.setupCapabilities();
+        eventBus.addListener(UPPlayerCapability::onPlayerCloned);
+        eventBus.addListener(UPPlayerCapability::onLivingDamage);
+        eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
     }
 
     private void registerCommon(final FMLCommonSetupEvent event) {

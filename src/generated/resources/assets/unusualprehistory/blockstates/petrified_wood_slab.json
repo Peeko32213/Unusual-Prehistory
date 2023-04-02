@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "unusualprehistory:block/petrified_wood_slab"
+    },
+    "type=double": {
+      "model": "unusualprehistory:block/petrified_wood"
+    },
+    "type=top": {
+      "model": "unusualprehistory:block/petrified_wood_slab_top"
+    }
+  }
+}
