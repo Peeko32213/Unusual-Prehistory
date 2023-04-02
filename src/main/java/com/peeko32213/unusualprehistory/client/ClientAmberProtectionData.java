@@ -8,7 +8,6 @@ public class ClientAmberProtectionData {
         ClientAmberProtectionData.amberProtection = amber_protection;
     }
 
-
     public static int getAmberProtection(){
         return amberProtection;
     }
