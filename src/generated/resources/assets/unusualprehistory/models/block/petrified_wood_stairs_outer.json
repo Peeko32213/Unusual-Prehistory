@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "unusualprehistory:block/petrified_planks",
+    "side": "unusualprehistory:block/petrified_planks",
+    "top": "unusualprehistory:block/petrified_planks"
+  }
+}

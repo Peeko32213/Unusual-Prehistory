@@ -25,7 +25,7 @@ public class ModFood {
     //Special
     public static final FoodProperties GOLDEN_SCAU = (new FoodProperties.Builder()).nutrition(15).saturationMod(2.2F).meat().build();
 
-    public static final FoodProperties AMBER_GUMMY = (new FoodProperties.Builder()).nutrition(2).saturationMod(2.2F).effect(new MobEffectInstance(MobEffects.ABSORPTION, 600, 1), 1.0F).build();
+    public static final FoodProperties AMBER_GUMMY = (new FoodProperties.Builder()).nutrition(2).saturationMod(2.2F).alwaysEat().build();
 
 
     //Grogs

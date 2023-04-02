@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -43,8 +44,15 @@ public class BlockGinkgoWood extends RotatedPillarBlock {
             if(state.is(UPBlocks.GINKGO_WOOD.get())) {
                 return UPBlocks.STRIPPED_GINKGO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
-        }
 
+            if(state.is(UPBlocks.PETRIFIED_WOOD_LOG.get())) {
+                return UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            }
+
+            if(state.is(UPBlocks.PETRIFIED_WOOD.get())) {
+                return UPBlocks.STRIPPED_PETRIFIED_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            }
+        }
         return super.getToolModifiedState(state, context, toolAction, simulate);
     }
 }

@@ -58,7 +58,7 @@ public class DataGenerators {
         generator.addProvider(true,new ItemTagsGenerator(generator, blockTags, helper));
         generator.addProvider(true,new ItemModelGenerator(generator, helper));
         generator.addProvider(true,new LanguageGenerator(generator));
-
+        generator.addProvider(true,new LootGenerator(generator));
 
 
         final RegistryAccess registries = RegistryAccess.builtinCopy();

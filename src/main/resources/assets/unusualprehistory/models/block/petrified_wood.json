@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "unusualprehistory:block/petrified_wood_side",
-    "side": "unusualprehistory:block/petrified_wood_side"
-  }
-}
