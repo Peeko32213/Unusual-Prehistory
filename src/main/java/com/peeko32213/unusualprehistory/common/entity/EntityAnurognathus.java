@@ -132,6 +132,8 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         this.entityData.define(CROPS_POLLINATED, 0);
     }
 
+
+
     public void tick() {
         super.tick();
         this.prevFlyProgress = flyProgress;
