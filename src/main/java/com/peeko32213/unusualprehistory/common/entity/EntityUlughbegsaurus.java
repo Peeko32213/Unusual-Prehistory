@@ -40,6 +40,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -61,7 +63,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDataAccessor<Integer> EATING_TIME = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
-
+    public static final Logger LOGGER = LogManager.getLogger();
     private boolean hasBlueAttributes = false;
     private boolean hasYellowAttributes = false;
     private boolean hasWhiteAttributes = false;
@@ -183,9 +185,15 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     }
 
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
-        InteractionResult type = super.mobInteract(player, hand);
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
+        LOGGER.info("Yellow " +this.isYellow() );
+        LOGGER.info("Blue " +this.isBlue() );
+        LOGGER.info("White " +this.isWhite() );
+        LOGGER.info("Orange " +this.isOrange() );
+        LOGGER.info("hp " + this.getMaxHealth());
+        LOGGER.info("Speed" + this.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
+        LOGGER.info("Speed" + this.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
         if (this.isYellow()) {
             if (isYellowFood(itemstack) && !isTame()) {
                 int size = itemstack.getCount();
@@ -227,7 +235,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             }
         }
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
+        if (interactionresult != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
             if (isFood(itemstack)) {
                 this.usePlayerItem(player, hand, itemstack);
                 return InteractionResult.SUCCESS;
@@ -262,7 +270,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             }
 
         }
-        return type;
+        return super.mobInteract(player, hand);
         }
 
     public SoundEvent getEatingSound(ItemStack p_28540_) {
@@ -381,35 +389,46 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         }
     }
 
-    @Override
-    public void travel(Vec3 pos) {
-        if (this.isAlive()) {
-            LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
-            if (this.isVehicle() && livingentity != null) {
-                double d0 = 0.08D;
-                this.setYRot(livingentity.getYRot());
-                this.yRotO = this.getYRot();
-                this.setXRot(livingentity.getXRot() * 0.5F);
-                this.setRot(this.getYRot(), this.getXRot());
-                this.yBodyRot = this.getYRot();
-                this.yHeadRot = this.yBodyRot;
-                float f = livingentity.xxa * 0.5F;
-                float f1 = livingentity.zza;
-                if (f1 <= 0.0F) {
-                    f1 *= 0.25F;
-                }
-                double d8 = this.getY();
-                Vec3 vec34 = this.getDeltaMovement();
+    private static final double DELTA_Y_FOR_COLLISION = 0.5;
+    private static final float ROTATION_MULTIPLIER = 0.5F;
+    private static final float MOVEMENT_SPEED_MULTIPLIER = 1.5F;
 
-                //Travel up when there is a horizontal collission  and enough space, tried jumping but was a bit funky
-                if (this.horizontalCollision && this.isFree(vec34.x, vec34.y + (double) 0.5F - this.getY() + d8, vec34.z)) {
-                    this.setDeltaMovement(vec34.x, (double) 0.5F, vec34.z);
-                }
-                this.setSpeed(0.3F);
-                super.travel(new Vec3((double) f, pos.y, (double) f1));
-            } else {
-                super.travel(pos);
+
+    @Override
+    public void travel(Vec3 destination) {
+        if (!this.isAlive()) {
+            return;
+        }
+
+        LivingEntity passenger = (LivingEntity) this.getControllingPassenger();
+        if (this.isVehicle() && passenger != null) {
+            double delta = DELTA_Y_FOR_COLLISION;
+            this.setYRot(passenger.getYRot());
+            this.yRotO = this.getYRot();
+            this.setXRot(passenger.getXRot() * ROTATION_MULTIPLIER);
+            this.setRot(this.getYRot(), this.getXRot());
+            this.yBodyRot = this.getYRot();
+            this.yHeadRot = this.yBodyRot;
+
+            float f = (float) (passenger.xxa * 0.5);
+            float f1 = passenger.zza;
+
+            if (f1 <= 0.0F) {
+                f1 *= 0.25;
             }
+
+            double posY = this.getY();
+            Vec3 deltaMovement = this.getDeltaMovement();
+
+            // Travel up when there is a horizontal collision and enough space
+            if (this.horizontalCollision && deltaMovement.y > 0 && this.isFree(deltaMovement.x, deltaMovement.y + delta, deltaMovement.z)) {
+                this.setDeltaMovement(deltaMovement.x, (double) 0.5F, deltaMovement.z);
+            }
+
+            this.setSpeed((float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * MOVEMENT_SPEED_MULTIPLIER));
+            super.travel(new Vec3((double) f, destination.y, (double) f1));
+        } else {
+            super.travel(destination);
         }
     }
 
@@ -462,6 +481,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40.0D);
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
         }
+        this.heal(this.getMaxHealth());
         this.entityData.set(BLUE, green);
     }
 
@@ -481,6 +501,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(8.0D);
         }
+        this.heal(this.getMaxHealth());
         this.entityData.set(YELLOW, green);
     }
 
@@ -500,6 +521,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(8.0D);
         }
+        this.heal(this.getMaxHealth());
         this.entityData.set(WHITE, green);
     }
 
@@ -519,6 +541,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(8.0D);
         }
+        this.heal(this.getMaxHealth());
         this.entityData.set(ORANGE, green);
     }
 
@@ -540,18 +563,18 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        float variantChange = this.getRandom().nextFloat();
-        if (variantChange <= 0.3F) {
-            this.setWhite(this.getRandom().nextBoolean());
+        int variantChange = this.random.nextInt(0,100);
+        if (variantChange <= 30) {
+            this.setWhite(true);
             this.setVariant(1);
-        } else if (variantChange <= 0.4F) {
-            this.setYellow(this.getRandom().nextBoolean());
+        } else if (variantChange <= 40 && variantChange > 30) {
+            this.setYellow(true);
             this.setVariant(2);
-        } else if (variantChange <= 0.6F) {
-            this.setOrange(this.getRandom().nextBoolean());
+        } else if (variantChange <= 60 && variantChange > 40) {
+            this.setOrange(true);
             this.setVariant(3);
         } else {
-            this.setBlue(this.getRandom().nextBoolean());
+            this.setBlue(true);
             this.setVariant(0);
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);

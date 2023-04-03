@@ -49,7 +49,7 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
 
                 int damage = (int)event.getAmount();
                 for(int i = 1; i < damage; i++){
-                    if(capability.amberProtection * 2 >= serverPlayer.getHealth()){
+                    if(capability.amberProtection >= serverPlayer.getHealth()){
                         capability.amberProtection = capability.amberProtection - i;
                     } else {
                         serverPlayer.setHealth(serverPlayer.getHealth() - i);
