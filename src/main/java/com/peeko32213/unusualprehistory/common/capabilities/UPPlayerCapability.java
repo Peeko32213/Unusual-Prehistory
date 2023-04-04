@@ -8,9 +8,11 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
-
+    public static final Logger LOGGER = LogManager.getLogger();
     public int amberProtection = 0;
 
     @Override
@@ -48,11 +50,14 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
                 }
 
                 int damage = (int)event.getAmount();
-                for(int i = 1; i < damage; i++){
+                LOGGER.info("damage " + damage);
+                for(int i = 0; i < damage; i++){
                     if(capability.amberProtection >= serverPlayer.getHealth()){
-                        capability.amberProtection = capability.amberProtection - i;
+                        capability.amberProtection = capability.amberProtection - 1;
+                        LOGGER.info("doing damage to amber");
                     } else {
-                        serverPlayer.setHealth(serverPlayer.getHealth() - i);
+                        serverPlayer.setHealth(serverPlayer.getHealth() - 1);
+                        LOGGER.info("doing damage to hp");
                     }
                     UPMessages.sendToPlayer(new AmberProtectionSyncS2CPacket(capability.amberProtection), serverPlayer);
                 }
