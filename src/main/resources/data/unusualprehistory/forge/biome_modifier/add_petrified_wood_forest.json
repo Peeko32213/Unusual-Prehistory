@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "unusualprehistory:petrified_wood_forest_feature_placed",
+  "step": "surface_structures"
+}

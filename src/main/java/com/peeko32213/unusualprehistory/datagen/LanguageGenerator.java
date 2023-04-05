@@ -357,6 +357,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("item.unusualprehistory.encyclopedia.desc", "By Award Winning Scientist, Peeko Noneyah");
         add("hwachavenator.shooting_too_close.message", "You are trying to shoot too close to Hwachavenator!");
         add("hwachavenator.fail_shoot.message", "You failed to shoot!");
+        add("player_capability.amber_protection_full", "You are at full Amber Protection and won't gain any more!");
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");
