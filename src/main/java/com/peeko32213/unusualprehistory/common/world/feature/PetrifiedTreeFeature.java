@@ -5,16 +5,20 @@ import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.material.FluidState;
 import org.slf4j.Logger;
 
 public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
@@ -36,6 +40,13 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos blockpos = context.origin();
         RandomSource random = context.random();
         FastNoiseLite noise = createNoise(worldgenlevel.getSeed() + random.nextLong(), random.nextFloat());
+        int randomNr = random.nextInt(0,100);
+        boolean placeFeature = randomNr < 5;
+        if(!placeFeature){
+            return false;
+        }
+
+
         double middleBlockZ = worldgenlevel.getChunk(blockpos.getX() >> 4, blockpos.getZ() >> 4).getPos().getMiddleBlockZ();
         double middleBlockX = worldgenlevel.getChunk(blockpos.getX() >> 4, blockpos.getZ() >> 4).getPos().getMiddleBlockX();
         double cornerBlockZ = worldgenlevel.getChunk(blockpos.getX() >> 4, blockpos.getZ() >> 4).getPos().getMinBlockZ();
@@ -59,6 +70,19 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         int height = rand.nextInt(2, 4);
         int radius = height;
         BlockState block = Blocks.STONE.defaultBlockState();
+        BlockState block2 = UPBlocks.STONE_FOSSIL.get().defaultBlockState();
+
+        boolean changeBlock = rand.nextBoolean();
+
+        if(changeBlock){
+            if(rand.nextBoolean()) {
+                block2 = UPBlocks.STONE_AMBER_FOSSIL.get().defaultBlockState();
+            } else {
+                block2 = UPBlocks.PLANT_FOSSIL.get().defaultBlockState();
+            }
+        }
+
+
         for (int x = -radius; x < radius; x++) {
             for (int y = 0; y < height; y++) {
                 for (int z = -radius; z < radius; z++) {
@@ -67,15 +91,12 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
                     double distance = distance(x, y, z, radius, height, radius);
                     float f = noise.GetNoise(x, y, z);
                     if (distance < 1) {
-                        if (f < 1) {
+                        if (f < 0.5) {
                             worldgenlevel.setBlock(pos, block, 3);
                             worldgenlevel.setBlock(pos2, block, 3);
                         } else {
-
-                            if (!worldgenlevel.getBlockState(pos).is(Blocks.AIR)) {
-                                worldgenlevel.setBlock(pos, block, 3);
-                                worldgenlevel.setBlock(pos2, block, 3);
-                            }
+                            worldgenlevel.setBlock(pos, block2, 3);
+                            worldgenlevel.setBlock(pos2, block2, 3);
                         }
                     }
                 }
@@ -83,48 +104,54 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
     }
 
-    public static void populateWithTrees(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise)
-    {
+    public static void populateWithTrees(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise) {
         int height = 8;
         int radius = height;
 
         BlockState block = UPBlocks.PETRIFIED_WOOD_LOG.get().defaultBlockState();
         for (int x = 0; x < 16; x++) {
-                for (int z = 0; z < 16; z++) {
-                    BlockPos pos = origin.offset(x, 0, z);
-                    double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ());
+            for (int z = 0; z < 16; z++) {
+                BlockPos pos = origin.offset(x, 0, z);
+                double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ());
 
-                    BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
-                    float f = noise.GetNoise(x, (float) yHeight, z);
-                        if (f > 0.55) {
-                            int randomTreeHeight = rand.nextInt(1,5);
-                            for(int treeHeight = 0; treeHeight < randomTreeHeight; treeHeight++){
-                                worldgenlevel.setBlock(pos2.offset(0,treeHeight,0), block, 3);
-                            }
-                        }
-
-
+                BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
+                float f = noise.GetNoise(x, (float) yHeight, z);
+                if (f > 0.6) {
+                    int randomTreeHeight = rand.nextInt(1, 5);
+                    for (int treeHeight = 0; treeHeight < randomTreeHeight && !hasPetrifiedWoodNextToIt(worldgenlevel, pos2, rand); treeHeight++) {
+                        worldgenlevel.setBlock(pos2.offset(0, treeHeight, 0), block, 3);
+                    }
                 }
+
+
+            }
         }
     }
 
-    public static void changeTerrain(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise)
-    {
+    public static void changeTerrain(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise) {
         int height = 8;
         int radius = height;
         BlockState block = Blocks.SAND.defaultBlockState();
         BlockState block2 = Blocks.DIRT.defaultBlockState();
+        BlockState block3 = Blocks.COARSE_DIRT.defaultBlockState();
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 BlockPos pos = origin.offset(x, 0, z);
-                double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ()) -1;
-                BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
-                float f = noise.GetNoise(x, (float) yHeight, z);
-                if (f < 0 && worldgenlevel.getBlockState(pos2).is(BlockTags.DIRT)) {
-                        worldgenlevel.setBlock(pos2, block, 3);
-                } else if(worldgenlevel.getBlockState(pos2).is(BlockTags.DIRT)) {
-                        worldgenlevel.setBlock(pos2, block2, 3);
 
+                double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ()) - 1;
+                BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
+                if(worldgenlevel.getBiome(pos2).is(BiomeTags.IS_BADLANDS)){
+                    block = Blocks.RED_SAND.defaultBlockState();
+                }
+
+                    float f = noise.GetNoise(x, (float) yHeight, z);
+                boolean isCorrectBlock =worldgenlevel.getBlockState(pos2).is(BlockTags.DIRT) || worldgenlevel.getBlockState(pos2).is(BlockTags.SAND);
+                if (f < 0 && isCorrectBlock) {
+                    worldgenlevel.setBlock(pos2, block, 3);
+                } else if ( f < 0.4 && f > 0 && isCorrectBlock) {
+                    worldgenlevel.setBlock(pos2, block2, 3);
+                } else if(isCorrectBlock){
+                    worldgenlevel.setBlock(pos2, block3, 3);
                 }
 
             }
@@ -135,6 +162,25 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
     public static double distance(double x, double y, double z, double xRadius, double yRadius, double zRadius) {
         return Mth.square((double) x / (xRadius)) + Mth.square((double) y / (yRadius)) + Mth.square((double) z / (zRadius));
     }
+
+    public static boolean hasPetrifiedWoodNextToIt(WorldGenLevel worldGenLevel, BlockPos pos, RandomSource randomSource) {
+        int randomNr = randomSource.nextInt(0,100);
+
+        boolean checkForWood = randomNr > 10;
+
+        if(!checkForWood){
+            return false;
+        }
+
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            BlockState blockstate1 = worldGenLevel.getBlockState(pos.relative(direction));
+            if (blockstate1.is(UPBlocks.PETRIFIED_WOOD_LOG.get())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private static FastNoiseLite createNoise(long seed, float frequency) {
         FastNoiseLite noise = new FastNoiseLite((int) seed);

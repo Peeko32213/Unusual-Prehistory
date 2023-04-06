@@ -59,7 +59,7 @@ public class DataGenerators {
         generator.addProvider(true,new ItemModelGenerator(generator, helper));
         generator.addProvider(true,new LanguageGenerator(generator));
         generator.addProvider(true,new LootGenerator(generator));
-
+        generator.addProvider(true,new BiomeTagsProvider(generator, helper));
 
         final RegistryAccess registries = RegistryAccess.builtinCopy();
         final RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registries);
