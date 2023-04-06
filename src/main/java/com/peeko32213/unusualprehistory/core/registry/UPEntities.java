@@ -195,6 +195,25 @@ public class UPEntities {
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "eryon_render").toString()));
 
+    public static final RegistryObject<EntityType<BaseEntityRender>> AUSTRO_RENDER = ENTITIES.register("austro_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "austro_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> ULUGH_RENDER = ENTITIES.register("ulugh_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "ulugh_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> KENTRO_RENDER = ENTITIES.register("kentro_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "kentro_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> ANTARCTO_RENDER = ENTITIES.register("antarcto_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "antarcto_render").toString()));
+
+    public static final RegistryObject<EntityType<BaseEntityRender>> HWACHA_RENDER = ENTITIES.register("hwacha_render",
+            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "hwacha_render").toString()));
     public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
             () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
                     .fireImmune().noSave().sized(1, 1).noSummon()

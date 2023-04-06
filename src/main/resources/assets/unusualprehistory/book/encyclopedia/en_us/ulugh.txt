@@ -1,0 +1,25 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+A dubious therapod from the late cretaceous period, these medium size dinosaurs are rather tame as they seem to be more
+used to scavenging rather than chasing down prey. However one of their most unique traits is their crest colors. These
+crest colors determine what style of life these dinosaurs live. Blue crested individuals are much faster, being more adapted
+to chasing down prey. White crested individuals are much bulkier, much more adapt to fending off predators or rivals.
+Orange crested individuals have much more powerful bites, allowing them to crack bone for nutrients. Yellow crested individuals
+have a special venom that disables the joints, preventing eating or in the case of humans using shields.
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+These creatures are also fairly easy to tame and ride, as there prefered food is indicated by their crest color.
+So far I have found that these foods can tame these crest colors.
+<NEWLINE>
+White: Raw Austroraptor
+<NEWLINE>
+Blue: Raw Scaumencia
+<NEWLINE>
+Yellow: Golden Scaumencia
+<NEWLINE>
+Orange: Raw Cory
+<NEWLINE>
+There is a high change that more crest colors exist that I have yet to document and foods I have to discover for taming.

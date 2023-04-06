@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " AA",
+    "ASA",
+    "Y  "
+  ],
+  "key": {
+    "S": {
+      "item": "unusualprehistory:shell_shard"
+    },
+    "Y": {
+      "item": "minecraft:stick"
+    },
+    "A": {
+      "item": "unusualprehistory:antarcto_plate"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:primal_macuahuitl"
+  }
+}

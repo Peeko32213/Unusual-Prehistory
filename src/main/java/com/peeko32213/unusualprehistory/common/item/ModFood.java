@@ -14,6 +14,7 @@ public class ModFood {
     public static final FoodProperties RAW_COTY = (new FoodProperties.Builder()).nutrition(3).saturationMod(0.3F).meat().build();
     public static final FoodProperties RAW_SCAU = (new FoodProperties.Builder()).nutrition(3).saturationMod(0.3F).meat().build();
     public static final FoodProperties RAW_GINKGO_SEEDS = (new FoodProperties.Builder()).nutrition(2).saturationMod(0.2F).meat().fast().effect(new MobEffectInstance(MobEffects.CONFUSION, 300, 1), 1.0F).effect(new MobEffectInstance(MobEffects.WEAKNESS, 300, 1), 1.0F).build();
+    public static final FoodProperties RAW_AUSTRO = (new FoodProperties.Builder()).nutrition(1).saturationMod(0.3F).meat().effect(new MobEffectInstance(MobEffects.HUNGER, 600, 1), 1.0F).build();
 
 
     //Cooked
@@ -21,6 +22,7 @@ public class ModFood {
     public static final FoodProperties COOKED_COTY = (new FoodProperties.Builder()).nutrition(12).saturationMod(1.4F).meat().build();
     public static final FoodProperties COOKED_SCAU = (new FoodProperties.Builder()).nutrition(12).saturationMod(1.6F).meat().build();
     public static final FoodProperties COOKED_GINKGO_SEEDS = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.6F).meat().fast().build();
+    public static final FoodProperties COOKED_AUSTRO = (new FoodProperties.Builder()).nutrition(12).saturationMod(1.2F).meat().build();
 
     //Special
     public static final FoodProperties GOLDEN_SCAU = (new FoodProperties.Builder()).nutrition(15).saturationMod(2.2F).meat().build();

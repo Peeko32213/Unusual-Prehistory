@@ -79,11 +79,12 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 .add(Attributes.MAX_HEALTH, 30D)
                 .add(Attributes.FOLLOW_RANGE, 50D)
                 .add(Attributes.ARMOR, 5.0D)
-                .add(Attributes.ATTACK_DAMAGE, 2.0D)
+                .add(Attributes.ATTACK_DAMAGE, 1.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.3D)
                 .add(Attributes.MOVEMENT_SPEED, 0.17F);
 
     }
+
 
     protected void registerGoals() {
         super.registerGoals();
@@ -93,7 +94,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
-        this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 6.0F, 3.0F, false));
+        this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 6.0F, 100.0F, false));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
@@ -148,9 +149,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     }
 
     public double getPassengersRidingOffset() {
-        float f = Math.min(0.25F, this.animationSpeed);
-        float f1 = this.animationPosition;
-        return (double) this.getBbHeight() - 0.2D + (double) (0.12F * Mth.cos(f1 * 0.7F) * 0.7F * f);
+        return 2;
     }
 
 

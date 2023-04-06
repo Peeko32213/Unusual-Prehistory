@@ -27,6 +27,13 @@
       "y": 30,
       "page" : 0,
       "scale": 1.2
+    },
+    {
+      "item" : "unusualprehistory:amber_fossil",
+      "x": 125,
+      "y": 30,
+      "page" : 0,
+      "scale": 1.2
     }
   ],
   "recipes": [

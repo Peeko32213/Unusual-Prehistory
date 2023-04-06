@@ -36,6 +36,7 @@ public class UPTags {
     public static final TagKey<Item> FILLED_FLASKS = registerItemTag( "filled_flasks");
     public static final TagKey<Item> FOSSILS = registerItemTag("fossils");
     public static final TagKey<Item> ORGANIC_OOZE = registerItemTag("organic_ooze");
+    public static final TagKey<Block> PETRIFIED_WOOD = registerBlockTag("petrified_wood");
 
     //Food Tags
     public static final TagKey<Item> KENTRO_FOOD = registerItemTag( "kentro_food");
@@ -58,8 +59,11 @@ public class UPTags {
     public static final TagKey<Block> ERYON_DIGGABLES = registerBlockTag("eryon_diggables");
 
 
+
     //BIOME Tags
     public static final TagKey<Biome> IS_PETRIFIED_WOOD_FOREST_BIOME = registerBiomeTag("is_petrified_wood_forest_biome");
+
+
 
     private static TagKey<Item> registerItemTag(String name) {
         return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));

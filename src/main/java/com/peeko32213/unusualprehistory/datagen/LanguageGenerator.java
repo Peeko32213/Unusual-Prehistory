@@ -72,6 +72,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAW_GINKGO_SEEDS, "Raw Ginkgo Seeds");
         addItem(UPItems.COOKED_GINKGO_SEEDS, "Cooked Ginkgo Seeds");
         addItem(UPItems.AMBER_GUMMY, "Amber Gummy");
+        addItem(UPItems.RAW_AUSTRO, "Raw Austroraptor");
+        addItem(UPItems.COOKED_AUSTRO, "Cooked Austroraptor");
 
         //BUCKETS
         addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");
@@ -172,7 +174,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.AUSTRO_FLASK, "Austroraptor DNA Flask");
         addItem(UPItems.HWACHA_FLASK, "Hwachavenator DNA Flask");
         addItem(UPItems.KENTRO_FLASK, "Kentrosaurus DNA Flask");
-        addItem(UPItems.ULUGH_FLASK, "Kentrosaurus DNA Flask");
+        addItem(UPItems.ULUGH_FLASK, "Ulughbegsaurus DNA Flask");
 
         //CORALS
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");

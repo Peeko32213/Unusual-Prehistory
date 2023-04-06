@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "S S",
+    "A A"
+  ],
+  "key": {
+    "S": {
+      "item": "unusualprehistory:raptor_feathers"
+    },
+    "A": {
+      "item": "unusualprehistory:austro_feather"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:austro_boots"
+  }
+}
