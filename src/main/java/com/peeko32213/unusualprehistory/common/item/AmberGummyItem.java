@@ -23,7 +23,7 @@ public class AmberGummyItem extends Item {
         if(!level.isClientSide && entity instanceof ServerPlayer serverPlayer){
             serverPlayer.getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(capability -> {
                 if(capability.amberProtection >= serverPlayer.getMaxHealth()){
-                    serverPlayer.sendSystemMessage(Component.translatable("player_capability.amber_protection_full").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.ITALIC));
+                    serverPlayer.displayClientMessage(Component.translatable("player_capability.amber_protection_full").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.ITALIC), true);
                     return;
                 }
 

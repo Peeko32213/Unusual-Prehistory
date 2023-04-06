@@ -421,7 +421,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             Vec3 deltaMovement = this.getDeltaMovement();
 
             // Travel up when there is a horizontal collision and enough space
-            if (this.horizontalCollision && deltaMovement.y > 0 && this.isFree(deltaMovement.x, deltaMovement.y + delta, deltaMovement.z)) {
+            if (this.horizontalCollision /**&& deltaMovement.y > 0 **/ && this.isFree(deltaMovement.x, deltaMovement.y + delta, deltaMovement.z)) {
                 this.setDeltaMovement(deltaMovement.x, (double) 0.5F, deltaMovement.z);
             }
 

@@ -33,7 +33,7 @@ public class UPPlacedFeatures {
 
     public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, UnusualPrehistory.MODID);
 
-
+    private static final String METEOR_FEATURE_NAME_PLACED = "petrified_wood_forest_feature_placed";
 
 
     public static final RegistryObject<PlacedFeature> GINKGO_CHECKED = registerPlacedFeature("ginkgo_checked", () -> new PlacedFeature(UPConfiguredFeatures.GINKGO_TREE.getHolder().orElseThrow(), ImmutableList.of(
@@ -54,6 +54,12 @@ public class UPPlacedFeatures {
     public static final RegistryObject<PlacedFeature> DEEPSLATE_PLANT_FOSSIL_ORE = registerPlacedFeature("deepslate_plant_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_PLANT_FOSSIL_ORE.getHolder().orElseThrow(),  commonOrePlacement(17, // VeinsPerChunk
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
 
+    public static final RegistryObject<PlacedFeature> PETRIFIED_WOOD_FOREST_PLACED = registerPlacedFeature(METEOR_FEATURE_NAME_PLACED, () -> new PlacedFeature(UPConfiguredFeatures.CONFIGURED_PETRIFIED_WOOD_FOREST.getHolder().orElseThrow(), ImmutableList.of(
+            RarityFilter.onAverageOnceEvery(20),
+            //InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP_TOP_SOLID,
+            //CountPlacement.of(80),
+            BiomeFilter.biome())));
     //public static <FC extends FeatureConfiguration> Holder<PlacedFeature> registerPlacedFeature(String id, Holder<ConfiguredFeature<FC, ?>> feature, PlacementModifier... placementModifiers) {
     //    return registerPlacedFeature(id, feature, List.of(placementModifiers));
     //}

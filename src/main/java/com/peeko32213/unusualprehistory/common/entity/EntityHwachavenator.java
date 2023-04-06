@@ -322,9 +322,8 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 }
                 double d8 = this.getY();
                 Vec3 vec34 = this.getDeltaMovement();
-
                 //Travel up when there is a horizontal collission  and enough space, tried jumping but was a bit funky
-                if (this.horizontalCollision && this.isFree(vec34.x, vec34.y + (double) 0.5F - this.getY() + d8, vec34.z)) {
+                if (this.horizontalCollision  && this.isFree(vec34.x, vec34.y + (double) 0.5F - this.getY() + d8, vec34.z)) {
                     this.setDeltaMovement(vec34.x, (double) 0.5F, vec34.z);
                 }
                 this.setSpeed(0.3F);
@@ -400,7 +399,8 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                     //I added a check here that if the arrow is trying to be shot too close to hwacha it wont shoot and gives a message
                     AABB aabb = player.getBoundingBox().inflate(NO_SPIKE_ZONE_INFLATE);
                     if (aabb.contains(Vec3.atCenterOf(blockpos))) {
-                        player.sendSystemMessage(Component.translatable("hwachavenator.shooting_too_close.message").withStyle(ChatFormatting.RED));
+                        player.displayClientMessage(Component.translatable("hwachavenator.shooting_too_close.message").withStyle(ChatFormatting.RED), true);
+                        //player.displayClientMessage();
                         return;
                     }
                     d0 = blockpos.getX() - this.getX();
@@ -410,7 +410,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
                 //I added a check here that if the arrow or hitresult will result in a miss it wont shoot and fails with a message
                 if (d0 == 0 && d1 == 0 && d2 == 0 && messageTimer == 0 || hitresult.getType() == HitResult.Type.MISS) {
-                    player.sendSystemMessage(Component.translatable("hwachavenator.fail_shoot.message").withStyle(ChatFormatting.RED));
+                    player.displayClientMessage(Component.translatable("hwachavenator.fail_shoot.message").withStyle(ChatFormatting.RED), true);
                     return;
                 }
 
