@@ -4,7 +4,7 @@
       "item": "unusualprehistory:trike_shield"
     },
     "title": "Parry This!",
-    "description": "Aquire a Trike Shield",
+    "description": "Acquire a Trike Shield",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

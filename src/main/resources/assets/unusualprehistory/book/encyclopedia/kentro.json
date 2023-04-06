@@ -1,0 +1,28 @@
+{
+  "parent": "root.json",
+  "text": "kentro.txt",
+  "title": "Kentrosaurus",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "tabula_renders": [
+  ],
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:kentro_render",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 0.7,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ]
+}

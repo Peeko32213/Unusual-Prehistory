@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:analyzing",
+  "ingredients": [
+    {
+      "tag": "unusualprehistory:petrified_wood"
+    }
+  ],
+  "output": "unusualprehistory:gameplay/analyzer/tree"
+}

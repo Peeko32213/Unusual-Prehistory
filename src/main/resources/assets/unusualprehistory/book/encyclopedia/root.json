@@ -182,6 +182,66 @@
       "offset_y": -14,
       "linked_page": "eryon.json",
       "hover_text": "Eryon"
+    },
+    {
+      "entity": "unusualprehistory:austro_render",
+      "x": 230,
+      "y": 160,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 1.1,
+      "offset_x": -8,
+      "offset_y": -3,
+      "linked_page": "austro.json",
+      "hover_text": "Austroraptor"
+    },
+    {
+      "entity": "unusualprehistory:ulugh_render",
+      "x": 260,
+      "y": 160,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 1.1,
+      "offset_x": -8,
+      "offset_y": -3,
+      "linked_page": "ulugh.json",
+      "hover_text": "Ulughbegsaurus"
+    },
+    {
+      "entity": "unusualprehistory:kentro_render",
+      "x": 290,
+      "y": 160,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 1.1,
+      "offset_x": -8,
+      "offset_y": -3,
+      "linked_page": "kentro.json",
+      "hover_text": "Kentrosaurus"
+    },
+    {
+      "entity": "unusualprehistory:antarcto_render",
+      "x": 320,
+      "y": 160,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 1.1,
+      "offset_x": -8,
+      "offset_y": -3,
+      "linked_page": "antarcto.json",
+      "hover_text": "Antarctopelta"
+    },
+    {
+      "entity": "unusualprehistory:hwacha_render",
+      "x": 350,
+      "y": 160,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 1.1,
+      "offset_x": -8,
+      "offset_y": -3,
+      "linked_page": "hwacha.json",
+      "hover_text": "Hwachavenator"
     }
   ],
   "linked_page_buttons": [

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "unusualprehistory:raw_austro"
+  },
+  "result": "unusualprehistory:cooked_austro",
+  "experience": 0.35,
+  "cookingtime": 175
+}

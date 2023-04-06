@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:amber_shard",
+      "count": 2
+    },
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "item": "unusualprehistory:amber_gummy"
+  }
+}

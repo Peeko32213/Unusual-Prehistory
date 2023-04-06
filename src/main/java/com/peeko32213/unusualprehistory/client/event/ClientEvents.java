@@ -159,6 +159,12 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.ENCRUSTED_RENDER.get(), EncrustedRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.ENTITY_TRAIL.get(), EntityTrailRenderer::new);
         event.registerEntityRenderer(UPEntities.ERYON_RENDER.get(), EryonRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.AUSTRO_RENDER.get(), AustroRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.ULUGH_RENDER.get(), UlughRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.KENTRO_RENDER.get(), KentroRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.ANTARCTO_RENDER.get(), AntarctoRenderRenderer::new);
+        event.registerEntityRenderer(UPEntities.HWACHA_RENDER.get(), HwachaRenderRenderer::new);
+
         event.registerEntityRenderer(UPEntities.WORLD_SPAWNABLE.get(), WorldSpawnableRenderer::new);
 
 
@@ -193,6 +199,11 @@ public final class ClientEvents {
         event.registerLayerDefinition(RexRenderModel.LAYER_LOCATION, RexRenderModel::createBodyLayer);
         event.registerLayerDefinition(EncrustedRenderModel.LAYER_LOCATION, EncrustedRenderModel::createBodyLayer);
         event.registerLayerDefinition(EryonRenderModel.LAYER_LOCATION, EryonRenderModel::createBodyLayer);
+        event.registerLayerDefinition(AustroraptorRenderModel.LAYER_LOCATION, AustroraptorRenderModel::createBodyLayer);
+        event.registerLayerDefinition(UlughRenderModel.LAYER_LOCATION, UlughRenderModel::createBodyLayer);
+        event.registerLayerDefinition(KentroRenderModel.LAYER_LOCATION, KentroRenderModel::createBodyLayer);
+        event.registerLayerDefinition(AntarctoRenderModel.LAYER_LOCATION, AntarctoRenderModel::createBodyLayer);
+        event.registerLayerDefinition(HwachaRenderModel.LAYER_LOCATION, HwachaRenderModel::createBodyLayer);
 
     }
 

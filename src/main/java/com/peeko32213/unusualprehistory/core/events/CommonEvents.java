@@ -69,6 +69,11 @@ public class CommonEvents {
         event.put(UPEntities.REX_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.ENCRUSTED_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.ERYON_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.AUSTRO_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.ULUGH_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.KENTRO_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.ANTARCTO_RENDER.get(), BaseEntityRender.createAttributes().build());
+        event.put(UPEntities.HWACHA_RENDER.get(), BaseEntityRender.createAttributes().build());
 
         event.put(UPEntities.WORLD_SPAWNABLE.get(), EntityWorldSpawnable.bakeAttributes().build());
     }

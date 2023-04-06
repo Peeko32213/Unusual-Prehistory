@@ -79,7 +79,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(UPTags.YELLOW_ULUGH_FOOD)
                 .add(UPItems.GOLDEN_SCAU.get());
         tag(UPTags.WHITE_ULUGH_FOOD)
-                .add(UPItems.REX_TOOTH.get());
+                .add(UPItems.RAW_AUSTRO.get());
         tag(UPTags.BLUE_ULUGH_FOOD)
                 .add(UPItems.RAW_SCAU.get());
 
