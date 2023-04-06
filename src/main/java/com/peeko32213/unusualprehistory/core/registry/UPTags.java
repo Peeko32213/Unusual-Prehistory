@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -58,6 +59,12 @@ public class UPTags {
     public static final TagKey<Block> ERYON_DIGGABLES = registerBlockTag("eryon_diggables");
 
 
+
+    //BIOME Tags
+    public static final TagKey<Biome> IS_PETRIFIED_WOOD_FOREST_BIOME = registerBiomeTag("is_petrified_wood_forest_biome");
+
+
+
     private static TagKey<Item> registerItemTag(String name) {
         return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
     }
@@ -68,5 +75,10 @@ public class UPTags {
 
     private static TagKey<EntityType<?>> registerEntityTag(String name) {
         return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
+    }
+
+    private static TagKey<Biome> registerBiomeTag(String name){
+        return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
+
     }
 }
