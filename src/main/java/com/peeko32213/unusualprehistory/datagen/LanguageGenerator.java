@@ -214,6 +214,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.QUEREUXIA, "Quereuxia");
         addBlock(UPBlocks.QUEREUXIA_TOP, "Quereuxia Clovers");
         addBlock(UPBlocks.AMBER_BLOCK, "Amber Block");
+        addBlock(UPBlocks.PETRIFIED_BUSH, "Petrified Bush");
 
         //GINKGO
         addBlock(UPBlocks.GINKGO_PLANKS, "Ginkgo Planks");
@@ -363,7 +364,7 @@ public class LanguageGenerator extends LanguageProvider {
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");
-        addEffect(UPEffects.PREVENT_CLICK, "Disarmed");
+        addEffect(UPEffects.PREVENT_CLICK, "Debilitating Toxin");
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");
 
         //BLOCK ENTITY TRANSLATABLE

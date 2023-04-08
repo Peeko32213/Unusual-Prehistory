@@ -115,7 +115,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.SARACENIA.get().asItem())
                 .add(UPBlocks.HORSETAIL.get().asItem())
                 .add(UPBlocks.BENNETTITALES.get().asItem())
-                .add(UPBlocks.ARCHAEOSIGILARIA.get().asItem());
+                .add(UPBlocks.ARCHAEOSIGILARIA.get().asItem())
+                .add(UPBlocks.PETRIFIED_BUSH.get().asItem());
 
         tag(ItemTags.TALL_FLOWERS)
                 .add(UPBlocks.TALL_SARACENIA.get().asItem())

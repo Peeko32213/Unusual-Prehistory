@@ -89,6 +89,7 @@ public class UnusualPrehistory {
             addToFlowerPot(UPBlocks.LEEFRUCTUS.getId(), UPBlocks.POTTED_LEEFRUCTUS);
             addToFlowerPot(UPBlocks.BENNETTITALES.getId(), UPBlocks.POTTED_BENNETTITALES);
             addToFlowerPot(UPBlocks.ARCHAEOSIGILARIA.getId(), UPBlocks.POTTED_ARCHAEOSIGILARIA);
+            addToFlowerPot(UPBlocks.PETRIFIED_BUSH.getId(), UPBlocks.POTTED_PETRIFIED_BUSH);
             addToFlowerPot(UPBlocks.SARACENIA.getId(), UPBlocks.POTTED_SARACENIA);
             addToFlowerPot(UPBlocks.GINKGO_SAPLING.getId(), UPBlocks.POTTED_GINKGO_SAPLING);
 
@@ -108,6 +109,7 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.QUEREUXIA_PLANT.get().asItem(), 0.2f);
             addToComposter(UPBlocks.QUEREUXIA.get().asItem(), 0.2f);
             addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
+            addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
 
             Sheets.addWoodType(GINKGO);
             Sheets.addWoodType(PETRIFIED);

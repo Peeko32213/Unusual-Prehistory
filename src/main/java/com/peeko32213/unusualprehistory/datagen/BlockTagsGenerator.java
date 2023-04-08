@@ -158,7 +158,8 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.SARACENIA.get())
                 .add(UPBlocks.HORSETAIL.get())
                 .add(UPBlocks.BENNETTITALES.get())
-                .add(UPBlocks.ARCHAEOSIGILARIA.get());
+                .add(UPBlocks.ARCHAEOSIGILARIA.get())
+                .add(UPBlocks.PETRIFIED_BUSH.get());
 
 
         tag(BlockTags.WALL_SIGNS)
