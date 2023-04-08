@@ -382,6 +382,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 if (entity.isPresent()) {
                     var entity1 = entity.get();
                     BlockPos blockPosEntity = entity.get().getOnPos();
+
                     Vec3 eyePosition = entity1.getEyePosition();
                     BlockPos blockPos = new BlockPos(eyePosition.x, eyePosition.y, eyePosition.z);
                     d0 = blockPos.getX() - this.getX();

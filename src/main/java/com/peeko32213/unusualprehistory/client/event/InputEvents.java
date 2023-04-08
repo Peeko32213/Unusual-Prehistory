@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.core.registry.UPNetwork;
+import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import com.peeko32213.unusualprehistory.core.registry.util.KeyInputMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.InputEvent;
@@ -26,7 +26,7 @@ public class InputEvents {
 
     private static void onInput(Minecraft mc, int key, int action) {
         if (mc.screen == null && ClientEvents.roarKey.consumeClick()) {
-            UPNetwork.CHANNEL.sendToServer(new KeyInputMessage(key));
+            UPMessages.sendToServer(new KeyInputMessage(key));
         }
     }
 }
