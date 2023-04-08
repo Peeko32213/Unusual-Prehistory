@@ -17,10 +17,6 @@ public class CultivatorBlockEntityRenderer implements BlockEntityRenderer<Cultiv
     public CultivatorBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
     }
 
-    private int count = 1;
-
-    //public static final ModelResourceLocation LOC = new ModelResourceLocation(new ResourceLocation(UnusualPrehistory.MODID, "bubble"), "inventory");
-    //private static final Direction[] DIRS = ArrayUtils.add(Direction.values(), null);
 
     @Override
     public void render(CultivatorBlockEntity blockEntity, float partialtick, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, int packedOverlay) {
@@ -28,7 +24,7 @@ public class CultivatorBlockEntityRenderer implements BlockEntityRenderer<Cultiv
         float age = blockEntity.tickCount + partialtick;
 
         float rotateAngleY = age / 5;
-        float rotateAngleX = Mth.sin(age / 5.0F) / 4.0F;
+
 
 
         ItemStack itemStack = blockEntity.getRenderStack();
@@ -44,11 +40,6 @@ public class CultivatorBlockEntityRenderer implements BlockEntityRenderer<Cultiv
                 OverlayTexture.NO_OVERLAY, poseStack, multiBufferSource, 1);
 
         poseStack.popPose();
-
-
-        // ItemStack itemStack2 = new ItemStack(Items.ENDER_PEARL);
-//
-        // poseStack.translate(0.2,(Math.abs(Math.sin(age*0.05)) )+0.5,0.2);
         // poseStack.scale(0.1F, 0.1F, 0.1F);
         // poseStack.mulPose(Vector3f.YP.rotationDegrees(rotateAngleY * (45F / (float) Math.PI) ));
         // poseStack.mulPose(Vector3f.XP.rotationDegrees(rotateAngleX * (90 / (float) Math.PI)));

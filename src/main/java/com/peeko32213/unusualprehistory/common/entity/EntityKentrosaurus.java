@@ -241,7 +241,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
         return null;
     }
 
-    public class KentroSitWhenOrderedToGoal extends Goal {
+    public static class KentroSitWhenOrderedToGoal extends Goal {
         private final EntityKentrosaurus mob;
 
         public KentroSitWhenOrderedToGoal(EntityKentrosaurus p_25898_) {

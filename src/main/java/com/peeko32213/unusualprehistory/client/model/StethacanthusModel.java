@@ -30,8 +30,8 @@ public class StethacanthusModel extends AnimatedGeoModel<EntityStethacanthus>
     }
 
     @Override
-    public void setLivingAnimations(EntityStethacanthus entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityStethacanthus entity, int uniqueID, AnimationEvent customPredicate) {
+        super.setCustomAnimations(entity, uniqueID, customPredicate);
         IBone body = this.getAnimationProcessor().getBone("body");
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 

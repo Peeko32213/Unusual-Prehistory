@@ -207,10 +207,8 @@ public class BlockstateGenerator extends BlockStateProvider {
     }
 
     private void flatWaterEgg(Block block) {
-        getVariantBuilder(block).forAllStatesExcept((state) -> {
-            return ConfiguredModel.builder().modelFile(existingModel("eggs/"+getName(block)))
-                    .build();
-        });
+        getVariantBuilder(block).forAllStatesExcept((state) -> ConfiguredModel.builder().modelFile(existingModel("eggs/"+getName(block)))
+                .build());
     }
 
     private ConfiguredModel[] createVariants(ModelFile model){
@@ -292,60 +290,42 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 
     private String createEggModel(Integer pEgg, Integer pVariantId, Block block) {
-        switch (pVariantId) {
-            case 0:
-                return this.createEggModel(pEgg, "", key(block).toString());
-            case 1:
-                return this.createEggModel(pEgg, "slightly_cracked_", key(block).toString());
-            case 2:
-                return this.createEggModel(pEgg, "very_cracked_", key(block).toString());
-            default:
-                throw new UnsupportedOperationException();
-        }
+        return switch (pVariantId) {
+            case 0 -> this.createEggModel(pEgg, "", key(block).toString());
+            case 1 -> this.createEggModel(pEgg, "slightly_cracked_", key(block).toString());
+            case 2 -> this.createEggModel(pEgg, "very_cracked_", key(block).toString());
+            default -> throw new UnsupportedOperationException();
+        };
     }
 
     private String createEggModelSingle(Integer pEgg, Integer pVariantId, Block block) {
-        switch (pVariantId) {
-            case 0:
-                return this.createEggModelSingle(pEgg, "", key(block).toString());
-            case 1:
-                return this.createEggModelSingle(pEgg, "slightly_cracked_", key(block).toString());
-            case 2:
-                return this.createEggModelSingle(pEgg, "very_cracked_", key(block).toString());
-            default:
-                throw new UnsupportedOperationException();
-        }
+        return switch (pVariantId) {
+            case 0 -> this.createEggModelSingle(pEgg, "", key(block).toString());
+            case 1 -> this.createEggModelSingle(pEgg, "slightly_cracked_", key(block).toString());
+            case 2 -> this.createEggModelSingle(pEgg, "very_cracked_", key(block).toString());
+            default -> throw new UnsupportedOperationException();
+        };
     }
 
     private String createEggModel(int pHatchAmount, String pVariantName, String baseName) {
-        switch (pHatchAmount) {
-            case 1:
-                return "eggs/" +pVariantName + baseName.replace(UnusualPrehistory.MODID + ":", "");
-            case 2:
-                return "eggs/" +"two_" + pVariantName + baseName.replace(UnusualPrehistory.MODID + ":", "");
-            case 3:
-                return "eggs/" +"three_" + pVariantName + baseName.replace(UnusualPrehistory.MODID + ":", "");
-            case 4:
-                return "eggs/" +"four_" + pVariantName + baseName.replace(UnusualPrehistory.MODID + ":", "");
-            default:
-                throw new UnsupportedOperationException();
-        }
+        return switch (pHatchAmount) {
+            case 1 -> "eggs/" + pVariantName + baseName.replace(UnusualPrehistory.MODID + ":", "");
+            case 2 -> "eggs/" + "two_" + pVariantName + baseName.replace(UnusualPrehistory.MODID + ":", "");
+            case 3 -> "eggs/" + "three_" + pVariantName + baseName.replace(UnusualPrehistory.MODID + ":", "");
+            case 4 -> "eggs/" + "four_" + pVariantName + baseName.replace(UnusualPrehistory.MODID + ":", "");
+            default -> throw new UnsupportedOperationException();
+        };
     }
 
     private String createEggModelSingle(int pHatchAmount, String pVariantName, String baseName) {
         String s = "eggs/" + pVariantName + baseName.replace(UnusualPrehistory.MODID + ":", "");
-        switch (pHatchAmount) {
-            case 1:
-                return s;
-            case 2:
-                return s;
-            case 3:
-                return s;
-            case 4:
-                return s;
-            default:
-                throw new UnsupportedOperationException();
-        }
+        return switch (pHatchAmount) {
+            case 1 -> s;
+            case 2 -> s;
+            case 3 -> s;
+            case 4 -> s;
+            default -> throw new UnsupportedOperationException();
+        };
     }
     private BlockModelBuilder singleTex(Block block) {
         return generated(getName(block), new ResourceLocation(UnusualPrehistory.MODID,"item/" + getName(block).replace("eggs", "egg")));
@@ -379,16 +359,12 @@ public class BlockstateGenerator extends BlockStateProvider {
 
     private void tomatoBlock(Block block, ModelFile age1, ModelFile age2, ModelFile age3, ModelFile age4) {
         getVariantBuilder(block).forAllStatesExcept((state -> {
-            switch (state.getValue(BlockStateProperties.AGE_3)) {
-                default:
-                    return ConfiguredModel.builder().modelFile(age1).build();
-                case 1:
-                    return ConfiguredModel.builder().modelFile(age2).build();
-                case 2:
-                    return ConfiguredModel.builder().modelFile(age3).build();
-                case 3:
-                    return ConfiguredModel.builder().modelFile(age4).build();
-            }
+            return switch (state.getValue(BlockStateProperties.AGE_3)) {
+                default -> ConfiguredModel.builder().modelFile(age1).build();
+                case 1 -> ConfiguredModel.builder().modelFile(age2).build();
+                case 2 -> ConfiguredModel.builder().modelFile(age3).build();
+                case 3 -> ConfiguredModel.builder().modelFile(age4).build();
+            };
         }));
     }
 

@@ -340,8 +340,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public Entity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {
             if (passenger instanceof Player) {
-                Player player = (Player) passenger;
-                return player;
+                return (Player) passenger;
             }
         }
         return null;
@@ -546,16 +545,12 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     }
 
     public static String getVariantName(int variant) {
-        switch (variant) {
-            case 1:
-                return "white";
-            case 2:
-                return "yellow";
-            case 3:
-                return "orange";
-            default:
-                return "blue";
-        }
+        return switch (variant) {
+            case 1 -> "white";
+            case 2 -> "yellow";
+            case 3 -> "orange";
+            default -> "blue";
+        };
     }
 
 

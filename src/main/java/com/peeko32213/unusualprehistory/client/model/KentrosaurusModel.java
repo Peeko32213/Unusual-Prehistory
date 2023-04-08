@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityAntarctopelta;
 import com.peeko32213.unusualprehistory.common.entity.EntityKentrosaurus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -35,8 +34,8 @@ public class KentrosaurusModel extends AnimatedGeoModel<EntityKentrosaurus>
     }
 
     @Override
-    public void setLivingAnimations(EntityKentrosaurus dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(dino, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityKentrosaurus dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;
 

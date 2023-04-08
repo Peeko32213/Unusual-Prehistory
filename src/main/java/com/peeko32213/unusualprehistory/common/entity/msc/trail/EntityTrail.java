@@ -40,11 +40,6 @@ public class EntityTrail extends Projectile implements IEntityAdditionalSpawnDat
         setDuration(duration);
         setAngle(angle);
         setScale(scale);
-        //float f4 = -Mth.cos(-f * ((float)Math.PI / 180F));
-        //float f5 = Mth.sin(-f * ((float)Math.PI / 180F));
-        //double d0 = entity.getX() - (double)f3 * 0.3D;
-        //double d1 = entity.getEyeY();
-        //double d2 = entity.getZ() - (double)f2 * 0.3D;
         this.setPos(pos);
 
     }

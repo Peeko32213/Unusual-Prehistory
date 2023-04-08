@@ -3,8 +3,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
-import com.peeko32213.unusualprehistory.common.entity.EntityKentrosaurus;
-import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
@@ -36,8 +34,8 @@ public class HwachavenatorModel extends AnimatedGeoModel<EntityHwachavenator>
     }
 
     @Override
-    public void setLivingAnimations(EntityHwachavenator dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(dino, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityHwachavenator dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;
 

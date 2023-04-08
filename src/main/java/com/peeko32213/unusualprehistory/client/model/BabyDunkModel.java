@@ -30,8 +30,8 @@ public class BabyDunkModel extends AnimatedGeoModel<EntityBabyDunk>
     }
 
     @Override
-    public void setLivingAnimations(EntityBabyDunk entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityBabyDunk entity, int uniqueID, AnimationEvent customPredicate) {
+        super.setCustomAnimations(entity, uniqueID, customPredicate);
         IBone body = this.getAnimationProcessor().getBone("Body");
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 
