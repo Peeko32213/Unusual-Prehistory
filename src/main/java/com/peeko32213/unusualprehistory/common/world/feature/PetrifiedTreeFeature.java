@@ -42,9 +42,9 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         FastNoiseLite noise = createNoise(worldgenlevel.getSeed() + random.nextLong(), random.nextFloat());
         int randomNr = random.nextInt(0, 100);
         boolean placeFeature = randomNr < 7;
-        //if(!placeFeature){
-        //    return false;
-        //}
+        if(!placeFeature){
+            return false;
+        }
 
 
         double middleBlockZ = worldgenlevel.getChunk(blockpos.getX() >> 4, blockpos.getZ() >> 4).getPos().getMiddleBlockZ();
