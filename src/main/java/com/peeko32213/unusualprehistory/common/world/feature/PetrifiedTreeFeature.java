@@ -40,7 +40,7 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos blockpos = context.origin();
         RandomSource random = context.random();
         FastNoiseLite noise = createNoise(worldgenlevel.getSeed() + random.nextLong(), random.nextFloat());
-        int randomNr = random.nextInt(0,100);
+        int randomNr = random.nextInt(0, 100);
         boolean placeFeature = randomNr < 5;
       //  if(!placeFeature){
         //    return false;
@@ -59,9 +59,9 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         int radius = random.nextInt(3, 6);
         int radius2 = radius;
 
-        changeTerrain(worldgenlevel, random, blockPosCorner, noise);
+        changeTerrain(worldgenlevel, random, blockPosMid, noise);
         createSphere(worldgenlevel, random, blockPosMid, noise);
-        populateWithTrees(worldgenlevel, random, blockPosCorner, noise);
+        populateWithTrees(worldgenlevel, random, blockPosMid, noise);
         return true;
     }
 
@@ -71,7 +71,7 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         int radius = height;
         BlockState block = Blocks.STONE.defaultBlockState();
         BlockState block2 = UPBlocks.STONE_FOSSIL.get().defaultBlockState();
-
+        origin = origin.offset(0,(-radius/2)-1,0);
         boolean changeBlock = rand.nextBoolean();
 
         if(changeBlock){
@@ -94,7 +94,7 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
                         if (f < 0.5) {
                             worldgenlevel.setBlock(pos, block, 3);
                             worldgenlevel.setBlock(pos2, block, 3);
-                        } else {
+                        } else if( f > 0.6 &&  f < 0.8){
                             worldgenlevel.setBlock(pos, block2, 3);
                             worldgenlevel.setBlock(pos2, block2, 3);
                         }
@@ -105,55 +105,55 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     public static void populateWithTrees(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise) {
-        int height = 8;
-        int radius = height;
+        int radius = 8;
 
         BlockState block = UPBlocks.PETRIFIED_WOOD_LOG.get().defaultBlockState();
-        for (int x = 0; x < 16; x++) {
-            for (int z = 0; z < 16; z++) {
-                BlockPos pos = origin.offset(x, 0, z);
-                double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ());
 
+        for (int x = -radius; x < radius; x++) {
+            for (int z = -radius; z < radius; z++) {
+                BlockPos pos = origin.offset(x, 0, z);
+                double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ()) - 1;
                 BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
+                double distance = distance(x, 0, z, radius, 1, radius);
                 float f = noise.GetNoise(x, (float) yHeight, z);
-                if (f > 0.6) {
-                    int randomTreeHeight = rand.nextInt(1, 5);
-                    for (int treeHeight = 0; treeHeight < randomTreeHeight && !hasPetrifiedWoodNextToIt(worldgenlevel, pos2, rand); treeHeight++) {
-                        worldgenlevel.setBlock(pos2.offset(0, treeHeight, 0), block, 3);
+                if (distance < 1) {
+                    if (f > 0.6 && f < 0.8) {
+                        int randomTreeHeight = rand.nextInt(1, 5);
+                        for (int treeHeight = 1; treeHeight < randomTreeHeight && !hasPetrifiedWoodNextToIt(worldgenlevel, pos2, rand); treeHeight++) {
+                            worldgenlevel.setBlock(pos2.offset(0, treeHeight, 0), block, 3);
+                        }
                     }
                 }
-
-
             }
         }
     }
 
     public static void changeTerrain(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise) {
-        int height = 8;
-        int radius = height;
+
+        int radius = 8;
         BlockState block = Blocks.SAND.defaultBlockState();
         BlockState block2 = Blocks.DIRT.defaultBlockState();
         BlockState block3 = Blocks.COARSE_DIRT.defaultBlockState();
-        for (int x = 0; x < 16; x++) {
-            for (int z = 0; z < 16; z++) {
+        for (int x = -radius; x < radius; x++) {
+            for (int z = -radius; z < radius; z++) {
                 BlockPos pos = origin.offset(x, 0, z);
-
                 double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ()) - 1;
                 BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
                 if(worldgenlevel.getBiome(pos2).is(BiomeTags.IS_BADLANDS)){
                     block = Blocks.RED_SAND.defaultBlockState();
                 }
-
-                    float f = noise.GetNoise(x, (float) yHeight, z);
-                boolean isCorrectBlock =worldgenlevel.getBlockState(pos2).is(BlockTags.DIRT) || worldgenlevel.getBlockState(pos2).is(BlockTags.SAND);
-                if (f < 0 && isCorrectBlock) {
-                    worldgenlevel.setBlock(pos2, block, 3);
-                } else if ( f < 0.4 && f > 0 && isCorrectBlock) {
-                    worldgenlevel.setBlock(pos2, block2, 3);
-                } else if(isCorrectBlock){
-                    worldgenlevel.setBlock(pos2, block3, 3);
+                double distance = distance(x, 0, z, radius, 1, radius);
+                float f = noise.GetNoise(x, (float) yHeight, z);
+                if (distance < 1) {
+                    boolean isCorrectBlock = worldgenlevel.getBlockState(pos2).is(BlockTags.DIRT) || worldgenlevel.getBlockState(pos2).is(BlockTags.SAND);
+                    if (f < 0 && isCorrectBlock) {
+                        worldgenlevel.setBlock(pos2, block, 3);
+                    } else if (f < 0.4 && f > 0 && isCorrectBlock) {
+                        worldgenlevel.setBlock(pos2, block2, 3);
+                    } else if (isCorrectBlock) {
+                        worldgenlevel.setBlock(pos2, block3, 3);
+                    }
                 }
-
             }
         }
     }
@@ -164,11 +164,11 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     public static boolean hasPetrifiedWoodNextToIt(WorldGenLevel worldGenLevel, BlockPos pos, RandomSource randomSource) {
-        int randomNr = randomSource.nextInt(0,100);
+        int randomNr = randomSource.nextInt(0, 100);
 
         boolean checkForWood = randomNr > 10;
 
-        if(!checkForWood){
+        if (!checkForWood) {
             return false;
         }
 
