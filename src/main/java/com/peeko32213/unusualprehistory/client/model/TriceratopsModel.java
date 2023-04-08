@@ -34,7 +34,7 @@ public class TriceratopsModel extends AnimatedGeoModel<EntityTriceratops>
     }
 
     @Override
-    public void setLivingAnimations(EntityTriceratops dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
+    public void setCustomAnimations(EntityTriceratops dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;

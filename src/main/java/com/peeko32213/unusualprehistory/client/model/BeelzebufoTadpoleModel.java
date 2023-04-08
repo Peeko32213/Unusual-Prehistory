@@ -30,8 +30,8 @@ public class BeelzebufoTadpoleModel extends AnimatedGeoModel<EntityBeelzebufoTad
     }
 
     @Override
-    public void setLivingAnimations(EntityBeelzebufoTadpole entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityBeelzebufoTadpole entity, int uniqueID, AnimationEvent customPredicate) {
+        super.setCustomAnimations(entity, uniqueID, customPredicate);
         IBone body = this.getAnimationProcessor().getBone("Tadpole");
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 

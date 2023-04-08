@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.world.feature.tree;
 
-import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
 import com.peeko32213.unusualprehistory.core.registry.UPConfiguredFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;

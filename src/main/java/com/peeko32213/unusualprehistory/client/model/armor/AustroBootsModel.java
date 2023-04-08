@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.model.armor;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
-import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

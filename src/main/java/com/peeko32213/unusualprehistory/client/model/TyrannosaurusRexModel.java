@@ -34,8 +34,8 @@ public class TyrannosaurusRexModel extends AnimatedGeoModel<EntityTyrannosaurusR
     }
 
     @Override
-    public void setLivingAnimations(EntityTyrannosaurusRex dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(dino, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityTyrannosaurusRex dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;
 

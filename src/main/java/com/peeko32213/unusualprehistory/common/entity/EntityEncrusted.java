@@ -79,7 +79,7 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    public class RangedAttack extends CustomAbstractRangedAttack {
+    public static class RangedAttack extends CustomAbstractRangedAttack {
 
         public RangedAttack(RangedMeleeMob parentEntity, double xOffSetModifier, double entityHeightFraction, double zOffSetModifier, float damage) {
             super(parentEntity, xOffSetModifier, entityHeightFraction, zOffSetModifier, damage);

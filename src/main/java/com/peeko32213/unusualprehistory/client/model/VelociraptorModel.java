@@ -34,8 +34,8 @@ public class VelociraptorModel extends AnimatedGeoModel<EntityVelociraptor>
     }
 
     @Override
-    public void setLivingAnimations(EntityVelociraptor dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(dino, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityVelociraptor dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;
 

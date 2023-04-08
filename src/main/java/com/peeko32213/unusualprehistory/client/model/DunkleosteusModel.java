@@ -30,8 +30,8 @@ public class DunkleosteusModel extends AnimatedGeoModel<EntityDunkleosteus>
     }
 
     @Override
-    public void setLivingAnimations(EntityDunkleosteus entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityDunkleosteus entity, int uniqueID, AnimationEvent customPredicate) {
+        super.setCustomAnimations(entity, uniqueID, customPredicate);
         IBone body = this.getAnimationProcessor().getBone("Body");
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 

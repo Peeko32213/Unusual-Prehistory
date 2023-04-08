@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.datagen;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
-import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
+import com.peeko32213.unusualprehistory.core.registry.UPPlacedFeatures;
 import com.peeko32213.unusualprehistory.core.registry.UPConfiguredFeatures;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;

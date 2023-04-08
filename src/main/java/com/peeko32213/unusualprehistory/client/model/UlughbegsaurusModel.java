@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityAustroraptor;
 import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -30,16 +29,13 @@ public class UlughbegsaurusModel extends AnimatedGeoModel<EntityUlughbegsaurus>
     @Override
     public ResourceLocation getTextureResource(EntityUlughbegsaurus object)
     {
-        switch (object.getVariant()){
-            case 1:
-                return TEXTURE_WHITE;
-            case 2:
-                return TEXTURE_YELLOW;
-            case 3:
-                return TEXTURE_ORANGE;
-            default:
-                return TEXTURE_BLUE;
-        }    }
+        return switch (object.getVariant()) {
+            case 1 -> TEXTURE_WHITE;
+            case 2 -> TEXTURE_YELLOW;
+            case 3 -> TEXTURE_ORANGE;
+            default -> TEXTURE_BLUE;
+        };
+    }
 
     @Override
     public ResourceLocation getAnimationResource(EntityUlughbegsaurus object)
@@ -48,8 +44,8 @@ public class UlughbegsaurusModel extends AnimatedGeoModel<EntityUlughbegsaurus>
     }
 
     @Override
-    public void setLivingAnimations(EntityUlughbegsaurus dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(dino, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityUlughbegsaurus dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;
 

@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityAntarctopelta;
-import com.peeko32213.unusualprehistory.common.entity.EntityAustroraptor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
@@ -35,8 +34,8 @@ public class AntarctopeltaModel extends AnimatedGeoModel<EntityAntarctopelta>
     }
 
     @Override
-    public void setLivingAnimations(EntityAntarctopelta dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(dino, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityAntarctopelta dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;
 

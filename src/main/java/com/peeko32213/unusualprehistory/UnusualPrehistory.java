@@ -3,9 +3,9 @@ package com.peeko32213.unusualprehistory;
 import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
 import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.networking.UPMessages;
-import com.peeko32213.unusualprehistory.common.world.feature.UPFeatures;
-import com.peeko32213.unusualprehistory.common.world.feature.UPPlacedFeatures;
+import com.peeko32213.unusualprehistory.core.registry.UPMessages;
+import com.peeko32213.unusualprehistory.core.registry.UPFeatures;
+import com.peeko32213.unusualprehistory.core.registry.UPPlacedFeatures;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.renderer.Sheets;
@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -52,7 +51,6 @@ public class UnusualPrehistory {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus eventBus = MinecraftForge.EVENT_BUS;
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::registerCommon);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.CONFIG_BUILDER);
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
@@ -76,11 +74,6 @@ public class UnusualPrehistory {
         eventBus.addListener(UPPlayerCapability::onLivingDamage);
         eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
     }
-
-    private void registerCommon(final FMLCommonSetupEvent event) {
-        UPNetwork.init();
-    }
-
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {

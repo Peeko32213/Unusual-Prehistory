@@ -34,8 +34,8 @@ public class MajungasaurusModel extends AnimatedGeoModel<EntityMajungasaurus>
     }
 
     @Override
-    public void setLivingAnimations(EntityMajungasaurus dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(dino, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityMajungasaurus dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;
 

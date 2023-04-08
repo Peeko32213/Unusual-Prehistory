@@ -233,8 +233,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     @Nullable
     public Entity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {
-            if (passenger instanceof Player) {
-                Player player = (Player) passenger;
+            if (passenger instanceof Player player) {
                 if (player.getMainHandItem().getItem() == UPItems.MEAT_ON_A_STICK.get() || player.getOffhandItem().getItem() == UPItems.MEAT_ON_A_STICK.get()) {
                     return player;
                 }
