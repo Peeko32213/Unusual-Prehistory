@@ -40,8 +40,8 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos blockpos = context.origin();
         RandomSource random = context.random();
         FastNoiseLite noise = createNoise(worldgenlevel.getSeed() + random.nextLong(), random.nextFloat());
-        int randomNr = random.nextInt(0, 100);
-        boolean placeFeature = randomNr < 7;
+        int randomNr = random.nextInt(0, 5);
+        boolean placeFeature = randomNr < 5;
         if(!placeFeature){
             return false;
         }
@@ -56,7 +56,7 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos blockPosMid = new BlockPos(middleBlockX, worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) middleBlockX, (int) middleBlockZ), middleBlockZ);
         BlockPos blockPosCorner = new BlockPos(cornerBlockX, worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) cornerBlockX, (int) cornerBlockZ), cornerBlockZ);
 
-        int radius = random.nextInt(5, 20);
+        int radius = random.nextInt(5, 25);
 
         changeTerrain(worldgenlevel, random, blockPosMid, noise, radius);
         addBushes(worldgenlevel, random, blockPosMid, noise, radius);

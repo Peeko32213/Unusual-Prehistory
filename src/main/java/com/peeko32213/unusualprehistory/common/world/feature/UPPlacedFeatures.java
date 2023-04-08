@@ -55,7 +55,7 @@ public class UPPlacedFeatures {
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
 
     public static final RegistryObject<PlacedFeature> PETRIFIED_WOOD_FOREST_PLACED = registerPlacedFeature(METEOR_FEATURE_NAME_PLACED, () -> new PlacedFeature(UPConfiguredFeatures.CONFIGURED_PETRIFIED_WOOD_FOREST.getHolder().orElseThrow(), ImmutableList.of(
-            RarityFilter.onAverageOnceEvery(200),
+            RarityFilter.onAverageOnceEvery(10),
             //InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP_TOP_SOLID,
             //CountPlacement.of(80),
