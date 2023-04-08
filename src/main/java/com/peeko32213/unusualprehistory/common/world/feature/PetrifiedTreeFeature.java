@@ -41,10 +41,10 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         RandomSource random = context.random();
         FastNoiseLite noise = createNoise(worldgenlevel.getSeed() + random.nextLong(), random.nextFloat());
         int randomNr = random.nextInt(0, 100);
-        boolean placeFeature = randomNr < 5;
-      //  if(!placeFeature){
-        //    return false;
-        //}
+        boolean placeFeature = randomNr < 7;
+        if(!placeFeature){
+            return false;
+        }
 
 
         double middleBlockZ = worldgenlevel.getChunk(blockpos.getX() >> 4, blockpos.getZ() >> 4).getPos().getMiddleBlockZ();
@@ -56,12 +56,12 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos blockPosMid = new BlockPos(middleBlockX, worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) middleBlockX, (int) middleBlockZ), middleBlockZ);
         BlockPos blockPosCorner = new BlockPos(cornerBlockX, worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) cornerBlockX, (int) cornerBlockZ), cornerBlockZ);
 
-        int radius = random.nextInt(3, 6);
-        int radius2 = radius;
+        int radius = random.nextInt(5, 20);
 
-        changeTerrain(worldgenlevel, random, blockPosMid, noise);
+        changeTerrain(worldgenlevel, random, blockPosMid, noise, radius);
+        addBushes(worldgenlevel, random, blockPosMid, noise, radius);
         createSphere(worldgenlevel, random, blockPosMid, noise);
-        populateWithTrees(worldgenlevel, random, blockPosMid, noise);
+        populateWithTrees(worldgenlevel, random, blockPosMid, noise, radius);
         return true;
     }
 
@@ -104,11 +104,8 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
     }
 
-    public static void populateWithTrees(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise) {
-        int radius = 8;
-
+    public static void populateWithTrees(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise, int radius) {
         BlockState block = UPBlocks.PETRIFIED_WOOD_LOG.get().defaultBlockState();
-
         for (int x = -radius; x < radius; x++) {
             for (int z = -radius; z < radius; z++) {
                 BlockPos pos = origin.offset(x, 0, z);
@@ -128,9 +125,7 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
     }
 
-    public static void changeTerrain(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise) {
-
-        int radius = 8;
+    public static void changeTerrain(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise, int radius) {
         BlockState block = Blocks.SAND.defaultBlockState();
         BlockState block2 = Blocks.DIRT.defaultBlockState();
         BlockState block3 = Blocks.COARSE_DIRT.defaultBlockState();
@@ -152,6 +147,25 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
                         worldgenlevel.setBlock(pos2, block2, 3);
                     } else if (isCorrectBlock) {
                         worldgenlevel.setBlock(pos2, block3, 3);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void addBushes(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise, int radius) {
+        BlockState block = UPBlocks.PETRIFIED_BUSH.get().defaultBlockState();
+        for (int x = -radius; x < radius; x++) {
+            for (int z = -radius; z < radius; z++) {
+                BlockPos pos = origin.offset(x, 0, z);
+                double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ());
+                BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
+                double distance = distance(x, 0, z, radius, 1, radius);
+                float f = noise.GetNoise(x, (float) yHeight, z);
+                if (distance < 1) {
+                    boolean isCorrectBlock = worldgenlevel.getBlockState(pos2).is(Blocks.AIR);
+                    if (f > 0 && f < 0.05 && isCorrectBlock) {
+                        worldgenlevel.setBlock(pos2, block, 3);
                     }
                 }
             }
