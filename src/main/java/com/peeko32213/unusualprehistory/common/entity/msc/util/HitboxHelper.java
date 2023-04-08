@@ -49,11 +49,9 @@ public class HitboxHelper {
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
 
                     if(!entities.isEmpty()) {
-                        for(int n = 0; n < entities.size(); n++) {
+                        for (LivingEntity target : entities) {
 
-                            LivingEntity target = entities.get(n);
-
-                            if(target != entityIn) {
+                            if (target != entityIn) {
                                 //entityIn.doHurtTarget(target);
                                 target.hurt(source, damage);
                                 target.setLastHurtByMob(entityIn);
@@ -113,11 +111,9 @@ public class HitboxHelper {
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
 
                     if(!entities.isEmpty()) {
-                        for(int n = 0; n < entities.size(); n++) {
+                        for (LivingEntity target : entities) {
 
-                            LivingEntity target = entities.get(n);
-
-                            if(target == entityIn.getTarget()) {
+                            if (target == entityIn.getTarget()) {
                                 //entityIn.doHurtTarget(target);
                                 target.hurt(source, damage);
                                 target.setLastHurtByMob(entityIn);
@@ -176,11 +172,9 @@ public class HitboxHelper {
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
 
                     if(!entities.isEmpty()) {
-                        for(int n = 0; n < entities.size(); n++) {
+                        for (LivingEntity target : entities) {
 
-                            LivingEntity target = entities.get(n);
-
-                            if(target == entityIn.getTarget()) {
+                            if (target == entityIn.getTarget()) {
                                 //entityIn.doHurtTarget(target);
                                 target.hurt(source, damage);
                                 target.setLastHurtByMob(entityIn);

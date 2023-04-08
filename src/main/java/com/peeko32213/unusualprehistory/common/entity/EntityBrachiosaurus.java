@@ -2,7 +2,10 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityBrachiosaurusPart;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRideGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -39,7 +42,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.*;
+import net.minecraft.world.level.pathfinder.Node;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -130,8 +134,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         if (this.isSaddled()) {
             for (Entity passenger : this.getPassengers()) {
                 if (passenger instanceof Player) {
-                    Player player = (Player) passenger;
-                    return player;
+                    return (Player) passenger;
                 }
             }
         }
@@ -343,8 +346,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 entityToLaunchId = passenger.getId();
                 this.setLaunching(false);
                 for (Entity rider : this.getPassengers()) {
-                    if (rider instanceof Player) {
-                        Player player = (Player) rider;
+                    if (rider instanceof Player player) {
                         player.addEffect(new MobEffectInstance(UPEffects.BRACHI_PROTECTION.get(), 200));
                     }
                 }

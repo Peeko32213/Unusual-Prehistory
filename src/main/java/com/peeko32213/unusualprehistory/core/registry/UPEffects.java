@@ -15,9 +15,9 @@ import net.minecraftforge.registries.RegistryObject;
 public class UPEffects {
     public static final DeferredRegister<MobEffect> EFFECT_DEF_REG = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, UnusualPrehistory.MODID);
 
-    public static final RegistryObject<MobEffect> BRACHI_PROTECTION = EFFECT_DEF_REG.register("brachi_protection", ()-> new EffectBrachisProtection());
-    public static final RegistryObject<MobEffect> PACHYS_MIGHT = EFFECT_DEF_REG.register("pachys_might", ()-> new EffectPachysMight());
-    public static final RegistryObject<MobEffect> SCREEN_SHAKE = EFFECT_DEF_REG.register("screen_shake", ()-> new EffectScreenShake());
-    public static final RegistryObject<MobEffect> PREVENT_CLICK = EFFECT_DEF_REG.register("prevent_click", ()-> new EffectPreventClick());
+    public static final RegistryObject<MobEffect> BRACHI_PROTECTION = EFFECT_DEF_REG.register("brachi_protection", EffectBrachisProtection::new);
+    public static final RegistryObject<MobEffect> PACHYS_MIGHT = EFFECT_DEF_REG.register("pachys_might", EffectPachysMight::new);
+    public static final RegistryObject<MobEffect> SCREEN_SHAKE = EFFECT_DEF_REG.register("screen_shake", EffectScreenShake::new);
+    public static final RegistryObject<MobEffect> PREVENT_CLICK = EFFECT_DEF_REG.register("prevent_click", EffectPreventClick::new);
 
 }

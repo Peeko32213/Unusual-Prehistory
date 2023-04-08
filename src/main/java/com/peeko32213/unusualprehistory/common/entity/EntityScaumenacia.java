@@ -97,7 +97,7 @@ public class EntityScaumenacia extends WaterAnimal implements Bucketable, IAnima
 
     public boolean isGolden() {
         String s = ChatFormatting.stripFormatting(this.getName().getString());
-        return s != null && (s.toLowerCase().contains("Sengoku") || s.toLowerCase().contains("sengoku"));
+        return s != null && (s.toLowerCase().contains("sengoku"));
     }
 
     protected PathNavigation createNavigation(Level p_27480_) {

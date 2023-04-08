@@ -34,8 +34,8 @@ public class CotylorhynchusModel extends AnimatedGeoModel<EntityCotylorhynchus>
     }
 
     @Override
-    public void setLivingAnimations(EntityCotylorhynchus dino, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(dino, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityCotylorhynchus dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;
 

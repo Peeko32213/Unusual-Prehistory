@@ -1,20 +1,18 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.networking.UPMessages;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -23,7 +21,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -35,7 +32,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -47,37 +43,30 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     private BlockState blockstate;
     public int ticksExisted;
 
-   // public static void commonTick(Level level, BlockPos pos, BlockState state, CultivatorBlockEntity entity) {
-   //     entity.tick();
-   // }
-//
-   // public void tick() {
-   //     ticksExisted++;
-   // }
+
 
     public CultivatorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         this.blockstate = pBlockState;
         this.data = new ContainerData() {
             public int get(int index) {
-                switch (index) {
-                    case 0: return CultivatorBlockEntity.this.progress;
-                    case 1: return CultivatorBlockEntity.this.maxProgress;
-                    case 2: return CultivatorBlockEntity.this.fuel;
-                    case 3: return CultivatorBlockEntity.this.maxFuel;
-                    case 4: return CultivatorBlockEntity.this.tickCount;
-                    default: return 0;
-                }
+                return switch (index) {
+                    case 0 -> CultivatorBlockEntity.this.progress;
+                    case 1 -> CultivatorBlockEntity.this.maxProgress;
+                    case 2 -> CultivatorBlockEntity.this.fuel;
+                    case 3 -> CultivatorBlockEntity.this.maxFuel;
+                    case 4 -> CultivatorBlockEntity.this.tickCount;
+                    default -> 0;
+                };
             }
 
             public void set(int index, int value) {
-                switch(index) {
-                    case 0: CultivatorBlockEntity.this.progress = value; break;
-                    case 1: CultivatorBlockEntity.this.maxProgress = value; break;
-                    case 2: CultivatorBlockEntity.this.fuel = value; break;
-                    case 3: CultivatorBlockEntity.this.maxFuel = value; break;
-                    case 4: CultivatorBlockEntity.this.tickCount = value; break;
-
+                switch (index) {
+                    case 0 -> CultivatorBlockEntity.this.progress = value;
+                    case 1 -> CultivatorBlockEntity.this.maxProgress = value;
+                    case 2 -> CultivatorBlockEntity.this.fuel = value;
+                    case 3 -> CultivatorBlockEntity.this.maxFuel = value;
+                    case 4 -> CultivatorBlockEntity.this.tickCount = value;
                 }
             }
 

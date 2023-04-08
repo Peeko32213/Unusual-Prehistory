@@ -2,11 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry.util;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -19,12 +15,13 @@ public class KeyInputMessage  {
         this.key = key;
     }
 
-    public static void encode(KeyInputMessage message, FriendlyByteBuf buffer) {
-        buffer.writeInt(message.key);
+    public KeyInputMessage(FriendlyByteBuf buf) {
+        this.key = buf.readInt();
     }
 
-    public static KeyInputMessage decode(FriendlyByteBuf buffer) {
-        return new KeyInputMessage(buffer.readInt());
+
+    public void toBytes(FriendlyByteBuf buffer) {
+        buffer.writeInt(key);
     }
 
     public static void handle(KeyInputMessage message, Supplier<NetworkEvent.Context> contextSupplier) {

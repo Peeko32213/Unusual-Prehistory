@@ -19,12 +19,10 @@ public class EryonModel extends AnimatedGeoModel<EntityEryon> {
     @Override
     public ResourceLocation getTextureResource(EntityEryon object)
     {
-        switch (object.getVariant()){
-            case 1:
-                return TEXTURE_BLUE;
-            default:
-                return TEXTURE_NORMAL;
+        if (object.getVariant() == 1) {
+            return TEXTURE_BLUE;
         }
+        return TEXTURE_NORMAL;
     }
 
     @Override

@@ -23,11 +23,9 @@ public class AmberProtectionSyncS2CPacket {
     }
 
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
+    public void handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
-        context.enqueueWork(() -> {
-            ClientAmberProtectionData.set(amber_protection);
-        });
-        return true;
+        context.enqueueWork(() -> ClientAmberProtectionData.set(amber_protection));
+        return;
     }
 }

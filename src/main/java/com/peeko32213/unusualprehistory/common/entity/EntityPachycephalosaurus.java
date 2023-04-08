@@ -132,7 +132,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
     public boolean isUlti() {
         String s = ChatFormatting.stripFormatting(this.getName().getString());
-        return s != null && (s.toLowerCase().contains("ulti") || s.toLowerCase().contains("Ulti"));
+        return s != null && (s.toLowerCase().contains("ulti"));
     }
 
     @Override
@@ -237,8 +237,7 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
         boolean prev = super.hurt(source, amount);
         if (prev) {
             if (source.getEntity() != null) {
-                if (source.getEntity() instanceof LivingEntity) {
-                    LivingEntity hurter = (LivingEntity) source.getEntity();
+                if (source.getEntity() instanceof LivingEntity hurter) {
                     if (hurter.hasEffect(UPEffects.PACHYS_MIGHT.get())) {
                         hurter.removeEffect(UPEffects.PACHYS_MIGHT.get());
                     }
@@ -402,26 +401,17 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
 
 
             switch (animState) {
-                case 21:
-                    tickLightAttack1();
-                    break;
-                case 22:
-                    tickLightAttack2();
-                    break;
-                case 23:
-                    tickStrongHeadbuttAttack();
-                    break;
-                case 24:
-                    tickKickAttack();
-                    break;
-                default:
+                case 21 -> tickLightAttack1();
+                case 22 -> tickLightAttack2();
+                case 23 -> tickStrongHeadbuttAttack();
+                case 24 -> tickKickAttack();
+                default -> {
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
                     this.doMovement(target, distance);
                     this.checkForCloseRangeAttack(distance, reach);
-                    break;
-
+                }
             }
 
         }

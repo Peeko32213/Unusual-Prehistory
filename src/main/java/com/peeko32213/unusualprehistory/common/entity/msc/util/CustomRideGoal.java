@@ -1,11 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityTriceratops;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
