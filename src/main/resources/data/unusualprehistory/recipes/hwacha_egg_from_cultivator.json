@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:hwacha_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:hwacha_eggs"
+  }
+}

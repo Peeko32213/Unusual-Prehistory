@@ -35,7 +35,7 @@ public class LanguageGenerator extends LanguageProvider {
 
         //TOOLS
         addItem(UPItems.WARPICK, "War Pick");
-        addItem(UPItems.PRIMAL_MACUAHUITL, "Primal Macauhuitl");
+        addItem(UPItems.PRIMAL_MACUAHUITL, "Primal Macuahuitl");
 
         //FOSSILS
         addItem(UPItems.SHELL_SHARD, "Shell Shard");
@@ -350,6 +350,11 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ERYON_IDLE, "Crabful Noises");
         addSound(UPSounds.ERYON_HURT, "Crustaceous Grunts");
         addSound(UPSounds.ERYON_DEATH, "Crabby Death");
+        addSound(UPSounds.AUSTRO_BITE, "Squakful Nip");
+        addSound(UPSounds.AUSTRO_DEATH, "Dying Coos");
+        addSound(UPSounds.AUSTRO_HURT, "Sharp Squak");
+        addSound(UPSounds.AUSTRO_IDLE, "Graceful Coos");
+        addSound(UPSounds.AUSTRO_PREEN, "Graceful Preening");
 
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");

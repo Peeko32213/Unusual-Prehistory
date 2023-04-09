@@ -29,8 +29,8 @@ public class ItemEncyclopedia extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target, InteractionHand hand) {
         ItemStack itemStackIn = playerIn.getItemInHand(hand);
-        if (playerIn instanceof ServerPlayer serverplayerentity) {
-            CriteriaTriggers.CONSUME_ITEM.trigger(serverplayerentity, itemStackIn);
+        if (playerIn instanceof ServerPlayer) {
+            ServerPlayer serverplayerentity = (ServerPlayer)playerIn;
             serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
         }
         if (playerIn.level.isClientSide && target.getEncodeId() != null && target.getEncodeId().contains(UnusualPrehistory.MODID + ":")) {
@@ -44,7 +44,8 @@ public class ItemEncyclopedia extends Item {
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemStackIn = playerIn.getItemInHand(handIn);
         if (!usedOnEntity) {
-            if (playerIn instanceof ServerPlayer serverplayerentity) {
+            if (playerIn instanceof ServerPlayer) {
+                ServerPlayer serverplayerentity = (ServerPlayer) playerIn;
                 CriteriaTriggers.CONSUME_ITEM.trigger(serverplayerentity, itemStackIn);
                 serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
             }

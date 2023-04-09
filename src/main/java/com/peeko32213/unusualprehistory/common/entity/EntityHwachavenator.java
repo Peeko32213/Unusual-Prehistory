@@ -321,6 +321,9 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 }
                 this.setSpeed(0.3F);
                 super.travel(new Vec3((double) f, pos.y, (double) f1));
+                if (this.isShooting() && this.isVehicle()){
+                    this.setSpeed(0.0F);
+                }
             } else {
                 super.travel(pos);
             }

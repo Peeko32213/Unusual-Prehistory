@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:kentro_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:kentro_eggs"
+  }
+}

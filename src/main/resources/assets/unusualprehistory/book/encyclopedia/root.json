@@ -154,8 +154,8 @@
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 0.6,
-      "offset_x": -8,
-      "offset_y": 4,
+      "offset_x": -6,
+      "offset_y": 7,
       "linked_page": "rex.json",
       "hover_text": "Tyrannosaurus Rex"
     },
@@ -190,8 +190,8 @@
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 1.1,
-      "offset_x": -8,
-      "offset_y": -3,
+      "offset_x": -9,
+      "offset_y": 11,
       "linked_page": "austro.json",
       "hover_text": "Austroraptor"
     },
@@ -202,8 +202,8 @@
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 1.1,
-      "offset_x": -8,
-      "offset_y": -3,
+      "offset_x": -15,
+      "offset_y": 12,
       "linked_page": "ulugh.json",
       "hover_text": "Ulughbegsaurus"
     },
@@ -214,8 +214,8 @@
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 1.1,
-      "offset_x": -8,
-      "offset_y": -3,
+      "offset_x": -13,
+      "offset_y": -8,
       "linked_page": "kentro.json",
       "hover_text": "Kentrosaurus"
     },
@@ -226,8 +226,8 @@
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 1.1,
-      "offset_x": -8,
-      "offset_y": -3,
+      "offset_x": -13,
+      "offset_y": -8,
       "linked_page": "antarcto.json",
       "hover_text": "Antarctopelta"
     },
@@ -238,8 +238,8 @@
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 1.1,
-      "offset_x": -8,
-      "offset_y": -3,
+      "offset_x": -14,
+      "offset_y": 11,
       "linked_page": "hwacha.json",
       "hover_text": "Hwachavenator"
     }

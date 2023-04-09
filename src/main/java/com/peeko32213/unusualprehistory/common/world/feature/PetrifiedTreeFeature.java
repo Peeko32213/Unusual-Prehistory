@@ -38,10 +38,10 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos blockpos = context.origin();
         RandomSource random = context.random();
         FastNoiseLite noise = createNoise(worldgenlevel.getSeed() + random.nextLong(), random.nextFloat());
-        int randomNr = random.nextInt(0, 5);
+        int randomNr = random.nextInt(0, 50);
         boolean placeFeature = randomNr < 5;
         if(!placeFeature){
-            return false;
+           return false;
         }
 
 

@@ -105,6 +105,18 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         this.entityData.define(PREENING_TIME, 0);
     }
 
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.AUSTRO_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.AUSTRO_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.AUSTRO_DEATH.get();
+    }
+
     public boolean isPreening() {
         return this.getPreeningTime() > 0;
     }
@@ -130,6 +142,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
             }
             this.doEnchantDamageEffects(this, target);
             this.setLastHurtMob(target);
+            this.setPreeningTime(0);
         }
         return shouldHurt;
     }
@@ -166,16 +179,16 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         if (this.isPreening()) {
             this.setPreeningTime(this.getPreeningTime() - 1);
             this.getNavigation().stop();
+            this.playSound(UPSounds.AUSTRO_PREEN.get(), 0.1F, 1.0F);
             if (random.nextInt(90) == 0) {
                 this.spawnAtLocation(UPItems.AUSTRO_FEATHER.get());
             }
         }
     }
 
-
     @Override
     protected SoundEvent getAttackSound() {
-        return UPSounds.RAPTOR_ATTACK.get();
+        return UPSounds.AUSTRO_BITE.get();
     }
 
     @Override

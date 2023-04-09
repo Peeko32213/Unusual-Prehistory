@@ -79,6 +79,11 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> ERYON_DEATH = createSoundEvent("eryon_death");
     public static final RegistryObject<SoundEvent> ERYON_HURT = createSoundEvent("eryon_hurt");
     public static final RegistryObject<SoundEvent> ERYON_IDLE = createSoundEvent("eryon_idle");
+    public static final RegistryObject<SoundEvent> AUSTRO_BITE = createSoundEvent("austro_bite");
+    public static final RegistryObject<SoundEvent> AUSTRO_DEATH = createSoundEvent("austro_death");
+    public static final RegistryObject<SoundEvent> AUSTRO_HURT = createSoundEvent("austro_hurt");
+    public static final RegistryObject<SoundEvent> AUSTRO_IDLE = createSoundEvent("austro_idle");
+    public static final RegistryObject<SoundEvent> AUSTRO_PREEN = createSoundEvent("austro_preen");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));

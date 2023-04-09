@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "RSR",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "item": "unusualprehistory:rex_scale"
+    },
+    "S": {
+      "item": "minecraft:note_block"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:rex_boombox"
+  }
+}

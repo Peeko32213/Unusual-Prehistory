@@ -36,17 +36,12 @@ public class AustroraptorModel extends AnimatedGeoModel<EntityAustroraptor>
     @Override
     public void setCustomAnimations(EntityAustroraptor dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setCustomAnimations(dino, uniqueID, customPredicate);
+        super.setCustomAnimations(dino, uniqueID, customPredicate);
 
         if (customPredicate == null) return;
 
         List<EntityModelData> extraDataOfType = customPredicate.getExtraDataOfType(EntityModelData.class);
         IBone head = this.getAnimationProcessor().getBone("Neck");
-
-        if (dino.isBaby()) {
-            head.setScaleX(1.75F);
-            head.setScaleY(1.75F);
-            head.setScaleZ(1.75F);
-        }
 
         if (!dino.isSprinting()) {
             head.setRotationY(extraDataOfType.get(0).netHeadYaw * Mth.DEG_TO_RAD);
