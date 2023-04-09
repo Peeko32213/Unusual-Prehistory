@@ -6,13 +6,20 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.AustroraptorModel;
 import com.peeko32213.unusualprehistory.common.entity.EntityAustroraptor;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class AustroraptorRenderer extends GeoEntityRenderer<EntityAustroraptor> {
 
     public AustroraptorRenderer(EntityRendererProvider.Context context) {
         super(context, new AustroraptorModel());
+    }
+
+    @Override
+    public RenderType getRenderType(EntityAustroraptor animatable, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int PackedLightIn, ResourceLocation textureLocation){
+        return RenderType.entityCutout(getTextureLocation(animatable));
     }
 
     @Override

@@ -2,12 +2,13 @@
 <NEWLINE>
 <NEWLINE>
 <NEWLINE>
-A relatively large dromaeosaur from the late cretaceous, these graceful creatures are docile unless provoked. They spend
-most of their days hunting for fish and other small prey. These creatures have rather graceful plumage, with large red crests
+A relatively large dromaeosaur from the Late Cretaceous, these graceful creatures are docile unless provoked. They spend
+most of their days hunting for fish and other small prey. These creatures have rather graceful plumage, with large prominent
+red crests
 adorning the side of their face and the top of their head. Sometimes they will groom themselves, leaving behind a few feathers
 in the process.
 <NEWLINE>
 <NEWLINE>
 <NEWLINE>
-These feathers can be crafted in a set of boots that negate the damage from falling down. These dinosaurs also drop meat on their
+These feathers can be used to craft boots that negate fall damage. These dinosaurs also drop meat on their
 death. While not the best meat on the menu, other dinosaurs such as Ulughbegsaurus enjoy it.
