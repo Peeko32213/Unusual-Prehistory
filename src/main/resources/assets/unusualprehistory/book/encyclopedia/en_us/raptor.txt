@@ -9,5 +9,5 @@ feathers.
 <NEWLINE>
 <NEWLINE>
 <NEWLINE>
-These feathers are a vital part of crafting the veloci-shield, a small shield that allows for a short burst of speed in
+These feathers are a vital part of crafting the Veloci-shield, a small shield that allows for a short burst of speed in
 a certain direction. However, it's small size prevents it from actually blocking attacks.

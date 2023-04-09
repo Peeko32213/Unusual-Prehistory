@@ -23,7 +23,7 @@
       "trigger": "minecraft:player_hurt_entity",
       "conditions": {
         "entity": {
-          "type": "unusualprehistory:austroraptor"
+          "type": "unusualprehistory:hwachavenator"
         }
       }
     },
@@ -31,7 +31,7 @@
       "trigger": "minecraft:player_interacted_with_entity",
       "conditions": {
         "entity": {
-          "type": "unusualprehistory:austroraptor"
+          "type": "unusualprehistory:hwachavenator"
         }
       }
     }

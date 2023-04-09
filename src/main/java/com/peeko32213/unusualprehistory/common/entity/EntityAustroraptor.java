@@ -251,7 +251,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6|| this.isSwimming()) {
             {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.walk"));
             }
