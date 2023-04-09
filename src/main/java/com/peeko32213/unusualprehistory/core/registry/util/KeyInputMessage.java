@@ -32,6 +32,8 @@ public class KeyInputMessage  {
             if (vehicle instanceof EntityHwachavenator hwachavenator) {
                 if (hwachavenator.isSaddled() && hwachavenator.isTame() && hwachavenator.getControllingPassenger() == player) {
                     hwachavenator.setIsShooting(true);
+                    hwachavenator.getNavigation().stop();
+
                 }
             }
         });
