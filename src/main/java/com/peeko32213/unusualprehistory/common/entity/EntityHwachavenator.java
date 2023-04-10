@@ -316,12 +316,17 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
     @Override
     public void travel(Vec3 pos) {
-        if(this.isShooting()){
-            return;
-        }
-
         if (this.isAlive()) {
             LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
+            if(this.isShooting()){
+                this.setYRot(livingentity.getYRot());
+                this.setXRot(livingentity.getXRot() * 0.5F);
+                this.setRot(livingentity.getYRot(), livingentity.getXRot());
+                this.yBodyRot = livingentity.getYRot();
+                this.yHeadRot = livingentity.yHeadRot;
+                return;
+            }
+
             if (this.isVehicle() && livingentity != null) {
                 double d0 = 0.08D;
                 this.setYRot(livingentity.getYRot());
