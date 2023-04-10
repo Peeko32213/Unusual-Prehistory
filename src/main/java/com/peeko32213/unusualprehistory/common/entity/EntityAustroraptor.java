@@ -20,11 +20,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -36,10 +39,12 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Integer> PREENING_TIME = SynchedEntityData.defineId(EntityAustroraptor.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> PREENING = SynchedEntityData.defineId(EntityAustroraptor.class, EntityDataSerializers.BOOLEAN);
+
     public int timeUntilDrops = this.random.nextInt(200) + 400;
     public float prevPreenProgress;
     public float preenProgress;
-
+    public static final Logger LOGGER = LogManager.getLogger();
     public EntityAustroraptor(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.maxUpStep = 1.0f;
@@ -93,17 +98,22 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
                             }
                         }
                     }
+
+                    @Override
+                    public boolean canContinueToUse() {
+                        //return super.canContinueToUse();
+                        //LOGGER.info("preening? " +  ((EntityAustroraptor) this.mob).getIsPreening());
+                        return !((EntityAustroraptor) this.mob).getIsPreening() && super.canContinueToUse();
+                    }
                 }
+
 
         );
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(PREENING_TIME, 0);
-    }
+
 
     protected SoundEvent getAmbientSound() {
         return UPSounds.AUSTRO_IDLE.get();
@@ -117,8 +127,12 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         return UPSounds.AUSTRO_DEATH.get();
     }
 
-    public boolean isPreening() {
-        return this.getPreeningTime() > 0;
+    public boolean getIsPreening() {
+        return this.entityData.get(PREENING);
+    }
+
+    public void setIsPreening(boolean preening) {
+        this.entityData.set(PREENING, preening);
     }
 
     public int getPreeningTime() {
@@ -129,6 +143,15 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         this.entityData.set(PREENING_TIME, shaking);
     }
 
+    @Override
+    public void travel(Vec3 pTravelVector) {
+        if(this.getIsPreening()) {
+            super.travel(new Vec3(0,0,0));
+        }
+        else{
+            super.travel(pTravelVector);
+        }
+    }
 
     @Override
     public boolean doHurtTarget(Entity target) {
@@ -147,15 +170,27 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         return shouldHurt;
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(PREENING_TIME, 0);
+        this.entityData.define(PREENING, false);
+    }
+
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("DropTime", this.timeUntilDrops);
+        compound.putInt("preeningTime", this.getPreeningTime());
+        compound.putBoolean("isPreening", this.getIsPreening());
+
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.setPreeningTime(compound.getInt("preeningTime"));
+        this.setIsPreening(compound.getBoolean("isPreening"));
+
         if (compound.contains("SpitTime")) {
             this.timeUntilDrops = compound.getInt("DropTime");
         }
@@ -167,18 +202,24 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     public void tick() {
         super.tick();
         prevPreenProgress = preenProgress;
-        if (this.isPreening() && preenProgress < 5F) {
-            preenProgress++;
-        }
-        if (random.nextInt(2000) == 0) {
+        //LOGGER.info("preeningTime " + this.getPreeningTime());
+
+
+
+        if (random.nextInt(2000) == 0 && !this.getIsPreening()) {
             this.setPreeningTime(100 + random.nextInt(30));
+            this.setIsPreening(true);
         }
-        if (!this.isPreening() && preenProgress > 0F) {
-            preenProgress--;
+
+        if(this.getPreeningTime() <= 0 && this.getIsPreening()){
+            this.setIsPreening(false);
+            this.goalSelector.getRunningGoals().forEach(WrappedGoal::start);
         }
-        if (this.isPreening()) {
+
+        if(this.getIsPreening()) {
             this.setPreeningTime(this.getPreeningTime() - 1);
             this.getNavigation().stop();
+            this.goalSelector.getRunningGoals().forEach(WrappedGoal::stop);
             this.playSound(UPSounds.AUSTRO_PREEN.get(), 0.1F, 1.0F);
             if (random.nextInt(90) == 0) {
                 this.spawnAtLocation(UPItems.AUSTRO_FEATHER.get());
@@ -277,7 +318,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
-        if (this.getPreeningTime() > 0) {
+        if (this.getIsPreening()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.preening"));
             return PlayState.CONTINUE;
         }

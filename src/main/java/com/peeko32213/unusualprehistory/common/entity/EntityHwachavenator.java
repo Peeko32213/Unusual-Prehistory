@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -84,7 +85,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(3, new RangedAttackGoal(this, 1.25D, 40, 20.0F));
+        this.goalSelector.addGoal(3, new RangedAttackGoal(this, 1.25D, 10, 20.0F));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -298,6 +299,10 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
     @Override
     public void travel(Vec3 pos) {
+        if(this.isShooting()){
+            return;
+        }
+
         if (this.isAlive()) {
             LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
             if (this.isVehicle() && livingentity != null) {
@@ -341,14 +346,23 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         }
         this.lookAt(target, 100, 100);
         for (int i = 0; i < 2 + random.nextInt(2); i++) {
-            EntityHwachaSpike llamaspitentity = new EntityHwachaSpike(this.level, this);
-            double d0 = target.getX() - this.getX();
-            double d1 = target.getY() - llamaspitentity.getY();
-            double d2 = target.getZ() - this.getZ();
-            float f = Mth.sqrt((float) (d0 * d0 + d2 * d2)) * 0.2F;
-            llamaspitentity.shoot(d0, d1 + (double) f, d2, 2.0F, 4.0F);
+            EntityHwachaSpike projectile = new EntityHwachaSpike(this.level, this);
+            float bodyFacingAngle = ((this.yBodyRot * Mth.PI));
+            float radius = this.getBbHeight();
+            double sx = getX() + (radius * Mth.cos(bodyFacingAngle) * 0.65D);
+            double sy = getY() + (this.getBbHeight());
+            double sz = getZ() + (radius * Mth.sin(bodyFacingAngle) * 0.65D);
 
-            this.level.addFreshEntity(llamaspitentity);
+            double tx = target.getX() - sx;
+            double ty = (target.getY() + target.getBbHeight()) - (this.getY() + this.getBbHeight());
+            double tz = target.getZ() - sz;
+
+            this.playSound(SoundEvents.ARROW_SHOOT, this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
+
+            projectile.moveTo(sx, sy, sz, getYRot(), getXRot());
+            projectile.shoot(tx, ty, tz, 1.0F, 1.0F);
+
+            this.getLevel().addFreshEntity(projectile);
         }
     }
 
