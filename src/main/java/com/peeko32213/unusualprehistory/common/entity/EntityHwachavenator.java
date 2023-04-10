@@ -30,6 +30,7 @@ import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
@@ -40,6 +41,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -72,7 +74,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 30D)
+                .add(Attributes.MAX_HEALTH, 80D)
                 .add(Attributes.FOLLOW_RANGE, 50D)
                 .add(Attributes.ARMOR, 5.0D)
                 .add(Attributes.ATTACK_DAMAGE, 1.0D)
@@ -196,7 +198,17 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 this.setSaddled(false);
                 this.spawnAtLocation(Items.SADDLE);
                 return InteractionResult.SUCCESS;
-            } else {
+            }
+            if (this.isHealingFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+
+                this.heal((float)itemstack.getFoodProperties(this).getNutrition());
+                this.gameEvent(GameEvent.EAT, this);
+                return InteractionResult.SUCCESS;
+            }
+            else {
                 if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
                     player.startRiding(this);
                     return InteractionResult.SUCCESS;
@@ -220,6 +232,11 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
         }
         return type;
+    }
+
+    public boolean isHealingFood(ItemStack pStack) {
+        Item item = pStack.getItem();
+        return item.isEdible() && pStack.getFoodProperties(this).isMeat();
     }
 
     public boolean isFood(ItemStack stack) {

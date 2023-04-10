@@ -16,6 +16,8 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -24,6 +26,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Pufferfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -153,10 +156,10 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
         }
     }
 
-    private void touch() {
-        this.hurt(DamageSource.mobAttack(this), (float) (5.0D));
-
+    private void touch(Mob pMob) {
+        pMob.hurt(DamageSource.mobAttack(this), (float) (5.0D));
     }
+
 
     public void aiStep() {
         super.aiStep();
@@ -165,7 +168,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
                 return targetingConditions.test(this, p_149013_);
             })) {
                 if (mob.isAlive() && isInSittingPose()) {
-                    this.touch();
+                    this.touch(mob);
                 }
             }
         }
