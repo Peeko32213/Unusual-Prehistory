@@ -115,6 +115,41 @@
           "functions": [
           ],
           "name": "unusualprehistory:eryon_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:austro_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:ulugh_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:kentro_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:antarcto_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+          ],
+          "name": "unusualprehistory:hwacha_fossil"
         }
       ]
     }

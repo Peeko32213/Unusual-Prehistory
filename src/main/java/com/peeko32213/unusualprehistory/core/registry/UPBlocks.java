@@ -354,6 +354,21 @@ public class UPBlocks {
     public static final RegistryObject<Block> ERYON_FOSSIL = registerBlock("eryon_fossil",
             () -> new BlockEryonFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> AUSTRO_FOSSIL = registerBlock("austro_fossil",
+            () -> new BlockAustroFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> ULUGH_FOSSIL = registerBlock("ulugh_fossil",
+            () -> new BlockUlughFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> KENTRO_FOSSIL = registerBlock("kentro_fossil",
+            () -> new BlockKentroFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> ANTARCTO_FOSSIL = registerBlock("antarcto_fossil",
+            () -> new BlockAntarctoFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> HWACHA_FOSSIL = registerBlock("hwacha_fossil",
+            () -> new BlockHwachaFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+
 
     public static final RegistryObject<Block> DEAD_CLATHRODICTYON_BLOCK = registerBlock("dead_clathrodictyon_block", () ->
             new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));

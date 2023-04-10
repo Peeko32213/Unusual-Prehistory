@@ -266,6 +266,11 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.PACHY_FOSSIL, "Pachycephalosaurus Fossil");
         addBlock(UPBlocks.VELOCI_FOSSIL, "Velociraptor Fossil");
         addBlock(UPBlocks.ERYON_FOSSIL, "Eryon Fossil");
+        addBlock(UPBlocks.AUSTRO_FOSSIL, "Austroraptor Fossil");
+        addBlock(UPBlocks.ULUGH_FOSSIL, "Ulughbegsaurus Fossil");
+        addBlock(UPBlocks.KENTRO_FOSSIL, "Kentrosaurus Fossil");
+        addBlock(UPBlocks.ANTARCTO_FOSSIL, "Antarctopelta Fossil");
+        addBlock(UPBlocks.HWACHA_FOSSIL, "Hwachavenator Fossil");
 
         //ENTITIES
         addEntityType(UPEntities.AMMON, "Ammonite");

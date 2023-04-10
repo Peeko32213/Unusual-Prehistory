@@ -87,6 +87,11 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.QUEREUXIA_PLANT.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.QUEREUXIA_TOP.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.PETRIFIED_BUSH.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.AUSTRO_FOSSIL.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.ULUGH_FOSSIL.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.KENTRO_FOSSIL.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.ANTARCTO_FOSSIL.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.HWACHA_FOSSIL.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.POTTED_HORSETAIL.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.POTTED_LEEFRUCTUS.get(), RenderType.cutout());
