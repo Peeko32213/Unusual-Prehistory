@@ -60,7 +60,7 @@
         "name": "unusualprehistory:majunga_step_1"
       }
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.majunga_stomp"
+    "subtitle": "unusualprehistory.sound.subtitle.majunga_step"
   },
   "anuro_idle": {
     "category": "neutral",
@@ -755,5 +755,61 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.austro_preen"
+  },
+  "hwacha_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:hwacha_death_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:hwacha_death_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwacha_death"
+  },
+  "hwacha_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:hwacha_hurt_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:hwacha_hurt_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwacha_hurt"
+  },
+  "hwacha_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:hwacha_idle_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:hwacha_idle_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwacha_idle"
+  },
+  "hwacha_shoot": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:hwacha_shoot_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:hwacha_shoot_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwacha_shoot"
   }
 }

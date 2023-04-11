@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.core.registry.util;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -33,6 +34,7 @@ public class KeyInputMessage  {
                 if (hwachavenator.isSaddled() && hwachavenator.isTame() && hwachavenator.getControllingPassenger() == player) {
                     hwachavenator.setIsShooting(true);
                     hwachavenator.getNavigation().stop();
+                    hwachavenator.playSound(UPSounds.HWACHA_SHOOT.get(), 0.5F, 1.0F);
 
                 }
             }

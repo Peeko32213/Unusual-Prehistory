@@ -20,7 +20,7 @@ public class UPSounds {
 
     public static final RegistryObject<SoundEvent> MAJUNGA_DEATH = createSoundEvent("majunga_death");
 
-    public static final RegistryObject<SoundEvent> MAJUNGA_STEP = createSoundEvent("majunga_stomp");
+    public static final RegistryObject<SoundEvent> MAJUNGA_STEP = createSoundEvent("majunga_step");
 
     public static final RegistryObject<SoundEvent> ANURO_IDLE = createSoundEvent("anuro_idle");
 
@@ -84,6 +84,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> AUSTRO_HURT = createSoundEvent("austro_hurt");
     public static final RegistryObject<SoundEvent> AUSTRO_IDLE = createSoundEvent("austro_idle");
     public static final RegistryObject<SoundEvent> AUSTRO_PREEN = createSoundEvent("austro_preen");
+    public static final RegistryObject<SoundEvent> HWACHA_DEATH = createSoundEvent("hwacha_death");
+    public static final RegistryObject<SoundEvent> HWACHA_HURT = createSoundEvent("hwacha_hurt");
+    public static final RegistryObject<SoundEvent> HWACHA_IDLE = createSoundEvent("hwacha_idle");
+    public static final RegistryObject<SoundEvent> HWACHA_SHOOT = createSoundEvent("hwacha_shoot");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));

@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableRangedBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.debug.DebugRenderer;
@@ -149,7 +150,17 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         return 2;
     }
 
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.HWACHA_IDLE.get();
+    }
 
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.HWACHA_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.HWACHA_DEATH.get();
+    }
 
     public boolean isAlliedTo(Entity entityIn) {
         if (this.isTame()) {
@@ -274,6 +285,8 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
             this.spit(this.getTarget());
             this.getNavigation().stop();
             shootProgress += 1;
+            this.playSound(UPSounds.HWACHA_SHOOT.get(), 0.5F, 1.0F);
+
             return;
         }
 
@@ -355,6 +368,10 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 super.travel(pos);
             }
         }
+    }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
     private void setupShooting() {

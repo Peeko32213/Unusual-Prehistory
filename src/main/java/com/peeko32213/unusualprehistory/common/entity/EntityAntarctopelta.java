@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -115,6 +116,10 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
     @Override
     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
         return !(blockState.getBlock() == Blocks.BAMBOO) || blockState.is(BlockTags.LEAVES);
+    }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
     @Override

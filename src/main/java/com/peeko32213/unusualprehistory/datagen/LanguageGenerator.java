@@ -360,6 +360,10 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.AUSTRO_HURT, "Sharp Squak");
         addSound(UPSounds.AUSTRO_IDLE, "Graceful Coos");
         addSound(UPSounds.AUSTRO_PREEN, "Graceful Preening");
+        addSound(UPSounds.HWACHA_DEATH, "Prickly Groans");
+        addSound(UPSounds.HWACHA_HURT, "Prickly Grunt");
+        addSound(UPSounds.HWACHA_IDLE, "Spiked Hums");
+        addSound(UPSounds.HWACHA_SHOOT, "Shooting");
 
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");
