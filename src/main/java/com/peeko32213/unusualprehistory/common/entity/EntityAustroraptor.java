@@ -46,6 +46,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     public int timeUntilDrops = this.random.nextInt(200) + 400;
     public float prevPreenProgress;
     public float preenProgress;
+    public float preenSoundTimer = 100;
     public static final Logger LOGGER = LogManager.getLogger();
     public EntityAustroraptor(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -224,7 +225,16 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
             this.setPreeningTime(this.getPreeningTime() - 1);
             this.getNavigation().stop();
             this.goalSelector.getRunningGoals().forEach(WrappedGoal::stop);
-            this.playSound(UPSounds.AUSTRO_PREEN.get(), 0.1F, 1.0F);
+            if(preenSoundTimer <= 0){
+                preenSoundTimer = 100;
+            }
+
+            if(preenSoundTimer >= 100) {
+                this.playSound(UPSounds.AUSTRO_PREEN.get(), 0.1F, 1.0F);
+            }
+            preenSoundTimer--;
+
+
             if (random.nextInt(90) == 0) {
                 this.spawnAtLocation(UPItems.AUSTRO_FEATHER.get());
             }

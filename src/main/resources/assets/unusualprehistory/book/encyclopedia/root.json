@@ -192,7 +192,7 @@
       "entity_scale": 1.1,
       "offset_x": -9,
       "offset_y": 11,
-      "linked_page": "austro.json",
+      "linked_page": "austroraptor.json",
       "hover_text": "Austroraptor"
     },
     {
@@ -204,7 +204,7 @@
       "entity_scale": 1.1,
       "offset_x": -15,
       "offset_y": 12,
-      "linked_page": "ulugh.json",
+      "linked_page": "ulughbegsaurus.json",
       "hover_text": "Ulughbegsaurus"
     },
     {
@@ -216,7 +216,7 @@
       "entity_scale": 1.1,
       "offset_x": -13,
       "offset_y": -8,
-      "linked_page": "kentro.json",
+      "linked_page": "kentrosaurus.json",
       "hover_text": "Kentrosaurus"
     },
     {
@@ -228,7 +228,7 @@
       "entity_scale": 1.1,
       "offset_x": -13,
       "offset_y": -8,
-      "linked_page": "antarcto.json",
+      "linked_page": "antarctopelta.json",
       "hover_text": "Antarctopelta"
     },
     {
@@ -240,7 +240,7 @@
       "entity_scale": 1.1,
       "offset_x": -14,
       "offset_y": 11,
-      "linked_page": "hwacha.json",
+      "linked_page": "hwachavenator.json",
       "hover_text": "Hwachavenator"
     }
   ],

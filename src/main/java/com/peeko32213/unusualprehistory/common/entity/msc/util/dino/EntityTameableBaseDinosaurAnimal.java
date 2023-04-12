@@ -1,11 +1,13 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -129,7 +131,6 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
             return false;
         }
     }
-
 
 
     protected abstract SoundEvent getAttackSound();

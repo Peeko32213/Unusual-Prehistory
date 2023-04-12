@@ -1,11 +1,13 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -76,7 +78,7 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         if(hasAvoidEntity()) {
-            this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+            this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_CREATIVE_OR_SPECTATOR::test));
         }
         if(hasTargets()) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(getTargetTag())) {
@@ -105,8 +107,6 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         }
     }
 
-
-
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(getKillHealAmount());
     }
@@ -119,7 +119,7 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         }
     }
 
-    public int getAttckingState() {
+    public int getAttackingState() {
         return this.entityData.get(STATE);
     }
 

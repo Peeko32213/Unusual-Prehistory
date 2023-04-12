@@ -36,6 +36,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -43,6 +44,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -97,7 +99,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this) {
+        this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, LivingEntity.class) {
 
             public boolean canUse() {
                 return !isTame();
@@ -221,6 +223,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
             }
             else {
                 if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
+                    player.displayClientMessage(Component.translatable("dinosaur.start_riding.attack_key").withStyle(ChatFormatting.WHITE), true);
                     player.startRiding(this);
                     return InteractionResult.SUCCESS;
                 } else {
@@ -243,6 +246,11 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
         }
         return type;
+    }
+
+    @Override
+    public boolean startRiding(Entity pVehicle) {
+        return super.startRiding(pVehicle);
     }
 
     public boolean isHealingFood(ItemStack pStack) {
@@ -281,16 +289,14 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     public void tick() {
         super.tick();
 
-        if (this.isShooting() && shootProgress < 50 && !this.isSaddled()) {
+        if (this.isShooting() && shootProgress < 50 && !this.hasControllingPassenger()) {
             this.spit(this.getTarget());
             this.getNavigation().stop();
             shootProgress += 1;
-            this.playSound(UPSounds.HWACHA_SHOOT.get(), 0.5F, 1.0F);
-
             return;
         }
 
-        if (this.isShooting() && shootProgress < 50 && this.isSaddled()) {
+        if (this.isShooting() && shootProgress < 50 && this.hasControllingPassenger()) {
             this.spitNoTarget();
             this.getNavigation().stop();
             shootProgress += 1;
@@ -331,6 +337,10 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     public void travel(Vec3 pos) {
         if (this.isAlive()) {
             LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
+            if(livingentity == null){
+                return;
+            }
+
             if(this.isShooting()){
                 assert livingentity != null;
                 this.setYRot(livingentity.getYRot());
@@ -341,7 +351,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 return;
             }
 
-            if (this.isVehicle() && livingentity != null) {
+            if (this.isVehicle()) {
                 double d0 = 0.08D;
                 this.setYRot(livingentity.getYRot());
                 this.yRotO = this.getYRot();
@@ -354,12 +364,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
-                double d8 = this.getY();
-                Vec3 vec34 = this.getDeltaMovement();
-                //Travel up when there is a horizontal collission  and enough space, tried jumping but was a bit funky
-                if (this.horizontalCollision  && this.isFree(vec34.x, vec34.y + (double) 0.5F - this.getY() + d8, vec34.z)) {
-                    this.setDeltaMovement(vec34.x, (double) 0.5F, vec34.z);
-                }
+
                 this.setSpeed(0.3F);
                 super.travel(new Vec3((double) f, pos.y, (double) f1));
                 if (this.isShooting() && this.isVehicle()){
@@ -375,6 +380,11 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
+    @Override
+    public float getStepHeight() {
+        return 1.0F;
+    }
+
     private void setupShooting() {
         this.entityData.set(SHOOTING, true);
     }
@@ -382,29 +392,24 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
     public void spit(LivingEntity target) {
         if (target == null) {
+            this.setIsShooting(false);
+            this.shootProgress = 0;
             return;
         }
         this.lookAt(target, 100, 100);
         for (int i = 0; i < 2 + random.nextInt(2); i++) {
-            EntityHwachaSpike projectile = new EntityHwachaSpike(this.level, this);
-            float bodyFacingAngle = ((this.yBodyRot * Mth.PI));
-            float radius = this.getBbHeight();
-            double sx = getX() + (radius * Mth.cos(bodyFacingAngle) * 0.65D);
-            double sy = getY() + (this.getBbHeight());
-            double sz = getZ() + (radius * Mth.sin(bodyFacingAngle) * 0.65D);
-
-            double tx = target.getX() - sx;
-            double ty = (target.getY() + target.getBbHeight()) - (this.getY() + this.getBbHeight());
-            double tz = target.getZ() - sz;
-
+            EntityHwachaSpike llamaspitentity = new EntityHwachaSpike(this.level, this);
+            double d0 = target.getX() - this.getX();
+            double d1 = target.getY() - llamaspitentity.getY();
+            double d2 = target.getZ() - this.getZ();
+            float f = Mth.sqrt((float) (d0 * d0 + d2 * d2)) * 0.2F;
+            llamaspitentity.shoot(d0, d1 + (double) f, d2, 2.0F, 4.0F);
             this.playSound(UPSounds.HWACHA_SHOOT.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
 
-            projectile.moveTo(sx, sy, sz, getYRot(), getXRot());
-            projectile.shoot(tx, ty, tz, 1.0F, 1.0F);
-
-            this.getLevel().addFreshEntity(projectile);
+            this.level.addFreshEntity(llamaspitentity);
         }
     }
+
 
     public void spitNoTarget() {
         final int MAX_SHOTS = 2;
@@ -465,6 +470,8 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                     return;
                 }
 
+                this.playSound(UPSounds.HWACHA_SHOOT.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
+
                 llamaspitentity.shoot(d0, d1, d2, 2.0F, 0.0F);
                 //llamaspitentity.isNoGravity();
                 this.level.addFreshEntity(llamaspitentity);
@@ -475,6 +482,8 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
         }
     }
+
+
 
     //Vanilla Copy from Item
     protected static BlockHitResult getEntityPOVHitResult(Level p_41436_, Entity p_41437_, ClipContext.Fluid p_41438_) {
