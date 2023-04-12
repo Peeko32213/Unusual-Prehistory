@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.networking.packet.AmberProtectionSyncS2CPacket;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.core.registry.util.KeyInputMessage;
+import com.peeko32213.unusualprehistory.core.registry.util.KeyOutputMessage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -45,6 +46,12 @@ public class UPMessages {
                 .decoder(KeyInputMessage::new)
                 .encoder(KeyInputMessage::toBytes)
                 .consumerMainThread(KeyInputMessage::handle)
+                .add();
+
+        net.messageBuilder(KeyOutputMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(KeyOutputMessage::new)
+                .encoder(KeyOutputMessage::toBytes)
+                .consumerMainThread(KeyOutputMessage::handle)
                 .add();
     }
 

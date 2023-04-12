@@ -280,6 +280,12 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
             }
         }
     }
+
+    @Override
+    public float getStepHeight() {
+        return 1.0F;
+    }
+
     @Nullable
     public Entity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {

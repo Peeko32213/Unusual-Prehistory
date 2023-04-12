@@ -104,6 +104,7 @@
   "block.unusualprehistory.ulugh_eggs": "Ulughbegsaurus Eggs",
   "block.unusualprehistory.ulugh_fossil": "Ulughbegsaurus Fossil",
   "block.unusualprehistory.veloci_fossil": "Velociraptor Fossil",
+  "dinosaur.start_riding.attack_key": "Press G to Attack!",
   "entity.unusualprehistory.all.command_0": "%s is wandering",
   "entity.unusualprehistory.all.command_1": "%s is following",
   "entity.unusualprehistory.all.command_2": "%s is staying",

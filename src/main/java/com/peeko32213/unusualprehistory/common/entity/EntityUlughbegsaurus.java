@@ -191,13 +191,13 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        LOGGER.info("Yellow " +this.isYellow() );
-        LOGGER.info("Blue " +this.isBlue() );
-        LOGGER.info("White " +this.isWhite() );
-        LOGGER.info("Orange " +this.isOrange() );
-        LOGGER.info("hp " + this.getMaxHealth());
-        LOGGER.info("Speed" + this.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
-        LOGGER.info("Speed" + this.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
+       // LOGGER.info("Yellow " +this.isYellow() );
+       // LOGGER.info("Blue " +this.isBlue() );
+       // LOGGER.info("White " +this.isWhite() );
+       // LOGGER.info("Orange " +this.isOrange() );
+       // LOGGER.info("hp " + this.getMaxHealth());
+       // LOGGER.info("Speed" + this.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
+       // LOGGER.info("Speed" + this.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
         if (this.isYellow()) {
             if (isYellowFood(itemstack) && !isTame()) {
                 int size = itemstack.getCount();
@@ -420,19 +420,16 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 f1 *= 0.25;
             }
 
-            double posY = this.getY();
-            Vec3 deltaMovement = this.getDeltaMovement();
-
-            // Travel up when there is a horizontal collision and enough space
-            if (this.horizontalCollision /**&& deltaMovement.y > 0 **/ && this.isFree(deltaMovement.x, deltaMovement.y + delta, deltaMovement.z)) {
-                this.setDeltaMovement(deltaMovement.x, (double) 0.5F, deltaMovement.z);
-            }
-
             this.setSpeed((float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * MOVEMENT_SPEED_MULTIPLIER));
             super.travel(new Vec3((double) f, destination.y, (double) f1));
         } else {
             super.travel(destination);
         }
+    }
+
+    @Override
+    public float getStepHeight() {
+        return 1.0F;
     }
 
     public boolean isAlliedTo(Entity entityIn) {

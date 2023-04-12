@@ -3,9 +3,13 @@ package com.peeko32213.unusualprehistory.datagen;
 import com.mojang.logging.LogUtils;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.*;
+import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -375,6 +379,8 @@ public class LanguageGenerator extends LanguageProvider {
         add("hwachavenator.shooting_too_close.message", "You are trying to shoot too close to Hwachavenator!");
         add("hwachavenator.fail_shoot.message", "You failed to shoot!");
         add("player_capability.amber_protection_full", "You are at full Amber Protection and won't gain any more!");
+        add("dinosaur.start_riding.attack_key", "Press G to Attack!");
+
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");
