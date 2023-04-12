@@ -143,9 +143,16 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     }
 
     public void positionRider(Entity passenger) {
+
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-        passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
+        if(!this.isInSittingPose()) {
+            passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
+        return;
+        }
+        passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 1.0, this.getZ() - (double) (0.5F * yCos));
+
+
     }
 
     public double getPassengersRidingOffset() {
@@ -341,7 +348,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 return;
             }
 
-            if(this.isShooting()){
+            if(this.isShooting() || this.isInSittingPose()){
                 assert livingentity != null;
                 this.setYRot(livingentity.getYRot());
                 this.setXRot(livingentity.getXRot() * 0.5F);
@@ -561,7 +568,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !isShooting() && !this.isInSittingPose()) {
+        if (event.isMoving() && !isShooting() && !this.isInSittingPose()) {
             if (this.isSprinting() || !this.getPassengers().isEmpty() ) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.sprinting"));
                 event.getController().setAnimationSpeed(2.0D);
@@ -571,10 +578,8 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 event.getController().setAnimationSpeed(1.0D);
                 return PlayState.CONTINUE;
             }
-        } else if (!isShooting() && !this.isInSittingPose()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.idle"));
-            event.getController().setAnimationSpeed(1.0D);
-        } else if (isShooting() && !this.isInSittingPose()) {
+        }
+        if (isShooting() && !this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.turret_firing"));
             return PlayState.CONTINUE;
         }
@@ -583,6 +588,8 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
+        event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.idle"));
+        event.getController().setAnimationSpeed(1.0D);
         return PlayState.CONTINUE;
     }
 

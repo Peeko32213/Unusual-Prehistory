@@ -30,7 +30,7 @@ public class KeyInputMessage  {
         context.enqueueWork(() -> {
             Player player = context.getSender();
             Entity vehicle = player.getVehicle();
-            if (vehicle instanceof EntityHwachavenator hwachavenator) {
+            if (vehicle instanceof EntityHwachavenator hwachavenator && !hwachavenator.isInSittingPose()) {
                 if (hwachavenator.isSaddled() && hwachavenator.isTame() && hwachavenator.getControllingPassenger() == player) {
                     hwachavenator.setIsShooting(true);
                 }
