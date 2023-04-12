@@ -8,6 +8,8 @@ import com.peeko32213.unusualprehistory.core.registry.UPFeatures;
 import com.peeko32213.unusualprehistory.core.registry.UPPlacedFeatures;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
+import net.minecraft.CrashReport;
+import net.minecraft.ReportedException;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -20,6 +22,7 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -50,6 +53,7 @@ public class UnusualPrehistory {
     public UnusualPrehistory() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus eventBus = MinecraftForge.EVENT_BUS;
+        checkForGeckoLib();
         modEventBus.addListener(this::commonSetup);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.CONFIG_BUILDER);
         UPItems.ITEMS.register(modEventBus);
@@ -75,6 +79,21 @@ public class UnusualPrehistory {
         eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
     }
 
+    //Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib
+    // isnt added
+    private void checkForGeckoLib(){
+            if(ModList.get().isLoaded("geckolib3")){
+                LOGGER.debug("Geckolib3 loaded correctly!");
+            } else {
+                try {
+                    LOGGER.debug("Geckolib3 version 3.1.39 and up didn't seem to be loaded!");
+                    throw new Exception("Something went wrong setting up compat");
+                } catch (Exception e) {
+                    CrashReport crashreport = CrashReport.forThrowable(e, "Geckolib3 version 3.1.39 and up didn't seem to be loaded!");
+                    throw new ReportedException(crashreport);
+                }
+            }
+    }
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             //Todo add this to own class
