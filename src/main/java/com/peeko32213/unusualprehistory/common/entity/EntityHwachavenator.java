@@ -78,7 +78,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 .add(Attributes.MAX_HEALTH, 80D)
                 .add(Attributes.FOLLOW_RANGE, 50D)
                 .add(Attributes.ARMOR, 5.0D)
-                .add(Attributes.ATTACK_DAMAGE, 1.0D)
+                .add(Attributes.ATTACK_DAMAGE, 2.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.3D)
                 .add(Attributes.MOVEMENT_SPEED, 0.17F);
 
@@ -97,7 +97,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this) {
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this) {
 
             public boolean canUse() {
                 return !isTame();
@@ -332,6 +332,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         if (this.isAlive()) {
             LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
             if(this.isShooting()){
+                assert livingentity != null;
                 this.setYRot(livingentity.getYRot());
                 this.setXRot(livingentity.getXRot() * 0.5F);
                 this.setRot(livingentity.getYRot(), livingentity.getXRot());
@@ -396,7 +397,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
             double ty = (target.getY() + target.getBbHeight()) - (this.getY() + this.getBbHeight());
             double tz = target.getZ() - sz;
 
-            this.playSound(SoundEvents.ARROW_SHOOT, this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
+            this.playSound(UPSounds.HWACHA_SHOOT.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
 
             projectile.moveTo(sx, sy, sz, getYRot(), getXRot());
             projectile.shoot(tx, ty, tz, 1.0F, 1.0F);

@@ -75,7 +75,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public float sitProgress;
     public EntityUlughbegsaurus(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 1.0f;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -132,7 +131,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
         );
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 6.0F, 3.0F, false));
@@ -423,10 +422,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             double posY = this.getY();
             Vec3 deltaMovement = this.getDeltaMovement();
 
-            // Travel up when there is a horizontal collision and enough space
-            if (this.horizontalCollision /**&& deltaMovement.y > 0 **/ && this.isFree(deltaMovement.x, deltaMovement.y + delta, deltaMovement.z)) {
-                this.setDeltaMovement(deltaMovement.x, (double) 0.5F, deltaMovement.z);
-            }
+
 
             this.setSpeed((float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * MOVEMENT_SPEED_MULTIPLIER));
             super.travel(new Vec3((double) f, destination.y, (double) f1));
@@ -477,11 +473,9 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public void setBlue(boolean green) {
         boolean prev = isBlue();
         if (!prev && green) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(30.0D);
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
             this.setHealth(30.0F);
         } else {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40.0D);
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
         }
         this.heal(this.getMaxHealth());
@@ -497,11 +491,9 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public void setYellow(boolean green) {
         boolean prev = isYellow();
         if (!prev && green) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(35.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4.0D);
             this.setHealth(25.0F);
         } else {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(8.0D);
         }
         this.heal(this.getMaxHealth());
@@ -537,11 +529,9 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public void setOrange(boolean green) {
         boolean prev = isOrange();
         if (!prev && green) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(35.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(12.0D);
             this.setHealth(25.0F);
         } else {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(8.0D);
         }
         this.heal(this.getMaxHealth());
