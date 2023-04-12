@@ -120,7 +120,7 @@ public class EntityHwachaSpike extends Entity implements IAnimatable{
     protected void onEntityHit(EntityHitResult p_213868_1_) {
         Entity entity = this.getOwner();
         if (entity instanceof LivingEntity && p_213868_1_.getEntity() != getOwner() && !(p_213868_1_.getEntity() instanceof EntityHwachavenator)) {
-            p_213868_1_.getEntity().hurt(DamageSource.indirectMagic(this, (LivingEntity) entity).setProjectile(), 1F);
+            p_213868_1_.getEntity().hurt(DamageSource.indirectMagic(this, (LivingEntity) entity).setProjectile(), 2.0F);
         }
     }
 
