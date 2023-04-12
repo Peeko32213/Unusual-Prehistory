@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "unusualprehistory:petrified_planks"
+    }
+  },
+  "pattern": [
+    "BB"
+  ],
+  "result": {
+    "item": "unusualprehistory:petrified_wood_pressure_plate"
+  }
+}

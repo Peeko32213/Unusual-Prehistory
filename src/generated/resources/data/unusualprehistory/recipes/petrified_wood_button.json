@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:petrified_planks"
+    }
+  ],
+  "result": {
+    "item": "unusualprehistory:petrified_wood_button"
+  }
+}

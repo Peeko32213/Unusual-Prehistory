@@ -98,6 +98,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(ItemTags.LEAVES)
                 .add(UPBlocks.GINKGO_LEAVES.get().asItem());
 
+        tag(UPTags.PETRIFIED_WOOD)
+                .add(UPBlocks.PETRIFIED_WOOD_LOG.get().asItem())
+                .add(UPBlocks.PETRIFIED_WOOD.get().asItem())
+                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD.get().asItem())
+                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get().asItem());
 
         tag(ItemTags.PLANKS)
                 .add(UPBlocks.GINKGO_PLANKS.get().asItem())

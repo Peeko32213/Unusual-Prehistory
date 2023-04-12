@@ -424,7 +424,7 @@ public class UPBlocks {
     public static final RegistryObject<RotatedPillarBlock> PETRIFIED_WOOD_LOG = registerBlock("petrified_wood_log",
             () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<RotatedPillarBlock> PETRIFIED_WOOD = registerBlock("petrified_wood",
+    public static final Supplier<Block> PETRIFIED_WOOD = registerBlock("petrified_wood",
             () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_PETRIFIED_WOOD = registerBlock("stripped_petrified_wood",
@@ -455,9 +455,9 @@ public class UPBlocks {
     public static final RegistryObject<PressurePlateBlock> PETRIFIED_WOOD_PRESSURE_PLATE = registerBlock("petrified_wood_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.STONE_PRESSURE_PLATE)));
 
-    public static final RegistryObject<Block> PETRIFIED_WOOD_SIGN = BLOCKS.register("petrified_wood_sign", ()
+    public static final RegistryObject<StandingSignBlock> PETRIFIED_WOOD_SIGN = BLOCKS.register("petrified_wood_sign", ()
             -> new BlockUPStandingSign(BlockBehaviour.Properties.of(Material.WOOD, PETRIFIED_WOOD_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPSignTypes.PETRIFIED));
-    public static final RegistryObject<Block> PETRIFIED_WOOD_WALL_SIGN = BLOCKS.register("petrified_wood_wall_sign", ()
+    public static final RegistryObject<WallSignBlock> PETRIFIED_WOOD_WALL_SIGN = BLOCKS.register("petrified_wood_wall_sign", ()
             -> new BlockUPWallSign(BlockBehaviour.Properties.of(Material.WOOD, PETRIFIED_WOOD_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(PETRIFIED_WOOD_SIGN.get()), UPSignTypes.PETRIFIED));
 
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD = registerBlock("polished_petrified_wood",

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "/": {
+      "tag": "forge:rods/wooden"
+    },
+    "M": {
+      "item": "unusualprehistory:petrified_planks"
+    }
+  },
+  "pattern": [
+    "M/M",
+    "M/M"
+  ],
+  "result": {
+    "count": 6,
+    "item": "unusualprehistory:petrified_wood_fence"
+  }
+}

@@ -78,14 +78,6 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(Blocks.CACTUS)
                 .add(Blocks.BAMBOO);
 
-        tag(UPTags.PETRIFIED_WOOD)
-                .add(UPBlocks.PETRIFIED_WOOD_LOG.get())
-                .add(UPBlocks.PETRIFIED_WOOD.get())
-                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD.get())
-                .add(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get())
-                .add(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get())
-                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get());
-
         tag(UPTags.ERYON_DIGGABLES)
                 .add(Blocks.SAND);
 

@@ -35,7 +35,6 @@ public class UPTags {
     public static final TagKey<Item> FILLED_FLASKS = registerItemTag( "filled_flasks");
     public static final TagKey<Item> FOSSILS = registerItemTag("fossils");
     public static final TagKey<Item> ORGANIC_OOZE = registerItemTag("organic_ooze");
-    public static final TagKey<Block> PETRIFIED_WOOD = registerBlockTag("petrified_wood");
 
     //Food Tags
     public static final TagKey<Item> KENTRO_FOOD = registerItemTag( "kentro_food");
@@ -48,6 +47,7 @@ public class UPTags {
     public static final TagKey<Item> HWACHA_FOOD = registerItemTag("hwacha_food");
 
     public static final TagKey<Item> PACHY_FOOD = registerItemTag("pachy_food");
+    public static final TagKey<Item> PETRIFIED_WOOD = registerItemTag("petrified_wood");
 
 
     //Breakables Tags
