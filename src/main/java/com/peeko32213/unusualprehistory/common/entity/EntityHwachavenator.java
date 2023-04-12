@@ -80,7 +80,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                 .add(Attributes.MAX_HEALTH, 80D)
                 .add(Attributes.FOLLOW_RANGE, 50D)
                 .add(Attributes.ARMOR, 5.0D)
-                .add(Attributes.ATTACK_DAMAGE, 1.0D)
+                .add(Attributes.ATTACK_DAMAGE, 2.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.3D)
                 .add(Attributes.MOVEMENT_SPEED, 0.17F);
 
@@ -342,6 +342,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
             }
 
             if(this.isShooting()){
+                assert livingentity != null;
                 this.setYRot(livingentity.getYRot());
                 this.setXRot(livingentity.getXRot() * 0.5F);
                 this.setRot(livingentity.getYRot(), livingentity.getXRot());
