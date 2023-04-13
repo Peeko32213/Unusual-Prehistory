@@ -60,17 +60,13 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
     private static final EntityDataAccessor<Integer> ANGER_TIME = SynchedEntityData.defineId(EntityTameableRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(EntityTameableRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
     private static final UniformInt ANGER_TIME_RANGE = TimeUtil.rangeOfSeconds(20, 39);
-    protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(EntityTameableRangedBaseDinosaurAnimal.class, EntityDataSerializers.BYTE);
-    protected static final EntityDataAccessor<Optional<UUID>> DATA_OWNERUUID_ID = SynchedEntityData.defineId(EntityTameableRangedBaseDinosaurAnimal.class, EntityDataSerializers.OPTIONAL_UUID);
-    private boolean orderedToSit;
     private UUID targetUuid;
-    private BlockPos lightBlockPos = null;
+
     int lastTimeSinceHungry;
 
     protected EntityTameableRangedBaseDinosaurAnimal(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
         this.xpReward = (int) (this.getMaxHealth());
-        this.reassessTameGoals();
     }
 
     @Override
@@ -170,13 +166,6 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         return 0.4F;
     }
 
-    private boolean checkDistance(BlockPos blockPosA, BlockPos blockPosB, int distance) {
-        return Math.abs(blockPosA.getX() - blockPosB.getX()) <= distance
-                && Math.abs(blockPosA.getY() - blockPosB.getY()) <= distance
-                && Math.abs(blockPosA.getZ() - blockPosB.getZ()) <= distance;
-    }
-
-
     @Override
     protected void tickDeath() {
         ++this.deathTime;
@@ -229,8 +218,6 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         this.entityData.define(TIME_TILL_HUNGRY, 0);
         this.entityData.define(SADDLED, false);
         this.entityData.define(PASSIVE, 0);
-        this.entityData.define(DATA_FLAGS_ID, (byte)0);
-        this.entityData.define(DATA_OWNERUUID_ID, Optional.empty());
     }
 
     @Override
@@ -240,11 +227,6 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         compound.putInt("TimeTillHungry", this.getTimeTillHungry());
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
-        if (this.getOwnerUUID() != null) {
-            compound.putUUID("Owner", this.getOwnerUUID());
-        }
-
-        compound.putBoolean("Sitting", this.orderedToSit);
     }
 
     @Override
@@ -254,162 +236,12 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
-        UUID uuid;
-        if (compound.hasUUID("Owner")) {
-            uuid = compound.getUUID("Owner");
-        } else {
-            String s = compound.getString("Owner");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (uuid != null) {
-            try {
-                this.setOwnerUUID(uuid);
-                this.setTame(true);
-            } catch (Throwable throwable) {
-                this.setTame(false);
-            }
-        }
-
-        this.orderedToSit = compound.getBoolean("Sitting");
-        this.setInSittingPose(this.orderedToSit);
     }
 
     public boolean canBeLeashed(Player p_21813_) {
         return !this.isLeashed();
     }
 
-    protected void spawnTamingParticles(boolean p_21835_) {
-        ParticleOptions particleoptions = ParticleTypes.HEART;
-        if (!p_21835_) {
-            particleoptions = ParticleTypes.SMOKE;
-        }
-
-        for(int i = 0; i < 7; ++i) {
-            double d0 = this.random.nextGaussian() * 0.02D;
-            double d1 = this.random.nextGaussian() * 0.02D;
-            double d2 = this.random.nextGaussian() * 0.02D;
-            this.level.addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-        }
-
-    }
-
-    public void handleEntityEvent(byte p_21807_) {
-        if (p_21807_ == 7) {
-            this.spawnTamingParticles(true);
-        } else if (p_21807_ == 6) {
-            this.spawnTamingParticles(false);
-        } else {
-            super.handleEntityEvent(p_21807_);
-        }
-
-    }
-
-    public boolean isTame() {
-        return (this.entityData.get(DATA_FLAGS_ID) & 4) != 0;
-    }
-
-    public void setTame(boolean p_21836_) {
-        byte b0 = this.entityData.get(DATA_FLAGS_ID);
-        if (p_21836_) {
-            this.entityData.set(DATA_FLAGS_ID, (byte)(b0 | 4));
-        } else {
-            this.entityData.set(DATA_FLAGS_ID, (byte)(b0 & -5));
-        }
-
-        this.reassessTameGoals();
-    }
-
-    protected void reassessTameGoals() {
-    }
-
-    public boolean isInSittingPose() {
-        return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
-    }
-
-    public void setInSittingPose(boolean p_21838_) {
-        byte b0 = this.entityData.get(DATA_FLAGS_ID);
-        if (p_21838_) {
-            this.entityData.set(DATA_FLAGS_ID, (byte)(b0 | 1));
-        } else {
-            this.entityData.set(DATA_FLAGS_ID, (byte)(b0 & -2));
-        }
-
-    }
-
-    @Nullable
-    public UUID getOwnerUUID() {
-        return this.entityData.get(DATA_OWNERUUID_ID).orElse((UUID)null);
-    }
-
-    public void setOwnerUUID(@Nullable UUID p_21817_) {
-        this.entityData.set(DATA_OWNERUUID_ID, Optional.ofNullable(p_21817_));
-    }
-
-    public void tame(Player p_21829_) {
-        this.setTame(true);
-        this.setOwnerUUID(p_21829_.getUUID());
-        if (p_21829_ instanceof ServerPlayer) {
-            CriteriaTriggers.TAME_ANIMAL.trigger((ServerPlayer)p_21829_, this);
-        }
-
-    }
-
-    @Nullable
-    public LivingEntity getOwner() {
-        try {
-            UUID uuid = this.getOwnerUUID();
-            return uuid == null ? null : this.level.getPlayerByUUID(uuid);
-        } catch (IllegalArgumentException illegalargumentexception) {
-            return null;
-        }
-    }
-
-    public Team getTeam() {
-        if (this.isTame()) {
-            LivingEntity livingentity = this.getOwner();
-            if (livingentity != null) {
-                return livingentity.getTeam();
-            }
-        }
-
-        return super.getTeam();
-    }
-
-    public boolean isAlliedTo(Entity p_21833_) {
-        if (this.isTame()) {
-            LivingEntity livingentity = this.getOwner();
-            if (p_21833_ == livingentity) {
-                return true;
-            }
-
-            if (livingentity != null) {
-                return livingentity.isAlliedTo(p_21833_);
-            }
-        }
-
-        return super.isAlliedTo(p_21833_);
-    }
-
-    public void die(DamageSource p_21809_) {
-        // FORGE: Super moved to top so that death message would be cancelled properly
-        net.minecraft.network.chat.Component deathMessage = this.getCombatTracker().getDeathMessage();
-        super.die(p_21809_);
-
-        if (this.dead)
-            if (!this.level.isClientSide && this.level.getGameRules().getBoolean(GameRules.RULE_SHOWDEATHMESSAGES) && this.getOwner() instanceof ServerPlayer) {
-                this.getOwner().sendSystemMessage(deathMessage);
-            }
-
-    }
-
-    public boolean isOrderedToSit() {
-        return this.orderedToSit;
-    }
-
-    public void setOrderedToSit(boolean p_21840_) {
-        this.orderedToSit = p_21840_;
-    }
 
     public boolean isHungry() {
         return this.entityData.get(HUNGRY);
