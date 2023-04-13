@@ -3,10 +3,13 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
@@ -24,6 +27,14 @@ public class ItemPrimalMacuahuitl extends SwordItem {
                 .defaultDurability(tier.getUses() * 3)
                 .tab(UnusualPrehistory.DINO_TAB)
         );
+    }
+
+    @Override
+    public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
+        if(pTarget.getArmorValue() == 0){
+            pTarget.hurt(DamageSource.playerAttack((Player) pAttacker), 3);
+        }
+        return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
 
     @Override
