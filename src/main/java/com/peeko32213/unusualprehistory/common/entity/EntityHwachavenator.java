@@ -244,11 +244,9 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                     boolean sit = this.getCommand() == 2;
                     if (sit) {
                         this.setInSittingPose(true);
-                        this.setOrderedToSit(true);
                         return InteractionResult.SUCCESS;
                     } else {
                         this.setOrderedToSit(false);
-                        this.setInSittingPose(false);
                         return InteractionResult.SUCCESS;
                     }
                 }
@@ -327,7 +325,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         }
 
         shootProgress = 0;
-        //this.setIsShooting(false);
+        this.setIsShooting(false);
     }
 
     public boolean hurt(DamageSource source, float amount) {
@@ -347,12 +345,9 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     public void travel(Vec3 pos) {
         if (this.isAlive()) {
             LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
-            if(livingentity == null){
-                return;
-            }
 
-            if(this.isShooting() || this.isInSittingPose()){
-                assert livingentity != null;
+
+            if((this.isShooting() || this.isInSittingPose()) && livingentity != null){
                 this.setYRot(livingentity.getYRot());
                 this.setXRot(livingentity.getXRot() * 0.5F);
                 this.setRot(livingentity.getYRot(), livingentity.getXRot());
@@ -361,7 +356,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                 return;
             }
 
-            if (this.isVehicle()) {
+            if (this.isVehicle() && livingentity != null) {
                 double d0 = 0.08D;
                 this.setYRot(livingentity.getYRot());
                 this.yRotO = this.getYRot();
@@ -394,16 +389,15 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     public float getStepHeight() {
         return 1.0F;
     }
-
-    private void setupShooting() {
-        this.entityData.set(SHOOTING, true);
+    @Override
+    public void killed(ServerLevel world, LivingEntity entity) {
+        super.killed(world, entity);
+        this.setIsShooting(false);
+        this.shootProgress = 0;
     }
-
 
     public void spit(LivingEntity target) {
         if (target == null) {
-            this.setIsShooting(false);
-            this.shootProgress = 0;
             return;
         }
         this.lookAt(target, 100, 100);
@@ -466,7 +460,6 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                     AABB aabb = player.getBoundingBox().inflate(NO_SPIKE_ZONE_INFLATE);
                     if (aabb.contains(Vec3.atCenterOf(blockpos))) {
                         player.displayClientMessage(Component.translatable("hwachavenator.shooting_too_close.message").withStyle(ChatFormatting.RED), true);
-                        //player.displayClientMessage();
                         return;
                     }
                     d0 = blockpos.getX() - this.getX();
