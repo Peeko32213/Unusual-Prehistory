@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableRangedBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -61,7 +62,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.Optional;
 
-public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal implements RangedAttackMob, CustomFollower {
+public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implements RangedAttackMob, CustomFollower {
     private static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(EntityHwachavenator.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityHwachavenator.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityHwachavenator.class, EntityDataSerializers.BOOLEAN);
@@ -71,7 +72,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     public float sitProgress;
     public int messageTimer = 0;
 
-    public EntityHwachavenator(EntityType<? extends TamableAnimal> entityType, Level level) {
+    public EntityHwachavenator(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -148,7 +149,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
         if(!this.isInSittingPose()) {
             passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
-        return;
+            return;
         }
         passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 1.0, this.getZ() - (double) (0.5F * yCos));
 
@@ -234,25 +235,27 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
                     player.startRiding(this);
                     return InteractionResult.SUCCESS;
                 } else {
-                    this.setCommand((this.getCommand() + 1) % 3);
+                    this.setCommand((this.getCommand() + 1));
 
-                    if (this.getCommand() == 3) {
+                    if (this.getCommand() >= 3) {
                         this.setCommand(0);
                     }
                     player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
                     boolean sit = this.getCommand() == 2;
                     if (sit) {
+                        this.setInSittingPose(true);
                         this.setOrderedToSit(true);
                         return InteractionResult.SUCCESS;
                     } else {
                         this.setOrderedToSit(false);
+                        this.setInSittingPose(false);
                         return InteractionResult.SUCCESS;
                     }
                 }
             }
 
         }
-        return type;
+        return InteractionResult.FAIL;
     }
 
     @Override
@@ -296,19 +299,19 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
     public void tick() {
         super.tick();
 
-        if (this.isShooting() && shootProgress < 50 && !this.hasControllingPassenger()) {
-            this.spit(this.getTarget());
-            this.getNavigation().stop();
-            shootProgress += 1;
-            return;
-        }
+       if (this.isShooting() && shootProgress < 50 && !this.hasControllingPassenger()) {
+           this.spit(this.getTarget());
+           this.getNavigation().stop();
+           shootProgress += 1;
+           return;
+       }
 
-        if (this.isShooting() && shootProgress < 50 && this.hasControllingPassenger()) {
-            this.spitNoTarget();
-            this.getNavigation().stop();
-            shootProgress += 1;
-            return;
-        }
+       if (this.isShooting() && shootProgress < 50 && this.hasControllingPassenger()) {
+           this.spitNoTarget();
+           this.getNavigation().stop();
+           shootProgress += 1;
+           return;
+       }
 
 
         if (this.isOrderedToSit() && sitProgress < 5F) {
@@ -324,7 +327,7 @@ public class EntityHwachavenator extends EntityTameableRangedBaseDinosaurAnimal 
         }
 
         shootProgress = 0;
-        this.setIsShooting(false);
+        //this.setIsShooting(false);
     }
 
     public boolean hurt(DamageSource source, float amount) {

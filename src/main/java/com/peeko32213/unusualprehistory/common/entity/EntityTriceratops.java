@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -13,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -55,7 +57,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
-public class EntityTriceratops extends TamableAnimal implements IAnimatable, CustomFollower {
+public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implements IAnimatable, CustomFollower {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
 
 
@@ -72,9 +74,8 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
     private int stunnedTick;
     private boolean canBePushed = true;
 
-    public EntityTriceratops(EntityType<? extends TamableAnimal > entityType, Level level) {
+    public EntityTriceratops(EntityType<? extends  EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 1.0f;
     }
 
 
@@ -85,14 +86,6 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.3D);
-    }
-
-    public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
     }
 
     @Override
@@ -191,12 +184,48 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
     }
 
     @Override
-    public boolean canAttack(LivingEntity entity) {
-        boolean prev = super.canAttack(entity);
-        if(prev && isBaby()){
-            return false;
-        }
-        return prev;
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 10;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
     }
 
     public int getCommand() {
@@ -311,7 +340,6 @@ public class EntityTriceratops extends TamableAnimal implements IAnimatable, Cus
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-        Item item = itemstack.getItem();
         if (isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
             if (!player.isCreative()) {
                 itemstack.shrink(1);
