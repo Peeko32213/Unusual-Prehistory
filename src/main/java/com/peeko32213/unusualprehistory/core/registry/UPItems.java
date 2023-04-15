@@ -17,7 +17,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class UPItems {
+public class
+UPItems {
 
 
     private UPItems() {
@@ -66,6 +67,9 @@ public class UPItems {
             () -> new ItemTrikeShield(new Item.Properties().durability(1300).rarity(Rarity.UNCOMMON).tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> GROG = ITEMS.register("grog",
             () -> new ModItemDrinkable(drinkItem().food(ModFood.GROG), true, false));
+
+    public static final RegistryObject<Item> MEATY_BUFFET = ITEMS.register("meaty_buffet",
+            () -> new ModItemConsumable(new Item.Properties().tab(UnusualPrehistory.DINO_TAB).food(ModFood.MEATY_BUFFET).craftRemainder(Items.BOWL)));
     public static final RegistryObject<Item> MAJUNGA_SCUTE = ITEMS.register("majunga_scute",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> AMBER_SHARDS = ITEMS.register("amber_shard",
@@ -320,9 +324,6 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> HWACHA_EGG = ITEMS.register("hwacha_spawn_egg",
             () -> new ForgeSpawnEggItem(UPEntities.HWACHA , 0x14191b, 0xf4f435,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-
-
-
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(MajungaArmorMaterial.MAJUNGA, EquipmentSlot.HEAD,

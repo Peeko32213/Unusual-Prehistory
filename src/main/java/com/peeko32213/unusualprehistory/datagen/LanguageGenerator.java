@@ -78,6 +78,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.AMBER_GUMMY, "Amber Gummy");
         addItem(UPItems.RAW_AUSTRO, "Raw Austroraptor");
         addItem(UPItems.COOKED_AUSTRO, "Cooked Austroraptor");
+        addItem(UPItems.MEATY_BUFFET, "Meaty Buffet");
 
         //BUCKETS
         addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");

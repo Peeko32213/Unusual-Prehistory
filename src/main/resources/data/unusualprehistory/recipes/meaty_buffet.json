@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:raw_coty"
+    },
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "unusualprehistory:raw_scau"
+    },
+    {
+      "item": "unusualprehistory:raw_austro"
+    }
+  ],
+  "result": {
+    "item": "unusualprehistory:meaty_buffet"
+  }
+}

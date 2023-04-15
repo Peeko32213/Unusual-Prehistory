@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
@@ -32,6 +33,11 @@ public class MajungasaurusModel extends AnimatedGeoModel<EntityMajungasaurus>
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/majungasaurus.animation.json");
     }
+
+    public RenderType getRenderType(EntityMajungasaurus animatable, ResourceLocation texture) {
+        return RenderType.entityTranslucent(getTextureResource(animatable));
+    }
+
 
     @Override
     public void setCustomAnimations(EntityMajungasaurus dino, int uniqueID, @Nullable AnimationEvent customPredicate) {

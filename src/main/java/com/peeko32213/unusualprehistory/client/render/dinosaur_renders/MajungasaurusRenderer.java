@@ -23,4 +23,6 @@ public class MajungasaurusRenderer extends GeoEntityRenderer<EntityMajungasaurus
         }
     }
 
+
+
 }

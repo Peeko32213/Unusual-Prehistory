@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwach
 import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableRangedBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.ChatFormatting;
@@ -91,8 +92,8 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(3, new RangedAttackGoal(this, 1.25D, 10, 20.0F));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(3, new RangedAttackGoal(this, 0D, 10, 20.0F));
+        this.goalSelector.addGoal(1, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
@@ -204,12 +205,14 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             int size = itemstack.getCount();
             this.tame(player);
             itemstack.shrink(size);
+            this.spawnAtLocation(Items.BOWL);
             return InteractionResult.SUCCESS;
         }
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
             if (isFood(itemstack)) {
                 this.usePlayerItem(player, hand, itemstack);
+                this.spawnAtLocation(Items.BOWL);
                 return InteractionResult.SUCCESS;
             } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                 this.usePlayerItem(player, hand, itemstack);
@@ -569,7 +572,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.sprinting"));
                 event.getController().setAnimationSpeed(2.0D);
                 return PlayState.CONTINUE;
-            } else if (event.isMoving()) {
+            } else if (event.isMoving()){
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.walk"));
                 event.getController().setAnimationSpeed(1.0D);
                 return PlayState.CONTINUE;

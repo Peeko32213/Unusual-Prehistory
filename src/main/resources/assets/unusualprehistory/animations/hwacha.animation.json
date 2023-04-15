@@ -341,7 +341,6 @@
 		},
 		"animation.hwacha.turret_firing": {
 			"loop": true,
-			"override_previous_animation": true,
 			"bones": {
 				"Body": {
 					"rotation": {
