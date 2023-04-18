@@ -56,7 +56,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
 
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
     private boolean orderedToSit;
-
+    public int attackCooldown = 0;
     int lastTimeSinceHungry;
 
     protected EntityTameableBaseDinosaurAnimal(EntityType<? extends TamableAnimal> entityType, Level level) {
@@ -86,6 +86,10 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     @Override
     public void tick() {
         super.tick();
+        if(attackCooldown > 0) {
+            attackCooldown--;
+        }
+
         if(!canGetHungry()) {
             return;
         }
@@ -135,18 +139,18 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
 
     @Override
     public void handleEntityEvent(byte pId) {
-        if (pId == 4) {
-            this.swinging = true;
-            setSwinging(true);
-            setHasSwung(true);
-        } else if (pId == 5) {
-            this.swinging = false;
-            setSwinging(false);
-            setHasSwung(false);
-        } else {
+       //if (pId == 4) {
+       //    this.swinging = true;
+       //    setSwinging(true);
+       //    setHasSwung(true);
+       //} else if (pId == 5) {
+       //    this.swinging = false;
+       //    setSwinging(false);
+       //    setHasSwung(false);
+       //} else {
             super.handleEntityEvent(pId);
 
-        }
+        //}
     }
     protected abstract SoundEvent getAttackSound();
     protected abstract int getKillHealAmount();

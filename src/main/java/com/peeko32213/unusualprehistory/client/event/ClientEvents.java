@@ -16,7 +16,7 @@ import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.core.registry.*;
-import com.peeko32213.unusualprehistory.core.registry.util.KeyInputMessage;
+import com.peeko32213.unusualprehistory.core.registry.util.HwachaKeyInputMessage;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -229,30 +229,6 @@ public final class ClientEvents {
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event)
     {
         event.registerAboveAll("amber_protection", AmberProtectionOverlay.HUD_AMBER_PROTECTION);
-    }
-
-    @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
-    public static class ForgeBusEvents {
-
-        @SubscribeEvent
-        public static void onKeyPress(InputEvent.Key event) {
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.level == null) return;
-            onInput(mc, event.getKey(), event.getAction());
-        }
-
-        @SubscribeEvent
-        public static void onMouseClick(InputEvent.MouseButton event) {
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.level == null) return;
-            onInput(mc, event.getButton(), event.getAction());
-        }
-
-        private static void onInput(Minecraft mc, int key, int action) {
-            if (mc.screen == null && roarKey.consumeClick()) {
-                UPMessages.sendToServer(new KeyInputMessage(key));
-            }
-        }
     }
 
     public static KeyMapping roarKey;
