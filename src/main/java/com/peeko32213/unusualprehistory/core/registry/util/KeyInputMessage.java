@@ -39,11 +39,14 @@ public class KeyInputMessage  {
                     hwachavenator.setIsShooting(true);
                 }
             }
-            if (vehicle instanceof EntityUlughbegsaurus ulughbegsaurus && !ulughbegsaurus.isInSittingPose()) {
+            if (vehicle instanceof EntityUlughbegsaurus ulughbegsaurus && !ulughbegsaurus.isInSittingPose() && !ulughbegsaurus.hasSwung()) {
                 ulughbegsaurus.level.broadcastEntityEvent(ulughbegsaurus, (byte)4);
                 for (Entity entity : ulughbegsaurus.level.getEntitiesOfClass(LivingEntity.class, ulughbegsaurus.getBoundingBox().inflate(2.0D))) {
                     if (!(entity instanceof EntityUlughbegsaurus) && !(entity instanceof Player)) {
                         if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
+                            ulughbegsaurus.setSwinging(true);
+                            ulughbegsaurus.setHasSwung(true);
+                            ulughbegsaurus.swinging = true;
                             if (ulughbegsaurus.isOrange()) {
                                 entity.hurt(DamageSource.mobAttack(ulughbegsaurus), 12.0F);
                             } else
@@ -53,11 +56,14 @@ public class KeyInputMessage  {
                     }
                 }
             }
-            if (vehicle instanceof EntityTriceratops triceratops && !triceratops.isInSittingPose()) {
-                triceratops.level.broadcastEntityEvent(triceratops, (byte)4);
+            if (vehicle instanceof EntityTriceratops triceratops && !triceratops.isInSittingPose() && !triceratops.hasSwung()) {
+                //triceratops.level.broadcastEntityEvent(triceratops, (byte)4);
                 for (Entity entity : triceratops.level.getEntitiesOfClass(LivingEntity.class, triceratops.getBoundingBox().inflate(4.0D))) {
                     if (!(entity instanceof EntityTriceratops) && !(entity instanceof Player)) {
                         if (triceratops.isSaddled() && triceratops.isTame() && triceratops.getControllingPassenger() == player) {
+                            triceratops.setSwinging(true);
+                            triceratops.setHasSwung(true);
+                            triceratops.swinging = true;
                             entity.hurt(DamageSource.mobAttack(triceratops), 10.0F);
                         }
                     }

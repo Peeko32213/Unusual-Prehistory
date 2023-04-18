@@ -14,15 +14,17 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class BlockStethaFossil extends Block {
+public class BlockFossilDecoration extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    protected static final VoxelShape Z_AXIS_AABB  = Block.box(-2, 0, 2, 18, 20, 6);
-    protected static final VoxelShape X_AXIS_AABB  =  Block.box(2, 0, -2, 6, 20, 18);
+    protected  final VoxelShape Z_AXIS_AABB;
+    protected  final VoxelShape X_AXIS_AABB;
 
 
-    public BlockStethaFossil(Properties properties) {
+    public BlockFossilDecoration(Properties properties, VoxelShape z_axis_aabb, VoxelShape x_axis_aabb) {
         super(properties);
+        this.Z_AXIS_AABB = z_axis_aabb;
+        this.X_AXIS_AABB = x_axis_aabb;
     }
 
     @Override

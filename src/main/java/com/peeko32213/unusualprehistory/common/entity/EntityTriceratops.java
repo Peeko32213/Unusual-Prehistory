@@ -44,6 +44,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -57,7 +59,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
-public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implements IAnimatable, CustomFollower {
+public class EntityTriceratops extends TamableAnimal implements IAnimatable, CustomFollower {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
 
 
@@ -70,11 +72,15 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SWINGING = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.BOOLEAN);
 
+
+    public static final Logger LOGGER = LogManager.getLogger();
     private int stunnedTick;
     private boolean canBePushed = true;
 
-    public EntityTriceratops(EntityType<? extends  EntityTameableBaseDinosaurAnimal> entityType, Level level) {
+    public EntityTriceratops(EntityType<? extends  TamableAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -171,6 +177,8 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         this.entityData.define(HAS_TARGET, false);
         this.entityData.define(COMMAND, 0);
         this.entityData.define(SADDLED, Boolean.valueOf(false));
+        this.entityData.define(SWINGING, false);
+        this.entityData.define(HAS_SWUNG, false);
 
     }
 
@@ -179,6 +187,8 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("TrikeCommand", this.getCommand());
+        compound.putBoolean("IsSwinging", this.isSwinging());
+        compound.putBoolean("HasSwung", this.hasSwung());
     }
 
     @Override
@@ -186,54 +196,26 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         super.readAdditionalSaveData(compound);
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setCommand(compound.getInt("TrikeCommand"));
-
+        this.setSwinging(compound.getBoolean("IsSwinging"));
+        this.setHasSwung(compound.getBoolean("HasSwung"));
 
     }
 
-    @Override
-    protected SoundEvent getAttackSound() {
-        return null;
+    public boolean isSwinging() {
+        return this.entityData.get(SWINGING).booleanValue();
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 10;
+    public void setSwinging(boolean swinging) {
+        this.entityData.set(SWINGING, Boolean.valueOf(swinging));
+    }
+    public boolean hasSwung() {
+        return this.entityData.get(HAS_SWUNG).booleanValue();
     }
 
-    @Override
-    protected boolean canGetHungry() {
-        return false;
+    public void setHasSwung(boolean swung) {
+        this.entityData.set(HAS_SWUNG, Boolean.valueOf(swinging));
     }
 
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
-    }
 
     public int getCommand() {
         return this.entityData.get(COMMAND).intValue();
@@ -657,6 +639,13 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
+        LOGGER.info("swinging " + isSwinging());
+        if (this.swinging ||  isSwinging()) {
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.trike.attack"));
+            this.swinging = false;
+            setSwinging(false);
+            return PlayState.CONTINUE;
+        }
         if (this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.sit"));
             event.getController().setAnimationSpeed(1.0F);
@@ -665,14 +654,10 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.idle"));
         event.getController().setAnimationSpeed(1.0F);
         return PlayState.CONTINUE;
+
     }
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.trike.attack"));
-            this.swinging = false;
-        }
         return PlayState.CONTINUE;
     }
 

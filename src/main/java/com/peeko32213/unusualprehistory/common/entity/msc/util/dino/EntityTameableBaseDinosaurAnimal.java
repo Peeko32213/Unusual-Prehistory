@@ -51,6 +51,9 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SWINGING = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
     private boolean orderedToSit;
 
@@ -147,6 +150,8 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.entityData.define(HUNGRY, true);
         this.entityData.define(TIME_TILL_HUNGRY, 0);
         this.entityData.define(SADDLED, false);
+        this.entityData.define(SWINGING, false);
+        this.entityData.define(HAS_SWUNG, false);
         this.entityData.define(PASSIVE, 0);
     }
 
@@ -156,6 +161,8 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         compound.putBoolean("IsHungry", this.isHungry());
         compound.putInt("TimeTillHungry", this.getTimeTillHungry());
         compound.putBoolean("Saddle", this.isSaddled());
+        compound.putBoolean("IsSwinging", this.isSwinging());
+        compound.putBoolean("HasSwung", this.hasSwung());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
     }
 
@@ -163,6 +170,8 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setHungry(compound.getBoolean("IsHungry"));
+        this.setSwinging(compound.getBoolean("IsSwinging"));
+        this.setHasSwung(compound.getBoolean("HasSwung"));
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
@@ -197,6 +206,20 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.entityData.set(SADDLED, Boolean.valueOf(saddled));
     }
 
+    public boolean isSwinging() {
+        return this.entityData.get(SWINGING).booleanValue();
+    }
+
+    public void setSwinging(boolean swinging) {
+        this.entityData.set(SWINGING, Boolean.valueOf(swinging));
+    }
+    public boolean hasSwung() {
+        return this.entityData.get(HAS_SWUNG).booleanValue();
+    }
+
+    public void setHasSwung(boolean swung) {
+        this.entityData.set(HAS_SWUNG, Boolean.valueOf(swinging));
+    }
     public int getPassiveTicks() {
         return this.entityData.get(PASSIVE);
     }
