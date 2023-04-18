@@ -117,6 +117,13 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         this.goalSelector.addGoal(5, new TameableTempt(this, 1.1D, TEMPTATION_ITEMS, false));
     }
 
+    @Override
+    public boolean doHurtTarget(Entity entityIn) {
+        this.level.broadcastEntityEvent(this, (byte)4);
+        return super.doHurtTarget(entityIn);
+    }
+
+
     public boolean isFood(ItemStack stack) {
         return stack.is(UPTags.TRIKE_FOOD);
     }
@@ -240,20 +247,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         super.tick();
         if(riderAttackCooldown > 0){
             riderAttackCooldown--;
-        }
-        if (this.isAlive()  && this.getDeltaMovement().horizontalDistanceSqr() > 0.1D) {
-            for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0D))) {
-                if (!(entity instanceof EntityTriceratops) && !entity.isPassengerOfSameVehicle(this) & riderAttackCooldown == 0 && !(entity instanceof Villager)) {
-                    entity.hurt(DamageSource.mobAttack(this), 8F + random.nextFloat() * 3.0F);
-                    if (entity.isOnGround()) {
-                        double d0 = entity.getX() - this.getX();
-                        double d1 = entity.getZ() - this.getZ();
-                        double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
-                        float f = 0.3F;
-                        entity.push(d0 / d2 * f, f, d1 / d2 * f);
-                    }
-                }
-            }
         }
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;

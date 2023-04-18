@@ -101,7 +101,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, LivingEntity.class) {
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, LivingEntity.class) {
 
             public boolean canUse() {
                 return !isTame();

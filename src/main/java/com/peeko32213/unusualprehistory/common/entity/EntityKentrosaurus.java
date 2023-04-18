@@ -25,10 +25,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Pufferfish;
+import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -47,6 +49,8 @@ import java.util.EnumSet;
 import java.util.function.Predicate;
 
 public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
+    public static final double FLEE_SPEED_MOD = 1.5D;
+
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(EntityKentrosaurus.class, EntityDataSerializers.BYTE);
     private static final Predicate<LivingEntity> SCARY_MOB = (p_29634_) -> {
         if (p_29634_ instanceof Player && ((Player)p_29634_).isCreative()) {
@@ -63,6 +67,8 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
 
     public EntityKentrosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
+        this.setSpeedModifier(0.0D);
+
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -76,11 +82,12 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
 
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(1, new EntityKentrosaurus.KentroPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(1, new KentroSitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)));
     }
 
     protected void defineSynchedData() {
@@ -280,6 +287,28 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
+    }
+
+    static class KentroPanicGoal extends PanicGoal {
+        private final EntityKentrosaurus rabbit;
+
+        public KentroPanicGoal(EntityKentrosaurus pRabbit, double pSpeedModifier) {
+            super(pRabbit, pSpeedModifier);
+            this.rabbit = pRabbit;
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void tick() {
+            super.tick();
+            this.rabbit.setSpeedModifier(this.speedModifier);
+        }
+    }
+
+    public void setSpeedModifier(double pSpeedModifier) {
+        this.getNavigation().setSpeedModifier(pSpeedModifier);
+        this.moveControl.setWantedPosition(this.moveControl.getWantedX(), this.moveControl.getWantedY(), this.moveControl.getWantedZ(), pSpeedModifier);
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {

@@ -184,6 +184,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             this.doEnchantDamageEffects(this, target);
             this.setLastHurtMob(target);
         }
+        this.level.broadcastEntityEvent(this, (byte)4);
         return shouldHurt;
     }
 
