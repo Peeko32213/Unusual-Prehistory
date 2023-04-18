@@ -73,7 +73,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public float prevEatProgress;
     public float eatProgress;
     public float sitProgress;
-    public EntityUlughbegsaurus(EntityType<? extends TamableAnimal> entityType, Level level) {
+    public EntityUlughbegsaurus(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -369,6 +369,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     public void tick() {
         super.tick();
+        //LOGGER.info("swinging " + isSwinging());
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
         }
@@ -399,10 +400,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     @Override
     public void travel(Vec3 destination) {
-        if (!this.isAlive()) {
-            return;
-        }
-
         LivingEntity passenger = (LivingEntity) this.getControllingPassenger();
         if (this.isVehicle() && passenger != null) {
             double delta = DELTA_Y_FOR_COLLISION;
@@ -420,13 +417,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 f1 *= 0.25;
             }
 
-            double posY = this.getY();
-            Vec3 deltaMovement = this.getDeltaMovement();
-
-            // Travel up when there is a horizontal collision and enough space
-            if (this.horizontalCollision /**&& deltaMovement.y > 0 **/ && this.isFree(deltaMovement.x, deltaMovement.y + delta, deltaMovement.z)) {
-                this.setDeltaMovement(deltaMovement.x, (double) 0.5F, deltaMovement.z);
-            }
 
             this.setSpeed((float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * MOVEMENT_SPEED_MULTIPLIER));
             super.travel(new Vec3((double) f, destination.y, (double) f1));
@@ -697,6 +687,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 return PlayState.CONTINUE;
             }
         }
+
+
         if (this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.sitting"));
             event.getController().setAnimationSpeed(1.0F);
@@ -717,11 +709,12 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     }
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+        if ((this.swinging || isSwinging() ) && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
+            //setSwinging(false);
+            //setHasSwung(true);
+            //this.swinging = false;
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.ulugh.bite"));
-
-            this.swinging = false;
         }
         return PlayState.CONTINUE;
     }

@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -216,12 +217,11 @@ public class UPBlocks {
                     Block.box(0, 0, 0, 16, 1.5, 16)
             ));
 
-
-
-
-
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
-            () -> new BlockAmmoniteShell(BlockBehaviour.Properties.of(Material.EGG).strength(0.5F).requiresCorrectToolForDrops()));
+            () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.EGG).strength(0.5F).requiresCorrectToolForDrops(),
+                    Block.box(5, 0, 2, 11, 12, 14),
+                    Block.box(2, 0, 5, 14, 12, 11)
+            ));
     //TODO change BlockHorseTail to generic class, same for BlockSaracenia
     public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail",
             () -> new BlockHorsetail(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
@@ -322,53 +322,100 @@ public class UPBlocks {
             () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
 
     public static final RegistryObject<Block> COTY_FOSSIL = registerBlock("coty_fossil",
-            () -> new BlockCotyFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(-7, 0.08658283817455159, 1.3806023374435663, 23, 30.086582838174543, 5.380602337443565),
+                    Block.box(1.3806023374435663, 0.08658283817455159, -7, 5.380602337443565, 30.086582838174543, 23)
+            ));
 
     public static final RegistryObject<Block> STETHA_FOSSIL = registerBlock("stetha_fossil",
-            () -> new BlockStethaFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(-2, 0, 2, 18, 20, 6),
+                    Block.box(2, 0, -2, 6, 20, 18)
+            ));
 
     public static final RegistryObject<Block> ANURO_FOSSIL = registerBlock("anuro_fossil",
-            () -> new BlockAnuroFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(-2, 0, 2, 18, 20, 6),
+                    Block.box(2, 0, -2, 6, 20, 18)
+            ));
 
     public static final RegistryObject<Block> SCAU_FOSSIL = registerBlock("scau_fossil",
-            () -> new BlockScauFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(-6, 2, 3, 22, 17, 6),
+                    Block.box(3, 2, -6, 6, 17, 22)
+            ));
 
     public static final RegistryObject<Block> BEELZE_FOSSIL = registerBlock("beelze_fossil",
-            () -> new BlockBeelzeFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(0, 7, 3, 17, 12, 11),
+                    Block.box(3, 7, 0, 11, 12, 17)
+            ));
 
     public static final RegistryObject<Block> BRACHI_FOSSIL = registerBlock("brachi_fossil",
-            () -> new BlockBrachiFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(-1, 5, 2, 17, 21, 17),
+                    Block.box(2, 5, -1, 17, 21, 17)
+            ));
 
     public static final RegistryObject<Block> DUNK_FOSSIL = registerBlock("dunk_fossil",
-            () -> new BlockDunkFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(0.5, 1, 6, 15.5, 6, 9),
+                    Block.box(6, 1, 0.5, 9, 6, 15.5)
+            ));
 
     public static final RegistryObject<Block> MAJUNGA_FOSSIL = registerBlock("majunga_fossil",
-            () -> new BlockMajungaFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(3.5, 10, 1, 12.5, 17, 13),
+                    Block.box(1, 10, 3.5, 13, 17, 12.5)
+            ));
 
     public static final RegistryObject<Block> PACHY_FOSSIL = registerBlock("pachy_fossil",
-            () -> new BlockPachyFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(2.5, 7, 4, 13.5, 17, 14),
+                    Block.box(4, 7, 2.5, 14, 17, 13.5)
+            ));
 
     public static final RegistryObject<Block> VELOCI_FOSSIL = registerBlock("veloci_fossil",
-            () -> new BlockVelociFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(5.5, 7, 7, 10.5, 12, 12),
+                    Block.box(7, 7, 5.5, 12, 12, 10.5)
+            ));
 
     public static final RegistryObject<Block> ERYON_FOSSIL = registerBlock("eryon_fossil",
-            () -> new BlockEryonFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(-2, 0, 2, 18, 20, 6),
+                    Block.box(2, 0, -2, 6, 20, 18)
+            ));
 
     public static final RegistryObject<Block> AUSTRO_FOSSIL = registerBlock("austro_fossil",
-            () -> new BlockAustroFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(5.5, 7, 7, 10.5, 12, 12),
+                    Block.box(7, 7, 5.5, 12, 12, 10.5)
+            ));
 
     public static final RegistryObject<Block> ULUGH_FOSSIL = registerBlock("ulugh_fossil",
-            () -> new BlockUlughFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(-1, 5, 2, 17, 21, 17),
+                    Block.box(2, 5, -1, 17, 21, 17)
+            ));
 
     public static final RegistryObject<Block> KENTRO_FOSSIL = registerBlock("kentro_fossil",
-            () -> new BlockKentroFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(0.5, 1, 6, 15.5, 6, 9),
+                    Block.box(6, 1, 0.5, 9, 6, 15.5)
+            ));
 
     public static final RegistryObject<Block> ANTARCTO_FOSSIL = registerBlock("antarcto_fossil",
-            () -> new BlockAntarctoFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
+            () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(-7.5, 2, 8, 22.5, 4, 25),
+                    Block.box(8, 2, -7.5, 25, 4, 22.5)
+            ));
 
     public static final RegistryObject<Block> HWACHA_FOSSIL = registerBlock("hwacha_fossil",
-            () -> new BlockHwachaFossil(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops()));
-
+            () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+                    Block.box(-1, 5, 2, 17, 21, 17),
+                    Block.box(2, 5, -1, 17, 21, 17)
+            ));
 
     public static final RegistryObject<Block> DEAD_CLATHRODICTYON_BLOCK = registerBlock("dead_clathrodictyon_block", () ->
             new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
