@@ -133,7 +133,21 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         }
     }
 
+    @Override
+    public void handleEntityEvent(byte pId) {
+        if (pId == 4) {
+            this.swinging = true;
+            setSwinging(true);
+            setHasSwung(true);
+        } else if (pId == 5) {
+            this.swinging = false;
+            setSwinging(false);
+            setHasSwung(false);
+        } else {
+            super.handleEntityEvent(pId);
 
+        }
+    }
     protected abstract SoundEvent getAttackSound();
     protected abstract int getKillHealAmount();
     protected abstract boolean canGetHungry();

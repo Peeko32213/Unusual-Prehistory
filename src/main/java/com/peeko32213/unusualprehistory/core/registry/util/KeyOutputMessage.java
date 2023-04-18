@@ -42,29 +42,21 @@ public class KeyOutputMessage {
                     hwachavenator.setIsShooting(false);
 
                     ClientboundStopSoundPacket clientboundstopsoundpacket = new ClientboundStopSoundPacket(UPSounds.HWACHA_SHOOT.getId(), SoundSource.NEUTRAL);
-                    ServerPlayer serverPlayer = (ServerPlayer)hwachavenator.getControllingPassenger();
+                    ServerPlayer serverPlayer = (ServerPlayer) hwachavenator.getControllingPassenger();
                     serverPlayer.connection.send(clientboundstopsoundpacket);
 
                 }
             }
             if (vehicle instanceof EntityUlughbegsaurus ulughbegsaurus && !ulughbegsaurus.isInSittingPose()) {
-                ulughbegsaurus.level.broadcastEntityEvent(ulughbegsaurus, (byte)4);
-                for (Entity entity : ulughbegsaurus.level.getEntitiesOfClass(LivingEntity.class, ulughbegsaurus.getBoundingBox().inflate(2.0D))) {
-                    if (!(entity instanceof EntityUlughbegsaurus) && !(entity instanceof Player)) {
-                        if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
-                            ulughbegsaurus.setHasSwung(false);
-                        }
-                    }
+                if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
+                    ulughbegsaurus.level.broadcastEntityEvent(ulughbegsaurus, (byte)5);
+
+
                 }
             }
-            if (vehicle instanceof EntityTriceratops triceratops && !triceratops.isInSittingPose()) {
-                triceratops.level.broadcastEntityEvent(triceratops, (byte)4);
-                for (Entity entity : triceratops.level.getEntitiesOfClass(LivingEntity.class, triceratops.getBoundingBox().inflate(4.0D))) {
-                    if (!(entity instanceof EntityTriceratops) && !(entity instanceof Player)) {
-                        if (triceratops.isSaddled() && triceratops.isTame() && triceratops.getControllingPassenger() == player) {
-                            triceratops.setHasSwung(false);
-                        }
-                    }
+            if (vehicle instanceof EntityTriceratops triceratops && !triceratops.isInSittingPose() && triceratops.hasSwung()) {
+                if (triceratops.isSaddled() && triceratops.isTame() && triceratops.getControllingPassenger() == player) {
+                    triceratops.level.broadcastEntityEvent(triceratops, (byte)5);
                 }
             }
         });

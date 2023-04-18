@@ -73,7 +73,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public float prevEatProgress;
     public float eatProgress;
     public float sitProgress;
-    public EntityUlughbegsaurus(EntityType<? extends TamableAnimal> entityType, Level level) {
+    public EntityUlughbegsaurus(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -369,6 +369,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     public void tick() {
         super.tick();
+        //LOGGER.info("swinging " + isSwinging());
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
         }
@@ -686,13 +687,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 return PlayState.CONTINUE;
             }
         }
-        LOGGER.info("swinging " + isSwinging());
-        if (this.swinging || isSwinging()) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.ulugh.bite"));
-            setSwinging(false);
-            this.swinging = false;
-            return PlayState.CONTINUE;
-        }
+
+
         if (this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.sitting"));
             event.getController().setAnimationSpeed(1.0F);
@@ -713,6 +709,13 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     }
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
+        if ((this.swinging || isSwinging() ) && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+            event.getController().markNeedsReload();
+            //setSwinging(false);
+            //setHasSwung(true);
+            //this.swinging = false;
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.ulugh.bite"));
+        }
         return PlayState.CONTINUE;
     }
 
