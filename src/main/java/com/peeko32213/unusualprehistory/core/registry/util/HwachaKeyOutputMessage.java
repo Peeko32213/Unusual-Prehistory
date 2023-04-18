@@ -8,22 +8,20 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class KeyOutputMessage {
+public class HwachaKeyOutputMessage {
     public int key;
 
-    public KeyOutputMessage(int key) {
+    public HwachaKeyOutputMessage(int key) {
         this.key = key;
     }
 
-    public KeyOutputMessage(FriendlyByteBuf buf) {
+    public HwachaKeyOutputMessage(FriendlyByteBuf buf) {
         this.key = buf.readInt();
     }
 
@@ -32,7 +30,7 @@ public class KeyOutputMessage {
         buffer.writeInt(key);
     }
 
-    public static void handle(KeyOutputMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void handle(HwachaKeyOutputMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
             Player player = context.getSender();
@@ -45,18 +43,6 @@ public class KeyOutputMessage {
                     ServerPlayer serverPlayer = (ServerPlayer) hwachavenator.getControllingPassenger();
                     serverPlayer.connection.send(clientboundstopsoundpacket);
 
-                }
-            }
-            if (vehicle instanceof EntityUlughbegsaurus ulughbegsaurus && !ulughbegsaurus.isInSittingPose()) {
-                if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
-                    ulughbegsaurus.level.broadcastEntityEvent(ulughbegsaurus, (byte)5);
-
-
-                }
-            }
-            if (vehicle instanceof EntityTriceratops triceratops && !triceratops.isInSittingPose() && triceratops.hasSwung()) {
-                if (triceratops.isSaddled() && triceratops.isTame() && triceratops.getControllingPassenger() == player) {
-                    triceratops.level.broadcastEntityEvent(triceratops, (byte)5);
                 }
             }
         });

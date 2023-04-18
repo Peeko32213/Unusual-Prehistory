@@ -65,6 +65,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     private static final EntityDataAccessor<Integer> EATING_TIME = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
     public static final Logger LOGGER = LogManager.getLogger();
+
+    private static final int ATTACK_COOLDOWN = 120;
     private boolean hasBlueAttributes = false;
     private boolean hasYellowAttributes = false;
     private boolean hasWhiteAttributes = false;
@@ -187,6 +189,25 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.level.broadcastEntityEvent(this, (byte)4);
         return shouldHurt;
     }
+
+
+    public void performAttack(){
+        if(this.level.isClientSide) {
+            return;
+        }
+        for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
+            if (!(entity instanceof EntityUlughbegsaurus) && !(entity instanceof Player) && !this.hasSwung()) {
+                if (this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
+                    if (this.isOrange()) {
+                        entity.hurt(DamageSource.mobAttack(this), 12.0F);
+                    } else
+                        entity.hurt(DamageSource.mobAttack(this), 8.0F);
+//
+                }
+            }
+        }
+    }
+
 
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -369,7 +390,18 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     public void tick() {
         super.tick();
-        //LOGGER.info("swinging " + isSwinging());
+
+        if(this.isSwinging() && !hasSwung()){
+            setSwinging(false);
+            setHasSwung(true);
+            performAttack();
+            this.attackCooldown = ATTACK_COOLDOWN;
+        }
+
+        if(attackCooldown <= 0){
+            setHasSwung(false);
+        }
+
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
         }
@@ -709,7 +741,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     }
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if ((this.swinging || isSwinging() ) && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+        if ((isSwinging() ) && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
             //setSwinging(false);
             //setHasSwung(true);

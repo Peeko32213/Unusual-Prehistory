@@ -2,8 +2,7 @@ package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
-import com.peeko32213.unusualprehistory.core.registry.util.KeyInputMessage;
-import com.peeko32213.unusualprehistory.core.registry.util.KeyOutputMessage;
+import com.peeko32213.unusualprehistory.core.registry.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,9 +26,13 @@ public class InputEvents {
 
     private static void onInput(Minecraft mc, int key, int action) {
         if (mc.screen == null && ClientEvents.roarKey.isDown()) {
-            UPMessages.sendToServer(new KeyInputMessage(key));
+            UPMessages.sendToServer(new HwachaKeyInputMessage(key));
+            UPMessages.sendToServer(new TrikeKeyInputMessage(key));
+            UPMessages.sendToServer(new UlughKeyInputMessage(key));
         } else if(mc.screen == null && !ClientEvents.roarKey.isDown()){
-            UPMessages.sendToServer(new KeyOutputMessage(key));
+            UPMessages.sendToServer(new HwachaKeyOutputMessage(key));
+            UPMessages.sendToServer(new TrikeKeyOutputMessage(key));
+            UPMessages.sendToServer(new UlughKeyOutputMessage(key));
         }
 
     }

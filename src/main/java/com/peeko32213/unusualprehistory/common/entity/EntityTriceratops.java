@@ -81,7 +81,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public static final Logger LOGGER = LogManager.getLogger();
     private int stunnedTick;
     private boolean canBePushed = true;
-
+    private static final int ATTACK_COOLDOWN = 120;
     public EntityTriceratops(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
@@ -237,6 +237,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     protected int getKillHealAmount() {
         return 10;
     }
+
     @Override
     protected boolean canGetHungry() {
         return false;
@@ -251,6 +252,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     protected boolean hasAvoidEntity() {
         return false;
     }
+
     @Override
     protected boolean hasCustomNavigation() {
         return false;
@@ -273,9 +275,18 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     public void tick() {
         super.tick();
-        //this.setSwinging(true);
-        //this.setHasSwung(false);
-        //this.swinging = true;
+
+        if(this.isSwinging() && !hasSwung()){
+            setSwinging(false);
+            setHasSwung(true);
+            performAttack();
+            this.attackCooldown = ATTACK_COOLDOWN;
+        }
+
+        if(attackCooldown <= 0){
+            setHasSwung(false);
+        }
+
         if (riderAttackCooldown > 0) {
             riderAttackCooldown--;
         }
@@ -283,6 +294,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
             sitProgress++;
         }
         if (!this.isOrderedToSit() && sitProgress > 0F) {
+
             sitProgress--;
         }
         if (this.getCommand() == 2 && !this.isVehicle()) {
@@ -652,12 +664,25 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
             }
         }
     }
+
     @Override
     public void handleEntityEvent(byte pId) {
         if (pId == 10) {
             this.eatAnimationTick = 40;
-        } else{
+        } else {
             super.handleEntityEvent(pId);
+        }
+    }
+
+    public void performAttack() {
+        if (!this.level.isClientSide) {
+            for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D))) {
+                if (!(entity instanceof EntityTriceratops) && !(entity instanceof Player) && !this.hasSwung()) {
+                    if (this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
+                        entity.hurt(DamageSource.mobAttack(this), 10.0F);
+                    }
+                }
+            }
         }
     }
 
@@ -701,7 +726,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if((this.swinging || isSwinging())&& event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+        if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.trike.attack"));
             //this.swinging = false;
