@@ -81,7 +81,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public static final Logger LOGGER = LogManager.getLogger();
     private int stunnedTick;
     private boolean canBePushed = true;
-    private static final int ATTACK_COOLDOWN = 120;
+    private static final int ATTACK_COOLDOWN = 30;
     public EntityTriceratops(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }

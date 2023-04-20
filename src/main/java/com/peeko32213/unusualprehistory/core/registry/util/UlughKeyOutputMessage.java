@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -36,12 +37,14 @@ public class UlughKeyOutputMessage {
             Player player = context.getSender();
             Entity vehicle = player.getVehicle();
             if (vehicle instanceof EntityUlughbegsaurus ulughbegsaurus) {
-                if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
-                    //This one is only for client side stuff
-                    ulughbegsaurus.level.broadcastEntityEvent(ulughbegsaurus, (byte)5);
+                for (Entity entity : ulughbegsaurus.level.getEntitiesOfClass(LivingEntity.class, ulughbegsaurus.getBoundingBox().inflate(2.0D))) {
+                    if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
+                        //This one is only for client side stuff
+                        ulughbegsaurus.level.broadcastEntityEvent(ulughbegsaurus, (byte) 5);
 
-                    //Here we set it server side
-                    ulughbegsaurus.setSwinging(false);
+                        //Here we set it server side
+                        ulughbegsaurus.setSwinging(false);
+                    }
                 }
             }
         });

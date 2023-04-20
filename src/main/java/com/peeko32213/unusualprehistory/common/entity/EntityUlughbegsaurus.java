@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.google.common.collect.Maps;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
@@ -32,8 +33,10 @@ import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -53,6 +56,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal implements CustomFollower {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
@@ -65,8 +71,10 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     private static final EntityDataAccessor<Integer> EATING_TIME = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
     public static final Logger LOGGER = LogManager.getLogger();
-
-    private static final int ATTACK_COOLDOWN = 120;
+    private static final Map<DyeColor, float[]> COLORARRAY_BY_COLOR = Maps.<DyeColor, float[]>newEnumMap(Arrays.stream(DyeColor.values()).collect(Collectors.toMap((p_29868_) -> {
+        return p_29868_;
+    }, EntityUlughbegsaurus::createSheepColor)));
+    private static final int ATTACK_COOLDOWN = 30;
     private boolean hasBlueAttributes = false;
     private boolean hasYellowAttributes = false;
     private boolean hasWhiteAttributes = false;
@@ -691,6 +699,21 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     }
 
+    public static float[] getColorArray(DyeColor pDyeColor) {
+        return COLORARRAY_BY_COLOR.get(pDyeColor);
+    }
+
+    private static float[] createSheepColor(DyeColor p_29866_) {
+        if (p_29866_ == DyeColor.WHITE) {
+            return new float[]{0.9019608F, 0.9019608F, 0.9019608F};
+        } else {
+            float[] afloat = p_29866_.getTextureDiffuseColors();
+            float f = 0.75F;
+            return new float[]{afloat[0] * 0.75F, afloat[1] * 0.75F, afloat[2] * 0.75F};
+        }
+    }
+
+
     @Override
     public void customServerAiStep() {
         if (this.getMoveControl().hasWanted()) {
@@ -700,6 +723,10 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         }
         super.customServerAiStep();
     }
+
+
+
+
 
     @Nullable
     @Override

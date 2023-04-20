@@ -36,9 +36,11 @@ public class UlughKeyInputMessage {
             Player player = context.getSender();
             Entity vehicle = player.getVehicle();
             if (vehicle instanceof EntityUlughbegsaurus ulughbegsaurus) {
-                if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
-                    if(!(ulughbegsaurus.attackCooldown > 0)) {
-                        ulughbegsaurus.setSwinging(true);
+                for (Entity entity : ulughbegsaurus.level.getEntitiesOfClass(LivingEntity.class, ulughbegsaurus.getBoundingBox().inflate(2.0D))) {
+                    if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
+                        if (!(ulughbegsaurus.attackCooldown > 0)) {
+                            ulughbegsaurus.setSwinging(true);
+                        }
                     }
                 }
             }
