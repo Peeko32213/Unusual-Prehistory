@@ -27,21 +27,18 @@ public class UlughbegsaurusJebLayer extends GeoLayerRenderer<EntityUlughbegsauru
         float f1;
         float f2;
         if (entityLivingBaseIn.hasCustomName() && "jeb_".equals(entityLivingBaseIn.getName().getString())) {
-            int i1 = 25;
-            int i = entityLivingBaseIn.tickCount / 25 + entityLivingBaseIn.getId();
-            int j = DyeColor.values().length;
-            int k = i % j;
-            int l = (i + 1) % j;
-            float f3 = ((float)(entityLivingBaseIn.tickCount % 25) + partialTicks) / 25.0F;
-            float[] afloat1 = EntityUlughbegsaurus.getColorArray(DyeColor.byId(k));
-            float[] afloat2 = EntityUlughbegsaurus.getColorArray(DyeColor.byId(l));
-            f = afloat1[0] * (1.0F - f3) + afloat2[0] * f3;
-            f1 = afloat1[1] * (1.0F - f3) + afloat2[1] * f3;
-            f2 = afloat1[2] * (1.0F - f3) + afloat2[2] * f3;
-        }
-        RenderType cameo = RenderType.entityCutout(OVERLAY);
-        this.getRenderer().render(this.getEntityModel().getModel(MODEL), entityLivingBaseIn, partialTicks, cameo, matrixStackIn, bufferIn,
-                bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY,  1.0F, 1.0F, 1.0F, 1.0F);
+        int i1 = 25;
+        int i = entityLivingBaseIn.tickCount / 25 + entityLivingBaseIn.getId();
+        int j = DyeColor.values().length;
+        int k = i % j;
+        int l = (i + 1) % j;
+        float f3 = ((float) (entityLivingBaseIn.tickCount % 25) + partialTicks) / 25.0F;
+        float[] afloat1 = EntityUlughbegsaurus.getColorArray(DyeColor.byId(k));
+        float[] afloat2 = EntityUlughbegsaurus.getColorArray(DyeColor.byId(l));
+        f = afloat1[0] * (1.0F - f3) + afloat2[0] * f3;
+        f1 = afloat1[1] * (1.0F - f3) + afloat2[1] * f3;
+        f2 = afloat1[2] * (1.0F - f3) + afloat2[2] * f3;
+    }
     }
 
 
