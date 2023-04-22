@@ -410,7 +410,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             double d1 = target.getY() - llamaspitentity.getY();
             double d2 = target.getZ() - this.getZ();
             float f = Mth.sqrt((float) (d0 * d0 + d2 * d2)) * 0.2F;
-            llamaspitentity.shoot(d0, d1 + (double) f, d2, 2.0F, 4.0F);
+            llamaspitentity.shoot(d0, d1 , d2, 2.0F, 4.0F);
             this.playSound(UPSounds.HWACHA_SHOOT.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
 
             this.level.addFreshEntity(llamaspitentity);
