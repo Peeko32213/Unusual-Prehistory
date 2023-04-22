@@ -811,5 +811,197 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.hwacha_shoot"
+  },
+  "kentro_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:kentro_death_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:kentro_death_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.kentro_death"
+  },
+  "kentro_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:kentro_hurt_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:kentro_hurt_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.kentro_hurt"
+  },
+  "kentro_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:kentro_idle_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:kentro_idle_1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:kentro_idle_2",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.kentro_idle"
+  },
+  "tail_swipe": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:tail_swipe_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:tail_swipe_1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:tail_swipe_2",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.tail_swipe"
+  },
+  "ulugh_bite": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:ulugh_bite_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:ulugh_bite_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.ulugh_bite"
+  },
+  "ulugh_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:ulugh_death_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:ulugh_death_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.ulugh_death"
+  },
+  "ulugh_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:ulugh_hurt_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:ulugh_hurt_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.ulugh_hurt"
+  },
+  "ulugh_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:ulugh_idle_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:ulugh_idle_1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:ulugh_idle_2",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.ulugh_idle"
+  },
+  "ulugh_step": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:ulugh_step_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:ulugh_step_1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:ulugh_step_2",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:ulugh_step_3",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.ulugh_step"
+  },
+  "antarcto_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:antarcto_death_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:antarcto_death_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.antarcto_death"
+  },
+  "antarcto_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:antarcto_hurt_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:antarcto_hurt_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.antarcto_hurt"
+  },
+  "antarcto_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:antarcto_idle_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:antarcto_idle_1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:antarcto_idle_2",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.antarcto_idle"
   }
 }

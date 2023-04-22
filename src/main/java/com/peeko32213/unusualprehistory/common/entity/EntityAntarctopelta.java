@@ -369,6 +369,7 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
         protected void preformSliceAttack () {
             Vec3 pos = mob.position();
             HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 1.0f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            this.mob.playSound(UPSounds.TAIL_SWIPE.get(), 0.1F, 1.0F);
             if (mob.random.nextInt(5) == 0 && mob.getTarget() instanceof Enemy) {
                 mob.spawnAtLocation(UPItems.ANTARCTO_PLATE.get());
             }
@@ -394,6 +395,18 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
             return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
         }
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.ANTARCTO_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.ANTARCTO_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.ANTARCTO_DEATH.get();
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {

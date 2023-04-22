@@ -88,6 +88,18 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> HWACHA_HURT = createSoundEvent("hwacha_hurt");
     public static final RegistryObject<SoundEvent> HWACHA_IDLE = createSoundEvent("hwacha_idle");
     public static final RegistryObject<SoundEvent> HWACHA_SHOOT = createSoundEvent("hwacha_shoot");
+    public static final RegistryObject<SoundEvent> KENTRO_DEATH = createSoundEvent("kentro_death");
+    public static final RegistryObject<SoundEvent> KENTRO_HURT = createSoundEvent("kentro_hurt");
+    public static final RegistryObject<SoundEvent> KENTRO_IDLE = createSoundEvent("kentro_idle");
+    public static final RegistryObject<SoundEvent> TAIL_SWIPE = createSoundEvent("tail_swipe");
+    public static final RegistryObject<SoundEvent> ULUGH_BITE = createSoundEvent("ulugh_bite");
+    public static final RegistryObject<SoundEvent> ULUGH_DEATH = createSoundEvent("ulugh_death");
+    public static final RegistryObject<SoundEvent> ULUGH_HURT = createSoundEvent("ulugh_hurt");
+    public static final RegistryObject<SoundEvent> ULUGH_IDLE = createSoundEvent("ulugh_idle");
+    public static final RegistryObject<SoundEvent> ULUGH_STEP = createSoundEvent("ulugh_step");
+    public static final RegistryObject<SoundEvent> ANTARCTO_DEATH = createSoundEvent("antarcto_death");
+    public static final RegistryObject<SoundEvent> ANTARCTO_HURT = createSoundEvent("antarcto_hurt");
+    public static final RegistryObject<SoundEvent> ANTARCTO_IDLE = createSoundEvent("antarcto_idle");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));

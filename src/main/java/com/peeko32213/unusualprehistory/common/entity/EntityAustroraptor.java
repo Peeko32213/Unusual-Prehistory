@@ -113,7 +113,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
 
         );
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)));
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
