@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Sheep;
@@ -38,7 +39,14 @@ public class UlughbegsaurusJebLayer extends GeoLayerRenderer<EntityUlughbegsauru
         f = afloat1[0] * (1.0F - f3) + afloat2[0] * f3;
         f1 = afloat1[1] * (1.0F - f3) + afloat2[1] * f3;
         f2 = afloat1[2] * (1.0F - f3) + afloat2[2] * f3;
+            RenderType cameo = RenderType.entityCutout(OVERLAY);
+            this.getRenderer().render(this.getEntityModel().getModel(MODEL), entityLivingBaseIn, partialTicks, cameo, matrixStackIn, bufferIn,
+                    bufferIn.getBuffer(cameo), packedLightIn, LivingEntityRenderer.getOverlayCoords(entityLivingBaseIn, 0.0F),  f, f1, f2, 1.0F);
+
     }
+
+
+
     }
 
 
