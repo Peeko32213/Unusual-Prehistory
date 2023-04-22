@@ -149,7 +149,20 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
+        this.playSound(UPSounds.ULUGH_STEP.get(), 0.1F, 1.0F);
+    }
+
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.ULUGH_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.ULUGH_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.ULUGH_DEATH.get();
     }
 
     public boolean isYellowFood(ItemStack stack) {
@@ -611,7 +624,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     @Override
     protected SoundEvent getAttackSound() {
-        return UPSounds.RAPTOR_ATTACK.get();
+        return UPSounds.ULUGH_BITE.get();
     }
 
     @Override

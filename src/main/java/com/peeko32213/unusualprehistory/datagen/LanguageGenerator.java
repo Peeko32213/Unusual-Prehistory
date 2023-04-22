@@ -369,6 +369,18 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.HWACHA_HURT, "Prickly Grunt");
         addSound(UPSounds.HWACHA_IDLE, "Spiked Hums");
         addSound(UPSounds.HWACHA_SHOOT, "Shooting");
+        addSound(UPSounds.KENTRO_DEATH, "Yearning Growls");
+        addSound(UPSounds.KENTRO_HURT, "Painful Growl");
+        addSound(UPSounds.KENTRO_IDLE, "Low Growl");
+        addSound(UPSounds.TAIL_SWIPE, "Strong Slash");
+        addSound(UPSounds.ULUGH_BITE, "Gnawing Ugh");
+        addSound(UPSounds.ULUGH_DEATH, "Dying Ugh");
+        addSound(UPSounds.ULUGH_HURT, "Painful Ugh");
+        addSound(UPSounds.ULUGH_IDLE, "Idle Ugh");
+        addSound(UPSounds.ULUGH_STEP, "Ughing Step");
+        addSound(UPSounds.ANTARCTO_DEATH, "Hardtoned Death");
+        addSound(UPSounds.ANTARCTO_HURT, "Annoyed Gruff");
+        addSound(UPSounds.ANTARCTO_IDLE, "Hard Gruff");
 
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");
