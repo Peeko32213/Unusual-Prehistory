@@ -760,12 +760,10 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:hwacha_death_0",
-        "volume": 0.2
+        "name": "unusualprehistory:hwacha_death_0"
       },
       {
-        "name": "unusualprehistory:hwacha_death_1",
-        "volume": 0.2
+        "name": "unusualprehistory:hwacha_death_1"
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.hwacha_death"
@@ -940,20 +938,16 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:ulugh_step_0",
-        "volume": 0.2
+        "name": "unusualprehistory:ulugh_step_0"
       },
       {
-        "name": "unusualprehistory:ulugh_step_1",
-        "volume": 0.2
+        "name": "unusualprehistory:ulugh_step_1"
       },
       {
-        "name": "unusualprehistory:ulugh_step_2",
-        "volume": 0.2
+        "name": "unusualprehistory:ulugh_step_2"
       },
       {
-        "name": "unusualprehistory:ulugh_step_3",
-        "volume": 0.2
+        "name": "unusualprehistory:ulugh_step_3"
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_step"
