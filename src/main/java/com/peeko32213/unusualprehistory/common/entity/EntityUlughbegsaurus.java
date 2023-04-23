@@ -85,6 +85,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public float sitProgress;
     public EntityUlughbegsaurus(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
+        this.maxUpStep = 1.2F;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -149,8 +150,9 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.ULUGH_STEP.get(), 0.1F, 1.0F);
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
+
 
 
     protected SoundEvent getAmbientSound() {
@@ -480,7 +482,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     @Override
     public float getStepHeight() {
-        return 1.0F;
+        return 1.2F;
     }
 
     public boolean isAlliedTo(Entity entityIn) {

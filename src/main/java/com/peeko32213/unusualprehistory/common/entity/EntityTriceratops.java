@@ -84,6 +84,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     private static final int ATTACK_COOLDOWN = 30;
     public EntityTriceratops(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
+        this.maxUpStep = 1.2F;
     }
 
 
@@ -349,7 +350,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     @Override
     public float getStepHeight() {
-        return 1.0F;
+        return 1.2F;
     }
 
     @Nullable
@@ -606,7 +607,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
                 this.mob.jumpFromGround();
             }
             if (this.mob.level.getGameTime() % 2L == 0L) {
-                this.mob.playSound(UPSounds.REX_STEP.get(), 0.5F, this.mob.getVoicePitch());
+                this.mob.playSound(UPSounds.MAJUNGA_STEP.get(), 0.5F, this.mob.getVoicePitch());
             }
             this.tryToHurt();
         }
@@ -630,6 +631,12 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
             }
         }
     }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
+    }
+
+
 
     protected void dropEquipment() {
         super.dropEquipment();
