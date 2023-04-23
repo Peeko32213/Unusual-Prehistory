@@ -32,6 +32,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -53,7 +54,7 @@ public class UnusualPrehistory {
     public UnusualPrehistory() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus eventBus = MinecraftForge.EVENT_BUS;
-        checkForGeckoLib();
+
         modEventBus.addListener(this::commonSetup);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.CONFIG_BUILDER);
         UPItems.ITEMS.register(modEventBus);
@@ -70,6 +71,7 @@ public class UnusualPrehistory {
         UPSounds.DEF_REG.register(modEventBus);
         UPEffects.EFFECT_DEF_REG.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
+
         eventBus.register(this);
         //If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that
         // triggers the capability class otherwise it also wont hotswap
@@ -81,16 +83,18 @@ public class UnusualPrehistory {
 
     //Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib
     // isnt added
-    private void checkForGeckoLib(){
+    public static void checkForGeckoLib(){
             if(ModList.get().isLoaded("geckolib3")){
                 LOGGER.debug("Geckolib3 loaded correctly!");
             } else {
                 try {
                     LOGGER.debug("Geckolib3 version 3.1.39 and up didn't seem to be loaded!");
                     throw new Exception("Something went wrong setting up compat");
-                } catch (Exception e) {
-                    CrashReport crashreport = CrashReport.forThrowable(e, "Geckolib3 version 3.1.39 and up didn't seem to be loaded!");
-                    throw new ReportedException(crashreport);
+                }
+                catch (Exception e) {
+                        CrashReport crashreport = CrashReport.forThrowable(e, "Geckolib3 version 3.1.39 and up didn't seem to be loaded!");
+                        crashreport.addCategory("Mod not loaded");
+                        throw new ReportedException(crashreport);
                 }
             }
     }
