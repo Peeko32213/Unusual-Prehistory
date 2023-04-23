@@ -81,6 +81,15 @@ public class BlockTagsGenerator extends BlockTagsProvider {
         tag(UPTags.ERYON_DIGGABLES)
                 .add(Blocks.SAND);
 
+        tag(UPTags.DINO_HATCHABLE_BLOCKS)
+                .addTag(BlockTags.SAND)
+                .addTag(BlockTags.DIRT)
+                .addTag(BlockTags.LOGS)
+                .addTag(BlockTags.LEAVES)
+                .add(Blocks.GRAVEL)
+                .add(Blocks.HAY_BLOCK);
+
+
         tag(BlockTags.FENCE_GATES)
                 .add(UPBlocks.GINKGO_FENCE_GATE.get())
                 .add(UPBlocks.PETRIFIED_WOOD_FENCE_GATE.get());
