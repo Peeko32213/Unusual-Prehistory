@@ -54,7 +54,6 @@ public class EntityHwachaSpike extends Entity implements IAnimatable{
         this.setPos(stalker.getRandomX(0.5F), stalker.getEyeY() + (double)0.1F, stalker.getRandomZ(0.5F));
     }
 
-    @OnlyIn(Dist.CLIENT)
     public EntityHwachaSpike(Level worldIn, double x, double y, double z, double p_i47274_8_, double p_i47274_10_, double p_i47274_12_) {
         this(UPEntities.HWACHA_SPIKE.get(), worldIn);
         this.setPos(x, y, z);

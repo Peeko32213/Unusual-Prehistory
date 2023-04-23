@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block;
 
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -70,7 +71,7 @@ public class BlockDinosaurLandEggs extends Block {
     }
 
     public static boolean isProperHabitat(BlockGetter reader, BlockPos pos) {
-        return reader.getBlockState(pos).is(BlockTags.BAMBOO_PLANTABLE_ON);
+        return reader.getBlockState(pos).is(UPTags.DINO_HATCHABLE_BLOCKS);
     }
 
     protected boolean mayPlaceOn(BlockState p_56127_, BlockGetter p_56128_, BlockPos p_56129_) {
