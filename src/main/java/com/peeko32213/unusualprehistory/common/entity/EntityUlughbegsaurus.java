@@ -480,7 +480,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     @Override
     public float getStepHeight() {
-        return 1.0F;
+        return 1.2F;
     }
 
     public boolean isAlliedTo(Entity entityIn) {

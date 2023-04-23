@@ -349,7 +349,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     @Override
     public float getStepHeight() {
-        return 1.0F;
+        return 1.2F;
     }
 
     @Nullable
