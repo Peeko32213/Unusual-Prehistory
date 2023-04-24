@@ -104,6 +104,8 @@
   "block.unusualprehistory.ulugh_eggs": "Ulughbegsaurus Eggs",
   "block.unusualprehistory.ulugh_fossil": "Ulughbegsaurus Fossil",
   "block.unusualprehistory.veloci_fossil": "Velociraptor Fossil",
+  "death.attack.hwacha_0": "%s was turned into a pincushion",
+  "death.attack.hwacha_0.player": "%s was turned into a pincushion by %s",
   "dinosaur.start_riding.attack_key": "Press G to Attack!",
   "entity.unusualprehistory.all.command_0": "%s is wandering",
   "entity.unusualprehistory.all.command_1": "%s is following",

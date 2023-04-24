@@ -393,6 +393,8 @@ public class LanguageGenerator extends LanguageProvider {
         add("hwachavenator.fail_shoot.message", "You failed to shoot!");
         add("player_capability.amber_protection_full", "You are at full Amber Protection and won't gain any more!");
         add("dinosaur.start_riding.attack_key", "Press G to Attack!");
+        add("death.attack.hwacha_0", "%s was turned into a pincushion");
+        add("death.attack.hwacha_0.player", "%s was turned into a pincushion by %s");
 
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");

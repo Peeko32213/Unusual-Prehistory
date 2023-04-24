@@ -780,7 +780,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  9.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
