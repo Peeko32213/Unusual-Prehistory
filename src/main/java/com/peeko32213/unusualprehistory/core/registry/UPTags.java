@@ -56,7 +56,7 @@ public class UPTags {
     public static final TagKey<Block> REX_BREAKABLES = registerBlockTag("rex_breakables");
     public static final TagKey<Block> ANGRY_BRACHI_BREAKABLES = registerBlockTag("angry_brachi_breakables");
     public static final TagKey<Block> ERYON_DIGGABLES = registerBlockTag("eryon_diggables");
-
+    public static final TagKey<Block> DINO_HATCHABLE_BLOCKS = registerBlockTag("dino_hatchable_blocks");
 
 
     //BIOME Tags
