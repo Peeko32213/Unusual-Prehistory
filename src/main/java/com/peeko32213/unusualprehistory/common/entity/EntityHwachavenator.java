@@ -71,7 +71,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     public static final Logger LOGGER = LogManager.getLogger();
     public float shootProgress;
     public float sitProgress;
-    public int messageTimer = 0;
+    public int soundTimer = 0;
 
     public EntityHwachavenator(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
@@ -299,6 +299,9 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
     public void tick() {
         super.tick();
+        if(soundTimer > 0){
+            soundTimer--;
+        }
 
        if (this.isShooting() && shootProgress < 50 && !this.hasControllingPassenger()) {
            this.spit(this.getTarget());
@@ -411,7 +414,8 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             double d2 = target.getZ() - this.getZ();
             float f = Mth.sqrt((float) (d0 * d0 + d2 * d2)) * 0.2F;
             llamaspitentity.shoot(d0, d1 , d2, 2.0F, 4.0F);
-            this.playSound(UPSounds.HWACHA_SHOOT.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
+
+            playShootSound();
 
             this.level.addFreshEntity(llamaspitentity);
         }
@@ -476,8 +480,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                     return;
                 }
 
-                this.playSound(UPSounds.HWACHA_SHOOT.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
-
+                playShootSound();
                 llamaspitentity.shoot(d0, d1, d2, 2.0F, 0.0F);
                 //llamaspitentity.isNoGravity();
                 this.level.addFreshEntity(llamaspitentity);
@@ -489,7 +492,12 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         }
     }
 
-
+    private void playShootSound(){
+        if(this.soundTimer <= 0){
+            this.playSound(UPSounds.HWACHA_SHOOT.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
+            soundTimer = 80;
+        }
+    }
 
     //Vanilla Copy from Item
     protected static BlockHitResult getEntityPOVHitResult(Level p_41436_, Entity p_41437_, ClipContext.Fluid p_41438_) {

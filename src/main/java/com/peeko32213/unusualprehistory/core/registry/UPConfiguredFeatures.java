@@ -38,10 +38,10 @@ public class UPConfiguredFeatures {
     public static final RegistryObject<ConfiguredFeature<?, ?>> GINKGO_TREE =
             registerConfiguredFeature("ginkgo", () -> new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                     BlockStateProvider.simple(UPBlocks.GINKGO_LOG.get()),
-                    new StraightTrunkPlacer(7, 5, 0),
+                    new StraightTrunkPlacer(9, 5, 0),
                     BlockStateProvider.simple(UPBlocks.GINKGO_LEAVES.get()),
-                    new GinkgoFoliagePlacer( 2F, 6F, ConstantInt.of(0), 1, 0, 0.5f, 2),
-                    new TwoLayersFeatureSize(1, 1, 1)).build()));
+                    new GinkgoFoliagePlacer( 2F, 4.5F, ConstantInt.of(0), 1, 0, 0.5f, 2),
+                    new TwoLayersFeatureSize(6, 3, 5)).build()));
 
     public static final RegistryObject<ConfiguredFeature<?, ?>> CONFIGURED_PETRIFIED_WOOD_FOREST= registerConfiguredFeature(PETRIFIED_WOOD_FOREST_FEATURE_NAME, () -> new ConfiguredFeature<>(UPFeatures.PETRIFIED_WOOD_FOREST.get(), new NoneFeatureConfiguration()));
 

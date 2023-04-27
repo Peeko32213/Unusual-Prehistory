@@ -1,10 +1,11 @@
-// 1.19.2	2023-04-23T20:59:18.6370596	unusualprehistory Block Tags
+// 1.19.2	2023-04-27T18:06:39.3732594	unusualprehistory Block Tags
 6f6462c93999b845dfa1df3c9b1c9648716d81c1 data/minecraft/tags/blocks/buttons.json
 3dc74d776e39d9ddeeb390e35bb4c16d035881a1 data/minecraft/tags/blocks/corals.json
 e6afd6c925171023d0cd3e728553bf722ac86176 data/minecraft/tags/blocks/coral_blocks.json
 6830c7f7a234c9fe6a51d401d4b4d74f297c7a35 data/minecraft/tags/blocks/coral_plants.json
 457fc92747e141dc476daccb9e50c19525881fc9 data/minecraft/tags/blocks/fences.json
 4c368d4451a837a4947c8f7c0057942af736ca31 data/minecraft/tags/blocks/fence_gates.json
+1b64adacba7b2e3821f229f2b7f168d4f9870a51 data/minecraft/tags/blocks/leaves.json
 fd6f23c2ee1c152fd65274a658a4a84c5adb647c data/minecraft/tags/blocks/logs.json
 51f2a41c4402e10a1a050dd16d25cb0fcc112ee3 data/minecraft/tags/blocks/mineable/pickaxe.json
 278bc3c0046974f6879512131994fdafff0583b8 data/minecraft/tags/blocks/needs_iron_tool.json

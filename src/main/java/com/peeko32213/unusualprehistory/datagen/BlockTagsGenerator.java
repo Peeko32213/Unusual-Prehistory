@@ -215,6 +215,9 @@ public class BlockTagsGenerator extends BlockTagsProvider {
 
         tag(BlockTags.WALL_CORALS)
                 .add(UPBlocks.CLATHRODICTYON_WALL_FAN.get());
+
+        tag(BlockTags.LEAVES)
+                .add(UPBlocks.GINKGO_LEAVES.get());
     }
 
 
