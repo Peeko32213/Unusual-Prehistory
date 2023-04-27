@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.projectile;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
+import com.peeko32213.unusualprehistory.core.registry.UPDamageTypes;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -119,7 +120,7 @@ public class EntityHwachaSpike extends Entity implements IAnimatable{
     protected void onEntityHit(EntityHitResult p_213868_1_) {
         Entity entity = this.getOwner();
         if (entity instanceof LivingEntity && p_213868_1_.getEntity() != getOwner() && !(p_213868_1_.getEntity() instanceof EntityHwachavenator)) {
-            p_213868_1_.getEntity().hurt(DamageSource.indirectMagic(this, (LivingEntity) entity).setProjectile(), 2.0F);
+            p_213868_1_.getEntity().hurt(UPDamageTypes.causeHwachaDamage((LivingEntity) entity), 2.0F);
         }
     }
 

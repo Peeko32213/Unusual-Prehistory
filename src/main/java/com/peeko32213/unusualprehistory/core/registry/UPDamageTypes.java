@@ -8,7 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class UPDamageTypes {
     public static final DamageSource causeHwachaDamage(LivingEntity attacker){
-        return new DamageSourceRandomMessages("hwacha", attacker).setScalesWithDifficulty().bypassArmor().setMagic();
+        return new DamageSourceRandomMessages("hwacha", attacker).setScalesWithDifficulty().bypassArmor().setMagic().setProjectile();
     }
 
     private static class DamageSourceRandomMessages extends EntityDamageSource {

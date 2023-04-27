@@ -659,7 +659,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source == DamageSource.FALL || source == DamageSource.MAGIC || source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || source == DamageSource.CACTUS || source.isProjectile() || source.isFire() || super.isInvulnerableTo(source);
+        return source == DamageSource.FALL || source == DamageSource.MAGIC || source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || source == DamageSource.CACTUS || source.isProjectile() || super.isInvulnerableTo(source);
     }
 
     @Override

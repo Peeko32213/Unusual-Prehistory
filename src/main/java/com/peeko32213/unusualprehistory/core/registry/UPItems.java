@@ -17,10 +17,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class
-UPItems {
-
-
+public class UPItems {
     private UPItems() {
     }
 

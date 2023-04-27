@@ -394,7 +394,14 @@ public class LanguageGenerator extends LanguageProvider {
         add("player_capability.amber_protection_full", "You are at full Amber Protection and won't gain any more!");
         add("dinosaur.start_riding.attack_key", "Press G to Attack!");
         add("death.attack.hwacha_0", "%s was turned into a pincushion");
+        add("death.attack.hwacha_1", "%s was shredded");
+        add("death.attack.hwacha_2", "%s was turned to fine paste");
+        add("death.attack.hwacha_3", "%s was shot");
+
         add("death.attack.hwacha_0.player", "%s was turned into a pincushion by %s");
+        add("death.attack.hwacha_1.player", "%s was shredded by %s");
+        add("death.attack.hwacha_2.player", "%s was turned to fine paste by %s");
+        add("death.attack.hwacha_3.player", "%s was shot by %s");
 
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
