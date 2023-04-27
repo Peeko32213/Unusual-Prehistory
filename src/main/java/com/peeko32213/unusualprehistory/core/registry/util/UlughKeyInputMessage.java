@@ -17,6 +17,7 @@ import java.util.function.Supplier;
 public class UlughKeyInputMessage {
     public int key;
     public static final Logger LOGGER = LogManager.getLogger();
+
     public UlughKeyInputMessage(int key) {
         this.key = key;
     }
@@ -36,11 +37,9 @@ public class UlughKeyInputMessage {
             Player player = context.getSender();
             Entity vehicle = player.getVehicle();
             if (vehicle instanceof EntityUlughbegsaurus ulughbegsaurus) {
-                for (Entity entity : ulughbegsaurus.level.getEntitiesOfClass(LivingEntity.class, ulughbegsaurus.getBoundingBox().inflate(2.0D))) {
-                    if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
-                        if (!(ulughbegsaurus.attackCooldown > 0)) {
-                            ulughbegsaurus.setSwinging(true);
-                        }
+                if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
+                    if (!(ulughbegsaurus.attackCooldown > 0)) {
+                        ulughbegsaurus.setSwinging(true);
                     }
                 }
             }

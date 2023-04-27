@@ -38,7 +38,7 @@ public class HwachaKeyOutputMessage {
             if (vehicle instanceof EntityHwachavenator hwachavenator) {
                 if (hwachavenator.isSaddled() && hwachavenator.isTame() && hwachavenator.getControllingPassenger() == player) {
                     hwachavenator.setIsShooting(false);
-
+                    hwachavenator.soundTimer = 0;
                     ClientboundStopSoundPacket clientboundstopsoundpacket = new ClientboundStopSoundPacket(UPSounds.HWACHA_SHOOT.getId(), SoundSource.NEUTRAL);
                     ServerPlayer serverPlayer = (ServerPlayer) hwachavenator.getControllingPassenger();
                     serverPlayer.connection.send(clientboundstopsoundpacket);
