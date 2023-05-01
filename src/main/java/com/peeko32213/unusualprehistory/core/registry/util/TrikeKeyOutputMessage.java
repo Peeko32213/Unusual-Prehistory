@@ -12,6 +12,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public class TrikeKeyOutputMessage {
@@ -36,9 +37,14 @@ public class TrikeKeyOutputMessage {
             Player player = context.getSender();
             Entity vehicle = player.getVehicle();
             if (vehicle instanceof EntityTriceratops triceratops) {
-                if (triceratops.isSaddled() && triceratops.isTame() && triceratops.getControllingPassenger() == player) {
-                    triceratops.level.broadcastEntityEvent(triceratops, (byte)5);
-                    triceratops.setSwinging(false);
+                Player rider = (Player)triceratops.getControllingPassenger();
+                if(rider.getLastHurtMob() != null && triceratops.distanceTo(rider.getLastHurtMob()) < triceratops.getBbWidth() + 3F && !triceratops.isAlliedTo(rider.getLastHurtMob())){
+                    UUID preyUUID = rider.getLastHurtMob().getUUID();
+                    if (!triceratops.getUUID().equals(preyUUID) && triceratops.riderAttackCooldown == 0) {
+                        triceratops.doHurtTarget(rider.getLastHurtMob());
+                        triceratops.setSwinging(true);
+                        triceratops.riderAttackCooldown = 20;
+                    }
                 }
             }
         });

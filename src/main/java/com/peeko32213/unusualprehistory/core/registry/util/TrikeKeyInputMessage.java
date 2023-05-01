@@ -12,6 +12,7 @@ import net.minecraftforge.network.NetworkEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public class TrikeKeyInputMessage {
@@ -36,11 +37,19 @@ public class TrikeKeyInputMessage {
             Player player = context.getSender();
             Entity vehicle = player.getVehicle();
 
+
             if (vehicle instanceof EntityTriceratops triceratops && triceratops.getControllingPassenger() == player) {
-                if(!(triceratops.attackCooldown > 0)) {
-                    triceratops.setSwinging(true);
+                    Player rider = (Player)triceratops.getControllingPassenger();
+                    if(rider.getLastHurtMob() != null && triceratops.distanceTo(rider.getLastHurtMob()) < triceratops.getBbWidth() + 3F && !triceratops.isAlliedTo(rider.getLastHurtMob())){
+                        UUID preyUUID = rider.getLastHurtMob().getUUID();
+                        if (!triceratops.getUUID().equals(preyUUID) && triceratops.riderAttackCooldown == 0) {
+                            triceratops.doHurtTarget(rider.getLastHurtMob());
+                            triceratops.setSwinging(true);
+                            triceratops.riderAttackCooldown = 20;
+                        }
+                    }
                 }
-            }
+
         });
         context.setPacketHandled(true);
     }

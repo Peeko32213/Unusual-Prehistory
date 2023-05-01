@@ -100,6 +100,7 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> ANTARCTO_DEATH = createSoundEvent("antarcto_death");
     public static final RegistryObject<SoundEvent> ANTARCTO_HURT = createSoundEvent("antarcto_hurt");
     public static final RegistryObject<SoundEvent> ANTARCTO_IDLE = createSoundEvent("antarcto_idle");
+    public static final RegistryObject<SoundEvent> REX_BOOMBOX = createSoundEvent("rex_boombox");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));
