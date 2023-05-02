@@ -222,7 +222,7 @@ public class EntityHwachaSpike extends Entity implements IAnimatable{
 
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public void lerpMotion(double x, double y, double z) {
         this.setDeltaMovement(x, y, z);
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {

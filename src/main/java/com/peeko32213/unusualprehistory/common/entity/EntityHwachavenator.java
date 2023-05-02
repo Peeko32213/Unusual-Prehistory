@@ -38,6 +38,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -47,10 +48,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -428,6 +426,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         final int VIEW_VECTOR_SCALE = 15;
         final int NO_SPIKE_ZONE_INFLATE = 2;
         final int MESSAGE_TIMER_LIMIT = 6000;
+        final int MAX_DISTANCE = 320;
         int messageTimer = 0;
         for (int i = 0; i < MIN_SHOTS + random.nextInt(MAX_SHOTS); i++) {
             try {
@@ -441,16 +440,19 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                 }
                 //You can change the entity pov here, so for hitresult we check the hit using the player
                 //and for entity we use hwacha entity, these can be changed so see what you think is best
-                HitResult hitresult = getEntityPOVHitResult(this.level, player, ClipContext.Fluid.ANY);
-                Optional<Entity> entity = DebugRenderer.getTargetedEntity(this, VIEW_VECTOR_SCALE);
-                BlockPos blockpos = null;
+
+                BlockPos blockPlayerIsLookingAt = level.clip(new ClipContext(player.getEyePosition(1f),
+                        (player.getEyePosition(1f).add(player.getViewVector(1f).scale(MAX_DISTANCE))),
+                        ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player)).getBlockPos();
+
+                //HitResult hitresult = getEntityPOVHitResult(this.level, player, ClipContext.Fluid.ANY);
+                Optional<Entity> entity = getEntityHitResult(MAX_DISTANCE);
+                BlockPos blockpos = blockPlayerIsLookingAt;
                 double d0 = 0;
                 double d1 = 0;
                 double d2 = 0;
 
-                if (hitresult.getType() == HitResult.Type.BLOCK) {
-                    blockpos = ((BlockHitResult) hitresult).getBlockPos();
-                }
+
 
                 if (entity.isPresent()) {
                     var entity1 = entity.get();
@@ -475,7 +477,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                 }
 
                 //I added a check here that if the arrow or hitresult will result in a miss it wont shoot and fails with a message
-                if (d0 == 0 && d1 == 0 && d2 == 0 && messageTimer == 0 || hitresult.getType() == HitResult.Type.MISS) {
+                if (d0 == 0 && d1 == 0 && d2 == 0 && messageTimer == 0) {
                     player.displayClientMessage(Component.translatable("hwachavenator.fail_shoot.message").withStyle(ChatFormatting.RED), true);
                     return;
                 }
@@ -497,6 +499,23 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             this.playSound(UPSounds.HWACHA_SHOOT.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
             soundTimer = 80;
         }
+    }
+
+    protected Optional<Entity> getEntityHitResult(int range){
+        Vec3 vec3 = this.getEyePosition();
+        Vec3 vec31 = this.getViewVector(1.0F);
+        Vec3 vec32 = vec3.add(vec31.x * range, vec31.y * range, vec31.z * range);
+        float f = 1.0F;
+        AABB aabb = this.getBoundingBox().expandTowards(vec31.scale(range)).inflate(1.0D, 1.0D, 1.0D);
+        EntityHitResult entityhitresult = ProjectileUtil.getEntityHitResult(this, vec3, vec32, aabb, (p_234237_) -> {
+            return !p_234237_.isSpectator() && p_234237_.isPickable();
+        }, range);
+
+        if(entityhitresult == null){
+            return Optional.empty();
+        }
+
+        return Optional.of(entityhitresult.getEntity());
     }
 
     //Vanilla Copy from Item

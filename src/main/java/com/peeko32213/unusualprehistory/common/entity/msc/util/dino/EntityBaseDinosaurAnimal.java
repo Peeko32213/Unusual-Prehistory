@@ -83,6 +83,17 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         }
     }
 
+    public void setAge(int pAge) {
+        int i = this.getAge();
+        this.age = pAge;
+        if (i < 0 && pAge >= 0 || i >= 0 && pAge < 0) {
+
+            this.ageBoundaryReached();
+        }
+
+
+    }
+
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(getKillHealAmount());
     }

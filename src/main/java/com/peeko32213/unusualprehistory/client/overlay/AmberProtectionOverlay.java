@@ -33,6 +33,9 @@ public class AmberProtectionOverlay {
             if (level % 2 == 0) {
                 blitX = centerX - 91 + ((level / 2) * BLIT_SPACING);
             }
+            //if(numProtectionLevels % MAX_PROTECTION_LEVELS == 0){
+            //    blitY = bottomY - 39 - ((level /2) + 1 * BLIT_SPACING);
+            //}
 
             if (level < numProtectionLevels) {
                 // Render a cracked heart over the first player heart
