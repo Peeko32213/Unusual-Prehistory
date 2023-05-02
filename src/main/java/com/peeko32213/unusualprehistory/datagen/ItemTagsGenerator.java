@@ -34,6 +34,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.CLATHRODICTYON_FLASK.get())
                 .add(UPItems.ARCHAEFRUCTUS_FLASK.get())
                 .add(UPItems.ANOSTYLOSTRAMA_FLASK.get())
+                .add(UPItems.LEEFRUCTUS_FLASK.get())
                 .add(UPItems.ARCHAO_FLASK.get())
                 .add(UPItems.SARR_FLASK.get())
                 .add(UPItems.BENNET_FLASK.get())
@@ -57,7 +58,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.KENTRO_FLASK.get())
                 .add(UPItems.ULUGH_FLASK.get())
                 .add(UPItems.AUSTRO_FLASK.get())
-                .add(UPItems.ANTARCTO_FLASK.get());
+                .add(UPItems.ANTARCTO_FLASK.get())
+                .add(UPItems.ENCRUSTED_FLASK.get());
 
         tag(UPTags.FOSSILS)
                 .add(UPItems.AMBER_FOSSIL.get())

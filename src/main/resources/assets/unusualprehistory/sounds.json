@@ -997,5 +997,14 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.antarcto_idle"
+  },
+  "rex_boombox": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:rex_boombox"
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.rex_boombox"
   }
 }

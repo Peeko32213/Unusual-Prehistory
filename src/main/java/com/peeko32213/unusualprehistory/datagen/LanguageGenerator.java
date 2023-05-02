@@ -381,6 +381,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ANTARCTO_DEATH, "Hardtoned Death");
         addSound(UPSounds.ANTARCTO_HURT, "Annoyed Gruff");
         addSound(UPSounds.ANTARCTO_IDLE, "Hard Gruff");
+        addSound(UPSounds.REX_BOOMBOX, "Boom");
 
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");

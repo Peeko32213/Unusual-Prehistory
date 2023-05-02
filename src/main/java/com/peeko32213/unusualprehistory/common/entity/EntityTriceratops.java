@@ -59,6 +59,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.UUID;
 
 public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implements IAnimatable, CustomFollower {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
@@ -66,7 +67,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     private EatBlockGoal eatBlockGoal;
     private int eatAnimationTick;
-    private int riderAttackCooldown = 0;
+    public int riderAttackCooldown = 0;
     public float prevSitProgress;
     public float sitProgress;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -290,6 +291,16 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
         if (riderAttackCooldown > 0) {
             riderAttackCooldown--;
+        }
+        if(this.getControllingPassenger() != null && this.getControllingPassenger() instanceof Player){
+            Player rider = (Player)this.getControllingPassenger();
+            if(rider.getLastHurtMob() != null && this.distanceTo(rider.getLastHurtMob()) < this.getBbWidth() + 3F && !this.isAlliedTo(rider.getLastHurtMob())){
+                UUID preyUUID = rider.getLastHurtMob().getUUID();
+                if (!this.getUUID().equals(preyUUID) && riderAttackCooldown == 0) {
+                    doHurtTarget(rider.getLastHurtMob());
+                    riderAttackCooldown = 20;
+                }
+            }
         }
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
