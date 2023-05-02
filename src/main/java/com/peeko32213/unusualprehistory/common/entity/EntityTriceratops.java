@@ -289,19 +289,19 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
             setHasSwung(false);
         }
 
-        if (riderAttackCooldown > 0) {
-            riderAttackCooldown--;
-        }
-        if(this.getControllingPassenger() != null && this.getControllingPassenger() instanceof Player){
-            Player rider = (Player)this.getControllingPassenger();
-            if(rider.getLastHurtMob() != null && this.distanceTo(rider.getLastHurtMob()) < this.getBbWidth() + 3F && !this.isAlliedTo(rider.getLastHurtMob())){
-                UUID preyUUID = rider.getLastHurtMob().getUUID();
-                if (!this.getUUID().equals(preyUUID) && riderAttackCooldown == 0) {
-                    doHurtTarget(rider.getLastHurtMob());
-                    riderAttackCooldown = 20;
-                }
-            }
-        }
+        //if (riderAttackCooldown > 0) {
+        //    riderAttackCooldown--;
+        //}
+        //if(this.getControllingPassenger() != null && this.getControllingPassenger() instanceof Player){
+        //    Player rider = (Player)this.getControllingPassenger();
+        //    if(rider.getLastHurtMob() != null && this.distanceTo(rider.getLastHurtMob()) < this.getBbWidth() + 3F && !this.isAlliedTo(rider.getLastHurtMob())){
+        //        UUID preyUUID = rider.getLastHurtMob().getUUID();
+        //        if (!this.getUUID().equals(preyUUID) && riderAttackCooldown == 0) {
+        //            doHurtTarget(rider.getLastHurtMob());
+        //            riderAttackCooldown = 20;
+        //        }
+        //    }
+        //}
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
         }
@@ -696,7 +696,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         if (!this.level.isClientSide) {
             for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D))) {
                 if (!(entity instanceof EntityTriceratops) && !(entity instanceof Player) && !this.hasSwung()) {
-                    if (this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
+                    if (this.isSaddled() && this.isTame() && this.hasControllingPassenger() ) {
                         entity.hurt(DamageSource.mobAttack(this), 10.0F);
                     }
                 }

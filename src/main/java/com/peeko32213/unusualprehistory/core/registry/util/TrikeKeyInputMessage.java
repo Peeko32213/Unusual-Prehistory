@@ -39,15 +39,21 @@ public class TrikeKeyInputMessage {
 
 
             if (vehicle instanceof EntityTriceratops triceratops && triceratops.getControllingPassenger() == player) {
-                    Player rider = (Player)triceratops.getControllingPassenger();
-                    if(rider.getLastHurtMob() != null && triceratops.distanceTo(rider.getLastHurtMob()) < triceratops.getBbWidth() + 3F && !triceratops.isAlliedTo(rider.getLastHurtMob())){
-                        UUID preyUUID = rider.getLastHurtMob().getUUID();
-                        if (!triceratops.getUUID().equals(preyUUID) && triceratops.riderAttackCooldown == 0) {
-                            triceratops.doHurtTarget(rider.getLastHurtMob());
-                            triceratops.setSwinging(true);
-                            triceratops.riderAttackCooldown = 20;
-                        }
-                    }
+                if(!(triceratops.attackCooldown > 0)) {
+                    triceratops.setSwinging(true);
+                }
+
+
+
+                    //Player rider = (Player)triceratops.getControllingPassenger();
+                    //if(rider.getLastHurtMob() != null && triceratops.distanceTo(rider.getLastHurtMob()) < triceratops.getBbWidth() + 3F && !triceratops.isAlliedTo(rider.getLastHurtMob())){
+                    //    UUID preyUUID = rider.getLastHurtMob().getUUID();
+                    //    if (!triceratops.getUUID().equals(preyUUID) && triceratops.riderAttackCooldown == 0) {
+                    //        triceratops.doHurtTarget(rider.getLastHurtMob());
+                    //        triceratops.setSwinging(true);
+                    //        triceratops.riderAttackCooldown = 20;
+                    //    }
+                    //}
                 }
 
         });
