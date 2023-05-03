@@ -97,7 +97,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             }
         });
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 15.0F));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this) {
 
             public boolean canUse() {
@@ -112,7 +111,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         });
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
 
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -731,7 +729,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(1);
-        AnimationController<EntityTyrannosaurusRex> controller = new AnimationController<>(this, "controller", 1, this::predicate);
+        AnimationController<EntityTyrannosaurusRex> controller = new AnimationController<>(this, "controller", 5, this::predicate);
         data.addAnimationController(controller);
     }
 }

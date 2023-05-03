@@ -7,6 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 import org.apache.logging.log4j.LogManager;
@@ -41,6 +42,8 @@ public class TrikeKeyInputMessage {
             if (vehicle instanceof EntityTriceratops triceratops && triceratops.getControllingPassenger() == player) {
                 if(!(triceratops.attackCooldown > 0)) {
                     triceratops.setSwinging(true);
+                    triceratops.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(2.0F);
+
                 }
 
 

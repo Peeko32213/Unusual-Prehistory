@@ -26,7 +26,7 @@ public class AmberGummyItem extends Item {
                     return;
                 }
 
-                capability.amberProtection += 1;
+                capability.amberProtection += 2;
                 UPMessages.sendToPlayer(new AmberProtectionSyncS2CPacket(capability.amberProtection), serverPlayer);
             });
         }

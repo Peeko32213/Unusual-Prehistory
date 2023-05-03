@@ -44,6 +44,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -142,11 +143,11 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 }
 
         );
-        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 6.0F, 3.0F, false));
+        this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
 
     }
 
@@ -292,8 +293,13 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         }
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (interactionresult != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
-            if (isFood(itemstack)) {
-                this.usePlayerItem(player, hand, itemstack);
+            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+
+                this.heal((float)itemstack.getFoodProperties(this).getNutrition());
+                this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
             } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                 this.usePlayerItem(player, hand, itemstack);
@@ -327,6 +333,11 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
         }
         return super.mobInteract(player, hand);
+    }
+
+    public boolean isFood(ItemStack pStack) {
+        Item item = pStack.getItem();
+        return item.isEdible() && pStack.getFoodProperties(this).isMeat();
     }
 
     public SoundEvent getEatingSound(ItemStack p_28540_) {

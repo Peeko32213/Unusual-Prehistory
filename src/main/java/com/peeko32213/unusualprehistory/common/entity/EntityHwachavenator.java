@@ -89,23 +89,17 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(3, new RangedAttackGoal(this, 0D, 10, 20.0F));
-        this.goalSelector.addGoal(1, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(4, new BabyPanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0D, 1, 20.0F));
+        this.goalSelector.addGoal(2, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
-        this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 6.0F, 100.0F, false));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(3, new CustomRideGoal(this, 3D));
+        this.goalSelector.addGoal(2, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, LivingEntity.class) {
-
-            public boolean canUse() {
-                return !isTame();
-            }
-
-        }));
+        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
     }
 
 
