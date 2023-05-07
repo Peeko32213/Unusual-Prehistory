@@ -25,8 +25,8 @@ public class AmberGummyItem extends Item {
                     serverPlayer.displayClientMessage(Component.translatable("player_capability.amber_protection_full").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.ITALIC), true);
                     return;
                 }
-
                 capability.amberProtection += 2;
+                //serverPlayer.displayClientMessage(Component.literal("Amount of amber prot: ").append(String.valueOf(capability.amberProtection)), true);
                 UPMessages.sendToPlayer(new AmberProtectionSyncS2CPacket(capability.amberProtection), serverPlayer);
             });
         }
