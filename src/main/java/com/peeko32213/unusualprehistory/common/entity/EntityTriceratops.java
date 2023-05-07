@@ -93,7 +93,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 90.0D)
                 .add(Attributes.ARMOR, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.23D)
+                .add(Attributes.MOVEMENT_SPEED, 0.13D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.3D);
     }

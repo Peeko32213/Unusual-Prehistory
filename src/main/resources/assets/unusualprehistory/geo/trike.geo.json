@@ -13,6 +13,11 @@
 			"bones": [
 				{
 					"name": "Body",
+					"pivot": [0, 43, 0]
+				},
+				{
+					"name": "Body2",
+					"parent": "Body",
 					"pivot": [0, 43, 0],
 					"cubes": [
 						{"origin": [-19.5, 20, -28], "size": [39, 49, 55], "uv": [0, 0]},
@@ -25,7 +30,12 @@
 				},
 				{
 					"name": "Neck",
-					"parent": "Body",
+					"parent": "Body2",
+					"pivot": [0, 41, -28]
+				},
+				{
+					"name": "Neck2",
+					"parent": "Neck",
 					"pivot": [0, 41, -28],
 					"cubes": [
 						{"origin": [-13, 21, -34], "size": [25, 25, 6], "uv": [0, 152]}
@@ -33,7 +43,12 @@
 				},
 				{
 					"name": "Head",
-					"parent": "Neck",
+					"parent": "Neck2",
+					"pivot": [0, 44, -35]
+				},
+				{
+					"name": "Head2",
+					"parent": "Head",
 					"pivot": [0, 44, -35],
 					"cubes": [
 						{"origin": [-6.5, 18, -58], "size": [11, 3, 6], "uv": [20, 22]},
@@ -47,7 +62,7 @@
 				},
 				{
 					"name": "Horn1",
-					"parent": "Head",
+					"parent": "Head2",
 					"pivot": [8, 34, -42],
 					"rotation": [25, 0, 0],
 					"cubes": [
@@ -56,7 +71,7 @@
 				},
 				{
 					"name": "Horn2",
-					"parent": "Head",
+					"parent": "Head2",
 					"pivot": [-8, 34, -42],
 					"rotation": [25, 0, 0],
 					"cubes": [
@@ -65,7 +80,12 @@
 				},
 				{
 					"name": "Tail",
-					"parent": "Body",
+					"parent": "Body2",
+					"pivot": [0, 39, 27]
+				},
+				{
+					"name": "Tail2",
+					"parent": "Tail",
 					"pivot": [0, 39, 27],
 					"cubes": [
 						{"origin": [-7, 31, 27], "size": [15, 16, 24], "uv": [96, 104]}

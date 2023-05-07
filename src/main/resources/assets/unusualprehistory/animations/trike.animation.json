@@ -307,7 +307,17 @@
 		"animation.trike.attack": {
 			"animation_length": 0.5,
 			"bones": {
-				"Body": {
+				"Leg1": {
+					"position": {
+						"vector": [0, 0, -4]
+					}
+				},
+				"Leg2": {
+					"position": {
+						"vector": [0, 0, -4]
+					}
+				},
+				"Body2": {
 					"rotation": {
 						"0.0": {
 							"vector": [10, 0, 0]
@@ -328,7 +338,7 @@
 						}
 					}
 				},
-				"Head": {
+				"Head2": {
 					"rotation": {
 						"0.0": {
 							"vector": [22.5, 0, 0]
@@ -347,17 +357,7 @@
 						}
 					}
 				},
-				"Leg1": {
-					"position": {
-						"vector": [0, 0, -4]
-					}
-				},
-				"Leg2": {
-					"position": {
-						"vector": [0, 0, -4]
-					}
-				},
-				"Tail": {
+				"Tail2": {
 					"rotation": {
 						"0.0": {
 							"vector": [10, 0, 0]

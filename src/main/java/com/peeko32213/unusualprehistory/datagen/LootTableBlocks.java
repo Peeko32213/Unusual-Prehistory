@@ -43,6 +43,26 @@ public class LootTableBlocks extends BlockLoot {
         dropSelf(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
         dropSelf(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
         dropSelf(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_DOOR.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_PLANKS.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_STAIRS.get());
+
+        dropSelf(UPBlocks.HWACHA_FOSSIL.get());
+        dropSelf(UPBlocks.ANTARCTO_FOSSIL.get());
+        dropSelf(UPBlocks.KENTRO_FOSSIL.get());
+        dropSelf(UPBlocks.ULUGH_FOSSIL.get());
+        dropSelf(UPBlocks.AUSTRO_FOSSIL.get());
+        dropSelf(UPBlocks.ANURO_FOSSIL.get());
+        dropSelf(UPBlocks.COTY_FOSSIL.get());
+        dropSelf(UPBlocks.STETHA_FOSSIL.get());
+        dropSelf(UPBlocks.SCAU_FOSSIL.get());
+        dropSelf(UPBlocks.BEELZE_FOSSIL.get());
+        dropSelf(UPBlocks.DUNK_FOSSIL.get());
+        dropSelf(UPBlocks.BRACHI_FOSSIL.get());
+        dropSelf(UPBlocks.MAJUNGA_FOSSIL.get());
+        dropSelf(UPBlocks.PACHY_FOSSIL.get());
+        dropSelf(UPBlocks.VELOCI_FOSSIL.get());
+        dropSelf(UPBlocks.ERYON_FOSSIL.get());
 
 
         //dropSelf(UPBlocks.AMBER_BLOCK.get());

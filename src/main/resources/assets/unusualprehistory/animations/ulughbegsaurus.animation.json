@@ -105,38 +105,12 @@
 		"animation.ulugh.bite": {
 			"animation_length": 0.25,
 			"bones": {
-				"Body": {
+				"Body2": {
 					"rotation": {
 						"vector": ["Math.cos((query.anim_time - 0.2) * 1440) * 2", 0, "Math.sin((query.anim_time - 0.2) * 1440) * 5"]
 					}
 				},
-				"Neck": {
-					"rotation": {
-						"0.0": {
-							"vector": [17.5, 0, 0]
-						},
-						"0.0833": {
-							"vector": [7.5, 0, 0]
-						},
-						"0.2083": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"Head": {
-					"rotation": {
-						"0.0": {
-							"vector": [-22.5, 0, 0]
-						},
-						"0.0833": {
-							"vector": [-7.5, 0, 0]
-						},
-						"0.2083": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"Jaw": {
+				"Jaw2": {
 					"rotation": {
 						"0.0": {
 							"vector": [37.5, 0, 0]
@@ -157,6 +131,32 @@
 							"vector": [0, 0, 0]
 						},
 						"0.25": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Head2": {
+					"rotation": {
+						"0.0": {
+							"vector": [-22.5, 0, 0]
+						},
+						"0.0833": {
+							"vector": [-7.5, 0, 0]
+						},
+						"0.2083": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Neck2": {
+					"rotation": {
+						"0.0": {
+							"vector": [17.5, 0, 0]
+						},
+						"0.0833": {
+							"vector": [7.5, 0, 0]
+						},
+						"0.2083": {
 							"vector": [0, 0, 0]
 						}
 					}
