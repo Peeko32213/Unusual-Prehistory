@@ -155,6 +155,10 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get())
                 .add(UPBlocks.PETRIFIED_WOOD_DOOR.get());
 
+        tag(BlockTags.MINEABLE_WITH_AXE)
+                .add(UPBlocks.REX_BOOMBOX.get());
+
+
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(UPBlocks.DEEPSLATE_FOSSIL.get())
                 .add(UPBlocks.DEEPSLATE_AMBER_FOSSIL.get())

@@ -19,6 +19,7 @@ public class UlughbegsaurusModel extends AnimatedGeoModel<EntityUlughbegsaurus>
     private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_yellow.png");
     private static final ResourceLocation TEXTURE_ORANGE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_orange.png");
     private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_white.png");
+    private static final ResourceLocation TEXTURE_BROWN = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_brown.png");
 
     @Override
     public ResourceLocation getModelResource(EntityUlughbegsaurus object)
@@ -33,6 +34,7 @@ public class UlughbegsaurusModel extends AnimatedGeoModel<EntityUlughbegsaurus>
             case 1 -> TEXTURE_WHITE;
             case 2 -> TEXTURE_YELLOW;
             case 3 -> TEXTURE_ORANGE;
+            case 4 -> TEXTURE_BROWN;
             default -> TEXTURE_BLUE;
         };
     }

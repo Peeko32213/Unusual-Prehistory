@@ -16,3 +16,5 @@ or move. When an Adorned Staff is used on it in this state it will heal up and d
 These rewards consist of scales and teeth. Scales can be used to craft a fine trophy of the beast while
 the teeth can be used to craft a Veloci-shield. Another by product of the pacification is that they will
 become completely pacified, not attacking humans nor animals that hurt it.
+Scales can also be used for the
+creation of Rex Boomboxes, a block that creates a boom effect around it when activated by redstone.

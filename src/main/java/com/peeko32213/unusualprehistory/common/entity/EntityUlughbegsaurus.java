@@ -33,8 +33,6 @@ import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
-import net.minecraft.world.entity.animal.Sheep;
-import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.DyeColor;
@@ -68,6 +66,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     private static final EntityDataAccessor<Boolean> YELLOW = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> WHITE = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> ORANGE = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> BROWN = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
+
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
 
@@ -186,6 +186,11 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         return stack.is(UPTags.ORANGE_ULUGH_FOOD);
     }
 
+    public boolean isBrownFood(ItemStack stack) {
+        return stack.is(UPTags.BROWN_ULUGH_FOOD);
+    }
+
+
     public boolean isEating() {
         return this.getEatingTime() > 0;
     }
@@ -249,6 +254,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         // LOGGER.info("Yellow " +this.isYellow() );
         // LOGGER.info("Blue " +this.isBlue() );
         // LOGGER.info("White " +this.isWhite() );
+        // LOGGER.info("Brown " +this.isBrown() );
+
         // LOGGER.info("Orange " +this.isOrange() );
         // LOGGER.info("hp " + this.getMaxHealth());
         // LOGGER.info("Speed" + this.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
@@ -283,8 +290,19 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 return InteractionResult.SUCCESS;
             }
         }
+
         if (this.isWhite()) {
             if (isWhiteFood(itemstack) && !isTame()) {
+                int size = itemstack.getCount();
+                this.tame(player);
+                itemstack.shrink(size);
+                this.setEatingTime(50 + random.nextInt(30));
+                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        if (this.isBrown()) {
+            if (isBrownFood(itemstack) && !isTame()) {
                 int size = itemstack.getCount();
                 this.tame(player);
                 itemstack.shrink(size);
@@ -368,6 +386,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         compound.putBoolean("Yellow", this.isYellow());
         compound.putBoolean("White", this.isWhite());
         compound.putBoolean("Orange", this.isOrange());
+        compound.putBoolean("Brown", this.isBrown());
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("TrikeCommand", this.getCommand());
     }
@@ -379,6 +398,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.setYellow(compound.getBoolean("Yellow"));
         this.setWhite(compound.getBoolean("White"));
         this.setOrange(compound.getBoolean("Orange"));
+        this.setBrown(compound.getBoolean("Brown"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setCommand(compound.getInt("TrikeCommand"));
     }
@@ -392,6 +412,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.entityData.define(YELLOW, Boolean.valueOf(false));
         this.entityData.define(WHITE, Boolean.valueOf(false));
         this.entityData.define(ORANGE, Boolean.valueOf(false));
+        this.entityData.define(BROWN, Boolean.valueOf(false));
         this.entityData.define(SADDLED, Boolean.valueOf(false));
         this.entityData.define(COMMAND, 0);
 
@@ -611,12 +632,33 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.entityData.set(ORANGE, green);
     }
 
+    //Brown
+
+    public boolean isBrown() {
+        return this.entityData.get(BROWN).booleanValue();
+    }
+
+    public void setBrown(boolean green) {
+        boolean prev = isBrown();
+        if (!prev && green) {
+            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(10.0D);
+            this.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(10.0D);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(10.0D);
+            this.setHealth(25.0F);
+        } else {
+            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.6D);
+            this.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(0.0D);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(0.0D);
+        }
+        this.heal(this.getMaxHealth());
+        this.entityData.set(BROWN, green);
+    }
 
     @javax.annotation.Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setVariant(random.nextInt(4));
+        this.setVariant(random.nextInt(5));
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
