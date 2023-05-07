@@ -111,7 +111,6 @@ public class BlockDinosaurLandEggs extends Block {
         if (this.canGrow(worldIn) && hasProperHabitat(worldIn, pos)) {
             int i = state.getValue(HATCH);
             if (i < 2) {
-
                 worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
                 worldIn.setBlock(pos, state.setValue(HATCH, Integer.valueOf(i + 1)), 2);
                 //Schedule tick between 2 to 10 minutes when its not hatched yet

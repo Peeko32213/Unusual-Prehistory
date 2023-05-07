@@ -188,10 +188,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         return stack.is(UPTags.ORANGE_ULUGH_FOOD);
     }
 
-    public boolean isBrownFood(ItemStack stack) {
-        return stack.is(UPTags.BROWN_ULUGH_FOOD);
-    }
-
     public boolean isEating() {
         return this.getEatingTime() > 0;
     }
@@ -223,6 +219,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.level.broadcastEntityEvent(this, (byte) 4);
         return shouldHurt;
     }
+
 
 
     public void performAttack() {
@@ -299,7 +296,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 return InteractionResult.SUCCESS;
             }
         }
-
         if (this.isBrown()) {
             if (isBrownFood(itemstack) && !isTame()) {
                 int size = itemstack.getCount();
@@ -385,8 +381,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         compound.putBoolean("Yellow", this.isYellow());
         compound.putBoolean("White", this.isWhite());
         compound.putBoolean("Orange", this.isOrange());
-        compound.putBoolean("Brown", this.isBrown());
         compound.putBoolean("Saddle", this.isSaddled());
+        compound.putBoolean("Brown", this.isBrown());
         compound.putInt("TrikeCommand", this.getCommand());
     }
 
@@ -415,6 +411,10 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.entityData.define(SADDLED, Boolean.valueOf(false));
         this.entityData.define(COMMAND, 0);
 
+    }
+
+    public boolean isBrownFood(ItemStack stack) {
+        return stack.is(UPTags.BROWN_ULUGH_FOOD);
     }
 
     public boolean isSaddled() {
@@ -631,7 +631,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.entityData.set(ORANGE, green);
     }
 
-//Brown
+    //Brown
 
     public boolean isBrown() {
         return this.entityData.get(BROWN).booleanValue();
