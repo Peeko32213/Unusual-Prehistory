@@ -611,12 +611,28 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.entityData.set(ORANGE, green);
     }
 
+    public void determineVariant(int variantChange){
+        if (variantChange <= 30) {
+            this.setWhite(true);
+            this.setVariant(1);
+        } else if (variantChange <= 40 && variantChange > 30) {
+            this.setYellow(true);
+            this.setVariant(2);
+        } else if (variantChange <= 60 && variantChange > 40) {
+            this.setOrange(true);
+            this.setVariant(3);
+        } else {
+            this.setBlue(true);
+            this.setVariant(0);
+        }
+    }
 
     @javax.annotation.Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setVariant(random.nextInt(4));
+        int variantChange = this.random.nextInt(0, 100);
+        this.determineVariant(variantChange);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
