@@ -68,6 +68,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     private static final EntityDataAccessor<Boolean> YELLOW = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> WHITE = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> ORANGE = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> BROWN = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
+
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
 
@@ -186,6 +188,10 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         return stack.is(UPTags.ORANGE_ULUGH_FOOD);
     }
 
+    public boolean isBrownFood(ItemStack stack) {
+        return stack.is(UPTags.BROWN_ULUGH_FOOD);
+    }
+
     public boolean isEating() {
         return this.getEatingTime() > 0;
     }
@@ -293,6 +299,17 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 return InteractionResult.SUCCESS;
             }
         }
+
+        if (this.isBrown()) {
+            if (isBrownFood(itemstack) && !isTame()) {
+                int size = itemstack.getCount();
+                this.tame(player);
+                itemstack.shrink(size);
+                this.setEatingTime(50 + random.nextInt(30));
+                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                return InteractionResult.SUCCESS;
+            }
+        }
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (interactionresult != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
@@ -368,6 +385,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         compound.putBoolean("Yellow", this.isYellow());
         compound.putBoolean("White", this.isWhite());
         compound.putBoolean("Orange", this.isOrange());
+        compound.putBoolean("Brown", this.isBrown());
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("TrikeCommand", this.getCommand());
     }
@@ -379,6 +397,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.setYellow(compound.getBoolean("Yellow"));
         this.setWhite(compound.getBoolean("White"));
         this.setOrange(compound.getBoolean("Orange"));
+        this.setBrown(compound.getBoolean("Brown"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setCommand(compound.getInt("TrikeCommand"));
     }
@@ -392,6 +411,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.entityData.define(YELLOW, Boolean.valueOf(false));
         this.entityData.define(WHITE, Boolean.valueOf(false));
         this.entityData.define(ORANGE, Boolean.valueOf(false));
+        this.entityData.define(BROWN, Boolean.valueOf(false));
         this.entityData.define(SADDLED, Boolean.valueOf(false));
         this.entityData.define(COMMAND, 0);
 
@@ -611,12 +631,53 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.entityData.set(ORANGE, green);
     }
 
+//Brown
+
+    public boolean isBrown() {
+        return this.entityData.get(BROWN).booleanValue();
+    }
+
+    public void setBrown(boolean green) {
+        boolean prev = isBrown();
+        if (!prev && green) {
+            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(10.0D);
+            this.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(10.0D);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(10.0D);
+            this.setHealth(25.0F);
+        } else {
+            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.6D);
+            this.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(0.0D);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(0.0D);
+        }
+        this.heal(this.getMaxHealth());
+        this.entityData.set(BROWN, green);
+    }
+    public void determineVariant(int variantChange){
+        if (variantChange <= 30) {
+            this.setWhite(true);
+            this.setVariant(1);
+        } else if (variantChange <= 40 && variantChange > 30) {
+            this.setYellow(true);
+            this.setVariant(2);
+        } else if (variantChange <= 60 && variantChange > 40) {
+            this.setOrange(true);
+            this.setVariant(3);
+
+        }else if (variantChange <= 80 && variantChange > 60) {
+            this.setBrown(true);
+            this.setVariant(4);
+        }else {
+            this.setBlue(true);
+            this.setVariant(0);
+        }
+    }
 
     @javax.annotation.Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setVariant(random.nextInt(4));
+        int variantChange = this.random.nextInt(0, 100);
+        this.determineVariant(variantChange);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
