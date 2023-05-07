@@ -125,7 +125,7 @@ public class BlockDinosaurLandEggs extends Block {
                         animal.setAge(-24000);
                     }
                     if(dinosaurToSpawn instanceof EntityUlughbegsaurus animal){
-                        animal.setVariant(random.nextInt(4));
+                        animal.determineVariant(random.nextInt(0,100));
                     }
                     dinosaurToSpawn.restrictTo(pos, 20);
                     dinosaurToSpawn.moveTo((double) pos.getX() + 0.3D + (double) j * 0.2D, pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);
