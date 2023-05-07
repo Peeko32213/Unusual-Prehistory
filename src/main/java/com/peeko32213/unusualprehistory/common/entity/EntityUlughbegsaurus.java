@@ -151,6 +151,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     }
 
+
+
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
@@ -531,7 +533,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         return this.entityData.get(VARIANT);
     }
 
-    private void setVariant(int variant) {
+    public void setVariant(int variant) {
         this.entityData.set(VARIANT, variant);
     }
 
@@ -609,34 +611,12 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.entityData.set(ORANGE, green);
     }
 
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "white";
-            case 2 -> "yellow";
-            case 3 -> "orange";
-            default -> "blue";
-        };
-    }
-
 
     @javax.annotation.Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        int variantChange = this.random.nextInt(0, 100);
-        if (variantChange <= 30) {
-            this.setWhite(true);
-            this.setVariant(1);
-        } else if (variantChange <= 40 && variantChange > 30) {
-            this.setYellow(true);
-            this.setVariant(2);
-        } else if (variantChange <= 60 && variantChange > 40) {
-            this.setOrange(true);
-            this.setVariant(3);
-        } else {
-            this.setBlue(true);
-            this.setVariant(0);
-        }
+        this.setVariant(random.nextInt(4));
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 

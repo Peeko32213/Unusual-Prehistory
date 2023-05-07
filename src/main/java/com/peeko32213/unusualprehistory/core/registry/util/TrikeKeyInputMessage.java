@@ -42,7 +42,7 @@ public class TrikeKeyInputMessage {
             if (vehicle instanceof EntityTriceratops triceratops && triceratops.getControllingPassenger() == player) {
                 if(!(triceratops.attackCooldown > 0)) {
                     triceratops.setSwinging(true);
-                    triceratops.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(2.0F);
+                    triceratops.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.23F);
 
                 }
 
