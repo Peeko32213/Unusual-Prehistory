@@ -101,7 +101,7 @@ public class UPEntities {
 
     public static final RegistryObject<EntityType<EntityHwachaSpike>> HWACHA_SPIKE = ENTITIES.register(
             "hwacha_spike", () -> EntityType.Builder.<EntityHwachaSpike>of(EntityHwachaSpike::new, MobCategory.MISC)
-                    .sized(0.5F, 0.5F).clientTrackingRange(9)
+                    .sized(0.5F, 0.5F).clientTrackingRange(9).noSummon()
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hwacha_spike").toString()));
     public static final RegistryObject<EntityType<EntityBabyRex>> BABY_REX = ENTITIES.register("baby_rex",
             () -> EntityType.Builder.of(EntityBabyRex::new, MobCategory.CREATURE).sized(1.1f, 0.6f)

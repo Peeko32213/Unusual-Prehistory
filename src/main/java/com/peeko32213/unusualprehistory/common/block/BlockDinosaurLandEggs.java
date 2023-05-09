@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -122,7 +123,8 @@ public class BlockDinosaurLandEggs extends Block {
                 for (int j = 0; j < state.getValue(EGGS); ++j) {
                     worldIn.levelEvent(4001, pos, Block.getId(state));
                     Mob dinosaurToSpawn = (Mob) dinosaur.get().create(worldIn);
-                    if(dinosaurToSpawn instanceof AgeableMob animal){
+
+                    if(dinosaurToSpawn instanceof EntityBaseDinosaurAnimal animal){
                         animal.setAge(-24000);
                     }
                     if(dinosaurToSpawn instanceof EntityUlughbegsaurus animal){

@@ -20,6 +20,13 @@ public class BlockTagsGenerator extends BlockTagsProvider {
         //tag(BlockTags.MINEABLE_WITH_HOE)
         //        .add(UPBlocks.AMBER_BLOCK.get());
         //UP Block Tags
+
+        tag(UPTags.DINO_NATURAL_SPAWNABLE)
+                .addTag(BlockTags.ANIMALS_SPAWNABLE_ON)
+                .addTags(BlockTags.TERRACOTTA)
+                .addTags(BlockTags.SAND);
+
+
         tag(UPTags.ANGRY_BRACHI_BREAKABLES)
                 .addTag(BlockTags.LEAVES)
                 .addTag(BlockTags.PLANKS)

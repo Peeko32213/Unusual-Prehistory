@@ -26,6 +26,7 @@ public class UnusualPrehistoryConfig {
     public static ForgeConfigSpec.ConfigValue<Integer> SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER;
     public static ForgeConfigSpec.ConfigValue<Integer> SCREEN_SHAKE_REX_AMPLIFIER;
     public static ForgeConfigSpec.ConfigValue<Boolean> BRACHI_EXPERIMENTAL_FOOTPRINTS;
+    public static ForgeConfigSpec.ConfigValue<Boolean> DINO_NATURAL_SPAWNING;
     private static void setupConfig(ForgeConfigSpec.Builder builder) {
         builder.comment(UnusualPrehistory.MODID + " Config");
 
@@ -44,5 +45,7 @@ public class UnusualPrehistoryConfig {
         SCREEN_SHAKE_REX_RANGE = builder.comment("Screen shake rex range").define("screen_shake_rex_range", 10.0D);
         SCREEN_SHAKE_REX_AMPLIFIER = builder.comment("Screen shake rex amplifier").define("screen_shake_rex_amplifier", 1);
         REX_SOUND_VOLUME = builder.comment("Rex sound volume").define("rex_sound_volume", 0.5F);
+
+        DINO_NATURAL_SPAWNING = builder.comment("Turn natural dino spawning on or off").define("dino_natural_spawn", false);
     }
 }
