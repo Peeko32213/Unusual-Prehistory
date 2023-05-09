@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_kentro_biome",
+  "spawners": {
+    "type": "unusualprehistory:kentrosaurus",
+    "weight": 6,
+    "minCount": 3,
+    "maxCount": 4,
+    "category": "creature"
+  }
+}

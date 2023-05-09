@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.AttackSound;
@@ -16,6 +17,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -31,6 +33,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -228,6 +231,8 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable {
         data.addAnimationController(controller2);
     }
 
+    public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends EntityEncrusted> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
+        return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE)  && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();    }
 
 
 }

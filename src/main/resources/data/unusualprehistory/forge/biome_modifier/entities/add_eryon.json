@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_eryon_biome",
+  "spawners": {
+    "type": "unusualprehistory:eryon",
+    "weight": 6,
+    "minCount": 1,
+    "maxCount": 1,
+    "category": "creature"
+  }
+}

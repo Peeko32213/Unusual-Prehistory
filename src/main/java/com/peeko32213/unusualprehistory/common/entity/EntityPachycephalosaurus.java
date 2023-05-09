@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -54,13 +55,11 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-public class EntityPachycephalosaurus extends Animal implements IAnimatable {
+public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implements IAnimatable {
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
 
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public EntityPachycephalosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.maxUpStep = 1.0f;
@@ -130,6 +129,51 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
         return prev;
     }
 
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
+    }
+
     public boolean isUlti() {
         String s = ChatFormatting.stripFormatting(this.getName().getString());
         return s != null && (s.toLowerCase().contains("ulti"));
@@ -138,7 +182,6 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.getEntityData().define(PASSIVE, 0);
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
@@ -148,25 +191,16 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("PassiveTicks", this.getPassiveTicks());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setPassiveTicks(compound.getInt("PassiveTicks"));
-
     }
 
 
 
-    public int getPassiveTicks() {
-        return this.entityData.get(PASSIVE);
-    }
 
-    private void setPassiveTicks(int passiveTicks) {
-        this.entityData.set(PASSIVE, passiveTicks);
-    }
 
     public int getAnimationState() {
 
@@ -288,11 +322,6 @@ public class EntityPachycephalosaurus extends Animal implements IAnimatable {
         data.setResetSpeedInTicks(5);
         AnimationController<EntityPachycephalosaurus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
         data.addAnimationController(controller);
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
     }
 
     static class PachyMeleeAttackGoal extends Goal {

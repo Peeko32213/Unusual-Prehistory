@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_ammon_biome",
+  "spawners": {
+    "type": "unusualprehistory:ammon",
+    "weight": 10,
+    "minCount": 3,
+    "maxCount": 5,
+    "category": "water_creature"
+  }
+}

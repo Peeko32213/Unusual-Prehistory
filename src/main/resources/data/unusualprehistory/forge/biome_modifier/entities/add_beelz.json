@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_beelz_biome",
+  "spawners": {
+    "type": "unusualprehistory:beelz",
+    "weight": 6,
+    "minCount": 1,
+    "maxCount": 2,
+    "category": "creature"
+  }
+}

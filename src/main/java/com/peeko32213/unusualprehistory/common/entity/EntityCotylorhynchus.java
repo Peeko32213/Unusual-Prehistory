@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -13,6 +14,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -41,7 +43,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class EntityCotylorhynchus extends Animal implements IAnimatable {
+public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IAnimatable {
     private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.MELON, Items.MELON_SLICE, Items.MELON_SEEDS, Items.GLISTERING_MELON_SLICE);
     private static final EntityDataAccessor<Boolean> FERMENTED = SynchedEntityData.defineId(EntityCotylorhynchus.class, EntityDataSerializers.BOOLEAN);
 
@@ -70,12 +72,49 @@ public class EntityCotylorhynchus extends Animal implements IAnimatable {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
-    public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
     }
 
     @Nullable

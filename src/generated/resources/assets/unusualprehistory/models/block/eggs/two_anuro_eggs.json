@@ -1,6 +1,6 @@
 {
   "parent": "unusualprehistory:block/template_eggs/template_two_anuro_eggs",
   "textures": {
-    "texture": "unusualprehistory:block/anuro_eggs"
+    "texture": "unusualprehistory:block/eggs/anuro_eggs"
   }
 }

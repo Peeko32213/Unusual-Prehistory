@@ -10,6 +10,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -194,9 +195,13 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             return InteractionResult.SUCCESS;
         }
         if (isFood(itemstack) && !isTame()) {
-            int size = itemstack.getCount();
-            this.tame(player);
-            itemstack.shrink(size);
+            //int size = itemstack.getCount();
+
+            if(random.nextBoolean()) {
+                this.tame(player);
+            }
+
+            itemstack.shrink(1);
             this.spawnAtLocation(Items.BOWL);
             return InteractionResult.SUCCESS;
         }

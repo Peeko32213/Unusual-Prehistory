@@ -59,11 +59,34 @@ public class UPTags {
     public static final TagKey<Block> ANGRY_BRACHI_BREAKABLES = registerBlockTag("angry_brachi_breakables");
     public static final TagKey<Block> ERYON_DIGGABLES = registerBlockTag("eryon_diggables");
     public static final TagKey<Block> DINO_HATCHABLE_BLOCKS = registerBlockTag("dino_hatchable_blocks");
+    //DINO SPAWNABLE TAGS
+
+    public static final TagKey<Block> DINO_NATURAL_SPAWNABLE = registerBlockTag("dino_natural_spawnable");
 
 
     //BIOME Tags
     public static final TagKey<Biome> IS_PETRIFIED_WOOD_FOREST_BIOME = registerBiomeTag("is_petrified_wood_forest_biome");
 
+    public static final TagKey<Biome> IS_STETHA_BIOME = registerBiomeTag("is_stetha_biome");
+    public static final TagKey<Biome> IS_MAJUNGA_BIOME = registerBiomeTag("is_majunga_biome");
+    public static final TagKey<Biome> IS_ANURO_BIOME = registerBiomeTag("is_anuro_biome");
+    public static final TagKey<Biome> IS_BEELZ_BIOME = registerBiomeTag("is_beelz_biome");
+    public static final TagKey<Biome> IS_AMMON_BIOME = registerBiomeTag("is_ammon_biome");
+    public static final TagKey<Biome> IS_DUNK_BIOME = registerBiomeTag("is_dunk_biome");
+    public static final TagKey<Biome> IS_COTY_BIOME = registerBiomeTag("is_coty_biome");
+    public static final TagKey<Biome> IS_SCAU_BIOME = registerBiomeTag("is_scau_biome");
+    public static final TagKey<Biome> IS_TRIKE_BIOME = registerBiomeTag("is_trike_biome");
+    public static final TagKey<Biome> IS_PACHY_BIOME = registerBiomeTag("is_pachy_biome");
+    public static final TagKey<Biome> IS_BRACHI_BIOME = registerBiomeTag("is_brachi_biome");
+    public static final TagKey<Biome> IS_VELOCI_BIOME = registerBiomeTag("is_veloci_biome");
+    public static final TagKey<Biome> IS_REX_BIOME = registerBiomeTag("is_rex_biome");
+    public static final TagKey<Biome> IS_ERYON_BIOME = registerBiomeTag("is_eryon_biome");
+    public static final TagKey<Biome> IS_AUSTRO_BIOME = registerBiomeTag("is_austro_biome");
+    public static final TagKey<Biome> IS_ANTARCTO_BIOME = registerBiomeTag("is_antarcto_biome");
+    public static final TagKey<Biome> IS_ULUG_BIOME = registerBiomeTag("is_ulug_biome");
+    public static final TagKey<Biome> IS_KENTRO_BIOME = registerBiomeTag("is_kentro_biome");
+    public static final TagKey<Biome> IS_HWACHA_BIOME = registerBiomeTag("is_hwacha_biome");
+    public static final TagKey<Biome> IS_ENCRUSTED_BIOME = registerBiomeTag("is_encrusted_biome");
 
 
     private static TagKey<Item> registerItemTag(String name) {

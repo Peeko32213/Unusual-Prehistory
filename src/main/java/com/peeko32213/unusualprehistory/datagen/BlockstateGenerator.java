@@ -251,41 +251,44 @@ public class BlockstateGenerator extends BlockStateProvider {
         createSlightltyCrackedSingleEggDefault(block, modifier, "large");
         createVeryCrackedSingleEggDefault(block, modifier , "large");
     }
-
+    public ResourceLocation blockTextureEggs(Block block) {
+        ResourceLocation name = key(block);
+        return new ResourceLocation(name.getNamespace(), ModelProvider.BLOCK_FOLDER + "/eggs/" + name.getPath());
+    }
 
     public ModelFile createFlatWaterEgg(Block block, String modifier){
         String baseName = getName(block);
-        return models().singleTexture("block/eggs/" + modifier + baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_flat_water_egg"), blockTexture(block));
+        return models().singleTexture("block/eggs/" + modifier + baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_flat_water_egg"), blockTextureEggs(block));
     }
 
     public ModelFile createSingleEgg(Block block, String modifier){
         String baseName = getName(block);
-        return models().singleTexture("block/eggs/" + modifier + baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" + modifier +  baseName), blockTexture(block));
+        return models().singleTexture("block/eggs/" + modifier + baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" + modifier +  baseName), blockTextureEggs(block));
     }
 
     public ModelFile createSlightltyCrackedSingleEgg(Block block, String modifier){
         String baseName = getName(block);
-        return models().singleTexture( "block/eggs/" +modifier + "slightly_cracked_" + baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" + baseName), new ResourceLocation(UnusualPrehistory.MODID, "block/"+getName(block)+"_slightly_cracked"));
+        return models().singleTexture( "block/eggs/" +modifier + "slightly_cracked_" + baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" + baseName), new ResourceLocation(UnusualPrehistory.MODID, "block/eggs/"+getName(block)+"_slightly_cracked"));
     }
 
     public ModelFile createVeryCrackedSingleEgg(Block block, String modifier){
         String baseName = getName(block);
-        return models().singleTexture( "block/eggs/" +modifier + "very_cracked_" +baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" + baseName), new ResourceLocation(UnusualPrehistory.MODID, "block/"+getName(block)+"_very_cracked"));
+        return models().singleTexture( "block/eggs/" +modifier + "very_cracked_" +baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" + baseName), new ResourceLocation(UnusualPrehistory.MODID, "block/eggs/"+getName(block)+"_very_cracked"));
     }
 
     public ModelFile createSingleEggDefault(Block block, String modifier, String modifier2){
         String baseName = getName(block);
-        return models().singleTexture("block/eggs/" + modifier + baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" +modifier+ modifier2 + "_eggs"), blockTexture(block));
+        return models().singleTexture("block/eggs/" + modifier + baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" +modifier+ modifier2 + "_eggs"), blockTextureEggs(block));
     }
 
     public ModelFile createSlightltyCrackedSingleEggDefault(Block block, String modifier, String modifier2){
         String baseName = getName(block);
-        return models().singleTexture( "block/eggs/" +modifier + "slightly_cracked_" + baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" +modifier + modifier2 + "_eggs" ), new ResourceLocation(UnusualPrehistory.MODID, "block/"+getName(block)+"_slightly_cracked"));
+        return models().singleTexture( "block/eggs/" +modifier + "slightly_cracked_" + baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" +modifier + modifier2 + "_eggs" ), new ResourceLocation(UnusualPrehistory.MODID, "block/eggs/"+getName(block)+"_slightly_cracked"));
     }
 
     public ModelFile createVeryCrackedSingleEggDefault(Block block, String modifier, String modifier2){
         String baseName = getName(block);
-        return models().singleTexture( "block/eggs/" +modifier + "very_cracked_" +baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" +modifier + modifier2 + "_eggs"),  new ResourceLocation(UnusualPrehistory.MODID, "block/"+getName(block)+"_very_cracked"));
+        return models().singleTexture( "block/eggs/" +modifier + "very_cracked_" +baseName.replace(UnusualPrehistory.MODID + ":", ""), new ResourceLocation(UnusualPrehistory.MODID, "block/template_eggs/template_" +modifier + modifier2 + "_eggs"),  new ResourceLocation(UnusualPrehistory.MODID, "block/eggs/"+getName(block)+"_very_cracked"));
     }
 
 
@@ -343,30 +346,6 @@ public class BlockstateGenerator extends BlockStateProvider {
         return builder;
     }
 
-
-    public void tomatoBlock(Block block, ResourceLocation texture, String renderType) {
-        tomatoBlock(block, key(block).toString(), texture, renderType);
-    }
-
-    public void tomatoBlock(Block block, String baseName, ResourceLocation texture, String renderType) {
-        ModelFile age1 = models().cross(baseName + "_stage0", new ResourceLocation(texture.toString() + "_stage0")).renderType(renderType);
-        ModelFile age2 = models().cross(baseName + "_stage1", new ResourceLocation(texture.toString() + "_stage1")).renderType(renderType);
-        ModelFile age3 = models().cross(baseName + "_stage2", new ResourceLocation(texture.toString() + "_stage2")).renderType(renderType);
-        ModelFile age4 = models().cross(baseName + "_stage3", new ResourceLocation(texture.toString() + "_stage3")).renderType(renderType);
-
-        tomatoBlock(block, age1, age2, age3, age4);
-    }
-
-    private void tomatoBlock(Block block, ModelFile age1, ModelFile age2, ModelFile age3, ModelFile age4) {
-        getVariantBuilder(block).forAllStatesExcept((state -> {
-            return switch (state.getValue(BlockStateProperties.AGE_3)) {
-                default -> ConfiguredModel.builder().modelFile(age1).build();
-                case 1 -> ConfiguredModel.builder().modelFile(age2).build();
-                case 2 -> ConfiguredModel.builder().modelFile(age3).build();
-                case 3 -> ConfiguredModel.builder().modelFile(age4).build();
-            };
-        }));
-    }
 
     @Override
     public String getName() {

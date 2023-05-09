@@ -1,6 +1,6 @@
 {
   "parent": "unusualprehistory:block/template_eggs/template_two_majunga_eggs",
   "textures": {
-    "texture": "unusualprehistory:block/antarcto_eggs_very_cracked"
+    "texture": "unusualprehistory:block/eggs/antarcto_eggs_very_cracked"
   }
 }
