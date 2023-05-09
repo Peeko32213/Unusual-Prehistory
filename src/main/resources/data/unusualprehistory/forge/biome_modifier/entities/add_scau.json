@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_scau_biome",
+  "spawners": {
+    "type": "unusualprehistory:scau",
+    "weight": 10,
+    "minCount": 3,
+    "maxCount": 5,
+    "category": "water_ambient"
+  }
+}

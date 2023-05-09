@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_majunga_biome",
+  "spawners": {
+    "type": "unusualprehistory:majunga",
+    "weight": 3,
+    "minCount": 1,
+    "maxCount": 1,
+    "category": "creature"
+  }
+}

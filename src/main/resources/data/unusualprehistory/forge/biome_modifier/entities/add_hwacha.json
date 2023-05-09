@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_hwacha_biome",
+  "spawners": {
+    "type": "unusualprehistory:hwachavenator",
+    "weight": 1,
+    "minCount": 1,
+    "maxCount": 1,
+    "category": "creature"
+  }
+}

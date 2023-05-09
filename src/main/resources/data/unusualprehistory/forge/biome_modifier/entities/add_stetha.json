@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_stetha_biome",
+  "spawners": {
+    "type": "unusualprehistory:stethacanthus",
+    "weight": 10,
+    "minCount": 3,
+    "maxCount": 5,
+    "category": "water_creature"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_beelz_biome",
+  "spawners": {
+    "type": "unusualprehistory:beelz_tadpole",
+    "weight": 6,
+    "minCount": 3,
+    "maxCount": 6,
+    "category": "water_ambient"
+  }
+}
