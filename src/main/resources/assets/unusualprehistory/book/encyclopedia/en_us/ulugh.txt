@@ -26,7 +26,7 @@ Yellow: Golden Scaumencia
 <NEWLINE>
 Orange: Raw Coty
 <NEWLINE>
-Orange: Raw Stethacanthus
+Brown: Raw Stethacanthus
 <NEWLINE>
 There is a high chance that more crest colors exist that I have yet to document and more
 foods I have yet to discover for taming.
