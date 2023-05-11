@@ -93,6 +93,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .addTag(BlockTags.DIRT)
                 .addTag(BlockTags.LOGS)
                 .addTag(BlockTags.LEAVES)
+                .addTag(BlockTags.BASE_STONE_OVERWORLD)
                 .add(Blocks.GRAVEL)
                 .add(Blocks.HAY_BLOCK);
 

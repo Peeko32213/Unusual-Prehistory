@@ -4,6 +4,7 @@
     "#minecraft:dirt",
     "#minecraft:logs",
     "#minecraft:leaves",
+    "#minecraft:base_stone_overworld",
     "minecraft:gravel",
     "minecraft:hay_block"
   ]

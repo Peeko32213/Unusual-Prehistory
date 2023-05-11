@@ -223,10 +223,14 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
                     break;
                 default:
                     if (event.isMoving()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunkle.swim"));
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunk.swim"));
+                    }
+                    if (!this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunk.flop"));
+                        event.getController().setAnimationSpeed(2.0F);
                     }
                     else {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunkle.idle"));
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunk.idle"));
                     }
                     break;
 

@@ -11,6 +11,8 @@ Blue crest-colored individuals are much faster, being more adapted to chasing do
 White crest-colored individuals are more bulky, much more adapted to fending off predators or rivals.
 Orange crest-colored individuals have much more powerful bites, allowing them to crack bones for nutrients.
 Yellow crest-colored individuals have a special venom that disables joints, preventing eating, including humans using shields.
+Brown crest-colored individuals have are very durable, having thick scales that protect the animal.
+
 <NEWLINE>
 These creatures are also relatively easy to tame and ride, as their preferred foods are
 indicated by their crest colors. So far, I have found that the following foods can tame these
@@ -23,6 +25,8 @@ Blue: Raw Scaumencia
 Yellow: Golden Scaumencia
 <NEWLINE>
 Orange: Raw Coty
+<NEWLINE>
+Orange: Raw Stethacanthus
 <NEWLINE>
 There is a high chance that more crest colors exist that I have yet to document and more
 foods I have yet to discover for taming.
