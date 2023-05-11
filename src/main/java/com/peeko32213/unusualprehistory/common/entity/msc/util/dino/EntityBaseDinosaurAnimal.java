@@ -255,16 +255,16 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         return pLevel.getRawBrightness(pPos, 0) > 8;
     }
     public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends EntityBaseDinosaurAnimal> dino, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        LOGGER.info("Entity: " + dino);
-        LOGGER.info("Pos: " + pos);
-        int blockBrightness = level.getRawBrightness(pos, 0);
-        LOGGER.info("which one goes false, 1? " + level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE));
-        LOGGER.info("brightness " + blockBrightness);
-        LOGGER.info("which one goes false, 2? " + isBrightEnoughToSpawn(level, pos));
-        LOGGER.info("which one goes false, 3? " + UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get());
+        //LOGGER.info("Entity: " + dino);
+        //LOGGER.info("Pos: " + pos);
+        //int blockBrightness = level.getRawBrightness(pos, 0);
+        //LOGGER.info("which one goes false, 1? " + level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE));
+        //LOGGER.info("brightness " + blockBrightness);
+        //LOGGER.info("which one goes false, 2? " + isBrightEnoughToSpawn(level, pos));
+        //LOGGER.info("which one goes false, 3? " + UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get());
 
         boolean canSpawn = level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE) && isBrightEnoughToSpawn(level, pos) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
-        LOGGER.info("can spawn? " + canSpawn);
+        //LOGGER.info("can spawn? " + canSpawn);
         return canSpawn;    }
 
 }

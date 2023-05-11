@@ -91,7 +91,9 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(4, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0D, 1, 20.0F));
+        if(!this.hasControllingPassenger()) {
+            this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0D, 1, 20.0F));
+        }
         this.goalSelector.addGoal(2, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -182,6 +184,8 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
         return super.isAlliedTo(entityIn);
     }
+
+
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -587,7 +591,9 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     }
 
     public void performRangedAttack(LivingEntity p_30762_, float p_30763_) {
-        this.setIsShooting(true);
+        if(!this.hasControllingPassenger()) {
+            this.setIsShooting(true);
+        }
     }
 
 

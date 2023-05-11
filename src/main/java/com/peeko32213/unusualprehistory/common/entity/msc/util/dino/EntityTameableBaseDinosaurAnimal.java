@@ -71,7 +71,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         if(hasAvoidEntity()) {
             this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         }
-        if(hasTargets()) {
+        if(hasTargets() && !this.hasControllingPassenger()) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(getTargetTag())) {
                         @Override
                         public boolean canUse() {
