@@ -603,7 +603,11 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.laying"));
                         event.getController().setAnimationSpeed(1.0F);
                     }
-                    else if(event.isMoving() && !this.isInSittingPose()){
+                    if (this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.swimming"));
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
+                    else if(event.isMoving() && !this.isInSittingPose()) {
                         {
                             event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.walk"));
                             event.getController().setAnimationSpeed(1.0F);

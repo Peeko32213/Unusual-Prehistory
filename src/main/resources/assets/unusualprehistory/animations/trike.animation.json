@@ -163,7 +163,7 @@
 						}
 					}
 				},
-				"Body2": {
+				"Body": {
 					"rotation": {
 						"vector": ["Math.cos((query.anim_time - 0.0) * 360) * 1", 0, "Math.sin((query.anim_time - 0.0) * 360) * 1"]
 					},
@@ -172,7 +172,7 @@
 							"vector": [0, 0, 0]
 						},
 						"0.5": {
-							"vector": [0, 0.5, 0]
+							"vector": [0, 3, 0]
 						},
 						"0.75": {
 							"vector": [0, 0, 0]
@@ -602,67 +602,116 @@
 				}
 			}
 		},
-		"animation.trike.ride_attack": {
-			"animation_length": 0.25,
+		"animation.trike.swimming": {
+			"loop": true,
+			"animation_length": 1,
 			"bones": {
-				"Body": {
+				"Body2": {
 					"rotation": {
-						"0.0": {
-							"vector": [10, 0, 0]
+						"vector": ["Math.cos((query.anim_time - 0.2) * 360) * 0.5", 0, "Math.sin((query.anim_time - 0.2) * 360) * 3"]
+					},
+					"position": {
+						"0.25": {
+							"vector": [0, 0, 0]
 						},
-						"0.0417": {
+						"0.5": {
+							"vector": [0, 3, 0]
+						},
+						"0.75": {
 							"vector": [0, 0, 0]
 						}
+					}
+				},
+				"Neck2": {
+					"rotation": {
+						"vector": ["-12.5 + Math.cos((query.anim_time - 0.2) * 360) * 3", 0, "Math.sin((query.anim_time - 0.2) * 360) * 5"]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": [
+							"10 + Math.cos((query.anim_time - 0.5) * 360) * 0.5",
+							"Math.sin((query.anim_time - 0.5) * 360) * 5",
+							"Math.sin((query.anim_time - 0.5) * 360) * 5"
+						]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 360) * -12", 0, 0]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 4, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						},
+						"0.75": {
+							"vector": [0, 4, 0]
+						}
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 360) * 12", 0, 0]
 					},
 					"position": {
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"0.125": {
-							"vector": [0, 0, -5]
-						},
 						"0.25": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"Head": {
-					"rotation": {
-						"0.0": {
-							"vector": [22.5, 0, 0]
+							"vector": [0, 4, 0]
 						},
-						"0.0417": {
-							"vector": [17.5, 0, 0]
+						"0.5": {
+							"vector": [0, 4, 0]
 						},
-						"0.0833": {
-							"vector": [10, 0, 0]
-						},
-						"0.125": {
-							"vector": [7.5, 0, 0]
-						},
-						"0.1667": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"Tail": {
-					"rotation": {
-						"0.0": {
-							"vector": [10, 0, 0]
-						},
-						"0.0417": {
+						"0.75": {
 							"vector": [0, 0, 0]
 						}
 					}
 				},
 				"Leg1": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 360) * 18", 0, 0]
+					},
 					"position": {
-						"vector": [0, 0, -4]
+						"0.2083": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 5, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
 					}
 				},
 				"Leg2": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 360) * -18", 0, 0]
+					},
 					"position": {
-						"vector": [0, 0, -4]
+						"0.2083": {
+							"vector": [0, 5, 0]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						},
+						"0.75": {
+							"vector": [0, 5, 0]
+						}
+					}
+				},
+				"Triceratops": {
+					"rotation": {
+						"vector": [-20, 0, 0]
+					},
+					"position": {
+						"vector": [0, -12, -4]
 					}
 				}
 			}

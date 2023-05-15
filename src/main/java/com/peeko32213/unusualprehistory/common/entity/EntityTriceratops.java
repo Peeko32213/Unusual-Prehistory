@@ -731,9 +731,13 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-
         if (this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.sit"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.swimming"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
@@ -767,7 +771,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         data.setResetSpeedInTicks(5);
         AnimationController<EntityTriceratops> controller = new AnimationController<>(this, "controller", 2, this::predicate);
         data.addAnimationController(new AnimationController<>(this, "eatController", 2, this::eatPredicate));
-        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
+        data.addAnimationController(new AnimationController<>(this, "attackController", 2, this::attackPredicate));
         data.addAnimationController(controller);
     }
 

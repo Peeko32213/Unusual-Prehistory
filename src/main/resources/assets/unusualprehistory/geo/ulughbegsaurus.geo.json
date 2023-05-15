@@ -12,25 +12,12 @@
 			},
 			"bones": [
 				{
-					"name": "Leg1",
-					"pivot": [8, 30, 12],
-					"cubes": [
-						{"origin": [3, 18, 4], "size": [9, 13, 13], "uv": [0, 0]},
-						{"origin": [3.5, 0, 9], "size": [8, 18, 8], "uv": [0, 26]},
-						{"origin": [3.5, 0, 4], "size": [8, 2, 5], "uv": [24, 26]}
-					]
-				},
-				{
-					"name": "Leg2",
-					"pivot": [-8, 30, 12],
-					"cubes": [
-						{"origin": [-12, 18, 4], "size": [9, 13, 13], "uv": [0, 0], "mirror": true},
-						{"origin": [-11.5, 0, 9], "size": [8, 18, 8], "uv": [0, 26], "mirror": true},
-						{"origin": [-11.5, 0, 4], "size": [8, 2, 5], "uv": [24, 26], "mirror": true}
-					]
+					"name": "Ulughbegsaurus",
+					"pivot": [0, 41, 0]
 				},
 				{
 					"name": "OuterBody",
+					"parent": "Ulughbegsaurus",
 					"pivot": [0, 34, -4]
 				},
 				{
@@ -136,6 +123,26 @@
 					"pivot": [0, 44, 15],
 					"cubes": [
 						{"origin": [-4.5, 33, 15], "size": [9, 11, 53], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Leg1",
+					"parent": "Ulughbegsaurus",
+					"pivot": [8, 30, 12],
+					"cubes": [
+						{"origin": [3, 18, 4], "size": [9, 13, 13], "uv": [0, 0]},
+						{"origin": [3.5, 0, 9], "size": [8, 18, 8], "uv": [0, 26]},
+						{"origin": [3.5, 0, 4], "size": [8, 2, 5], "uv": [24, 26]}
+					]
+				},
+				{
+					"name": "Leg2",
+					"parent": "Ulughbegsaurus",
+					"pivot": [-8, 30, 12],
+					"cubes": [
+						{"origin": [-12, 18, 4], "size": [9, 13, 13], "uv": [0, 0], "mirror": true},
+						{"origin": [-11.5, 0, 9], "size": [8, 18, 8], "uv": [0, 26], "mirror": true},
+						{"origin": [-11.5, 0, 4], "size": [8, 2, 5], "uv": [24, 26], "mirror": true}
 					]
 				}
 			]

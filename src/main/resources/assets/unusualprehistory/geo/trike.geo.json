@@ -6,13 +6,18 @@
 				"identifier": "geometry.trike",
 				"texture_width": 256,
 				"texture_height": 256,
-				"visible_bounds_width": 8,
-				"visible_bounds_height": 6.5,
-				"visible_bounds_offset": [0, 2.75, 0]
+				"visible_bounds_width": 9,
+				"visible_bounds_height": 7,
+				"visible_bounds_offset": [0, 2.5, 0]
 			},
 			"bones": [
 				{
+					"name": "Triceratops",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "Body",
+					"parent": "Triceratops",
 					"pivot": [0, 43, 0]
 				},
 				{
@@ -93,6 +98,7 @@
 				},
 				{
 					"name": "Arm1",
+					"parent": "Triceratops",
 					"pivot": [11, 20, -16],
 					"cubes": [
 						{"origin": [3, 0, -24.5], "size": [16, 20, 16], "uv": [80, 144]}
@@ -100,6 +106,7 @@
 				},
 				{
 					"name": "Arm2",
+					"parent": "Triceratops",
 					"pivot": [-11, 20, -16],
 					"cubes": [
 						{"origin": [-19, 0, -24.5], "size": [16, 20, 16], "uv": [80, 144]}
@@ -107,6 +114,7 @@
 				},
 				{
 					"name": "Leg1",
+					"parent": "Triceratops",
 					"pivot": [15, 39, 26.5],
 					"cubes": [
 						{"origin": [8, 0, 20], "size": [14, 17, 14], "uv": [174, 90]},
@@ -115,6 +123,7 @@
 				},
 				{
 					"name": "Leg2",
+					"parent": "Triceratops",
 					"pivot": [-15, 39, 26.5],
 					"cubes": [
 						{"origin": [-22, 0, 20], "size": [14, 17, 14], "uv": [174, 90]},
