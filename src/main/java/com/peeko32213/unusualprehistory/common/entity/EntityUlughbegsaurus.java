@@ -33,8 +33,6 @@ import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
-import net.minecraft.world.entity.animal.Sheep;
-import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.DyeColor;
@@ -78,7 +76,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     private static final Map<DyeColor, float[]> COLORARRAY_BY_COLOR = Maps.<DyeColor, float[]>newEnumMap(Arrays.stream(DyeColor.values()).collect(Collectors.toMap((p_29868_) -> {
         return p_29868_;
     }, EntityUlughbegsaurus::createSheepColor)));
-    private static final int ATTACK_COOLDOWN = 30;
+    public static final int ATTACK_COOLDOWN = 30;
     private boolean hasBlueAttributes = false;
     private boolean hasYellowAttributes = false;
     private boolean hasWhiteAttributes = false;
@@ -452,17 +450,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     public void tick() {
         super.tick();
-
-        if (this.isSwinging() && !hasSwung()) {
-            setSwinging(false);
-            setHasSwung(true);
-            performAttack();
-            this.attackCooldown = ATTACK_COOLDOWN;
-        }
-
-        if (attackCooldown <= 0) {
-            setHasSwung(false);
-        }
 
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;

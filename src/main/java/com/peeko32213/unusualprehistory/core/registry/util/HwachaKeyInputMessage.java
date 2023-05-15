@@ -1,12 +1,8 @@
 package com.peeko32213.unusualprehistory.core.registry.util;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
-import com.peeko32213.unusualprehistory.common.entity.EntityTriceratops;
-import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 import org.apache.logging.log4j.LogManager;

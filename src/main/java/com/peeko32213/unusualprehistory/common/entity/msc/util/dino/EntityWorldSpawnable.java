@@ -56,9 +56,10 @@ public class EntityWorldSpawnable extends LivingEntity implements IAnimatable {
     }
 
 
-
     @Override
-    public boolean canCollideWith(Entity p_20303_) {
+    public boolean canCollideWith(Entity entity) {
+
+
         return false;
     }
 

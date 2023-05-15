@@ -1,19 +1,15 @@
 package com.peeko32213.unusualprehistory.core.registry.util;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
 import com.peeko32213.unusualprehistory.common.entity.EntityTriceratops;
-import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class TrikeKeyInputMessage {
@@ -41,9 +37,11 @@ public class TrikeKeyInputMessage {
 
             if (vehicle instanceof EntityTriceratops triceratops && triceratops.getControllingPassenger() == player) {
                 if(!(triceratops.attackCooldown > 0)) {
+                    triceratops.goalSelector.getRunningGoals().forEach(WrappedGoal::stop);
                     triceratops.setSwinging(true);
+                    triceratops.performAttack();
+                    triceratops.attackCooldown = EntityTriceratops.ATTACK_COOLDOWN;
                     triceratops.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.23F);
-
                 }
 
 

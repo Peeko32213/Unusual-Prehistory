@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.*;
-import com.peeko32213.unusualprehistory.common.block.decorations.*;
+import com.peeko32213.unusualprehistory.common.block.decorations.BlockFossilDecoration;
 import com.peeko32213.unusualprehistory.common.block.plant.DoubleHeadBlock;
 import com.peeko32213.unusualprehistory.common.block.plant.DoubleHeadPlantBlock;
 import com.peeko32213.unusualprehistory.common.block.plant.WaterLilyUpdate;
@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

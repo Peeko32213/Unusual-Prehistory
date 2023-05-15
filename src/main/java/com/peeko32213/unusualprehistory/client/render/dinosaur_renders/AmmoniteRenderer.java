@@ -11,4 +11,5 @@ public class AmmoniteRenderer extends GeoEntityRenderer<EntityAmmonite> {
     public AmmoniteRenderer(EntityRendererProvider.Context context) {
         super(context, new AmmoniteModel());
     }
+
 }

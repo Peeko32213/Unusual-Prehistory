@@ -1,8 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry.util;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
-import com.peeko32213.unusualprehistory.common.entity.EntityTriceratops;
-import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
