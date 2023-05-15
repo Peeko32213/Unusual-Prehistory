@@ -3,25 +3,17 @@ package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
-import net.minecraft.ChatFormatting;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -30,20 +22,23 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.scores.Team;
+import net.minecraftforge.common.util.LazyOptional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
-import java.util.UUID;
 
 public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal implements IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -55,6 +50,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+    public static final Logger LOGGER = LogManager.getLogger();
     private boolean orderedToSit;
     public int attackCooldown = 0;
     int lastTimeSinceHungry;
@@ -82,12 +78,26 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         }
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
-
+    private static final int ATTACK_COOLDOWN = 30;
     @Override
     public void tick() {
         super.tick();
+
         if(attackCooldown > 0) {
             attackCooldown--;
+
+        }
+
+       // if (this.isSwinging() && !hasSwung()) {
+       //     setSwinging(false);
+       //     setHasSwung(true);
+       //     performAttack();
+       //     this.attackCooldown = ATTACK_COOLDOWN;
+       // }
+
+        if (attackCooldown <= 0) {
+            //setHasSwung(false);
+            setSwinging(false);
         }
 
         if(!canGetHungry()) {
@@ -101,6 +111,8 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
             lastTimeSinceHungry = 0;
         }
     }
+
+    protected abstract void performAttack();
 
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(getKillHealAmount());
@@ -137,21 +149,6 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         }
     }
 
-    @Override
-    public void handleEntityEvent(byte pId) {
-       //if (pId == 4) {
-       //    this.swinging = true;
-       //    setSwinging(true);
-       //    setHasSwung(true);
-       //} else if (pId == 5) {
-       //    this.swinging = false;
-       //    setSwinging(false);
-       //    setHasSwung(false);
-       //} else {
-            super.handleEntityEvent(pId);
-
-        //}
-    }
     protected abstract SoundEvent getAttackSound();
     protected abstract int getKillHealAmount();
     protected abstract boolean canGetHungry();

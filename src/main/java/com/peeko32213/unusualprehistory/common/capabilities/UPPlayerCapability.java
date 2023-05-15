@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.capabilities;
 
-import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import com.peeko32213.unusualprehistory.common.networking.packet.AmberProtectionSyncS2CPacket;
+import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.util.INBTSerializable;

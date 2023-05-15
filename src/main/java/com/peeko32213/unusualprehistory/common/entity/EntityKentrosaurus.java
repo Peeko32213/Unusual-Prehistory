@@ -4,7 +4,6 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -20,21 +19,15 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Pufferfish;
-import net.minecraft.world.entity.animal.Rabbit;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -45,7 +38,6 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -200,33 +192,33 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
 
     }
 
+
     @Override
-    public void playerTouch(Player entity) {
-        super.playerTouch(entity);
-        if (!entity.isCreative() && this.attackCooldown == 0 && entity.level.getDifficulty() != Difficulty.PEACEFUL && isOrderedToSit()) {
-            entity.hurt(DamageSource.mobAttack(this), 5.0F);
-            this.attackCooldown = 80;
-        }
-    }
+    public boolean canCollideWith(Entity pEntity) {
 
-    private void touch(Mob pMob) {
-        pMob.hurt(DamageSource.mobAttack(this), (float) (5.0D));
-    }
-
-
-    public void aiStep() {
-        super.aiStep();
-        if (this.isAlive() && this.isInSittingPose()) {
-            for(Mob mob : this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(0.3D), (p_149013_) -> {
-                return targetingConditions.test(this, p_149013_);
-            })) {
-                if (mob.isAlive() && isInSittingPose()) {
-                    this.touch(mob);
-                }
+        if (pEntity instanceof LivingEntity livingEntity  && this.isAlive() && this.isInSittingPose() &&pEntity.isAlive() ) {
+            if(!(livingEntity instanceof  Player)) {
+                this.touch(livingEntity);
+                return true;
             }
         }
 
+        return super.canCollideWith(pEntity);
     }
+
+    @Override
+    public void playerTouch(Player entity) {
+       super.playerTouch(entity);
+       if (!entity.isCreative() && this.attackCooldown == 0 && entity.level.getDifficulty() != Difficulty.PEACEFUL && isOrderedToSit()) {
+           entity.hurt(DamageSource.mobAttack(this), 5.0F);
+           this.attackCooldown = 80;
+       }
+    }
+
+    private void touch(LivingEntity pMob) {
+        pMob.hurt(DamageSource.mobAttack(this), (float) (5.0D));
+    }
+
 
     public SoundEvent getEatingSound(ItemStack p_28540_) {
         return SoundEvents.GENERIC_EAT;

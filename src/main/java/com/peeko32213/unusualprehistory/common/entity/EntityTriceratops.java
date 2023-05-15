@@ -82,7 +82,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public static final Logger LOGGER = LogManager.getLogger();
     private int stunnedTick;
     private boolean canBePushed = true;
-    private static final int ATTACK_COOLDOWN = 30;
+    public static final int ATTACK_COOLDOWN = 30;
     public EntityTriceratops(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
         this.maxUpStep = 1.2F;
@@ -278,17 +278,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public void tick() {
         super.tick();
 
-        if(this.isSwinging() && !hasSwung()){
-            setSwinging(false);
-            setHasSwung(true);
-            performAttack();
-            this.attackCooldown = ATTACK_COOLDOWN;
-        }
-
-        if(attackCooldown <= 0){
-            setHasSwung(false);
-        }
-
         //if (riderAttackCooldown > 0) {
         //    riderAttackCooldown--;
         //}
@@ -441,6 +430,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         return type;
     }
 
+
     public boolean isSaddled() {
         return this.entityData.get(SADDLED).booleanValue();
     }
@@ -548,14 +538,10 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     @Override
-    public void customServerAiStep() {
-        this.eatAnimationTick = this.eatBlockGoal.getEatAnimationTick();
-        if (this.getMoveControl().hasWanted()) {
-            this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.5D);
-        } else {
-            this.setSprinting(false);
-        }
-        super.customServerAiStep();
+    public void killed(ServerLevel world, LivingEntity entity) {
+        super.killed(world, entity);
+
+
     }
 
     @Override
@@ -695,7 +681,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public void performAttack() {
         if (!this.level.isClientSide) {
             for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D))) {
-                if (!(entity instanceof EntityTriceratops) && !(entity instanceof Player) && !this.hasSwung()) {
+                if (!(entity instanceof EntityTriceratops) && !(entity instanceof Player)) {
                     if (this.isSaddled() && this.isTame() && this.hasControllingPassenger() ) {
                         entity.hurt(DamageSource.mobAttack(this), 10.0F);
                     }
@@ -716,43 +702,48 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()) {
-            if (this.isSprinting() || !this.getPassengers().isEmpty()) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.run"));
-                event.getController().setAnimationSpeed(2.0D);
-                return PlayState.CONTINUE;
-            } else if (event.isMoving()) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.move"));
-                event.getController().setAnimationSpeed(1.0D);
-                return PlayState.CONTINUE;
-            }
-        } else if (this.hasChargeCooldown() && this.hasTarget() && !this.isInSittingPose()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.prep"));
-            event.getController().setAnimationSpeed(1.0F);
+
+
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6  && !this.isInSittingPose() && !this.isInWater() && !this.isSprinting()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.move"));
+            event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
-        if (this.isInSittingPose()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.sit"));
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
+
         if (this.isInWater()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.swimming"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
+
+        if (this.hasChargeCooldown() && this.hasTarget() && !this.isInSittingPose()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.prep"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        LOGGER.info("movement? " + this.getDeltaMovement().horizontalDistanceSqr());
+        if ((this.isSprinting() || !this.getPassengers().isEmpty()) && !this.isInWater() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.run"));
+            event.getController().setAnimationSpeed(2.0D);
+            return PlayState.CONTINUE;
+        }
+
+        if (this.isInSittingPose()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.sit"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
         event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.idle"));
         event.getController().setAnimationSpeed(1.0F);
         return PlayState.CONTINUE;
-
     }
+
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.trike.attack"));
-            //this.swinging = false;
-            //setSwinging(false);
         }
         return PlayState.CONTINUE;
     }

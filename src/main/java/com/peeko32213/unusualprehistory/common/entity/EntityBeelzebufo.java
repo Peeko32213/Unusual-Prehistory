@@ -138,9 +138,6 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
 
     public void tick() {
         super.tick();
-        if (this.getControllingPassenger() != null && this.getControllingPassenger() instanceof Player rider) {
-
-        }
         if ((this.isControlledByLocalInstance() || this.isEffectiveAi()) && this.standCounter > 0 && ++this.standCounter > 20) {
             this.standCounter = 0;
             this.setStanding(false);

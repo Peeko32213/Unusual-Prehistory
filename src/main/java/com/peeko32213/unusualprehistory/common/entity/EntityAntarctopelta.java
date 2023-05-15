@@ -74,7 +74,7 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof Creeper);
         }));
     }
-
+    
     @Override
     protected SoundEvent getAttackSound() {
         return UPSounds.BRACHI_TOSS.get();

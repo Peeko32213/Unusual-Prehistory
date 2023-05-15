@@ -104,8 +104,6 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
 
                     @Override
                     public boolean canContinueToUse() {
-                        //return super.canContinueToUse();
-                        //LOGGER.info("preening? " +  ((EntityAustroraptor) this.mob).getIsPreening());
                         return !((EntityAustroraptor) this.mob).getIsPreening() && super.canContinueToUse();
                     }
                 }

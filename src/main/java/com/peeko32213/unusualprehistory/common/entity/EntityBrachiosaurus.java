@@ -520,9 +520,15 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         }
     }
 
+    @Override
+    public void ageUp(int pAmount) {
+        scaleParts();
+        super.ageUp(pAmount);
+    }
+
     public void aiStep() {
         super.aiStep();
-        scaleParts();
+        //scaleParts();
 
         if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
             boolean flag = false;
