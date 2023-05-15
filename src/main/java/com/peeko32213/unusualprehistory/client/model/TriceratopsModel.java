@@ -40,7 +40,7 @@ public class TriceratopsModel extends AnimatedGeoModel<EntityTriceratops>
         if (customPredicate == null) return;
 
         List<EntityModelData> extraDataOfType = customPredicate.getExtraDataOfType(EntityModelData.class);
-        IBone head = this.getAnimationProcessor().getBone("Head");
+        IBone head = this.getAnimationProcessor().getBone("Head2");
 
         if (dino.isBaby()) {
             head.setScaleX(1.75F);

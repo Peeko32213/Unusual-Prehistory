@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.trike.walk": {
+		"animation.trike.move": {
 			"loop": true,
 			"animation_length": 1,
 			"bones": {
@@ -66,22 +66,6 @@
 						},
 						"0.5": {
 							"vector": [0, 2, 0]
-						},
-						"0.75": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"Body": {
-					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.0) * 360) * 1", 0, "Math.sin((query.anim_time - 0.0) * 360) * 1"]
-					},
-					"position": {
-						"0.25": {
-							"vector": [0, 0, 0]
-						},
-						"0.5": {
-							"vector": [0, 0.5, 0]
 						},
 						"0.75": {
 							"vector": [0, 0, 0]
@@ -173,6 +157,22 @@
 						},
 						"0.5": {
 							"vector": [0, 2, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Body2": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.0) * 360) * 1", 0, "Math.sin((query.anim_time - 0.0) * 360) * 1"]
+					},
+					"position": {
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 0.5, 0]
 						},
 						"0.75": {
 							"vector": [0, 0, 0]
