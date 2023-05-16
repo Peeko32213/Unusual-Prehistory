@@ -140,6 +140,9 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
             this.standCounter = 0;
             this.setStanding(false);
         }
+        if(this.isOnGround() && this.isJumping()){
+            setIsJumping(false);
+        }
     }
 
     public void travel(Vec3 p_30633_) {
