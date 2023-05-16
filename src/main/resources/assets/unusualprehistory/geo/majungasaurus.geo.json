@@ -7,12 +7,17 @@
 				"texture_width": 128,
 				"texture_height": 128,
 				"visible_bounds_width": 7,
-				"visible_bounds_height": 3.5,
-				"visible_bounds_offset": [0, 1.25, 0]
+				"visible_bounds_height": 4,
+				"visible_bounds_offset": [0, 1, 0]
 			},
 			"bones": [
 				{
+					"name": "Majungasaurus",
+					"pivot": [0, 26, 0]
+				},
+				{
 					"name": "Body",
+					"parent": "Majungasaurus",
 					"pivot": [0, 14, 0],
 					"rotation": [2.5, 0, 0],
 					"cubes": [
@@ -119,6 +124,7 @@
 				},
 				{
 					"name": "Leg1",
+					"parent": "Majungasaurus",
 					"pivot": [6, 23, 10],
 					"cubes": [
 						{"origin": [4, 10, 4], "size": [7, 13, 9], "uv": [0, 0]},
@@ -130,6 +136,7 @@
 				},
 				{
 					"name": "Leg2",
+					"parent": "Majungasaurus",
 					"pivot": [-6, 23, 8],
 					"cubes": [
 						{"origin": [-11, 10, 4], "size": [7, 13, 9], "uv": [0, 0], "mirror": true},

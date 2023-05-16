@@ -6,13 +6,18 @@
 				"identifier": "geometry.unknown",
 				"texture_width": 128,
 				"texture_height": 128,
-				"visible_bounds_width": 4,
-				"visible_bounds_height": 4.5,
-				"visible_bounds_offset": [0, 1.75, 0]
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 4,
+				"visible_bounds_offset": [0, 1, 0]
 			},
 			"bones": [
 				{
+					"name": "BabyBrachi",
+					"pivot": [0, 15, 0]
+				},
+				{
 					"name": "Body",
+					"parent": "BabyBrachi",
 					"pivot": [0, 13, 0],
 					"cubes": [
 						{"origin": [-7, 9, -9], "size": [14, 14, 18], "uv": [0, 0]}
@@ -47,6 +52,7 @@
 				},
 				{
 					"name": "Arm1",
+					"parent": "BabyBrachi",
 					"pivot": [7, 19, -7],
 					"cubes": [
 						{"origin": [5, 0, -11], "size": [7, 19, 7], "uv": [36, 32]}
@@ -54,6 +60,7 @@
 				},
 				{
 					"name": "Arm2",
+					"parent": "BabyBrachi",
 					"pivot": [-7, 19, -7],
 					"cubes": [
 						{"origin": [-12, 0, -11], "size": [7, 19, 7], "uv": [36, 32], "mirror": true}
@@ -61,6 +68,7 @@
 				},
 				{
 					"name": "Leg1",
+					"parent": "BabyBrachi",
 					"pivot": [7, 15, 8],
 					"cubes": [
 						{"origin": [4, 0, 4], "size": [7, 15, 7], "uv": [57, 51]}
@@ -68,6 +76,7 @@
 				},
 				{
 					"name": "Leg2",
+					"parent": "BabyBrachi",
 					"pivot": [-7, 15, 8],
 					"cubes": [
 						{"origin": [-11, 0, 4], "size": [7, 15, 7], "uv": [57, 51], "mirror": true}

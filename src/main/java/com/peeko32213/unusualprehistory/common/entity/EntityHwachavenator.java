@@ -22,10 +22,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
@@ -89,6 +86,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         if(!this.hasControllingPassenger()) {
             this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0D, 1, 20.0F));
         }
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -616,6 +614,11 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         }
         if (this.isInSittingPose() && !isShooting()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.sitting"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        if (this.isInWater()  && !isShooting() && !this.isInSittingPose()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.swim"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }

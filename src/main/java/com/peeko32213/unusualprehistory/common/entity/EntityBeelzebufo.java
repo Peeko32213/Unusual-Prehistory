@@ -20,10 +20,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
@@ -74,6 +71,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         super.registerGoals();
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(2, new CustomRideGoal(this, 1.5D));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
                 {
                     @Override
@@ -277,10 +275,6 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         return stack.getItem() == Items.PORKCHOP;
     }
 
-    protected float getWaterSlowDown() {
-        return 0.98F;
-    }
-
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.hasCustomName();
     }
@@ -353,11 +347,25 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isJumping) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
-            event.getController().setAnimationSpeed(0.8D);
+            if (event.isMoving() && !this.isJumping) {
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
+                event.getController().setAnimationSpeed(0.8D);
+                return PlayState.CONTINUE;
+            }
+            if (this.isInWater() && !this.isJumping) {
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.swim"));
+                event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
+            }
+        }
+        if (this.isInWater() && !this.isJumping) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.swim"));
+            event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
-        } else if (this.isJumping()) {
+        }
+        else if (this.isJumping()) {
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.jump").addRepeatingAnimation("animation.beelzebufo.jump_hold", 1));
             return PlayState.CONTINUE;
         }

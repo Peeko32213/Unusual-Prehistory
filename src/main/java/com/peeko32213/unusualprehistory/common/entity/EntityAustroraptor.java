@@ -20,6 +20,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
@@ -67,6 +68,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(2, new EntityAustroraptor.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
                 {
                     @Override
@@ -317,10 +319,15 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6|| this.isSwimming()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 || this.isSwimming()) {
             {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.walk"));
             }
+        }
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.swim"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
         }
         else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.idle"));

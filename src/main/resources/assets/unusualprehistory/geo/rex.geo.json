@@ -7,12 +7,17 @@
 				"texture_width": 256,
 				"texture_height": 256,
 				"visible_bounds_width": 16,
-				"visible_bounds_height": 6.5,
-				"visible_bounds_offset": [0, 2.75, 0]
+				"visible_bounds_height": 9,
+				"visible_bounds_offset": [0, 1.5, 0]
 			},
 			"bones": [
 				{
+					"name": "Rex",
+					"pivot": [0, 52, 0]
+				},
+				{
 					"name": "Body",
+					"parent": "Rex",
 					"pivot": [1, 48, -3],
 					"cubes": [
 						{"origin": [-14.5, 29, -33], "size": [29, 33, 53], "uv": [0, 0]}
@@ -54,8 +59,13 @@
 					]
 				},
 				{
-					"name": "Neck",
+					"name": "Head",
 					"parent": "Body",
+					"pivot": [1, 56, -28]
+				},
+				{
+					"name": "Neck",
+					"parent": "Head",
 					"pivot": [-1.5, 46, -35],
 					"rotation": [-35, 0, 0],
 					"cubes": [
@@ -63,7 +73,7 @@
 					]
 				},
 				{
-					"name": "Head",
+					"name": "Head1",
 					"parent": "Neck",
 					"pivot": [-1.5, 57, -42],
 					"rotation": [37.5, 0, 0],
@@ -79,7 +89,7 @@
 				},
 				{
 					"name": "Jaw",
-					"parent": "Head",
+					"parent": "Head1",
 					"pivot": [-1.5, 56, -49],
 					"cubes": [
 						{"origin": [8.45, 54, -79], "size": [0, 3, 20], "uv": [0, 21]},
@@ -93,6 +103,7 @@
 				},
 				{
 					"name": "Leg1",
+					"parent": "Rex",
 					"pivot": [13, 53, 16],
 					"cubes": [
 						{"origin": [7, 23, 5], "size": [15, 30, 20], "uv": [111, 0]},
@@ -102,6 +113,7 @@
 				},
 				{
 					"name": "Leg2",
+					"parent": "Rex",
 					"pivot": [-13, 53, 16],
 					"cubes": [
 						{"origin": [-22, 23, 5], "size": [15, 30, 20], "uv": [111, 0], "mirror": true},

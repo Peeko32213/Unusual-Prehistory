@@ -733,7 +733,12 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
                     if(event.isMoving()){
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.walk"));
                         event.getController().setAnimationSpeed(1.5D);
-                    }else{
+                    }
+                    if (this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.swim"));
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
+                    else{
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.idle"));
                         event.getController().setAnimationSpeed(1.0F);
                     }

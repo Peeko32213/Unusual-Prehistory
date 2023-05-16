@@ -27,10 +27,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -111,6 +108,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 return false;
             }
         });
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, Ingredient.of(Items.MELON), false));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
@@ -833,6 +831,10 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 default:
                     if (this.isLaunching()) {
                         event.getController().setAnimation(new AnimationBuilder().playOnce("animation.brachiosaurus.launch"));
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
+                    if (this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.swim_adult"));
                         event.getController().setAnimationSpeed(1.0F);
                     }
                     if(event.isMoving()){

@@ -184,6 +184,10 @@ public class EntityBabyRex extends PathfinderMob implements IAnimatable {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.babyrex.walk"));
             }
         }
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.babyrex.swim"));
+            event.getController().setAnimationSpeed(1.0F);
+        }
         else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.babyrex.idle"));
         }

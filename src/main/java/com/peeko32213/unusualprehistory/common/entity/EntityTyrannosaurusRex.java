@@ -706,6 +706,10 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                         event.getController().setAnimation(new AnimationBuilder().loop("rex.eepy"));
                         event.getController().setAnimationSpeed(1.0F);
                     }
+                    if (this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("rex.swim"));
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
                     else if(event.isMoving()){
                         if(this.isSprinting()) {
                             event.getController().setAnimation(new AnimationBuilder().loop("rex.charge"));

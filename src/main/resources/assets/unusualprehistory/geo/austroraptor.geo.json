@@ -7,12 +7,17 @@
 				"texture_width": 128,
 				"texture_height": 128,
 				"visible_bounds_width": 10,
-				"visible_bounds_height": 5.5,
-				"visible_bounds_offset": [0, 2.25, 0]
+				"visible_bounds_height": 6,
+				"visible_bounds_offset": [0, 2, 0]
 			},
 			"bones": [
 				{
+					"name": "Austroraptor",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "Body",
+					"parent": "Austroraptor",
 					"pivot": [0, 17, -4],
 					"cubes": [
 						{"origin": [-4.5, 17, -10.5], "size": [9, 11, 13], "uv": [0, 54]}
@@ -188,6 +193,7 @@
 				},
 				{
 					"name": "Leg1",
+					"parent": "Austroraptor",
 					"pivot": [4, 22, 2],
 					"cubes": [
 						{"origin": [2.5, 0, 4], "size": [2, 15, 2], "uv": [22, 78]},
@@ -227,6 +233,7 @@
 				},
 				{
 					"name": "Leg2",
+					"parent": "Austroraptor",
 					"pivot": [-4, 22, 2],
 					"cubes": [
 						{"origin": [-4.5, 0, 4], "size": [2, 15, 2], "uv": [22, 78], "mirror": true},

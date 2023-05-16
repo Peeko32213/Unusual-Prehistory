@@ -606,22 +606,6 @@
 			"loop": true,
 			"animation_length": 1,
 			"bones": {
-				"Body2": {
-					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.2) * 360) * 0.5", 0, "Math.sin((query.anim_time - 0.2) * 360) * 3"]
-					},
-					"position": {
-						"0.25": {
-							"vector": [0, 0, 0]
-						},
-						"0.5": {
-							"vector": [0, 3, 0]
-						},
-						"0.75": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
 				"Neck2": {
 					"rotation": {
 						"vector": ["-12.5 + Math.cos((query.anim_time - 0.2) * 360) * 3", 0, "Math.sin((query.anim_time - 0.2) * 360) * 5"]
@@ -711,7 +695,23 @@
 						"vector": [-20, 0, 0]
 					},
 					"position": {
-						"vector": [0, -12, -4]
+						"vector": [0, -32, -4]
+					}
+				},
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 360) * 0.5", 0, "Math.sin((query.anim_time - 0.2) * 360) * 3"]
+					},
+					"position": {
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 3, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
 					}
 				}
 			}

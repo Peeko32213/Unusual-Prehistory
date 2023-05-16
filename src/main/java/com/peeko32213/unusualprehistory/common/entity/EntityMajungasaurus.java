@@ -24,10 +24,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -81,6 +78,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(3, new MajungaChargeGoal(this, 2.5F));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34) {
                     @Override
                     public boolean canUse() {
@@ -534,6 +532,11 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.swim"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
         if (this.stunnedTick > 0) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.stunned"));
             event.getController().setAnimationSpeed(1.0F);
@@ -552,6 +555,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.idle"));
             event.getController().setAnimationSpeed(1.0F);
         }
+
         return PlayState.CONTINUE;
     }
 

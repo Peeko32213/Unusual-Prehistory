@@ -209,6 +209,11 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
                 event.getController().setAnimationSpeed(1.5D);
             }
         }
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.swim"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
         else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.idle"));
             event.getController().setAnimationSpeed(1.0D);

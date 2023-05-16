@@ -6,46 +6,20 @@
 				"identifier": "geometry.unknown",
 				"texture_width": 128,
 				"texture_height": 128,
-				"visible_bounds_width": 3,
-				"visible_bounds_height": 2.5,
-				"visible_bounds_offset": [0, 0.75, 0]
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3,
+				"visible_bounds_offset": [0, 0.5, 0]
 			},
 			"bones": [
 				{
-					"name": "Leg1",
-					"pivot": [-8, 7.5, 8.5],
-					"cubes": [
-						{"origin": [-12.5, 1.5, 2], "size": [8, 6, 10], "uv": [24, 44]},
-						{"origin": [-14.5, 1.6, 0], "size": [5, 0, 4], "uv": [0, 7]}
-					]
-				},
-				{
-					"name": "Leg2",
-					"pivot": [8, 7.5, 8.5],
-					"cubes": [
-						{"origin": [4.5, 1.5, 2], "size": [8, 6, 10], "uv": [24, 44], "mirror": true},
-						{"origin": [9.5, 1.6, 0], "size": [5, 0, 4], "uv": [0, 7], "mirror": true}
-					]
-				},
-				{
-					"name": "Arm1",
-					"pivot": [-8, 5, -6],
-					"cubes": [
-						{"origin": [-11.75, 0, -10.5], "size": [5, 5, 5], "uv": [0, 48]},
-						{"origin": [-8.75, 0.6, -13.5], "size": [4, 0, 4], "uv": [0, 11]}
-					]
-				},
-				{
-					"name": "Arm2",
-					"pivot": [8, 5, -6],
-					"cubes": [
-						{"origin": [6.75, 0, -10.5], "size": [5, 5, 5], "uv": [0, 48], "mirror": true},
-						{"origin": [4.75, 0.6, -13.5], "size": [4, 0, 4], "uv": [0, 11], "mirror": true}
-					]
+					"name": "Beelze",
+					"pivot": [0, 0, 0]
 				},
 				{
 					"name": "Body",
+					"parent": "Beelze",
 					"pivot": [0, 2.5, 0],
+					"rotation": [-2.5, 0, 0],
 					"cubes": [
 						{"origin": [-8.5, 1.75, -8.5], "size": [17, 5, 17], "uv": [0, 0]},
 						{"origin": [7.5, 6.75, -8.5], "size": [1, 2, 17], "uv": [68, 0]},
@@ -96,6 +70,42 @@
 					"pivot": [0.5, 6.5, 1],
 					"cubes": [
 						{"origin": [-5, 6.5, -7], "size": [10, 2, 8], "uv": [50, 44]}
+					]
+				},
+				{
+					"name": "Arm1",
+					"parent": "Beelze",
+					"pivot": [-8, 5, -6],
+					"cubes": [
+						{"origin": [-11.75, 0, -10.5], "size": [5, 5, 5], "uv": [0, 48]},
+						{"origin": [-8.75, 0.6, -13.5], "size": [4, 0, 4], "uv": [0, 11]}
+					]
+				},
+				{
+					"name": "Arm2",
+					"parent": "Beelze",
+					"pivot": [8, 5, -6],
+					"cubes": [
+						{"origin": [6.75, 0, -10.5], "size": [5, 5, 5], "uv": [0, 48], "mirror": true},
+						{"origin": [4.75, 0.6, -13.5], "size": [4, 0, 4], "uv": [0, 11], "mirror": true}
+					]
+				},
+				{
+					"name": "Leg1",
+					"parent": "Beelze",
+					"pivot": [-8, 7.5, 8.5],
+					"cubes": [
+						{"origin": [-12.5, 1.5, 2], "size": [8, 6, 10], "uv": [24, 44]},
+						{"origin": [-14.5, 1.6, 0], "size": [5, 0, 4], "uv": [0, 7]}
+					]
+				},
+				{
+					"name": "Leg2",
+					"parent": "Beelze",
+					"pivot": [8, 7.5, 8.5],
+					"cubes": [
+						{"origin": [4.5, 1.5, 2], "size": [8, 6, 10], "uv": [24, 44], "mirror": true},
+						{"origin": [9.5, 1.6, 0], "size": [5, 0, 4], "uv": [0, 7], "mirror": true}
 					]
 				}
 			]

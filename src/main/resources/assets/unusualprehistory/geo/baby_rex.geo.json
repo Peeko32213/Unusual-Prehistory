@@ -7,12 +7,17 @@
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 4,
-				"visible_bounds_height": 2.5,
-				"visible_bounds_offset": [0, 0.75, 0]
+				"visible_bounds_height": 2,
+				"visible_bounds_offset": [0, 0, 0]
 			},
 			"bones": [
 				{
+					"name": "BabyRex",
+					"pivot": [0, 9, 0]
+				},
+				{
 					"name": "Body",
+					"parent": "BabyRex",
 					"pivot": [0, 7, 0],
 					"cubes": [
 						{"origin": [-3, 4, -5], "size": [6, 6, 10], "uv": [0, 19]}
@@ -53,6 +58,7 @@
 				},
 				{
 					"name": "Leg1",
+					"parent": "BabyRex",
 					"pivot": [3, 7, 4],
 					"cubes": [
 						{"origin": [3, 0, 2], "size": [2, 1, 2], "uv": [0, 13]},
@@ -62,6 +68,7 @@
 				},
 				{
 					"name": "Leg2",
+					"parent": "BabyRex",
 					"pivot": [-3, 7, 4],
 					"cubes": [
 						{"origin": [-5, 0, 2], "size": [2, 1, 2], "uv": [0, 13], "mirror": true},

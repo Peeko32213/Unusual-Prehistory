@@ -1592,6 +1592,107 @@
 					}
 				}
 			}
+		},
+		"rex.swim": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 360) * 0.5", 0, "Math.sin((query.anim_time - 0.2) * 360) * 3"]
+					},
+					"position": {
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 1, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"TailPart": {
+					"rotation": {
+						"vector": [
+							"10 + Math.cos((query.anim_time - 0.5) * 360) * 0.5",
+							"Math.sin((query.anim_time - 0.5) * 360) * 5",
+							"Math.sin((query.anim_time - 0.5) * 360) * 5"
+						]
+					}
+				},
+				"TailTip": {
+					"rotation": {
+						"vector": [0, "Math.sin((query.anim_time - 0.8) * 360) * 5", "Math.sin((query.anim_time - 0.8) * 360) * 5"]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": ["25 + Math.cos((query.anim_time - 0.0) * 360) * 1", 0, "Math.sin((query.anim_time - 0.0) * 360) * 3"]
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"vector": ["12.5 + Math.cos((query.anim_time - 0.2) * 360) * 1", 0, "Math.sin((query.anim_time - 0.2) * 360) * 3"]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 360) * -0.1", 0]
+					}
+				},
+				"Head1": {
+					"rotation": {
+						"vector": [
+							"-15 + Math.cos((query.anim_time - 0.5) * 360) * 0.5",
+							"Math.sin((query.anim_time - 0.5) * 360) * 5",
+							"Math.sin((query.anim_time - 0.5) * 360) * 5"
+						]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 360) * 19", 0, 0]
+					},
+					"position": {
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 8, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 360) * -19", 0, 0]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 8, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 8, 0]
+						}
+					}
+				},
+				"Rex": {
+					"rotation": {
+						"vector": [-7.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -46, -4]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2
