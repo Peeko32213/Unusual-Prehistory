@@ -395,8 +395,8 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         return 1.0F;
     }
     @Override
-    public void killed(ServerLevel world, LivingEntity entity) {
-        super.killed(world, entity);
+    public void killed() {
+        super.killed();
         this.setIsShooting(false);
         this.shootProgress = 0;
     }

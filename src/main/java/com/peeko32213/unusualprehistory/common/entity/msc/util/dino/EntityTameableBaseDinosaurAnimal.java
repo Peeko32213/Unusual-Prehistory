@@ -114,7 +114,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
 
     protected abstract void performAttack();
 
-    public void killed(ServerLevel world, LivingEntity entity) {
+    public void killed() {
         this.heal(getKillHealAmount());
     }
 

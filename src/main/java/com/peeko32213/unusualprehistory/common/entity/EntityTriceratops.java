@@ -538,10 +538,8 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     @Override
-    public void killed(ServerLevel world, LivingEntity entity) {
-        super.killed(world, entity);
-
-
+    public void killed() {
+        super.killed();
     }
 
     @Override
@@ -704,17 +702,18 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
 
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.swimming"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6  && !this.isInSittingPose() && !this.isInWater() && !this.isSprinting()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.move"));
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
 
-        if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.swimming"));
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
 
         if (this.hasChargeCooldown() && this.hasTarget() && !this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.prep"));
@@ -756,6 +755,8 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         event.getController().markNeedsReload();
         return PlayState.STOP;
     }
+
+
 
     @Override
     public void registerControllers(AnimationData data) {

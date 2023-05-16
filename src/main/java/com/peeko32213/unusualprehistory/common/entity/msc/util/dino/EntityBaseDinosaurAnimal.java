@@ -84,7 +84,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         }
     }
 
-    public void killed(ServerLevel world, LivingEntity entity) {
+    public void killed() {
         this.heal(getKillHealAmount());
     }
 

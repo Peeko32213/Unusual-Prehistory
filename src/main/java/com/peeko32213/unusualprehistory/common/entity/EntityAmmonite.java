@@ -48,6 +48,8 @@ import javax.annotation.Nullable;
 
 public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, IAnimatable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SHOULD_DROP = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
+
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private boolean isSchool = true;
 
@@ -142,13 +144,20 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FROM_BUCKET, false);
+        this.entityData.define(SHOULD_DROP, true);
     }
 
     @Override
     public boolean fromBucket() {
         return this.entityData.get(FROM_BUCKET);
     }
+    public boolean shouldDrop() {
+        return this.entityData.get(FROM_BUCKET);
+    }
 
+    public void setShouldDrop(boolean drop) {
+        this.entityData.set(FROM_BUCKET, drop);
+    }
     @Override
     public void loadFromBucketTag(CompoundTag compound) {
         Bucketable.loadDefaultDataFromBucketTag(this, compound);
@@ -227,8 +236,13 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType spawnType, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
+        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, spawnType, p_28137_, p_28138_);
+
+        //if(spawnType == MobSpawnType.NATURAL){
+        //    setShouldDrop(false);
+        //}
+
         Level level = p_28134_.getLevel();
         if (level instanceof ServerLevel) {
             {
@@ -238,7 +252,12 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
         return p_28137_;
     }
 
-    public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends WaterAnimal> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+    //@Override
+    //protected boolean shouldDropLoot() {
+    //    return this.getKillCredit() instanceof EntityDunkleosteus && shouldDrop() || super.shouldDropLoot() && !(this.getKillCredit() instanceof EntityDunkleosteus);
+    //}
+
+    public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends EntityAmmonite> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
         int i = pLevel.getSeaLevel();
         int j = i - 13;
         return pPos.getY() >= j && pPos.getY() <= i && pLevel.getFluidState(pPos.below()).is(FluidTags.WATER) && pLevel.getBlockState(pPos.above()).is(Blocks.WATER) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
