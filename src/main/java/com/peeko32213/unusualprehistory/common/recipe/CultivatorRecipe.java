@@ -45,6 +45,11 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return recipeItems;
+    }
+
+    @Override
     public ResourceLocation getId() {
         return id;
     }

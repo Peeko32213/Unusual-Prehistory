@@ -8,6 +8,8 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import javax.annotation.Nullable;
@@ -150,6 +152,78 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.GINKGO_BUTTON.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get().asItem());
 
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_MESOZOIC)
+                .add(Items.COAL)
+                .add(Items.COBBLESTONE)
+                .add(Items.BONE)
+                .add(UPItems.AMMONITE_FLASK.get())
+                .add(UPItems.ANURO_FLASK.get())
+                .add(UPItems.BEELZ_FLASK.get())
+                .add(UPItems.KENTRO_FLASK.get())
+                .add(UPItems.MAJUNGA_FLASK.get())
+                .add(UPItems.ANTARCTO_FLASK.get())
+                .add(UPItems.AUSTRO_FLASK.get())
+                .add(UPItems.RAPTOR_FLASK.get())
+                .add(UPItems.PACHY_FLASK.get())
+                .add(UPItems.ERYON_FLASK.get())
+                .add(UPItems.ULUGH_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_AMBER)
+                .add(UPItems.BRACHI_FLASK.get())
+                .add(UPItems.REX_FLASK.get())
+                .add(UPItems.TRIKE_FLASK.get())
+                .add(UPItems.HWACHA_FLASK.get())
+                .add(UPItems.ENCRUSTED_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_ENCRUSTED)
+                .add(UPItems.ENCRUSTED_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_GINKGO)
+                .add(UPItems.GINKGO_FLASK.get());
+
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_PALEO)
+                .add(Items.COAL)
+                .add(Items.COBBLESTONE)
+                .add(Items.BONE)
+                .add(UPItems.AMMONITE_FLASK.get())
+                .add(UPItems.SCAU_FLASK.get())
+                .add(UPItems.COTY_FLASK.get())
+                .add(UPItems.STETHA_FLASK.get())
+                .add(UPItems.DUNK_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_PLANT)
+                .add(Items.COAL)
+                .add(Items.COBBLESTONE)
+                .add(Blocks.MOSS_BLOCK.asItem())
+                .add(Blocks.MOSS_CARPET.asItem())
+                .add(Blocks.FERN.asItem())
+                .add(Blocks.LARGE_FERN.asItem())
+                .add(UPItems.HORSETAIL_FLASK.get())
+                .add(UPItems.NELUMBITES_FLASK.get())
+                .add(UPItems.ANOSTYLOSTRAMA_FLASK.get())
+                .add(UPItems.LEEFRUCTUS_FLASK.get())
+                .add(UPItems.BENNET_FLASK.get())
+                .add(UPItems.SARR_FLASK.get())
+                .add(UPItems.ARCHAO_FLASK.get())
+                .add(UPItems.QUEREUXIA_FLASK.get())
+                .add(UPItems.GINKGO_FLASK.get())
+                .add(UPItems.CLATHRODICTYON_FLASK.get())
+                .add(UPItems.ARCHAEFRUCTUS_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_RAW_COTY)
+                .add(UPItems.COTY_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_RAW_SCAU)
+                .add(UPItems.SCAU_FLASK.get());
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_RAW_STETHA)
+                .add(UPItems.STETHA_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_TREE)
+                .add(Items.COAL)
+                .add(Items.COBBLESTONE)
+                .add(UPItems.GINKGO_FLASK.get());
     }
 
 
