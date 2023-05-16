@@ -2,6 +2,9 @@ package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
+import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.world.damagesource.DamageSource;
@@ -9,6 +12,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -44,7 +48,25 @@ public class ServerEvents {
         }
     }
 
+    @SubscribeEvent
+    //cant be canceled
+    public void preventClick(LivingDeathEvent event){
+        if(event.getSource().getEntity() instanceof EntityDunkleosteus dunkleosteus){
+            dunkleosteus.killed();
+        }
 
+        if(event.getSource().getEntity() instanceof EntityBaseDinosaurAnimal dinosaurAnimal){
+            dinosaurAnimal.killed();
+        }
+
+        if(event.getSource().getEntity() instanceof EntityTameableBaseDinosaurAnimal dinosaurAnimal){
+            dinosaurAnimal.killed();
+        }
+
+        if(event.getSource().getEntity() instanceof EntityHwachavenator dinosaurAnimal){
+            dinosaurAnimal.killed();
+        }
+    }
 
     @SubscribeEvent
     //cant be canceled

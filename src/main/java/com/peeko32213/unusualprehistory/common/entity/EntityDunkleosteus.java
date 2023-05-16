@@ -585,7 +585,8 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         this.entityData.set(ENTITY_STATE, anim);
     }
 
-    public void killed(ServerLevel world, LivingEntity entity) {
+    public void killed() {
+        passiveFor = 2400 + random.nextInt(100, 1200);
         this.heal(15);
     }
 
@@ -593,6 +594,8 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
         p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
+
+
         Level level = p_28134_.getLevel();
         if (level instanceof ServerLevel) {
             {
@@ -601,7 +604,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         }
         return p_28137_;
     }
-    public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends WaterAnimal> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+    public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends EntityDunkleosteus> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
         int i = pLevel.getSeaLevel();
         int j = i - 13;
         return pPos.getY() >= j && pPos.getY() <= i && pLevel.getFluidState(pPos.below()).is(FluidTags.WATER) && pLevel.getBlockState(pPos.above()).is(Blocks.WATER) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
