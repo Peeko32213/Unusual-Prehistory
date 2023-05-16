@@ -31,6 +31,17 @@ public class UPTags {
     //Misc Tags
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");
     public static final TagKey<Item> ANALYZER_ITEMS_INPUT = registerItemTag("analyzer_items");
+
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_MESOZOIC = registerItemTag("analyzer_items_output_mezo_fossil");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_PALEO = registerItemTag("analyzer_items_output_paleo_fossil");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_AMBER = registerItemTag("analyzer_items_output_amber_fossil");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_ENCRUSTED= registerItemTag("analyzer_items_output_encrusted_organ");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_GINKGO = registerItemTag("analyzer_items_output_ginkgo_fruit");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_PLANT = registerItemTag("analyzer_items_output_plant_fossil");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_RAW_COTY = registerItemTag("analyzer_items_output_raw_coty");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_RAW_SCAU = registerItemTag("analyzer_items_output_raw_scau");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_RAW_STETHA = registerItemTag("analyzer_items_output_raw_stetha");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_TREE = registerItemTag("analyzer_items_output_tree");
     public static final TagKey<Item> DNA_FLASKS = registerItemTag("dna_flasks");
     public static final TagKey<Item> FILLED_FLASKS = registerItemTag( "filled_flasks");
     public static final TagKey<Item> FOSSILS = registerItemTag("fossils");

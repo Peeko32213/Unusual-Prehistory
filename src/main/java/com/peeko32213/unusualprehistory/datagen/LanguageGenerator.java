@@ -407,9 +407,10 @@ public class LanguageGenerator extends LanguageProvider {
 
         //BLOCK ENTITY TRANSLATABLE
         addBETranslatable("analyzer", "                             Analyzer");
+        addBETranslatable("analyzer_jei", "Analyzer");
         addBETranslatable("dna_fridge", "DNA Fridge");
         addBETranslatable("cultivator", "Cultivator");
-
+        addBETranslatable("cultivator_jei", "Cultivator");
     }
 
     @Override

@@ -1,0 +1,21 @@
+{
+  "values": [
+    "minecraft:coal",
+    "minecraft:cobblestone",
+    "minecraft:moss_block",
+    "minecraft:moss_carpet",
+    "minecraft:fern",
+    "minecraft:large_fern",
+    "unusualprehistory:horsetail_flask",
+    "unusualprehistory:nelumbites_flask",
+    "unusualprehistory:anostylostroma_flask",
+    "unusualprehistory:leefructus_flask",
+    "unusualprehistory:bennet_flask",
+    "unusualprehistory:sarr_flask",
+    "unusualprehistory:archao_flask",
+    "unusualprehistory:quereuxia_flask",
+    "unusualprehistory:ginkgo_flask",
+    "unusualprehistory:clathrodictyon_flask",
+    "unusualprehistory:archaefructus_flask"
+  ]
+}

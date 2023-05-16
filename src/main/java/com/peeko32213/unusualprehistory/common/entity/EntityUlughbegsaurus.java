@@ -809,7 +809,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.swimming"));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.swim"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }

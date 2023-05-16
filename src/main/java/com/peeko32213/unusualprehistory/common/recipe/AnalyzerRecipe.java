@@ -22,6 +22,8 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.server.ServerLifecycleHooks;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -66,6 +68,8 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
         return randomItems.get(0);
     }
 
+
+
     @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
         return true;
@@ -98,6 +102,11 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
     public static class Type implements RecipeType<AnalyzerRecipe> {
         private Type() { }
         public static final Type INSTANCE = new Type();
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return recipeItems;
     }
 
     public static class Serializer implements RecipeSerializer<AnalyzerRecipe> {
