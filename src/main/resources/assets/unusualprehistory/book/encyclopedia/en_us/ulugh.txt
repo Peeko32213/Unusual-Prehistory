@@ -10,7 +10,7 @@ style of life these dinosaurs live.
 Blue crest-colored individuals are much faster, being more adapted to chasing down prey.
 White crest-colored individuals are more bulky, much more adapted to fending off predators or rivals.
 Orange crest-colored individuals have much more powerful bites, allowing them to crack bones for nutrients.
-Yellow crest-colored individuals have a special venom that disables joints, preventing eating, including humans using shields.
+Yellow crest-colored individuals have a special venom that disables joints, particularly in the arms, this will prevent the player from doing any actions with their hands besides mining and attacking
 Brown crest-colored individuals have are very durable, having thick scales that protect the animal.
 
 <NEWLINE>

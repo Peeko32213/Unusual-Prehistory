@@ -146,7 +146,12 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     }
 
     public double getPassengersRidingOffset() {
-        return 2;
+        if (this.isInWater()) {
+            return -0.5;
+        }
+        else {
+            return 2.0D;
+        }
     }
 
     protected SoundEvent getAmbientSound() {
@@ -597,7 +602,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
-        if (event.isMoving() && !isShooting() && !this.isInSittingPose()) {
+        if (event.isMoving() && !isShooting() && !this.isInSittingPose() && !this.isInWater()) {
             if (this.isSprinting() || !this.getPassengers().isEmpty() ) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.sprinting"));
                 event.getController().setAnimationSpeed(2.0D);

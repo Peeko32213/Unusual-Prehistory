@@ -27,10 +27,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -116,6 +113,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, Ingredient.of(Items.MELON), false));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
     }
@@ -730,18 +728,19 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.brachiosaurus.attack"));
                     break;
                 default:
-                    if(event.isMoving()){
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.walk"));
-                        event.getController().setAnimationSpeed(1.5D);
-                    }
                     if (this.isInWater()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.swim"));
                         event.getController().setAnimationSpeed(1.0F);
+                    }
+                    else if(event.isMoving()){
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.walk"));
+                        event.getController().setAnimationSpeed(1.5D);
                     }
                     else{
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.idle"));
                         event.getController().setAnimationSpeed(1.0F);
                     }
+
                     break;
 
             }

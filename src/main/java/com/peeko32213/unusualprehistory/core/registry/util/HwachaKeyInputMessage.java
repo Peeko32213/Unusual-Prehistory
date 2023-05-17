@@ -31,7 +31,7 @@ public class HwachaKeyInputMessage {
         context.enqueueWork(() -> {
             Player player = context.getSender();
             Entity vehicle = player.getVehicle();
-            if (vehicle instanceof EntityHwachavenator hwachavenator && !hwachavenator.isInSittingPose()) {
+            if (vehicle instanceof EntityHwachavenator hwachavenator && !hwachavenator.isInSittingPose() && !hwachavenator.isInWater()) {
                 if (hwachavenator.isSaddled() && hwachavenator.isTame() && hwachavenator.getControllingPassenger() == player) {
                     hwachavenator.setIsShooting(true);
                 }

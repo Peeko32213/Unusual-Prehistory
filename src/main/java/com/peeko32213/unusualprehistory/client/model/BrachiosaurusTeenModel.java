@@ -23,7 +23,7 @@ public class BrachiosaurusTeenModel extends AnimatedGeoModel<EntityBrachiosaurus
     @Override
     public ResourceLocation getAnimationResource(EntityBrachiosaurusTeen object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/brachi.animation.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/brachi_teen.animation.json");
     }
 
 }

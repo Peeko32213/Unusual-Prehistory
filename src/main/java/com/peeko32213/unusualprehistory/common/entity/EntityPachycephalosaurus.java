@@ -296,7 +296,11 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.pachy.kick"));
                     break;
                 default:
-                    if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
+                    if (this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.pachy.swim"));
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
+                    else if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.pachy.walk"));
 
                     } else {

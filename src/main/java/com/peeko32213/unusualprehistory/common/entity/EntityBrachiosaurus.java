@@ -829,21 +829,23 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.brachiosaurus.attack"));
                     break;
                 default:
+
                     if (this.isLaunching()) {
                         event.getController().setAnimation(new AnimationBuilder().playOnce("animation.brachiosaurus.launch"));
                         event.getController().setAnimationSpeed(1.0F);
                     }
                     if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.swim_adult"));
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.swim"));
                         event.getController().setAnimationSpeed(1.0F);
                     }
-                    if(event.isMoving()){
+                    else if(event.isMoving()){
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.walk"));
                         event.getController().setAnimationSpeed(1.5D);
                     }else{
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.idle"));
                         event.getController().setAnimationSpeed(1.0F);
                     }
+
                     break;
 
             }

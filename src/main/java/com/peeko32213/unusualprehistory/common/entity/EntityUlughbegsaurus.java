@@ -359,21 +359,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         return SoundEvents.GENERIC_EAT;
     }
 
-    protected void spawnTamingParticles(boolean p_21835_) {
-        ParticleOptions particleoptions = ParticleTypes.HEART;
-        if (!p_21835_) {
-            particleoptions = ParticleTypes.SMOKE;
-        }
-
-        for (int i = 0; i < 7; ++i) {
-            double d0 = this.random.nextGaussian() * 0.02D;
-            double d1 = this.random.nextGaussian() * 0.02D;
-            double d2 = this.random.nextGaussian() * 0.02D;
-            this.level.addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-        }
-
-    }
-
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", getVariant());
@@ -799,7 +784,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()) {
-            if (this.isSprinting() || !this.getPassengers().isEmpty()) {
+            if (this.isSprinting() || !this.getPassengers().isEmpty() && !this.isInWater()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.sprint"));
                 event.getController().setAnimationSpeed(2.0D);
                 return PlayState.CONTINUE;

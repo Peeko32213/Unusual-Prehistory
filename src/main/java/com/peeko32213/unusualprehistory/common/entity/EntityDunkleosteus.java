@@ -219,7 +219,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.dunkle.bite"));
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.dunk.bite"));
                     break;
                 default:
                     if (event.isMoving()) {

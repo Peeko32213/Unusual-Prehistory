@@ -247,7 +247,12 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     }
 
     public double getPassengersRidingOffset() {
-        return 0.6D;
+        if (this.isInWater()) {
+            return 0.3;
+        }
+        else {
+            return 0.65D;
+        }
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -351,17 +356,10 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isJumping) {
-            if (event.isMoving() && !this.isJumping) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
-                event.getController().setAnimationSpeed(0.8D);
-                return PlayState.CONTINUE;
-            }
-            if (this.isInWater() && !this.isJumping) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.swim"));
-                event.getController().setAnimationSpeed(1.0F);
-                return PlayState.CONTINUE;
-            }
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isJumping && !this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
+            event.getController().setAnimationSpeed(0.8D);
+            return PlayState.CONTINUE;
         }
         if (this.isInWater() && !this.isJumping) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.swim"));

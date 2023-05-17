@@ -370,9 +370,12 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     public double getPassengersRidingOffset() {
-        float f = Math.min(0.25F, this.animationSpeed);
-        float f1 = this.animationPosition;
-        return (double) this.getBbHeight() - 0.2D + (double) (0.12F * Mth.cos(f1 * 0.7F) * 0.7F * f);
+        if (this.isInWater()) {
+            return 1.95;
+        }
+        else {
+            return 4.1;
+        }
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -702,7 +705,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
 
-        if (this.isInWater()) {
+        if (this.isInWater() || this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.swimming"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;

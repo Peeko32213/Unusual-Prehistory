@@ -12,10 +12,15 @@
 			},
 			"bones": [
 				{
+					"name": "Brachi",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "NeckBase",
+					"parent": "Brachi",
 					"pivot": [0, 49, -26],
 					"cubes": [
-						{"origin": [-14.5, 50, -42], "size": [28, 60, 26], "uv": [0, 107]}
+						{"origin": [-13.5, 50, -42], "size": [27, 60, 26], "uv": [0, 107]}
 					]
 				},
 				{
@@ -47,6 +52,7 @@
 				},
 				{
 					"name": "Body",
+					"parent": "Brachi",
 					"pivot": [0, 49, 0],
 					"rotation": [-12.5, 0, 0],
 					"cubes": [
@@ -65,14 +71,15 @@
 				{
 					"name": "TailBase",
 					"parent": "Tail",
-					"pivot": [0, 74, 62],
-					"rotation": [15, 0, 0],
+					"pivot": [0, 66, 62],
+					"rotation": [25, 0, 0],
 					"cubes": [
 						{"origin": [-5, 64, 62], "size": [10, 10, 29], "uv": [185, 78]}
 					]
 				},
 				{
 					"name": "Arm1",
+					"parent": "Brachi",
 					"pivot": [20, 67, -23],
 					"cubes": [
 						{"origin": [11, 0, -35], "size": [24, 67, 24], "uv": [106, 107]}
@@ -80,6 +87,7 @@
 				},
 				{
 					"name": "Arm2",
+					"parent": "Brachi",
 					"pivot": [-20, 67, -23],
 					"cubes": [
 						{"origin": [-35, 0, -35], "size": [24, 67, 24], "uv": [106, 107]}
@@ -87,6 +95,7 @@
 				},
 				{
 					"name": "Leg1",
+					"parent": "Brachi",
 					"pivot": [18, 56, 26],
 					"cubes": [
 						{"origin": [9, 0, 14], "size": [24, 57, 24], "uv": [178, 174]}
@@ -94,6 +103,7 @@
 				},
 				{
 					"name": "Leg2",
+					"parent": "Brachi",
 					"pivot": [-18, 56, 26],
 					"cubes": [
 						{"origin": [-33, 0, 14], "size": [24, 57, 24], "uv": [178, 174]}
