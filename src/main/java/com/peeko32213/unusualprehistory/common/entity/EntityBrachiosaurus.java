@@ -387,7 +387,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 headPeakCooldown = 5;
             }
         }
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()){
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()){
             if(this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 int brachiShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_AMPLIFIER.get();
@@ -833,21 +833,23 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                     if (this.isLaunching()) {
                         event.getController().setAnimation(new AnimationBuilder().playOnce("animation.brachiosaurus.launch"));
                         event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
                     if (this.isInWater()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.swim"));
                         event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
-                    else if(event.isMoving()){
+                    else if(event.isMoving() && !this.isInWater()){
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.walk"));
                         event.getController().setAnimationSpeed(1.5D);
-                    }else{
+                        return PlayState.CONTINUE;
+                    }else if(!this.isInWater()) {
+
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.idle"));
                         event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
-
-                    break;
-
             }
         }
         return PlayState.CONTINUE;

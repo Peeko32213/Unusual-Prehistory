@@ -4,6 +4,10 @@
     "#minecraft:dirt",
     "#minecraft:logs",
     "#minecraft:leaves",
+    "minecraft:grass_block",
+    "minecraft:podzol",
+    "minecraft:moss_block",
+    "minecraft:mycelium",
     "#minecraft:base_stone_overworld",
     "minecraft:gravel",
     "minecraft:hay_block"

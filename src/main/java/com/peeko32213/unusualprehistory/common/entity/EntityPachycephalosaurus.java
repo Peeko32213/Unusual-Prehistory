@@ -299,17 +299,16 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
                     if (this.isInWater()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.pachy.swim"));
                         event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
-                    else if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
+                    else if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F && !this.isInWater())) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.pachy.walk"));
-
-                    } else {
+                        return PlayState.CONTINUE;
+                    } else if(!this.isInWater()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.pachy.idle"));
                         event.getController().setAnimationSpeed(1.0F);
-
+                        return PlayState.CONTINUE;
                     }
-                    break;
-
             }
         }
         return PlayState.CONTINUE;

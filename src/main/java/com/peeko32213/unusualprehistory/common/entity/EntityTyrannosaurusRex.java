@@ -260,7 +260,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             this.spawnAtLocation(UPItems.REX_SCALE.get(), 9);
             this.timeUntilDrops = this.random.nextInt(12000) + 24000;
         }
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
             if(this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_REX_RANGE.get();
                 int rexShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_REX_AMPLIFIER.get();
@@ -705,24 +705,31 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                     if (this.isEepy()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("rex.eepy"));
                         event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
                     if (this.isInWater()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("rex.swim"));
                         event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
-                    else if(event.isMoving()){
+                    else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && ! this.isInWater()){
                         if(this.isSprinting()) {
                             event.getController().setAnimation(new AnimationBuilder().loop("rex.charge"));
                             event.getController().setAnimationSpeed(1.0F);
+                            return PlayState.CONTINUE;
                         } else {
                             event.getController().setAnimation(new AnimationBuilder().loop("rex.walk"));
                             event.getController().setAnimationSpeed(1.0F);
+                            return PlayState.CONTINUE;
                         }
                     }else{
-                        event.getController().setAnimation(new AnimationBuilder().loop("rex.idle"));
-                        event.getController().setAnimationSpeed(1.0F);
+
+                        if(!this.isInWater()) {
+                            event.getController().setAnimation(new AnimationBuilder().loop("rex.idle"));
+                            event.getController().setAnimationSpeed(1.0F);
+                            return PlayState.CONTINUE;
+                        }
                     }
-                    break;
 
             }
         }

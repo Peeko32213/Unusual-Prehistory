@@ -112,7 +112,7 @@ public class EntityBabyRex extends PathfinderMob implements IAnimatable {
 
     private void eatFood(Player player, ItemStack stack) {
         this.decrementItem(player, stack);
-        this.increaseAge((int)((float)(this.getTicksUntilGrowth() / 20) * 0.1F));
+        this.increaseAge((int) ((float) (this.getTicksUntilGrowth() / 20) * 0.1F));
         this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
     }
 
@@ -179,21 +179,21 @@ public class EntityBabyRex extends PathfinderMob implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
-            {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.babyrex.walk"));
-            }
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
+
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.babyrex.walk"));
+            return PlayState.CONTINUE;
+
         }
         if (this.isInWater()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.babyrex.swim"));
             event.getController().setAnimationSpeed(1.0F);
-        }
-        else {
+            return PlayState.CONTINUE;
+        } else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.babyrex.idle"));
         }
         return PlayState.CONTINUE;
     }
-
 
 
     @Override

@@ -627,9 +627,11 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.idle"));
-        event.getController().setAnimationSpeed(1.0D);
-        return PlayState.CONTINUE;
+        if(!this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.idle"));
+            event.getController().setAnimationSpeed(1.0D);
+        }
+            return PlayState.CONTINUE;
     }
 
     @Override

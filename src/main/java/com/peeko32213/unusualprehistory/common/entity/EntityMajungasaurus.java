@@ -540,18 +540,22 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
         if (this.stunnedTick > 0) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.stunned"));
             event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
         } else if (event.isMoving()) {
-            if (this.isSprinting()) {
+            if (this.isSprinting() && !this.isInWater()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.run"));
                 event.getController().setAnimationSpeed(3.0F);
+                return PlayState.CONTINUE;
             } else {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.walk"));
                 event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
             }
         } else if (this.hasChargeCooldown() && this.hasTarget()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.prep"));
             event.getController().setAnimationSpeed(1.0F);
-        } else {
+            return PlayState.CONTINUE;
+        } else if(!this.isInWater()){
             event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.idle"));
             event.getController().setAnimationSpeed(1.0F);
         }

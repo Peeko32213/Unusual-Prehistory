@@ -423,16 +423,17 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
-                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
                         {
                             event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.walk"));
                             event.getController().setAnimationSpeed(1.5D);
+                            return PlayState.CONTINUE;
                         }
-                    }else{
+                    }else if (!this.isInWater()){
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.idle"));
                         event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
-                    break;
 
             }
         }

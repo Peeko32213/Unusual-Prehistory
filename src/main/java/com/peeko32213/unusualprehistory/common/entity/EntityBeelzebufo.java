@@ -361,7 +361,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
             event.getController().setAnimationSpeed(0.8D);
             return PlayState.CONTINUE;
         }
-        if (this.isInWater() && !this.isJumping) {
+        if (this.isInWater() && !this.isJumping()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.swim"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
