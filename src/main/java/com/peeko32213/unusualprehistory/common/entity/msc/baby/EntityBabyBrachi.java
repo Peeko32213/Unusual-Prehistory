@@ -180,14 +180,17 @@ public class EntityBabyBrachi extends PathfinderMob implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
             {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.babybrachy.walk"));
+                return PlayState.CONTINUE;
+
             }
         }
         if (this.isInWater()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.babybrachy.swim"));
             event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
         }
         else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.babybrachy.idle"));

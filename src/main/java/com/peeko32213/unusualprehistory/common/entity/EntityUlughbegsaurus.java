@@ -783,8 +783,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()) {
-            if (this.isSprinting() || !this.getPassengers().isEmpty() && !this.isInWater()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) {
+            if (this.isSprinting() || !this.getPassengers().isEmpty()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.sprint"));
                 event.getController().setAnimationSpeed(2.0D);
                 return PlayState.CONTINUE;
@@ -794,7 +794,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 return PlayState.CONTINUE;
             }
         }
-        if (this.isInSittingPose()) {
+        if (this.isInSittingPose() && !this.isInWater()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.sitting"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
@@ -804,8 +804,10 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.idle"));
-        event.getController().setAnimationSpeed(1.0F);
+        if(!this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.idle"));
+            event.getController().setAnimationSpeed(1.0F);
+        }
         return PlayState.CONTINUE;
     }
 

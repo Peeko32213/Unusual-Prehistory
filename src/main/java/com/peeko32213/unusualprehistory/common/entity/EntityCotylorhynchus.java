@@ -203,10 +203,11 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
             {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.walk"));
                 event.getController().setAnimationSpeed(1.5D);
+                return PlayState.CONTINUE;
             }
         }
         if (this.isInWater()) {
@@ -214,7 +215,7 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        else {
+        else if(!this.isInWater()){
             event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.idle"));
             event.getController().setAnimationSpeed(1.0D);
         }

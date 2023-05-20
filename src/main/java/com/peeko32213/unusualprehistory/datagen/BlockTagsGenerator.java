@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -93,6 +94,10 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .addTag(BlockTags.DIRT)
                 .addTag(BlockTags.LOGS)
                 .addTag(BlockTags.LEAVES)
+                .add(Blocks.GRASS_BLOCK)
+                .add(Blocks.PODZOL)
+                .add(Blocks.MOSS_BLOCK)
+                .add(Blocks.MYCELIUM)
                 .addTag(BlockTags.BASE_STONE_OVERWORLD)
                 .add(Blocks.GRAVEL)
                 .add(Blocks.HAY_BLOCK);

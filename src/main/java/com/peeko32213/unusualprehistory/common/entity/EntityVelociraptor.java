@@ -327,10 +327,12 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
             {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.velociraptor.walk"));
                 event.getController().setAnimationSpeed(1.5D);
+                return PlayState.CONTINUE;
+
             }
         }
         else {

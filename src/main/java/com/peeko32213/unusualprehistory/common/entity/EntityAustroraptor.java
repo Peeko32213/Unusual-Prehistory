@@ -319,9 +319,10 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 || this.isSwimming()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
             {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.walk"));
+                return PlayState.CONTINUE;
             }
         }
         if (this.isInWater()) {
@@ -337,7 +338,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
-        if (this.getIsPreening()) {
+        if (this.getIsPreening() && !this.isInWater()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.preening"));
             return PlayState.CONTINUE;
         }

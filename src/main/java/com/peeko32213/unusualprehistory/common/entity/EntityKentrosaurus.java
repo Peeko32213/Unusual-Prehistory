@@ -141,9 +141,9 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS) {
             if (isKentroFood(itemstack)) {
-                int size = itemstack.getCount();
+                //int size = itemstack.getCount();
                 this.usePlayerItem(player, hand, itemstack);
-                itemstack.shrink(size);
+                itemstack.shrink(1);
                 this.setOrderedToSit(true);
                 this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
                 return InteractionResult.SUCCESS;
@@ -596,21 +596,24 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
                     if (this.isInSittingPose()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.laying"));
                         event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
                     if (this.isInWater()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.swimming"));
                         event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
                     else if(event.isMoving() && !this.isInSittingPose()) {
                         {
                             event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.walk"));
                             event.getController().setAnimationSpeed(1.0F);
+                            return PlayState.CONTINUE;
                         }
                     }else{
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.idle"));
                         event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
-                    break;
 
             }
         }
