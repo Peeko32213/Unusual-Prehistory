@@ -222,7 +222,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.dunk.bite"));
                     break;
                 default:
-                    if (event.isMoving()) {
+                    if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.dunk.swim"));
                         return PlayState.CONTINUE;
                     }

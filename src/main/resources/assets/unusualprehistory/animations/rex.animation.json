@@ -17,7 +17,7 @@
 						"vector": ["Math.cos((query.anim_time - 0.2) * 90) * 1", 12.5, "Math.sin((query.anim_time - 0.2) * 90) * 1"]
 					}
 				},
-				"Head": {
+				"Head1": {
 					"rotation": {
 						"vector": ["Math.cos((query.anim_time - 0.5) * 90) * 1", 10, "Math.sin((query.anim_time - 0.5) * 90) * 1"]
 					}
@@ -59,6 +59,11 @@
 					},
 					"position": {
 						"vector": [5, -3, 0]
+					}
+				},
+				"Rex": {
+					"position": {
+						"vector": [0, 0, 0]
 					}
 				}
 			}

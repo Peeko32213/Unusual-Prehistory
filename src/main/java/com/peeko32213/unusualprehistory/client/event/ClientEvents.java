@@ -149,6 +149,8 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.ULUG.get(), UlughbegsaurusRenderer::new);
         event.registerEntityRenderer(UPEntities.KENTRO.get(), KentrosaurusRenderer::new);
         event.registerEntityRenderer(UPEntities.HWACHA.get(), HwachavenatorRenderer::new);
+        event.registerEntityRenderer(UPEntities.TALAPANAS.get(), TalapanasRenderer::new);
+        event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), GigantopithicusRenderer::new);
 
         event.registerEntityRenderer(UPEntities.AMMON_RENDER.get(), AmmoniteRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.MAJUNGA_RENDER.get(), MajungaRenderRenderer::new);

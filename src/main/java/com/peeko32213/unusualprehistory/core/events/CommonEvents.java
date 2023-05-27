@@ -53,6 +53,8 @@ public class CommonEvents {
         event.put(UPEntities.ULUG.get(), EntityUlughbegsaurus.createAttributes().build());
         event.put(UPEntities.KENTRO.get(), EntityUlughbegsaurus.createAttributes().build());
         event.put(UPEntities.HWACHA.get(), EntityHwachavenator.createAttributes().build());
+        event.put(UPEntities.TALAPANAS.get(), EntityTalapanas.createAttributes().build());
+        event.put(UPEntities.GIGANTOPITHICUS.get(), EntityGigantopithicus.createAttributes().build());
 
         event.put(UPEntities.AMMON_RENDER.get(), BaseEntityRender.createAttributes().build());
         event.put(UPEntities.MAJUNGA_RENDER.get(), BaseEntityRender.createAttributes().build());

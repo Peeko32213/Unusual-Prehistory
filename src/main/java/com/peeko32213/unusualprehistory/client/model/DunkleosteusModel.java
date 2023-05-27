@@ -14,7 +14,7 @@ public class DunkleosteusModel extends AnimatedGeoModel<EntityDunkleosteus>
     @Override
     public ResourceLocation getModelResource(EntityDunkleosteus object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/dunkle.geo.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/dunk.geo.json");
     }
 
     @Override

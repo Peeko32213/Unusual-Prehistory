@@ -67,9 +67,9 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAW_SCAU, "Raw Scaumenacia");
         addItem(UPItems.COOKED_SCAU, "Cooked Scaumenacia");
         addItem(UPItems.GOLDEN_SCAU, "Golden Scaumenacia");
-        addItem(UPItems.GINKGO_FRUIT, "Ginkgo Fruit");
-        addItem(UPItems.RAW_GINKGO_SEEDS, "Raw Ginkgo Seeds");
-        addItem(UPItems.COOKED_GINKGO_SEEDS, "Cooked Ginkgo Seeds");
+        addItem(UPItems.GINKGO_FRUIT, "Prehistoric Ginkgo Fruit");
+        addItem(UPItems.RAW_GINKGO_SEEDS, "Raw Prehistoric Ginkgo Seeds");
+        addItem(UPItems.COOKED_GINKGO_SEEDS, "Cooked Prehistoric Ginkgo Seeds");
         addItem(UPItems.AMBER_GUMMY, "Amber Gummy");
         addItem(UPItems.RAW_AUSTRO, "Raw Austroraptor");
         addItem(UPItems.COOKED_AUSTRO, "Cooked Austroraptor");
@@ -127,6 +127,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ULUG_EGG, "Ulughbegsaurus Spawn Egg");
         addItem(UPItems.KENTRO_EGG, "Kentrosaurus Spawn Egg");
         addItem(UPItems.HWACHA_EGG, "Hwachavenator Spawn Egg");
+        addItem(UPItems.TALAPANAS_EGG, "Talapanas Spawn Egg");
+        addItem(UPItems.GIGANTO_EGG, "Gigantopithicus Spawn Egg");
 
 
         //ARMOR
@@ -158,10 +160,10 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PACHY_FLASK, "Pachycephalosaurus DNA Flask");
         addItem(UPItems.ENCRUSTED_FLASK, "Encrusted DNA Flask");
         addItem(UPItems.ERYON_FLASK, "Eryon DNA Flask");
-        addItem(UPItems.HORSETAIL_FLASK, "Horsetail DNA Flask");
-        addItem(UPItems.TALL_HORSETAIL_FLASK, "Tall Horsetail DNA Flask");
+        addItem(UPItems.HORSETAIL_FLASK, "Prehistoric Horsetail DNA Flask");
+        addItem(UPItems.TALL_HORSETAIL_FLASK, "Prehistoric Tall Horsetail DNA Flask");
         addItem(UPItems.LEEFRUCTUS_FLASK, "Leefructus DNA Flask");
-        addItem(UPItems.GINKGO_FLASK, "Ginkgo DNA Flask");
+        addItem(UPItems.GINKGO_FLASK, "Prehistoric Ginkgo DNA Flask");
         addItem(UPItems.BENNET_FLASK, "Bennettitales DNA Flask");
         addItem(UPItems.SARR_FLASK, "Sarracenia DNA Flask");
         addItem(UPItems.ARCHAO_FLASK, "Archaeosigillaria DNA Flask");
@@ -201,14 +203,14 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.REX_BOOMBOX, "Rex Boombox");
 
         //PLANTS
-        addBlock(UPBlocks.HORSETAIL, "Horsetail");
-        addBlock(UPBlocks.TALL_HORSETAIL, "Tall Horsetail");
+        addBlock(UPBlocks.HORSETAIL, "Prehistoric Horsetail");
+        addBlock(UPBlocks.TALL_HORSETAIL, "Prehistoric Tall Horsetail");
         addBlock(UPBlocks.LEEFRUCTUS, "Leefructus");
         addBlock(UPBlocks.BENNETTITALES, "Bennettitales");
         addBlock(UPBlocks.ARCHAEOSIGILARIA, "Archaeosigillaria");
         addBlock(UPBlocks.SARACENIA, "Sarracenia");
         addBlock(UPBlocks.TALL_SARACENIA, "Tall Sarracenia");
-        addBlock(UPBlocks.GINKGO_SAPLING, "Ginkgo Sapling");
+        addBlock(UPBlocks.GINKGO_SAPLING, "Prehistoric Ginkgo Sapling");
         addBlock(UPBlocks.ARCHAEFRUCTUS, "Archaefructus");
         addBlock(UPBlocks.NELUMBITES, "Nelumbites");
         addBlock(UPBlocks.QUEREUXIA, "Quereuxia");
@@ -217,21 +219,21 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.PETRIFIED_BUSH, "Petrified Bush");
 
         //GINKGO
-        addBlock(UPBlocks.GINKGO_PLANKS, "Ginkgo Planks");
-        addBlock(UPBlocks.GINKGO_WOOD, "Ginkgo Wood");
-        addBlock(UPBlocks.STRIPPED_GINKGO_WOOD, "Stripped Ginkgo Wood");
-        addBlock(UPBlocks.GINKGO_LEAVES, "Ginkgo Leaves");
-        addBlock(UPBlocks.GINKGO_LOG, "Ginkgo Log");
-        addBlock(UPBlocks.STRIPPED_GINKGO_LOG, "Stripped Ginkgo Log");
-        addBlock(UPBlocks.GINKGO_STAIRS, "Ginkgo Stairs");
-        addBlock(UPBlocks.GINKGO_SLAB, "Ginkgo Slab");
-        addBlock(UPBlocks.GINKGO_FENCE, "Ginkgo Fence");
-        addBlock(UPBlocks.GINKGO_FENCE_GATE, "Ginkgo Fence Gate");
-        addBlock(UPBlocks.GINKGO_DOOR, "Ginkgo Door");
-        addBlock(UPBlocks.GINKGO_TRAPDOOR, "Ginkgo Trapdoor");
-        addBlock(UPBlocks.GINKGO_BUTTON, "Ginkgo Button");
-        addBlock(UPBlocks.GINKGO_PRESSURE_PLATE, "Ginkgo Pressure Plate");
-        addItem(UPItems.GINKGO_SIGN, "Ginkgo Sign");
+        addBlock(UPBlocks.GINKGO_PLANKS, "Prehistoric Ginkgo Planks");
+        addBlock(UPBlocks.GINKGO_WOOD, "Prehistoric Ginkgo Wood");
+        addBlock(UPBlocks.STRIPPED_GINKGO_WOOD, "Stripped Prehistoric Ginkgo Wood");
+        addBlock(UPBlocks.GINKGO_LEAVES, "Prehistoric Ginkgo Leaves");
+        addBlock(UPBlocks.GINKGO_LOG, "Prehistoric Ginkgo Log");
+        addBlock(UPBlocks.STRIPPED_GINKGO_LOG, "Stripped Prehistoric Ginkgo Log");
+        addBlock(UPBlocks.GINKGO_STAIRS, "Prehistoric Ginkgo Stairs");
+        addBlock(UPBlocks.GINKGO_SLAB, "Prehistoric Ginkgo Slab");
+        addBlock(UPBlocks.GINKGO_FENCE, "Prehistoric Ginkgo Fence");
+        addBlock(UPBlocks.GINKGO_FENCE_GATE, "Prehistoric Ginkgo Fence Gate");
+        addBlock(UPBlocks.GINKGO_DOOR, "Prehistoric Ginkgo Door");
+        addBlock(UPBlocks.GINKGO_TRAPDOOR, "Prehistoric Ginkgo Trapdoor");
+        addBlock(UPBlocks.GINKGO_BUTTON, "Prehistoric Ginkgo Button");
+        addBlock(UPBlocks.GINKGO_PRESSURE_PLATE, "Prehistoric Ginkgo Pressure Plate");
+        addItem(UPItems.GINKGO_SIGN, "Prehistoric Ginkgo Sign");
         addBlock(UPBlocks.AMBER_BUTTON, "Amber Button");
 
         //PETRIFIED
@@ -301,6 +303,8 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.ULUG, "Ulughbegsaurus");
         addEntityType(UPEntities.KENTRO, "Kentrosaurus");
         addEntityType(UPEntities.HWACHA, "Hwachavenator");
+        addEntityType(UPEntities.TALAPANAS, "Talapanas");
+        addEntityType(UPEntities.GIGANTOPITHICUS, "Gigantopithicus");
 
 
         //SOUNDS

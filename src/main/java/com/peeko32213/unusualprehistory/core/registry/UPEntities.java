@@ -135,6 +135,14 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityHwachavenator::new, MobCategory.CREATURE).sized(1.95F, 2.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hwachavenator").toString()));
 
+    public static final RegistryObject<EntityType<EntityTalapanas>> TALAPANAS = ENTITIES.register("talapanas",
+            () -> EntityType.Builder.of(EntityTalapanas::new, MobCategory.CREATURE).sized(0.8F, 0.8F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "talapanas").toString()));
+
+    public static final RegistryObject<EntityType<EntityGigantopithicus>> GIGANTOPITHICUS = ENTITIES.register("gigantopithicus",
+            () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(2.0F, 2.0F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "gigantopithicus").toString()));
+
     public static final RegistryObject<EntityType<BaseEntityRender>> AMMON_RENDER = ENTITIES.register("ammon_render",
             () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "ammon_render").toString()));

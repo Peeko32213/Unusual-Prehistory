@@ -322,6 +322,14 @@ public class UPItems {
             () -> new ForgeSpawnEggItem(UPEntities.HWACHA , 0x14191b, 0xf4f435,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<ForgeSpawnEggItem> GIGANTO_EGG = ITEMS.register("giganto_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.GIGANTOPITHICUS , 0x7c3c23, 0x665f58,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<ForgeSpawnEggItem> TALAPANAS_EGG = ITEMS.register("talapanas_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.TALAPANAS , 0x1d1311, 0x3c4849,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(MajungaArmorMaterial.MAJUNGA, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
