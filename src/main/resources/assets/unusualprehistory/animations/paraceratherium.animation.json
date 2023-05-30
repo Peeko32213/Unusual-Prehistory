@@ -1,0 +1,142 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.paraceratherium.move": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.5) * 180) * 0.5", 0, "Math.sin((query.anim_time - 0.0) * 180) * 0.5"]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, -2, 0]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0.1, 0]
+						},
+						"1.5": {
+							"vector": [0, 0, 0]
+						},
+						"2.0": {
+							"vector": [0, -2, 0]
+						}
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 180) * 1.1", 0, "Math.sin((query.anim_time - 0.2) * 180) * 1.1"]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.5) * 180) * 1.7", 0, "Math.sin((query.anim_time - 0.5) * 180) * 1.7"]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 180) * 1.1", 0, "Math.sin((query.anim_time - 0.2) * 180) * 1.1"]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 180) * 12", 0, 0]
+					},
+					"position": {
+						"0.5": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 7, 0]
+						},
+						"1.5": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 180) * -12", 0, 0]
+					},
+					"position": {
+						"0.5": {
+							"vector": [0, 7, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.5": {
+							"vector": [0, 7, 0]
+						}
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 180) * -10", 0, 0]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 6, 0]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.5": {
+							"vector": [0, 6, 0]
+						}
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 180) * 10", 0, 0]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 6, 0]
+						},
+						"1.0": {
+							"vector": [0, 6, 0]
+						},
+						"1.5": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.paraceratherium.idle": {
+			"loop": true,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.5) * 90) * 0.3", 0, "Math.sin((query.anim_time - 0.0) * 90) * 0.3"]
+					},
+					"position": {
+						"vector": [0, -2, 0]
+					}
+				},
+				"Neck": {
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.2) * 90) * -0.3", 0]
+					}
+				},
+				"Head": {
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.5) * 90) * -0.3", 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

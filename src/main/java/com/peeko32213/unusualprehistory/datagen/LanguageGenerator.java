@@ -129,6 +129,12 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.HWACHA_EGG, "Hwachavenator Spawn Egg");
         addItem(UPItems.TALAPANAS_EGG, "Talapanas Spawn Egg");
         addItem(UPItems.GIGANTO_EGG, "Gigantopithicus Spawn Egg");
+        addItem(UPItems.BARINA_EGG, "Barinasuchus Spawn Egg");
+        addItem(UPItems.MEGATH_EGG, "Megatherium Spawn Egg");
+        addItem(UPItems.SMILO_EGG, "Smilodon Spawn Egg");
+        addItem(UPItems.PARACER_EGG, "Paraceratherium Spawn Egg");
+        addItem(UPItems.MAMMOTH_EGG, "Mammoth Spawn Egg");
+        addItem(UPItems.MEGALANIA_EGG, "Megalania Spawn Egg");
 
 
         //ARMOR
@@ -305,6 +311,12 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.HWACHA, "Hwachavenator");
         addEntityType(UPEntities.TALAPANAS, "Talapanas");
         addEntityType(UPEntities.GIGANTOPITHICUS, "Gigantopithicus");
+        addEntityType(UPEntities.SMILODON, "Smilodon");
+        addEntityType(UPEntities.BARINASUCHUS, "Barinasuchus");
+        addEntityType(UPEntities.PARACERATHERIUM, "Paraceratherium");
+        addEntityType(UPEntities.MEGATHERIUM, "Megatherium");
+        addEntityType(UPEntities.MAMMOTH, "Mammoth");
+        addEntityType(UPEntities.MEGALANIA, "Megalania");
 
 
         //SOUNDS

@@ -104,6 +104,34 @@
 					}
 				}
 			}
+		},
+		"animation.talapanas.sit": {
+			"loop": true,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["-12.5 + Math.cos((query.anim_time - 0.0) * 720) * 6", 0, "Math.sin((query.anim_time - 0.0) * 720) * 6"]
+					},
+					"position": {
+						"vector": [0, -4, 0]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": ["-27.5 + Math.cos((query.anim_time - 0.2) * 720) * 8", 0, "Math.sin((query.anim_time - 0.2) * 720) * 8"]
+					}
+				},
+				"Wing1": {
+					"rotation": {
+						"vector": [0, 0, "-50 + Math.sin((query.anim_time - 0.2) * 720) * 25"]
+					}
+				},
+				"Wing2": {
+					"rotation": {
+						"vector": [0, 0, "50 + Math.sin((query.anim_time - 0.2) * 720) * -25"]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

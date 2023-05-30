@@ -112,6 +112,16 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
         tag(UPTags.ENCRUSTED_TARGETS)
                 .addTag(UPTags.LAND_MOBS);
 
+        tag(UPTags.SMILODON_TARGETS)
+                .add(EntityType.PILLAGER)
+                .add(EntityType.EVOKER)
+                .add(EntityType.VINDICATOR)
+                .add(EntityType.WITCH)
+                .add(EntityType.PIGLIN)
+                .add(EntityType.PIGLIN_BRUTE)
+                .add(EntityType.VILLAGER)
+                .add(EntityType.WANDERING_TRADER);
+
         tag(UPTags.MAJUNGA_TARGETS)
                 .add(EntityType.PIG)
                 .add(EntityType.COW)

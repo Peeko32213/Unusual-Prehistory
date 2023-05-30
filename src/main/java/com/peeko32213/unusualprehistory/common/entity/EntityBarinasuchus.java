@@ -1,11 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
-import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.core.registry.UPEffects;
-import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -14,7 +11,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -38,31 +34,30 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.EnumSet;
-import java.util.List;
 
-public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityGigantopithicus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityGigantopithicus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityGigantopithicus.class, EntityDataSerializers.INT);
+public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
+    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityBarinasuchus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityBarinasuchus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityBarinasuchus.class, EntityDataSerializers.INT);
     private Ingredient temptationItems;
 
-    public EntityGigantopithicus(EntityType<? extends Animal> entityType, Level level) {
+    public EntityBarinasuchus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.15D)
-                .add(Attributes.ARMOR, 1.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 1.0D)
-                .add(Attributes.ATTACK_DAMAGE, 10.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D);
+                .add(Attributes.MAX_HEALTH, 35.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.16D)
+                .add(Attributes.ARMOR, 10.0D)
+                .add(Attributes.ARMOR_TOUGHNESS, 5.0D)
+                .add(Attributes.ATTACK_DAMAGE, 15.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new EntityGigantopithicus.ApeMeleeAttackGoal(this,  1.3F, true));
+        this.goalSelector.addGoal(1, new EntityBarinasuchus.BarinMeleeAttackGoal(this,  1.3F, true));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
@@ -171,9 +166,9 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         this.entityData.set(ENTITY_STATE, anim);
     }
 
-    static class ApeMeleeAttackGoal extends Goal {
+    static class BarinMeleeAttackGoal extends Goal {
 
-        protected final EntityGigantopithicus mob;
+        protected final EntityBarinasuchus mob;
         private final double speedModifier;
         private final boolean followingTargetEvenIfNotSeen;
         private Path path;
@@ -188,11 +183,11 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         private int animTime = 0;
 
 
-        public ApeMeleeAttackGoal(EntityGigantopithicus p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
+        public BarinMeleeAttackGoal(EntityBarinasuchus p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
             this.speedModifier = p_i1636_2_;
             this.followingTargetEvenIfNotSeen = p_i1636_4_;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         public boolean canUse() {
@@ -353,7 +348,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
             animTime++;
             this.mob.getNavigation().stop();
             if(animTime==5) {
-                preformSlamAttack();
+                preformBiteAttack();
             }
             if(animTime>=9) {
                 animTime=0;
@@ -364,9 +359,9 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
             }
         }
 
-        protected void preformSlamAttack () {
+        protected void preformBiteAttack () {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),10.0f, 2.5f, mob, pos,  9.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),15.0f, 2.5f, mob, pos,  4.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
 
@@ -397,15 +392,15 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.attack"));
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.barinasuchus.bite"));
                     break;
                 default:
                      if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6){
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.walk"));
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.move"));
                         event.getController().setAnimationSpeed(1.0D);
                         return PlayState.CONTINUE;
                     }
-                     event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.idle"));
+                     event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.idle"));
                     event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
             }
@@ -416,7 +411,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(5);
-        AnimationController<EntityGigantopithicus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        AnimationController<EntityBarinasuchus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
         data.addAnimationController(controller);
     }
 

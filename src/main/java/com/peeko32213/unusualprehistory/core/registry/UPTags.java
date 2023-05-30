@@ -28,6 +28,9 @@ public class UPTags {
     public static final TagKey<EntityType<?>> ENCRUSTED_TARGETS = registerEntityTag("encrusted_targets");
     public static final TagKey<EntityType<?>> DUNK_TARGETS = registerEntityTag("dunk_targets");
     public static final TagKey<EntityType<?>> LAND_MOBS = registerEntityTag("land_mobs");
+
+    public static final TagKey<EntityType<?>> SMILODON_TARGETS = registerEntityTag("smilodon_targets");
+
     //Misc Tags
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");
     public static final TagKey<Item> ANALYZER_ITEMS_INPUT = registerItemTag("analyzer_items");
@@ -69,6 +72,8 @@ public class UPTags {
     public static final TagKey<Block> REX_BREAKABLES = registerBlockTag("rex_breakables");
     public static final TagKey<Block> ANGRY_BRACHI_BREAKABLES = registerBlockTag("angry_brachi_breakables");
     public static final TagKey<Block> ERYON_DIGGABLES = registerBlockTag("eryon_diggables");
+    public static final TagKey<Block> TALAPANAS_DIGGABLES = registerBlockTag("talapanas_diggables");
+
     public static final TagKey<Block> DINO_HATCHABLE_BLOCKS = registerBlockTag("dino_hatchable_blocks");
     //DINO SPAWNABLE TAGS
 

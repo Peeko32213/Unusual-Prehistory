@@ -1,0 +1,31 @@
+package com.peeko32213.unusualprehistory.client.model;
+
+
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.entity.EntityMegatherium;
+import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
+import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
+
+public class SmilodonModel extends AnimatedGeoModel<EntitySmilodon>
+{
+    @Override
+    public ResourceLocation getModelResource(EntitySmilodon object)
+    {
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/smilodon.geo.json");
+    }
+
+    @Override
+    public ResourceLocation getTextureResource(EntitySmilodon object)
+    {
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon.png");
+    }
+
+    @Override
+    public ResourceLocation getAnimationResource(EntitySmilodon object)
+    {
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/smilodon.animation.json");
+    }
+
+}
+
