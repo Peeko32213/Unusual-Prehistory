@@ -1,0 +1,25 @@
+{
+  "input": ["unusualprehistory:amber_fossil"],
+  "entries": [
+    {
+      "weight": 15,
+      "item": "unusualprehistory:brachi_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:rex_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:trike_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:hwacha_flask"
+    },
+    {
+      "weight": 25,
+      "item": "unusualprehistory:encrusted_flask"
+    }
+  ]
+}

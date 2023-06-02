@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
+import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -29,7 +29,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.Optional;
 
 public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -207,11 +206,9 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
         for (int i = 1; i < entity.itemHandler.getSlots(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
+        boolean hasRecipe = AnalyzerRecipeJsonManager.containsRecipe(inventory.getItem(1).getItem());
 
-        Optional<AnalyzerRecipe> match = level.getRecipeManager()
-                .getRecipeFor(AnalyzerRecipe.Type.INSTANCE, inventory, level);
-
-        return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
+        return hasRecipe && canInsertAmountIntoOutputSlot(inventory)
                 && hasFlaskInWaterSlot(entity);
     }
 
@@ -226,12 +223,11 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        Optional<AnalyzerRecipe> match = level.getRecipeManager()
-                .getRecipeFor(AnalyzerRecipe.Type.INSTANCE, inventory, level);
+        boolean hasRecipe = AnalyzerRecipeJsonManager.containsRecipe(inventory.getItem(1).getItem());
 
-        if(match.isPresent()) {
+        if(hasRecipe) {
             // determine result item
-            ItemStack result = match.get().assemble(inventory);
+            ItemStack result = AnalyzerRecipeJsonManager.getRandomItemStack(inventory.getItem(1).getItem(), level);
             // remove first input
             entity.itemHandler.extractItem(1, 1, false);
             // attempt to remove flask

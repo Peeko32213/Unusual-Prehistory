@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
-import com.peeko32213.unusualprehistory.common.entity.EntityGigantopithicus;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

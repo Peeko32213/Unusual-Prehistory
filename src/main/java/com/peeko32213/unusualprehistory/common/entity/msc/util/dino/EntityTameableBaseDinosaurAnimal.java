@@ -31,7 +31,6 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.LazyOptional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -50,6 +49,10 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+
+
     public static final Logger LOGGER = LogManager.getLogger();
     private boolean orderedToSit;
     public int attackCooldown = 0;
@@ -168,6 +171,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.entityData.define(SWINGING, false);
         this.entityData.define(HAS_SWUNG, false);
         this.entityData.define(PASSIVE, 0);
+        this.entityData.define(IS_FROM_EGG, false);
     }
 
     @Override
@@ -179,6 +183,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         compound.putBoolean("IsSwinging", this.isSwinging());
         compound.putBoolean("HasSwung", this.hasSwung());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
+        compound.putBoolean("fromEgg", this.isFromEgg());
     }
 
     @Override
@@ -190,6 +195,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
+        this.setIsFromEgg(compound.getBoolean("fromEgg"));
     }
 
     public boolean canBeLeashed(Player p_21813_) {
@@ -243,12 +249,20 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.entityData.set(PASSIVE, passiveTicks);
     }
 
+    public boolean isFromEgg() {
+        return this.entityData.get(IS_FROM_EGG).booleanValue();
+    }
+
+    public void setIsFromEgg(boolean fromEgg) {
+        this.entityData.set(IS_FROM_EGG, fromEgg);
+    }
+
     public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
+        return this.isFromEgg();
     }
 
     public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
+        return !this.isFromEgg();
     }
 
     @Nullable

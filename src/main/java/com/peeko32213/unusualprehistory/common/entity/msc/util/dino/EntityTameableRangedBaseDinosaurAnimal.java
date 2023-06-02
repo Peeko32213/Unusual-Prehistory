@@ -48,6 +48,9 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
 
     private static final EntityDataAccessor<Integer> ANGER_TIME = SynchedEntityData.defineId(EntityTameableRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(EntityTameableRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityTameableRangedBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+
+
     private static final UniformInt ANGER_TIME_RANGE = TimeUtil.rangeOfSeconds(20, 39);
     private UUID targetUuid;
 
@@ -207,6 +210,7 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         this.entityData.define(TIME_TILL_HUNGRY, 0);
         this.entityData.define(SADDLED, false);
         this.entityData.define(PASSIVE, 0);
+        this.entityData.define(IS_FROM_EGG, false);
     }
 
     @Override
@@ -216,6 +220,7 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         compound.putInt("TimeTillHungry", this.getTimeTillHungry());
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
+        compound.putBoolean("fromEgg", this.isFromEgg());
     }
 
     @Override
@@ -225,6 +230,7 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
+        this.setIsFromEgg(compound.getBoolean("fromEgg"));
     }
 
     public boolean canBeLeashed(Player p_21813_) {
@@ -264,12 +270,20 @@ public abstract class EntityTameableRangedBaseDinosaurAnimal extends TamableAnim
         this.entityData.set(PASSIVE, passiveTicks);
     }
 
+    public boolean isFromEgg() {
+        return this.entityData.get(IS_FROM_EGG).booleanValue();
+    }
+
+    public void setIsFromEgg(boolean fromEgg) {
+        this.entityData.set(IS_FROM_EGG, fromEgg);
+    }
+
     public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
+        return this.isFromEgg();
     }
 
     public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
+        return !this.isFromEgg();
     }
 
     @Nullable

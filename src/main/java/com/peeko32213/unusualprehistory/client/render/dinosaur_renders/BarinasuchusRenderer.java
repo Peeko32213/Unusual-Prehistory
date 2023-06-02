@@ -3,9 +3,7 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.client.model.AntarctopeltaModel;
 import com.peeko32213.unusualprehistory.client.model.BarinasuchusModel;
-import com.peeko32213.unusualprehistory.common.entity.EntityAntarctopelta;
 import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
