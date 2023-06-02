@@ -1,9 +1,18 @@
 {
   "type": "unusualprehistory:analyzing",
-  "ingredients": [
+  "input": "unusualprehistory:paleo_fossil",
+  "entries": [
     {
-      "item": "unusualprehistory:paleo_fossil"
+      "item": "minecraft:cobblestone",
+      "weight": 40
+    },
+    {
+      "item": "minecraft:diamond",
+      "weight": 35
+    },
+    {
+      "item": "minecraft:stone",
+      "weight": 50
     }
-  ],
-  "output": "unusualprehistory:gameplay/analyzer/paleo_fossil"
+  ]
 }

@@ -114,7 +114,8 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         this.goalSelector.addGoal(2, new EntityBeelzebufo.IMeleeAttackGoal());
         //If its attacked they will now fight back
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
-    }
+        }
+
 
     @Override
     protected void defineSynchedData() {

@@ -31,6 +31,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Supplier;
 
 import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.GINKGO;
@@ -146,5 +147,9 @@ public class UnusualPrehistory {
             return UPItems.AMMONITE_SHELL_ICON.get().getDefaultInstance();
         }
     };
+
+    public static ResourceLocation prefix(String name) {
+        return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
+    }
 
 }

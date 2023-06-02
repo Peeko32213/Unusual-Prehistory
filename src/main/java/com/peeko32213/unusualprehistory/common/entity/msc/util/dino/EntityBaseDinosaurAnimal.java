@@ -45,6 +45,9 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
 
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+
+
     int lastTimeSinceHungry;
 
     protected EntityBaseDinosaurAnimal(EntityType<? extends Animal> entityType, Level level) {
@@ -134,6 +137,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.entityData.define(TIME_TILL_HUNGRY, 0);
         this.entityData.define(SADDLED, false);
         this.entityData.define(PASSIVE, 0);
+        this.entityData.define(IS_FROM_EGG, false);
     }
 
     @Override
@@ -143,6 +147,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         compound.putInt("TimeTillHungry", this.getTimeTillHungry());
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
+        compound.putBoolean("fromEgg", this.isFromEgg());
     }
 
     @Override
@@ -152,6 +157,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
+        this.setIsFromEgg(compound.getBoolean("fromEgg"));
     }
 
     public boolean isHungry() {
@@ -186,12 +192,20 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.entityData.set(PASSIVE, passiveTicks);
     }
 
+    public boolean isFromEgg() {
+        return this.entityData.get(IS_FROM_EGG).booleanValue();
+    }
+
+    public void setIsFromEgg(boolean fromEgg) {
+        this.entityData.set(IS_FROM_EGG, fromEgg);
+    }
+
     public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
+        return this.isFromEgg();
     }
 
     public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
+        return !this.isFromEgg();
     }
 
     @javax.annotation.Nullable
@@ -249,16 +263,8 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         return pLevel.getRawBrightness(pPos, 0) > 8;
     }
     public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends EntityBaseDinosaurAnimal> dino, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        //LOGGER.info("Entity: " + dino);
-        //LOGGER.info("Pos: " + pos);
-        //int blockBrightness = level.getRawBrightness(pos, 0);
-        //LOGGER.info("which one goes false, 1? " + level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE));
-        //LOGGER.info("brightness " + blockBrightness);
-        //LOGGER.info("which one goes false, 2? " + isBrightEnoughToSpawn(level, pos));
-        //LOGGER.info("which one goes false, 3? " + UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get());
-
         boolean canSpawn = level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE) && isBrightEnoughToSpawn(level, pos) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
-        //LOGGER.info("can spawn? " + canSpawn);
-        return canSpawn;    }
+        return canSpawn;
+    }
 
 }

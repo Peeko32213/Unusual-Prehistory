@@ -75,18 +75,18 @@ public class AnalyzerRecipeCategory implements IRecipeCategory<AnalyzerRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AnalyzerRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 33, 5).addItemStack(ANALYZER_FLASK);
-        builder.addSlot(RecipeIngredientRole.INPUT, 80, 5).addIngredients(recipe.getIngredients().get(0));
-        String getTagMod = recipe.getResultLootTable().toString().replace("unusualprehistory:gameplay/analyzer/", "");
+        //builder.addSlot(RecipeIngredientRole.INPUT, 80, 5).addIngredients(recipe.getIngredients().get(0));
+        //String getTagMod = recipe.getResultLootTable().toString().replace("unusualprehistory:gameplay/analyzer/", "");
 
-        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, "analyzer_items_output_" + getTagMod));
-        List<ItemStack> itemStackList = ForgeRegistries.ITEMS.tags().getTag(tagKey).stream().map(e -> new ItemStack(e)).toList();
+        //TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, "analyzer_items_output_" + getTagMod));
+        //List<ItemStack> itemStackList = ForgeRegistries.ITEMS.tags().getTag(tagKey).stream().map(e -> new ItemStack(e)).toList();
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 35, 52).addItemStacks(itemStackList);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 53, 52).addItemStacks(itemStackList);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 71, 52).addItemStacks(itemStackList);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 89, 52).addItemStacks(itemStackList);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 107, 52).addItemStacks(itemStackList);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 52).addItemStacks(itemStackList);
+        //builder.addSlot(RecipeIngredientRole.OUTPUT, 35, 52).addItemStacks(itemStackList);
+        //builder.addSlot(RecipeIngredientRole.OUTPUT, 53, 52).addItemStacks(itemStackList);
+        //builder.addSlot(RecipeIngredientRole.OUTPUT, 71, 52).addItemStacks(itemStackList);
+        //builder.addSlot(RecipeIngredientRole.OUTPUT, 89, 52).addItemStacks(itemStackList);
+        //builder.addSlot(RecipeIngredientRole.OUTPUT, 107, 52).addItemStacks(itemStackList);
+        //builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 52).addItemStacks(itemStackList);
 
     }
 }
