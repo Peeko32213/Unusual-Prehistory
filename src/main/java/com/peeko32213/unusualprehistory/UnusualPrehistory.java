@@ -1,7 +1,5 @@
 package com.peeko32213.unusualprehistory;
 
-import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
-import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
