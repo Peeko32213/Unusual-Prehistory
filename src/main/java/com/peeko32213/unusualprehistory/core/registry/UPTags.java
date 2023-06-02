@@ -75,6 +75,9 @@ public class UPTags {
     public static final TagKey<Block> TALAPANAS_DIGGABLES = registerBlockTag("talapanas_diggables");
 
     public static final TagKey<Block> DINO_HATCHABLE_BLOCKS = registerBlockTag("dino_hatchable_blocks");
+
+    public static final TagKey<Block> MEGATHERIUM_EATABLES = registerBlockTag("megatherium_breakables");
+
     //DINO SPAWNABLE TAGS
 
     public static final TagKey<Block> DINO_NATURAL_SPAWNABLE = registerBlockTag("dino_natural_spawnable");

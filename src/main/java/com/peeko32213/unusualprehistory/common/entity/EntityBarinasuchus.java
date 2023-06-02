@@ -16,6 +16,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -60,20 +61,24 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(1, new EntityBarinasuchus.BarinMeleeAttackGoal(this,  1.3F, true));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::isAngryAt));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
-    private Ingredient getTemptationItems() {
-        if(temptationItems == null)
-            temptationItems = Ingredient.merge(Lists.newArrayList(
-                    Ingredient.of(ItemTags.LEAVES)
-            ));
+    public boolean isAngryAt(LivingEntity p_21675_) {
+        return this.canAttack(p_21675_);
+    }
 
-        return temptationItems;
+    @Override
+    public boolean canAttack(LivingEntity entity) {
+        boolean prev = super.canAttack(entity);
+        if(prev && isBaby()){
+            return false;
+        }
+        return prev;
     }
 
     @Override
