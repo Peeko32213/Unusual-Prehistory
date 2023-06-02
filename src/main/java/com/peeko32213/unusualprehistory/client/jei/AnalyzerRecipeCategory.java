@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.client.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
+import com.peeko32213.unusualprehistory.common.data.ItemWeightedPair;
 import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -30,6 +32,7 @@ import org.apache.logging.log4j.Logger;
 import javax.swing.text.html.HTML;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class AnalyzerRecipeCategory implements IRecipeCategory<AnalyzerRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(UnusualPrehistory.MODID, "analyzing");
@@ -63,6 +66,7 @@ public class AnalyzerRecipeCategory implements IRecipeCategory<AnalyzerRecipe> {
     public IDrawable getIcon() {
         return this.icon;
     }
+
     private final ItemStack ANALYZER_FLASK = new ItemStack(UPItems.FLASK.get());
 
 
@@ -72,21 +76,28 @@ public class AnalyzerRecipeCategory implements IRecipeCategory<AnalyzerRecipe> {
     }
 
     public static final Logger LOGGER = LogManager.getLogger();
+
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AnalyzerRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 33, 5).addItemStack(ANALYZER_FLASK);
-        //builder.addSlot(RecipeIngredientRole.INPUT, 80, 5).addIngredients(recipe.getIngredients().get(0));
-        //String getTagMod = recipe.getResultLootTable().toString().replace("unusualprehistory:gameplay/analyzer/", "");
 
-        //TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, "analyzer_items_output_" + getTagMod));
-        //List<ItemStack> itemStackList = ForgeRegistries.ITEMS.tags().getTag(tagKey).stream().map(e -> new ItemStack(e)).toList();
+        Ingredient ingredient = recipe.getIngredients().get(0);
+        ItemStack input = ingredient.getItems()[0];
 
-        //builder.addSlot(RecipeIngredientRole.OUTPUT, 35, 52).addItemStacks(itemStackList);
-        //builder.addSlot(RecipeIngredientRole.OUTPUT, 53, 52).addItemStacks(itemStackList);
-        //builder.addSlot(RecipeIngredientRole.OUTPUT, 71, 52).addItemStacks(itemStackList);
-        //builder.addSlot(RecipeIngredientRole.OUTPUT, 89, 52).addItemStacks(itemStackList);
-        //builder.addSlot(RecipeIngredientRole.OUTPUT, 107, 52).addItemStacks(itemStackList);
-        //builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 52).addItemStacks(itemStackList);
+        builder.addSlot(RecipeIngredientRole.INPUT, 80, 5).addIngredients(ingredient);
+        List<ItemStack> outputs = new ArrayList<>();
+        List<ItemWeightedPair> itemWeightedPairs = AnalyzerRecipeJsonManager.getItems(input.getItem());
+        for (ItemWeightedPair weightedPair : itemWeightedPairs) {
+            outputs.add(new ItemStack(weightedPair.getItem()));
+        }
 
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 35, 52).addItemStacks(outputs);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 53, 52).addItemStacks(outputs);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 71, 52).addItemStacks(outputs);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 89, 52).addItemStacks(outputs);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 107, 52).addItemStacks(outputs);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 52).addItemStacks(outputs);
     }
+
+
 }

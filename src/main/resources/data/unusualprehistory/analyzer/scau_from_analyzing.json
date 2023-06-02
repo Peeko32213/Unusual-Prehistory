@@ -1,0 +1,9 @@
+{
+  "input": ["unusualprehistory:raw_scau"],
+  "entries": [
+    {
+      "weight": 100,
+      "item": "unusualprehistory:scau_flask"
+    }
+  ]
+}

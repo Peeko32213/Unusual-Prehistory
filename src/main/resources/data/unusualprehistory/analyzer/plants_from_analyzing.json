@@ -1,0 +1,75 @@
+{
+  "input": [
+    "unusualprehistory:plant_fossil_item"
+  ],
+  "entries": [
+    {
+      "weight": 50,
+      "item": "minecraft:coal"
+    },
+    {
+      "weight": 50,
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "weight": 50,
+      "item": "minecraft:moss_block"
+    },
+    {
+      "weight": 50,
+      "item": "minecraft:moss_carpet"
+    },
+    {
+      "weight": 50,
+      "item": "minecraft:fern"
+    },
+    {
+      "weight": 50,
+      "item": "minecraft:large_fern"
+    },
+    {
+      "weight": 40,
+      "item": "unusualprehistory:horsetail_flask"
+    },
+    {
+      "weight": 40,
+      "item": "unusualprehistory:nelumbites_flask"
+    },
+    {
+      "weight": 40,
+      "item": "unusualprehistory:anostylostroma_flask"
+    },
+    {
+      "weight": 30,
+      "item": "unusualprehistory:leefructus_flask"
+    },
+    {
+      "weight": 25,
+      "item": "unusualprehistory:bennet_flask"
+    },
+    {
+      "weight": 25,
+      "item": "unusualprehistory:sarr_flask"
+    },
+    {
+      "weight": 25,
+      "item": "unusualprehistory:archao_flask"
+    },
+    {
+      "weight": 25,
+      "item": "unusualprehistory:quereuxia_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:ginkgo_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:clathrodictyon_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:archaefructus_flask"
+    }
+  ]
+}
