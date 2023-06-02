@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.core.registry.util;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityTriceratops;
 import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;

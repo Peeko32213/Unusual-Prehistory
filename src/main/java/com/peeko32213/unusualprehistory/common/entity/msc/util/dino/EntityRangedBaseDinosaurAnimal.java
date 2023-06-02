@@ -46,6 +46,9 @@ public abstract class EntityRangedBaseDinosaurAnimal extends Animal implements I
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANGER_TIME = SynchedEntityData.defineId(EntityRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(EntityRangedBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityRangedBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+
     private static final UniformInt ANGER_TIME_RANGE = TimeUtil.rangeOfSeconds(20, 39);
     private UUID targetUuid;
     private BlockPos lightBlockPos = null;
@@ -212,6 +215,7 @@ public abstract class EntityRangedBaseDinosaurAnimal extends Animal implements I
         this.entityData.define(PASSIVE, 0);
         this.entityData.define(ANGER_TIME, 0);
         this.entityData.define(STATE, 0);
+        this.entityData.define(IS_FROM_EGG, false);
     }
 
     @Override
@@ -221,6 +225,7 @@ public abstract class EntityRangedBaseDinosaurAnimal extends Animal implements I
         compound.putInt("TimeTillHungry", this.getTimeTillHungry());
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
+        compound.putBoolean("fromEgg", this.isFromEgg());
     }
 
     @Override
@@ -230,6 +235,7 @@ public abstract class EntityRangedBaseDinosaurAnimal extends Animal implements I
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
+        this.setIsFromEgg(compound.getBoolean("fromEgg"));
     }
 
     public boolean isHungry() {
@@ -264,12 +270,20 @@ public abstract class EntityRangedBaseDinosaurAnimal extends Animal implements I
         this.entityData.set(PASSIVE, passiveTicks);
     }
 
+    public boolean isFromEgg() {
+        return this.entityData.get(IS_FROM_EGG).booleanValue();
+    }
+
+    public void setIsFromEgg(boolean fromEgg) {
+        this.entityData.set(IS_FROM_EGG, fromEgg);
+    }
+
     public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
+        return this.isFromEgg();
     }
 
     public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
+        return !this.isFromEgg();
     }
 
     @Nullable
