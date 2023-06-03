@@ -72,14 +72,6 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
         return this.canAttack(p_21675_);
     }
 
-    @Override
-    public boolean canAttack(LivingEntity entity) {
-        boolean prev = super.canAttack(entity);
-        if(prev && isBaby()){
-            return false;
-        }
-        return prev;
-    }
 
     @Override
     protected SoundEvent getAttackSound() {

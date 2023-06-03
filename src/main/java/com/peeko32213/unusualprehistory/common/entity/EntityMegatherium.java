@@ -58,7 +58,7 @@ public class EntityMegatherium extends EntityBaseDinosaurAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(3, new EatLeavesGoal(this));
+        this.goalSelector.addGoal(1, new EatLeavesGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -94,10 +94,7 @@ public class EntityMegatherium extends EntityBaseDinosaurAnimal {
         if (!this.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
             this.setEating(true);
         }
-        if (isEating()) {
-            this.setEating(false);
-            eatingTime = 0;
-        }
+
         if (isEating()) {
             eatingTime++;
             if (!this.getMainHandItem().is(ItemTags.LEAVES)) {
@@ -113,6 +110,7 @@ public class EntityMegatherium extends EntityBaseDinosaurAnimal {
                 this.playSound(SoundEvents.PANDA_EAT, this.getSoundVolume(), this.getVoicePitch());
             }
             if (eatingTime > 100) {
+                this.setEating(false);
                 eatingTime = 0;
             }
         }

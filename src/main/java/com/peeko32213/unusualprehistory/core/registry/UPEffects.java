@@ -1,11 +1,11 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.effect.EffectBrachisProtection;
-import com.peeko32213.unusualprehistory.common.effect.EffectPachysMight;
-import com.peeko32213.unusualprehistory.common.effect.EffectPreventClick;
-import com.peeko32213.unusualprehistory.common.effect.EffectScreenShake;
+import com.peeko32213.unusualprehistory.common.effect.*;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -19,5 +19,6 @@ public class UPEffects {
     public static final RegistryObject<MobEffect> PACHYS_MIGHT = EFFECT_DEF_REG.register("pachys_might", EffectPachysMight::new);
     public static final RegistryObject<MobEffect> SCREEN_SHAKE = EFFECT_DEF_REG.register("screen_shake", EffectScreenShake::new);
     public static final RegistryObject<MobEffect> PREVENT_CLICK = EFFECT_DEF_REG.register("prevent_click", EffectPreventClick::new);
+    public static final RegistryObject<MobEffect> HEALTH_REDUCTION = EFFECT_DEF_REG.register("health_reduction",  () ->new EffectHealthReduction());
 
 }
