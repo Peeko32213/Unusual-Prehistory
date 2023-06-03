@@ -76,6 +76,20 @@ public class UPMessages {
                 .encoder(UlughKeyOutputMessage::toBytes)
                 .consumerMainThread(UlughKeyOutputMessage::handle)
                 .add();
+
+        net.messageBuilder(MegatheriumKeyInputMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MegatheriumKeyInputMessage::new)
+                .encoder(MegatheriumKeyInputMessage::toBytes)
+                .consumerMainThread(MegatheriumKeyInputMessage::handle)
+                .add();
+
+        net.messageBuilder(MegatheriumKeyOutputMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MegatheriumKeyOutputMessage::new)
+                .encoder(MegatheriumKeyOutputMessage::toBytes)
+                .consumerMainThread(MegatheriumKeyOutputMessage::handle)
+                .add();
+
+
     }
 
     public static <MSG> void sendToServer(MSG message) {

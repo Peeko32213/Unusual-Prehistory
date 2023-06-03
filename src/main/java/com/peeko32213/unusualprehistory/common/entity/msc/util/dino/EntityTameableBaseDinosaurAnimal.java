@@ -129,6 +129,16 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         }
     }
 
+    @javax.annotation.Nullable
+    public Entity getControllingPassenger() {
+        for (Entity passenger : this.getPassengers()) {
+            if (passenger instanceof Player) {
+                return (Player) passenger;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public boolean canAttack(LivingEntity entity) {

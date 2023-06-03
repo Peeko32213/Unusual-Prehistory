@@ -29,10 +29,12 @@ public class InputEvents {
             UPMessages.sendToServer(new HwachaKeyInputMessage(key));
             UPMessages.sendToServer(new TrikeKeyInputMessage(key));
             UPMessages.sendToServer(new UlughKeyInputMessage(key));
+            UPMessages.sendToServer(new MegatheriumKeyInputMessage(key));
         } else if(mc.screen == null && !ClientEvents.roarKey.isDown()){
             UPMessages.sendToServer(new HwachaKeyOutputMessage(key));
             UPMessages.sendToServer(new TrikeKeyOutputMessage(key));
             UPMessages.sendToServer(new UlughKeyOutputMessage(key));
+            UPMessages.sendToServer(new MegatheriumKeyOutputMessage(key));
         }
 
     }
