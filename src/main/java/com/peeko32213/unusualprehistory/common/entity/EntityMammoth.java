@@ -100,7 +100,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal {
         public void tick() {
             this.mammoth.setTrunking(true);
             if(this.mammoth.getRandom().nextInt(100) <= 25 ) {
-                this.mammoth.setTrunking(false);
+              this.mammoth.setTrunking(false);
             }
         }
 
@@ -177,6 +177,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal {
     private <E extends IAnimatable> PlayState trunkPredicate(AnimationEvent<E> event) {
         if (this.isTrunking()) {
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.mammoth.idle_trunk"));
+            return PlayState.CONTINUE;
         }
         event.getController().markNeedsReload();
         return PlayState.STOP;
