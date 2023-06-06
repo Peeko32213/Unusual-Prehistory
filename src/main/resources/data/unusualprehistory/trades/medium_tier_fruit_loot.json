@@ -1,0 +1,37 @@
+{
+  "tier": 1,
+  "trade_item": "minecraft:carrot",
+  "items": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "item": "minecraft:enchanted_book",
+          "weight": 10,
+          "amount": 1
+        },
+        {
+          "item": "minecraft:gold_ingot",
+          "weight": 5,
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "item": "minecraft:iron_pickaxe",
+          "weight": 8,
+          "amount": 1
+        },
+        {
+          "item": "minecraft:lapis_lazuli",
+          "weight": 15,
+          "amount": 6
+        }
+      ]
+    }
+  ],
+  "color": "#7F7F7F"
+}

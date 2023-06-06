@@ -8,19 +8,22 @@ import net.minecraft.world.item.Item;
 /**
  * Represents a pair consisting of an item and its associated weight.
  */
-public class ItemWeightedPair {
+public class ItemWeightedPairCodec {
     /**
      * The Codec instance for serializing/deserializing ItemWeightedPair objects.
      */
-    public static Codec<ItemWeightedPair> CODEC = RecordCodecBuilder.create(inst -> inst
+    public static Codec<ItemWeightedPairCodec> CODEC = RecordCodecBuilder.create(inst -> inst
             .group(
-                    Registry.ITEM.byNameCodec().fieldOf("item").forGetter(ItemWeightedPair::getItem),
-                    Codec.INT.fieldOf("weight").forGetter(ItemWeightedPair::getWeight)
-            ).apply(inst, ItemWeightedPair::new)
+                    Registry.ITEM.byNameCodec().fieldOf("item").forGetter(i -> i.item),
+                    Codec.INT.fieldOf("weight").forGetter(w -> w.weight),
+                    Codec.INT.optionalFieldOf("amount", 1).forGetter(a -> a.amount)
+
+            ).apply(inst, ItemWeightedPairCodec::new)
     );
 
     private Item item;
     private int weight;
+    private int amount;
 
     /**
      * Constructs a new ItemWeightedPair with the specified item and weight.
@@ -28,9 +31,10 @@ public class ItemWeightedPair {
      * @param item   The item.
      * @param weight The weight associated with the item.
      */
-    public ItemWeightedPair(Item item, int weight) {
+    public ItemWeightedPairCodec(Item item, int weight, int amount) {
         this.item = item;
         this.weight = weight;
+        this.amount = amount;
     }
 
     /**
@@ -50,5 +54,11 @@ public class ItemWeightedPair {
     public Item getItem() {
         return item;
     }
+
+    public int getAmount() {
+        return amount;
+    }
+
+
 }
 

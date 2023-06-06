@@ -17,12 +17,12 @@ public class AnalyzerRecipeCodec {
     public static Codec<AnalyzerRecipeCodec> CODEC = RecordCodecBuilder.create(inst -> inst
             .group(
                     Registry.ITEM.byNameCodec().listOf().fieldOf("input").forGetter(i -> i.item),
-                    ItemWeightedPair.CODEC.listOf().fieldOf("entries").forGetter(e -> e.itemWeightedPairs)
+                    ItemWeightedPairCodec.CODEC.listOf().fieldOf("entries").forGetter(e -> e.itemWeightedPairs)
             ).apply(inst, AnalyzerRecipeCodec::new)
     );
 
     private List<Item> item;
-    private List<ItemWeightedPair> itemWeightedPairs;
+    private List<ItemWeightedPairCodec> itemWeightedPairs;
 
     /**
      * Constructs a new AnalyzerRecipeCodec with the specified input items and weighted pairs.
@@ -30,7 +30,7 @@ public class AnalyzerRecipeCodec {
      * @param item              The list of input items.
      * @param itemWeightedPairs The list of weighted pairs.
      */
-    public AnalyzerRecipeCodec(List<Item> item, List<ItemWeightedPair> itemWeightedPairs) {
+    public AnalyzerRecipeCodec(List<Item> item, List<ItemWeightedPairCodec> itemWeightedPairs) {
         this.item = item;
         this.itemWeightedPairs = itemWeightedPairs;
     }
@@ -40,7 +40,7 @@ public class AnalyzerRecipeCodec {
      *
      * @return The list of item-weighted pairs.
      */
-    public List<ItemWeightedPair> getItemWeightedPairs() {
+    public List<ItemWeightedPairCodec> getItemWeightedPairs() {
         return itemWeightedPairs;
     }
 
@@ -58,7 +58,7 @@ public class AnalyzerRecipeCodec {
      *
      * @param itemWeightedPairs The list of item-weighted pairs to add.
      */
-    public void addToList(List<ItemWeightedPair> itemWeightedPairs) {
+    public void addToList(List<ItemWeightedPairCodec> itemWeightedPairs) {
         this.itemWeightedPairs.addAll(itemWeightedPairs);
     }
 
@@ -69,7 +69,7 @@ public class AnalyzerRecipeCodec {
      */
     public int getTotalWeight() {
         int totalWeight = 0;
-        for (ItemWeightedPair itemWeightedPair : getItemWeightedPairs()) {
+        for (ItemWeightedPairCodec itemWeightedPair : getItemWeightedPairs()) {
             totalWeight += itemWeightedPair.getWeight();
         }
         return totalWeight;

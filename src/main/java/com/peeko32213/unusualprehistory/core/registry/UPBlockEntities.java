@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.block.BlockUPSignBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.DNAFridgeBlockEntity;
+import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -37,6 +38,12 @@ public class UPBlockEntities {
                     UPBlocks.PETRIFIED_WOOD_SIGN.get(),
                     UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get()
             ).build(null));
+
+
+    public static final RegistryObject<BlockEntityType<FruitLootBoxEntity>> FRUIT_LOOT_BOX_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("fruit_loot_box_block_entity", () ->
+                    BlockEntityType.Builder.of(FruitLootBoxEntity::new,
+                            UPBlocks.FRUIT_LOOT_BOX.get()).build(null));
 
 
     public static void register(IEventBus eventBus) {

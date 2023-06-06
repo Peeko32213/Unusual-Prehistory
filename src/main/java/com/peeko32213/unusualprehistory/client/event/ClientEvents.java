@@ -12,6 +12,7 @@ import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
+import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
@@ -19,6 +20,7 @@ import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -26,12 +28,10 @@ import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.event.ViewportEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -182,8 +182,10 @@ public final class ClientEvents {
 
         event.registerEntityRenderer(UPEntities.WORLD_SPAWNABLE.get(), WorldSpawnableRenderer::new);
 
-
         event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
+        //event.registerBlockEntityRenderer(UPBlockEntities.FRUIT_LOOT_BOX_BLOCK_ENTITY.get(), FruitLootBoxRenderer::new);
+
+
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
         try {
             ItemProperties.register(UPItems.TRIKE_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);            ItemProperties.register(UPItems.VELOCI_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
@@ -215,6 +217,21 @@ public final class ClientEvents {
         event.registerLayerDefinition(AntarctoRenderModel.LAYER_LOCATION, AntarctoRenderModel::createBodyLayer);
         event.registerLayerDefinition(HwachaRenderModel.LAYER_LOCATION, HwachaRenderModel::createBodyLayer);
 
+    }
+    @SubscribeEvent
+    public static void registerBlockColor(RegisterColorHandlersEvent.Block event){
+        event.register((pState, pLevel, pPos, pTintIndex) -> {
+            if( pLevel != null && pPos != null){
+                if(((FruitLootBoxEntity)pLevel.getBlockEntity(pPos)) != null){
+                    return ((FruitLootBoxEntity)pLevel.getBlockEntity(pPos)).getColor();
+                }
+            }
+            return 111111;
+        }, UPBlocks.FRUIT_LOOT_BOX.get());
+    }
+    @SubscribeEvent
+    public static void registerItemC0lor(RegisterColorHandlersEvent.Item event){
+        event.register((pStack, pTintIndex) -> pStack.getOrCreateTag().getInt("color")  , UPBlocks.FRUIT_LOOT_BOX.get());
     }
 
     @SubscribeEvent

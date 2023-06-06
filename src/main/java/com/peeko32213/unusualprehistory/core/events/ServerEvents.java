@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
+import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
@@ -27,6 +28,7 @@ public class ServerEvents {
     @SubscribeEvent
     public static void onRegisterReloadListeners(AddReloadListenerEvent event){
         event.addListener(new AnalyzerRecipeJsonManager());
+        event.addListener(new LootFruitJsonManager());
     }
 
 

@@ -24,7 +24,7 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
     private static final Gson STANDARD_GSON = new Gson();
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static Map<Item, List<ItemWeightedPair>> recipeList = new HashMap<>();
+    public static Map<Item, List<ItemWeightedPairCodec>> recipeList = new HashMap<>();
     private final String folderName;
 
     /**
@@ -50,7 +50,7 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
      *
      * @return The recipe list.
      */
-    public static Map<Item, List<ItemWeightedPair>> getRecipes() {
+    public static Map<Item, List<ItemWeightedPairCodec>> getRecipes() {
         return recipeList;
     }
 
@@ -60,7 +60,7 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
      * @param item The item to retrieve the weighted pairs for.
      * @return The list of item-weighted pairs.
      */
-    public static List<ItemWeightedPair> getItems(Item item) {
+    public static List<ItemWeightedPairCodec> getItems(Item item) {
         return recipeList.getOrDefault(item, Collections.emptyList());
     }
 
@@ -89,17 +89,17 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
 
         Item outputItem = null;
 
-        List<ItemWeightedPair> outputs = recipeList.get(input);
+        List<ItemWeightedPairCodec> outputs = recipeList.get(input);
 
         int totalWeight = 0;
-        for (ItemWeightedPair itemWeightedPair : outputs) {
+        for (ItemWeightedPairCodec itemWeightedPair : outputs) {
             totalWeight += itemWeightedPair.getWeight();
         }
 
         int randomNr = level.random.nextInt(totalWeight);
         int cumulativeWeight = 0;
 
-        for (ItemWeightedPair itemWeightedPair : outputs) {
+        for (ItemWeightedPairCodec itemWeightedPair : outputs) {
             cumulativeWeight += itemWeightedPair.getWeight();
             if (randomNr < cumulativeWeight) {
                 outputItem = itemWeightedPair.getItem();
@@ -116,7 +116,7 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
-        Map<Item, List<ItemWeightedPair>> recipeList = new HashMap<>();
+        Map<Item, List<ItemWeightedPairCodec>> recipeList = new HashMap<>();
 
         for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
             ResourceLocation key = entry.getKey();
@@ -126,7 +126,7 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
                     .ifLeft(result -> {
                         AnalyzerRecipeCodec analyzerRecipe = result.getFirst();
 
-                        List<ItemWeightedPair> weightedPairs = new ArrayList<>();
+                        List<ItemWeightedPairCodec> weightedPairs = new ArrayList<>();
                         for (Item item : analyzerRecipe.getItem()) {
                             weightedPairs = recipeList.getOrDefault(item, new ArrayList<>());
                             weightedPairs.addAll(analyzerRecipe.getItemWeightedPairs());

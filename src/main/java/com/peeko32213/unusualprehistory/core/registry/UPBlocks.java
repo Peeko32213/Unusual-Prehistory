@@ -55,6 +55,10 @@ public class UPBlocks {
     public static final RegistryObject<Block> CULTIVATOR = registerBlock("cultivator",
             () -> new BlockCultivator(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> DNA_FRIDGE = registerBlock("dna_fridge",
+            () -> new BlockDNAFridge(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> FRUIT_LOOT_BOX = registerBlock("fruit_loot_box",
+            () -> new BlockFruitLootBox(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().strength(0.1F)));
     public static final RegistryObject<Block> AMBER_GLASS = registerBlock("amber_glass",
             () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(3.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
 
@@ -62,8 +66,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> REX_BOOMBOX = registerBlock("rex_boombox", BlockRexBoombox::new);
 
-    public static final RegistryObject<Block> DNA_FRIDGE = registerBlock("dna_fridge",
-            () -> new BlockDNAFridge(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
+
     public static final Supplier<Block> STETHA_EGGS = create("stetha_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.STETHACANTHUS,
