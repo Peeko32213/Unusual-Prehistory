@@ -43,7 +43,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
-
+    private static final EntityDataAccessor<Boolean> TRADING = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
 
     int lastTimeSinceHungry;
 
@@ -135,6 +135,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.entityData.define(SADDLED, false);
         this.entityData.define(PASSIVE, 0);
         this.entityData.define(IS_FROM_EGG, false);
+        this.entityData.define(TRADING, false);
     }
 
     @Override
@@ -145,6 +146,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
         compound.putBoolean("fromEgg", this.isFromEgg());
+        compound.putBoolean("trading", this.isTrading());
     }
 
     @Override
@@ -155,6 +157,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
         this.setIsFromEgg(compound.getBoolean("fromEgg"));
+        this.setIsTrading(compound.getBoolean("trading"));
     }
 
     public boolean isHungry() {
@@ -179,6 +182,14 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
 
     public void setSaddled(boolean saddled) {
         this.entityData.set(SADDLED, Boolean.valueOf(saddled));
+    }
+
+    public boolean isTrading() {
+        return this.entityData.get(TRADING).booleanValue();
+    }
+
+    public void setIsTrading(boolean trading) {
+        this.entityData.set(TRADING, Boolean.valueOf(trading));
     }
 
     public int getPassiveTicks() {

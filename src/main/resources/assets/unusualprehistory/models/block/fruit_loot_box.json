@@ -1,0 +1,22 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "top": "unusualprehistory:block/entity/fruit_loot_box_top",
+    "side": "unusualprehistory:block/entity/fruit_loot_box_sides",
+    "bot": "unusualprehistory:block/entity/fruit_loot_box_bottom",
+    "particle": "unusualprehistory:block/entity/fruit_loot_box_top"
+  },
+  "elements": [
+    {   "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#bottom", "cullface": "bot", "tintindex": 0 },
+        "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#top",    "cullface": "top", "tintindex": 0 },
+        "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": 0 },
+        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": 0 },
+        "west":  { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": 0 },
+        "east":  { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": 0 }
+      }
+    }
+  ]
+}

@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.client.jei;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
-import com.peeko32213.unusualprehistory.common.data.ItemWeightedPair;
+import com.peeko32213.unusualprehistory.common.data.ItemWeightedPairCodec;
 import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -78,8 +78,8 @@ public class AnalyzerRecipeCategory implements IRecipeCategory<AnalyzerRecipe> {
 
         builder.addSlot(RecipeIngredientRole.INPUT, 80, 5).addIngredients(ingredient);
         List<ItemStack> outputs = new ArrayList<>();
-        List<ItemWeightedPair> itemWeightedPairs = AnalyzerRecipeJsonManager.getItems(input.getItem());
-        for (ItemWeightedPair weightedPair : itemWeightedPairs) {
+        List<ItemWeightedPairCodec> itemWeightedPairs = AnalyzerRecipeJsonManager.getItems(input.getItem());
+        for (ItemWeightedPairCodec weightedPair : itemWeightedPairs) {
             outputs.add(new ItemStack(weightedPair.getItem()));
         }
 
