@@ -31,6 +31,7 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -62,7 +63,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new EntityGigantopithicus.ApeMeleeAttackGoal(this,  1.3F, true));
+        this.goalSelector.addGoal(1, new EntityGigantopithicus.ApeMeleeAttackGoal(this, 1.3F, true));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new TradeGoal(this, Ingredient.of(LootFruitJsonManager.getTrades().keySet().stream().map(s -> new ItemStack(s)))));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
@@ -74,7 +75,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
     }
 
     private Ingredient getTemptationItems() {
-        if(temptationItems == null)
+        if (temptationItems == null)
             temptationItems = Ingredient.merge(Lists.newArrayList(
                     Ingredient.of(ItemTags.LEAVES)
             ));
@@ -87,8 +88,8 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemInHand = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
 
-        if(LootFruitJsonManager.getTrades().containsKey(itemInHand.getItem())){
-            setIsTrading(true);
+        if (LootFruitJsonManager.getTrades().containsKey(itemInHand.getItem()) && this.isTrading()) {
+            setTradingAndGottenItem(true);
         }
 
         return super.mobInteract(pPlayer, pHand);
@@ -248,8 +249,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
 
             if (livingentity == null) {
                 return false;
-            }
-            else if (!livingentity.isAlive()) {
+            } else if (!livingentity.isAlive()) {
                 return false;
             } else if (!this.followingTargetEvenIfNotSeen) {
                 return !this.mob.getNavigation().isDone();
@@ -305,7 +305,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
             }
         }
 
-        protected void doMovement (LivingEntity livingentity, Double d0){
+        protected void doMovement(LivingEntity livingentity, Double d0) {
 
 
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -342,7 +342,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         }
 
 
-        protected void checkForCloseRangeAttack ( double distance, double reach){
+        protected void checkForCloseRangeAttack(double distance, double reach) {
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                 int r = this.mob.getRandom().nextInt(2048);
                 if (r <= 600) {
@@ -352,7 +352,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         }
 
 
-        protected boolean getRangeCheck () {
+        protected boolean getRangeCheck() {
 
             return
                     this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
@@ -361,15 +361,14 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         }
 
 
-
-        protected void tickStompAttack () {
+        protected void tickStompAttack() {
             animTime++;
             this.mob.getNavigation().stop();
-            if(animTime==5) {
+            if (animTime == 5) {
                 preformSlamAttack();
             }
-            if(animTime>=9) {
-                animTime=0;
+            if (animTime >= 9) {
+                animTime = 0;
 
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -377,30 +376,30 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
             }
         }
 
-        protected void preformSlamAttack () {
+        protected void preformSlamAttack() {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),10.0f, 2.5f, mob, pos,  9.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob), 10.0f, 2.5f, mob, pos, 9.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
         }
 
 
-        protected void resetAttackCooldown () {
+        protected void resetAttackCooldown() {
             this.ticksUntilNextAttack = 3;
         }
 
-        protected boolean isTimeToAttack () {
+        protected boolean isTimeToAttack() {
             return this.ticksUntilNextAttack <= 0;
         }
 
-        protected int getTicksUntilNextAttack () {
+        protected int getTicksUntilNextAttack() {
             return this.ticksUntilNextAttack;
         }
 
-        protected int getAttackInterval () {
+        protected int getAttackInterval() {
             return 5;
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+            return (double) (this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
         }
     }
 
@@ -408,29 +407,47 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         int animState = this.getAnimationState();
         {
             switch (animState) {
-
                 case 21:
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.attack"));
                     break;
                 default:
-                     if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6){
+                    if (this.isTrading()) {
+                       // event.getController().markNeedsReload();
+                        event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.sit"));
+                        event.getController().setAnimationSpeed(0.9D);
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.walk"));
                         event.getController().setAnimationSpeed(1.0D);
                         return PlayState.CONTINUE;
+                    } else {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.idle"));
+                        event.getController().setAnimationSpeed(1.0F);
                     }
-                     event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.idle"));
-                    event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
             }
         }
         return PlayState.CONTINUE;
     }
 
+    private <E extends IAnimatable> PlayState sitPredicate(AnimationEvent<E> event) {
+    //  if (this.isTrading() && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+    //      event.getController().markNeedsReload();
+    //      event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.sit"));
+    //      event.getController().setAnimationSpeed(0.9D);
+    //  }
+      return PlayState.CONTINUE;
+    }
+
+
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(5);
         AnimationController<EntityGigantopithicus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        AnimationController<EntityGigantopithicus> sitController = new AnimationController<>(this, "sitController", 5, this::sitPredicate);
         data.addAnimationController(controller);
+        data.addAnimationController(sitController);
     }
 
 }

@@ -45,23 +45,49 @@ public class ItemHoldingLayer <T extends EntityBaseDinosaurAnimal> extends GeoLa
         RenderUtils.rotate(bone, stack);
         RenderUtils.scale(bone, stack);
         RenderUtils.moveBackFromPivot(bone, stack);
-        if(bone.getName().equals("RightArm")){
-            stack.pushPose();
-            //You'll need to play around with these to get item to render in the correct orientation
-            stack.mulPose(Vector3f.XP.rotationDegrees(-75));
-            stack.mulPose(Vector3f.YP.rotationDegrees(0));
-            stack.mulPose(Vector3f.ZP.rotationDegrees(0));
-            //You'll need to play around with this to render the item in the correct spot.
-            stack.translate(1D, 0.7D, 0.2D);
-            //Sets the scaling of the item.
-            stack.scale(2.5f, 2.5f, 2.5f);
-            // Change mainHand to predefined Itemstack and TransformType to what transform you would want to use.
-            Minecraft.getInstance().getItemRenderer().renderStatic(mainHand, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
-                    packedLightIn, packedOverlayIn, stack, renderBuffer, entity.getId());
-            stack.popPose();
-            //Stops unnecessary further recursive method calling. Only works if I am rendering one thing per layer.
-            stack.popPose();
-            return;
+        if(entity instanceof EntityBaseDinosaurAnimal entityBaseDinosaurAnimal) {
+            if (bone.getName().equals("RightArm") && !entityBaseDinosaurAnimal.isTrading()) {
+                stack.pushPose();
+                //You'll need to play around with these to get item to render in the correct orientation
+                stack.mulPose(Vector3f.XP.rotationDegrees(-75));
+                stack.mulPose(Vector3f.YP.rotationDegrees(0));
+                stack.mulPose(Vector3f.ZP.rotationDegrees(0));
+                //You'll need to play around with this to render the item in the correct spot.
+                stack.translate(1D, 0.7D, 0.2D);
+                //Sets the scaling of the item.
+                stack.scale(2.5f, 2.5f, 2.5f);
+                // Change mainHand to predefined Itemstack and TransformType to what transform you would want to use.
+                Minecraft.getInstance().getItemRenderer().renderStatic(mainHand, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
+                        packedLightIn, packedOverlayIn, stack, renderBuffer, entity.getId());
+                stack.popPose();
+                //Stops unnecessary further recursive method calling. Only works if I am rendering one thing per layer.
+                stack.popPose();
+                return;
+            }
+            if (bone.getName().equals("RightArm") && entityBaseDinosaurAnimal.isTrading()) {
+                stack.pushPose();
+                //You'll need to play around with these to get item to render in the correct orientation
+                stack.mulPose(Vector3f.XP.rotationDegrees(-65));
+                stack.mulPose(Vector3f.YP.rotationDegrees(0));
+                stack.mulPose(Vector3f.ZP.rotationDegrees(0));
+
+                //You'll need to play around with this to render the item in the correct spot.
+                stack.translate(0.0D, -1D, 1D);
+                //Sets the scaling of the item.
+                stack.scale(2.5f, 2.5f, 2.5f);
+
+                //stack.mulPose(Vector3f.XP.rotationDegrees(25));
+                stack.mulPose(Vector3f.YP.rotationDegrees(180));
+                //stack.mulPose(Vector3f.ZP.rotationDegrees(0));
+
+                // Change mainHand to predefined Itemstack and TransformType to what transform you would want to use.
+                Minecraft.getInstance().getItemRenderer().renderStatic(mainHand, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
+                        packedLightIn, packedOverlayIn, stack, renderBuffer, entity.getId());
+                stack.popPose();
+                //Stops unnecessary further recursive method calling. Only works if I am rendering one thing per layer.
+                stack.popPose();
+                return;
+            }
         }
 
         if (!bone.isHidden) {

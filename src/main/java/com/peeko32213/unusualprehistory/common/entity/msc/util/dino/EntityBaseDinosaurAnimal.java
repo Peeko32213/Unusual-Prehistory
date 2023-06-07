@@ -45,8 +45,13 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
     private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> TRADING = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
 
-    int lastTimeSinceHungry;
 
+    private boolean tradingAndGottenItem;
+    int lastTimeSinceHungry;
+    private int tradingCooldownTimer;
+
+    //5 minutes for trading cooldown for now
+    public final int TRADING_COOLDOWN = 6000;
     protected EntityBaseDinosaurAnimal(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
@@ -72,6 +77,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
     @Override
     public void tick() {
         super.tick();
+        //LOGGER.info("last hurt by " + this.getLastHurtByMob());
         if(!canGetHungry()) {
             return;
         }
@@ -82,6 +88,11 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
             this.setHungry(true);
             lastTimeSinceHungry = 0;
         }
+
+        if(tradingCooldownTimer > 0){
+            tradingCooldownTimer--;
+        }
+
     }
 
     public void killed() {
@@ -136,6 +147,8 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.entityData.define(PASSIVE, 0);
         this.entityData.define(IS_FROM_EGG, false);
         this.entityData.define(TRADING, false);
+
+
     }
 
     @Override
@@ -147,6 +160,8 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         compound.putInt("PassiveTicks", this.getPassiveTicks());
         compound.putBoolean("fromEgg", this.isFromEgg());
         compound.putBoolean("trading", this.isTrading());
+        compound.putInt("tradingCooldown", this.getTradingCooldownTimer());
+        compound.putBoolean("tradingAndGotItem", this.getTradingAndGottenItem());
     }
 
     @Override
@@ -158,6 +173,8 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
         this.setIsFromEgg(compound.getBoolean("fromEgg"));
         this.setIsTrading(compound.getBoolean("trading"));
+        this.setTradingCooldownTimer(compound.getInt("tradingCooldown"));
+        this.setTradingAndGottenItem(compound.getBoolean("tradingAndGotItem"));
     }
 
     public boolean isHungry() {
@@ -215,6 +232,26 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
     public boolean removeWhenFarAway(double d) {
         return !this.isFromEgg();
     }
+
+
+    public void setTradingAndGottenItem(boolean tradingAndGottenItem) {
+        this.tradingAndGottenItem = tradingAndGottenItem;
+    }
+
+    public boolean getTradingAndGottenItem(){
+        return tradingAndGottenItem;
+    }
+
+    public int getTradingCooldownTimer() {
+        return tradingCooldownTimer;
+    }
+
+    public void setTradingCooldownTimer(int tradingCooldownTimer) {
+        this.tradingCooldownTimer = tradingCooldownTimer;
+    }
+
+
+
 
     @javax.annotation.Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {

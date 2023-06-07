@@ -59,9 +59,9 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
         return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
     }
 
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        return canSupportCenter(pLevel, pPos.below(), Direction.UP);
-    }
+    //public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+    //    return canSupportCenter(pLevel, pPos.below(), Direction.UP);
+    //}
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {

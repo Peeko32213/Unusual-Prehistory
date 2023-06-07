@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -44,17 +45,30 @@ public class TradeGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        this.player = this.mob.level.getNearestPlayer(this.targetingConditions, this.mob);
-        return this.player != null;
+        if (this.mob.getTradingCooldownTimer() > 0 || this.mob.isInWaterRainOrBubble()) {
+            return false;
+        } else {
+            this.player = this.mob.level.getNearestPlayer(this.targetingConditions, this.mob);
+            return this.player != null;
+        }
     }
 
 
     @Override
     public boolean canContinueToUse() {
-        this.player = this.mob.level.getNearestPlayer(this.targetingConditions, this.mob);
-        return this.player != null;
+        if (this.mob.getTradingCooldownTimer() > 0 || this.mob.isInWaterRainOrBubble()) {
+            return false;
+        } else {
+            this.player = this.mob.level.getNearestPlayer(this.targetingConditions, this.mob);
+            return this.player != null;
+        }
     }
 
+    @Override
+    public void start() {
+        this.mob.setIsTrading(true);
+        super.start();
+    }
 
     @Override
     public void tick() {
@@ -70,11 +84,19 @@ public class TradeGoal extends Goal {
             lootFruitTag.put("tradeItem", item.getDefaultInstance().serializeNBT());
             lootFruit.setTag(lootFruitTag);
             this.mob.setItemInHand(InteractionHand.MAIN_HAND, lootFruit);
-            if (this.mob.isTrading()) {
-                ItemEntity lootFruitEntity = new ItemEntity(this.mob.level, this.mob.getX(), this.mob.getY(), this.mob.getZ(), lootFruit);
+            if (this.mob.getTradingAndGottenItem()) {
+
+                double d0 = this.player.getX()- this.mob.getX();
+                double d1 = this.player.getY() - this.mob.getY();
+                double d2 = this.player.getZ() - this.mob.getZ();
+                Vec3 vec3 = new Vec3(d0, d1, d2);
+                vec3.multiply(0.5, 0.5 ,0.5);
+
+                ItemEntity lootFruitEntity = new ItemEntity(this.mob.level, this.mob.getX(), this.mob.getY(), this.mob.getZ(), lootFruit,vec3.x(), vec3.y(), vec3.z());
                 this.player.getItemInHand(InteractionHand.MAIN_HAND).shrink(1);
                 this.mob.level.addFreshEntity(lootFruitEntity);
-                this.mob.setIsTrading(false);
+                this.mob.setTradingAndGottenItem(false);
+                this.mob.setTradingCooldownTimer(this.mob.TRADING_COOLDOWN);
                 this.stop();
             }
         }
@@ -82,6 +104,9 @@ public class TradeGoal extends Goal {
 
     @Override
     public void stop() {
+
+
+        this.mob.setIsTrading(false);
         this.mob.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         super.stop();
     }
