@@ -242,6 +242,97 @@
 					"rotation": [90, 0, 0]
 				}
 			}
+		},
+		"animation.gigantopithicus.hold": {
+			"loop": true,
+			"bones": {
+				"Louis": {
+					"rotation": {
+						"vector": [-90, 0, 0]
+					},
+					"position": {
+						"vector": [0, -4, 0]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": ["90 - -32.5", 0, 0]
+					},
+					"position": {
+						"vector": [0, "-9 + Math.cos((query.anim_time - 0.0) * 90) * -0.6", 7]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": [90, 5, 0]
+					},
+					"position": {
+						"vector": [0, -20, 1]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": [0, 0, 52.5]
+					},
+					"position": {
+						"vector": [6, 3, -2]
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": [0, 0, -52.5]
+					},
+					"position": {
+						"vector": [-6, 4, -2]
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": [65.43286, -9.58106, -40.23705]
+					},
+					"position": {
+						"vector": [0, -26, 1]
+					}
+				},
+				"FrontFur": {
+					"rotation": {
+						"vector": [57.5, 0, 0]
+					}
+				},
+				"SideFur2": {
+					"rotation": {
+						"vector": [0, 0, -85]
+					}
+				},
+				"SideFur1": {
+					"rotation": {
+						"vector": [0, 0, 85]
+					}
+				},
+				"BackFur1": {
+					"rotation": {
+						"vector": [0, 0, 62.5]
+					}
+				},
+				"BackFur2": {
+					"rotation": {
+						"vector": [0, 0, -62.5]
+					}
+				},
+				"Body2": {
+					"rotation": {
+						"vector": ["25 - Math.cos((query.anim_time - 0.0) * 90) * 1", 0, "Math.sin((query.anim_time - 0.0) * 90) * 1"]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 90) * -0.6", 0]
+					}
+				},
+				"Body": {
+					"position": {
+						"vector": [0, 0, -6]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

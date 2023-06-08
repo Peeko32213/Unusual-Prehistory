@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.block;
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
 import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -132,7 +133,7 @@ public class BlockDinosaurLandEggs extends Block {
                     if(dinosaurToSpawn instanceof EntityUlughbegsaurus animal){
                         animal.determineVariant(random.nextInt(0,100));
                     }
-                    if(dinosaurToSpawn instanceof EntityHwachavenator animal){
+                    if(dinosaurToSpawn instanceof EntityTameableBaseDinosaurAnimal animal){
                         animal.setAge(-24000);
                     }
                     dinosaurToSpawn.restrictTo(pos, 20);

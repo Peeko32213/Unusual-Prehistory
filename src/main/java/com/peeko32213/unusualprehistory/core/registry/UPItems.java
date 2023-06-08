@@ -348,6 +348,10 @@ public class UPItems {
             () -> new ForgeSpawnEggItem(UPEntities.MAMMOTH , 0x180a08, 0x5e5333,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<ForgeSpawnEggItem> PALAEOPHIS_EGG = ITEMS.register("palaophis_spawn_egg",
+            () -> new ForgeSpawnEggItem(UPEntities.PALAEOPHIS , 0x211d4b, 0xa1b7c1,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     public static final RegistryObject<ForgeSpawnEggItem> MEGALANIA_EGG = ITEMS.register("megalania_spawn_egg",
             () -> new ForgeSpawnEggItem(UPEntities.MEGALANIA , 0x411611, 0xd57738,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

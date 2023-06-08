@@ -18,6 +18,7 @@ public class UPEntityPlacement {
 
         SpawnPlacements.register(UPEntities.AMMON.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EntityAmmonite::checkSurfaceWaterDinoSpawnRules);
         SpawnPlacements.register(UPEntities.DUNK.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EntityDunkleosteus::checkSurfaceWaterDinoSpawnRules);
+        SpawnPlacements.register(UPEntities.PALAEOPHIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EntityPalaeophis::checkSurfaceWaterDinoSpawnRules);
         SpawnPlacements.register(UPEntities.COTY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EntityBaseDinosaurAnimal::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.SCAU.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EntityScaumenacia::checkSurfaceWaterDinoSpawnRules);
         SpawnPlacements.register(UPEntities.TRIKE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EntityTameableBaseDinosaurAnimal::checkSurfaceDinoSpawnRules);

@@ -1,12 +1,14 @@
 package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.message.UPMessageHurtMultipart;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -23,7 +25,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,17 +39,31 @@ import java.util.function.Supplier;
 
 import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.GINKGO;
 import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.PETRIFIED;
+import static org.antlr.runtime.debug.DebugEventListener.PROTOCOL_VERSION;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(UnusualPrehistory.MODID)
 public class UnusualPrehistory {
     public static final String MODID = "unusualprehistory";
+    private static int packetsRegistered;
     public static final List<Runnable> CALLBACKS = new ArrayList<>();
     public static final Logger LOGGER = LogManager.getLogger();
+    public static final SimpleChannel NETWORK_WRAPPER;
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public static SimpleChannel NETWORK;
 
+    static {
+        NetworkRegistry.ChannelBuilder channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation("unusualprehistory", "main_channel"));
+        String version = PROTOCOL_VERSION;
+        version.getClass();
+        channel = channel.clientAcceptedVersions(version::equals);
+        version = PROTOCOL_VERSION;
+        version.getClass();
+        NETWORK_WRAPPER = channel.serverAcceptedVersions(version::equals).networkProtocolVersion(() -> {
+            return PROTOCOL_VERSION;
+        }).simpleChannel();
+    }
 
     public UnusualPrehistory() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -93,7 +112,20 @@ public class UnusualPrehistory {
                 }
             }
     }
+
+    public static <MSG> void sendMSGToAll(MSG message) {
+        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
+            sendNonLocal(message, player);
+        }
+    }
+
+    public static <MSG> void sendNonLocal(MSG msg, ServerPlayer player) {
+        NETWORK_WRAPPER.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+    }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
+        NETWORK_WRAPPER.registerMessage(packetsRegistered++, UPMessageHurtMultipart.class, UPMessageHurtMultipart::write, UPMessageHurtMultipart::read, UPMessageHurtMultipart.Handler::handle);
+
         event.enqueueWork(() -> {
             UPEntityPlacement.entityPlacement();
 

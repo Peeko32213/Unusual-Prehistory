@@ -1,8 +1,11 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.NearestTargetAI;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.PalaeophisPartIndex;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
@@ -56,20 +59,26 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
-    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+public class EntityPalaeophis extends WaterAnimal implements IAnimatable {
+    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Integer> CHILD_ID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    public EntityPalaeophisPart[] parts;
+    public final float[] ringBuffer = new float[64];
+    public int ringBufferIndex = -1;
 
-    private int passiveFor = 0;
-
-    public EntityDunkleosteus(EntityType<? extends WaterAnimal> entityType, Level level) {
+    public EntityPalaeophis(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
-        this.moveControl = new MoveHelperController(this);
+        this.moveControl = new EntityPalaeophis.MoveHelperController(this);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -83,16 +92,13 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(1, new EntityDunkleosteus.DunkMeleeAttackGoal(this, 2F, true));
+        this.goalSelector.addGoal(1, new EntityPalaeophis.DunkMeleeAttackGoal(this, 2F, true));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(Items.CHICKEN, Items.COOKED_CHICKEN), false));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
-        this.targetSelector.addGoal(2, new NearestTargetAI(this, LivingEntity.class, 110, false, true, null) {
-            public boolean canUse() {
-                return !isBaby() && passiveFor == 0 && level.getDifficulty() != Difficulty.PEACEFUL && super.canUse();
-            }
-        });
+
     }
 
     public void checkDespawn() {
@@ -104,28 +110,16 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     }
 
 
-
-    @Override
-    @Nonnull
-    protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
-        ItemStack lvt_3_1_ = player.getItemInHand(hand);
-        if(lvt_3_1_.getItem() == UPItems.GOLDEN_SCAU.get()){
-            if(!player.isCreative()){
-                lvt_3_1_.shrink(1);
-            }
-            this.heal(20);
-            this.setTarget(null);
-            this.passiveFor = 1000000000 + random.nextInt(1000000000);
-            return InteractionResult.SUCCESS;
-        }
-        return super.mobInteract(player, hand);
-
+    public void pushEntities() {
+        final List<Entity> entities = this.level.getEntities(this, this.getBoundingBox().expandTowards(0.2D, 0.0D, 0.2D));
+        entities.stream().filter(entity -> !(entity instanceof EntityPalaeophisPart) && entity.isPushable()).forEach(entity -> entity.push(this));
     }
+
 
     @Override
     public boolean canAttack(LivingEntity entity) {
         boolean prev = super.canAttack(entity);
-        if(prev && passiveFor > 0 && entity instanceof LivingEntity && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().getUUID().equals(entity.getUUID()))){
+        if(prev && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().getUUID().equals(entity.getUUID()))){
             return false;
         }
         return prev;
@@ -143,15 +137,6 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
             super.travel(travelVector);
         }
 
-    }
-
-
-    public int getPassiveTicks() {
-        return this.entityData.get(PASSIVE);
-    }
-
-    private void setPassiveTicks(int passiveTicks) {
-        this.entityData.set(PASSIVE, passiveTicks);
     }
 
     protected PathNavigation createNavigation(Level p_27480_) {
@@ -180,25 +165,136 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
-        this.getEntityData().define(PASSIVE, 0);
+        this.entityData.define(CHILD_UUID, Optional.empty());
+        this.entityData.define(CHILD_ID, -1);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("PassiveFor", passiveFor);
+        if (this.getChildId() != null) {
+            compound.putUUID("ChildUUID", this.getChildId());
+        }
 
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        passiveFor = compound.getInt("PassiveFor");
+        if (compound.hasUUID("ChildUUID")) {
+            this.setChildId(compound.getUUID("ChildUUID"));
+        }
+    }
+
+    @Nullable
+    public UUID getChildId() {
+        return this.entityData.get(CHILD_UUID).orElse(null);
+    }
+
+    public void setChildId(@Nullable UUID uniqueId) {
+        this.entityData.set(CHILD_UUID, Optional.ofNullable(uniqueId));
+    }
+
+    public Entity getChild() {
+        UUID id = getChildId();
+        if (id != null && !level.isClientSide) {
+            return ((ServerLevel) level).getEntity(id);
+        }
+        return null;
     }
 
     public void tick() {
         super.tick();
-        if (this.passiveFor > 0) {
-            passiveFor--;
+        if (this.ringBufferIndex < 0) {
+            for (int i = 0; i < this.ringBuffer.length; ++i) {
+                this.ringBuffer[i] = this.getYRot();
+            }
         }
+        this.ringBufferIndex++;
+        if (this.ringBufferIndex == this.ringBuffer.length) {
+            this.ringBufferIndex = 0;
+        }
+        this.ringBuffer[this.ringBufferIndex] = this.getYRot();
+        if (!level.isClientSide) {
+            final int segments = 7;
+            final Entity child = getChild();
+            if (child == null) {
+                LivingEntity partParent = this;
+                parts = new EntityPalaeophisPart[segments];
+                PalaeophisPartIndex partIndex = PalaeophisPartIndex.HEAD;
+                Vec3 prevPos = this.position();
+                for (int i = 0; i < segments; i++) {
+                    final float prevReqRot = calcPartRotation(i) + getYawForPart(i);
+                    final float reqRot = calcPartRotation(i + 1) + getYawForPart(i);
+                    EntityPalaeophisPart part = new EntityPalaeophisPart(UPEntities.PALAEOPHIS_PART.get(), this);
+                    part.setParent(partParent);
+                    part.copyDataFrom(this);
+                    part.setBodyIndex(i);
+                    if (partParent == this) {
+                        this.setChildId(part.getUUID());
+                        this.entityData.set(CHILD_ID, part.getId());
+                    }
+                    if (partParent instanceof EntityPalaeophisPart) {
+                        ((EntityPalaeophisPart) partParent).setChildId(part.getUUID());
+                    }
+                    part.setPos(part.tickMultipartPosition(this.getId(), partIndex, prevPos, this.getXRot(), prevReqRot, reqRot, false));
+                    partParent = part;
+                    level.addFreshEntity(part);
+                    parts[i] = part;
+                    partIndex = part.getPartType();
+                    prevPos = part.position();
+                }
+            }
+            if (shouldReplaceParts() && this.getChild() instanceof EntityPalaeophisPart) {
+                parts = new EntityPalaeophisPart[segments];
+                parts[0] = (EntityPalaeophisPart) this.getChild();
+                this.entityData.set(CHILD_ID, parts[0].getId());
+                int i = 1;
+                while (i < parts.length && parts[i - 1].getChild() instanceof EntityPalaeophisPart) {
+                    parts[i] = (EntityPalaeophisPart) parts[i - 1].getChild();
+                    i++;
+                }
+            }
+            PalaeophisPartIndex partIndex = PalaeophisPartIndex.HEAD;
+            Vec3 prev = this.position();
+            float xRot = this.getXRot();
+//                float yRot = this.getYRot();
+//                float headRot = Mth.wrapDegrees(this.getYRot());
+        }
+    }
+
+    private float calcPartRotation(int i) {
+        final float f = 1 - (1 * 0.2F);
+        final float strangleIntensity = (float) (Mth.clamp(2 * 3, 0, 100F) * (1.0F + 0.2F * Math.sin(0.15F * 2)));
+        return (float) (40 * -Math.sin(this.walkDist * 3 - (i))) * f + 3 * 0.2F * i * strangleIntensity;
+    }
+
+    public float getRingBuffer(int bufferOffset, float partialTicks) {
+        if (this.isDeadOrDying()) {
+            partialTicks = 0.0F;
+        }
+
+        partialTicks = 1.0F - partialTicks;
+        final int i = this.ringBufferIndex - bufferOffset & 63;
+        final int j = this.ringBufferIndex - bufferOffset - 1 & 63;
+        final float d0 = this.ringBuffer[i];
+        final float d1 = this.ringBuffer[j] - d0;
+        return Mth.wrapDegrees(d0 + d1 * partialTicks);
+    }
+
+    private boolean shouldReplaceParts() {
+        if (parts == null || parts[0] == null)
+            return true;
+
+        for (int i = 0; i < 7; i++) {
+            if (parts[i] == null) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private float getYawForPart(int i) {
+        return this.getRingBuffer(4 + i * 2, 1.0F);
     }
 
     public void aiStep() {
@@ -213,20 +309,24 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.dunk.bite"));
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.palaeophis.bite"));
                     break;
                 default:
                     if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunk.swim"));
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.swim"));
+                        event.getController().setAnimationSpeed(0.5D);
+
                         return PlayState.CONTINUE;
                     }
                     if (!this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunk.flop"));
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.beached"));
                         event.getController().setAnimationSpeed(2.0F);
                         return PlayState.CONTINUE;
                     }
                     else {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunk.idle"));
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
+                        event.getController().setAnimationSpeed(0.5D);
+
                         return PlayState.CONTINUE;
                     }
 
@@ -241,7 +341,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(1);
-        AnimationController<EntityDunkleosteus> controller = new AnimationController<>(this, "controller", 2, this::predicate);
+        AnimationController<EntityPalaeophis> controller = new AnimationController<>(this, "controller", 2, this::predicate);
         data.addAnimationController(controller);
     }
 
@@ -261,7 +361,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {
-            super(EntityDunkleosteus.this, 1.6D, true);
+            super(EntityPalaeophis.this, 1.6D, true);
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
@@ -273,9 +373,9 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
 
     static class MoveHelperController extends MoveControl {
-        private final EntityDunkleosteus dolphin;
+        private final EntityPalaeophis dolphin;
 
-        public MoveHelperController(EntityDunkleosteus dolphinIn) {
+        public MoveHelperController(EntityPalaeophis dolphinIn) {
             super(dolphinIn);
             this.dolphin = dolphinIn;
         }
@@ -323,7 +423,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
     static class DunkMeleeAttackGoal extends Goal {
 
-        protected final EntityDunkleosteus mob;
+        protected final EntityPalaeophis mob;
         private final double speedModifier;
         private final boolean followingTargetEvenIfNotSeen;
         private Path path;
@@ -338,7 +438,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         private int animTime = 0;
 
 
-        public DunkMeleeAttackGoal(EntityDunkleosteus p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
+        public DunkMeleeAttackGoal(EntityPalaeophis p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
             this.speedModifier = p_i1636_2_;
             this.followingTargetEvenIfNotSeen = p_i1636_4_;
@@ -348,7 +448,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         public boolean canUse() {
             long i = this.mob.level.getGameTime();
 
-             {
+            {
                 this.lastCanUseCheck = i;
                 LivingEntity livingentity = this.mob.getTarget();
                 if (livingentity == null) {
@@ -582,7 +682,6 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     }
 
     public void killed() {
-        passiveFor = 2400 + random.nextInt(100, 1200);
         this.heal(15);
     }
 
@@ -600,7 +699,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         }
         return p_28137_;
     }
-    public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends EntityDunkleosteus> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+    public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends EntityPalaeophis> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
         int i = pLevel.getSeaLevel();
         int j = i - 13;
         return pPos.getY() >= j && pPos.getY() <= i && pLevel.getFluidState(pPos.below()).is(FluidTags.WATER) && pLevel.getBlockState(pPos.above()).is(Blocks.WATER) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();

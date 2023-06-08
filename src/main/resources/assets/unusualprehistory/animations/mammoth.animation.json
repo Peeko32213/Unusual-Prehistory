@@ -286,6 +286,117 @@
 					}
 				}
 			}
+		},
+		"animation.mammoth.trunk_hold": {
+			"loop": true,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.5) * 90) * 0.3", 0, "Math.sin((query.anim_time - 0.0) * 90) * 0.3"]
+					},
+					"position": {
+						"vector": [0, -2, 0]
+					}
+				},
+				"Trunk": {
+					"rotation": {
+						"vector": [0, 0, "Math.sin((query.anim_time - 0.5) * 180) * 2"]
+					}
+				},
+				"TrunkPart1": {
+					"rotation": {
+						"vector": [-10, 0, 0]
+					}
+				},
+				"TrunkPart2": {
+					"rotation": {
+						"vector": [-20, 0, 0]
+					}
+				},
+				"TrunkPart3": {
+					"rotation": {
+						"vector": [-42.5, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.mammoth.trunk_attack": {
+			"animation_length": 0.5,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.5) * 720) * 0.3", 0, "Math.sin((query.anim_time - 0.0) * 720) * 1"]
+					},
+					"position": {
+						"vector": [0, -2, 0]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"0.0": {
+							"vector": [4.50432, -19.50645, -13.27463]
+						},
+						"0.25": {
+							"vector": [-4.5043, 19.5064, 13.2746]
+						},
+						"0.5": {
+							"vector": [4.50432, -19.50645, -13.27463]
+						}
+					}
+				},
+				"Trunk": {
+					"rotation": {
+						"0.0": {
+							"vector": [-22.5, 0, 0]
+						},
+						"0.25": {
+							"vector": [-22.99008, 11.53486, -4.8493]
+						},
+						"0.5": {
+							"vector": [-22.5, 0, 0]
+						}
+					}
+				},
+				"TrunkPart1": {
+					"rotation": {
+						"0.0": {
+							"vector": [-25, 0, 0]
+						},
+						"0.25": {
+							"vector": [-67.17, 20.33, 4.46]
+						},
+						"0.5": {
+							"vector": [-25, 0, 0]
+						}
+					}
+				},
+				"TrunkPart2": {
+					"rotation": {
+						"0.0": {
+							"vector": [-25, 0, 0]
+						},
+						"0.25": {
+							"vector": [-34.0724, 8.53726, 12.37961]
+						},
+						"0.5": {
+							"vector": [-25, 0, 0]
+						}
+					}
+				},
+				"TrunkPart3": {
+					"rotation": {
+						"0.0": {
+							"vector": [-20, 0, 0]
+						},
+						"0.25": {
+							"vector": [-35, 0, 0]
+						},
+						"0.5": {
+							"vector": [-20, 0, 0]
+						}
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

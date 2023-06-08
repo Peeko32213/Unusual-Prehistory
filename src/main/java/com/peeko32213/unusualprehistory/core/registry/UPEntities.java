@@ -5,6 +5,7 @@ import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
 import com.peeko32213.unusualprehistory.common.entity.msc.render.BaseEntityRender;
@@ -163,6 +164,13 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityMammoth::new, MobCategory.CREATURE).sized(5.0F, 5.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "mammoth").toString()));
 
+    public static final RegistryObject<EntityType<EntityPalaeophis>> PALAEOPHIS = ENTITIES.register("palaophis",
+            () -> EntityType.Builder.of(EntityPalaeophis::new, MobCategory.WATER_CREATURE).sized(1.5F, 1.5F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "palaophis").toString()));
+
+    public static final RegistryObject<EntityType<EntityPalaeophisPart>> PALAEOPHIS_PART = ENTITIES.register("palaophis_part",
+            () -> registerEntity(EntityType.Builder.of(EntityPalaeophisPart::new, MobCategory.MISC).sized(1.5F, 1.5F)
+                    .setShouldReceiveVelocityUpdates(true).setUpdateInterval(1), "palaophis_part"));
     public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = ENTITIES.register("megalania",
             () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(3.0F, 2.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()));

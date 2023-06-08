@@ -63,7 +63,7 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::isAngryAt));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::canAttack));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }

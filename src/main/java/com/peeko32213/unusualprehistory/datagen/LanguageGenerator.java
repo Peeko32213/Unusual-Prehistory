@@ -135,6 +135,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PARACER_EGG, "Paraceratherium Spawn Egg");
         addItem(UPItems.MAMMOTH_EGG, "Mammoth Spawn Egg");
         addItem(UPItems.MEGALANIA_EGG, "Megalania Spawn Egg");
+        addItem(UPItems.PALAEOPHIS_EGG, "Palaophis Spawn Egg");
 
 
         //ARMOR
@@ -317,6 +318,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.MEGATHERIUM, "Megatherium");
         addEntityType(UPEntities.MAMMOTH, "Mammoth");
         addEntityType(UPEntities.MEGALANIA, "Megalania");
+        addEntityType(UPEntities.PALAEOPHIS, "Palaophis");
 
 
         //SOUNDS

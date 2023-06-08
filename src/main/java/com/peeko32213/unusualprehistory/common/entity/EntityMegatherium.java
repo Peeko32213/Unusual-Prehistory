@@ -36,6 +36,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -316,10 +317,19 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal {
         return PlayState.STOP;
     }
 
+    private <E extends IAnimatable> PlayState diggingPredicate(AnimationEvent<E> event) {
+        if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+            event.getController().markNeedsReload();
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.megatherium.digging"));
+        }
+        return PlayState.CONTINUE;
+    }
+
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(5);
         AnimationController<EntityMegatherium> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        data.addAnimationController(new AnimationController<>(this, "attackController", 2, this::diggingPredicate));
         data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::eatPredicate));
         data.addAnimationController(controller);
     }

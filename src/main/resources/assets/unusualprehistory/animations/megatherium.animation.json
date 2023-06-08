@@ -7,7 +7,7 @@
 			"bones": {
 				"Body": {
 					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.5) * 180) * 0.5", 0, "Math.sin((query.anim_time - 0.0) * 180) * 1"]
+						"vector": ["Math.cos((query.anim_time - 0.5) * 180) * 0.5", 0, "Math.sin((query.anim_time - 0.0) * 180) * 3"]
 					},
 					"position": {
 						"0.5": {
@@ -200,6 +200,99 @@
 				"Sloth": {
 					"position": {
 						"vector": [0, 0, -16]
+					}
+				}
+			}
+		},
+		"animation.megatherium.digging": {
+			"loop": true,
+			"animation_length": 0.75,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.5) * 480) * 1.5", 0, "Math.sin((query.anim_time - 0.0) * 480) * 3"]
+					},
+					"position": {
+						"0.125": {
+							"vector": [0, 0, 0]
+						},
+						"0.3333": {
+							"vector": [0, 0.1, 0]
+						},
+						"0.5417": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 480) * 1", 0, "Math.sin((query.anim_time - 0.2) * 480) * 1.5"]
+					}
+				},
+				"Tounge": {
+					"rotation": {
+						"vector": [
+							"Math.cos((query.anim_time - 0.2) * 480) * 1.1",
+							"Math.cos((query.anim_time - 0.2) * 480) * 5",
+							"Math.sin((query.anim_time - 0.2) * 480) * 1.1"
+						]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"0.0": {
+							"vector": [-42.94218, -46.91981, -38.12634]
+						},
+						"0.3333": {
+							"vector": [-72.32403, -25.68887, 38.92684]
+						},
+						"0.75": {
+							"vector": [-42.94218, -46.91981, -38.12634]
+						}
+					}
+				},
+				"HangClaws1": {
+					"rotation": {
+						"0.0": {
+							"vector": [72.5, 0, 0]
+						},
+						"0.3333": {
+							"vector": [27.5, 0, 0]
+						},
+						"0.75": {
+							"vector": [72.5, 0, 0]
+						}
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"0.0": {
+							"vector": [-42.9422, 46.9198, 38.1263]
+						},
+						"0.3333": {
+							"vector": [-72.324, 25.6889, -38.9268]
+						},
+						"0.75": {
+							"vector": [-42.94218, 46.9198, 38.1263]
+						}
+					}
+				},
+				"HangClaws2": {
+					"rotation": {
+						"0.0": {
+							"vector": [72.5, 0, 0]
+						},
+						"0.3333": {
+							"vector": [27.5, 0, 0]
+						},
+						"0.75": {
+							"vector": [72.5, 0, 0]
+						}
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 480) * 1.1", 0, "Math.sin((query.anim_time - 0.2) * 480) * 1.1"]
 					}
 				}
 			}
