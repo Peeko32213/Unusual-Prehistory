@@ -12,14 +12,14 @@ public class PalaeophisPartModel extends AnimatedGeoModel<EntityPalaeophisPart>
     @Override
     public ResourceLocation getModelResource(EntityPalaeophisPart object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/palaeophis.geo.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/palaeophisparttemp.geo.json");
 
     }
 
     @Override
     public ResourceLocation getTextureResource(EntityPalaeophisPart object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/palaeophis.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/palaeophisparttemp.png");
     }
 
     @Override

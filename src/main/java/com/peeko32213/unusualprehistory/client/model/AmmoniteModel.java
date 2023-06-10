@@ -38,10 +38,6 @@ public class AmmoniteModel extends AnimatedGeoModel<EntityAmmonite>
         if (!entity.isInWater()) {
             body.setRotationZ(1.5708f);
         }
-        else {
-            body.setRotationX(extraData.headPitch * (float)Math.PI / 250F);
-            body.setRotationY(extraData.netHeadYaw * (float)Math.PI / 250F);
-        }
     }
 
 }
