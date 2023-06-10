@@ -1,0 +1,20 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+The most famous of the dinosaurs, these massive theropods hail from the cretaceous period. While neutral to people at first,
+if hit these creatures become quite ferocious in their rage.
+<NEWLINE>
+The Tyrannosaurus can dish out a variety of attacks from a weak stomp that causes a small cloud of weakness to a deadly tail whip that
+launches attackers back. Their most deadly attack however is their devastating bite attack. This attack can easily destroy weaker
+shields and can nearly instantly kill most prey.
+<NEWLINE>
+The best way to deal with this creature in its enraged state is to come prepared with potions, tough armor, and golden apples for
+resistance and regeneration. When the beast is almost near death it will fall into a weakened state. During this state it cannot attack
+or move. When an Adorned Staff is used on it in this state it will heal up and drop some rewards.
+<NEWLINE>
+These rewards consist of scales and teeth. Scales can be used to craft a fine trophy of the beast while
+the teeth can be used to craft a Veloci-shield. Another by product of the pacification is that they will
+become completely pacified, not attacking humans nor animals that hurt it.
+Scales can also be used for the
+creation of Rex Boomboxes, a block that creates a boom effect around it when activated by         redstone.

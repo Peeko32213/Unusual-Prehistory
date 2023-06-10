@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.item;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -17,6 +18,8 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
+
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class ItemEncyclopedia extends Item {
 
@@ -35,8 +38,8 @@ public class ItemEncyclopedia extends Item {
         }
         if (playerIn.level.isClientSide && target.getEncodeId() != null && target.getEncodeId().contains(UnusualPrehistory.MODID + ":")) {
             usedOnEntity = true;
-            String id = target.getEncodeId().replace(UnusualPrehistory.MODID + ":", "");
-            UnusualPrehistory.PROXY.openBookGUI(itemStackIn, id);
+            ResourceLocation resourceLocation = ResourceLocation.tryParse(target.getEncodeId());
+            UnusualPrehistory.PROXY.openBookGUI(resourceLocation);
         }
         return InteractionResult.PASS;
     }
@@ -50,7 +53,7 @@ public class ItemEncyclopedia extends Item {
                 serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
             }
             if (worldIn.isClientSide) {
-                UnusualPrehistory.PROXY.openBookGUI(itemStackIn);
+                UnusualPrehistory.PROXY.openBookGUI(prefix("root"));
             }
         }
         usedOnEntity = false;

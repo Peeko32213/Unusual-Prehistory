@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.peeko32213.unusualprehistory.client.screen.util.AbstractBookScreen;
+import com.peeko32213.unusualprehistory.client.screen.util.AbstractBookScreenOld;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class EncyclopediaScreen extends AbstractBookScreen {
+public class EncyclopediaScreen extends AbstractBookScreenOld {
     private static final ResourceLocation ROOT = new ResourceLocation("unusualprehistory:book/encyclopedia/root.json");
 
     public EncyclopediaScreen(ItemStack bookStack) {

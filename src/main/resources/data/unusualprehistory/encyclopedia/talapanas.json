@@ -1,0 +1,30 @@
+{
+  "text": "talapanas.txt",
+  "title": "    Talapanas",
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:talapanas",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 1.5,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:talapanas",
+      "x": 290,
+      "y": 40,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 1.0,
+      "offset_x":-1,
+      "offset_y": -7,
+      "hover_text": "Talapanas"
+    }
+  ]
+}

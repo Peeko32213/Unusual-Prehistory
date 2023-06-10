@@ -1,15 +1,18 @@
 package com.peeko32213.unusualprehistory.client.screen.util;
 
-public class EntityLinkData {    private String entity;
-    private int x;
-    private int y;
-    private float offset_x;
-    private float offset_y;
-    private double entity_scale;
-    private double scale;
-    private int page;
-    private String linked_page;
-    private String hover_text;
+import net.minecraft.resources.ResourceLocation;
+
+public class EntityLinkData {
+    public String entity;
+    public int x;
+    public int y;
+    public float offset_x;
+    public float offset_y;
+    public double entity_scale;
+    public double scale;
+    public int page;
+    public String linked_page;
+    public String hover_text;
 
     public EntityLinkData(String entity, int x, int y, double scale, double entity_scale, int page, String linked_page, String hover_text, float offset_x, float offset_y) {
         this.entity = entity;

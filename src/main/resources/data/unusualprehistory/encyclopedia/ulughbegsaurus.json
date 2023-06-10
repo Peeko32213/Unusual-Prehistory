@@ -1,0 +1,30 @@
+{
+  "text": "ulugh.txt",
+  "title": "Ulughbegsaurus",
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:ulugh_render",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 0.5,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:ulugh_render",
+      "x": 260,
+      "y": 160,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 0.4,
+      "offset_x": 6,
+      "offset_y": 10,
+      "hover_text": "Ulughbegsaurus"
+    }
+  ]
+}
