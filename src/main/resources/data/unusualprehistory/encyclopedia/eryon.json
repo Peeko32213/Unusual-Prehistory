@@ -1,0 +1,30 @@
+{
+  "text": "eryon.txt",
+  "title": "    Eryon",
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:eryon_render",
+      "x": 90,
+      "y": 85,
+      "page" : 0,
+      "scale": 2.2,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:eryon_render",
+      "x": 350,
+      "y": 120,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 1.5,
+      "offset_x": -14,
+      "offset_y": -18,
+      "hover_text": "Eryon"
+    }
+  ]
+}

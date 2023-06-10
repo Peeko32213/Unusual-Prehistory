@@ -1,11 +1,11 @@
 package com.peeko32213.unusualprehistory.client.screen.util;
 
 public class LinkData {
-    private String linked_page;
-    private String text;
-    private int x;
-    private int y;
-    private int page;
+    public String linked_page;
+    public String text;
+    public int x;
+    public int y;
+    public int page;
 
     public LinkData(String linkedPage, String titleText, int x, int y, int page) {
         this.linked_page = linkedPage;

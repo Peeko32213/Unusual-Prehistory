@@ -1,0 +1,30 @@
+{
+  "text": "trike.txt",
+  "title": "Triceratops",
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:trike_render",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 0.5,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:trike_render",
+      "x": 320,
+      "y": 80,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 0.3,
+      "offset_x": 7,
+      "offset_y": 10,
+      "hover_text": "Triceratops"
+    }
+  ]
+}

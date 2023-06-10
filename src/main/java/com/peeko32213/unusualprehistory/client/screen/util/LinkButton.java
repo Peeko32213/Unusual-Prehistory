@@ -19,13 +19,20 @@ public class LinkButton extends Button {
 
     private static final Map<String, Entity> renderedEntites = new HashMap<>();
     private final EntityLinkData data;
-    private final AbstractBookScreen bookGUI;
+    //private final AbstractBookScreen bookGUI;
+    private final BookScreen bookGUITest;
     private final EnttyRenderWindow window = new EnttyRenderWindow();
+    private static final ResourceLocation BOOK_WIDGET_TEXTURE = new ResourceLocation("unusualprehistory:textures/gui/book/widgets.png");
+   // public LinkButton(AbstractBookScreen bookGUI, EntityLinkData linkData, int k, int l, Button.OnPress o) {
+   //     super(k + linkData.getX() - 12, l + linkData.getY(), (int) (24 * linkData.getScale()), (int) (24 * linkData.getScale()), CommonComponents.GUI_DONE, o);
+   //     this.data = linkData;
+   //     //this.bookGUI = bookGUI;
+   // }
 
-    public LinkButton(AbstractBookScreen bookGUI, EntityLinkData linkData, int k, int l, Button.OnPress o) {
-        super(k + linkData.getX() - 12, l + linkData.getY(), (int) (24 * linkData.getScale()), (int) (24 * linkData.getScale()), CommonComponents.GUI_DONE, o);
+    public LinkButton(BookScreen bookGUI, EntityLinkData linkData, int k, int l, Button.OnPress o) {
+        super(k, l, (int) (24 * linkData.getScale()), (int) (24 * linkData.getScale()), CommonComponents.GUI_DONE, o);
         this.data = linkData;
-        this.bookGUI = bookGUI;
+        this.bookGUITest = bookGUI;
     }
 
     public void renderButton(PoseStack posestack, int mouseX, int mouseY, float partialTicks) {
@@ -34,7 +41,7 @@ public class LinkButton extends Button {
         int lvt_5_1_ = 0;
         int lvt_6_1_ = 30;
         float f = (float) data.getScale();
-        RenderSystem.setShaderTexture(0, bookGUI.getBookWidgetTexture());
+        RenderSystem.setShaderTexture(0, bookGUITest.getBookWidgetTexture());
         posestack.pushPose();
         posestack.translate(this.x, this.y, 0);
         posestack.scale(f, f, 1);
@@ -53,17 +60,17 @@ public class LinkButton extends Button {
         RenderSystem.depthFunc(515);
         RenderSystem.disableDepthTest();
         if (this.isHovered) {
-            bookGUI.setEntityTooltip(this.data.getHoverText());
+            bookGUITest.setEntityTooltip(this.data.getHoverText());
             lvt_5_1_ = 48;
         } else {
             lvt_5_1_ = 24;
         }
-        int color = bookGUI.getWidgetColor();
+        int color = bookGUITest.getWidgetColor();
         int r = (color & 0xFF0000) >> 16;
         int g = (color & 0xFF00) >> 8;
         int b = (color & 0xFF);
         BookBlit.setRGB(r, g, b, 255);
-        RenderSystem.setShaderTexture(0, bookGUI.getBookWidgetTexture());
+        RenderSystem.setShaderTexture(0, bookGUITest.getBookWidgetTexture());
         this.drawBtn(!this.isHovered, posestack, 0, 0, lvt_5_1_, lvt_6_1_, 24, 24);
         posestack.popPose();
     }
@@ -99,12 +106,12 @@ public class LinkButton extends Button {
             RenderSystem.depthFunc(518);
             fill(matrixStack, 22, 22, 2, 2, -16777216);
             RenderSystem.depthFunc(515);
-            RenderSystem.setShaderTexture(0, bookGUI.getBookWidgetTexture());
+            RenderSystem.setShaderTexture(0, bookGUITest.getBookWidgetTexture());
             blit(matrixStack, 0, 0, 0, 30, 24, 24, 256, 256);
             if (toRender != null) {
                 toRender.tickCount = Minecraft.getInstance().player.tickCount;
                 float transitional = Math.max(0.0F, renderScale - 1.0F) * 8;
-                AbstractBookScreen.drawEntityOnScreen(matrixStack, (int) (12 * renderScale + transitional + (x + offsetX)), (int) (24 * renderScale - transitional + y + offsetY), 10 * renderScale, false, 30, -130, 0, 0, 0, toRender);
+                AbstractBookScreenOld.drawEntityOnScreen(matrixStack, (int) (12 * renderScale + transitional + (x + offsetX)), (int) (24 * renderScale - transitional + y + offsetY), 10 * renderScale, false, 30, -130, 0, 0, 0, toRender);
                 RenderSystem.applyModelViewMatrix();
             }
             RenderSystem.depthFunc(518);

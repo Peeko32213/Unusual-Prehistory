@@ -14,7 +14,7 @@ public class PounceGoal extends Goal {
 
     protected EntityBaseDinosaurAnimal entity;
     protected LivingEntity target;
-    protected int ticks = 0;
+    protected int ticks;
     private int chargeTime;
     protected int timer;
     public PounceGoal(EntityBaseDinosaurAnimal entity, int chargeTime) {

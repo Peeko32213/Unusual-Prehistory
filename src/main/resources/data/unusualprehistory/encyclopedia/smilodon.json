@@ -1,0 +1,30 @@
+{
+  "text": "smilodon.txt",
+  "title": "Smilodon",
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:smilodon",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 0.7,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:smilodon",
+      "x": 320,
+      "y": 160,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 0.4,
+      "offset_x": 9,
+      "offset_y": 7,
+      "hover_text": "Smilodon"
+    }
+  ]
+}

@@ -12,12 +12,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class BookPageButton extends Button {
+public class BookPageButtonOld extends Button {
     private final boolean isForward;
     private final boolean playTurnSound;
-    private BookScreen bookGUI;
+    private AbstractBookScreenOld bookGUI;
 
-    public BookPageButton(BookScreen bookGUI, int p_i51079_1_, int p_i51079_2_, boolean p_i51079_3_, OnPress p_i51079_4_, boolean p_i51079_5_) {
+    public BookPageButtonOld(AbstractBookScreenOld bookGUI, int p_i51079_1_, int p_i51079_2_, boolean p_i51079_3_, OnPress p_i51079_4_, boolean p_i51079_5_) {
         super(p_i51079_1_, p_i51079_2_, 23, 13, CommonComponents.GUI_NO, p_i51079_4_);
         this.isForward = p_i51079_3_;
         this.playTurnSound = p_i51079_5_;

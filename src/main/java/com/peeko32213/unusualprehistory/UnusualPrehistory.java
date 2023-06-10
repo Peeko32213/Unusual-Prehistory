@@ -48,22 +48,22 @@ public class UnusualPrehistory {
     private static int packetsRegistered;
     public static final List<Runnable> CALLBACKS = new ArrayList<>();
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final SimpleChannel NETWORK_WRAPPER;
+    //public static final SimpleChannel NETWORK_WRAPPER;
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public static SimpleChannel NETWORK;
 
-    static {
-        NetworkRegistry.ChannelBuilder channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation("unusualprehistory", "main_channel"));
-        String version = PROTOCOL_VERSION;
-        version.getClass();
-        channel = channel.clientAcceptedVersions(version::equals);
-        version = PROTOCOL_VERSION;
-        version.getClass();
-        NETWORK_WRAPPER = channel.serverAcceptedVersions(version::equals).networkProtocolVersion(() -> {
-            return PROTOCOL_VERSION;
-        }).simpleChannel();
-    }
+    //static {
+    //    NetworkRegistry.ChannelBuilder channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation("unusualprehistory", "main_channel"));
+    //    String version = PROTOCOL_VERSION;
+    //    version.getClass();
+    //    channel = channel.clientAcceptedVersions(version::equals);
+    //    version = PROTOCOL_VERSION;
+    //    version.getClass();
+    //    NETWORK_WRAPPER = channel.serverAcceptedVersions(version::equals).networkProtocolVersion(() -> {
+    //        return PROTOCOL_VERSION;
+    //    }).simpleChannel();
+    //}
 
     public UnusualPrehistory() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -113,18 +113,10 @@ public class UnusualPrehistory {
             }
     }
 
-    public static <MSG> void sendMSGToAll(MSG message) {
-        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
-            sendNonLocal(message, player);
-        }
-    }
 
-    public static <MSG> void sendNonLocal(MSG msg, ServerPlayer player) {
-        NETWORK_WRAPPER.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
-    }
+
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        NETWORK_WRAPPER.registerMessage(packetsRegistered++, UPMessageHurtMultipart.class, UPMessageHurtMultipart::write, UPMessageHurtMultipart::read, UPMessageHurtMultipart.Handler::handle);
 
         event.enqueueWork(() -> {
             UPEntityPlacement.entityPlacement();

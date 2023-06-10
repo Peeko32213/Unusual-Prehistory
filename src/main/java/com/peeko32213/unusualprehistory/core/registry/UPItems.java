@@ -31,7 +31,6 @@ public class UPItems {
 
     public static final RegistryObject<Item> ENCYLOPEDIA = ITEMS.register("encyclopedia",
             () -> new ItemEncyclopedia(new Item.Properties().tab(UnusualPrehistory.DINO_TAB).stacksTo(1)));
-
     public static final RegistryObject<Item> AMMONITE_SHELL_ICON = ITEMS.register("ammonite_shell_icon",
             () -> new Item(new Item.Properties()));
 

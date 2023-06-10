@@ -17,23 +17,33 @@ import java.util.*;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class LootFruitJsonManager  extends SimpleJsonResourceReloadListener {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Manages the JSON files for loot fruits and their trades.
+ */
+public class LootFruitJsonManager extends SimpleJsonResourceReloadListener {
     private static final Gson STANDARD_GSON = new Gson();
     public static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * The map of trades for each item.
+     */
     public static Map<Item, List<LootFruitCodec>> trades = new HashMap<>();
     private final String folderName;
 
-
     /**
-     * Constructs a new AnalyzerRecipeJsonManager with the default folder name and Gson instance.
+     * Constructs a new LootFruitJsonManager with the default folder name and Gson instance.
      */
     public LootFruitJsonManager() {
         this(prefix("trades").getPath(), STANDARD_GSON);
     }
 
     /**
-     * Constructs a new AnalyzerRecipeJsonManager with the specified folder name and Gson instance.
+     * Constructs a new LootFruitJsonManager with the specified folder name and Gson instance.
      *
      * @param folderName The folder name where the JSON files are located.
      * @param gson       The Gson instance to use for deserialization.
@@ -43,12 +53,23 @@ public class LootFruitJsonManager  extends SimpleJsonResourceReloadListener {
         this.folderName = folderName;
     }
 
-
+    /**
+     * Gets the map of trades for each item.
+     *
+     * @return The map of trades.
+     */
     public static Map<Item, List<LootFruitCodec>> getTrades() {
         return trades;
     }
 
-    public static List<LootFruitCodec> getLoot(Item item, List<LootFruitCodec> lootFruitCodecList){
+    /**
+     * Gets the loot for the specified item.
+     *
+     * @param item              The item to get the loot for.
+     * @param lootFruitCodecList The list of loot fruits for the item.
+     * @return The list of loot fruits for the item, or an empty list if no loot is found.
+     */
+    public static List<LootFruitCodec> getLoot(Item item, List<LootFruitCodec> lootFruitCodecList) {
         return trades.getOrDefault(item, lootFruitCodecList);
     }
 
@@ -74,3 +95,4 @@ public class LootFruitJsonManager  extends SimpleJsonResourceReloadListener {
         this.trades = trades;
     }
 }
+

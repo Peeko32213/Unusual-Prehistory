@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
+import com.peeko32213.unusualprehistory.common.data.EncyclopediaJsonManager;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
@@ -29,6 +30,7 @@ public class ServerEvents {
     public static void onRegisterReloadListeners(AddReloadListenerEvent event){
         event.addListener(new AnalyzerRecipeJsonManager());
         event.addListener(new LootFruitJsonManager());
+        event.addListener(new EncyclopediaJsonManager());
     }
 
 

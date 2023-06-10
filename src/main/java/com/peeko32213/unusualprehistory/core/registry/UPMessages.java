@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.message.UPMessageHurtMultipart;
 import com.peeko32213.unusualprehistory.common.networking.packet.AmberProtectionSyncS2CPacket;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.core.registry.util.*;
@@ -89,6 +90,13 @@ public class UPMessages {
                 .consumerMainThread(MegatheriumKeyOutputMessage::handle)
                 .add();
 
+        net.messageBuilder(UPMessageHurtMultipart.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(UPMessageHurtMultipart::read)
+                .encoder(UPMessageHurtMultipart::write)
+                .consumerMainThread(UPMessageHurtMultipart.Handler::handle)
+                .add();
+
+
 
     }
 
@@ -103,5 +111,5 @@ public class UPMessages {
     public static <MSG> void sendToClients(MSG message) {
         INSTANCE.send(PacketDistributor.ALL.noArg(), message);
     }
-    }
+}
 

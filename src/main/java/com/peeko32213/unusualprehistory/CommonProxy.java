@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
@@ -13,12 +14,7 @@ public class CommonProxy {
         return null;
     }
 
-    public void openBookGUI(ItemStack itemStackIn) {
+    public void openBookGUI(ResourceLocation resourceLocation) {
     }
-
-    public void openBookGUI(ItemStack itemStackIn, String page) {
-    }
-
-
 
 }

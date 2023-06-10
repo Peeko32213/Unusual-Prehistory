@@ -1,12 +1,12 @@
 package com.peeko32213.unusualprehistory.client.screen.util;
 
 public class ItemRenderData {
-    private String item;
-    private String item_tag = "";
-    private int x;
-    private int y;
-    private double scale;
-    private int page;
+   public String item;
+   public String item_tag = "";
+   public int x;
+   public int y;
+   public double scale;
+   public int page;
 
     public ItemRenderData(String item, int x, int y, double scale, int page) {
         this.item = item;

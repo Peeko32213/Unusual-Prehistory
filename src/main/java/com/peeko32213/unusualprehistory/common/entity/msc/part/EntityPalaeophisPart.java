@@ -7,12 +7,14 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.HurtableMultipart
 import com.peeko32213.unusualprehistory.common.entity.msc.util.PalaeophisPartIndex;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.UPMath;
 import com.peeko32213.unusualprehistory.common.message.UPMessageHurtMultipart;
+import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -112,7 +114,9 @@ public class EntityPalaeophisPart extends LivingEntity implements HurtableMultip
                 if (parent != null) {
                     if (parent instanceof final LivingEntity livingEntityParent) {
                         if (livingEntityParent.hurtTime > 0 || livingEntityParent.deathTime > 0) {
-                            UnusualPrehistory.sendMSGToAll(new UPMessageHurtMultipart(this.getId(), parent.getId(), 0));
+                            for(Player player : this.level.getServer().getPlayerList().getPlayers()){
+                                UPMessages.sendToPlayer(new UPMessageHurtMultipart(this.getId(), parent.getId(), 0), (ServerPlayer) player);
+                            }
                             this.hurtTime = livingEntityParent.hurtTime;
                             this.deathTime = livingEntityParent.deathTime;
                         }

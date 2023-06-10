@@ -1,0 +1,32 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+A dubious theropod from the Late Cretaceous period, these medium-sized dinosaurs are
+rather tame as they seem to be more used to chasing beach dwellers rather than bigger game.
+
+However, one of their most unique traits is their crest colors. These crest colors determine what
+style of life these dinosaurs live.
+Blue crest-colored individuals are much faster, being more adapted to chasing down prey.
+White crest-colored individuals are more bulky, much more adapted to fending off predators or rivals.
+Orange crest-colored individuals have much more powerful bites, allowing them to crack bones for nutrients.
+Yellow crest-colored individuals have a special venom that disables joints, particularly in the arms, this will prevent the player from doing any actions with their hands besides mining and attacking
+Brown crest-colored individuals have are very durable, having thick scales that protect the animal.
+
+<NEWLINE>
+These creatures are also relatively easy to tame and ride, as their preferred foods are
+indicated by their crest colors. So far, I have found that the following foods can tame these
+crest colors.
+
+White: Raw Austroraptor
+<NEWLINE>
+Blue: Raw Scaumencia
+<NEWLINE>
+Yellow: Golden Scaumencia
+<NEWLINE>
+Orange: Raw Coty
+<NEWLINE>
+Brown: Raw Stethacanthus
+<NEWLINE>
+There is a high chance that more crest colors exist that I have yet to document and more
+foods I have yet to discover for    taming.
