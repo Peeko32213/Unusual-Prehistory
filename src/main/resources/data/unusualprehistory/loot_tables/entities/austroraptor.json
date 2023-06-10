@@ -23,7 +23,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_austro"
+          "name": "unusualprehistory:raw_austro"
         }
       ],
       "conditions": [
