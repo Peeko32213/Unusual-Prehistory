@@ -80,10 +80,10 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.BLUE_FRUIT, "Salubrious  Fruit");
 
         //SCRAPS
-        addItem(UPItems.RED_FRUIT_SCRAPS, "Loot Fruit Scraps");
-        addItem(UPItems.WHITE_FRUIT_SCRAPS, "Exotic Fruit Scraps");
-        addItem(UPItems.YELLOW_FRUIT_SCRAPS, "Luxurious Fruit Scraps");
-        addItem(UPItems.BLUE_FRUIT_SCRAPS, "Pristine Fruit Scraps");
+        addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
+        addItem(UPItems.WHITE_FRUIT_SCRAPS, "Luxurious Fruit Scraps");
+        addItem(UPItems.YELLOW_FRUIT_SCRAPS, "Redolent Fruit Scraps");
+        addItem(UPItems.BLUE_FRUIT_SCRAPS, "Salubrious Fruit Scraps");
 
         //BUCKETS
         addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");
@@ -263,20 +263,20 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.AMBER_BUTTON, "Amber Button");
 
         //FOXXI
-        addBlock(UPBlocks.FOXXI_PLANKS, "Foxxi Planks");
-        addBlock(UPBlocks.FOXXI_WOOD, "Foxxi Wood");
-        addBlock(UPBlocks.STRIPPED_FOXXI_WOOD, "Stripped Foxxi Wood");
-        addBlock(UPBlocks.FOXXI_LEAVES, "Foxxi Leaves");
-        addBlock(UPBlocks.FOXXI_LOG, "Foxxi Log");
-        addBlock(UPBlocks.STRIPPED_FOXXI_LOG, "Stripped Foxxi Log");
-        addBlock(UPBlocks.FOXXI_STAIRS, "Foxxi Stairs");
-        addBlock(UPBlocks.FOXXI_SLAB, "Foxxi Slab");
-        addBlock(UPBlocks.FOXXI_FENCE, "Foxxi Fence");
-        addBlock(UPBlocks.FOXXI_FENCE_GATE, "Foxxi Fence Gate");
-        addBlock(UPBlocks.FOXXI_BUTTON, "Foxxi Button");
-        addBlock(UPBlocks.FOXXI_PRESSURE_PLATE, "Foxxi Pressure Plate");
-        addBlock(UPBlocks.FOXXI_DOOR, "Foxxi Door");
-        addBlock(UPBlocks.FOXXI_TRAPDOOR, "Foxxi Trapdoor");
+        addBlock(UPBlocks.FOXXI_PLANKS, "Foxii Planks");
+        addBlock(UPBlocks.FOXXI_WOOD, "Foxii Wood");
+        addBlock(UPBlocks.STRIPPED_FOXXI_WOOD, "Stripped Foxii Wood");
+        addBlock(UPBlocks.FOXXI_LEAVES, "Foxii Leaves");
+        addBlock(UPBlocks.FOXXI_LOG, "Foxii Log");
+        addBlock(UPBlocks.STRIPPED_FOXXI_LOG, "Stripped Foxii Log");
+        addBlock(UPBlocks.FOXXI_STAIRS, "Foxii Stairs");
+        addBlock(UPBlocks.FOXXI_SLAB, "Foxii Slab");
+        addBlock(UPBlocks.FOXXI_FENCE, "Foxii Fence");
+        addBlock(UPBlocks.FOXXI_FENCE_GATE, "Foxii Fence Gate");
+        addBlock(UPBlocks.FOXXI_BUTTON, "Foxii Button");
+        addBlock(UPBlocks.FOXXI_PRESSURE_PLATE, "Foxii Pressure Plate");
+        addBlock(UPBlocks.FOXXI_DOOR, "Foxii Door");
+        addBlock(UPBlocks.FOXXI_TRAPDOOR, "Foxii Trapdoor");
 
         //DRYO
         addBlock(UPBlocks.DRYO_PLANKS, "Dryophyllum Planks");
