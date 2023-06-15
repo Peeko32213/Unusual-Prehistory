@@ -18,4 +18,17 @@ public class PalaeophisRenderer extends GeoEntityRenderer<EntityPalaeophis> {
         super(context, new PalaeophisModel());
     }
 
+    public boolean shouldRender(EntityPalaeophis livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
+        if (super.shouldRender(livingEntityIn, camera, camX, camY, camZ)) {
+            return true;
+        } else {
+            for (EntityPalaeophisPart part : livingEntityIn.snakeParts) {
+                if (camera.isVisible(part.getBoundingBox())) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
 }

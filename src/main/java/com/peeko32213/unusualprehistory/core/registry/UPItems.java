@@ -173,6 +173,33 @@ public class UPItems {
 
     public static final RegistryObject<Item> KENTRO_FLASK = ITEMS.register("kentro_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> GIGANTO_FLASK = ITEMS.register("giganto_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> SMILO_FLASK = ITEMS.register("smilo_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> MEGATH_FLASK = ITEMS.register("megath_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> PARACER_FLASK = ITEMS.register("paracer_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> MAMMOTH_FLASK = ITEMS.register("mammoth_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> BARIN_FLASK = ITEMS.register("barin_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> PALAEO_FLASK = ITEMS.register("palaeo_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> MEGALA_FLASK = ITEMS.register("megala_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> TALAPANAS_FLASK = ITEMS.register("talapanas_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> FROG_SALIVA = ITEMS.register("frog_saliva",
@@ -370,6 +397,29 @@ public class UPItems {
             () -> new StandingAndWallBlockItem(UPBlocks.DEAD_CLATHRODICTYON_FAN.get(), UPBlocks.DEAD_CLATHRODICTYON_WALL_FAN.get(),
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Item> RED_FRUIT_SCRAPS = ITEMS.register("red_fruit_scraps",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> WHITE_FRUIT_SCRAPS = ITEMS.register("white_fruit_scraps",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> YELLOW_FRUIT_SCRAPS = ITEMS.register("yellow_fruit_scraps",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> BLUE_FRUIT_SCRAPS = ITEMS.register("blue_fruit_scraps",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> RED_FRUIT = ITEMS.register("red_fruit",
+            () -> new Item(new Item.Properties().food(ModFood.RED_FRUIT).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> WHITE_FRUIT = ITEMS.register("white_fruit",
+            () -> new Item(new Item.Properties().food(ModFood.WHITE_FRUIT).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> YELLOW_FRUIT = ITEMS.register("yellow_fruit",
+            () -> new Item(new Item.Properties().food(ModFood.YELLOW_FRUIT).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> BLUE_FRUIT = ITEMS.register("blue_fruit",
+            () -> new Item(new Item.Properties().food(ModFood.BLUE_FRUIT).tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> GINKGO_SIGN = ITEMS.register("ginkgo_sign",
             () -> new SignItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPBlocks.GINKGO_SIGN.get(), UPBlocks.GINKGO_WALL_SIGN.get()));
 

@@ -235,7 +235,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal {
                     f1 *= 0.25F;
                 }
 
-                this.setSpeed(0.3F);
+                this.setSpeed(0.1F);
                 super.travel(new Vec3((double) f, pos.y, (double) f1));
 
             } else {

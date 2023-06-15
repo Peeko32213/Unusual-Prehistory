@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisP
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.NearestTargetAI;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.PalaeophisPartIndex;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.UPMath;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -70,13 +71,28 @@ public class EntityPalaeophis extends WaterAnimal implements IAnimatable {
     private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> CHILD_ID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    public EntityPalaeophisPart[] parts;
-    public final float[] ringBuffer = new float[64];
+    public final EntityPalaeophisPart headPart;
+    public final EntityPalaeophisPart bodyFrontPart;
+    public final EntityPalaeophisPart bodyPart;
+    public final EntityPalaeophisPart tail1Part;
+    public final EntityPalaeophisPart tail2Part;
+    public final EntityPalaeophisPart tail3Part;
+    public final EntityPalaeophisPart[] snakeParts;
+    public final double[][] ringBuffer = new double[64][3];
     public int ringBufferIndex = -1;
+
+
 
     public EntityPalaeophis(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.headPart = new EntityPalaeophisPart(this, 2.0F, 0.9F);
+        this.bodyFrontPart = new EntityPalaeophisPart(this, 4.0F, 0.9F);
+        this.bodyPart = new EntityPalaeophisPart(this, 4.0F, 0.9F);
+        this.tail1Part = new EntityPalaeophisPart(this, 2.0F, 0.9F);
+        this.tail2Part = new EntityPalaeophisPart(this, 2.0F, 0.9F);
+        this.tail3Part = new EntityPalaeophisPart(this, 1.0F, 0.5F);
+        this.snakeParts = new EntityPalaeophisPart[]{this.headPart, this.bodyFrontPart, this.bodyPart, this.tail1Part, this.tail2Part, this.tail3Part};
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
         this.moveControl = new EntityPalaeophis.MoveHelperController(this);
     }
@@ -99,6 +115,16 @@ public class EntityPalaeophis extends WaterAnimal implements IAnimatable {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
 
+    }
+
+    public void scaleParts() {
+        for (EntityPalaeophisPart parts : snakeParts) {
+            float prev = parts.scale;
+            parts.scale = this.isBaby() ? 0.5F : 1F;
+            if (prev != parts.scale) {
+                parts.refreshDimensions();
+            }
+        }
     }
 
     public void checkDespawn() {
@@ -201,107 +227,107 @@ public class EntityPalaeophis extends WaterAnimal implements IAnimatable {
         return null;
     }
 
-    public void tick() {
-        super.tick();
-        if (this.ringBufferIndex < 0) {
-            for (int i = 0; i < this.ringBuffer.length; ++i) {
-                this.ringBuffer[i] = this.getYRot();
-            }
-        }
-        this.ringBufferIndex++;
-        if (this.ringBufferIndex == this.ringBuffer.length) {
-            this.ringBufferIndex = 0;
-        }
-        this.ringBuffer[this.ringBufferIndex] = this.getYRot();
-        if (!level.isClientSide) {
-            final int segments = 7;
-            final Entity child = getChild();
-            if (child == null) {
-                LivingEntity partParent = this;
-                parts = new EntityPalaeophisPart[segments];
-                PalaeophisPartIndex partIndex = PalaeophisPartIndex.HEAD;
-                Vec3 prevPos = this.position();
-                for (int i = 0; i < segments; i++) {
-                    final float prevReqRot = calcPartRotation(i) + getYawForPart(i);
-                    final float reqRot = calcPartRotation(i + 1) + getYawForPart(i);
-                    EntityPalaeophisPart part = new EntityPalaeophisPart(UPEntities.PALAEOPHIS_PART.get(), this);
-                    part.setParent(partParent);
-                    part.copyDataFrom(this);
-                    part.setBodyIndex(i);
-                    if (partParent == this) {
-                        this.setChildId(part.getUUID());
-                        this.entityData.set(CHILD_ID, part.getId());
-                    }
-                    if (partParent instanceof EntityPalaeophisPart) {
-                        ((EntityPalaeophisPart) partParent).setChildId(part.getUUID());
-                    }
-                    part.setPos(part.tickMultipartPosition(this.getId(), partIndex, prevPos, this.getXRot(), prevReqRot, reqRot, false));
-                    partParent = part;
-                    level.addFreshEntity(part);
-                    parts[i] = part;
-                    partIndex = part.getPartType();
-                    prevPos = part.position();
+    public void aiStep() {
+        super.aiStep();
+        scaleParts();
+        if (!this.isNoAi()) {
+            if (this.ringBufferIndex < 0) {
+                for (int i = 0; i < this.ringBuffer.length; ++i) {
+                    this.ringBuffer[i][0] = this.getYRot();
+                    this.ringBuffer[i][1] = this.getY();
                 }
             }
-            if (shouldReplaceParts() && this.getChild() instanceof EntityPalaeophisPart) {
-                parts = new EntityPalaeophisPart[segments];
-                parts[0] = (EntityPalaeophisPart) this.getChild();
-                this.entityData.set(CHILD_ID, parts[0].getId());
-                int i = 1;
-                while (i < parts.length && parts[i - 1].getChild() instanceof EntityPalaeophisPart) {
-                    parts[i] = (EntityPalaeophisPart) parts[i - 1].getChild();
-                    i++;
-                }
+            this.ringBufferIndex++;
+            if (this.ringBufferIndex == this.ringBuffer.length) {
+                this.ringBufferIndex = 0;
             }
-            PalaeophisPartIndex partIndex = PalaeophisPartIndex.HEAD;
-            Vec3 prev = this.position();
-            float xRot = this.getXRot();
-//                float yRot = this.getYRot();
-//                float headRot = Mth.wrapDegrees(this.getYRot());
+            this.ringBuffer[this.ringBufferIndex][0] = this.getYRot();
+            this.ringBuffer[ringBufferIndex][1] = this.getY();
+            Vec3[] avector3d = new Vec3[this.snakeParts.length];
+
+            for (int j = 0; j < this.snakeParts.length; ++j) {
+                this.snakeParts[j].collideWithNearbyEntities();
+                avector3d[j] = new Vec3(this.snakeParts[j].getX(), this.snakeParts[j].getY(), this.snakeParts[j].getZ());
+            }
+            final float f15 = (float) (this.getMovementOffsets(5, 1.0F)[1] - this.getMovementOffsets(10, 1.0F)[1]) * 10.0F * UPMath.piDividedBy180;
+            final float f16 = Mth.cos(f15);
+            final float f17 = this.getYRot() * UPMath.piDividedBy180;
+            final float pitch = this.getXRot() * UPMath.piDividedBy180;
+            final float f3 = Mth.sin(f17) * (1 - Math.abs(this.getXRot() / 90F));
+            final float f18 = Mth.cos(f17) * (1 - Math.abs(this.getXRot() / 90F));
+
+            this.setPartPosition(this.bodyPart, f3 * 0.5F, -pitch * 0.5F, -f18 * 0.5F);
+            this.setPartPosition(this.bodyFrontPart, (f3) * -3.5F, -pitch * 3F, (f18) * 1.5F);
+            this.setPartPosition(this.headPart, f3 * -2F, -pitch * 2F, -f18 * -2F);
+            double[] adouble = this.getMovementOffsets(5, 1.0F);
+
+            for (int k = 0; k < 3; ++k) {
+                final EntityPalaeophisPart enderdragonpartentity;
+                if (k == 0) {
+                    enderdragonpartentity = this.tail1Part;
+                } else if (k == 1) {
+                    enderdragonpartentity = this.tail2Part;
+                } else {
+                    enderdragonpartentity = this.tail3Part;
+                }
+
+                final double[] adouble1 = this.getMovementOffsets(15 + k * 5, 1.0F);
+                final float f7 = this.getYRot() * UPMath.piDividedBy180 + (float) Mth.wrapDegrees(adouble1[0] - adouble[0]) * UPMath.piDividedBy180;
+                final float f19 = 1 - Math.abs(this.getXRot() / 90F);
+                final float f20 = Mth.sin(f7) * f19;
+                final float f21 = Mth.cos(f7) * f19;
+                final float f22 = -3.6F;
+                final float f23 = (float) (k + 1) * f22 - 2F;
+                this.setPartPosition(enderdragonpartentity, -(f3 * 0.5F + f20 * f23) * f16, pitch * 1.5F * (k + 1), (f18 * 0.5F + f21 * f23) * f16);
+            }
+
+            for (int l = 0; l < this.snakeParts.length; ++l) {
+                this.snakeParts[l].xo = avector3d[l].x;
+                this.snakeParts[l].yo = avector3d[l].y;
+                this.snakeParts[l].zo = avector3d[l].z;
+                this.snakeParts[l].xOld = avector3d[l].x;
+                this.snakeParts[l].yOld = avector3d[l].y;
+                this.snakeParts[l].zOld = avector3d[l].z;
+            }
         }
     }
 
-    private float calcPartRotation(int i) {
-        final float f = 1 - (1 * 0.2F);
-        final float strangleIntensity = (float) (Mth.clamp(2 * 3, 0, 100F) * (1.0F + 0.2F * Math.sin(0.15F * 2)));
-        return (float) (40 * -Math.sin(this.walkDist * 3 - (i))) * f + 3 * 0.2F * i * strangleIntensity;
-    }
-
-    public float getRingBuffer(int bufferOffset, float partialTicks) {
+    public double[] getMovementOffsets(int p_70974_1_, float partialTicks) {
         if (this.isDeadOrDying()) {
             partialTicks = 0.0F;
         }
 
         partialTicks = 1.0F - partialTicks;
-        final int i = this.ringBufferIndex - bufferOffset & 63;
-        final int j = this.ringBufferIndex - bufferOffset - 1 & 63;
-        final float d0 = this.ringBuffer[i];
-        final float d1 = this.ringBuffer[j] - d0;
-        return Mth.wrapDegrees(d0 + d1 * partialTicks);
+        final int i = this.ringBufferIndex - p_70974_1_ & 63;
+        final int j = this.ringBufferIndex - p_70974_1_ - 1 & 63;
+        final double[] adouble = new double[3];
+        double d0 = this.ringBuffer[i][0];
+        double d1 = this.ringBuffer[j][0] - d0;
+        adouble[0] = d0 + d1 * (double) partialTicks;
+        d0 = this.ringBuffer[i][1];
+        d1 = this.ringBuffer[j][1] - d0;
+        adouble[1] = d0 + d1 * (double) partialTicks;
+        adouble[2] = Mth.lerp(partialTicks, this.ringBuffer[i][2], this.ringBuffer[j][2]);
+        return adouble;
     }
 
-    private boolean shouldReplaceParts() {
-        if (parts == null || parts[0] == null)
-            return true;
-
-        for (int i = 0; i < 7; i++) {
-            if (parts[i] == null) {
-                return true;
-            }
-        }
-
-        return false;
+    private void setPartPosition(EntityPalaeophisPart part, double offsetX, double offsetY, double offsetZ) {
+        part.setPos(this.getX() + offsetX * part.scale, this.getY() + offsetY * part.scale, this.getZ() + offsetZ * part.scale);
     }
 
-    private float getYawForPart(int i) {
-        return this.getRingBuffer(4 + i * 2, 1.0F);
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
     }
 
-    public void aiStep() {
-
-        super.aiStep();
+    public boolean attackEntityPartFrom(EntityPalaeophisPart entityCachalotPart, DamageSource source, float amount) {
+        return this.hurt(source, amount);
     }
 
+    @Override
+    public net.minecraftforge.entity.PartEntity<?>[] getParts() {
+        return this.snakeParts;
+    }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         int animState = this.getAnimationState();
@@ -314,19 +340,16 @@ public class EntityPalaeophis extends WaterAnimal implements IAnimatable {
                 default:
                     if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.swim"));
-                        event.getController().setAnimationSpeed(0.5D);
-
+                        event.getController().setAnimationSpeed(0.6D);
                         return PlayState.CONTINUE;
                     }
                     if (!this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.beached"));
-                        event.getController().setAnimationSpeed(2.0F);
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
+                        event.getController().setAnimationSpeed(0.3D);
                         return PlayState.CONTINUE;
                     }
                     else {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
-                        event.getController().setAnimationSpeed(0.5D);
-
                         return PlayState.CONTINUE;
                     }
 
@@ -341,7 +364,7 @@ public class EntityPalaeophis extends WaterAnimal implements IAnimatable {
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(1);
-        AnimationController<EntityPalaeophis> controller = new AnimationController<>(this, "controller", 2, this::predicate);
+        AnimationController<EntityPalaeophis> controller = new AnimationController<>(this, "controller", 5, this::predicate);
         data.addAnimationController(controller);
     }
 
@@ -356,18 +379,6 @@ public class EntityPalaeophis extends WaterAnimal implements IAnimatable {
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
-    }
-
-
-    class IMeleeAttackGoal extends MeleeAttackGoal {
-        public IMeleeAttackGoal() {
-            super(EntityPalaeophis.this, 1.6D, true);
-        }
-
-        protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.7F + p_25556_.getBbWidth());
-        }
-
     }
 
 

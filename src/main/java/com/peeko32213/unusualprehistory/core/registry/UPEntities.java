@@ -149,7 +149,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "barinasuchus").toString()));
 
     public static final RegistryObject<EntityType<EntityMegatherium>> MEGATHERIUM = ENTITIES.register("megatherium",
-            () -> EntityType.Builder.of(EntityMegatherium::new, MobCategory.CREATURE).sized(4.0F, 3.0F)
+            () -> EntityType.Builder.of(EntityMegatherium::new, MobCategory.CREATURE).sized(2.9F, 3.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megatherium").toString()));
 
     public static final RegistryObject<EntityType<EntitySmilodon>> SMILODON = ENTITIES.register("smilodon",
@@ -165,12 +165,9 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "mammoth").toString()));
 
     public static final RegistryObject<EntityType<EntityPalaeophis>> PALAEOPHIS = ENTITIES.register("palaophis",
-            () -> EntityType.Builder.of(EntityPalaeophis::new, MobCategory.WATER_CREATURE).sized(1.5F, 1.5F)
+            () -> EntityType.Builder.of(EntityPalaeophis::new, MobCategory.WATER_CREATURE).sized(5.5F, 1.5F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "palaophis").toString()));
 
-    public static final RegistryObject<EntityType<EntityPalaeophisPart>> PALAEOPHIS_PART = ENTITIES.register("palaophis_part",
-            () -> registerEntity(EntityType.Builder.of(EntityPalaeophisPart::new, MobCategory.MISC).sized(1.5F, 1.5F)
-                    .setShouldReceiveVelocityUpdates(true).setUpdateInterval(1), "palaophis_part"));
     public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = ENTITIES.register("megalania",
             () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(3.0F, 2.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()));

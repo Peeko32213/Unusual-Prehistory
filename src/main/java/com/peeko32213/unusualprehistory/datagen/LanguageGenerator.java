@@ -74,6 +74,16 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAW_AUSTRO, "Raw Austroraptor");
         addItem(UPItems.COOKED_AUSTRO, "Cooked Austroraptor");
         addItem(UPItems.MEATY_BUFFET, "Meaty Buffet");
+        addItem(UPItems.RED_FRUIT, "Exotic Fruit");
+        addItem(UPItems.WHITE_FRUIT, "Luxurious Fruit");
+        addItem(UPItems.YELLOW_FRUIT, "Redolent Fruit");
+        addItem(UPItems.BLUE_FRUIT, "Salubrious  Fruit");
+
+        //SCRAPS
+        addItem(UPItems.RED_FRUIT_SCRAPS, "Loot Fruit Scraps");
+        addItem(UPItems.WHITE_FRUIT_SCRAPS, "Exotic Fruit Scraps");
+        addItem(UPItems.YELLOW_FRUIT_SCRAPS, "Luxurious Fruit Scraps");
+        addItem(UPItems.BLUE_FRUIT_SCRAPS, "Pristine Fruit Scraps");
 
         //BUCKETS
         addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");
@@ -184,6 +194,15 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.HWACHA_FLASK, "Hwachavenator DNA Flask");
         addItem(UPItems.KENTRO_FLASK, "Kentrosaurus DNA Flask");
         addItem(UPItems.ULUGH_FLASK, "Ulughbegsaurus DNA Flask");
+        addItem(UPItems.GIGANTO_FLASK, "Gigantopithicus DNA Flask");
+        addItem(UPItems.SMILO_FLASK, "Smilodon DNA Flask");
+        addItem(UPItems.MEGATH_FLASK, "Megatherium DNA Flask");
+        addItem(UPItems.PARACER_FLASK, "Paraceratherium DNA Flask");
+        addItem(UPItems.MAMMOTH_FLASK, "Mammoth DNA Flask");
+        addItem(UPItems.BARIN_FLASK, "Barinasuchus DNA Flask");
+        addItem(UPItems.PALAEO_FLASK, "Palaeolophis DNA Flask");
+        addItem(UPItems.MEGALA_FLASK, "Megalania DNA Flask");
+        addItem(UPItems.TALAPANAS_FLASK, "Talapanas DNA Flask");
 
         //CORALS
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");
@@ -242,6 +261,38 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.GINKGO_PRESSURE_PLATE, "Prehistoric Ginkgo Pressure Plate");
         addItem(UPItems.GINKGO_SIGN, "Prehistoric Ginkgo Sign");
         addBlock(UPBlocks.AMBER_BUTTON, "Amber Button");
+
+        //FOXXI
+        addBlock(UPBlocks.FOXXI_PLANKS, "Foxxi Planks");
+        addBlock(UPBlocks.FOXXI_WOOD, "Foxxi Wood");
+        addBlock(UPBlocks.STRIPPED_FOXXI_WOOD, "Stripped Foxxi Wood");
+        addBlock(UPBlocks.FOXXI_LEAVES, "Foxxi Leaves");
+        addBlock(UPBlocks.FOXXI_LOG, "Foxxi Log");
+        addBlock(UPBlocks.STRIPPED_FOXXI_LOG, "Stripped Foxxi Log");
+        addBlock(UPBlocks.FOXXI_STAIRS, "Foxxi Stairs");
+        addBlock(UPBlocks.FOXXI_SLAB, "Foxxi Slab");
+        addBlock(UPBlocks.FOXXI_FENCE, "Foxxi Fence");
+        addBlock(UPBlocks.FOXXI_FENCE_GATE, "Foxxi Fence Gate");
+        addBlock(UPBlocks.FOXXI_BUTTON, "Foxxi Button");
+        addBlock(UPBlocks.FOXXI_PRESSURE_PLATE, "Foxxi Pressure Plate");
+        addBlock(UPBlocks.FOXXI_DOOR, "Foxxi Door");
+        addBlock(UPBlocks.FOXXI_TRAPDOOR, "Foxxi Trapdoor");
+
+        //DRYO
+        addBlock(UPBlocks.DRYO_PLANKS, "Dryophyllum Planks");
+        addBlock(UPBlocks.DRYO_WOOD, "Dryophyllum Wood");
+        addBlock(UPBlocks.STRIPPED_DRYO_WOOD, "Stripped Dryophyllum Wood");
+        addBlock(UPBlocks.DRYO_LEAVES, "Dryophyllum Leaves");
+        addBlock(UPBlocks.DRYO_LOG, "Dryophyllum Log");
+        addBlock(UPBlocks.STRIPPED_DRYO_LOG, "Stripped Dryophyllum Log");
+        addBlock(UPBlocks.DRYO_STAIRS, "Dryophyllum Stairs");
+        addBlock(UPBlocks.DRYO_SLAB, "Dryophyllum Slab");
+        addBlock(UPBlocks.DRYO_FENCE, "Dryophyllum Fence");
+        addBlock(UPBlocks.DRYO_FENCE_GATE, "Dryophyllum Fence Gate");
+        addBlock(UPBlocks.DRYO_BUTTON, "Dryophyllum Button");
+        addBlock(UPBlocks.DRYO_PRESSURE_PLATE, "Dryophyllum Pressure Plate");
+        addBlock(UPBlocks.DRYO_DOOR, "Dryophyllum Door");
+        addBlock(UPBlocks.DRYO_TRAPDOOR, "Dryophyllum Trapdoor");
 
         //PETRIFIED
         addBlock(UPBlocks.PETRIFIED_WOOD_PLANKS, "Petrified Planks");

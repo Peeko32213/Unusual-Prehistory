@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left_open",
+  "textures": {
+    "bottom": "unusualprehistory:block/dryo_door_bottom",
+    "top": "unusualprehistory:block/dryo_door_top"
+  }
+}

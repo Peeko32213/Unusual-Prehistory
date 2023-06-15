@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "unusualprehistory:block/foxxi_planks",
+    "side": "unusualprehistory:block/foxxi_planks",
+    "top": "unusualprehistory:block/foxxi_planks"
+  }
+}

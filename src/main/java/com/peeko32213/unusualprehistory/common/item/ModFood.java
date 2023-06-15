@@ -26,9 +26,14 @@ public class ModFood {
 
     //Special
     public static final FoodProperties GOLDEN_SCAU = (new FoodProperties.Builder()).nutrition(15).saturationMod(2.2F).meat().build();
-
     public static final FoodProperties AMBER_GUMMY = (new FoodProperties.Builder()).nutrition(2).saturationMod(2.2F).alwaysEat().fast().build();
     public static final FoodProperties MEATY_BUFFET = (new FoodProperties.Builder()).nutrition(3).saturationMod(0.5F).meat().build();
+
+    //Loot Fruits
+    public static final FoodProperties RED_FRUIT = (new FoodProperties.Builder()).nutrition(5).saturationMod(0.4F).build();
+    public static final FoodProperties WHITE_FRUIT = (new FoodProperties.Builder()).nutrition(7).saturationMod(0.8F).build();
+    public static final FoodProperties YELLOW_FRUIT = (new FoodProperties.Builder()).nutrition(9).saturationMod(1.6F).build();
+    public static final FoodProperties BLUE_FRUIT = (new FoodProperties.Builder()).nutrition(11).saturationMod(3.2F).build();
 
 
     //Grogs
@@ -38,5 +43,5 @@ public class ModFood {
             .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 0), 0.5F)
             .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 1200, 0), 0.5F)
             .build();
-    //Bowls
+
 }

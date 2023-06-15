@@ -61,7 +61,16 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.ULUGH_FLASK.get())
                 .add(UPItems.AUSTRO_FLASK.get())
                 .add(UPItems.ANTARCTO_FLASK.get())
-                .add(UPItems.ENCRUSTED_FLASK.get());
+                .add(UPItems.ENCRUSTED_FLASK.get())
+                .add(UPItems.GIGANTO_FLASK.get())
+                .add(UPItems.SMILO_FLASK.get())
+                .add(UPItems.MEGATH_FLASK.get())
+                .add(UPItems.PARACER_FLASK.get())
+                .add(UPItems.MAMMOTH_FLASK.get())
+                .add(UPItems.BARIN_FLASK.get())
+                .add(UPItems.PALAEO_FLASK.get())
+                .add(UPItems.MEGALA_FLASK.get())
+                .add(UPItems.TALAPANAS_FLASK.get());
 
         tag(UPTags.FOSSILS)
                 .add(UPItems.AMBER_FOSSIL.get())
@@ -101,6 +110,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.ORGANIC_OOZE.get());
 
         tag(ItemTags.LEAVES)
+                .add(UPBlocks.FOXXI_LEAVES.get().asItem())
+                .add(UPBlocks.DRYO_LEAVES.get().asItem())
                 .add(UPBlocks.GINKGO_LEAVES.get().asItem());
 
         tag(UPTags.PETRIFIED_WOOD)
@@ -111,7 +122,9 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(ItemTags.PLANKS)
                 .add(UPBlocks.GINKGO_PLANKS.get().asItem())
-                .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get().asItem());
+                .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get().asItem())
+                .add(UPBlocks.DRYO_PLANKS.get().asItem())
+                .add(UPBlocks.FOXXI_PLANKS.get().asItem());
 
         tag(ItemTags.SAPLINGS)
                 .add(UPBlocks.GINKGO_SAPLING.get().asItem());
@@ -134,6 +147,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(ItemTags.WOODEN_FENCES)
                 .add(UPBlocks.GINKGO_FENCE.get().asItem())
+                .add(UPBlocks.FOXXI_FENCE.get().asItem())
+                .add(UPBlocks.DRYO_FENCE.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD_FENCE.get().asItem());
 
         tag(ItemTags.FISHES)
@@ -146,10 +161,14 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(ItemTags.BUTTONS)
                 .add(UPBlocks.AMBER_BUTTON.get().asItem())
                 .add(UPBlocks.GINKGO_BUTTON.get().asItem())
+                .add(UPBlocks.FOXXI_BUTTON.get().asItem())
+                .add(UPBlocks.DRYO_BUTTON.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get().asItem());
 
         tag(ItemTags.WOODEN_BUTTONS)
                 .add(UPBlocks.GINKGO_BUTTON.get().asItem())
+                .add(UPBlocks.FOXXI_BUTTON.get().asItem())
+                .add(UPBlocks.DRYO_BUTTON.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get().asItem());
 
 

@@ -80,7 +80,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         createFlatWaterEgg(UPBlocks.ERYON_EGGS.get());
         simpleBlock(UPBlocks.PETRIFIED_WOOD.get());
 
-        simpleBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
+        logBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
         simpleBlockItem(UPBlocks.STRIPPED_PETRIFIED_WOOD.get(), existingModel((getName(UPBlocks.STRIPPED_PETRIFIED_WOOD.get()))));
         simpleBlock(UPBlocks.POLISHED_PETRIFIED_WOOD.get());
         logBlock(UPBlocks.PETRIFIED_WOOD_LOG.get());
@@ -99,6 +99,60 @@ public class BlockstateGenerator extends BlockStateProvider {
         fenceBlock(UPBlocks.PETRIFIED_WOOD_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
         fenceGateBlock(UPBlocks.PETRIFIED_WOOD_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
         signBlock((StandingSignBlock) UPBlocks.PETRIFIED_WOOD_SIGN.get(), (WallSignBlock) UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_wood_sign"));
+
+        //Foxxi
+
+        simpleBlock(UPBlocks.STRIPPED_FOXXI_WOOD.get());
+        simpleBlockItem(UPBlocks.STRIPPED_FOXXI_WOOD.get(), existingModel((getName(UPBlocks.STRIPPED_FOXXI_WOOD.get()))));
+        logBlock(UPBlocks.FOXXI_LOG.get());
+        simpleBlockItem(UPBlocks.FOXXI_LOG.get(), existingModel((getName(UPBlocks.FOXXI_LOG.get()))));
+        logBlock(UPBlocks.FOXXI_WOOD.get());
+        simpleBlockItem(UPBlocks.FOXXI_WOOD.get(), existingModel((getName(UPBlocks.FOXXI_WOOD.get()))));
+        logBlock(UPBlocks.STRIPPED_FOXXI_LOG.get());
+        simpleBlockItem(UPBlocks.STRIPPED_FOXXI_LOG.get(), existingModel((getName(UPBlocks.STRIPPED_FOXXI_LOG.get()))));
+        simpleBlock(UPBlocks.FOXXI_PLANKS.get());
+        simpleBlockItem(UPBlocks.FOXXI_PLANKS.get(), existingModel((getName(UPBlocks.FOXXI_PLANKS.get()))));
+        simpleBlock(UPBlocks.FOXXI_LEAVES.get());
+        simpleBlockItem(UPBlocks.FOXXI_LEAVES.get(), existingModel((getName(UPBlocks.FOXXI_LEAVES.get()))));
+        slabBlock(UPBlocks.FOXXI_SLAB.get(), resourceBlock(getName(UPBlocks.FOXXI_PLANKS.get())), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
+        simpleBlockItem(UPBlocks.FOXXI_SLAB.get(), existingModel((getName(UPBlocks.FOXXI_SLAB.get()))));
+
+        doorBlock(UPBlocks.FOXXI_DOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_door_bottom"),new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_door_top"));
+        trapdoorBlock(UPBlocks.FOXXI_TRAPDOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_trapdoor"), true);
+        stairsBlock(UPBlocks.FOXXI_STAIRS.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
+        simpleBlockItem(UPBlocks.FOXXI_STAIRS.get(), existingModel((getName(UPBlocks.FOXXI_STAIRS.get()))));
+        pressurePlateBlock(UPBlocks.FOXXI_PRESSURE_PLATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
+        simpleBlockItem(UPBlocks.FOXXI_PRESSURE_PLATE.get(), existingModel((getName(UPBlocks.FOXXI_PRESSURE_PLATE.get()))));
+        buttonBlock(UPBlocks.FOXXI_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
+        fenceBlock(UPBlocks.FOXXI_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
+        fenceGateBlock(UPBlocks.FOXXI_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
+
+        //Dryophyllum
+
+        logBlock(UPBlocks.STRIPPED_DRYO_WOOD.get());
+        simpleBlockItem(UPBlocks.STRIPPED_DRYO_WOOD.get(), existingModel((getName(UPBlocks.STRIPPED_DRYO_WOOD.get()))));
+        logBlock(UPBlocks.DRYO_LOG.get());
+        simpleBlockItem(UPBlocks.DRYO_LOG.get(), existingModel((getName(UPBlocks.DRYO_LOG.get()))));
+        logBlock(UPBlocks.DRYO_WOOD.get());
+        simpleBlockItem(UPBlocks.DRYO_WOOD.get(), existingModel((getName(UPBlocks.DRYO_WOOD.get()))));
+        logBlock(UPBlocks.STRIPPED_DRYO_LOG.get());
+        simpleBlockItem(UPBlocks.STRIPPED_DRYO_LOG.get(), existingModel((getName(UPBlocks.STRIPPED_DRYO_LOG.get()))));
+        simpleBlock(UPBlocks.DRYO_PLANKS.get());
+        simpleBlockItem(UPBlocks.DRYO_PLANKS.get(), existingModel((getName(UPBlocks.DRYO_PLANKS.get()))));
+        simpleBlock(UPBlocks.DRYO_LEAVES.get());
+        simpleBlockItem(UPBlocks.DRYO_LEAVES.get(), existingModel((getName(UPBlocks.DRYO_LEAVES.get()))));
+        slabBlock(UPBlocks.DRYO_SLAB.get(), resourceBlock(getName(UPBlocks.DRYO_PLANKS.get())), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
+        simpleBlockItem(UPBlocks.DRYO_SLAB.get(), existingModel((getName(UPBlocks.DRYO_SLAB.get()))));
+
+        doorBlock(UPBlocks.DRYO_DOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_door_bottom"),new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_door_top"));
+        trapdoorBlock(UPBlocks.DRYO_TRAPDOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_trapdoor"), true);
+        stairsBlock(UPBlocks.DRYO_STAIRS.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
+        simpleBlockItem(UPBlocks.DRYO_STAIRS.get(), existingModel((getName(UPBlocks.DRYO_STAIRS.get()))));
+        pressurePlateBlock(UPBlocks.DRYO_PRESSURE_PLATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
+        simpleBlockItem(UPBlocks.DRYO_PRESSURE_PLATE.get(), existingModel((getName(UPBlocks.DRYO_PRESSURE_PLATE.get()))));
+        buttonBlock(UPBlocks.DRYO_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
+        fenceBlock(UPBlocks.DRYO_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
+        fenceGateBlock(UPBlocks.DRYO_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
 
     }
 

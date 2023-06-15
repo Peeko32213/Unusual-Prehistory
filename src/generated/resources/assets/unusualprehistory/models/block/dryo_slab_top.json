@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "unusualprehistory:block/dryo_planks",
+    "side": "unusualprehistory:block/dryo_planks",
+    "top": "unusualprehistory:block/dryo_planks"
+  }
+}

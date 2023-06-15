@@ -47,6 +47,34 @@ public class LootTableBlocks extends BlockLoot {
         dropSelf(UPBlocks.PETRIFIED_WOOD_PLANKS.get());
         dropSelf(UPBlocks.PETRIFIED_WOOD_STAIRS.get());
 
+        dropSelf(UPBlocks.FOXXI_WOOD.get());
+        dropSelf(UPBlocks.FOXXI_LOG.get());
+        dropSelf(UPBlocks.FOXXI_FENCE_GATE.get());
+        dropSelf(UPBlocks.FOXXI_BUTTON.get());
+        dropSelf(UPBlocks.FOXXI_FENCE.get());
+        dropSelf(UPBlocks.FOXXI_SLAB.get());
+        dropSelf(UPBlocks.FOXXI_PRESSURE_PLATE.get());
+        dropSelf(UPBlocks.STRIPPED_FOXXI_WOOD.get());
+        dropSelf(UPBlocks.STRIPPED_FOXXI_LOG.get());
+        dropSelf(UPBlocks.FOXXI_PLANKS.get());
+        dropSelf(UPBlocks.FOXXI_STAIRS.get());
+        dropSelf(UPBlocks.FOXXI_DOOR.get());
+        dropSelf(UPBlocks.FOXXI_TRAPDOOR.get());
+
+        dropSelf(UPBlocks.DRYO_WOOD.get());
+        dropSelf(UPBlocks.DRYO_LOG.get());
+        dropSelf(UPBlocks.DRYO_FENCE_GATE.get());
+        dropSelf(UPBlocks.DRYO_BUTTON.get());
+        dropSelf(UPBlocks.DRYO_FENCE.get());
+        dropSelf(UPBlocks.DRYO_SLAB.get());
+        dropSelf(UPBlocks.DRYO_PRESSURE_PLATE.get());
+        dropSelf(UPBlocks.STRIPPED_DRYO_WOOD.get());
+        dropSelf(UPBlocks.STRIPPED_DRYO_LOG.get());
+        dropSelf(UPBlocks.DRYO_PLANKS.get());
+        dropSelf(UPBlocks.DRYO_STAIRS.get());
+        dropSelf(UPBlocks.DRYO_DOOR.get());
+        dropSelf(UPBlocks.DRYO_TRAPDOOR.get());
+
         dropSelf(UPBlocks.HWACHA_FOSSIL.get());
         dropSelf(UPBlocks.ANTARCTO_FOSSIL.get());
         dropSelf(UPBlocks.KENTRO_FOSSIL.get());

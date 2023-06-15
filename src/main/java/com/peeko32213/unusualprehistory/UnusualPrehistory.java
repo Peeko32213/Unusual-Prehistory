@@ -139,6 +139,7 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.SARACENIA.get().asItem(), 0.4f);
             addToComposter(UPBlocks.TALL_SARACENIA.get().asItem(), 0.8f);
             addToComposter(UPBlocks.GINKGO_LEAVES.get().asItem(), 0.4f);
+            addToComposter(UPBlocks.FOXXI_LEAVES.get().asItem(), 0.4f);
             addToComposter(UPBlocks.GINKGO_SAPLING.get().asItem(), 0.4f);
             addToComposter(UPBlocks.ARCHAEFRUCTUS.get().asItem(), 0.4f);
             addToComposter(UPBlocks.NELUMBITES.get().asItem(), 0.4f);

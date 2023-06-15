@@ -51,6 +51,20 @@ public class BlockGinkgoWood extends RotatedPillarBlock {
             if(state.is(UPBlocks.PETRIFIED_WOOD.get())) {
                 return UPBlocks.STRIPPED_PETRIFIED_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
+            if(state.is(UPBlocks.FOXXI_LOG.get())) {
+                return UPBlocks.STRIPPED_FOXXI_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            }
+
+            if(state.is(UPBlocks.FOXXI_WOOD.get())) {
+                return UPBlocks.STRIPPED_FOXXI_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            }
+            if(state.is(UPBlocks.DRYO_LOG.get())) {
+                return UPBlocks.STRIPPED_DRYO_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            }
+
+            if(state.is(UPBlocks.DRYO_WOOD.get())) {
+                return UPBlocks.STRIPPED_DRYO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            }
         }
         return super.getToolModifiedState(state, context, toolAction, simulate);
     }

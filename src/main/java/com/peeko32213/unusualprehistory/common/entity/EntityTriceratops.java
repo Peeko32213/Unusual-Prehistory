@@ -709,7 +709,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6  && !this.isInSittingPose() && !this.isInWater() && !this.isSprinting()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.move"));
-            event.getController().setAnimationSpeed(1.0D);
+            event.getController().setAnimationSpeed(0.7D);
             return PlayState.CONTINUE;
         }
 

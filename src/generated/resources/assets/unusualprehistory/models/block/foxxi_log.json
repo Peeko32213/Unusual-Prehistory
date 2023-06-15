@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "unusualprehistory:block/foxxi_log_top",
+    "side": "unusualprehistory:block/foxxi_log"
+  }
+}
