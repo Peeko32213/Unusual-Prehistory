@@ -7,14 +7,20 @@
 				"texture_width": 256,
 				"texture_height": 256,
 				"visible_bounds_width": 8,
-				"visible_bounds_height": 4.5,
-				"visible_bounds_offset": [0, 1.75, 0]
+				"visible_bounds_height": 5.5,
+				"visible_bounds_offset": [0, 2.25, 0]
 			},
 			"bones": [
 				{
+					"name": "Sloth",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "Body",
+					"parent": "Sloth",
 					"pivot": [3, 24, 12],
 					"cubes": [
+						{"origin": [-16, 16.125, -30], "size": [32, 28, 29], "uv": [134, 199]},
 						{"origin": [-15.5, 17, -30], "size": [31, 27, 29], "uv": [0, 64]},
 						{"origin": [-15.5, 14, -29.95], "size": [31, 3, 0], "uv": [120, 92]},
 						{"origin": [15.5, 14, -30], "size": [0, 3, 29], "uv": [91, 35]},
@@ -23,7 +29,11 @@
 						{"origin": [-18, 14, -1], "size": [0, 3, 32], "uv": [0, 88], "mirror": true},
 						{"origin": [-15.5, 14, -30], "size": [0, 3, 29], "uv": [91, 35], "mirror": true},
 						{"origin": [-18, 14, -1], "size": [36, 3, 0], "uv": [91, 67]},
-						{"origin": [-18, 14, 31], "size": [36, 3, 0], "uv": [91, 70]}
+						{"origin": [-18, 14, 31], "size": [36, 3, 0], "uv": [91, 70]},
+						{"origin": [-7.5, 50, -6], "size": [15, 7, 0], "uv": [226, 94]},
+						{"origin": [7.5, 50, -6], "size": [0, 5, 11], "uv": [195, 83]},
+						{"origin": [-7.5, 50, -6], "size": [0, 5, 11], "uv": [195, 83], "mirror": true},
+						{"origin": [-7.5, 44, -6], "size": [15, 6, 19], "uv": [188, 47]}
 					]
 				},
 				{
@@ -101,6 +111,7 @@
 				},
 				{
 					"name": "Leg1",
+					"parent": "Sloth",
 					"pivot": [11, 18, 23],
 					"cubes": [
 						{"origin": [4, 0, 16], "size": [12, 18, 12], "uv": [104, 0]},
@@ -109,6 +120,7 @@
 				},
 				{
 					"name": "Leg2",
+					"parent": "Sloth",
 					"pivot": [-11, 18, 23],
 					"cubes": [
 						{"origin": [-16, 0, 16], "size": [12, 18, 12], "uv": [104, 0], "mirror": true},

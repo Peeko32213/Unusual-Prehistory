@@ -1,5 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util;
 
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
@@ -26,14 +28,9 @@ public class HitboxHelper {
         Vec2 aim = MathHelpers.OrizontalAimVector(entityIn.getLookAngle());
         Level worldIn = entityIn.level;
 
-
         for(int i = 0; i<=radius/d; ++i) {
 
-
             //double angleVar = Math.asin(1-(1/(2*(i^2)+0.0001)));
-
-
-
 
             for(int j = 0; j<=(angleLast-angleFirst)/angleVar; ++j) {
 
@@ -48,10 +45,16 @@ public class HitboxHelper {
                     AABB scanAbove = new AABB(x-d, y - 4*d, z- d, x+ d, y + 2*d, z+ d);
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
 
-                    if(!entities.isEmpty()) {
-                        for (LivingEntity target : entities) {
+                    //if (!entityIn.level.isClientSide()) {
+                    //    hitboxOutline(scanAbove, (ServerLevel)entityIn.getLevel());
+                    //}
 
-                            if (target != entityIn) {
+                    if(!entities.isEmpty()) {
+                        for(int n = 0; n < entities.size(); n++) {
+
+                            LivingEntity target = entities.get(n);
+
+                            if(target != entityIn) {
                                 //entityIn.doHurtTarget(target);
                                 target.hurt(source, damage);
                                 target.setLastHurtByMob(entityIn);
@@ -111,9 +114,11 @@ public class HitboxHelper {
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
 
                     if(!entities.isEmpty()) {
-                        for (LivingEntity target : entities) {
+                        for(int n = 0; n < entities.size(); n++) {
 
-                            if (target == entityIn.getTarget()) {
+                            LivingEntity target = entities.get(n);
+
+                            if(target == entityIn.getTarget()) {
                                 //entityIn.doHurtTarget(target);
                                 target.hurt(source, damage);
                                 target.setLastHurtByMob(entityIn);
@@ -139,6 +144,15 @@ public class HitboxHelper {
 
     }
 
+    public static void hitboxOutline (AABB box, ServerLevel world) {
+        world.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, (box.maxX), (box.maxY), (box.maxZ), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+        world.sendParticles(ParticleTypes.END_ROD, (box.maxX), (box.minY), (box.minZ), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+        world.sendParticles(ParticleTypes.HAPPY_VILLAGER, (box.maxX), (box.maxY), (box.minZ), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+
+        world.sendParticles(ParticleTypes.HAPPY_VILLAGER, (box.minX), (box.maxY), (box.maxZ), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+        world.sendParticles(ParticleTypes.END_ROD, (box.minX), (box.minY), (box.maxZ), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+        world.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, (box.minX), (box.maxY), (box.minZ), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+    }
 
     public static void LongAttackWithTargetCheck(DamageSource source, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double edgeS, double edgeR, double hInf, double hSup){
 
@@ -172,9 +186,11 @@ public class HitboxHelper {
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
 
                     if(!entities.isEmpty()) {
-                        for (LivingEntity target : entities) {
+                        for(int n = 0; n < entities.size(); n++) {
 
-                            if (target == entityIn.getTarget()) {
+                            LivingEntity target = entities.get(n);
+
+                            if(target == entityIn.getTarget()) {
                                 //entityIn.doHurtTarget(target);
                                 target.hurt(source, damage);
                                 target.setLastHurtByMob(entityIn);

@@ -1,6 +1,26 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
+		"animation.megatherium.idle": {
+			"loop": true,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.5) * 90) * 0.3", 0, "Math.sin((query.anim_time - 0.0) * 90) * 0.3"]
+					}
+				},
+				"Head": {
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.2) * 90) * -0.3", 0]
+					}
+				},
+				"Tounge": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 180) * 0.5", 0, "Math.sin((query.anim_time - 0.2) * 180) * 0.5"]
+					}
+				}
+			}
+		},
 		"animation.megatherium.move": {
 			"loop": true,
 			"animation_length": 2,
@@ -104,26 +124,6 @@
 						"1.5": {
 							"vector": [0, 5, 0]
 						}
-					}
-				}
-			}
-		},
-		"animation.megatherium.idle": {
-			"loop": true,
-			"bones": {
-				"Body": {
-					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.5) * 90) * 0.3", 0, "Math.sin((query.anim_time - 0.0) * 90) * 0.3"]
-					}
-				},
-				"Head": {
-					"position": {
-						"vector": [0, "Math.cos((query.anim_time - 0.2) * 90) * -0.3", 0]
-					}
-				},
-				"Tounge": {
-					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.2) * 180) * 0.5", 0, "Math.sin((query.anim_time - 0.2) * 180) * 0.5"]
 					}
 				}
 			}
@@ -293,6 +293,74 @@
 				"Tail": {
 					"rotation": {
 						"vector": ["Math.cos((query.anim_time - 0.2) * 480) * 1.1", 0, "Math.sin((query.anim_time - 0.2) * 480) * 1.1"]
+					}
+				}
+			}
+		},
+		"animation.megatherium.sitting": {
+			"loop": true,
+			"bones": {
+				"Sloth": {
+					"rotation": {
+						"vector": [-30, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.0) * 90) * 0.5", 0, "Math.sin((query.anim_time - 0.0) * 90) * 0.5"]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": [35, 0, 0]
+					},
+					"position": {
+						"vector": [0, "1.4 + Math.cos((query.anim_time - 0.0) * 90) ", 2]
+					}
+				},
+				"Tounge": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 90) * 0.5", 0, "Math.sin((query.anim_time - 0.2) * 90) * 0.5"]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": [30, 0, 0]
+					},
+					"position": {
+						"vector": [0, -7, 1]
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": [30, 0, 0]
+					},
+					"position": {
+						"vector": [0, -7, 1]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": [27.5, 0, 0]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": [-57.5, 0, 0]
+					},
+					"position": {
+						"vector": [-2, 0, 0]
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": [-57.5, 0, 0]
+					},
+					"position": {
+						"vector": [2, 0, 0]
 					}
 				}
 			}

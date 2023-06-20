@@ -287,7 +287,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         }
 
         protected double getAttackReachSqr(LivingEntity attackTarget) {
-            return this.mob.getBbWidth() * 2.0f * (this.mob.getBbWidth() * 2.0f) + attackTarget.getBbWidth();
+            return this.mob.getBbWidth() * 0.7f * (this.mob.getBbWidth() * 0.7f) + attackTarget.getBbWidth();
         }
     }
 

@@ -92,9 +92,11 @@ public class EntityPalaeophisPart extends PartEntity<EntityPalaeophis> {
         return false;
     }
 
-    @Override
-    public boolean hurt(DamageSource source, float damage) {
-        return hurtHeadId(source, damage);
+    public boolean hurt(DamageSource source, float amount) {
+        if(level.isClientSide && this.getParent() != null && !this.getParent().isInvulnerableTo(source)){
+            UPMessages.sendToClients(new UPMessageHurtMultipart(this.getId(), this.getParent().getId(), amount, source.msgId));
+        }
+        return !this.isInvulnerableTo(source) && this.getParent().attackEntityPartFrom(this, source, amount);
     }
 
     public boolean is(Entity entityIn) {

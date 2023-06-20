@@ -61,6 +61,7 @@ public class PalaeophisModel extends AnimatedGeoModel<EntityPalaeophis>
         head.setRotationY(head.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 270F) * unpausedMultiplier);
 
         body1.setRotationY(body1.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 270F) * unpausedMultiplier);
+        body1.setRotationY(body1.getRotationY() + extraData.headPitch * ((float) Math.PI / 270F) * unpausedMultiplier);
 
         body2.setRotationY(body2.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 270F) * unpausedMultiplier);
 
