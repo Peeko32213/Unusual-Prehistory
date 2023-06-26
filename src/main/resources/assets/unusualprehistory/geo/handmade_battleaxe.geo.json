@@ -1,0 +1,74 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.handmade_battleaxe",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3,
+				"visible_bounds_offset": [0, 0.5, 0]
+			},
+			"bones": [
+				{
+					"name": "Axe",
+					"pivot": [0, -13, 0],
+					"cubes": [
+						{"origin": [-1, -13, -1], "size": [2, 35, 2], "uv": [0, 0]},
+						{"origin": [-1.5, 17, -1.5], "size": [3, 2, 3], "uv": [34, 25]},
+						{"origin": [-1.5, 8, -1.5], "size": [3, 2, 3], "uv": [33, 20]}
+					]
+				},
+				{
+					"name": "Head",
+					"parent": "Axe",
+					"pivot": [0.5, 5, 3.95],
+					"cubes": [
+						{"origin": [-1.5, 5, -4.05], "size": [3, 2, 1], "uv": [34, 30]},
+						{"origin": [-1.5, 12, -1.05], "size": [3, 3, 3], "uv": [21, 0]},
+						{"origin": [-1.5, 10, -6.05], "size": [3, 2, 8], "uv": [20, 27]},
+						{"origin": [-1.5, 15, -6.05], "size": [3, 2, 8], "uv": [28, 0]},
+						{"origin": [-1.5, 17, -6.05], "size": [3, 5, 2], "uv": [6, 35]},
+						{"origin": [-1.5, 20, -4.05], "size": [3, 2, 1], "uv": [37, 17]},
+						{"origin": [1.7, 10.5, -12.55], "size": [0, 11, 10], "uv": [8, 14]},
+						{"origin": [-1.5, 5, -13.05], "size": [3, 17, 7], "uv": [8, 0]},
+						{"origin": [-1.5, 5, -6.05], "size": [3, 5, 2], "uv": [16, 37]}
+					]
+				},
+				{
+					"name": "UpperVines",
+					"parent": "Axe",
+					"pivot": [0, 17, 1.5],
+					"cubes": [
+						{"origin": [0, 15, 1.5], "size": [0, 4, 5], "uv": [28, 9]}
+					]
+				},
+				{
+					"name": "UpperVines2",
+					"parent": "UpperVines",
+					"pivot": [0, 15, 6.5],
+					"cubes": [
+						{"origin": [0, 14, 6.5], "size": [0, 2, 3], "uv": [8, 0]}
+					]
+				},
+				{
+					"name": "LowerVines",
+					"parent": "Axe",
+					"pivot": [0, 10, 1.5],
+					"cubes": [
+						{"origin": [0, 6, 1.5], "size": [0, 5, 4], "uv": [28, 14]}
+					]
+				},
+				{
+					"name": "LowerVines2",
+					"parent": "LowerVines",
+					"pivot": [0, 12, 4.5],
+					"cubes": [
+						{"origin": [0, 9, 4.5], "size": [0, 4, 5], "uv": [28, 5]}
+					]
+				}
+			]
+		}
+	]
+}
