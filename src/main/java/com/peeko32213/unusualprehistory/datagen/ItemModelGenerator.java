@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.datagen;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +28,8 @@ public class ItemModelGenerator extends ItemModelProvider {
             }
         }
 
-
+        singleTex(UPItems.SMILODON_EMBRYO);
+        singleTex(UPItems.BARINA_WHISTLE);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());

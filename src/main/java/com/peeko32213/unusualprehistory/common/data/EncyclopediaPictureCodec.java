@@ -4,10 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.List;
-
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
-
 public class EncyclopediaPictureCodec {
 
     public static Codec<EncyclopediaPictureCodec> CODEC = RecordCodecBuilder.create(inst -> inst

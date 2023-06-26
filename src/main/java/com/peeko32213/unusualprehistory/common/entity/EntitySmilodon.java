@@ -1,8 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.PounceGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -13,31 +11,28 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.AnimationState;
 
 import java.util.EnumSet;
 
@@ -74,7 +69,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     }
 
     private Ingredient getTemptationItems() {
-        if(temptationItems == null)
+        if (temptationItems == null)
             temptationItems = Ingredient.merge(Lists.newArrayList(
                     Ingredient.of(ItemTags.LEAVES)
             ));
@@ -151,22 +146,22 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
 
     @Override
     public void customServerAiStep() {
-        if (this.getMoveControl().hasWanted()) {
-            double speedModifier = this.getMoveControl().getSpeedModifier();
-            if (speedModifier < 1.0D && this.isOnGround()) {
-                this.setPose(Pose.CROUCHING);
-                this.setSprinting(false);
-            } else if (speedModifier >= 1.5D && this.isOnGround()) {
-                this.setPose(Pose.STANDING);
-                this.setSprinting(true);
-            } else {
-                this.setPose(Pose.STANDING);
-                this.setSprinting(false);
-            }
-        } else {
-            this.setPose(Pose.STANDING);
-            this.setSprinting(false);
-        }
+       //if (this.getMoveControl().hasWanted()) {
+       //    double speedModifier = this.getMoveControl().getSpeedModifier();
+       //    if (speedModifier < 1.0D && this.isOnGround()) {
+       //        this.setPose(Pose.CROUCHING);
+       //        this.setSprinting(false);
+       //    } else if (speedModifier >= 1.5D && this.isOnGround()) {
+       //        this.setPose(Pose.STANDING);
+       //        this.setSprinting(true);
+       //    } else {
+       //        this.setPose(Pose.STANDING);
+       //        this.setSprinting(false);
+       //    }
+       //} else {
+       //    this.setPose(Pose.STANDING);
+       //    this.setSprinting(false);
+       //}
     }
 
     static class SmilodonStalkGoal extends Goal {
@@ -225,6 +220,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
             this.speedModifier = this.mob.distanceTo(target) > 12 ? 0.5D : 1.7D;
             this.mob.getNavigation().moveTo(this.path, this.speedModifier);
             this.mob.setAggressive(true);
+            //this.mob.setSprinting(true);
             this.ticksUntilNextPathRecalculation = 0;
             this.ticksUntilNextAttack = 0;
         }
@@ -235,6 +231,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
                 this.mob.setTarget(null);
             }
+
             this.mob.setAggressive(false);
             this.mob.getNavigation().stop();
         }
@@ -255,6 +252,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
             double d = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
             if (this.mob.getSensing().hasLineOfSight(target) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0 || target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0 || this.mob.getRandom().nextFloat() < 0.05f)) {
+                //this.mob.setSprinting(true);
                 this.pathedTargetX = target.getX();
                 this.pathedTargetY = target.getY();
                 this.pathedTargetZ = target.getZ();
@@ -276,6 +274,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
             double d = this.getAttackReachSqr(enemy);
             if (distToEnemySqr <= d && this.ticksUntilNextAttack <= 0) {
+                this.mob.setSprinting(false);
                 this.resetAttackCooldown();
                 this.mob.swing(InteractionHand.MAIN_HAND);
                 this.mob.doHurtTarget(enemy);
@@ -304,28 +303,31 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             if (this.isSprinting()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.sprint"));
                 event.getController().setAnimationSpeed(2.5F);
+                return PlayState.CONTINUE;
             } else if (this.isCrouching()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.sneak"));
                 event.getController().setAnimationSpeed(0.8F);
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.move"));
-                event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
             }
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.idle"));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.move"));
             event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
         }
+
+        event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.idle"));
+        event.getController().setAnimationSpeed(1.0F);
+
         return PlayState.CONTINUE;
     }
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
             event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().playOnce("lion.swing"));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.smilodon.bite"));
             this.swinging = false;
         }
         return PlayState.CONTINUE;
@@ -337,7 +339,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
     }
-
 
 
 }

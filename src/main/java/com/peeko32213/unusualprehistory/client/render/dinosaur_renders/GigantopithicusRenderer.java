@@ -5,7 +5,6 @@ import com.peeko32213.unusualprehistory.client.model.GigantopithicusModel;
 import com.peeko32213.unusualprehistory.client.render.layer.ItemHoldingLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityGigantopithicus;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class GigantopithicusRenderer extends GeoEntityRenderer<EntityGigantopithicus> {

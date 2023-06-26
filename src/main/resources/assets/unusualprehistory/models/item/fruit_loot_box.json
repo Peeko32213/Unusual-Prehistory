@@ -1,3 +1,35 @@
 {
-  "parent": "unusualprehistory:block/fruit_loot_box"
+  "parent": "unusualprehistory:block/fruit_loot_box",
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "unusualprehistory:block/fruit_loot_box_color"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "unusualprehistory:block/fruit_loot_box_low_tier"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 3
+      },
+      "model": "unusualprehistory:block/fruit_loot_box_medium_tier"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 4
+      },
+      "model": "unusualprehistory:block/fruit_loot_box_medium_high_tier"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 5
+      },
+      "model": "unusualprehistory:block/fruit_loot_box_high_tier"
+    }
+  ]
 }

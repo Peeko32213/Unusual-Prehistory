@@ -1,11 +1,14 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.block.DoubleSaplingBlock;
 import com.peeko32213.unusualprehistory.common.block.*;
 import com.peeko32213.unusualprehistory.common.block.decorations.BlockFossilDecoration;
 import com.peeko32213.unusualprehistory.common.block.plant.DoubleHeadBlock;
 import com.peeko32213.unusualprehistory.common.block.plant.DoubleHeadPlantBlock;
 import com.peeko32213.unusualprehistory.common.block.plant.WaterLilyUpdate;
+import com.peeko32213.unusualprehistory.common.world.feature.DryoTreeGrower;
+import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiTreeGrower;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -290,6 +293,14 @@ public class UPBlocks {
                     return 30;
                 }
 
+                protected boolean decaying(BlockState state) {
+                    return !state.getValue(PERSISTENT) && state.getValue(DISTANCE) == 15;
+                }
+
+
+                public boolean isRandomlyTicking(BlockState pState) {
+                    return pState.getValue(DISTANCE) == 15 && !pState.getValue(PERSISTENT);
+                }
             });
 
     public static final RegistryObject<StairBlock> FOXXI_STAIRS = registerBlock("foxxi_stairs",
@@ -378,6 +389,12 @@ public class UPBlocks {
     public static final RegistryObject<Block> GINKGO_SAPLING = registerBlock("ginkgo_sapling",
             () -> new SaplingBlock(new GinkgoTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
+    public static final RegistryObject<Block> FOXII_SAPLING = registerBlock("foxii_sapling",
+            () -> new DoubleSaplingBlock(new FoxiiTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+
+    public static final RegistryObject<Block> DRYO_SAPLING = registerBlock("dryo_sapling",
+            () -> new SaplingBlock(new DryoTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+
     public static final RegistryObject<Block> DRYO_PLANKS = registerBlock("dryo_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
@@ -409,6 +426,15 @@ public class UPBlocks {
                 @Override
                 public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
                     return 30;
+                }
+
+                protected boolean decaying(BlockState state) {
+                    return !state.getValue(PERSISTENT) && state.getValue(DISTANCE) == 12;
+                }
+
+
+                public boolean isRandomlyTicking(BlockState pState) {
+                    return pState.getValue(DISTANCE) == 12 && !pState.getValue(PERSISTENT);
                 }
 
             });

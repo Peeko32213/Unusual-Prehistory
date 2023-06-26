@@ -4,6 +4,7 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.MammothModel;
+import com.peeko32213.unusualprehistory.client.render.layer.ItemHoldingLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityMammoth;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,6 +14,7 @@ public class MammothRenderer extends GeoEntityRenderer<EntityMammoth> {
 
     public MammothRenderer(EntityRendererProvider.Context context) {
         super(context, new MammothModel());
+        this.addLayer(new ItemHoldingLayer(this));
     }
 
     @Override

@@ -226,7 +226,8 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         private EntityEryon crab;
         private int runDelay = 70;
         private int maxFeedTime = 200;
-
+        private final int MAX_TIME = 6000;
+        private int timer = 0;
         private DigSandGoal(EntityEryon crab) {
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
             this.crab = crab;
@@ -235,7 +236,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         }
 
         public boolean canContinueToUse() {
-            return destinationBlock != null && isDigBlock(crab.level, destinationBlock.mutable()) && isCloseToMoss(16);
+            return destinationBlock != null && isDigBlock(crab.level, destinationBlock.mutable()) && isCloseToMoss(16) || !(timer > MAX_TIME);
         }
 
         public boolean isCloseToMoss(double dist) {
@@ -260,8 +261,10 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         public void tick() {
             Vec3 vec = Vec3.atCenterOf(destinationBlock);
             if (vec != null) {
-                crab.getNavigation().moveTo(vec.x, vec.y, vec.z, 1F);
-                if(crab.distanceToSqr(vec) < 1.15F){
+                timer++;
+                if(crab.blockPosition().offset(0,-1,0) != destinationBlock){
+                    crab.getNavigation().moveTo(vec.x, vec.y, vec.z, 1F);
+                } else if(crab.distanceToSqr(vec) < 1F){
                     crab.entityData.set(FEEDING_POS, Optional.of(destinationBlock));
                     Vec3 face = vec.subtract(crab.position());
                     crab.setDeltaMovement(crab.getDeltaMovement().add(face.normalize().scale(0.1F)));

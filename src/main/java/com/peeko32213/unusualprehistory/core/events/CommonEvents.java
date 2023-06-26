@@ -4,7 +4,6 @@ import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.render.BaseEntityRender;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -14,18 +13,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonEvents {
 
-    @SubscribeEvent
-    public static void commonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-        });
-    }
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
@@ -52,7 +45,7 @@ public class CommonEvents {
         event.put(UPEntities.AUSTRO.get(), EntityAustroraptor.createAttributes().build());
         event.put(UPEntities.ANTARCO.get(), EntityAntarctopelta.createAttributes().build());
         event.put(UPEntities.ULUG.get(), EntityUlughbegsaurus.createAttributes().build());
-        event.put(UPEntities.KENTRO.get(), EntityUlughbegsaurus.createAttributes().build());
+        event.put(UPEntities.KENTRO.get(), EntityKentrosaurus.createAttributes().build());
         event.put(UPEntities.HWACHA.get(), EntityHwachavenator.createAttributes().build());
         event.put(UPEntities.TALAPANAS.get(), EntityTalapanas.createAttributes().build());
         event.put(UPEntities.GIGANTOPITHICUS.get(), EntityGigantopithicus.createAttributes().build());

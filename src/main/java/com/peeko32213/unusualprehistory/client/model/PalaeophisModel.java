@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.EntityPalaeophis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -61,7 +60,6 @@ public class PalaeophisModel extends AnimatedGeoModel<EntityPalaeophis>
         head.setRotationY(head.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 270F) * unpausedMultiplier);
 
         body1.setRotationY(body1.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 270F) * unpausedMultiplier);
-        body1.setRotationY(body1.getRotationY() + extraData.headPitch * ((float) Math.PI / 270F) * unpausedMultiplier);
 
         body2.setRotationY(body2.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 270F) * unpausedMultiplier);
 

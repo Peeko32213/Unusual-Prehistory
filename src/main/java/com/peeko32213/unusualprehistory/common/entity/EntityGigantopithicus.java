@@ -31,7 +31,6 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -413,7 +412,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
                 default:
                     if (this.isTrading()) {
                        // event.getController().markNeedsReload();
-                        event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.sit"));
+                        event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.hold"));
                         event.getController().setAnimationSpeed(0.9D);
                         return PlayState.CONTINUE;
                     }

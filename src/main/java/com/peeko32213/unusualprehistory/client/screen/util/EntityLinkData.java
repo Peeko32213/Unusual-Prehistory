@@ -1,7 +1,5 @@
 package com.peeko32213.unusualprehistory.client.screen.util;
 
-import net.minecraft.resources.ResourceLocation;
-
 public class EntityLinkData {
     public String entity;
     public int x;

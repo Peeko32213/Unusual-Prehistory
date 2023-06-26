@@ -9,6 +9,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -97,17 +98,15 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         });
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this) {
-
             public boolean canUse() {
                 return !isEepy() && passiveFor == 0 && super.canUse();
             }
-
         }));
+
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.REX_TARGETS)){
             public boolean canUse() {
                 return !isEepy() && passiveFor == 0 && super.canUse();
             }
-
         });
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
     }
@@ -355,6 +354,8 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         this.entityData.set(ENTITY_STATE, anim);
     }
 
+
+
     static class RexMeleeAttackGoal extends Goal {
 
         protected final EntityTyrannosaurusRex mob;
@@ -392,15 +393,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                 } else if (!livingentity.isAlive()) {
                     return false;
                 } else {
-                    if (canPenalize) {
-                        if (--this.ticksUntilNextPathRecalculation <= 0) {
-                            this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                            this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                            return this.path != null;
-                        } else {
-                            return true;
-                        }
-                    }
                     this.path = this.mob.getNavigation().createPath(livingentity, 0);
                     if (this.path != null) {
                         return true;
@@ -458,8 +450,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
             Vec3 aim = this.mob.getLookAngle();
-            Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
 
             switch (animState) {
                 case 21 -> tickBiteAttack();
@@ -541,8 +531,9 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         protected void tickBiteAttack () {
             animTime++;
-            if(animTime==5) {
+            if(animTime>=5 && animTime < 9) {
                 preformBiteAttack();
+
             }
             if(animTime>=9) {
                 animTime=0;
@@ -555,8 +546,8 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         protected void tickWhipAttack () {
             animTime++;
-            this.mob.getNavigation().stop();
-            if(animTime==8) {
+            //this.mob.getNavigation().stop();
+            if(animTime>=8 && animTime < 11) {
                 preformWhipAttack();
             }
             if(animTime>=11) {
@@ -572,11 +563,11 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         protected void tickStompLeftAttack () {
             animTime++;
-            this.mob.getNavigation().stop();
-            if(animTime==21) {
+            //this.mob.getNavigation().stop();
+            if(animTime>=21 && animTime < 30) {
                 preformStompAttack();
             }
-            if(animTime>=22) {
+            if(animTime>=30) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -594,8 +585,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         }
 
         protected void preformWhipAttack () {
-
-
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
             HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),10.0f, 2.0f, mob, pos,  8.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);

@@ -4,7 +4,6 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.MegatheriumModel;
-import com.peeko32213.unusualprehistory.client.render.layer.HwachavenatorSaddleLayer;
 import com.peeko32213.unusualprehistory.client.render.layer.MegatheriumSaddleLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityMegatherium;
 import net.minecraft.client.renderer.MultiBufferSource;

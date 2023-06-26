@@ -35,6 +35,7 @@ public class LanguageGenerator extends LanguageProvider {
         //TOOLS
         addItem(UPItems.WARPICK, "War Pick");
         addItem(UPItems.PRIMAL_MACUAHUITL, "Primal Macuahuitl");
+        addItem(UPItems.BARINA_WHISTLE, "Barinasuchus Whistle");
         addItem(UPItems.HANDMADE_SPEAR, "Handmade Spear");
 
         //FOSSILS
@@ -45,7 +46,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.AMBER_FOSSIL, "Amber Fossil");
         addItem(UPItems.AMBER_SHARDS, "Amber Chunk");
 
-
+        //EMBRYOS
+        addItem(UPItems.SMILODON_EMBRYO, "Smilodon Embryo");
 
         //DINO DROPS
         addItem(UPItems.REX_SCALE, "Rex Scale");

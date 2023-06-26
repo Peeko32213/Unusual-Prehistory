@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 
 import java.util.List;
 
@@ -16,7 +15,8 @@ public class LootFruitCodec {
                     Codec.INT.fieldOf("tier").forGetter(t -> t.tier),
                     Registry.ITEM.byNameCodec().fieldOf("trade_item").forGetter(t -> t.tradeItem),
                     RollableItemCodec.CODEC.listOf().fieldOf("items").forGetter(i -> i.items),
-                    TextColor.CODEC.fieldOf("color").forGetter(c -> c.color)
+                    TextColor.CODEC.fieldOf("color").forGetter(c -> c.color),
+                    Codec.INT.fieldOf("CustomModelData").forGetter(m -> m.customModelData)
             ).apply(inst, LootFruitCodec::new)
     );
 
@@ -24,11 +24,13 @@ public class LootFruitCodec {
     private final List<RollableItemCodec> items;
     private final Item tradeItem;
     private final TextColor color;
-    public LootFruitCodec(int tier, Item tradeItem, List<RollableItemCodec> items, TextColor color) {
+    private final int customModelData;
+    public LootFruitCodec(int tier, Item tradeItem, List<RollableItemCodec> items, TextColor color, int customModelData) {
         this.tier = tier;
         this.items = items;
         this.color = color;
         this.tradeItem = tradeItem;
+        this.customModelData = customModelData;
     }
 
 
@@ -47,4 +49,12 @@ public class LootFruitCodec {
     public TextColor getColor() {
         return color;
     }
+
+    public int getCustomModelData() {
+        return customModelData;
+    }
+
+
 }
+
+

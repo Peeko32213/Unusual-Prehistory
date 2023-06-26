@@ -6,12 +6,14 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDi
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -23,6 +25,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -32,9 +35,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
-import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -43,16 +46,21 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nullable;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
 
 public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements PlayerRideableJumping {
     private static final EntityDataAccessor<Byte> DATA_FLAG = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Boolean> IS_SWALLOWING = SynchedEntityData.defineId(EntityBeelzebufo.class, EntityDataSerializers.BOOLEAN);
+
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.BEEF, Items.PORKCHOP, Items.CHICKEN);
     protected float playerJumpPendingScale;
     private boolean allowStandSliding;
     private int standCounter;
     protected boolean isJumping;
 
-
+    private int eatCooldown = 0;
     public EntityBeelzebufo(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
@@ -69,9 +77,9 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(2, new CustomRideGoal(this, 1.5D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new EntityBeelzebufo.EatFoodGoal(this));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
                 {
                     @Override
@@ -109,9 +117,8 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
                 }
         );
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
+        //this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(2, new EntityBeelzebufo.IMeleeAttackGoal());
         //If its attacked they will now fight back
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         }
@@ -121,14 +128,18 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_FLAG, (byte) 0);
+        this.entityData.define(IS_SWALLOWING, false);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        setIsSwallowing(compound.getBoolean("swallowing"));
+
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putBoolean("swallowing", this.isSwallowing());
     }
 
     private void attack(LivingEntity entity) {
@@ -143,6 +154,10 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         }
         if(this.isOnGround() && this.isJumping()){
             setIsJumping(false);
+        }
+
+        if(eatCooldown > 0){
+            eatCooldown--;
         }
     }
 
@@ -280,9 +295,54 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         return type;
     }
 
+    private boolean isFood(Entity entity) {
+        return entity instanceof Mob && !(entity instanceof EntityBeelzebufo) && entity.getBbHeight() <= 1.0F || entity instanceof ItemEntity && ((ItemEntity) entity).getItem().is(Items.PORKCHOP);
+    }
+
     public boolean isFood(ItemStack stack) {
         return stack.getItem() == Items.PORKCHOP;
     }
+
+    private Vec3 getMouthVec(){
+        final Vec3 vec3 = new Vec3(0, this.getBbHeight() * 0.25F, this.getBbWidth() * 0.8F).xRot(this.getXRot() * UPMath.piDividedBy180).yRot(-this.getYRot() * UPMath.piDividedBy180);
+        return this.position().add(vec3);
+    }
+
+    public boolean swallowEntity(Entity entity) {
+        this.setIsSwallowing(true);
+        if (entity instanceof final LivingEntity mob) {
+            if(!entity.getLevel().isClientSide) {
+                ExperienceOrb.award((ServerLevel) entity.level, entity.position(), ((LivingEntity) entity).getExperienceReward());
+                mob.remove(RemovalReason.KILLED);
+                this.spawnAtLocation(UPItems.FROG_SALIVA.get());
+            }
+            this.gameEvent(GameEvent.EAT);
+            this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+            this.setHungry(false);
+            //setIsSwallowing(false);
+            return true;
+        }
+        if (entity instanceof final ItemEntity item) {
+            this.pickUpItem(item);
+        }
+        return false;
+    }
+
+
+    @Override
+    protected void pickUpItem(ItemEntity itemEntity) {
+        if (isHungry()) {
+            this.onItemPickup(itemEntity);
+            this.take(itemEntity, 1);
+            itemEntity.discard();
+            this.spawnAtLocation(UPItems.FROG_SALIVA.get());
+            this.gameEvent(GameEvent.EAT);
+            this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+            this.setHungry(false);
+            //setIsSwallowing(false);
+        }
+    }
+
 
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.hasCustomName();
@@ -357,6 +417,12 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
+
+        if(this.isSwallowing()){
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.bite"));
+            event.getController().setAnimationSpeed(0.9D);
+            return PlayState.CONTINUE;
+        }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isJumping && !this.isInWater()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
             event.getController().setAnimationSpeed(0.8D);
@@ -371,6 +437,8 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.jump").addRepeatingAnimation("animation.beelzebufo.jump_hold", 1));
             return PlayState.CONTINUE;
         }
+
+
         event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.idle"));
         event.getController().setAnimationSpeed(1.0D);
 
@@ -379,14 +447,11 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
 
 
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.bite"));
-            event.getController().setAnimationSpeed(0.9D);
+       //if (this.isSwallowing() && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+       //    event.getController().markNeedsReload();
 
-            this.swinging = false;
-        }
-        return PlayState.CONTINUE;
+       //}
+       return PlayState.CONTINUE;
     }
 
     @Override
@@ -445,6 +510,15 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
 
     }
 
+    public boolean isSwallowing() {
+        return this.entityData.get(IS_SWALLOWING);
+    }
+
+    public void setIsSwallowing(boolean swallowing) {
+        this.entityData.set(IS_SWALLOWING, swallowing);
+    }
+
+
     @Override
     public boolean canJump() {
         return this.isSaddled();
@@ -479,12 +553,86 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         this.isJumping = p_30656_;
     }
 
-    class IMeleeAttackGoal extends MeleeAttackGoal {
-        public IMeleeAttackGoal() {
-            super(EntityBeelzebufo.this, 1.0D, true);
+
+
+
+    class EatFoodGoal extends Goal{
+
+        private final EntityBeelzebufo beelzebufo;
+        private Entity food;
+
+        private int executionCooldown = 50;
+
+
+        public EatFoodGoal (EntityBeelzebufo beelzebufo){
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.beelzebufo = beelzebufo;
         }
 
-        protected double getAttackReachSqr(LivingEntity p_25556_) {
+        @Override
+        public boolean canUse() {
+            if (beelzebufo.eatCooldown > 0) {
+                return false;
+            }
+            if (executionCooldown > 0) {
+                executionCooldown--;
+            } else {
+                executionCooldown = 50 + random.nextInt(50);
+                if(beelzebufo.isHungry()){
+                    final List<Entity> list = beelzebufo.level.getEntitiesOfClass(Entity.class, beelzebufo.getBoundingBox().inflate(8, 8, 8), EntitySelector.NO_SPECTATORS.and(entity -> entity != beelzebufo && beelzebufo.isFood(entity)));
+                    list.sort(Comparator.comparingDouble(beelzebufo::distanceToSqr));
+                    if (!list.isEmpty()) {
+                        food = list.get(0);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return food != null && food.isAlive() && !this.beelzebufo.isHungry();
+        }
+
+        public void stop() {
+            executionCooldown = 5;
+            setIsSwallowing(false);
+        }
+
+        @Override
+        public void tick() {
+            beelzebufo.getNavigation().moveTo(food.getX(), food.getY(0.5F), food.getZ(), 1.0F);
+            beelzebufo.lookAt(food, 10F, 10F);
+            final float eatDist = beelzebufo.getBbWidth() * 0.65F + food.getBbWidth();
+            if (beelzebufo.distanceTo(food) < eatDist + 3 && beelzebufo.hasLineOfSight(food)) {
+                //final Vec3 delta = beelzebufo.getMouthVec().subtract(food.position()).normalize().scale(0.1F);
+                //food.setDeltaMovement(food.getDeltaMovement().add(delta));
+                if (beelzebufo.distanceTo(food) < eatDist) {
+                    if (food instanceof Player) {
+                        food.hurt(DamageSource.mobAttack(beelzebufo), 12000);
+                    } else if (beelzebufo.swallowEntity(food)) {
+                        beelzebufo.gameEvent(GameEvent.EAT);
+                        beelzebufo.playSound(SoundEvents.GENERIC_EAT, beelzebufo.getSoundVolume(), beelzebufo.getVoicePitch());
+                        food.discard();
+                    }
+                }
+            }
+        }
+
+    }
+    class IMeleeAttackGoal extends MeleeAttackGoal {
+
+
+
+        public IMeleeAttackGoal(EntityBeelzebufo beelzebufo) {
+            super(beelzebufo, 1.0D, true);
+
+        }
+
+
+
+        protected double getAttackReachSqr(Entity p_25556_) {
             return (this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
         }
 

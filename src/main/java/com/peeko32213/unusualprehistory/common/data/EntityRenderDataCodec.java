@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.client.screen.util.EntityRenderData;
 
 public class EntityRenderDataCodec {
     public static final Codec<EntityRenderDataCodec> CODEC = RecordCodecBuilder.create(inst -> inst

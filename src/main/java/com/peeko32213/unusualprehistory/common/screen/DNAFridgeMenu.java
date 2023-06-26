@@ -22,6 +22,7 @@ public class DNAFridgeMenu extends AbstractContainerMenu {
     }
 
 
+
     public static DNAFridgeMenu fiveRows(int id, Inventory inventory, Container container) {
         return new DNAFridgeMenu(UPMenuTypes.DNA_FRIDGE_MENU.get(), id, inventory, container,5);
     }

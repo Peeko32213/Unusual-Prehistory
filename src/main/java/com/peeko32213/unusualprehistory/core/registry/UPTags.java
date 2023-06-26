@@ -31,6 +31,8 @@ public class UPTags {
 
     public static final TagKey<EntityType<?>> SMILODON_TARGETS = registerEntityTag("smilodon_targets");
 
+    public static final TagKey<EntityType<?>> SMILODON_EMBRYO_ATTACH_TO= registerEntityTag("smilodon_embryo_attach_to");
+
     //Misc Tags
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");
     public static final TagKey<Item> ANALYZER_ITEMS_INPUT = registerItemTag("analyzer_items");
@@ -49,7 +51,7 @@ public class UPTags {
     public static final TagKey<Item> FILLED_FLASKS = registerItemTag( "filled_flasks");
     public static final TagKey<Item> FOSSILS = registerItemTag("fossils");
     public static final TagKey<Item> ORGANIC_OOZE = registerItemTag("organic_ooze");
-
+    public static final TagKey<Item> MAMMOTH_WEAPONS = registerItemTag("mammoth_weapons");
     //Food Tags
     public static final TagKey<Item> KENTRO_FOOD = registerItemTag( "kentro_food");
     public static final TagKey<Item> MAJUNGA_FOOD = registerItemTag("majunga_food");

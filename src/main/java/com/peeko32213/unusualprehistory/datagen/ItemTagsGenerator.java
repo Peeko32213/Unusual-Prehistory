@@ -243,6 +243,12 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(Items.COAL)
                 .add(Items.COBBLESTONE)
                 .add(UPItems.GINKGO_FLASK.get());
+
+        tag(UPTags.MAMMOTH_WEAPONS)
+                .add(Items.DIAMOND_SWORD)
+                .add(Items.DIAMOND_PICKAXE)
+                .add(Items.DIAMOND_AXE);
+
     }
 
 

@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.client.jei;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
+import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
@@ -41,9 +42,9 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
-        List<AnalyzerRecipe> recipesAnalyzer = rm.getAllRecipesFor(AnalyzerRecipe.Type.INSTANCE);
+        List<AnalyzerRecipe> recipesAnalyzer = rm.getAllRecipesFor(UPRecipes.ANALYZING_TYPE.get());
         registration.addRecipes(ANALYZER_TYPE, recipesAnalyzer);
-        List<CultivatorRecipe> recipesCultivator = rm.getAllRecipesFor(CultivatorRecipe.Type.INSTANCE);
+        List<CultivatorRecipe> recipesCultivator = rm.getAllRecipesFor(UPRecipes.CULTIVATOR_TYPE.get());
         registration.addRecipes(CULTIVATOR_TYPE, recipesCultivator);
 
     }
