@@ -8,19 +8,15 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.*;
-
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 /**
  * Manages the JSON files for loot fruits and their trades.
@@ -93,6 +89,7 @@ public class LootFruitJsonManager extends SimpleJsonResourceReloadListener {
         }
 
         this.trades = trades;
+        LOGGER.info("Data loader for {} loaded {} jsons", this.folderName, this.trades.size());
     }
 }
 

@@ -1,19 +1,19 @@
 {
-  "tier": 1,
-  "trade_item": "minecraft:carrot",
+  "tier": 3,
+  "trade_item": "unusualprehistory:red_fruit",
   "items": [
     {
-      "rolls": 1,
+      "rolls": 2,
       "entries": [
         {
-          "item": "minecraft:enchanted_book",
+          "item": "unusualprehistory:white_fruit_scraps",
           "weight": 10,
           "amount": 1
         },
         {
-          "item": "minecraft:gold_ingot",
-          "weight": 5,
-          "amount": 2
+          "item": "unusualprehistory:red_fruit_scraps",
+          "weight": 10,
+          "amount": 1
         }
       ]
     },
@@ -21,17 +21,43 @@
       "rolls": 1,
       "entries": [
         {
-          "item": "minecraft:iron_pickaxe",
-          "weight": 8,
+          "item": "unusualprehistory:horsetail",
+          "weight": 10,
           "amount": 1
         },
         {
-          "item": "minecraft:lapis_lazuli",
-          "weight": 15,
-          "amount": 6
+          "item": "unusualprehistory:leefructus",
+          "weight": 10,
+          "amount": 1
+        },
+        {
+          "item": "unusualprehistory:tall_horsetail",
+          "weight": 10,
+          "amount": 1
+        },
+        {
+          "item": "unusualprehistory:bennet",
+          "weight": 10,
+          "amount": 1
+        },
+        {
+          "item": "unusualprehistory:archaeos",
+          "weight": 10,
+          "amount": 1
+        },
+        {
+          "item": "unusualprehistory:sarracenia",
+          "weight": 10,
+          "amount": 1
+        },
+        {
+          "item": "unusualprehistory:tall_sarracenia",
+          "weight": 10,
+          "amount": 1
         }
       ]
     }
   ],
-  "color": "#7F7F7F"
+  "color": "#7F7F7F",
+  "CustomModelData": 3
 }

@@ -2,12 +2,9 @@ package com.peeko32213.unusualprehistory.common.entity.msc.util;
 
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.control.Control;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
 
 public class PounceGoal extends Goal {

@@ -137,5 +137,6 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
         }
 
         this.recipeList = recipeList;
+        LOGGER.info("Data loader for {} loaded {} jsons", this.folderName, this.recipeList.size());
     }
 }

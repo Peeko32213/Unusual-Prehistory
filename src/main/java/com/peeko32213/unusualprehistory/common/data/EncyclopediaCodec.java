@@ -5,15 +5,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.client.screen.util.EntityLinkData;
 import com.peeko32213.unusualprehistory.client.screen.util.ItemRenderData;
 import com.peeko32213.unusualprehistory.client.screen.util.LinkData;
-import net.minecraft.core.Registry;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 
 import java.util.Collections;
 import java.util.List;
-
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class EncyclopediaCodec {
 

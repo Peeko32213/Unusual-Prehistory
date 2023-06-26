@@ -4,11 +4,9 @@ import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -80,8 +78,10 @@ public class TradeGoal extends Goal {
             ItemStack lootFruit = new ItemStack(UPBlocks.FRUIT_LOOT_BOX.get());
             CompoundTag lootFruitTag = lootFruit.getOrCreateTag();
             int color = lootFruits.get(0).getColor().getValue();
+            int modelData = lootFruits.get(0).getCustomModelData();
             lootFruitTag.putInt("color", color);
             lootFruitTag.put("tradeItem", item.getDefaultInstance().serializeNBT());
+            lootFruitTag.putInt("CustomModelData", modelData);
             lootFruit.setTag(lootFruitTag);
             this.mob.setItemInHand(InteractionHand.MAIN_HAND, lootFruit);
             if (this.mob.getTradingAndGottenItem()) {

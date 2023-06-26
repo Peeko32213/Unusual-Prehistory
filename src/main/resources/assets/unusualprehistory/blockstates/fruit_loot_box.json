@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
-      "model": "unusualprehistory:block/fruit_loot_box"
+    "loot_box=1": {
+      "model": "unusualprehistory:block/fruit_loot_box_color"
+    },
+    "loot_box=2": {
+      "model": "unusualprehistory:block/fruit_loot_box_low_tier"
+    },
+    "loot_box=3": {
+      "model": "unusualprehistory:block/fruit_loot_box_medium_tier"
+    },
+    "loot_box=4": {
+      "model": "unusualprehistory:block/fruit_loot_box_medium_high_tier"
+    },
+    "loot_box=5": {
+      "model": "unusualprehistory:block/fruit_loot_box_high_tier"
     }
   }
 }

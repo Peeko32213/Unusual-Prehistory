@@ -4,10 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
-import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPMessages;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -260,7 +257,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
         Optional<CultivatorRecipe> match = level.getRecipeManager()
-                .getRecipeFor(CultivatorRecipe.Type.INSTANCE, inventory, level);
+                .getRecipeFor(UPRecipes.CULTIVATOR_TYPE.get(), inventory, level);
 
         return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
                 && canInsertItemIntoOutputSlot(inventory, match.get().assemble(inventory))
@@ -276,7 +273,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         }
 
         Optional<CultivatorRecipe> match = level.getRecipeManager()
-                .getRecipeFor(CultivatorRecipe.Type.INSTANCE, inventory, level);
+                .getRecipeFor(UPRecipes.CULTIVATOR_TYPE.get(), inventory, level);
 
         if(match.isPresent()) {
             entity.itemHandler.extractItem(0,1, false);

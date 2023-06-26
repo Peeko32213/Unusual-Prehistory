@@ -1,4 +1,4 @@
-// 1.19.2	2023-06-14T16:23:42.2693527	unusualprehistory Item Tags
+// 1.19.2	2023-06-26T20:54:24.6866907	unusualprehistory Item Tags
 9c732831ed6ac09a1a4607681080e74fd3f930ea data/minecraft/tags/items/buttons.json
 9edb75fd2a2fc58fad5cb177d8cd36a6b449e37d data/minecraft/tags/items/fishes.json
 c058532b8dc116a7ddd6535c6021e5b16efff81c data/minecraft/tags/items/leaves.json
@@ -29,6 +29,7 @@ f81945815d917ea76d0b552647f0047a679330dd data/unusualprehistory/tags/items/dna_f
 65a07dbf3b59887f73d06c422a44d40bff3a3eab data/unusualprehistory/tags/items/hwacha_food.json
 02cf79887a691782bca02d62b0d10612edeb7c8d data/unusualprehistory/tags/items/kentro_food.json
 0cfc4c92da27d037007490c029532b51268cb300 data/unusualprehistory/tags/items/majunga_food.json
+f175e9f0bf709c1820a0b05fe1cfcf8c97795396 data/unusualprehistory/tags/items/mammoth_weapons.json
 0cfc4c92da27d037007490c029532b51268cb300 data/unusualprehistory/tags/items/orange_ulugh_food.json
 8c693e070134b06a0aca7e31e0b583e96d6a3a12 data/unusualprehistory/tags/items/organic_ooze.json
 a0ae93ebb6c1e0daf4745c49f8aadf5984b46e48 data/unusualprehistory/tags/items/pachy_food.json

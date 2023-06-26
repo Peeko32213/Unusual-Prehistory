@@ -13,19 +13,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.util.LazyOptional;
-import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.List;
 
@@ -40,6 +29,8 @@ public class FruitLootBoxEntity extends BlockEntity {
     private int color;
 
     private  List<LootFruitCodec> lootFruits;
+
+    private int CustomModelData;
 
     public int getColor() {
         return color;
@@ -63,6 +54,14 @@ public class FruitLootBoxEntity extends BlockEntity {
         this.lootFruits = lootFruits;
     }
 
+    public int getCustomModelData() {
+        return CustomModelData;
+    }
+
+    public void setCustomModelData(int customModelData) {
+        CustomModelData = customModelData;
+    }
+
     public List<LootFruitCodec> getLootFruits() {
         return lootFruits;
     }
@@ -72,7 +71,7 @@ public class FruitLootBoxEntity extends BlockEntity {
         super.saveAdditional(pTag);
         pTag.putInt("color", getColor());
         pTag.put("tradeItem", getTradeItem().getDefaultInstance().serializeNBT());
-
+        pTag.putInt("modelData", getCustomModelData());
     }
 
 
@@ -86,16 +85,7 @@ public class FruitLootBoxEntity extends BlockEntity {
            setLootFruits(LootFruitJsonManager.getLoot(getTradeItem(), getLootFruits()));
         }
 
-        //((FruitLootBoxEntity)this.level.getBlockEntity(this.getBlockPos())).setColor(pTag.getInt("color"));
-        //setColor(pTag.getInt("color"));
-
-
-
-        //this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(),3);
-        //if(this.level !=null) {
-        //    this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
-        //}
-
+        this.setCustomModelData(pTag.getInt("modelData"));
     }
 
 

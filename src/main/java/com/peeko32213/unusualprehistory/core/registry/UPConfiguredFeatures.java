@@ -1,17 +1,26 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
+import com.google.common.collect.ImmutableList;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiFoliagePlacer;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoFoliagePlacer;
+import com.peeko32213.unusualprehistory.common.world.feature.tree.trunkplacer.GiantTrunkPlacerWithRoots;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TrunkVineDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraftforge.registries.DeferredRegister;
@@ -42,6 +51,26 @@ public class UPConfiguredFeatures {
                     BlockStateProvider.simple(UPBlocks.GINKGO_LEAVES.get()),
                     new GinkgoFoliagePlacer( 2F, 4.5F, ConstantInt.of(0), 1, 0, 0.5f, 2),
                     new TwoLayersFeatureSize(6, 3, 5)).build()));
+
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> FOXII_TREE =
+            registerConfiguredFeature("foxii", () -> new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+                    BlockStateProvider.simple(UPBlocks.FOXXI_LOG.get()),
+                    new GiantTrunkPlacerWithRoots(32, 13, 10),
+                    BlockStateProvider.simple(UPBlocks.FOXXI_LEAVES.get()),
+                    new FoxiiFoliagePlacer( ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(2, 3)),
+                    new TwoLayersFeatureSize(1, 1, 2))
+                    .decorators(ImmutableList.of(new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)))).build())
+            );
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> DRYOPHYLLUM =
+            registerConfiguredFeature("dryo", () -> new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+                    BlockStateProvider.simple(UPBlocks.DRYO_LOG.get()),
+                    new StraightTrunkPlacer(3, 2, 1),
+                    BlockStateProvider.simple(UPBlocks.DRYO_LEAVES.get()),
+                    new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), 3),
+                    new TwoLayersFeatureSize(1, 1, 2))
+                    .decorators(ImmutableList.of(TrunkVineDecorator.INSTANCE, new LeaveVineDecorator(0.25F))).build()));
 
     public static final RegistryObject<ConfiguredFeature<?, ?>> CONFIGURED_PETRIFIED_WOOD_FOREST= registerConfiguredFeature(PETRIFIED_WOOD_FOREST_FEATURE_NAME, () -> new ConfiguredFeature<>(UPFeatures.PETRIFIED_WOOD_FOREST.get(), new NoneFeatureConfiguration()));
 

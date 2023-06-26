@@ -1,22 +1,54 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "top": "unusualprehistory:block/entity/fruit_loot_box_top",
-    "side": "unusualprehistory:block/entity/fruit_loot_box_sides",
-    "bot": "unusualprehistory:block/entity/fruit_loot_box_bottom",
-    "particle": "unusualprehistory:block/entity/fruit_loot_box_top"
+    "top": "unusualprehistory:block/entity/red_fruit_top",
+    "side": "unusualprehistory:block/entity/red_fruit",
+    "bottom": "unusualprehistory:block/entity/red_fruit",
+    "particle": "unusualprehistory:block/entity/red_fruit"
   },
   "elements": [
     {   "from": [ 0, 0, 0 ],
       "to": [ 16, 16, 16 ],
       "faces": {
-        "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#bottom", "cullface": "bot", "tintindex": 0 },
-        "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#top",    "cullface": "top", "tintindex": 0 },
-        "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": 0 },
-        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": 0 },
-        "west":  { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": 0 },
-        "east":  { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": 0 }
+        "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#bottom", "cullface": "side", "tintindex": -1 },
+        "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#top",    "cullface": "top", "tintindex": -1 },
+        "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": -1 },
+        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": -1 },
+        "west":  { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": -1 },
+        "east":  { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "side", "tintindex": -1 }
       }
+    }
+  ],
+  "overrides": [
+    {
+      "predicate": {
+        "loot_box": 1
+      },
+      "model": "unusualprehistory:block/fruit_loot_box_color"
+    },
+    {
+      "predicate": {
+        "loot_box": 2
+      },
+      "model": "unusualprehistory:block/fruit_loot_box_low_tier"
+    },
+    {
+      "predicate": {
+        "loot_box": 3
+      },
+      "model": "unusualprehistory:block/fruit_loot_box_medium_tier"
+    },
+    {
+      "predicate": {
+        "loot_box": 4
+      },
+      "model": "unusualprehistory:block/fruit_loot_box_medium_high_tier"
+    },
+    {
+      "predicate": {
+        "loot_box": 5
+      },
+      "model": "unusualprehistory:block/fruit_loot_box_high_tier"
     }
   ]
 }

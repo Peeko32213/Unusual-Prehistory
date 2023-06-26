@@ -75,5 +75,6 @@ public class EncyclopediaJsonManager extends SimpleJsonResourceReloadListener {
 
         this.rootPage = rootPageR.get();
         this.encyclopediaEntries = encyclopedia;
+        LOGGER.info("Data loader for {} loaded {} jsons", this.folderName, this.encyclopediaEntries.size());
     }
 }

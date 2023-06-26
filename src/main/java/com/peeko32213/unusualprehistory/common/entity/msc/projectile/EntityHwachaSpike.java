@@ -121,8 +121,8 @@ public class EntityHwachaSpike extends Entity implements IAnimatable{
         }
     }
 
-    protected void onHitBlock(BlockHitResult p_230299_1_) {
-        BlockState blockstate = this.level.getBlockState(p_230299_1_.getBlockPos());
+    protected void onHitBlock(BlockHitResult hitresult) {
+        BlockState blockstate = this.level.getBlockState(hitresult.getBlockPos());
         if (!this.level.isClientSide) {
             this.remove(RemovalReason.DISCARDED);
         }

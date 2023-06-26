@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.client.render.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import com.peeko32213.unusualprehistory.common.entity.EntityGigantopithicus;
+import com.peeko32213.unusualprehistory.common.entity.EntityMammoth;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -31,12 +33,61 @@ public class ItemHoldingLayer <T extends EntityBaseDinosaurAnimal> extends GeoLa
         ResourceLocation boneLoc = this.getEntityModel().getModelResource(dino);
         GeoModel model = this.getEntityModel().getModel(boneLoc);
 
-        renderRecursively(dino, model.topLevelBones.get(0), matrixStackIn,bufferIn,packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
-                OverlayTexture.v(dino.hurtTime > 0)));
+
+        if(dino instanceof EntityGigantopithicus gigantopithicus){
+            renderRecursivelyGiganto(gigantopithicus, model.topLevelBones.get(0), matrixStackIn,bufferIn,packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
+                    OverlayTexture.v(gigantopithicus.hurtTime > 0)));
+        }
+        if(dino instanceof EntityMammoth mammoth){
+            renderRecursivelyMammoth(mammoth, model.getBone("TrunkPart3").get(), matrixStackIn,bufferIn,packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
+                    OverlayTexture.v(mammoth.hurtTime > 0)));
+        }
     }
 
+    private void renderRecursivelyMammoth(Entity entity, GeoBone bone, PoseStack stack, MultiBufferSource renderBuffer, int packedLightIn,
+                                          int packedOverlayIn) {
 
-    private void renderRecursively(Entity entity, GeoBone bone, PoseStack stack, MultiBufferSource renderBuffer, int packedLightIn,
+        stack.pushPose();
+        RenderUtils.translate(bone, stack);
+        RenderUtils.moveToPivot(bone, stack);
+        RenderUtils.rotate(bone, stack);
+        RenderUtils.scale(bone, stack);
+        RenderUtils.moveBackFromPivot(bone, stack);
+
+        if(entity instanceof EntityMammoth mammoth){
+            //UnusualPrehistory.LOGGER.info("bones " + bone.getName());
+            if (!mammoth.getHoldItemStack().isEmpty()) {
+                stack.pushPose();
+                //You'll need to play around with these to get item to render in the correct orientation
+                stack.mulPose(Vector3f.XP.rotationDegrees(-75));
+                stack.mulPose(Vector3f.YP.rotationDegrees(0));
+                stack.mulPose(Vector3f.ZP.rotationDegrees(0));
+                //You'll need to play around with this to render the item in the correct spot.
+                stack.translate(0D, 4D, -0.5D);
+                //Sets the scaling of the item.
+                stack.scale(2f, 2f, 2f);
+                // Change mainHand to predefined Itemstack and TransformType to what transform you would want to use.
+                ItemStack itemStack = mammoth.getHoldItemStack();
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
+                        packedLightIn, packedOverlayIn, stack, renderBuffer, entity.getId());
+                stack.popPose();
+                //Stops unnecessary further recursive method calling. Only works if I am rendering one thing per layer.
+                stack.popPose();
+                return;
+            }
+        }
+
+
+
+        if (!bone.isHidden) {
+            for (GeoBone childBone : bone.childBones) {
+                renderRecursivelyMammoth(entity, childBone, stack, renderBuffer, packedLightIn, packedOverlayIn);
+            }
+        }
+
+        stack.popPose();
+    }
+    private void renderRecursivelyGiganto(Entity entity, GeoBone bone, PoseStack stack, MultiBufferSource renderBuffer, int packedLightIn,
                                    int packedOverlayIn) {
 
         stack.pushPose();
@@ -46,33 +97,15 @@ public class ItemHoldingLayer <T extends EntityBaseDinosaurAnimal> extends GeoLa
         RenderUtils.scale(bone, stack);
         RenderUtils.moveBackFromPivot(bone, stack);
         if(entity instanceof EntityBaseDinosaurAnimal entityBaseDinosaurAnimal) {
-            if (bone.getName().equals("RightArm") && !entityBaseDinosaurAnimal.isTrading()) {
+            if (bone.getName().equals("RightArm") && entityBaseDinosaurAnimal.isTrading() && entityBaseDinosaurAnimal instanceof EntityGigantopithicus) {
                 stack.pushPose();
                 //You'll need to play around with these to get item to render in the correct orientation
-                stack.mulPose(Vector3f.XP.rotationDegrees(-75));
-                stack.mulPose(Vector3f.YP.rotationDegrees(0));
-                stack.mulPose(Vector3f.ZP.rotationDegrees(0));
-                //You'll need to play around with this to render the item in the correct spot.
-                stack.translate(1D, 0.7D, 0.2D);
-                //Sets the scaling of the item.
-                stack.scale(2.5f, 2.5f, 2.5f);
-                // Change mainHand to predefined Itemstack and TransformType to what transform you would want to use.
-                Minecraft.getInstance().getItemRenderer().renderStatic(mainHand, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
-                        packedLightIn, packedOverlayIn, stack, renderBuffer, entity.getId());
-                stack.popPose();
-                //Stops unnecessary further recursive method calling. Only works if I am rendering one thing per layer.
-                stack.popPose();
-                return;
-            }
-            if (bone.getName().equals("RightArm") && entityBaseDinosaurAnimal.isTrading()) {
-                stack.pushPose();
-                //You'll need to play around with these to get item to render in the correct orientation
-                stack.mulPose(Vector3f.XP.rotationDegrees(-65));
+                stack.mulPose(Vector3f.XP.rotationDegrees(-45));
                 stack.mulPose(Vector3f.YP.rotationDegrees(0));
                 stack.mulPose(Vector3f.ZP.rotationDegrees(0));
 
                 //You'll need to play around with this to render the item in the correct spot.
-                stack.translate(0.0D, -1D, 1D);
+                stack.translate(0.0D, -1.25D, 0.25D);
                 //Sets the scaling of the item.
                 stack.scale(2.5f, 2.5f, 2.5f);
 
@@ -90,9 +123,10 @@ public class ItemHoldingLayer <T extends EntityBaseDinosaurAnimal> extends GeoLa
             }
         }
 
+
         if (!bone.isHidden) {
             for (GeoBone childBone : bone.childBones) {
-                renderRecursively(entity, childBone, stack, renderBuffer, packedLightIn, packedOverlayIn);
+                renderRecursivelyGiganto(entity, childBone, stack, renderBuffer, packedLightIn, packedOverlayIn);
             }
         }
 

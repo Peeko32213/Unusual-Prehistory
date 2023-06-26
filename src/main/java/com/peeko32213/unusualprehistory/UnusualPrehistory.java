@@ -1,14 +1,13 @@
 package com.peeko32213.unusualprehistory;
 
+import com.peeko32213.unusualprehistory.client.event.ClientEvents;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.message.UPMessageHurtMultipart;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -25,10 +25,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -39,7 +35,6 @@ import java.util.function.Supplier;
 
 import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.GINKGO;
 import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.PETRIFIED;
-import static org.antlr.runtime.debug.DebugEventListener.PROTOCOL_VERSION;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(UnusualPrehistory.MODID)
@@ -51,34 +46,22 @@ public class UnusualPrehistory {
     //public static final SimpleChannel NETWORK_WRAPPER;
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
-    public static SimpleChannel NETWORK;
-
-    //static {
-    //    NetworkRegistry.ChannelBuilder channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation("unusualprehistory", "main_channel"));
-    //    String version = PROTOCOL_VERSION;
-    //    version.getClass();
-    //    channel = channel.clientAcceptedVersions(version::equals);
-    //    version = PROTOCOL_VERSION;
-    //    version.getClass();
-    //    NETWORK_WRAPPER = channel.serverAcceptedVersions(version::equals).networkProtocolVersion(() -> {
-    //        return PROTOCOL_VERSION;
-    //    }).simpleChannel();
-    //}
-
     public UnusualPrehistory() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus eventBus = MinecraftForge.EVENT_BUS;
-
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(ClientEvents::init));
         modEventBus.addListener(this::commonSetup);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.CONFIG_BUILDER);
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
         UPFeatures.FEATURES.register(modEventBus);
+        UPTrunkPlacerType.TRUNK_PLACER_TYPES.register(modEventBus);
         UPConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
         UPPlacedFeatures.PLACED_FEATURES.register(modEventBus);
         UPBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         UPMenuTypes.MENUS.register(modEventBus);
         UPRecipes.SERIALIZERS.register(modEventBus);
+        UPRecipes.RECIPE_TYPES.register(modEventBus);
         UPEntities.ENTITIES.register(modEventBus);
         UPFeatureModifiers.FOLIAGE_PLACERS.register(modEventBus);
         UPFeatureModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
@@ -93,6 +76,7 @@ public class UnusualPrehistory {
         //eventBus.addListener(UPPlayerCapability::onPlayerCloned);
         //eventBus.addListener(UPPlayerCapability::onLivingDamage);
         //eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
+        //eventBus.addListener(UPAnimalCapability::tickAnimal);
     }
 
     //Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib

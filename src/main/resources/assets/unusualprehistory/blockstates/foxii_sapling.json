@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "unusualprehistory:block/foxii_sapling_bottom"
+    },
+    "half=upper": {
+      "model": "unusualprehistory:block/foxii_sapling_top"
+    }
+  }
+}

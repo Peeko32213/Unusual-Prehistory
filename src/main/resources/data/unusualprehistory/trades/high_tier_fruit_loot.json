@@ -1,19 +1,14 @@
 {
-  "tier": 3,
-  "trade_item": "minecraft:emerald",
+  "tier": 5,
+  "trade_item": "unusualprehistory:yellow_fruit",
   "items": [
     {
-      "rolls": 1,
+      "rolls": 2,
       "entries": [
         {
-          "item": "minecraft:diamond_chestplate",
-          "weight": 18,
+          "item": "unusualprehistory:blue_fruit_scraps",
+          "weight": 10,
           "amount": 1
-        },
-        {
-          "item": "minecraft:gold_ingot",
-          "weight": 8,
-          "amount": 3
         }
       ]
     },
@@ -33,5 +28,6 @@
       ]
     }
   ],
-  "color": "#CCCCCC"
+  "color": "#CCCCCC",
+  "CustomModelData": 5
 }

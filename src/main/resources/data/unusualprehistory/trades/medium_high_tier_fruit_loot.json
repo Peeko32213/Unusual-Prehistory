@@ -1,0 +1,38 @@
+{
+  "tier": 4,
+  "trade_item": "unusualprehistory:white_fruit",
+  "items": [
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "item": "unusualprehistory:yellow_fruit_scraps",
+          "weight": 10,
+          "amount": 1
+        },
+        {
+          "item": "unusualprehistory:white_fruit_scraps",
+          "weight": 10,
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "item": "minecraft:iron_pickaxe",
+          "weight": 8,
+          "amount": 1
+        },
+        {
+          "item": "minecraft:lapis_lazuli",
+          "weight": 15,
+          "amount": 6
+        }
+      ]
+    }
+  ],
+  "color": "#7F7F7F",
+  "CustomModelData": 4
+}

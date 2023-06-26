@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.client.model.tool;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.tool.ItemHandmadeSpear;
-import com.peeko32213.unusualprehistory.common.item.tool.ItemTrikeShield;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

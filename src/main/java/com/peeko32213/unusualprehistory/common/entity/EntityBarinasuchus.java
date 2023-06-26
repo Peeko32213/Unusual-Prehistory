@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -8,7 +7,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -71,7 +69,6 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
     public boolean isAngryAt(LivingEntity p_21675_) {
         return this.canAttack(p_21675_);
     }
-
 
     @Override
     protected SoundEvent getAttackSound() {

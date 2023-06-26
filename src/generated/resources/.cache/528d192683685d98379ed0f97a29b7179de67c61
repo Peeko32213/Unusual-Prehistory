@@ -1,4 +1,4 @@
-// 1.19.2	2023-05-30T10:42:41.4132706	unusualprehistory Entity type tags provider
+// 1.19.2	2023-06-26T18:29:27.9621354	unusualprehistory Entity type tags provider
 54185a027fa8d708a564fe1346da11538051db73 data/unusualprehistory/tags/entity_types/antarcto_targets.json
 f6aaf288203062a671f170c0381ed4a60f1d18e4 data/unusualprehistory/tags/entity_types/anuro_targets.json
 467dc350433b69c50e039e36abe6f15d514c8b8d data/unusualprehistory/tags/entity_types/beelze_targets.json
@@ -7,5 +7,6 @@ c1226ad9e5c2c1437c63dcc0e5ea7e18223ecec9 data/unusualprehistory/tags/entity_type
 bda291a6e6416b0e14a087cc86f33600be45cc1d data/unusualprehistory/tags/entity_types/land_mobs.json
 e7a74546074fbf958c25dca165a18e5a52581db0 data/unusualprehistory/tags/entity_types/majunga_targets.json
 bfe8052507ee1c8fc5cad23206e694af426bd4f6 data/unusualprehistory/tags/entity_types/raptor_targets.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/unusualprehistory/tags/entity_types/rex_targets.json
+bfe8052507ee1c8fc5cad23206e694af426bd4f6 data/unusualprehistory/tags/entity_types/rex_targets.json
+3e0f1c22c1e31318a7f8875c4b3ea72bd0fbc942 data/unusualprehistory/tags/entity_types/smilodon_embryo_attach_to.json
 665fafe2fb7dcfd456a58048b0d76ae48f749cde data/unusualprehistory/tags/entity_types/smilodon_targets.json

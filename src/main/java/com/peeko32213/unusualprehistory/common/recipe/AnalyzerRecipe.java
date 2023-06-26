@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -65,13 +66,12 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return UPRecipes.ANALYZING_TYPE.get();
     }
 
-
-    public static class Type implements RecipeType<AnalyzerRecipe> {
-        private Type() { }
-        public static final Type INSTANCE = new Type();
+    @Override
+    public boolean isSpecial() {
+        return true;
     }
 
     @Override
@@ -113,26 +113,6 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
             for (Ingredient ing : recipe.getIngredients()) {
                 ing.toNetwork(buf);
             }
-        }
-
-
-        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
-            return INSTANCE;
-        }
-
-
-        public ResourceLocation getRegistryName() {
-            return ID;
-        }
-
-
-        public Class<RecipeSerializer<?>> getRegistryType() {
-            return Serializer.castClass(RecipeSerializer.class);
-        }
-
-        @SuppressWarnings("unchecked") // Need this wrapper, because generics
-        private static <G> Class<G> castClass(Class<?> cls) {
-            return (Class<G>)cls;
         }
     }
 }

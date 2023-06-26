@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -23,6 +23,9 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
         this.output = output;
         this.recipeItems = recipeItems;
     }
+
+
+
 
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
@@ -61,17 +64,16 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return UPRecipes.CULTIVATOR_TYPE.get();
     }
 
-    public static class Type implements RecipeType<CultivatorRecipe> {
-        private Type() { }
-        public static final Type INSTANCE = new Type();
+    @Override
+    public boolean isSpecial() {
+        return true;
     }
 
     public static class Serializer implements RecipeSerializer<CultivatorRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(UnusualPrehistory.MODID,"cultivator");
 
         @Override
         public CultivatorRecipe fromJson(ResourceLocation id, JsonObject json) {
@@ -105,25 +107,6 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
                 ing.toNetwork(buf);
             }
             buf.writeItemStack(recipe.output, false);
-        }
-
-
-        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
-            return INSTANCE;
-        }
-
-
-        public ResourceLocation getRegistryName() {
-            return ID;
-        }
-
-        public Class<RecipeSerializer<?>> getRegistryType() {
-            return Serializer.castClass(RecipeSerializer.class);
-        }
-
-        @SuppressWarnings("unchecked") // Need this wrapper, because generics
-        private static <G> Class<G> castClass(Class<?> cls) {
-            return (Class<G>)cls;
         }
     }
 

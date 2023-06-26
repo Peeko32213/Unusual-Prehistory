@@ -20,15 +20,20 @@ public final class UPCapabilities {
     public static final Capability<UPPlayerCapability> PLAYER_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
+    public static final Capability<UPAnimalCapability> ANIMAL_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
+    });
+
     public static void setupCapabilities() {
         IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
         modbus.addListener(UPCapabilities::registerCapabilities);
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         forgeBus.addGenericListener(Entity.class, UPAttacherPlayerCapability::attach);
+        forgeBus.addGenericListener(Entity.class, UPAnimalAttacherCapability::attach);
     }
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.register(UPPlayerCapability.class);
+        event.register(UPAnimalCapability.class);
     }
 }
