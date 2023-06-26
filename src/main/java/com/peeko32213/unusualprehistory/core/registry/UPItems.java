@@ -218,6 +218,9 @@ public class UPItems {
     public static final RegistryObject<Item> HANDMADE_SPEAR = ITEMS.register("handmade_spear",
             () -> new ItemHandmadeSpear(UPItemTiers.HANDMADE, 3, -1.5F));
 
+    public static final RegistryObject<Item> HANDMADE_BATTLEAXE = ITEMS.register("handmade_battleaxe",
+            () -> new ItemHandmadeBattleaxe(UPItemTiers.HANDMADE, 5, -1.9F));
+
     public static final RegistryObject<Item> RAW_STETHA = ITEMS.register("raw_stetha",
             () -> new Item(new Item.Properties().food(ModFood.RAW_STETHA).tab(UnusualPrehistory.DINO_TAB)));
 

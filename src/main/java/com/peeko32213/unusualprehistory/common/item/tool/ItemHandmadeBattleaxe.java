@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.render.tool.HandmadeSpearRenderer;
+import com.peeko32213.unusualprehistory.client.render.tool.HandmadeBattleaxeRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -26,13 +26,13 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class ItemHandmadeSpear extends SwordItem implements IAnimatable {
+public class ItemHandmadeBattleaxe extends SwordItem implements IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 
     private static final UUID ATTACK_KNOCKBACK_UUID = UUID.fromString("20D3EB3F-226F-4325-873E-9B0932E4E5C6");
 
-    public ItemHandmadeSpear(Tier tier, int attackDamage, float attackSpeed) {
+    public ItemHandmadeBattleaxe(Tier tier, int attackDamage, float attackSpeed) {
         super(tier, attackDamage, attackSpeed, new Properties()
                 .stacksTo(1)
                 .defaultDurability(tier.getUses() * 3)
@@ -54,7 +54,7 @@ public class ItemHandmadeSpear extends SwordItem implements IAnimatable {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private final HandmadeSpearRenderer renderer = new HandmadeSpearRenderer();
+            private final HandmadeBattleaxeRenderer renderer = new HandmadeBattleaxeRenderer();
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
@@ -65,11 +65,11 @@ public class ItemHandmadeSpear extends SwordItem implements IAnimatable {
 
     @Override
     public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
-        return ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
+        return ToolActions.DEFAULT_AXE_ACTIONS.contains(toolAction);
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.handmade_spear.idle"));
+        event.getController().setAnimation(new AnimationBuilder().loop("animation.handmade_battleaxe.idle"));
         return PlayState.CONTINUE;
     }
 
