@@ -1,0 +1,64 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.handmade_spear",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 5.5,
+				"visible_bounds_offset": [0, 2.25, 0]
+			},
+			"bones": [
+				{
+					"name": "Spear",
+					"pivot": [0, 28, 0],
+					"cubes": [
+						{"origin": [-1, 0, -1], "size": [2, 53, 2], "uv": [0, 0]},
+						{"origin": [-1.5, 49, -1.5], "size": [3, 2, 3], "uv": [20, 16]}
+					]
+				},
+				{
+					"name": "SpearTip",
+					"parent": "Spear",
+					"pivot": [0, 53, 0]
+				},
+				{
+					"name": "Tip1",
+					"parent": "SpearTip",
+					"pivot": [0, 53, 0],
+					"rotation": [0, -45, 0],
+					"cubes": [
+						{"origin": [-4, 53, 0], "size": [8, 12, 0], "uv": [8, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "Tip2",
+					"parent": "SpearTip",
+					"pivot": [0, 53, 0],
+					"rotation": [0, 45, 0],
+					"cubes": [
+						{"origin": [-4, 53, 0], "size": [8, 12, 0], "uv": [8, 0]}
+					]
+				},
+				{
+					"name": "Vines",
+					"parent": "Spear",
+					"pivot": [1.5, 51, 0],
+					"cubes": [
+						{"origin": [1.5, 46, 0], "size": [6, 7, 0], "uv": [8, 19]}
+					]
+				},
+				{
+					"name": "Vines2",
+					"parent": "Vines",
+					"pivot": [7.5, 50, 0],
+					"cubes": [
+						{"origin": [7.5, 46, 0], "size": [7, 7, 0], "uv": [8, 12]}
+					]
+				}
+			]
+		}
+	]
+}

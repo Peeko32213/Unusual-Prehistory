@@ -35,6 +35,7 @@ public class LanguageGenerator extends LanguageProvider {
         //TOOLS
         addItem(UPItems.WARPICK, "War Pick");
         addItem(UPItems.PRIMAL_MACUAHUITL, "Primal Macuahuitl");
+        addItem(UPItems.HANDMADE_SPEAR, "Handmade Spear");
 
         //FOSSILS
         addItem(UPItems.SHELL_SHARD, "Shell Shard");

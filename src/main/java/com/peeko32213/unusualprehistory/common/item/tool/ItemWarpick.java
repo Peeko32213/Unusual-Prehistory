@@ -47,7 +47,8 @@ public class ItemWarpick extends SwordItem {
                 && enchantment != Enchantments.BLOCK_EFFICIENCY
                 && enchantment != Enchantments.BLOCK_FORTUNE
                 && enchantment != Enchantments.FIRE_ASPECT
-                
+                && enchantment != Enchantments.SHARPNESS
+
                 && enchantment != Enchantments.BINDING_CURSE;
 
     }

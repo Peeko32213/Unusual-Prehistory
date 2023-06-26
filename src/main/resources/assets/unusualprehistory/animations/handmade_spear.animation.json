@@ -1,0 +1,21 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.handmade_spear.idle": {
+			"loop": true,
+			"bones": {
+				"Vines": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.2) * 45) * 20", "Math.cos((query.anim_time - 0.2) * 45) * 5"]
+					}
+				},
+				"Vines2": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.5) * 45) * 20", "Math.cos((query.anim_time - 0.5) * 45) * 5"]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

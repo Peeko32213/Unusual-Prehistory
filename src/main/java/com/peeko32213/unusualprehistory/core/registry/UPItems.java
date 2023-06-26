@@ -6,9 +6,7 @@ import com.peeko32213.unusualprehistory.common.item.armor.AustroArmorMaterial;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.common.item.armor.MajungaArmorMaterial;
-import com.peeko32213.unusualprehistory.common.item.tool.ItemPrimalMacuahuitl;
-import com.peeko32213.unusualprehistory.common.item.tool.ItemTrikeShield;
-import com.peeko32213.unusualprehistory.common.item.tool.ItemVelociShield;
+import com.peeko32213.unusualprehistory.common.item.tool.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
@@ -212,10 +210,13 @@ public class UPItems {
     public static final RegistryObject<Item> ANTARCTO_PLATE = ITEMS.register("antarcto_plate",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> WARPICK = ITEMS.register("warpick",
-            () -> new ItemModPickaxe(UPItemTiers.SHELL, 3, -2.8F));
+            () -> new ItemWarpick(UPItemTiers.SHELL, 3, -2.8F));
 
     public static final RegistryObject<Item> PRIMAL_MACUAHUITL = ITEMS.register("primal_macuahuitl",
             () -> new ItemPrimalMacuahuitl(UPItemTiers.SHELL, 6, -1.8F));
+
+    public static final RegistryObject<Item> HANDMADE_SPEAR = ITEMS.register("handmade_spear",
+            () -> new ItemHandmadeSpear(UPItemTiers.HANDMADE, 3, -1.5F));
 
     public static final RegistryObject<Item> RAW_STETHA = ITEMS.register("raw_stetha",
             () -> new Item(new Item.Properties().food(ModFood.RAW_STETHA).tab(UnusualPrehistory.DINO_TAB)));
