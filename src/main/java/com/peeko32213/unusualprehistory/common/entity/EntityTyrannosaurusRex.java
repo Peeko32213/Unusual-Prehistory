@@ -97,13 +97,13 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this) {
             public boolean canUse() {
-                return !isEepy() && passiveFor == 0 && super.canUse();
+                return !hasEepy() && passiveFor == 0 && super.canUse();
             }
         }));
 
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.REX_TARGETS)){
             public boolean canUse() {
-                return !isEepy() && passiveFor == 0 && super.canUse();
+                return !hasEepy() && passiveFor == 0 && super.canUse();
             }
         });
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
@@ -112,7 +112,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        if(item == UPItems.ADORNED_STAFF.get() && this.isEepy()) {
+        if(item == UPItems.ADORNED_STAFF.get() && this.hasEepy()) {
             itemstack.hurtAndBreak(5, player, (p_29822_) -> {
                 p_29822_.broadcastBreakEvent(hand);
             });
@@ -122,7 +122,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             this.passiveFor = 1000000000 + random.nextInt(1000000000);
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.FAIL;
+        return wResult.FAIL;
     }
 
     @Override
@@ -133,7 +133,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     @Override
     public boolean canAttack(LivingEntity entity) {
         boolean prev = super.canAttack(entity);
-        if(isEepy()){
+        if(hasEepy()){
             return false;
         }
         return prev;
@@ -194,16 +194,15 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         return this.entityData.get(EEPY).booleanValue();
     }
 
-    public boolean isEepy() {
-        this.setTarget(null);
-        this.setAggressive(false);
+    public boolean shouldBeEepy() {
         return this.getHealth() <= this.getMaxHealth() / 15.0F;
     }
 
     public void travel(Vec3 vec3d) {
-        if (this.isEepy()) {
+        if (this.shouldBeEepy()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
+
             }
             vec3d = Vec3.ZERO;
         }
@@ -252,6 +251,15 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
     public void tick() {
         super.tick();
+
+        if (this.shouldBeEepy()) {
+            this.setEepy(true);
+        }
+
+        System.out.println(!this.level.isClientSide);
+        System.out.println(this.passiveFor);
+        System.out.println(--this.timeUntilDrops);
+
         if (!this.level.isClientSide && this.isAlive() && this.passiveFor > 0 && --this.timeUntilDrops <= 0) {
             this.spawnAtLocation(UPItems.REX_TOOTH.get(), 4);
             this.spawnAtLocation(UPItems.REX_SCALE.get(), 9);
@@ -288,12 +296,15 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (this.isEepy() ) {
+
+        if (this.shouldBeEepy()) {
             this.stunnedTick = 60;
             this.level.broadcastEntityEvent(this, (byte)39);
             this.setEepy(true);
             this.setAggressive(false);
+            this.setTarget(null);
         }
+
         if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.isSprinting()) {
             boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
@@ -434,16 +445,18 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         public void stop() {
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
+                this.mob.setAnimationState(0);
                 this.mob.setTarget((LivingEntity) null);
             }
             this.mob.setAnimationState(0);
-
         }
 
         public void tick() {
 
 
             LivingEntity target = this.mob.getTarget();
+            //System.out.println(this.mob.getTarget());
+
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
@@ -689,7 +702,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                     event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompl"));
                     break;
                 default:
-                    if (this.isEepy()) {
+                    if (this.hasEepy()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("rex.eepy"));
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;

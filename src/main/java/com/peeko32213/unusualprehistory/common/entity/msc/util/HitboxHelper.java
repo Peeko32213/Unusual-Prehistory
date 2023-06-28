@@ -43,7 +43,7 @@ public class HitboxHelper {
 
                     double y = pos0.y + hInf + k*d;
                     AABB scanAbove = new AABB(x-d, y - 4*d, z- d, x+ d, y + 2*d, z+ d);
-                    if(!entityIn.level.isClientSide) hitboxOutline(scanAbove, (ServerLevel) entityIn.level);
+                    //if(!entityIn.level.isClientSide) hitboxOutline(scanAbove, (ServerLevel) entityIn.level);
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
 
                     //if (!entityIn.level.isClientSide()) {
@@ -113,7 +113,7 @@ public class HitboxHelper {
                     double y = pos0.y + hInf + k*d;
                     AABB scanAbove = new AABB(x-d, y - 4d, z- d, x+ d, y + 2d, z+ d);
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
-                    if(!entityIn.level.isClientSide) hitboxOutline(scanAbove, (ServerLevel) entityIn.level);
+                    //if(!entityIn.level.isClientSide) hitboxOutline(scanAbove, (ServerLevel) entityIn.level);
 
                     if(!entities.isEmpty()) {
                         for(int n = 0; n < entities.size(); n++) {
