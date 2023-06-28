@@ -585,6 +585,9 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         int animState = this.getAnimationState();
         {
             switch (animState) {

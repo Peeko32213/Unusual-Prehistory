@@ -303,6 +303,9 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             if (this.isSprinting()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.sprint"));

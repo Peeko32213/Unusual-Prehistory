@@ -57,6 +57,8 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
     private UUID persistentAngerTarget;
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(EntityAnurognathus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> CROPS_POLLINATED = SynchedEntityData.defineId(EntityAnurognathus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityAnurognathus.class, EntityDataSerializers.BOOLEAN);
+
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private static final UniformInt ALERT_INTERVAL = TimeUtil.rangeOfSeconds(4, 6);
     private static final int ALERT_RANGE_Y = 10;
@@ -133,6 +135,8 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         super.defineSynchedData();
         this.entityData.define(FLYING, false);
         this.entityData.define(CROPS_POLLINATED, 0);
+        this.entityData.define(FROM_BOOK, false);
+
     }
 
 
@@ -349,7 +353,9 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (event.isMoving() && this.isOnGround() && this.onGround) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.anuro.walk"));
             event.getController().setAnimationSpeed(1.05);
@@ -477,6 +483,13 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
     @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+    }
+
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
     }
 
     public boolean requiresCustomPersistence() {

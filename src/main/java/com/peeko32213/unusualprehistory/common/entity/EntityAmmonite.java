@@ -48,6 +48,7 @@ import javax.annotation.Nullable;
 public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, IAnimatable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SHOULD_DROP = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private boolean isSchool = true;
@@ -144,6 +145,7 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
         super.defineSynchedData();
         this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(SHOULD_DROP, true);
+        this.entityData.define(FROM_BOOK, false);
     }
 
     @Override
@@ -202,6 +204,14 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
         return new ItemStack(UPItems.AMMON_BUCKET.get());
     }
 
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
+    }
+
+
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.isFromBucket());
@@ -216,6 +226,9 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.ammonite.swim"));
         }

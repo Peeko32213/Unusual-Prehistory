@@ -22,8 +22,8 @@
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 1.0,
-      "offset_x":-1,
-      "offset_y": -7,
+      "offset_x":0,
+      "offset_y": -5,
       "hover_text": "Talapanas"
     }
   ]

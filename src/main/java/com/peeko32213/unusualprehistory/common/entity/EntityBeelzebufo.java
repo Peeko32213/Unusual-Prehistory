@@ -416,8 +416,9 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-
-
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if(this.isSwallowing()){
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.bite"));
             event.getController().setAnimationSpeed(0.9D);

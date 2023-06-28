@@ -4,7 +4,6 @@ import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.render.BaseEntityRender;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.tags.TagKey;
@@ -57,26 +56,7 @@ public class CommonEvents {
         event.put(UPEntities.MAMMOTH.get(), EntityMammoth.createAttributes().build());
         event.put(UPEntities.PALAEOPHIS.get(), EntityPalaeophis.createAttributes().build());
 
-        event.put(UPEntities.AMMON_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.MAJUNGA_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.DUNK_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.COTY_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.BEELZ_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.ANURO_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.STETHA_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.SCAU_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.TRIKE_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.PACHY_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.BRACHI_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.RAPTOR_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.REX_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.ENCRUSTED_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.ERYON_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.AUSTRO_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.ULUGH_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.KENTRO_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.ANTARCTO_RENDER.get(), BaseEntityRender.createAttributes().build());
-        event.put(UPEntities.HWACHA_RENDER.get(), BaseEntityRender.createAttributes().build());
+
 
         event.put(UPEntities.WORLD_SPAWNABLE.get(), EntityWorldSpawnable.bakeAttributes().build());
     }

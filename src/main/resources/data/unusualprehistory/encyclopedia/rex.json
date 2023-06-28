@@ -3,20 +3,20 @@
   "text": "rex.txt",
   "entity_button":[
     {
-      "entity": "unusualprehistory:rex_render",
+      "entity": "unusualprehistory:rex",
       "x": 290,
       "y": 120,
       "page" : 1,
       "scale": 1.2,
-      "entity_scale": 0.2,
-      "offset_x": 9,
-      "offset_y": 12,
+      "entity_scale": 0.18,
+      "offset_x": 12,
+      "offset_y": 13,
       "hover_text": "Tyrannosaurus Rex"
     }
   ],
   "entity_renders": [
     {
-      "entity": "unusualprehistory:rex_render",
+      "entity": "unusualprehistory:rex",
       "x": 90,
       "y": 100,
       "page" : 0,

@@ -13,7 +13,7 @@
   ],
   "entity_renders": [
     {
-      "entity": "unusualprehistory:majunga_render",
+      "entity": "unusualprehistory:majunga",
       "x": 90,
       "y": 100,
       "page" : 0,
@@ -27,14 +27,14 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:majunga_render",
+      "entity": "unusualprehistory:majunga",
       "x": 230,
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.6,
-      "offset_x": 4,
-      "offset_y": 4,
+      "entity_scale": 0.5,
+      "offset_x": 7,
+      "offset_y": 5,
       "hover_text": "Majungasaurus"
     }
   ]

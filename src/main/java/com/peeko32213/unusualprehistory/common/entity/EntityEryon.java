@@ -59,6 +59,8 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.BOOLEAN);
+
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private Ingredient temptationItems;
@@ -169,6 +171,8 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         this.entityData.define(FEEDING_TIME, 0);
         this.entityData.define(VARIANT, 0);
         this.entityData.define(FEEDING_POS, Optional.empty());
+        this.entityData.define(FROM_BOOK, false);
+
     }
 
     public int getVariant() {
@@ -187,6 +191,12 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         this.entityData.set(FEEDING_TIME, feedingTime);
     }
 
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
+    }
     public void tick() {
         super.tick();
         this.prevFeedProgress = feedProgress;
@@ -341,6 +351,9 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.eryon.walk"));

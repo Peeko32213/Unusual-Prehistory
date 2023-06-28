@@ -51,6 +51,7 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketable, NeutralMob, IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private int remainingPersistentAngerTime;
     @javax.annotation.Nullable
@@ -63,6 +64,7 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     public static float HITBOX_WIDTH = 0.4F;
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityStethacanthus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityStethacanthus.class, EntityDataSerializers.BOOLEAN);
 
     public EntityStethacanthus(EntityType<? extends SchoolingWaterAnimal> entityType, Level level) {
         super(entityType, level);
@@ -181,6 +183,8 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FROM_BUCKET, false);
+        this.entityData.define(FROM_BOOK, false);
+
     }
 
     @Override
@@ -273,6 +277,12 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     public boolean isPreventingPlayerRest(Player p_34475_) {
         return this.isAngryAt(p_34475_);
     }
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
+    }
 
     @Override
     public void startPersistentAngerTimer() {
@@ -280,6 +290,9 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.stethacanthus.swim"));
         }

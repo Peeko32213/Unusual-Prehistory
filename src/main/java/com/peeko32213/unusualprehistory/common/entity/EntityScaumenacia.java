@@ -46,6 +46,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 public class EntityScaumenacia extends WaterAnimal implements Bucketable, IAnimatable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
+
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public EntityScaumenacia(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
@@ -132,6 +134,8 @@ public class EntityScaumenacia extends WaterAnimal implements Bucketable, IAnima
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FROM_BUCKET, false);
+        this.entityData.define(FROM_BOOK, false);
+
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -176,6 +180,13 @@ public class EntityScaumenacia extends WaterAnimal implements Bucketable, IAnima
         this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
 
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
+    }
+
     @Override
     public void loadFromBucketTag(CompoundTag p_148832_) {
 
@@ -200,6 +211,9 @@ public class EntityScaumenacia extends WaterAnimal implements Bucketable, IAnima
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.scaumenacia.swim"));
         }

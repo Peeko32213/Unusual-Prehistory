@@ -47,6 +47,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class EntityEncrusted extends RangedMeleeMob implements IAnimatable {
     private static final EntityDataAccessor<Boolean> SPITTING = SynchedEntityData.defineId(EntityEncrusted.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityEncrusted.class, EntityDataSerializers.BOOLEAN);
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public EntityEncrusted(EntityType<? extends RangedMeleeMob> entityType, Level level) {
@@ -184,7 +185,24 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable {
         return p_28137_;
     }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(FROM_BOOK, false);
+
+    }
+
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
+    }
+
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if(event.isMoving()){
             if(this.isAggressive()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.encrusted.sprint"));
@@ -205,6 +223,8 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable {
 
 
     private <E extends IAnimatable> PlayState predicate1(AnimationEvent<E> event) {
+
+
         if (this.entityData.get(STATE) == 1 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.encrusted.attack"));
             return PlayState.CONTINUE;

@@ -3,7 +3,7 @@
   "title": "Hwachavenator",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:hwacha_render",
+      "entity": "unusualprehistory:hwachavenator",
       "x": 110,
       "y": 115,
       "page" : 0,
@@ -16,7 +16,7 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:hwacha_render",
+      "entity": "unusualprehistory:hwachavenator",
       "x": 350,
       "y": 160,
       "page" : 0,

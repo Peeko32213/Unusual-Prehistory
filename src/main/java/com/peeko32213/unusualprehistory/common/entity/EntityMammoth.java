@@ -82,6 +82,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
+
         if(itemStack.is(Items.SHEARS) && pPlayer.getUsedItemHand() == InteractionHand.MAIN_HAND){
             this.dropEquipment();
         }
@@ -309,6 +310,9 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.mammoth.move"));
             event.getController().setAnimationSpeed(1.5D);

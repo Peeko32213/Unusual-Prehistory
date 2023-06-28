@@ -51,6 +51,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
 
 
     public static final Logger LOGGER = LogManager.getLogger();
@@ -182,6 +183,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.entityData.define(HAS_SWUNG, false);
         this.entityData.define(PASSIVE, 0);
         this.entityData.define(IS_FROM_EGG, false);
+        this.entityData.define(FROM_BOOK, false);
     }
 
     @Override
@@ -265,6 +267,14 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
 
     public void setIsFromEgg(boolean fromEgg) {
         this.entityData.set(IS_FROM_EGG, fromEgg);
+    }
+
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
     }
 
     public boolean requiresCustomPersistence() {

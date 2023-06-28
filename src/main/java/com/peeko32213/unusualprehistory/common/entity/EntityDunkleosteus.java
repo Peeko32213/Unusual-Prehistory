@@ -59,6 +59,8 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.BOOLEAN);
+
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private int passiveFor = 0;
@@ -179,6 +181,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
         this.getEntityData().define(PASSIVE, 0);
+        this.entityData.define(FROM_BOOK, false);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -206,6 +209,10 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         int animState = this.getAnimationState();
         {
             switch (animState) {
@@ -577,6 +584,12 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     public void setEntityState(int anim) {
 
         this.entityData.set(ENTITY_STATE, anim);
+    }
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
     }
 
     public void killed() {

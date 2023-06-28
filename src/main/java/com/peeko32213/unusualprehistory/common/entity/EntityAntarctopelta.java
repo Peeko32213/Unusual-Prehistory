@@ -411,30 +411,32 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         int animState = this.getAnimationState();
-        {
-            switch (animState) {
+        if(!this.isFromBook()) {
+            {
+                switch (animState) {
 
-                case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.antarctopelta.slash"));
-                    break;
-                default:
-                    if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.swim"));
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
-                        {
-                            event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.walk"));
-                            event.getController().setAnimationSpeed(1.5D);
+                    case 21:
+                        event.getController().setAnimation(new AnimationBuilder().playOnce("animation.antarctopelta.slash"));
+                        break;
+                    default:
+                        if (this.isInWater()) {
+                            event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.swim"));
+                            event.getController().setAnimationSpeed(1.0F);
                             return PlayState.CONTINUE;
                         }
-                    }else if (!this.isInWater()){
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.idle"));
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
+                        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
+                            {
+                                event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.walk"));
+                                event.getController().setAnimationSpeed(1.5D);
+                                return PlayState.CONTINUE;
+                            }
+                        } else if (!this.isInWater()) {
+                            event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.idle"));
+                            event.getController().setAnimationSpeed(1.0F);
+                            return PlayState.CONTINUE;
+                        }
 
+                }
             }
         }
         return PlayState.CONTINUE;
