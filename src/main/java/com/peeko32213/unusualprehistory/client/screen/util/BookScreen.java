@@ -8,6 +8,10 @@ import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.*;
+import com.peeko32213.unusualprehistory.common.entity.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
@@ -327,7 +331,7 @@ public class BookScreen extends Screen {
                             e.printStackTrace();
                         }
                     }
-                    drawEntityOnScreen(matrixStack, k + data.getX(), l + data.getY(), 30 * scale, data.isFollow_cursor(), data.getRot_x(), data.getRot_y(), data.getRot_z(), mouseX, mouseY, model);
+                    drawEntityOnScreen(matrixStack, k + data.getX(), l + data.getY(), 30 * scale, data.isFollow_cursor(), data.getRot_x(), data.getRot_y(), data.getRot_z(), mouseX, mouseY, (LivingEntity) model);
                 }
             }
         }
@@ -369,52 +373,119 @@ public class BookScreen extends Screen {
     private Item getItemByRegistryName(String registryName) {
         return ForgeRegistries.ITEMS.getValue(new ResourceLocation(registryName));
     }
-    public static void drawEntityOnScreen(PoseStack stackIn, int posX, int posY, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, Entity entity) {
-        float customYaw = posX - mouseX;
-        float customPitch = posY - mouseY;
-        float f = (float) Math.atan(customYaw / 40.0F);
-        float f1 = (float) Math.atan(customPitch / 40.0F);
+    public static void drawEntityOnScreen(PoseStack stackIn, int posX, int posY, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, LivingEntity entity) {
+        //Ew Todo Fix this mess some day
+        if(entity instanceof EntityBaseDinosaurAnimal dinosaurAnimal) {
+            dinosaurAnimal.setIsFromBook(true);
+        }
+        if(entity instanceof EntityTameableBaseDinosaurAnimal dinosaurAnimal) {
+            dinosaurAnimal.setIsFromBook(true);
+        }
+        if(entity instanceof EntityDunkleosteus dinosaurAnimal) {
+            dinosaurAnimal.setIsFromBook(true);
+        }
+        if(entity instanceof EntityEncrusted dinosaurAnimal) {
+            dinosaurAnimal.setIsFromBook(true);
+        }
+
+        if(entity instanceof EntityAmmonite dinosaurAnimal) {
+            dinosaurAnimal.setIsFromBook(true);
+        }
+
+        if(entity instanceof EntityScaumenacia dinosaurAnimal) {
+            dinosaurAnimal.setIsFromBook(true);
+        }
+
+        if(entity instanceof EntityStethacanthus dinosaurAnimal) {
+            dinosaurAnimal.setIsFromBook(true);
+        }
+
+        if(entity instanceof EntityEryon dinosaurAnimal) {
+            dinosaurAnimal.setIsFromBook(true);
+        }
+
+        if(entity instanceof EntityAnurognathus dinosaurAnimal) {
+            dinosaurAnimal.setIsFromBook(true);
+        }
+
+        if(entity instanceof EntityBaseAquaticAnimal dinosaurAnimal) {
+            dinosaurAnimal.setIsFromBook(true);
+        }
+
+
+        PoseStack posestack = RenderSystem.getModelViewStack();
+        posestack.pushPose();
+        posestack.scale(1.0F, 1.0F, -1.0F);
         RenderSystem.applyModelViewMatrix();
         PoseStack posestack1 = new PoseStack();
         posestack1.translate(posX, posY, 120.0D);
-        posestack1.scale(scale, scale, scale);
+        posestack1.scale((float)scale, (float)scale, (float)scale);
         Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
-        Quaternion quaternion1 = Vector3f.XP.rotationDegrees(follow ? -f1 * 20.0F : 0.0F);
+        Quaternion quaternion1 = Vector3f.XP.rotationDegrees(0.0F);
         quaternion.mul(quaternion1);
         posestack1.mulPose(quaternion);
-        posestack1.mulPose(Vector3f.XP.rotationDegrees((float) xRot));
-        posestack1.mulPose(Vector3f.YP.rotationDegrees((float) yRot - 270F));
+        posestack1.mulPose(Vector3f.XP.rotationDegrees((float) xRot - 55F));
+        posestack1.mulPose(Vector3f.YP.rotationDegrees((float) yRot - 10));
         posestack1.mulPose(Vector3f.ZP.rotationDegrees((float) zRot));
-        if (follow) {
-            float yaw = -f * 20.0F - (float) yRot;
-            entity.setYRot(yaw);
-            entity.setXRot(f1 * 20.0F);
-            if (entity instanceof LivingEntity) {
-                ((LivingEntity) entity).yBodyRot = yaw;
-                ((LivingEntity) entity).yBodyRotO = yaw;
-                ((LivingEntity) entity).yHeadRot = yaw;
-                ((LivingEntity) entity).yHeadRotO = yaw;
-            }
-            quaternion1 = Vector3f.XP.rotationDegrees(f1 * 20.0F);
-            quaternion.mul(quaternion1);
-        }
+
         Lighting.setupForEntityInInventory();
         EntityRenderDispatcher entityrenderdispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
         quaternion1.conj();
 
         entityrenderdispatcher.overrideCameraOrientation(quaternion1);
         entityrenderdispatcher.setRenderShadow(true);
+
         MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
         RenderSystem.runAsFancy(() -> entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, posestack1, multibuffersource$buffersource, 15728880));
+
         multibuffersource$buffersource.endBatch();
         entityrenderdispatcher.setRenderShadow(false);
         entity.setYRot(0);
         entity.setXRot(0);
-        if (entity instanceof LivingEntity) {
-            ((LivingEntity) entity).yBodyRot = 0;
-            ((LivingEntity) entity).yHeadRotO = 0;
-            ((LivingEntity) entity).yHeadRot = 0;
-        }
+        ((LivingEntity) entity).yBodyRot = 0;
+        ((LivingEntity) entity).yHeadRotO = 0;
+        ((LivingEntity) entity).yHeadRot = 0;
+
+        posestack.popPose();
+        RenderSystem.applyModelViewMatrix();
+        Lighting.setupFor3DItems();
+    }
+
+    public static void renderEntityInInventoryRaw(int pPosX, int pPosY, double xRot, double yRot, double zRot, int pScale, float angleXComponent, float angleYComponent, LivingEntity pLivingEntity) {
+        PoseStack posestack = RenderSystem.getModelViewStack();
+        posestack.pushPose();
+        //posestack.translate((double)pPosX, (double)pPosY, 1050.0D);
+        posestack.scale(1.0F, 1.0F, -1.0F);
+        RenderSystem.applyModelViewMatrix();
+        PoseStack posestack1 = new PoseStack();
+        posestack1.translate(pPosY, pPosY, 120.0D);
+
+        Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
+        Quaternion quaternion1 = Vector3f.XP.rotationDegrees(0.0F);
+        quaternion.mul(quaternion1);
+        posestack1.mulPose(quaternion);
+        posestack1.mulPose(Vector3f.XP.rotationDegrees((float) xRot - 65));
+        posestack1.mulPose(Vector3f.YP.rotationDegrees((float) yRot));
+        posestack1.mulPose(Vector3f.ZP.rotationDegrees((float) zRot));
+
+
+        Lighting.setupForEntityInInventory();
+        EntityRenderDispatcher entityrenderdispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+        quaternion1.conj();
+        entityrenderdispatcher.overrideCameraOrientation(quaternion1);
+        entityrenderdispatcher.setRenderShadow(false);
+        MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
+        RenderSystem.runAsFancy(() -> {
+            entityrenderdispatcher.render(pLivingEntity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, posestack1, multibuffersource$buffersource, 15728880);
+        });
+        multibuffersource$buffersource.endBatch();
+        entityrenderdispatcher.setRenderShadow(true);
+        pLivingEntity.yBodyRot = 0;
+        pLivingEntity.setYRot(0);
+        pLivingEntity.setXRot(0);
+        pLivingEntity.yHeadRotO = 0;
+        pLivingEntity.yHeadRot = 0;
+        posestack.popPose();
         RenderSystem.applyModelViewMatrix();
         Lighting.setupFor3DItems();
     }

@@ -1,12 +1,10 @@
 package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.model.render.*;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.render.armor.AustroBootsRenderer;
 import com.peeko32213.unusualprehistory.client.render.armor.MajungaHelmetRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
-import com.peeko32213.unusualprehistory.client.render.book_renders.*;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
 import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
@@ -171,27 +169,8 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), PalaeophisRenderer::new);
 
-        event.registerEntityRenderer(UPEntities.AMMON_RENDER.get(), AmmoniteRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.MAJUNGA_RENDER.get(), MajungaRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.ANURO_RENDER.get(), AnuroRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.BEELZ_RENDER.get(), BeelzRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.COTY_RENDER.get(), CotyRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.DUNK_RENDER.get(), DunkRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.STETHA_RENDER.get(), StethaRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.SCAU_RENDER.get(), ScaumenaciaRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.TRIKE_RENDER.get(), TrikeRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.PACHY_RENDER.get(), PachyRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.BRACHI_RENDER.get(), BrachiRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.RAPTOR_RENDER.get(), RaptorRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.REX_RENDER.get(), RexRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.ENCRUSTED_RENDER.get(), EncrustedRenderRenderer::new);
         event.registerEntityRenderer(UPEntities.ENTITY_TRAIL.get(), EntityTrailRenderer::new);
-        event.registerEntityRenderer(UPEntities.ERYON_RENDER.get(), EryonRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.AUSTRO_RENDER.get(), AustroRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.ULUGH_RENDER.get(), UlughRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.KENTRO_RENDER.get(), KentroRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.ANTARCTO_RENDER.get(), AntarctoRenderRenderer::new);
-        event.registerEntityRenderer(UPEntities.HWACHA_RENDER.get(), HwachaRenderRenderer::new);
+
 
         event.registerEntityRenderer(UPEntities.WORLD_SPAWNABLE.get(), WorldSpawnableRenderer::new);
 
@@ -208,30 +187,6 @@ public final class ClientEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(AmmoniteRenderModel.LAYER_LOCATION, AmmoniteRenderModel::createBodyLayer);
-        event.registerLayerDefinition(MajungaRenderModel.LAYER_LOCATION, MajungaRenderModel::createBodyLayer);
-        event.registerLayerDefinition(AnuroRenderModel.LAYER_LOCATION, AnuroRenderModel::createBodyLayer);
-        event.registerLayerDefinition(BeelzRenderModel.LAYER_LOCATION, BeelzRenderModel::createBodyLayer);
-        event.registerLayerDefinition(CotyRenderModel.LAYER_LOCATION, CotyRenderModel::createBodyLayer);
-        event.registerLayerDefinition(DunkRenderModel.LAYER_LOCATION, DunkRenderModel::createBodyLayer);
-        event.registerLayerDefinition(StethaRenderModel.LAYER_LOCATION, StethaRenderModel::createBodyLayer);
-        event.registerLayerDefinition(ScaumenaciaRenderModel.LAYER_LOCATION, ScaumenaciaRenderModel::createBodyLayer);
-        event.registerLayerDefinition(TrikeRenderModel.LAYER_LOCATION, TrikeRenderModel::createBodyLayer);
-        event.registerLayerDefinition(PachyRenderModel.LAYER_LOCATION, PachyRenderModel::createBodyLayer);
-        event.registerLayerDefinition(BrachiRenderModel.LAYER_LOCATION, BrachiRenderModel::createBodyLayer);
-        event.registerLayerDefinition(RaptorRenderModel.LAYER_LOCATION, RaptorRenderModel::createBodyLayer);
-        event.registerLayerDefinition(RexRenderModel.LAYER_LOCATION, RexRenderModel::createBodyLayer);
-        event.registerLayerDefinition(EncrustedRenderModel.LAYER_LOCATION, EncrustedRenderModel::createBodyLayer);
-        event.registerLayerDefinition(EryonRenderModel.LAYER_LOCATION, EryonRenderModel::createBodyLayer);
-        event.registerLayerDefinition(AustroraptorRenderModel.LAYER_LOCATION, AustroraptorRenderModel::createBodyLayer);
-        event.registerLayerDefinition(UlughRenderModel.LAYER_LOCATION, UlughRenderModel::createBodyLayer);
-        event.registerLayerDefinition(KentroRenderModel.LAYER_LOCATION, KentroRenderModel::createBodyLayer);
-        event.registerLayerDefinition(AntarctoRenderModel.LAYER_LOCATION, AntarctoRenderModel::createBodyLayer);
-        event.registerLayerDefinition(HwachaRenderModel.LAYER_LOCATION, HwachaRenderModel::createBodyLayer);
-
-    }
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event){
         event.register((pState, pLevel, pPos, pTintIndex) -> {

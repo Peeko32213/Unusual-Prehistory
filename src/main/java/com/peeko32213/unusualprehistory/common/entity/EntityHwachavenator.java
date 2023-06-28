@@ -601,7 +601,9 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (event.isMoving() && !isShooting() && !this.isInSittingPose() && !this.isInWater()) {
             if (this.isSprinting() || !this.getPassengers().isEmpty() ) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.sprinting"));

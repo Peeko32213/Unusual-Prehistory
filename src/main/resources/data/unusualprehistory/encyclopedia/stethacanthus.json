@@ -3,7 +3,7 @@
   "title": "Stethacanthus",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:stetha_render",
+      "entity": "unusualprehistory:stethacanthus",
       "x": 90,
       "y": 100,
       "page" : 0,
@@ -16,14 +16,14 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:stetha_render",
+      "entity": "unusualprehistory:stethacanthus",
       "x": 260,
       "y": 80,
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 1.1,
-      "offset_x": -2,
-      "offset_y": -9,
+      "offset_x": -3,
+      "offset_y": -10,
       "hover_text": "Stethacanthus"
     }
   ]

@@ -44,6 +44,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> TRADING = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
 
 
     private boolean tradingAndGottenItem;
@@ -147,7 +148,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.entityData.define(PASSIVE, 0);
         this.entityData.define(IS_FROM_EGG, false);
         this.entityData.define(TRADING, false);
-
+        this.entityData.define(FROM_BOOK, false);
 
     }
 
@@ -223,6 +224,14 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
 
     public void setIsFromEgg(boolean fromEgg) {
         this.entityData.set(IS_FROM_EGG, fromEgg);
+    }
+
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
     }
 
     public boolean requiresCustomPersistence() {

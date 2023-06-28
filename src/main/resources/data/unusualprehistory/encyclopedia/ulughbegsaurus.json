@@ -3,7 +3,7 @@
   "title": "Ulughbegsaurus",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:ulugh_render",
+      "entity": "unusualprehistory:ulughbegsaurus",
       "x": 90,
       "y": 100,
       "page" : 0,
@@ -16,14 +16,14 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:ulugh_render",
+      "entity": "unusualprehistory:ulughbegsaurus",
       "x": 260,
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.4,
-      "offset_x": 6,
-      "offset_y": 10,
+      "entity_scale": 0.3,
+      "offset_x": 10,
+      "offset_y": 11,
       "hover_text": "Ulughbegsaurus"
     }
   ]

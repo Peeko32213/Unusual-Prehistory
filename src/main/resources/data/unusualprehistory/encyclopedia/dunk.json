@@ -3,7 +3,7 @@
   "title": "  Dunkleosteus",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:dunk_render",
+      "entity": "unusualprehistory:dunk",
       "x": 90,
       "y": 90,
       "page" : 0,
@@ -16,7 +16,7 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:dunk_render",
+      "entity": "unusualprehistory:dunk",
       "x": 350,
       "y": 40,
       "page" : 0,

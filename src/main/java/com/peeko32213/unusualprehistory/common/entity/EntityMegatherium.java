@@ -370,6 +370,9 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.move"));
             event.getController().setAnimationSpeed(1.5D);

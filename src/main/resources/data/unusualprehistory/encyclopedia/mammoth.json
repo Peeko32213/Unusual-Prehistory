@@ -21,9 +21,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.4,
+      "entity_scale": 0.25,
       "offset_x": 9,
-      "offset_y": 7,
+      "offset_y": 10,
       "hover_text": "Mammoth"
     }
   ]

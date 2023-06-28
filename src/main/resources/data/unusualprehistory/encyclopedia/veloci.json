@@ -3,13 +3,13 @@
   "title": "Velociraptor",
   "entity_button":[
     {
-      "entity": "unusualprehistory:raptor_render",
+      "entity": "unusualprehistory:veloci",
       "x": 260,
       "y": 120,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.6,
-      "offset_x": 8,
+      "entity_scale": 0.57,
+      "offset_x": 9,
       "offset_y": 3,
       "hover_text": "Velociraptor"
     }
@@ -26,7 +26,7 @@
   ],
   "entity_renders": [
     {
-      "entity": "unusualprehistory:raptor_render",
+      "entity": "unusualprehistory:veloci",
       "x": 90,
       "y": 100,
       "page" : 0,

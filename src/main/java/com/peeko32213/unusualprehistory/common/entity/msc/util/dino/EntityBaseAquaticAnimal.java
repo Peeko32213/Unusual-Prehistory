@@ -37,6 +37,8 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
 
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.BOOLEAN);
+
     int lastTimeSinceHungry;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
@@ -128,6 +130,7 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
         this.entityData.define(TIME_TILL_HUNGRY, 0);
         this.entityData.define(SADDLED, false);
         this.entityData.define(PASSIVE, 0);
+        this.entityData.define(FROM_BOOK, false);
     }
 
     @Override
@@ -174,6 +177,14 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
 
     public int getPassiveTicks() {
         return this.entityData.get(PASSIVE);
+    }
+
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
     }
 
     public void setPassiveTicks(int passiveTicks) {

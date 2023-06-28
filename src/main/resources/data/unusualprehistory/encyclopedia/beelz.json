@@ -14,7 +14,7 @@
   ],
   "entity_renders": [
     {
-      "entity": "unusualprehistory:beelz_render",
+      "entity": "unusualprehistory:beelz",
       "x": 90,
       "y": 100,
       "page" : 0,
@@ -27,7 +27,7 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:beelz_render",
+      "entity": "unusualprehistory:beelz",
       "x": 320,
       "y": 40,
       "page" : 0,

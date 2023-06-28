@@ -3,7 +3,7 @@
   "title": "  Anurognathus",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:anuro_render",
+      "entity": "unusualprehistory:anuro",
       "x": 90,
       "y": 100,
       "page" : 0,
@@ -16,7 +16,7 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:anuro_render",
+      "entity": "unusualprehistory:anuro",
       "x": 260,
       "y": 40,
       "page" : 0,

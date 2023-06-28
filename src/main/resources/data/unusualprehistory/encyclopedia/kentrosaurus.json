@@ -3,7 +3,7 @@
   "title": "Kentrosaurus",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:kentro_render",
+      "entity": "unusualprehistory:kentrosaurus",
       "x": 90,
       "y": 100,
       "page" : 0,
@@ -16,14 +16,14 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:kentro_render",
+      "entity": "unusualprehistory:kentrosaurus",
       "x": 290,
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.5,
-      "offset_x": 6,
-      "offset_y": 5,
+      "entity_scale": 0.35,
+      "offset_x": 10,
+      "offset_y": 9,
       "hover_text": "Kentrosaurus"
     }
   ]

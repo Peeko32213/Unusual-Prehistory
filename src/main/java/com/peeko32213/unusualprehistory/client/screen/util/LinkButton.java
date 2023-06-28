@@ -10,6 +10,7 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
@@ -97,23 +98,25 @@ public class LinkButton extends Button {
             PoseStack posestack = matrixStack;
 
             posestack.pushPose();
-            RenderSystem.enableDepthTest();
-            posestack.translate(0.0F, 0.0F, 950.0F);
+            //RenderSystem.enableDepthTest();
+            posestack.scale(1F, 1F, -1F);
+            posestack.translate(0.0F, 0.0F, 950F);
             RenderSystem.colorMask(false, false, false, false);
             fill(matrixStack, 4680, 2260, -4680, -2260, -16777216);
             RenderSystem.colorMask(true, true, true, true);
-            posestack.translate(0.0F, 0.0F, -950.0F);
-            RenderSystem.depthFunc(518);
+            posestack.translate(0.0F, 0.0F, -950F);
+            //RenderSystem.depthFunc(518);
             fill(matrixStack, 22, 22, 2, 2, -16777216);
-            RenderSystem.depthFunc(515);
+            //RenderSystem.depthFunc(514);
             RenderSystem.setShaderTexture(0, bookGUITest.getBookWidgetTexture());
             blit(matrixStack, 0, 0, 0, 30, 24, 24, 256, 256);
             if (toRender != null) {
                 toRender.tickCount = Minecraft.getInstance().player.tickCount;
                 float transitional = Math.max(0.0F, renderScale - 1.0F) * 8;
-                AbstractBookScreenOld.drawEntityOnScreen(matrixStack, (int) (12 * renderScale + transitional + (x + offsetX)), (int) (24 * renderScale - transitional + y + offsetY), 10 * renderScale, false, 30, -130, 0, 0, 0, toRender);
+                BookScreen.drawEntityOnScreen(matrixStack, (int) (12 * renderScale + transitional + (x + offsetX)), (int) (24 * renderScale - transitional + y + offsetY), 10 * renderScale, false, 30, -130, 0, 0, 0, (LivingEntity) toRender);
                 RenderSystem.applyModelViewMatrix();
             }
+            RenderSystem.enableDepthTest();
             RenderSystem.depthFunc(518);
             posestack.translate(0.0F, 0.0F, -950.0F);
             RenderSystem.colorMask(false, false, false, false);

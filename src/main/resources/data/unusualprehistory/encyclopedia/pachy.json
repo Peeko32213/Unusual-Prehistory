@@ -3,20 +3,20 @@
   "text": "pachy.txt",
   "entity_button":[
     {
-      "entity": "unusualprehistory:pachy_render",
+      "entity": "unusualprehistory:pachy",
       "x": 290,
       "y": 120,
       "page" : 1,
       "scale": 1.2,
       "entity_scale": 0.6,
-      "offset_x": 6,
-      "offset_y": 3,
+      "offset_x": 7,
+      "offset_y": 4,
       "hover_text": "Pachy"
     }
   ],
   "entity_renders": [
     {
-      "entity": "unusualprehistory:pachy_render",
+      "entity": "unusualprehistory:pachy",
       "x": 90,
       "y": 100,
       "page" : 0,

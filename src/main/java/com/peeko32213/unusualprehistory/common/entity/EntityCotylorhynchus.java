@@ -203,6 +203,9 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
             {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.walk"));

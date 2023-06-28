@@ -7,7 +7,6 @@ import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
-import com.peeko32213.unusualprehistory.common.entity.msc.render.BaseEntityRender;
 import com.peeko32213.unusualprehistory.common.entity.msc.trail.EntityTrail;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import net.minecraft.resources.ResourceLocation;
@@ -170,85 +169,6 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = ENTITIES.register("megalania",
             () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(3.0F, 2.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()));
-    public static final RegistryObject<EntityType<BaseEntityRender>> AMMON_RENDER = ENTITIES.register("ammon_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "ammon_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> MAJUNGA_RENDER = ENTITIES.register("majunga_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "majunga_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> DUNK_RENDER = ENTITIES.register("dunk_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "dunk_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> COTY_RENDER = ENTITIES.register("coty_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "coty_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> BEELZ_RENDER = ENTITIES.register("beelz_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "beelz_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> ANURO_RENDER = ENTITIES.register("anuro_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "anuro_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> STETHA_RENDER = ENTITIES.register("stetha_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "stetha_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> SCAU_RENDER = ENTITIES.register("scau_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "scau_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> TRIKE_RENDER = ENTITIES.register("trike_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "trike_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> PACHY_RENDER = ENTITIES.register("pachy_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "pachy_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> BRACHI_RENDER = ENTITIES.register("brachi_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> RAPTOR_RENDER = ENTITIES.register("raptor_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "raptor_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> REX_RENDER = ENTITIES.register("rex_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "rex_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> ENCRUSTED_RENDER = ENTITIES.register("encrusted_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "encrusted_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> ERYON_RENDER = ENTITIES.register("eryon_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "eryon_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> AUSTRO_RENDER = ENTITIES.register("austro_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "austro_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> ULUGH_RENDER = ENTITIES.register("ulugh_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "ulugh_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> KENTRO_RENDER = ENTITIES.register("kentro_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "kentro_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> ANTARCTO_RENDER = ENTITIES.register("antarcto_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "antarcto_render").toString()));
-
-    public static final RegistryObject<EntityType<BaseEntityRender>> HWACHA_RENDER = ENTITIES.register("hwacha_render",
-            () -> EntityType.Builder.of(BaseEntityRender::new, MobCategory.MISC).sized(0.7f, 0.7f).noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "hwacha_render").toString()));
     public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
             () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
                     .fireImmune().noSave().sized(1, 1).noSummon()

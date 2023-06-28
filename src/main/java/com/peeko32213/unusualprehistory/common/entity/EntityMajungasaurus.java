@@ -532,6 +532,9 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         if (this.isInWater()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.swim"));
             event.getController().setAnimationSpeed(1.0F);

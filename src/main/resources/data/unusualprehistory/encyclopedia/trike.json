@@ -3,7 +3,7 @@
   "title": "Triceratops",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:trike_render",
+      "entity": "unusualprehistory:trike",
       "x": 90,
       "y": 100,
       "page" : 0,
@@ -16,13 +16,13 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:trike_render",
+      "entity": "unusualprehistory:trike",
       "x": 320,
       "y": 80,
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 0.3,
-      "offset_x": 7,
+      "offset_x": 8,
       "offset_y": 10,
       "hover_text": "Triceratops"
     }

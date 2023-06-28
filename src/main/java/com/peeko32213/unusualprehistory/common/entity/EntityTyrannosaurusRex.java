@@ -38,7 +38,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -256,9 +255,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             this.setEepy(true);
         }
 
-        System.out.println(!this.level.isClientSide);
-        System.out.println(this.passiveFor);
-        System.out.println(--this.timeUntilDrops);
 
         if (!this.level.isClientSide && this.isAlive() && this.passiveFor > 0 && --this.timeUntilDrops <= 0) {
             this.spawnAtLocation(UPItems.REX_TOOTH.get(), 4);
@@ -377,8 +373,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         private int ticksUntilNextPathRecalculation;
         private int ticksUntilNextAttack;
         private long lastCanUseCheck;
-        private int failedPathFindingPenalty = 0;
-        private boolean canPenalize = false;
+
         private int animTime = 0;
 
 
@@ -455,17 +450,16 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
 
             LivingEntity target = this.mob.getTarget();
-            //System.out.println(this.mob.getTarget());
 
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
-            Vec3 aim = this.mob.getLookAngle();
 
             switch (animState) {
                 case 21 -> tickBiteAttack();
                 case 22 -> tickWhipAttack();
-                case 23 -> tickStompLeftAttack();
+                case 23 -> tickStompAttack();
+                case 24 -> tickStompAttack();
                 default -> {
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -487,18 +481,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                 this.pathedTargetY = livingentity.getY();
                 this.pathedTargetZ = livingentity.getZ();
                 this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                if (this.canPenalize) {
-                    this.ticksUntilNextPathRecalculation += failedPathFindingPenalty;
-                    if (this.mob.getNavigation().getPath() != null) {
-                        Node finalPathPoint = this.mob.getNavigation().getPath().getEndNode();
-                        if (finalPathPoint != null && livingentity.distanceToSqr(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                            failedPathFindingPenalty = 0;
-                        else
-                            failedPathFindingPenalty += 10;
-                    } else {
-                        failedPathFindingPenalty += 10;
-                    }
-                }
                 if (d0 > 1024.0D) {
                     this.ticksUntilNextPathRecalculation += 10;
                 } else if (d0 > 256.0D) {
@@ -518,9 +500,9 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                 int r = this.mob.getRandom().nextInt(2048);
                 if (r <= 600) {
                     this.mob.setAnimationState(21);
-                } else if (r <= 800) {
+                } else if (r > 600 && r <= 800) {
                     this.mob.setAnimationState(22);
-                } else if (r <= 1400) {
+                } else if (r > 800 && r <= 1400) {
                     this.mob.setAnimationState(23);
                 } else {
                     this.mob.setAnimationState(24);
@@ -558,10 +540,10 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         protected void tickWhipAttack () {
             animTime++;
             //this.mob.getNavigation().stop();
-            if(animTime>=8 && animTime < 11) {
+            if(animTime>=13 && animTime < 16) {
                 preformWhipAttack();
             }
-            if(animTime>=11) {
+            if(animTime>=16) {
                 animTime=0;
 
                 this.mob.setAnimationState(0);
@@ -572,7 +554,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         }
 
-        protected void tickStompLeftAttack () {
+        protected void tickStompAttack () {
             animTime++;
             //this.mob.getNavigation().stop();
             if(animTime>=21 && animTime < 30) {
@@ -644,14 +626,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     public boolean canBeCollidedWith() {
         return true;
     }
-        //Todo remove there?, they are never used
-    protected void collideWithEntity(Entity entityIn) {
-        entityIn.push(this);
-    }
-
-    public void collideWithNearbyEntities() {
-
-    }
 
 
     @Override
@@ -688,6 +662,9 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
         int animState = this.getAnimationState();
         {
             switch (animState) {
@@ -700,6 +677,9 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                     break;
                 case 23:
                     event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompl"));
+                    break;
+                case 24:
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompr"));
                     break;
                 default:
                     if (this.hasEepy()) {

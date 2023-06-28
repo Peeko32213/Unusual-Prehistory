@@ -699,7 +699,9 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-
+        if(this.isFromBook()){
+            return PlayState.CONTINUE;
+        }
 
         if (this.isInWater() || this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.swimming"));
