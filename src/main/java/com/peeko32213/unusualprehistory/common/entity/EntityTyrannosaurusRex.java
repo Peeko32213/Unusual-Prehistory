@@ -122,7 +122,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             this.passiveFor = 1000000000 + random.nextInt(1000000000);
             return InteractionResult.SUCCESS;
         }
-        return wResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
     @Override
