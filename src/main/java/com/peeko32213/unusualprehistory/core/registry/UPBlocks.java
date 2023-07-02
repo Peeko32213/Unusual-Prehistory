@@ -463,7 +463,11 @@ public class UPBlocks {
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion()));
 
     public static final RegistryObject<Block> AMBER_BLOCK = registerBlock("amber_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
+            () -> new Block(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
+
+    public static final RegistryObject<Block> OPAL_BLOCK = registerBlock("opal_block",
+            () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_LIGHT_BLUE).strength(0.5F).speedFactor(0.4F).sound(SoundType.AMETHYST)));
+
 
     public static final RegistryObject<Block> COTY_FOSSIL = registerBlock("coty_fossil",
             () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),

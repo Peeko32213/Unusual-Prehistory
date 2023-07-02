@@ -14,23 +14,23 @@
       "item": "minecraft:bone"
     },
     {
-      "weight": 50,
+      "weight": 15,
       "item": "unusualprehistory:ammonite_flask"
     },
     {
-      "weight": 40,
+      "weight": 15,
       "item": "unusualprehistory:scau_flask"
     },
     {
-      "weight": 35,
+      "weight": 15,
       "item": "unusualprehistory:coty_flask"
     },
     {
-      "weight": 35,
+      "weight": 15,
       "item": "unusualprehistory:stetha_flask"
     },
     {
-      "weight": 20,
+      "weight": 15,
       "item": "unusualprehistory:dunk_flask"
     }
   ]

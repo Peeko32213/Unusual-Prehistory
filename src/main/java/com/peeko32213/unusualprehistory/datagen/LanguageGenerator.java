@@ -46,6 +46,11 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PLANT_FOSSIL, "Plant Fossil");
         addItem(UPItems.AMBER_FOSSIL, "Amber Fossil");
         addItem(UPItems.AMBER_SHARDS, "Amber Chunk");
+        addItem(UPItems.TAR_FOSSIL, "Tar Fossil");
+        addItem(UPItems.FROZEN_FOSSIL, "Frozen Fossil");
+        addItem(UPItems.OPAL_FOSSIL, "Opal Fossil");
+        addItem(UPItems.OPAL_SHARD, "Opal Shard");
+
 
         //EMBRYOS
         addItem(UPItems.SMILODON_EMBRYO, "Smilodon Embryo");
@@ -82,6 +87,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.WHITE_FRUIT, "Luxurious Fruit");
         addItem(UPItems.YELLOW_FRUIT, "Redolent Fruit");
         addItem(UPItems.BLUE_FRUIT, "Salubrious  Fruit");
+        addItem(UPItems.DEFROSTED_FROZEN_FOSSIL, "Defrosted Frozen Fossil");
 
         //SCRAPS
         addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
@@ -231,6 +237,8 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.REX_HEAD, "Rex Head Mount");
         addBlock(UPBlocks.AMMONITE_SHELL, "Ammonite Shell");
         addBlock(UPBlocks.REX_BOOMBOX, "Rex Boombox");
+        addBlock(UPBlocks.AMBER_BLOCK, "Amber Block");
+        addBlock(UPBlocks.OPAL_BLOCK, "Opal Block");
 
         //PLANTS
         addBlock(UPBlocks.HORSETAIL, "Prehistoric Horsetail");
@@ -245,7 +253,6 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.NELUMBITES, "Nelumbites");
         addBlock(UPBlocks.QUEREUXIA, "Quereuxia");
         addBlock(UPBlocks.QUEREUXIA_TOP, "Quereuxia Clovers");
-        addBlock(UPBlocks.AMBER_BLOCK, "Amber Block");
         addBlock(UPBlocks.PETRIFIED_BUSH, "Petrified Bush");
 
         //GINKGO

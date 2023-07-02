@@ -264,18 +264,6 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     }
 
 
-    class IMeleeAttackGoal extends MeleeAttackGoal {
-        public IMeleeAttackGoal() {
-            super(EntityDunkleosteus.this, 1.6D, true);
-        }
-
-        protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.7F + p_25556_.getBbWidth());
-        }
-
-    }
-
-
 
     static class MoveHelperController extends MoveControl {
         private final EntityDunkleosteus dolphin;

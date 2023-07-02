@@ -44,6 +44,18 @@ public class UPItems {
     public static final RegistryObject<Item> PLANT_FOSSIL = ITEMS.register("plant_fossil_item",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
+    public static final RegistryObject<Item> TAR_FOSSIL = ITEMS.register("tar_fossil_item",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> FROZEN_FOSSIL = ITEMS.register("frozen_fossil_item",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> OPAL_FOSSIL = ITEMS.register("opal_fossil",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> OPAL_SHARD = ITEMS.register("opal_shard",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     public static final RegistryObject<Item> FLASK = ITEMS.register("flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> MEAT_ON_A_STICK = ITEMS.register("meat_on_a_stick",
@@ -424,6 +436,9 @@ public class UPItems {
 
     public static final RegistryObject<Item> BLUE_FRUIT = ITEMS.register("blue_fruit",
             () -> new Item(new Item.Properties().food(ModFood.BLUE_FRUIT).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> DEFROSTED_FROZEN_FOSSIL = ITEMS.register("defrosted_frozen_fossil",
+            () -> new Item(new Item.Properties().food(ModFood.DEFROSTED_FOSSIL).tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> GINKGO_SIGN = ITEMS.register("ginkgo_sign",
             () -> new SignItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPBlocks.GINKGO_SIGN.get(), UPBlocks.GINKGO_WALL_SIGN.get()));
 

@@ -76,7 +76,10 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.AMBER_FOSSIL.get())
                 .add(UPItems.PLANT_FOSSIL.get())
                 .add(UPItems.MEZO_FOSSIL.get())
-                .add(UPItems.PALEO_FOSSIL.get());
+                .add(UPItems.PALEO_FOSSIL.get())
+                .add(UPItems.FROZEN_FOSSIL.get())
+                .add(UPItems.OPAL_FOSSIL.get())
+                .add(UPItems.TAR_FOSSIL.get());
 
         tag(UPTags.ANALYZER_ITEMS_INPUT)
                 .addTag(UPTags.FOSSILS);
@@ -230,6 +233,23 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.GINKGO_FLASK.get())
                 .add(UPItems.CLATHRODICTYON_FLASK.get())
                 .add(UPItems.ARCHAEFRUCTUS_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_FROZEN)
+                .add(Items.ICE)
+                .add(UPItems.MAMMOTH_FLASK.get())
+                .add(UPItems.MEGATH_FLASK.get())
+                .add(UPItems.GIGANTO_FLASK.get())
+                .add(UPItems.SMILO_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_TAR)
+                .add(Items.COAL)
+                .add(UPItems.MEGALA_FLASK.get())
+                .add(UPItems.BARIN_FLASK.get())
+                .add(UPItems.PARACER_FLASK.get())
+                .add(UPItems.TALAPANAS_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_OPAL)
+                .add(UPItems.PALAEO_FLASK.get());
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_RAW_COTY)
                 .add(UPItems.COTY_FLASK.get());

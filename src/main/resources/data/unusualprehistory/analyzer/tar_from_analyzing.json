@@ -1,0 +1,25 @@
+{
+  "input": ["unusualprehistory:tar_fossil_item"],
+  "entries": [
+    {
+      "weight": 50,
+      "item": "minecraft:coal"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:megala_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:barin_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:paracer_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:talapanas_flask"
+    }
+  ]
+}

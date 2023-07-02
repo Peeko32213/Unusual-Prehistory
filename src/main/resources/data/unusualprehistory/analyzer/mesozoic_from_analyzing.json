@@ -14,19 +14,19 @@
       "item": "minecraft:bone"
     },
     {
-      "weight": 40,
+      "weight": 15,
       "item": "unusualprehistory:ammonite_flask"
     },
     {
-      "weight": 40,
+      "weight": 15,
       "item": "unusualprehistory:anuro_flask"
     },
     {
-      "weight": 40,
+      "weight": 15,
       "item": "unusualprehistory:beelz_flask"
     },
     {
-      "weight": 40,
+      "weight": 15,
       "item": "unusualprehistory:kentro_flask"
     },
     {
@@ -54,7 +54,7 @@
       "item": "unusualprehistory:eryon_flask"
     },
     {
-      "weight": 1,
+      "weight": 15,
       "item": "unusualprehistory:ulugh_flask"
     }
   ]

@@ -1,0 +1,25 @@
+{
+  "input": ["unusualprehistory:frozen_fossil_item"],
+  "entries": [
+    {
+      "weight": 50,
+      "item": "minecraft:ice"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:mammoth_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:megath_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:giganto_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:smilo_flask"
+    }
+  ]
+}

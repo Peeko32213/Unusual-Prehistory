@@ -1,0 +1,9 @@
+{
+  "input": ["unusualprehistory:opal_fossil"],
+  "entries": [
+    {
+      "weight": 100,
+      "item": "unusualprehistory:palaeo_flask"
+    }
+  ]
+}

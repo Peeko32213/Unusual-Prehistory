@@ -3,6 +3,9 @@
     "unusualprehistory:amber_fossil",
     "unusualprehistory:plant_fossil_item",
     "unusualprehistory:mezo_fossil",
-    "unusualprehistory:paleo_fossil"
+    "unusualprehistory:paleo_fossil",
+    "unusualprehistory:frozen_fossil_item",
+    "unusualprehistory:opal_fossil",
+    "unusualprehistory:tar_fossil_item"
   ]
 }

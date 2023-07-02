@@ -43,6 +43,10 @@ public class UPTags {
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_ENCRUSTED= registerItemTag("analyzer_items_output_encrusted_organ");
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_GINKGO = registerItemTag("analyzer_items_output_ginkgo_fruit");
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_PLANT = registerItemTag("analyzer_items_output_plant_fossil");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_TAR = registerItemTag("analyzer_items_output_tar_fossil");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_OPAL = registerItemTag("analyzer_items_output_opal_fossil");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_FROZEN = registerItemTag("analyzer_items_output_frozen_fossil");
+
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_RAW_COTY = registerItemTag("analyzer_items_output_raw_coty");
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_RAW_SCAU = registerItemTag("analyzer_items_output_raw_scau");
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_RAW_STETHA = registerItemTag("analyzer_items_output_raw_stetha");
