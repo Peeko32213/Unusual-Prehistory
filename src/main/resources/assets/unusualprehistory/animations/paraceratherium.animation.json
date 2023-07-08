@@ -136,6 +136,130 @@
 					}
 				}
 			}
+		},
+		"animation.paraceratherium.attack": {
+			"animation_length": 1,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.0) * 360) * 3", 0, "Math.sin((query.anim_time - 0.0) * 360) * 3"]
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.0) * 360) * 5", 0, "Math.sin((query.anim_time - 0.0) * 360) * 5"]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.4) * 360) * 5", 0, "Math.sin((query.anim_time - 0.4) * 360) * 5"]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.1) * 360) * 3", 0, "Math.sin((query.anim_time - 0.1) * 360) * 3"]
+					}
+				},
+				"Arm1": {
+					"position": {
+						"0.5": {
+							"vector": [0, 0, 0]
+						},
+						"0.625": {
+							"vector": [0, 15, 0]
+						},
+						"0.75": {
+							"vector": [0, 15, -15]
+						},
+						"0.875": {
+							"vector": [0, 0, -15]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Arm2": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.125": {
+							"vector": [0, 15, 0]
+						},
+						"0.25": {
+							"vector": [0, 15, -15]
+						},
+						"0.375": {
+							"vector": [0, 0, -15]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.paraceratherium.resting": {
+			"loop": true,
+			"animation_length": 4,
+			"bones": {
+				"Paracer": {
+					"position": {
+						"vector": [0, -47, 0]
+					}
+				},
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.5) * 90) * 0.3", 0, "Math.sin((query.anim_time - 0.0) * 90) * 0.3"]
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"vector": [17.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, "Math.cos((query.anim_time - 0.2) * 90) * -0.3", 0]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": [-12.5, 0, 0]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": [-82.5, 0, 0]
+					},
+					"position": {
+						"vector": [11, 16, 7]
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": [-82.5, 0, 0]
+					},
+					"position": {
+						"vector": [-11, 16, 7]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": [-90, 0, 0]
+					},
+					"position": {
+						"vector": [8, 8, 6]
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": [-90, 0, 0]
+					},
+					"position": {
+						"vector": [-8, 8, 6]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

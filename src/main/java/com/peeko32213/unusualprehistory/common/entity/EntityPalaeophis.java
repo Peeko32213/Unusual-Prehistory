@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
 import net.minecraft.core.BlockPos;
@@ -31,7 +32,9 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -65,6 +68,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> CHILD_ID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> SHEDDING_TIME = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public final EntityPalaeophisPart headPart;
@@ -76,6 +80,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
     public final EntityPalaeophisPart[] snakeParts;
     public final double[][] ringBuffer = new double[64][3];
     public int ringBufferIndex = -1;
+    private int sheddingCooldown = 0;
 
 
 
@@ -189,6 +194,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         this.entityData.define(ENTITY_STATE, 0);
         this.entityData.define(CHILD_UUID, Optional.empty());
         this.entityData.define(CHILD_ID, -1);
+        this.entityData.define(SHEDDING_TIME, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -196,7 +202,8 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         if (this.getChildId() != null) {
             compound.putUUID("ChildUUID", this.getChildId());
         }
-
+        compound.putInt("ShedTime", getSheddingTime());
+        compound.putInt("ShedCooldown", sheddingCooldown);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -204,6 +211,50 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         if (compound.hasUUID("ChildUUID")) {
             this.setChildId(compound.getUUID("ChildUUID"));
         }
+        this.setSheddingTime(compound.getInt("ShedTime"));
+        sheddingCooldown = compound.getInt("SheddingCooldown");
+    }
+
+    public int getSheddingTime() {
+        return this.entityData.get(SHEDDING_TIME);
+    }
+
+    public void setSheddingTime(int shedtime) {
+        this.entityData.set(SHEDDING_TIME, shedtime);
+    }
+
+    public void tick() {
+        super.tick();
+        if (sheddingCooldown > 0) {
+            sheddingCooldown--;
+        }
+        if (this.getSheddingTime() > 0) {
+            this.setSheddingTime(this.getSheddingTime() - 1);
+            if (this.getSheddingTime() == 0) {
+                this.spawnItemAtOffset(new ItemStack(UPItems.MAMMOTH_FLASK.get()), 1 + random.nextFloat(), 0.2F);
+                sheddingCooldown = 1000 + random.nextInt(2000);
+            }
+        }
+    }
+
+    @Nullable
+    public ItemEntity spawnItemAtOffset(ItemStack stack, float f, float f1) {
+        if (stack.isEmpty()) {
+            return null;
+        } else if (this.level.isClientSide) {
+            return null;
+        } else {
+            final Vec3 vec = new Vec3(0, 0, f).yRot(-f * ((float) Math.PI / 180F));
+            final ItemEntity itementity = new ItemEntity(this.level, this.getX() + vec.x, this.getY() + (double) f1, this.getZ() + vec.z, stack);
+            itementity.setDefaultPickUpDelay();
+            if (captureDrops() != null) captureDrops().add(itementity);
+            else this.level.addFreshEntity(itementity);
+            return itementity;
+        }
+    }
+
+    public boolean isShedding() {
+        return this.getSheddingTime() > 0;
     }
 
     @Nullable
@@ -331,30 +382,30 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
             return PlayState.CONTINUE;
         }
         int animState = this.getAnimationState();
-        //{
-        //    switch (animState) {
+        {
+            switch (animState) {
 //
-        //        case 21:
-        //            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.palaeophis.bite"));
-        //            break;
-        //        default:
-        //            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
-        //                event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.swim"));
-        //                event.getController().setAnimationSpeed(0.6D);
-        //                return PlayState.CONTINUE;
-        //            }
-        //            if (!this.isInWater()) {
-        //                event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
-        //                event.getController().setAnimationSpeed(0.3D);
-        //                return PlayState.CONTINUE;
-        //            }
-        //            else {
-        //                event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
-        //                return PlayState.CONTINUE;
-        //            }
-//
-        //    }
-        //}
+                case 21:
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.palaeophis.bite"));
+                    break;
+                default:
+                    if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.swim"));
+                        event.getController().setAnimationSpeed(0.6D);
+                        return PlayState.CONTINUE;
+                    }
+                    if (!this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
+                        event.getController().setAnimationSpeed(0.3D);
+                        return PlayState.CONTINUE;
+                    }
+                    else {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
+                        return PlayState.CONTINUE;
+                    }
+
+            }
+        }
         return PlayState.CONTINUE;
     }
 

@@ -2,19 +2,19 @@
   "parent":"forge:item/default",
   "loader":"forge:separate-perspective",
   "base": {
-    "parent": "unusualprehistory:item/handmade_spear_in_hand"
+    "parent": "unusualprehistory:item/handmade_club_in_hand"
   },
   "perspectives": {
     "gui": {
       "parent": "item/generated",
       "textures": {
-        "layer0": "unusualprehistory:item/handmade_spear_item"
+        "layer0": "unusualprehistory:item/handmade_club_item"
       }
     },
     "ground": {
       "parent": "item/generated",
       "textures": {
-        "layer0": "unusualprehistory:item/handmade_spear_item"
+        "layer0": "unusualprehistory:item/handmade_club_item"
       }
     }
   }

@@ -233,6 +233,9 @@ public class UPItems {
     public static final RegistryObject<Item> HANDMADE_BATTLEAXE = ITEMS.register("handmade_battleaxe",
             () -> new ItemHandmadeBattleaxe(UPItemTiers.HANDMADE, 5, -1.9F));
 
+    public static final RegistryObject<Item> HANDMADE_CLUB = ITEMS.register("handmade_club",
+            () -> new ItemHandmadeClub(UPItemTiers.HANDMADE, 8, -2.3F));
+
     public static final RegistryObject<Item> RAW_STETHA = ITEMS.register("raw_stetha",
             () -> new Item(new Item.Properties().food(ModFood.RAW_STETHA).tab(UnusualPrehistory.DINO_TAB)));
 
@@ -450,6 +453,6 @@ public class UPItems {
 
 
     public static final RegistryObject<Item> BARINA_WHISTLE = ITEMS.register("barina_whistle",
-            () -> new DinosaurWhistle(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPEntities.BARINASUCHUS));
+            () -> new DinosaurWhistle(new Item.Properties().stacksTo(1).tab(UnusualPrehistory.DINO_TAB), UPEntities.BARINASUCHUS));
 
 }

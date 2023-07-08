@@ -1,86 +1,21 @@
 {
-  "credit": "Made with Blockbench",
-  "parent": "builtin/entity",
-  "texture_size": [
-    64,
-    64
-  ],
-  "display": {
-    "thirdperson_righthand": {
-      "rotation": [
-        8.77,
-        12.18,
-        -5.15
-      ],
-      "translation": [
-        0,
-        0.75,
-        1.75
-      ]
-    },
-    "thirdperson_lefthand": {
-      "rotation": [
-        8.77,
-        12.18,
-        -5.15
-      ],
-      "translation": [
-        0,
-        0.75,
-        1.75
-      ]
-    },
-    "firstperson_righthand": {
-      "rotation": [
-        -16.45,
-        13.42,
-        -11.18
-      ],
-      "translation": [
-        0,
-        -2.25,
-        0
-      ]
-    },
-    "firstperson_lefthand": {
-      "rotation": [
-        -16.45,
-        13.42,
-        -11.18
-      ],
-      "translation": [
-        0,
-        -2.25,
-        0
-      ]
+  "parent":"forge:item/default",
+  "loader":"forge:separate-perspective",
+  "base": {
+    "parent": "unusualprehistory:item/handmade_battleaxe_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "unusualprehistory:item/handmade_battleaxe_item"
+      }
     },
     "ground": {
-      "translation": [
-        0,
-        0,
-        0
-      ]
-    },
-    "gui": {
-      "translation": [
-        0,
-        0,
-        0
-      ]
-    },
-    "head": {
-      "translation": [
-        0,
-        0,
-        0
-      ]
-    },
-    "fixed": {
-      "translation": [
-        0,
-        0,
-        0
-      ]
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "unusualprehistory:item/handmade_battleaxe_item"
+      }
     }
   }
 }
