@@ -163,6 +163,11 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.MAJUNGA_HELMET, "Majungasaurus Helmet");
         addItem(UPItems.AUSTRO_BOOTS, "Austroraptor Boots");
 
+        //SHEDSCALE ARMOR
+        addItem(UPItems.SHEDSCALE_HELMET, "Shedscale Wraps");
+        addItem(UPItems.SHEDSCALE_CHESTPLATE, "Shedscale Chestpiece");
+        addItem(UPItems.SHEDSCALE_LEGGINGS, "Shedscale Pants");
+        addItem(UPItems.SHEDSCALE_BOOTS, "Shedscale Shoes");
 
         //SHIELDS
         addItem(UPItems.VELOCI_SHIELD, "Veloci-Shield");

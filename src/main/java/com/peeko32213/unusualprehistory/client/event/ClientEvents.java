@@ -2,8 +2,7 @@ package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
-import com.peeko32213.unusualprehistory.client.render.armor.AustroBootsRenderer;
-import com.peeko32213.unusualprehistory.client.render.armor.MajungaHelmetRenderer;
+import com.peeko32213.unusualprehistory.client.render.armor.*;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
 import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
@@ -14,6 +13,10 @@ import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
+import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleBoots;
+import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleChestplate;
+import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleHelmet;
+import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleLeggings;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -207,6 +210,11 @@ public final class ClientEvents {
     public static void registerRenderers(final EntityRenderersEvent.AddLayers event) {
         GeoArmorRenderer.registerArmorRenderer(ItemMajungaHelmet.class, MajungaHelmetRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemAustroBoots.class, AustroBootsRenderer::new);
+
+        GeoArmorRenderer.registerArmorRenderer(ItemShedscaleHelmet.class, ShedscaleHelmetRenderer::new);
+        GeoArmorRenderer.registerArmorRenderer(ItemShedscaleChestplate.class, ShedscaleChestplateRenderer::new);
+        GeoArmorRenderer.registerArmorRenderer(ItemShedscaleLeggings.class, ShedscaleLeggingsRenderer::new);
+        GeoArmorRenderer.registerArmorRenderer(ItemShedscaleBoots.class, ShedscaleBootsRenderer::new);
     }
 
     @SubscribeEvent

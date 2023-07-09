@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.item.armor;
+package com.peeko32213.unusualprehistory.common.item.armor.material;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
