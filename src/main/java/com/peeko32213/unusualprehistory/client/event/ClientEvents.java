@@ -13,6 +13,7 @@ import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
+import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleChestplate;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleHelmet;
@@ -210,6 +211,8 @@ public final class ClientEvents {
     public static void registerRenderers(final EntityRenderersEvent.AddLayers event) {
         GeoArmorRenderer.registerArmorRenderer(ItemMajungaHelmet.class, MajungaHelmetRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemAustroBoots.class, AustroBootsRenderer::new);
+        GeoArmorRenderer.registerArmorRenderer(ItemTyrantsCrown.class, TyrantsCrownRenderer::new);
+
 
         GeoArmorRenderer.registerArmorRenderer(ItemShedscaleHelmet.class, ShedscaleHelmetRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemShedscaleChestplate.class, ShedscaleChestplateRenderer::new);

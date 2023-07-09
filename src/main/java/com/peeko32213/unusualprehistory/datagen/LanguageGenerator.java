@@ -159,9 +159,10 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PALAEOPHIS_EGG, "Palaophis Spawn Egg");
 
 
-        //ARMOR
+        //ONE PIECE ARMORS
         addItem(UPItems.MAJUNGA_HELMET, "Majungasaurus Helmet");
         addItem(UPItems.AUSTRO_BOOTS, "Austroraptor Boots");
+        addItem(UPItems.TYRANTS_CROWN, "Tyrants Crown");
 
         //SHEDSCALE ARMOR
         addItem(UPItems.SHEDSCALE_HELMET, "Shedscale Wraps");
