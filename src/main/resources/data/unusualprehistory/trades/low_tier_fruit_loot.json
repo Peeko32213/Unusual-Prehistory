@@ -21,6 +21,16 @@
           "amount": 1
         }
       ]
+    },
+    {
+      "item": "minecraft:cornflower",
+      "weight": 10,
+      "amount": 2
+    },
+    {
+      "item": "minecraft:cornflower",
+      "weight": 10,
+      "amount": 2
     }
   ],
   "color": "#3ca8b3",

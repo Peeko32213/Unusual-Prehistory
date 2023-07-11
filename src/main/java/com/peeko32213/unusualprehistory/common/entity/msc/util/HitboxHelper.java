@@ -165,8 +165,8 @@ public class HitboxHelper {
         Vec3 rotatedPos = new Vec3(transformedTrueXY[0], truePos.y, transformedTrueXY[1]);
         BlockPos finalPos = new BlockPos(rotatedPos);
         AABB Hitbox = new AABB(finalPos).inflate(attackWidth, attackHeight, attackLength);
-        hitboxOutline(Hitbox, world);
-        world.sendParticles(ParticleTypes.EXPLOSION, rotatedPos.x, rotatedPos.y, rotatedPos.z, 1, 0, 0, 0, 0);
+        //hitboxOutline(Hitbox, world);
+        //world.sendParticles(ParticleTypes.EXPLOSION, rotatedPos.x, rotatedPos.y, rotatedPos.z, 1, 0, 0, 0, 0);
         List<LivingEntity> victims = new ArrayList<>(world.getEntitiesOfClass(LivingEntity.class, Hitbox));
 
         for (int i = 0; i < victims.size(); i++) {

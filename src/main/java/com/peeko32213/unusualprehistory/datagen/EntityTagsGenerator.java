@@ -162,6 +162,20 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.COTY.get())
                 .add(UPEntities.PACHY.get());
 
+        tag(UPTags.MEGALANIA_TARGETS)
+                .add(EntityType.PIG)
+                .add(EntityType.COW)
+                .add(EntityType.SHEEP)
+                .add(EntityType.HORSE)
+                .add(EntityType.CHICKEN)
+                .add(EntityType.RABBIT)
+                .add(EntityType.LLAMA)
+                .add(EntityType.TURTLE)
+                .add(EntityType.GOAT)
+                .add(UPEntities.COTY.get())
+                .add(UPEntities.PACHY.get())
+                .add(UPEntities.MAJUNGA.get());
+
         tag(UPTags.SMILODON_EMBRYO_ATTACH_TO)
                 .add(EntityType.OCELOT);
 
