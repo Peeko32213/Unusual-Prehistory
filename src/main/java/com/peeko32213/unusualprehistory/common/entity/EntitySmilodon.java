@@ -68,15 +68,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
 
     }
 
-    private Ingredient getTemptationItems() {
-        if (temptationItems == null)
-            temptationItems = Ingredient.merge(Lists.newArrayList(
-                    Ingredient.of(ItemTags.LEAVES)
-            ));
-
-        return temptationItems;
-    }
-
     @Override
     protected SoundEvent getAttackSound() {
         return null;

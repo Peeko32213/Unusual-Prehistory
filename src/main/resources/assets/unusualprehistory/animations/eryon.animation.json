@@ -144,7 +144,7 @@
 				},
 				"Arm1": {
 					"rotation": {
-						"vector": ["=4.0825+Math.cos((query.anim_time-0.2)*360)*3", "-9.042+Math.cos((query.anim_time-0.2)*360)*3", 28.9253]
+						"vector": ["-4.0825+Math.cos((query.anim_time-0.2)*360)*3", "-9.042+Math.cos((query.anim_time-0.2)*360)*3", 28.9253]
 					}
 				},
 				"Arm2": {
@@ -191,8 +191,14 @@
 					"rotation": {
 						"vector": ["Math.cos((query.anim_time)*360)*-10", "Math.cos((query.anim_time)*360)*10", "Math.sin((query.anim_time)*360)*20"]
 					}
+				},
+				"Spikes1": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		}
-	}
+	},
+	"geckolib_format_version": 2
 }

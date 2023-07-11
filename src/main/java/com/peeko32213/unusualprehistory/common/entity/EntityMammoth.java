@@ -1,8 +1,11 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothFollowLeaderGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -13,10 +16,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.*;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -38,7 +38,10 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class EntityMammoth extends EntityBaseDinosaurAnimal implements ContainerListener {
     private static final EntityDataAccessor<Boolean> IS_TRUNKING = SynchedEntityData.defineId(EntityMammoth.class, EntityDataSerializers.BOOLEAN);
@@ -49,6 +52,13 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     private Ingredient temptationItems;
     public SimpleContainer mammothInventory;
     private final UUID WEAPON_MODIFIER = UUID.fromString("82aefff6-1451-11ee-be56-0242ac120002");
+    public static final Predicate<Player> VALID_PLAYERS = (player) -> {
+        return player.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get());
+    };
+    private int resetLeaderCooldown = 100;
+    private LivingEntity leader;
+    private int packSize = 1;
+
     public EntityMammoth(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         initMammothInventory();
@@ -72,6 +82,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(5, new MammothFollowLeaderGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(1, new MammothTrunkIdleGoal(this));
@@ -82,17 +93,18 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
+        if(pPlayer.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get())) {
+            if (itemStack.is(Items.SHEARS) && pPlayer.getUsedItemHand() == InteractionHand.MAIN_HAND) {
+                this.dropEquipment();
+            }
+            if (itemStack.is(UPTags.MAMMOTH_WEAPONS)) {
+                this.giveWeapon(itemStack);
+            }
 
-        if(itemStack.is(Items.SHEARS) && pPlayer.getUsedItemHand() == InteractionHand.MAIN_HAND){
-            this.dropEquipment();
+            //UnusualPrehistory.LOGGER.info("item " + this.mammothInventory + " level " + pPlayer.level);
+
+
         }
-        if(itemStack.is(UPTags.MAMMOTH_WEAPONS)){
-            this.giveWeapon(itemStack);
-        }
-
-        //UnusualPrehistory.LOGGER.info("item " + this.mammothInventory + " level " + pPlayer.level);
-
-
         return super.mobInteract(pPlayer, pHand);
     }
 
@@ -185,6 +197,14 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         }
     }
 
+    public BlockPos getRestrictCenter() {
+        return this.leader == null ? super.getRestrictCenter() : this.leader.getOnPos();
+    }
+
+    public boolean hasRestriction() {
+        return this.isFollower();
+    }
+
     public boolean isTrunking() {
         return this.entityData.get(IS_TRUNKING);
     }
@@ -233,7 +253,120 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
 
     }
 
-    static class MammothTrunkIdleGoal extends Goal {
+    public void tick() {
+        super.tick();
+        if(!level.isClientSide){
+            if(resetLeaderCooldown > 0){
+                resetLeaderCooldown--;
+            }else{
+                resetLeaderCooldown = 200 + this.getRandom().nextInt(200);
+                this.lookForPlayerLeader();
+            }
+        }
+    }
+
+    private void lookForPlayerLeader() {
+        if(!(this.leader instanceof Player)){
+            float range = 10;
+            List<Player> playerList = this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(range, range, range), EntityMammoth.VALID_PLAYERS);
+            Player closestPlayer = null;
+            for(Player player : playerList){
+                if(closestPlayer == null || player.distanceTo(this) < closestPlayer.distanceTo(this)){
+                    closestPlayer = player;
+                }
+            }
+            if(closestPlayer != null){
+                this.stopFollowing();
+                this.startFollowing(closestPlayer);
+            }
+        }
+    }
+
+    public boolean isValidLeader(LivingEntity leader) {
+        if (leader instanceof Player) {
+            if (this.getLastHurtByMob() != null && this.getLastHurtByMob().equals(leader)) {
+                return false;
+            }
+            return leader.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get());
+        } else {
+            return leader.isAlive() && leader instanceof EntityMammoth;
+        }
+    }
+
+
+    public boolean isFollower() {
+        return this.leader != null && isValidLeader(leader);
+    }
+
+
+    public LivingEntity startFollowing(LivingEntity leader) {
+        this.leader = leader;
+        if (leader instanceof EntityMammoth) {
+            ((EntityMammoth) leader).addFollower();
+        }
+        return leader;
+    }
+
+    public void stopFollowing() {
+        if (this.leader instanceof EntityMammoth) {
+            ((EntityMammoth) this.leader).removeFollower();
+        }
+        this.leader = null;
+    }
+
+    private void addFollower() {
+        ++this.packSize;
+    }
+
+    private void removeFollower() {
+        --this.packSize;
+    }
+
+    public boolean canBeFollowed() {
+        return this.hasFollowers() && this.packSize < getMaxPackSize() && isValidLeader(this);
+    }
+
+    public boolean hasFollowers() {
+        return this.packSize > 1;
+    }
+
+    public void addFollowers(Stream<EntityMammoth> p_27534_) {
+        p_27534_.limit(getMaxPackSize() - this.packSize).filter((p_27538_) -> {
+            return p_27538_ != this;
+        }).forEach((p_27536_) -> {
+            p_27536_.startFollowing(this);
+        });
+    }
+
+    public int getMaxSpawnClusterSize() {
+        return 6;
+    }
+
+    public int getMaxPackSize() {
+        return this.getMaxSpawnClusterSize();
+    }
+
+
+    public boolean inRangeOfLeader() {
+        return this.distanceTo(this.leader) <= 60.0D;
+    }
+
+    public void pathToLeader() {
+        if (this.isFollower()) {
+            double speed = 1.0D;
+            if (leader instanceof Player) {
+                speed = 1.3D;
+                if (this.distanceTo(leader) > 24) {
+                    speed = 1.4F;
+                }
+            }
+            if (this.distanceTo(leader) > 6 && this.getNavigation().isDone()) {
+                this.getNavigation().moveTo(this.leader, speed);
+            }
+        }
+    }
+
+    public class MammothTrunkIdleGoal extends Goal {
         private final EntityMammoth mammoth;
 
         public MammothTrunkIdleGoal(EntityMammoth mammoth) {
