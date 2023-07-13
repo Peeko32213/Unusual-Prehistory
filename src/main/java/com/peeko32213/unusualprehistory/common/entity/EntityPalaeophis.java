@@ -266,14 +266,6 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         this.entityData.set(CHILD_UUID, Optional.ofNullable(uniqueId));
     }
 
-    public Entity getChild() {
-        UUID id = getChildId();
-        if (id != null && !level.isClientSide) {
-            return ((ServerLevel) level).getEntity(id);
-        }
-        return null;
-    }
-
     public void aiStep() {
         super.aiStep();
         scaleParts();

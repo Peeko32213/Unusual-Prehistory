@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:block/orientable",
+  "ambientocclusion": false,
+
+  "textures": {
+    "down": "unusualprehistory:block/incubator_bottom",
+    "east": "unusualprehistory:block/incubator_left",
+    "north": "unusualprehistory:block/incubator_front",
+    "particle": "unusualprehistory:block/incubator_bottom",
+    "south": "unusualprehistory:block/incubator_back",
+    "up": "unusualprehistory:block/incubator_top",
+    "west": "unusualprehistory:block/incubator_right"
+  }
+}

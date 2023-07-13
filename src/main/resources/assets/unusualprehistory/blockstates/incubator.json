@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "unusualprehistory:block/incubator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "unusualprehistory:block/incubator"
+    },
+    "facing=south": {
+      "model": "unusualprehistory:block/incubator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "unusualprehistory:block/incubator",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "unusualprehistory:block/incubator",
+      "y": 270
+    },
+    "facing=down": {
+      "model": "unusualprehistory:block/incubator",
+      "y": 270
+    }
+  }
+}

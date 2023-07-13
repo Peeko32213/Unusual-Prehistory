@@ -263,6 +263,22 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
                 this.lookForPlayerLeader();
             }
         }
+        if (this.getTarget() != null && isValidLeader(this.getTarget())) {
+            this.setTarget(null);
+        }
+        if (this.getTarget() != null && !isValidLeader(this.getTarget()) && this.getTarget().isAlive() && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+            this.setLastHurtByMob(this.getTarget());
+        }
+        LivingEntity playerTarget = null;
+        if (leader instanceof Player) {
+            playerTarget = leader.getLastHurtMob();
+            if (playerTarget == null || !playerTarget.isAlive() || playerTarget instanceof EntityMammoth) {
+                playerTarget = leader.getLastHurtByMob();
+            }
+        }
+        if (playerTarget != null && playerTarget.isAlive() && !(playerTarget instanceof EntityMammoth)) {
+            this.setTarget(playerTarget);
+        }
     }
 
     private void lookForPlayerLeader() {
@@ -355,9 +371,9 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         if (this.isFollower()) {
             double speed = 1.0D;
             if (leader instanceof Player) {
-                speed = 1.3D;
+                speed = 2.0D;
                 if (this.distanceTo(leader) > 24) {
-                    speed = 1.4F;
+                    speed = 2.5;
                 }
             }
             if (this.distanceTo(leader) > 6 && this.getNavigation().isDone()) {

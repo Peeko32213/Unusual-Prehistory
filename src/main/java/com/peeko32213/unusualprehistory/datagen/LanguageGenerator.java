@@ -49,8 +49,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.AMBER_SHARDS, "Amber Chunk");
         addItem(UPItems.TAR_FOSSIL, "Tar Fossil");
         addItem(UPItems.FROZEN_FOSSIL, "Frozen Fossil");
+        addItem(UPItems.OPAL_CHUNK, "Opal Chunk");
         addItem(UPItems.OPAL_FOSSIL, "Opal Fossil");
-        addItem(UPItems.OPAL_SHARD, "Opal Shard");
 
 
         //EMBRYOS
@@ -246,6 +246,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.REX_BOOMBOX, "Rex Boombox");
         addBlock(UPBlocks.AMBER_BLOCK, "Amber Block");
         addBlock(UPBlocks.OPAL_BLOCK, "Opal Block");
+        addBlock(UPBlocks.INCUBATOR, "Incubator");
 
         //PLANTS
         addBlock(UPBlocks.HORSETAIL, "Prehistoric Horsetail");

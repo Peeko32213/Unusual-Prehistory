@@ -56,10 +56,10 @@ public class UPItems {
     public static final RegistryObject<Item> FROZEN_FOSSIL = ITEMS.register("frozen_fossil_item",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
-    public static final RegistryObject<Item> OPAL_FOSSIL = ITEMS.register("opal_fossil",
+    public static final RegistryObject<Item> OPAL_CHUNK = ITEMS.register("opal_chunk",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
-    public static final RegistryObject<Item> OPAL_SHARD = ITEMS.register("opal_shard",
+    public static final RegistryObject<Item> OPAL_FOSSIL = ITEMS.register("opal_fossil",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> FLASK = ITEMS.register("flask",

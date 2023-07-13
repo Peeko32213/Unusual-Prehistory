@@ -468,6 +468,9 @@ public class UPBlocks {
     public static final RegistryObject<Block> OPAL_BLOCK = registerBlock("opal_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_LIGHT_BLUE).strength(0.5F).speedFactor(0.4F).sound(SoundType.AMETHYST)));
 
+    public static final RegistryObject<Block> INCUBATOR = registerBlock("incubator",
+            () -> new BlockIncubator(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.METAL)));
+
 
     public static final RegistryObject<Block> COTY_FOSSIL = registerBlock("coty_fossil",
             () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
