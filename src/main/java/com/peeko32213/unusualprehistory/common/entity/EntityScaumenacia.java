@@ -48,6 +48,8 @@ public class EntityScaumenacia extends WaterAnimal implements Bucketable, IAnima
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
 
+
+
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public EntityScaumenacia(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
