@@ -24,7 +24,6 @@ public class UPRecipes {
 
     public static final RegistryObject<RecipeSerializer<CultivatorRecipe>> CULTIVATOR_SERIALIZER =
             SERIALIZERS.register("cultivator", () -> CultivatorRecipe.Serializer.INSTANCE);
-
     public static final RegistryObject<RecipeType<AnalyzerRecipe>> ANALYZING_TYPE =
             RECIPE_TYPES.register("analyzing", () -> RecipeType.simple(prefix("analyzing")));
     public static final RegistryObject<RecipeType<CultivatorRecipe>> CULTIVATOR_TYPE =

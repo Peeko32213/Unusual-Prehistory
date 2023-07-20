@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDi
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Pufferfish;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.ButtonBlock;
@@ -37,15 +39,19 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nullable;
+import java.util.Locale;
+
 public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.INT);
 
     protected boolean pushingState = false;
 
     public EntityVelociraptor(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
+        ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
         this.maxUpStep = 1.0f;
+        this.refreshDimensions();
     }
 
 
@@ -66,8 +72,7 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(2, new EntityVelociraptor.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
-                {
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34) {
                     @Override
                     public boolean canUse() {
                         if (this.mob.isVehicle()) {
@@ -127,6 +132,25 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
         return shouldHurt;
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+
+        //if(this.level.isClientSide) return;
+        if (!this.hasCustomName()) {
+            this.setScale(0);
+        } else {
+            if(!this.getCustomName().getString().toLowerCase().equals("gigantoraptor")){
+                this.setScale(0);
+            } else {
+                if("gigantoraptor".equals(this.getName().getString().toLowerCase(Locale.ROOT)) && !this.isBaby()){
+                    this.setScale(1);
+                }
+            }
+        }
+
+    }
+
     protected SoundEvent getAmbientSound() {
         return UPSounds.RAPTOR_IDLE.get();
     }
@@ -142,6 +166,7 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
     }
+
     @Override
     protected SoundEvent getAttackSound() {
         return UPSounds.RAPTOR_ATTACK.get();
@@ -187,29 +212,34 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
         return UPTags.RAPTOR_TARGETS;
     }
 
+    @Override
+    public void setCustomName(@org.jetbrains.annotations.Nullable Component pName) {
+        super.setCustomName(pName);
+    }
+
     private void attack(LivingEntity entity) {
         entity.hurt(DamageSource.mobAttack(this), 5.0F);
     }
 
-        class IMeleeAttackGoal extends MeleeAttackGoal {
+    class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {
             super(EntityVelociraptor.this, 1.6D, true);
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
+            return (double) (this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
         }
 
-            @Override
-            protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
-                double d0 = this.getAttackReachSqr(enemy);
-                if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
-                    this.resetAttackCooldown();
-                    ((EntityVelociraptor) this.mob).setHungry(false);
-                    ((EntityVelociraptor) this.mob).attack(enemy);
-                    ((EntityVelociraptor) this.mob).setTimeTillHungry(mob.getRandom().nextInt(300) + 300);
-                }
+        @Override
+        protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
+            double d0 = this.getAttackReachSqr(enemy);
+            if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
+                this.resetAttackCooldown();
+                ((EntityVelociraptor) this.mob).setHungry(false);
+                ((EntityVelociraptor) this.mob).attack(enemy);
+                ((EntityVelociraptor) this.mob).setTimeTillHungry(mob.getRandom().nextInt(300) + 300);
             }
+        }
 
     }
 
@@ -217,18 +247,51 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Press", this.hasPressed());
+        compound.putInt("scale", this.getModelScale());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setPress(compound.getBoolean("Press"));
+        this.setScale(Math.min(compound.getInt("scale"), 0));
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(PRESS, false);
+        this.entityData.define(SCALE, 0);
+
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
+        if (SCALE.equals(pKey)) {
+            this.refreshDimensions();
+        }
+
+        super.onSyncedDataUpdated(pKey);
+    }
+
+    public EntityDimensions getDimensions(Pose pPose) {
+        return super.getDimensions(pPose).scale(getScale(this.getModelScale()));
+    }
+
+    private static float getScale(int scale) {
+        switch (scale) {
+            case 1:
+                return 1.8F;
+            default:
+                return 0.9F;
+        }
+    }
+
+    public int getModelScale() {
+        return this.entityData.get(SCALE);
+    }
+
+    public void setScale(int scale) {
+        this.entityData.set(SCALE, scale);
     }
 
     public void setPress(boolean eepy) {
@@ -324,7 +387,7 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
@@ -339,8 +402,7 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
                 return PlayState.CONTINUE;
 
             }
-        }
-        else {
+        } else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.velociraptor.idle"));
             event.getController().setAnimationSpeed(1.0D);
         }
@@ -363,7 +425,6 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
         data.addAnimationController(controller);
     }
-
 
 
 }
