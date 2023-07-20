@@ -82,7 +82,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi").toString()));
 
     public static final RegistryObject<EntityType<EntityVelociraptor>> VELOCI = ENTITIES.register("veloci",
-            () -> EntityType.Builder.of(EntityVelociraptor::new, MobCategory.CREATURE).sized(0.7F, 0.9F)
+            () -> EntityType.Builder.of(EntityVelociraptor::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "veloci").toString()));
 
     public static final RegistryObject<EntityType<EntityTyrannosaurusRex>> REX = ENTITIES.register("rex",
@@ -139,7 +139,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "talapanas").toString()));
 
     public static final RegistryObject<EntityType<EntityGigantopithicus>> GIGANTOPITHICUS = ENTITIES.register("gigantopithicus",
-            () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(4.0F, 2.0F)
+            () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(4.0F, 4.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "gigantopithicus").toString()));
 
     public static final RegistryObject<EntityType<EntityBarinasuchus>> BARINASUCHUS = ENTITIES.register("barinasuchus",

@@ -52,7 +52,7 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
             if (capability.timer > 0) {
                 capability.timer = capability.timer - 1;
                 return;
-            };
+            }
 
             if(capability.embryoAnimal != null && !capability.embryoAnimal.equals(BASE_EMBRYO)){
                 ResourceLocation entityRl = new ResourceLocation(capability.embryoAnimal);

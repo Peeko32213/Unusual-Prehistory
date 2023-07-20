@@ -71,10 +71,7 @@ public class UPBlocks {
 
     public static final Supplier<Block> STETHA_EGGS = create("stetha_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission().randomTicks(),
-                    UPEntities.STETHACANTHUS,
-                    false
-            ),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+                    UPEntities.STETHACANTHUS, false), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final Supplier<Block> BEELZE_EGGS = create("beelze_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission().randomTicks(),
@@ -469,7 +466,7 @@ public class UPBlocks {
             () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_LIGHT_BLUE).strength(0.5F).speedFactor(0.4F).sound(SoundType.AMETHYST)));
 
     public static final RegistryObject<Block> INCUBATOR = registerBlock("incubator",
-            () -> new BlockIncubator(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.METAL)));
+            () -> new BlockIncubator(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.METAL).noOcclusion()));
 
 
     public static final RegistryObject<Block> COTY_FOSSIL = registerBlock("coty_fossil",
@@ -679,6 +676,12 @@ public class UPBlocks {
         return block;
     }
 
+    private static <T extends Block> Supplier<T> create(String key, Supplier<T> block, Function<Supplier<T>, Item> item) {
+        Supplier<T> entry = create(key, block);
+        UPItems.ITEMS.register(key, () -> item.apply(entry));
+        return entry;
+    }
+
     private static <T extends Block> RegistryObject<T> registerBlockWithoutBlockItem(String name, Supplier<T> block) {
         return BLOCKS.register(name, block);
     }
@@ -687,15 +690,9 @@ public class UPBlocks {
         return create(key, block, entry -> new BlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     }
 
-    private static <T extends Block> Supplier<T> create(String key, Supplier<T> block, Function<Supplier<T>, Item> item) {
-        Supplier<T> entry = create(key, block);
-        UPItems.ITEMS.register(key, () -> item.apply(entry));
-        return entry;
-    }
+
 
     private static <T extends Block> Supplier<T> create(String key, Supplier<T> block) {
         return BLOCKS.register(key, block);
     }
-
-
 }

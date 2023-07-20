@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.effect;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,7 +12,7 @@ public class EffectHealthReduction extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        if(pLivingEntity.getHealth() > pLivingEntity.getHealth() - pAmplifier){
+        if(pLivingEntity.getHealth() > (pLivingEntity.getMaxHealth() - pAmplifier)){
             pLivingEntity.setHealth(pLivingEntity.getMaxHealth() - pAmplifier);
         }
         super.applyEffectTick(pLivingEntity, pAmplifier);

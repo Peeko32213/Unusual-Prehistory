@@ -1,4 +1,4 @@
-// 1.19.2	2023-06-26T20:54:24.6847066	worldgen/configured_feature generator for unusualprehistory
+// 1.19.2	2023-07-19T20:49:50.6607265	worldgen/configured_feature generator for unusualprehistory
 eb166b6f3d1c77f1986dec1df9d728dacbff98d0 data/unusualprehistory/worldgen/configured_feature/amber_fossil_ore.json
 668700fb70626e3b544eab7bd59aaf9e156cecd7 data/unusualprehistory/worldgen/configured_feature/deepslate_fossil_ore.json
 48d160e10a6e4a19fa9b4ce746602df6be0b257b data/unusualprehistory/worldgen/configured_feature/deepslate_plant_fossil_ore.json
@@ -8,3 +8,4 @@ eb166b6f3d1c77f1986dec1df9d728dacbff98d0 data/unusualprehistory/worldgen/configu
 0023e203e53cf0a91effc33de77d97071ee413a1 data/unusualprehistory/worldgen/configured_feature/petrified_wood_forest_feature_name.json
 9fb4cdced05325786d8c3cc5b01822c847303364 data/unusualprehistory/worldgen/configured_feature/plant_fossil_ore.json
 d40fdf98b40f5dd9599e5e41816beca14eb3c53d data/unusualprehistory/worldgen/configured_feature/stone_fossil_ore.json
+7208fd29ca711af322ac36c53054a1759cab5a00 data/unusualprehistory/worldgen/configured_feature/tar_pit_feature_name.json
