@@ -101,6 +101,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> ANTARCTO_HURT = createSoundEvent("antarcto_hurt");
     public static final RegistryObject<SoundEvent> ANTARCTO_IDLE = createSoundEvent("antarcto_idle");
     public static final RegistryObject<SoundEvent> REX_BOOMBOX = createSoundEvent("rex_boombox");
+    public static final RegistryObject<SoundEvent> GIGANTO_DEATH = createSoundEvent("giganto_death");
+    public static final RegistryObject<SoundEvent> GIGANTO_HURT = createSoundEvent("giganto_hurt");
+    public static final RegistryObject<SoundEvent> GIGANTO_IDLE = createSoundEvent("giganto_idle");
+    public static final RegistryObject<SoundEvent> GIGANTO_TRADE = createSoundEvent("giganto_trade");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));

@@ -22,7 +22,7 @@ public class ItemTyrantsCrown extends GeoArmorItem implements IAnimatable {
     }
 
 
-    
+
 
 
     @Override

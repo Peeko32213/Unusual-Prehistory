@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.TradeGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -400,6 +401,18 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
             return (double) (this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
         }
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.GIGANTO_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.GIGANTO_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.GIGANTO_DEATH.get();
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {

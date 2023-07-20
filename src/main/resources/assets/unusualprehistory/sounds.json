@@ -1006,5 +1006,65 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.rex_boombox"
+  },
+  "giganto_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:giganto_death_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:giganto_death_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.giganto_death"
+  },
+  "giganto_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:giganto_hurt_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:giganto_hurt_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.giganto_hurt"
+  },
+  "giganto_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:giganto_idle_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:giganto_idle_1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:giganto_idle_2",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.giganto_idle"
+  },
+  "giganto_trade": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:giganto_trade_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:giganto_trade_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.giganto_trade"
   }
 }
