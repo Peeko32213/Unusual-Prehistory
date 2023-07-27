@@ -10,8 +10,8 @@ public class ShedscaleBootsRenderer extends GeoArmorRenderer<ItemShedscaleBoots>
     public ShedscaleBootsRenderer() {
         super(new ShedscaleBootsModel());
 
-        this.rightBootBone = "armorRightLeg";
-        this.leftBootBone = "armorLeftLeg";
+        this.rightBootBone = "armorRightBoot";
+        this.leftBootBone = "armorLeftBoot";
 
     }
 }
