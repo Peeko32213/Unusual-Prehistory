@@ -76,6 +76,7 @@ public class DinosaurWhistle extends Item {
                     ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player)).getBlockPos();
 
             toWhistleList.forEach(dino -> {
+                ((Mob)dino).setTarget(null);
                 ((Mob)dino).getNavigation().moveTo(blockPlayerIsLookingAt.getX(), blockPlayerIsLookingAt.getY(), blockPlayerIsLookingAt.getZ(), 2);
             });
             return InteractionResultHolder.success(itemStack);

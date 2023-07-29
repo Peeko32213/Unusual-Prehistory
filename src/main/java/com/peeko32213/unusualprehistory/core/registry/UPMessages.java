@@ -97,7 +97,7 @@ public class UPMessages {
                 .consumerMainThread(MegatheriumKeyOutputMessage::handle)
                 .add();
 
-        net.messageBuilder(UPMessageHurtMultipart.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+        net.messageBuilder(UPMessageHurtMultipart.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(UPMessageHurtMultipart::read)
                 .encoder(UPMessageHurtMultipart::write)
                 .consumerMainThread(UPMessageHurtMultipart.Handler::handle)

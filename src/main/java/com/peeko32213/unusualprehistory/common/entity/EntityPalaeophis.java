@@ -229,9 +229,14 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
             sheddingCooldown--;
         }
 
-        if (!this.level.isClientSide && this.isAlive() && this.getSheddingTime() > 0 && this.getSheddingTime() > 0) {
-            this.spawnAtLocation(UPItems.REX_TOOTH.get(), 4);
-            this.spawnAtLocation(UPItems.REX_SCALE.get(), 9);
+        if(this.getSheddingTime() > 0) {
+            int shedTime = getSheddingTime();
+            setSheddingTime(shedTime - 1);
+        }
+
+        if (!this.level.isClientSide && this.isAlive() && this.getSheddingTime() <= 0) {
+            this.spawnAtLocation(UPItems.REX_TOOTH.get(), 0);
+            this.spawnAtLocation(UPItems.REX_SCALE.get(), 0);
             this.setSheddingTime(this.getRandom().nextInt(1000) + 1500);
         }
     }

@@ -65,7 +65,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new EntityGigantopithicus.ApeMeleeAttackGoal(this, 1.3F, true));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(0, new TradeGoal(this, Ingredient.of(LootFruitJsonManager.getTrades().keySet().stream().map(s -> new ItemStack(s)))));
+        this.goalSelector.addGoal(0, new TradeGoal(this, Ingredient.of(LootFruitJsonManager.getTrades().keySet().stream().map(ItemStack::new))));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
