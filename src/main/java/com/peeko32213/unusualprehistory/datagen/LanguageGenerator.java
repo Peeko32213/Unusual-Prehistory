@@ -487,6 +487,9 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_2.player", "%s was turned to fine paste by %s");
         add("death.attack.hwacha_3.player", "%s was shot by %s");
 
+        add("unusualprehistory.megalania_damage", " %s Megalania Damage");
+        add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");
+
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");

@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:incubating",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:megath_flask"
+    }
+  ],
+  "output": "unusualprehistory:megatherium"
+}

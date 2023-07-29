@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:incubating",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:mammoth_flask"
+    }
+  ],
+  "output": "unusualprehistory:mammoth"
+}

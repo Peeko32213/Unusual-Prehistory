@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.world.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -29,7 +30,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
     private static final BlockState COARSE_DIRT = Blocks.COARSE_DIRT.defaultBlockState();
     private static final BlockState SANDSTONE = Blocks.SANDSTONE.defaultBlockState();
     private static final BlockState SAND = Blocks.SAND.defaultBlockState();
-    private static final BlockState TAR = Blocks.POWDER_SNOW.defaultBlockState();
+    private static final BlockState TAR = UPBlocks.TAR.get().defaultBlockState();
     private static final BlockState AIR = Blocks.AIR.defaultBlockState();
     private static final BlockState WATER = Blocks.WATER.defaultBlockState();
     private static final BlockState WW = Blocks.WHITE_WOOL.defaultBlockState();
@@ -137,7 +138,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
                                 state = worldGenLevel.getBlockState(POS);
                                 //Some area outside
                                 if (state.is(Blocks.SAND)) {
-                                    setWithoutUpdate(worldGenLevel, POS, Blocks.SAND.defaultBlockState());
+                                    setWithoutUpdate(worldGenLevel, POS, Blocks.DIRT.defaultBlockState());
                                 }
                                 pos = POS.below();
                                 if (worldGenLevel.getBlockState(pos).is(Blocks.SAND)) {
@@ -183,7 +184,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
                             state = worldGenLevel.getBlockState(POS);
                             if (canReplace(state)) {
                                 state = worldGenLevel.getBlockState(POS.above());
-                                state = canReplace(state) ? (y < waterLevel ? Blocks.AIR.defaultBlockState() : Blocks.AIR.defaultBlockState()) : state;
+                                state = canReplace(state) ? (y < waterLevel ? TAR : Blocks.AIR.defaultBlockState()) : state;
                                 setWithoutUpdate(worldGenLevel, POS, state);
                             }
                             pos = POS.below();

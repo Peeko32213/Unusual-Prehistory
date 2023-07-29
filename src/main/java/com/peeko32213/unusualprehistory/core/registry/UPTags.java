@@ -35,6 +35,7 @@ public class UPTags {
     public static final TagKey<EntityType<?>> SMILODON_TARGETS = registerEntityTag("smilodon_targets");
 
     public static final TagKey<EntityType<?>> SMILODON_EMBRYO_ATTACH_TO= registerEntityTag("smilodon_embryo_attach_to");
+    public static final TagKey<EntityType<?>> TAR_WALKABLE_MOBS= registerEntityTag("tar_walkable_mobs");
 
     //Misc Tags
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");

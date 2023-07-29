@@ -5,14 +5,20 @@ import com.google.common.collect.Multimap;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.render.tool.HandmadeSpearRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -63,13 +69,20 @@ public class ItemHandmadeSpear extends SwordItem implements IAnimatable {
         });
     }
 
+
+
     @Override
     public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
+
+
+
         return ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.handmade_spear.idle"));
+        if(event.isMoving()){
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.handmade_spear.idle"));
+        }
         return PlayState.CONTINUE;
     }
 
