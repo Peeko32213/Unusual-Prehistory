@@ -16,6 +16,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -62,6 +63,8 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::canAttack));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Sheep>(this, Sheep.class, 100, true, false, this::canAttack));
+
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
@@ -264,8 +267,9 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
             int animState = this.mob.getAnimationState();
             Vec3 aim = this.mob.getLookAngle();
             Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
-
+           // this.mob.getNavigation().moveTo(target, this.speedModifier);
+            this.mob.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), this.speedModifier);
+            this.mob.getLookControl().setLookAt(target, 30.0F, this.mob.getMaxHeadXRot());
             switch (animState) {
                 case 21:
                     tickStompAttack();
@@ -273,8 +277,7 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
                 default:
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                    this.doMovement(target, distance);
+                    this.mob.getLookControl().setLookAt(target, 30.0F, this.mob.getMaxHeadXRot());
                     this.checkForCloseRangeAttack(distance, reach);
                     break;
 
@@ -282,11 +285,7 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
         }
 
         protected void doMovement (LivingEntity livingentity, Double d0){
-
-
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
-
             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                 this.pathedTargetX = livingentity.getX();
                 this.pathedTargetY = livingentity.getY();
@@ -324,16 +323,14 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
                 if (r <= 600) {
                     this.mob.setAnimationState(21);
                 }
+            } else {
+                this.mob.getNavigation().moveTo(this.mob.getTarget().getX(), this.mob.getTarget().getY() + 10, this.mob.getTarget().getZ(), this.speedModifier);
             }
         }
 
 
         protected boolean getRangeCheck () {
-
-            return
-                    this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                            <=
-                            1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.4F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
 
@@ -376,7 +373,7 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+            return (double)(this.mob.getBbWidth() * 1 + this.mob.getBbWidth() * 1 + p_179512_1_.getBbWidth());
         }
     }
 

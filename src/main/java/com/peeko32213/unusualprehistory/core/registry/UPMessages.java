@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.message.UPMessageHurtMultipart;
 import com.peeko32213.unusualprehistory.common.networking.packet.AmberProtectionSyncS2CPacket;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
+import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.core.registry.util.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,6 +35,12 @@ public class UPMessages {
                 .decoder(SyncItemStackC2SPacket::new)
                 .encoder(SyncItemStackC2SPacket::toBytes)
                 .consumerMainThread(SyncItemStackC2SPacket::handle)
+                .add();
+
+        net.messageBuilder(SyncItemStackS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SyncItemStackS2CPacket::new)
+                .encoder(SyncItemStackS2CPacket::toBytes)
+                .consumerMainThread(SyncItemStackS2CPacket::handle)
                 .add();
 
         net.messageBuilder(AmberProtectionSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
@@ -90,7 +97,7 @@ public class UPMessages {
                 .consumerMainThread(MegatheriumKeyOutputMessage::handle)
                 .add();
 
-        net.messageBuilder(UPMessageHurtMultipart.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+        net.messageBuilder(UPMessageHurtMultipart.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(UPMessageHurtMultipart::read)
                 .encoder(UPMessageHurtMultipart::write)
                 .consumerMainThread(UPMessageHurtMultipart.Handler::handle)

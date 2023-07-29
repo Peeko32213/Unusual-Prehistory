@@ -6,6 +6,8 @@ import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -61,6 +63,7 @@ public class CultivatorMenu extends AbstractContainerMenu {
         }
         return Mth.ceil((float) scale * (float) progress / (float) maxProgress);
     }
+
 
     public int getScaledFuel(int scale) {
         int fuel = this.data.get(2);

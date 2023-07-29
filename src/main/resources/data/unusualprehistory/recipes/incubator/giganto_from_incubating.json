@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:incubating",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:giganto_flask"
+    }
+  ],
+  "output": "unusualprehistory:gigantopithicus"
+}

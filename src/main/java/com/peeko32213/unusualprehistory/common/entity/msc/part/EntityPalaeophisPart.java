@@ -67,7 +67,7 @@ public class EntityPalaeophisPart extends PartEntity<EntityPalaeophis> {
 
     public boolean hurt(DamageSource source, float amount) {
         if(level.isClientSide && this.getParent() != null && !this.getParent().isInvulnerableTo(source)){
-            UPMessages.sendToClients(new UPMessageHurtMultipart(this.getId(), this.getParent().getId(), amount, source.msgId));
+            UPMessages.sendToServer(new UPMessageHurtMultipart(this.getId(), this.getParent().getId(), amount, source.msgId));
         }
         return !this.isInvulnerableTo(source) && this.getParent().attackEntityPartFrom(this, source, amount);
     }

@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
+import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -24,11 +25,16 @@ public class UPRecipes {
 
     public static final RegistryObject<RecipeSerializer<CultivatorRecipe>> CULTIVATOR_SERIALIZER =
             SERIALIZERS.register("cultivator", () -> CultivatorRecipe.Serializer.INSTANCE);
+
+    public static final RegistryObject<RecipeSerializer<IncubatorRecipe>> INCUBATOR_SERIALIZER =
+            SERIALIZERS.register("incubating", () -> IncubatorRecipe.Serializer.INSTANCE);
+
     public static final RegistryObject<RecipeType<AnalyzerRecipe>> ANALYZING_TYPE =
             RECIPE_TYPES.register("analyzing", () -> RecipeType.simple(prefix("analyzing")));
     public static final RegistryObject<RecipeType<CultivatorRecipe>> CULTIVATOR_TYPE =
             RECIPE_TYPES.register("cultivator", () -> RecipeType.simple(prefix("cultivator")));
 
-
+    public static final RegistryObject<RecipeType<IncubatorRecipe>> INCUBATOR_TYPE =
+            RECIPE_TYPES.register("incubator", () -> RecipeType.simple(prefix("incubating")));
 
 }

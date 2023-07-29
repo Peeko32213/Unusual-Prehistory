@@ -32,8 +32,6 @@ public class UPMessageHurtMultipart {
         this.damageType = damageType;
     }
 
-    public UPMessageHurtMultipart() {
-    }
 
     public static UPMessageHurtMultipart read(FriendlyByteBuf buf) {
         return new UPMessageHurtMultipart(buf.readInt(), buf.readInt(), buf.readFloat(), buf.readUtf());
@@ -53,9 +51,9 @@ public class UPMessageHurtMultipart {
         public static void handle(UPMessageHurtMultipart message, Supplier<NetworkEvent.Context> context) {
             context.get().setPacketHandled(true);
             Player player = context.get().getSender();
-            if(context.get().getDirection().getReceptionSide() == LogicalSide.CLIENT){
-                player = UnusualPrehistory.PROXY.getClientSidePlayer();
-            }
+            //if(context.get().getDirection().getReceptionSide() == LogicalSide.CLIENT){
+            //    player = UnusualPrehistory.PROXY.getClientSidePlayer();
+            //}
 
             if (player != null) {
                 if (player.level != null) {

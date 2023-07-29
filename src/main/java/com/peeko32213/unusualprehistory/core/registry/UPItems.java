@@ -2,17 +2,16 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.*;
-import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
-import com.peeko32213.unusualprehistory.common.item.armor.material.AustroArmorMaterial;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
-import com.peeko32213.unusualprehistory.common.item.armor.material.MajungaArmorMaterial;
-import com.peeko32213.unusualprehistory.common.item.armor.material.ShedscaleArmorMaterial;
+import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
+import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleChestplate;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleHelmet;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleLeggings;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
@@ -407,11 +406,11 @@ public class UPItems {
             () -> new ForgeSpawnEggItem(UPEntities.MEGALANIA , 0x2e2319, 0x96874b,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
-            () -> new ItemMajungaHelmet(MajungaArmorMaterial.MAJUNGA, EquipmentSlot.HEAD,
+            () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> AUSTRO_BOOTS = ITEMS.register("austro_boots",
-            () -> new ItemAustroBoots(AustroArmorMaterial.AUSTRO, EquipmentSlot.FEET,
+            () -> new ItemAustroBoots(UPArmorMaterial.AUSTRO, EquipmentSlot.FEET,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> CLATHRODICTYON_FAN = ITEMS.register("clathrodictyon_fan",
@@ -461,22 +460,25 @@ public class UPItems {
             () -> new DinosaurWhistle(new Item.Properties().stacksTo(1).tab(UnusualPrehistory.DINO_TAB), UPEntities.BARINASUCHUS));
 
     public static final RegistryObject<Item> SHEDSCALE_HELMET = ITEMS.register("shedscale_helmet",
-            () -> new ItemShedscaleHelmet(ShedscaleArmorMaterial.SHEDSCALE, EquipmentSlot.HEAD,
+            () -> new ItemShedscaleHelmet(UPArmorMaterial.SHEDSCALE, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> SHEDSCALE_CHESTPLATE = ITEMS.register("shedscale_chestplate",
-            () -> new ItemShedscaleChestplate(ShedscaleArmorMaterial.SHEDSCALE, EquipmentSlot.CHEST,
+            () -> new ItemShedscaleChestplate(UPArmorMaterial.SHEDSCALE, EquipmentSlot.CHEST,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> SHEDSCALE_LEGGINGS = ITEMS.register("shedscale_leggings",
-            () -> new ItemShedscaleLeggings(ShedscaleArmorMaterial.SHEDSCALE, EquipmentSlot.LEGS,
+            () -> new ItemShedscaleLeggings(UPArmorMaterial.SHEDSCALE, EquipmentSlot.LEGS,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> SHEDSCALE_BOOTS = ITEMS.register("shedscale_boots",
-            () -> new ItemShedscaleBoots(ShedscaleArmorMaterial.SHEDSCALE, EquipmentSlot.FEET,
+            () -> new ItemShedscaleBoots(UPArmorMaterial.SHEDSCALE, EquipmentSlot.FEET,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> TYRANTS_CROWN = ITEMS.register("tyrants_crown",
-            () -> new ItemTyrantsCrown(ShedscaleArmorMaterial.SHEDSCALE, EquipmentSlot.HEAD,
+            () -> new ItemTyrantsCrown(UPArmorMaterial.TYRANTS, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket", () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
+
 }

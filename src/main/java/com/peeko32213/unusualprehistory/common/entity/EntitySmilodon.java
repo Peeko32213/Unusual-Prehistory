@@ -1,8 +1,10 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.GroomGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -20,6 +22,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -40,6 +43,10 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> CAN_GROOM = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> GROOM_1 = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> GROOM_2 = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.BOOLEAN);
+
     private Ingredient temptationItems;
 
     public EntitySmilodon(EntityType<? extends EntityBaseDinosaurAnimal> entityType, Level level) {
@@ -59,12 +66,26 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new GroomGoal(this, 1.5));
         this.goalSelector.addGoal(1, new SmilodonStalkGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 25.0F));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.SMILODON_TARGETS)));
+
+    }
+
+    public int groomTimer;
+    @Override
+    public void tick() {
+        super.tick();
+
+        if(groomTimer-- < 0){
+            groomTimer = 6000;
+            setCanGroom(true);
+        }
+
 
     }
 
@@ -122,7 +143,25 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(CAN_GROOM, false);
+        this.entityData.define(GROOM_1, false);
+        this.entityData.define(GROOM_2, false);
+    }
 
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("canGroom", canGroom());
+        compound.putBoolean("groom1", groom1());
+        compound.putBoolean("groom2", groom2());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        setCanGroom(compound.getBoolean("canGroom"));
+        setGroom1(compound.getBoolean("groom1"));
+        setGroom2(compound.getBoolean("groom2"));
     }
 
     public int getAnimationState() {
@@ -133,6 +172,46 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     public void setAnimationState(int anim) {
 
         this.entityData.set(ANIMATION_STATE, anim);
+    }
+
+    public boolean canGroom() {
+
+        return this.entityData.get(CAN_GROOM);
+    }
+
+    public void setCanGroom(boolean canGroom) {
+
+        this.entityData.set(CAN_GROOM, canGroom);
+    }
+
+    public boolean groom1() {
+
+        return this.entityData.get(GROOM_1);
+    }
+
+    public void setGroom1(boolean groom1) {
+
+        this.entityData.set(GROOM_1, groom1);
+    }
+
+    public boolean groom2() {
+
+        return this.entityData.get(GROOM_1);
+    }
+
+    public void setGroom2(boolean groom2) {
+
+        this.entityData.set(GROOM_2, groom2);
+    }
+
+    public boolean canGroom(EntitySmilodon pOtherAnimal) {
+        if (pOtherAnimal == this) {
+            return false;
+        } else if (pOtherAnimal.getClass() != this.getClass()) {
+            return false;
+        } else {
+            return this.canGroom() && pOtherAnimal.canGroom();
+        }
     }
 
     @Override
@@ -297,6 +376,20 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
+
+        if(groom1())
+        {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.groom_1"));
+            event.getController().setAnimationSpeed(2.5F);
+            return PlayState.CONTINUE;
+        }
+        if(groom2())
+        {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.groom_2"));
+            event.getController().setAnimationSpeed(2.5F);
+            return PlayState.CONTINUE;
+        }
+
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             if (this.isSprinting()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.sprint"));

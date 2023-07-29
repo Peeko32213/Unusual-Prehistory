@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
+import com.peeko32213.unusualprehistory.client.render.IncubatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.armor.*;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
@@ -10,6 +11,7 @@ import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
+import com.peeko32213.unusualprehistory.common.block.entity.IncubatorBlockEntity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
@@ -29,6 +31,8 @@ import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
@@ -38,7 +42,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.HashSet;
+import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class ClientEvents {
@@ -180,6 +187,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.WORLD_SPAWNABLE.get(), WorldSpawnableRenderer::new);
 
         event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);
         //event.registerBlockEntityRenderer(UPBlockEntities.FRUIT_LOOT_BOX_BLOCK_ENTITY.get(), FruitLootBoxRenderer::new);
 
 
@@ -239,6 +247,8 @@ public final class ClientEvents {
     {
         event.registerAboveAll("amber_protection", AmberProtectionOverlay.HUD_AMBER_PROTECTION);
     }
+
+
 
     public static KeyMapping roarKey;
 

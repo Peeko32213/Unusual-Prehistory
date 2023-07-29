@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:incubating",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:smilodon_embryo"
+    }
+  ],
+  "output": "unusualprehistory:smilodon"
+}

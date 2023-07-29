@@ -162,7 +162,7 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityMammoth::new, MobCategory.CREATURE).sized(5.0F, 5.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "mammoth").toString()));
 
-    public static final RegistryObject<EntityType<EntityPalaeophis>> PALAEOPHIS = ENTITIES.register("palaophis",
+    public static final RegistryObject<EntityType<EntityPalaeophis>> PALAEOPHIS = ENTITIES.register("palaeolophis",
             () -> EntityType.Builder.of(EntityPalaeophis::new, MobCategory.WATER_CREATURE).sized(5.5F, 1.5F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "palaophis").toString()));
 
