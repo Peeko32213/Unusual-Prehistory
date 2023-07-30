@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -60,11 +62,11 @@ public class BlockTar extends Block implements BucketPickup {
     }
 
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
+
         if (!(pEntity instanceof LivingEntity) || pEntity.getFeetBlockState().is(this)) {
-            pEntity.makeStuckInBlock(pState, new Vec3((double)0.2F, 1.5D, (double)0.2F));
-
-
-
+            if(!pEntity.getType().is(UPTags.TAR_WALKABLE_THROUGH_MOBS)) {
+                pEntity.makeStuckInBlock(pState, new Vec3((double) 0.2F, 1.5D, (double) 0.2F));
+            }
             if (pLevel.isClientSide) {
                 RandomSource randomsource = pLevel.getRandom();
                 boolean flag = pEntity.xOld != pEntity.getX() || pEntity.zOld != pEntity.getZ();
@@ -107,7 +109,7 @@ public class BlockTar extends Block implements BucketPickup {
     }
 
     public static boolean canEntityWalkOnTar(Entity pEntity) {
-        if (pEntity.getType().is(UPTags.TAR_WALKABLE_MOBS)) {
+        if (pEntity.getType().is(UPTags.TAR_WALKABLE_ON_MOBS)) {
             return true;
         } else {
             return pEntity instanceof LivingEntity ? ((LivingEntity)pEntity).getItemBySlot(EquipmentSlot.FEET).canWalkOnPowderedSnow((LivingEntity)pEntity) : false;
@@ -130,4 +132,24 @@ public class BlockTar extends Block implements BucketPickup {
     public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
         return true;
     }
+
+    @Override
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+        BlockPos blockpos = pPos.above();
+        if (pLevel.getBlockState(blockpos).isAir() && !pLevel.getBlockState(blockpos).isSolidRender(pLevel, blockpos)) {
+            if (pRandom.nextInt(100) == 0) {
+                double d0 = (double)pPos.getX() + pRandom.nextDouble();
+                double d1 = (double)pPos.getY() + 1.0D;
+                double d2 = (double)pPos.getZ() + pRandom.nextDouble();
+                pLevel.addParticle(ParticleTypes.LAVA, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+                pLevel.playLocalSound(d0, d1, d2, SoundEvents.LAVA_POP, SoundSource.BLOCKS, 0.2F + pRandom.nextFloat() * 0.2F, 0.9F + pRandom.nextFloat() * 0.15F, false);
+            }
+
+            if (pRandom.nextInt(200) == 0) {
+                pLevel.playLocalSound((double)pPos.getX(), (double)pPos.getY(), (double)pPos.getZ(), SoundEvents.LAVA_AMBIENT, SoundSource.BLOCKS, 0.2F + pRandom.nextFloat() * 0.2F, 0.9F + pRandom.nextFloat() * 0.15F, false);
+            }
+        }
+    }
+
+
 }

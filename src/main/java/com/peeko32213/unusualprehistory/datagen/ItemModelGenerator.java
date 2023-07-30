@@ -30,6 +30,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 
         singleTex(UPItems.SMILODON_EMBRYO);
         singleTex(UPItems.BARINA_WHISTLE);
+        singleTex(UPItems.TAB_EGG_ICON);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());

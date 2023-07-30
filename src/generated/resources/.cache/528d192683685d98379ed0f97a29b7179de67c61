@@ -1,4 +1,4 @@
-// 1.19.2	2023-07-10T10:03:12.6019594	unusualprehistory Entity type tags provider
+// 1.19.2	2023-07-30T19:44:13.6421989	unusualprehistory Entity type tags provider
 54185a027fa8d708a564fe1346da11538051db73 data/unusualprehistory/tags/entity_types/antarcto_targets.json
 f6aaf288203062a671f170c0381ed4a60f1d18e4 data/unusualprehistory/tags/entity_types/anuro_targets.json
 467dc350433b69c50e039e36abe6f15d514c8b8d data/unusualprehistory/tags/entity_types/beelze_targets.json
@@ -11,3 +11,5 @@ bfe8052507ee1c8fc5cad23206e694af426bd4f6 data/unusualprehistory/tags/entity_type
 bfe8052507ee1c8fc5cad23206e694af426bd4f6 data/unusualprehistory/tags/entity_types/rex_targets.json
 3e0f1c22c1e31318a7f8875c4b3ea72bd0fbc942 data/unusualprehistory/tags/entity_types/smilodon_embryo_attach_to.json
 665fafe2fb7dcfd456a58048b0d76ae48f749cde data/unusualprehistory/tags/entity_types/smilodon_targets.json
+676cee16d107d62d62093f32df13eb8e934c7db9 data/unusualprehistory/tags/entity_types/tar_walkable_on_mobs.json
+ba55b9047ed4c049a3b6ee7000e9f44648a23339 data/unusualprehistory/tags/entity_types/tar_walkable_through_mobs.json

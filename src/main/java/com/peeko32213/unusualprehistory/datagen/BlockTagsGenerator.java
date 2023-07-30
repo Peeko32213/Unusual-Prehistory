@@ -330,6 +330,14 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.DRYO_LEAVES.get())
                 .add(UPBlocks.GINKGO_LEAVES.get());
 
+
+        tag(UPTags.TAR_PIT_REPLACEABLE)
+                .addTags(BlockTags.SAND)
+                .addTags(BlockTags.DIRT)
+                .addTags(BlockTags.BASE_STONE_OVERWORLD)
+                .addTags(BlockTags.TERRACOTTA)
+                .add(Blocks.SANDSTONE)
+                .add(Blocks.RED_SANDSTONE);
     }
 
 

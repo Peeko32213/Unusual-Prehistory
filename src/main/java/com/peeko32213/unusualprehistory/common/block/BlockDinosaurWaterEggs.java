@@ -32,10 +32,18 @@ public class BlockDinosaurWaterEggs extends Block {
     private Supplier<?extends EntityType> dinosaur;
 
     private boolean properHabitat;
+    private static int hatchTimeMax;
+    private static int hatchTimeMin;
     public BlockDinosaurWaterEggs(Properties properties, Supplier<?extends EntityType> dinosaur, boolean placableOnLand) {
+        this(properties, dinosaur, placableOnLand, 1200 , 3600);
+    }
+
+    public BlockDinosaurWaterEggs(Properties properties, Supplier<?extends EntityType> dinosaur, boolean placableOnLand, int hatchTimeMin, int hatchTimeMax) {
         super(properties);
         this.dinosaur = dinosaur;
         this.properHabitat = placableOnLand;
+        this.hatchTimeMax = hatchTimeMax;
+        this.hatchTimeMin = hatchTimeMin;
     }
 
     @Override
@@ -59,8 +67,9 @@ public class BlockDinosaurWaterEggs extends Block {
     public static boolean isProperHabitat(BlockGetter reader, BlockPos pos) {
         return reader.getBlockState(pos).is(UPTags.DINO_HATCHABLE_BLOCKS);
     }
+
     private static int getSpawnHatchDelay(RandomSource randomSource) {
-        return randomSource.nextInt(1600, 3600);
+        return randomSource.nextInt(hatchTimeMin, hatchTimeMax);
     }
 
     @Override

@@ -35,7 +35,8 @@ public class UPTags {
     public static final TagKey<EntityType<?>> SMILODON_TARGETS = registerEntityTag("smilodon_targets");
 
     public static final TagKey<EntityType<?>> SMILODON_EMBRYO_ATTACH_TO= registerEntityTag("smilodon_embryo_attach_to");
-    public static final TagKey<EntityType<?>> TAR_WALKABLE_MOBS= registerEntityTag("tar_walkable_mobs");
+    public static final TagKey<EntityType<?>> TAR_WALKABLE_ON_MOBS= registerEntityTag("tar_walkable_on_mobs");
+    public static final TagKey<EntityType<?>> TAR_WALKABLE_THROUGH_MOBS= registerEntityTag("tar_walkable_through_mobs");
 
     //Misc Tags
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");
@@ -78,6 +79,7 @@ public class UPTags {
 
     //Breakables Tags
     public static final TagKey<Block> TRIKE_BREAKABLES = registerBlockTag("trike_breakables");
+    public static final TagKey<Block> TAR_PIT_REPLACEABLE = registerBlockTag("tar_pit_replaceable");
     public static final TagKey<Block> PASSIVE_BRACHI_BREAKABLES = registerBlockTag("passive_brachi_breakables");
     public static final TagKey<Block> REX_BREAKABLES = registerBlockTag("rex_breakables");
     public static final TagKey<Block> ANGRY_BRACHI_BREAKABLES = registerBlockTag("angry_brachi_breakables");
@@ -95,6 +97,7 @@ public class UPTags {
 
     //BIOME Tags
     public static final TagKey<Biome> IS_PETRIFIED_WOOD_FOREST_BIOME = registerBiomeTag("is_petrified_wood_forest_biome");
+    public static final TagKey<Biome> IS_ICE_FOSSIL_ICEBERG_BIOME = registerBiomeTag("is_ice_fossil_iceberg_biome");
 
     public static final TagKey<Biome> IS_STETHA_BIOME = registerBiomeTag("is_stetha_biome");
     public static final TagKey<Biome> IS_MAJUNGA_BIOME = registerBiomeTag("is_majunga_biome");

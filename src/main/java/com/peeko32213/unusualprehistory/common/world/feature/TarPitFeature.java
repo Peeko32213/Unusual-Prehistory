@@ -3,8 +3,10 @@ package com.peeko32213.unusualprehistory.common.world.feature;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -48,6 +50,11 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
 
         WorldGenLevel worldGenLevel = pContext.level();
         BlockPos blockPos = pContext.origin();
+        BlockState firstState = worldGenLevel.getBlockState(blockPos);
+        if(firstState.getFluidState().is(FluidTags.WATER) || firstState.getFluidState().is(FluidTags.LAVA) || firstState.is(Blocks.WATER) || firstState.is(Blocks.LAVA)){
+            return false;
+        }
+
         RandomSource random = pContext.random();
         FastNoiseLite noise = createNoise(worldGenLevel.getSeed() + random.nextLong(), random.nextFloat());
         double radius = random.nextInt(8, 12);
@@ -137,11 +144,11 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
                             if (x2 + z2 <= r) {
                                 state = worldGenLevel.getBlockState(POS);
                                 //Some area outside
-                                if (state.is(Blocks.SAND)) {
+                                if (state.is(UPTags.TAR_PIT_REPLACEABLE)) {
                                     setWithoutUpdate(worldGenLevel, POS, Blocks.DIRT.defaultBlockState());
                                 }
                                 pos = POS.below();
-                                if (worldGenLevel.getBlockState(pos).is(Blocks.SAND)) {
+                                if (worldGenLevel.getBlockState(pos).is(UPTags.TAR_PIT_REPLACEABLE)) {
                                     state = AIR;
                                     if (y > waterLevel + 1)
                                         setWithoutUpdate(worldGenLevel, pos, state);
@@ -184,16 +191,16 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
                             state = worldGenLevel.getBlockState(POS);
                             if (canReplace(state)) {
                                 state = worldGenLevel.getBlockState(POS.above());
-                                state = canReplace(state) ? (y < waterLevel ? TAR : Blocks.AIR.defaultBlockState()) : state;
+                                state = canReplace(state) ? (y < waterLevel ? TAR : Blocks.SANDSTONE.defaultBlockState()) : state;
                                 setWithoutUpdate(worldGenLevel, POS, state);
                             }
                             pos = POS.below();
-                            if (worldGenLevel.getBlockState(pos).is(Blocks.SAND)) {
+                            if (worldGenLevel.getBlockState(pos).is(UPTags.TAR_PIT_REPLACEABLE)) {
                                 setWithoutUpdate(worldGenLevel, pos, TAR);
                             }
                             pos = POS.above();
                             while (canReplace(state = worldGenLevel.getBlockState(pos)) && !state.isAir() && state.getFluidState().isEmpty()) {
-                                setWithoutUpdate(worldGenLevel, pos, pos.getY() < waterLevel ? Blocks.DIAMOND_BLOCK.defaultBlockState() : Blocks.AIR.defaultBlockState());
+                                setWithoutUpdate(worldGenLevel, pos, pos.getY() < waterLevel ? Blocks.COARSE_DIRT.defaultBlockState() : Blocks.GRAVEL.defaultBlockState());
                                 pos = pos.above();
                             }
                         }
@@ -206,7 +213,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
                             } else {
 
 
-                                setWithoutUpdate(worldGenLevel, POS, Blocks.LAPIS_BLOCK.defaultBlockState());
+                                setWithoutUpdate(worldGenLevel, POS, SANDSTONE);
 
                                 setWithoutUpdate(worldGenLevel, POS.below(), SANDSTONE);
                             }

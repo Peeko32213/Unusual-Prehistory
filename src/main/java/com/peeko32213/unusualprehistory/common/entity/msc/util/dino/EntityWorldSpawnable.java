@@ -25,7 +25,11 @@ public class EntityWorldSpawnable extends LivingEntity implements IAnimatable {
         super(p_27557_, p_27558_);
     }
 
+    @Override
+    public void tick() {
+        super.tick();
 
+    }
 
     public static AttributeSupplier.Builder bakeAttributes() {
         return Mob.createMobAttributes()
@@ -75,7 +79,6 @@ public class EntityWorldSpawnable extends LivingEntity implements IAnimatable {
 
     @Override
     public boolean hurt(DamageSource source, float damage) {
-        LOGGER.info("source " + source);
         if(source == DamageSource.IN_WALL || source == DamageSource.GENERIC)
         {
             return false;

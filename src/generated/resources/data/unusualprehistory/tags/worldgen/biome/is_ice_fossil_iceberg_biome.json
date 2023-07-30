@@ -1,0 +1,8 @@
+{
+  "values": [
+    "#forge:is_cold",
+    "minecraft:frozen_ocean",
+    "minecraft:deep_frozen_ocean",
+    "minecraft:frozen_river"
+  ]
+}

@@ -179,6 +179,11 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
         tag(UPTags.SMILODON_EMBRYO_ATTACH_TO)
                 .add(EntityType.OCELOT);
 
+        tag(UPTags.TAR_WALKABLE_ON_MOBS)
+                .add(EntityType.RABBIT);
+
+        tag(UPTags.TAR_WALKABLE_THROUGH_MOBS)
+                .add(EntityType.RAVAGER);
     }
 
     @Override

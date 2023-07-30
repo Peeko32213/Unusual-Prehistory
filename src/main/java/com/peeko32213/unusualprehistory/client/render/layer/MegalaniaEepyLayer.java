@@ -11,9 +11,14 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+
 public class MegalaniaEepyLayer extends GeoLayerRenderer<EntityMegalania> {
     private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megalania_resting.png");
     private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megalania.geo.json");
+
+    private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/megalania_hot_sleeping.png");
+    private static final ResourceLocation COLD_LOCATION = prefix("textures/entity/megalania_cold_sleeping.png");
 
     public MegalaniaEepyLayer(IGeoRenderer<EntityMegalania> entityRendererIn) {
         super(entityRendererIn);
@@ -23,12 +28,21 @@ public class MegalaniaEepyLayer extends GeoLayerRenderer<EntityMegalania> {
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, EntityMegalania entityLivingBaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entityLivingBaseIn.isAsleep()) {
             RenderType cameo = RenderType.entityCutout(OVERLAY);
-            this.getRenderer().render(this.getEntityModel().getModel(MODEL), entityLivingBaseIn, partialTicks, cameo, matrixStackIn, bufferIn,
-                    bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY,  1.0F, 1.0F, 1.0F, 1.0F);
+            if (entityLivingBaseIn.getVariant() == 1) {
+                cameo = RenderType.entityCutout(COLD_LOCATION);
+                {
+                    if (entityLivingBaseIn.getVariant() == 2) {
+                        cameo = RenderType.entityCutout(HOT_LOCATION);
+                    }
+
+                    this.getRenderer().render(this.getEntityModel().getModel(MODEL), entityLivingBaseIn, partialTicks, cameo, matrixStackIn, bufferIn,
+                            bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                }
+            }
+
+
         }
     }
-
-
-    }
+}
 
 

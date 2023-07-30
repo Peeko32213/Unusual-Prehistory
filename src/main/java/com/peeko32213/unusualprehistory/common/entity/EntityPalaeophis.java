@@ -225,20 +225,33 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
 
     public void tick() {
         super.tick();
-        if (sheddingCooldown > 0) {
+        if (sheddingCooldown >= 0) {
             sheddingCooldown--;
         }
 
-        if(this.getSheddingTime() > 0) {
+        if (this.getSheddingTime() >= 0) {
             int shedTime = getSheddingTime();
             setSheddingTime(shedTime - 1);
+
+            if (shedTime == 0) {
+                // The snake was in "shed mode," and the shedding time has expired.
+                // Reset sheddingCooldown for the next shedding event.
+                sheddingCooldown = this.getRandom().nextInt(6000) + 1500;
+            }
+
+            return;
         }
 
-        if (!this.level.isClientSide && this.isAlive() && this.getSheddingTime() <= 0) {
-            this.spawnAtLocation(UPItems.REX_TOOTH.get(), 0);
-            this.spawnAtLocation(UPItems.REX_SCALE.get(), 0);
+        if (!this.level.isClientSide && this.isAlive() && this.getSheddingTime() < 0 && sheddingCooldown < 0) {
+            // The snake is not in "shed mode," so let's start shedding.
+            this.spawnAtLocation(UPItems.REX_TOOTH.get(), 1);
+            this.spawnAtLocation(UPItems.REX_SCALE.get(), 1);
+
+            // Set the shedding time for the snake (how long it will be in "shed mode").
             this.setSheddingTime(this.getRandom().nextInt(1000) + 1500);
         }
+
+
     }
 
     @Nullable
@@ -258,7 +271,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
     }
 
     public boolean isShedding() {
-        return this.getSheddingTime() > 0;
+        return this.getSheddingTime() >= 0;
     }
 
     @Nullable
