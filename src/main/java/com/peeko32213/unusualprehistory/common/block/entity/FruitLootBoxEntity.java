@@ -93,12 +93,21 @@ public class FruitLootBoxEntity extends BlockEntity {
     public void handleUpdateTag(CompoundTag tag) {
         super.handleUpdateTag(tag);
         this.color = tag.getInt("color");
+        this.setTradeItem(ItemStack.of(tag.getCompound("tradeItem")).getItem());
+        if(getTradeItem() != null){
+            setLootFruits(LootFruitJsonManager.getLoot(getTradeItem(), getLootFruits()));
+        }
+
+        this.setCustomModelData(tag.getInt("modelData"));
     }
 
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag compoundTag = new CompoundTag();
         compoundTag.putInt("color", this.getColor());
+        compoundTag.put("tradeItem", getTradeItem().getDefaultInstance().serializeNBT());
+        compoundTag.putInt("modelData", getCustomModelData());
+
         return compoundTag;
     }
 

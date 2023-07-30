@@ -7,20 +7,21 @@ import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.data.RollableItemCodec;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -40,13 +41,13 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterloggedBlock {
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final IntegerProperty LOOT_BOX = IntegerProperty.create("loot_box", 1, 10);
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16D, 16.0D);
 
@@ -61,15 +62,12 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
         BlockState blockstate = pContext.getLevel().getBlockState(pContext.getClickedPos());
         FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
         boolean flag = fluidstate.getType().is( FluidTags.WATER);
-        return super.getStateForPlacement(pContext).setValue(WATERLOGGED, Boolean.valueOf(flag));
+        return super.getStateForPlacement(pContext);
     }
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         return pFacing == Direction.DOWN && !this.canSurvive(pState, pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
 
-    public FluidState getFluidState(BlockState pState) {
-        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
-    }
 
     //public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
     //    return canSupportCenter(pLevel, pPos.below(), Direction.UP);
@@ -78,9 +76,21 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         ItemStack itemStack = new ItemStack(this);
-        FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity)level.getBlockEntity(pos));
-        itemStack.getOrCreateTag().putInt("color",fruitLootBox.getColor());
+        if(player.level.isClientSide) {
+            //ServerLevel serverLevel = (ServerLevel) player.level;
+            CompoundTag tag = new CompoundTag();
+            FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity) level.getBlockEntity(pos));
 
+
+            int color = fruitLootBox.getColor();
+            Item tradeItem = fruitLootBox.getTradeItem();
+            int modelData = fruitLootBox.getCustomModelData();
+
+            tag.putInt("color", color);
+            tag.putInt("CustomModelData", modelData);
+            tag.put("tradeItem", tradeItem.getDefaultInstance().serializeNBT());
+            itemStack.setTag(tag);
+        }
         return itemStack;
     }
 
@@ -104,13 +114,14 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
         fruitLootBox.setColor(pStack.getOrCreateTag().getInt("color"));
         Item tradeItem = ItemStack.of(pStack.getOrCreateTag().getCompound("tradeItem")).getItem();
         fruitLootBox.setTradeItem(tradeItem);
+        if(LootFruitJsonManager.getLoot(tradeItem, null) == null) return;
         fruitLootBox.setColor(LootFruitJsonManager.getLoot(tradeItem, null).get(0).getColor().getValue());
         fruitLootBox.setLootFruits(LootFruitJsonManager.getLoot(tradeItem, null));
         int modelData = pStack.getOrCreateTag().getInt("CustomModelData");
+        fruitLootBox.setCustomModelData(modelData);
         pLevel.setBlockAndUpdate(pPos, pState.setValue(LOOT_BOX, modelData));
         super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
     }
-
 
     public static float getCustomModelData(CompoundTag tag){
         boolean flag = tag.contains("CustomModelData");
@@ -171,7 +182,6 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
             }
     }
 
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
@@ -189,6 +199,33 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(WATERLOGGED, LOOT_BOX);
+        pBuilder.add(LOOT_BOX);
+    }
+
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        if(pStack.hasTag()){
+            CompoundTag tag = pStack.getTag();
+
+            ItemStack tradeItem = ItemStack.of(tag.getCompound("tradeItem"));
+            int modelData = tag.getInt("CustomModelData");
+            if(modelData == 2){
+                pStack.setHoverName(Component.translatable(tradeItem.getDescriptionId()+".fruit_loot_box").withStyle(ChatFormatting.WHITE));
+            }
+            if(modelData == 3){
+                pStack.setHoverName(Component.translatable(tradeItem.getDescriptionId()+".fruit_loot_box").withStyle(ChatFormatting.YELLOW));
+            }
+            if(modelData == 4){
+                pStack.setHoverName(Component.translatable(tradeItem.getDescriptionId()+".fruit_loot_box").withStyle(ChatFormatting.AQUA));
+            }
+            if(modelData == 5){
+                pStack.setHoverName(Component.translatable(tradeItem.getDescriptionId()+".fruit_loot_box").withStyle(ChatFormatting.LIGHT_PURPLE));
+            }
+
+
+        }
+
+
     }
 }

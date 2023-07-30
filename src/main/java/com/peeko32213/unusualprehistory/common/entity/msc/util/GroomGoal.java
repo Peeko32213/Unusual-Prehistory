@@ -110,8 +110,8 @@ public class GroomGoal extends Goal {
     }
 
     /**
-     * Loops through nearby animals and finds another animal of the same type that can be mated with. Returns the first
-     * valid mate found.
+     * Loops through nearby smilos and finds another smilo of the same type that can be groomed with. Returns the first
+     * valid groomer found.
      */
     @Nullable
     private EntitySmilodon getFreePartner() {

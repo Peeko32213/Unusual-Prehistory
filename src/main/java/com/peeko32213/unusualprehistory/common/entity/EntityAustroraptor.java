@@ -151,7 +151,12 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     @Override
     public void travel(Vec3 pTravelVector) {
         if(this.getIsPreening()) {
-            super.travel(new Vec3(0,0,0));
+                if (this.getNavigation().getPath() != null) {
+                    this.getNavigation().stop();
+
+                }
+            pTravelVector = Vec3.ZERO;
+            super.travel(pTravelVector);
         }
         else{
             super.travel(pTravelVector);

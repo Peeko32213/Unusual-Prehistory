@@ -60,7 +60,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> DNA_FRIDGE = registerBlock("dna_fridge",
             () -> new BlockDNAFridge(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FRUIT_LOOT_BOX = registerBlock("fruit_loot_box",
-            () -> new BlockFruitLootBox(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().strength(0.1F)));
+            () -> new BlockFruitLootBox(BlockBehaviour.Properties.copy(Blocks.PUMPKIN).noOcclusion().strength(0.1F)));
     public static final RegistryObject<Block> AMBER_GLASS = registerBlock("amber_glass",
             () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(3.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
 
@@ -670,7 +670,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> POTTED_PETRIFIED_BUSH = registerBlockWithoutBlockItem("potted_petrified_bush",
             () -> new FlowerPotBlock(null, UPBlocks.PETRIFIED_BUSH, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
 
-    public static final RegistryObject<Block> TAR = registerBlockWithoutBlockItem("tar", () -> new BlockTar(BlockBehaviour.Properties.of(Material.POWDER_SNOW).strength(0.25F).sound(SoundType.POWDER_SNOW).dynamicShape().noOcclusion()));
+    public static final RegistryObject<Block> TAR = registerBlockWithoutBlockItem("tar", () -> new BlockTar(BlockBehaviour.Properties.of(Material.POWDER_SNOW).strength(0.25F).sound(SoundType.CALCITE).dynamicShape().noOcclusion()));
 
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {

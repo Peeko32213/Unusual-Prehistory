@@ -1,0 +1,16 @@
+{
+  "feature": "unusualprehistory:ice_fossil_iceberg_feature_name",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 500
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

@@ -6,24 +6,37 @@ import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+
 public class MegalaniaModel extends AnimatedGeoModel<EntityMegalania>
 {
+    private static final ResourceLocation NORMAL_LOCATION = prefix("textures/entity/megalania.png");
+    private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/megalania_hot.png");
+    private static final ResourceLocation COLD_LOCATION = prefix("textures/entity/megalania_cold.png");
     @Override
     public ResourceLocation getModelResource(EntityMegalania object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/megalania.geo.json");
+        return prefix("geo/megalania.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(EntityMegalania object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megalania.png");
+        if(object.getVariant() == 1){
+            return COLD_LOCATION;
+        }
+        if(object.getVariant() == 2)
+        {
+            return HOT_LOCATION;
+        }
+
+        return NORMAL_LOCATION;
     }
 
     @Override
     public ResourceLocation getAnimationResource(EntityMegalania object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/megalania.animation.json");
+        return prefix("animations/megalania.animation.json");
     }
 
 }

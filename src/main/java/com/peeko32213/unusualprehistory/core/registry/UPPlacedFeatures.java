@@ -21,6 +21,8 @@ public class UPPlacedFeatures {
     private static final String PETRIFIED_WOOD_FOREST_FEATURE_NAME_PLACED = "petrified_wood_forest_feature_placed";
 
     private static final String TAR_PIT_FEATIRE_PLACED = "tar_pit_feature_placed";
+
+    private static final String ICE_FOSSIL_ICEBERG_FEATURE_PLACED = "ice_fossil_iceberg_feature_placed";
     public static final RegistryObject<PlacedFeature> GINKGO_CHECKED = registerPlacedFeature("ginkgo_checked", () -> new PlacedFeature(UPConfiguredFeatures.GINKGO_TREE.getHolder().orElseThrow(), ImmutableList.of(
             PlacementUtils.filteredByBlockSurvival(UPBlocks.GINKGO_SAPLING.get()))));
 
@@ -54,6 +56,12 @@ public class UPPlacedFeatures {
             //CountPlacement.of(80),
             BiomeFilter.biome())));
 
+    public static final RegistryObject<PlacedFeature> ICE_FOSSIL_ICEBERG_PLACED = registerPlacedFeature(ICE_FOSSIL_ICEBERG_FEATURE_PLACED, () -> new PlacedFeature(UPConfiguredFeatures.CONFIGURED_ICE_FOSSIL_ICEBERG.getHolder().orElseThrow(), ImmutableList.of(
+            RarityFilter.onAverageOnceEvery(500),
+            //InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+            //CountPlacement.of(80),
+            BiomeFilter.biome())));
 
     private static List<PlacementModifier> orePlacement(PlacementModifier modifier, PlacementModifier modifier2) {
         return List.of(modifier, InSquarePlacement.spread(), modifier2, BiomeFilter.biome());

@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.client.render;
+package com.peeko32213.unusualprehistory.client.render.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;

@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
@@ -43,7 +44,7 @@ public class TradeGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (this.mob.getTradingCooldownTimer() > 0 || this.mob.isInWaterRainOrBubble()) {
+        if (this.mob.getTradingCooldownTimer() > 0 || this.mob.isInWaterRainOrBubble() || this.items == null) {
             return false;
         } else {
             this.player = this.mob.level.getNearestPlayer(this.targetingConditions, this.mob);

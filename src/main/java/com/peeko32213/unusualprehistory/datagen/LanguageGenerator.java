@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 
 import java.util.function.Supplier;
 
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.DINO_SPAWN_EGGS;
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.DINO_TAB;
 
 public class LanguageGenerator extends LanguageProvider {
@@ -26,6 +27,8 @@ public class LanguageGenerator extends LanguageProvider {
 
         //TABS
         addTabName(DINO_TAB, "Unusual Prehistory");
+        addTabName(DINO_SPAWN_EGGS, "Unusual Spawn Eggs");
+        addItem(UPItems.TAB_EGG_ICON, "Spawn Egg Tab Icon");
 
         //MISC
         addItem(UPItems.ENCYLOPEDIA, "Encyclopedia of Prehistory");
@@ -489,7 +492,10 @@ public class LanguageGenerator extends LanguageProvider {
 
         add("unusualprehistory.megalania_damage", " %s Megalania Damage");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");
-
+        add("item.unusualprehistory.yellow_fruit.fruit_loot_box", "Salubrious Fruit Loot Box");
+        add("item.unusualprehistory.red_fruit.fruit_loot_box", "Luxurious Fruit Loot Box");
+        add("item.unusualprehistory.white_fruit.fruit_loot_box", "Redolent Fruit Loot Box");
+        add("block.minecraft.bamboo.fruit_loot_box", "Exotic Fruit Loot Box");
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");

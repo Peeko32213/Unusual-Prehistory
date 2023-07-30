@@ -6,19 +6,20 @@ import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleBoots;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleChestplate;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleHelmet;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleLeggings;
+import com.peeko32213.unusualprehistory.common.item.armor.shedscale.*;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class UPItems {
     private UPItems() {
@@ -294,117 +295,88 @@ public class UPItems {
             () -> new ItemModFishBucket(UPEntities.SCAU, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB).stacksTo(1)));
 
-    public static final RegistryObject<ForgeSpawnEggItem> STETHA_EGG = ITEMS.register("stetha_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.STETHACANTHUS , 0x754123, 0xb59a6e,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> STETHA_EGG = registerSpawnEggs("stetha_spawn_egg",
+           UPEntities.STETHACANTHUS , 0x754123, 0xb59a6e);
 
-    public static final RegistryObject<ForgeSpawnEggItem> MAJUNGA_EGG = ITEMS.register("majunga_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.MAJUNGA , 0x1d600e, 0xacd35d,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> MAJUNGA_EGG = registerSpawnEggs("majunga_spawn_egg",
+           UPEntities.MAJUNGA , 0x1d600e, 0xacd35d);
 
-    public static final RegistryObject<ForgeSpawnEggItem> ANURO_EGG = ITEMS.register("anuro_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.ANURO , 0x353121, 0xf4dd48,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> ANURO_EGG = registerSpawnEggs("anuro_spawn_egg",
+            UPEntities.ANURO , 0x353121, 0xf4dd48);
 
-    public static final RegistryObject<ForgeSpawnEggItem> BEELZ_EGG = ITEMS.register("beelz_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.BEELZ , 0x443f13, 0xa5db90,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> BEELZ_EGG = registerSpawnEggs("beelz_spawn_egg",
+            UPEntities.BEELZ , 0x443f13, 0xa5db90);
 
-    public static final RegistryObject<ForgeSpawnEggItem> AMMON_EGG = ITEMS.register("ammon_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.AMMON , 0x402018, 0x99895c,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> AMMON_EGG = registerSpawnEggs("ammon_spawn_egg",
+            UPEntities.AMMON , 0x402018, 0x99895c);
 
-    public static final RegistryObject<ForgeSpawnEggItem> DUNK_EGG = ITEMS.register("dunk_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.DUNK , 0x611f0d, 0xb07b42,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> DUNK_EGG = registerSpawnEggs("dunk_spawn_egg",
+            UPEntities.DUNK , 0x611f0d, 0xb07b42);
 
-    public static final RegistryObject<ForgeSpawnEggItem> COTY_EGG = ITEMS.register("coty_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.COTY , 0x9d5333, 0xd19c8e,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> COTY_EGG = registerSpawnEggs("coty_spawn_egg",
+            UPEntities.COTY , 0x9d5333, 0xd19c8e);
 
-    public static final RegistryObject<ForgeSpawnEggItem> SCAU_EGG = ITEMS.register("scau_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.SCAU , 0x909da1, 0x5094c1,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> SCAU_EGG = registerSpawnEggs("scau_spawn_egg",
+            UPEntities.SCAU , 0x909da1, 0x5094c1);
 
-    public static final RegistryObject<ForgeSpawnEggItem> TRIKE_EGG = ITEMS.register("trike_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.TRIKE , 0x47302c, 0xffcb23,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> TRIKE_EGG =registerSpawnEggs("trike_spawn_egg",
+            UPEntities.TRIKE , 0x47302c, 0xffcb23);
 
-    public static final RegistryObject<ForgeSpawnEggItem> PACHY_EGG = ITEMS.register("pachy_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.PACHY , 0x282d3d, 0x5d7170,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> PACHY_EGG = registerSpawnEggs("pachy_spawn_egg",
+            UPEntities.PACHY , 0x282d3d, 0x5d7170);
 
-    public static final RegistryObject<ForgeSpawnEggItem> BRACHI_EGG = ITEMS.register("brachi_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.BRACHI , 0x5e6f9a, 0xc7e1e4,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> BRACHI_EGG =registerSpawnEggs("brachi_spawn_egg",
+           UPEntities.BRACHI , 0x5e6f9a, 0xc7e1e4);
 
-    public static final RegistryObject<ForgeSpawnEggItem> VELOCI_EGG = ITEMS.register("veloci_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.VELOCI , 0x774228, 0xcb09464,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> VELOCI_EGG = registerSpawnEggs("veloci_spawn_egg",
+            UPEntities.VELOCI , 0x774228, 0xcb09464);
 
-    public static final RegistryObject<ForgeSpawnEggItem> REX_EGG = ITEMS.register("rex_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.REX , 0x31171c, 0xb96a53,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> REX_EGG = registerSpawnEggs("rex_spawn_egg",
+            UPEntities.REX , 0x31171c, 0xb96a53);
 
-    public static final RegistryObject<ForgeSpawnEggItem> ENCRUSTED_EGG = ITEMS.register("encrusted_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.ENCRUSTED , 0x482300, 0xffc656,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> ENCRUSTED_EGG = registerSpawnEggs("encrusted_spawn_egg",
+            UPEntities.ENCRUSTED , 0x482300, 0xffc656);
 
-    public static final RegistryObject<ForgeSpawnEggItem> ERYON_EGG = ITEMS.register("eryon_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.ERYON , 0x1d2110, 0xe4b423,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-    public static final RegistryObject<ForgeSpawnEggItem> AUSTRO_EGG = ITEMS.register("austroraptor_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.AUSTRO , 0xcfb9b4, 0xcf683a,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> ERYON_EGG = registerSpawnEggs("eryon_spawn_egg",
+            UPEntities.ERYON , 0x1d2110, 0xe4b423);
+    public static final RegistryObject<ForgeSpawnEggItem> AUSTRO_EGG = registerSpawnEggs("austroraptor_spawn_egg",
+            UPEntities.AUSTRO , 0xcfb9b4, 0xcf683a);
 
-    public static final RegistryObject<ForgeSpawnEggItem> ANTARCO_EGG = ITEMS.register("antarcto_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.ANTARCO , 0x5a120d, 0xe5ce7a,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> ANTARCO_EGG = registerSpawnEggs("antarcto_spawn_egg",
+            UPEntities.ANTARCO , 0x5a120d, 0xe5ce7a);
 
-    public static final RegistryObject<ForgeSpawnEggItem> ULUG_EGG = ITEMS.register("ulugh_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.ULUG , 0x3a2424, 0xdbd8ce,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> ULUG_EGG = registerSpawnEggs("ulugh_spawn_egg",
+            UPEntities.ULUG , 0x3a2424, 0xdbd8ce);
 
-    public static final RegistryObject<ForgeSpawnEggItem> KENTRO_EGG = ITEMS.register("kentro_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.KENTRO , 0x122407, 0xddcca4,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-    public static final RegistryObject<ForgeSpawnEggItem> HWACHA_EGG = ITEMS.register("hwacha_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.HWACHA , 0x14191b, 0xf4f435,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-    public static final RegistryObject<ForgeSpawnEggItem> GIGANTO_EGG = ITEMS.register("giganto_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.GIGANTOPITHICUS , 0x7c3c23, 0x665f58,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-    public static final RegistryObject<ForgeSpawnEggItem> TALAPANAS_EGG = ITEMS.register("talapanas_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.TALAPANAS , 0x1d1311, 0x3c4849,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> KENTRO_EGG = registerSpawnEggs("kentro_spawn_egg",
+            UPEntities.KENTRO , 0x122407, 0xddcca4);
+    public static final RegistryObject<ForgeSpawnEggItem> HWACHA_EGG = registerSpawnEggs("hwacha_spawn_egg",
+            UPEntities.HWACHA , 0x14191b, 0xf4f435);
+    public static final RegistryObject<ForgeSpawnEggItem> GIGANTO_EGG = registerSpawnEggs("giganto_spawn_egg",
+            UPEntities.GIGANTOPITHICUS , 0x7c3c23, 0x665f58);
+    public static final RegistryObject<ForgeSpawnEggItem> TALAPANAS_EGG = registerSpawnEggs("talapanas_spawn_egg",
+            UPEntities.TALAPANAS , 0x1d1311, 0x3c4849);
 
-    public static final RegistryObject<ForgeSpawnEggItem> BARINA_EGG = ITEMS.register("barinasuchus_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.BARINASUCHUS , 0x0e0b03, 0xbea61e,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> BARINA_EGG = registerSpawnEggs("barinasuchus_spawn_egg",
+            UPEntities.BARINASUCHUS , 0x0e0b03, 0xbea61e);
 
-    public static final RegistryObject<ForgeSpawnEggItem> MEGATH_EGG = ITEMS.register("megatherium_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.MEGATHERIUM , 0x65352a, 0x9a7c51,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> MEGATH_EGG = registerSpawnEggs("megatherium_spawn_egg",
+            UPEntities.MEGATHERIUM , 0x65352a, 0x9a7c51);
 
-    public static final RegistryObject<ForgeSpawnEggItem> SMILO_EGG = ITEMS.register("smilodon_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.SMILODON , 0x64311a, 0x9b6f46,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> SMILO_EGG = registerSpawnEggs("smilodon_spawn_egg",
+            UPEntities.SMILODON , 0x64311a, 0x9b6f46);
 
-    public static final RegistryObject<ForgeSpawnEggItem> PARACER_EGG = ITEMS.register("paraceratherium_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.PARACERATHERIUM , 0x564642, 0x9a9490,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> PARACER_EGG = registerSpawnEggs("paraceratherium_spawn_egg",
+            UPEntities.PARACERATHERIUM , 0x564642, 0x9a9490);
 
-    public static final RegistryObject<ForgeSpawnEggItem> MAMMOTH_EGG = ITEMS.register("mammoth_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.MAMMOTH , 0x180a08, 0x5e5333,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> MAMMOTH_EGG = registerSpawnEggs("mammoth_spawn_egg",
+            UPEntities.MAMMOTH , 0x180a08, 0x5e5333);
 
-    public static final RegistryObject<ForgeSpawnEggItem> PALAEOPHIS_EGG = ITEMS.register("palaophis_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.PALAEOPHIS , 0x211d4b, 0xa1b7c1,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> PALAEOPHIS_EGG =registerSpawnEggs("palaophis_spawn_egg",
+            UPEntities.PALAEOPHIS , 0x211d4b, 0xa1b7c1);
 
-    public static final RegistryObject<ForgeSpawnEggItem> MEGALANIA_EGG = ITEMS.register("megalania_spawn_egg",
-            () -> new ForgeSpawnEggItem(UPEntities.MEGALANIA , 0x2e2319, 0x96874b,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> MEGALANIA_EGG = registerSpawnEggs("megalania_spawn_egg",
+            UPEntities.MEGALANIA , 0x2e2319, 0x96874b);
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
@@ -460,24 +432,30 @@ public class UPItems {
             () -> new DinosaurWhistle(new Item.Properties().stacksTo(1).tab(UnusualPrehistory.DINO_TAB), UPEntities.BARINASUCHUS));
 
     public static final RegistryObject<Item> SHEDSCALE_HELMET = ITEMS.register("shedscale_helmet",
-            () -> new ItemShedscaleHelmet(UPArmorMaterial.SHEDSCALE, EquipmentSlot.HEAD,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new ItemshedScaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.HEAD,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB), 0.4D));
 
     public static final RegistryObject<Item> SHEDSCALE_CHESTPLATE = ITEMS.register("shedscale_chestplate",
-            () -> new ItemShedscaleChestplate(UPArmorMaterial.SHEDSCALE, EquipmentSlot.CHEST,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new ItemshedScaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.CHEST,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB), 1D));
 
     public static final RegistryObject<Item> SHEDSCALE_LEGGINGS = ITEMS.register("shedscale_leggings",
-            () -> new ItemShedscaleLeggings(UPArmorMaterial.SHEDSCALE, EquipmentSlot.LEGS,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new ItemshedScaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.LEGS,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB),  0.6D));
 
     public static final RegistryObject<Item> SHEDSCALE_BOOTS = ITEMS.register("shedscale_boots",
-            () -> new ItemShedscaleBoots(UPArmorMaterial.SHEDSCALE, EquipmentSlot.FEET,
-                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new ItemshedScaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.FEET,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB), 0.4D));
 
     public static final RegistryObject<Item> TYRANTS_CROWN = ITEMS.register("tyrants_crown",
             () -> new ItemTyrantsCrown(UPArmorMaterial.TYRANTS, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
+        return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties().tab(UnusualPrehistory.DINO_SPAWN_EGGS)));
+    }
+
+    public static final RegistryObject<Item> TAB_EGG_ICON = ITEMS.register("tab_spawn_egg", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket", () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
 

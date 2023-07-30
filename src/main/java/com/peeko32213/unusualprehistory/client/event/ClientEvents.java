@@ -2,7 +2,8 @@ package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
-import com.peeko32213.unusualprehistory.client.render.IncubatorBlockEntityRenderer;
+import com.peeko32213.unusualprehistory.client.overlay.TarOverlay;
+import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.armor.*;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
@@ -11,15 +12,11 @@ import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
-import com.peeko32213.unusualprehistory.common.block.entity.IncubatorBlockEntity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleBoots;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleChestplate;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleHelmet;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleLeggings;
+import com.peeko32213.unusualprehistory.common.item.armor.shedscale.*;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -31,8 +28,6 @@ import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
@@ -42,10 +37,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.HashSet;
-import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class ClientEvents {
@@ -212,7 +204,7 @@ public final class ClientEvents {
         }, UPBlocks.FRUIT_LOOT_BOX.get());
     }
     @SubscribeEvent
-    public static void registerItemC0lor(RegisterColorHandlersEvent.Item event){
+    public static void registerItemColor(RegisterColorHandlersEvent.Item event){
         event.register((pStack, pTintIndex) -> pStack.getOrCreateTag().getInt("color")  , UPBlocks.FRUIT_LOOT_BOX.get());
     }
 
@@ -221,12 +213,7 @@ public final class ClientEvents {
         GeoArmorRenderer.registerArmorRenderer(ItemMajungaHelmet.class, MajungaHelmetRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemAustroBoots.class, AustroBootsRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemTyrantsCrown.class, TyrantsCrownRenderer::new);
-
-
-        GeoArmorRenderer.registerArmorRenderer(ItemShedscaleHelmet.class, ShedscaleHelmetRenderer::new);
-        GeoArmorRenderer.registerArmorRenderer(ItemShedscaleChestplate.class, ShedscaleChestplateRenderer::new);
-        GeoArmorRenderer.registerArmorRenderer(ItemShedscaleLeggings.class, ShedscaleLeggingsRenderer::new);
-        GeoArmorRenderer.registerArmorRenderer(ItemShedscaleBoots.class, ShedscaleBootsRenderer::new);
+        GeoArmorRenderer.registerArmorRenderer(ItemshedScaleArmor.class, ShedscaleArmorRenderer::new);
     }
 
     @SubscribeEvent
@@ -246,6 +233,7 @@ public final class ClientEvents {
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event)
     {
         event.registerAboveAll("amber_protection", AmberProtectionOverlay.HUD_AMBER_PROTECTION);
+        event.registerAboveAll("tar_overlay", TarOverlay.TAR_OVERLAY);
     }
 
 
