@@ -57,16 +57,23 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new EntityBarinasuchus.BarinMeleeAttackGoal(this,  1.3F, true));
+        this.goalSelector.addGoal(1, new EntityBarinasuchus.BarinMeleeAttackGoal(this,  1.0F, true));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::canAttack));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Sheep>(this, Sheep.class, 100, true, false, this::canAttack));
-
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+    }
+
+    @Override
+    public void customServerAiStep() {
+        if (this.getMoveControl().hasWanted()) {
+            this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.5D);
+        } else {
+            this.setSprinting(false);
+        }
+        super.customServerAiStep();
     }
 
     public boolean isAngryAt(LivingEntity p_21675_) {
@@ -372,8 +379,8 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
             return 5;
         }
 
-        protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double)(this.mob.getBbWidth() * 1 + this.mob.getBbWidth() * 1 + p_179512_1_.getBbWidth());
+        protected double getAttackReachSqr(LivingEntity p_25556_) {
+            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 1.3F + p_25556_.getBbWidth());
         }
     }
 
@@ -393,7 +400,11 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.move"));
                         event.getController().setAnimationSpeed(1.0D);
                         return PlayState.CONTINUE;
-                    }
+                    } if (this.isSprinting()) {
+                    event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.sprint"));
+                    event.getController().setAnimationSpeed(3.0F);
+                    return PlayState.CONTINUE;
+                }
                      event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.idle"));
                     event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
