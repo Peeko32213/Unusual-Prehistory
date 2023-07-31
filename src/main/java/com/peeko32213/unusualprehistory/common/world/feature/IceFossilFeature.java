@@ -89,9 +89,9 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
 
         // Define the ice berg configurations with corresponding radius and height
         int[][] icebergConfigs = {
-                {8, 45},
-                {5, 50},
-                {12, 35},
+                {8, 35},
+                {5, 40},
+                {12, 25},
                 {14, 15},
                 {15, 15}
         };
@@ -135,7 +135,7 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
                         if (f < 0 && f > -0.3) {
                             // If the noise value is within a specific range, place block4 (UPBlocks.STONE_FOSSIL) at this position
                             // The range is from -0.3 to 0, with a small sub-range from -0.25 to -0.248 where block4 is placed.
-                            if(f > -0.25 && f < -0.248) {
+                            if(f > -0.25 && f < -0.245) {
                                 worldgenlevel.setBlock(pos, block4, 3);
                             } else {
                                 // Otherwise, place the specified block at this position (block parameter).
@@ -163,10 +163,16 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
 
 
     public static void addFossil(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise){
-        EntityWorldSpawnable entityWorldSpawnable = UPEntities.WORLD_SPAWNABLE.get().create(worldgenlevel.getLevel());
+        EntityWorldSpawnable entityWorldSpawnable = UPEntities.ICEBERG_SMILODON.get().create(worldgenlevel.getLevel());
 
-        int height = (int) entityWorldSpawnable.getBbHeight() * 3;
-        int radius = (int) entityWorldSpawnable.getBbWidth() * 2;
+        if(rand.nextBoolean())
+        {
+            entityWorldSpawnable = UPEntities.ICEBERG_MAMMOTH.get().create(worldgenlevel.getLevel());
+        }
+
+
+        int height = (int) ((int) entityWorldSpawnable.getBbHeight() * 3);
+        int radius = (int) ((int) entityWorldSpawnable.getBbWidth()) * 2;
 
 
         BlockState block = Blocks.ICE.defaultBlockState();
