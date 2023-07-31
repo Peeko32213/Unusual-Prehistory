@@ -58,7 +58,10 @@ public class CommonEvents {
 
 
 
-        event.put(UPEntities.WORLD_SPAWNABLE.get(), EntityWorldSpawnable.bakeAttributes().build());
+
+        event.put(UPEntities.ICEBERG_SMILODON.get(), EntityWorldSpawnable.bakeAttributes().build());
+        event.put(UPEntities.ICEBERG_MAMMOTH.get(), EntityWorldSpawnable.bakeAttributes().build());
+
     }
 
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag) {

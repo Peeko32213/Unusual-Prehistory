@@ -7,12 +7,16 @@ import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntity
 import com.peeko32213.unusualprehistory.client.render.armor.*;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
+import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.iceberg.IcebergMammothRenderer;
+import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.iceberg.IcebergSmilodonRenderer;
 import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
+import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
@@ -176,7 +180,8 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.ENTITY_TRAIL.get(), EntityTrailRenderer::new);
 
 
-        event.registerEntityRenderer(UPEntities.WORLD_SPAWNABLE.get(), WorldSpawnableRenderer::new);
+        event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), IcebergMammothRenderer::new);
+        event.registerEntityRenderer(UPEntities.ICEBERG_SMILODON.get(), IcebergSmilodonRenderer::new);
 
         event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);

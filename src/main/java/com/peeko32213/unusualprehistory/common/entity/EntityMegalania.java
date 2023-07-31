@@ -330,6 +330,12 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         this.setVariant(2);
     }
 
+    private void setNetherVariant(){
+
+        this.setVariant(3);
+    }
+
+
     private void setNormalVariant(){
 
         this.setVariant(0);
@@ -376,7 +382,14 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {
+        SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, spawnGroupData, tag);
 
+
+        if(levelAccessor.getLevel().dimension() == Level.NETHER)
+        {
+            setNetherVariant();
+            return data;
+        }
         if (this.isHotBiome()) {
             setHotVariant();
         } else if (this.isColdBiome()) {
@@ -387,7 +400,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         }
 
 
-        return super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, spawnGroupData, tag);
+        return data;
     }
 
     static class MegaMeleeAttackGoal extends Goal {

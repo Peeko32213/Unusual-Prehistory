@@ -17,8 +17,10 @@ public class MegalaniaEepyLayer extends GeoLayerRenderer<EntityMegalania> {
     private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megalania_resting.png");
     private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megalania.geo.json");
 
-    private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/megalania_hot_sleeping.png");
-    private static final ResourceLocation COLD_LOCATION = prefix("textures/entity/megalania_cold_sleeping.png");
+    private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/megalania_hot_resting.png");
+    private static final ResourceLocation COLD_LOCATION = prefix("textures/entity/megalania_cold_resting.png");
+
+    private static final ResourceLocation NETHER_LOCATION = prefix("textures/entity/megalania_nether_resting.png");
 
     public MegalaniaEepyLayer(IGeoRenderer<EntityMegalania> entityRendererIn) {
         super(entityRendererIn);
@@ -30,19 +32,25 @@ public class MegalaniaEepyLayer extends GeoLayerRenderer<EntityMegalania> {
             RenderType cameo = RenderType.entityCutout(OVERLAY);
             if (entityLivingBaseIn.getVariant() == 1) {
                 cameo = RenderType.entityCutout(COLD_LOCATION);
-                {
-                    if (entityLivingBaseIn.getVariant() == 2) {
-                        cameo = RenderType.entityCutout(HOT_LOCATION);
-                    }
-
-                    this.getRenderer().render(this.getEntityModel().getModel(MODEL), entityLivingBaseIn, partialTicks, cameo, matrixStackIn, bufferIn,
-                            bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-                }
             }
+
+            if (entityLivingBaseIn.getVariant() == 2) {
+                cameo = RenderType.entityCutout(HOT_LOCATION);
+            }
+
+            if (entityLivingBaseIn.getVariant() == 3) {
+                cameo = RenderType.entityCutout(NETHER_LOCATION);
+            }
+
+            this.getRenderer().render(this.getEntityModel().getModel(MODEL), entityLivingBaseIn, partialTicks, cameo, matrixStackIn, bufferIn,
+                    bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 
 
         }
+
+
     }
 }
+
 
 

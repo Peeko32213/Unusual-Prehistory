@@ -4,6 +4,8 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
+import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
+import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
@@ -171,16 +173,23 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()));
     public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
             () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
-                    .fireImmune().noSave().sized(1, 1).noSummon()
+                    .fireImmune().sized(1, 1).noSummon()
                     .clientTrackingRange(4)
                     .updateInterval(5)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "entity_trail").toString()));
 
-    public static final RegistryObject<EntityType<EntityWorldSpawnable>> WORLD_SPAWNABLE = ENTITIES.register("world_spawnable",
-            () -> EntityType.Builder.<EntityWorldSpawnable>of(EntityWorldSpawnable::new, MobCategory.MISC)
-                    .fireImmune().noSave()
+    public static final RegistryObject<EntityType<IcebergMammoth>> ICEBERG_MAMMOTH = ENTITIES.register("iceberg_mammoth",
+            () -> EntityType.Builder.<IcebergMammoth>of(IcebergMammoth::new, MobCategory.CREATURE)
+                    .fireImmune()
                     .sized(5, 5)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "world_spawnable").toString()));
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "icberg_mammoth").toString()));
+
+    public static final RegistryObject<EntityType<IcebergSmilodon>> ICEBERG_SMILODON = ENTITIES.register("iceberg_smilodon",
+            () -> EntityType.Builder.<IcebergSmilodon>of(IcebergSmilodon::new, MobCategory.CREATURE)
+                    .fireImmune()
+                    .sized(2, 2)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "iceberg_smilodon").toString()));
+
 
     private static final EntityType registerEntity(EntityType.Builder builder, String entityName) {
         return (EntityType) builder.build(entityName);
