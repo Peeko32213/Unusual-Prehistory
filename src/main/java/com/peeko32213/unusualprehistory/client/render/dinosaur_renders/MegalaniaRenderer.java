@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.MegalaniaModel;
 import com.peeko32213.unusualprehistory.client.render.layer.MegalaniaEepyLayer;
-import com.peeko32213.unusualprehistory.client.render.layer.TyrannosaurusRexEepyLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

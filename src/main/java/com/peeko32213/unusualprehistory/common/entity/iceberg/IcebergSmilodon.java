@@ -23,7 +23,7 @@ public class IcebergSmilodon extends EntityWorldSpawnable {
 
     @Override
     protected String getFrozenState() {
-        return "animation.smilodon.move";
+        return "animation.smilodon.frozen";
     }
     @Override
     protected ItemStack getDnaItem() {

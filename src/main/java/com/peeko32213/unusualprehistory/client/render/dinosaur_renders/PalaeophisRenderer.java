@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 import com.peeko32213.unusualprehistory.client.model.PalaeophisModel;
 import com.peeko32213.unusualprehistory.client.render.layer.PaleolophisSheddingLayer;
-import com.peeko32213.unusualprehistory.client.render.layer.TyrannosaurusRexEepyLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityPalaeophis;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import net.minecraft.client.renderer.culling.Frustum;

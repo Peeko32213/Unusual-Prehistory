@@ -21,10 +21,9 @@ public class IcebergMammoth extends EntityWorldSpawnable {
         return MAMMOTH_LOOT;
     }
 
-
     @Override
     protected String getFrozenState() {
-        return "animation.mammoth.move";
+        return "animation.mammoth.frozen";
     }
 
     @Override
