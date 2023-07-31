@@ -13,6 +13,7 @@ public class MegalaniaModel extends AnimatedGeoModel<EntityMegalania>
     private static final ResourceLocation NORMAL_LOCATION = prefix("textures/entity/megalania.png");
     private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/megalania_hot.png");
     private static final ResourceLocation COLD_LOCATION = prefix("textures/entity/megalania_cold.png");
+    private static final ResourceLocation NETHER_LOCATION = prefix("textures/entity/megalania_nether.png");
     @Override
     public ResourceLocation getModelResource(EntityMegalania object)
     {
@@ -28,6 +29,10 @@ public class MegalaniaModel extends AnimatedGeoModel<EntityMegalania>
         if(object.getVariant() == 2)
         {
             return HOT_LOCATION;
+        }
+        if(object.getVariant() == 3)
+        {
+            return NETHER_LOCATION;
         }
 
         return NORMAL_LOCATION;
