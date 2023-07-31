@@ -5,21 +5,16 @@ import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 
@@ -184,7 +179,6 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
             for (int y = -height; y < height; y++) {
                 for (int z = -radius; z < radius; z++) {
                     BlockPos pos = origin.offset(x, y, z);
-                    BlockPos pos2 = origin.offset(x, -y, z);
                     double distance = distance(x, y, z, radius, height, radius);
                     float f = noise.GetNoise(x, (float) y, z);
                     if (distance < 1) {
@@ -198,6 +192,9 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
                 }
             }
         }
+
+        float randomRot = rand.nextInt(360);
+        entityWorldSpawnable.setYRot(randomRot);
         entityWorldSpawnable.setPos(new Vec3(origin.getX(), origin.getY(), origin.getZ()));
         worldgenlevel.getLevel().addFreshEntity(entityWorldSpawnable);
     }

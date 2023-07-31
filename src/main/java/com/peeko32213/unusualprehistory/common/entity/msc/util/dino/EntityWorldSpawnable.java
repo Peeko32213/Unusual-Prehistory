@@ -1,18 +1,14 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
 import com.google.common.collect.ImmutableList;
-import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
-import com.peeko32213.unusualprehistory.common.entity.EntityVelociraptor;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -21,14 +17,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,6 +32,8 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
+
+import javax.annotation.Nullable;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
@@ -205,11 +199,13 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements IAnim
     public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
-
+    @Nullable
     protected abstract String getFrozenState();
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(getFrozenState() != null){
         event.getController().setAnimation(new AnimationBuilder().addAnimation(getFrozenState()));
+        }
         return PlayState.CONTINUE;
     }
 

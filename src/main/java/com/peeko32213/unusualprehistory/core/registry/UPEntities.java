@@ -10,7 +10,6 @@ import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
 import com.peeko32213.unusualprehistory.common.entity.msc.trail.EntityTrail;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;

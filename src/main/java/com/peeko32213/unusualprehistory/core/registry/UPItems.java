@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.*;
+import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemshedScaleArmor;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;

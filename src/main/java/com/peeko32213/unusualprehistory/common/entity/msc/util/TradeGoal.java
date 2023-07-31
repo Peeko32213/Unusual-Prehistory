@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;

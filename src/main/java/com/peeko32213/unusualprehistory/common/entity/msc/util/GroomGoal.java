@@ -1,11 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 

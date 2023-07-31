@@ -2,9 +2,7 @@ package com.peeko32213.unusualprehistory.client.render.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.IncubatorBlockEntity;
-import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;

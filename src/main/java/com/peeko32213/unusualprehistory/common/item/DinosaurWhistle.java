@@ -18,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.Comparator;
 import java.util.List;

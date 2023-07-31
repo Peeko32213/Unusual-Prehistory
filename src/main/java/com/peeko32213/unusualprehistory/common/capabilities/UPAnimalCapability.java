@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.capabilities;
 
+import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -60,9 +61,22 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
                 livingEntity.setPos(event.getEntity().position());
                 livingEntity.setUUID(UUID.randomUUID());
+                if(livingEntity instanceof EntitySmilodon entitySmilodon)
+                {
+                    entitySmilodon.setAge(-24000);
+                    serverLevel.addFreshEntity(entitySmilodon);
+                }
+
                 if(livingEntity instanceof Animal animal){
                     animal.setAge(-24000);
+
+                    if(livingEntity instanceof EntitySmilodon entitySmilodon)
+                    {
+                        entitySmilodon.setVariant(1);
+                    }
                     serverLevel.addFreshEntity(animal);
+
+
                 } else {
                     serverLevel.addFreshEntity(livingEntity);
                 }

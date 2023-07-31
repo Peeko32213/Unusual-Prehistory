@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.GroomGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -10,7 +9,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
@@ -22,7 +20,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -40,8 +37,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import java.util.EnumSet;
 
 public class EntitySmilodon extends EntityBaseDinosaurAnimal {
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> CAN_GROOM = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> GROOM_1 = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.BOOLEAN);
@@ -146,6 +143,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         this.entityData.define(CAN_GROOM, false);
         this.entityData.define(GROOM_1, false);
         this.entityData.define(GROOM_2, false);
+        this.entityData.define(VARIANT, 0);
     }
 
     @Override
@@ -154,6 +152,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         compound.putBoolean("canGroom", canGroom());
         compound.putBoolean("groom1", groom1());
         compound.putBoolean("groom2", groom2());
+        compound.putInt("variant", this.getVariant());
     }
 
     @Override
@@ -162,6 +161,15 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         setCanGroom(compound.getBoolean("canGroom"));
         setGroom1(compound.getBoolean("groom1"));
         setGroom2(compound.getBoolean("groom2"));
+        this.setVariant(compound.getInt("variant"));
+    }
+
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
     }
 
     public int getAnimationState() {
