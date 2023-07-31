@@ -521,6 +521,46 @@
 					}
 				}
 			}
+		},
+		"animation.smilodon.frozen": {
+			"loop": true,
+			"bones": {
+				"Cat": {
+					"rotation": {
+						"vector": [10, 0, 0]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": [-9.76758, 2.15393, 12.31594]
+					}
+				},
+				"Jaw": {
+					"rotation": {
+						"vector": [30, 0, 0]
+					}
+				},
+				"Arms": {
+					"rotation": {
+						"vector": [-62.5, 0, 0]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": [-7.5, 0, 0]
+					}
+				},
+				"Legs": {
+					"rotation": {
+						"vector": [40, 0, 0]
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": [15, 0, 0]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2
