@@ -2,9 +2,10 @@ package com.peeko32213.unusualprehistory.common.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Registry;
-import net.minecraft.world.item.Item;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,13 +17,15 @@ public class AnalyzerRecipeCodec {
      */
     public static Codec<AnalyzerRecipeCodec> CODEC = RecordCodecBuilder.create(inst -> inst
             .group(
-                    Registry.ITEM.byNameCodec().listOf().fieldOf("input").forGetter(i -> i.item),
+                    ExtraCodecs.TAG_OR_ELEMENT_ID.listOf().fieldOf("input").forGetter(i -> i.input),
                     ItemWeightedPairCodec.CODEC.listOf().fieldOf("entries").forGetter(e -> e.itemWeightedPairs)
             ).apply(inst, AnalyzerRecipeCodec::new)
     );
 
-    private List<Item> item;
     private List<ItemWeightedPairCodec> itemWeightedPairs;
+    private List<ExtraCodecs.TagOrElementLocation> input;
+    protected final List<ResourceLocation> spawnItems;
+    protected final List<ResourceLocation> spawnItemTags;
 
     /**
      * Constructs a new AnalyzerRecipeCodec with the specified input items and weighted pairs.
@@ -30,8 +33,18 @@ public class AnalyzerRecipeCodec {
      * @param item              The list of input items.
      * @param itemWeightedPairs The list of weighted pairs.
      */
-    public AnalyzerRecipeCodec(List<Item> item, List<ItemWeightedPairCodec> itemWeightedPairs) {
-        this.item = item;
+    public AnalyzerRecipeCodec(List<ExtraCodecs.TagOrElementLocation> inputItems, List<ItemWeightedPairCodec> itemWeightedPairs) {
+        List<ResourceLocation> spawnItemTags = new ArrayList<>();
+        List<ResourceLocation> spawnItems = new ArrayList<>();
+        for(ExtraCodecs.TagOrElementLocation tagOrElementLocation : inputItems){
+            if(tagOrElementLocation.tag()){
+                spawnItemTags.add(tagOrElementLocation.id());
+            } else {
+                spawnItems.add(tagOrElementLocation.id());
+            }
+        }
+        this.spawnItems = spawnItems;
+        this.spawnItemTags = spawnItemTags;
         this.itemWeightedPairs = itemWeightedPairs;
     }
 
@@ -44,14 +57,15 @@ public class AnalyzerRecipeCodec {
         return itemWeightedPairs;
     }
 
-    /**
-     * Gets the list of input items.
-     *
-     * @return The list of input items.
-     */
-    public List<Item> getItem() {
-        return item;
+
+    public List<ResourceLocation> getInputItemTags() {
+        return spawnItemTags;
     }
+
+    public List<ResourceLocation> getInputItems() {
+        return spawnItems;
+    }
+
 
     /**
      * Adds a list of item-weighted pairs to the existing list.

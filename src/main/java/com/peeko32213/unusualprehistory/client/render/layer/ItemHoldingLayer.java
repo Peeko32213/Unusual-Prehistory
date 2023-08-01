@@ -19,13 +19,12 @@ import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 import software.bernie.geckolib3.util.RenderUtils;
 
-public class ItemHoldingLayer <T extends EntityBaseDinosaurAnimal> extends GeoLayerRenderer<T> {
+public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoLayerRenderer<T> {
+    private ItemStack mainHand;
+
     public ItemHoldingLayer(IGeoRenderer<T> entityRendererIn) {
         super(entityRendererIn);
     }
-
-
-    private ItemStack mainHand;
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dino, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
@@ -33,13 +32,12 @@ public class ItemHoldingLayer <T extends EntityBaseDinosaurAnimal> extends GeoLa
         ResourceLocation boneLoc = this.getEntityModel().getModelResource(dino);
         GeoModel model = this.getEntityModel().getModel(boneLoc);
 
-
-        if(dino instanceof EntityGigantopithicus gigantopithicus){
-            renderRecursivelyGiganto(gigantopithicus, model.topLevelBones.get(0), matrixStackIn,bufferIn,packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
+        if (dino instanceof EntityGigantopithicus gigantopithicus) {
+            renderRecursivelyGiganto(gigantopithicus, model.topLevelBones.get(0), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
                     OverlayTexture.v(gigantopithicus.hurtTime > 0)));
         }
-        if(dino instanceof EntityMammoth mammoth){
-            renderRecursivelyMammoth(mammoth, model.getBone("TrunkPart3").get(), matrixStackIn,bufferIn,packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
+        if (dino instanceof EntityMammoth mammoth) {
+            renderRecursivelyMammoth(mammoth, model.getBone("TrunkPart3").get(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
                     OverlayTexture.v(mammoth.hurtTime > 0)));
         }
     }
@@ -87,8 +85,9 @@ public class ItemHoldingLayer <T extends EntityBaseDinosaurAnimal> extends GeoLa
 
         stack.popPose();
     }
+
     private void renderRecursivelyGiganto(Entity entity, GeoBone bone, PoseStack stack, MultiBufferSource renderBuffer, int packedLightIn,
-                                   int packedOverlayIn) {
+                                          int packedOverlayIn) {
 
         stack.pushPose();
         RenderUtils.translate(bone, stack);

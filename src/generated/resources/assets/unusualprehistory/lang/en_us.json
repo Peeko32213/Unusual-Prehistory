@@ -333,6 +333,8 @@
   "itemGroup.unusualprehistory": "Unusual Prehistory",
   "itemGroup.unusualprehistory_spawn_eggs": "Unusual Spawn Eggs",
   "player_capability.amber_protection_full": "You are at full Amber Protection and won't gain any more!",
+  "unusualprehistory.attacher.animal_has_embryo": "%s already has an embryo",
+  "unusualprehistory.attacher.animal_not_correct": "%s cannot be inserted into %s",
   "unusualprehistory.battle_axe": "An axe made for battle. Cutting wood effectively goes poorly..",
   "unusualprehistory.blockentity.analyzer": "                             Analyzer",
   "unusualprehistory.blockentity.analyzer_jei": "Analyzer",

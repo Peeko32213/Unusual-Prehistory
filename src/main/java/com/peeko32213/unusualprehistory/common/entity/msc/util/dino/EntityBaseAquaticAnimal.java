@@ -14,6 +14,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -23,10 +24,12 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
@@ -38,7 +41,7 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.BOOLEAN);
-
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.INT);
     int lastTimeSinceHungry;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
@@ -131,7 +134,9 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
         this.entityData.define(SADDLED, false);
         this.entityData.define(PASSIVE, 0);
         this.entityData.define(FROM_BOOK, false);
+        this.entityData.define(VARIANT, 0);
     }
+
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -140,6 +145,7 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
         compound.putInt("TimeTillHungry", this.getTimeTillHungry());
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
+        compound.putInt("variant", this.getVariant());
     }
 
     @Override
@@ -149,6 +155,7 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
+        this.setVariant(compound.getInt("variant"));
     }
 
     public boolean isHungry() {
@@ -197,6 +204,32 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
 
     public boolean removeWhenFarAway(double d) {
         return !this.hasCustomName();
+    }
+
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    /**
+     * Determines the variant of the entity based on the provided variant change value.
+     * The variant change value is used to determine the specific variant of the entity.
+     * The method sets the appropriate attributes and variant number based on the variant change value.
+     *
+     * @param variantChange The variant change value used to determine the entity's variant.
+     *                      The value should be within the range [0, 100].
+     */
+    public void determineVariant(int variantChange) {
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        determineVariant(random.nextInt(100));
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
     protected abstract SoundEvent getAttackSound();

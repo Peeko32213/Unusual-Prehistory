@@ -202,6 +202,9 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
 
     private static boolean hasRecipe(AnalyzerBlockEntity entity) {
         Level level = entity.level;
+        if(AnalyzerRecipeJsonManager.getRecipes().isEmpty() && !level.isClientSide){
+            AnalyzerRecipeJsonManager.populateRecipeMap(level);
+        }
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
         for (int i = 1; i < entity.itemHandler.getSlots(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));

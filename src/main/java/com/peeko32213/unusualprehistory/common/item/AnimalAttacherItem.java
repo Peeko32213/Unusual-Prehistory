@@ -40,7 +40,7 @@ public class AnimalAttacherItem extends Item {
 
         if(animal.getType().is(attachTo)){
             if(pPlayer.getLevel().isClientSide()) return InteractionResult.PASS;
-            LazyOptional<UPAnimalCapability> animalCap =    animal.getCapability(UPCapabilities.ANIMAL_CAPABILITY);
+            LazyOptional<UPAnimalCapability> animalCap = animal.getCapability(UPCapabilities.ANIMAL_CAPABILITY);
             ServerLevel serverLevel = (ServerLevel) pPlayer.getLevel();
             animalCap.ifPresent(capability -> {
                 if(capability.getEmbryoAnimal() == null || capability.getEmbryoAnimal().equals("")) {
@@ -60,7 +60,7 @@ public class AnimalAttacherItem extends Item {
         } else {
             MutableComponent animalComponent = Component.translatable(pInteractionTarget.getType().getDescriptionId()).withStyle(ChatFormatting.GOLD);
             MutableComponent toAttachComponent = Component.translatable(toAttach.get().getDescriptionId()).withStyle(ChatFormatting.GOLD);
-            pPlayer.sendSystemMessage(Component.translatable("unusualprehistory.attacher.animal_not_correct", animalComponent, toAttachComponent).withStyle(ChatFormatting.RED));
+            pPlayer.sendSystemMessage(Component.translatable("unusualprehistory.attacher.animal_not_correct", toAttachComponent, animalComponent).withStyle(ChatFormatting.RED));
             return InteractionResult.FAIL;
         }
 

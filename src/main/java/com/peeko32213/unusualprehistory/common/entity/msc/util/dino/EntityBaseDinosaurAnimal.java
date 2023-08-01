@@ -21,14 +21,15 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
@@ -45,7 +46,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
     private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> TRADING = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
-
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
 
     private boolean tradingAndGottenItem;
     int lastTimeSinceHungry;
@@ -149,6 +150,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.entityData.define(IS_FROM_EGG, false);
         this.entityData.define(TRADING, false);
         this.entityData.define(FROM_BOOK, false);
+        this.entityData.define(VARIANT, 0);
 
     }
 
@@ -163,6 +165,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         compound.putBoolean("trading", this.isTrading());
         compound.putInt("tradingCooldown", this.getTradingCooldownTimer());
         compound.putBoolean("tradingAndGotItem", this.getTradingAndGottenItem());
+        compound.putInt("variant", this.getVariant());
     }
 
     @Override
@@ -176,89 +179,220 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.setIsTrading(compound.getBoolean("trading"));
         this.setTradingCooldownTimer(compound.getInt("tradingCooldown"));
         this.setTradingAndGottenItem(compound.getBoolean("tradingAndGotItem"));
+        this.setVariant(compound.getInt("variant"));
     }
 
+    /**
+     * Checks if the entity is hungry.
+     *
+     * @return true if the entity is hungry, otherwise false.
+     */
     public boolean isHungry() {
         return this.entityData.get(HUNGRY);
     }
 
+    /**
+     * Sets the hungry state of the entity.
+     *
+     * @param hungry true if the entity should be set as hungry, false otherwise.
+     */
     public void setHungry(boolean hungry) {
         this.entityData.set(HUNGRY, hungry);
     }
 
+    /**
+     * Gets the remaining time till the entity gets hungry.
+     *
+     * @return The remaining time till the entity gets hungry, in ticks.
+     */
     public int getTimeTillHungry() {
         return this.entityData.get(TIME_TILL_HUNGRY);
     }
 
+    /**
+     * Sets the remaining time till the entity gets hungry.
+     *
+     * @param ticks The time in ticks to set as the remaining time till the entity gets hungry.
+     */
     public void setTimeTillHungry(int ticks) {
         this.entityData.set(TIME_TILL_HUNGRY, ticks);
     }
 
+    /**
+     * Checks if the entity is saddled.
+     *
+     * @return true if the entity is saddled, otherwise false.
+     */
     public boolean isSaddled() {
         return this.entityData.get(SADDLED).booleanValue();
     }
 
+    /**
+     * Sets the saddled state of the entity.
+     *
+     * @param saddled true if the entity should be set as saddled, false otherwise.
+     */
     public void setSaddled(boolean saddled) {
         this.entityData.set(SADDLED, Boolean.valueOf(saddled));
     }
 
+    /**
+     * Checks if the entity is currently trading.
+     *
+     * @return true if the entity is currently trading, otherwise false.
+     */
     public boolean isTrading() {
         return this.entityData.get(TRADING).booleanValue();
     }
 
+    /**
+     * Sets the trading state of the entity.
+     *
+     * @param trading true if the entity should be set as currently trading, false otherwise.
+     */
     public void setIsTrading(boolean trading) {
         this.entityData.set(TRADING, Boolean.valueOf(trading));
     }
 
+    /**
+     * Gets the passive ticks for the entity.
+     *
+     * @return The number of passive ticks for the entity.
+     */
     public int getPassiveTicks() {
         return this.entityData.get(PASSIVE);
     }
 
+    /**
+     * Sets the passive ticks for the entity.
+     *
+     * @param passiveTicks The number of passive ticks to set for the entity.
+     */
     public void setPassiveTicks(int passiveTicks) {
         this.entityData.set(PASSIVE, passiveTicks);
     }
 
+    /**
+     * Checks if the entity is from an egg.
+     *
+     * @return true if the entity is from an egg, otherwise false.
+     */
     public boolean isFromEgg() {
         return this.entityData.get(IS_FROM_EGG).booleanValue();
     }
 
+    /**
+     * Sets whether the entity is from an egg.
+     *
+     * @param fromEgg true if the entity should be set as from an egg, false otherwise.
+     */
     public void setIsFromEgg(boolean fromEgg) {
         this.entityData.set(IS_FROM_EGG, fromEgg);
     }
 
+    /**
+     * Checks if the entity is from a book.
+     *
+     * @return true if the entity is from a book, otherwise false.
+     */
     public boolean isFromBook() {
         return this.entityData.get(FROM_BOOK).booleanValue();
     }
 
+    /**
+     * Sets whether the entity is from a book.
+     *
+     * @param fromBook true if the entity should be set as from a book, false otherwise.
+     */
     public void setIsFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
+    /**
+     * Checks if the entity requires custom persistence.
+     * This is equivalent to calling {@link #isFromEgg()}.
+     *
+     * @return true if the entity requires custom persistence, otherwise false.
+     */
     public boolean requiresCustomPersistence() {
         return this.isFromEgg();
     }
 
+    /**
+     * Checks if the entity should be removed when far away.
+     * This is the opposite of calling {@link #isFromEgg()}.
+     *
+     * @param d The distance parameter (not used in this implementation).
+     * @return true if the entity should be removed when far away, otherwise false.
+     */
     public boolean removeWhenFarAway(double d) {
         return !this.isFromEgg();
     }
 
-
+    /**
+     * Sets the trading and gotten item state of the entity.
+     *
+     * @param tradingAndGottenItem true if the entity has trading and gotten items, false otherwise.
+     */
     public void setTradingAndGottenItem(boolean tradingAndGottenItem) {
         this.tradingAndGottenItem = tradingAndGottenItem;
     }
 
-    public boolean getTradingAndGottenItem(){
+    /**
+     * Gets the trading and gotten item state of the entity.
+     *
+     * @return true if the entity has trading and gotten items, otherwise false.
+     */
+    public boolean getTradingAndGottenItem() {
         return tradingAndGottenItem;
     }
 
+    /**
+     * Gets the trading cooldown timer for the entity.
+     *
+     * @return The trading cooldown timer value for the entity.
+     */
     public int getTradingCooldownTimer() {
         return tradingCooldownTimer;
     }
 
+    /**
+     * Sets the trading cooldown timer for the entity.
+     *
+     * @param tradingCooldownTimer The trading cooldown timer value to set for the entity.
+     */
     public void setTradingCooldownTimer(int tradingCooldownTimer) {
         this.tradingCooldownTimer = tradingCooldownTimer;
     }
 
+    /**
+     * Gets the variant of the entity.
+     *
+     * @return The variant of the entity.
+     */
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    /**
+     * Sets the variant of the entity.
+     *
+     * @param variant The variant to set for the entity.
+     */
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    /**
+     * Determines the variant of the entity based on the provided variant change value.
+     * The variant change value is used to determine the specific variant of the entity.
+     * The method sets the appropriate attributes and variant number based on the variant change value.
+     *
+     * @param variantChange The variant change value used to determine the entity's variant.
+     *                      The value should be within the range [0, 100].
+     */
+    public void determineVariant(int variantChange) {
+    }
 
 
 
@@ -266,6 +400,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {
         spawnGroupData = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, spawnGroupData, tag);
         Level level = levelAccessor.getLevel();
+        determineVariant(random.nextInt(100));
         if (level instanceof ServerLevel) {
             this.setPersistenceRequired();
         }
@@ -311,11 +446,6 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         }
     }
 
-
-    public static final Logger LOGGER = LogManager.getLogger();
-    protected static boolean isBrightEnoughToSpawnBrachi(BlockAndTintGetter pLevel, BlockPos pPos) {
-        return pLevel.getRawBrightness(pPos, 0) > 8;
-    }
     public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends EntityBaseDinosaurAnimal> dino, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
         boolean canSpawn = level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE) && isBrightEnoughToSpawn(level, pos) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
         return canSpawn;

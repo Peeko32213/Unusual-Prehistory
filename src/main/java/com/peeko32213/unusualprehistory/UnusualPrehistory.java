@@ -1,6 +1,9 @@
 package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
+import com.peeko32213.unusualprehistory.common.capabilities.UPAnimalCapability;
+import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
+import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
@@ -63,6 +66,7 @@ public class UnusualPrehistory {
         UPRecipes.SERIALIZERS.register(modEventBus);
         UPRecipes.RECIPE_TYPES.register(modEventBus);
         UPEntities.ENTITIES.register(modEventBus);
+        UPLootModifiers.LOOT_MODIFIERS.register(modEventBus);
         UPFeatureModifiers.FOLIAGE_PLACERS.register(modEventBus);
         UPFeatureModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
         UPSounds.DEF_REG.register(modEventBus);

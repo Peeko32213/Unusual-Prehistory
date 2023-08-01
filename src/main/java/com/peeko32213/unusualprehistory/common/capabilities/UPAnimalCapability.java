@@ -61,11 +61,6 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
                 livingEntity.setPos(event.getEntity().position());
                 livingEntity.setUUID(UUID.randomUUID());
-                if(livingEntity instanceof EntitySmilodon entitySmilodon)
-                {
-                    entitySmilodon.setAge(-24000);
-                    serverLevel.addFreshEntity(entitySmilodon);
-                }
 
                 if(livingEntity instanceof Animal animal){
                     animal.setAge(-24000);

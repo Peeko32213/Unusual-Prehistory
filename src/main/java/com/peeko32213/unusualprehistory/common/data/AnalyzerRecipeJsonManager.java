@@ -3,9 +3,12 @@ package com.peeko32213.unusualprehistory.common.data;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +27,8 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
     private static final Gson STANDARD_GSON = new Gson();
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static Map<Item, List<ItemWeightedPairCodec>> recipeList = new HashMap<>();
+    protected static Map<Item, List<ItemWeightedPairCodec>> recipeList = new HashMap<>();
+    protected static Map<ResourceLocation, AnalyzerRecipeCodec> recipeListRl = new HashMap<>();
     private final String folderName;
 
     /**
@@ -114,10 +118,68 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
         return outputStack;
     }
 
+
+    /**
+     *
+     * @param level the level for populating the map
+     * @implNote used to populate the transmutationmap, we parse through the tags and items and put them in the map with the corresponding codec
+     *
+     *
+     * */
+    public static void populateRecipeMap(Level level) {
+        recipeList.clear();
+        Map<Item, List<ItemWeightedPairCodec>> weightedPairsTemp = new HashMap<>();
+        for (ResourceLocation resourceLocation : recipeListRl.keySet()) {
+            AnalyzerRecipeCodec analyzerRecipeCodec = recipeListRl.get(resourceLocation);
+
+            List<ResourceLocation> tagsRL = analyzerRecipeCodec.getInputItemTags();
+            List<ResourceLocation> itemsRL = analyzerRecipeCodec.getInputItems();
+
+            for (ResourceLocation tag : tagsRL) {
+                TagKey<Item> itemTagKey = TagKey.create(Registry.ITEM_REGISTRY, tag);
+                level.registryAccess().registry(Registry.ITEM_REGISTRY).ifPresent(reg -> {
+                    Iterable<Holder<Item>> itemHolder = reg.getTagOrEmpty(itemTagKey);
+
+                    for (Holder<Item> tempItemHolder : itemHolder) {
+                        Item item = tempItemHolder.get();
+                        List<ItemWeightedPairCodec> weightedPairsList = weightedPairsTemp.getOrDefault(item, new ArrayList<>());
+                        weightedPairsList.addAll(analyzerRecipeCodec.getItemWeightedPairs());
+                        weightedPairsTemp.put(item, weightedPairsList);
+
+                    }
+                    if (!itemHolder.iterator().hasNext()) {
+                        LOGGER.error("Tag for {} does not have any items!", itemTagKey);
+                        LOGGER.error("Analyzer recipe for {} might not have any items assigned, or it uses items from a mod, but the mod isn't installed!", resourceLocation);
+                    }
+                });
+            }
+
+            for (ResourceLocation items : itemsRL) {
+                level.registryAccess().registry(Registry.ITEM_REGISTRY).ifPresent(reg -> {
+                    Item item = reg.get(items);
+                    if(item == null) {
+                        LOGGER.error("Item {} does not exist, currently parsing through {}!", items, resourceLocation);
+                        LOGGER.error("Transmutation for {} might not have any items assigned, or it uses items from a mod, but the mod isn't installed!", resourceLocation);
+                        return;
+                    }
+
+                    List<ItemWeightedPairCodec> weightedPairsList = weightedPairsTemp.getOrDefault(item, new ArrayList<>());
+                    weightedPairsList.addAll(analyzerRecipeCodec.getItemWeightedPairs());
+                    weightedPairsTemp.put(item, weightedPairsList);
+                });
+            }
+        }
+        LOGGER.info("Registered {} jsons with items!", weightedPairsTemp.keySet().size());
+        recipeList.putAll(weightedPairsTemp);
+        weightedPairsTemp.clear();
+    }
+
+
+
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
-        Map<Item, List<ItemWeightedPairCodec>> recipeList = new HashMap<>();
-
+        recipeList.clear();
+        Map<ResourceLocation, AnalyzerRecipeCodec> recipeList = new HashMap<>();
         for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
             ResourceLocation key = entry.getKey();
             JsonElement element = entry.getValue();
@@ -125,18 +187,11 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
                     .get()
                     .ifLeft(result -> {
                         AnalyzerRecipeCodec analyzerRecipe = result.getFirst();
-
-                        List<ItemWeightedPairCodec> weightedPairs = new ArrayList<>();
-                        for (Item item : analyzerRecipe.getItem()) {
-                            weightedPairs = recipeList.getOrDefault(item, new ArrayList<>());
-                            weightedPairs.addAll(analyzerRecipe.getItemWeightedPairs());
-                            recipeList.put(item, weightedPairs);
-                        }
+                        recipeList.put(key, analyzerRecipe);
                     })
                     .ifRight(partial -> LOGGER.error("Failed to parse recipe JSON for {} due to: {}", this.folderName, partial.message()));
         }
-
-        this.recipeList = recipeList;
-        LOGGER.info("Data loader for {} loaded {} jsons", this.folderName, this.recipeList.size());
+        this.recipeListRl = recipeList;
+        LOGGER.info("Data loader for {} loaded {} jsons", this.folderName, this.recipeListRl.size());
     }
 }

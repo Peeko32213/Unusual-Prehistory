@@ -1,9 +1,11 @@
 package com.peeko32213.unusualprehistory.common.block;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.CrashReport;
+import net.minecraft.ReportedException;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -35,12 +37,14 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class BlockDinosaurLandEggs extends Block {
-
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
     public static final IntegerProperty EGGS = BlockStateProperties.EGGS;
     private VoxelShape ONE_SHAPE;
@@ -48,29 +52,61 @@ public class BlockDinosaurLandEggs extends Block {
     public static final VoxelShape EMPTY_BLOCK_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
     public static final VoxelShape ONE_EGG_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D);
     public static final VoxelShape MULTI_EGG_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D);
-
+    private static int hatchTimeMax;
+    private static int hatchTimeMin;
     private Supplier<? extends EntityType> dinosaur;
     private int eggCount;
 
     //This can be called for eggs that have multiple eggs and different egg shapes
-    public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg, VoxelShape multiEgg) {
+    public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg, VoxelShape multiEgg, int hatchTimeMin, int hatchTimeMax) {
         super(Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion());
         this.eggCount = eggCount;
         this.dinosaur = dinosaur;
         this.ONE_SHAPE = oneEgg;
         this.MULTI_SHAPE = multiEgg;
+        if(hatchTimeMin > hatchTimeMax)
+        {
+            try {
+                LOGGER.debug("Min higher than Max, for block with entity {}", dinosaur.get());
+                throw new Exception("Something went wrong setting creating block");
+            }
+            catch (Exception e) {
+                CrashReport crashreport = CrashReport.forThrowable(e, "Something went wrong setting creating block");
+                crashreport.addCategory("Min higher than Max");
+                throw new ReportedException(crashreport);
+            }
+        }
+
+        this.hatchTimeMax = hatchTimeMax;
+        this.hatchTimeMin = hatchTimeMin;
+
         this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(EGGS, Integer.valueOf(1)));
     }
 
     //This can be called for eggs that have only a single egg and egg shape
     public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg) {
-        this(properties, dinosaur, eggCount, oneEgg, EMPTY_BLOCK_SHAPE);
+        this(properties, dinosaur, eggCount, oneEgg, EMPTY_BLOCK_SHAPE,2400,12000);
+    }
+
+    //This can be called for eggs that have only a single egg and egg shape
+    public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg, int hatchTimeMin, int hatchTimeMax) {
+        this(properties, dinosaur, eggCount, oneEgg, EMPTY_BLOCK_SHAPE,hatchTimeMin,hatchTimeMax);
     }
 
     //This can be called for eggs that have the standard egg shape/ the most common one
     public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount) {
-        this(properties, dinosaur, eggCount, ONE_EGG_SHAPE, MULTI_EGG_SHAPE);
+        this(properties, dinosaur, eggCount, ONE_EGG_SHAPE, MULTI_EGG_SHAPE, 2400,12000);
     }
+
+    //This can be called for eggs that have the standard egg shape/ the most common one
+    public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, int hatchTimeMin, int hatchTimeMax) {
+        this(properties, dinosaur, eggCount, ONE_EGG_SHAPE, MULTI_EGG_SHAPE, hatchTimeMin,hatchTimeMax);
+    }
+
+    public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg, VoxelShape multiEgg) {
+        this(properties, dinosaur, eggCount, oneEgg, multiEgg, 2400,12000);
+    }
+
         public static boolean hasProperHabitat(BlockGetter reader, BlockPos blockReader) {
         return isProperHabitat(reader, blockReader.below());
     }
@@ -118,7 +154,7 @@ public class BlockDinosaurLandEggs extends Block {
                 worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
                 worldIn.setBlock(pos, state.setValue(HATCH, Integer.valueOf(i + 1)), 2);
                 //Schedule tick between 2 to 10 minutes when its not hatched yet
-                worldIn.scheduleTick(pos, this, worldIn.getRandom().nextInt(2400,12000));
+                worldIn.scheduleTick(pos, this, worldIn.getRandom().nextInt(hatchTimeMin,hatchTimeMax));
             } else {
                 worldIn.playSound(null, pos, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
                 worldIn.removeBlock(pos, false);
@@ -126,14 +162,16 @@ public class BlockDinosaurLandEggs extends Block {
                     worldIn.levelEvent(4001, pos, Block.getId(state));
                     Mob dinosaurToSpawn = (Mob) dinosaur.get().create(worldIn);
 
-                    if(dinosaurToSpawn instanceof EntityBaseDinosaurAnimal animal){
-                        animal.setAge(-24000);
+                    if(dinosaurToSpawn instanceof EntityBaseDinosaurAnimal baseAnimal){
+                        baseAnimal.setAge(-24000);
+                        baseAnimal.determineVariant(random.nextInt(100));
                     }
-                    if(dinosaurToSpawn instanceof EntityUlughbegsaurus animal){
-                        animal.determineVariant(random.nextInt(0,100));
+                    if(dinosaurToSpawn instanceof EntityTameableBaseDinosaurAnimal baseTame){
+                        baseTame.setAge(-24000);
+                        baseTame.determineVariant(random.nextInt(100));
                     }
-                    if(dinosaurToSpawn instanceof EntityTameableBaseDinosaurAnimal animal){
-                        animal.setAge(-24000);
+                    if(dinosaurToSpawn instanceof EntityBaseAquaticAnimal waterDino){
+                        waterDino.determineVariant(random.nextInt(100));
                     }
                     dinosaurToSpawn.restrictTo(pos, 20);
                     dinosaurToSpawn.moveTo((double) pos.getX() + 0.3D + (double) j * 0.2D, pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);
@@ -169,7 +207,7 @@ public class BlockDinosaurLandEggs extends Block {
         if (hasProperHabitat(worldIn, pos) && !worldIn.isClientSide) {
             worldIn.levelEvent(2005, pos, 0);
             //Schedule tick between 2 to 10 minutes on place (I believe for every hatch it "places" it again so this will trigger again.
-            worldIn.scheduleTick(pos, this, worldIn.getRandom().nextInt(2400,12000));
+            worldIn.scheduleTick(pos, this, worldIn.getRandom().nextInt(hatchTimeMin,hatchTimeMax));
         }
     }
 

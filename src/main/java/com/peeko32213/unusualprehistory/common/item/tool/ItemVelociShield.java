@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.item.tool;
 
-import com.peeko32213.unusualprehistory.client.render.tool.VelociShieldRenderer;
+import com.peeko32213.unusualprehistory.client.model.tool.VelociShieldModel;
+import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.InteractionHand;
@@ -79,7 +80,7 @@ public class ItemVelociShield extends ShieldItem  implements IAnimatable {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private final VelociShieldRenderer renderer = new VelociShieldRenderer();
+            private final ToolRenderer renderer = new ToolRenderer<>(new VelociShieldModel());
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {

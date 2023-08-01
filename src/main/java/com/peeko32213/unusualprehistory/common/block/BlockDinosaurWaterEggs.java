@@ -1,6 +1,11 @@
 package com.peeko32213.unusualprehistory.common.block;
 
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.CrashReport;
+import net.minecraft.ReportedException;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -23,11 +28,13 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.function.Supplier;
 
 public class BlockDinosaurWaterEggs extends Block {
-
+    public static final Logger LOGGER = LogManager.getLogger();
     protected static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 1.5, 16);
     private Supplier<?extends EntityType> dinosaur;
 
@@ -42,6 +49,19 @@ public class BlockDinosaurWaterEggs extends Block {
         super(properties);
         this.dinosaur = dinosaur;
         this.properHabitat = placableOnLand;
+        if(hatchTimeMin > hatchTimeMax)
+        {
+            try {
+                LOGGER.debug("Min higher than Max, for block with entity {}", dinosaur.get());
+                throw new Exception("Something went wrong setting creating block");
+            }
+            catch (Exception e) {
+                CrashReport crashreport = CrashReport.forThrowable(e, "Something went wrong setting creating block");
+                crashreport.addCategory("Min higher than Max");
+                throw new ReportedException(crashreport);
+            }
+        }
+
         this.hatchTimeMax = hatchTimeMax;
         this.hatchTimeMin = hatchTimeMin;
     }
@@ -115,6 +135,19 @@ public class BlockDinosaurWaterEggs extends Block {
         int i = random.nextInt(1, 2);
         for (int index = 1; index <= i; ++index) {
             Mob entityToSpawn = (Mob) dinosaur.get().create(level);
+
+            if(entityToSpawn instanceof EntityBaseDinosaurAnimal baseAnimal){
+                baseAnimal.setAge(-24000);
+                baseAnimal.determineVariant(random.nextInt(100));
+            }
+            if(entityToSpawn instanceof EntityTameableBaseDinosaurAnimal baseTame){
+                baseTame.setAge(-24000);
+                baseTame.determineVariant(random.nextInt(100));
+            }
+            if(entityToSpawn instanceof EntityBaseAquaticAnimal waterDino){
+                waterDino.determineVariant(random.nextInt(100));
+            }
+
             if(entityToSpawn instanceof Animal animal){
                 animal.setAge(-24000);
                 animal.restrictTo(pos, 20);
