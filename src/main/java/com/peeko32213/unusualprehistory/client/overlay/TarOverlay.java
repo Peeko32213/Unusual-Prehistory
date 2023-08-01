@@ -17,27 +17,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class TarOverlay {
-    // The textures used to render the amber protection icons
-    private static final ResourceLocation AMBER_PROTECTION_TEXTURE = new ResourceLocation(UnusualPrehistory.MODID, "textures/amber_protection/amber_protection.png");
     private static final ResourceLocation AMBER_PROTECTION_HALF_TEXTURE = new ResourceLocation(UnusualPrehistory.MODID, "textures/amber_protection/amber_protection_half.png");
 
-    // The maximum number of protection levels that can be displayed in a single row
-    private static final int MAX_PROTECTION_LEVELS_PER_ROW = 20;
-    // The size of each heart icon
-    private static final int BLIT_SIZE = 9;
-    // The spacing between each heart icon in a row
-    private static final int BLIT_SPACING = 8;
-    // The vertical offset between each row of heart icons
-    private static final int ROW_HEIGHT_OFFSET = 10;
-    // The horizontal offset for each row of heart icons
-    private static final int HEART_WIDTH_OFFSET = 80;
 
-    // The overlay that renders the amber protection icons on the player's HUD
     public static final IGuiOverlay TAR_OVERLAY = (gui, poseStack, partialTick, width, height) -> {
-        // Calculate the center of the screen and the bottom of the screen
-        int centerX = width / 2;
-        int bottomY = height;
-
 
         // Determine whether the tar overlay should be rendered
         Player player = Minecraft.getInstance().player;
@@ -46,13 +29,8 @@ public class TarOverlay {
 
         BlockState state = level.getBlockState(new BlockPos(player.getEyePosition()));
         boolean isTar = state.is(UPBlocks.TAR.get());
-        // Calculate the initial position for the first heart icon
-        int blitX = centerX - 90;
-        int blitY = bottomY - 90;
-        int xOffset = 0;
+
         if (isTar) {
-            //RenderSystem.setShaderTexture(0, AMBER_PROTECTION_HALF_TEXTURE);
-            //gui.blit(poseStack, blitX, blitY, 0, 0, blitX, blitY, blitX, blitY);
             renderTextureOverlay(AMBER_PROTECTION_HALF_TEXTURE, 1, height, width);
         }
 

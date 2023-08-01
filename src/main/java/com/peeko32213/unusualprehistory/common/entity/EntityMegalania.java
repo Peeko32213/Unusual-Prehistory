@@ -55,7 +55,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> ASLEEP = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
 
     private Ingredient temptationItems;
     private float sleepProgress = 0.0F;
@@ -237,7 +236,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
         this.entityData.define(ASLEEP, false);
-        this.entityData.define(VARIANT, 0);
     }
 
     public boolean isAsleep() {
@@ -252,14 +250,12 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("IsAsleep", this.isAsleep());
         compound.putInt("StunTick", this.stunnedTick);
-        compound.putInt("variant", this.getVariant());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setAsleep(compound.getBoolean("IsAsleep"));
         this.stunnedTick = compound.getInt("StunTick");
-        this.setVariant(compound.getInt("variant"));
     }
 
     @Override
@@ -301,15 +297,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
 
         this.entityData.set(ENTITY_STATE, anim);
     }
-
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
-    }
-
 
 
     private void setColdVariant(){

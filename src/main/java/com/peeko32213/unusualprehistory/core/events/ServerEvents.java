@@ -27,6 +27,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -38,6 +39,7 @@ import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -45,6 +47,17 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ServerEvents {
+
+
+    @SubscribeEvent
+    public static void onRegisterReloadListeners(ServerStartedEvent event) {
+        try{
+            AnalyzerRecipeJsonManager.populateRecipeMap(event.getServer().getLevel(Level.OVERWORLD));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
     @SubscribeEvent
     public static void onRegisterReloadListeners(AddReloadListenerEvent event) {
@@ -68,7 +81,7 @@ public class ServerEvents {
     public void onLivingAttack(LivingAttackEvent event) {
         if (!event.getEntity().getUseItem().isEmpty() && event.getSource() != null && event.getSource().getEntity() != null) {
             if (event.getEntity().getUseItem().getItem() == UPItems.TRIKE_SHIELD.get()) {
-                if (event.getSource().getEntity() instanceof LivingEntity living) {
+                if (event.getSource().getEntity() instanceof LivingEntity living && !living.isFallFlying()) {
                     boolean flag = false;
                     if (living.distanceTo(event.getEntity()) <= 4
                             && !living.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
@@ -153,7 +166,7 @@ public class ServerEvents {
             BlockState state = serverLevel.getBlockState(pos);
             RandomSource randomSource = serverLevel.random;
             boolean giveDrops = randomSource.nextInt(100) < 10;
-            if(state.is(BlockTags.LOGS))
+            if(state.is(BlockTags.MINEABLE_WITH_AXE))
             {
                 if(!giveDrops){
                     serverLevel.destroyBlock(pos, false);
@@ -184,7 +197,7 @@ public class ServerEvents {
         if(event.getEntity() != null ){
             Player player = event.getEntity();
             ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
-            if(!itemStack.is(UPItems.HANDMADE_SPEAR.get())) return;
+            if(!itemStack.is(UPItems.HANDMADE_SPEAR.get()) || player.isFallFlying()) return;
             if(player.getCooldowns().isOnCooldown(itemStack.getItem())) return;
             Vec3 vec3 = player.getDeltaMovement();
             Vec3 vec32 = new Vec3(3,1,3).multiply(player.getLookAngle());

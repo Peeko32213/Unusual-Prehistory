@@ -1,11 +1,10 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.message.UPMessageHurtMultipart;
+import com.peeko32213.unusualprehistory.common.message.*;
 import com.peeko32213.unusualprehistory.common.networking.packet.AmberProtectionSyncS2CPacket;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackS2CPacket;
-import com.peeko32213.unusualprehistory.core.registry.util.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;

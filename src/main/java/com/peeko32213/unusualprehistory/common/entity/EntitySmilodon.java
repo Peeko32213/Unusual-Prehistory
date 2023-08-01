@@ -143,7 +143,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         this.entityData.define(CAN_GROOM, false);
         this.entityData.define(GROOM_1, false);
         this.entityData.define(GROOM_2, false);
-        this.entityData.define(VARIANT, 0);
     }
 
     @Override
@@ -152,7 +151,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         compound.putBoolean("canGroom", canGroom());
         compound.putBoolean("groom1", groom1());
         compound.putBoolean("groom2", groom2());
-        compound.putInt("variant", this.getVariant());
     }
 
     @Override
@@ -161,16 +159,8 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         setCanGroom(compound.getBoolean("canGroom"));
         setGroom1(compound.getBoolean("groom1"));
         setGroom2(compound.getBoolean("groom2"));
-        this.setVariant(compound.getInt("variant"));
     }
 
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
-    }
 
     public int getAnimationState() {
 

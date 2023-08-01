@@ -338,6 +338,14 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .addTags(BlockTags.TERRACOTTA)
                 .add(Blocks.SANDSTONE)
                 .add(Blocks.RED_SANDSTONE);
+
+        tag(UPTags.CLUB_WHITELIST_BLOCKS)
+                .addTags(BlockTags.SAND)
+                .addTags(BlockTags.DIRT)
+                .addTags(BlockTags.BASE_STONE_OVERWORLD)
+                .addTags(BlockTags.TERRACOTTA)
+                .add(Blocks.SANDSTONE)
+                .add(Blocks.RED_SANDSTONE);
     }
 
 

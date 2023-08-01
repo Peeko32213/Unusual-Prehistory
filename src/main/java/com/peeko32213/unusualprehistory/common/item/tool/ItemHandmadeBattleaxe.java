@@ -3,7 +3,8 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.render.tool.HandmadeBattleaxeRenderer;
+import com.peeko32213.unusualprehistory.client.model.tool.HandmadeBattleaxeModel;
+import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
@@ -69,7 +70,7 @@ public class ItemHandmadeBattleaxe extends SwordItem implements IAnimatable {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private final HandmadeBattleaxeRenderer renderer = new HandmadeBattleaxeRenderer();
+            private final ToolRenderer renderer = new ToolRenderer<>(new HandmadeBattleaxeModel());
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {

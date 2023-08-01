@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.item.tool;
 
-import com.peeko32213.unusualprehistory.client.render.tool.TrikeShieldRenderer;
+import com.peeko32213.unusualprehistory.client.model.tool.TrikeShieldModel;
+import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.InteractionHand;
@@ -68,7 +69,7 @@ public class ItemTrikeShield extends ShieldItem  implements IAnimatable {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private final TrikeShieldRenderer renderer = new TrikeShieldRenderer();
+            private final ToolRenderer renderer = new ToolRenderer<>(new TrikeShieldModel());
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {

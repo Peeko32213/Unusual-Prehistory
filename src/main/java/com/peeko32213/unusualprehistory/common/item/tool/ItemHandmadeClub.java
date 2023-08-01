@@ -3,7 +3,9 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.render.tool.HandmadeClubRenderer;
+import com.peeko32213.unusualprehistory.client.model.tool.HandmadeClubModel;
+import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -31,14 +33,11 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.util.UUID;
 import java.util.function.Consumer;
 
 public class ItemHandmadeClub extends SwordItem implements IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-
-    private static final UUID ATTACK_KNOCKBACK_UUID = UUID.fromString("20D3EB3F-226F-4325-873E-9B0932E4E5C6");
 
     public ItemHandmadeClub(Tier tier, int attackDamage, float attackSpeed) {
         super(tier, attackDamage, attackSpeed, new Properties()
@@ -76,7 +75,8 @@ public class ItemHandmadeClub extends SwordItem implements IAnimatable {
                 if (distance < 1) {
                     BlockPos pos1 = pos.offset(x, 0,z);
                     BlockState state = level.getBlockState(pos1);
-                    BlockState state1 = Blocks.STONE.defaultBlockState();
+                    if(state.is(Blocks.BEDROCK) || !state.is(UPTags.CLUB_WHITELIST_BLOCKS)) continue;
+                    level.destroyBlock(pos, false);
                     FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, pos1,state);
                     Vec3 vec3 = new Vec3(0,1,0);
                     Vec3 vec31 = vec3.normalize();
@@ -108,7 +108,7 @@ public class ItemHandmadeClub extends SwordItem implements IAnimatable {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private final HandmadeClubRenderer renderer = new HandmadeClubRenderer();
+            private final ToolRenderer renderer = new ToolRenderer<>(new HandmadeClubModel());
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {

@@ -359,7 +359,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", getVariant());
         compound.putBoolean("Blue", this.isBlue());
         compound.putBoolean("Yellow", this.isYellow());
         compound.putBoolean("White", this.isWhite());
@@ -371,7 +370,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        setVariant(compound.getInt("Variant"));
         this.setBlue(compound.getBoolean("Blue"));
         this.setYellow(compound.getBoolean("Yellow"));
         this.setWhite(compound.getBoolean("White"));
@@ -384,7 +382,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
         this.entityData.define(EATING_TIME, 0);
         this.entityData.define(BLUE, Boolean.valueOf(false));
         this.entityData.define(YELLOW, Boolean.valueOf(false));
@@ -525,13 +522,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.entityData.set(COMMAND, Integer.valueOf(command));
     }
 
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
-    }
 
     //Blue
 
@@ -628,6 +618,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.heal(this.getMaxHealth());
         this.entityData.set(BROWN, green);
     }
+    @Override
     public void determineVariant(int variantChange){
         if (variantChange <= 30) {
             this.setWhite(true);

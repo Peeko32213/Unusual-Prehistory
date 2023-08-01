@@ -667,6 +667,8 @@ public class UPBlocks {
     public static final RegistryObject<Block> PETRIFIED_BUSH = registerBlock("petrified_bush", () ->
             new DeadBushBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.WOOD).noCollission().instabreak().sound(SoundType.GRASS)));
 
+    public static final RegistryObject<Block> ASPHALT = registerBlock("asphalt", () ->
+            new BlockAsphalt(BlockBehaviour.Properties.of(Material.CLAY, MaterialColor.COLOR_GRAY).instabreak().sound(SoundType.STONE)));
     public static final RegistryObject<Block> POTTED_PETRIFIED_BUSH = registerBlockWithoutBlockItem("potted_petrified_bush",
             () -> new FlowerPotBlock(null, UPBlocks.PETRIFIED_BUSH, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
 

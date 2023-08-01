@@ -53,6 +53,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
 
     private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
 
 
     public static final Logger LOGGER = LogManager.getLogger();
@@ -186,6 +187,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.entityData.define(PASSIVE, 0);
         this.entityData.define(IS_FROM_EGG, false);
         this.entityData.define(FROM_BOOK, false);
+        this.entityData.define(VARIANT, 0);
     }
 
     @Override
@@ -198,6 +200,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         compound.putBoolean("HasSwung", this.hasSwung());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
         compound.putBoolean("fromEgg", this.isFromEgg());
+        compound.putInt("variant", this.getVariant());
     }
 
     @Override
@@ -210,6 +213,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
         this.setIsFromEgg(compound.getBoolean("fromEgg"));
+        this.setVariant(compound.getInt("variant"));
     }
 
     public boolean canBeLeashed(Player p_21813_) {
@@ -217,28 +221,151 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     }
 
 
+    /**
+     * Checks if the entity is hungry.
+     *
+     * @return true if the entity is hungry, otherwise false.
+     */
     public boolean isHungry() {
         return this.entityData.get(HUNGRY);
     }
 
+    /**
+     * Sets the hungry state of the entity.
+     *
+     * @param hungry true if the entity should be set as hungry, false otherwise.
+     */
     public void setHungry(boolean hungry) {
         this.entityData.set(HUNGRY, hungry);
     }
 
+    /**
+     * Gets the remaining time till the entity gets hungry.
+     *
+     * @return The remaining time till the entity gets hungry, in ticks.
+     */
     public int getTimeTillHungry() {
         return this.entityData.get(TIME_TILL_HUNGRY);
     }
 
+    /**
+     * Sets the remaining time till the entity gets hungry.
+     *
+     * @param ticks The time in ticks to set as the remaining time till the entity gets hungry.
+     */
     public void setTimeTillHungry(int ticks) {
         this.entityData.set(TIME_TILL_HUNGRY, ticks);
     }
 
+    /**
+     * Checks if the entity is saddled.
+     *
+     * @return true if the entity is saddled, otherwise false.
+     */
     public boolean isSaddled() {
         return this.entityData.get(SADDLED).booleanValue();
     }
 
+    /**
+     * Sets the saddled state of the entity.
+     *
+     * @param saddled true if the entity should be set as saddled, false otherwise.
+     */
     public void setSaddled(boolean saddled) {
         this.entityData.set(SADDLED, Boolean.valueOf(saddled));
+    }
+
+    /**
+     * Gets the passive ticks for the entity.
+     *
+     * @return The number of passive ticks for the entity.
+     */
+    public int getPassiveTicks() {
+        return this.entityData.get(PASSIVE);
+    }
+
+    /**
+     * Sets the passive ticks for the entity.
+     *
+     * @param passiveTicks The number of passive ticks to set for the entity.
+     */
+    public void setPassiveTicks(int passiveTicks) {
+        this.entityData.set(PASSIVE, passiveTicks);
+    }
+
+    /**
+     * Checks if the entity is from an egg.
+     *
+     * @return true if the entity is from an egg, otherwise false.
+     */
+    public boolean isFromEgg() {
+        return this.entityData.get(IS_FROM_EGG).booleanValue();
+    }
+
+    /**
+     * Sets whether the entity is from an egg.
+     *
+     * @param fromEgg true if the entity should be set as from an egg, false otherwise.
+     */
+    public void setIsFromEgg(boolean fromEgg) {
+        this.entityData.set(IS_FROM_EGG, fromEgg);
+    }
+
+    /**
+     * Checks if the entity is from a book.
+     *
+     * @return true if the entity is from a book, otherwise false.
+     */
+    public boolean isFromBook() {
+        return this.entityData.get(FROM_BOOK).booleanValue();
+    }
+
+    /**
+     * Sets whether the entity is from a book.
+     *
+     * @param fromBook true if the entity should be set as from a book, false otherwise.
+     */
+    public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
+    }
+
+    /**
+     * Checks if the entity requires custom persistence.
+     * This is equivalent to calling {@link #isFromEgg()}.
+     *
+     * @return true if the entity requires custom persistence, otherwise false.
+     */
+    public boolean requiresCustomPersistence() {
+        return this.isFromEgg();
+    }
+
+    /**
+     * Checks if the entity should be removed when far away.
+     * This is the opposite of calling {@link #isFromEgg()}.
+     *
+     * @param d The distance parameter (not used in this implementation).
+     * @return true if the entity should be removed when far away, otherwise false.
+     */
+    public boolean removeWhenFarAway(double d) {
+        return !this.isFromEgg();
+    }
+
+    /**
+     * Gets the variant of the entity.
+     *
+     * @return The variant of the entity.
+     */
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    /**
+     * Sets the variant of the entity.
+     *
+     * @param variant The variant to set for the entity.
+     */
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
     }
 
     public boolean isSwinging() {
@@ -248,6 +375,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     public void setSwinging(boolean swinging) {
         this.entityData.set(SWINGING, Boolean.valueOf(swinging));
     }
+
     public boolean hasSwung() {
         return this.entityData.get(HAS_SWUNG).booleanValue();
     }
@@ -255,42 +383,25 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     public void setHasSwung(boolean swung) {
         this.entityData.set(HAS_SWUNG, Boolean.valueOf(swinging));
     }
-    public int getPassiveTicks() {
-        return this.entityData.get(PASSIVE);
+
+    /**
+     * Determines the variant of the entity based on the provided variant change value.
+     * The variant change value is used to determine the specific variant of the entity.
+     * The method sets the appropriate attributes and variant number based on the variant change value.
+     *
+     * @param variantChange The variant change value used to determine the entity's variant.
+     *                      The value should be within the range [0, 100].
+     */
+    public void determineVariant(int variantChange) {
     }
 
-    public void setPassiveTicks(int passiveTicks) {
-        this.entityData.set(PASSIVE, passiveTicks);
-    }
-
-    public boolean isFromEgg() {
-        return this.entityData.get(IS_FROM_EGG).booleanValue();
-    }
-
-    public void setIsFromEgg(boolean fromEgg) {
-        this.entityData.set(IS_FROM_EGG, fromEgg);
-    }
-
-    public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
-    }
-
-    public void setIsFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
-    public boolean requiresCustomPersistence() {
-        return this.isFromEgg();
-    }
-
-    public boolean removeWhenFarAway(double d) {
-        return !this.isFromEgg();
-    }
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {
         spawnGroupData = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, spawnGroupData, tag);
         Level level = levelAccessor.getLevel();
+
+        determineVariant(random.nextInt(100));
         if (level instanceof ServerLevel) {
             this.setPersistenceRequired();
         }

@@ -3,7 +3,8 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.render.tool.HandmadeSpearRenderer;
+import com.peeko32213.unusualprehistory.client.model.tool.HandmadeSpearModel;
+import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -54,7 +55,7 @@ public class ItemHandmadeSpear extends SwordItem implements IAnimatable {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private final HandmadeSpearRenderer renderer = new HandmadeSpearRenderer();
+            private final ToolRenderer renderer = new ToolRenderer<>(new HandmadeSpearModel());
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
