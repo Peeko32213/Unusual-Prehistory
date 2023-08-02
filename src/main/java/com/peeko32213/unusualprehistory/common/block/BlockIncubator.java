@@ -75,7 +75,7 @@ public class BlockIncubator extends BaseEntityBlock {
             inventory.setItem(i, itemStack);
         }
         Optional<IncubatorRecipe> match = level.getRecipeManager()
-                .getRecipeFor(UPRecipes.INCUBATOR_TYPE.get(), inventory, level);
+                .getRecipeFor(IncubatorRecipe.Type.INSTANCE, inventory, level);
 
         return match.isPresent();
     }

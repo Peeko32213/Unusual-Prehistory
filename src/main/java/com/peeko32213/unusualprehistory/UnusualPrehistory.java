@@ -64,7 +64,6 @@ public class UnusualPrehistory {
         UPBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         UPMenuTypes.MENUS.register(modEventBus);
         UPRecipes.SERIALIZERS.register(modEventBus);
-        UPRecipes.RECIPE_TYPES.register(modEventBus);
         UPEntities.ENTITIES.register(modEventBus);
         UPLootModifiers.LOOT_MODIFIERS.register(modEventBus);
         UPFeatureModifiers.FOLIAGE_PLACERS.register(modEventBus);

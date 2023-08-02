@@ -66,7 +66,7 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeType<?> getType() {
-        return UPRecipes.ANALYZING_TYPE.get();
+        return Type.INSTANCE;
     }
 
     @Override
@@ -77,6 +77,12 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
     @Override
     public NonNullList<Ingredient> getIngredients() {
         return recipeItems;
+    }
+
+    public static class Type implements RecipeType<AnalyzerRecipe> {
+        private Type() { }
+        public static final Type INSTANCE = new Type();
+        public static final String ID ="analyzing";
     }
 
     public static class Serializer implements RecipeSerializer<AnalyzerRecipe> {
@@ -103,7 +109,6 @@ public class AnalyzerRecipe implements Recipe<SimpleContainer> {
                 inputs.set(i, Ingredient.fromNetwork(buf));
             }
 
-            ResourceLocation output = buf.readResourceLocation();
             return new AnalyzerRecipe(id, inputs);
         }
 
