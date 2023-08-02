@@ -135,7 +135,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
             this.setLastHurtMob(target);
         }
         if (shouldHurt && target instanceof LivingEntity livingEntity) {
-            this.playSound(UPSounds.RAPTOR_HURT.get(), 0.1F, 1.0F);
+            this.playSound(UPSounds.MAJUNGA_ATTACK.get(), 0.1F, 1.0F);
         }
         return shouldHurt;
     }

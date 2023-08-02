@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -91,6 +92,7 @@ public class TradeGoal extends Goal {
                 double d2 = this.player.getZ() - this.mob.getZ();
                 Vec3 vec3 = new Vec3(d0, d1, d2);
                 vec3.multiply(0.5, 0.5 ,0.5);
+                this.mob.playSound(UPSounds.GIGANTO_TRADE.get(), 1.0F, 1.0F);
 
                 ItemEntity lootFruitEntity = new ItemEntity(this.mob.level, this.mob.getX(), this.mob.getY(), this.mob.getZ(), lootFruit,vec3.x(), vec3.y(), vec3.z());
                 this.player.getItemInHand(InteractionHand.MAIN_HAND).shrink(1);

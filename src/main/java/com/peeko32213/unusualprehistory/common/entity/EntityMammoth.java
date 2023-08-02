@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothFollowLeaderGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -16,6 +17,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.*;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -450,6 +452,22 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     @Override
     protected TagKey<EntityType<?>> getTargetTag() {
         return null;
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.MAMMOTH_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.MAMMOTH_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.MAMMOTH_DEATH.get();
+    }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
     @Nullable

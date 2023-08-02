@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -93,6 +94,22 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
             ));
 
         return temptationItems;
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.TALAPANAS_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.TALAPANAS_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.TALAPANAS_DEATH.get();
+    }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(SoundEvents.CHICKEN_STEP, 0.1F, 1.0F);
     }
 
     @Override
@@ -215,6 +232,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
                     float angle = (0.01745329251F * (((LivingEntity) mount).yBodyRot - 180F));
                     double extraX = radius * Mth.sin((float) (Math.PI + angle));
                     double extraZ = radius * Mth.cos(angle);
+                    this.playSound(UPSounds.TALAPANAS_PANIC.get(), 1.0F, 1.0F);
                     this.setPos(mount.getX() + extraX, Math.max(mount.getY() + mount.getBbHeight() + 0.1, mount.getY()), mount.getZ() + extraZ);
                     if (!mount.isAlive() || rideCooldown == 0 && mount.isShiftKeyDown()) {
                         this.removeVehicle();

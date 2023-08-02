@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.NearestTargetAI;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -133,6 +134,17 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
         }
     }
 
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.PARACER_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.PARACER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.PARACER_DEATH.get();
+    }
 
     @Override
     protected SoundEvent getAttackSound() {
@@ -417,7 +429,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 6, false, false, false));
-                        this.mob.playSound(UPSounds.BRACHI_STEP.get(), 2F, 0.4F);
+                        this.mob.playSound(UPSounds.PARACER_STOMP.get(), 2F, 0.4F);
                     }
                 }
                 this.mob.shakeCooldown = 10;

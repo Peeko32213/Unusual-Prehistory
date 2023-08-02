@@ -307,6 +307,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.FOXXI_PRESSURE_PLATE, "Foxii Pressure Plate");
         addBlock(UPBlocks.FOXXI_DOOR, "Foxii Door");
         addBlock(UPBlocks.FOXXI_TRAPDOOR, "Foxii Trapdoor");
+        addBlock(UPBlocks.FOXII_SAPLING, "Foxii Sapling");
 
         //DRYO
         addBlock(UPBlocks.DRYO_PLANKS, "Dryophyllum Planks");
@@ -323,6 +324,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.DRYO_PRESSURE_PLATE, "Dryophyllum Pressure Plate");
         addBlock(UPBlocks.DRYO_DOOR, "Dryophyllum Door");
         addBlock(UPBlocks.DRYO_TRAPDOOR, "Dryophyllum Trapdoor");
+        addBlock(UPBlocks.DRYO_SAPLING, "Dryophyllum Sapling");
 
         //PETRIFIED
         addBlock(UPBlocks.PETRIFIED_WOOD_PLANKS, "Petrified Planks");
@@ -476,6 +478,21 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ANTARCTO_HURT, "Annoyed Gruff");
         addSound(UPSounds.ANTARCTO_IDLE, "Hard Gruff");
         addSound(UPSounds.REX_BOOMBOX, "Boom");
+        addSound(UPSounds.GIGANTO_IDLE, "Ooo OO Ah Ah");
+        addSound(UPSounds.GIGANTO_DEATH, "Oooo Ahhh");
+        addSound(UPSounds.GIGANTO_HURT, "Ooof Ahhf");
+        addSound(UPSounds.GIGANTO_TRADE, "OOOoooooOO");
+        addSound(UPSounds.MAMMOTH_DEATH, "Dying Pawoo");
+        addSound(UPSounds.MAMMOTH_HURT, "Painful Pawoo");
+        addSound(UPSounds.MAMMOTH_IDLE, "Powerful Pawoo");
+        addSound(UPSounds.PARACER_DEATH, "Sternful Groan");
+        addSound(UPSounds.PARACER_HURT, "Sternful Grunt");
+        addSound(UPSounds.PARACER_IDLE, "Sternful Gruff");
+        addSound(UPSounds.PARACER_STOMP, "Sternful Stomp");
+        addSound(UPSounds.TALAPANAS_DEATH, "Dying Quack");
+        addSound(UPSounds.TALAPANAS_HURT, "Painful Quack");
+        addSound(UPSounds.TALAPANAS_IDLE, "Idling Quack");
+        addSound(UPSounds.TALAPANAS_PANIC, "Panicked Quack");
 
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");

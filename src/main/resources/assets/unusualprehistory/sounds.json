@@ -1066,5 +1066,167 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.giganto_trade"
+  },
+  "mammoth_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:mammoth_death_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:mammoth_death_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.mammoth_death"
+  },
+  "mammoth_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:mammoth_hurt_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:mammoth_hurt_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.mammoth_hurt"
+  },
+  "mammoth_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:mammoth_idle_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:mammoth_idle_1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:mammoth_idle_2",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.mammoth_idle"
+  },
+  "paracer_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:paracer_death_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:paracer_death_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.paracer_death"
+  },
+  "paracer_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:paracer_hurt_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:paracer_hurt_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.paracer_hurt"
+  },
+  "paracer_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:paracer_idle_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:paracer_idle_1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:paracer_idle_2",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.paracer_idle"
+  },
+  "paracer_stomp": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:paracer_stomp_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:paracer_stomp_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.paracer_stomp"
+  },
+  "talapanas_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:talapanas_death_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:talapanas_death_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.talapanas_death"
+  },
+  "talapanas_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:talapanas_hurt_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:talapanas_hurt_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.talapanas_hurt"
+  },
+  "talapanas_panic": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:talapanas_panic_0",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.talapanas_panic"
+  },
+  "talapanas_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:talapanas_idle_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:talapanas_idle_1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:talapanas_idle_2",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.talapanas_idle"
   }
 }

@@ -105,6 +105,17 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> GIGANTO_HURT = createSoundEvent("giganto_hurt");
     public static final RegistryObject<SoundEvent> GIGANTO_IDLE = createSoundEvent("giganto_idle");
     public static final RegistryObject<SoundEvent> GIGANTO_TRADE = createSoundEvent("giganto_trade");
+    public static final RegistryObject<SoundEvent> MAMMOTH_DEATH = createSoundEvent("mammoth_death");
+    public static final RegistryObject<SoundEvent> MAMMOTH_HURT = createSoundEvent("mammoth_hurt");
+    public static final RegistryObject<SoundEvent> MAMMOTH_IDLE = createSoundEvent("mammoth_idle");
+    public static final RegistryObject<SoundEvent> PARACER_DEATH = createSoundEvent("paracer_death");
+    public static final RegistryObject<SoundEvent> PARACER_HURT = createSoundEvent("paracer_hurt");
+    public static final RegistryObject<SoundEvent> PARACER_IDLE = createSoundEvent("paracer_idle");
+    public static final RegistryObject<SoundEvent> PARACER_STOMP = createSoundEvent("paracer_stomp");
+    public static final RegistryObject<SoundEvent> TALAPANAS_DEATH = createSoundEvent("talapanas_death");
+    public static final RegistryObject<SoundEvent> TALAPANAS_HURT = createSoundEvent("talapanas_hurt");
+    public static final RegistryObject<SoundEvent> TALAPANAS_IDLE = createSoundEvent("talapanas_idle");
+    public static final RegistryObject<SoundEvent> TALAPANAS_PANIC = createSoundEvent("talapanas_panic");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));
