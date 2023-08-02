@@ -16,25 +16,14 @@ public class UPRecipes {
 
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS =
             DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, UnusualPrehistory.MODID);
-    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES =
-            DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, UnusualPrehistory.MODID);
 
+   public static final RegistryObject<RecipeSerializer<AnalyzerRecipe>> ANALYZER_SERIALIZER =
+           SERIALIZERS.register("analyzing", () -> AnalyzerRecipe.Serializer.INSTANCE);
 
-    public static final RegistryObject<RecipeSerializer<AnalyzerRecipe>> ANALYZER_SERIALIZER =
-            SERIALIZERS.register("analyzing", () -> AnalyzerRecipe.Serializer.INSTANCE);
+   public static final RegistryObject<RecipeSerializer<CultivatorRecipe>> CULTIVATOR_SERIALIZER =
+           SERIALIZERS.register("cultivator", () -> CultivatorRecipe.Serializer.INSTANCE);
 
-    public static final RegistryObject<RecipeSerializer<CultivatorRecipe>> CULTIVATOR_SERIALIZER =
-            SERIALIZERS.register("cultivator", () -> CultivatorRecipe.Serializer.INSTANCE);
-
-    public static final RegistryObject<RecipeSerializer<IncubatorRecipe>> INCUBATOR_SERIALIZER =
-            SERIALIZERS.register("incubating", () -> IncubatorRecipe.Serializer.INSTANCE);
-
-    public static final RegistryObject<RecipeType<AnalyzerRecipe>> ANALYZING_TYPE =
-            RECIPE_TYPES.register("analyzing", () -> RecipeType.simple(prefix("analyzing")));
-    public static final RegistryObject<RecipeType<CultivatorRecipe>> CULTIVATOR_TYPE =
-            RECIPE_TYPES.register("cultivator", () -> RecipeType.simple(prefix("cultivator")));
-
-    public static final RegistryObject<RecipeType<IncubatorRecipe>> INCUBATOR_TYPE =
-            RECIPE_TYPES.register("incubator", () -> RecipeType.simple(prefix("incubating")));
+   public static final RegistryObject<RecipeSerializer<IncubatorRecipe>> INCUBATOR_SERIALIZER =
+           SERIALIZERS.register("incubating", () -> IncubatorRecipe.Serializer.INSTANCE);
 
 }

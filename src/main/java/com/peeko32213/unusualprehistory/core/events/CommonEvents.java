@@ -71,4 +71,5 @@ public class CommonEvents {
             return (com.google.common.base.Predicate<LivingEntity>) e -> e.isAlive() && e.getType().is(entityTag);
         }
     }
+
 }

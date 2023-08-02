@@ -120,7 +120,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
             inventory.setItem(i, entity.inv.get(i));
         }
         Optional<IncubatorRecipe> match = level.getRecipeManager()
-                .getRecipeFor(UPRecipes.INCUBATOR_TYPE.get(), inventory, level);
+                .getRecipeFor(IncubatorRecipe.Type.INSTANCE, inventory, level);
         return match.isPresent();
     }
 
@@ -133,7 +133,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
         }
 
         Optional<IncubatorRecipe> match = level.getRecipeManager()
-                .getRecipeFor(UPRecipes.INCUBATOR_TYPE.get(), inventory, level);
+                .getRecipeFor(IncubatorRecipe.Type.INSTANCE, inventory, level);
 
         if(match.isPresent()) {
             entity.inv.clear();

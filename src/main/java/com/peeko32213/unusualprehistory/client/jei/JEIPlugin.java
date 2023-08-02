@@ -42,9 +42,9 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
-        List<AnalyzerRecipe> recipesAnalyzer = rm.getAllRecipesFor(UPRecipes.ANALYZING_TYPE.get());
+        List<AnalyzerRecipe> recipesAnalyzer = rm.getAllRecipesFor(AnalyzerRecipe.Type.INSTANCE);
         registration.addRecipes(ANALYZER_TYPE, recipesAnalyzer);
-        List<CultivatorRecipe> recipesCultivator = rm.getAllRecipesFor(UPRecipes.CULTIVATOR_TYPE.get());
+        List<CultivatorRecipe> recipesCultivator = rm.getAllRecipesFor(CultivatorRecipe.Type.INSTANCE);
         registration.addRecipes(CULTIVATOR_TYPE, recipesCultivator);
 
     }

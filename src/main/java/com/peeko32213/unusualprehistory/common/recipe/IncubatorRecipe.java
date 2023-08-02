@@ -18,8 +18,6 @@ import net.minecraft.world.level.Level;
 
 public class IncubatorRecipe implements Recipe<SimpleContainer> {
 
-
-    //A weighted example https://github.com/skyjay1/Pelagic-Prehistory/blob/main-1.19.2/src/main/java/pelagic_prehistory/recipe/AnalyzerRecipe.java
     private final ResourceLocation id;
     private final ResourceLocation output;
     private final NonNullList<Ingredient> recipeItems;
@@ -70,7 +68,7 @@ public class IncubatorRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeType<?> getType() {
-        return UPRecipes.INCUBATOR_TYPE.get();
+        return Type.INSTANCE;
     }
 
     @Override
@@ -81,6 +79,12 @@ public class IncubatorRecipe implements Recipe<SimpleContainer> {
     @Override
     public NonNullList<Ingredient> getIngredients() {
         return recipeItems;
+    }
+
+    public static class Type implements RecipeType<IncubatorRecipe> {
+        private Type() { }
+        public static final IncubatorRecipe.Type INSTANCE = new IncubatorRecipe.Type();
+        public static final String ID = "incubating";
     }
 
     public static class Serializer implements RecipeSerializer<IncubatorRecipe> {

@@ -50,6 +50,7 @@ public class ItemHandmadeBattleaxe extends SwordItem implements IAnimatable {
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        //pTooltipComponents.clear();
         MutableComponent mutableComponent = Component.translatable("unusualprehistory.battle_axe").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC);
         MutableComponent mutableComponent2 = Component.literal("");
         pTooltipComponents.add(mutableComponent);

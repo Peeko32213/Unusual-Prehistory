@@ -167,6 +167,7 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
                 LootFruitCodec lootFruitCodec = new LootFruitCodec(1, UPItems.AMBER_SHARDS.get(),rollableItemCodecs, TextColor.fromRgb(123456), 1);
                 List<LootFruitCodec> lootFruits = LootFruitJsonManager.getLoot(lootFruitCodec.getTradeItem(), null);
                 CompoundTag lootFruitTag = istack.getOrCreateTag();
+                if(lootFruits == null) return;
                 int color = lootFruits.get(0).getColor().getValue();
                 lootFruitTag.putInt("color", color);
                 lootFruitTag.putInt("CustomModelData", lootFruitCodec.getCustomModelData());

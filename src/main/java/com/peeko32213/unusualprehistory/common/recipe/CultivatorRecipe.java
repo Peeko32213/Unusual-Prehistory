@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
@@ -64,17 +65,22 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeType<?> getType() {
-        return UPRecipes.CULTIVATOR_TYPE.get();
+        return Type.INSTANCE;
     }
 
     @Override
     public boolean isSpecial() {
         return true;
     }
+    public static class Type implements RecipeType<CultivatorRecipe> {
+        private Type() { }
+        public static final CultivatorRecipe.Type INSTANCE = new CultivatorRecipe.Type();
+        public static final String ID = "cultivating";
+    }
 
     public static class Serializer implements RecipeSerializer<CultivatorRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-
+        public static final ResourceLocation ID = new ResourceLocation(UnusualPrehistory.MODID,"cultivator");
         @Override
         public CultivatorRecipe fromJson(ResourceLocation id, JsonObject json) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
