@@ -48,5 +48,5 @@ public class BlockAsphalt extends Block {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
-    
+
 }
