@@ -61,6 +61,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
     public float prevFeedProgress;
     public float feedProgress;
     private int rideCooldown = 0;
+    public int soundTimer = 0;
 
     public EntityTalapanas(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -180,6 +181,10 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
 
     public void tick() {
         super.tick();
+        super.tick();
+        if(soundTimer > 0){
+            soundTimer--;
+        }
         this.prevFeedProgress = feedProgress;
         if (this.getFeedingTime() > 0 && feedProgress < 5F) {
             feedProgress++;
@@ -232,7 +237,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
                     float angle = (0.01745329251F * (((LivingEntity) mount).yBodyRot - 180F));
                     double extraX = radius * Mth.sin((float) (Math.PI + angle));
                     double extraZ = radius * Mth.cos(angle);
-                    this.playSound(UPSounds.TALAPANAS_PANIC.get(), 1.0F, 1.0F);
+                    playPanicSound();
                     this.setPos(mount.getX() + extraX, Math.max(mount.getY() + mount.getBbHeight() + 0.1, mount.getY()), mount.getZ() + extraZ);
                     if (!mount.isAlive() || rideCooldown == 0 && mount.isShiftKeyDown()) {
                         this.removeVehicle();
@@ -244,6 +249,13 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
             super.rideTick();
         }
 
+    }
+
+    private void playPanicSound(){
+        if(this.soundTimer <= 0){
+            this.playSound(UPSounds.TALAPANAS_PANIC.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
+            soundTimer = 80;
+        }
     }
 
     @Override
