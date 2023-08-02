@@ -2,7 +2,7 @@
   "type": "unusualprehistory:incubating",
   "ingredients": [
     {
-      "item": "unusualprehistory:palaeo_flask"
+      "item": "unusualprehistory:palaeo_embryo"
     }
   ],
   "output": "unusualprehistory:palaeolophis"

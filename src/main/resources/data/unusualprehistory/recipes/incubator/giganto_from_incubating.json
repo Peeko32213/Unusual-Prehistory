@@ -2,7 +2,7 @@
   "type": "unusualprehistory:incubating",
   "ingredients": [
     {
-      "item": "unusualprehistory:giganto_flask"
+      "item": "unusualprehistory:giganto_embryo"
     }
   ],
   "output": "unusualprehistory:gigantopithicus"

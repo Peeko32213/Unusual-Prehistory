@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:paracer_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:paracer_embryo"
+  }
+}

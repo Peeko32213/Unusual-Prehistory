@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:megath_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:megath_embryo"
+  }
+}

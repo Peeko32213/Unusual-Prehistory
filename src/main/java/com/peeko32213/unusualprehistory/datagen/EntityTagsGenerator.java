@@ -177,7 +177,23 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.MAJUNGA.get());
 
         tag(UPTags.SMILODON_EMBRYO_ATTACH_TO)
-                .add(EntityType.OCELOT);
+                .add(EntityType.OCELOT)
+                .add(UPEntities.SMILODON.get());
+
+        tag(UPTags.MAMMOTH_EMBRYO_ATTACH_TO)
+                .add(UPEntities.MAMMOTH.get());
+
+        tag(UPTags.MEGATH_EMBRYO_ATTACH_TO)
+                .add(UPEntities.MEGATHERIUM.get());
+
+        tag(UPTags.GIGANTO_EMBRYO_ATTACH_TO)
+                .add(UPEntities.GIGANTOPITHICUS.get());
+
+        tag(UPTags.PARACER_EMBRYO_ATTACH_TO)
+                .add(UPEntities.PARACERATHERIUM.get());
+
+        tag(UPTags.PALAEO_EMBRYO_ATTACH_TO)
+                .add(UPEntities.PALAEOPHIS.get());
 
         tag(UPTags.TAR_WALKABLE_ON_MOBS)
                 .add(EntityType.RABBIT);

@@ -58,6 +58,11 @@ public class LanguageGenerator extends LanguageProvider {
 
         //EMBRYOS
         addItem(UPItems.SMILODON_EMBRYO, "Smilodon Embryo");
+        addItem(UPItems.MAMMOTH_EMBRYO, "Mammoth Embryo");
+        addItem(UPItems.MEGATH_EMBRYO, "Megatherium Embryo");
+        addItem(UPItems.GIGANTO_EMBRYO, "Gigantopithicus Embryo");
+        addItem(UPItems.PARACER_EMBRYO, "Paraceratherium Embryo");
+        addItem(UPItems.PALAEO_EMBRYO, "Palaeolophis Embryo");
 
         //DINO DROPS
         addItem(UPItems.REX_SCALE, "Rex Scale");

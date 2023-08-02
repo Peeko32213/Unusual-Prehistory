@@ -424,10 +424,6 @@ public class UPItems {
 
     public static final RegistryObject<Item> PETRIFIED_WOOD_SIGN = ITEMS.register("petrified_wood_sign",
             () -> new SignItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPBlocks.PETRIFIED_WOOD_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get()));
-
-    public static final RegistryObject<Item> SMILODON_EMBRYO = ITEMS.register("smilodon_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.SMILODON, 100));
-
     public static final RegistryObject<Item> BARINA_WHISTLE = ITEMS.register("barina_whistle",
             () -> new DinosaurWhistle(new Item.Properties().stacksTo(1).tab(UnusualPrehistory.DINO_TAB), UPEntities.BARINASUCHUS));
 
@@ -450,6 +446,24 @@ public class UPItems {
     public static final RegistryObject<Item> TYRANTS_CROWN = ITEMS.register("tyrants_crown",
             () -> new ItemTyrantsCrown(UPArmorMaterial.TYRANTS, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> SMILODON_EMBRYO = ITEMS.register("smilodon_embryo",
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.SMILODON, 1000));
+
+    public static final RegistryObject<Item> MAMMOTH_EMBRYO = ITEMS.register("mammoth_embryo",
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.MAMMOTH_EMBRYO_ATTACH_TO, UPEntities.MAMMOTH, 1000));
+
+    public static final RegistryObject<Item> MEGATH_EMBRYO = ITEMS.register("megath_embryo",
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.MEGATH_EMBRYO_ATTACH_TO, UPEntities.MEGATHERIUM, 1000));
+
+    public static final RegistryObject<Item> GIGANTO_EMBRYO = ITEMS.register("giganto_embryo",
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.GIGANTO_EMBRYO_ATTACH_TO, UPEntities.GIGANTOPITHICUS, 1000));
+
+    public static final RegistryObject<Item> PARACER_EMBRYO = ITEMS.register("paracer_embryo",
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.PARACER_EMBRYO_ATTACH_TO, UPEntities.PARACERATHERIUM, 1000));
+
+    public static final RegistryObject<Item> PALAEO_EMBRYO = ITEMS.register("palaeo_embryo",
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.PALAEO_EMBRYO_ATTACH_TO, UPEntities.PALAEOPHIS, 1000));
 
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties().tab(UnusualPrehistory.DINO_SPAWN_EGGS)));

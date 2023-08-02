@@ -35,6 +35,12 @@ public class UPTags {
     public static final TagKey<EntityType<?>> SMILODON_TARGETS = registerEntityTag("smilodon_targets");
 
     public static final TagKey<EntityType<?>> SMILODON_EMBRYO_ATTACH_TO= registerEntityTag("smilodon_embryo_attach_to");
+    public static final TagKey<EntityType<?>> MAMMOTH_EMBRYO_ATTACH_TO= registerEntityTag("mammoth_embryo_attach_to");
+    public static final TagKey<EntityType<?>> MEGATH_EMBRYO_ATTACH_TO= registerEntityTag("megath_embryo_attach_to");
+    public static final TagKey<EntityType<?>> GIGANTO_EMBRYO_ATTACH_TO= registerEntityTag("giganto_embryo_attach_to");
+    public static final TagKey<EntityType<?>> PARACER_EMBRYO_ATTACH_TO= registerEntityTag("paracer_embryo_attach_to");
+    public static final TagKey<EntityType<?>> PALAEO_EMBRYO_ATTACH_TO= registerEntityTag("palaeo_embryo_attach_to");
+
     public static final TagKey<EntityType<?>> TAR_WALKABLE_ON_MOBS= registerEntityTag("tar_walkable_on_mobs");
     public static final TagKey<EntityType<?>> TAR_WALKABLE_THROUGH_MOBS= registerEntityTag("tar_walkable_through_mobs");
 

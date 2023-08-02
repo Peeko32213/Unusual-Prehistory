@@ -162,7 +162,7 @@ public class UnusualPrehistory {
     public static final CreativeModeTab DINO_SPAWN_EGGS= new CreativeModeTab(MODID+"_spawn_eggs") {
         @Override
         public ItemStack makeIcon() {
-            return UPItems.TAB_EGG_ICON.get().getDefaultInstance();
+            return UPItems.DUNK_EGG.get().getDefaultInstance();
         }
 
 

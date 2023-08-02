@@ -2,7 +2,7 @@
   "type": "unusualprehistory:incubating",
   "ingredients": [
     {
-      "item": "unusualprehistory:paracer_flask"
+      "item": "unusualprehistory:paracer_embryo"
     }
   ],
   "output": "unusualprehistory:paraceratherium"

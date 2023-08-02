@@ -29,7 +29,7 @@ public class IncubatorBlockEntityRenderer implements BlockEntityRenderer<Incubat
         ItemStack itemStack = blockEntity.getRenderStack();
 
         poseStack.pushPose();
-        poseStack.translate(0.5, 1 + Math.sin(age * 0.05) * 0.2, 0.5);
+        poseStack.translate(0.5, 0.5 + Math.sin(age * 0.05) * 0.2, 0.5);
         poseStack.scale(0.5F, 0.5F, 0.5F);
 
         poseStack.mulPose(Vector3f.YP.rotationDegrees(rotateAngleY * (45F / (float) Math.PI)));

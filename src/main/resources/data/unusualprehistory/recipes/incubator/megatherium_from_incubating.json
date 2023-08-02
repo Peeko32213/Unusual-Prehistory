@@ -2,7 +2,7 @@
   "type": "unusualprehistory:incubating",
   "ingredients": [
     {
-      "item": "unusualprehistory:megath_flask"
+      "item": "unusualprehistory:megath_embryo"
     }
   ],
   "output": "unusualprehistory:megatherium"

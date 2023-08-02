@@ -29,6 +29,11 @@ public class ItemModelGenerator extends ItemModelProvider {
         }
 
         singleTex(UPItems.SMILODON_EMBRYO);
+        singleTex(UPItems.MAMMOTH_EMBRYO);
+        singleTex(UPItems.MEGATH_EMBRYO);
+        singleTex(UPItems.GIGANTO_EMBRYO);
+        singleTex(UPItems.PARACER_EMBRYO);
+        singleTex(UPItems.PALAEO_EMBRYO);
         singleTex(UPItems.BARINA_WHISTLE);
         singleTex(UPItems.TAB_EGG_ICON);
     }

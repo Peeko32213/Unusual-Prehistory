@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:mammoth_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:mammoth_embryo"
+  }
+}

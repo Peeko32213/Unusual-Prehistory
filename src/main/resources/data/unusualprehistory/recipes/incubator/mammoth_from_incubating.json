@@ -2,7 +2,7 @@
   "type": "unusualprehistory:incubating",
   "ingredients": [
     {
-      "item": "unusualprehistory:mammoth_flask"
+      "item": "unusualprehistory:mammoth_embryo"
     }
   ],
   "output": "unusualprehistory:mammoth"

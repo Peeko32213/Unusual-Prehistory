@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:smilo_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:smilodon_embryo"
+  }
+}
