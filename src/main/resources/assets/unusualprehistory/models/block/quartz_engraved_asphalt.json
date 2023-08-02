@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "down": "unusualprehistory:block/quartz_engraved_asphalt",
+    "east": "unusualprehistory:block/asphalt",
+    "north": "unusualprehistory:block/asphalt",
+    "particle": "unusualprehistory:block/asphalt",
+    "south": "unusualprehistory:block/asphalt",
+    "up": "unusualprehistory:block/quartz_engraved_asphalt",
+    "west": "unusualprehistory:block/asphalt"
+  }
+}

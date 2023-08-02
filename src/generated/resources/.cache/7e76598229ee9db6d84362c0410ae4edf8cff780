@@ -1,7 +1,8 @@
-// 1.19.2	2023-06-14T16:31:30.6383464	Block States: unusualprehistory
+// 1.19.2	2023-08-02T10:22:03.6577354	Block States: unusualprehistory
 6ae8532dae1163e0f56d481e340f7640fd6d9415 assets/unusualprehistory/blockstates/ammon_eggs.json
 9d446eea624fc533845038f5452e7a6168bec1ce assets/unusualprehistory/blockstates/antarcto_eggs.json
 f31c3c3340c8385eb1cf460ca30b93824f40bd31 assets/unusualprehistory/blockstates/anuro_eggs.json
+ed2a7ecf263510e0e021444ad20b1d82682401f4 assets/unusualprehistory/blockstates/asphalt.json
 ccc5a456b963c5315d67add779e40d180efaeeb6 assets/unusualprehistory/blockstates/austro_eggs.json
 64a52c50d31741c6b3333981df9a06c5b38e24c4 assets/unusualprehistory/blockstates/beelze_eggs.json
 77b4d208bad787974f82ff3341358d1c0242f74d assets/unusualprehistory/blockstates/brachi_egg.json
@@ -64,6 +65,7 @@ a7558c4777189f5fb751cb82a69073596b496eb3 assets/unusualprehistory/blockstates/st
 91ca105fc624cf621b5132789a129cd679ab7310 assets/unusualprehistory/blockstates/stripped_petrified_wood_log.json
 56b582f028d0347e5d52fd0025c636e095f7310d assets/unusualprehistory/blockstates/trike_eggs.json
 5c8df67f6bbf7dd29c1734268941be806f3b13a4 assets/unusualprehistory/blockstates/ulugh_eggs.json
+166b15c0237af39159975f5ebaf25ed80a2f7412 assets/unusualprehistory/models/block/asphalt.json
 1bd952910d6f9e522584c84ab7574b5abd8683b7 assets/unusualprehistory/models/block/dryo_button.json
 575b05668085620894854e34b29c587f9b53a693 assets/unusualprehistory/models/block/dryo_button_pressed.json
 0fec6681337338b259991b506f66fed253ea25dd assets/unusualprehistory/models/block/dryo_door_bottom_left.json

@@ -255,6 +255,9 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.AMBER_BLOCK, "Amber Block");
         addBlock(UPBlocks.OPAL_BLOCK, "Opal Block");
         addBlock(UPBlocks.INCUBATOR, "Incubator");
+        addBlock(UPBlocks.ASPHALT, "Asphalt");
+        addBlock(UPBlocks.GOLD_ENGRAVED_ASPHALT, "Gold Engraved Asphalt");
+        addBlock(UPBlocks.QUARTZ_ENGRAVED_ASPHALT, "Quartz Engraved Asphalt");
 
         //PLANTS
         addBlock(UPBlocks.HORSETAIL, "Prehistoric Horsetail");
