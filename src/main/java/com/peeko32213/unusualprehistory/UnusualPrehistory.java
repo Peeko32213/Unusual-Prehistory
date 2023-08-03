@@ -10,6 +10,7 @@ import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.commands.Commands;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -131,11 +132,9 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.ARCHAEFRUCTUS.get().asItem(), 0.4f);
             addToComposter(UPBlocks.NELUMBITES.get().asItem(), 0.4f);
             addToComposter(UPBlocks.NELUMBITES.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.QUEREUXIA_PLANT.get().asItem(), 0.2f);
             addToComposter(UPBlocks.QUEREUXIA.get().asItem(), 0.2f);
             addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
             addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
-
             Sheets.addWoodType(GINKGO);
             Sheets.addWoodType(PETRIFIED);
 

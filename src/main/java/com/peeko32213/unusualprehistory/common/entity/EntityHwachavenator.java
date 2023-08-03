@@ -186,6 +186,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if(this.level.isClientSide) return InteractionResult.PASS;
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
         Item item = itemstack.getItem();
