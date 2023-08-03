@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.peeko32213.unusualprehistory.common.block.BlockIncubator.CRACKED;
 import static com.peeko32213.unusualprehistory.common.block.BlockIncubator.FACING;
 
 public class IncubatorBlockEntity extends BlockEntity implements ContainerListener {
@@ -102,6 +103,10 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
         if(hasRecipe(pBlockEntity)) {
             //spawnParticles(pLevel, pPos, pLevel.random, 0D,0.02);
             pBlockEntity.progress++;
+            if(pBlockEntity.progress >= (pBlockEntity.maxProgress/2)){
+                pBlockEntity.getBlockState().setValue(CRACKED, true);
+            }
+
             setChanged(pLevel, pPos, pState);
             if(pBlockEntity.progress > pBlockEntity.maxProgress) {
                 craftItem(pBlockEntity);
@@ -145,9 +150,10 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
                 pos = pos.relative(dir,1);
                 spawnEntity((ServerLevel) level, pos, toSpawn, match.get());
 
-                if(entity.getDestroyChance(level)){
-                    entity.level.destroyBlock(entity.worldPosition, true);
-                }
+               // if(entity.getDestroyChance(level)){
+                //
+                entity.level.destroyBlock(entity.worldPosition, true);
+                //}
             }
 
             entity.resetProgress();
