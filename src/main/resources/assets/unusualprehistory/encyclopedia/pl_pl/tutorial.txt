@@ -1,0 +1,12 @@
+Odradzanie starożytnych bestii to raczej prosty proces. Pierwszym krokiem jest znalezienie skamielin,
+które można znaleźć we wszytkich warstwach świata. Im głębiej są położone, tym są starsze. Wyróżniamy 3 typy skamielin:
+Paleozoiczne, Mesozozoiczne, oraz Roślinne.
+<NEWLINE>
+<NEWLINE>
+Żeby ze skamielin wyodrębnić DNA, trzeba stworzyć Analizer. Żeby użyć tej maszyny, musisz zastosować
+fiolki do przechowania DNA w trwałym miejscu. Po zastosowaniu fiolek analizer będzie przeszukiwał skamieliny w poszukiwaniu najdrobniejszych śladów DNA.
+<NEWLINE>
+<NEWLINE>
+Każde znalezione DNA należy włożyć do Kultywatora. Kultywator to niesamowita maszyna, która
+zamienia DNA w prawdziwe stworzenia. Aby to zrobić, potrzeba jedynie DNA i trochę Organicznego Szlamu (mieszankę organicznych materiałów
+która pozwala na proces odradzania).

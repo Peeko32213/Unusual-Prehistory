@@ -1,0 +1,31 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+To tajemnicze terapody z okresu późnej kredy. Te średniej wielkości dinozaury są
+bardzo łagodne, ponieważ przystosowane są do polowania na małe stworzenia.
+
+Ich najbardziej wyróżniającą cechą, są różnokolorowe grzebienie na ich głowach. Kolory grzebieni,
+określają jaki styl życia preferuje dinozaur.
+Niebieske osobniki są o wiele szybsze od innych, ponieważ przystosowane są do pogoni za ofiarami.
+Białe osobniki są bardziej masywne od innych, bardziej przystosowane do odganiania drapieżników czy rywali.
+Pomarańczowe osobniki mają znacznie bardziej potężny niż inne zgryz, który pozwala im łamać kości aby zdobyć więcej składników odżywczych.
+Żółte osobniki posiadają specialny jad, który unieuruchamia stawy ofiary, szczególnie w rękach, co uniemożliwia graczowi poruszanie kończynami górnymi, z wyjątkiem kopania i atakowania.
+Brązowe osobniki są za to bardziaj wytrzymałe niż inne, gdyż posiadają grube łuski które je chronią.
+.
+<NEWLINE>
+Stworzenia te są względnie łątwe do oswojenia i ujeżdżania, gdyż ich preferowany pokarm jest
+wskazany przez kolor ich grzebienia. Jak dotąd, wiemy że oswajają je następujące przysmaki:
+<NEWLINE>
+Biały grzebień: Surowy Austroraptor
+<NEWLINE>
+Niebieski grzebień: Surowa Scaumencia
+<NEWLINE>
+Żółty grzebień: Złota Scaumencia
+<NEWLINE>
+Pomarańczowy grzebień: Surowy Kotylorynch
+<NEWLINE>
+Brązowy grzebień: Surowy Stethacanthus
+<NEWLINE>
+Jest bardzo prawdopodobne, że istnieje więcej kolorów grzebieni i przysmaków oswajających te stworzenia,
+jednak jeszcze ich nie udokumentowano.

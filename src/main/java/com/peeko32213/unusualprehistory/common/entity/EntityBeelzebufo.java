@@ -7,7 +7,9 @@ import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -288,6 +290,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         InteractionResult type = super.mobInteract(player, hand);
         if (type != InteractionResult.SUCCESS && !isFood(itemstack)) {
             if (!player.isShiftKeyDown() && this.isSaddled()) {
+                player.displayClientMessage(Component.translatable("unusualprehistory.beelzebufo.meat_stick").withStyle(ChatFormatting.WHITE), true);
                 player.startRiding(this);
                 return InteractionResult.SUCCESS;
             }

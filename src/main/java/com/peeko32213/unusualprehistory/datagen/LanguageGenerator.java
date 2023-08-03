@@ -523,6 +523,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("block.minecraft.bamboo.fruit_loot_box", "Exotic Fruit Loot Box");
         add("unusualprehistory.attacher.animal_has_embryo", "%s already has an embryo");
         add("unusualprehistory.attacher.animal_not_correct", "%s cannot be inserted into %s");
+        add("unusualprehistory.beelzebufo.meat_stick", "Hold coty on a stick to control");
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");
