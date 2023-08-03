@@ -1,7 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.LeaderHurtTargetGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothFollowLeaderGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothMeleeAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -24,6 +26,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -70,7 +74,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 50.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.15D)
-                .add(Attributes.ATTACK_DAMAGE, 0.2D)
+                .add(Attributes.ATTACK_DAMAGE, 5D)
 
                 .add(Attributes.ARMOR, 5.0D)
                 .add(Attributes.ARMOR_TOUGHNESS, 3.0D)
@@ -81,6 +85,8 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(5, new MammothMeleeAttackGoal(this, 1.0D, true));
+        this.targetSelector.addGoal(1, new LeaderHurtTargetGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -367,6 +373,18 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
 
     public boolean inRangeOfLeader() {
         return this.distanceTo(this.leader) <= 60.0D;
+    }
+
+    public boolean hasLeader(){
+        return this.leader != null;
+    }
+
+    public LivingEntity getLeader() {
+        return leader;
+    }
+
+    public boolean wantsToAttack(LivingEntity pTarget, LivingEntity pOwner) {
+        return true;
     }
 
     public void pathToLeader() {

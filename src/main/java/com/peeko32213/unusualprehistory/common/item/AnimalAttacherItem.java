@@ -38,7 +38,7 @@ public class AnimalAttacherItem extends Item {
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
         if(attachTo == null || toAttach == null || !(pInteractionTarget instanceof Animal animal)) return InteractionResult.FAIL;
 
-        if(animal.getType().is(attachTo)){
+        if(animal.getType().is(attachTo) && !animal.isBaby()){
             if(pPlayer.getLevel().isClientSide()) return InteractionResult.PASS;
             LazyOptional<UPAnimalCapability> animalCap = animal.getCapability(UPCapabilities.ANIMAL_CAPABILITY);
             ServerLevel serverLevel = (ServerLevel) pPlayer.getLevel();

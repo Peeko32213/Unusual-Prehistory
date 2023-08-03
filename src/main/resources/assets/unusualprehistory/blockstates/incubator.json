@@ -1,26 +1,49 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "unusualprehistory:block/incubator",
+    "facing=east,cracked=false": {
+      "model": "unusualprehistory:block/incubator_uncracked",
       "y": 90
     },
-    "facing=north": {
-      "model": "unusualprehistory:block/incubator"
+    "facing=north,cracked=false": {
+      "model": "unusualprehistory:block/incubator_uncracked"
     },
-    "facing=south": {
-      "model": "unusualprehistory:block/incubator",
+    "facing=south,cracked=false": {
+      "model": "unusualprehistory:block/incubator_uncracked",
       "y": 180
     },
-    "facing=west": {
-      "model": "unusualprehistory:block/incubator",
+    "facing=west,cracked=false": {
+      "model": "unusualprehistory:block/incubator_uncracked",
       "y": 270
     },
-    "facing=up": {
-      "model": "unusualprehistory:block/incubator",
+    "facing=up,cracked=false": {
+      "model": "unusualprehistory:block/incubator_uncracked",
       "y": 270
     },
-    "facing=down": {
-      "model": "unusualprehistory:block/incubator",
+    "facing=down,cracked=false": {
+      "model": "unusualprehistory:block/incubator_uncracked",
+      "y": 270
+    },
+    "facing=east,cracked=true": {
+      "model": "unusualprehistory:block/incubator_cracked",
+      "y": 90
+    },
+    "facing=north,cracked=true": {
+      "model": "unusualprehistory:block/incubator_cracked"
+    },
+    "facing=south,cracked=true": {
+      "model": "unusualprehistory:block/incubator_cracked",
+      "y": 180
+    },
+    "facing=west,cracked=true": {
+      "model": "unusualprehistory:block/incubator_cracked",
+      "y": 270
+    },
+    "facing=up,cracked=true": {
+      "model": "unusualprehistory:block/incubator_cracked",
+      "y": 270
+    },
+    "facing=down,cracked=true": {
+      "model": "unusualprehistory:block/incubator_cracked",
       "y": 270
     }
   }
