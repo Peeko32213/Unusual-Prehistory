@@ -228,6 +228,10 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PALAEO_FLASK, "Palaeolophis DNA Flask");
         addItem(UPItems.MEGALA_FLASK, "Megalania DNA Flask");
         addItem(UPItems.TALAPANAS_FLASK, "Talapanas DNA Flask");
+        addItem(UPItems.ZULOAGAE_FLASK, "Zuloagae DNA Flask");
+        addItem(UPItems.RAIGUENRAYUN_FLASK, "Raiguenrayun DNA Flask");
+        addItem(UPItems.FOXXI_FLASK, "Foxii DNA Flask");
+        addItem(UPItems.DRYO_FLASK, "Dryophyllum DNA Flask");
 
         //CORALS
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");
@@ -275,6 +279,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.PETRIFIED_BUSH, "Petrified Bush");
         addBlock(UPBlocks.ZULOAGAE, "Zuloagae");
         addBlock(UPBlocks.ZULOAGAE_SAPLING, "Zuloagae Sapling");
+        addBlock(UPBlocks.RAIGUENRAYUN, "Raiguenrayun");
 
         //GINKGO
         addBlock(UPBlocks.GINKGO_PLANKS, "Prehistoric Ginkgo Planks");

@@ -244,7 +244,8 @@ public class BlockTagsGenerator extends BlockTagsProvider {
 
         tag(BlockTags.TALL_FLOWERS)
                 .add(UPBlocks.TALL_SARACENIA.get())
-                .add(UPBlocks.TALL_HORSETAIL.get());
+                .add(UPBlocks.TALL_HORSETAIL.get())
+                .add(UPBlocks.RAIGUENRAYUN.get());
 
 
         tag(BlockTags.SMALL_FLOWERS)

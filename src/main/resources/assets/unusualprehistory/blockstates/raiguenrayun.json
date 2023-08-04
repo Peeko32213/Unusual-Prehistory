@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=lower": { "model": "unusualprehistory:block/raiguenrayun_bottom" },
+    "half=upper":    { "model": "unusualprehistory:block/raiguenrayun_top" }
+  }
+}

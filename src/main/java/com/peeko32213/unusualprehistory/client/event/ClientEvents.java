@@ -127,6 +127,7 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.FOXII_SAPLING.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.INCUBATOR.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.ZULOAGAE_SAPLING.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.RAIGUENRAYUN.get(), RenderType.cutout());
 
         MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
         MenuScreens.register(UPMenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);

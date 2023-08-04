@@ -70,6 +70,22 @@
     {
       "weight": 15,
       "item": "unusualprehistory:archaefructus_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:zuloagae_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:raiguenrayun_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:foxxi_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:dryo_flask"
     }
   ]
 }

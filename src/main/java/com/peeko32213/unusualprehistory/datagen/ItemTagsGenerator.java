@@ -70,7 +70,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.BARIN_FLASK.get())
                 .add(UPItems.PALAEO_FLASK.get())
                 .add(UPItems.MEGALA_FLASK.get())
-                .add(UPItems.TALAPANAS_FLASK.get());
+                .add(UPItems.TALAPANAS_FLASK.get())
+                .add(UPItems.ZULOAGAE_FLASK.get())
+                .add(UPItems.RAIGUENRAYUN_FLASK.get())
+                .add(UPItems.FOXXI_FLASK.get())
+                .add(UPItems.DRYO_FLASK.get());
 
         tag(UPTags.FOSSILS)
                 .add(UPItems.AMBER_FOSSIL.get())
@@ -146,7 +150,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(ItemTags.TALL_FLOWERS)
                 .add(UPBlocks.TALL_SARACENIA.get().asItem())
-                .add(UPBlocks.TALL_HORSETAIL.get().asItem());
+                .add(UPBlocks.TALL_HORSETAIL.get().asItem())
+                .add(UPBlocks.RAIGUENRAYUN.get().asItem());
 
         tag(ItemTags.WOODEN_FENCES)
                 .add(UPBlocks.GINKGO_FENCE.get().asItem())
@@ -232,7 +237,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.QUEREUXIA_FLASK.get())
                 .add(UPItems.GINKGO_FLASK.get())
                 .add(UPItems.CLATHRODICTYON_FLASK.get())
-                .add(UPItems.ARCHAEFRUCTUS_FLASK.get());
+                .add(UPItems.ARCHAEFRUCTUS_FLASK.get())
+                .add(UPItems.ZULOAGAE_FLASK.get())
+                .add(UPItems.RAIGUENRAYUN_FLASK.get())
+                .add(UPItems.FOXXI_FLASK.get())
+                .add(UPItems.DRYO_FLASK.get());
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_FROZEN)
                 .add(Items.ICE)

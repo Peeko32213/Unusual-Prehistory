@@ -210,11 +210,21 @@ public class UPItems {
 
     public static final RegistryObject<Item> PALAEO_FLASK = ITEMS.register("palaeo_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-
     public static final RegistryObject<Item> MEGALA_FLASK = ITEMS.register("megala_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-
     public static final RegistryObject<Item> TALAPANAS_FLASK = ITEMS.register("talapanas_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> ZULOAGAE_FLASK = ITEMS.register("zuloagae_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> RAIGUENRAYUN_FLASK = ITEMS.register("raiguenrayun_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> FOXXI_FLASK = ITEMS.register("foxxi_flask",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> DRYO_FLASK = ITEMS.register("dryo_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
