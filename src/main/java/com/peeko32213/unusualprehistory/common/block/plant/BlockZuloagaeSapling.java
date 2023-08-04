@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block.plant;
 
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -60,8 +61,8 @@ public class BlockZuloagaeSapling extends Block implements BonemealableBlock {
         if (!pState.canSurvive(pLevel, pCurrentPos)) {
             return Blocks.AIR.defaultBlockState();
         } else {
-            if (pFacing == Direction.UP && pFacingState.is(Blocks.BAMBOO)) {
-                pLevel.setBlock(pCurrentPos, Blocks.BAMBOO.defaultBlockState(), 2);
+            if (pFacing == Direction.UP && pFacingState.is(UPBlocks.ZULOAGAE.get())) {
+                pLevel.setBlock(pCurrentPos, UPBlocks.ZULOAGAE.get().defaultBlockState(), 2);
             }
 
             return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
@@ -98,6 +99,6 @@ public class BlockZuloagaeSapling extends Block implements BonemealableBlock {
     }
 
     protected void growBamboo(Level pLevel, BlockPos pState) {
-        pLevel.setBlock(pState.above(), Blocks.BAMBOO.defaultBlockState().setValue(BambooBlock.LEAVES, BambooLeaves.SMALL), 3);
+        pLevel.setBlock(pState.above(), UPBlocks.ZULOAGAE.get().defaultBlockState().setValue(BambooBlock.LEAVES, BambooLeaves.SMALL), 3);
     }
 }

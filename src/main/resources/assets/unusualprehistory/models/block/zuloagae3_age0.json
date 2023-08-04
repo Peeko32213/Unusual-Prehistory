@@ -3,8 +3,8 @@
 	"ambientocclusion": false,
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "zuloagae_baby",
-		"particle": "zuloagae_baby"
+		"0": "unusualprehistory:block/zuloagae_baby",
+		"particle": "unusualprehistory:block/zuloagae_baby"
 	},
 	"elements": [
 		{
