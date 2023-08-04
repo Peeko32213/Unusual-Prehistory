@@ -92,6 +92,9 @@ public class LootTableBlocks extends BlockLoot {
         dropSelf(UPBlocks.VELOCI_FOSSIL.get());
         dropSelf(UPBlocks.ERYON_FOSSIL.get());
 
+        dropSelf(UPBlocks.ZULOAGAE.get());
+        dropSelf(UPBlocks.ZULOAGAE_SAPLING.get());
+
 
         //dropSelf(UPBlocks.AMBER_BLOCK.get());
         //add(UPBlocks.QUEREUXIA_PLANT.get(), BlockLoot::createShearsOnlyDrop);

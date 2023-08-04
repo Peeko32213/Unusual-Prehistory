@@ -3,9 +3,7 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.*;
 import com.peeko32213.unusualprehistory.common.block.decorations.BlockFossilDecoration;
-import com.peeko32213.unusualprehistory.common.block.plant.DoubleHeadBlock;
-import com.peeko32213.unusualprehistory.common.block.plant.DoubleHeadPlantBlock;
-import com.peeko32213.unusualprehistory.common.block.plant.WaterLilyUpdate;
+import com.peeko32213.unusualprehistory.common.block.plant.*;
 import com.peeko32213.unusualprehistory.common.world.feature.DryoTreeGrower;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiTreeGrower;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoTreeGrower;
@@ -678,7 +676,14 @@ public class UPBlocks {
     public static final RegistryObject<Block> POTTED_PETRIFIED_BUSH = registerBlockWithoutBlockItem("potted_petrified_bush",
             () -> new FlowerPotBlock(null, UPBlocks.PETRIFIED_BUSH, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
 
-    public static final RegistryObject<Block> TAR = registerBlockWithoutBlockItem("tar", () -> new BlockTar(BlockBehaviour.Properties.of(Material.POWDER_SNOW).strength(0.25F).sound(SoundType.CALCITE).dynamicShape().noOcclusion()));
+    public static final RegistryObject<Block> TAR = registerBlockWithoutBlockItem("tar",
+            () -> new BlockTar(BlockBehaviour.Properties.of(Material.POWDER_SNOW).strength(0.25F).sound(SoundType.CALCITE).dynamicShape().noOcclusion()));
+
+    public static final RegistryObject<Block> ZULOAGAE_SAPLING = registerBlock("zuloagae_sapling",
+            () -> new BlockZuloagaeSapling(BlockBehaviour.Properties.of(Material.BAMBOO_SAPLING).randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ)));
+
+    public static final RegistryObject<Block> ZULOAGAE = registerBlock("zuloagae",
+            () -> new BlockZuloagae(BlockBehaviour.Properties.of(Material.BAMBOO, MaterialColor.PLANT).randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ)));
 
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {

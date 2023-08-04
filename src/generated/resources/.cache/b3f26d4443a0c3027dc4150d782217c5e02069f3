@@ -1,4 +1,4 @@
-// 1.19.2	2023-06-14T16:23:42.2665735	Unusual Prehistory loot tables
+// 1.19.2	2023-08-04T10:57:48.9429244	Unusual Prehistory loot tables
 eb754f8e70cbe5a7ac0a4581df9df21a6749242c data/unusualprehistory/loot_tables/blocks/antarcto_fossil.json
 78993cf17f336b92ca9c554369fdb1f443af7b41 data/unusualprehistory/loot_tables/blocks/anuro_fossil.json
 89a1999db65a78f305316c67052247322d9b2b7e data/unusualprehistory/loot_tables/blocks/austro_fossil.json
@@ -58,3 +58,5 @@ c4c585e757fc0882a0c9c85bdab9d7c4aa6d1882 data/unusualprehistory/loot_tables/bloc
 e0b32914116c212a35edae4fdd65ad37e54768f0 data/unusualprehistory/loot_tables/blocks/stripped_petrified_wood_log.json
 c59840fc3d7ca15d6685186721b710e35aec32ed data/unusualprehistory/loot_tables/blocks/ulugh_fossil.json
 22e6fb1cf03a2fb6666b13781994e155940db756 data/unusualprehistory/loot_tables/blocks/veloci_fossil.json
+04240ad6f0bc0717870889630bfb6d674f15e76f data/unusualprehistory/loot_tables/blocks/zuloagae.json
+569f4875b44fa657f6583346a95ced089b8de665 data/unusualprehistory/loot_tables/blocks/zuloagae_sapling.json

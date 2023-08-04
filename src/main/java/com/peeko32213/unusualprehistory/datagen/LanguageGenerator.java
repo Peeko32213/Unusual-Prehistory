@@ -273,6 +273,8 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.QUEREUXIA, "Quereuxia");
         addBlock(UPBlocks.QUEREUXIA_TOP, "Quereuxia Clovers");
         addBlock(UPBlocks.PETRIFIED_BUSH, "Petrified Bush");
+        addBlock(UPBlocks.ZULOAGAE, "Zuloagae");
+        addBlock(UPBlocks.ZULOAGAE_SAPLING, "Zuloagae Sapling");
 
         //GINKGO
         addBlock(UPBlocks.GINKGO_PLANKS, "Prehistoric Ginkgo Planks");
