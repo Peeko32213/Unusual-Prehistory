@@ -1,13 +1,22 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomFollower;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -15,11 +24,17 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
@@ -32,15 +47,19 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
+import javax.annotation.Nonnull;
 import java.util.EnumSet;
 
-public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
+public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal implements CustomFollower {
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityBarinasuchus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityBarinasuchus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityBarinasuchus.class, EntityDataSerializers.INT);
-    private Ingredient temptationItems;
+    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityBarinasuchus.class, EntityDataSerializers.INT);
 
-    public EntityBarinasuchus(EntityType<? extends Animal> entityType, Level level) {
+    private Ingredient temptationItems;
+    public float sitProgress;
+
+    public EntityBarinasuchus(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -58,11 +77,103 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new EntityBarinasuchus.BarinMeleeAttackGoal(this,  1.0F, true));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34) {
+                    @Override
+                    public boolean canUse() {
+                        if (this.mob.isVehicle()) {
+                            return false;
+                        } else {
+                            if (!this.forceTrigger) {
+                                if (this.mob.getNoActionTime() >= 100) {
+                                    return false;
+                                }
+                                if (((EntityBarinasuchus) this.mob).isHungry()) {
+                                    if (this.mob.getRandom().nextInt(60) != 0) {
+                                        return false;
+                                    }
+                                } else {
+                                    if (this.mob.getRandom().nextInt(30) != 0) {
+                                        return false;
+                                    }
+                                }
+                            }
+
+                            Vec3 vec3d = this.getPosition();
+                            if (vec3d == null) {
+                                return false;
+                            } else {
+                                this.wantedX = vec3d.x;
+                                this.wantedY = vec3d.y;
+                                this.wantedZ = vec3d.z;
+                                this.forceTrigger = false;
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+        );        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::canAttack));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+    }
+
+    public void performAttack() {
+        if (this.level.isClientSide) {
+            return;
+        }
+        for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
+            if (!this.hasSwung() && this.isTame()) {
+                if (entity instanceof EntityBarinasuchus ulughbegsaurus) {
+                    if (ulughbegsaurus.isTame()) {
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+
+    public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        Item item = itemstack.getItem();
+
+        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
+        if (interactionresult != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
+            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+
+                this.heal((float)itemstack.getFoodProperties(this).getNutrition());
+                this.gameEvent(GameEvent.EAT, this);
+                return InteractionResult.SUCCESS;
+            } else {
+                this.setCommand((this.getCommand() + 1) % 3);
+
+                if (this.getCommand() == 3) {
+                    this.setCommand(0);
+                }
+                player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
+                boolean sit = this.getCommand() == 2;
+                if (sit) {
+                    this.setOrderedToSit(true);
+                    return InteractionResult.SUCCESS;
+                } else {
+                    this.setOrderedToSit(false);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+
+        }
+        return super.mobInteract(player, hand);
+    }
+
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UPTags.HWACHA_FOOD);
     }
 
     @Override
@@ -86,22 +197,22 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
 
     @Override
     protected int getKillHealAmount() {
-        return 0;
+        return 5;
     }
 
     @Override
     protected boolean canGetHungry() {
-        return false;
+        return true;
     }
 
     @Override
     protected boolean hasTargets() {
-        return false;
+        return true;
     }
 
     @Override
     protected boolean hasAvoidEntity() {
-        return false;
+        return true;
     }
 
     @Override
@@ -121,7 +232,7 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
 
     @Override
     protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
+        return UPTags.RAPTOR_TARGETS;
     }
 
     @Nullable
@@ -136,7 +247,61 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
+        this.entityData.define(COMMAND, 0);
 
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("TrikeCommand", this.getCommand());
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setCommand(compound.getInt("TrikeCommand"));
+    }
+
+    public void tick() {
+        super.tick();
+
+        if (this.isOrderedToSit() && sitProgress < 5F) {
+            sitProgress++;
+        }
+        if (!this.isOrderedToSit() && sitProgress > 0F) {
+            sitProgress--;
+        }
+        if (this.getCommand() == 2 && !this.isVehicle()) {
+            this.setOrderedToSit(true);
+        } else {
+            this.setOrderedToSit(false);
+        }
+    }
+
+    public boolean isAlliedTo(Entity entityIn) {
+        if (this.isTame()) {
+            LivingEntity livingentity = this.getOwner();
+            if (entityIn == livingentity) {
+                return true;
+            }
+            if (entityIn instanceof TamableAnimal) {
+                return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
+            }
+            if (livingentity != null) {
+                return livingentity.isAlliedTo(entityIn);
+            }
+        }
+
+        return super.isAlliedTo(entityIn);
+    }
+
+
+
+    public int getCommand() {
+        return this.entityData.get(COMMAND).intValue();
+    }
+
+    public void setCommand(int command) {
+        this.entityData.set(COMMAND, Integer.valueOf(command));
     }
 
     public int getAnimationState() {
@@ -167,6 +332,11 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
     public void setEntityState(int anim) {
 
         this.entityData.set(ENTITY_STATE, anim);
+    }
+
+    @Override
+    public boolean shouldFollow() {
+        return this.getCommand() == 1;
     }
 
     static class BarinMeleeAttackGoal extends Goal {
@@ -395,14 +565,19 @@ public class EntityBarinasuchus extends EntityBaseDinosaurAnimal {
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.barinasuchus.bite"));
                     break;
                 default:
-                     if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6){
+                     if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()){
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.move"));
                         event.getController().setAnimationSpeed(1.0D);
                         return PlayState.CONTINUE;
-                    } if (this.isSprinting()) {
+                    } if (this.isSprinting() && !this.isInSittingPose()) {
                     event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.sprint"));
                     event.getController().setAnimationSpeed(3.0F);
                     return PlayState.CONTINUE;
+                }
+                     if (this.isInSittingPose()) {
+                         event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.sitting"));
+                         event.getController().setAnimationSpeed(1.0F);
+                         return PlayState.CONTINUE;
                 }
                      event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.idle"));
                     event.getController().setAnimationSpeed(1.0F);

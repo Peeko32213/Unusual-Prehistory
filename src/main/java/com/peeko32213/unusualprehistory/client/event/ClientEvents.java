@@ -153,6 +153,7 @@ public final class ClientEvents {
     private static final ResourceLocation HWACHA_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/hwachavenator.geo.json");
     private static final ResourceLocation MEGATHERIUM_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium_saddled.png");
     private static final ResourceLocation MEGATHERIUM_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium.geo.json");
+    private static final ResourceLocation BARINASUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus.geo.json");
     private static final ResourceLocation BEELZE_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_saddle.png");
     private static final ResourceLocation BEELZE_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/beelzebufo.geo.json");
 
@@ -210,7 +211,12 @@ public final class ClientEvents {
                 UPRenderUtils.createDinosaurRenderer(e, new GigantopithicusModel())
                         .withItemHoldingLayer()
                         .build());
-        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new DinosaurRenderer<>(e, new BarinasuchusModel()));
+
+        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e ->
+                UPRenderUtils.createTamableDinosaurRenderer(e, new BarinasuchusModel())
+                        .withLayers(BARINASUCHUS_MODEL)
+                        .build());
+
         event.registerEntityRenderer(UPEntities.PARACERATHERIUM.get(), e -> new DinosaurRenderer<>(e, new ParaceratheriumModel()));
         event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new MegatheriumModel())

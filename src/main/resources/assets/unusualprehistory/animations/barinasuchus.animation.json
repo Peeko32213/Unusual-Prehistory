@@ -291,6 +291,69 @@
 					}
 				}
 			}
+		},
+		"animation.barinasuchus.sitting": {
+			"loop": true,
+			"bones": {
+				"Body": {
+					"position": {
+						"vector": [0, "-16 + Math.cos((query.anim_time - 0.0) * 90) * -0.3", 0]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": [-10, 0, 0]
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"vector": [7.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, "-2 + Math.cos((query.anim_time - 0.0) * 90) * -0.6", 0]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": [2.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -2, 0]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": [82.20421, 25.9331, 2.3416]
+					},
+					"position": {
+						"vector": [0, -20, 0]
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": [82.20421, -25.93312, -2.34162]
+					},
+					"position": {
+						"vector": [0, -20, 0]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": [-89.40346, -28.37906, 7.50439]
+					},
+					"position": {
+						"vector": [0, -18, -2]
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": [-89.40346, 28.3791, -7.5044]
+					},
+					"position": {
+						"vector": [0, -18, -2]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2
