@@ -85,6 +85,7 @@ public class UPTags {
 
     //Breakables Tags
     public static final TagKey<Block> CLUB_WHITELIST_BLOCKS = registerBlockTag("club_whitelist_blocks");
+    public static final TagKey<Block> ZULOAGAE_PLANTABLE_ON = registerBlockTag("zuloagae_plantable_on");
     public static final TagKey<Block> TRIKE_BREAKABLES = registerBlockTag("trike_breakables");
     public static final TagKey<Block> TAR_PIT_REPLACEABLE = registerBlockTag("tar_pit_replaceable");
     public static final TagKey<Block> PASSIVE_BRACHI_BREAKABLES = registerBlockTag("passive_brachi_breakables");

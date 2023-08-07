@@ -347,6 +347,11 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .addTags(BlockTags.TERRACOTTA)
                 .add(Blocks.SANDSTONE)
                 .add(Blocks.RED_SANDSTONE);
+
+        tag(UPTags.ZULOAGAE_PLANTABLE_ON)
+                .addTags(BlockTags.SAND)
+                .addTags(BlockTags.DIRT)
+                .add(UPBlocks.ZULOAGAE.get(),UPBlocks.ZULOAGAE_SAPLING.get(), Blocks.GRAVEL);
     }
 
 

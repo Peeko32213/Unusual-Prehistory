@@ -55,7 +55,9 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     public EntityMegatherium(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
+
     public static final int ATTACK_COOLDOWN = 30;
+
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 35.0D)
@@ -83,7 +85,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     private Ingredient getTemptationItems() {
-        if(temptationItems == null)
+        if (temptationItems == null)
             temptationItems = Ingredient.merge(Lists.newArrayList(
                     Ingredient.of(ItemTags.LEAVES)
             ));
@@ -137,75 +139,68 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     //TODO add positionRider to base class so we dont have to do all this again we can just use a method to fetch the offset
     public void positionRider(Entity passenger) {
-
-        float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
-        float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-        if(!this.isInSittingPose()) {
-            passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
-            return;
-        }
-        passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 1.0, this.getZ() - (double) (0.5F * yCos));
-
-
+            float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+            float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+            if (!this.isInSittingPose()) {
+                passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
+                return;
+            }
+            passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 1.0, this.getZ() - (double) (0.5F * yCos));
     }
+
     //TODO add getPassengersRidingOffset to base class so we dont have to do all this again
     public double getPassengersRidingOffset() {
         return 2.6D;
 
     }
+
     //TODO add mobinteract to base class so we dont have to do all this again
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (!isTame() && itemstack.is(ItemTags.LEAVES)) {
-            //int size = itemstack.getCount();
-            if (random.nextBoolean()) {
-                this.tame(player);
-            }
-            itemstack.shrink(1);
-            return InteractionResult.SUCCESS;
-        }
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        if (interactionresult != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
-            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                if (!player.getAbilities().instabuild) {
-                    itemstack.shrink(1);
+        if (hand == InteractionHand.MAIN_HAND && !this.level.isClientSide) {
+            ItemStack itemstack = player.getItemInHand(hand);
+            if (!isTame() && itemstack.is(ItemTags.LEAVES)) {
+                //int size = itemstack.getCount();
+                if (random.nextBoolean()) {
+                    this.tame(player);
                 }
+                itemstack.shrink(1);
+            }
+            if (isTame() && isOwnedBy(player)) {
+                if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                    if (!player.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
 
-                this.heal((float) itemstack.getFoodProperties(this).getNutrition());
-                this.gameEvent(GameEvent.EAT, this);
-                return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.setSaddled(true);
-                return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
-                this.setSaddled(false);
-                this.spawnAtLocation(Items.SADDLE);
-                return InteractionResult.SUCCESS;
-            }  else {
-                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
-                    player.startRiding(this);
-                    return InteractionResult.SUCCESS;
+                    this.heal((float) itemstack.getFoodProperties(this).getNutrition());
+                    this.gameEvent(GameEvent.EAT, this);
+                } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
+                    this.usePlayerItem(player, hand, itemstack);
+                    this.setSaddled(true);
+                } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+                    this.setSaddled(false);
+                    this.spawnAtLocation(Items.SADDLE);
                 } else {
-                    this.setCommand((this.getCommand() + 1) % 3);
-
-                    if (this.getCommand() == 3) {
-                        this.setCommand(0);
-                    }
-                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
-                    boolean sit = this.getCommand() == 2;
-                    if (sit) {
-                        this.setOrderedToSit(true);
-                        return InteractionResult.SUCCESS;
+                    if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && !this.isInSittingPose()) {
+                        player.startRiding(this);
                     } else {
-                        this.setOrderedToSit(false);
-                        return InteractionResult.SUCCESS;
+                        this.setCommand((this.getCommand() + 1) % 3);
+
+                        if (this.getCommand() == 3) {
+                            this.setCommand(0);
+                        }
+                        player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
+                        boolean sit = this.getCommand() == 2;
+                        if (sit) {
+                            this.setOrderedToSit(true);
+                        } else {
+                            this.setOrderedToSit(false);
+                        }
                     }
                 }
             }
         }
-        return super.mobInteract(player, hand);
+        return InteractionResult.SUCCESS;
     }
 
     public int getCommand() {
@@ -223,25 +218,25 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     @Override
     public void performAttack() {
-        if(!this.level.isClientSide){
+        if (!this.level.isClientSide) {
             ServerLevel serverLevel = (ServerLevel) this.level;
             float angle = (0.01745329251F * this.yBodyRot);
             double radius = this.getBbWidth();
             double extraX = radius * Mth.sin((float) (Math.PI + angle));
             double extraZ = radius * Mth.cos(angle);
             BlockPos targetPos = new BlockPos(this.getX() + extraX, this.getY(), this.getZ() + extraZ);
-            if(((Player)this.getControllingPassenger()).getItemInHand(InteractionHand.MAIN_HAND).is(Items.WOODEN_SHOVEL)){
-                targetPos = targetPos.offset(0,-1,0);
+            if (((Player) this.getControllingPassenger()).getItemInHand(InteractionHand.MAIN_HAND).is(Items.WOODEN_SHOVEL)) {
+                targetPos = targetPos.offset(0, -1, 0);
             }
-            if(((Player)this.getControllingPassenger()).getItemInHand(InteractionHand.MAIN_HAND).is(Items.IRON_SHOVEL)){
-                targetPos = targetPos.offset(0,1,0);
+            if (((Player) this.getControllingPassenger()).getItemInHand(InteractionHand.MAIN_HAND).is(Items.IRON_SHOVEL)) {
+                targetPos = targetPos.offset(0, 1, 0);
             }
 
-            for(int x = -2; x < 2; x++){
-                for(int z = -2; z < 2; z++){
-                    for(int y = 0; y < 3; y++) {
-                        if(serverLevel.getBlockState(targetPos.offset(x,y,z)).is(BlockTags.DIRT))
-                        serverLevel.destroyBlock(targetPos.offset(x, y, z), true);
+            for (int x = -2; x < 2; x++) {
+                for (int z = -2; z < 2; z++) {
+                    for (int y = 0; y < 5; y++) {
+                        if (serverLevel.getBlockState(targetPos.offset(x, y, z)).is(BlockTags.DIRT))
+                            serverLevel.destroyBlock(targetPos.offset(x, y, z), true);
                     }
                 }
             }
@@ -370,7 +365,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()) {
@@ -382,8 +377,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.sitting"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
-        }
-        else {
+        } else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.idle"));
             event.getController().setAnimationSpeed(1.0D);
         }

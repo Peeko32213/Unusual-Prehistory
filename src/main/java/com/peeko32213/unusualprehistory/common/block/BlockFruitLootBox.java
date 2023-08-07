@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterloggedBlock {
-    public static final IntegerProperty LOOT_BOX = IntegerProperty.create("loot_box", 1, 10);
+    public static final IntegerProperty LOOT_BOX = IntegerProperty.create("loot_box", 1, 5);
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16D, 16.0D);
 
     public static final Logger LOGGER = LogManager.getLogger();
@@ -61,11 +61,6 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         return pFacing == Direction.DOWN && !this.canSurvive(pState, pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
-
-
-    //public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-    //    return canSupportCenter(pLevel, pPos.below(), Direction.UP);
-    //}
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
