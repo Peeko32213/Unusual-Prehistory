@@ -679,7 +679,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> TAR = registerBlockWithoutBlockItem("tar",
             () -> new BlockTar(BlockBehaviour.Properties.of(Material.POWDER_SNOW).strength(0.25F).sound(SoundType.CALCITE).dynamicShape().noOcclusion()));
 
-    public static final RegistryObject<Block> ZULOAGAE_SAPLING = registerBlock("zuloagae_sapling",
+    public static final RegistryObject<Block> ZULOAGAE_SAPLING = registerBlockWithoutBlockItem("zuloagae_sapling",
             () -> new BlockZuloagaeSapling(BlockBehaviour.Properties.of(Material.BAMBOO_SAPLING).randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ)));
 
     public static final RegistryObject<Block> ZULOAGAE = registerBlock("zuloagae",

@@ -11,8 +11,9 @@ public class EffectHealthReduction extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        if(pLivingEntity.getHealth() > (pLivingEntity.getMaxHealth() - pAmplifier)){
-            pLivingEntity.setHealth(pLivingEntity.getMaxHealth() - pAmplifier);
+        float hpMin = 1 + pAmplifier;
+        if(pLivingEntity.getHealth() > (pLivingEntity.getMaxHealth() - hpMin)){
+            pLivingEntity.setHealth(pLivingEntity.getMaxHealth() - hpMin);
         }
         super.applyEffectTick(pLivingEntity, pAmplifier);
     }
@@ -21,18 +22,4 @@ public class EffectHealthReduction extends MobEffect {
     public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
         return pDuration > 0;
     }
-
-    //public static final UUID HEALTH_MOD = UUID.fromString("c4a0be3e-0242-11ee-be56-0242ac120002");
-//
-    //public static final AttributeModifier HEALTH_MODIFIER = new AttributeModifier(HEALTH_MOD, "Health Modifier", -10F, AttributeModifier.Operation.ADDITION);
-//
-    //public void removeAttributeModifiers(LivingEntity pLivingEntity, AttributeMap pAttributeMap, int pAmplifier) {
-    //    pLivingEntity.getAttribute(Attributes.MAX_HEALTH).removeModifier(HEALTH_MODIFIER);
-    //    super.removeAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
-    //}
-//
-    //public void addAttributeModifiers(LivingEntity pLivingEntity, AttributeMap pAttributeMap, int pAmplifier) {
-    //    pLivingEntity.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(new AttributeModifier(HEALTH_MOD, "Health Modifier", -1F*pAmplifier, AttributeModifier.Operation.ADDITION));
-    //    super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
-    //}
 }

@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.plant;
 
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -90,7 +91,7 @@ public class BlockZuloagae extends Block implements BonemealableBlock, net.minec
             return null;
         } else {
             BlockState blockstate = pContext.getLevel().getBlockState(pContext.getClickedPos().below());
-            if (blockstate.is(BlockTags.BAMBOO_PLANTABLE_ON)) {
+            if (blockstate.is(UPTags.ZULOAGAE_PLANTABLE_ON)) {
                 if (blockstate.is(UPBlocks.ZULOAGAE_SAPLING.get())) {
                     return this.defaultBlockState().setValue(AGE, Integer.valueOf(0));
                 } else if (blockstate.is(UPBlocks.ZULOAGAE.get())) {
@@ -137,7 +138,7 @@ public class BlockZuloagae extends Block implements BonemealableBlock, net.minec
     }
 
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        return pLevel.getBlockState(pPos.below()).is(BlockTags.BAMBOO_PLANTABLE_ON);
+        return pLevel.getBlockState(pPos.below()).is(UPTags.ZULOAGAE_PLANTABLE_ON);
     }
 
     /**
