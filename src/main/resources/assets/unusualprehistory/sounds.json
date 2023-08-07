@@ -1228,5 +1228,23 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.talapanas_idle"
+  },
+  "crocarina": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:crocarina_0",
+        "volume": 0.4
+      },
+      {
+        "name": "unusualprehistory:crocarina_1",
+        "volume": 0.4
+      },
+      {
+        "name": "unusualprehistory:crocarina_2",
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.crocarina"
   }
 }
