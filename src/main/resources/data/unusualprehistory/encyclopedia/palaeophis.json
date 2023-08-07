@@ -1,13 +1,13 @@
 {
-  "text": "barinasuchus.txt",
-  "title": "  Barinasuchus",
+  "text": "palaeophis.txt",
+  "title": "  Palaeophis",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:barinasuchus",
+      "entity": "unusualprehistory:palaeophis",
       "x": 90,
-      "y": 100,
+      "y": 90,
       "page" : 0,
-      "scale": 0.6,
+      "scale": 0.7,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
@@ -16,15 +16,15 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:barinasuchus",
+      "entity": "unusualprehistory:palaeophis",
       "x": 320,
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.3,
+      "entity_scale": 0.2,
       "offset_x": 9,
-      "offset_y": 8,
-      "hover_text": "Barinasuchus"
+      "offset_y": 7,
+      "hover_text": "Palaeophis"
     }
   ]
 }

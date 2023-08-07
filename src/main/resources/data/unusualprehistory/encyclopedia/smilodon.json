@@ -1,13 +1,13 @@
 {
   "text": "smilodon.txt",
-  "title": "Smilodon",
+  "title": "    Smilodon",
   "entity_renders": [
     {
       "entity": "unusualprehistory:smilodon",
       "x": 90,
       "y": 100,
       "page" : 0,
-      "scale": 0.7,
+      "scale": 1.1,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,

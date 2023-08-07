@@ -1,13 +1,13 @@
 {
   "text": "paraceratherium.txt",
-  "title": "Paraceratherium",
+  "title": " Paraceratherium",
   "entity_renders": [
     {
       "entity": "unusualprehistory:paraceratherium",
       "x": 90,
-      "y": 100,
+      "y": 105,
       "page" : 0,
-      "scale": 0.7,
+      "scale": 0.36,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,

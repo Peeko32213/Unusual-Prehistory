@@ -1,13 +1,13 @@
 {
   "text": "megatherium.txt",
-  "title": "Megatherium",
+  "title": "  Megatherium",
   "entity_renders": [
     {
       "entity": "unusualprehistory:megatherium",
       "x": 90,
       "y": 100,
       "page" : 0,
-      "scale": 0.7,
+      "scale": 0.5,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,

@@ -1,13 +1,13 @@
 {
   "text": "mammoth.txt",
-  "title": "Mammoth",
+  "title": "  Mammoth",
   "entity_renders": [
     {
       "entity": "unusualprehistory:mammoth",
       "x": 90,
       "y": 100,
       "page" : 0,
-      "scale": 0.7,
+      "scale": 0.5,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
