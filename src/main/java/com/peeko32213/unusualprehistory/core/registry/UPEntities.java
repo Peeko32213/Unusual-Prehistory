@@ -144,7 +144,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "gigantopithicus").toString()));
 
     public static final RegistryObject<EntityType<EntityBarinasuchus>> BARINASUCHUS = ENTITIES.register("barinasuchus",
-            () -> EntityType.Builder.of(EntityBarinasuchus::new, MobCategory.CREATURE).sized(4.0F, 2.0F)
+            () -> EntityType.Builder.of(EntityBarinasuchus::new, MobCategory.CREATURE).sized(3.1F, 2.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "barinasuchus").toString()));
 
     public static final RegistryObject<EntityType<EntityMegatherium>> MEGATHERIUM = ENTITIES.register("megatherium",

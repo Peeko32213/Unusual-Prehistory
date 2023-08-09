@@ -56,7 +56,7 @@ public class MusicalTameItem extends Item {
             Instrument instrument = optional.get().value();
             pPlayer.startUsingItem(pHand);
             play(pLevel, pPlayer, instrument);
-            //pPlayer.getCooldowns().addCooldown(this, instrument.useDuration());
+            pPlayer.getCooldowns().addCooldown(this, instrument.useDuration());
             return InteractionResultHolder.consume(itemstack);
         } else {
             return InteractionResultHolder.fail(itemstack);
@@ -102,7 +102,7 @@ public class MusicalTameItem extends Item {
 
             int i = this.getUseDuration(pStack) - pTimeCharged;
             UnusualPrehistory.LOGGER.info("timer " + i);
-            if (i < 190) {
+            if (i < 99) {
                 player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.too_early").withStyle(ChatFormatting.GRAY));
                 return;
             }
@@ -129,7 +129,7 @@ public class MusicalTameItem extends Item {
 
     public int getUseDuration(ItemStack pStack) {
         Optional<Holder<Instrument>> optional = this.getInstrument(pStack);
-        return optional.isPresent() ? optional.get().value().useDuration() : 0;
+        return optional.isPresent() ? optional.get().value().useDuration() : 100;
     }
 
     private Optional<Holder<Instrument>> getInstrument(ItemStack pStack) {

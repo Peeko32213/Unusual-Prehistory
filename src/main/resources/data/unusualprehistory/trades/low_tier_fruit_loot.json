@@ -1,6 +1,6 @@
 {
   "tier": 2,
-  "trade_item": "minecraft:bamboo",
+  "trade_item": "unusualprehistory:zuloagae",
   "items": [
     {
       "rolls": 2,
@@ -8,7 +8,7 @@
         {
           "item": "unusualprehistory:red_fruit_scraps",
           "weight": 10,
-          "amount": 1
+          "amount": 2
         }
       ]
     },
@@ -18,7 +18,22 @@
         {
           "item": "unusualprehistory:horsetail",
           "weight": 10,
-          "amount": 1
+          "amount": 3
+        },
+        {
+          "item": "minecraft:hanging_roots",
+          "weight": 10,
+          "amount": 2
+        },
+        {
+          "item": "minecraft:pumpkin_seeds",
+          "weight": 10,
+          "amount": 2
+        },
+        {
+          "item": "minecraft:melon_seeds",
+          "weight": 10,
+          "amount": 2
         }
       ]
     }

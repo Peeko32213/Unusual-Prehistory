@@ -1243,6 +1243,18 @@
       {
         "name": "unusualprehistory:crocarina_2",
         "volume": 0.4
+      },
+      {
+        "name": "unusualprehistory:crocarina_3",
+        "volume": 0.4
+      },
+      {
+        "name": "unusualprehistory:crocarina_4",
+        "volume": 0.4
+      },
+      {
+        "name": "unusualprehistory:crocarina_5",
+        "volume": 0.4
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.crocarina"

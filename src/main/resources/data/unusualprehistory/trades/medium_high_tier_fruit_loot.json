@@ -21,14 +21,29 @@
       "rolls": 1,
       "entries": [
         {
-          "item": "minecraft:iron_pickaxe",
-          "weight": 8,
+          "item": "unusualprehistory:handmade_club",
+          "weight": 5,
           "amount": 1
         },
         {
           "item": "minecraft:lapis_lazuli",
           "weight": 15,
           "amount": 6
+        },
+        {
+          "item": "minecraft:gold_nugget",
+          "weight": 15,
+          "amount": 8
+        },
+        {
+          "item": "unusualprehistory:carrot",
+          "weight": 5,
+          "amount": 2
+        },
+        {
+          "item": "unusualprehistory:handmade_club",
+          "weight": 5,
+          "amount": 1
         }
       ]
     }

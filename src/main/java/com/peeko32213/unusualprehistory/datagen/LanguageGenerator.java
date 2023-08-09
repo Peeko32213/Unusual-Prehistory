@@ -531,6 +531,11 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.attacher.animal_has_embryo", "%s already has an embryo");
         add("unusualprehistory.attacher.animal_not_correct", "%s cannot be inserted into %s");
         add("unusualprehistory.beelzebufo.meat_stick", "Hold coty on a stick to control");
+        add("unusualprehistory.musical_tame.tame", "Crocarina Tamed!");
+        add("unusualprehistory.musical_tame.too_early", "Too Early!");
+        add("unusualprehistory.musical_tame.fail_tame", "Failed Tame!");
+        add("unusualprehistory.musical_tame.no_entity_found", "Nobody Can Hear You!");
+
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");

@@ -54,6 +54,21 @@
           "item": "unusualprehistory:tall_sarracenia",
           "weight": 10,
           "amount": 1
+        },
+        {
+          "item": "unusualprehistory:handmade_battleaxe",
+          "weight": 5,
+          "amount": 1
+        },
+        {
+          "item": "minecraft:glistering_melon_slice",
+          "weight": 5,
+          "amount": 2
+        },
+        {
+          "item": "minecraft:carrot",
+          "weight": 8,
+          "amount": 2
         }
       ]
     }
