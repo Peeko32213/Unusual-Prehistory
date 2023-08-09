@@ -129,6 +129,7 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.ZULOAGAE_SAPLING.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.ZULOAGAE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.RAIGUENRAYUN.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.SPLATTERED_TAR.get(), RenderType.cutout());
 
         MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
         MenuScreens.register(UPMenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);

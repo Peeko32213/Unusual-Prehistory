@@ -688,6 +688,10 @@ public class UPBlocks {
     public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun",
             () -> new BlockUPTallPlant(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
 
+    public static final RegistryObject<Block> SPLATTERED_TAR = registerBlock("glow_lichen",
+            () -> new BlockSplatteredTar(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_BLACK).noCollission().strength(0.2F).sound(SoundType.HONEY_BLOCK)));
+
+
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
         UPItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

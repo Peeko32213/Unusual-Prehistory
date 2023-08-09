@@ -166,6 +166,9 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.MEGALANIA_EGG, "Megalania Spawn Egg");
         addItem(UPItems.PALAEOPHIS_EGG, "Palaophis Spawn Egg");
 
+        //TAR
+        addBlock(UPBlocks.TAR, "Tar Block");
+        addBlock(UPBlocks.SPLATTERED_TAR, "Splattered Tar");
 
         //ONE PIECE ARMORS
         addItem(UPItems.MAJUNGA_HELMET, "Majungasaurus Helmet");

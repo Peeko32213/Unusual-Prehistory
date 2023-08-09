@@ -1,7 +1,7 @@
 {
   "parent": "block/block",
   "textures": {
-    "texture": "block/coal_block",
+    "texture": "unusualprehistory:block/tar",
     "particle": "#texture"
   },
   "elements": [
