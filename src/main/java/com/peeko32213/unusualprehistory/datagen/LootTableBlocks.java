@@ -93,7 +93,7 @@ public class LootTableBlocks extends BlockLoot {
         dropSelf(UPBlocks.ERYON_FOSSIL.get());
 
         dropSelf(UPBlocks.ZULOAGAE.get());
-        dropSelf(UPBlocks.ZULOAGAE_SAPLING.get());
+        dropOther(UPBlocks.ZULOAGAE_SAPLING.get(), UPBlocks.ZULOAGAE.get());
 
 
         //dropSelf(UPBlocks.AMBER_BLOCK.get());

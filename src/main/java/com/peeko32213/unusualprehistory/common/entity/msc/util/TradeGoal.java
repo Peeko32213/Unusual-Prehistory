@@ -80,6 +80,7 @@ public class TradeGoal extends Goal {
             CompoundTag lootFruitTag = lootFruit.getOrCreateTag();
             int color = lootFruits.get(0).getColor().getValue();
             int modelData = lootFruits.get(0).getCustomModelData();
+            lootFruitTag.putString("translationKey", lootFruits.get(0).getTranslationKey());
             lootFruitTag.putInt("color", color);
             lootFruitTag.put("tradeItem", item.getDefaultInstance().serializeNBT());
             lootFruitTag.putInt("CustomModelData", modelData);

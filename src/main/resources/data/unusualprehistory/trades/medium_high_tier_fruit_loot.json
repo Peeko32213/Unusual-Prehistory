@@ -1,6 +1,7 @@
 {
   "tier": 4,
   "trade_item": "unusualprehistory:white_fruit",
+  "translation_key": "unusualprehistory.fruit_loot_box.redolent",
   "items": [
     {
       "rolls": 2,

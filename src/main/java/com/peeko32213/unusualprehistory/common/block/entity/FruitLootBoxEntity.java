@@ -29,7 +29,7 @@ public class FruitLootBoxEntity extends BlockEntity {
     private int color;
 
     private  List<LootFruitCodec> lootFruits;
-
+    private String translationKey;
     private int CustomModelData;
 
     public int getColor() {
@@ -62,6 +62,14 @@ public class FruitLootBoxEntity extends BlockEntity {
         CustomModelData = customModelData;
     }
 
+    public String getTranslationKey() {
+        return translationKey;
+    }
+
+    public void setTranslationKey(String translationKey) {
+        this.translationKey = translationKey;
+    }
+
     public List<LootFruitCodec> getLootFruits() {
         return lootFruits;
     }
@@ -72,6 +80,7 @@ public class FruitLootBoxEntity extends BlockEntity {
         pTag.putInt("color", getColor());
         pTag.put("tradeItem", getTradeItem().getDefaultInstance().serializeNBT());
         pTag.putInt("modelData", getCustomModelData());
+        pTag.putString("translationKey", getTranslationKey());
     }
 
 
@@ -84,7 +93,7 @@ public class FruitLootBoxEntity extends BlockEntity {
         if(getTradeItem() != null){
            setLootFruits(LootFruitJsonManager.getLoot(getTradeItem(), getLootFruits()));
         }
-
+        this.setTranslationKey(pTag.getString("translationKey"));
         this.setCustomModelData(pTag.getInt("modelData"));
     }
 
@@ -97,7 +106,7 @@ public class FruitLootBoxEntity extends BlockEntity {
         if(getTradeItem() != null){
             setLootFruits(LootFruitJsonManager.getLoot(getTradeItem(), getLootFruits()));
         }
-
+        this.setTranslationKey(tag.getString("translationKey"));
         this.setCustomModelData(tag.getInt("modelData"));
     }
 
@@ -107,7 +116,7 @@ public class FruitLootBoxEntity extends BlockEntity {
         compoundTag.putInt("color", this.getColor());
         compoundTag.put("tradeItem", getTradeItem().getDefaultInstance().serializeNBT());
         compoundTag.putInt("modelData", getCustomModelData());
-
+        compoundTag.putString("translationKey", getTranslationKey());
         return compoundTag;
     }
 

@@ -1,6 +1,7 @@
 {
   "tier": 5,
   "trade_item": "unusualprehistory:yellow_fruit",
+  "translation_key": "unusualprehistory.fruit_loot_box.salubrious",
   "items": [
     {
       "rolls": 2,
