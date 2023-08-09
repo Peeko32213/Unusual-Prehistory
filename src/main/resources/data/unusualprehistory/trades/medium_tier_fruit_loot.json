@@ -1,6 +1,7 @@
 {
   "tier": 3,
   "trade_item": "unusualprehistory:red_fruit",
+  "translation_key": "unusualprehistory.fruit_loot_box.luxurious",
   "items": [
     {
       "rolls": 2,

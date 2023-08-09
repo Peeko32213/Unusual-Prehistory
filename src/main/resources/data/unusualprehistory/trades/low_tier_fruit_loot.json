@@ -1,6 +1,7 @@
 {
   "tier": 2,
   "trade_item": "unusualprehistory:zuloagae",
+  "translation_key": "unusualprehistory.fruit_loot_box.exotic",
   "items": [
     {
       "rolls": 2,

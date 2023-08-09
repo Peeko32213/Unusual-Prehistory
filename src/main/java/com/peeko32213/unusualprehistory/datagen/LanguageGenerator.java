@@ -527,16 +527,17 @@ public class LanguageGenerator extends LanguageProvider {
 
         add("unusualprehistory.megalania_damage", " %s Megalania Damage");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");
-        add("item.unusualprehistory.yellow_fruit.fruit_loot_box", "Salubrious Fruit Loot Box");
-        add("item.unusualprehistory.red_fruit.fruit_loot_box", "Luxurious Fruit Loot Box");
-        add("item.unusualprehistory.white_fruit.fruit_loot_box", "Redolent Fruit Loot Box");
-        add("block.minecraft.bamboo.fruit_loot_box", "Exotic Fruit Loot Box");
+        add("unusualprehistory.fruit_loot_box.salubrious", "Salubrious Fruit Loot Box");
+        add("unusualprehistory.fruit_loot_box.luxurious", "Luxurious Fruit Loot Box");
+        add("unusualprehistory.fruit_loot_box.redolent", "Redolent Fruit Loot Box");
+        add("unusualprehistory.fruit_loot_box.exotic", "Exotic Fruit Loot Box");
+        add("unusualprehistory.fruit_loot_box.default", "Default Fruit Loot Box");
         add("unusualprehistory.attacher.animal_has_embryo", "%s already has an embryo");
         add("unusualprehistory.attacher.animal_not_correct", "%s cannot be inserted into %s");
         add("unusualprehistory.beelzebufo.meat_stick", "Hold coty on a stick to control");
-        add("unusualprehistory.musical_tame.tame", "Crocarina Tamed!");
-        add("unusualprehistory.musical_tame.too_early", "Too Early!");
-        add("unusualprehistory.musical_tame.fail_tame", "Failed Tame!");
+        add("unusualprehistory.musical_tame.tame", "%s is impressed by your musical prowess, it wants to be with you");
+        add("unusualprehistory.musical_tame.too_early", "You haven't played enough of the song yet");
+        add("unusualprehistory.musical_tame.fail_tame", "%s was not impressed and doesn't want to be with you");
         add("unusualprehistory.musical_tame.no_entity_found", "Nobody Can Hear You!");
 
         //EFFECTS

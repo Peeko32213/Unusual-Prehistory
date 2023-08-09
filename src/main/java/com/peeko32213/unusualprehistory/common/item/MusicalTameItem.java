@@ -40,10 +40,10 @@ import java.util.function.Supplier;
 
 public class MusicalTameItem extends Item {
 
-    private Supplier<? extends EntityType> toTame;
+    private Supplier<? extends EntityType<?>> toTame;
     private TagKey<Instrument> instrument;
 
-    public MusicalTameItem(Properties pProperties, Supplier<? extends EntityType> toTame, TagKey<Instrument> instrument) {
+    public MusicalTameItem(Properties pProperties, Supplier<? extends  EntityType<?>> toTame, TagKey<Instrument> instrument) {
         super(pProperties);
         this.toTame = toTame;
         this.instrument = instrument;
@@ -101,7 +101,6 @@ public class MusicalTameItem extends Item {
         if (pLivingEntity instanceof Player player) {
 
             int i = this.getUseDuration(pStack) - pTimeCharged;
-            UnusualPrehistory.LOGGER.info("timer " + i);
             if (i < 99) {
                 player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.too_early").withStyle(ChatFormatting.GRAY));
                 return;
@@ -111,12 +110,12 @@ public class MusicalTameItem extends Item {
             toTameList.sort(Comparator.comparingDouble(player::distanceToSqr));
             if (!toTameList.isEmpty()) {
                 toTameList.get(0).tame(player);
-
+                MutableComponent mutableComponent = Component.translatable(toTame.getType().getDescriptionId()).withStyle(ChatFormatting.GOLD);
 
                 if(toTameList.get(0).isTame()) {
-                    player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.tame").withStyle(ChatFormatting.GREEN));
+                    player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.tame", mutableComponent).withStyle(ChatFormatting.GREEN));
                 } else {
-                    player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.fail_tame").withStyle(ChatFormatting.RED));
+                    player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.fail_tame", mutableComponent).withStyle(ChatFormatting.RED));
                 }
             } else {
                 player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.no_entity_found").withStyle(ChatFormatting.GRAY));

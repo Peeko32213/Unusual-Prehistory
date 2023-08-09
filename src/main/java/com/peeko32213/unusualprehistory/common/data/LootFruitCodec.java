@@ -13,6 +13,7 @@ public class LootFruitCodec {
     public static Codec<LootFruitCodec> CODEC = RecordCodecBuilder.create(inst -> inst
             .group(
                     Codec.INT.fieldOf("tier").forGetter(t -> t.tier),
+                    Codec.STRING.fieldOf("translation_key").forGetter(t -> t.translationKey),
                     Registry.ITEM.byNameCodec().fieldOf("trade_item").forGetter(t -> t.tradeItem),
                     RollableItemCodec.CODEC.listOf().fieldOf("items").forGetter(i -> i.items),
                     TextColor.CODEC.fieldOf("color").forGetter(c -> c.color),
@@ -21,12 +22,14 @@ public class LootFruitCodec {
     );
 
     private final int tier;
+    private final String translationKey;
     private final List<RollableItemCodec> items;
     private final Item tradeItem;
     private final TextColor color;
     private final int customModelData;
-    public LootFruitCodec(int tier, Item tradeItem, List<RollableItemCodec> items, TextColor color, int customModelData) {
+    public LootFruitCodec(int tier, String translationKey, Item tradeItem, List<RollableItemCodec> items, TextColor color, int customModelData) {
         this.tier = tier;
+        this.translationKey = translationKey;
         this.items = items;
         this.color = color;
         this.tradeItem = tradeItem;
@@ -48,6 +51,10 @@ public class LootFruitCodec {
 
     public TextColor getColor() {
         return color;
+    }
+
+    public String getTranslationKey() {
+        return translationKey;
     }
 
     public int getCustomModelData() {
