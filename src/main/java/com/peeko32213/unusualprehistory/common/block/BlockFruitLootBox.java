@@ -42,6 +42,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final IntegerProperty LOOT_BOX = IntegerProperty.create("loot_box", 1, 5);
@@ -52,14 +53,6 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
         super(pProperties);
     }
 
-
-    @javax.annotation.Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        BlockState blockstate = pContext.getLevel().getBlockState(pContext.getClickedPos());
-        FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
-        boolean flag = fluidstate.getType().is( FluidTags.WATER);
-        return super.getStateForPlacement(pContext);
-    }
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         return pFacing == Direction.DOWN && !this.canSurvive(pState, pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
@@ -105,6 +98,7 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
 
     @Override
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
+        if(pLevel.isClientSide) return;
         FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity)pLevel.getBlockEntity(pPos));
         CompoundTag tag = pStack.getTag();
         if(tag != null) {
@@ -118,6 +112,7 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
             fruitLootBox.setCustomModelData(modelData);
             fruitLootBox.setTranslationKey(tag.getString("translationKey"));
             pLevel.setBlockAndUpdate(pPos, pState.setValue(LOOT_BOX, modelData));
+            pLevel.sendBlockUpdated(pPos, pState, pState,Block.UPDATE_IMMEDIATE);
             super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
         }
     }
@@ -133,22 +128,23 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity) pLevel.getBlockEntity(pPos));
-        ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        try {
-            int size = fruitLootBox.getLootFruits().size();
-            if (!fruitLootBox.getLootFruits().isEmpty() && !pLevel.isClientSide) {
-                int randomNr = pLevel.random.nextInt(size);
-                fruitLootBox.getLootFruits().get(randomNr).getItems().forEach(rollableItemCodec -> {
-                    rollableItemCodec.dropItem(pLevel, pPos, rollableItemCodec);
-                });
+        if(!pLevel.isClientSide) {
+            FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity) pLevel.getBlockEntity(pPos));
+            ItemStack itemStack = pPlayer.getItemInHand(pHand);
+            try {
+                int size = fruitLootBox.getLootFruits().size();
+                if (!fruitLootBox.getLootFruits().isEmpty() && !pLevel.isClientSide) {
+                    int randomNr = pLevel.random.nextInt(size);
+                    fruitLootBox.getLootFruits().get(randomNr).getItems().forEach(rollableItemCodec -> {
+                        rollableItemCodec.dropItem(pLevel, pPos, rollableItemCodec);
+                    });
+                }
+                pLevel.destroyBlock(pPos, false, pPlayer);
+                return InteractionResult.SUCCESS;
+            } catch (Exception e) {
+                LOGGER.info("failed due to ", e);
             }
-            pLevel.destroyBlock(pPos, false, pPlayer);
-            return InteractionResult.SUCCESS;
-        } catch (Exception e){
-            LOGGER.info("failed due to ", e);
         }
-
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
@@ -159,7 +155,8 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
             ItemStack istack = new ItemStack(this);
-            if(!LootFruitJsonManager.getTrades().isEmpty()) {
+            boolean isEmpty = LootFruitJsonManager.getTierTrades().isEmpty();
+            if(!isEmpty) {
                 int lowestKey = Collections.min(LootFruitJsonManager.getTierTrades().keySet());
                 List<LootFruitCodec> lootFruitItem= LootFruitJsonManager.getTierTrades().getOrDefault(lowestKey, LOOT_FRUIT_LIST);
                 CompoundTag lootFruitTag = istack.getOrCreateTag();

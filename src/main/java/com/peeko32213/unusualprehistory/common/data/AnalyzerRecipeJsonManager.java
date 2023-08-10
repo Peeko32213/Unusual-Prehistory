@@ -58,6 +58,10 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
         return recipeList;
     }
 
+    public static void setRecipeList(Map<Item, List<ItemWeightedPairCodec>> recipeList) {
+        AnalyzerRecipeJsonManager.recipeList = recipeList;
+    }
+
     /**
      * Retrieves the list of item-weighted pairs for the specified item.
      *

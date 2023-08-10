@@ -8,6 +8,8 @@ import com.peeko32213.unusualprehistory.client.screen.util.LinkData;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EncyclopediaCodec {
 
@@ -83,4 +85,39 @@ public class EncyclopediaCodec {
     public List<ItemRenderData> getItemRenders() {
         return itemRenders;
     }
+
+    public static <T> Map<T, EncyclopediaCodec> convertToMap(Map<T, EncyclopediaCodec> map) {
+        return map.entrySet().stream().collect(Collectors.toMap(
+                Map.Entry::getKey,
+                entry -> new EncyclopediaCodec(
+                        entry.getValue().getTitle(),
+                        entry.getValue().getTextLocation(),
+                        entry.getValue().getPictures(),
+                        entry.getValue().getRecipes(),
+                        entry.getValue().getEntityRenders(),
+                        entry.getValue().getEntityButtons(),
+                        entry.getValue().getEntityIndex(),
+                        entry.getValue().getLinkButtons(),
+                        entry.getValue().getItemRenders()
+                )
+        ));
+    }
+
+    public static <T> Map<T, EncyclopediaCodec> convertFromMap(Map<T, EncyclopediaCodec> map) {
+        return map.entrySet().stream().collect(Collectors.toMap(
+                Map.Entry::getKey,
+                entry -> new EncyclopediaCodec(
+                        entry.getValue().getTitle(),
+                        entry.getValue().getTextLocation(),
+                        entry.getValue().getPictures(),
+                        entry.getValue().getRecipes(),
+                        entry.getValue().getEntityRenders(),
+                        entry.getValue().getEntityButtons(),
+                        entry.getValue().getEntityIndex(),
+                        entry.getValue().getLinkButtons(),
+                        entry.getValue().getItemRenders()
+                )
+        ));
+    }
+
 }
