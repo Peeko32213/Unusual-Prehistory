@@ -102,8 +102,30 @@ public class UPMessages {
                 .consumerMainThread(UPMessageHurtMultipart.Handler::handle)
                 .add();
 
+        net.registerMessage(id(), LootFruitTierPacketS2C.class,
+                LootFruitTierPacketS2C::encode,
+                LootFruitTierPacketS2C::decode,
+                LootFruitTierPacketS2C::onPacketReceived);
 
+        net.registerMessage(id(), LootFruitPacketS2C.class,
+                LootFruitPacketS2C::encode,
+                LootFruitPacketS2C::decode,
+                LootFruitPacketS2C::onPacketReceived);
 
+        net.registerMessage(id(), AnalyzerRecipeS2C.class,
+                AnalyzerRecipeS2C::encode,
+                AnalyzerRecipeS2C::decode,
+                AnalyzerRecipeS2C::onPacketReceived);
+
+        net.registerMessage(id(), EncyclopediaS2C.class,
+                EncyclopediaS2C::encode,
+                EncyclopediaS2C::decode,
+                EncyclopediaS2C::onPacketReceived);
+
+        net.registerMessage(id(), EncyclopediaRootPageS2C.class,
+                EncyclopediaRootPageS2C::encode,
+                EncyclopediaRootPageS2C::decode,
+                EncyclopediaRootPageS2C::onPacketReceived);
     }
 
     public static <MSG> void sendToServer(MSG message) {

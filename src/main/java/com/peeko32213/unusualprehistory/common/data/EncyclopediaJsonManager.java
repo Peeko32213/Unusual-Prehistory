@@ -35,8 +35,16 @@ public class EncyclopediaJsonManager extends SimpleJsonResourceReloadListener {
         return encyclopediaEntries;
     }
 
+    public static void setEncyclopediaEntries(Map<ResourceLocation, EncyclopediaCodec> encyclopediaEntries) {
+        EncyclopediaJsonManager.encyclopediaEntries = encyclopediaEntries;
+    }
+
     public static EncyclopediaCodec getRootPage() {
         return rootPage;
+    }
+
+    public static void setRootPage(EncyclopediaCodec rootPage) {
+        EncyclopediaJsonManager.rootPage = rootPage;
     }
 
     public EncyclopediaJsonManager(String folderName, Gson gson) {

@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.item;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -13,22 +12,18 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import javax.annotation.Nullable;
@@ -43,7 +38,7 @@ public class MusicalTameItem extends Item {
     private Supplier<? extends EntityType<?>> toTame;
     private TagKey<Instrument> instrument;
 
-    public MusicalTameItem(Properties pProperties, Supplier<? extends  EntityType<?>> toTame, TagKey<Instrument> instrument) {
+    public MusicalTameItem(Properties pProperties, Supplier<? extends EntityType<?>> toTame, TagKey<Instrument> instrument) {
         super(pProperties);
         this.toTame = toTame;
         this.instrument = instrument;
@@ -106,13 +101,13 @@ public class MusicalTameItem extends Item {
                 return;
             }
             LivingEntity toTame = (LivingEntity) this.toTame.get().create(pLevel);
-                List<TamableAnimal> toTameList = pLevel.getEntitiesOfClass(TamableAnimal.class, player.getBoundingBox().inflate(10), EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(entity -> entity.getType() == toTame.getType() && !((TamableAnimal)entity).isTame()));
+            List<TamableAnimal> toTameList = pLevel.getEntitiesOfClass(TamableAnimal.class, player.getBoundingBox().inflate(10), EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(entity -> entity.getType() == toTame.getType() && !((TamableAnimal) entity).isTame()));
             toTameList.sort(Comparator.comparingDouble(player::distanceToSqr));
             if (!toTameList.isEmpty()) {
                 toTameList.get(0).tame(player);
                 MutableComponent mutableComponent = Component.translatable(toTame.getType().getDescriptionId()).withStyle(ChatFormatting.GOLD);
 
-                if(toTameList.get(0).isTame()) {
+                if (toTameList.get(0).isTame()) {
                     player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.tame", mutableComponent).withStyle(ChatFormatting.GREEN));
                 } else {
                     player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.fail_tame", mutableComponent).withStyle(ChatFormatting.RED));

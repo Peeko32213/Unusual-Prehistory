@@ -7,6 +7,8 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.Item;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LootFruitCodec {
 
@@ -61,7 +63,37 @@ public class LootFruitCodec {
         return customModelData;
     }
 
+    public static <T> Map<T, List<LootFruitCodec>> convertToMap(Map<T, List<LootFruitCodec>> map) {
+        return map.entrySet().stream().collect(Collectors.toMap(
+                Map.Entry::getKey,
+                entry -> entry.getValue().stream()
+                        .map(lootFruitCodec -> new LootFruitCodec(
+                                lootFruitCodec.getTier(),
+                                lootFruitCodec.getTranslationKey(),
+                                lootFruitCodec.getTradeItem(),
+                                lootFruitCodec.getItems(),
+                                lootFruitCodec.getColor(),
+                                lootFruitCodec.getCustomModelData()
+                        ))
+                        .collect(Collectors.toList())
+        ));
+    }
 
+    public static <T> Map<T, List<LootFruitCodec>> convertFromMap(Map<T, List<LootFruitCodec>> map) {
+        return map.entrySet().stream().collect(Collectors.toMap(
+                Map.Entry::getKey,
+                entry -> entry.getValue().stream()
+                        .map(lootFruit -> new LootFruitCodec(
+                                lootFruit.getTier(),
+                                lootFruit.getTranslationKey(),
+                                lootFruit.getTradeItem(),
+                                lootFruit.getItems(),
+                                lootFruit.getColor(),
+                                lootFruit.getCustomModelData()
+                        ))
+                        .collect(Collectors.toList())
+        ));
+    }
 }
 
 

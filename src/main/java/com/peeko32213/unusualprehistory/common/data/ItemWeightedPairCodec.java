@@ -5,6 +5,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 /**
  * Represents a pair consisting of an item and its associated weight.
  */
@@ -59,6 +63,30 @@ public class ItemWeightedPairCodec {
         return amount;
     }
 
+    public static <T> Map<T, List<ItemWeightedPairCodec>> convertToMap(Map<T, List<ItemWeightedPairCodec>> map) {
+        return map.entrySet().stream().collect(Collectors.toMap(
+                Map.Entry::getKey,
+                entry -> entry.getValue().stream()
+                        .map(itemWeightedPairCodec -> new ItemWeightedPairCodec(
+                                itemWeightedPairCodec.getItem(),
+                                itemWeightedPairCodec.getWeight(),
+                                itemWeightedPairCodec.getAmount()
+                        ))
+                        .collect(Collectors.toList())
+        ));
+    }
 
+    public static <T> Map<T, List<ItemWeightedPairCodec>> convertFromMap(Map<T, List<ItemWeightedPairCodec>> map) {
+        return map.entrySet().stream().collect(Collectors.toMap(
+                Map.Entry::getKey,
+                entry -> entry.getValue().stream()
+                        .map(itemWeightedPair -> new ItemWeightedPairCodec(
+                                itemWeightedPair.getItem(),
+                                itemWeightedPair.getWeight(),
+                                itemWeightedPair.getAmount()
+                        ))
+                        .collect(Collectors.toList())
+        ));
+    }
 }
 

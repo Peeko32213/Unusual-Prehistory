@@ -13,7 +13,7 @@ public class EntityRenderDataCodec {
                     Codec.INT.fieldOf("page").forGetter(p -> p.page),
                     Codec.DOUBLE.optionalFieldOf("rot_x", 0D).forGetter(r -> r.rot_x),
                     Codec.DOUBLE.optionalFieldOf("rot_y", 0D).forGetter(r -> r.rot_y),
-                    Codec.DOUBLE.optionalFieldOf("rot_z", 0D).forGetter(r -> r.rot_y),
+                    Codec.DOUBLE.optionalFieldOf("rot_z", 0D).forGetter(r -> r.rot_z),
                     Codec.BOOL.optionalFieldOf("follow_cursor", false).forGetter(f -> f.follow_cursor),
                     Codec.STRING.optionalFieldOf("entity_data", "").forGetter(e -> e.entity_data)
             ).apply(inst, EntityRenderDataCodec::new)
