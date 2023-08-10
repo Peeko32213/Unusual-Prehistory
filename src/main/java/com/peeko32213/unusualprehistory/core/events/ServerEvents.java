@@ -88,9 +88,14 @@ public class ServerEvents {
 
        if(playerList != null && !playerList.isEmpty()){
            for(ServerPlayer player1 : playerList){
+               ServerLevel serverLevel = (ServerLevel) player1.level;
+               if(AnalyzerRecipeJsonManager.getRecipes().isEmpty()){
+                   AnalyzerRecipeJsonManager.populateRecipeMap(serverLevel);
+               }
+               Map<Item, List<ItemWeightedPairCodec>> analyzerRecipesReload = AnalyzerRecipeJsonManager.getRecipes();
                UPMessages.sendToPlayer(new LootFruitTierPacketS2C(lootFruitsTier), player1);
-               UPMessages.sendToPlayer(new LootFruitPacketS2C(lootFruits), player);
-               UPMessages.sendToPlayer(new AnalyzerRecipeS2C(analyzerRecipes), player1);
+               UPMessages.sendToPlayer(new LootFruitPacketS2C(lootFruits), player1);
+               UPMessages.sendToPlayer(new AnalyzerRecipeS2C(analyzerRecipesReload), player1);
                UPMessages.sendToPlayer(new EncyclopediaS2C(encyclopediaEntries), player1);
                UPMessages.sendToPlayer(new EncyclopediaRootPageS2C(rootPage), player1);
            }
