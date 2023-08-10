@@ -1,21 +1,22 @@
 package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
-import com.peeko32213.unusualprehistory.common.data.EncyclopediaJsonManager;
-import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
+import com.peeko32213.unusualprehistory.common.data.*;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.message.*;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -26,11 +27,13 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -38,12 +41,14 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ServerEvents {
@@ -58,6 +63,47 @@ public class ServerEvents {
         }
 
     }
+
+    @SubscribeEvent
+    public static void sendMapPackets(PlayerEvent.PlayerLoggedInEvent event){
+
+    }
+    @SubscribeEvent
+    public static void synchDataPack(OnDatapackSyncEvent event){
+        ServerPlayer player = event.getPlayer();
+        List<ServerPlayer> playerList = event.getPlayerList().getPlayers();
+        Map<Integer, List<LootFruitCodec>> lootFruitsTier = LootFruitJsonManager.getTierTrades();
+        Map<Item, List<LootFruitCodec>> lootFruits = LootFruitJsonManager.getTrades();
+        Map<Item, List<ItemWeightedPairCodec>> analyzerRecipes = AnalyzerRecipeJsonManager.getRecipes();
+        Map<ResourceLocation, EncyclopediaCodec> encyclopediaEntries = EncyclopediaJsonManager.getEncyclopediaEntries();
+        EncyclopediaCodec rootPage = EncyclopediaJsonManager.getRootPage();
+       if(player != null){
+           UPMessages.sendToPlayer(new LootFruitTierPacketS2C(lootFruitsTier), player);
+           UPMessages.sendToPlayer(new LootFruitPacketS2C(lootFruits), player);
+           UPMessages.sendToPlayer(new AnalyzerRecipeS2C(analyzerRecipes), player);
+           UPMessages.sendToPlayer(new EncyclopediaS2C(encyclopediaEntries), player);
+           UPMessages.sendToPlayer(new EncyclopediaRootPageS2C(rootPage), player);
+       }
+
+
+       if(playerList != null && !playerList.isEmpty()){
+           for(ServerPlayer player1 : playerList){
+               UPMessages.sendToPlayer(new LootFruitTierPacketS2C(lootFruitsTier), player1);
+               UPMessages.sendToPlayer(new LootFruitPacketS2C(lootFruits), player);
+               UPMessages.sendToPlayer(new AnalyzerRecipeS2C(analyzerRecipes), player1);
+               UPMessages.sendToPlayer(new EncyclopediaS2C(encyclopediaEntries), player1);
+               UPMessages.sendToPlayer(new EncyclopediaRootPageS2C(rootPage), player1);
+           }
+       }
+    }
+
+   // @SubscribeEvent
+   // public static void synchDataPackReload(OnDatapackSyncEvent event){
+   //     ServerPlayer player = event.getPlayer();
+   //     if(player != null){
+   //         UPMessages.sendToPlayer(new LootFruitPacketS2C(LootFruitJsonManager.getTierTrades()), player);
+   //     }
+   // }
 
     @SubscribeEvent
     public static void onRegisterReloadListeners(AddReloadListenerEvent event) {

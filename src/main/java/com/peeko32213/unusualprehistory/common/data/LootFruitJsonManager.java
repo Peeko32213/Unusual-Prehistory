@@ -63,6 +63,14 @@ public class LootFruitJsonManager extends SimpleJsonResourceReloadListener {
         return tierTrades;
     }
 
+    public static void setTierTrades(Map<Integer, List<LootFruitCodec>> tierTrades) {
+        LootFruitJsonManager.tierTrades = tierTrades;
+    }
+
+    public static void setTrades(Map<Item, List<LootFruitCodec>> trades) {
+        LootFruitJsonManager.trades = trades;
+    }
+
     /**
      * Gets the loot for the specified item.
      *
@@ -76,6 +84,8 @@ public class LootFruitJsonManager extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
+        tierTrades.clear();
+        trades.clear();
         Map<Item, List<LootFruitCodec>> trades = new HashMap<>();
         Map<Integer, List<LootFruitCodec>> tradeTier = new HashMap<>();
         for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
@@ -97,8 +107,8 @@ public class LootFruitJsonManager extends SimpleJsonResourceReloadListener {
                     .ifRight(partial -> LOGGER.error("Failed to parse recipe JSON for {} due to: {}", this.folderName, partial.message()));
         }
 
-        this.trades = trades;
-        this.tierTrades = tradeTier;
+        LootFruitJsonManager.trades.putAll(trades);
+        LootFruitJsonManager.tierTrades.putAll(tradeTier);
         LOGGER.info("Data loader for {} loaded {} jsons", this.folderName, this.trades.size());
     }
 }
