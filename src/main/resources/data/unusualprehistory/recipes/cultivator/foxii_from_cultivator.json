@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:foxxi_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:foxii_sapling"
+  }
+}

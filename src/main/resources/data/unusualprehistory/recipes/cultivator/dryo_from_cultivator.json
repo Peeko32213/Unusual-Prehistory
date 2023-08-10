@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:dryo_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:dryo_sapling"
+  }
+}
