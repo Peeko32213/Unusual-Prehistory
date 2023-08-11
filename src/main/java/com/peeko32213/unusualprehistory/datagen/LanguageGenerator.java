@@ -74,6 +74,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ENCRUSTED_ORGAN, "Encrusted Organ");
         addItem(UPItems.AUSTRO_FEATHER, "Austroraptor Feather");
         addItem(UPItems.ANTARCTO_PLATE, "Antarctopelta Plate");
+        addItem(UPItems.SMILO_FUR, "Smilodon Fur");
 
         //FOODS
         addItem(UPItems.GROG, "Flask of Grog");
@@ -169,11 +170,13 @@ public class LanguageGenerator extends LanguageProvider {
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
         addBlock(UPBlocks.SPLATTERED_TAR, "Splattered Tar");
+        addItem(UPItems.TAR_BUCKET, "Bucket of Tar");
 
         //ONE PIECE ARMORS
         addItem(UPItems.MAJUNGA_HELMET, "Majungasaurus Helmet");
         addItem(UPItems.AUSTRO_BOOTS, "Austroraptor Boots");
         addItem(UPItems.TYRANTS_CROWN, "Tyrants Crown");
+        addItem(UPItems.SLOTH_POUCH, "Megatherium Pouch");
 
         //SHEDSCALE ARMOR
         addItem(UPItems.SHEDSCALE_HELMET, "Shedscale Wraps");
@@ -503,6 +506,10 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.TALAPANAS_HURT, "Painful Quack");
         addSound(UPSounds.TALAPANAS_IDLE, "Idling Quack");
         addSound(UPSounds.TALAPANAS_PANIC, "Panicked Quack");
+        addSound(UPSounds.CROCARINA, "Soothing Tunes");
+        addSound(UPSounds.BARINA_DEATH, "Crocodilain Groans");
+        addSound(UPSounds.BARINA_HURT, "Crocodilain Pain");
+        addSound(UPSounds.BARINA_IDLE, "Crocodilain Growls");
 
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");

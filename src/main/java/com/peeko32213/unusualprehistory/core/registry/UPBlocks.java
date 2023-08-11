@@ -688,7 +688,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun",
             () -> new BlockUPTallPlant(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
 
-    public static final RegistryObject<Block> SPLATTERED_TAR = registerBlock("glow_lichen",
+    public static final RegistryObject<Block> SPLATTERED_TAR = registerBlock("splattered_tar",
             () -> new BlockSplatteredTar(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_BLACK).noCollission().strength(0.2F).sound(SoundType.HONEY_BLOCK)));
 
 

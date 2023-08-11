@@ -6,12 +6,9 @@ import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergMammothModel
 import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergSmilodonModel;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.overlay.TarOverlay;
+import com.peeko32213.unusualprehistory.client.render.armor.*;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.AgeableMobRenderer;
 import com.peeko32213.unusualprehistory.client.render.UPRenderUtils;
-import com.peeko32213.unusualprehistory.client.render.armor.AustroBootsRenderer;
-import com.peeko32213.unusualprehistory.client.render.armor.MajungaHelmetRenderer;
-import com.peeko32213.unusualprehistory.client.render.armor.ShedscaleArmorRenderer;
-import com.peeko32213.unusualprehistory.client.render.armor.TyrantsCrownRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
@@ -23,8 +20,9 @@ import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
+import com.peeko32213.unusualprehistory.common.item.armor.ItemSlothPouch;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemshedScaleArmor;
+import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -129,7 +127,7 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.ZULOAGAE_SAPLING.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.ZULOAGAE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.RAIGUENRAYUN.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(UPBlocks.SPLATTERED_TAR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.SPLATTERED_TAR.get(), RenderType.translucent());
 
         MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
         MenuScreens.register(UPMenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
@@ -277,7 +275,8 @@ public final class ClientEvents {
         GeoArmorRenderer.registerArmorRenderer(ItemMajungaHelmet.class, MajungaHelmetRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemAustroBoots.class, AustroBootsRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemTyrantsCrown.class, TyrantsCrownRenderer::new);
-        GeoArmorRenderer.registerArmorRenderer(ItemshedScaleArmor.class, ShedscaleArmorRenderer::new);
+        GeoArmorRenderer.registerArmorRenderer(ItemShedscaleArmor.class, ShedscaleArmorRenderer::new);
+        GeoArmorRenderer.registerArmorRenderer(ItemSlothPouch.class, SlothPouchRenderer::new);
     }
 
     @SubscribeEvent

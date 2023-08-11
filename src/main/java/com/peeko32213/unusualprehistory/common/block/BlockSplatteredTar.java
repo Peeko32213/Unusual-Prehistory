@@ -25,12 +25,7 @@ public class BlockSplatteredTar extends MultifaceBlock {
 
     public BlockSplatteredTar(BlockBehaviour.Properties pProperties) {
         super(pProperties);
-    }
-
-    public static ToIntFunction<BlockState> emission(int p_181223_) {
-        return (p_181221_) -> {
-            return MultifaceBlock.hasAnyFace(p_181221_) ? p_181223_ : 0;
-        };
+        this.registerDefaultState(this.defaultBlockState());
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {

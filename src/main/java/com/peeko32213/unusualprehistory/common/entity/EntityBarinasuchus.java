@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -184,6 +185,18 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
             this.setSprinting(false);
         }
         super.customServerAiStep();
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.BARINA_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.BARINA_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.BARINA_DEATH.get();
     }
 
     public boolean isAngryAt(LivingEntity p_21675_) {

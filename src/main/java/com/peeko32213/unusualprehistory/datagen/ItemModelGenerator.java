@@ -41,6 +41,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.RAIGUENRAYUN_FLASK);
         singleTex(UPItems.FOXXI_FLASK);
         singleTex(UPItems.DRYO_FLASK);
+        singleTex(UPItems.SMILO_FUR);
+
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());

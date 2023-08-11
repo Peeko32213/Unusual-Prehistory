@@ -1258,5 +1258,47 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.crocarina"
+  },
+  "barina_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:barina_death_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:barina_death_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.barina_death"
+  },
+  "barina_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:barina_hurt_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:barina_hurt_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.barina_hurt"
+  },
+  "barina_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:barina_idle_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:barina_idle_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.barina_idle"
   }
 }

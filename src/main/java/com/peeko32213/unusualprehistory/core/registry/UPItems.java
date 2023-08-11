@@ -4,9 +4,10 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.*;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
+import com.peeko32213.unusualprehistory.common.item.armor.ItemSlothPouch;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemshedScaleArmor;
+import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -439,23 +440,27 @@ public class UPItems {
             () -> new MusicalTameItem(new Item.Properties().stacksTo(1).tab(UnusualPrehistory.DINO_TAB), UPEntities.BARINASUCHUS, UPTags.OCARINA_WHISTLE));
 
     public static final RegistryObject<Item> SHEDSCALE_HELMET = ITEMS.register("shedscale_helmet",
-            () -> new ItemshedScaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.HEAD,
+            () -> new ItemShedscaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB), 0.4D));
 
     public static final RegistryObject<Item> SHEDSCALE_CHESTPLATE = ITEMS.register("shedscale_chestplate",
-            () -> new ItemshedScaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.CHEST,
+            () -> new ItemShedscaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.CHEST,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB), 1D));
 
     public static final RegistryObject<Item> SHEDSCALE_LEGGINGS = ITEMS.register("shedscale_leggings",
-            () -> new ItemshedScaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.LEGS,
+            () -> new ItemShedscaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.LEGS,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB),  0.6D));
 
     public static final RegistryObject<Item> SHEDSCALE_BOOTS = ITEMS.register("shedscale_boots",
-            () -> new ItemshedScaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.FEET,
+            () -> new ItemShedscaleArmor(UPArmorMaterial.SHEDSCALE, EquipmentSlot.FEET,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB), 0.4D));
 
     public static final RegistryObject<Item> TYRANTS_CROWN = ITEMS.register("tyrants_crown",
             () -> new ItemTyrantsCrown(UPArmorMaterial.TYRANTS, EquipmentSlot.HEAD,
+                    new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> SLOTH_POUCH = ITEMS.register("sloth_pouch_full",
+            () -> new ItemSlothPouch(UPArmorMaterial.SLOTH_POUCH, EquipmentSlot.CHEST,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> SMILODON_EMBRYO = ITEMS.register("smilodon_embryo",
@@ -476,12 +481,17 @@ public class UPItems {
     public static final RegistryObject<Item> PALAEO_EMBRYO = ITEMS.register("palaeo_embryo",
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.PALAEO_EMBRYO_ATTACH_TO, UPEntities.PALAEOPHIS, 1000));
 
+    public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket",
+            () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> SMILO_FUR = ITEMS.register("smilo_fur",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties().tab(UnusualPrehistory.DINO_SPAWN_EGGS)));
     }
 
     public static final RegistryObject<Item> TAB_EGG_ICON = ITEMS.register("tab_spawn_egg", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket", () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
 
 }

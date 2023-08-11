@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ItemshedScaleArmor extends GeoArmorItem implements IAnimatable {
+public class ItemShedscaleArmor extends GeoArmorItem implements IAnimatable {
     private static final Map<MobEffect, MobEffect> TO_CHANGE_MAP = new HashMap<>() {{
         put(MobEffects.POISON, MobEffects.REGENERATION);
         put(MobEffects.MOVEMENT_SLOWDOWN, MobEffects.MOVEMENT_SPEED);
@@ -52,7 +52,7 @@ public class ItemshedScaleArmor extends GeoArmorItem implements IAnimatable {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-    public ItemshedScaleArmor(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder, double swimSpeed) {
+    public ItemShedscaleArmor(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder, double swimSpeed) {
         super(materialIn, slot, builder);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = ImmutableMultimap.builder();
         this.material = materialIn;
@@ -94,15 +94,15 @@ public class ItemshedScaleArmor extends GeoArmorItem implements IAnimatable {
 
     private boolean hasCorrectArmorOn(ArmorMaterial material, Player player) {
         for (ItemStack armorStack : player.getInventory().armor) {
-            if (!(armorStack.getItem() instanceof ItemshedScaleArmor)) {
+            if (!(armorStack.getItem() instanceof ItemShedscaleArmor)) {
                 return false;
             }
         }
 
-        ItemshedScaleArmor boots = ((ItemshedScaleArmor) player.getInventory().getArmor(0).getItem());
-        ItemshedScaleArmor leggings = ((ItemshedScaleArmor) player.getInventory().getArmor(1).getItem());
-        ItemshedScaleArmor breastplate = ((ItemshedScaleArmor) player.getInventory().getArmor(2).getItem());
-        ItemshedScaleArmor helmet = ((ItemshedScaleArmor) player.getInventory().getArmor(3).getItem());
+        ItemShedscaleArmor boots = ((ItemShedscaleArmor) player.getInventory().getArmor(0).getItem());
+        ItemShedscaleArmor leggings = ((ItemShedscaleArmor) player.getInventory().getArmor(1).getItem());
+        ItemShedscaleArmor breastplate = ((ItemShedscaleArmor) player.getInventory().getArmor(2).getItem());
+        ItemShedscaleArmor helmet = ((ItemShedscaleArmor) player.getInventory().getArmor(3).getItem());
 
         return helmet.getMaterial() == material && breastplate.getMaterial() == material &&
                 leggings.getMaterial() == material && boots.getMaterial() == material;

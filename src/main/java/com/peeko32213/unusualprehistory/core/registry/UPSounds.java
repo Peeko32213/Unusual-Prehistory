@@ -117,6 +117,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> TALAPANAS_IDLE = createSoundEvent("talapanas_idle");
     public static final RegistryObject<SoundEvent> TALAPANAS_PANIC = createSoundEvent("talapanas_panic");
     public static final RegistryObject<SoundEvent> CROCARINA = createSoundEvent("crocarina");
+    public static final RegistryObject<SoundEvent> BARINA_DEATH = createSoundEvent("barina_death");
+    public static final RegistryObject<SoundEvent> BARINA_HURT = createSoundEvent("barina_hurt");
+    public static final RegistryObject<SoundEvent> BARINA_IDLE = createSoundEvent("barina_idle");
+
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));
