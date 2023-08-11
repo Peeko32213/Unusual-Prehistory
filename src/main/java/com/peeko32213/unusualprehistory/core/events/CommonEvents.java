@@ -55,6 +55,7 @@ public class CommonEvents {
         event.put(UPEntities.MEGALANIA.get(), EntityMegalania.createAttributes().build());
         event.put(UPEntities.MAMMOTH.get(), EntityMammoth.createAttributes().build());
         event.put(UPEntities.PALAEOPHIS.get(), EntityPalaeophis.createAttributes().build());
+        event.put(UPEntities.BABY_MEGATHERIUM.get(), EntityMegatherium.createAttributes().build());
 
 
 

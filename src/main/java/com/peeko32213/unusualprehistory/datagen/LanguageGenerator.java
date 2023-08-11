@@ -415,6 +415,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.MAMMOTH, "Mammoth");
         addEntityType(UPEntities.MEGALANIA, "Megalania");
         addEntityType(UPEntities.PALAEOPHIS, "Palaophis");
+        addEntityType(UPEntities.BABY_MEGATHERIUM, "Baby Megatherium");
 
 
         //SOUNDS

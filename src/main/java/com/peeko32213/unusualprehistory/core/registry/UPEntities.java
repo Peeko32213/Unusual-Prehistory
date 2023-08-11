@@ -170,6 +170,10 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = ENTITIES.register("megalania",
             () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(3.0F, 2.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()));
+
+    public static final RegistryObject<EntityType<EntityBabyMegatherium>> BABY_MEGATHERIUM = ENTITIES.register("baby_megatherium",
+            () -> EntityType.Builder.of(EntityBabyMegatherium::new, MobCategory.CREATURE).sized(1.0f, 1.0f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_megatherium").toString()));
     public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
             () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
                     .fireImmune().sized(1, 1).noSummon()

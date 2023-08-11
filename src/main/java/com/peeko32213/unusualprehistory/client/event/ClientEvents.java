@@ -190,6 +190,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
         event.registerEntityRenderer(UPEntities.BABY_BRACHI.get(), e -> new LivingEntityRenderer<>(e, new BabyBrachiModel()));
         event.registerEntityRenderer(UPEntities.BABY_REX.get(), e -> new LivingEntityRenderer<>(e, new BabyRexModel()));
+        event.registerEntityRenderer(UPEntities.BABY_MEGATHERIUM.get(), e -> new LivingEntityRenderer<>(e, new BabyMegatheriumModel()));
         event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new LivingEntityRenderer<>(e, new EryonModel()));
         event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new DinosaurRenderer<>(e, new AustroraptorModel()));
         event.registerEntityRenderer(UPEntities.ANTARCO.get(), e -> new DinosaurRenderer<>(e, new AntarctopeltaModel()));
