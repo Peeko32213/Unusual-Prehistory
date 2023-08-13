@@ -8,17 +8,13 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.item.GeoArmorItem;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class ItemSlothPouch extends GeoArmorItem implements IAnimatable {
+public class ItemSlothPouchArmor extends GeoArmorItem implements IAnimatable {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-    public ItemSlothPouch(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
+    public ItemSlothPouchArmor(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
         super(material, slot, settings);
     }
-
-
-
-
 
     @Override
     public AnimationFactory getFactory() {

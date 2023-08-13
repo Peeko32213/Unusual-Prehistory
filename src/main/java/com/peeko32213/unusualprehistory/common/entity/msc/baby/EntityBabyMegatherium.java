@@ -61,7 +61,7 @@ public class EntityBabyMegatherium extends PathfinderMob implements IAnimatable 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 70.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.09D);
+                .add(Attributes.MOVEMENT_SPEED, 0.05D);
     }
 
     protected void registerGoals() {
@@ -167,13 +167,13 @@ public class EntityBabyMegatherium extends PathfinderMob implements IAnimatable 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
             {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.babybrachy.walk"));
+                event.getController().setAnimation(new AnimationBuilder().loop("animation.baby_megatherium.walk"));
                 return PlayState.CONTINUE;
 
             }
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.babybrachy.idle"));
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.baby_megatherium.idle"));
         }
         return PlayState.CONTINUE;
     }

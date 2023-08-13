@@ -4,7 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.*;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
-import com.peeko32213.unusualprehistory.common.item.armor.ItemSlothPouch;
+import com.peeko32213.unusualprehistory.common.item.armor.ItemSlothPouchArmor;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
@@ -459,8 +459,8 @@ public class UPItems {
             () -> new ItemTyrantsCrown(UPArmorMaterial.TYRANTS, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
-    public static final RegistryObject<Item> SLOTH_POUCH = ITEMS.register("sloth_pouch_full",
-            () -> new ItemSlothPouch(UPArmorMaterial.SLOTH_POUCH, EquipmentSlot.CHEST,
+    public static final RegistryObject<Item> SLOTH_POUCH_ARMOR = ITEMS.register("sloth_pouch_armor",
+            () -> new ItemSlothPouchArmor(UPArmorMaterial.SLOTH_POUCH, EquipmentSlot.CHEST,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> SMILODON_EMBRYO = ITEMS.register("smilodon_embryo",

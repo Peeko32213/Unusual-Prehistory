@@ -20,7 +20,7 @@ import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
-import com.peeko32213.unusualprehistory.common.item.armor.ItemSlothPouch;
+import com.peeko32213.unusualprehistory.common.item.armor.ItemSlothPouchArmor;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
 import com.peeko32213.unusualprehistory.core.registry.*;
@@ -277,7 +277,7 @@ public final class ClientEvents {
         GeoArmorRenderer.registerArmorRenderer(ItemAustroBoots.class, AustroBootsRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemTyrantsCrown.class, TyrantsCrownRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemShedscaleArmor.class, ShedscaleArmorRenderer::new);
-        GeoArmorRenderer.registerArmorRenderer(ItemSlothPouch.class, SlothPouchRenderer::new);
+        GeoArmorRenderer.registerArmorRenderer(ItemSlothPouchArmor.class, SlothPouchArmorRenderer::new);
     }
 
     @SubscribeEvent

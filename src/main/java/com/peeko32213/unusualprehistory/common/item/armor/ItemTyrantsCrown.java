@@ -16,10 +16,6 @@ public class ItemTyrantsCrown extends GeoArmorItem implements IAnimatable {
         super(material, slot, settings);
     }
 
-
-
-
-
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
