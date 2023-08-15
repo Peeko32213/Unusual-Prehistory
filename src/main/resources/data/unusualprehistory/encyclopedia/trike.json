@@ -17,8 +17,8 @@
   "entity_button":[
     {
       "entity": "unusualprehistory:trike",
-      "x": 320,
-      "y": 80,
+      "x": 290,
+      "y": 20,
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 0.3,

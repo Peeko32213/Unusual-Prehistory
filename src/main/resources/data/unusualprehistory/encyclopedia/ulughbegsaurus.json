@@ -17,8 +17,8 @@
   "entity_button":[
     {
       "entity": "unusualprehistory:ulughbegsaurus",
-      "x": 260,
-      "y": 160,
+      "x": 290,
+      "y": 40,
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 0.3,

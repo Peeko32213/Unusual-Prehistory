@@ -1,6 +1,6 @@
 {
   "parent" : "item/generated",
   "textures" : {
-    "layer0" : "unusualprehistory:item/sloth_pouch_armor"
+    "layer0" : "unusualprehistory:item/sloth_pouch_full"
   }
 }

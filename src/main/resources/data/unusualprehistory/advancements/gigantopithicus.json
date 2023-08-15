@@ -1,0 +1,46 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:giganto_flask"
+    },
+    "title": "Give Orange Me Give Eat Orange",
+    "description": "Revive a Gigantopithicus",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:egg",
+  "criteria": {
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:gigantopithicus"
+        }
+      }
+    },
+    "killed_by": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:gigantopithicus"
+        }
+      }
+    },
+    "interact": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "entity": {
+          "type": "unusualprehistory:gigantopithicus"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "killed",
+      "killed_by",
+      "interact"
+    ]
+  ]
+}

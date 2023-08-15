@@ -4,8 +4,8 @@
   "entity_button":[
     {
       "entity": "unusualprehistory:veloci",
-      "x": 260,
-      "y": 120,
+      "x": 290,
+      "y": 60,
       "page" : 0,
       "scale": 1.2,
       "entity_scale": 0.57,

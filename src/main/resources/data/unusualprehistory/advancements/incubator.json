@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "unusualprehistory:incubator"
+    },
+    "title": "GET IN THE POD SHOE",
+    "description": "Craft a Birthing Pod",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "unusualprehistory:fossil",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:incubator"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

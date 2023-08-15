@@ -23,7 +23,7 @@ public enum UPArmorMaterial implements ArmorMaterial {
     SHEDSCALE("shedscale", 28, new int[]{3, 6, 8, 3}, 19, SoundEvents.ARMOR_EQUIP_LEATHER,
             2.0F, 0.0F, () -> Ingredient.of(UPItems.RAW_STETHA.get())),
 
-    SLOTH_POUCH("sloth_pouch", 28, new int[]{0, 1, 0, 0}, 19, SoundEvents.ARMOR_EQUIP_LEATHER,
+    SLOTH_POUCH("sloth_pouch", 28, new int[]{1, 1, 1, 1}, 19, SoundEvents.ARMOR_EQUIP_LEATHER,
             2.0F, 0.0F, () -> Ingredient.of(Items.RABBIT_HIDE));
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
     private final String name;
