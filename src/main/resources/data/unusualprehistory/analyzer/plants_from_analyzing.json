@@ -59,10 +59,7 @@
       "weight": 15,
       "item": "unusualprehistory:quereuxia_flask"
     },
-    {
-      "weight": 15,
-      "item": "unusualprehistory:ginkgo_flask"
-    },
+
     {
       "weight": 15,
       "item": "unusualprehistory:clathrodictyon_flask"
@@ -78,14 +75,6 @@
     {
       "weight": 15,
       "item": "unusualprehistory:raiguenrayun_flask"
-    },
-    {
-      "weight": 15,
-      "item": "unusualprehistory:foxxi_flask"
-    },
-    {
-      "weight": 15,
-      "item": "unusualprehistory:dryo_flask"
     }
   ]
 }

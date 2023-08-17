@@ -1,0 +1,21 @@
+{
+  "input": ["unusualprehistory:petrified_wood_log"],
+  "entries": [
+    {
+      "weight": 50,
+      "item": "minecraft:coal"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:foxxi_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:ginkgo_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:dryo_flask"
+    }
+  ]
+}

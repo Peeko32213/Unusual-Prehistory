@@ -57,6 +57,8 @@ public class UPTags {
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_AMBER = registerItemTag("analyzer_items_output_amber_fossil");
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_ENCRUSTED= registerItemTag("analyzer_items_output_encrusted_organ");
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_GINKGO = registerItemTag("analyzer_items_output_ginkgo_fruit");
+    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_PETRIFIED = registerItemTag("analyzer_items_output_petrified");
+
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_PLANT = registerItemTag("analyzer_items_output_plant_fossil");
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_TAR = registerItemTag("analyzer_items_output_tar_fossil");
     public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_OPAL = registerItemTag("analyzer_items_output_opal_fossil");

@@ -40,7 +40,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.ARCHAO_FLASK.get())
                 .add(UPItems.SARR_FLASK.get())
                 .add(UPItems.BENNET_FLASK.get())
-                .add(UPItems.GINKGO_FLASK.get())
                 .add(UPItems.TALL_HORSETAIL_FLASK.get())
                 .add(UPItems.HORSETAIL_FLASK.get())
                 .add(UPItems.ERYON_FLASK.get())
@@ -208,6 +207,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_GINKGO)
                 .add(UPItems.GINKGO_FLASK.get());
+
+        tag(UPTags.ANALYZER_ITEMS_OUTPUT_PETRIFIED)
+                .add(UPItems.GINKGO_FLASK.get())
+                .add(UPItems.FOXXI_FLASK.get())
+                .add(UPItems.DRYO_FLASK.get());
 
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_PALEO)
