@@ -41,6 +41,16 @@ public class UPPlacedFeatures {
     public static final RegistryObject<PlacedFeature> DEEPSLATE_PLANT_FOSSIL_ORE = registerPlacedFeature("deepslate_plant_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_PLANT_FOSSIL_ORE.getHolder().orElseThrow(),  commonOrePlacement(17, // VeinsPerChunk
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
 
+    public static final RegistryObject<PlacedFeature> OPAL_FOSSIL_ORE = registerPlacedFeature("opal_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.STONE_OPAL_ORE.getHolder().orElseThrow(), commonOrePlacement(4,
+            HeightRangePlacement.triangle(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(58)))));
+
+    public static final RegistryObject<PlacedFeature> OCEAN_OPAL_FOSSIL_ORE = registerPlacedFeature("ocean_stone_opal_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.STONE_OPAL_ORE.getHolder().orElseThrow(), commonOrePlacement(12,
+            HeightRangePlacement.uniform(VerticalAnchor.absolute(11), VerticalAnchor.absolute(256)))));
+    public static final RegistryObject<PlacedFeature> DEEPSLATE_OPAL_ORE = registerPlacedFeature("deepslate_opal_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_OPAL_ORE.getHolder().orElseThrow(),  commonOrePlacement(17, // VeinsPerChunk
+            HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
+    public static final RegistryObject<PlacedFeature> OCEAN_DEEPSLATE_OPAL_ORE = registerPlacedFeature("ocean_deepslate_opal_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_OPAL_ORE.getHolder().orElseThrow(),  commonOrePlacement(17, // VeinsPerChunk
+            HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
+
     public static final RegistryObject<PlacedFeature> PETRIFIED_WOOD_FOREST_PLACED = registerPlacedFeature(PETRIFIED_WOOD_FOREST_FEATURE_NAME_PLACED, () -> new PlacedFeature(UPConfiguredFeatures.CONFIGURED_PETRIFIED_WOOD_FOREST.getHolder().orElseThrow(), ImmutableList.of(
             RarityFilter.onAverageOnceEvery(10),
             //InSquarePlacement.spread(),

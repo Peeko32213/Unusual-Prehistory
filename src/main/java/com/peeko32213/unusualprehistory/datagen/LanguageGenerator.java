@@ -268,6 +268,8 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ASPHALT, "Asphalt");
         addBlock(UPBlocks.GOLD_ENGRAVED_ASPHALT, "Gold Engraved Asphalt");
         addBlock(UPBlocks.QUARTZ_ENGRAVED_ASPHALT, "Quartz Engraved Asphalt");
+        addBlock(UPBlocks.STONE_OPAL_FOSSIL, "Stone Opal Ore");
+        addBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL, "Deepslate Opal Ore");
 
         //PLANTS
         addBlock(UPBlocks.HORSETAIL, "Prehistoric Horsetail");

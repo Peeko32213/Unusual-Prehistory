@@ -1,4 +1,4 @@
-// 1.19.2	2023-08-09T15:59:01.8858201	unusualprehistory Block Tags
+// 1.19.2	2023-08-18T08:11:36.8775637	unusualprehistory Block Tags
 debe8c18f123ad9423e8563eeb2f7c47542e6672 data/minecraft/tags/blocks/buttons.json
 3dc74d776e39d9ddeeb390e35bb4c16d035881a1 data/minecraft/tags/blocks/corals.json
 e6afd6c925171023d0cd3e728553bf722ac86176 data/minecraft/tags/blocks/coral_blocks.json
@@ -8,8 +8,8 @@ e6afd6c925171023d0cd3e728553bf722ac86176 data/minecraft/tags/blocks/coral_blocks
 c058532b8dc116a7ddd6535c6021e5b16efff81c data/minecraft/tags/blocks/leaves.json
 32a4cbf19cdc4432fb13e63eadd001e4389b7e35 data/minecraft/tags/blocks/logs.json
 5b6a3147048bf0187359de7cd4460caaf775af96 data/minecraft/tags/blocks/mineable/axe.json
-1957dd075582f9c58bec2096710ca54ea97f0683 data/minecraft/tags/blocks/mineable/pickaxe.json
-f32f2af3a34c9574a4d11d250fcc1ec032a82d88 data/minecraft/tags/blocks/needs_iron_tool.json
+8d7957c5f98d3feace852dbb8e646f214b1f548b data/minecraft/tags/blocks/mineable/pickaxe.json
+01e52b97c257361c0fc93fbe143303c6cf46e5f7 data/minecraft/tags/blocks/needs_iron_tool.json
 0357db8bbf68512a1c2988b8b1fb696c0b9b9a13 data/minecraft/tags/blocks/pressure_plates.json
 1ede207d0901efa70501fae86768234fa961b3be data/minecraft/tags/blocks/slabs.json
 9dd9118904a8c66e123e5253da58d147edadaa65 data/minecraft/tags/blocks/small_flowers.json

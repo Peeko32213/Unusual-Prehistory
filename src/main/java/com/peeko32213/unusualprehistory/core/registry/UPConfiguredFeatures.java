@@ -79,7 +79,9 @@ public class UPConfiguredFeatures {
     public static final RegistryObject<ConfiguredFeature<?, ?>> CONFIGURED_TAR_PIT = registerConfiguredFeature(TAR_PIT_FEATURE_NAME, () -> new ConfiguredFeature<>(UPFeatures.TAR_PIT.get(), new NoneFeatureConfiguration()));
     public static final RegistryObject<ConfiguredFeature<?, ?>> CONFIGURED_ICE_FOSSIL_ICEBERG = registerConfiguredFeature(ICE_FOSSIL_ICEBERG_FEATURE_NAME, () -> new ConfiguredFeature<>(UPFeatures.ICE_FOSSIL_ICEBERG.get(), new NoneFeatureConfiguration()));
 
+    public static final RegistryObject<ConfiguredFeature<?, ?>> STONE_OPAL_ORE = registerConfiguredFeature("stone_opal_ore",  () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.STONE_OPAL_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.STONE_AMBER_FOSSIL.get().defaultBlockState())), 3)));
 
+    public static final RegistryObject<ConfiguredFeature<?, ?>> DEEPSLATE_OPAL_ORE = registerConfiguredFeature("deepslate_opal_ore", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_OPAL_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_OPAL_FOSSIL.get().defaultBlockState())), 4)));
 
     public static RegistryObject<ConfiguredFeature<?, ?>> registerConfiguredFeature(String name, Supplier<ConfiguredFeature<?, ?>> feature) {
         configuredFeatureList.add(name);

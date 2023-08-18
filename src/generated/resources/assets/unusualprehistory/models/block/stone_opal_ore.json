@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "unusualprehistory:block/stone_opal_ore"
+  }
+}

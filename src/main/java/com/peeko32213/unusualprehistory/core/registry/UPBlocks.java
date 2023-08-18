@@ -691,6 +691,11 @@ public class UPBlocks {
     public static final RegistryObject<Block> SPLATTERED_TAR = registerBlock("splattered_tar",
             () -> new BlockSplatteredTar(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_BLACK).noCollission().strength(0.2F).sound(SoundType.HONEY_BLOCK)));
 
+    public static final RegistryObject<Block> STONE_OPAL_FOSSIL = registerBlock("stone_opal_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> DEEPSLATE_OPAL_FOSSIL = registerBlock("deepslate_opal_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

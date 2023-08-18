@@ -186,7 +186,10 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.PETRIFIED_WOOD_FENCE_GATE.get())
                 .add(UPBlocks.PETRIFIED_WOOD_SIGN.get())
                 .add(UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get())
-                .add(UPBlocks.PETRIFIED_WOOD_DOOR.get());
+                .add(UPBlocks.PETRIFIED_WOOD_DOOR.get())
+                .add(UPBlocks.STONE_OPAL_FOSSIL.get())
+                .add(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get());
+
 
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(UPBlocks.REX_BOOMBOX.get());
@@ -236,7 +239,9 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.PETRIFIED_WOOD_FENCE_GATE.get())
                 .add(UPBlocks.PETRIFIED_WOOD_SIGN.get())
                 .add(UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get())
-                .add(UPBlocks.REX_BOOMBOX.get());
+                .add(UPBlocks.REX_BOOMBOX.get())
+                .add(UPBlocks.STONE_OPAL_FOSSIL.get())
+                .add(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get());
 
         tag(BlockTags.STANDING_SIGNS)
                 .add(UPBlocks.GINKGO_SIGN.get())
