@@ -172,7 +172,8 @@ public class BlockstateGenerator extends BlockStateProvider {
         simpleBlock(UPBlocks.ASPHALT.get());
         simpleBlock(UPBlocks.STONE_OPAL_FOSSIL.get());
         simpleBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get());
-
+        simpleBlock(UPBlocks.STONE_TAR_FOSSIL.get());
+        simpleBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL.get());
     }
 
     public void createEgg(Block block){
