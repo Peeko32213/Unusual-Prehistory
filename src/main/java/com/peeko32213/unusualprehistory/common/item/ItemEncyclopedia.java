@@ -36,9 +36,13 @@ public class ItemEncyclopedia extends Item {
             ServerPlayer serverplayerentity = (ServerPlayer)playerIn;
             serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
         }
-        if (playerIn.level.isClientSide && target.getEncodeId() != null && target.getEncodeId().contains(UnusualPrehistory.MODID + ":")) {
+        if (playerIn.level.isClientSide && target.getEncodeId() != null && !target.getEncodeId().contains("minecraft:")) {
             usedOnEntity = true;
-            ResourceLocation resourceLocation = ResourceLocation.tryParse(target.getEncodeId());
+
+            String id = target.getEncodeId().split(":")[1];
+            ResourceLocation resourceLocation = prefix("dinosaurs/"+id);
+
+
             UnusualPrehistory.PROXY.openBookGUI(resourceLocation);
         }
         return InteractionResult.PASS;
