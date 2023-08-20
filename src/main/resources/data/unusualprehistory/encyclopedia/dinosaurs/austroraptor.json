@@ -1,0 +1,41 @@
+{
+  "text": "austro.txt",
+  "title": "Austroraptor",
+  "page_to_go": "unusualprehistory:dinosaurs",
+  "recipes": [
+    {
+      "recipe": "unusualprehistory:austro_boots",
+      "shapeless": false,
+      "x": 10,
+      "y": 100,
+      "page": 1,
+      "scale": 1.3
+    }
+  ],
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:austroraptor",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 0.7,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:austroraptor",
+      "x": 230,
+      "y": 160,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 0.4,
+      "offset_x": 9,
+      "offset_y":9,
+      "hover_text": "Austroraptor"
+    }
+  ]
+}

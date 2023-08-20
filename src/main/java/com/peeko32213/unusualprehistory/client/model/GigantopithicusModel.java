@@ -26,7 +26,7 @@ public class GigantopithicusModel extends AnimatedGeoModel<EntityGigantopithicus
 
 
         if (object.hasCustomName()) {
-            if(object.getCustomName().getString().toLowerCase().equals("braypithicus")){
+            if(object.getCustomName().getString().equalsIgnoreCase("braypithicus")){
                 return TEXTURE_VARIANT;
             }
 

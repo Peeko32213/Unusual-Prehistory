@@ -34,7 +34,9 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ENCYLOPEDIA, "Encyclopedia of Prehistory");
         addItem(UPItems.ADORNED_STAFF, "Adorned Staff");
         addItem(UPItems.ORGANIC_OOZE, "Organic Ooze");
-
+        addItem(UPItems.DINO_POUCH, "Dino Pouch");
+        addItem(UPItems.OPALESCENT_PEARL, "Opalescent Pearl");
+        addItem(UPItems.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
         //TOOLS
         addItem(UPItems.WARPICK, "War Pick");
         addItem(UPItems.PRIMAL_MACUAHUITL, "Primal Macuahuitl");
@@ -420,8 +422,8 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.MEGALANIA, "Megalania");
         addEntityType(UPEntities.PALAEOPHIS, "Palaophis");
         addEntityType(UPEntities.BABY_MEGATHERIUM, "Baby Megatherium");
-
-
+        addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
+        addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");
         addSound(UPSounds.BEELZE_ATTACK, "Slimey chomp");
@@ -552,6 +554,8 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.musical_tame.fail_tame", "%s was not impressed and doesn't want to be with you");
         add("unusualprehistory.musical_tame.no_entity_found", "Nobody Can Hear You!");
 
+        add("unusualprehistory.megatherium_baby.tame_tooltip", "Baby Megatherium is Tamed!");
+        add("unusualprehistory.megatherium_baby.minutes_tooltip", "%s Minutes left until Baby Megatherium is Tamed!");
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");

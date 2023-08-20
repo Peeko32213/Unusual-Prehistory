@@ -23,7 +23,6 @@ public class UPTags {
     //public static final TagKey<EntityType<?>> ANURO_EGG_TRAMPLERS = registerEntityTag("anuro_egg_tramplers");
     //Target tags
     public static final TagKey<EntityType<?>> ANURO_TARGETS = registerEntityTag("anuro_targets");
-
     public static final TagKey<EntityType<?>> MAJUNGA_TARGETS = registerEntityTag("majunga_targets");
 
     public static final TagKey<EntityType<?>> MEGALANIA_TARGETS = registerEntityTag("megalania_targets");

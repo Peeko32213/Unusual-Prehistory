@@ -9,16 +9,22 @@ import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
+import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityOpalescentPearl;
+import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityOpalescentShuriken;
 import com.peeko32213.unusualprehistory.common.entity.msc.trail.EntityTrail;
+import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UPEntities {
@@ -193,17 +199,23 @@ public class UPEntities {
                     .sized(2, 2)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "iceberg_smilodon").toString()));
 
+    public static final RegistryObject<EntityType<EntityPlant>> FOXXI_SAPLING = ENTITIES.register("foxxi_sapling",
+            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(2, 2)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "foxxi_sapling").toString()));
 
-    private static final EntityType registerEntity(EntityType.Builder builder, String entityName) {
-        return (EntityType) builder.build(entityName);
-    }
+    public static final RegistryObject<EntityType<EntityOpalescentPearl>> OPALESCENT_PEARL = ENTITIES.register("opalescent_pearl",
+            () ->  EntityType.Builder.<EntityOpalescentPearl>of(EntityOpalescentPearl::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10)
+                    .build(prefix("opalescent_pearl").toString()));
 
-    public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag){
-        if(entityTag == null){
-            return Predicates.alwaysFalse();
-        }else{
-            return (com.google.common.base.Predicate<LivingEntity>) e -> e.isAlive() && e.getType().is(entityTag);
-        }
-    }
-
+    public static final RegistryObject<EntityType<EntityOpalescentShuriken>> OPALESCENT_SHURIKEN = ENTITIES.register("opalescent_shuriken",
+            () ->  EntityType.Builder.<EntityOpalescentShuriken>of(EntityOpalescentShuriken::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10)
+                    .build(prefix("opalescent_shuriken").toString()));
 }

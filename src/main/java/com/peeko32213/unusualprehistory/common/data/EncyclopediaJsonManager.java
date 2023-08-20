@@ -73,6 +73,11 @@ public class EncyclopediaJsonManager extends SimpleJsonResourceReloadListener {
                                     b.setLinkedPage(String.valueOf(key));
                                 }
                             });
+                            encyclopediaCodec.getPlantButtons().forEach(b -> {
+                                if(b.getLinkedPage().equals("")){
+                                    b.setLinkedPage(String.valueOf(key));
+                                }
+                            });
                             encyclopedia.put(key,encyclopediaCodec);
                         }
 

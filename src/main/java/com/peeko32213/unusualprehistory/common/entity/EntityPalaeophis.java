@@ -225,6 +225,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
 
     public void tick() {
         super.tick();
+
         if (sheddingCooldown >= 0) {
             sheddingCooldown--;
         }

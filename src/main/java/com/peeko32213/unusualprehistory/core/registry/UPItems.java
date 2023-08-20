@@ -460,9 +460,10 @@ public class UPItems {
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> SLOTH_POUCH_ARMOR = ITEMS.register("sloth_pouch_armor",
-            () -> new ItemSlothPouchArmor(UPArmorMaterial.SLOTH_POUCH, EquipmentSlot.CHEST,
+            () -> new ItemSlothPouchArmor(UPArmorMaterial.SLOTH_POUCH, EquipmentSlot.CHEST, 6000,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-
+    public static final RegistryObject<Item> DINO_POUCH = ITEMS.register("dino_pouch",
+            () -> new DinoPouchItem(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> SMILODON_EMBRYO = ITEMS.register("smilodon_embryo",
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.SMILODON, 1000));
 
@@ -483,6 +484,9 @@ public class UPItems {
 
     public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket",
             () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> OPALESCENT_PEARL =  ITEMS.register("opalescent_pearl", () -> new OpalescentPearlItem((new Item.Properties()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<Item> OPALESCENT_SHURIKEN =  ITEMS.register("opalescent_shuriken", () -> new OpalescentShurikenItem((new Item.Properties()).durability(32).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> SMILO_FUR = ITEMS.register("smilo_fur",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
