@@ -1,0 +1,31 @@
+{
+  "text": "coty.txt",
+  "title": "  Cotylorhynchus",
+  "page_to_go": "unusualprehistory:dinosaurs",
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:coty",
+      "x": 90,
+      "y": 90,
+      "page" : 0,
+      "scale": 1.05,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:coty",
+      "x": 230,
+      "y": 80,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 0.5,
+      "offset_x": 6,
+      "offset_y": 4,
+      "hover_text": "Cotylorhynchus"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.*;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
+import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyMegatherium;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.message.*;
@@ -22,6 +23,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -29,6 +31,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -282,6 +285,23 @@ public class ServerEvents {
 
         }
     }
+
+    @SubscribeEvent
+    public void createSlothPouch(PlayerInteractEvent.EntityInteract event) {
+        if (event.getTarget() instanceof EntityBabyMegatherium entityBabyMegatherium && event.getItemStack().is(UPItems.DINO_POUCH.get())) {
+           ItemStack slotPouch = UPItems.SLOTH_POUCH_ARMOR.get().getDefaultInstance();
+           CompoundTag tag = slotPouch.getTag();
+           Level level = event.getLevel();
+           tag.put("megatherium", entityBabyMegatherium.serializeNBT());
+           tag.putBoolean("tamed", entityBabyMegatherium.isTame());
+           long currentTime = level.getGameTime();
+           tag.putLong("gameTime", currentTime);
+           slotPouch.setTag(tag);
+           entityBabyMegatherium.discard();
+           //ItemStack itemstack2 = ItemUtils.createFilledResult(event.getItemStack(), event.getEntity(),slotPouch );
+        }
+    }
+
 
     @SubscribeEvent
     //cant be canceled

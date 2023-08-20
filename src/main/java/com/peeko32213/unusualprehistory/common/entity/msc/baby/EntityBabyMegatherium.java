@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 import com.peeko32213.unusualprehistory.common.entity.EntityMegatherium;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathNavigation;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -12,14 +13,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -31,6 +30,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -40,14 +40,14 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class EntityBabyMegatherium extends PathfinderMob implements IAnimatable {
+public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal implements IAnimatable {
 
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.MELON, UPItems.GINKGO_FRUIT.get());
     private int age;
 
-    public EntityBabyMegatherium(EntityType<? extends PathfinderMob> entityType, Level level) {
+    public EntityBabyMegatherium(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -77,6 +77,10 @@ public class EntityBabyMegatherium extends PathfinderMob implements IAnimatable 
     }
 
     @Override
+    protected void performAttack() {
+    }
+
+    @Override
     public void aiStep() {
         super.aiStep();
         if (!this.level.isClientSide) this.setAge(this.age + 1);
@@ -91,7 +95,7 @@ public class EntityBabyMegatherium extends PathfinderMob implements IAnimatable 
         return InteractionResult.sidedSuccess(this.level.isClientSide);
     }
 
-    private boolean isFood(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         return EntityBabyMegatherium.FOOD_ITEMS.test(stack);
     }
 
@@ -120,6 +124,12 @@ public class EntityBabyMegatherium extends PathfinderMob implements IAnimatable 
 
     private void increaseAge(int seconds) {
         this.setAge(this.age + seconds * 20);
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+        return null;
     }
 
     public void setAge(int age) {
@@ -153,6 +163,51 @@ public class EntityBabyMegatherium extends PathfinderMob implements IAnimatable 
         } else {
             this.noActionTime = 0;
         }
+    }
+
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
     }
 
     private int getTicksUntilGrowth() {

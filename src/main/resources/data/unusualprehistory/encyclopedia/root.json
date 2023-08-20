@@ -27,6 +27,20 @@
       "x": 300,
       "y": 10,
       "page": 0
+    },
+    {
+      "linked_page": "unusualprehistory:plants",
+      "text": "The plants of prehistory",
+      "x": 300,
+      "y": 50,
+      "page": 0
+    },
+    {
+      "linked_page": "unusualprehistory:dinosaurs",
+      "text": "The dinosaurs of prehistory",
+      "x": 300,
+      "y": 100,
+      "page": 0
     }
   ]
 }

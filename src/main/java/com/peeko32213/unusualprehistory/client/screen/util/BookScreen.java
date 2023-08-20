@@ -7,6 +7,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.client.screen.LinkPlantButton;
+import com.peeko32213.unusualprehistory.client.screen.PlantLinkData;
 import com.peeko32213.unusualprehistory.common.data.*;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
@@ -19,6 +21,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
@@ -72,9 +75,11 @@ public class BookScreen extends Screen {
     private Map<Integer, Integer> previousMap = new HashMap<>();
     private final List<EntityRenderDataCodec> entityRenders = new ArrayList<>();
     private final List<EntityLinkData> entityLinkData = new ArrayList<>();
+    private final List<PlantLinkData> plantLinkData = new ArrayList<>();
     private final Map<String, Entity> renderedEntites = new HashMap<>();
     private final List<ItemRenderData> itemRenders = new ArrayList<>();
     private final List<LineData> lines = new ArrayList<>();
+    private String pageToGo = "root";
     protected int linesFromJSON = 0;
     protected int linesFromPrinting = 0;
     protected int maxPagesFromPrinting = 0;
@@ -85,6 +90,7 @@ public class BookScreen extends Screen {
     private int mouseX;
     private int mouseY;
     private List<EntityIndexCodec> entityIndex;
+    private List<PlantIndexCodec> plantIndex;
     private String entityTooltip;
     public BookScreen(ResourceLocation resourceLocation, int currentPage) {
         super(Component.translatable("encyclopedia.title"));
@@ -92,6 +98,26 @@ public class BookScreen extends Screen {
 
         if (resourceLocation.equals(prefix("root"))) {
             this.currentEntry = EncyclopediaJsonManager.getRootPage();
+           //EncyclopediaJsonManager.getEncyclopediaEntries().values().forEach(encyclopediaCodec -> {
+           //    encyclopediaCodec.getEntityButtons().forEach(entityRenderDataCodec -> {
+           //        this.entityLinkData.add(entityRenderDataCodec);
+           //    });
+           //});
+
+           //Collections.sort(this.entityLinkData, Comparator.comparing(EntityLinkData::getEntity));
+        }else {
+            this.currentEntry = EncyclopediaJsonManager.getEncyclopediaEntries().get(resourceLocation);
+        }
+        if (resourceLocation.equals(prefix("plants"))) {
+            EncyclopediaJsonManager.getEncyclopediaEntries().values().forEach(encyclopediaCodec -> {
+                encyclopediaCodec.getPlantButtons().forEach(plantLinkData -> {
+                    this.plantLinkData.add(plantLinkData);
+                });
+            });
+
+            Collections.sort(this.plantLinkData, Comparator.comparing(PlantLinkData::getPlant));
+        }
+        if (resourceLocation.equals(prefix("dinosaurs"))) {
             EncyclopediaJsonManager.getEncyclopediaEntries().values().forEach(encyclopediaCodec -> {
                 encyclopediaCodec.getEntityButtons().forEach(entityRenderDataCodec -> {
                     this.entityLinkData.add(entityRenderDataCodec);
@@ -99,16 +125,15 @@ public class BookScreen extends Screen {
             });
 
             Collections.sort(this.entityLinkData, Comparator.comparing(EntityLinkData::getEntity));
-        } else {
-            this.currentEntry = EncyclopediaJsonManager.getEncyclopediaEntries().get(resourceLocation);
         }
         if(this.currentEntry == null){
             this.currentEntry =  EncyclopediaJsonManager.getEncyclopediaEntries().get(prefix("help"));
         }
-
+        this.pageToGo = this.currentEntry.getPageToGo();
         this.entityRenders.clear();
         this.entityRenders.addAll(currentEntry.getEntityRenders());
         this.entityIndex = currentEntry.getEntityIndex();
+        this.plantIndex = currentEntry.getPlantIndex();
         this.pictures = this.currentEntry.getPictures();
         this.currentPage = currentPage;
         this.recipes = currentEntry.getRecipes();
@@ -162,9 +187,23 @@ public class BookScreen extends Screen {
                 this.nextPageToStartNrCache = lines.getPage();
             }
         }
-        if (this.currentResourceLocation.equals(prefix("root"))) {
+        if (this.currentResourceLocation.equals(prefix("dinosaurs"))) {
             double dataSize = entityLinkData.size();
             for (EntityIndexCodec linkData : entityIndex) {
+                double entriesPerPage = (linkData.getColums() * linkData.getRows()) * 2;
+                double entriesFirstPage = (linkData.getColums() * linkData.getRows());
+                double entries = dataSize / entriesPerPage;
+                if (dataSize < entriesFirstPage) {
+                    this.nextPageToStartNrCache = 0;
+                } else {
+                    this.nextPageToStartNrCache = linkData.getPageNr() + (int) Mth.ceil(entries);
+                }
+            }
+        }
+
+        if (this.currentResourceLocation.equals(prefix("plants"))) {
+            double dataSize = plantLinkData.size();
+            for (PlantIndexCodec linkData : plantIndex) {
                 double entriesPerPage = (linkData.getColums() * linkData.getRows()) * 2;
                 double entriesFirstPage = (linkData.getColums() * linkData.getRows());
                 double entries = dataSize / entriesPerPage;
@@ -339,40 +378,45 @@ public class BookScreen extends Screen {
 
         for (ItemRenderData itemRenderData : itemRenders) {
             if (itemRenderData.getPage() == this.currentPage) {
-                Item item = getItemByRegistryName(itemRenderData.getItem());
-                if (item != null) {
-                    float scale = (float) itemRenderData.getScale();
-                    ItemStack stack = new ItemStack(item);
-                    if (itemRenderData.getItemTag() != null && !itemRenderData.getItemTag().isEmpty()) {
-                        CompoundTag tag = null;
-                        try {
-                            tag = TagParser.parseTag(itemRenderData.getItemTag());
-                        } catch (CommandSyntaxException e) {
-                            e.printStackTrace();
-                        }
-                        stack.setTag(tag);
-                    }
-                    this.itemRenderer.blitOffset = 100.0F;
-                    matrixStack.pushPose();
-                    PoseStack poseStack = RenderSystem.getModelViewStack();
-                    poseStack.pushPose();
-                    poseStack.translate(k, l, 0);
-                    poseStack.scale(scale, scale, scale);
-                    this.itemRenderer.renderAndDecorateItem(stack, itemRenderData.getX(), itemRenderData.getY());
-                    this.itemRenderer.blitOffset = 0.0F;
-                    poseStack.popPose();
-                    matrixStack.popPose();
-                    RenderSystem.applyModelViewMatrix();
-                }
+                drawItemOnScreen(matrixStack, k,l, (float) itemRenderData.getScale(),false,0,0,0,0,0,itemRenderData, itemRenderer);
             }
         }
 
 //
     }
 
-    private Item getItemByRegistryName(String registryName) {
+    private static Item getItemByRegistryName(String registryName) {
         return ForgeRegistries.ITEMS.getValue(new ResourceLocation(registryName));
     }
+
+    public static void drawItemOnScreen(PoseStack matrixStack, int posX, int posY, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, ItemRenderData itemRenderData, ItemRenderer itemRenderer){
+
+        Item item = BookScreen.getItemByRegistryName(itemRenderData.getItem());
+        if (item != null) {;
+            ItemStack stack = new ItemStack(item);
+            if (itemRenderData.getItemTag() != null && !itemRenderData.getItemTag().isEmpty()) {
+                CompoundTag tag = null;
+                try {
+                    tag = TagParser.parseTag(itemRenderData.getItemTag());
+                } catch (CommandSyntaxException e) {
+                    e.printStackTrace();
+                }
+                stack.setTag(tag);
+            }
+            itemRenderer.blitOffset = 100.0F;
+            matrixStack.pushPose();
+            PoseStack poseStack = RenderSystem.getModelViewStack();
+            poseStack.pushPose();
+            poseStack.translate(posX, posY, 0);
+            poseStack.scale(scale, scale, scale);
+            itemRenderer.renderAndDecorateItem(stack, itemRenderData.getX(), itemRenderData.getY());
+            itemRenderer.blitOffset = 0.0F;
+            poseStack.popPose();
+            matrixStack.popPose();
+            RenderSystem.applyModelViewMatrix();
+        }
+    }
+
     public static void drawEntityOnScreen(PoseStack stackIn, int posX, int posY, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, LivingEntity entity) {
         //Ew Todo Fix this mess some day
         if(entity instanceof EntityBaseDinosaurAnimal dinosaurAnimal) {
@@ -510,7 +554,7 @@ public class BookScreen extends Screen {
                 this.maxPagesFromPrinting = linkData.getPage();
             }
         }
-        if (this.currentResourceLocation.equals(prefix("root"))) {
+        if (this.currentResourceLocation.equals(prefix("dinosaurs"))) {
             int rowCount = 0;
             int columnCount = 0;
 
@@ -575,6 +619,79 @@ public class BookScreen extends Screen {
                     rowCount = 0;
                 }
                 if (rowCount == entityIndex.getRows()) {
+                    break;
+                }
+            }
+
+        }
+
+
+
+        if (this.currentResourceLocation.equals(prefix("plants"))) {
+            int rowCount = 0;
+            int columnCount = 0;
+
+
+            PlantIndexCodec plantIndex = this.plantIndex.get(0);
+            int linkDataSize = this.plantLinkData.size();
+            int startingEntity = 0;
+            if (this.currentPage != plantIndex.getPageNr()) {
+
+                int startingSize = plantIndex.getColums() * plantIndex.getRows();
+
+                if (this.currentPage == plantIndex.getPageNr() + 1) {
+                    startingEntity = linkDataSize - (linkDataSize - (startingSize * (currentPage - plantIndex.getPageNr())));
+                } else {
+                    startingEntity = linkDataSize - (linkDataSize - ((startingSize * (currentPage - plantIndex.getPageNr() * 2) * 2)));
+                }
+
+                if (startingEntity < 0) {
+                    return;
+                }
+            }
+            int startingOffsetX = 16;
+            int startingOffsetY = 16;
+            if (this.currentPage == plantIndex.getPageNr()) {
+                startingOffsetX += plantIndex.getxLocation();
+            }
+            startingOffsetY += plantIndex.getyLocation();
+            if (currentPage < plantIndex.getPageNr()) {
+                return;
+            }
+            for (int i = startingEntity; i < linkDataSize; i++) {
+                PlantLinkData linkData = this.plantLinkData.get(i);
+                if (rowCount == plantIndex.getRows()) {
+                    break;
+                }
+                if (this.currentPage != plantIndex.getPageNr()) {
+                    if (i > (startingEntity + (plantIndex.getColums() * plantIndex.getRows() * 2))) {
+                        break;
+                    }
+                }
+                yIndexesToSkip.add(new Whitespace(this.currentPage, (int) (startingOffsetX + (columnCount * 24 * linkData.getScale() - 12)), (int) (startingOffsetY + l + rowCount * 24 * linkData.getScale()), 100, 20));
+                this.addRenderableWidget(new LinkPlantButton(this, linkData, (int) (startingOffsetX + k + (columnCount * 24 * linkData.getScale())), (int) (startingOffsetY + l + (rowCount * 24 * linkData.getScale())), (p_213021_1_) -> {
+                    Minecraft.getInstance().setScreen(new BookScreen(new ResourceLocation(linkData.linked_page), 0));
+                    addNextPreviousButtons();
+                }));
+
+
+                if (linkData.getPage() > this.maxPagesFromPrinting) {
+                    this.maxPagesFromPrinting = linkData.getPage();
+                }
+                columnCount++;
+
+
+                if (columnCount == plantIndex.getColums()) {
+                    rowCount++;
+                    columnCount = 0;
+                }
+
+                if (plantIndex.getPageNr() != currentPage && rowCount >= plantIndex.getRows()) {
+                    startingOffsetX = 16 + 200;
+                    columnCount = 0;
+                    rowCount = 0;
+                }
+                if (rowCount == plantIndex.getRows()) {
                     break;
                 }
             }
@@ -791,7 +908,7 @@ public class BookScreen extends Screen {
                 return;
             }
             if (this.currentPage == 0) {
-                Minecraft.getInstance().setScreen(new BookScreen(prefix("root"), 0));
+                Minecraft.getInstance().setScreen(new BookScreen(new ResourceLocation(this.pageToGo), 0));
                 return;
             }
             Minecraft.getInstance().setScreen(new BookScreen(this.currentResourceLocation, 0));

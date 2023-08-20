@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
+import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -62,15 +63,6 @@ public class CommonEvents {
 
         event.put(UPEntities.ICEBERG_SMILODON.get(), EntityWorldSpawnable.bakeAttributes().build());
         event.put(UPEntities.ICEBERG_MAMMOTH.get(), EntityWorldSpawnable.bakeAttributes().build());
-
+        event.put(UPEntities.FOXXI_SAPLING.get(), EntityPlant.bakeAttributes().build());
     }
-
-    public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag) {
-        if (entityTag == null) {
-            return Predicates.alwaysFalse();
-        } else {
-            return (com.google.common.base.Predicate<LivingEntity>) e -> e.isAlive() && e.getType().is(entityTag);
-        }
-    }
-
 }

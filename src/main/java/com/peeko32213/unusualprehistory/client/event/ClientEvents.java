@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.*;
 import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergMammothModel;
 import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergSmilodonModel;
+import com.peeko32213.unusualprehistory.client.model.plant.PlantModel;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.overlay.TarOverlay;
 import com.peeko32213.unusualprehistory.client.render.armor.*;
@@ -31,9 +32,11 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
@@ -238,13 +241,18 @@ public final class ClientEvents {
 
         event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));
         event.registerEntityRenderer(UPEntities.ICEBERG_SMILODON.get(), e -> new LivingEntityRenderer<>(e, new IcebergSmilodonModel()));
+        event.registerEntityRenderer(UPEntities.FOXXI_SAPLING.get(), e -> new LivingEntityRenderer<>(e, new PlantModel("foxxi_sapling", "plants/foxxi_sapling.png")));
+
+
+        event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), ThrownItemRenderer::new);
 
         event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);
         //event.registerBlockEntityRenderer(UPBlockEntities.FRUIT_LOOT_BOX_BLOCK_ENTITY.get(), FruitLootBoxRenderer::new);
 
 
-        MinecraftForge.EVENT_BUS.register(new ClientEvents());
+       // MinecraftForge.EVENT_BUS.register(new ClientEvents());
         try {
             ItemProperties.register(UPItems.TRIKE_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
             ItemProperties.register(UPItems.VELOCI_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);

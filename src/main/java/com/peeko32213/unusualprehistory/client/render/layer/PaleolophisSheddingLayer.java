@@ -20,14 +20,12 @@ public class PaleolophisSheddingLayer extends GeoLayerRenderer<EntityPalaeophis>
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, EntityPalaeophis entityLivingBaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entityLivingBaseIn.isShedding()) {
+        if (entityLivingBaseIn.isShedding() && !entityLivingBaseIn.isFromBook()) {
             RenderType cameo = RenderType.entityCutout(OVERLAY);
             this.getRenderer().render(this.getEntityModel().getModel(MODEL), entityLivingBaseIn, partialTicks, cameo, matrixStackIn, bufferIn,
                     bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY,  1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
-
-
-    }
+}
 
 

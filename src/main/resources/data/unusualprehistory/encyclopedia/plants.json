@@ -1,0 +1,23 @@
+{
+  "title": "Encyclopedia of Prehistory",
+  "text": "root.txt",
+  "pictures": [
+    {
+      "page": 0,
+      "picture_location": "unusualprehistory:textures/item/ammonite_shell.png",
+      "x": 70,
+      "y": 28,
+      "xSize": 44,
+      "ySize": 44
+    }
+  ],
+  "plant_index": [
+    {
+      "page": 0,
+      "xLocation": 210,
+      "yLocation": 18,
+      "columns": 5,
+      "rows": 5
+    }
+  ]
+}

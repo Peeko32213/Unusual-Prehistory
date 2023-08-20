@@ -105,9 +105,10 @@ repositories {
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
     }
 
-    maven {// location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
+    maven {
+        // location of the maven that hosts JEI files since January 2023
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
     }
     maven {
         // location of a maven mirror for JEI files, as a fallback
@@ -117,7 +118,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.0'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.17'
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.39')
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}"))
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}"))
