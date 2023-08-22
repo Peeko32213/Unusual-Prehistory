@@ -96,7 +96,7 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoLay
         RenderUtils.scale(bone, stack);
         RenderUtils.moveBackFromPivot(bone, stack);
         if(entity instanceof EntityBaseDinosaurAnimal entityBaseDinosaurAnimal) {
-            if (bone.getName().equals("RightArm") && entityBaseDinosaurAnimal.isTrading() && entityBaseDinosaurAnimal instanceof EntityGigantopithicus) {
+            if (bone.getName().equals("Arm1") && entityBaseDinosaurAnimal.isTrading() && entityBaseDinosaurAnimal instanceof EntityGigantopithicus) {
                 stack.pushPose();
                 //You'll need to play around with these to get item to render in the correct orientation
                 stack.mulPose(Vector3f.XP.rotationDegrees(-45));
@@ -104,7 +104,7 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoLay
                 stack.mulPose(Vector3f.ZP.rotationDegrees(0));
 
                 //You'll need to play around with this to render the item in the correct spot.
-                stack.translate(0.0D, -1.25D, 0.25D);
+                stack.translate(1.55D, 0.1D, -0.75D);
                 //Sets the scaling of the item.
                 stack.scale(2.5f, 2.5f, 2.5f);
 

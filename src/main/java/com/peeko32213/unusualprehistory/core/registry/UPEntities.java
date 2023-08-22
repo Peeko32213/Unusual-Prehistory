@@ -146,7 +146,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "talapanas").toString()));
 
     public static final RegistryObject<EntityType<EntityGigantopithicus>> GIGANTOPITHICUS = ENTITIES.register("gigantopithicus",
-            () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(4.0F, 4.0F)
+            () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(3.0F, 3.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "gigantopithicus").toString()));
 
     public static final RegistryObject<EntityType<EntityBarinasuchus>> BARINASUCHUS = ENTITIES.register("barinasuchus",
