@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:talapanas_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:talapanas_egg"
+  }
+}

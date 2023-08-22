@@ -116,26 +116,28 @@ public class LanguageGenerator extends LanguageProvider {
 
 
         //EGGS
-        addBlock(UPBlocks.STETHA_EGGS, "Stethacanthus Eggs");
-        addBlock(UPBlocks.BEELZE_EGGS, "Beelzebufo Eggs");
-        addBlock(UPBlocks.AMON_EGGS, "Ammonite Eggs");
-        addBlock(UPBlocks.DUNK_EGGS, "Dunkleosteus Eggs");
-        addBlock(UPBlocks.SCAU_EGGS, "Scaumenacia Eggs");
-        addBlock(UPBlocks.ANURO_EGG, "Anurognathus Eggs");
-        addBlock(UPBlocks.MAJUNGA_EGG, "Majungasaurus Eggs");
-        addBlock(UPBlocks.COTY_EGG, "Cotylorhynchus Eggs");
-        addBlock(UPBlocks.BRACHI_EGG, "Brachiosaurus Eggs");
-        addBlock(UPBlocks.REX_EGG, "Tyrannosaurus Rex Eggs");
-        addBlock(UPBlocks.TRIKE_EGG, "Triceratops Eggs");
-        addBlock(UPBlocks.RAPTOR_EGG, "Velociraptor Eggs");
-        addBlock(UPBlocks.PACHY_EGG, "Pachycephalosaurus Eggs");
+        addBlock(UPBlocks.STETHA_EGGS, "Stethacanthus Egg");
+        addBlock(UPBlocks.BEELZE_EGGS, "Beelzebufo Egg");
+        addBlock(UPBlocks.AMON_EGGS, "Ammonite Egg");
+        addBlock(UPBlocks.DUNK_EGGS, "Dunkleosteus Egg");
+        addBlock(UPBlocks.SCAU_EGGS, "Scaumenacia Egg");
+        addBlock(UPBlocks.ANURO_EGG, "Anurognathus Egg");
+        addBlock(UPBlocks.MAJUNGA_EGG, "Majungasaurus Egg");
+        addBlock(UPBlocks.COTY_EGG, "Cotylorhynchus Egg");
+        addBlock(UPBlocks.BRACHI_EGG, "Brachiosaurus Egg");
+        addBlock(UPBlocks.REX_EGG, "Tyrannosaurus Rex Egg");
+        addBlock(UPBlocks.TRIKE_EGG, "Triceratops Egg");
+        addBlock(UPBlocks.RAPTOR_EGG, "Velociraptor Egg");
+        addBlock(UPBlocks.PACHY_EGG, "Pachycephalosaurus Egg");
         addBlock(UPBlocks.ENCRUSTED_SACK, "Encrusted Sack");
-        addBlock(UPBlocks.ERYON_EGGS, "Eryon Eggs");
-        addBlock(UPBlocks.AUSTRO_EGG, "Austroraptor Eggs");
-        addBlock(UPBlocks.KENTRO_EGG, "Kentrosaurus Eggs");
-        addBlock(UPBlocks.ULUGH_EGG, "Ulughbegsaurus Eggs");
-        addBlock(UPBlocks.ANTARCO_EGG, "Antarctopelta Eggs");
-        addBlock(UPBlocks.HWACHA_EGG, "Hwachavenator Eggs");
+        addBlock(UPBlocks.ERYON_EGGS, "Eryon Egg");
+        addBlock(UPBlocks.AUSTRO_EGG, "Austroraptor Egg");
+        addBlock(UPBlocks.KENTRO_EGG, "Kentrosaurus Egg");
+        addBlock(UPBlocks.ULUGH_EGG, "Ulughbegsaurus Egg");
+        addBlock(UPBlocks.ANTARCO_EGG, "Antarctopelta Egg");
+        addBlock(UPBlocks.HWACHA_EGG, "Hwachavenator Egg");
+        addBlock(UPBlocks.BARINA_EGG, "Barinasuchus Egg");
+        addBlock(UPBlocks.TALAPANAS_EGG, "Talapanas Egg");
 
 
         //SPAWN EGGS

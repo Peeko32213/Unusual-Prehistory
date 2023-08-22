@@ -216,6 +216,21 @@ public class UPBlocks {
                     Block.box(0, 0, 0, 16, 1.5, 16)
             ));
 
+    public static final RegistryObject<Block> TALAPANAS_EGG = registerBlock("talapanas_egg",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.TALAPANAS, 1,
+                    Block.box(3, 0, 3, 13, 12, 13)
+            ));
+
+    public static final RegistryObject<Block> BARINA_EGG = registerBlock("barina_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.BARINASUCHUS, 4,
+                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
+
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
             () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.EGG).strength(0.5F).requiresCorrectToolForDrops(),
                     Block.box(5, 0, 2, 11, 12, 14),

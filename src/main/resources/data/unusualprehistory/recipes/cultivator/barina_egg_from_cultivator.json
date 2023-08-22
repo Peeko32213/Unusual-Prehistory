@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:barin_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:barina_eggs"
+  }
+}
