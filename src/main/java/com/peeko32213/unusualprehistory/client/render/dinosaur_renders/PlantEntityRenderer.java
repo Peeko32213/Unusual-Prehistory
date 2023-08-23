@@ -14,9 +14,16 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class PlantEntityRenderer<T extends LivingEntity & IAnimatable> extends GeoEntityRenderer<T> {
-
-    public PlantEntityRenderer(EntityRendererProvider.Context context, AnimatedGeoModel<T> model) {
+    private float scale;
+    public PlantEntityRenderer(EntityRendererProvider.Context context, AnimatedGeoModel<T> model, float scale) {
         super(context, model);
+        this.scale = scale;
+    }
+
+    @Override
+    public void renderEarly(T animatable, PoseStack poseStack, float partialTick, MultiBufferSource bufferSource, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float partialTicks) {
+        super.renderEarly(animatable, poseStack, partialTick, bufferSource, buffer, packedLight, packedOverlay, red, green, blue, partialTicks);
+        poseStack.scale(this.scale, this.scale, this.scale);
     }
 
     @Override
@@ -25,7 +32,11 @@ public class PlantEntityRenderer<T extends LivingEntity & IAnimatable> extends G
     }
 
     protected int getBlockLightLevel(T pEntity, BlockPos pPos) {
-        return 25;
+        return 15;
     }
 
+    @Override
+    protected int getSkyLightLevel(T pEntity, BlockPos pPos) {
+        return 15;
+    }
 }

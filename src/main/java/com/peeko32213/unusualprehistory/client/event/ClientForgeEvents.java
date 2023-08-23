@@ -28,7 +28,9 @@ public final class ClientForgeEvents {
         Level level = player.level;
         Vec3 vec3 = player.getEyePosition();
         BlockState blockState = level.getBlockState(new BlockPos(vec3));
-        if(blockState.is(UPBlocks.TAR.get()) && event.getMode().equals(FogRenderer.FogMode.FOG_TERRAIN))
+        boolean isCreative = player.isCreative();
+        boolean isSpectator = player.isSpectator();
+        if(blockState.is(UPBlocks.TAR.get()) && event.getMode().equals(FogRenderer.FogMode.FOG_TERRAIN) && !isCreative && !isSpectator)
         {
             event.setFarPlaneDistance(1.3F);
             event.setNearPlaneDistance(0.5F);
@@ -48,8 +50,10 @@ public final class ClientForgeEvents {
         Level level = player.level;
         Vec3 vec3 = player.getEyePosition();
         BlockState blockState = level.getBlockState(new BlockPos(vec3));
+        boolean isCreative = player.isCreative();
+        boolean isSpectator = player.isSpectator();
         boolean insideTar = blockState.is(UPBlocks.TAR.get());
-        if(insideTar)
+        if(insideTar && !isCreative && !isSpectator)
         {
             final float[] realColors = {event.getRed(), event.getGreen(), event.getBlue()};
             final float[] lerpColors = {0.2F, 0.2F, 0.2F};

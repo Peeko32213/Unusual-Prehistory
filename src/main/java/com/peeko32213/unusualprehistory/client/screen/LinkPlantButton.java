@@ -96,22 +96,22 @@ public class LinkPlantButton extends Button {
 
         public void renderEntityWindow(PoseStack matrixStack, float x, float y, Entity toRender, float renderScale, float offsetX, float offsetY, int minX, int minY, int maxX, int maxY) {
             matrixStack.pushPose();
-            matrixStack.translate(0, 0, -1F);
+            matrixStack.translate(0, 0, 1F);
 
-            RenderSystem.setShaderColor(6F, 6F, 6F, 1.0F);
+            RenderSystem.setShaderColor(1F, 1F, 1F, 255.0F);
             PoseStack posestack = matrixStack;
 
             posestack.pushPose();
-            //RenderSystem.enableDepthTest();
+            RenderSystem.enableDepthTest();
             posestack.scale(1F, 1F, -1F);
             posestack.translate(0.0F, 0.0F, 950F);
             RenderSystem.colorMask(false, false, false, false);
             fill(matrixStack, 4680, 2260, -4680, -2260, -16777216);
             RenderSystem.colorMask(true, true, true, true);
             posestack.translate(0.0F, 0.0F, -950F);
-            //RenderSystem.depthFunc(518);
+            RenderSystem.depthFunc(518);
             fill(matrixStack, 22, 22, 2, 2, -16777216);
-            //RenderSystem.depthFunc(514);
+            RenderSystem.depthFunc(514);
             RenderSystem.setShaderTexture(0, bookGUITest.getBookWidgetTexture());
             blit(matrixStack, 0, 0, 0, 30, 24, 24, 256, 256);
             if (toRender != null) {

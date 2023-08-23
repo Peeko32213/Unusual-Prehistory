@@ -222,54 +222,63 @@ public class UPEntities {
 
     public static final RegistryObject<EntityType<EntityPlant>> FOXXI_SAPLING = ENTITIES.register("foxxi_sapling",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(2, 2)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "foxxi_sapling").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> HORSETAIL = ENTITIES.register("horsetail",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "horsetail").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> TALL_HORSETAIL = ENTITIES.register("tall_horsetail",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(2, 2)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "tall_horsetail").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> LEEFRUCTUS = ENTITIES.register("leefructus",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "leefructus").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> BENNETTITALES = ENTITIES.register("bennett",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "bennett").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> ARCHAEOSIGILARIA = ENTITIES.register("archaeos",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "archaeos").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> SARACENIA = ENTITIES.register("sarracenia",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "sarracenia").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> TALL_SARACENIA = ENTITIES.register("tall_sarracenia",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(2, 2)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "tall_sarracenia").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> GINKGO_SAPLING = ENTITIES.register("ginkgo_sapling",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "ginkgo_sapling").toString()));
@@ -277,12 +286,14 @@ public class UPEntities {
 
     public static final RegistryObject<EntityType<EntityPlant>> DRYO_SAPLING = ENTITIES.register("dryo_sapling",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "dryo_sapling").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> CLATHRODICTYON = ENTITIES.register("clathrodictyon",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "clathrodictyon").toString()));
@@ -295,18 +306,21 @@ public class UPEntities {
 
     public static final RegistryObject<EntityType<EntityPlant>> NELUMBITES = ENTITIES.register("nelumbites",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "nelumbites").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> QUEREUXIA = ENTITIES.register("quereuxia",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "quereuxia").toString()));
 
     public static final RegistryObject<EntityType<EntityPlant>> RAIGUENRAYUN = ENTITIES.register("raiguenrayun",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(2, 2)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "raiguenrayun").toString()));

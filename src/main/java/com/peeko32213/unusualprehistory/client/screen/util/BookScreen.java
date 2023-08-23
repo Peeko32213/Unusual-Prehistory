@@ -14,6 +14,7 @@ import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
@@ -258,6 +259,16 @@ public class BookScreen extends Screen {
     }
 
 
+    /**
+     * Adds a picture to the book page.
+     *
+     * @param poseStack The matrix stack for rendering transformations.
+     * @param offsetX The X offset for the picture.
+     * @param offsetY The Y offset for the picture.
+     * @param sizeX The width of the picture.
+     * @param sizeY The height of the picture.
+     * @param resourceLocation The resource location of the picture.
+     */
     public void addPicture(PoseStack poseStack, int offsetX, int offsetY, int sizeX, int sizeY, ResourceLocation resourceLocation) {
         int i = (this.width - this.xSize) / 2;
         int p = (this.height - this.ySize + 128) / 2;
@@ -265,6 +276,17 @@ public class BookScreen extends Screen {
         BookBlit.blit(poseStack, i + offsetX, p + offsetY, 0, 0, sizeX, sizeY, sizeX, sizeY);
     }
 
+    /**
+     * Checks if the given coordinates are within the specified offsets.
+     *
+     * @param currentHeight The current Y coordinate.
+     * @param currentWidth The current X coordinate.
+     * @param heightToSkipStart The starting height to skip.
+     * @param heightToSkipEnd The ending height to skip.
+     * @param widthToSkipStart The starting width to skip.
+     * @param widthToSkipEnd The ending width to skip.
+     * @return Whether the coordinates are within the specified offsets.
+     */
     public boolean checkOffsets(int currentHeight, int currentWidth, int heightToSkipStart, int heightToSkipEnd, int widthToSkipStart, int widthToSkipEnd) {
         int i = (this.width - this.xSize) / 2;
         int p = (this.height - this.ySize + 128) / 2;
@@ -287,14 +309,16 @@ public class BookScreen extends Screen {
         return false;
     }
 
+    /**
+     * Adds widgets, such as recipe displays and entity renders, to the book page.
+     *
+     * @param matrixStack The matrix stack for rendering transformations.
+     */
     private void addWidgets(PoseStack matrixStack) {
-//
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize + 128) / 2;
 
-
-
-
+        // Iterate over recipe data and render recipe displays
         for (RecipeCodec recipeData : recipes) {
             if (recipeData.getPageNr() == this.currentPage) {
                 matrixStack.pushPose();
@@ -307,6 +331,8 @@ public class BookScreen extends Screen {
                 matrixStack.popPose();
             }
         }
+
+        // Iterate over recipe data again and render ingredients and result items
         for (RecipeCodec recipeData : recipes) {
             if (recipeData.getPageNr() == this.currentPage) {
                 Recipe recipe = getRecipeByName(recipeData.getRecipe());
@@ -315,9 +341,11 @@ public class BookScreen extends Screen {
                     float scale = (float) recipeData.getScale();
                     PoseStack poseStack = RenderSystem.getModelViewStack();
                     for (int i = 0; i < recipe.getIngredients().size(); i++) {
+                        // Render ingredients
                         Ingredient ing = (Ingredient) recipe.getIngredients().get(i);
                         ItemStack stack = ItemStack.EMPTY;
                         if (!ing.isEmpty()) {
+                            // Handle multiple possible ingredient items
                             if (ing.getItems().length > 1) {
                                 int currentIndex = (int) ((playerTicks / 20F) % ing.getItems().length);
                                 stack = ing.getItems()[currentIndex];
@@ -338,6 +366,7 @@ public class BookScreen extends Screen {
                             poseStack.popPose();
                         }
                     }
+                    // Render result item
                     poseStack.pushPose();
                     poseStack.translate(k, l, 32.0F);
                     float finScale = scale * 1.5F;
@@ -352,6 +381,8 @@ public class BookScreen extends Screen {
                 }
             }
         }
+
+        // Iterate over entity render data and render entity models
         for (EntityRenderDataCodec data : entityRenders) {
             if (data.getPage() == this.currentPage) {
                 Entity model = null;
@@ -375,20 +406,39 @@ public class BookScreen extends Screen {
             }
         }
 
-
+        // Iterate over item render data and render item models
         for (ItemRenderData itemRenderData : itemRenders) {
             if (itemRenderData.getPage() == this.currentPage) {
-                drawItemOnScreen(matrixStack, k,l, (float) itemRenderData.getScale(),false,0,0,0,0,0,itemRenderData, itemRenderer);
+                drawItemOnScreen(matrixStack, k, l, (float) itemRenderData.getScale(), false, 0, 0, 0, 0, 0, itemRenderData, itemRenderer);
             }
         }
-
-//
     }
 
+    /**
+     * Retrieves an item from the registry based on its registry name.
+     *
+     * @param registryName The registry name of the item.
+     * @return The corresponding Item instance.
+     */
     private static Item getItemByRegistryName(String registryName) {
         return ForgeRegistries.ITEMS.getValue(new ResourceLocation(registryName));
     }
-
+    /**
+     * Draws an item on the screen at the specified position with given attributes.
+     *
+     * @param matrixStack The matrix stack for rendering transformations.
+     * @param posX The X position to render the item.
+     * @param posY The Y position to render the item.
+     * @param scale The scaling factor for the item.
+     * @param follow Whether the item should follow the cursor.
+     * @param xRot The X rotation of the item.
+     * @param yRot The Y rotation of the item.
+     * @param zRot The Z rotation of the item.
+     * @param mouseX The current X position of the mouse.
+     * @param mouseY The current Y position of the mouse.
+     * @param itemRenderData The data for rendering the item.
+     * @param itemRenderer The ItemRenderer instance for rendering items.
+     */
     public static void drawItemOnScreen(PoseStack matrixStack, int posX, int posY, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, ItemRenderData itemRenderData, ItemRenderer itemRenderer){
 
         Item item = BookScreen.getItemByRegistryName(itemRenderData.getItem());
@@ -416,7 +466,21 @@ public class BookScreen extends Screen {
             RenderSystem.applyModelViewMatrix();
         }
     }
-
+    /**
+     * Draws an entity on the screen at the specified position with given attributes.
+     *
+     * @param stackIn The pose stack for rendering transformations.
+     * @param posX The X position to render the entity.
+     * @param posY The Y position to render the entity.
+     * @param scale The scaling factor for the entity.
+     * @param follow Whether the entity should follow the cursor.
+     * @param xRot The X rotation of the entity.
+     * @param yRot The Y rotation of the entity.
+     * @param zRot The Z rotation of the entity.
+     * @param mouseX The current X position of the mouse.
+     * @param mouseY The current Y position of the mouse.
+     * @param entity The LivingEntity instance to render.
+     */
     public static void drawEntityOnScreen(PoseStack stackIn, int posX, int posY, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, LivingEntity entity) {
         //Ew Todo Fix this mess some day
         if(entity instanceof EntityBaseDinosaurAnimal dinosaurAnimal) {
@@ -471,8 +535,12 @@ public class BookScreen extends Screen {
         posestack1.mulPose(Vector3f.XP.rotationDegrees((float) xRot - 55F));
         posestack1.mulPose(Vector3f.YP.rotationDegrees((float) yRot - 10));
         posestack1.mulPose(Vector3f.ZP.rotationDegrees((float) zRot));
+        if(entity instanceof EntityPlant) {
+            Lighting.setupForFlatItems();
+        } else {
+            Lighting.setupForEntityInInventory();
+        }
 
-        Lighting.setupForEntityInInventory();
         EntityRenderDispatcher entityrenderdispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
         quaternion1.conj();
 
@@ -534,6 +602,9 @@ public class BookScreen extends Screen {
         Lighting.setupFor3DItems();
     }
 
+    /**
+     * Adds link buttons to the screen based on the current page and index data.
+     */
     private void addLinkButtons() {
         this.renderables.clear();
         this.clearWidgets();
@@ -711,18 +782,22 @@ public class BookScreen extends Screen {
         return null;
     }
 
+    /**
+     * Refreshes the spacing and layout of widgets based on the current entry's language,
+     * adds next and previous buttons, widget spacing, and reads in page text.
+     */
     private void refreshSpacing() {
         if (this.currentEntry != null) {
             String lang = Minecraft.getInstance().getLanguageManager().getSelected().getCode().toLowerCase();
             currentPageText = new ResourceLocation(getTextFileDirectory() + lang + "/" + this.currentEntry.getTextLocation());
             boolean invalid = false;
             try {
-                //test if it exists. if no exception, then the language is supported
+                // Test if the language file exists. If no exception is thrown, then the language is supported.
                 InputStream is = Minecraft.getInstance().getResourceManager().open(currentPageText);
                 is.close();
             } catch (Exception e) {
                 invalid = true;
-                UnusualPrehistory.LOGGER.warn("Could not find language file for translation, defaulting to english");
+                UnusualPrehistory.LOGGER.warn("Could not find language file for translation, defaulting to English");
                 currentPageText = new ResourceLocation(getTextFileDirectory() + "en_us/" + this.currentEntry.getTextLocation());
             }
             addNextPreviousButtons();
@@ -731,12 +806,17 @@ public class BookScreen extends Screen {
         }
     }
 
-
-
+    /**
+     * Draws the page text on the screen using the specified matrix stack and font.
+     *
+     * @param matrixStack The matrix stack used for rendering.
+     */
     private void writePageText(PoseStack matrixStack) {
         Font font = this.font;
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize + 128) / 2;
+
+        // Draw the title if applicable
         if (this.currentPage == 0 && !writtenTitle.isEmpty()) {
             String actualTitle = I18n.get(writtenTitle);
             matrixStack.pushPose();
@@ -750,6 +830,7 @@ public class BookScreen extends Screen {
             matrixStack.popPose();
         }
 
+        // Draw individual lines of text
         for (LineData line : this.lines) {
             if (line.getPage() == this.currentPage) {
                 font.draw(matrixStack, line.getText(), k + 10 + line.getxIndex(), l + 10 + line.getyIndex() * 12, getTextColor());
@@ -757,32 +838,52 @@ public class BookScreen extends Screen {
         }
     }
 
-
+    /**
+     * Adds widget spacing based on items, recipes, pictures, and entry titles.
+     * Stores whitespace information in yIndexesToSkip.
+     */
     private void addWidgetSpacing() {
         yIndexesToSkip.clear();
+
+        // Add widget spacing for item renders
         for (ItemRenderData itemRenderData : itemRenders) {
             Item item = getItemByRegistryName(itemRenderData.getItem());
             if (item != null) {
-                yIndexesToSkip.add(new Whitespace(itemRenderData.getPage(), itemRenderData.getX(), itemRenderData.getY(), (int) (itemRenderData.getScale() * 17), (int) (itemRenderData.getScale() * 15)));
+                yIndexesToSkip.add(new Whitespace(itemRenderData.getPage(), itemRenderData.getX(), itemRenderData.getY(),
+                        (int) (itemRenderData.getScale() * 17), (int) (itemRenderData.getScale() * 15)));
             }
         }
+
+        // Add widget spacing for recipes
         for (RecipeCodec recipeData : recipes) {
             Recipe recipe = getRecipeByName(recipeData.getRecipe());
             if (recipe != null) {
-                yIndexesToSkip.add(new Whitespace(recipeData.getPageNr(), recipeData.getXLocation(), recipeData.getYLocation() - (int) (recipeData.getScale() * 15), (int) (recipeData.getScale() * 35), (int) (recipeData.getScale() * 60), true));
+                yIndexesToSkip.add(new Whitespace(recipeData.getPageNr(), recipeData.getXLocation(), recipeData.getYLocation() - (int) (recipeData.getScale() * 15),
+                        (int) (recipeData.getScale() * 35), (int) (recipeData.getScale() * 60), true));
             }
         }
+
+        // Add widget spacing for pictures
         for (EncyclopediaPictureCodec imageData : this.pictures) {
             if (imageData != null) {
-                yIndexesToSkip.add(new Whitespace(imageData.getPageNr(), imageData.getxLocation(), imageData.getyLocation(), imageData.getXSize(), imageData.getYSize() - 9));
+                yIndexesToSkip.add(new Whitespace(imageData.getPageNr(), imageData.getxLocation(), imageData.getyLocation(),
+                        imageData.getXSize(), imageData.getYSize() - 9));
             }
         }
+
+        // Add widget spacing for entry titles
         if (!this.currentEntry.getTitle().isEmpty()) {
             yIndexesToSkip.add(new Whitespace(0, 20, 5, 70, 15));
         }
     }
 
 
+    /**
+     * Reads and processes page text from a specified resource location.
+     * The text is split into lines and added to the 'lines' list for rendering.
+     *
+     * @param res The resource location of the page text.
+     */
     protected void readInPageText(ResourceLocation res) {
         Resource resource = null;
         int xIndex = 0;
@@ -873,7 +974,10 @@ public class BookScreen extends Screen {
         }
     }
 
-
+    /**
+     * Adds next and previous buttons for navigation.
+     * The buttons' positions are calculated based on the screen dimensions.
+     */
     private void addNextPreviousButtons() {
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize + 128) / 2;
@@ -898,6 +1002,11 @@ public class BookScreen extends Screen {
 
     }
 
+    /**
+     * Handles page navigation when switching to the next or previous page.
+     *
+     * @param next True if navigating to the next page, false if navigating to the previous page.
+     */
     private void onSwitchPage(boolean next) {
         if (next) {
             this.previousMap.put(this.currentPage, this.nextPageToStartNr);

@@ -9,7 +9,7 @@
       "y": 80,
       "page" : 0,
       "scale": 1.2,
-      "plant_scale": 0.5,
+      "plant_scale": 0.1,
       "offset_x": -4,
       "offset_y": -6,
       "hover_text": "Quereuxia"
@@ -21,7 +21,7 @@
       "x": 90,
       "y": 100,
       "page" : 0,
-      "scale": 1.5,
+      "scale": 2,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
