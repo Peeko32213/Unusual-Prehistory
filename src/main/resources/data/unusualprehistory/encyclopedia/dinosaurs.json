@@ -1,6 +1,6 @@
 {
-  "title": "Encyclopedia of Prehistory",
-  "text": "root.txt",
+  "title": "Animals of Prehistory",
+  "text": "root_dinosaur.txt",
   "pictures": [
     {
       "page": 0,
@@ -15,7 +15,7 @@
     {
       "page": 0,
       "xLocation": 210,
-      "yLocation": 18,
+      "yLocation": 0,
       "columns": 5,
       "rows": 5
     }

@@ -1,10 +1,10 @@
 {
-  "text": "foxii.txt",
-  "title": "       Foxii",
+  "text": "ginkgo.txt",
+  "title": "  Prehistoric Ginkgo",
   "page_to_go": "unusualprehistory:plants",
   "plant_button":[
     {
-      "plant": "unusualprehistory:foxxi_sapling",
+      "plant": "unusualprehistory:ginkgo_sapling",
       "x": 290,
       "y": 80,
       "page" : 0,
@@ -12,12 +12,12 @@
       "plant_scale": 1.1,
       "offset_x": -4,
       "offset_y": -6,
-      "hover_text": "Foxii"
+      "hover_text": "Ginkgo"
     }
   ],
   "entity_renders": [
     {
-      "entity": "unusualprehistory:foxxi_sapling",
+      "entity": "unusualprehistory:ginkgo_sapling",
       "x": 90,
       "y": 100,
       "page" : 0,

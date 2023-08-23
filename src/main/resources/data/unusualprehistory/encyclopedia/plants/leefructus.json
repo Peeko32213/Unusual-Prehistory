@@ -1,10 +1,10 @@
 {
-  "text": "foxii.txt",
-  "title": "       Foxii",
+  "text": "leefructus.txt",
+  "title": "      Leefructus",
   "page_to_go": "unusualprehistory:plants",
   "plant_button":[
     {
-      "plant": "unusualprehistory:foxxi_sapling",
+      "plant": "unusualprehistory:leefructus",
       "x": 290,
       "y": 80,
       "page" : 0,
@@ -12,12 +12,12 @@
       "plant_scale": 1.1,
       "offset_x": -4,
       "offset_y": -6,
-      "hover_text": "Foxii"
+      "hover_text": "Leefructus"
     }
   ],
   "entity_renders": [
     {
-      "entity": "unusualprehistory:foxxi_sapling",
+      "entity": "unusualprehistory:leefructus",
       "x": 90,
       "y": 100,
       "page" : 0,

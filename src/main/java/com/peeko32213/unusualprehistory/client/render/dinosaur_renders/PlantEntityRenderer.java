@@ -13,9 +13,9 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
-public class LivingEntityRenderer<T extends LivingEntity & IAnimatable> extends GeoEntityRenderer<T> {
+public class PlantEntityRenderer<T extends LivingEntity & IAnimatable> extends GeoEntityRenderer<T> {
 
-    public LivingEntityRenderer(EntityRendererProvider.Context context, AnimatedGeoModel<T> model) {
+    public PlantEntityRenderer(EntityRendererProvider.Context context, AnimatedGeoModel<T> model) {
         super(context, model);
     }
 
@@ -24,6 +24,8 @@ public class LivingEntityRenderer<T extends LivingEntity & IAnimatable> extends 
         return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
     }
 
-
+    protected int getBlockLightLevel(T pEntity, BlockPos pPos) {
+        return 25;
+    }
 
 }

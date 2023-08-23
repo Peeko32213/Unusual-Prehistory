@@ -31,4 +31,6 @@ public class PlantModel extends AnimatedGeoModel<EntityPlant> {
     public ResourceLocation getAnimationResource(EntityPlant object) {
         return null;
     }
+
+
 }

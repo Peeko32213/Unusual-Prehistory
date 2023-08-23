@@ -1,10 +1,10 @@
 {
-  "title": "Encyclopedia of Prehistory",
-  "text": "root.txt",
+  "title": "Plants of Prehistory",
+  "text": "root_plant.txt",
   "pictures": [
     {
       "page": 0,
-      "picture_location": "unusualprehistory:textures/item/ammonite_shell.png",
+      "picture_location": "unusualprehistory:textures/block/horsetail.png",
       "x": 70,
       "y": 28,
       "xSize": 44,
@@ -15,7 +15,7 @@
     {
       "page": 0,
       "xLocation": 210,
-      "yLocation": 18,
+      "yLocation": 0,
       "columns": 5,
       "rows": 5
     }

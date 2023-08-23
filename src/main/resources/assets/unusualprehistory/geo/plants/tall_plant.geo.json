@@ -12,11 +12,19 @@
 			},
 			"bones": [
 				{
-					"name": "bb_main",
+					"name": "axis_1",
 					"pivot": [0, 0, 0],
+					"rotation": [0, 45, 0],
 					"cubes": [
-						{"origin": [-8, 0, 0], "size": [16, 32, 0], "pivot": [0, 8, 0], "rotation": [0, -45, 0], "uv": [0, 0]},
-						{"origin": [-8, 0, 0], "size": [16, 32, 0], "pivot": [0, 8, 0], "rotation": [0, -135, 0], "uv": [0, 0]}
+						{"origin": [0, 0, -8], "size": [0, 32, 16], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "axis_2",
+					"pivot": [0, 0, 0],
+					"rotation": [0, -45, 0],
+					"cubes": [
+						{"origin": [0, 0, -8], "size": [0, 32, 16], "uv": [0, 0], "mirror": true}
 					]
 				}
 			]

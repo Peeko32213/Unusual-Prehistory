@@ -1,23 +1,23 @@
 {
-  "text": "foxii.txt",
-  "title": "       Foxii",
+  "text": "quereuxia.txt",
+  "title": "   Quereuxia",
   "page_to_go": "unusualprehistory:plants",
   "plant_button":[
     {
-      "plant": "unusualprehistory:foxxi_sapling",
+      "plant": "unusualprehistory:quereuxia",
       "x": 290,
       "y": 80,
       "page" : 0,
       "scale": 1.2,
-      "plant_scale": 1.1,
+      "plant_scale": 0.5,
       "offset_x": -4,
       "offset_y": -6,
-      "hover_text": "Foxii"
+      "hover_text": "Quereuxia"
     }
   ],
   "entity_renders": [
     {
-      "entity": "unusualprehistory:foxxi_sapling",
+      "entity": "unusualprehistory:quereuxia",
       "x": 90,
       "y": 100,
       "page" : 0,

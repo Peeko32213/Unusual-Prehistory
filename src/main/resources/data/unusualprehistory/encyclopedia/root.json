@@ -15,7 +15,7 @@
     {
       "page": 0,
       "xLocation": 210,
-      "yLocation": 18,
+      "yLocation": 10,
       "columns": 5,
       "rows": 5
     }
@@ -30,16 +30,16 @@
     },
     {
       "linked_page": "unusualprehistory:plants",
-      "text": "The plants of prehistory",
+      "text": "Plants of Prehistory",
       "x": 300,
-      "y": 50,
+      "y": 40,
       "page": 0
     },
     {
       "linked_page": "unusualprehistory:dinosaurs",
-      "text": "The dinosaurs of prehistory",
+      "text": "Animals of Prehistory",
       "x": 300,
-      "y": 100,
+      "y": 70,
       "page": 0
     }
   ]
