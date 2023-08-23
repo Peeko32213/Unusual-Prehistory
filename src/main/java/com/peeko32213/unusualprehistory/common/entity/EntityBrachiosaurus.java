@@ -166,16 +166,19 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
             this.spawnAtLocation(Items.SADDLE);
             return InteractionResult.SUCCESS;
         }
-        InteractionResult type = super.mobInteract(player, hand);
-        if (type != InteractionResult.SUCCESS && !isFood(itemstack) && isSaddled()) {
+        if (!isFood(itemstack) && isSaddled()) {
             if (!player.isShiftKeyDown()) {
-                player.startRiding(this);
+                if(notClientSide()) {
+                    player.startRiding(this);
+                }
                 return InteractionResult.SUCCESS;
             }
         }
-        return type;
+        return InteractionResult.PASS;
     }
-
+    public boolean notClientSide(){
+        return !this.level.isClientSide;
+    }
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();

@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class TarOverlay {
-    private static final ResourceLocation AMBER_PROTECTION_HALF_TEXTURE = new ResourceLocation(UnusualPrehistory.MODID, "textures/amber_protection/amber_protection_half.png");
+    private static final ResourceLocation AMBER_PROTECTION_HALF_TEXTURE = new ResourceLocation(UnusualPrehistory.MODID, "textures/overlay/tar_overlay.png");
 
 
     public static final IGuiOverlay TAR_OVERLAY = (gui, poseStack, partialTick, width, height) -> {

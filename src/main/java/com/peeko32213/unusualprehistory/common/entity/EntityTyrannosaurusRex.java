@@ -112,13 +112,16 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if(item == UPItems.ADORNED_STAFF.get() && this.hasEepy()) {
+
             itemstack.hurtAndBreak(5, player, (p_29822_) -> {
                 p_29822_.broadcastBreakEvent(hand);
             });
-            this.heal(200);
-            this.setTarget(null);
-            this.setEepy(false);
-            this.passiveFor = 1000000000 + random.nextInt(1000000000);
+            if(!this.level.isClientSide) {
+                this.heal(200);
+                this.setTarget(null);
+                this.setEepy(false);
+                this.passiveFor = 1000000000 + random.nextInt(1000000000);
+            }
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.FAIL;

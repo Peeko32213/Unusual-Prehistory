@@ -89,7 +89,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemInHand = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
 
-        if (LootFruitJsonManager.getTrades().containsKey(itemInHand.getItem()) && this.isTrading()) {
+        if (LootFruitJsonManager.getTrades().containsKey(itemInHand.getItem()) && this.isTrading() && !this.level.isClientSide) {
             setTradingAndGottenItem(true);
         }
 

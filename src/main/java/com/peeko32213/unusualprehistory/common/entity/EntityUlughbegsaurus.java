@@ -254,98 +254,110 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         // LOGGER.info("hp " + this.getMaxHealth());
         // LOGGER.info("Speed" + this.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
         // LOGGER.info("Speed" + this.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
-        if (this.isYellow()) {
-            if (isYellowFood(itemstack) && !isTame()) {
-                int size = itemstack.getCount();
-                this.tame(player);
-                itemstack.shrink(size);
-                this.setEatingTime(50 + random.nextInt(30));
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
-            }
-        }
-        if (this.isBlue()) {
-            if (isBlueFood(itemstack) && !isTame()) {
-                int size = itemstack.getCount();
-                this.tame(player);
-                itemstack.shrink(size);
-                this.setEatingTime(50 + random.nextInt(30));
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
-            }
-        }
-        if (this.isOrange()) {
-            if (isOrangeFood(itemstack) && !isTame()) {
-                int size = itemstack.getCount();
-                this.tame(player);
-                itemstack.shrink(size);
-                this.setEatingTime(50 + random.nextInt(30));
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
-            }
-        }
-        if (this.isWhite()) {
-            if (isWhiteFood(itemstack) && !isTame()) {
-                int size = itemstack.getCount();
-                this.tame(player);
-                itemstack.shrink(size);
-                this.setEatingTime(50 + random.nextInt(30));
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
-            }
-        }
-        if (this.isBrown()) {
-            if (isBrownFood(itemstack) && !isTame()) {
-                int size = itemstack.getCount();
-                this.tame(player);
-                itemstack.shrink(size);
-                this.setEatingTime(50 + random.nextInt(30));
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
-            }
-        }
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        if (interactionresult != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
-            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                if (!player.getAbilities().instabuild) {
-                    itemstack.shrink(1);
+            if (this.isYellow()) {
+                if (isYellowFood(itemstack) && !isTame()) {
+                    if(!this.level.isClientSide) {
+                        int size = itemstack.getCount();
+                        this.tame(player);
+                        itemstack.shrink(size);
+                        this.setEatingTime(50 + random.nextInt(30));
+                    }
+                    this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                    return InteractionResult.SUCCESS;
                 }
-
-                this.heal((float)itemstack.getFoodProperties(this).getNutrition());
-                this.gameEvent(GameEvent.EAT, this);
-                return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.setSaddled(true);
-                return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
-                this.setSaddled(false);
-                this.spawnAtLocation(Items.SADDLE);
-                return InteractionResult.SUCCESS;
-            } else {
-                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
-                    player.startRiding(this);
+            }
+            if (this.isBlue()) {
+                if (isBlueFood(itemstack) && !isTame()) {
+                    if(!this.level.isClientSide) {
+                        int size = itemstack.getCount();
+                        this.tame(player);
+                        itemstack.shrink(size);
+                        this.setEatingTime(50 + random.nextInt(30));
+                    }
+                    this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+            if (this.isOrange()) {
+                if (isOrangeFood(itemstack) && !isTame()) {
+                    if(!this.level.isClientSide) {
+                        int size = itemstack.getCount();
+                        this.tame(player);
+                        itemstack.shrink(size);
+                        this.setEatingTime(50 + random.nextInt(30));
+                    }
+                    this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+            if (this.isWhite()) {
+                if (isWhiteFood(itemstack) && !isTame()) {
+                    if(!this.level.isClientSide) {
+                        int size = itemstack.getCount();
+                        this.tame(player);
+                        itemstack.shrink(size);
+                        this.setEatingTime(50 + random.nextInt(30));
+                    }
+                    this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+            if (this.isBrown()) {
+                if (isBrownFood(itemstack) && !isTame()) {
+                    if(!this.level.isClientSide) {
+                        int size = itemstack.getCount();
+                        this.tame(player);
+                        itemstack.shrink(size);
+                        this.setEatingTime(50 + random.nextInt(30));
+                    }
+                    this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+            if (isTame() && isOwnedBy(player)) {
+                if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                    if (!player.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    if(!this.level.isClientSide) {
+                        this.heal((float) itemstack.getFoodProperties(this).getNutrition());
+                    }
+                    this.gameEvent(GameEvent.EAT, this);
+                    return InteractionResult.SUCCESS;
+                } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
+                    this.usePlayerItem(player, hand, itemstack);
+                    this.setSaddled(true);
+                    return InteractionResult.SUCCESS;
+                } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+                    this.setSaddled(false);
+                    this.spawnAtLocation(Items.SADDLE);
                     return InteractionResult.SUCCESS;
                 } else {
-                    this.setCommand((this.getCommand() + 1) % 3);
-
-                    if (this.getCommand() == 3) {
-                        this.setCommand(0);
-                    }
-                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
-                    boolean sit = this.getCommand() == 2;
-                    if (sit) {
-                        this.setOrderedToSit(true);
+                    if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
+                        if(!this.level.isClientSide) {
+                            player.startRiding(this);
+                        }
                         return InteractionResult.SUCCESS;
                     } else {
-                        this.setOrderedToSit(false);
-                        return InteractionResult.SUCCESS;
+                        this.setCommand((this.getCommand() + 1) % 3);
+
+                        if (this.getCommand() == 3) {
+                            this.setCommand(0);
+                        }
+                        player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
+                        boolean sit = this.getCommand() == 2;
+                        if (sit) {
+                            this.setOrderedToSit(true);
+                            return InteractionResult.SUCCESS;
+                        } else {
+                            this.setOrderedToSit(false);
+                            return InteractionResult.SUCCESS;
+                        }
                     }
                 }
-            }
 
-        }
-        return super.mobInteract(player, hand);
+            }
+        return InteractionResult.PASS;
     }
 
     public boolean isFood(ItemStack pStack) {

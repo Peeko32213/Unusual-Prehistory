@@ -208,8 +208,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             this.spawnAtLocation(Items.BOWL);
             return InteractionResult.SUCCESS;
         }
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
+        if (isTame() && isOwnedBy(player)) {
             if (isFood(itemstack)) {
                 this.usePlayerItem(player, hand, itemstack);
                 this.spawnAtLocation(Items.BOWL);
@@ -234,8 +233,12 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             }
             else {
                 if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
-                    player.displayClientMessage(Component.translatable("dinosaur.start_riding.attack_key").withStyle(ChatFormatting.WHITE), true);
-                    player.startRiding(this);
+                    if(!this.level.isClientSide) {
+                        player.startRiding(this);
+
+                        //Todo fix this: displayClientMessage not working!!
+                        player.sendSystemMessage(Component.translatable("dinosaur.start_riding.attack_key").withStyle(ChatFormatting.WHITE));
+                    }
                     return InteractionResult.SUCCESS;
                 } else {
                     this.setCommand((this.getCommand() + 1));

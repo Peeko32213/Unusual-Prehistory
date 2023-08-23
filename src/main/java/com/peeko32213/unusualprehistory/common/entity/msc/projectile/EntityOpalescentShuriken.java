@@ -32,6 +32,7 @@ public class EntityOpalescentShuriken extends ThrowableItemProjectile {
         super(UPEntities.OPALESCENT_SHURIKEN.get(), pShooter, pLevel);
         this.noPhysics = true;
         this.toPlaceStack = item.copy();
+        this.toPlaceStack.setCount(1);
     }
 
     protected Item getDefaultItem() {
@@ -43,7 +44,7 @@ public class EntityOpalescentShuriken extends ThrowableItemProjectile {
      */
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
-        pResult.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
+        pResult.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 10.0F);
     }
 
     /**
@@ -52,10 +53,11 @@ public class EntityOpalescentShuriken extends ThrowableItemProjectile {
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
         if(toPlaceStack != null) {
-            double damage = toPlaceStack.getMaxDamage() / 10F;
-            double currentDamage = toPlaceStack.getDamageValue();
+            RandomSource rand = this.level.random;
+            if(rand.nextInt(0,100) < 10){
+                this.discard();
+            }
 
-            this.toPlaceStack.setDamageValue((int) (currentDamage + damage));
         }
     }
 
@@ -70,7 +72,7 @@ public class EntityOpalescentShuriken extends ThrowableItemProjectile {
             if(tickCount < 200) {
                 this.noPhysics = true;
                 RandomSource rand = this.level.random;
-                if (rand.nextInt(0, 100) < 10) {
+                if (rand.nextInt(0, 100) < 5) {
                     randomTeleport();
                 }
             } else {
