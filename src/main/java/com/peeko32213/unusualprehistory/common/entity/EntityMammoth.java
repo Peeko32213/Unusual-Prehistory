@@ -101,16 +101,17 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if(pPlayer.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get())) {
+        if(pPlayer.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get()) ) {
             if (itemStack.is(Items.SHEARS) && pPlayer.getUsedItemHand() == InteractionHand.MAIN_HAND) {
                 this.dropEquipment();
+                 return InteractionResult.SUCCESS;
             }
             if (itemStack.is(UPTags.MAMMOTH_WEAPONS)) {
                 this.giveWeapon(itemStack);
+                return InteractionResult.SUCCESS;
             }
 
             //UnusualPrehistory.LOGGER.info("item " + this.mammothInventory + " level " + pPlayer.level);
-
 
         }
         return super.mobInteract(pPlayer, pHand);

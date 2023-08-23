@@ -276,27 +276,33 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        if (item == Items.SADDLE && !this.isSaddled()) {
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
-            }
-            this.setSaddled(true);
-            return InteractionResult.SUCCESS;
-        } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
-            this.setSaddled(false);
-            this.spawnAtLocation(Items.SADDLE);
-            return InteractionResult.SUCCESS;
-        }
-        InteractionResult type = super.mobInteract(player, hand);
-        if (type != InteractionResult.SUCCESS && !isFood(itemstack)) {
-            if (!player.isShiftKeyDown() && this.isSaddled()) {
-                player.displayClientMessage(Component.translatable("unusualprehistory.beelzebufo.meat_stick").withStyle(ChatFormatting.WHITE), true);
-                player.startRiding(this);
+        if(hand == InteractionHand.MAIN_HAND) {
+            if (item == Items.SADDLE && !this.isSaddled()) {
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
+                this.setSaddled(true);
+                return InteractionResult.SUCCESS;
+            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+                this.setSaddled(false);
+                this.spawnAtLocation(Items.SADDLE);
                 return InteractionResult.SUCCESS;
             }
+            if (!isFood(itemstack)) {
+                if (!player.isShiftKeyDown() && this.isSaddled()) {
+                    if (!this.level.isClientSide) {
+                        player.startRiding(this);
+                        //Todo fix this: Somehow display client message doesnt work anymore....
+                        player.sendSystemMessage(Component.translatable("unusualprehistory.beelzebufo.meat_stick").withStyle(ChatFormatting.WHITE));
+
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+            }
         }
-        return type;
+        return InteractionResult.PASS;
     }
+
 
     private boolean isFood(Entity entity) {
         return entity instanceof Mob && !(entity instanceof EntityBeelzebufo) && entity.getBbHeight() <= 1.0F || entity instanceof ItemEntity && ((ItemEntity) entity).getItem().is(Items.PORKCHOP);

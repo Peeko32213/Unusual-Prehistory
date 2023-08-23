@@ -120,7 +120,6 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
     }
 
 
-
     @Override
     public boolean doHurtTarget(Entity target) {
         boolean shouldHurt;
@@ -193,6 +192,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
+
         if (isFood(itemstack) && (this.getPassiveTicks() <= 0 || this.getHealth() < this.getMaxHealth())) {
             if (!player.isCreative()) {
                 itemstack.shrink(1);
@@ -201,10 +201,8 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
             this.setPassiveTicks(this.getPassiveTicks() + 2500);
             return InteractionResult.SUCCESS;
         }
-        InteractionResult type = super.mobInteract(player, hand);
-        return type;
+        return super.mobInteract(player, hand);
     }
-
 
 
     protected SoundEvent getAmbientSound() {
@@ -532,7 +530,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
@@ -558,7 +556,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.prep"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
-        } else if(!this.isInWater()){
+        } else if (!this.isInWater()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.idle"));
             event.getController().setAnimationSpeed(1.0F);
         }

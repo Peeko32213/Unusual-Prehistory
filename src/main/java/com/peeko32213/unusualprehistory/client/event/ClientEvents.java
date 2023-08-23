@@ -8,11 +8,13 @@ import com.peeko32213.unusualprehistory.client.model.plant.PlantModel;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.overlay.TarOverlay;
 import com.peeko32213.unusualprehistory.client.render.armor.*;
+import com.peeko32213.unusualprehistory.client.render.block.ThrowableFallingBlockRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.AgeableMobRenderer;
 import com.peeko32213.unusualprehistory.client.render.UPRenderUtils;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
+import com.peeko32213.unusualprehistory.client.render.tool.FlatMovingThrownItemRenderer;
 import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
@@ -245,7 +247,8 @@ public final class ClientEvents {
 
 
         event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
-        event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), FlatMovingThrownItemRenderer::new);
+        event.registerEntityRenderer(UPEntities.THROWABLE_FALLING_BLOCK.get(), ThrowableFallingBlockRenderer::new);
 
         event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);

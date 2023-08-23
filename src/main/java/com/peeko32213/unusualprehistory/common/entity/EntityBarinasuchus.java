@@ -142,8 +142,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
 
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        if (interactionresult != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
+        if (isTame() && isOwnedBy(player)) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                 if (!player.getAbilities().instabuild) {
                     itemstack.shrink(1);
