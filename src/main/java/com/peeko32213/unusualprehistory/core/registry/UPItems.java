@@ -486,7 +486,7 @@ public class UPItems {
             () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> OPALESCENT_PEARL =  ITEMS.register("opalescent_pearl", () -> new OpalescentPearlItem((new Item.Properties()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB)));
-    public static final RegistryObject<Item> OPALESCENT_SHURIKEN =  ITEMS.register("opalescent_shuriken", () -> new OpalescentShurikenItem((new Item.Properties()).durability(32).tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<Item> OPALESCENT_SHURIKEN =  ITEMS.register("opalescent_shuriken", () -> new OpalescentShurikenItem((new Item.Properties()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> SMILO_FUR = ITEMS.register("smilo_fur",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

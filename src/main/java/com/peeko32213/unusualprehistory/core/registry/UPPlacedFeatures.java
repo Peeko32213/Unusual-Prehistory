@@ -60,14 +60,14 @@ public class UPPlacedFeatures {
 
 
     public static final RegistryObject<PlacedFeature> TAR_PIT_PLACED = registerPlacedFeature(TAR_PIT_FEATIRE_PLACED, () -> new PlacedFeature(UPConfiguredFeatures.CONFIGURED_TAR_PIT.getHolder().orElseThrow(), ImmutableList.of(
-            RarityFilter.onAverageOnceEvery(10),
+            RarityFilter.onAverageOnceEvery(600),
             //InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP_TOP_SOLID,
             //CountPlacement.of(80),
             BiomeFilter.biome())));
 
     public static final RegistryObject<PlacedFeature> ICE_FOSSIL_ICEBERG_PLACED = registerPlacedFeature(ICE_FOSSIL_ICEBERG_FEATURE_PLACED, () -> new PlacedFeature(UPConfiguredFeatures.CONFIGURED_ICE_FOSSIL_ICEBERG.getHolder().orElseThrow(), ImmutableList.of(
-            RarityFilter.onAverageOnceEvery(500),
+            RarityFilter.onAverageOnceEvery(600),
             //InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
             //CountPlacement.of(80),

@@ -47,6 +47,7 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
     private static final EntityDataAccessor<Boolean> FERMENTED = SynchedEntityData.defineId(EntityCotylorhynchus.class, EntityDataSerializers.BOOLEAN);
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
     public EntityCotylorhynchus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.maxUpStep = 1.0f;
@@ -155,15 +156,13 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        InteractionResult type = super.mobInteract(player, hand);
-
         if (item == Items.SWEET_BERRIES) {
             int size = itemstack.getCount();
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
             int brewAmount = 58 + random.nextInt(16);
-            if(size > brewAmount){
+            if (size > brewAmount) {
                 this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
                 this.fullEffect();
                 this.setFermented(true);
@@ -186,9 +185,9 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
 
     private void fullEffect() {
         if (this.random.nextInt(6) == 0) {
-            double d = this.getX() - (double)this.getBbWidth() * Math.sin(this.yBodyRot * ((float)Math.PI / 180)) + (this.random.nextDouble() * 0.6 - 0.3);
-            double e = this.getY() + (double)this.getBbHeight() - 0.3;
-            double f = this.getZ() + (double)this.getBbWidth() * Math.cos(this.yBodyRot * ((float)Math.PI / 180)) + (this.random.nextDouble() * 0.6 - 0.3);
+            double d = this.getX() - (double) this.getBbWidth() * Math.sin(this.yBodyRot * ((float) Math.PI / 180)) + (this.random.nextDouble() * 0.6 - 0.3);
+            double e = this.getY() + (double) this.getBbHeight() - 0.3;
+            double f = this.getZ() + (double) this.getBbWidth() * Math.cos(this.yBodyRot * ((float) Math.PI / 180)) + (this.random.nextDouble() * 0.6 - 0.3);
             level.addParticle(ParticleTypes.COMPOSTER, true, this.getX(), this.getEyeY() + 0.5F, this.getZ(), 0, 0, 0);
         }
     }
@@ -203,7 +202,7 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
@@ -217,8 +216,7 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
             event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.swim"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
-        }
-        else if(!this.isInWater()){
+        } else if (!this.isInWater()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.idle"));
             event.getController().setAnimationSpeed(1.0D);
         }

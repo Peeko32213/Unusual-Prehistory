@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDi
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -29,8 +30,10 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -39,6 +42,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -89,7 +93,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
     }
 
     private Ingredient getTemptationItems() {
-        if(temptationItems == null)
+        if (temptationItems == null)
             temptationItems = Ingredient.merge(Lists.newArrayList(
                     Ingredient.of(ItemTags.LEAVES)
             ));
@@ -182,7 +186,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
     public void tick() {
         super.tick();
         super.tick();
-        if(soundTimer > 0){
+        if (soundTimer > 0) {
             soundTimer--;
         }
         this.prevFeedProgress = feedProgress;
@@ -193,19 +197,19 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
             feedProgress--;
         }
         BlockPos feedingPos = this.entityData.get(FEEDING_POS).orElse(null);
-        if(feedingPos == null){
+        if (feedingPos == null) {
             float f2 = (float) -((float) this.getDeltaMovement().y * 2.2F * (double) (180F / (float) Math.PI));
             this.setXRot(f2);
-        }else if(this.getFeedingTime() > 0){
+        } else if (this.getFeedingTime() > 0) {
             Vec3 face = Vec3.atCenterOf(feedingPos).subtract(this.position());
             double d0 = face.horizontalDistance();
-            this.setXRot((float)(-Mth.atan2(face.y, d0) * (double)(180F / (float)Math.PI)));
+            this.setXRot((float) (-Mth.atan2(face.y, d0) * (double) (180F / (float) Math.PI)));
             this.setYRot(((float) Mth.atan2(face.z, face.x)) * (180F / (float) Math.PI) - 90F);
             this.yBodyRot = this.getYRot();
             this.yHeadRot = this.getYRot();
             BlockState state = level.getBlockState(feedingPos);
-            if(random.nextInt(2) == 0 && !state.isAir()){
-                Vec3 mouth = new Vec3(0, this.getBbHeight() * 0.5F, 0.4F * -0.5).xRot(this.getXRot() * ((float)Math.PI / 180F)).yRot(-this.getYRot() * ((float)Math.PI / 180F));
+            if (random.nextInt(2) == 0 && !state.isAir()) {
+                Vec3 mouth = new Vec3(0, this.getBbHeight() * 0.5F, 0.4F * -0.5).xRot(this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.getYRot() * ((float) Math.PI / 180F));
                 for (int i = 0; i < 4 + random.nextInt(2); i++) {
                     double motX = this.random.nextGaussian() * 0.02D;
                     double motY = 0.1F + random.nextFloat() * 0.2F;
@@ -220,30 +224,24 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
     }
 
     public void rideTick() {
-        Entity entity = this.getVehicle();
-        if (this.isPassenger() && !entity.isAlive()) {
-            this.stopRiding();
-        } else if ( entity instanceof LivingEntity) {
-            this.setDeltaMovement(0, 0, 0);
-            this.tick();
-            if (this.isPassenger()) {
-                Entity mount = this.getVehicle();
-                if (mount instanceof Player) {
-                    this.yBodyRot = ((LivingEntity) mount).yBodyRot;
-                    this.setYRot(mount.getYRot());
-                    this.yHeadRot = ((LivingEntity) mount).yHeadRot;
-                    this.yRotO = ((LivingEntity) mount).yHeadRot;
-                    float radius = 0F;
-                    float angle = (0.01745329251F * (((LivingEntity) mount).yBodyRot - 180F));
-                    double extraX = radius * Mth.sin((float) (Math.PI + angle));
-                    double extraZ = radius * Mth.cos(angle);
-                    playPanicSound();
-                    this.setPos(mount.getX() + extraX, Math.max(mount.getY() + mount.getBbHeight() + 0.1, mount.getY()), mount.getZ() + extraZ);
-                    if (!mount.isAlive() || rideCooldown == 0 && mount.isShiftKeyDown()) {
-                        this.removeVehicle();
-                    }
-                }
+        Entity mount = this.getVehicle();
 
+        if (this.isPassenger() && !mount.isAlive()) {
+            this.stopRiding();
+        } else if (mount instanceof Player player && this.isPassenger()) {
+            this.setDeltaMovement(0, 0, 0);
+            //this.yBodyRot = ((LivingEntity) player).yBodyRot;
+            //this.setYRot(player.getYRot());
+            //this.yHeadRot = ((LivingEntity) player).yHeadRot;
+            //this.yRotO = ((LivingEntity) player).yHeadRot;
+            float radius = 0F;
+            float angle = (0.01745329251F * (((LivingEntity) player).yBodyRot - 180F));
+            double extraX = radius * Mth.sin((float) (Math.PI + angle));
+            double extraZ = radius * Mth.cos(angle);
+            playPanicSound();
+            this.setPos(player.getX() + extraX, Math.max(player.getY() + player.getBbHeight() + 0.1, player.getY()), player.getZ() + extraZ);
+            if (!player.isAlive() || rideCooldown == 0 || player.isShiftKeyDown()) {
+                this.stopRiding();
             }
         } else {
             super.rideTick();
@@ -251,8 +249,8 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
 
     }
 
-    private void playPanicSound(){
-        if(this.soundTimer <= 0){
+    private void playPanicSound() {
+        if (this.soundTimer <= 0) {
             this.playSound(UPSounds.TALAPANAS_PANIC.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
             soundTimer = 80;
         }
@@ -265,17 +263,16 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
+        ItemStack itemstack2 = player.getItemInHand(InteractionHand.OFF_HAND);
         Item item = itemstack.getItem();
-        InteractionResult type = super.mobInteract(player, hand);
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && !isFood(itemstack)) {
-            if (player.isShiftKeyDown() && player.getPassengers().isEmpty()) {
+        if (!isFood(itemstack)) {
+            if (player.getPassengers().isEmpty() && itemstack.is(Items.LEAD) && itemstack2.is(ItemTags.LEAVES)) {
                 this.startRiding(player);
                 rideCooldown = 20;
                 return InteractionResult.SUCCESS;
             }
         }
-        return type;
+        return super.mobInteract(player, hand);
     }
 
     private class DigRootedDirtGoal extends Goal {
@@ -312,7 +309,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
             }
         }
 
-        public void start(){
+        public void start() {
             maxFeedTime = 60 + random.nextInt(60);
         }
 
@@ -320,15 +317,15 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
             Vec3 vec = Vec3.atCenterOf(destinationBlock);
             if (vec != null) {
                 crab.getNavigation().moveTo(vec.x, vec.y, vec.z, 1F);
-                if(crab.distanceToSqr(vec) < 1.15F){
+                if (crab.distanceToSqr(vec) < 1.15F) {
                     crab.entityData.set(FEEDING_POS, Optional.of(destinationBlock));
                     Vec3 face = vec.subtract(crab.position());
                     crab.setDeltaMovement(crab.getDeltaMovement().add(face.normalize().scale(0.1F)));
                     crab.setFeedingTime(crab.getFeedingTime() + 1);
                     crab.playSound(SoundEvents.ROOTED_DIRT_BREAK, crab.getSoundVolume(), crab.getVoicePitch());
-                    if(crab.getFeedingTime() > maxFeedTime){
+                    if (crab.getFeedingTime() > maxFeedTime) {
                         destinationBlock = null;
-                        if(random.nextInt(1) == 0) {
+                        if (random.nextInt(1) == 0) {
                             List<ItemStack> lootList = getDigLoot(crab);
                             if (lootList.size() > 0) {
                                 for (ItemStack stack : lootList) {
@@ -339,7 +336,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
                             }
                         }
                     }
-                }else{
+                } else {
                     crab.entityData.set(FEEDING_POS, Optional.empty());
                 }
             }
@@ -380,6 +377,11 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
 
     }
 
+    @Override
+    public boolean canBeLeashed(Player pPlayer) {
+        return false;
+    }
+
     private boolean canSeeBlock(BlockPos destinationBlock) {
         Vec3 Vector3d = new Vec3(this.getX(), this.getEyeY(), this.getZ());
         Vec3 blockVec = net.minecraft.world.phys.Vec3.atCenterOf(destinationBlock);
@@ -390,6 +392,59 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
     private static List<ItemStack> getDigLoot(EntityTalapanas crab) {
         LootTable loottable = crab.level.getServer().getLootTables().get(TALAPANAS_REWARD);
         return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level)).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level.random).create(LootContextParamSets.PIGLIN_BARTER));
+    }
+
+    @Override
+    protected boolean isImmobile() {
+        return this.isPassenger();
+    }
+
+    public Vec3 getDismountLocationForPassenger(LivingEntity pLivingEntity) {
+        Vec3 vec3 = getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)pLivingEntity.getBbWidth(), this.getYRot() + (pLivingEntity.getMainArm() == HumanoidArm.RIGHT ? 90.0F : -90.0F));
+        Vec3 vec31 = this.getDismountLocationInDirection(vec3, pLivingEntity);
+        if (vec31 != null) {
+            return vec31;
+        } else {
+            Vec3 vec32 = getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)pLivingEntity.getBbWidth(), this.getYRot() + (pLivingEntity.getMainArm() == HumanoidArm.LEFT ? 90.0F : -90.0F));
+            Vec3 vec33 = this.getDismountLocationInDirection(vec32, pLivingEntity);
+            return vec33 != null ? vec33 : this.position();
+        }
+    }
+
+    @javax.annotation.Nullable
+    private Vec3 getDismountLocationInDirection(Vec3 pDirection, LivingEntity pPassenger) {
+        double d0 = this.getX() + pDirection.x;
+        double d1 = this.getBoundingBox().minY;
+        double d2 = this.getZ() + pDirection.z;
+        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+
+        for(Pose pose : pPassenger.getDismountPoses()) {
+            blockpos$mutableblockpos.set(d0, d1, d2);
+            double d3 = this.getBoundingBox().maxY + 0.75D;
+
+            while(true) {
+                double d4 = this.level.getBlockFloorHeight(blockpos$mutableblockpos);
+                if ((double)blockpos$mutableblockpos.getY() + d4 > d3) {
+                    break;
+                }
+
+                if (DismountHelper.isBlockFloorValid(d4)) {
+                    AABB aabb = pPassenger.getLocalBoundsForPose(pose);
+                    Vec3 vec3 = new Vec3(d0, (double)blockpos$mutableblockpos.getY() + d4, d2);
+                    if (DismountHelper.canDismountTo(this.level, pPassenger, aabb.move(vec3))) {
+                        pPassenger.setPose(pose);
+                        return vec3;
+                    }
+                }
+
+                blockpos$mutableblockpos.move(Direction.UP);
+                if (!((double)blockpos$mutableblockpos.getY() < d3)) {
+                    break;
+                }
+            }
+        }
+
+        return null;
     }
 
     public class FleeLightGoal extends Goal {
@@ -453,7 +508,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
             RandomSource lvt_1_1_ = this.creature.getRandom();
             BlockPos lvt_2_1_ = this.creature.blockPosition();
 
-            for(int lvt_3_1_ = 0; lvt_3_1_ < 10; ++lvt_3_1_) {
+            for (int lvt_3_1_ = 0; lvt_3_1_ < 10; ++lvt_3_1_) {
                 BlockPos lvt_4_1_ = lvt_2_1_.offset(lvt_1_1_.nextInt(20) - 10, lvt_1_1_.nextInt(6) - 3, lvt_1_1_.nextInt(20) - 10);
                 if (this.creature.level.getMaxLocalRawBrightness(lvt_4_1_) < lightLevel) {
                     return Vec3.atBottomCenterOf(lvt_4_1_);
@@ -466,20 +521,19 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isPassenger()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.walk"));
             event.getController().setAnimationSpeed(1.5D);
             return PlayState.CONTINUE;
         }
         if (this.isPassenger()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.sit"));
-            event.getController().setAnimationSpeed(1.5D);
+            event.getController().setAnimationSpeed(1D);
             return PlayState.CONTINUE;
-        }
-        else {
+        } else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.idle"));
             event.getController().setAnimationSpeed(1.0D);
         }
@@ -497,7 +551,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
+        data.setResetSpeedInTicks(1);
         AnimationController<EntityTalapanas> controller = new AnimationController<>(this, "controller", 5, this::predicate);
         data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::eatPredicate));
         data.addAnimationController(controller);

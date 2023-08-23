@@ -79,6 +79,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     private int stunnedTick;
     private boolean canBePushed = true;
     public static final int ATTACK_COOLDOWN = 30;
+
     public EntityTriceratops(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
         this.maxUpStep = 1.2F;
@@ -368,30 +369,31 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public double getPassengersRidingOffset() {
         if (this.isInWater()) {
             return 1.95;
-        }
-        else {
+        } else {
             return 4.1;
         }
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        InteractionResult type = super.mobInteract(player, hand);
         if (isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
+            if(!this.level.isClientSide) {
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
+                this.heal(6);
             }
-            this.heal(6);
             return InteractionResult.SUCCESS;
         }
         if (isFood(itemstack) && !isTame()) {
-            int size = itemstack.getCount();
-            this.tame(player);
-            itemstack.shrink(size);
+            if(!this.level.isClientSide) {
+                int size = itemstack.getCount();
+                this.tame(player);
+                itemstack.shrink(size);
+            }
             return InteractionResult.SUCCESS;
         }
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
+        if (isTame() && isOwnedBy(player)) {
             if (isFood(itemstack)) {
                 this.usePlayerItem(player, hand, itemstack);
                 return InteractionResult.SUCCESS;
@@ -405,7 +407,9 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
                 return InteractionResult.SUCCESS;
             } else {
                 if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
-                    player.startRiding(this);
+                    if(!this.level.isClientSide) {
+                        player.startRiding(this);
+                    }
                     return InteractionResult.SUCCESS;
                 } else {
                     this.setCommand((this.getCommand() + 1) % 3);
@@ -426,7 +430,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
             }
 
         }
-        return type;
+        return InteractionResult.PASS;
     }
 
 
@@ -631,7 +635,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     }
 
 
-
     protected void dropEquipment() {
         super.dropEquipment();
         if (this.isSaddled()) {
@@ -679,7 +682,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         if (!this.level.isClientSide) {
             for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D))) {
                 if (!(entity instanceof EntityTriceratops) && !(entity instanceof Player)) {
-                    if (this.isSaddled() && this.isTame() && this.hasControllingPassenger() ) {
+                    if (this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
                         entity.hurt(DamageSource.mobAttack(this), 10.0F);
                     }
                 }
@@ -699,7 +702,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
 
@@ -709,7 +712,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
             return PlayState.CONTINUE;
         }
 
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6  && !this.isInSittingPose() && !this.isInWater() && !this.isSprinting()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater() && !this.isSprinting()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.move"));
             event.getController().setAnimationSpeed(0.7D);
             return PlayState.CONTINUE;
@@ -756,7 +759,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         event.getController().markNeedsReload();
         return PlayState.STOP;
     }
-
 
 
     @Override

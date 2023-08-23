@@ -57,7 +57,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityKentrosaurus.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(EntityKentrosaurus.class, EntityDataSerializers.BYTE);
     private static final Predicate<LivingEntity> SCARY_MOB = (p_29634_) -> {
-        if (p_29634_ instanceof Player && ((Player)p_29634_).isCreative()) {
+        if (p_29634_ instanceof Player && ((Player) p_29634_).isCreative()) {
             return false;
         } else {
             return p_29634_.getType() == EntityType.AXOLOTL || p_29634_.getMobType() != MobType.WATER;
@@ -87,7 +87,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(1, new EntityKentrosaurus.KentroMeleeAttackGoal(this,  1.5F, true));
+        this.goalSelector.addGoal(1, new EntityKentrosaurus.KentroMeleeAttackGoal(this, 1.5F, true));
         this.goalSelector.addGoal(1, new KentroSitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
@@ -98,7 +98,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DATA_FLAGS_ID, (byte)0);
+        this.entityData.define(DATA_FLAGS_ID, (byte) 0);
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
@@ -135,25 +135,21 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     }
 
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
-        InteractionResult type = super.mobInteract(player, hand);
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS) {
-            if (isKentroFood(itemstack)) {
-                //int size = itemstack.getCount();
-                this.usePlayerItem(player, hand, itemstack);
-                itemstack.shrink(1);
-                this.setOrderedToSit(true);
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
-            } else {
-                this.setOrderedToSit(false);
-                return InteractionResult.SUCCESS;
-            }
+        if (isKentroFood(itemstack)) {
+            //int size = itemstack.getCount();
+            this.usePlayerItem(player, hand, itemstack);
+            itemstack.shrink(1);
+            this.setOrderedToSit(true);
+            this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+            return InteractionResult.SUCCESS;
+        } else {
+            this.setOrderedToSit(false);
+            return InteractionResult.SUCCESS;
         }
-        return type;
     }
+
 
     public boolean isKentroFood(ItemStack stack) {
         return stack.is(UPTags.KENTRO_FOOD);
@@ -167,7 +163,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     }
 
 
-        @Override
+    @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Sitting", this.orderedToSit);
@@ -187,9 +183,9 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     public void setInSittingPose(boolean p_21838_) {
         byte b0 = this.entityData.get(DATA_FLAGS_ID);
         if (p_21838_) {
-            this.entityData.set(DATA_FLAGS_ID, (byte)(b0 | 1));
+            this.entityData.set(DATA_FLAGS_ID, (byte) (b0 | 1));
         } else {
-            this.entityData.set(DATA_FLAGS_ID, (byte)(b0 & -2));
+            this.entityData.set(DATA_FLAGS_ID, (byte) (b0 & -2));
         }
 
     }
@@ -198,8 +194,8 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     @Override
     public boolean canCollideWith(Entity pEntity) {
 
-        if (pEntity instanceof LivingEntity livingEntity  && this.isAlive() && this.isInSittingPose() &&pEntity.isAlive() ) {
-            if(!(livingEntity instanceof  Player)) {
+        if (pEntity instanceof LivingEntity livingEntity && this.isAlive() && this.isInSittingPose() && pEntity.isAlive()) {
+            if (!(livingEntity instanceof Player)) {
                 this.touch(livingEntity);
                 return true;
             }
@@ -210,11 +206,11 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
 
     @Override
     public void playerTouch(Player entity) {
-       super.playerTouch(entity);
-       if (!entity.isCreative() && this.attackCooldown == 0 && entity.level.getDifficulty() != Difficulty.PEACEFUL && isOrderedToSit()) {
-           entity.hurt(DamageSource.mobAttack(this), 5.0F);
-           this.attackCooldown = 80;
-       }
+        super.playerTouch(entity);
+        if (!entity.isCreative() && this.attackCooldown == 0 && entity.level.getDifficulty() != Difficulty.PEACEFUL && isOrderedToSit()) {
+            entity.hurt(DamageSource.mobAttack(this), 5.0F);
+            this.attackCooldown = 80;
+        }
     }
 
     private void touch(LivingEntity pMob) {
@@ -426,8 +422,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
 
             if (livingentity == null) {
                 return false;
-            }
-            else if (!livingentity.isAlive()) {
+            } else if (!livingentity.isAlive()) {
                 return false;
             } else if (!this.followingTargetEvenIfNotSeen) {
                 return !this.mob.getNavigation().isDone();
@@ -483,7 +478,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
             }
         }
 
-        protected void doMovement (LivingEntity livingentity, Double d0){
+        protected void doMovement(LivingEntity livingentity, Double d0) {
 
 
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -520,7 +515,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
         }
 
 
-        protected void checkForCloseRangeAttack ( double distance, double reach){
+        protected void checkForCloseRangeAttack(double distance, double reach) {
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                 int r = this.mob.getRandom().nextInt(2048);
                 if (r <= 1200) {
@@ -530,8 +525,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
         }
 
 
-
-        protected boolean getRangeCheck () {
+        protected boolean getRangeCheck() {
 
             return
                     this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
@@ -540,15 +534,14 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
         }
 
 
-
-        protected void tickSliceAttack () {
+        protected void tickSliceAttack() {
             animTime++;
             this.mob.getNavigation().stop();
-            if(animTime==5) {
+            if (animTime == 5) {
                 preformSlashAttack();
             }
-            if(animTime>=15) {
-                animTime=0;
+            if (animTime >= 15) {
+                animTime = 0;
 
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -556,36 +549,36 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
             }
         }
 
-        protected void preformSlashAttack () {
+        protected void preformSlashAttack() {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),10.0f, 1.0f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob), 10.0f, 1.0f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
             this.mob.playSound(UPSounds.TAIL_SWIPE.get(), 0.1F, 1.0F);
         }
 
 
-        protected void resetAttackCooldown () {
+        protected void resetAttackCooldown() {
             this.ticksUntilNextAttack = 0;
         }
 
-        protected boolean isTimeToAttack () {
+        protected boolean isTimeToAttack() {
             return this.ticksUntilNextAttack <= 0;
         }
 
-        protected int getTicksUntilNextAttack () {
+        protected int getTicksUntilNextAttack() {
             return this.ticksUntilNextAttack;
         }
 
-        protected int getAttackInterval () {
+        protected int getAttackInterval() {
             return 5;
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+            return (double) (this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
         }
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         int animState = this.getAnimationState();
@@ -605,14 +598,13 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.swimming"));
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
-                    }
-                    else if(event.isMoving() && !this.isInSittingPose()) {
+                    } else if (event.isMoving() && !this.isInSittingPose()) {
                         {
                             event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.walk"));
                             event.getController().setAnimationSpeed(1.0F);
                             return PlayState.CONTINUE;
                         }
-                    }else{
+                    } else {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.idle"));
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;

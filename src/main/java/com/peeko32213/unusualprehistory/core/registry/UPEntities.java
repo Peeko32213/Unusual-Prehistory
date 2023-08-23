@@ -7,10 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
-import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
-import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityOpalescentPearl;
-import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityOpalescentShuriken;
+import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.trail.EntityTrail;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +15,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -218,4 +216,12 @@ public class UPEntities {
                     .clientTrackingRange(4)
                     .updateInterval(10)
                     .build(prefix("opalescent_shuriken").toString()));
+
+    public static final RegistryObject<EntityType<ThrowableFallingBlockEntity>> THROWABLE_FALLING_BLOCK = ENTITIES.register("throwable_falling_block",
+            () -> EntityType.Builder.<ThrowableFallingBlockEntity>of(ThrowableFallingBlockEntity::new, MobCategory.MISC)
+                    .sized(0.98F, 0.98F)
+                    .clientTrackingRange(10)
+                    .updateInterval(20)
+                    .build(prefix("throwable_falling_block").toString()));
+
 }

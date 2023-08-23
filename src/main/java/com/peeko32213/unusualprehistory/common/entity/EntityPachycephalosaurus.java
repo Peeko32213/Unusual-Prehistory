@@ -235,16 +235,17 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if (isFood(itemstack) && (this.getPassiveTicks() <= 0 || this.getHealth() < this.getMaxHealth())) {
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
+            if(!this.level.isClientSide) {
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
+                this.heal(2);
+                this.setPassiveTicks(this.getPassiveTicks() + 1500);
+                player.addEffect(new MobEffectInstance(UPEffects.PACHYS_MIGHT.get(), 2400));
             }
-            this.heal(2);
-            this.setPassiveTicks(this.getPassiveTicks() + 1500);
-            player.addEffect(new MobEffectInstance(UPEffects.PACHYS_MIGHT.get(), 2400));
             return InteractionResult.SUCCESS;
         }
-        InteractionResult type = super.mobInteract(player, hand);
-        return type;
+        return InteractionResult.PASS;
     }
 
     @Nullable
