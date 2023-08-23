@@ -256,7 +256,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
 
 
     public Vec3 getBlockGrounding(Vec3 fleePos) {
-        float radius = 10 + this.getRandom().nextInt(15);
+        float radius = 1 + this.getRandom().nextInt(15);
         float neg = this.getRandom().nextBoolean() ? 1 : -1;
         float renderYawOffset = this.yBodyRot;
         float angle = (0.01745329251F * renderYawOffset) + 3.15F + (this.getRandom().nextFloat() * neg);

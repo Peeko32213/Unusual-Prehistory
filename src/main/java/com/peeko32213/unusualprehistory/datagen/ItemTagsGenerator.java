@@ -73,6 +73,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.ZULOAGAE_FLASK.get())
                 .add(UPItems.RAIGUENRAYUN_FLASK.get())
                 .add(UPItems.FOXXI_FLASK.get())
+                .add(UPItems.GINKGO_FLASK.get())
                 .add(UPItems.DRYO_FLASK.get());
 
         tag(UPTags.FOSSILS)
