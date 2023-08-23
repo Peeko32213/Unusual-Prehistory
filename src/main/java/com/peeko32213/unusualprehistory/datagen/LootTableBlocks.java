@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.datagen;
 
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -94,6 +95,9 @@ public class LootTableBlocks extends BlockLoot {
 
         dropSelf(UPBlocks.ZULOAGAE.get());
         dropOther(UPBlocks.ZULOAGAE_SAPLING.get(), UPBlocks.ZULOAGAE.get());
+
+        dropSelf(UPBlocks.PERMAFROST.get());
+        dropOther(UPBlocks.PERMAFROST_FOSSIL.get(), UPItems.FROZEN_FOSSIL.get());
 
 
         //dropSelf(UPBlocks.AMBER_BLOCK.get());

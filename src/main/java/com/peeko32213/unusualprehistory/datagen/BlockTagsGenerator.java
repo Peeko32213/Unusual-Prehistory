@@ -190,7 +190,9 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.STONE_OPAL_FOSSIL.get())
                 .add(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get())
                 .add(UPBlocks.STONE_TAR_FOSSIL.get())
-                .add(UPBlocks.DEEPSLATE_TAR_FOSSIL.get());
+                .add(UPBlocks.DEEPSLATE_TAR_FOSSIL.get())
+                .add(UPBlocks.PERMAFROST_FOSSIL.get())
+                .add(UPBlocks.PERMAFROST.get());
 
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(UPBlocks.REX_BOOMBOX.get());
@@ -244,7 +246,9 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.STONE_OPAL_FOSSIL.get())
                 .add(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get())
                 .add(UPBlocks.STONE_TAR_FOSSIL.get())
-                .add(UPBlocks.DEEPSLATE_TAR_FOSSIL.get());
+                .add(UPBlocks.DEEPSLATE_TAR_FOSSIL.get())
+                .add(UPBlocks.PERMAFROST_FOSSIL.get())
+                .add(UPBlocks.PERMAFROST.get());
 
         tag(BlockTags.STANDING_SIGNS)
                 .add(UPBlocks.GINKGO_SIGN.get())

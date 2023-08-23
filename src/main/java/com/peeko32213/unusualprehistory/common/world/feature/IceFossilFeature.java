@@ -69,12 +69,12 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
         int radius;
         int height;
 
-        BlockState block = Blocks.BLUE_ICE.defaultBlockState();
+        BlockState block = Blocks.PACKED_ICE.defaultBlockState();
         boolean changeDenseIce = rand.nextBoolean();
 
         if(changeDenseIce)
         {
-            block = Blocks.PACKED_ICE.defaultBlockState();
+            block = UPBlocks.PERMAFROST.get().defaultBlockState();
         }
 
 
@@ -106,7 +106,7 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
 
     private static void createIceBergSection(WorldGenLevel worldgenlevel, BlockPos origin, int radius, int height, BlockState block, BlockState block2, BlockState block3, FastNoiseLite noise, boolean finalSection) {
         // Define additional block states for the iceberg section
-        BlockState block4 = UPBlocks.STONE_FOSSIL.get().defaultBlockState();
+        BlockState block4 = UPBlocks.PERMAFROST_FOSSIL.get().defaultBlockState();
         BlockState block5 = Blocks.SNOW_BLOCK.defaultBlockState();
         BlockState block6 = Blocks.WATER.defaultBlockState();
         int heightLower = 0;

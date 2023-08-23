@@ -1,4 +1,4 @@
-// 1.19.2	2023-08-09T15:59:01.8783052	Unusual Prehistory loot tables
+// 1.19.2	2023-08-22T18:24:26.5563298	Unusual Prehistory loot tables
 eb754f8e70cbe5a7ac0a4581df9df21a6749242c data/unusualprehistory/loot_tables/blocks/antarcto_fossil.json
 78993cf17f336b92ca9c554369fdb1f443af7b41 data/unusualprehistory/loot_tables/blocks/anuro_fossil.json
 89a1999db65a78f305316c67052247322d9b2b7e data/unusualprehistory/loot_tables/blocks/austro_fossil.json
@@ -33,6 +33,8 @@ be65a388055d697f01fe04fa27935c3dd870058b data/unusualprehistory/loot_tables/bloc
 211b6160d97e6e87a8478916f6d27e9ed41a37b2 data/unusualprehistory/loot_tables/blocks/kentro_fossil.json
 9f4bcb5dcdf305e8f57721ad7cf1f9d06543373b data/unusualprehistory/loot_tables/blocks/majunga_fossil.json
 dd076ab6e65d9f833c86729f3dbff2d219e05885 data/unusualprehistory/loot_tables/blocks/pachy_fossil.json
+e0ef7c035c96bd7ac0992c214375566e32848fd2 data/unusualprehistory/loot_tables/blocks/permafrost.json
+2b10ea32abc4c020d524d64dfc16e512076d4adc data/unusualprehistory/loot_tables/blocks/permafrost_fossil.json
 5e72ec8a59f216bf98ccd3835e2bc80724c72bae data/unusualprehistory/loot_tables/blocks/petrified_planks.json
 10161fe83124eaa85f3dddf08a5e17031274c556 data/unusualprehistory/loot_tables/blocks/petrified_wood.json
 d730dec2255577acf0e2130d6746ce7e9c1f7734 data/unusualprehistory/loot_tables/blocks/petrified_wood_button.json

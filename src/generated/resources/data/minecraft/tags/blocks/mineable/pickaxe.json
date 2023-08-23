@@ -49,6 +49,8 @@
     "unusualprehistory:stone_opal_ore",
     "unusualprehistory:deepslate_opal_ore",
     "unusualprehistory:stone_tar_fossil",
-    "unusualprehistory:deepslate_tar_fossil"
+    "unusualprehistory:deepslate_tar_fossil",
+    "unusualprehistory:permafrost_fossil",
+    "unusualprehistory:permafrost"
   ]
 }
