@@ -2,9 +2,18 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.google.common.collect.ImmutableList;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.features.AquaticFeatures;
+import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -28,17 +37,17 @@ public class UPPlacedFeatures {
 
     public static final RegistryObject<PlacedFeature> STONE_FOSSIL_ORE = registerPlacedFeature("stone_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.STONE_FOSSIL_ORE.getHolder().orElseThrow(),
             commonOrePlacement(10,
-            HeightRangePlacement.triangle(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(58)))));
+                    HeightRangePlacement.triangle(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(58)))));
     public static final RegistryObject<PlacedFeature> AMBER_FOSSIL_ORE = registerPlacedFeature("amber_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.AMBER_FOSSIL_ORE.getHolder().orElseThrow(), commonOrePlacement(4,
             HeightRangePlacement.triangle(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(58)))));
 
     public static final RegistryObject<PlacedFeature> JUNGLE_AMBER_FOSSIL_ORE = registerPlacedFeature("jungle_amber_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.AMBER_FOSSIL_ORE.getHolder().orElseThrow(), commonOrePlacement(12,
             HeightRangePlacement.uniform(VerticalAnchor.absolute(11), VerticalAnchor.absolute(256)))));
-    public static final RegistryObject<PlacedFeature> DEEPSLATE_FOSSIL_ORE = registerPlacedFeature("deepslate_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_FOSSIL_ORE.getHolder().orElseThrow(),  commonOrePlacement(17, // VeinsPerChunk
+    public static final RegistryObject<PlacedFeature> DEEPSLATE_FOSSIL_ORE = registerPlacedFeature("deepslate_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_FOSSIL_ORE.getHolder().orElseThrow(), commonOrePlacement(17, // VeinsPerChunk
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
     public static final RegistryObject<PlacedFeature> PLANT_FOSSIL_ORE = registerPlacedFeature("plant_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.PLANT_FOSSIL_ORE.getHolder().orElseThrow(), commonOrePlacement(10,
             HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)))));
-    public static final RegistryObject<PlacedFeature> DEEPSLATE_PLANT_FOSSIL_ORE = registerPlacedFeature("deepslate_plant_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_PLANT_FOSSIL_ORE.getHolder().orElseThrow(),  commonOrePlacement(17, // VeinsPerChunk
+    public static final RegistryObject<PlacedFeature> DEEPSLATE_PLANT_FOSSIL_ORE = registerPlacedFeature("deepslate_plant_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_PLANT_FOSSIL_ORE.getHolder().orElseThrow(), commonOrePlacement(17, // VeinsPerChunk
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
 
     public static final RegistryObject<PlacedFeature> OPAL_FOSSIL_ORE = registerPlacedFeature("opal_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.STONE_OPAL_ORE.getHolder().orElseThrow(), commonOrePlacement(4,
@@ -46,9 +55,9 @@ public class UPPlacedFeatures {
 
     public static final RegistryObject<PlacedFeature> OCEAN_OPAL_FOSSIL_ORE = registerPlacedFeature("ocean_stone_opal_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.STONE_OPAL_ORE.getHolder().orElseThrow(), commonOrePlacement(12,
             HeightRangePlacement.uniform(VerticalAnchor.absolute(11), VerticalAnchor.absolute(256)))));
-    public static final RegistryObject<PlacedFeature> DEEPSLATE_OPAL_ORE = registerPlacedFeature("deepslate_opal_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_OPAL_ORE.getHolder().orElseThrow(),  commonOrePlacement(17, // VeinsPerChunk
+    public static final RegistryObject<PlacedFeature> DEEPSLATE_OPAL_ORE = registerPlacedFeature("deepslate_opal_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_OPAL_ORE.getHolder().orElseThrow(), commonOrePlacement(17, // VeinsPerChunk
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
-    public static final RegistryObject<PlacedFeature> OCEAN_DEEPSLATE_OPAL_ORE = registerPlacedFeature("ocean_deepslate_opal_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_OPAL_ORE.getHolder().orElseThrow(),  commonOrePlacement(17, // VeinsPerChunk
+    public static final RegistryObject<PlacedFeature> OCEAN_DEEPSLATE_OPAL_ORE = registerPlacedFeature("ocean_deepslate_opal_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_OPAL_ORE.getHolder().orElseThrow(), commonOrePlacement(17, // VeinsPerChunk
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
 
     public static final RegistryObject<PlacedFeature> PETRIFIED_WOOD_FOREST_PLACED = registerPlacedFeature(PETRIFIED_WOOD_FOREST_FEATURE_NAME_PLACED, () -> new PlacedFeature(UPConfiguredFeatures.CONFIGURED_PETRIFIED_WOOD_FOREST.getHolder().orElseThrow(), ImmutableList.of(
@@ -72,6 +81,22 @@ public class UPPlacedFeatures {
             PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
             //CountPlacement.of(80),
             BiomeFilter.biome())));
+
+    public static final RegistryObject<PlacedFeature> PERMAFROST_PATCH = registerPlacedFeature("permafrost_patch", () -> new PlacedFeature(UPConfiguredFeatures.PERMAFROST_PATCH.getHolder().get(), ImmutableList.of(
+            RarityFilter.onAverageOnceEvery(1),
+            CountPlacement.of(15),
+
+            InSquarePlacement.spread(),
+            HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32)),
+            RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+            BlockPredicateFilter.forPredicate(
+                    BlockPredicate.allOf(
+                            BlockPredicate.anyOf(
+                                    BlockPredicate.matchesBlocks(BlockPos.ZERO, Blocks.STONE),
+                                    BlockPredicate.matchesBlocks(BlockPos.ZERO, Blocks.DEEPSLATE)),
+                            BlockPredicate.matchesBlocks(Direction.UP.getNormal(), Blocks.WATER))),
+            BiomeFilter.biome())));
+
 
     private static List<PlacementModifier> orePlacement(PlacementModifier modifier, PlacementModifier modifier2) {
         return List.of(modifier, InSquarePlacement.spread(), modifier2, BiomeFilter.biome());

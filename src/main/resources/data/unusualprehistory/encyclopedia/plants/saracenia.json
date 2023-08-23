@@ -18,8 +18,8 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:sarracenia",
-      "x": 90,
-      "y": 100,
+      "x": 80,
+      "y": 110,
       "page" : 0,
       "scale": 1.5,
       "rot_x": 30,
@@ -29,8 +29,8 @@
     },
     {
       "entity": "unusualprehistory:tall_sarracenia",
-      "x": 130,
-      "y": 100,
+      "x": 120,
+      "y": 110,
       "page" : 0,
       "scale": 1.5,
       "rot_x": 30,

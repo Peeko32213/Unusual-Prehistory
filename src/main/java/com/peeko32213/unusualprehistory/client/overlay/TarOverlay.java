@@ -25,12 +25,13 @@ public class TarOverlay {
         // Determine whether the tar overlay should be rendered
         Player player = Minecraft.getInstance().player;
         boolean isCreative = player.isCreative();
+        boolean isSpectator = player.isSpectator();
         Level level = Minecraft.getInstance().level;
 
         BlockState state = level.getBlockState(new BlockPos(player.getEyePosition()));
         boolean isTar = state.is(UPBlocks.TAR.get());
 
-        if (isTar) {
+        if (isTar && !isCreative && !isSpectator) {
             renderTextureOverlay(AMBER_PROTECTION_HALF_TEXTURE, 1, height, width);
         }
 
