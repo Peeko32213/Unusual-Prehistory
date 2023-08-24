@@ -337,26 +337,31 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         final float strangleIntensity = (float) (Mth.clamp(strangleTimer * 3, 0, 100F) * (1.0F + 0.2F * Math.sin(0.15F * strangleTimer)));
         //change this value to increase the sway of the snake
         float snakeSway = 25;
-        if(!this.isInWater()){
-            snakeSway = 5;
-            if(i <= 5){
-                return 10 * i;
-            }
-
-            if(i > 5 && i < 10){
-                return 15*i;
-            }
-
-            if(i >= 10){
-                return 20*i;
-            }
-        }
+        //if(!this.isInWater()){
+        //    snakeSway = 5;
+        //    if(i <= 5){
+        //        return 10 * i;
+        //    }
+//
+        //    if(i > 5 && i < 10){
+        //        return 15*i;
+        //    }
+//
+        //    if(i >= 10){
+        //        return 20*i;
+        //    }
+        //}
 
 
 
         return (float) (snakeSway * -Math.sin(this.walkDist * 3 - (i))) * f + this.strangleProgress * 0.2F * i * strangleIntensity;
     }
 
+
+    @Override
+    public boolean canCollideWith(Entity pEntity) {
+        return true;
+    }
 
     private boolean shouldReplaceParts() {
         if (parts == null || parts[0] == null)
