@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.client.screen.util.BookBlit;
 import com.peeko32213.unusualprehistory.client.screen.util.BookScreen;
-import com.peeko32213.unusualprehistory.client.screen.util.EntityLinkData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;

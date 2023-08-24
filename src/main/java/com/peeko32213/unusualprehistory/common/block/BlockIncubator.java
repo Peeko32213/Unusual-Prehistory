@@ -5,7 +5,6 @@ import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackS2
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
-import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;

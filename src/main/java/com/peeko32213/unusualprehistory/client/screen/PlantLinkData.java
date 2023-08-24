@@ -1,7 +1,5 @@
 package com.peeko32213.unusualprehistory.client.screen;
 
-import net.minecraft.world.item.Item;
-
 public class PlantLinkData {
     public String plant;
     public int x;

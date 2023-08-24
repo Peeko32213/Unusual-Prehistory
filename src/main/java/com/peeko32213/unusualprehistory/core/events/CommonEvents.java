@@ -1,20 +1,15 @@
 package com.peeko32213.unusualprehistory.core.events;
 
-import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonEvents {
@@ -56,6 +51,7 @@ public class CommonEvents {
         event.put(UPEntities.MEGALANIA.get(), EntityMegalania.createAttributes().build());
         event.put(UPEntities.MAMMOTH.get(), EntityMammoth.createAttributes().build());
         event.put(UPEntities.PALAEOPHIS.get(), EntityPalaeophis.createAttributes().build());
+        event.put(UPEntities.PALAEOPHIS_PART.get(), EntityPalaeophisPart.bakeAttributes().build());
         event.put(UPEntities.BABY_MEGATHERIUM.get(), EntityMegatherium.createAttributes().build());
 
 

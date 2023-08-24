@@ -1,22 +1,17 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.trail.EntityTrail;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -168,8 +163,14 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "mammoth").toString()));
 
     public static final RegistryObject<EntityType<EntityPalaeophis>> PALAEOPHIS = ENTITIES.register("palaeophis",
-            () -> EntityType.Builder.of(EntityPalaeophis::new, MobCategory.WATER_CREATURE).sized(5.5F, 1.5F)
+            () -> EntityType.Builder.of(EntityPalaeophis::new, MobCategory.WATER_CREATURE).sized(0.8F, 0.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "palaophis").toString()));
+    public static final RegistryObject<EntityType<EntityPalaeophisPart>> PALAEOPHIS_PART = ENTITIES.register("palaeophis_part",
+            () -> EntityType.Builder.<EntityPalaeophisPart>of(EntityPalaeophisPart::new, MobCategory.MISC)
+                    .sized(0.8F, 0.8F).setShouldReceiveVelocityUpdates(true)
+                    .setUpdateInterval(1)
+                    .noSummon()
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "palaeophis_part").toString()));
 
     public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = ENTITIES.register("megalania",
             () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(3.0F, 2.0F)

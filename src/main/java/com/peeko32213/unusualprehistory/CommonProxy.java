@@ -9,6 +9,11 @@ import static com.peeko32213.unusualprehistory.UnusualPrehistory.MODID;
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonProxy {
 
+    public void init() {
+    }
+
+    public void clientInit() {
+    }
     public Player getClientSidePlayer() {
         return null;
     }

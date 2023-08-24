@@ -1,16 +1,12 @@
 package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
-import com.peeko32213.unusualprehistory.common.capabilities.UPAnimalCapability;
-import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
-import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.commands.Commands;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -27,6 +23,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -55,6 +52,7 @@ public class UnusualPrehistory {
         IEventBus eventBus = MinecraftForge.EVENT_BUS;
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(ClientEvents::init));
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::setupClient);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.CONFIG_BUILDER);
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
@@ -73,7 +71,7 @@ public class UnusualPrehistory {
         UPSounds.DEF_REG.register(modEventBus);
         UPEffects.EFFECT_DEF_REG.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
-
+        PROXY.init();
         eventBus.register(this);
         //If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that
         // triggers the capability class otherwise it also wont hotswap
@@ -173,4 +171,7 @@ public class UnusualPrehistory {
         return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
     }
 
+    private void setupClient(FMLClientSetupEvent event) {
+        PROXY.clientInit();
+    }
 }
