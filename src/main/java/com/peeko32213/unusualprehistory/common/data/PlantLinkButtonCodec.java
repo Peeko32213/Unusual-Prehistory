@@ -3,8 +3,6 @@ package com.peeko32213.unusualprehistory.common.data;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.client.screen.PlantLinkData;
-import com.peeko32213.unusualprehistory.client.screen.util.EntityLinkData;
-import net.minecraft.core.Registry;
 
 public class PlantLinkButtonCodec {
 

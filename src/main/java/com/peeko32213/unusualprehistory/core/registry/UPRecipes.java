@@ -5,12 +5,9 @@ import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class UPRecipes {
 

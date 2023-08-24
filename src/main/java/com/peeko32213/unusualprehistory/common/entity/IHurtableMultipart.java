@@ -1,11 +1,11 @@
-package com.peeko32213.unusualprehistory.common.entity.msc.util;
+package com.peeko32213.unusualprehistory.common.entity;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 
-public interface HurtableMultipart {
+public interface IHurtableMultipart {
 
     void onAttackedFromServer(LivingEntity parent, float damage, DamageSource damageSource);
 
@@ -32,5 +32,4 @@ public interface HurtableMultipart {
 
         return f1;
     }
-
 }

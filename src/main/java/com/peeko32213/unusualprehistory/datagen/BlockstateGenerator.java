@@ -1,23 +1,12 @@
 package com.peeko32213.unusualprehistory.datagen;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
-import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.models.blockstates.Condition;
-import net.minecraft.data.models.blockstates.MultiPartGenerator;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.model.ModelLocationUtils;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,9 +15,6 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
-
-import static net.minecraft.data.models.BlockModelGenerators.MULTIFACE_GENERATOR;
 
 public class BlockstateGenerator extends BlockStateProvider {
     public BlockstateGenerator(DataGenerator gen, ExistingFileHelper exFileHelper) {

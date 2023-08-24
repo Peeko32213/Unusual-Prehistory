@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.item;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityOpalescentPearl;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityOpalescentShuriken;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

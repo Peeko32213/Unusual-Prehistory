@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.client.model.plant;
 
-import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

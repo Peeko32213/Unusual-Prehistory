@@ -7,12 +7,11 @@ import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergSmilodonMode
 import com.peeko32213.unusualprehistory.client.model.plant.PlantModel;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.overlay.TarOverlay;
-import com.peeko32213.unusualprehistory.client.render.armor.*;
-import com.peeko32213.unusualprehistory.client.render.block.ThrowableFallingBlockRenderer;
-import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.AgeableMobRenderer;
 import com.peeko32213.unusualprehistory.client.render.UPRenderUtils;
+import com.peeko32213.unusualprehistory.client.render.armor.*;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
+import com.peeko32213.unusualprehistory.client.render.block.ThrowableFallingBlockRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
 import com.peeko32213.unusualprehistory.client.render.tool.FlatMovingThrownItemRenderer;
 import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
@@ -38,11 +37,9 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -237,7 +234,7 @@ public final class ClientEvents {
 
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), PalaeophisRenderer::new);
-
+        event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
         event.registerEntityRenderer(UPEntities.ENTITY_TRAIL.get(), EntityTrailRenderer::new);
 
 

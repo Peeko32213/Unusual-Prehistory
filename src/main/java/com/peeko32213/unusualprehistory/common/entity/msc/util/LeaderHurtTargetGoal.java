@@ -2,8 +2,6 @@ package com.peeko32213.unusualprehistory.common.entity.msc.util;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityMammoth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;

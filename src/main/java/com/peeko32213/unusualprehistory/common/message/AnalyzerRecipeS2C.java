@@ -1,13 +1,9 @@
 package com.peeko32213.unusualprehistory.common.message;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.data.ItemWeightedPairCodec;
-import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
-import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -19,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class AnalyzerRecipeS2C {
     private static final Codec<Map<Item, List<ItemWeightedPairCodec>>> MAPPER =

@@ -1,12 +1,9 @@
 package com.peeko32213.unusualprehistory.common.message;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.EncyclopediaCodec;
 import com.peeko32213.unusualprehistory.common.data.EncyclopediaJsonManager;
-import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
-import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,7 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 

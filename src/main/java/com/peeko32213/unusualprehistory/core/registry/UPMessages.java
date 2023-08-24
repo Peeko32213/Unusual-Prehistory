@@ -11,6 +11,7 @@ import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 public class UPMessages {
     private static SimpleChannel INSTANCE;
@@ -96,11 +97,10 @@ public class UPMessages {
                 .consumerMainThread(MegatheriumKeyOutputMessage::handle)
                 .add();
 
-        net.messageBuilder(UPMessageHurtMultipart.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(UPMessageHurtMultipart::read)
-                .encoder(UPMessageHurtMultipart::write)
-                .consumerMainThread(UPMessageHurtMultipart.Handler::handle)
-                .add();
+        net.registerMessage(id(), UPMessageHurtMultipart.class,
+                UPMessageHurtMultipart::write,
+                UPMessageHurtMultipart::read,
+                UPMessageHurtMultipart.Handler::handle);
 
         net.registerMessage(id(), LootFruitTierPacketS2C.class,
                 LootFruitTierPacketS2C::encode,
@@ -138,6 +138,17 @@ public class UPMessages {
 
     public static <MSG> void sendToClients(MSG message) {
         INSTANCE.send(PacketDistributor.ALL.noArg(), message);
+    }
+
+
+    public static <MSG> void sendMSGToAll(MSG message) {
+        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
+            sendNonLocal(message, player);
+        }
+    }
+
+    public static <MSG> void sendNonLocal(MSG msg, ServerPlayer player) {
+        INSTANCE.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
     }
 }
 
