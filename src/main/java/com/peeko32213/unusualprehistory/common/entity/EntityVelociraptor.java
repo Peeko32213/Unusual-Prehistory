@@ -65,7 +65,7 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new PounceGoal(this, 45));
+        this.goalSelector.addGoal(1, new PounceGoal(this, 0));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(5, new PushButtonsGoal(this, 1.0F, 5, 2));
         this.goalSelector.addGoal(2, new EntityVelociraptor.IMeleeAttackGoal());
