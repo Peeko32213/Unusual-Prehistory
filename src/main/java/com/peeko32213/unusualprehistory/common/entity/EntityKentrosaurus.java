@@ -137,6 +137,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isKentroFood(itemstack)) {
             //int size = itemstack.getCount();
             this.usePlayerItem(player, hand, itemstack);

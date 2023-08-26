@@ -111,6 +111,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if(item == UPItems.ADORNED_STAFF.get() && this.hasEepy()) {
 
             itemstack.hurtAndBreak(5, player, (p_29822_) -> {

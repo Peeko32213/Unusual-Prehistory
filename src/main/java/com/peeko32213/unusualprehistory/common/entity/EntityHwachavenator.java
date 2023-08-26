@@ -188,8 +188,8 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if(this.level.isClientSide) return InteractionResult.PASS;
         ItemStack itemstack = player.getItemInHand(hand);
-        InteractionResult type = super.mobInteract(player, hand);
         Item item = itemstack.getItem();
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
             if (!player.isCreative()) {
                 itemstack.shrink(1);
@@ -241,18 +241,25 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                     }
                     return InteractionResult.SUCCESS;
                 } else {
-                    this.setCommand((this.getCommand() + 1));
-
+                    if(!this.level.isClientSide) {
+                        this.setCommand((this.getCommand() + 1));
+                    }
                     if (this.getCommand() >= 3) {
-                        this.setCommand(0);
+                        if(!this.level.isClientSide) {
+                            this.setCommand(0);
+                        }
                     }
                     player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
                     boolean sit = this.getCommand() == 2;
                     if (sit) {
-                        this.setInSittingPose(true);
+                        if(!this.level.isClientSide) {
+                            this.setInSittingPose(true);
+                        }
                         return InteractionResult.SUCCESS;
                     } else {
-                        this.setOrderedToSit(false);
+                        if(!this.level.isClientSide) {
+                            this.setOrderedToSit(false);
+                        }
                         return InteractionResult.SUCCESS;
                     }
                 }
