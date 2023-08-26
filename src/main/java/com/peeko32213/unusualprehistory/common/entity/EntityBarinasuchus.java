@@ -138,7 +138,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isTame() && isOwnedBy(player)) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                 if (!player.getAbilities().instabuild) {

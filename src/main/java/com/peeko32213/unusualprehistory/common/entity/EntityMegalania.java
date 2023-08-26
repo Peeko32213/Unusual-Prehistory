@@ -187,6 +187,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
+        if(pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if(itemStack.is(Tags.Items.TOOLS)) {
          CompoundTag compoundTag = itemStack.getTag();
          compoundTag.putInt("megalania_damage", 30);

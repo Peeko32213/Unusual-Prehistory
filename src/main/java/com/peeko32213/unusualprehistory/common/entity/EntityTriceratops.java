@@ -376,6 +376,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
             if(!this.level.isClientSide) {
                 if (!player.isCreative()) {

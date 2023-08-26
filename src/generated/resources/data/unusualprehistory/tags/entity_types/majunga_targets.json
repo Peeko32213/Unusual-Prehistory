@@ -25,10 +25,6 @@
       "required": false
     },
     {
-      "id": "alexsmobs:underminer",
-      "required": false
-    },
-    {
       "id": "alexsmobs:platypus",
       "required": false
     },
@@ -46,6 +42,10 @@
     },
     {
       "id": "alexsmobs:elephant",
+      "required": false
+    },
+    {
+      "id": "alexsmobs:bison",
       "required": false
     },
     {

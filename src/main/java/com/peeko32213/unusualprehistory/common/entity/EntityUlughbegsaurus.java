@@ -254,7 +254,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         // LOGGER.info("hp " + this.getMaxHealth());
         // LOGGER.info("Speed" + this.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
         // LOGGER.info("Speed" + this.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
-            if (this.isYellow()) {
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
+        if (this.isYellow()) {
                 if (isYellowFood(itemstack) && !isTame()) {
                     if(!this.level.isClientSide) {
                         int size = itemstack.getCount();

@@ -99,6 +99,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
+        if(pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if(pPlayer.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get()) ) {
             if (itemStack.is(Items.SHEARS) && pPlayer.getUsedItemHand() == InteractionHand.MAIN_HAND) {
                 this.dropEquipment();
