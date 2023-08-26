@@ -234,6 +234,7 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isFood(itemstack) && (this.getPassiveTicks() <= 0 || this.getHealth() < this.getMaxHealth())) {
             if(!this.level.isClientSide) {
                 if (!player.isCreative()) {

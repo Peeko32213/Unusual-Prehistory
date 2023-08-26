@@ -156,6 +156,7 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (item == Items.SWEET_BERRIES) {
             int size = itemstack.getCount();
             if (!player.isCreative()) {

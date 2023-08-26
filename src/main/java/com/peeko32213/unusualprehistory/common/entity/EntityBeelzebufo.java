@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBeelzebufoTadpole;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
@@ -589,7 +590,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
             } else {
                 executionCooldown = 50 + random.nextInt(50);
                 if(beelzebufo.isHungry()){
-                    final List<Entity> list = beelzebufo.level.getEntitiesOfClass(Entity.class, beelzebufo.getBoundingBox().inflate(8, 8, 8), EntitySelector.NO_SPECTATORS.and(entity -> entity != beelzebufo && beelzebufo.isFood(entity)));
+                    final List<Entity> list = beelzebufo.level.getEntitiesOfClass(Entity.class, beelzebufo.getBoundingBox().inflate(8, 8, 8), EntitySelector.NO_SPECTATORS.and(entity -> entity != beelzebufo && beelzebufo.isFood(entity) && !(entity instanceof EntityBeelzebufoTadpole)));
                     list.sort(Comparator.comparingDouble(beelzebufo::distanceToSqr));
                     if (!list.isEmpty()) {
                         food = list.get(0);

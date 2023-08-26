@@ -109,6 +109,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
     @Nonnull
     protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack lvt_3_1_ = player.getItemInHand(hand);
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if(lvt_3_1_.getItem() == UPItems.GOLDEN_SCAU.get()){
             if(!this.level.isClientSide) {
                 if (!player.isCreative()) {
