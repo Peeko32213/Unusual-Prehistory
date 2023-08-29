@@ -4,9 +4,12 @@ import com.peeko32213.unusualprehistory.client.event.ClientEvents;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
+import com.peeko32213.unusualprehistory.core.registry.util.UPAdvancementTrigger;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -57,6 +60,7 @@ public class UnusualPrehistory {
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
         UPFeatures.FEATURES.register(modEventBus);
+        UPAdvancementTriggerRegistry.init();
         UPTrunkPlacerType.TRUNK_PLACER_TYPES.register(modEventBus);
         UPInstruments.INSTRUMENT.register(modEventBus);
         UPConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
@@ -169,6 +173,10 @@ public class UnusualPrehistory {
 
     public static ResourceLocation prefix(String name) {
         return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
+    }
+
+    public static MutableComponent getTranslation(String key, Object... args) {
+        return Component.translatable("unusualprehistory." + key, args);
     }
 
     private void setupClient(FMLClientSetupEvent event) {

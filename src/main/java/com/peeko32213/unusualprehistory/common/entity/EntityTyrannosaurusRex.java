@@ -90,7 +90,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new EntityTyrannosaurusRex.RexMeleeAttackGoal(this, 2F, true){
             public boolean canUse() {
-                return !isBaby() && passiveFor == 0 && level.getDifficulty() != Difficulty.PEACEFUL && super.canUse();
+                return !isBaby() && passiveFor == 0 && level.getDifficulty() != Difficulty.PEACEFUL && super.canUse()   ;
             }
         });
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));

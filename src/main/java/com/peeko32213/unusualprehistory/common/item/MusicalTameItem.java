@@ -1,5 +1,8 @@
 package com.peeko32213.unusualprehistory.common.item;
 
+import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
+import com.peeko32213.unusualprehistory.core.registry.UPAdvancementTriggerRegistry;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -11,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -108,6 +112,10 @@ public class MusicalTameItem extends Item {
                 MutableComponent mutableComponent = Component.translatable(toTame.getType().getDescriptionId()).withStyle(ChatFormatting.GOLD);
 
                 if (toTameList.get(0).isTame()) {
+                    //TODO even though this is a general class it will only trigger for barina for now
+                    if(toTameList.get(0) instanceof EntityBarinasuchus) {
+                        UPAdvancementTriggerRegistry.BARINA_TRIGGER.trigger((ServerPlayer) player, this.getDefaultInstance());
+                    }
                     player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.tame", mutableComponent).withStyle(ChatFormatting.GREEN));
                 } else {
                     player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.fail_tame", mutableComponent).withStyle(ChatFormatting.RED));
