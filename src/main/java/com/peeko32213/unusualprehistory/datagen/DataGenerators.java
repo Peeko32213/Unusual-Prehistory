@@ -61,6 +61,8 @@ public class DataGenerators {
         generator.addProvider(true,new LootGenerator(generator));
         generator.addProvider(true,new BiomeTagsProvider(generator, helper));
         generator.addProvider(true,new InstrumentTagsGenerator(generator, helper));
+        generator.addProvider(true,new AdvancementGenerator(generator, helper));
+
         final RegistryAccess registries = RegistryAccess.builtinCopy();
         final RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registries);
         final DataProvider configuredFeatureProvider = JsonCodecProvider.forDatapackRegistry(generator, helper, MODID, ops, Registry.CONFIGURED_FEATURE_REGISTRY, getConfiguredFeatures(registries));

@@ -120,6 +120,7 @@ public class MammothMeleeAttackGoal extends Goal {
         LivingEntity livingentity = this.mob.getTarget();
         if (livingentity != null) {
             this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
+            this.mob.getNavigation().moveTo(livingentity, 1);
             double d0 = this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
@@ -159,7 +160,7 @@ public class MammothMeleeAttackGoal extends Goal {
     }
 
     protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
-        double d0 = this.getAttackReachSqr(pEnemy) * 0.65;
+        double d0 = this.getAttackReachSqr(pEnemy) * 0.75;
         if (pDistToEnemySqr <= d0 && this.ticksUntilNextAttack <= 0) {
             this.resetAttackCooldown();
             this.mob.swing(InteractionHand.MAIN_HAND);
