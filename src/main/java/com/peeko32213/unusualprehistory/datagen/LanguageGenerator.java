@@ -77,6 +77,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.AUSTRO_FEATHER, "Austroraptor Feather");
         addItem(UPItems.ANTARCTO_PLATE, "Antarctopelta Plate");
         addItem(UPItems.SMILO_FUR, "Smilodon Fur");
+        addItem(UPItems.PALAEO_SKIN, "Discarded Palaeolophis Skin");
 
         //FOODS
         addItem(UPItems.GROG, "Flask of Grog");
@@ -113,6 +114,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.STETHA_BUCKET, "Bucket of Stethacanthus");
         addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
         addItem(UPItems.DUNK_BUCKET, "Bucket of Baby Dunkleosteus");
+        addItem(UPItems.PALAEO_BUCKET, "Bucket of Baby Palaeolophis");
 
 
         //EGGS
@@ -169,7 +171,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PARACER_EGG, "Paraceratherium Spawn Egg");
         addItem(UPItems.MAMMOTH_EGG, "Mammoth Spawn Egg");
         addItem(UPItems.MEGALANIA_EGG, "Megalania Spawn Egg");
-        addItem(UPItems.PALAEOPHIS_EGG, "Palaophis Spawn Egg");
+        addItem(UPItems.PALAEOPHIS_EGG, "Palaeolophis Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -424,10 +426,16 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.MEGATHERIUM, "Megatherium");
         addEntityType(UPEntities.MAMMOTH, "Mammoth");
         addEntityType(UPEntities.MEGALANIA, "Megalania");
-        addEntityType(UPEntities.PALAEOPHIS, "Palaophis");
+        addEntityType(UPEntities.PALAEOPHIS, "Palaeolophis");
         addEntityType(UPEntities.BABY_MEGATHERIUM, "Baby Megatherium");
         addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
         addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
+        addEntityType(UPEntities.BABY_GIGANTO, "Baby Gigantopithicus");
+        addEntityType(UPEntities.BABY_PARACER, "Baby Paraceratherium");
+        addEntityType(UPEntities.BABY_MEGALANIA, "Baby Megalania");
+        addEntityType(UPEntities.BABY_PALAEO, "Baby Palaeolophis");
+
+
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");
         addSound(UPSounds.BEELZE_ATTACK, "Slimey chomp");

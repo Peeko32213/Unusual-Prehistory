@@ -193,6 +193,11 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BABY_BRACHI.get(), e -> new LivingEntityRenderer<>(e, new BabyBrachiModel()));
         event.registerEntityRenderer(UPEntities.BABY_REX.get(), e -> new LivingEntityRenderer<>(e, new BabyRexModel()));
         event.registerEntityRenderer(UPEntities.BABY_MEGATHERIUM.get(), e -> new LivingEntityRenderer<>(e, new BabyMegatheriumModel()));
+        event.registerEntityRenderer(UPEntities.BABY_GIGANTO.get(), e -> new LivingEntityRenderer<>(e, new BabyGigantopithicusModel()));
+        event.registerEntityRenderer(UPEntities.BABY_PARACER.get(), e -> new LivingEntityRenderer<>(e, new BabyParaceratheriumModel()));
+        event.registerEntityRenderer(UPEntities.BABY_MEGALANIA.get(), e -> new LivingEntityRenderer<>(e, new BabyMegalaniaModel()));
+        event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingEntityRenderer<>(e, new BabyPalaeolophisModel()));
+
         event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new LivingEntityRenderer<>(e, new EryonModel()));
         event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new AustroraptorModel()));
         event.registerEntityRenderer(UPEntities.ANTARCO.get(), e -> new DinosaurRenderer<>(e, new AntarctopeltaModel()));

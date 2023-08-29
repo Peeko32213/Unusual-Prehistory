@@ -88,7 +88,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(5, new MammothFollowLeaderGoal(this));
+        this.goalSelector.addGoal(1, new MammothFollowLeaderGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(1, new MammothTrunkIdleGoal(this));

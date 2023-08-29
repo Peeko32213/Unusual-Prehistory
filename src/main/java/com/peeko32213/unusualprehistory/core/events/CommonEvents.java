@@ -52,7 +52,11 @@ public class CommonEvents {
         event.put(UPEntities.MAMMOTH.get(), EntityMammoth.createAttributes().build());
         event.put(UPEntities.PALAEOPHIS.get(), EntityPalaeophis.createAttributes().build());
         event.put(UPEntities.PALAEOPHIS_PART.get(), EntityPalaeophisPart.bakeAttributes().build());
-        event.put(UPEntities.BABY_MEGATHERIUM.get(), EntityMegatherium.createAttributes().build());
+        event.put(UPEntities.BABY_MEGATHERIUM.get(), EntityBabyMegatherium.createAttributes().build());
+        event.put(UPEntities.BABY_PARACER.get(), EntityBabyParaceratherium.createAttributes().build());
+        event.put(UPEntities.BABY_GIGANTO.get(), EntityBabyGigantopithicus.createAttributes().build());
+        event.put(UPEntities.BABY_MEGALANIA.get(), EntityBabyMegalania.createAttributes().build());
+        event.put(UPEntities.BABY_PALAEO.get(), EntityBabyPalaeolophis.createAttributes().build());
 
 
 

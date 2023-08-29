@@ -1,0 +1,50 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.baby_palaeophis.move": {
+			"loop": true,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 1.2) * 180) * 10", "Math.sin((query.anim_time - 1.2) * 180) * 3"]
+					},
+					"position": {
+						"vector": [
+							"Math.sin((query.anim_time - 0.1) * 180) * -0.1",
+							"Math.cos((query.anim_time - 0.1) * 180) * -0.1",
+							"Math.cos((query.anim_time - 0.1) * 180) * -0.1"
+						]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.2) * 180) * 5", "Math.sin((query.anim_time - 0.2) * 180) * 3"]
+					},
+					"position": {
+						"vector": [
+							"Math.sin((query.anim_time - 0.1) * 180) * -0.1",
+							"Math.cos((query.anim_time - 0.1) * 180) * -0.1",
+							"Math.cos((query.anim_time - 0.1) * 180) * -0.1"
+						]
+					}
+				},
+				"MidBody": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.8) * 180) * -15", 0]
+					}
+				},
+				"TailBody": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.4) * 180) * 20", 0]
+					}
+				},
+				"TailTip": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.4) * 180) * 20", 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

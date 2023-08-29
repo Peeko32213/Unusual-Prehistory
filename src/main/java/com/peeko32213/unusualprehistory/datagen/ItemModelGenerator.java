@@ -42,6 +42,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.FOXXI_FLASK);
         singleTex(UPItems.DRYO_FLASK);
         singleTex(UPItems.SMILO_FUR);
+        singleTex(UPItems.PALAEO_SKIN);
         singleTex(UPItems.DINO_POUCH);
         singleTex(UPItems.OPALESCENT_PEARL);
         singleTex(UPItems.OPALESCENT_SHURIKEN);

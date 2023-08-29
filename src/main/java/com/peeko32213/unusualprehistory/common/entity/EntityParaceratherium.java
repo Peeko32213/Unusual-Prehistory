@@ -78,7 +78,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(1, new EntityParaceratherium.ParacerMeleeAttackGoal(this, 1.3F, true));
+        this.goalSelector.addGoal(1, new EntityParaceratherium.ParacerMeleeAttackGoal(this, 1.8F, true));
         this.targetSelector.addGoal(2, new NearestTargetAI(this, LivingEntity.class, 110, false, true, null) {
             public boolean canUse() {
                 return !isBaby() && level.getDifficulty() != Difficulty.PEACEFUL && super.canUse();
@@ -420,7 +420,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
             this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0));
             //this.mob.willItBreak = true;
             //HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),5.0f, 1.5f, mob, pos,  80.0F, -Math.PI/6, Math.PI/6, -1.0f, 3.0f);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.slamOffSet, 6f, 2f, 2f, (ServerLevel) this.mob.getLevel(), 25f, DamageSource.mobAttack(mob), 2f, true);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.slamOffSet, 6f, 6f, 6f, (ServerLevel) this.mob.getLevel(), 25f, DamageSource.mobAttack(mob), 2f, true);
             //THIS METHOD CAN ONLY BE RAN ON THE SERVERSIDE.
             if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();

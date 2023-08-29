@@ -1,0 +1,62 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "Snake",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Head",
+					"parent": "Snake",
+					"pivot": [-0.5, 1, -9],
+					"cubes": [
+						{"origin": [-2.5, 0, -14], "size": [4, 2, 5], "uv": [16, 0]}
+					]
+				},
+				{
+					"name": "Body",
+					"parent": "Snake",
+					"pivot": [-0.5, 1, -9],
+					"cubes": [
+						{"origin": [-1.5, 0, -9], "size": [2, 2, 4], "uv": [17, 16]}
+					]
+				},
+				{
+					"name": "MidBody",
+					"parent": "Body",
+					"pivot": [-0.5, 1, -5],
+					"cubes": [
+						{"origin": [-2, 0, -5], "size": [3, 3, 11], "uv": [0, 16]}
+					]
+				},
+				{
+					"name": "TailBody",
+					"parent": "MidBody",
+					"pivot": [-0.5, 1, 6],
+					"cubes": [
+						{"origin": [-1.5, 0, 6], "size": [2, 2, 12], "uv": [0, 0]},
+						{"origin": [-0.5, -2, 4], "size": [0, 2, 14], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "TailTip",
+					"parent": "TailBody",
+					"pivot": [-0.5, 1, 18],
+					"cubes": [
+						{"origin": [-0.5, -2, 18], "size": [0, 4, 5], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

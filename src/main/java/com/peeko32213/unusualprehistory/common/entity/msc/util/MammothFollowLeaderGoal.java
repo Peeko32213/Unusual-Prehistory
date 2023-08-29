@@ -20,7 +20,7 @@ public class MammothFollowLeaderGoal extends Goal {
     }
 
     protected int nextStartTick(EntityMammoth entityMammoth) {
-        return 100 + entityMammoth.getRandom().nextInt(200) % 40;
+        return 100 + entityMammoth.getRandom().nextInt(200) % 80;
     }
 
     public boolean canUse() {
