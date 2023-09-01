@@ -321,8 +321,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
 
         if (!this.level.isClientSide && this.isAlive() && this.getSheddingTime() < 0 && sheddingCooldown < 0) {
             // The snake is not in "shed mode," so let's start shedding.
-            this.spawnAtLocation(UPItems.REX_TOOTH.get(), 1);
-            this.spawnAtLocation(UPItems.REX_SCALE.get(), 1);
+            this.spawnAtLocation(UPItems.PALAEO_SKIN.get(), 1);
 
             // Set the shedding time for the snake (how long it will be in "shed mode").
             this.setSheddingTime(this.getRandom().nextInt(1000) + 1500);

@@ -226,9 +226,17 @@ public class UPBlocks {
     public static final RegistryObject<Block> BARINA_EGG = registerBlock("barina_eggs",
             () -> new BlockDinosaurLandEggs(
                     BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.BARINASUCHUS, 4,
+                    UPEntities.BABY_BARINA, 4,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
+
+    public static final RegistryObject<Block> MEGALA_EGG = registerBlock("megala_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.BABY_MEGALANIA, 2,
+                    Block.box(4, 0, 8, 11, 9, 15),
+                    Block.box(2, 0, 1, 14, 10, 15)
             ));
 
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",

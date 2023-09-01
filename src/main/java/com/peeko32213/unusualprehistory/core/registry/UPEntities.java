@@ -196,6 +196,18 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityBabyPalaeolophis::new, MobCategory.WATER_AMBIENT).sized(1.6f, 0.3f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_palaophis").toString()));
 
+    public static final RegistryObject<EntityType<EntityBabyMammoth>> BABY_MAMMOTH = ENTITIES.register("baby_mammoth",
+            () -> EntityType.Builder.of(EntityBabyMammoth::new, MobCategory.CREATURE).sized(1.3f, 1.8f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_mammoth").toString()));
+
+    public static final RegistryObject<EntityType<EntityBabySmilodon>> BABY_SMILODON = ENTITIES.register("baby_smilodon",
+            () -> EntityType.Builder.of(EntityBabySmilodon::new, MobCategory.CREATURE).sized(1.3f, 0.5f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_smilodon").toString()));
+
+    public static final RegistryObject<EntityType<EntityBabyBarinasuchus>> BABY_BARINA = ENTITIES.register("baby_barina",
+            () -> EntityType.Builder.of(EntityBabyBarinasuchus::new, MobCategory.CREATURE).sized(1.3f, 0.5f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_barina").toString()));
+
     public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
             () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
                     .fireImmune().sized(1, 1).noSummon()

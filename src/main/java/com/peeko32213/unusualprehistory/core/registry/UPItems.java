@@ -469,10 +469,10 @@ public class UPItems {
     public static final RegistryObject<Item> DINO_POUCH = ITEMS.register("dino_pouch",
             () -> new DinoPouchItem(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> SMILODON_EMBRYO = ITEMS.register("smilodon_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.SMILODON, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.BABY_SMILODON, 1000));
 
     public static final RegistryObject<Item> MAMMOTH_EMBRYO = ITEMS.register("mammoth_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.MAMMOTH_EMBRYO_ATTACH_TO, UPEntities.MAMMOTH, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.MAMMOTH_EMBRYO_ATTACH_TO, UPEntities.BABY_MAMMOTH, 1000));
 
     public static final RegistryObject<Item> MEGATH_EMBRYO = ITEMS.register("megath_embryo",
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.MEGATH_EMBRYO_ATTACH_TO, UPEntities.BABY_MEGATHERIUM, 1000));
@@ -496,6 +496,9 @@ public class UPItems {
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> PALAEO_SKIN = ITEMS.register("palaeo_skin",
+            () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> INSULATOR = ITEMS.register("insulator",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {

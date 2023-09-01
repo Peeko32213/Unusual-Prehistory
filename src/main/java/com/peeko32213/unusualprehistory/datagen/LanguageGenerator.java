@@ -78,6 +78,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ANTARCTO_PLATE, "Antarctopelta Plate");
         addItem(UPItems.SMILO_FUR, "Smilodon Fur");
         addItem(UPItems.PALAEO_SKIN, "Discarded Palaeolophis Skin");
+        addItem(UPItems.INSULATOR, "Insulator");
 
         //FOODS
         addItem(UPItems.GROG, "Flask of Grog");
@@ -140,6 +141,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.HWACHA_EGG, "Hwachavenator Egg");
         addBlock(UPBlocks.BARINA_EGG, "Barinasuchus Egg");
         addBlock(UPBlocks.TALAPANAS_EGG, "Talapanas Egg");
+        addBlock(UPBlocks.MEGALA_EGG, "Megalania Egg");
 
 
         //SPAWN EGGS
@@ -434,6 +436,9 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BABY_PARACER, "Baby Paraceratherium");
         addEntityType(UPEntities.BABY_MEGALANIA, "Baby Megalania");
         addEntityType(UPEntities.BABY_PALAEO, "Baby Palaeolophis");
+        addEntityType(UPEntities.BABY_BARINA, "Baby Barinasuchus");
+        addEntityType(UPEntities.BABY_SMILODON, "Baby Smilodon");
+        addEntityType(UPEntities.BABY_MAMMOTH, "Baby Mammoth");
 
 
         //SOUNDS

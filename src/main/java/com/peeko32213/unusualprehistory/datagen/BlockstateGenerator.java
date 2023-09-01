@@ -72,6 +72,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         createEggDefaultSmall(UPBlocks.PACHY_EGG.get());
         createSingleEgg(UPBlocks.TALAPANAS_EGG.get());
         createEggDefaultSmall(UPBlocks.BARINA_EGG.get());
+        createEggDefaultMedium(UPBlocks.MEGALA_EGG.get());
 
         createFlatWaterEgg(UPBlocks.DUNK_EGGS.get());
         createFlatWaterEgg(UPBlocks.STETHA_EGGS.get());

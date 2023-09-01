@@ -1,0 +1,72 @@
+{
+  "parent": "netherdepthsupgrade:main/incubator",
+  "criteria": {
+    "damage_smilodon": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "direct_entity": {
+              "type": "unusualprehistory:smilodon"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    },
+    "interact_smilodon": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:smilodon"
+            }
+          }
+        ],
+        "item": {}
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "killed_smilodon": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:smilodon"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.interact_smilo.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusualprehistory:smilo_flask"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.interact_smilo"
+    }
+  },
+  "requirements": [
+    [
+      "damage_smilodon"
+    ],
+    [
+      "interact_smilodon"
+    ],
+    [
+      "killed_smilodon"
+    ]
+  ]
+}

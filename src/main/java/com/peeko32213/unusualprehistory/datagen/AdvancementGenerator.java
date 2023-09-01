@@ -111,9 +111,6 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_palaeo", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get())))))
                 .addCriterion("interact_palaeo", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get()).build())))
                 .addCriterion("killed_palaeo", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get())))
-                .addCriterion("damage_palaeo", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS_PART.get())))))
-                .addCriterion("interact_palaeo", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS_PART.get()).build())))
-                .addCriterion("killed_palaeo", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS_PART.get())))
                 .save(consumer, this.getNameId("main/palaeophis"));
 
         Advancement giganto = getAdvancement(birthingPod, (ItemLike)UPItems.GIGANTO_FLASK.get(), "interact_giganto", FrameType.TASK, true, true, false)

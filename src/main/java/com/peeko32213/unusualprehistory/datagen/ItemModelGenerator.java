@@ -48,6 +48,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.OPALESCENT_SHURIKEN);
         toBlock(UPBlocks.PERMAFROST);
         toBlock(UPBlocks.PERMAFROST_FOSSIL);
+        singleTex(UPItems.INSULATOR);
 
 
     }
