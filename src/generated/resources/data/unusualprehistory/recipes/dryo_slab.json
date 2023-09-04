@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "M": {
+      "item": "unusualprehistory:dryo_planks"
+    }
+  },
+  "pattern": [
+    "MMM"
+  ],
+  "result": {
+    "count": 6,
+    "item": "unusualprehistory:dryo_slab"
+  }
+}

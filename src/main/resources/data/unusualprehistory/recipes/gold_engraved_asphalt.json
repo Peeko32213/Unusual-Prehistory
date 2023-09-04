@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AGA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "unusualprehistory:asphalt"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:gold_engraved_asphalt",
+    "count": 8
+  }
+}

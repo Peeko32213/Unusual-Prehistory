@@ -20,7 +20,7 @@ public enum UPArmorMaterial implements ArmorMaterial {
             2.0F, 0.0F, () -> Ingredient.of(UPItems.MAJUNGA_SCUTE.get())),
     TYRANTS("tyrants", 28, new int[]{5, 1, 1, 1}, 19, SoundEvents.ARMOR_EQUIP_GOLD,
             2.0F, 0.0F, () -> Ingredient.of(UPItems.REX_SCALE.get())),
-    SHEDSCALE("shedscale", 28, new int[]{3, 6, 8, 3}, 19, SoundEvents.ARMOR_EQUIP_LEATHER,
+    SHEDSCALE("shedscale", 28, new int[]{2, 5, 5, 2}, 19, SoundEvents.ARMOR_EQUIP_LEATHER,
             2.0F, 0.0F, () -> Ingredient.of(UPItems.RAW_STETHA.get())),
 
     SLOTH_POUCH("sloth_pouch", 28, new int[]{1, 1, 1, 1}, 19, SoundEvents.ARMOR_EQUIP_LEATHER,

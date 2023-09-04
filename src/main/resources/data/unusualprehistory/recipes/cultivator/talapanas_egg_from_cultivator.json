@@ -2,10 +2,10 @@
   "type": "unusualprehistory:cultivator",
   "ingredients": [
     {
-      "item": "unusualprehistory:talapanas_flask"
+      "item": "unusualprehistory:megala_flask"
     }
   ],
   "output": {
-    "item": "unusualprehistory:talapanas_egg"
+    "item": "unusualprehistory:megala_eggs"
   }
 }

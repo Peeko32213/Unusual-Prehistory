@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AGA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "unusualprehistory:asphalt"
+    },
+    "G": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:quartz_engraved_asphalt",
+    "count": 8
+  }
+}

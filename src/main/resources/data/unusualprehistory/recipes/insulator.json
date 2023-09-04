@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:smilo_fur"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "item": "minecraft:light_blue_wool"
+    }
+  ],
+  "result": {
+    "item": "unusualprehistory:insulator",
+    "count": 1
+  }
+}

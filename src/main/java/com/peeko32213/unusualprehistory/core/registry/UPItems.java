@@ -440,6 +440,12 @@ public class UPItems {
     public static final RegistryObject<Item> PETRIFIED_WOOD_SIGN = ITEMS.register("petrified_wood_sign",
             () -> new SignItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPBlocks.PETRIFIED_WOOD_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get()));
 
+    public static final RegistryObject<Item> FOXXI_WOOD_SIGN = ITEMS.register("foxxi_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPBlocks.FOXXI_SIGN.get(), UPBlocks.FOXXI_WALL_SIGN.get()));
+
+    public static final RegistryObject<Item> DRYO_WOOD_SIGN = ITEMS.register("dryo_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPBlocks.DRYO_SIGN.get(), UPBlocks.DRYO_WALL_SIGN.get()));
+
     public static final RegistryObject<Item> BARINA_WHISTLE = ITEMS.register("barina_whistle",
             () -> new MusicalTameItem(new Item.Properties().stacksTo(1).tab(UnusualPrehistory.DINO_TAB), UPEntities.BARINASUCHUS, UPTags.OCARINA_WHISTLE));
 
@@ -487,7 +493,7 @@ public class UPItems {
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16).tab(UnusualPrehistory.DINO_TAB), UPTags.PALAEO_EMBRYO_ATTACH_TO, UPEntities.BABY_PALAEO, 1000));
 
     public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket",
-            () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).tab(UnusualPrehistory.DINO_TAB)));
+            () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).tab(UnusualPrehistory.DINO_TAB).craftRemainder(Items.BUCKET)));
 
     public static final RegistryObject<Item> OPALESCENT_PEARL =  ITEMS.register("opalescent_pearl", () -> new OpalescentPearlItem((new Item.Properties()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> OPALESCENT_SHURIKEN =  ITEMS.register("opalescent_shuriken", () -> new OpalescentShurikenItem((new Item.Properties()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB)));

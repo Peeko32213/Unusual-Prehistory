@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OO ",
+    "OO ",
+    "   "
+  ],
+  "key": {
+    "O": {
+      "item": "unusualprehistory:yellow_fruit_scraps"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:yellow_fruit",
+    "count": 2
+  }
+}

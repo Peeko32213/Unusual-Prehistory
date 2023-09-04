@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "unusualprehistory:foxxi"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "unusualprehistory:foxxi_planks"
+  }
+}

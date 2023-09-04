@@ -38,7 +38,11 @@ public class UPBlockEntities {
                     UPBlocks.GINKGO_SIGN.get(),
                     UPBlocks.GINKGO_WALL_SIGN.get(),
                     UPBlocks.PETRIFIED_WOOD_SIGN.get(),
-                    UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get()
+                    UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get(),
+                    UPBlocks.FOXXI_SIGN.get(),
+                    UPBlocks.FOXXI_WALL_SIGN.get(),
+                    UPBlocks.DRYO_SIGN.get(),
+                    UPBlocks.DRYO_WALL_SIGN.get()
             ).build(null));
 
 

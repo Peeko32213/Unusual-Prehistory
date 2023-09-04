@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OO ",
+    "OO ",
+    "   "
+  ],
+  "key": {
+    "O": {
+      "item": "unusualprehistory:opal_chunk"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:opalescent_pearl",
+    "count": 2
+  }
+}

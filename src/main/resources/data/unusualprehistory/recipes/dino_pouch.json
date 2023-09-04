@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "L L",
+    "ILI",
+    " S "
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "I": {
+      "item": "unusualprehistory:insulator"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:dino_pouch"
+  }
+}

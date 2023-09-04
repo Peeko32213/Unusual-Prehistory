@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:foxxi_planks"
+    }
+  ],
+  "result": {
+    "item": "unusualprehistory:foxxi_button"
+  }
+}

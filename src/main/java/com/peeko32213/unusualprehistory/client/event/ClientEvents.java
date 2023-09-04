@@ -138,6 +138,8 @@ public final class ClientEvents {
 
         WoodType.register(UPSignTypes.GINKGO);
         WoodType.register(UPSignTypes.PETRIFIED);
+        WoodType.register(UPSignTypes.FOXXI);
+        WoodType.register(UPSignTypes.DRYO);
 
 
         BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "TFT",
+    "S S"
+  ],
+  "key": {
+    "F": {
+      "item": "unusualprehistory:smilo_fur"
+    },
+    "T": {
+      "item": "unusualprehistory:rex_tooth"
+    },
+    "S": {
+      "item": "unusualprehistory:rex_scale"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:tyrants_crown"
+  }
+}

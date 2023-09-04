@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "unusualprehistory:foxxi_planks"
+    }
+  },
+  "pattern": [
+    "PP",
+    "PP",
+    "PP"
+  ],
+  "result": {
+    "count": 3,
+    "item": "unusualprehistory:foxxi_door"
+  }
+}

@@ -335,6 +335,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.FOXXI_DOOR, "Foxii Door");
         addBlock(UPBlocks.FOXXI_TRAPDOOR, "Foxii Trapdoor");
         addBlock(UPBlocks.FOXII_SAPLING, "Foxii Sapling");
+        addItem(UPItems.FOXXI_WOOD_SIGN, "Foxii Sign");
 
         //DRYO
         addBlock(UPBlocks.DRYO_PLANKS, "Dryophyllum Planks");
@@ -352,6 +353,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.DRYO_DOOR, "Dryophyllum Door");
         addBlock(UPBlocks.DRYO_TRAPDOOR, "Dryophyllum Trapdoor");
         addBlock(UPBlocks.DRYO_SAPLING, "Dryophyllum Sapling");
+        addItem(UPItems.DRYO_WOOD_SIGN, "Dryophyllum Sign");
 
         //PETRIFIED
         addBlock(UPBlocks.PETRIFIED_WOOD_PLANKS, "Petrified Planks");

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "unusualprehistory:frozen_fossil_item"
+  },
+  "result": "unusualprehistory:defrosted_frozen_fossil",
+  "experience": 0.5,
+  "cookingtime": 400
+}

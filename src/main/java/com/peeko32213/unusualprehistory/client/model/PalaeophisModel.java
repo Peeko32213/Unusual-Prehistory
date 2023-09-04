@@ -23,7 +23,7 @@ public class PalaeophisModel extends AnimatedGeoModel<EntityPalaeophis>
     public ResourceLocation getTextureResource(EntityPalaeophis object)
     {
         if(object.isShedding()){
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/palaeophis_head.png");
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/palaeophis_head_shed.png");
 
         }
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/palaeophis_head.png");

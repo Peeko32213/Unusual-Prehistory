@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "unusualprehistory:dryo_planks"
+    }
+  },
+  "pattern": [
+    "BB"
+  ],
+  "result": {
+    "item": "unusualprehistory:dryo_pressure_plate"
+  }
+}

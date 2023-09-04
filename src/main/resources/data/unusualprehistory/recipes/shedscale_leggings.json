@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SOS",
+    "S S",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "item": "unusualprehistory:palaeo_skin"
+    },
+    "O": {
+      "item": "unusualprehistory:opal_chunk"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:shedscale_leggings"
+  }
+}

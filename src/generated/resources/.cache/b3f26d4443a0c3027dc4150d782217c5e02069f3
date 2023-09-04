@@ -1,4 +1,4 @@
-// 1.19.2	2023-08-22T18:24:26.5563298	Unusual Prehistory loot tables
+// 1.19.2	2023-09-03T18:32:49.3141236	Unusual Prehistory loot tables
 eb754f8e70cbe5a7ac0a4581df9df21a6749242c data/unusualprehistory/loot_tables/blocks/antarcto_fossil.json
 78993cf17f336b92ca9c554369fdb1f443af7b41 data/unusualprehistory/loot_tables/blocks/anuro_fossil.json
 89a1999db65a78f305316c67052247322d9b2b7e data/unusualprehistory/loot_tables/blocks/austro_fossil.json
@@ -12,6 +12,7 @@ c5ef2cc6876f17c47f29296ca6af8923a315bb9d data/unusualprehistory/loot_tables/bloc
 7349049dc3d0b6f569994ebdbd662228d7715560 data/unusualprehistory/loot_tables/blocks/dryo_log.json
 2d2e293d71a65b92ae9e51d2c3b2eaf3c376c554 data/unusualprehistory/loot_tables/blocks/dryo_planks.json
 5e97fe712f3a270030475ae90185aad696df1dc9 data/unusualprehistory/loot_tables/blocks/dryo_pressure_plate.json
+fa831399439ad7018b2bf69a970424c9975e17be data/unusualprehistory/loot_tables/blocks/dryo_sign.json
 88ce89075ce88041e71359d97a82d9eb30f8fdf9 data/unusualprehistory/loot_tables/blocks/dryo_slab.json
 a24b55cbb81910189a99e654366f19db2792a704 data/unusualprehistory/loot_tables/blocks/dryo_stairs.json
 11f55c596b865c807323f2aa922d17a539674e1c data/unusualprehistory/loot_tables/blocks/dryo_trapdoor.json
@@ -25,6 +26,7 @@ cf98c3b694e917c22d16173a397354598c282739 data/unusualprehistory/loot_tables/bloc
 706acfe1673ef8e62f76b2a453c47bfa9e60a7e3 data/unusualprehistory/loot_tables/blocks/foxxi_log.json
 d73651be5d2d6459171bade47aef1771027058c4 data/unusualprehistory/loot_tables/blocks/foxxi_planks.json
 497b34802be86482233072339bfa4a912054343f data/unusualprehistory/loot_tables/blocks/foxxi_pressure_plate.json
+037531b83c916da31878bcad2126b39264e09106 data/unusualprehistory/loot_tables/blocks/foxxi_sign.json
 9c8b503d15b0bcbdf07f2ca6ef5b0f32ecb490da data/unusualprehistory/loot_tables/blocks/foxxi_slab.json
 5bf3246cc1ab40a96202bee595193356d6543d2d data/unusualprehistory/loot_tables/blocks/foxxi_stairs.json
 cebc775a2709672188cacc8236ec2cacce8fcc25 data/unusualprehistory/loot_tables/blocks/foxxi_trapdoor.json

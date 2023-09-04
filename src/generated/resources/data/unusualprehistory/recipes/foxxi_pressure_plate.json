@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "unusualprehistory:foxxi_planks"
+    }
+  },
+  "pattern": [
+    "BB"
+  ],
+  "result": {
+    "item": "unusualprehistory:foxxi_pressure_plate"
+  }
+}

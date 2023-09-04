@@ -70,10 +70,6 @@ public class EntityOpalescentShuriken extends ThrowableItemProjectile {
         } else {
             if(tickCount < 200) {
                 this.noPhysics = true;
-                RandomSource rand = this.level.random;
-                if (rand.nextInt(0, 100) < 5) {
-                    randomTeleport();
-                }
             } else {
                 dropStack();
                 this.discard();
@@ -90,34 +86,6 @@ public class EntityOpalescentShuriken extends ThrowableItemProjectile {
             Level level = this.level;
             ItemEntity item = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), toPlaceStack);
             level.addFreshEntity(item);
-        }
-    }
-
-    public void randomTeleport() {
-        for (int i = 0; i < 32; ++i) {
-            this.level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
-        }
-
-        if (!this.level.isClientSide && !this.isRemoved()) {
-            Entity entity = this.getOwner();
-            if (entity instanceof ServerPlayer) {
-                ServerPlayer serverplayer = (ServerPlayer) entity;
-                if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == this.level && !serverplayer.isSleeping()) {
-                    if (entity.isPassenger()) {
-                        serverplayer.dismountTo(this.getX(), this.getY(), this.getZ());
-                    } else {
-                        entity.teleportTo(this.getX(), this.getY(), this.getZ());
-                    }
-
-                    entity.resetFallDistance();
-                    entity.hurt(DamageSource.FALL, 2);
-                }
-            } else if (entity != null) {
-                entity.teleportTo(this.getX(), this.getY(), this.getZ());
-                entity.resetFallDistance();
-            }
-            dropStack();
-            this.discard();
         }
     }
 

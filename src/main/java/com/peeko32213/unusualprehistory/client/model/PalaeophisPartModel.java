@@ -21,11 +21,11 @@ public class PalaeophisPartModel extends AnimatedGeoModel<EntityPalaeophisPart> 
     private ResourceLocation tailTexture = prefix("textures/entity/palaeophis_tail.png");
     private ResourceLocation finTexture = prefix("textures/entity/palaeophis_fin.png");
 
-    private ResourceLocation neckTextureShed = prefix("textures/entity/palaeophis_neck.png");
-    private ResourceLocation bodyTextureShed = prefix("textures/entity/palaeophis_body.png");
-    private ResourceLocation bodyFinTextureShed = prefix("textures/entity/palaeophis_body_fin.png");
-    private ResourceLocation tailTextureShed = prefix("textures/entity/palaeophis_tail.png");
-    private ResourceLocation finTextureShed = prefix("textures/entity/palaeophis_fin.png");
+    private ResourceLocation neckTextureShed = prefix("textures/entity/palaeophis_neck_shed.png");
+    private ResourceLocation bodyTextureShed = prefix("textures/entity/palaeophis_body_shed.png");
+    private ResourceLocation bodyFinTextureShed = prefix("textures/entity/palaeophis_body_fin_shed.png");
+    private ResourceLocation tailTextureShed = prefix("textures/entity/palaeophis_tail_shed.png");
+    private ResourceLocation finTextureShed = prefix("textures/entity/palaeophis_fin_shed.png");
     @Override
     public ResourceLocation getModelResource(EntityPalaeophisPart object) {
         return getModelForType(object.getPartType());

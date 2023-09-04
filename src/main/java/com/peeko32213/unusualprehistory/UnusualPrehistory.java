@@ -37,8 +37,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.GINKGO;
-import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.PETRIFIED;
+import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.*;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(UnusualPrehistory.MODID)
@@ -141,6 +140,8 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
             addToComposter(UPBlocks.ZULOAGAE.get().asItem(), 0.2f);
             Sheets.addWoodType(GINKGO);
+            Sheets.addWoodType(DRYO);
+            Sheets.addWoodType(FOXXI);
             Sheets.addWoodType(PETRIFIED);
 
         });

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:dryo_planks"
+    }
+  ],
+  "result": {
+    "item": "unusualprehistory:dryo_button"
+  }
+}

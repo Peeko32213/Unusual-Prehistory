@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IGI",
+    "CZC",
+    "ROR"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:lime_stained_glass"
+    },
+    "Z": {
+      "item": "unusualprehistory:organic_ooze"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "O": {
+      "item": "unusualprehistory:encrusted_organ"
+    },
+    "I": {
+      "item": "unusualprehistory:insulator"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:incubator"
+  }
+}
+

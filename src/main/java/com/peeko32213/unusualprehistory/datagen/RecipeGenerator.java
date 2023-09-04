@@ -55,6 +55,48 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
         polishedPetrifiedWoodStonecutting(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get(), 2).save(consumer, name("polished_petrified_wood_to_polished_petrified_wood_slab_stonecutting"));
         polishedPetrifiedWoodStonecutting(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get()).save(consumer, name("polished_petrified_wood_to_polished_petrified_wood_stairs_stonecutting"));
 
+        // Foxxi
+        makePlanks(UPBlocks.FOXXI_PLANKS, UPTags.FOXXI).save(consumer);
+        makeWood(UPBlocks.FOXXI_WOOD, UPBlocks.FOXXI_LOG).save(consumer);
+        makeStairs(UPBlocks.FOXXI_STAIRS, UPBlocks.FOXXI_PLANKS).save(consumer);
+
+        makeSlab(UPBlocks.FOXXI_SLAB, UPBlocks.FOXXI_PLANKS).save(consumer);
+
+        makeFence(UPBlocks.FOXXI_FENCE, UPBlocks.FOXXI_PLANKS).save(consumer);
+
+        makeFenceGate(UPBlocks.FOXXI_FENCE_GATE, UPBlocks.FOXXI_PLANKS).save(consumer);
+
+        makeDoor(UPBlocks.FOXXI_DOOR, UPBlocks.FOXXI_PLANKS).save(consumer);
+
+        makeTrapdoor(UPBlocks.FOXXI_TRAPDOOR, UPBlocks.FOXXI_PLANKS).save(consumer);
+
+        makeButton(UPBlocks.FOXXI_BUTTON, UPBlocks.FOXXI_PLANKS).save(consumer);
+
+        makePressurePlate(UPBlocks.FOXXI_PRESSURE_PLATE, UPBlocks.FOXXI_PLANKS).save(consumer);
+
+        makeSign(UPBlocks.FOXXI_SIGN, UPBlocks.FOXXI_PLANKS).save(consumer);
+
+        // Dryo
+        makePlanks(UPBlocks.DRYO_PLANKS, UPTags.DRYO).save(consumer);
+        makeWood(UPBlocks.DRYO_WOOD, UPBlocks.FOXXI_LOG).save(consumer);
+        makeStairs(UPBlocks.DRYO_STAIRS, UPBlocks.DRYO_PLANKS).save(consumer);
+
+        makeSlab(UPBlocks.DRYO_SLAB, UPBlocks.DRYO_PLANKS).save(consumer);
+
+        makeFence(UPBlocks.DRYO_FENCE, UPBlocks.DRYO_PLANKS).save(consumer);
+
+        makeFenceGate(UPBlocks.DRYO_FENCE_GATE, UPBlocks.DRYO_PLANKS).save(consumer);
+
+        makeDoor(UPBlocks.DRYO_DOOR, UPBlocks.DRYO_PLANKS).save(consumer);
+
+        makeTrapdoor(UPBlocks.DRYO_TRAPDOOR, UPBlocks.DRYO_PLANKS).save(consumer);
+
+        makeButton(UPBlocks.DRYO_BUTTON, UPBlocks.DRYO_PLANKS).save(consumer);
+
+        makePressurePlate(UPBlocks.DRYO_PRESSURE_PLATE, UPBlocks.DRYO_PLANKS).save(consumer);
+
+        makeSign(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS).save(consumer);
+
         //oreSmelting();
     }
 

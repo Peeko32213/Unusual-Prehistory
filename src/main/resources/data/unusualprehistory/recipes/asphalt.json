@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TT ",
+    "TT ",
+    "   "
+  ],
+  "key": {
+    "T": {
+      "item": "unusualprehistory:tar_bucket"
+    }
+  },
+  "result": {
+    "item": "unusualprehistory:asphalt",
+    "count": 4
+  }
+}

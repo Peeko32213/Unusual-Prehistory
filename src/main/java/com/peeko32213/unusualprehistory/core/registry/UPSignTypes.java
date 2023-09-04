@@ -6,6 +6,7 @@ public class UPSignTypes {
 
     public static final WoodType GINKGO = WoodType.create("ginkgo");
     public static final WoodType PETRIFIED = WoodType.create("petrified");
-
+    public static final WoodType FOXXI = WoodType.create("foxxi");
+    public static final WoodType DRYO = WoodType.create("dryo");
 
 }

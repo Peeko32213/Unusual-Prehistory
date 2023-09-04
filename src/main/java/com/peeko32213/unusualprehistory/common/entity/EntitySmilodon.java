@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.GroomGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.PounceGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -12,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -86,6 +88,19 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
 
 
     }
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.SMILODON_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.SMILODON_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.SMILODON_DEATH.get();
+    }
+
 
     @Override
     protected SoundEvent getAttackSound() {

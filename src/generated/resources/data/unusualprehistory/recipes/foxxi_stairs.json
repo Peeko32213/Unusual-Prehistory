@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "M": {
+      "item": "unusualprehistory:foxxi_planks"
+    }
+  },
+  "pattern": [
+    "M  ",
+    "MM ",
+    "MMM"
+  ],
+  "result": {
+    "count": 4,
+    "item": "unusualprehistory:foxxi_stairs"
+  }
+}

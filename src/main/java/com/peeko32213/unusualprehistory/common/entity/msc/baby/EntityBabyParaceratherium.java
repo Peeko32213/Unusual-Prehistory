@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathN
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -16,6 +17,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -164,6 +166,19 @@ public class EntityBabyParaceratherium extends EntityTameableBaseDinosaurAnimal 
         } else {
             this.noActionTime = 0;
         }
+    }
+
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.PARACER_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.PARACER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.PARACER_DEATH.get();
     }
 
     @Override

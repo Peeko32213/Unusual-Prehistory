@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,6 +21,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -312,6 +314,19 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     public void setSaddled(boolean saddled) {
         this.entityData.set(SADDLED, Boolean.valueOf(saddled));
     }
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.MEGATHER_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.MEGATHER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.MEGATHER_DEATH.get();
+    }
+
 
     @Override
     protected SoundEvent getAttackSound() {

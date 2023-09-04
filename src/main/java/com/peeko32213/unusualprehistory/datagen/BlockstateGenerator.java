@@ -128,6 +128,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         buttonBlock(UPBlocks.FOXXI_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
         fenceBlock(UPBlocks.FOXXI_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
         fenceGateBlock(UPBlocks.FOXXI_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
+        signBlock((StandingSignBlock) UPBlocks.FOXXI_SIGN.get(), (WallSignBlock) UPBlocks.FOXXI_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_sign"));
 
         //Dryophyllum
 
@@ -155,6 +156,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         buttonBlock(UPBlocks.DRYO_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
         fenceBlock(UPBlocks.DRYO_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
         fenceGateBlock(UPBlocks.DRYO_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
+        signBlock((StandingSignBlock) UPBlocks.DRYO_SIGN.get(), (WallSignBlock) UPBlocks.DRYO_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_sign"));
 
         //Asphalt
 

@@ -127,6 +127,19 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.STRIPPED_PETRIFIED_WOOD.get().asItem())
                 .add(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get().asItem());
 
+        tag(UPTags.FOXXI)
+                .add(UPBlocks.FOXXI_LOG.get().asItem())
+                .add(UPBlocks.FOXXI_WOOD.get().asItem())
+                .add(UPBlocks.STRIPPED_FOXXI_WOOD.get().asItem())
+                .add(UPBlocks.STRIPPED_FOXXI_LOG.get().asItem());
+
+        tag(UPTags.DRYO)
+                .add(UPBlocks.DRYO_LOG.get().asItem())
+                .add(UPBlocks.DRYO_WOOD.get().asItem())
+                .add(UPBlocks.STRIPPED_DRYO_WOOD.get().asItem())
+                .add(UPBlocks.STRIPPED_DRYO_LOG.get().asItem());
+
+
         tag(ItemTags.PLANKS)
                 .add(UPBlocks.GINKGO_PLANKS.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get().asItem())
@@ -138,6 +151,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(ItemTags.SIGNS)
                 .add(UPBlocks.GINKGO_SIGN.get().asItem())
+                .add(UPBlocks.FOXXI_SIGN.get().asItem())
+                .add(UPBlocks.DRYO_SIGN.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD_SIGN.get().asItem());
 
         tag(ItemTags.SMALL_FLOWERS)
