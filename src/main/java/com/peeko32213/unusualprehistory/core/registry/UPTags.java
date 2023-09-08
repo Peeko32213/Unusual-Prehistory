@@ -112,7 +112,7 @@ public class UPTags {
     //BIOME Tags
     public static final TagKey<Biome> IS_PETRIFIED_WOOD_FOREST_BIOME = registerBiomeTag("is_petrified_wood_forest_biome");
     public static final TagKey<Biome> IS_ICE_FOSSIL_ICEBERG_BIOME = registerBiomeTag("is_ice_fossil_iceberg_biome");
-
+    public static final TagKey<Biome> IS_TAR_BIOME = registerBiomeTag("is_tar_biome");
     public static final TagKey<Biome> IS_STETHA_BIOME = registerBiomeTag("is_stetha_biome");
     public static final TagKey<Biome> IS_MAJUNGA_BIOME = registerBiomeTag("is_majunga_biome");
     public static final TagKey<Biome> IS_ANURO_BIOME = registerBiomeTag("is_anuro_biome");

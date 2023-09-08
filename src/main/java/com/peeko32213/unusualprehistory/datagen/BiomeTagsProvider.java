@@ -35,9 +35,16 @@ public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider
         tag(UPTags.IS_KENTRO_BIOME).addTag(BiomeTags.IS_JUNGLE).addTag(Tags.Biomes.IS_SWAMP).addTags(BiomeTags.IS_FOREST);
         tag(UPTags.IS_HWACHA_BIOME).addTag(Tags.Biomes.IS_SWAMP);
         tag(UPTags.IS_ENCRUSTED_BIOME).addTags(Tags.Biomes.IS_UNDERGROUND);
-        tag(UPTags.IS_ICE_FOSSIL_ICEBERG_BIOME).addTags(Tags.Biomes.IS_COLD)
+        tag(UPTags.IS_ICE_FOSSIL_ICEBERG_BIOME)
                 .add(Biomes.FROZEN_OCEAN)
                 .add(Biomes.DEEP_FROZEN_OCEAN)
                 .add(Biomes.FROZEN_RIVER);
+
+        tag(UPTags.IS_TAR_BIOME)
+                .add(Biomes.SAVANNA)
+                .add(Biomes.SAVANNA_PLATEAU)
+                .add(Biomes.PLAINS)
+                .add(Biomes.SNOWY_PLAINS)
+                .add(Biomes.DESERT);
     }
 }
