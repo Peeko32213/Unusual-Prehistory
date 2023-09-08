@@ -12,6 +12,10 @@ import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 public class PalaeophisModel extends AnimatedGeoModel<EntityPalaeophis>
 {
     private ResourceLocation headModel = prefix("geo/palaeophis_head.geo.json");
+    private ResourceLocation DEEP_ONE_SHED = prefix("textures/entity/palaeophis_deep_head.png");
+    private ResourceLocation DEEP_ONE = prefix("textures/entity/palaeophis_deep_head_shed.png");
+    private ResourceLocation NORMAL = prefix("textures/entity/palaeophis_head.png");
+    private ResourceLocation NORMAL_SHED = prefix("textures/entity/palaeophis_head_shed.png");
     @Override
     public ResourceLocation getModelResource(EntityPalaeophis object)
     {
@@ -22,11 +26,20 @@ public class PalaeophisModel extends AnimatedGeoModel<EntityPalaeophis>
     @Override
     public ResourceLocation getTextureResource(EntityPalaeophis object)
     {
+        if(object.getVariant() == 1){
+            if(object.isShedding()){
+                return DEEP_ONE_SHED;
+
+            }
+
+            return DEEP_ONE;
+        }
+
         if(object.isShedding()){
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/palaeophis_head_shed.png");
+            return NORMAL_SHED;
 
         }
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/palaeophis_head.png");
+        return NORMAL;
     }
 
     @Override

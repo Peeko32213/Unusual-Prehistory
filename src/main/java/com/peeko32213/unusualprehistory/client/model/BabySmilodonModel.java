@@ -19,6 +19,9 @@ public class BabySmilodonModel extends AnimatedGeoModel<EntityBabySmilodon>
     @Override
     public ResourceLocation getTextureResource(EntityBabySmilodon object)
     {
+        if(object.getVariant() == 1){
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_ocelot_smilodon.png");
+        }
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_smilodon.png");
     }
 

@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 import com.peeko32213.unusualprehistory.common.entity.EntityBeelzebufo;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.EntityPalaeophis;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,6 +14,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -35,6 +37,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
@@ -47,12 +50,12 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class EntityBabyPalaeolophis extends AbstractFish implements IAnimatable, IAnimationTickable {
+public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements IAnimatable, IAnimationTickable, Bucketable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityBabyPalaeolophis.class, EntityDataSerializers.BOOLEAN);
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private int age;
-    public EntityBabyPalaeolophis(EntityType<? extends AbstractFish> entityType, Level level) {
+    public EntityBabyPalaeolophis(EntityType<? extends EntityBaseAquaticAnimal> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 45, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -164,6 +167,7 @@ public class EntityBabyPalaeolophis extends AbstractFish implements IAnimatable,
             frog.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
             frog.finalizeSpawn(server, this.level.getCurrentDifficultyAt(frog.blockPosition()), MobSpawnType.CONVERSION, null, null);
             frog.setNoAi(this.isNoAi());
+            frog.setVariant(this.getVariant());
             if (this.hasCustomName()) {
                 frog.setCustomName(this.getCustomName());
                 frog.setCustomNameVisible(this.isCustomNameVisible());
@@ -174,6 +178,15 @@ public class EntityBabyPalaeolophis extends AbstractFish implements IAnimatable,
             server.addFreshEntityWithPassengers(frog);
             this.discard();
         }
+    }
+
+    @Override
+    public void determineVariant(int variantChange) {
+        if(this.position().y() < 0 ){
+            this.setVariant(1);
+        }
+
+
     }
 
     private int getTicksUntilGrowth() {
@@ -235,9 +248,8 @@ public class EntityBabyPalaeolophis extends AbstractFish implements IAnimatable,
         return new WaterBoundPathNavigation(this, level);
     }
 
-    @Override
     protected SoundEvent getFlopSound() {
-        return null;
+        return SoundEvents.TADPOLE_FLOP;
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
@@ -269,6 +281,51 @@ public class EntityBabyPalaeolophis extends AbstractFish implements IAnimatable,
             }
         }
         return p_28137_;
+    }
+
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
     }
 
     public void checkDespawn() {

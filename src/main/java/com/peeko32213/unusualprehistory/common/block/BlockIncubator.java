@@ -52,7 +52,9 @@ public class BlockIncubator extends BaseEntityBlock {
                     if(!pLevel.isClientSide){
                         UPMessages.sendToClients(new SyncItemStackS2CPacket(container, pPos));
                     }
-                    itemStack.shrink(1);
+                    if(!pPlayer.isCreative()) {
+                        itemStack.shrink(1);
+                    }
                     return InteractionResult.sidedSuccess(pLevel.isClientSide());
                 } else {
                     return InteractionResult.FAIL;

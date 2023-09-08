@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
 import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathNavigation;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -42,14 +43,14 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class EntityBabySmilodon extends EntityTameableBaseDinosaurAnimal implements IAnimatable {
+public class EntityBabySmilodon extends EntityBaseDinosaurAnimal implements IAnimatable {
 
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.CHICKEN);
     private int age;
 
-    public EntityBabySmilodon(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
+    public EntityBabySmilodon(EntityType<? extends EntityBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -76,10 +77,6 @@ public class EntityBabySmilodon extends EntityTameableBaseDinosaurAnimal impleme
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 15.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
-    }
-
-    @Override
-    protected void performAttack() {
     }
 
     @Override
@@ -147,6 +144,7 @@ public class EntityBabySmilodon extends EntityTameableBaseDinosaurAnimal impleme
             frog.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
             frog.finalizeSpawn(server, this.level.getCurrentDifficultyAt(frog.blockPosition()), MobSpawnType.CONVERSION, null, null);
             frog.setNoAi(this.isNoAi());
+            frog.setVariant(this.getVariant());
             if (this.hasCustomName()) {
                 frog.setCustomName(this.getCustomName());
                 frog.setCustomNameVisible(this.isCustomNameVisible());
@@ -164,6 +162,15 @@ public class EntityBabySmilodon extends EntityTameableBaseDinosaurAnimal impleme
             this.discard();
         } else {
             this.noActionTime = 0;
+        }
+    }
+
+    @Override
+    public void determineVariant(int variantChange) {
+        if(variantChange != 0) {
+            this.setVariant(1);
+        } else{
+            this.setVariant(0);
         }
     }
 

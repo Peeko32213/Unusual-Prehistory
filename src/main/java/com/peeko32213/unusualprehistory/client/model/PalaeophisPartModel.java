@@ -26,6 +26,21 @@ public class PalaeophisPartModel extends AnimatedGeoModel<EntityPalaeophisPart> 
     private ResourceLocation bodyFinTextureShed = prefix("textures/entity/palaeophis_body_fin_shed.png");
     private ResourceLocation tailTextureShed = prefix("textures/entity/palaeophis_tail_shed.png");
     private ResourceLocation finTextureShed = prefix("textures/entity/palaeophis_fin_shed.png");
+
+
+
+    private ResourceLocation neckTextureDeep = prefix("textures/entity/palaeophis_deep_neck.png");
+    private ResourceLocation bodyTextureDeep = prefix("textures/entity/palaeophis_deep_body.png");
+    private ResourceLocation bodyFinTextureDeep = prefix("textures/entity/palaeophis_deep_body_fin.png");
+    private ResourceLocation tailTextureDeep = prefix("textures/entity/palaeophis_deep_tail.png");
+    private ResourceLocation finTextureDeep = prefix("textures/entity/palaeophis_deep_fin.png");
+
+    private ResourceLocation neckTextureShedDeep = prefix("textures/entity/palaeophis_deep_neck_shed.png");
+    private ResourceLocation bodyTextureShedDeep = prefix("textures/entity/palaeophis_deep_body_shed.png");
+    private ResourceLocation bodyFinTextureShedDeep = prefix("textures/entity/palaeophis_deep_body_fin_shed.png");
+    private ResourceLocation tailTextureShedDeep = prefix("textures/entity/palaeophis_deep_tail_shed.png");
+    private ResourceLocation finTextureShedDeep = prefix("textures/entity/palaeophis_deep_fin_shed.png");
+
     @Override
     public ResourceLocation getModelResource(EntityPalaeophisPart object) {
         return getModelForType(object.getPartType());
@@ -33,6 +48,18 @@ public class PalaeophisPartModel extends AnimatedGeoModel<EntityPalaeophisPart> 
 
     @Override
     public ResourceLocation getTextureResource(EntityPalaeophisPart object) {
+        if(object.getVariant() == 1){
+
+            if(object.isShedding()){
+                return getTextureForShedTypeDeep(object.getPartType());
+            }
+
+            return getTextureForTypeDeep(object.getPartType());
+        }
+
+
+
+
         if(object.isShedding()){
             return getTextureForShedType(object.getPartType());
         }
@@ -76,4 +103,28 @@ public class PalaeophisPartModel extends AnimatedGeoModel<EntityPalaeophisPart> 
         }
         return bodyTextureShed;
     }
+
+    private ResourceLocation getTextureForTypeDeep(PalaeophisPartIndex partType) {
+        switch (partType){
+            case BODY: return bodyTextureDeep;
+            case NECK: return neckTextureDeep;
+            case TAIL: return tailTextureDeep;
+            case FIN:return finTextureDeep;
+            case BODY_FIN:return bodyFinTextureDeep;
+        }
+        return bodyTextureDeep;
+    }
+
+
+    private ResourceLocation getTextureForShedTypeDeep(PalaeophisPartIndex partType) {
+        switch (partType){
+            case BODY: return bodyTextureShedDeep;
+            case NECK: return neckTextureShedDeep;
+            case TAIL: return tailTextureShedDeep;
+            case FIN:return finTextureShedDeep;
+            case BODY_FIN:return bodyFinTextureShedDeep;
+        }
+        return bodyTextureShedDeep;
+    }
+
 }
