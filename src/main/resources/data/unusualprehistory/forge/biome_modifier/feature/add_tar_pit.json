@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#unusualprehistory:is_petrified_wood_forest_biome",
+  "biomes": "#unusualprehistory:is_tar_biome",
   "features": "unusualprehistory:tar_pit_feature_placed",
   "step": "surface_structures"
 }
