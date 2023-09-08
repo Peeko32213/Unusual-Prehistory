@@ -21,6 +21,9 @@ public class BabyPalaeolophisModel extends AnimatedGeoModel<EntityBabyPalaeoloph
     @Override
     public ResourceLocation getTextureResource(EntityBabyPalaeolophis object)
     {
+        if(object.getVariant() == 1){
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_deep_palaeophis.png");
+        }
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_palaeophis.png");
     }
 

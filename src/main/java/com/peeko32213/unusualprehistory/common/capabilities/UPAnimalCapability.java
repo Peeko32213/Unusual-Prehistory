@@ -1,6 +1,9 @@
 package com.peeko32213.unusualprehistory.common.capabilities;
 
 import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -61,18 +64,19 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
                 livingEntity.setPos(event.getEntity().position());
                 livingEntity.setUUID(UUID.randomUUID());
-
-                if(livingEntity instanceof Animal animal){
+                if(livingEntity instanceof EntityTameableBaseDinosaurAnimal animal){
                     animal.setAge(-24000);
+                    animal.determineVariant(1);
+                }
 
-                    if(livingEntity instanceof EntitySmilodon entitySmilodon)
-                    {
-                        entitySmilodon.setVariant(1);
-                    }
-                    serverLevel.addFreshEntity(animal);
-
-
-                } else {
+                if(livingEntity instanceof EntityBaseDinosaurAnimal animal){
+                    animal.setAge(-24000);
+                    animal.determineVariant(1);
+                }
+                if(livingEntity instanceof EntityBaseAquaticAnimal animal){
+                    animal.determineVariant(1);
+                }
+                else {
                     serverLevel.addFreshEntity(livingEntity);
                 }
 

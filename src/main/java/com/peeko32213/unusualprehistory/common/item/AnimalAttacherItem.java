@@ -50,6 +50,9 @@ public class AnimalAttacherItem extends Item {
                     if (!pPlayer.isCreative()) {
                         pStack.shrink(1);
                     }
+                    MutableComponent animalComponent = Component.translatable(pInteractionTarget.getType().getDescriptionId()).withStyle(ChatFormatting.GOLD);
+                    pPlayer.sendSystemMessage(Component.translatable("unusualprehistory.attacher.embryo_attached", animalComponent).withStyle(ChatFormatting.GREEN));
+
                 } else {
                     MutableComponent animalComponent = Component.translatable(pInteractionTarget.getType().getDescriptionId()).withStyle(ChatFormatting.GOLD);
                     pPlayer.sendSystemMessage(Component.translatable("unusualprehistory.attacher.animal_has_embryo", animalComponent).withStyle(ChatFormatting.RED));

@@ -380,6 +380,7 @@
   "player_capability.amber_protection_full": "You are at full Amber Protection and won't gain any more!",
   "unusualprehistory.attacher.animal_has_embryo": "%s already has an embryo",
   "unusualprehistory.attacher.animal_not_correct": "%s cannot be inserted into %s",
+  "unusualprehistory.attacher.embryo_attached": "Successfully attached embryo to %s!",
   "unusualprehistory.battle_axe": "An axe made for battle. Cutting wood effectively goes poorly..",
   "unusualprehistory.beelzebufo.meat_stick": "Hold coty on a stick to control",
   "unusualprehistory.blockentity.analyzer": "                             Analyzer",

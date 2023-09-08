@@ -7,12 +7,14 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathN
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -122,6 +124,70 @@ public class EntityBabyMegalania extends EntityTameableBaseDinosaurAnimal implem
         this.setAge(p_218698_.getInt("Age"));
     }
 
+    public boolean isHotBiome() {
+        if (this.isNoAi()) {
+            return false;
+        }
+        if (this.level.dimension() == Level.NETHER) {
+            return true;
+        } else {
+            int i = Mth.floor(this.getX());
+            int j = Mth.floor(this.getY());
+            int k = Mth.floor(this.getZ());
+            return this.level.getBiome(new BlockPos(i, 0, k)).value().shouldSnowGolemBurn(new BlockPos(i, j, k));
+        }
+    }
+
+    public boolean isColdBiome() {
+        if (this.isNoAi()) {
+            return false;
+        }
+        if (this.level.dimension() == Level.NETHER) {
+            return false;
+        } else {
+            int i = Mth.floor(this.getX());
+            int j = Mth.floor(this.getY());
+            int k = Mth.floor(this.getZ());
+            return this.level.getBiome(new BlockPos(i, 0, k)).value().coldEnoughToSnow(new BlockPos(i, j, k));
+        }
+    }
+
+
+    private void setColdVariant(){
+
+        this.setVariant(1);
+    }
+
+    private void setHotVariant(){
+
+        this.setVariant(2);
+    }
+
+    private void setNetherVariant(){
+
+        this.setVariant(3);
+    }
+
+    private void setNormalVariant(){
+
+        this.setVariant(0);
+    }
+
+    @Override
+    public void determineVariant(int variantChange) {
+        if(this.getLevel().dimension() == Level.NETHER)
+        {
+            setNetherVariant();
+        }
+        if (this.isHotBiome()) {
+            setHotVariant();
+        } else if (this.isColdBiome()) {
+            setColdVariant();
+        }
+        else {
+            setNormalVariant();
+        }
+    }
 
     private void increaseAge(int seconds) {
         this.setAge(this.age + seconds * 20);
@@ -146,6 +212,7 @@ public class EntityBabyMegalania extends EntityTameableBaseDinosaurAnimal implem
             frog.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
             frog.finalizeSpawn(server, this.level.getCurrentDifficultyAt(frog.blockPosition()), MobSpawnType.CONVERSION, null, null);
             frog.setNoAi(this.isNoAi());
+            frog.setVariant(this.getVariant());
             if (this.hasCustomName()) {
                 frog.setCustomName(this.getCustomName());
                 frog.setCustomNameVisible(this.isCustomNameVisible());

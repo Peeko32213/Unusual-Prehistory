@@ -572,7 +572,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.musical_tame.too_early", "You haven't played enough of the song yet");
         add("unusualprehistory.musical_tame.fail_tame", "%s was not impressed and doesn't want to be with you");
         add("unusualprehistory.musical_tame.no_entity_found", "Nobody Can Hear You!");
-
+        add("unusualprehistory.attacher.embryo_attached", "Successfully attached embryo to %s!");
         add("unusualprehistory.megatherium_baby.tame_tooltip", "Baby Megatherium is Tamed!");
         add("unusualprehistory.megatherium_baby.minutes_tooltip", "%s Minutes left until Baby Megatherium is Tamed!");
         //EFFECTS

@@ -1,5 +1,10 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
+import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabySmilodon;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
@@ -181,10 +186,29 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
 
         livingEntity.setPos(Vec3.atCenterOf(pos));
         livingEntity.setUUID(UUID.randomUUID());
-        if(livingEntity instanceof Animal animal){
+        if(livingEntity instanceof EntityBaseDinosaurAnimal animal){
             animal.setAge(-24000);
+            if(livingEntity instanceof EntitySmilodon smilodon){
+                animal.determineVariant(0);
+            } else if(livingEntity instanceof EntityBabySmilodon smilodon){
+                animal.determineVariant(0);
+            } else {
+                animal.determineVariant(serverLevel.random.nextInt(100));
+            }
+
             serverLevel.addFreshEntity(animal);
-        } else {
+        }
+        if(livingEntity instanceof EntityTameableBaseDinosaurAnimal animal){
+            animal.setAge(-24000);
+            animal.determineVariant(serverLevel.random.nextInt(100));
+            serverLevel.addFreshEntity(animal);
+        }
+        if(livingEntity instanceof EntityBaseAquaticAnimal animal){
+            animal.determineVariant(serverLevel.random.nextInt(100));
+            serverLevel.addFreshEntity(animal);
+        }
+
+        else {
             serverLevel.addFreshEntity(livingEntity);
         }
     }

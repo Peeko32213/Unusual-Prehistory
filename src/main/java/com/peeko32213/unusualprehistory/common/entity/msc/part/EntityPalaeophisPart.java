@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.msc.part;
 import com.google.common.collect.ImmutableList;
 import com.peeko32213.unusualprehistory.common.entity.EntityPalaeophis;
 import com.peeko32213.unusualprehistory.common.entity.IHurtableMultipart;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.common.message.UPMessageHurtMultipart;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
@@ -52,7 +53,7 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
     private static final EntityDataAccessor<Optional<UUID>> PARENT_UUID = SynchedEntityData.defineId(EntityPalaeophisPart.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Float> SWELL = SynchedEntityData.defineId(EntityPalaeophisPart.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> SHEDDING = SynchedEntityData.defineId(EntityPalaeophisPart.class, EntityDataSerializers.BOOLEAN);
-
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityPalaeophisPart.class, EntityDataSerializers.INT);
 
     public EntityDimensions multipartSize;
     private float strangleProgess;
@@ -260,6 +261,7 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
         this.entityData.define(BODY_TYPE, PalaeophisPartIndex.NECK.ordinal());
         this.entityData.define(TARGET_YAW, 0F);
         this.entityData.define(SWELL, 0F);
+        this.entityData.define(VARIANT, 0);
         this.entityData.define(SHEDDING, false);
     }
 
@@ -359,6 +361,7 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
         }
         compound.putInt("BodyModel", getPartType().ordinal());
         compound.putInt("BodyIndex", getBodyIndex());
+        compound.putInt("variant", this.getVariant());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -371,6 +374,7 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
         }
         this.setPartType(PalaeophisPartIndex.fromOrdinal(compound.getInt("BodyModel")));
         this.setBodyIndex(compound.getInt("BodyIndex"));
+        this.setVariant(compound.getInt("variant"));
     }
 
     @Override
@@ -426,8 +430,15 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
 
     public void copyDataFrom(EntityPalaeophis palaeophis) {
         this.entityData.set(SHEDDING, palaeophis.isShedding());
+        this.entityData.set(VARIANT, palaeophis.getVariant());
+    }
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
     }
 
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
+    }
 
     public boolean isShedding(){
         return this.entityData.get(SHEDDING);

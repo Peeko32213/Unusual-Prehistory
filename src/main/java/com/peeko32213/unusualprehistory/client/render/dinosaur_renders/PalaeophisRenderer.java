@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 
 import com.peeko32213.unusualprehistory.client.model.PalaeophisModel;
-import com.peeko32213.unusualprehistory.client.render.layer.PaleolophisSheddingLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityPalaeophis;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
