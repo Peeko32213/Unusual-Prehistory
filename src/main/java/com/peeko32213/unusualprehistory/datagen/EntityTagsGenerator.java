@@ -417,6 +417,42 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
 
         tag(UPTags.TAR_WALKABLE_THROUGH_MOBS)
                 .add(EntityType.RAVAGER);
+
+        tag(UPTags.HERBIVORES)
+                .add(UPEntities.ANTARCO.get())
+                .add(UPEntities.BRACHI.get())
+                .add(UPEntities.BRACHI_TEEN.get())
+                .add(UPEntities.BABY_MEGATHERIUM.get())
+                .add(UPEntities.BABY_BRACHI.get())
+                .add(UPEntities.BABY_GIGANTO.get())
+                .add(UPEntities.BABY_MAMMOTH.get())
+                .add(UPEntities.BABY_PARACER.get())
+                .add(UPEntities.TRIKE.get())
+                .add(UPEntities.COTY.get())
+                .add(UPEntities.KENTRO.get())
+                .add(UPEntities.PACHY.get())
+                .add(UPEntities.MEGATHERIUM.get())
+                .add(UPEntities.MAMMOTH.get())
+
+        ;
+
+        tag(UPTags.CARNIVORES)
+                .add(UPEntities.ANURO.get())
+                .add(UPEntities.AUSTRO.get())
+                .add(UPEntities.BARINASUCHUS.get())
+                .add(UPEntities.BEELZ.get())
+                .add(UPEntities.DUNK.get())
+                .add(UPEntities.BABY_DUNK.get())
+                .add(UPEntities.BABY_BARINA.get())
+                .add(UPEntities.BABY_SMILODON.get())
+                .add(UPEntities.BABY_REX.get())
+                .add(UPEntities.REX.get())
+                .add(UPEntities.HWACHA.get())
+                .add(UPEntities.SMILODON.get())
+                .add(UPEntities.ULUG.get())
+                .add(UPEntities.VELOCI.get())
+                .add(UPEntities.MAJUNGA.get())
+        ;
     }
 
     @Override

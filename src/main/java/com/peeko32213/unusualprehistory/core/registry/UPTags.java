@@ -35,6 +35,9 @@ public class UPTags {
     public static final TagKey<EntityType<?>> LAND_MOBS = registerEntityTag("land_mobs");
 
     public static final TagKey<EntityType<?>> SMILODON_TARGETS = registerEntityTag("smilodon_targets");
+    public static final TagKey<EntityType<?>> HERBIVORES = registerEntityTag("herbivores");
+    public static final TagKey<EntityType<?>> CARNIVORES = registerEntityTag("carnivores");
+    public static final TagKey<EntityType<?>> OMNIVORES = registerEntityTag("omnivores");
 
     public static final TagKey<EntityType<?>> SMILODON_EMBRYO_ATTACH_TO= registerEntityTag("smilodon_embryo_attach_to");
     public static final TagKey<EntityType<?>> MAMMOTH_EMBRYO_ATTACH_TO= registerEntityTag("mammoth_embryo_attach_to");

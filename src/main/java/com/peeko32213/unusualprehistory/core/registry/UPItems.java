@@ -9,6 +9,7 @@ import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
+import com.peeko32213.unusualprehistory.core.UPFoods;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -506,6 +507,9 @@ public class UPItems {
 
     public static final RegistryObject<Item> INSULATOR = ITEMS.register("insulator",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> DRYO_NUTS = ITEMS.register("dryo_nuts",
+            () -> new IncreaseAgeItem(new Item.Properties().tab(UnusualPrehistory.DINO_TAB).food(UPFoods.DRYO_NUTS), UPTags.HERBIVORES,10));
 
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties().tab(UnusualPrehistory.DINO_SPAWN_EGGS)));

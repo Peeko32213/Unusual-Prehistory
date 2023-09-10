@@ -1,4 +1,4 @@
-// 1.19.2	2023-09-03T19:01:31.911075	unusualprehistory Item Tags
+// 1.19.2	2023-09-10T15:50:08.0668473	unusualprehistory Item Tags
 9c732831ed6ac09a1a4607681080e74fd3f930ea data/minecraft/tags/items/buttons.json
 9edb75fd2a2fc58fad5cb177d8cd36a6b449e37d data/minecraft/tags/items/fishes.json
 c058532b8dc116a7ddd6535c6021e5b16efff81c data/minecraft/tags/items/leaves.json
@@ -10,7 +10,7 @@ fc2e77c51219a889dc4969c1983614358a8301c7 data/minecraft/tags/items/tall_flowers.
 cf5435fa98165144da25fa3b2f1d598e1b7674f3 data/minecraft/tags/items/wooden_buttons.json
 13a3a20a21c195285c271b3970cbd9643e99c466 data/minecraft/tags/items/wooden_fences.json
 291718131b430f202c603d9f307f34ade8dc2264 data/unusualprehistory/tags/items/allowed_fridge_items.json
-21dee962a73f2a7104acbdc8f7e98e76fa51b2a8 data/unusualprehistory/tags/items/analyzer_items.json
+ea5cc48fccc1c1e7bae9c9bd998b9198c324b881 data/unusualprehistory/tags/items/analyzer_items.json
 204f07993ad21bce6fa3eaf5fdfb21ab730bea2e data/unusualprehistory/tags/items/analyzer_items_output_amber_fossil.json
 ef2140dea8f200ef3bd0b7b281b9ff45dc2f94ba data/unusualprehistory/tags/items/analyzer_items_output_encrusted_organ.json
 0622bfc5ead56cff17597409bce8b7990651f93c data/unusualprehistory/tags/items/analyzer_items_output_frozen_fossil.json

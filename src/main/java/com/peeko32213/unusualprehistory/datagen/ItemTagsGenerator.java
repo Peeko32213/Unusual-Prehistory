@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.datagen;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -8,6 +9,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -86,7 +88,9 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.TAR_FOSSIL.get());
 
         tag(UPTags.ANALYZER_ITEMS_INPUT)
-                .addTag(UPTags.FOSSILS);
+                .addTag(UPTags.FOSSILS)
+                .addTag(UPTags.PETRIFIED_WOOD);
+
 
         tag(UPTags.KENTRO_FOOD)
                 .add(UPBlocks.HORSETAIL.get().asItem());

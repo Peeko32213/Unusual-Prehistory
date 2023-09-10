@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 public class DinosaurWhistle extends Item {
 
     private Supplier<? extends EntityType> toWhistle;
+
     private final int MAX_DISTANCE = 64;
 
     public DinosaurWhistle(Properties pProperties,  Supplier<? extends EntityType> toWhistle) {
