@@ -80,7 +80,7 @@ public class UPPlacedFeatures {
 
     public static final RegistryObject<PlacedFeature> PERMAFROST_PATCH = registerPlacedFeature("permafrost_patch", () -> new PlacedFeature(UPConfiguredFeatures.PERMAFROST_PATCH.getHolder().get(), ImmutableList.of(
             RarityFilter.onAverageOnceEvery(1),
-            CountPlacement.of(15),
+            CountPlacement.of(60),
             InSquarePlacement.spread(),
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32)),
             RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
@@ -92,6 +92,20 @@ public class UPPlacedFeatures {
                             BlockPredicate.matchesBlocks(Direction.UP.getNormal(), Blocks.WATER))),
             BiomeFilter.biome())));
 
+    public static final RegistryObject<PlacedFeature> PERMAFROST_FOSSIL_PATCH = registerPlacedFeature("permafrost_fossil_patch", () -> new PlacedFeature(UPConfiguredFeatures.PERMAFROST_FOSSIL_PATCH.getHolder().get(), ImmutableList.of(
+            RarityFilter.onAverageOnceEvery(1),
+            CountPlacement.of(15),
+            InSquarePlacement.spread(),
+            HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32)),
+            RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+            BlockPredicateFilter.forPredicate(
+                    BlockPredicate.allOf(
+                            BlockPredicate.anyOf(
+                                    BlockPredicate.matchesBlocks(BlockPos.ZERO, Blocks.STONE),
+                                    BlockPredicate.matchesBlocks(BlockPos.ZERO, UPBlocks.PERMAFROST.get()),
+                                    BlockPredicate.matchesBlocks(BlockPos.ZERO, Blocks.DEEPSLATE)),
+                            BlockPredicate.matchesBlocks(Direction.UP.getNormal(), Blocks.WATER))),
+            BiomeFilter.biome())));
 
     private static List<PlacementModifier> orePlacement(PlacementModifier modifier, PlacementModifier modifier2) {
         return List.of(modifier, InSquarePlacement.spread(), modifier2, BiomeFilter.biome());
