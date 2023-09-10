@@ -81,7 +81,6 @@ public class UPPlacedFeatures {
     public static final RegistryObject<PlacedFeature> PERMAFROST_PATCH = registerPlacedFeature("permafrost_patch", () -> new PlacedFeature(UPConfiguredFeatures.PERMAFROST_PATCH.getHolder().get(), ImmutableList.of(
             RarityFilter.onAverageOnceEvery(1),
             CountPlacement.of(15),
-
             InSquarePlacement.spread(),
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32)),
             RandomOffsetPlacement.vertical(ConstantInt.of(-1)),

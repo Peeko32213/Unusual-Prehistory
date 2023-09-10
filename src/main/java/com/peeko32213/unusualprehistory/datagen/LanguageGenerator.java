@@ -300,7 +300,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ZULOAGAE, "Zuloagae");
         addBlock(UPBlocks.ZULOAGAE_SAPLING, "Zuloagae Sapling");
         addBlock(UPBlocks.RAIGUENRAYUN, "Raiguenrayun");
-
+        addItem(UPItems.DRYO_NUTS, "Dryo Nuts");
         //GINKGO
         addBlock(UPBlocks.GINKGO_PLANKS, "Prehistoric Ginkgo Planks");
         addBlock(UPBlocks.GINKGO_WOOD, "Prehistoric Ginkgo Wood");

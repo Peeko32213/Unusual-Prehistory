@@ -105,9 +105,13 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
             if(slot == 0 && stack.is(UPItems.FLASK.get())){
                 return itemHandler.insertItem(slot, stack, simulate);
             }
+
             if(slot == 1 && stack.is(UPTags.ANALYZER_ITEMS_INPUT)) {
                 return itemHandler.insertItem(slot, stack, simulate);
             }
+            //if(slot == 1 && !AnalyzerRecipeJsonManager.getRecipes().isEmpty() && AnalyzerRecipeJsonManager.getRecipes().containsKey(stack.getItem())) {
+            //    return itemHandler.insertItem(slot, stack, simulate);
+            //}
             return stack;
         }
         @Override

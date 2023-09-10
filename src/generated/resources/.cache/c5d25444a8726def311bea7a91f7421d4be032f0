@@ -1,4 +1,4 @@
-// 1.19.2	2023-08-31T12:46:11.5303204	Item Models: unusualprehistory
+// 1.19.2	2023-09-10T19:30:46.4848025	Item Models: unusualprehistory
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ammon_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/antarcto_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/anuro_spawn_egg.json
@@ -10,6 +10,7 @@ bcc883831dd0f24e95f45adc0e0649c3ec9b5cf0 assets/unusualprehistory/models/item/ba
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/coty_spawn_egg.json
 c505ceeb8c2846e6726af59f3c649ca841160c75 assets/unusualprehistory/models/item/dino_pouch.json
 42fb3e2af0065dd47285ecc57380fdea700f8779 assets/unusualprehistory/models/item/dryo_flask.json
+46106715c1f2de5e4adca7bf430e7008511e6620 assets/unusualprehistory/models/item/dryo_nuts.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/dunk_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/encrusted_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/eryon_spawn_egg.json

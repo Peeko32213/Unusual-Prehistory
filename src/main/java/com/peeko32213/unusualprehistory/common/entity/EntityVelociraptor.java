@@ -150,6 +150,11 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
 
     }
 
+    @Override
+    public boolean isAlliedTo(Entity pEntity) {
+        return pEntity.is(this);
+    }
+
     protected SoundEvent getAmbientSound() {
         return UPSounds.RAPTOR_IDLE.get();
     }

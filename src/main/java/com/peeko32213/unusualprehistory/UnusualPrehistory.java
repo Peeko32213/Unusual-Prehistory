@@ -81,11 +81,11 @@ public class UnusualPrehistory {
         eventBus.register(this);
         //If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that
         // triggers the capability class otherwise it also wont hotswap
-        UPCapabilities.setupCapabilities();
-        eventBus.addListener(UPPlayerCapability::onPlayerCloned);
-        eventBus.addListener(UPPlayerCapability::onLivingDamage);
-        eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
-        eventBus.addListener(UPAnimalCapability::tickAnimal);
+        //UPCapabilities.setupCapabilities();
+        //eventBus.addListener(UPPlayerCapability::onPlayerCloned);
+        //eventBus.addListener(UPPlayerCapability::onLivingDamage);
+        //eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
+        //eventBus.addListener(UPAnimalCapability::tickAnimal);
     }
 
     //Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib
@@ -142,10 +142,7 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
             addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
             addToComposter(UPBlocks.ZULOAGAE.get().asItem(), 0.2f);
-            Sheets.addWoodType(GINKGO);
-            Sheets.addWoodType(DRYO);
-            Sheets.addWoodType(FOXXI);
-            Sheets.addWoodType(PETRIFIED);
+
 
         });
 

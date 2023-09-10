@@ -1,4 +1,4 @@
-// 1.19.2	2023-09-08T20:10:39.8444223	Tags for minecraft:worldgen/biome
+// 1.19.2	2023-09-10T15:46:44.4904864	Tags for minecraft:worldgen/biome
 afd9da16b8e57511d3b12c69ccd4555d71ebb29f data/unusualprehistory/tags/worldgen/biome/is_ammon_biome.json
 b0df3b2f6141dce35a16bb95148a6ff4821c7a48 data/unusualprehistory/tags/worldgen/biome/is_antarcto_biome.json
 589afa42d505a96240cc0dd94313f013f1d171fd data/unusualprehistory/tags/worldgen/biome/is_anuro_biome.json
@@ -18,7 +18,7 @@ ec1dc69013c806f4d6077a56e4de773bb067c451 data/unusualprehistory/tags/worldgen/bi
 07ecd21cae8acc4735861c19ee51bbd8457289ae data/unusualprehistory/tags/worldgen/biome/is_rex_biome.json
 4e2349a9acdd444a39b16cb1ed573045190a4b8b data/unusualprehistory/tags/worldgen/biome/is_scau_biome.json
 4e2349a9acdd444a39b16cb1ed573045190a4b8b data/unusualprehistory/tags/worldgen/biome/is_stetha_biome.json
-68a3456c8e58f4b282e5ec9b291d13cc27769862 data/unusualprehistory/tags/worldgen/biome/is_tar_biome.json
+2e8f3d217b558bbd95069c59f41b99f62a09069f data/unusualprehistory/tags/worldgen/biome/is_tar_biome.json
 07ecd21cae8acc4735861c19ee51bbd8457289ae data/unusualprehistory/tags/worldgen/biome/is_trike_biome.json
 e66697bb831551333b23bb9c7310bac4e8064d3d data/unusualprehistory/tags/worldgen/biome/is_ulug_biome.json
 9bfc172ed1ef4f562aeafe95f474d327f1b2e61c data/unusualprehistory/tags/worldgen/biome/is_veloci_biome.json

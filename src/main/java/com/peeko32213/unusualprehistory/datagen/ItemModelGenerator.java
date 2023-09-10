@@ -49,7 +49,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         toBlock(UPBlocks.PERMAFROST);
         toBlock(UPBlocks.PERMAFROST_FOSSIL);
         singleTex(UPItems.INSULATOR);
-
+        singleTex(UPItems.DRYO_NUTS);
 
     }
     private void toBlock(RegistryObject<Block> b) {

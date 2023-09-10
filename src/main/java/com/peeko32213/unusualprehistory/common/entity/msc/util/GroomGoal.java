@@ -41,11 +41,11 @@ public class GroomGoal extends Goal {
      * method as well.
      */
     public boolean canUse() {
-        if (!this.smilodon.canGroom()) {
+        if (!this.smilodon.canGroom() || this.smilodon.getTarget() != null) {
             return false;
         } else {
             this.partner = this.getFreePartner();
-            return this.partner != null;
+            return this.partner != null && this.partner.getTarget() == null;
         }
     }
 
@@ -53,7 +53,7 @@ public class GroomGoal extends Goal {
      * Returns whether an in-progress EntityAIBase should continue executing
      */
     public boolean canContinueToUse() {
-        return this.partner.isAlive() && this.partner.canGroom() && this.groomTime < 80;
+        return this.partner.isAlive() && this.groomTime < 80;
     }
 
     /**
@@ -85,19 +85,19 @@ public class GroomGoal extends Goal {
     public void tick() {
         this.groomTime = groomTime + 1;
         double d0 = this.smilodon.distanceToSqr(this.partner);
-        if (this.groomTime >= 10 && d0 < 11.0D) {
-            this.smilodon.getNavigation().moveTo(this.smilodon.position().x, this.smilodon.position().y, this.smilodon.position().z, 1);
-            this.partner.getNavigation().moveTo(this.partner.position().x, this.partner.position().y, this.partner.position().z, 1);
+        if (this.groomTime >= 2 && d0 < 3.5D) {
+            //this.smilodon.getNavigation().moveTo(this.smilodon.position().x, this.smilodon.position().y, this.smilodon.position().z, 1);
+            //this.partner.getNavigation().moveTo(this.partner.position().x, this.partner.position().y, this.partner.position().z, 1);
             this.smilodon.getLookControl().setLookAt(this.partner, 10.0F, (float) this.smilodon.getMaxHeadXRot());
             this.partner.getLookControl().setLookAt(this.smilodon, 10.0F, (float) this.partner.getMaxHeadXRot());
 
-            if (!partner.groom1() && !partner.groom2()) {
-                if (groom) {
+            //if (!partner.groom1() && !partner.groom2()) {
+ //               if (groom) {
                     this.smilodon.setGroom1(true);
-                } else {
-                    this.smilodon.setGroom2(true);
-                };
-            }
+  //              } else {
+  //                  this.smilodon.setGroom2(true);
+  //              };
+            //}
         } else {
             this.smilodon.getLookControl().setLookAt(this.partner, 10.0F, (float) this.smilodon.getMaxHeadXRot());
             this.partner.getLookControl().setLookAt(this.smilodon, 10.0F, (float) this.partner.getMaxHeadXRot());

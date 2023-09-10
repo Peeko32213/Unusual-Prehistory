@@ -31,6 +31,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -46,6 +47,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 import java.awt.event.KeyEvent;
+
+import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.*;
+import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.PETRIFIED;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class ClientEvents {
@@ -141,6 +145,10 @@ public final class ClientEvents {
         WoodType.register(UPSignTypes.FOXXI);
         WoodType.register(UPSignTypes.DRYO);
 
+        Sheets.addWoodType(GINKGO);
+        Sheets.addWoodType(DRYO);
+        Sheets.addWoodType(FOXXI);
+        Sheets.addWoodType(PETRIFIED);
 
         BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
 
