@@ -62,6 +62,7 @@ public class UnusualPrehistory {
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
         UPFeatures.FEATURES.register(modEventBus);
+        UPParticles.PARTICLE_TYPES.register(modEventBus);
         UPAdvancementTriggerRegistry.init();
         UPTrunkPlacerType.TRUNK_PLACER_TYPES.register(modEventBus);
         UPInstruments.INSTRUMENT.register(modEventBus);

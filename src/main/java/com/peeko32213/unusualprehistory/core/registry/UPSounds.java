@@ -127,6 +127,7 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> SMILODON_DEATH = createSoundEvent("smilodon_death");
     public static final RegistryObject<SoundEvent> SMILODON_HURT = createSoundEvent("smilodon_hurt");
     public static final RegistryObject<SoundEvent> SMILODON_IDLE = createSoundEvent("smilodon_idle");
+    public static final RegistryObject<SoundEvent> ZULOGAE_DISC = createSoundEvent("zulogae_disc");
 
 
 

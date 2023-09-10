@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergSmilodonMode
 import com.peeko32213.unusualprehistory.client.model.plant.PlantModel;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.overlay.TarOverlay;
+import com.peeko32213.unusualprehistory.client.particles.TarBubbleParticle;
 import com.peeko32213.unusualprehistory.client.render.UPRenderUtils;
 import com.peeko32213.unusualprehistory.client.render.armor.*;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
@@ -29,6 +30,7 @@ import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.particle.SnowflakeParticle;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
@@ -155,6 +157,11 @@ public final class ClientEvents {
 
     }
 
+    @SubscribeEvent
+    public static void registerParticleTypes(RegisterParticleProvidersEvent event){
+        event.register(UPParticles.TAR_BUBBLE.get(), TarBubbleParticle.Provider::new);
+
+    }
     private static final ResourceLocation TRICERATOPS_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops_saddle.png");
     private static final ResourceLocation TRICERATOPS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/trike.geo.json");
     private static final ResourceLocation ULUGH_JEB_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus_jeb.png");
