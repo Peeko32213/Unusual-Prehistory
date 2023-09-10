@@ -1392,5 +1392,13 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.smilodon_idle"
+  },
+  "zulogae_disc": {
+    "sounds": [
+      {
+        "name": "unusualprehistory:zulogae_disc",
+        "stream": true
+      }
+    ]
   }
 }

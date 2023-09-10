@@ -50,7 +50,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         toBlock(UPBlocks.PERMAFROST_FOSSIL);
         singleTex(UPItems.INSULATOR);
         singleTex(UPItems.DRYO_NUTS);
-
+        singleTex(UPItems.ZULOGAE_DISC);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());

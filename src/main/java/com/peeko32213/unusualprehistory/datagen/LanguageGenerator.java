@@ -37,6 +37,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.DINO_POUCH, "Dino Pouch");
         addItem(UPItems.OPALESCENT_PEARL, "Opalescent Pearl");
         addItem(UPItems.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
+        addItem(UPItems.ZULOGAE_DISC, "Zulogae Disc ");
+
         //TOOLS
         addItem(UPItems.WARPICK, "War Pick");
         addItem(UPItems.PRIMAL_MACUAHUITL, "Primal Macuahuitl");
@@ -102,7 +104,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.YELLOW_FRUIT, "Redolent Fruit");
         addItem(UPItems.BLUE_FRUIT, "Salubrious  Fruit");
         addItem(UPItems.DEFROSTED_FROZEN_FOSSIL, "Defrosted Frozen Fossil");
-
+        addItem(UPItems.DRYO_NUTS, "Dryo Nuts");
         //SCRAPS
         addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
         addItem(UPItems.WHITE_FRUIT_SCRAPS, "Luxurious Fruit Scraps");
@@ -300,7 +302,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ZULOAGAE, "Zuloagae");
         addBlock(UPBlocks.ZULOAGAE_SAPLING, "Zuloagae Sapling");
         addBlock(UPBlocks.RAIGUENRAYUN, "Raiguenrayun");
-        addItem(UPItems.DRYO_NUTS, "Dryo Nuts");
+
         //GINKGO
         addBlock(UPBlocks.GINKGO_PLANKS, "Prehistoric Ginkgo Planks");
         addBlock(UPBlocks.GINKGO_WOOD, "Prehistoric Ginkgo Wood");
@@ -536,7 +538,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.BARINA_DEATH, "Crocodilain Groans");
         addSound(UPSounds.BARINA_HURT, "Crocodilain Pain");
         addSound(UPSounds.BARINA_IDLE, "Crocodilain Growls");
-
+        addSound(UPSounds.ZULOGAE_DISC, "Zulogae Disc");
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");
         add("entity.unusualprehistory.all.command_1", "%s is following");
@@ -557,6 +559,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_1.player", "%s was shredded by %s");
         add("death.attack.hwacha_2.player", "%s was turned to fine paste by %s");
         add("death.attack.hwacha_3.player", "%s was shot by %s");
+        add("item.unusualprehistory.zulogae_disc.desc", "Zulogae Disc By Shroomy");
 
         add("unusualprehistory.megalania_damage", " %s Megalania Damage");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");

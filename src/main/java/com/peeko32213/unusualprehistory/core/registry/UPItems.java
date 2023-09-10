@@ -510,7 +510,8 @@ public class UPItems {
 
     public static final RegistryObject<Item> DRYO_NUTS = ITEMS.register("dryo_nuts",
             () -> new IncreaseAgeItem(new Item.Properties().tab(UnusualPrehistory.DINO_TAB).food(UPFoods.DRYO_NUTS), UPTags.HERBIVORES,10));
-
+    public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",
+            () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().tab(UnusualPrehistory.DINO_TAB).stacksTo(1).rarity(Rarity.EPIC), 157));
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties().tab(UnusualPrehistory.DINO_SPAWN_EGGS)));
     }
