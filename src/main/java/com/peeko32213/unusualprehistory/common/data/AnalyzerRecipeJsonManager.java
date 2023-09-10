@@ -146,6 +146,7 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
 
                     for (Holder<Item> tempItemHolder : itemHolder) {
                         Item item = tempItemHolder.get();
+                        if(weightedPairsTemp.containsKey(item)) LOGGER.warn("Item {} for resourceLocation {} already has items assigned, adding more", item, resourceLocation);
                         List<ItemWeightedPairCodec> weightedPairsList = weightedPairsTemp.getOrDefault(item, new ArrayList<>());
                         weightedPairsList.addAll(analyzerRecipeCodec.getItemWeightedPairs());
                         weightedPairsTemp.put(item, weightedPairsList);
@@ -163,10 +164,10 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
                     Item item = reg.get(items);
                     if(item == null) {
                         LOGGER.error("Item {} does not exist, currently parsing through {}!", items, resourceLocation);
-                        LOGGER.error("Transmutation for {} might not have any items assigned, or it uses items from a mod, but the mod isn't installed!", resourceLocation);
+                        LOGGER.error("Recipe for {} might not have any items assigned, or it uses items from a mod, but the mod isn't installed!", resourceLocation);
                         return;
                     }
-
+                    if(weightedPairsTemp.containsKey(item)) LOGGER.warn("Item {} for resourceLocation {} already has items assigned, adding more", item, resourceLocation);
                     List<ItemWeightedPairCodec> weightedPairsList = weightedPairsTemp.getOrDefault(item, new ArrayList<>());
                     weightedPairsList.addAll(analyzerRecipeCodec.getItemWeightedPairs());
                     weightedPairsTemp.put(item, weightedPairsList);

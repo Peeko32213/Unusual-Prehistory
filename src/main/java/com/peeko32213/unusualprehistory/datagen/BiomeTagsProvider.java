@@ -41,6 +41,7 @@ public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider
                 .add(Biomes.FROZEN_RIVER);
 
         tag(UPTags.IS_TAR_BIOME)
+                .add(Biomes.SWAMP)
                 .add(Biomes.SAVANNA)
                 .add(Biomes.SAVANNA_PLATEAU)
                 .add(Biomes.PLAINS)

@@ -1,9 +1,18 @@
 {
-  "input": ["unusualprehistory:petrified_wood_log"],
+  "input": [
+    "unusualprehistory:petrified_wood_log",
+    "unusualprehistory:petrified_wood",
+    "unusualprehistory:stripped_petrified_wood",
+    "unusualprehistory:stripped_petrified_wood_log"
+  ],
   "entries": [
     {
       "weight": 50,
       "item": "minecraft:coal"
+    },
+    {
+      "weight": 50,
+      "item": "minecraft:cobblestone"
     },
     {
       "weight": 15,
