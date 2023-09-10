@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util;
 
 import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.item.Items;
@@ -67,8 +68,7 @@ public class GroomGoal extends Goal {
         this.smilodon.setCanGroom(false);
         this.smilodon.groomTimer = 6000;
         this.partner.groomTimer = 6000;
-        this.partner.spawnAtLocation(Items.RABBIT_HIDE);
-        this.smilodon.spawnAtLocation(Items.RABBIT_HIDE);
+        this.smilodon.spawnAtLocation(UPItems.SMILO_FUR.get());
         this.partner = null;
         this.groomTime = 0;
     }
