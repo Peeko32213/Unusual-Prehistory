@@ -89,6 +89,7 @@ public class UPConfiguredFeatures {
 
     public static final RegistryObject<ConfiguredFeature<?, ?>> DEEPSLATE_OPAL_ORE = registerConfiguredFeature("deepslate_opal_ore", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_OPAL_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_OPAL_FOSSIL.get().defaultBlockState())), 4)));
     public static final RegistryObject<ConfiguredFeature<?, ?>> PERMAFROST_PATCH = registerConfiguredFeature("permafrost_patch",  () -> new ConfiguredFeature<>(Feature.DISK, new DiskConfiguration(RuleBasedBlockStateProvider.simple(UPBlocks.PERMAFROST.get()), BlockPredicate.matchesBlocks(List.of(Blocks.STONE, Blocks.DEEPSLATE)), UniformInt.of(2, 3), 1)));
+    public static final RegistryObject<ConfiguredFeature<?, ?>> PERMAFROST_FOSSIL_PATCH = registerConfiguredFeature("permafrost_fossil_patch",  () -> new ConfiguredFeature<>(Feature.DISK, new DiskConfiguration(RuleBasedBlockStateProvider.simple(UPBlocks.PERMAFROST_FOSSIL.get()), BlockPredicate.matchesBlocks(List.of(UPBlocks.PERMAFROST.get())), UniformInt.of(2, 3), 1)));
 
     public static RegistryObject<ConfiguredFeature<?, ?>> registerConfiguredFeature(String name, Supplier<ConfiguredFeature<?, ?>> feature) {
         configuredFeatureList.add(name);
