@@ -64,7 +64,7 @@ public class LootTableBlocks extends BlockLoot {
         dropSelf(UPBlocks.FOXXI_TRAPDOOR.get());
         dropSelf(UPBlocks.FOXXI_SIGN.get());
         dropSelf(UPBlocks.FOXXI_WALL_SIGN.get());
-
+        //dropSelf(UPBlocks.FOXII_SAPLING.get());
 
         dropSelf(UPBlocks.DRYO_WOOD.get());
         dropSelf(UPBlocks.DRYO_LOG.get());
@@ -81,6 +81,9 @@ public class LootTableBlocks extends BlockLoot {
         dropSelf(UPBlocks.DRYO_TRAPDOOR.get());
         dropSelf(UPBlocks.DRYO_SIGN.get());
         dropSelf(UPBlocks.DRYO_WALL_SIGN.get());
+        //dropSelf(UPBlocks.DRYO_SAPLING.get());
+        //dropSelf(UPBlocks.GINKGO_SAPLING.get());
+
 
         dropSelf(UPBlocks.HWACHA_FOSSIL.get());
         dropSelf(UPBlocks.ANTARCTO_FOSSIL.get());

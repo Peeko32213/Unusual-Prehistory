@@ -15,7 +15,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(){
+    protected void addTags() {
         /**Example**/
         //tag(BlockTags.MINEABLE_WITH_HOE)
         //        .add(UPBlocks.AMBER_BLOCK.get());
@@ -195,15 +195,29 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.PERMAFROST.get());
 
         tag(BlockTags.MINEABLE_WITH_AXE)
-                .add(UPBlocks.REX_BOOMBOX.get());
+                .add(UPBlocks.REX_BOOMBOX.get())
+                .add(UPBlocks.GINKGO_LOG.get())
+                .add(UPBlocks.GINKGO_WOOD.get())
+                .add(UPBlocks.STRIPPED_GINKGO_WOOD.get())
+                .add(UPBlocks.STRIPPED_GINKGO_LOG.get())
+                .add(UPBlocks.PETRIFIED_WOOD_LOG.get())
+                .add(UPBlocks.PETRIFIED_WOOD.get())
+                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD.get())
+                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get())
+                .add(UPBlocks.DRYO_LOG.get())
+                .add(UPBlocks.DRYO_WOOD.get())
+                .add(UPBlocks.STRIPPED_DRYO_WOOD.get())
+                .add(UPBlocks.STRIPPED_DRYO_LOG.get())
+                .add(UPBlocks.FOXXI_LOG.get())
+                .add(UPBlocks.FOXXI_WOOD.get())
+                .add(UPBlocks.STRIPPED_FOXXI_WOOD.get())
+                .add(UPBlocks.STRIPPED_FOXXI_LOG.get());
 
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(UPBlocks.DEEPSLATE_FOSSIL.get())
-                .add(UPBlocks.DEEPSLATE_AMBER_FOSSIL.get())
                 .add(UPBlocks.DEEPSLATE_PLANT_FOSSIL.get())
                 .add(UPBlocks.STONE_FOSSIL.get())
-                .add(UPBlocks.STONE_AMBER_FOSSIL.get())
                 .add(UPBlocks.ANALYZER.get())
                 .add(UPBlocks.CULTIVATOR.get())
                 .add(UPBlocks.INCUBATOR.get())
@@ -243,12 +257,33 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.PETRIFIED_WOOD_SIGN.get())
                 .add(UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get())
                 .add(UPBlocks.REX_BOOMBOX.get())
-                .add(UPBlocks.STONE_OPAL_FOSSIL.get())
-                .add(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get())
                 .add(UPBlocks.STONE_TAR_FOSSIL.get())
                 .add(UPBlocks.DEEPSLATE_TAR_FOSSIL.get())
                 .add(UPBlocks.PERMAFROST_FOSSIL.get())
-                .add(UPBlocks.PERMAFROST.get());
+                .add(UPBlocks.PERMAFROST.get())
+                .add(UPBlocks.GINKGO_LOG.get())
+                .add(UPBlocks.GINKGO_WOOD.get())
+                .add(UPBlocks.STRIPPED_GINKGO_WOOD.get())
+                .add(UPBlocks.STRIPPED_GINKGO_LOG.get())
+                .add(UPBlocks.PETRIFIED_WOOD_LOG.get())
+                .add(UPBlocks.PETRIFIED_WOOD.get())
+                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD.get())
+                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get())
+                .add(UPBlocks.DRYO_LOG.get())
+                .add(UPBlocks.DRYO_WOOD.get())
+                .add(UPBlocks.STRIPPED_DRYO_WOOD.get())
+                .add(UPBlocks.STRIPPED_DRYO_LOG.get())
+                .add(UPBlocks.FOXXI_LOG.get())
+                .add(UPBlocks.FOXXI_WOOD.get())
+                .add(UPBlocks.STRIPPED_FOXXI_WOOD.get())
+                .add(UPBlocks.STRIPPED_FOXXI_LOG.get());
+
+
+        tag(BlockTags.NEEDS_DIAMOND_TOOL)
+                .add(UPBlocks.STONE_AMBER_FOSSIL.get())
+                .add(UPBlocks.STONE_OPAL_FOSSIL.get())
+                .add(UPBlocks.DEEPSLATE_AMBER_FOSSIL.get())
+                .add(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get());
 
         tag(BlockTags.STANDING_SIGNS)
                 .add(UPBlocks.GINKGO_SIGN.get())
@@ -367,7 +402,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
         tag(UPTags.ZULOAGAE_PLANTABLE_ON)
                 .addTags(BlockTags.SAND)
                 .addTags(BlockTags.DIRT)
-                .add(UPBlocks.ZULOAGAE.get(),UPBlocks.ZULOAGAE_SAPLING.get(), Blocks.GRAVEL);
+                .add(UPBlocks.ZULOAGAE.get(), UPBlocks.ZULOAGAE_SAPLING.get(), Blocks.GRAVEL);
     }
 
 

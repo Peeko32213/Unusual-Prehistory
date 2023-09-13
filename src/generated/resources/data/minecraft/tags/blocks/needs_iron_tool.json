@@ -1,10 +1,8 @@
 {
   "values": [
     "unusualprehistory:deepslate_fossil",
-    "unusualprehistory:deepslate_amber_ore",
     "unusualprehistory:deepslate_plant_fossil",
     "unusualprehistory:stone_fossil",
-    "unusualprehistory:stone_amber_ore",
     "unusualprehistory:analyzer",
     "unusualprehistory:cultivator",
     "unusualprehistory:incubator",
@@ -44,11 +42,25 @@
     "unusualprehistory:petrified_wood_sign",
     "unusualprehistory:petrified_wood_wall_sign",
     "unusualprehistory:rex_boombox",
-    "unusualprehistory:stone_opal_ore",
-    "unusualprehistory:deepslate_opal_ore",
     "unusualprehistory:stone_tar_fossil",
     "unusualprehistory:deepslate_tar_fossil",
     "unusualprehistory:permafrost_fossil",
-    "unusualprehistory:permafrost"
+    "unusualprehistory:permafrost",
+    "unusualprehistory:ginkgo_log",
+    "unusualprehistory:ginkgo_wood",
+    "unusualprehistory:stripped_ginkgo_wood",
+    "unusualprehistory:stripped_ginkgo_log",
+    "unusualprehistory:petrified_wood_log",
+    "unusualprehistory:petrified_wood",
+    "unusualprehistory:stripped_petrified_wood",
+    "unusualprehistory:stripped_petrified_wood_log",
+    "unusualprehistory:dryo_log",
+    "unusualprehistory:dryo_wood",
+    "unusualprehistory:stripped_dryo_wood",
+    "unusualprehistory:stripped_dryo_log",
+    "unusualprehistory:foxxi_log",
+    "unusualprehistory:foxxi_wood",
+    "unusualprehistory:stripped_foxxi_wood",
+    "unusualprehistory:stripped_foxxi_log"
   ]
 }

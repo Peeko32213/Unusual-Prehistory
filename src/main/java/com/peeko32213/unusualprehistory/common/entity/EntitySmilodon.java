@@ -399,7 +399,10 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
-        return !pSource.isFall();
+        if(pSource.isFall()){
+            return false;
+        }
+        return super.hurt(pSource, pAmount);
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {

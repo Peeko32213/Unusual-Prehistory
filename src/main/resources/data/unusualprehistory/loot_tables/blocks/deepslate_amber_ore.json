@@ -30,7 +30,7 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "chance": 0.9,
+                  "chance": 0.6,
                   "condition": "minecraft:random_chance"
                 }
               ],
@@ -53,7 +53,7 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "chance": 0.4,
+                  "chance": 0.6,
                   "condition": "minecraft:random_chance"
                 }
               ],
@@ -63,7 +63,7 @@
                   "formula": "minecraft:uniform_bonus_count",
                   "function": "minecraft:apply_bonus",
                   "parameters": {
-                    "bonusMultiplier": 2
+                    "bonusMultiplier": 3
                   }
                 },
                 {
