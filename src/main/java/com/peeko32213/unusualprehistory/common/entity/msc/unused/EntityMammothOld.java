@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity;
+package com.peeko32213.unusualprehistory.common.entity.msc.unused;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LeaderHurtTargetGoal;
@@ -47,18 +47,25 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class EntityMammoth extends EntityBaseDinosaurAnimal implements ContainerListener {
-    private static final EntityDataAccessor<Boolean> IS_TRUNKING = SynchedEntityData.defineId(EntityMammoth.class, EntityDataSerializers.BOOLEAN);
+public class EntityMammothOld extends EntityBaseDinosaurAnimal implements ContainerListener {
+    private static final EntityDataAccessor<Boolean> IS_TRUNKING = SynchedEntityData.defineId(EntityMammothOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IS_HOLDING = SynchedEntityData.defineId(EntityMammothOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<ItemStack> HOLD_ITEM = SynchedEntityData.defineId(EntityMammothOld.class, EntityDataSerializers.ITEM_STACK);
     public float prevFeedProgress;
     public float feedProgress;
     private Ingredient temptationItems;
-
+    public SimpleContainer mammothInventory;
+    private final UUID WEAPON_MODIFIER = UUID.fromString("82aefff6-1451-11ee-be56-0242ac120002");
+    public static final Predicate<Player> VALID_PLAYERS = (player) -> {
+        return player.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get());
+    };
     private int resetLeaderCooldown = 100;
     private LivingEntity leader;
     private int packSize = 1;
 
-    public EntityMammoth(EntityType<? extends Animal> entityType, Level level) {
+    public EntityMammothOld(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
+        initMammothInventory();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -77,11 +84,11 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(3, new MammothMeleeAttackGoal(this, 1.0D, true));
-        this.targetSelector.addGoal(1, new LeaderHurtTargetGoal(this));
+        //this.targetSelector.addGoal(1, new LeaderHurtTargetGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(1, new MammothFollowLeaderGoal(this));
+        //this.goalSelector.addGoal(1, new MammothFollowLeaderGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(1, new MammothTrunkIdleGoal(this));
@@ -94,11 +101,52 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         if(pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if(pPlayer.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get()) ) {
+            if (itemStack.is(Items.SHEARS) && pPlayer.getUsedItemHand() == InteractionHand.MAIN_HAND) {
+                this.dropEquipment();
+                 return InteractionResult.SUCCESS;
+            }
+            if (itemStack.is(UPTags.MAMMOTH_WEAPONS)) {
+                this.giveWeapon(itemStack);
+                return InteractionResult.SUCCESS;
+            }
 
             //UnusualPrehistory.LOGGER.info("item " + this.mammothInventory + " level " + pPlayer.level);
 
         }
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    private void initMammothInventory() {
+        SimpleContainer animalchest = this.mammothInventory;
+        int size = 1;
+        this.mammothInventory = new SimpleContainer(size) {
+            public boolean stillValid(Player player) {
+                return EntityMammothOld.this.isAlive() && !EntityMammothOld.this.isInsidePortal;
+            }
+        };
+        mammothInventory.addListener(this);
+        if (animalchest != null) {
+            int i = Math.min(animalchest.getContainerSize(), this.mammothInventory.getContainerSize());
+            for (int j = 0; j < i; ++j) {
+                ItemStack itemstack = animalchest.getItem(j);
+                if (!itemstack.isEmpty()) {
+                    this.mammothInventory.setItem(j, itemstack.copy());
+                }
+            }
+        }
+    }
+
+    protected void dropEquipment() {
+        super.dropEquipment();
+        if (this.mammothInventory != null) {
+            for (int i = 0; i < mammothInventory.getContainerSize(); i++) {
+                this.spawnAtLocation(mammothInventory.getItem(i));
+            }
+            mammothInventory.clearContent();
+            this.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(WEAPON_MODIFIER);
+            setIsHolding(false);
+            this.setHoldItemStack(ItemStack.EMPTY);
+        }
     }
 
 
@@ -117,16 +165,44 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(IS_TRUNKING, false);
+        this.entityData.define(IS_HOLDING, false);
+        this.entityData.define(HOLD_ITEM, ItemStack.EMPTY);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        setIsHolding(compound.getBoolean("holding"));
+        if (mammothInventory != null) {
+            final ListTag nbttaglist = compound.getList("Items", 10);
+            this.initMammothInventory();
+            for (int i = 0; i < nbttaglist.size(); ++i) {
+                final CompoundTag CompoundNBT = nbttaglist.getCompound(i);
+                final int j = CompoundNBT.getByte("Slot") & 255;
+                ItemStack itemStack =  ItemStack.of(CompoundNBT.getCompound("Item"));
+                this.mammothInventory.setItem(j, itemStack);
+                this.setHoldItemStack(itemStack);
+            }
+        }
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putBoolean("holding", isHolding());
+        if (mammothInventory != null) {
+            final ListTag nbttaglist = new ListTag();
+            for (int i = 0; i < this.mammothInventory.getContainerSize(); ++i) {
+                final ItemStack itemstack = this.mammothInventory.getItem(i);
+                if (!itemstack.isEmpty()) {
+                    CompoundTag CompoundNBT = new CompoundTag();
+                    CompoundNBT.putByte("Slot", (byte) i);
+                    CompoundNBT.put("Item", itemstack.serializeNBT());
+                    nbttaglist.add(CompoundNBT);
+                }
+            }
+            compound.put("Items", nbttaglist);
+        }
     }
 
     public BlockPos getRestrictCenter() {
@@ -145,6 +221,40 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         this.entityData.set(IS_TRUNKING, isPecking);
     }
 
+    public boolean isHolding() {
+        return this.entityData.get(IS_HOLDING);
+    }
+
+    public void setIsHolding(boolean isHolding) {
+        this.entityData.set(IS_HOLDING, isHolding);
+    }
+
+    public ItemStack getHoldItemStack() {
+        return this.entityData.get(HOLD_ITEM);
+    }
+
+    public void setHoldItemStack(ItemStack itemStack) {
+        this.entityData.set(HOLD_ITEM, itemStack);
+    }
+
+    public void giveWeapon(ItemStack itemStack){
+        if(this.mammothInventory != null && this.mammothInventory.addItem(itemStack).isEmpty() && !isHolding()){
+            this.mammothInventory.addItem(itemStack);
+            setIsHolding(true);
+            this.setHoldItemStack(itemStack);
+            Collection<AttributeModifier> modifiers = itemStack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_DAMAGE);
+
+            if(!modifiers.isEmpty()){
+                double damage = modifiers.stream().toList().get(0).getAmount();
+                AttributeModifier attributeModifier = new AttributeModifier(WEAPON_MODIFIER,"attack_damage_mod", damage, AttributeModifier.Operation.ADDITION);
+                this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(attributeModifier);
+            }
+            return;
+        } else if(this.mammothInventory != null && !this.mammothInventory.addItem(itemStack).isEmpty() || isHolding()){
+            dropEquipment();
+            return;
+        }
+    }
 
     @Override
     public void containerChanged(Container pContainer) {
@@ -158,6 +268,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
                 resetLeaderCooldown--;
             }else{
                 resetLeaderCooldown = 200 + this.getRandom().nextInt(200);
+                this.lookForPlayerLeader();
             }
         }
         if (this.getTarget() != null && isValidLeader(this.getTarget())) {
@@ -169,15 +280,31 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         LivingEntity playerTarget = null;
         if (leader instanceof Player) {
             playerTarget = leader.getLastHurtMob();
-            if (playerTarget == null || !playerTarget.isAlive() || playerTarget instanceof EntityMammoth) {
+            if (playerTarget == null || !playerTarget.isAlive() || playerTarget instanceof EntityMammothOld) {
                 playerTarget = leader.getLastHurtByMob();
             }
         }
-        if (playerTarget != null && playerTarget.isAlive() && !(playerTarget instanceof EntityMammoth)) {
+        if (playerTarget != null && playerTarget.isAlive() && !(playerTarget instanceof EntityMammothOld)) {
             this.setTarget(playerTarget);
         }
     }
 
+    private void lookForPlayerLeader() {
+        if(!(this.leader instanceof Player)){
+            float range = 10;
+            List<Player> playerList = this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(range, range, range), EntityMammothOld.VALID_PLAYERS);
+            Player closestPlayer = null;
+            for(Player player : playerList){
+                if(closestPlayer == null || player.distanceTo(this) < closestPlayer.distanceTo(this)){
+                    closestPlayer = player;
+                }
+            }
+            if(closestPlayer != null){
+                this.stopFollowing();
+                this.startFollowing(closestPlayer);
+            }
+        }
+    }
 
     public boolean isValidLeader(LivingEntity leader) {
         if (leader instanceof Player) {
@@ -186,7 +313,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
             }
             return leader.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get());
         } else {
-            return leader.isAlive() && leader instanceof EntityMammoth;
+            return leader.isAlive() && leader instanceof EntityMammothOld;
         }
     }
 
@@ -198,15 +325,15 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
 
     public LivingEntity startFollowing(LivingEntity leader) {
         this.leader = leader;
-        if (leader instanceof EntityMammoth) {
-            ((EntityMammoth) leader).addFollower();
+        if (leader instanceof EntityMammothOld) {
+            ((EntityMammothOld) leader).addFollower();
         }
         return leader;
     }
 
     public void stopFollowing() {
-        if (this.leader instanceof EntityMammoth) {
-            ((EntityMammoth) this.leader).removeFollower();
+        if (this.leader instanceof EntityMammothOld) {
+            ((EntityMammothOld) this.leader).removeFollower();
         }
         this.leader = null;
     }
@@ -227,7 +354,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         return this.packSize > 1;
     }
 
-    public void addFollowers(Stream<EntityMammoth> p_27534_) {
+    public void addFollowers(Stream<EntityMammothOld> p_27534_) {
         p_27534_.limit(getMaxPackSize() - this.packSize).filter((p_27538_) -> {
             return p_27538_ != this;
         }).forEach((p_27536_) -> {
@@ -276,9 +403,9 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     }
 
     public class MammothTrunkIdleGoal extends Goal {
-        private final EntityMammoth mammoth;
+        private final EntityMammothOld mammoth;
 
-        public MammothTrunkIdleGoal(EntityMammoth mammoth) {
+        public MammothTrunkIdleGoal(EntityMammothOld mammoth) {
             this.mammoth = mammoth;
         }
         @Override
@@ -384,8 +511,13 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     }
 
     private <E extends IAnimatable> PlayState trunkPredicate(AnimationEvent<E> event) {
-        if (this.isTrunking()) {
+        if (this.isTrunking() && !this.isHolding()) {
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.mammoth.idle_trunk"));
+            return PlayState.CONTINUE;
+        }
+
+        if(this.isHolding()){
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.mammoth.trunk_hold"));
             return PlayState.CONTINUE;
         }
         event.getController().markNeedsReload();
@@ -395,7 +527,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(5);
-        AnimationController<EntityMammoth> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        AnimationController<EntityMammothOld> controller = new AnimationController<>(this, "controller", 5, this::predicate);
         data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::trunkPredicate));
         data.addAnimationController(controller);
     }

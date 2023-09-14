@@ -57,7 +57,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
                 .add(Attributes.MAX_HEALTH, 15.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.15D)
                 .add(Attributes.ARMOR, 10.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 1.0D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
     }

@@ -19,7 +19,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
-version = '1.4.0.3'
+version = '1.4-beta-1'
 group = 'com.peeko32213.unusualprehistory'
 archivesBaseName = 'unusualprehistory'
 

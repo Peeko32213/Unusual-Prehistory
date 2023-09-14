@@ -36,23 +36,6 @@ public class MammothFollowLeaderGoal extends Goal {
             Predicate<EntityMammoth> mammothPredicate = (p_25258_) -> {
                 return p_25258_.canBeFollowed() || !p_25258_.isFollower();
             };
-            float range = 60F;
-            List<Player> playerList = this.mob.level.getEntitiesOfClass(Player.class, this.mob.getBoundingBox().inflate(range, range, range), EntityMammoth.VALID_PLAYERS);
-            Player closestPlayer = null;
-            for(Player player : playerList){
-                if(closestPlayer == null || player.distanceTo(mob) < closestPlayer.distanceTo(mob)){
-                    closestPlayer = player;
-                }
-            }
-            if(closestPlayer == null){
-                List<EntityMammoth> list = this.mob.level.getEntitiesOfClass(EntityMammoth.class, this.mob.getBoundingBox().inflate(range, range, range), mammothPredicate);
-                EntityMammoth entityMammoth = DataFixUtils.orElse(list.stream().filter(EntityMammoth::canBeFollowed).findAny(), this.mob);
-                entityMammoth.addFollowers(list.stream().filter((p_25255_) -> {
-                    return !p_25255_.isFollower();
-                }));
-            }else{
-                this.mob.startFollowing(closestPlayer);
-            }
 
             return this.mob.isFollower();
         }

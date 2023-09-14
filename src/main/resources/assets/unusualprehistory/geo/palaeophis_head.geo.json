@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.palaeophis_head",
 				"texture_width": 128,
 				"texture_height": 128,
 				"visible_bounds_width": 3,
@@ -18,7 +18,7 @@
 				{
 					"name": "UpperJaw",
 					"parent": "Head",
-					"pivot": [-0.5, 5, -94],
+					"pivot": [-0.5, 5, -2],
 					"cubes": [
 						{"origin": [-5.5, 3, -9.075], "size": [11, 5, 12], "uv": [0, 25]},
 						{"origin": [-5.5, 3, -19.075], "size": [11, 4, 10], "uv": [36, 32]},
@@ -30,7 +30,7 @@
 				{
 					"name": "LowerJaw",
 					"parent": "Head",
-					"pivot": [-0.5, 3, -90],
+					"pivot": [-0.5, 3, 0],
 					"cubes": [
 						{"origin": [5.525, 3, -4], "size": [0, 2, 7], "uv": [0, 0]},
 						{"origin": [-5.5, 0, -19], "size": [11, 3, 22], "inflate": 0.01, "uv": [0, 0]},
@@ -43,7 +43,7 @@
 				{
 					"name": "Tounge",
 					"parent": "LowerJaw",
-					"pivot": [-0.5, 5, -90],
+					"pivot": [0, 5, 3],
 					"cubes": [
 						{"origin": [-1.5, 5, -18], "size": [3, 0, 21], "uv": [23, 0]}
 					]

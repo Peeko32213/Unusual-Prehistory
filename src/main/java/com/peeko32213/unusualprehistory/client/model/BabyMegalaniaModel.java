@@ -13,9 +13,9 @@ public class BabyMegalaniaModel extends AnimatedGeoModel<EntityBabyMegalania>
 {
 
     private static final ResourceLocation NORMAL_LOCATION = prefix("textures/entity/baby_megalania.png");
-    private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/megalania_hot.png");
-    private static final ResourceLocation COLD_LOCATION = prefix("textures/entity/megalania_cold.png");
-    private static final ResourceLocation NETHER_LOCATION = prefix("textures/entity/megalania_nether.png");
+    private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/baby_megalania_hot.png");
+    private static final ResourceLocation COLD_LOCATION = prefix("textures/entity/baby_megalania_cold.png");
+    private static final ResourceLocation NETHER_LOCATION = prefix("textures/entity/baby_megalania_nether.png");
 
 
 
