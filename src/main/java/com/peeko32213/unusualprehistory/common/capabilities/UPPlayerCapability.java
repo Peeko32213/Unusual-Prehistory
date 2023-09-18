@@ -50,14 +50,14 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
                 }
 
                 int damage = (int)event.getAmount();
-                //LOGGER.info("damage " + damage);
+                LOGGER.info("damage " + damage);
                 for(int i = 0; i < damage; i++){
                     if(capability.amberProtection >= serverPlayer.getHealth()){
                         capability.amberProtection = capability.amberProtection - 1;
-                        //LOGGER.info("doing damage to amber");
+                        LOGGER.info("doing damage to amber");
                     } else {
                         serverPlayer.setHealth(serverPlayer.getHealth() - 1);
-                        //LOGGER.info("doing damage to hp");
+                        LOGGER.info("doing damage to hp");
                     }
                     UPMessages.sendToPlayer(new AmberProtectionSyncS2CPacket(capability.amberProtection), serverPlayer);
                 }

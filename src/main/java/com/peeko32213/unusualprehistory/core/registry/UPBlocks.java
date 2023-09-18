@@ -281,7 +281,7 @@ public class UPBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
     public static final RegistryObject<RotatedPillarBlock> FOXXI_LOG = registerBlock("foxxi_log",
-            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(5f)));
 
     public static final RegistryObject<RotatedPillarBlock> FOXXI_WOOD = registerBlock("foxxi_wood",
             () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));

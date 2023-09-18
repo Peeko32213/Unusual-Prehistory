@@ -28,7 +28,7 @@ public class IcebergMammoth extends EntityWorldSpawnable {
 
     @Override
     protected ItemStack getDnaItem() {
-        return UPItems.AMBER_GUMMY.get().getDefaultInstance();
+        return UPItems.FROZEN_FOSSIL.get().getDefaultInstance();
     }
 
     @Override

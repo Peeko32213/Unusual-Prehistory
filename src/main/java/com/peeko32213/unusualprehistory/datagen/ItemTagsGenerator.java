@@ -150,6 +150,24 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.DRYO_PLANKS.get().asItem())
                 .add(UPBlocks.FOXXI_PLANKS.get().asItem());
 
+        tag(ItemTags.LOGS_THAT_BURN)
+                .add(UPBlocks.GINKGO_LOG.get().asItem())
+                .add(UPBlocks.STRIPPED_GINKGO_LOG.get().asItem())
+                .add(UPBlocks.GINKGO_WOOD.get().asItem())
+                .add(UPBlocks.STRIPPED_GINKGO_WOOD.get().asItem())
+
+                .add(UPBlocks.FOXXI_LOG.get().asItem())
+                .add(UPBlocks.STRIPPED_FOXXI_LOG.get().asItem())
+                .add(UPBlocks.FOXXI_WOOD.get().asItem())
+                .add(UPBlocks.STRIPPED_FOXXI_WOOD.get().asItem())
+
+                .add(UPBlocks.DRYO_LOG.get().asItem())
+                .add(UPBlocks.STRIPPED_DRYO_LOG.get().asItem())
+                .add(UPBlocks.DRYO_WOOD.get().asItem())
+                .add(UPBlocks.STRIPPED_DRYO_WOOD.get().asItem());
+
+
+
         tag(ItemTags.SAPLINGS)
                 .add(UPBlocks.GINKGO_SAPLING.get().asItem());
 
@@ -177,6 +195,31 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.FOXXI_FENCE.get().asItem())
                 .add(UPBlocks.DRYO_FENCE.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD_FENCE.get().asItem());
+
+        tag(ItemTags.WOODEN_DOORS)
+                .add(UPBlocks.GINKGO_DOOR.get().asItem())
+                .add(UPBlocks.FOXXI_DOOR.get().asItem())
+                .add(UPBlocks.DRYO_DOOR.get().asItem());
+
+        tag(ItemTags.WOODEN_SLABS)
+                .add(UPBlocks.GINKGO_SLAB.get().asItem())
+                .add(UPBlocks.FOXXI_SLAB.get().asItem())
+                .add(UPBlocks.DRYO_SLAB.get().asItem());
+
+        tag(ItemTags.WOODEN_STAIRS)
+                .add(UPBlocks.GINKGO_STAIRS.get().asItem())
+                .add(UPBlocks.FOXXI_STAIRS.get().asItem())
+                .add(UPBlocks.DRYO_STAIRS.get().asItem());
+
+        tag(ItemTags.WOODEN_PRESSURE_PLATES)
+                .add(UPBlocks.GINKGO_PRESSURE_PLATE.get().asItem())
+                .add(UPBlocks.FOXXI_PRESSURE_PLATE.get().asItem())
+                .add(UPBlocks.DRYO_PRESSURE_PLATE.get().asItem());
+
+        tag(ItemTags.WOODEN_TRAPDOORS)
+                .add(UPBlocks.GINKGO_TRAPDOOR.get().asItem())
+                .add(UPBlocks.FOXXI_TRAPDOOR.get().asItem())
+                .add(UPBlocks.DRYO_TRAPDOOR.get().asItem());
 
         tag(ItemTags.FISHES)
                 .add(UPItems.RAW_STETHA.get())
@@ -301,6 +344,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(Items.DIAMOND_SWORD)
                 .add(Items.DIAMOND_PICKAXE)
                 .add(Items.DIAMOND_AXE);
+
+
 
     }
 

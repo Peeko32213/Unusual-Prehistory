@@ -433,31 +433,31 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
             event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
             return PlayState.CONTINUE;
         }
-       //int animState = this.getAnimationState();
-       //{
-       //    switch (animState) {
-//
-       //        case 21:
-       //            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.palaeophis.bite"));
-       //            break;
-       //        default:
-       //            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
-       //                event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.swim"));
-       //                event.getController().setAnimationSpeed(0.6D);
-       //                return PlayState.CONTINUE;
-       //            }
-       //            if (!this.isInWater()) {
-       //                event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
-       //                event.getController().setAnimationSpeed(0.3D);
-       //                return PlayState.CONTINUE;
-       //            }
-       //            else {
-       //                event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
-       //                return PlayState.CONTINUE;
-       //            }
+       int animState = this.getAnimationState();
+       {
+           switch (animState) {
 
-       //    }
-       //}
+              case 21:
+                   event.getController().setAnimation(new AnimationBuilder().playOnce("animation.palaeophis.bite"));
+                  break;
+              default:
+                   if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
+                       event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.swim"));
+                      event.getController().setAnimationSpeed(0.6D);
+                       return PlayState.CONTINUE;
+                  }
+                   if (!this.isInWater()) {
+                       event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
+                       event.getController().setAnimationSpeed(0.3D);
+                       return PlayState.CONTINUE;
+                   }
+                   else {
+                       event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
+                       return PlayState.CONTINUE;
+                   }
+
+           }
+       }
         return PlayState.CONTINUE;
     }
 

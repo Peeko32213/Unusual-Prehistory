@@ -45,7 +45,6 @@ public class LootTableBlocks extends BlockLoot {
         dropSelf(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
         dropSelf(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
         dropSelf(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get());
-        dropSelf(UPBlocks.PETRIFIED_WOOD_DOOR.get());
         dropSelf(UPBlocks.PETRIFIED_WOOD_PLANKS.get());
         dropSelf(UPBlocks.PETRIFIED_WOOD_STAIRS.get());
 
@@ -60,7 +59,6 @@ public class LootTableBlocks extends BlockLoot {
         dropSelf(UPBlocks.STRIPPED_FOXXI_LOG.get());
         dropSelf(UPBlocks.FOXXI_PLANKS.get());
         dropSelf(UPBlocks.FOXXI_STAIRS.get());
-        dropSelf(UPBlocks.FOXXI_DOOR.get());
         dropSelf(UPBlocks.FOXXI_TRAPDOOR.get());
         dropSelf(UPBlocks.FOXXI_SIGN.get());
         dropSelf(UPBlocks.FOXXI_WALL_SIGN.get());
@@ -77,7 +75,6 @@ public class LootTableBlocks extends BlockLoot {
         dropSelf(UPBlocks.STRIPPED_DRYO_LOG.get());
         dropSelf(UPBlocks.DRYO_PLANKS.get());
         dropSelf(UPBlocks.DRYO_STAIRS.get());
-        dropSelf(UPBlocks.DRYO_DOOR.get());
         dropSelf(UPBlocks.DRYO_TRAPDOOR.get());
         dropSelf(UPBlocks.DRYO_SIGN.get());
         dropSelf(UPBlocks.DRYO_WALL_SIGN.get());

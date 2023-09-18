@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.peeko32213.unusualprehistory.common.entity.EntityGigantopithicus;
 import com.peeko32213.unusualprehistory.common.entity.EntityMammoth;
+import com.peeko32213.unusualprehistory.common.entity.msc.unused.EntityMammothOld;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -36,7 +37,7 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoLay
             renderRecursivelyGiganto(gigantopithicus, model.topLevelBones.get(0), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
                     OverlayTexture.v(gigantopithicus.hurtTime > 0)));
         }
-        if (dino instanceof EntityMammoth mammoth) {
+        if (dino instanceof EntityMammothOld mammoth) {
             renderRecursivelyMammoth(mammoth, model.getBone("TrunkPart3").get(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
                     OverlayTexture.v(mammoth.hurtTime > 0)));
         }
@@ -52,7 +53,7 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoLay
         RenderUtils.scale(bone, stack);
         RenderUtils.moveBackFromPivot(bone, stack);
 
-        if(entity instanceof EntityMammoth mammoth){
+        if(entity instanceof EntityMammothOld mammoth){
             //UnusualPrehistory.LOGGER.info("bones " + bone.getName());
             if (!mammoth.getHoldItemStack().isEmpty()) {
                 stack.pushPose();

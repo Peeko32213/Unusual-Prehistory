@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
+import com.peeko32213.unusualprehistory.common.entity.msc.unused.EntityMammothOld;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LeaderHurtTargetGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothFollowLeaderGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothMeleeAttackGoal;
@@ -14,8 +15,11 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.*;
@@ -27,12 +31,18 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -47,10 +57,12 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class EntityMammoth extends EntityBaseDinosaurAnimal implements ContainerListener {
+public class EntityMammoth extends EntityBaseDinosaurAnimal implements  Shearable, net.minecraftforge.common.IForgeShearable {
+    public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
     private static final EntityDataAccessor<Boolean> IS_TRUNKING = SynchedEntityData.defineId(EntityMammoth.class, EntityDataSerializers.BOOLEAN);
     public float prevFeedProgress;
     public float feedProgress;
+
     private Ingredient temptationItems;
 
     private int resetLeaderCooldown = 100;
@@ -145,11 +157,6 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
         this.entityData.set(IS_TRUNKING, isPecking);
     }
 
-
-    @Override
-    public void containerChanged(Container pContainer) {
-
-    }
 
     public void tick() {
         super.tick();
@@ -273,6 +280,39 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Container
                 this.getNavigation().moveTo(this.leader, speed);
             }
         }
+    }
+
+    @Override
+    public void shear(SoundSource category) {
+        this.level.playSound(null, this, SoundEvents.SHEEP_SHEAR, category, 1.0F, 1.0F);
+        this.gameEvent(GameEvent.ENTITY_INTERACT);
+        if (!this.level.isClientSide()) {
+            List<ItemStack> lootList = getDigLoot(this);
+            if (lootList.size() > 0) {
+                for (ItemStack stack : lootList) {
+                    ItemEntity e = this.spawnAtLocation(stack.copy());
+                    e.hasImpulse = true;
+                }
+            }
+        }
+    }
+
+    private static List<ItemStack> getDigLoot(EntityMammoth crab) {
+        LootTable loottable = crab.level.getServer().getLootTables().get(ERYON_REWARD);
+        return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level)).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level.random).create(LootContextParamSets.PIGLIN_BARTER));
+    }
+
+    public boolean readyForShearing() {
+        if (leader instanceof Player) {
+            return leader.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get());
+
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isShearable(@javax.annotation.Nonnull ItemStack item, Level world, BlockPos pos) {
+        return readyForShearing();
     }
 
     public class MammothTrunkIdleGoal extends Goal {

@@ -279,6 +279,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.STRIPPED_FOXXI_LOG.get());
 
 
+
         tag(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(UPBlocks.STONE_AMBER_FOSSIL.get())
                 .add(UPBlocks.STONE_OPAL_FOSSIL.get())
@@ -305,6 +306,11 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.ARCHAEOSIGILARIA.get())
                 .add(UPBlocks.PETRIFIED_BUSH.get());
 
+        tag(BlockTags.PLANKS)
+                .add(UPBlocks.GINKGO_PLANKS.get())
+                .add(UPBlocks.FOXXI_PLANKS.get())
+                .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get())
+                .add(UPBlocks.DRYO_PLANKS.get());
 
         tag(BlockTags.WALL_SIGNS)
                 .add(UPBlocks.GINKGO_WALL_SIGN.get())
@@ -403,6 +409,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .addTags(BlockTags.SAND)
                 .addTags(BlockTags.DIRT)
                 .add(UPBlocks.ZULOAGAE.get(), UPBlocks.ZULOAGAE_SAPLING.get(), Blocks.GRAVEL);
+
     }
 
 

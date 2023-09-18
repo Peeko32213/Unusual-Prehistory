@@ -432,9 +432,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.KENTRO.get())
                 .add(UPEntities.PACHY.get())
                 .add(UPEntities.MEGATHERIUM.get())
-                .add(UPEntities.MAMMOTH.get())
-
-        ;
+                .add(UPEntities.MAMMOTH.get());
 
         tag(UPTags.CARNIVORES)
                 .add(UPEntities.ANURO.get())

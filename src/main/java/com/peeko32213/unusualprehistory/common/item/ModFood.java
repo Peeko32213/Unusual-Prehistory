@@ -7,7 +7,7 @@ import net.minecraft.world.food.FoodProperties;
 public class ModFood {
     //Extra Raw
     public static final FoodProperties GINKGO_FRUIT = (new FoodProperties.Builder()).nutrition(3).saturationMod(0.1F).meat().effect(new MobEffectInstance(MobEffects.CONFUSION, 600, 1), 1.0F).effect(new MobEffectInstance(MobEffects.WEAKNESS, 600, 1), 1.0F).build();
-
+    public static final FoodProperties DRYO_NUTS = new FoodProperties.Builder().nutrition(1).saturationMod(1.2F).effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 400, 0), 0.8F).alwaysEat().fast().build();
 
     //Raw
     public static final FoodProperties RAW_STETHA = (new FoodProperties.Builder()).nutrition(2).saturationMod(0.1F).meat().fast().build();
@@ -52,5 +52,6 @@ public class ModFood {
             .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 0), 0.5F)
             .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 1200, 0), 0.5F)
             .build();
+
 
 }
