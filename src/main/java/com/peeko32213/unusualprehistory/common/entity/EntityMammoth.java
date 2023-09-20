@@ -1,14 +1,10 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
-import com.peeko32213.unusualprehistory.common.entity.msc.unused.EntityMammothOld;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.LeaderHurtTargetGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothFollowLeaderGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothMeleeAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -25,7 +21,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -34,7 +29,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,6 +37,8 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraftforge.common.Tags;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -51,26 +47,21 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
-public class EntityMammoth extends EntityBaseDinosaurAnimal implements  Shearable, net.minecraftforge.common.IForgeShearable {
-    public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
+public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable, net.minecraftforge.common.IForgeShearable, ContainerListener {
+    public static final ResourceLocation MAMMOTH_LOOT = new ResourceLocation("unusualprehistory", "gameplay/mammoth_loot");
     private static final EntityDataAccessor<Boolean> IS_TRUNKING = SynchedEntityData.defineId(EntityMammoth.class, EntityDataSerializers.BOOLEAN);
-    public float prevFeedProgress;
-    public float feedProgress;
+    private static final EntityDataAccessor<ItemStack> HOLD_ITEM = SynchedEntityData.defineId(EntityMammoth.class, EntityDataSerializers.ITEM_STACK);
 
     private Ingredient temptationItems;
-
-    private int resetLeaderCooldown = 100;
-    private LivingEntity leader;
-    private int packSize = 1;
+    public SimpleContainer mammothInventory;
+    private int dirtyCooldown;
 
     public EntityMammoth(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
+        initMammothInventory();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -89,33 +80,59 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements  Shearabl
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(3, new MammothMeleeAttackGoal(this, 1.0D, true));
-        this.targetSelector.addGoal(1, new LeaderHurtTargetGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(1, new MammothFollowLeaderGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(1, new MammothTrunkIdleGoal(this));
 
     }
 
+    private void initMammothInventory() {
+        SimpleContainer animalchest = this.mammothInventory;
+        int size = 1;
+        this.mammothInventory = new SimpleContainer(size) {
+            public boolean stillValid(Player player) {
+                return EntityMammoth.this.isAlive() && !EntityMammoth.this.isInsidePortal;
+            }
+        };
+        mammothInventory.addListener(this);
+        if (animalchest != null) {
+            int i = Math.min(animalchest.getContainerSize(), this.mammothInventory.getContainerSize());
+            for (int j = 0; j < i; ++j) {
+                ItemStack itemstack = animalchest.getItem(j);
+                if (!itemstack.isEmpty()) {
+                    this.mammothInventory.setItem(j, itemstack.copy());
+                }
+            }
+        }
+    }
+
+    protected void dropEquipment() {
+        super.dropEquipment();
+        if (this.mammothInventory != null) {
+            for (int i = 0; i < mammothInventory.getContainerSize(); i++) {
+                this.spawnAtLocation(mammothInventory.getItem(i));
+            }
+            mammothInventory.clearContent();
+            this.setHoldItemStack(ItemStack.EMPTY);
+        }
+    }
 
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if(pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if(pPlayer.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get()) ) {
-
-            //UnusualPrehistory.LOGGER.info("item " + this.mammothInventory + " level " + pPlayer.level);
-
+        if (pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
+        if (this.readyForShearing() && pPlayer.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get()) && itemStack.is(Tags.Items.SHEARS)) {
+            shear(SoundSource.PLAYERS);
         }
         return super.mobInteract(pPlayer, pHand);
     }
 
 
     private Ingredient getTemptationItems() {
-        if(temptationItems == null)
+        if (temptationItems == null)
             temptationItems = Ingredient.merge(Lists.newArrayList(
                     Ingredient.of(ItemTags.LEAVES)
             ));
@@ -124,29 +141,44 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements  Shearabl
     }
 
 
-
-
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(IS_TRUNKING, false);
+        this.entityData.define(HOLD_ITEM, ItemStack.EMPTY);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        if (mammothInventory != null) {
+            final ListTag nbttaglist = compound.getList("Items", 10);
+            this.initMammothInventory();
+            for (int i = 0; i < nbttaglist.size(); ++i) {
+                final CompoundTag CompoundNBT = nbttaglist.getCompound(i);
+                final int j = CompoundNBT.getByte("Slot") & 255;
+                ItemStack itemStack = ItemStack.of(CompoundNBT.getCompound("Item"));
+                this.mammothInventory.setItem(j, itemStack);
+                this.setHoldItemStack(itemStack);
+            }
+        }
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-    }
-
-    public BlockPos getRestrictCenter() {
-        return this.leader == null ? super.getRestrictCenter() : this.leader.getOnPos();
-    }
-
-    public boolean hasRestriction() {
-        return this.isFollower();
+        if (mammothInventory != null) {
+            final ListTag nbttaglist = new ListTag();
+            for (int i = 0; i < this.mammothInventory.getContainerSize(); ++i) {
+                final ItemStack itemstack = this.mammothInventory.getItem(i);
+                if (!itemstack.isEmpty()) {
+                    CompoundTag CompoundNBT = new CompoundTag();
+                    CompoundNBT.putByte("Slot", (byte) i);
+                    CompoundNBT.put("Item", itemstack.serializeNBT());
+                    nbttaglist.add(CompoundNBT);
+                }
+            }
+            compound.put("Items", nbttaglist);
+        }
     }
 
     public boolean isTrunking() {
@@ -156,128 +188,26 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements  Shearabl
     public void setTrunking(boolean isPecking) {
         this.entityData.set(IS_TRUNKING, isPecking);
     }
+    public ItemStack getHoldItemStack() {
+        return this.entityData.get(HOLD_ITEM);
+    }
 
+    public void setHoldItemStack(ItemStack itemStack) {
+        this.entityData.set(HOLD_ITEM, itemStack);
+    }
 
     public void tick() {
         super.tick();
-        if(!level.isClientSide){
-            if(resetLeaderCooldown > 0){
-                resetLeaderCooldown--;
-            }else{
-                resetLeaderCooldown = 200 + this.getRandom().nextInt(200);
-            }
-        }
-        if (this.getTarget() != null && isValidLeader(this.getTarget())) {
-            this.setTarget(null);
-        }
-        if (this.getTarget() != null && !isValidLeader(this.getTarget()) && this.getTarget().isAlive() && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-            this.setLastHurtByMob(this.getTarget());
-        }
-        LivingEntity playerTarget = null;
-        if (leader instanceof Player) {
-            playerTarget = leader.getLastHurtMob();
-            if (playerTarget == null || !playerTarget.isAlive() || playerTarget instanceof EntityMammoth) {
-                playerTarget = leader.getLastHurtByMob();
-            }
-        }
-        if (playerTarget != null && playerTarget.isAlive() && !(playerTarget instanceof EntityMammoth)) {
-            this.setTarget(playerTarget);
-        }
-    }
-
-
-    public boolean isValidLeader(LivingEntity leader) {
-        if (leader instanceof Player) {
-            if (this.getLastHurtByMob() != null && this.getLastHurtByMob().equals(leader)) {
-                return false;
-            }
-            return leader.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get());
-        } else {
-            return leader.isAlive() && leader instanceof EntityMammoth;
-        }
-    }
-
-
-    public boolean isFollower() {
-        return this.leader != null && isValidLeader(leader);
-    }
-
-
-    public LivingEntity startFollowing(LivingEntity leader) {
-        this.leader = leader;
-        if (leader instanceof EntityMammoth) {
-            ((EntityMammoth) leader).addFollower();
-        }
-        return leader;
-    }
-
-    public void stopFollowing() {
-        if (this.leader instanceof EntityMammoth) {
-            ((EntityMammoth) this.leader).removeFollower();
-        }
-        this.leader = null;
-    }
-
-    private void addFollower() {
-        ++this.packSize;
-    }
-
-    private void removeFollower() {
-        --this.packSize;
-    }
-
-    public boolean canBeFollowed() {
-        return this.hasFollowers() && this.packSize < getMaxPackSize() && isValidLeader(this);
-    }
-
-    public boolean hasFollowers() {
-        return this.packSize > 1;
-    }
-
-    public void addFollowers(Stream<EntityMammoth> p_27534_) {
-        p_27534_.limit(getMaxPackSize() - this.packSize).filter((p_27538_) -> {
-            return p_27538_ != this;
-        }).forEach((p_27536_) -> {
-            p_27536_.startFollowing(this);
-        });
-    }
-
-    public int getMaxSpawnClusterSize() {
-        return 6;
-    }
-
-    public int getMaxPackSize() {
-        return this.getMaxSpawnClusterSize();
-    }
-
-
-    public boolean inRangeOfLeader() {
-        return this.distanceTo(this.leader) <= 60.0D;
-    }
-
-    public boolean hasLeader(){
-        return this.leader != null;
-    }
-
-    public LivingEntity getLeader() {
-        return leader;
-    }
-
-    public boolean wantsToAttack(LivingEntity pTarget, LivingEntity pOwner) {
-        return true;
-    }
-
-    public void pathToLeader() {
-        if (this.isFollower()) {
-            double speed = 1.0D;
-            if (leader instanceof Player) {
-                speed = 2.0D;
-                if (this.distanceTo(leader) > 24) {
-                    speed = 2.5;
-                }
-            }
-            if (this.distanceTo(leader) > 6 && this.getNavigation().isDone()) {
-                this.getNavigation().moveTo(this.leader, speed);
+        if (dirtyCooldown-- < 0 && this.mammothInventory.isEmpty() && !this.level.isClientSide) {
+            List<ItemStack> itemStack = getShearLoot(this);
+            if (!itemStack.isEmpty()) {
+                ItemStack item = itemStack.get(this.random.nextInt(itemStack.size()));
+                item.setCount(this.random.nextInt(0, 3));
+                this.mammothInventory.addItem(item);
+                this.dirtyCooldown = this.random.nextInt(6000, 12000);
+                this.setHoldItemStack(item);
+            } else {
+                this.dirtyCooldown = this.random.nextInt(100);
             }
         }
     }
@@ -286,33 +216,55 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements  Shearabl
     public void shear(SoundSource category) {
         this.level.playSound(null, this, SoundEvents.SHEEP_SHEAR, category, 1.0F, 1.0F);
         this.gameEvent(GameEvent.ENTITY_INTERACT);
-        if (!this.level.isClientSide()) {
-            List<ItemStack> lootList = getDigLoot(this);
-            if (lootList.size() > 0) {
-                for (ItemStack stack : lootList) {
-                    ItemEntity e = this.spawnAtLocation(stack.copy());
-                    e.hasImpulse = true;
-                }
+        if (!this.level.isClientSide() && this.mammothInventory != null && !this.mammothInventory.isEmpty()) {
+            List<ItemStack> lootList = Collections.singletonList(this.mammothInventory.getItem(0));
+            for (ItemStack stack : lootList) {
+                ItemEntity e = this.spawnAtLocation(stack.copy());
+                e.hasImpulse = true;
             }
+            this.mammothInventory.clearContent();
+            this.setHoldItemStack(ItemStack.EMPTY);
         }
     }
 
-    private static List<ItemStack> getDigLoot(EntityMammoth crab) {
-        LootTable loottable = crab.level.getServer().getLootTables().get(ERYON_REWARD);
-        return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level)).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level.random).create(LootContextParamSets.PIGLIN_BARTER));
+    private static List<ItemStack> getShearLoot(EntityMammoth mammoth) {
+        if (!mammoth.level.isClientSide) {
+            LootTable loottable = mammoth.level.getServer().getLootTables().get(MAMMOTH_LOOT);
+            return loottable.getRandomItems((new LootContext.Builder((ServerLevel) mammoth.level))
+                    .withParameter(LootContextParams.THIS_ENTITY, mammoth)
+                    .withRandom(mammoth.level.random)
+                    .withParameter(LootContextParams.ORIGIN, mammoth.position())
+                    .create(LootContextParamSets.CHEST));
+        }
+        return Collections.emptyList();
     }
 
     public boolean readyForShearing() {
-        if (leader instanceof Player) {
-            return leader.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get());
-
-        }
-        return false;
+        return this.isAlive() && !this.isBaby();
     }
 
     @Override
     public boolean isShearable(@javax.annotation.Nonnull ItemStack item, Level world, BlockPos pos) {
         return readyForShearing();
+    }
+
+    @Override
+    public void containerChanged(Container pContainer) {
+
+    }
+
+    @Override
+    public @NotNull List<ItemStack> onSheared(@Nullable Player player, @NotNull ItemStack item, Level level, BlockPos pos, int fortune) {
+        level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+        this.gameEvent(GameEvent.SHEAR, player);
+        if (!level.isClientSide && this.mammothInventory != null && !this.mammothInventory.isEmpty()) {
+            java.util.List<ItemStack> items = new java.util.ArrayList<>();
+            items.add(this.mammothInventory.getItem(0));
+            this.mammothInventory.clearContent();
+            this.setHoldItemStack(ItemStack.EMPTY);
+            return items;
+        }
+        return Collections.emptyList();
     }
 
     public class MammothTrunkIdleGoal extends Goal {
@@ -321,6 +273,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements  Shearabl
         public MammothTrunkIdleGoal(EntityMammoth mammoth) {
             this.mammoth = mammoth;
         }
+
         @Override
         public boolean canUse() {
             return this.mammoth.isOnGround() && this.mammoth.getRandom().nextInt(100) == 0;
@@ -329,8 +282,8 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements  Shearabl
         @Override
         public void tick() {
             this.mammoth.setTrunking(true);
-            if(this.mammoth.getRandom().nextInt(100) <= 25 ) {
-              this.mammoth.setTrunking(false);
+            if (this.mammoth.getRandom().nextInt(100) <= 25) {
+                this.mammoth.setTrunking(false);
             }
         }
 
@@ -408,7 +361,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements  Shearabl
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {

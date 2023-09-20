@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.client.model;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartIndex;
 import net.minecraft.resources.ResourceLocation;

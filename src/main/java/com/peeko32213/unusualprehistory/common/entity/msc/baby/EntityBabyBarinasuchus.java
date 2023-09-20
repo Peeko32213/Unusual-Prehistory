@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
-import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;

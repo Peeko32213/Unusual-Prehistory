@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_smilodon_biome",
+  "spawners": {
+    "type": "unusualprehistory:smilodon",
+    "weight": 6,
+    "minCount": 2,
+    "maxCount": 4,
+    "category": "creature"
+  }
+}

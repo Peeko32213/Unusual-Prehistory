@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_barina_biome",
+  "spawners": {
+    "type": "unusualprehistory:barinasuchus",
+    "weight": 4,
+    "minCount": 2,
+    "maxCount": 4,
+    "category": "creature"
+  }
+}

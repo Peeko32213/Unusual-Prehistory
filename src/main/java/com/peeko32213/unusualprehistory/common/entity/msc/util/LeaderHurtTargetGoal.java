@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity.msc.util;
+/*package com.peeko32213.unusualprehistory.common.entity.msc.util;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityMammoth;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,3 +47,4 @@ public class LeaderHurtTargetGoal extends TargetGoal {
         super.start();
     }
 }
+*/

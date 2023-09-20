@@ -3,8 +3,8 @@
   "biomes": "#unusualprehistory:is_ammon_biome",
   "spawners": {
     "type": "unusualprehistory:ammon",
-    "weight": 10,
-    "minCount": 3,
+    "weight": 3,
+    "minCount": 1,
     "maxCount": 5,
     "category": "water_creature"
   }

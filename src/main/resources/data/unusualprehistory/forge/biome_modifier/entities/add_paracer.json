@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_paracer_biome",
+  "spawners": {
+    "type": "unusualprehistory:paraceratherium",
+    "weight": 3,
+    "minCount": 3,
+    "maxCount": 4,
+    "category": "creature"
+  }
+}

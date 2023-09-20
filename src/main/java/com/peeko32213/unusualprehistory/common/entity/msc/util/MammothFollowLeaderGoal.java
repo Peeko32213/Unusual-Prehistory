@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity.msc.util;
+/*package com.peeko32213.unusualprehistory.common.entity.msc.util;
 
 import com.mojang.datafixers.DataFixUtils;
 import com.peeko32213.unusualprehistory.common.entity.EntityMammoth;
@@ -61,3 +61,4 @@ public class MammothFollowLeaderGoal extends Goal {
         }
     }
 }
+*/

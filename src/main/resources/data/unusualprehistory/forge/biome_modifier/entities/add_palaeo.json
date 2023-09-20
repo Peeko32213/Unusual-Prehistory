@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#unusualprehistory:is_palaeo_biome",
+  "spawners": {
+    "type": "unusualprehistory:palaeophis",
+    "weight": 2,
+    "minCount": 1,
+    "maxCount": 1,
+    "category": "water_creature"
+  }
+}

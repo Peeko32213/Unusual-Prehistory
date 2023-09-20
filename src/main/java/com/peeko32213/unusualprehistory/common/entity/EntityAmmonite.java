@@ -256,7 +256,7 @@ public class EntityAmmonite extends SchoolingWaterAnimal implements Bucketable, 
         //}
 
         Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {
+        if (level instanceof ServerLevel && spawnType != MobSpawnType.NATURAL) {
             {
                 this.setPersistenceRequired();
             }

@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.item;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
 import com.peeko32213.unusualprehistory.core.registry.UPAdvancementTriggerRegistry;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;

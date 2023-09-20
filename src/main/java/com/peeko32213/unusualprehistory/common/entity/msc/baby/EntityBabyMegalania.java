@@ -1,12 +1,10 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityGigantopithicus;
 import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

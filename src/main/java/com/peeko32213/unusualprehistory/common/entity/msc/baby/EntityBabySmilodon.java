@@ -1,11 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
 import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.particles.ParticleTypes;

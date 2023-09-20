@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.item;
 
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;

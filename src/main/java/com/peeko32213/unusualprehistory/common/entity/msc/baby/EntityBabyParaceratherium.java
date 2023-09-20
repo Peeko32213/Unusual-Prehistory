@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityMegatherium;
 import com.peeko32213.unusualprehistory.common.entity.EntityParaceratherium;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathNavigation;

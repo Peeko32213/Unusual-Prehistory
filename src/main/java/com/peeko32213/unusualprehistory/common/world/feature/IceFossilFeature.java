@@ -52,6 +52,8 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
         //if(firstState.getFluidState().is(FluidTags.WATER) || firstState.getFluidState().is(FluidTags.LAVA) || firstState.is(Blocks.WATER) || firstState.is(Blocks.LAVA)){
         //    return false;
         //}
+
+
         RandomSource random = pContext.random();
         FastNoiseLite noiseIceBerg = createNoise(worldGenLevel.getSeed() + random.nextLong(), 0.11F);
         FastNoiseLite noiseBlueIce = createNoise(worldGenLevel.getSeed() + random.nextLong(), 0.11F);
