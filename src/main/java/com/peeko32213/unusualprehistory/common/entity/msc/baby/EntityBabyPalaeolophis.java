@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityBeelzebufo;
-import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.EntityPalaeophis;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -31,7 +30,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

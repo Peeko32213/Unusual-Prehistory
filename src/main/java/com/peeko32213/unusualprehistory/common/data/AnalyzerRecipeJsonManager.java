@@ -18,8 +18,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
-
 /**
  * Manages analyzer recipe JSON files and provides methods to access and retrieve recipe information.
  */
@@ -35,7 +33,7 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
      * Constructs a new AnalyzerRecipeJsonManager with the default folder name and Gson instance.
      */
     public AnalyzerRecipeJsonManager() {
-        this(prefix("analyzer").getPath(), STANDARD_GSON);
+        this("unusualprehistory/analyzer", STANDARD_GSON);
     }
 
     /**

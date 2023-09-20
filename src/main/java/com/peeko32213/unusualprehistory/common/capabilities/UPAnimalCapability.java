@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.capabilities;
 
-import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;

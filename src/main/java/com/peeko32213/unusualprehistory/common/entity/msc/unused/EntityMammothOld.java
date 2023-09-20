@@ -1,8 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.unused;
 
 import com.google.common.collect.Lists;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.LeaderHurtTargetGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothFollowLeaderGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothMeleeAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -172,7 +170,6 @@ public class EntityMammothOld extends EntityBaseDinosaurAnimal implements Contai
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        setIsHolding(compound.getBoolean("holding"));
         if (mammothInventory != null) {
             final ListTag nbttaglist = compound.getList("Items", 10);
             this.initMammothInventory();

@@ -136,7 +136,15 @@ public class UPTags {
     public static final TagKey<Biome> IS_KENTRO_BIOME = registerBiomeTag("is_kentro_biome");
     public static final TagKey<Biome> IS_HWACHA_BIOME = registerBiomeTag("is_hwacha_biome");
     public static final TagKey<Biome> IS_ENCRUSTED_BIOME = registerBiomeTag("is_encrusted_biome");
-
+    public static final TagKey<Biome> IS_MAMMOTH_BIOME = registerBiomeTag("is_mammoth_biome");
+    public static final TagKey<Biome> IS_PALAEO_BIOME = registerBiomeTag("is_palaeo_biome");
+    public static final TagKey<Biome> IS_MEGATHERIUM_BIOME = registerBiomeTag("is_megatherium_biome");
+    public static final TagKey<Biome> IS_SMILODON_BIOME = registerBiomeTag("is_smilodon_biome");
+    public static final TagKey<Biome> IS_TALAPANAS_BIOME = registerBiomeTag("is_talapanas_biome");
+    public static final TagKey<Biome> IS_PARACER_BIOME = registerBiomeTag("is_paracer_biome");
+    public static final TagKey<Biome> IS_MEGALANIA_BIOME = registerBiomeTag("is_megalania_biome");
+    public static final TagKey<Biome> IS_BARINA_BIOME = registerBiomeTag("is_barina_biome");
+    public static final TagKey<Biome> IS_GIGANTO_BIOME = registerBiomeTag("is_giganto_biome");
 
     private static TagKey<Item> registerItemTag(String name) {
         return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));

@@ -30,7 +30,6 @@ import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.particle.SnowflakeParticle;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
@@ -51,7 +50,6 @@ import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 import java.awt.event.KeyEvent;
 
 import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.*;
-import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.PETRIFIED;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class ClientEvents {

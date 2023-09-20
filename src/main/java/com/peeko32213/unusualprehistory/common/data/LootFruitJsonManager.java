@@ -16,8 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
-
 /**
  * Manages the JSON files for loot fruits and their trades.
  */
@@ -36,7 +34,7 @@ public class LootFruitJsonManager extends SimpleJsonResourceReloadListener {
      * Constructs a new LootFruitJsonManager with the default folder name and Gson instance.
      */
     public LootFruitJsonManager() {
-        this(prefix("trades").getPath(), STANDARD_GSON);
+        this("unusualprehistory/trades", STANDARD_GSON);
     }
 
     /**

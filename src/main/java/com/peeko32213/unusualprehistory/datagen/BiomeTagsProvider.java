@@ -34,7 +34,19 @@ public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider
         tag(UPTags.IS_ULUG_BIOME).addTags(BiomeTags.IS_BEACH).addTags(BiomeTags.IS_RIVER);
         tag(UPTags.IS_KENTRO_BIOME).addTag(BiomeTags.IS_JUNGLE).addTag(Tags.Biomes.IS_SWAMP).addTags(BiomeTags.IS_FOREST);
         tag(UPTags.IS_HWACHA_BIOME).addTag(Tags.Biomes.IS_SWAMP);
-        tag(UPTags.IS_ENCRUSTED_BIOME).addTags(Tags.Biomes.IS_UNDERGROUND);
+        tag(UPTags.IS_MAMMOTH_BIOME).addTags(Tags.Biomes.IS_PLAINS).addTag(Tags.Biomes.IS_COLD);
+
+        tag(UPTags.IS_PALAEO_BIOME).addTags(BiomeTags.IS_OCEAN).addTag(BiomeTags.IS_DEEP_OCEAN);
+        tag(UPTags.IS_MEGATHERIUM_BIOME).addTags(Tags.Biomes.IS_HOT_OVERWORLD);
+        tag(UPTags.IS_SMILODON_BIOME).addTag(Tags.Biomes.IS_COLD).addTag(Tags.Biomes.IS_MOUNTAIN);
+        tag(UPTags.IS_TALAPANAS_BIOME).addTags(Tags.Biomes.IS_SWAMP);
+        tag(UPTags.IS_PARACER_BIOME).addTags(Tags.Biomes.IS_HOT_OVERWORLD);
+        tag(UPTags.IS_MEGALANIA_BIOME).addTags(Tags.Biomes.IS_HOT_OVERWORLD).addTag(Tags.Biomes.IS_COLD);
+        tag(UPTags.IS_BARINA_BIOME).addTag(Tags.Biomes.IS_SWAMP);
+        tag(UPTags.IS_GIGANTO_BIOME).addTag(BiomeTags.IS_JUNGLE);
+
+
+
         tag(UPTags.IS_ICE_FOSSIL_ICEBERG_BIOME)
                 .add(Biomes.FROZEN_OCEAN)
                 .add(Biomes.DEEP_FROZEN_OCEAN)

@@ -34,9 +34,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -50,6 +48,7 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
@@ -64,7 +63,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimatable {
+public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimatable, IAnimationTickable {
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
@@ -72,15 +71,8 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
     private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> CHILD_ID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SHEDDING_TIME = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
-
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    //public final EntityPalaeophisPart headPart;
-    ////public final EntityPalaeophisPart bodyFrontPart;
-    ////public final EntityPalaeophisPart bodyPart;
-    //public final EntityPalaeophisPart tail1Part;
-    //public final EntityPalaeophisPart tail2Part;
-    //public final EntityPalaeophisPart tail3Part;
-    //public final EntityPalaeophisPart[] snakeParts;
+
     public final float[] ringBuffer = new float[64];
     public int ringBufferIndex = -1;
     private int sheddingCooldown = 0;
@@ -140,7 +132,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
     @Override
     public boolean canAttack(LivingEntity entity) {
         boolean prev = super.canAttack(entity);
-        if(prev && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().getUUID().equals(entity.getUUID()))){
+        if (prev && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().getUUID().equals(entity.getUUID()))) {
             return false;
         }
         return prev;
@@ -228,9 +220,6 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
 
     public void tick() {
         super.tick();
-
-
-
         if (this.ringBufferIndex < 0) {
             for (int i = 0; i < this.ringBuffer.length; ++i) {
                 this.ringBuffer[i] = this.getYRot();
@@ -241,68 +230,65 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
             this.ringBufferIndex = 0;
         }
         this.ringBuffer[this.ringBufferIndex] = this.getYRot();
-
-        if (!level.isClientSide) {
-            final int segments = 15;
-            final Entity child = getChild();
-            if (child == null) {
-                LivingEntity partParent = this;
-                parts = new EntityPalaeophisPart[segments];
-                PalaeophisPartIndex partIndex = PalaeophisPartIndex.HEAD;
-                Vec3 prevPos = this.position();
-                for (int i = 0; i < segments; i++) {
-                    final float prevReqRot = calcPartRotation(i) + getYawForPart(i);
-                    final float reqRot = calcPartRotation(i + 1) + getYawForPart(i);
-                    EntityPalaeophisPart part = new EntityPalaeophisPart(UPEntities.PALAEOPHIS_PART.get(), this);
-                    part.setParent(partParent);
-                    part.copyDataFrom(this);
-                    part.setBodyIndex(i);
-                    part.setPartType(PalaeophisPartIndex.sizeAt(1 + i));
-                    if (partParent == this) {
-                        this.setChildId(part.getUUID());
-                        this.entityData.set(CHILD_ID, part.getId());
-                    }
-                    if (partParent instanceof EntityPalaeophisPart) {
-                        ((EntityPalaeophisPart) partParent).setChildId(part.getUUID());
-                    }
-                    part.setPos(part.tickMultipartPosition(this.getId(), partIndex, prevPos, this.getXRot(), prevReqRot, reqRot, true));
-                    partParent = part;
-                    level.addFreshEntity(part);
-                    parts[i] = part;
-                    partIndex = part.getPartType();
-                    prevPos = part.position();
-                }
-            }
-            if (shouldReplaceParts() && this.getChild() instanceof EntityPalaeophisPart) {
-                parts = new EntityPalaeophisPart[segments];
-                parts[0] = (EntityPalaeophisPart) this.getChild();
-                this.entityData.set(CHILD_ID, parts[0].getId());
-                int i = 1;
-                while (i < parts.length && parts[i - 1].getChild() instanceof EntityPalaeophisPart) {
-                    parts[i] = (EntityPalaeophisPart) parts[i - 1].getChild();
-                    i++;
-                }
-            }
+        if(!this.level.isClientSide){
+        final int segments = 15;
+        final Entity child = getChild();
+        if (child == null) {
+            LivingEntity partParent = this;
+            parts = new EntityPalaeophisPart[segments];
             PalaeophisPartIndex partIndex = PalaeophisPartIndex.HEAD;
-            Vec3 prev = this.position();
-            float xRot = this.getXRot();
+            Vec3 prevPos = this.position();
             for (int i = 0; i < segments; i++) {
-                if (this.parts[i] != null) {
-                    final float prevReqRot = calcPartRotation(i) + getYawForPart(i);
-                    final float reqRot = calcPartRotation(i + 1) + getYawForPart(i);
-                    parts[i].setStrangleProgress(this.strangleProgress);
-                    parts[i].copyDataFrom(this);
-                    prev = parts[i].tickMultipartPosition(this.getId(), partIndex, prev, xRot, prevReqRot, reqRot, true);
-                    partIndex = parts[i].getPartType();
-                    xRot = parts[i].getXRot();
+                final float prevReqRot = calcPartRotation(i) + getYawForPart(i);
+                final float reqRot = calcPartRotation(i + 1) + getYawForPart(i);
+                EntityPalaeophisPart part = new EntityPalaeophisPart(UPEntities.PALAEOPHIS_PART.get(), this);
+                part.setParent(partParent);
+                part.copyDataFrom(this);
+                part.setBodyIndex(i);
+                part.setPartType(PalaeophisPartIndex.sizeAt(1 + i));
+                if (partParent == this) {
+                    this.setChildId(part.getUUID());
+                    this.entityData.set(CHILD_ID, part.getId());
                 }
+                if (partParent instanceof EntityPalaeophisPart) {
+                    ((EntityPalaeophisPart) partParent).setChildId(part.getUUID());
+                }
+                part.setPos(part.tickMultipartPosition(this.getId(), partIndex, prevPos, this.getXRot(), prevReqRot, reqRot, true));
+                partParent = part;
+                level.addFreshEntity(part);
+                parts[i] = part;
+                partIndex = part.getPartType();
+                prevPos = part.position();
             }
-
-            if (isInWater()) swimTimer = Math.max(swimTimer + 1, 0);
-            else swimTimer = Math.min(swimTimer - 1, 0);
-
-
         }
+        if (shouldReplaceParts() && this.getChild() instanceof EntityPalaeophisPart) {
+            parts = new EntityPalaeophisPart[segments];
+            parts[0] = (EntityPalaeophisPart) this.getChild();
+            this.entityData.set(CHILD_ID, parts[0].getId());
+            int i = 1;
+            while (i < parts.length && parts[i - 1].getChild() instanceof EntityPalaeophisPart) {
+                parts[i] = (EntityPalaeophisPart) parts[i - 1].getChild();
+                i++;
+            }
+        }
+        PalaeophisPartIndex partIndex = PalaeophisPartIndex.HEAD;
+        Vec3 prev = this.position();
+        float xRot = this.getXRot();
+        for (int i = 0; i < segments; i++) {
+            if (this.parts[i] != null) {
+                final float prevReqRot = calcPartRotation(i) + getYawForPart(i);
+                final float reqRot = calcPartRotation(i + 1) + getYawForPart(i);
+                parts[i].setStrangleProgress(this.strangleProgress);
+                parts[i].copyDataFrom(this);
+                prev = parts[i].tickMultipartPosition(this.getId(), partIndex, prev, xRot, prevReqRot, reqRot, true);
+                partIndex = parts[i].getPartType();
+                xRot = parts[i].getXRot();
+            }
+        }
+
+        if (isInWater()) swimTimer = Math.max(swimTimer + 1, 0);
+        else swimTimer = Math.min(swimTimer - 1, 0);
+    }
         if (sheddingCooldown >= 0) {
             sheddingCooldown--;
         }
@@ -331,6 +317,11 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
 
     }
 
+    @Override
+    public int tickTimer() {
+        return tickCount;
+    }
+
     private float calcPartRotation(int i) {
         final float f = 1 - (this.strangleProgress * 0.2F);
         final float strangleIntensity = (float) (Mth.clamp(strangleTimer * 3, 0, 100F) * (1.0F + 0.2F * Math.sin(0.15F * strangleTimer)));
@@ -350,7 +341,6 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         //        return 20*i;
         //    }
         //}
-
 
 
         return (float) (snakeSway * -Math.sin(this.walkDist * 3 - (i))) * f + this.strangleProgress * 0.2F * i * strangleIntensity;
@@ -392,22 +382,6 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         return Mth.wrapDegrees(d0 + d1 * partialTicks);
     }
 
-    @Nullable
-    public ItemEntity spawnItemAtOffset(ItemStack stack, float f, float f1) {
-        if (stack.isEmpty()) {
-            return null;
-        } else if (this.level.isClientSide) {
-            return null;
-        } else {
-            final Vec3 vec = new Vec3(0, 0, f).yRot(-f * ((float) Math.PI / 180F));
-            final ItemEntity itementity = new ItemEntity(this.level, this.getX() + vec.x, this.getY() + (double) f1, this.getZ() + vec.z, stack);
-            itementity.setDefaultPickUpDelay();
-            if (captureDrops() != null) captureDrops().add(itementity);
-            else this.level.addFreshEntity(itementity);
-            return itementity;
-        }
-    }
-
     public boolean isShedding() {
         return this.getSheddingTime() >= 0;
     }
@@ -426,49 +400,46 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
     }
 
     public int getMaxHeadYRot() {
-        return 2;
+        return 1;
     }
+
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-       int animState = this.getAnimationState();
-       {
-           switch (animState) {
+        int animState = this.getAnimationState();
+        switch (animState) {
 
-              case 21:
-                   event.getController().setAnimation(new AnimationBuilder().playOnce("animation.palaeophis.bite"));
-                  break;
-              default:
-                   if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
-                       event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.swim"));
-                      event.getController().setAnimationSpeed(0.6D);
-                       return PlayState.CONTINUE;
-                  }
-                   if (!this.isInWater()) {
-                       event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
-                       event.getController().setAnimationSpeed(0.3D);
-                       return PlayState.CONTINUE;
-                   }
-                   else {
-                       event.getController().setAnimation(new AnimationBuilder().loop("animation.palaeophis.idle"));
-                       return PlayState.CONTINUE;
-                   }
+            case 21:
+                event.getController().setAnimation(new AnimationBuilder().playOnce("animation.palaophis_head.bite"));
+                break;
+            default:
+                if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
+                    event.getController().setAnimation(new AnimationBuilder().loop("animation.palaophis_head.idle_tounge"));
+                    event.getController().setAnimationSpeed(0.6D);
+                    return PlayState.CONTINUE;
+                }
+                if (!this.isInWater()) {
+                    event.getController().setAnimation(new AnimationBuilder().loop("animation.palaophis_head.idle_tounge"));
+                    event.getController().setAnimationSpeed(0.3D);
+                    return PlayState.CONTINUE;
+                } else {
+                    event.getController().setAnimation(new AnimationBuilder().loop("animation.palaophis_head.idle_tounge"));
+                    return PlayState.CONTINUE;
+                }
 
-           }
-       }
+        }
         return PlayState.CONTINUE;
     }
 
-
-
+    public void registerControllers(AnimationData data) {
+        AnimationController<EntityPalaeophis> controller = new AnimationController<>(this, "controller", 0, this::predicate);
+        data.addAnimationController(controller);
+    }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(1);
-        AnimationController<EntityPalaeophis> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public AnimationFactory getFactory() {
+        return factory;
     }
 
     public boolean requiresCustomPersistence() {
@@ -524,13 +495,6 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         return null;
     }
 
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
-
-
     static class MoveHelperController extends MoveControl {
         private final EntityPalaeophis dolphin;
 
@@ -559,7 +523,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
                     float f1 = (float) (this.speedModifier * this.dolphin.getAttributeValue(Attributes.MOVEMENT_SPEED));
                     if (this.dolphin.isInWater() || this.dolphin.isInLava()) {
                         this.dolphin.setSpeed(f1 * 0.02F);
-                        float f2 = -((float) (Mth.atan2(d1, Mth.sqrt((float)(d0 * d0 + d2 * d2))) * UPMath.oneEightyDividedByFloatPi));
+                        float f2 = -((float) (Mth.atan2(d1, Mth.sqrt((float) (d0 * d0 + d2 * d2))) * UPMath.oneEightyDividedByFloatPi));
                         f2 = Mth.clamp(Mth.wrapDegrees(f2), -85.0F, 85.0F);
                         this.dolphin.setDeltaMovement(this.dolphin.getDeltaMovement().add(0.0D, (double) this.dolphin.getSpeed() * d1 * 0.6D, 0.0D));
                         this.dolphin.setXRot(this.rotlerp(this.dolphin.getXRot(), f2, 1.0F));
@@ -644,8 +608,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
 
             if (livingentity == null) {
                 return false;
-            }
-            else if (!livingentity.isAlive()) {
+            } else if (!livingentity.isAlive()) {
                 return false;
             } else if (!this.followingTargetEvenIfNotSeen) {
                 return !this.mob.getNavigation().isDone();
@@ -701,7 +664,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
             }
         }
 
-        protected void doMovement (LivingEntity livingentity, Double d0){
+        protected void doMovement(LivingEntity livingentity, Double d0) {
 
 
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -738,7 +701,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         }
 
 
-        protected void checkForCloseRangeAttack ( double distance, double reach){
+        protected void checkForCloseRangeAttack(double distance, double reach) {
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                 int r = this.mob.getRandom().nextInt(2048);
                 if (r <= 600) {
@@ -749,7 +712,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         }
 
 
-        protected boolean getRangeCheck () {
+        protected boolean getRangeCheck() {
 
             return
                     this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
@@ -758,17 +721,16 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         }
 
 
-
-        protected void tickBiteAttack () {
+        protected void tickBiteAttack() {
             animTime++;
-            if(animTime==4) {
+            if (animTime == 4) {
                 preformBiteAttack();
             }
-            if(animTime>=8) {
-                animTime=0;
+            if (animTime >= 8) {
+                animTime = 0;
                 if (this.getRangeCheck()) {
                     this.mob.setAnimationState(22);
-                }else {
+                } else {
                     this.mob.setAnimationState(0);
                     this.resetAttackCooldown();
                     this.ticksUntilNextPathRecalculation = 0;
@@ -777,34 +739,34 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         }
 
 
-        protected void preformBiteAttack () {
+        protected void preformBiteAttack() {
 
 
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob), 10.0f, 0.2f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
 
         }
 
 
-        protected void resetAttackCooldown () {
+        protected void resetAttackCooldown() {
             this.ticksUntilNextAttack = 0;
         }
 
-        protected boolean isTimeToAttack () {
+        protected boolean isTimeToAttack() {
             return this.ticksUntilNextAttack <= 0;
         }
 
-        protected int getTicksUntilNextAttack () {
+        protected int getTicksUntilNextAttack() {
             return this.ticksUntilNextAttack;
         }
 
-        protected int getAttackInterval () {
+        protected int getAttackInterval() {
             return 5;
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+            return (double) (this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
         }
     }
 
@@ -860,6 +822,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         }
         return p_28137_;
     }
+
     public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends WaterAnimal> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
         int i = pLevel.getSeaLevel();
         int j = i - 13;

@@ -7,10 +7,8 @@ import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
-import com.peeko32213.unusualprehistory.core.registry.util.UPAdvancementTrigger;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -39,8 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
-
-import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.*;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(UnusualPrehistory.MODID)
@@ -79,7 +75,6 @@ public class UnusualPrehistory {
         UPEffects.EFFECT_DEF_REG.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         PROXY.init();
-        eventBus.register(this);
         //If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that
         // triggers the capability class otherwise it also wont hotswap
         UPCapabilities.setupCapabilities();

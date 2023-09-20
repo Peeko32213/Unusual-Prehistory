@@ -28,7 +28,7 @@ public class EncyclopediaJsonManager extends SimpleJsonResourceReloadListener {
 
     public EncyclopediaJsonManager()
     {
-        this(prefix("encyclopedia").getPath(), STANDARD_GSON);
+        this("unusualprehistory/encyclopedia", STANDARD_GSON);
     }
 
     public static Map<ResourceLocation, EncyclopediaCodec> getEncyclopediaEntries() {

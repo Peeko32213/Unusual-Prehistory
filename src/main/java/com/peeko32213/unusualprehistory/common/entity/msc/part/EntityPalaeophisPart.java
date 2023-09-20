@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.common.entity.msc.part;
 import com.google.common.collect.ImmutableList;
 import com.peeko32213.unusualprehistory.common.entity.EntityPalaeophis;
 import com.peeko32213.unusualprehistory.common.entity.IHurtableMultipart;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.common.message.UPMessageHurtMultipart;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import com.peeko32213.unusualprehistory.core.registry.util.UPMath;

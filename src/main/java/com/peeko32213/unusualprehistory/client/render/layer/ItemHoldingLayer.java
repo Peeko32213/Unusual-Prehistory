@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.peeko32213.unusualprehistory.common.entity.EntityGigantopithicus;
 import com.peeko32213.unusualprehistory.common.entity.EntityMammoth;
-import com.peeko32213.unusualprehistory.common.entity.msc.unused.EntityMammothOld;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -37,8 +36,8 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoLay
             renderRecursivelyGiganto(gigantopithicus, model.topLevelBones.get(0), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
                     OverlayTexture.v(gigantopithicus.hurtTime > 0)));
         }
-        if (dino instanceof EntityMammothOld mammoth) {
-            renderRecursivelyMammoth(mammoth, model.getBone("TrunkPart3").get(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
+        if (dino instanceof EntityMammoth mammoth) {
+            renderRecursivelyMammoth(mammoth, model.getBone("Fur").get(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.pack(OverlayTexture.u(0),
                     OverlayTexture.v(mammoth.hurtTime > 0)));
         }
     }
@@ -53,7 +52,7 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoLay
         RenderUtils.scale(bone, stack);
         RenderUtils.moveBackFromPivot(bone, stack);
 
-        if(entity instanceof EntityMammothOld mammoth){
+        if(entity instanceof EntityMammoth mammoth){
             //UnusualPrehistory.LOGGER.info("bones " + bone.getName());
             if (!mammoth.getHoldItemStack().isEmpty()) {
                 stack.pushPose();
@@ -62,9 +61,9 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoLay
                 stack.mulPose(Vector3f.YP.rotationDegrees(0));
                 stack.mulPose(Vector3f.ZP.rotationDegrees(0));
                 //You'll need to play around with this to render the item in the correct spot.
-                stack.translate(0D, 4D, -0.5D);
+                stack.translate(0D, 0D, 4.0D);
                 //Sets the scaling of the item.
-                stack.scale(1f, 1f, 1f);
+                stack.scale(3f, 3f, 3f);
                 // Change mainHand to predefined Itemstack and TransformType to what transform you would want to use.
                 ItemStack itemStack = mammoth.getHoldItemStack();
                 Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
