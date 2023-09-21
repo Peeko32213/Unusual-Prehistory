@@ -131,11 +131,8 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
     }
 
     public boolean hurt(DamageSource source, float amount) {
-        boolean prev = super.hurt(source, amount);
-        if (prev) {
-            this.setAsleep(false);
-        }
-        return prev;
+        this.setAsleep(false);
+        return super.hurt(source, amount);
     }
 
     @Override

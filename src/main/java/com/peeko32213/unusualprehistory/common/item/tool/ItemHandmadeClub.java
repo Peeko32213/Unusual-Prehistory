@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.tool.HandmadeClubModel;
 import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.ThrowableFallingBlockEntity;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
@@ -47,32 +49,17 @@ public class ItemHandmadeClub extends SwordItem implements IAnimatable {
     }
 
     @Override
-    public boolean canAttackBlock(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
+    public boolean canAttackBlock(BlockState state, Level pLevel, BlockPos pPos, Player pPlayer) {
         if(pLevel.isClientSide) return false;
         ServerLevel level = (ServerLevel) pLevel;
         BlockPos pos = pPos;
-        ThrowableFallingBlockEntity fallingBlockEntity = ThrowableFallingBlockEntity.fall(level, pPos,pState);
+
+        if(state.is(Blocks.BEDROCK) || !state.is(UPTags.CLUB_WHITELIST_BLOCKS)) return false;
+        ThrowableFallingBlockEntity fallingBlockEntity = ThrowableFallingBlockEntity.fall(level, pPos,state);
         Vec3 vec3 = new Vec3(0,1,0);
         Vec3 vec31 = vec3.normalize();
         fallingBlockEntity.setDeltaMovement(vec31);
         fallingBlockEntity.setHurtsEntities(1, 10);
-        //level.addFreshEntity(fallingBlockEntity);
-        //for (int x = -radius; x < radius; x++) {
-        //    for (int z = -radius; z < radius; z++) {
-        //        double distance = distance(x, z, radius, radius);
-        //        if (distance < 1) {
-        //            BlockPos pos1 = pos.offset(x, 0,z);
-        //            BlockState state = level.getBlockState(pos1);
-        //            if(state.is(Blocks.BEDROCK) || !state.is(UPTags.CLUB_WHITELIST_BLOCKS)) continue;
-        //            level.destroyBlock(pos, false);
-        //            ThrowableFallingBlockEntity fallingBlockEntity = ThrowableFallingBlockEntity.fall(level, pos1,state);
-        //            Vec3 vec3 = new Vec3(0,1,0);
-        //            Vec3 vec31 = vec3.normalize();
-        //            fallingBlockEntity.setDeltaMovement(vec31);
-        //            level.addFreshEntity(fallingBlockEntity);
-        //        }
-        //    }
-        //}
         return true;
     }
 
