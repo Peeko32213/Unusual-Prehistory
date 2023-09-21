@@ -30,6 +30,10 @@ public class UPItems {
         return new Item.Properties().craftRemainder(UPItems.FLASK.get()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB);
     }
 
+    public static Item.Properties soupItem() {
+        return new Item.Properties().craftRemainder(Items.BOWL).stacksTo(8).tab(UnusualPrehistory.DINO_TAB);
+    }
+
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
             UnusualPrehistory.MODID);
@@ -509,6 +513,15 @@ public class UPItems {
 
     public static final RegistryObject<Item> DRYO_NUTS = ITEMS.register("dryo_nuts",
             () -> new IncreaseAgeItem(new Item.Properties().tab(UnusualPrehistory.DINO_TAB).food(ModFood.DRYO_NUTS), UPTags.HERBIVORES,10));
+
+    public static final RegistryObject<Item> RAW_MAMMOTH = ITEMS.register("raw_mammoth",
+            () -> new Item(new Item.Properties().food(ModFood.RAW_MAMMOTH).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> COOKED_MAMMOTH = ITEMS.register("cooked_mammoth",
+            () -> new Item(new Item.Properties().food(ModFood.COOKED_MAMMOTH).tab(UnusualPrehistory.DINO_TAB)));
+
+    public static final RegistryObject<Item> MAMMOTH_MEATBALL = ITEMS.register("mammoth_meatball",
+            () -> new ModItemDrinkable(soupItem().food(ModFood.MAMMOTH_MEATBALL), true, false));
     public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",
             () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().tab(UnusualPrehistory.DINO_TAB).stacksTo(1).rarity(Rarity.EPIC), 157));
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {

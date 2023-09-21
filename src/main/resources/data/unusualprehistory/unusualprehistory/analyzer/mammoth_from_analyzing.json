@@ -1,0 +1,9 @@
+{
+  "input": ["unusualprehistory:raw_mammoth"],
+  "entries": [
+    {
+      "weight": 100,
+      "item": "unusualprehistory:mammoth_flask"
+    }
+  ]
+}

@@ -51,6 +51,9 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.INSULATOR);
         singleTex(UPItems.DRYO_NUTS);
         singleTex(UPItems.ZULOGAE_DISC);
+        singleTex(UPItems.RAW_MAMMOTH);
+        singleTex(UPItems.MAMMOTH_MEATBALL);
+        singleTex(UPItems.COOKED_MAMMOTH);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());

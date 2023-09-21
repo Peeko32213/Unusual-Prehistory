@@ -1,0 +1,40 @@
+{
+  "parent": "netherdepthsupgrade:main/rex",
+  "criteria": {
+    "interact_rex": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:rex"
+            }
+          }
+        ],
+        "item": {}
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.rex_passify.desc"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:rex_tooth"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.rex_passify"
+    }
+  },
+  "requirements": [
+    [
+      "interact_rex"
+    ]
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "unusualprehistory:raw_mammoth"
+  },
+  "result": "unusualprehistory:cooked_mammoth",
+  "experience": 1.0,
+  "cookingtime": 500
+}

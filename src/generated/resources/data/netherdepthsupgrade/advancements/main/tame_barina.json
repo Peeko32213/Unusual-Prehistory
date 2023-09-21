@@ -12,7 +12,7 @@
       "translate": "unusualprehistory.advancement.tame_barina.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "unusualprehistory:barina_whistle"
     },

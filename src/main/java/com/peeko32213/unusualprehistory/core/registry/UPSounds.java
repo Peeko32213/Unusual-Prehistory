@@ -128,8 +128,12 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> SMILODON_HURT = createSoundEvent("smilodon_hurt");
     public static final RegistryObject<SoundEvent> SMILODON_IDLE = createSoundEvent("smilodon_idle");
     public static final RegistryObject<SoundEvent> ZULOGAE_DISC = createSoundEvent("zulogae_disc");
-
-
+    public static final RegistryObject<SoundEvent> PALAEO_DEATH = createSoundEvent("palaeo_death");
+    public static final RegistryObject<SoundEvent> PALAEO_BITE = createSoundEvent("palaeo_bite");
+    public static final RegistryObject<SoundEvent> PALAEO_HURT = createSoundEvent("palaeo_hurt");
+    public static final RegistryObject<SoundEvent> PALAEO_IDLE = createSoundEvent("palaeo_idle");
+    public static final RegistryObject<SoundEvent> TAR_POP = createSoundEvent("tar_pop");
+    public static final RegistryObject<SoundEvent> TAR_AMBIENT = createSoundEvent("tar_ambient");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));

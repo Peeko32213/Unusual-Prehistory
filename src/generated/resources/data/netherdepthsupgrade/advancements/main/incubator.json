@@ -1,5 +1,5 @@
 {
-  "parent": "netherdepthsupgrade:main/fossil",
+  "parent": "netherdepthsupgrade:main/insulator",
   "criteria": {
     "incubator": {
       "conditions": {

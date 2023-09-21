@@ -1,0 +1,9 @@
+{
+  "input": ["unusualprehistory:raw_austro"],
+  "entries": [
+    {
+      "weight": 100,
+      "item": "unusualprehistory:austro_flask"
+    }
+  ]
+}

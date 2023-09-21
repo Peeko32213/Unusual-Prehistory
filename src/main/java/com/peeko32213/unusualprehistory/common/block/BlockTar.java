@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.block;
 
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPParticles;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -119,7 +120,7 @@ public class BlockTar extends Block implements BucketPickup {
     }
 
     public Optional<SoundEvent> getPickupSound() {
-        return Optional.of(SoundEvents.BUCKET_FILL_POWDER_SNOW);
+        return Optional.of(SoundEvents.BUCKET_FILL_LAVA);
     }
 
     public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
@@ -135,11 +136,11 @@ public class BlockTar extends Block implements BucketPickup {
                 double d1 = (double)pPos.getY() + 1.0D;
                 double d2 = (double)pPos.getZ() + pRandom.nextDouble();
                 pLevel.addParticle(UPParticles.TAR_BUBBLE.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
-                pLevel.playLocalSound(d0, d1, d2, SoundEvents.LAVA_POP, SoundSource.BLOCKS, 0.2F + pRandom.nextFloat() * 0.2F, 0.9F + pRandom.nextFloat() * 0.15F, false);
+                pLevel.playLocalSound(d0, d1, d2, UPSounds.TAR_POP.get(), SoundSource.BLOCKS, 0.2F + pRandom.nextFloat() * 0.2F, 0.9F + pRandom.nextFloat() * 0.15F, false);
             }
 
             if (pRandom.nextInt(200) == 0) {
-                pLevel.playLocalSound((double)pPos.getX(), (double)pPos.getY(), (double)pPos.getZ(), SoundEvents.LAVA_AMBIENT, SoundSource.BLOCKS, 0.2F + pRandom.nextFloat() * 0.2F, 0.9F + pRandom.nextFloat() * 0.15F, false);
+                pLevel.playLocalSound((double)pPos.getX(), (double)pPos.getY(), (double)pPos.getZ(), UPSounds.TAR_AMBIENT.get(), SoundSource.BLOCKS, 0.2F + pRandom.nextFloat() * 0.2F, 0.9F + pRandom.nextFloat() * 0.15F, false);
             }
         }
     }

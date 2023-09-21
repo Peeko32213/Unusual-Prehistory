@@ -1,5 +1,5 @@
 {
-  "parent": "netherdepthsupgrade:main/incubator",
+  "parent": "netherdepthsupgrade:main/cultivator",
   "criteria": {
     "damage_smilodon": {
       "conditions": {

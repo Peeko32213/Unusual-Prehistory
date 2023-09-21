@@ -22,8 +22,8 @@
       "y": 80,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.5,
-      "offset_x": 6,
+      "entity_scale": 0.45,
+      "offset_x": 9,
       "offset_y": 4,
       "hover_text": "Cotylorhynchus"
     }

@@ -15,6 +15,16 @@
       "follow_cursor": false
     }
   ],
+  "recipes": [
+    {
+      "recipe": "unusualprehistory:mammoth_meatball",
+      "shapeless": true,
+      "x": 210,
+      "y": 65,
+      "page": 1,
+      "scale": 1.3
+    }
+  ],
   "entity_button":[
     {
       "entity": "unusualprehistory:mammoth",

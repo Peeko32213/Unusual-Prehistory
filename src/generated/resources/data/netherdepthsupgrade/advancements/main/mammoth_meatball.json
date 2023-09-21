@@ -1,0 +1,37 @@
+{
+  "parent": "netherdepthsupgrade:main/mammoth",
+  "criteria": {
+    "mammoth_meatball": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:mammoth_meatball"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.mammoth_meatball.desc"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:mammoth_meatball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.mammoth_meatball"
+    }
+  },
+  "requirements": [
+    [
+      "mammoth_meatball"
+    ]
+  ]
+}

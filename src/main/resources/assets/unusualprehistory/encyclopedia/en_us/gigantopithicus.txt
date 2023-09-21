@@ -14,4 +14,13 @@ brim with random goods. Depending on what fruit you trade, better items are obta
 I have gotten from each “tier” of gigantopithecus fruit:
 <NEWLINE>
 <NEWLINE>
-Insert list of loot tables
+Exotic Fruit Box (Traded for Zuloagae): Exotic Fruit Scraps. Horsetail, Hanging Roots, Pumpkin Seeds, Melon Seeds
+<NEWLINE>
+Luxurious Fruit Box (Traded for Exotic Fruit): Redolent Fruit Scraps, Exotic Fruit Scraps, Horsetail, Tall Horsetail,
+Leefructus, Bennettitales, Sarracenia, Tall Sarracenia, Archaeosigillaria, Handmade Battleaxe, Glistering Melon Slice, Carrot
+<NEWLINE>
+Redolent Fruit Box (Traded for Exotic Fruit): Salubrious Fruit Scraps, Redolent Fruit Scraps, Handmade Club, Lapis Lazuli, Gold Nuggets,
+Carrots, Crocarina
+<NEWLINE>
+Salubrious Fruit Box (Traded for Exotic Fruit): Salubrious Fruit Scraps, Handmade Spear, Emeralds, Iron Nuggets, Golden Carrots, Prehistoric Ginkgo Saplings,
+Foxii Saplings, Dryophyllum Saplings, Zuloagae Disc

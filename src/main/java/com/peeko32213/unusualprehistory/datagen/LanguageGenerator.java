@@ -102,9 +102,13 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RED_FRUIT, "Exotic Fruit");
         addItem(UPItems.WHITE_FRUIT, "Luxurious Fruit");
         addItem(UPItems.YELLOW_FRUIT, "Redolent Fruit");
-        addItem(UPItems.BLUE_FRUIT, "Salubrious  Fruit");
+        addItem(UPItems.BLUE_FRUIT, "Salubrious Fruit");
         addItem(UPItems.DEFROSTED_FROZEN_FOSSIL, "Defrosted Frozen Fossil");
-        addItem(UPItems.DRYO_NUTS, "Dryo Nuts");
+        addItem(UPItems.DRYO_NUTS, "Dryophyllum Nuts");
+        addItem(UPItems.RAW_MAMMOTH, "Raw Mammoth Meat");
+        addItem(UPItems.COOKED_MAMMOTH, "Cooked Mammoth");
+        addItem(UPItems.MAMMOTH_MEATBALL, "Mammoth Meatball");
+
         //SCRAPS
         addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
         addItem(UPItems.WHITE_FRUIT_SCRAPS, "Luxurious Fruit Scraps");
@@ -539,6 +543,18 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.BARINA_HURT, "Crocodilain Pain");
         addSound(UPSounds.BARINA_IDLE, "Crocodilain Growls");
         addSound(UPSounds.ZULOGAE_DISC, "Zulogae Disc");
+        addSound(UPSounds.MEGATHER_DEATH, "Odd Death Noise");
+        addSound(UPSounds.MEGATHER_HURT, "Odd Hurt Noise");
+        addSound(UPSounds.MEGATHER_IDLE, "Odd Idling");
+        addSound(UPSounds.SMILODON_DEATH, "Dying Snarl");
+        addSound(UPSounds.SMILODON_HURT, "Painful Snarl");
+        addSound(UPSounds.SMILODON_IDLE, "Snarl");
+        addSound(UPSounds.PALAEO_HURT, "Painful Hiss");
+        addSound(UPSounds.PALAEO_DEATH, "Dying Hiss");
+        addSound(UPSounds.PALAEO_IDLE, "Idling Hissing");
+        addSound(UPSounds.PALAEO_BITE, "Hissing Snap");
+        addSound(UPSounds.TAR_POP, "Tar Popping");
+        addSound(UPSounds.TAR_AMBIENT, "Tar Settling");
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");
         add("entity.unusualprehistory.all.command_1", "%s is following");
@@ -554,6 +570,198 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_1", "%s was shredded");
         add("death.attack.hwacha_2", "%s was turned to fine paste");
         add("death.attack.hwacha_3", "%s was shot");
+
+        add("unusualprehistory.advancement.root", "Unusual Prehistory");
+        add("unusualprehistory.advancement.root.desc", "Begin Your Journey Into the World of Prehistory!");
+
+        add("unusualprehistory.advancement.acquire_fossil", "Odd Looking Rocks");
+        add("unusualprehistory.advancement.acquire_fossil.desc", "Find your first Fossil");
+
+        add("unusualprehistory.advancement.craft_analyzer", "Sciency Science Doodad");
+        add("unusualprehistory.advancement.craft_analyzer.desc", "Craft a Analyzer");
+
+        add("unusualprehistory.advancement.acquire_amber_fossil", "Unusual Park");
+        add("unusualprehistory.advancement.acquire_amber_fossil.desc", "Unlock the treasures of Amber Fossils");
+
+        add("unusualprehistory.advancement.acquire_adorned_staff", "Hammond's Staff");
+        add("unusualprehistory.advancement.acquire_adorned_staff.desc", "Craft a Adorned Staff!");
+
+        add("unusualprehistory.advancement.craft_cultivator", "Its Time to Cook Jesse");
+        add("unusualprehistory.advancement.craft_cultivator.desc", "Craft a Cultivator");
+
+        add("unusualprehistory.advancement.obtain_egg", "E G G S");
+        add("unusualprehistory.advancement.obtain_egg.desc", "Acquire your first Prehistoric Egg!");
+
+        add("unusualprehistory.advancement.obtain_embryo", "Funny Gummies");
+        add("unusualprehistory.advancement.obtain_embryo.desc", "Acquire your first Embryo!");
+
+        add("unusualprehistory.advancement.interact_ammonite", "One Shell of a Time");
+        add("unusualprehistory.advancement.interact_ammonite.desc", "Revive a Ammonite");
+
+        add("unusualprehistory.advancement.obtain_ammon_drop", "No Ammonites Were Harmed....");
+        add("unusualprehistory.advancement.obtain_ammon_drop.desc", "Acquire Shell Shards");
+
+        add("unusualprehistory.advancement.obtain_ammon_weapon", "Diggy Diggy Slash!");
+        add("unusualprehistory.advancement.obtain_ammon_weapon.desc", "Craft a War Pick!");
+
+        add("unusualprehistory.advancement.interact_antarcto", "Primal Grudge");
+        add("unusualprehistory.advancement.interact_antarcto.desc", "Revive a Antarctopelta");
+
+        add("unusualprehistory.advancement.obtain_antarcto_weapon", "Can Slice the Head of a Horse Clean Off...");
+        add("unusualprehistory.advancement.obtain_antarcto_weapon.desc", "Acquire a Primal Macuahuitl");
+
+        add("unusualprehistory.advancement.interact_austro", "The Graceful Raptor");
+        add("unusualprehistory.advancement.interact_austro.desc", "Revive a Austroraptor");
+
+        add("unusualprehistory.advancement.obtain_austro_boots", "So Long Fall Damage");
+        add("unusualprehistory.advancement.obtain_austro_boots.desc", "Acquire pair of Austro Boots");
+
+        add("unusualprehistory.advancement.interact_beelze", "A frogge biþ a large beaste wiþ foure leggys");
+        add("unusualprehistory.advancement.interact_beelze.desc", "Revive a Beelzebufo");
+
+        add("unusualprehistory.advancement.obtain_meat_stick", "What a Novel Concept!");
+        add("unusualprehistory.advancement.obtain_meat_stick.desc", "Craft Meat on a Stick to Control a Beelzebufo!");
+
+        add("unusualprehistory.advancement.interact_pachy", "Thick Skulled");
+        add("unusualprehistory.advancement.interact_pachy.desc", "Revive a Pachycephalosaurus");
+
+        add("unusualprehistory.advancement.interact_ulugh", "How Do You Say This?");
+        add("unusualprehistory.advancement.interact_ulugh.desc", "Revive a Ulughbegsaurus");
+
+        add("unusualprehistory.advancement.interact_kentro", "Spiked Nugget");
+        add("unusualprehistory.advancement.interact_kentro.desc", "Revive a Kentrosaurus");
+
+        add("unusualprehistory.advancement.interact_stetha", "Not Quite a Shark");
+        add("unusualprehistory.advancement.interact_stetha.desc", "Revive a Stethacanthus");
+
+        add("unusualprehistory.advancement.interact_eryon", "Diggy Diggy Hole");
+        add("unusualprehistory.advancement.interact_eryon.desc", "Revive a Eryon");
+
+        add("unusualprehistory.advancement.obtain_fossil_stand", "Gotta Collect Em All!");
+        add("unusualprehistory.advancement.obtain_fossil_stand.desc", "Acquire your first Fossil Stand!");
+
+        add("unusualprehistory.advancement.interact_hwacha", "It Costs 400,000 Dollars to Fire This Weapon, for 12 Seconds");
+        add("unusualprehistory.advancement.interact_hwacha.desc", "Revive a Hwachavenator");
+
+        add("unusualprehistory.advancement.interact_brachi", "Hows the View Up There?");
+        add("unusualprehistory.advancement.interact_brachi.desc", "Revive a Brachiosaurus");
+
+        add("unusualprehistory.advancement.interact_scau", "Shark Bait Hoo Ha Ha");
+        add("unusualprehistory.advancement.interact_scau.desc", "Revive a Scaumenacia");
+
+        add("unusualprehistory.advancement.obtain_golden_scau", "The Buddha");
+        add("unusualprehistory.advancement.obtain_golden_scau.desc", "Craft an appetizing Golden Scaumenacia");
+
+        add("unusualprehistory.advancement.interact_majunga", "Are we in San Diego?");
+        add("unusualprehistory.advancement.interact_majunga.desc", "Revive an Majungasaurus");
+
+        add("unusualprehistory.advancement.obtain_majunga_helmet", "Thy Strength Befits a Crown");
+        add("unusualprehistory.advancement.obtain_majunga_helmet.desc", "Craft a Majunga Helmet");
+
+        add("unusualprehistory.advancement.interact_veloci", "Clever Girl");
+        add("unusualprehistory.advancement.interact_veloci.desc", "Revive a Velociraptor");
+
+        add("unusualprehistory.advancement.obtain_veloci_shield", "Zooooooom");
+        add("unusualprehistory.advancement.obtain_veloci_shield.desc", "Craft a Veolcishield");
+
+        add("unusualprehistory.advancement.interact_dunk", "Definitely not a Shark");
+        add("unusualprehistory.advancement.interact_dunk.desc", "Revive a Dunkleosteus");
+
+        add("unusualprehistory.advancement.interact_anuro", "No Thoughts");
+        add("unusualprehistory.advancement.interact_anuro.desc", "Revive a Anurognathus");
+
+        add("unusualprehistory.advancement.interact_trike", "A Challenger to the Throne");
+        add("unusualprehistory.advancement.interact_trike.desc", "Revive a Triceratops");
+
+        add("unusualprehistory.advancement.obtain_trike_shield", "Parry This!");
+        add("unusualprehistory.advancement.obtain_trike_shield.desc", "Acquire a Trike Shield");
+
+        add("unusualprehistory.advancement.interact_coty", "Where do you Work Out?");
+        add("unusualprehistory.advancement.interact_coty.desc", "Revive a Cotylorhynchus");
+
+        add("unusualprehistory.advancement.obtain_grog", "Drunken Sailor");
+        add("unusualprehistory.advancement.obtain_grog.desc", "Gather some Grog!");
+
+        add("unusualprehistory.advancement.interact_rex", "King of the Terrible Lizards");
+        add("unusualprehistory.advancement.interact_rex.desc", "Revive a Tyrannosaurus Rex");
+
+        add("unusualprehistory.advancement.rex_passify", "Down With the King!");
+        add("unusualprehistory.advancement.rex_passify.desc", "Beat a T Rex to its last breath and spare it");
+
+        add("unusualprehistory.advancement.interact_smilo", "Humanities Greatest Foe");
+        add("unusualprehistory.advancement.interact_smilo.desc", "Revive a Smilodon");
+
+        add("unusualprehistory.advancement.obtain_insulator", "Embryonic Key");
+        add("unusualprehistory.advancement.obtain_insulator.desc", "Craft a Insulator");
+
+        add("unusualprehistory.advancement.craft_incubator", "GET IN THE POD");
+        add("unusualprehistory.advancement.craft_incubator.desc", "Craft a Birthing Pod");
+
+        add("unusualprehistory.advancement.interact_palaeo", "Hitbox Nightmare");
+        add("unusualprehistory.advancement.interact_palaeo.desc", "Revive a Palaeophis");
+
+        add("unusualprehistory.advancement.obtain_shedscale", "Cover me In Skin");
+        add("unusualprehistory.advancement.obtain_shedscale.desc", "Obtain a Piece of Shedscale Armor");
+
+        add("unusualprehistory.advancement.interact_giganto", "Give Orange Me Give Eat Orange");
+        add("unusualprehistory.advancement.interact_giganto.desc", "Revive a Gigantopithicus");
+
+        add("unusualprehistory.advancement.obtain_monkey_weapon", "Blood, Sweat, and Bamboo");
+        add("unusualprehistory.advancement.obtain_monkey_weapon.desc", "Acquire Any Handmade Weapon");
+
+        add("unusualprehistory.advancement.obtain_monkey_fruits", "Strange Fruits");
+        add("unusualprehistory.advancement.obtain_monkey_fruits.desc", "Acquire Any of the Fruits from Gigantopithicus");
+
+        add("unusualprehistory.advancement.interact_talapanas", "Duck Fortress");
+        add("unusualprehistory.advancement.interact_talapanas.desc", "Revive a Talapanas");
+
+        add("unusualprehistory.advancement.interact_mammoth", "Ice Age Super Star");
+        add("unusualprehistory.advancement.interact_mammoth.desc", "Revive a Mammoth");
+
+        add("unusualprehistory.advancement.interact_barina", "Crikey!");
+        add("unusualprehistory.advancement.interact_barina.desc", "Revive a Barinasuchus");
+
+        add("unusualprehistory.advancement.tame_barina", "Crocarina of Time");
+        add("unusualprehistory.advancement.tame_barina.desc", "Use a Crocarina to Tame a Barinasuchus");
+
+        add("unusualprehistory.advancement.interact_megala", "Health Sapper");
+        add("unusualprehistory.advancement.interact_megala.desc", "Revive a Megalania");
+
+        add("unusualprehistory.advancement.petrified_wood", "Odd Looking Wood");
+        add("unusualprehistory.advancement.petrified_wood.desc", "Find Some Petrified Wood");
+
+        add("unusualprehistory.advancement.plants", "Unusual Botany");
+        add("unusualprehistory.advancement.plants.desc", "Revive your First Prehistoric Plant");
+
+        add("unusualprehistory.advancement.ginkgo", "Priest of Hiroshima");
+        add("unusualprehistory.advancement.ginkgo.desc", "Revive a Prehistoric Ginkgo Tree");
+
+        add("unusualprehistory.advancement.foxii", "Is it Foxxi or Foxii?");
+        add("unusualprehistory.advancement.foxii.desc", "Revive a Metasequoia Foxii");
+
+        add("unusualprehistory.advancement.dryo", "Almost Cherry");
+        add("unusualprehistory.advancement.dryo.desc", "Revive a Dryophyllum Tree");
+
+        add("unusualprehistory.advancement.zuloagae", "Bamboo of the Gods");
+        add("unusualprehistory.advancement.zuloagae.desc", "Revive Zuloagae");
+
+        add("unusualprehistory.advancement.interact_paracer", "Ticked Off");
+        add("unusualprehistory.advancement.interact_paracer.desc", "Revive a Paraceratherium");
+
+        add("unusualprehistory.advancement.opal_fossil", "The Power of the Abyss in the Palm of My Hand...");
+        add("unusualprehistory.advancement.opal_fossil.desc", "Obtain a Opal Fossil");
+
+        add("unusualprehistory.advancement.opal_shuriken", "Shuriken, Japan");
+        add("unusualprehistory.advancement.opal_shuriken.desc", "Obtain Opalscent Shuriken");
+
+        add("unusualprehistory.advancement.opal_pearl", "Gamebreaker");
+        add("unusualprehistory.advancement.opal_pearl.desc", "Obtain Opalscent Pearl");
+
+        add("unusualprehistory.advancement.mammoth_meatball", "Meatball of Vahalla");
+        add("unusualprehistory.advancement.mammoth_meatball.desc", "Through Unspeakable Crimes, Obtain a Mammoth Meatball");
+
+        add("unusualprehistory.advancement.amber_gummy", "Extra Protection");
+        add("unusualprehistory.advancement.amber_gummy.desc", "Obtain Amber Gummies");
 
         add("death.attack.hwacha_0.player", "%s was turned into a pincushion by %s");
         add("death.attack.hwacha_1.player", "%s was shredded by %s");
@@ -578,11 +786,15 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.attacher.embryo_attached", "Successfully attached embryo to %s!");
         add("unusualprehistory.megatherium_baby.tame_tooltip", "Baby Megatherium is Tamed!");
         add("unusualprehistory.megatherium_baby.minutes_tooltip", "%s Minutes left until Baby Megatherium is Tamed!");
+
+
+
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");
         addEffect(UPEffects.PREVENT_CLICK, "Debilitating Toxin");
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");
+        addEffect(UPEffects.HEALTH_REDUCTION, "Draining Venom");
 
         //BLOCK ENTITY TRANSLATABLE
         addBETranslatable("analyzer", "                             Analyzer");

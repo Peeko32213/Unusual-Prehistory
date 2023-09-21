@@ -1,5 +1,5 @@
 {
-  "parent": "netherdepthsupgrade:main/analyzer",
+  "parent": "netherdepthsupgrade:main/anaylzer",
   "criteria": {
     "cultivator": {
       "conditions": {

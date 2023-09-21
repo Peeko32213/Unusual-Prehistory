@@ -63,7 +63,7 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoLay
                 //You'll need to play around with this to render the item in the correct spot.
                 stack.translate(0D, 0D, 4.0D);
                 //Sets the scaling of the item.
-                stack.scale(3f, 3f, 3f);
+                stack.scale(0.5f, 0.5f, 0.5f);
                 // Change mainHand to predefined Itemstack and TransformType to what transform you would want to use.
                 ItemStack itemStack = mammoth.getHoldItemStack();
                 Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,

@@ -1400,5 +1400,85 @@
         "stream": true
       }
     ]
+  },
+  "palaeo_death": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:palaeo_death_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:palaeo_death_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.palaeo_death"
+  },
+  "palaeo_bite": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:palaeo_bite_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:palaeo_bite_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.palaeo_bite"
+  },
+  "palaeo_hurt": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:palaeo_hurt_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:palaeo_hurt_1",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.palaeo_hurt"
+  },
+  "palaeo_idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:palaeo_idle_0",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:palaeo_idle_1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusualprehistory:palaeo_idle_2",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.palaeo_idle"
+  },
+  "tar_pop": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:tar_pop_0",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.tar_pop"
+  },
+  "tar_ambient": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:tar_ambient_0",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.tar_ambient"
   }
 }

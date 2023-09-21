@@ -1,5 +1,5 @@
 {
-  "parent": "netherdepthsupgrade:main/analyzer",
+  "parent": "netherdepthsupgrade:main/egg",
   "criteria": {
     "damage_antarcto": {
       "conditions": {
@@ -49,7 +49,7 @@
       "translate": "unusualprehistory.advancement.interact_antarcto.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "unusualprehistory:antarcto_flask"
     },
