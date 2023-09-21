@@ -21,10 +21,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.item.GeoArmorItem;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class ItemShedscaleArmor extends GeoArmorItem implements IAnimatable {
     private static final Map<MobEffect, MobEffect> TO_CHANGE_MAP = new HashMap<>() {{
@@ -110,21 +107,24 @@ public class ItemShedscaleArmor extends GeoArmorItem implements IAnimatable {
 
     private boolean giveEffect(Player player) {
         Collection<MobEffectInstance> mobEffectInstances = player.getActiveEffects();
+        Iterator<MobEffectInstance> iterator = mobEffectInstances.iterator();
         boolean hasGivenEffect = false;
-        for(MobEffectInstance mobEffectInstance : mobEffectInstances)
-        {
+
+        while (iterator.hasNext()) {
+            MobEffectInstance mobEffectInstance = iterator.next();
             MobEffect effect = mobEffectInstance.getEffect();
             int duration = mobEffectInstance.getDuration();
             int amplifier = mobEffectInstance.getAmplifier();
-            if(TO_CHANGE_MAP.containsKey(effect))
-            {
+
+            if (TO_CHANGE_MAP.containsKey(effect)) {
                 MobEffect givenEffect = TO_CHANGE_MAP.get(effect);
                 MobEffectInstance toGiveInstance = new MobEffectInstance(givenEffect, duration, amplifier);
                 player.addEffect(toGiveInstance);
-                player.removeEffect(effect);
+                iterator.remove();
                 hasGivenEffect = true;
             }
         }
+
         return hasGivenEffect;
     }
 
