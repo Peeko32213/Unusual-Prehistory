@@ -217,6 +217,7 @@
   "entity.unusualprehistory.veloci": "Velociraptor",
   "hwachavenator.fail_shoot.message": "You failed to shoot!",
   "hwachavenator.shooting_too_close.message": "You are trying to shoot too close to Hwachavenator!",
+  "instrument.unusualprehistory.ocarina": "Crocarina",
   "item.unusualprehistory.adorned_staff": "Adorned Staff",
   "item.unusualprehistory.amber_fossil": "Amber Fossil",
   "item.unusualprehistory.amber_gummy": "Amber Gummy",
@@ -363,7 +364,7 @@
   "item.unusualprehistory.talapanas_flask": "Talapanas DNA Flask",
   "item.unusualprehistory.talapanas_spawn_egg": "Talapanas Spawn Egg",
   "item.unusualprehistory.tall_horsetail_flask": "Prehistoric Tall Horsetail DNA Flask",
-  "item.unusualprehistory.tar_bucket": "Bucket of Tar",
+  "item.unusualprehistory.tar_bucket": "Tar Bucket",
   "item.unusualprehistory.tar_fossil_item": "Tar Fossil",
   "item.unusualprehistory.trike_flask": "Triceratops DNA Flask",
   "item.unusualprehistory.trike_horn": "Triceratops Horn",
@@ -380,8 +381,8 @@
   "item.unusualprehistory.yellow_fruit": "Redolent Fruit",
   "item.unusualprehistory.yellow_fruit_scraps": "Redolent Fruit Scraps",
   "item.unusualprehistory.zuloagae_flask": "Zuloagae DNA Flask",
-  "item.unusualprehistory.zulogae_disc": "Zulogae Disc ",
-  "item.unusualprehistory.zulogae_disc.desc": "Zulogae Disc By Shroomy",
+  "item.unusualprehistory.zulogae_disc": "Music Disc ",
+  "item.unusualprehistory.zulogae_disc.desc": " Shroomy - Zulogae",
   "itemGroup.unusualprehistory": "Unusual Prehistory",
   "itemGroup.unusualprehistory_spawn_eggs": "Unusual Spawn Eggs",
   "player_capability.amber_protection_full": "You are at full Amber Protection and won't gain any more!",
@@ -459,7 +460,7 @@
   "unusualprehistory.advancement.interact_ulugh.desc": "Revive a Ulughbegsaurus",
   "unusualprehistory.advancement.interact_veloci": "Clever Girl",
   "unusualprehistory.advancement.interact_veloci.desc": "Revive a Velociraptor",
-  "unusualprehistory.advancement.mammoth_meatball": "Meatball of Vahalla",
+  "unusualprehistory.advancement.mammoth_meatball": "Meatball of Valhalla",
   "unusualprehistory.advancement.mammoth_meatball.desc": "Through Unspeakable Crimes, Obtain a Mammoth Meatball",
   "unusualprehistory.advancement.obtain_ammon_drop": "No Ammonites Were Harmed....",
   "unusualprehistory.advancement.obtain_ammon_drop.desc": "Acquire Shell Shards",
@@ -643,5 +644,5 @@
   "unusualprehistory.sound.subtitle.ulugh_hurt": "Painful Ugh",
   "unusualprehistory.sound.subtitle.ulugh_idle": "Idle Ugh",
   "unusualprehistory.sound.subtitle.ulugh_step": "Ughing Step",
-  "unusualprehistory.sound.subtitle.zulogae_disc": "Zulogae Disc"
+  "unusualprehistory.sound.subtitle.zulogae_disc": "Music Disc"
 }

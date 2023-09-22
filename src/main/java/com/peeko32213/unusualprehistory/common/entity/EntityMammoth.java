@@ -366,13 +366,11 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.mammoth.move"));
-            event.getController().setAnimationSpeed(1.5D);
             return PlayState.CONTINUE;
         }
 
 
         event.getController().setAnimation(new AnimationBuilder().loop("animation.mammoth.idle"));
-        event.getController().setAnimationSpeed(1.0D);
         return PlayState.CONTINUE;
     }
 

@@ -73,7 +73,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.17D)
+                .add(Attributes.MOVEMENT_SPEED, 0.15D)
                 .add(Attributes.ARMOR, 0.0D)
                 .add(Attributes.ARMOR_TOUGHNESS, 0.0D);
     }
@@ -525,16 +525,13 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isPassenger()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.walk"));
-            event.getController().setAnimationSpeed(1.5D);
             return PlayState.CONTINUE;
         }
         if (this.isPassenger()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.sit"));
-            event.getController().setAnimationSpeed(1D);
             return PlayState.CONTINUE;
         } else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.idle"));
-            event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
     }

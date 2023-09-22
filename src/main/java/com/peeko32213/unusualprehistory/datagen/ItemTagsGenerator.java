@@ -312,7 +312,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(Items.ICE)
                 .add(UPItems.MAMMOTH_FLASK.get())
                 .add(UPItems.MEGATH_FLASK.get())
-                .add(UPItems.GIGANTO_FLASK.get())
                 .add(UPItems.SMILO_FLASK.get());
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_TAR)
@@ -320,6 +319,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.MEGALA_FLASK.get())
                 .add(UPItems.BARIN_FLASK.get())
                 .add(UPItems.PARACER_FLASK.get())
+                .add(UPItems.GIGANTO_FLASK.get())
                 .add(UPItems.TALAPANAS_FLASK.get());
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_OPAL)

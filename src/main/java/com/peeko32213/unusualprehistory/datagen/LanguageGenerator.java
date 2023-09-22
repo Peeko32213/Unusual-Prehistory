@@ -37,7 +37,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.DINO_POUCH, "Dino Pouch");
         addItem(UPItems.OPALESCENT_PEARL, "Opalescent Pearl");
         addItem(UPItems.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-        addItem(UPItems.ZULOGAE_DISC, "Zulogae Disc ");
+        addItem(UPItems.ZULOGAE_DISC, "Music Disc ");
 
         //TOOLS
         addItem(UPItems.WARPICK, "War Pick");
@@ -184,7 +184,7 @@ public class LanguageGenerator extends LanguageProvider {
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
         addBlock(UPBlocks.SPLATTERED_TAR, "Splattered Tar");
-        addItem(UPItems.TAR_BUCKET, "Bucket of Tar");
+        addItem(UPItems.TAR_BUCKET, "Tar Bucket");
 
         //ONE PIECE ARMORS
         addItem(UPItems.MAJUNGA_HELMET, "Majungasaurus Helmet");
@@ -542,7 +542,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.BARINA_DEATH, "Crocodilain Groans");
         addSound(UPSounds.BARINA_HURT, "Crocodilain Pain");
         addSound(UPSounds.BARINA_IDLE, "Crocodilain Growls");
-        addSound(UPSounds.ZULOGAE_DISC, "Zulogae Disc");
+        addSound(UPSounds.ZULOGAE_DISC, "Music Disc");
         addSound(UPSounds.MEGATHER_DEATH, "Odd Death Noise");
         addSound(UPSounds.MEGATHER_HURT, "Odd Hurt Noise");
         addSound(UPSounds.MEGATHER_IDLE, "Odd Idling");
@@ -570,6 +570,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_1", "%s was shredded");
         add("death.attack.hwacha_2", "%s was turned to fine paste");
         add("death.attack.hwacha_3", "%s was shot");
+        add("instrument.unusualprehistory.ocarina", "Crocarina");
 
         add("unusualprehistory.advancement.root", "Unusual Prehistory");
         add("unusualprehistory.advancement.root.desc", "Begin Your Journey Into the World of Prehistory!");
@@ -757,7 +758,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.advancement.opal_pearl", "Gamebreaker");
         add("unusualprehistory.advancement.opal_pearl.desc", "Obtain Opalscent Pearl");
 
-        add("unusualprehistory.advancement.mammoth_meatball", "Meatball of Vahalla");
+        add("unusualprehistory.advancement.mammoth_meatball", "Meatball of Valhalla");
         add("unusualprehistory.advancement.mammoth_meatball.desc", "Through Unspeakable Crimes, Obtain a Mammoth Meatball");
 
         add("unusualprehistory.advancement.amber_gummy", "Extra Protection");
@@ -767,7 +768,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_1.player", "%s was shredded by %s");
         add("death.attack.hwacha_2.player", "%s was turned to fine paste by %s");
         add("death.attack.hwacha_3.player", "%s was shot by %s");
-        add("item.unusualprehistory.zulogae_disc.desc", "Zulogae Disc By Shroomy");
+        add("item.unusualprehistory.zulogae_disc.desc", " Shroomy - Zulogae");
 
         add("unusualprehistory.megalania_damage", " %s Megalania Damage");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");

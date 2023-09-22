@@ -652,11 +652,9 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
                     if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isAsleep()) {
                         if (this.isSprinting() || !this.getPassengers().isEmpty()) {
                             event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.sprint"));
-                            event.getController().setAnimationSpeed(2.0D);
                             return PlayState.CONTINUE;
                         } else if (event.isMoving() && !this.isAsleep()) {
                             event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.walk"));
-                            event.getController().setAnimationSpeed(1.0D);
                             return PlayState.CONTINUE;
                         }
                     }
@@ -665,7 +663,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
                         return PlayState.CONTINUE;
                     }
                      event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.idle"));
-                    event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
             }
         }

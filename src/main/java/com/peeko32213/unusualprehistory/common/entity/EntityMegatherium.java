@@ -385,16 +385,13 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.move"));
-            event.getController().setAnimationSpeed(1.5D);
             return PlayState.CONTINUE;
         }
         if (this.isInSittingPose() && !this.isInWater()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.sitting"));
-            event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         } else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.idle"));
-            event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
 

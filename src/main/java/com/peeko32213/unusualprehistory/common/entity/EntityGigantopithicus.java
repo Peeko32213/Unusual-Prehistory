@@ -435,11 +435,9 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
                     }
                     if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.walk"));
-                        event.getController().setAnimationSpeed(1.0D);
                         return PlayState.CONTINUE;
                     } else {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.idle"));
-                        event.getController().setAnimationSpeed(1.0F);
                     }
                     return PlayState.CONTINUE;
             }

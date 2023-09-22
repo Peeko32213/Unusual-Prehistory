@@ -3,54 +3,54 @@
 	"animations": {
 		"animation.talapanas.walk": {
 			"loop": true,
-			"animation_length": 1,
+			"animation_length": 0.5,
 			"bones": {
 				"Head": {
 					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.2) * 360) * 1", 0, "Math.sin((query.anim_time - 0.2) * 360) * 3"]
+						"vector": ["Math.cos((query.anim_time - 0.2) * 720 ) * 1", 0, "Math.sin((query.anim_time - 0.2) * 720 ) * 3"]
 					}
 				},
 				"Body": {
 					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.0) * 360) * 2", 0, "Math.sin((query.anim_time - 0.0) * 360) * 2"]
+						"vector": ["Math.cos((query.anim_time - 0.0) * 720 ) * 2", 0, "Math.sin((query.anim_time - 0.0) * 720 ) * 2"]
 					}
 				},
 				"TailFeathers": {
 					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.2) * 360) * 1", 0, "Math.sin((query.anim_time - 0.2) * 360) * 8"]
+						"vector": ["Math.cos((query.anim_time - 0.2) * 720 ) * 1", 0, "Math.sin((query.anim_time - 0.2) * 720 ) * 8"]
 					}
 				},
 				"Leg1": {
 					"rotation": {
-						"vector": ["Math.sin((query.anim_time - 0.0) * 360) * 30", 0, 0]
+						"vector": ["Math.sin((query.anim_time - 0.0) * 720 ) * 30", 0, 0]
 					},
 					"position": {
-						"0.25": {
+						"0.0833": {
 							"vector": [0, 0, 1]
 						},
-						"0.5": {
+						"0.25": {
 							"vector": [0, 2, 2]
 						},
-						"0.75": {
+						"0.4167": {
 							"vector": [0, 0, 1]
 						}
 					}
 				},
 				"Leg2": {
 					"rotation": {
-						"vector": ["Math.sin((query.anim_time - 0.0) * 360) * -30", 0, 0]
+						"vector": ["Math.sin((query.anim_time - 0.0) * 720 ) * -30", 0, 0]
 					},
 					"position": {
 						"0.0": {
 							"vector": [0, 2, 2]
 						},
-						"0.2083": {
+						"0.125": {
 							"vector": [0, 0, 1]
 						},
-						"0.5": {
+						"0.25": {
 							"vector": [0, 0, 1]
 						},
-						"0.75": {
+						"0.375": {
 							"vector": [0, 2, 2]
 						}
 					}
