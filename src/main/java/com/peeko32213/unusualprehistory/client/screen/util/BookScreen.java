@@ -393,7 +393,7 @@ public class BookScreen extends Screen {
                 if (model != null) {
                     float scale = (float) data.getScale();
                     model.tickCount = Minecraft.getInstance().player.tickCount;
-                    if (!data.getEntityData().equals("")) {
+                    if (data.getEntityData() != null && !data.getEntityData().equals("")) {
                         try {
                             CompoundTag tag = TagParser.parseTag(data.getEntityData());
                             model.load(tag);
@@ -401,6 +401,7 @@ public class BookScreen extends Screen {
                             e.printStackTrace();
                         }
                     }
+
                     drawEntityOnScreen(matrixStack, k + data.getX(), l + data.getY(), 30 * scale, data.isFollow_cursor(), data.getRot_x(), data.getRot_y(), data.getRot_z(), mouseX, mouseY, (LivingEntity) model);
                 }
             }

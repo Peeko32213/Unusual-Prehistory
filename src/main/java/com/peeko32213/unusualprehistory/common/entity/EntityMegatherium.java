@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -159,8 +160,14 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     //TODO add mobinteract to base class so we dont have to do all this again
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if(itemstack.is(UPItems.ENCYLOPEDIA.get())){
+            InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
+        }
         if (hand == InteractionHand.MAIN_HAND && !this.level.isClientSide) {
-            ItemStack itemstack = player.getItemInHand(hand);
+
+
+
             if (!isTame() && itemstack.is(ItemTags.LEAVES)) {
                 //int size = itemstack.getCount();
                 if (random.nextBoolean()) {

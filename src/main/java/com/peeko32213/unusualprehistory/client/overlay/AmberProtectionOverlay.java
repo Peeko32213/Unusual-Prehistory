@@ -36,14 +36,14 @@ public class AmberProtectionOverlay {
         // Determine whether the amber protection icons should be rendered
         boolean shouldBlit = numProtectionLevels > 0;
         boolean isCreative = Minecraft.getInstance().player.isCreative();
-
+        boolean isSpectator = Minecraft.getInstance().player.isSpectator();
         // Calculate the initial position for the first heart icon
         int blitX = centerX - 91;
         int blitY = bottomY - 39;
         int xOffset = 0;
 
         // Loop through each protection level and render the corresponding heart icon
-        for (int level = 0; level <= numProtectionLevels && shouldBlit && !isCreative; level++) {
+        for (int level = 0; level <= numProtectionLevels && shouldBlit && !isCreative && !isSpectator; level++) {
 
             // Calculate the row, height, and offset for the current heart icon
             int rowMultpl = Mth.absFloor(level / MAX_PROTECTION_LEVELS_PER_ROW);

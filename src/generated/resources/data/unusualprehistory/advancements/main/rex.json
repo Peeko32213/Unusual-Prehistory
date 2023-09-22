@@ -1,0 +1,72 @@
+{
+  "parent": "unusualprehistory:main/egg",
+  "criteria": {
+    "damage_rex": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "direct_entity": {
+              "type": "unusualprehistory:coty"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    },
+    "interact_rex": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:rex"
+            }
+          }
+        ],
+        "item": {}
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "killed_rex": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:coty"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.interact_rex.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:rex_flask"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.interact_rex"
+    }
+  },
+  "requirements": [
+    [
+      "damage_rex"
+    ],
+    [
+      "interact_rex"
+    ],
+    [
+      "killed_rex"
+    ]
+  ]
+}

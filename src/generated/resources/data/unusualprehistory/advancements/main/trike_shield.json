@@ -1,0 +1,38 @@
+{
+  "parent": "unusualprehistory:main/trike",
+  "criteria": {
+    "trike_shield": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:trike_shield"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.obtain_trike_shield.desc"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:trike_shield",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.obtain_trike_shield"
+    }
+  },
+  "requirements": [
+    [
+      "trike_shield"
+    ]
+  ]
+}

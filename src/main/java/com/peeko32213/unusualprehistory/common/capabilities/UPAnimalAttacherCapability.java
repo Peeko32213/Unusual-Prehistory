@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -40,7 +41,7 @@ public class UPAnimalAttacherCapability {
 
     public static void attach(final AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
-        if (entity instanceof Animal) {
+        if (entity instanceof Animal || entity instanceof WaterAnimal) {
             final UPAnimalAttacherCapability.UPCapabilityProvider provider = new UPAnimalAttacherCapability.UPCapabilityProvider();
             event.addCapability(UPAnimalAttacherCapability.UPCapabilityProvider.IDENTIFIER, provider);
         }

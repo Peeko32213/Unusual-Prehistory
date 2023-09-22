@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -60,16 +61,14 @@ public class EntityOpalescentPearl extends ThrowableItemProjectile {
         Entity entity = this.getOwner();
         if (entity instanceof Player && !entity.isAlive() || tickCount > 200) {
             this.discard();
-        } else {
+        } else if(!this.level.getBlockState(this.blockPosition()).is(Blocks.BEDROCK) && !(this.position().y() <= -64)) {
             this.noPhysics = true;
             RandomSource rand = this.level.random;
             if(rand.nextInt(0,100) < 10){
                 randomTeleport();
             }
-
             super.tick();
         }
-
     }
 
     public void randomTeleport(){

@@ -182,6 +182,14 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
         this.entityData.set(FEEDING_TIME, feedingTime);
     }
 
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+       if(this.isPassenger()){
+           return false;
+       }
+        return super.hurt(pSource, pAmount);
+    }
+
     public void tick() {
         super.tick();
         super.tick();
@@ -222,6 +230,13 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
         }
     }
 
+
+    @Override
+    public void die(DamageSource pDamageSource) {
+        this.stopRiding();
+        super.die(pDamageSource);
+    }
+
     public void rideTick() {
         Entity mount = this.getVehicle();
 
@@ -239,7 +254,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
             double extraZ = radius * Mth.cos(angle);
             playPanicSound();
             this.setPos(player.getX() + extraX, Math.max(player.getY() + player.getBbHeight() + 0.1, player.getY()), player.getZ() + extraZ);
-            if (!player.isAlive() || rideCooldown == 0 || player.isShiftKeyDown()) {
+            if (!player.isAlive() || rideCooldown == 0 || player.isShiftKeyDown() || !mount.isAlive()) {
                 this.stopRiding();
             }
         } else {

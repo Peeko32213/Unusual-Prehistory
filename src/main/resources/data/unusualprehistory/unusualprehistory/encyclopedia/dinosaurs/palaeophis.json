@@ -5,6 +5,7 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:palaeophis",
+      "entity_data": "{ShedTime:-2}",
       "x": 90,
       "y": 90,
       "page" : 0,
@@ -18,13 +19,14 @@
   "entity_button":[
     {
       "entity": "unusualprehistory:palaeophis",
+      "entity_data": "{ShedTime:-2}",
       "x": 320,
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.2,
-      "offset_x": 9,
-      "offset_y": 7,
+      "entity_scale": 1,
+      "offset_x": -4,
+      "offset_y": -8,
       "hover_text": "Palaeophis"
     }
   ]

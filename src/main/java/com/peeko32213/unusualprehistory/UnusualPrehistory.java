@@ -82,6 +82,7 @@ public class UnusualPrehistory {
         eventBus.addListener(UPPlayerCapability::onLivingDamage);
         eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
         eventBus.addListener(UPAnimalCapability::tickAnimal);
+        eventBus.addListener(UPAnimalCapability::tickWaterAnimal);
     }
 
     //Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib

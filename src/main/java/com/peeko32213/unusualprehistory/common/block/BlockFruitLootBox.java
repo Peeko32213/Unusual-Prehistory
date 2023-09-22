@@ -15,6 +15,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final IntegerProperty LOOT_BOX = IntegerProperty.create("loot_box", 1, 5);
@@ -75,15 +77,23 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
     }
 
     @Override
-    public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @Nullable BlockEntity pBlockEntity, ItemStack pTool) {
-        //FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity)pLevel.getBlockEntity(pPos));
-        //Item item = Item.byBlock(fruitLootBox.getBlockState().getBlock());
-        //CompoundTag tag = item.getDefaultInstance().getTag();
-        //if(tag != null) {
-        //    item.getDefaultInstance().getOrCreateTag().putInt("color", fruitLootBox.getColor());
-//
-        //}
-        super.playerDestroy(pLevel, pPlayer, pPos, pState, pBlockEntity, pTool);
+    public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
+
+        if(!pLevel.isClientSide) {
+            FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity) pLevel.getBlockEntity(pPos));
+            try {
+                int size = fruitLootBox.getLootFruits().size();
+                if (!fruitLootBox.getLootFruits().isEmpty() && !pLevel.isClientSide) {
+                    int randomNr = pLevel.random.nextInt(size);
+                    fruitLootBox.getLootFruits().get(randomNr).getItems().forEach(rollableItemCodec -> {
+                        rollableItemCodec.dropItem(pLevel, pPos, rollableItemCodec);
+                    });
+                }
+            } catch (Exception e) {
+                LOGGER.info("failed due to ", e);
+            }
+        }
+        super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 
     @Override
@@ -122,27 +132,27 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
         return 0F;
     }
 
-    @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if(!pLevel.isClientSide) {
-            FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity) pLevel.getBlockEntity(pPos));
-            ItemStack itemStack = pPlayer.getItemInHand(pHand);
-            try {
-                int size = fruitLootBox.getLootFruits().size();
-                if (!fruitLootBox.getLootFruits().isEmpty() && !pLevel.isClientSide) {
-                    int randomNr = pLevel.random.nextInt(size);
-                    fruitLootBox.getLootFruits().get(randomNr).getItems().forEach(rollableItemCodec -> {
-                        rollableItemCodec.dropItem(pLevel, pPos, rollableItemCodec);
-                    });
-                }
-                pLevel.destroyBlock(pPos, false, pPlayer);
-                return InteractionResult.SUCCESS;
-            } catch (Exception e) {
-                LOGGER.info("failed due to ", e);
-            }
-        }
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
-    }
+   //@Override
+   //public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   //    if(!pLevel.isClientSide) {
+   //        FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity) pLevel.getBlockEntity(pPos));
+   //        ItemStack itemStack = pPlayer.getItemInHand(pHand);
+   //        try {
+   //            int size = fruitLootBox.getLootFruits().size();
+   //            if (!fruitLootBox.getLootFruits().isEmpty() && !pLevel.isClientSide) {
+   //                int randomNr = pLevel.random.nextInt(size);
+   //                fruitLootBox.getLootFruits().get(randomNr).getItems().forEach(rollableItemCodec -> {
+   //                    rollableItemCodec.dropItem(pLevel, pPos, rollableItemCodec);
+   //                });
+   //            }
+   //            //pLevel.destroyBlock(pPos, false, pPlayer);
+   //            return InteractionResult.SUCCESS;
+   //        } catch (Exception e) {
+   //            LOGGER.info("failed due to ", e);
+   //        }
+   //    }
+   //    return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+   //}
 
     private static final LootFruitCodec LOOT_FRUIT = new LootFruitCodec(2, "unusualprehistory.loot_fruit_box.default", Items.BAMBOO, Collections.emptyList(), TextColor.fromRgb(12345), 2);
     private static final List<LootFruitCodec> LOOT_FRUIT_LIST = new ArrayList<>() {{
@@ -150,20 +160,28 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
     }};
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
-            ItemStack istack = new ItemStack(this);
+
             boolean isEmpty = LootFruitJsonManager.getTierTrades().isEmpty();
             if(!isEmpty) {
-                int lowestKey = Collections.min(LootFruitJsonManager.getTierTrades().keySet());
-                List<LootFruitCodec> lootFruitItem= LootFruitJsonManager.getTierTrades().getOrDefault(lowestKey, LOOT_FRUIT_LIST);
-                CompoundTag lootFruitTag = istack.getOrCreateTag();
-                int color = lootFruitItem.get(0).getColor().getValue();
-                lootFruitTag.putString("translationKey", lootFruitItem.get(0).getTranslationKey());
-                lootFruitTag.putInt("color", color);
-                lootFruitTag.put("tradeItem", lootFruitItem.get(0).getTradeItem().getDefaultInstance().serializeNBT());
-                lootFruitTag.putInt("CustomModelData", lootFruitItem.get(0).getCustomModelData());
-                istack.setTag(lootFruitTag);
-                list.add(istack);
+                Map<Integer, List<LootFruitCodec>> lootFruitItem= LootFruitJsonManager.getTierTrades();
+                for(List<LootFruitCodec> lootFruitCodecs : lootFruitItem.values()){
+                    for(LootFruitCodec lootFruitCodec : lootFruitCodecs){
+
+                        ItemStack istack = new ItemStack(this);
+                        CompoundTag lootFruitTag = istack.getOrCreateTag();
+                        int color = lootFruitCodec.getColor().getValue();
+                        lootFruitTag.putString("translationKey", lootFruitCodec.getTranslationKey());
+                        lootFruitTag.putInt("color", color);
+                        lootFruitTag.put("tradeItem", lootFruitCodec.getTradeItem().getDefaultInstance().serializeNBT());
+                        lootFruitTag.putInt("CustomModelData", lootFruitCodec.getCustomModelData());
+                        istack.setTag(lootFruitTag);
+                        list.add(istack);
+                    }
+                }
+
+
             } else {
+                ItemStack istack = new ItemStack(this);
                 List<ItemWeightedPairCodec> itemWeightedPairCodecs = new ArrayList<>();
                 itemWeightedPairCodecs.add(new ItemWeightedPairCodec(UPItems.PALEO_FOSSIL.get(), 100, 1));
                 List<RollableItemCodec> rollableItemCodecs =  new ArrayList<>();

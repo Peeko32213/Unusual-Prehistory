@@ -11,8 +11,8 @@ public class EntityLinkData {
     public int page;
     public String linked_page;
     public String hover_text;
-
-    public EntityLinkData(String entity, int x, int y, double scale, double entity_scale, int page, String linked_page, String hover_text, float offset_x, float offset_y) {
+    public String entity_data;
+    public EntityLinkData(String entity, int x, int y, double scale, double entity_scale, int page, String linked_page, String hover_text, float offset_x, float offset_y, String entity_data) {
         this.entity = entity;
         this.x = x;
         this.y = y;
@@ -23,6 +23,7 @@ public class EntityLinkData {
         this.hover_text = hover_text;
         this.offset_x = offset_x;
         this.offset_y = offset_y;
+        this.entity_data = entity_data;
     }
 
     public String getEntity() {
@@ -103,5 +104,8 @@ public class EntityLinkData {
 
     public void setOffset_x(float offset_x) {
         this.offset_x = offset_x;
+    }
+    public String getEntityData() {
+        return entity_data;
     }
 }
