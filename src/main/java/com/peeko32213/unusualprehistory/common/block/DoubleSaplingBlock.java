@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,10 +32,11 @@ public class DoubleSaplingBlock extends SaplingBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     private static final VoxelShape SHAPE_BOTTOM =  Shapes.join(Block.box(1, 8, 1, 15, 16, 15), Block.box(0, 0, 0, 16, 8, 16), BooleanOp.OR);
     private static final VoxelShape SHAPE_TOP =  Block.box(0.0, 0, 0, 16, 8, 16);
-
+    private final AbstractTreeGrower treeGrower;
 
     public DoubleSaplingBlock(AbstractTreeGrower pTreeGrower, Properties pProperties) {
         super(pTreeGrower, pProperties);
+        this.treeGrower = pTreeGrower;
     }
 
     public BlockState updateShape(BlockState state, Direction direction, BlockState state2, LevelAccessor levelAccessor, BlockPos pos1, BlockPos pos2) {
@@ -69,8 +72,10 @@ public class DoubleSaplingBlock extends SaplingBlock {
         }
     }
 
+
+
     public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
-        return true;
+        return pState.getValue(HALF) == DoubleBlockHalf.UPPER;
     }
 
 
@@ -107,7 +112,13 @@ public class DoubleSaplingBlock extends SaplingBlock {
         return state.getValue(HALF) == DoubleBlockHalf.LOWER ? this.mayPlaceOn(levelReader.getBlockState(blockpos), levelReader, blockpos) : blockstate.is(this);
     }
 
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (!pLevel.isAreaLoaded(pPos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
+        if (pLevel.getMaxLocalRawBrightness(pPos.above()) >= 9 && pRandom.nextInt(7) == 0 && pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+            this.advanceTree(pLevel, pPos, pState, pRandom);
+        }
 
+    }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {

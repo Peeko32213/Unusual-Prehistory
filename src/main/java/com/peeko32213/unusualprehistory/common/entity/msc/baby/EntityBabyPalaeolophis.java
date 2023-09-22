@@ -180,7 +180,7 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements I
 
     @Override
     public void determineVariant(int variantChange) {
-        if(this.position().y() < 0 ){
+        if(this.position().y() < 0 &&!this.fromBucket()){
             this.setVariant(1);
         }
 
@@ -271,14 +271,13 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements I
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
         Level level = p_28134_.getLevel();
         if (level instanceof ServerLevel) {
             {
                 this.setPersistenceRequired();
             }
         }
-        return p_28137_;
+        return super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
     }
 
     @Override

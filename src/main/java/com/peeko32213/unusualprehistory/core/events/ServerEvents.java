@@ -103,14 +103,6 @@ public class ServerEvents {
        }
     }
 
-   // @SubscribeEvent
-   // public static void synchDataPackReload(OnDatapackSyncEvent event){
-   //     ServerPlayer player = event.getPlayer();
-   //     if(player != null){
-   //         UPMessages.sendToPlayer(new LootFruitPacketS2C(LootFruitJsonManager.getTierTrades()), player);
-   //     }
-   // }
-
     @SubscribeEvent
     public static void onRegisterReloadListeners(AddReloadListenerEvent event) {
         event.addListener(new AnalyzerRecipeJsonManager());
