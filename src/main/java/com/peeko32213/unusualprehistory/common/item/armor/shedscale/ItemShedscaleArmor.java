@@ -106,27 +106,42 @@ public class ItemShedscaleArmor extends GeoArmorItem implements IAnimatable {
     }
 
     private boolean giveEffect(Player player) {
-        Collection<MobEffectInstance> mobEffectInstances = player.getActiveEffects();
-        Iterator<MobEffectInstance> iterator = mobEffectInstances.iterator();
+        // Create a copy of the player's active effects
+        Collection<MobEffectInstance> mobEffectInstances = new ArrayList<>(player.getActiveEffects());
+
+        // Create a map to store the modified effects
+        Map<MobEffect, MobEffectInstance> modifiedEffects = new HashMap<>();
+
         boolean hasGivenEffect = false;
 
-        while (iterator.hasNext()) {
-            MobEffectInstance mobEffectInstance = iterator.next();
+        for (MobEffectInstance mobEffectInstance : mobEffectInstances) {
             MobEffect effect = mobEffectInstance.getEffect();
-            int duration = mobEffectInstance.getDuration();
-            int amplifier = mobEffectInstance.getAmplifier();
 
             if (TO_CHANGE_MAP.containsKey(effect)) {
+                // Modify the effect and add it to the modifiedEffects map
                 MobEffect givenEffect = TO_CHANGE_MAP.get(effect);
+                int duration = mobEffectInstance.getDuration();
+                int amplifier = mobEffectInstance.getAmplifier();
                 MobEffectInstance toGiveInstance = new MobEffectInstance(givenEffect, duration, amplifier);
-                player.addEffect(toGiveInstance);
-                iterator.remove();
+                modifiedEffects.put(givenEffect, toGiveInstance);
                 hasGivenEffect = true;
+            } else {
+                // Add the unaffected effects to the modifiedEffects map
+                modifiedEffects.put(effect, mobEffectInstance);
             }
+        }
+
+        // Remove all effects from the player
+        player.removeAllEffects();
+
+        // Add the modified effects back to the player
+        for (MobEffectInstance modifiedEffect : modifiedEffects.values()) {
+            player.addEffect(modifiedEffect);
         }
 
         return hasGivenEffect;
     }
+
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
         return pEquipmentSlot == this.slot ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
