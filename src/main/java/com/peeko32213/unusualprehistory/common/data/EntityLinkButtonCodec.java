@@ -17,7 +17,8 @@ public class EntityLinkButtonCodec {
                     Codec.STRING.optionalFieldOf("linked_page", "").forGetter(h -> h.linked_page),
                     Codec.STRING.fieldOf("hover_text").forGetter(h -> h.hover_text),
                     Codec.FLOAT.fieldOf("offset_x").forGetter(off -> off.offset_x),
-                    Codec.FLOAT.fieldOf("offset_y").forGetter(off -> off.offset_y)
+                    Codec.FLOAT.fieldOf("offset_y").forGetter(off -> off.offset_y),
+                    Codec.STRING.optionalFieldOf("entity_data", "").forGetter(off -> off.entity_data)
             ).apply(inst, EntityLinkData::new)
     );
 }

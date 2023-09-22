@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.item.armor;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyMegatherium;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -67,7 +68,7 @@ public class ItemSlothPouchArmor extends GeoArmorItem implements IAnimatable {
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
         if (pLevel.isClientSide || pSlotId != EquipmentSlot.CHEST.getIndex()) return;
-
+        UnusualPrehistory.LOGGER.info("Chest? " + EquipmentSlot.CHEST.getIndex());
         if (!pStack.hasTag() || pStack.getTag() == null) return;
         CompoundTag tag = pStack.getTag();
         if (tag.contains("gameTime") && tag.contains("megatherium")) {

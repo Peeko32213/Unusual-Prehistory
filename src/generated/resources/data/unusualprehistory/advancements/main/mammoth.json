@@ -1,0 +1,72 @@
+{
+  "parent": "unusualprehistory:main/incubator",
+  "criteria": {
+    "damage_mammoth": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "direct_entity": {
+              "type": "unusualprehistory:mammoth"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    },
+    "interact_mammoth": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:mammoth"
+            }
+          }
+        ],
+        "item": {}
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "killed_mammoth": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:mammoth"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.interact_mammoth.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:mammoth_flask"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.interact_mammoth"
+    }
+  },
+  "requirements": [
+    [
+      "damage_mammoth"
+    ],
+    [
+      "interact_mammoth"
+    ],
+    [
+      "killed_mammoth"
+    ]
+  ]
+}

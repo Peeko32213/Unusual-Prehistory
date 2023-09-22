@@ -313,7 +313,7 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("blue_fruit", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.BLUE_FRUIT.get()))
                 .save(consumer, this.getNameId("main/gigantopithicus_fruits"));
 
-        Advancement talapanas = getAdvancement(eggs, (ItemLike)UPItems.TALAPANAS_FLASK.get(), "interact_talapanas", FrameType.TASK, true, true, true)
+        Advancement talapanas = getAdvancement(birthingPod, (ItemLike)UPItems.TALAPANAS_FLASK.get(), "interact_talapanas", FrameType.TASK, true, true, true)
                 .addCriterion("damage_talapanas", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get())))))
                 .addCriterion("interact_talapanas", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get()).build())))
                 .addCriterion("killed_talapanas", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get())))
@@ -325,7 +325,7 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("killed_mammoth", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MAMMOTH.get())))
                 .save(consumer, this.getNameId("main/mammoth"));
 
-        Advancement barina = getAdvancement(eggs, (ItemLike)UPItems.BARIN_FLASK.get(), "interact_barina", FrameType.TASK, true, true, true)
+        Advancement barina = getAdvancement(birthingPod, (ItemLike)UPItems.BARIN_FLASK.get(), "interact_barina", FrameType.TASK, true, true, true)
                 .addCriterion("damage_barina", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get())))))
                 .addCriterion("interact_barina", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get()).build())))
                 .addCriterion("killed_barina", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get())))
@@ -341,7 +341,7 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("killed_paracer", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.PARACERATHERIUM.get())))
                 .save(consumer, this.getNameId("main/paraceratherium"));
 
-        Advancement megalania = getAdvancement(eggs, (ItemLike)UPItems.MEGALA_FLASK.get(), "interact_megala", FrameType.TASK, true, true, true)
+        Advancement megalania = getAdvancement(birthingPod, (ItemLike)UPItems.MEGALA_FLASK.get(), "interact_megala", FrameType.TASK, true, true, true)
                 .addCriterion("damage_megala", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))))
                 .addCriterion("interact_megala", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get()).build())))
                 .addCriterion("killed_megala", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))
@@ -425,7 +425,7 @@ public class AdvancementGenerator extends AdvancementProvider {
     }
 
     private String getNameId(String id) {
-        return "netherdepthsupgrade:" + id;
+        return "unusualprehistory:" + id;
     }
 
 

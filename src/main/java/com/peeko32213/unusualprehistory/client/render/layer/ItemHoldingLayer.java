@@ -61,9 +61,9 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoLay
                 stack.mulPose(Vector3f.YP.rotationDegrees(0));
                 stack.mulPose(Vector3f.ZP.rotationDegrees(0));
                 //You'll need to play around with this to render the item in the correct spot.
-                stack.translate(0D, 0D, 4.0D);
+                stack.translate(0D, 0D, 4.3D);
                 //Sets the scaling of the item.
-                stack.scale(0.5f, 0.5f, 0.5f);
+                stack.scale(mammoth.getHoldItemStack().getCount(), mammoth.getHoldItemStack().getCount(), mammoth.getHoldItemStack().getCount());
                 // Change mainHand to predefined Itemstack and TransformType to what transform you would want to use.
                 ItemStack itemStack = mammoth.getHoldItemStack();
                 Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,

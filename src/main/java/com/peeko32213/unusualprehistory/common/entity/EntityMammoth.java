@@ -188,6 +188,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
     public void setTrunking(boolean isPecking) {
         this.entityData.set(IS_TRUNKING, isPecking);
     }
+
     public ItemStack getHoldItemStack() {
         return this.entityData.get(HOLD_ITEM);
     }
@@ -255,14 +256,16 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
 
     @Override
     public @NotNull List<ItemStack> onSheared(@Nullable Player player, @NotNull ItemStack item, Level level, BlockPos pos, int fortune) {
-        level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
-        this.gameEvent(GameEvent.SHEAR, player);
-        if (!level.isClientSide && this.mammothInventory != null && !this.mammothInventory.isEmpty()) {
-            java.util.List<ItemStack> items = new java.util.ArrayList<>();
-            items.add(this.mammothInventory.getItem(0));
-            this.mammothInventory.clearContent();
-            this.setHoldItemStack(ItemStack.EMPTY);
-            return items;
+        if (this.mammothInventory != null && !this.mammothInventory.isEmpty() && this.readyForShearing() && player.getItemBySlot(EquipmentSlot.HEAD).is(UPItems.TYRANTS_CROWN.get()) && item.is(Tags.Items.SHEARS)) {
+            level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+            this.gameEvent(GameEvent.SHEAR, player);
+            if (!level.isClientSide) {
+                java.util.List<ItemStack> items = new java.util.ArrayList<>();
+                items.add(this.mammothInventory.getItem(0));
+                this.mammothInventory.clearContent();
+                this.setHoldItemStack(ItemStack.EMPTY);
+                return items;
+            }
         }
         return Collections.emptyList();
     }

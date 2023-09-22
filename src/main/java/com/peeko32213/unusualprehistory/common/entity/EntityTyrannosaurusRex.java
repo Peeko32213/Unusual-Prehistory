@@ -528,7 +528,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         protected void tickBiteAttack () {
             animTime++;
-            if(animTime>=5 && animTime < 9) {
+            if(animTime>=6 && animTime < 9) {
                 preformBiteAttack();
 
             }
@@ -544,7 +544,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         protected void tickWhipAttack () {
             animTime++;
             //this.mob.getNavigation().stop();
-            if(animTime>=13 && animTime < 16) {
+            if(animTime>=15 && animTime < 18) {
                 preformWhipAttack();
             }
             if(animTime>=16) {
@@ -561,7 +561,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         protected void tickStompAttack () {
             animTime++;
             //this.mob.getNavigation().stop();
-            if(animTime>=21 && animTime < 30) {
+            if(animTime>=25 && animTime < 30) {
                 preformStompAttack();
             }
             if(animTime>=30) {

@@ -90,7 +90,14 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
     }
 
     public InteractionResult mobInteract(Player p_218703_, InteractionHand p_218704_) {
+        super.mobInteract(p_218703_, p_218704_);
+
         ItemStack itemstack = p_218703_.getItemInHand(p_218704_);
+        if(itemstack.is(UPItems.DINO_POUCH.get())){
+            InteractionResult interactionresult = itemstack.interactLivingEntity(p_218703_, this, p_218704_);
+        }
+
+
         if (this.isFood(itemstack)) {
             this.eatFood(p_218703_, itemstack);
         }

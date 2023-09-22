@@ -2,10 +2,13 @@ package com.peeko32213.unusualprehistory.client.screen.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -112,6 +115,14 @@ public class LinkButton extends Button {
             blit(matrixStack, 0, 0, 0, 30, 24, 24, 256, 256);
             if (toRender != null) {
                 toRender.tickCount = Minecraft.getInstance().player.tickCount;
+                if (data.getEntityData() != null && !data.getEntityData().equals("")) {
+                    try {
+                        CompoundTag tag = TagParser.parseTag(data.getEntityData());
+                        toRender.load(tag);
+                    } catch (CommandSyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
                 float transitional = Math.max(0.0F, renderScale - 1.0F) * 8;
                 BookScreen.drawEntityOnScreen(matrixStack, (int) (12 * renderScale + transitional + (x + offsetX)), (int) (24 * renderScale - transitional + y + offsetY), 10 * renderScale, false, 30, -130, 0, 0, 0, (LivingEntity) toRender);
                 RenderSystem.applyModelViewMatrix();

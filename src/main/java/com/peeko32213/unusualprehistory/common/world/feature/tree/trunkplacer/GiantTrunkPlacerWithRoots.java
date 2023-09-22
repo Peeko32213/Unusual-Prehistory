@@ -41,7 +41,7 @@ public class GiantTrunkPlacerWithRoots extends TrunkPlacer {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
         boolean offSetPos = pLevel.isStateAtPosition(pPos.below(), (state -> {
-           return state.is(Blocks.AIR) || state.is(UPBlocks.FOXII_SAPLING.get());
+           return state.is(Blocks.AIR) || state.is(UPBlocks.FOXII_SAPLING.get()) || !state.getMaterial().isSolid();
         }));
 
         if(offSetPos) pPos = pPos.below();

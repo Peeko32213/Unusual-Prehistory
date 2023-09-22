@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.capabilities;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
@@ -9,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -75,12 +77,58 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 if(livingEntity instanceof EntityBaseAquaticAnimal animal){
                     animal.determineVariant(1);
                 }
-                else {
-                    serverLevel.addFreshEntity(livingEntity);
-                }
+
+
+                serverLevel.addFreshEntity(livingEntity);
 
                 capability.setEmbryoAnimal(BASE_EMBRYO);
                 capability.setTimer(RESET_TIMER);
+            }else {
+                UnusualPrehistory.LOGGER.error("Embryo is incorrect for {}", event.getEntity());
+            }
+        });
+    }
+
+    public static void tickWaterAnimal(LivingEvent.LivingTickEvent event) {
+        if (!(event.getEntity() instanceof WaterAnimal) || event.getEntity().getLevel().isClientSide) return;
+
+        ServerLevel serverLevel = (ServerLevel) event.getEntity().getLevel();
+        LazyOptional<UPAnimalCapability> animalCap = event.getEntity().getCapability(UPCapabilities.ANIMAL_CAPABILITY);
+        animalCap.ifPresent(capability -> {
+            if (capability.embryoAnimal == null || capability.getEmbryoAnimal().equals(BASE_EMBRYO)) {
+                return;
+            }
+
+            if (capability.timer > 0) {
+                capability.timer = capability.timer - 1;
+                return;
+            }
+
+            if(capability.embryoAnimal != null && !capability.embryoAnimal.equals(BASE_EMBRYO)){
+                ResourceLocation entityRl = new ResourceLocation(capability.embryoAnimal);
+                EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(entityRl);
+                LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
+                livingEntity.setPos(event.getEntity().position());
+                livingEntity.setUUID(UUID.randomUUID());
+                if(livingEntity instanceof EntityTameableBaseDinosaurAnimal animal){
+                    animal.setAge(-24000);
+                    animal.determineVariant(1);
+                }
+
+                if(livingEntity instanceof EntityBaseDinosaurAnimal animal){
+                    animal.setAge(-24000);
+                    animal.determineVariant(1);
+                }
+                if(livingEntity instanceof EntityBaseAquaticAnimal animal){
+                    animal.determineVariant(1);
+                }
+
+                serverLevel.addFreshEntity(livingEntity);
+
+                capability.setEmbryoAnimal(BASE_EMBRYO);
+                capability.setTimer(RESET_TIMER);
+            } else {
+                UnusualPrehistory.LOGGER.error("Embryo is incorrect for {}", event.getEntity());
             }
         });
     }

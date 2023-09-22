@@ -447,7 +447,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BABY_BARINA, "Baby Barinasuchus");
         addEntityType(UPEntities.BABY_SMILODON, "Baby Smilodon");
         addEntityType(UPEntities.BABY_MAMMOTH, "Baby Mammoth");
-
+        addEntityType(UPEntities.PALAEOPHIS_PART, "Palaeophis Body");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");
@@ -770,7 +770,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_3.player", "%s was shot by %s");
         add("item.unusualprehistory.zulogae_disc.desc", " Shroomy - Zulogae");
 
-        add("unusualprehistory.megalania_damage", " %s Megalania Damage");
+        add("unusualprehistory.megalania_damage", " %s Venomous Coating");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");
         add("unusualprehistory.fruit_loot_box.salubrious", "Salubrious Fruit Loot Box");
         add("unusualprehistory.fruit_loot_box.luxurious", "Luxurious Fruit Loot Box");

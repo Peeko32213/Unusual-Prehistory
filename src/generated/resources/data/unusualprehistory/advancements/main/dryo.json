@@ -1,0 +1,37 @@
+{
+  "parent": "unusualprehistory:main/plants",
+  "criteria": {
+    "dryo_sapling": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:dryo_sapling"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.dryo.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:dryo_sapling"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.dryo"
+    }
+  },
+  "requirements": [
+    [
+      "dryo_sapling"
+    ]
+  ]
+}

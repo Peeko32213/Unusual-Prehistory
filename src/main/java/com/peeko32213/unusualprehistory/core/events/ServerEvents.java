@@ -285,23 +285,6 @@ public class ServerEvents {
     }
 
     @SubscribeEvent
-    public void createSlothPouch(PlayerInteractEvent.EntityInteract event) {
-        if (event.getTarget() instanceof EntityBabyMegatherium entityBabyMegatherium && event.getItemStack().is(UPItems.DINO_POUCH.get())) {
-           ItemStack slotPouch = UPItems.SLOTH_POUCH_ARMOR.get().getDefaultInstance();
-           CompoundTag tag = slotPouch.getTag();
-           Level level = event.getLevel();
-           tag.put("megatherium", entityBabyMegatherium.serializeNBT());
-           tag.putBoolean("tamed", entityBabyMegatherium.isTame());
-           long currentTime = level.getGameTime();
-           tag.putLong("gameTime", currentTime);
-           slotPouch.setTag(tag);
-           entityBabyMegatherium.discard();
-           //ItemStack itemstack2 = ItemUtils.createFilledResult(event.getItemStack(), event.getEntity(),slotPouch );
-        }
-    }
-
-
-    @SubscribeEvent
     //cant be canceled
     public void preventClick(PlayerInteractEvent.LeftClickEmpty event) {
         if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
