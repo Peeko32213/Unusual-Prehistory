@@ -316,7 +316,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
             }
         }
 
-        return super.isAlliedTo(entityIn);
+        return entityIn.is(this);
     }
 
     @Override

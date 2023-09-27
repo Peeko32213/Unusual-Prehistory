@@ -114,7 +114,10 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
     public boolean isAngryAt(LivingEntity p_21675_) {
         return this.canAttack(p_21675_);
     }
-
+    @Override
+    public boolean isAlliedTo(Entity pEntity) {
+        return pEntity.is(this);
+    }
     @Override
     public boolean canAttack(LivingEntity entity) {
         boolean prev = super.canAttack(entity);

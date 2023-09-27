@@ -37,6 +37,7 @@ import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.scores.Team;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -119,6 +120,8 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
+
+
 
     public void performAttack() {
         if (this.level.isClientSide) {
@@ -300,7 +303,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
             }
         }
 
-        return super.isAlliedTo(entityIn);
+        return entityIn.is(this);
     }
 
 

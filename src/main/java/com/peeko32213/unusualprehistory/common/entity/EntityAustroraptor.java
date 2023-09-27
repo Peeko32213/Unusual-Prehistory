@@ -164,6 +164,11 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     }
 
     @Override
+    public boolean isAlliedTo(Entity pEntity) {
+        return pEntity.is(this);
+    }
+
+    @Override
     public boolean doHurtTarget(Entity target) {
         boolean shouldHurt;
         float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);

@@ -130,6 +130,10 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
         return super.mobInteract(pPlayer, pHand);
     }
 
+    @Override
+    public boolean isAlliedTo(Entity pEntity) {
+        return pEntity.is(this);
+    }
 
     private Ingredient getTemptationItems() {
         if (temptationItems == null)

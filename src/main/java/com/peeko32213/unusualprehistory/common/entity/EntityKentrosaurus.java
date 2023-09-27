@@ -134,6 +134,11 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
         this.entityData.set(ENTITY_STATE, anim);
     }
 
+    @Override
+    public boolean isAlliedTo(Entity pEntity) {
+        return pEntity.is(this);
+    }
+
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();

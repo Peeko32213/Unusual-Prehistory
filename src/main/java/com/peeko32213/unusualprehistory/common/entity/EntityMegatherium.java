@@ -272,7 +272,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
             }
         }
 
-        return super.isAlliedTo(entityIn);
+        return entityIn.is(this);
     }
 
     @Override

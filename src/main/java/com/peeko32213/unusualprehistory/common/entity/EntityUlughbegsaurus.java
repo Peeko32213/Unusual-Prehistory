@@ -524,7 +524,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             }
         }
 
-        return super.isAlliedTo(entityIn);
+        return entityIn.is(this);
     }
 
     public int getCommand() {
