@@ -172,6 +172,11 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
         this.entityData.set(ENTITY_STATE, anim);
     }
 
+    @Override
+    public boolean isAlliedTo(Entity pEntity) {
+        return pEntity.is(this);
+    }
+
     static class AntarcoMeleeAttackGoal extends Goal {
 
         protected final EntityAntarctopelta mob;

@@ -94,7 +94,10 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
 
         return temptationItems;
     }
-
+    @Override
+    public boolean isAlliedTo(Entity pEntity) {
+        return pEntity.is(this);
+    }
     public void tick() {
         super.tick();
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {

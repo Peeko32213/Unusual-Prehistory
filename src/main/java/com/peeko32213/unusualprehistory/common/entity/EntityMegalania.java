@@ -119,6 +119,11 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         return prev;
     }
 
+    @Override
+    public boolean isAlliedTo(Entity pEntity) {
+        return pEntity.is(this);
+    }
+
     public void travel(Vec3 vec3d) {
         if (this.isAsleep()) {
             if (this.getNavigation().getPath() != null) {

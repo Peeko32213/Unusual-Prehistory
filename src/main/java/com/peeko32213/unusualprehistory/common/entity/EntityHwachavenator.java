@@ -180,7 +180,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             }
         }
 
-        return super.isAlliedTo(entityIn);
+        return entityIn.is(this);
     }
 
 

@@ -186,6 +186,11 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         this.entityData.set(ENTITY_STATE, anim);
     }
 
+    @Override
+    public boolean isAlliedTo(Entity pEntity) {
+        return pEntity.is(this);
+    }
+
     static class ApeMeleeAttackGoal extends Goal {
 
         protected final EntityGigantopithicus mob;
