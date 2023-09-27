@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.block.BlockBigLeavesArea;
 import com.peeko32213.unusualprehistory.common.block.*;
 import com.peeko32213.unusualprehistory.common.block.decorations.BlockFossilDecoration;
 import com.peeko32213.unusualprehistory.common.block.plant.*;
@@ -293,32 +294,7 @@ public class UPBlocks {
             () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
 
     public static final RegistryObject<Block> FOXXI_LEAVES = registerBlock("foxxi_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)) {
-
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return true;
-                }
-
-                @Override
-                public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 60;
-                }
-
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 30;
-                }
-
-                protected boolean decaying(BlockState state) {
-                    return !state.getValue(PERSISTENT) && state.getValue(DISTANCE) == 15;
-                }
-
-
-                public boolean isRandomlyTicking(BlockState pState) {
-                    return pState.getValue(DISTANCE) == 15 && !pState.getValue(PERSISTENT);
-                }
-            });
+            () -> new BlockBigLeavesArea(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), 15, 60, 30 , true));
 
     public static final RegistryObject<StairBlock> FOXXI_STAIRS = registerBlock("foxxi_stairs",
             () -> new StairBlock(() -> FOXXI_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(FOXXI_PLANKS.get())));
@@ -428,33 +404,7 @@ public class UPBlocks {
             () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
 
     public static final RegistryObject<Block> DRYO_LEAVES = registerBlock("dryo_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)) {
-
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return true;
-                }
-
-                @Override
-                public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 60;
-                }
-
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 30;
-                }
-
-                protected boolean decaying(BlockState state) {
-                    return !state.getValue(PERSISTENT) && state.getValue(DISTANCE) == 12;
-                }
-
-
-                public boolean isRandomlyTicking(BlockState pState) {
-                    return pState.getValue(DISTANCE) == 12 && !pState.getValue(PERSISTENT);
-                }
-
-            });
+            () -> new BlockBigLeavesArea(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), 7, 60, 30, true));
 
     public static final RegistryObject<StairBlock> DRYO_STAIRS = registerBlock("dryo_stairs",
             () -> new StairBlock(() -> FOXXI_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(FOXXI_PLANKS.get())));

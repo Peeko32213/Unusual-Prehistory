@@ -251,7 +251,9 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        determineVariant(random.nextInt(100));
+        if(pReason != MobSpawnType.BUCKET) {
+            determineVariant(random.nextInt(100));
+        }
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 

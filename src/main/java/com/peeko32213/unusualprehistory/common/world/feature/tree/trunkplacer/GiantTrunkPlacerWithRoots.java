@@ -18,6 +18,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 public class GiantTrunkPlacerWithRoots extends TrunkPlacer {
 
@@ -94,10 +95,14 @@ public class GiantTrunkPlacerWithRoots extends TrunkPlacer {
     }
 
 
-
-
     private void placeLogIfFreeWithOffset(LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, RandomSource pRandom, BlockPos.MutableBlockPos pPos, TreeConfiguration pConfig, BlockPos pOffsetPos, int pOffsetX, int pOffsetY, int pOffsetZ) {
+        this.placeLogIfFreeWithOffset(pLevel, pBlockSetter, pRandom, pPos , pConfig, pOffsetPos, pOffsetX ,pOffsetY , pOffsetZ, Function.identity());
+    }
+
+    private void placeLogIfFreeWithOffset(LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, RandomSource pRandom, BlockPos.MutableBlockPos pPos, TreeConfiguration pConfig, BlockPos pOffsetPos, int pOffsetX, int pOffsetY, int pOffsetZ, Function<BlockState, BlockState> pPropertySetter) {
         pPos.setWithOffset(pOffsetPos, pOffsetX, pOffsetY, pOffsetZ);
-        this.placeLogIfFree(pLevel, pBlockSetter, pRandom, pPos, pConfig);
+        pBlockSetter.accept(pPos, pPropertySetter.apply(pConfig.trunkProvider.getState(pRandom, pPos)));
+        //this.placeLog(pLevel, pBlockSetter, pRandom, pPos, pConfig);
+        //this.placeLogIfFree(pLevel, pBlockSetter, pRandom, pPos, pConfig);
     }
 }
