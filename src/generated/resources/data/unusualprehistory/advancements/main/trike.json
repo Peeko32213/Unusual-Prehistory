@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_trike"
-    ],
-    [
-      "interact_trike"
-    ],
-    [
+      "damage_trike",
+      "interact_trike",
       "killed_trike"
     ]
   ]

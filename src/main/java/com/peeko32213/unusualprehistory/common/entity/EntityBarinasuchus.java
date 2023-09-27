@@ -73,7 +73,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new EntityBarinasuchus.BarinMeleeAttackGoal(this,  1.0F, true));
+        this.goalSelector.addGoal(1, new EntityBarinasuchus.BarinMeleeAttackGoal(this,  2.0F, true));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34) {
                     @Override

@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_rex"
-    ],
-    [
-      "interact_rex"
-    ],
-    [
+      "damage_rex",
+      "interact_rex",
       "killed_rex"
     ]
   ]

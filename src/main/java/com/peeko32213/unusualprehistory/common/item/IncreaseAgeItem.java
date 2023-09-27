@@ -24,7 +24,7 @@ public class IncreaseAgeItem extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
-        if(pInteractionTarget instanceof Animal animal && animal.getType().is(toAge) && animal.getAge() < 0){
+        if(pInteractionTarget instanceof Animal animal && animal.getType().is(toAge)){
             if(!pPlayer.level.isClientSide) {
                 int percentageAge = (int) (24000D * (age / 100D));
                 int currentAge = animal.getAge();

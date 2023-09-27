@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_pachy"
-    ],
-    [
-      "interact_pachy"
-    ],
-    [
+      "damage_pachy",
+      "interact_pachy",
       "killed_pachy"
     ]
   ]

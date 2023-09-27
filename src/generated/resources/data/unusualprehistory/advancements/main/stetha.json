@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_stetha"
-    ],
-    [
-      "interact_stetha"
-    ],
-    [
+      "damage_stetha",
+      "interact_stetha",
       "killed_stetha"
     ]
   ]

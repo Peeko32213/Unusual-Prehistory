@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_ammon"
-    ],
-    [
-      "interact_ammon"
-    ],
-    [
+      "damage_ammon",
+      "interact_ammon",
       "killed_ammon"
     ]
   ]

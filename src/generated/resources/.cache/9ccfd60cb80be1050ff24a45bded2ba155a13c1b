@@ -1,4 +1,4 @@
-// 1.19.2	2023-09-20T20:52:53.3789097	unusualprehistory Block Tags
+// 1.19.2	2023-09-27T13:35:24.4886655	unusualprehistory Block Tags
 debe8c18f123ad9423e8563eeb2f7c47542e6672 data/minecraft/tags/blocks/buttons.json
 3dc74d776e39d9ddeeb390e35bb4c16d035881a1 data/minecraft/tags/blocks/corals.json
 e6afd6c925171023d0cd3e728553bf722ac86176 data/minecraft/tags/blocks/coral_blocks.json
@@ -26,11 +26,12 @@ cf5435fa98165144da25fa3b2f1d598e1b7674f3 data/minecraft/tags/blocks/wooden_butto
 dbbe0218522c0b8a0b3cf9e2c8c4e56a92452157 data/minecraft/tags/blocks/wooden_doors.json
 13a3a20a21c195285c271b3970cbd9643e99c466 data/minecraft/tags/blocks/wooden_fences.json
 2c6e5ad5cf2b5b3331a78686dbcddccb3a7bdad5 data/unusualprehistory/tags/blocks/angry_brachi_breakables.json
-d6bc79380a108eef6352d3b6645c893ea765bd72 data/unusualprehistory/tags/blocks/club_whitelist_blocks.json
+22cf9ac269d1dd09f11eab7a295b2e94e0dca36d data/unusualprehistory/tags/blocks/club_whitelist_blocks.json
 5187a24433360eb57df62cb5f1524e9b878a3c83 data/unusualprehistory/tags/blocks/dino_hatchable_blocks.json
 5c33505e4006139d172985356b79c88f69f92e0b data/unusualprehistory/tags/blocks/dino_natural_spawnable.json
 82aeade700265a023adf13ac5e3866b479208176 data/unusualprehistory/tags/blocks/eryon_diggables.json
 a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/unusualprehistory/tags/blocks/megatherium_breakables.json
+cf2efa0478be7469db536ca38e684ab491d7920f data/unusualprehistory/tags/blocks/megatherium_mineables.json
 2b77d8fe56780d981657eeb468fe4e343301b4d3 data/unusualprehistory/tags/blocks/passive_brachi_breakables.json
 2c6e5ad5cf2b5b3331a78686dbcddccb3a7bdad5 data/unusualprehistory/tags/blocks/rex_breakables.json
 d151bd3bdf63b9b9019d27f177f7f5c7f9c357b7 data/unusualprehistory/tags/blocks/talapanas_diggables.json

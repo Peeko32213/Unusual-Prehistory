@@ -81,7 +81,18 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
     @Override
     public void tick() {
         super.tick();
-        //LOGGER.info("last hurt by " + this.getLastHurtByMob());
+
+        if(tradingCooldownTimer > 0){
+            tradingCooldownTimer--;
+        }
+        tickHunger();
+
+
+
+    }
+
+
+    public void tickHunger(){
         if(!canGetHungry()) {
             return;
         }
@@ -92,11 +103,6 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
             this.setHungry(true);
             lastTimeSinceHungry = 0;
         }
-
-        if(tradingCooldownTimer > 0){
-            tradingCooldownTimer--;
-        }
-
     }
 
     public void killed() {

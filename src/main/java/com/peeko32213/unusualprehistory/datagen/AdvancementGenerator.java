@@ -39,7 +39,7 @@ public class AdvancementGenerator extends AdvancementProvider {
 
         Advancement analyzer = getAdvancement(fossil, (ItemLike)UPBlocks.ANALYZER.get(), "craft_analyzer", FrameType.TASK, true, true, false)
                 .addCriterion("anaylzer", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.ANALYZER.get()))
-                .save(consumer, this.getNameId("main/anaylzer"));
+                .save(consumer, this.getNameId("main/analyzer"));
 
         Advancement amberFossil = getAdvancement(fossil, (ItemLike)UPItems.AMBER_FOSSIL.get(), "acquire_amber_fossil", FrameType.CHALLENGE, true, true, true)
                 .addCriterion("amber_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.AMBER_FOSSIL.get()))
@@ -92,13 +92,14 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_ammon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.AMMON.get())))))
                 .addCriterion("interact_ammon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.AMMON.get()).build())))
                 .addCriterion("killed_ammon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.AMMON.get())))
+                .requirements(RequirementsStrategy.OR)
                 .save(consumer, this.getNameId("main/ammon"));
 
-        Advancement ammon_drop = getAdvancement(ammon, (ItemLike)UPItems.SHELL_SHARD.get(), "obtain_ammon_drop", FrameType.CHALLENGE, true, true, true)
+        Advancement ammon_drop = getAdvancement(ammon, (ItemLike)UPItems.SHELL_SHARD.get(), "obtain_ammon_drop", FrameType.TASK, true, true, true)
                 .addCriterion("shell_shard", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.SHELL_SHARD.get()))
                 .save(consumer, this.getNameId("main/ammon_drop"));
 
-        Advancement ammon_weapon = getAdvancement(ammon_drop, (ItemLike)UPItems.WARPICK.get(), "obtain_ammon_weapon", FrameType.CHALLENGE, true, true, true)
+        Advancement ammon_weapon = getAdvancement(ammon_drop, (ItemLike)UPItems.WARPICK.get(), "obtain_ammon_weapon", FrameType.TASK, true, true, true)
                 .addCriterion("warpick", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.WARPICK.get()))
                 .save(consumer, this.getNameId("main/ammon_weapon"));
 
@@ -106,6 +107,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_antarcto", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ANTARCO.get())))))
                 .addCriterion("interact_antarcto", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.ANTARCO.get()).build())))
                 .addCriterion("killed_antarcto", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ANTARCO.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/antarcto"));
 
         Advancement antarcto_weapon = getAdvancement(antarcto, (ItemLike)UPItems.PRIMAL_MACUAHUITL.get(), "obtain_antarcto_weapon", FrameType.CHALLENGE, true, true, true)
@@ -116,6 +119,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_austro", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.AUSTRO.get())))))
                 .addCriterion("interact_austro", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.AUSTRO.get()).build())))
                 .addCriterion("killed_austro", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.AUSTRO.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/austro"));
 
         Advancement austro_boots = getAdvancement(austro, (ItemLike)UPItems.AUSTRO_BOOTS.get(), "obtain_austro_boots", FrameType.CHALLENGE, true, true, true)
@@ -126,6 +131,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_beelze", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.BEELZ.get())))))
                 .addCriterion("interact_beelze", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.BEELZ.get()).build())))
                 .addCriterion("killed_beelze", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.BEELZ.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/beelze"));
 
         Advancement beelze_riding = getAdvancement(beelze, (ItemLike)UPItems.MEAT_ON_A_STICK.get(), "obtain_meat_stick", FrameType.CHALLENGE, true, true, true)
@@ -136,30 +143,40 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_pachy", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.PACHY.get())))))
                 .addCriterion("interact_pachy", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.PACHY.get()).build())))
                 .addCriterion("killed_pachy", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.PACHY.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/pachy"));
 
         Advancement ulugh = getAdvancement(eggs, (ItemLike)UPItems.ULUGH_FLASK.get(), "interact_ulugh", FrameType.TASK, true, true, true)
                 .addCriterion("damage_ulugh", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ULUG.get())))))
                 .addCriterion("interact_ulugh", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.ULUG.get()).build())))
                 .addCriterion("killed_ulugh", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ULUG.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/ulugh"));
 
         Advancement kentro = getAdvancement(eggs, (ItemLike)UPItems.KENTRO_FLASK.get(), "interact_kentro", FrameType.TASK, true, true, true)
                 .addCriterion("damage_kentro", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.KENTRO.get())))))
                 .addCriterion("interact_kentro", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.KENTRO.get()).build())))
                 .addCriterion("killed_kentro", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.KENTRO.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/kentro"));
 
         Advancement stetha = getAdvancement(eggs, (ItemLike)UPItems.STETHA_FLASK.get(), "interact_stetha", FrameType.TASK, true, true, true)
                 .addCriterion("damage_stetha", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.STETHACANTHUS.get())))))
                 .addCriterion("interact_stetha", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.STETHACANTHUS.get()).build())))
                 .addCriterion("killed_stetha", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.STETHACANTHUS.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/stetha"));
 
         Advancement eryon = getAdvancement(eggs, (ItemLike)UPItems.ERYON_FLASK.get(), "interact_eryon", FrameType.TASK, true, true, true)
                 .addCriterion("damage_eryon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ERYON.get())))))
                 .addCriterion("interact_eryon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.ERYON.get()).build())))
                 .addCriterion("killed_eryon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ERYON.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/eryon"));
 
         Advancement fossil_stand = getAdvancement(eryon, (ItemLike) UPBlocks.ERYON_FOSSIL.get(), "obtain_fossil_stand", FrameType.TASK, true, true, true)
@@ -186,18 +203,24 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_hwacha", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.HWACHA.get())))))
                 .addCriterion("interact_hwacha", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.HWACHA.get()).build())))
                 .addCriterion("killed_hwacha", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.HWACHA.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/hwacha"));
 
         Advancement brachi = getAdvancement(eggs, (ItemLike)UPItems.BRACHI_FLASK.get(), "interact_brachi", FrameType.TASK, true, true, true)
                 .addCriterion("damage_brachi", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.BRACHI.get())))))
                 .addCriterion("interact_brachi", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.BRACHI.get()).build())))
                 .addCriterion("killed_brachi", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.BRACHI.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/brachi"));
 
         Advancement scau = getAdvancement(eggs, (ItemLike)UPItems.SCAU_FLASK.get(), "interact_scau", FrameType.TASK, true, true, true)
                 .addCriterion("damage_scau", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.SCAU.get())))))
                 .addCriterion("interact_scau", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.SCAU.get()).build())))
                 .addCriterion("killed_scau", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.SCAU.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/scau"));
 
         Advancement golden_scau = getAdvancement(scau, (ItemLike)UPItems.GOLDEN_SCAU.get(), "obtain_golden_scau", FrameType.CHALLENGE, true, true, true)
@@ -209,6 +232,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_majunga", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.MAJUNGA.get())))))
                 .addCriterion("interact_majunga", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.MAJUNGA.get()).build())))
                 .addCriterion("killed_scau", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MAJUNGA.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/majunga"));
 
         Advancement majunga_helmet = getAdvancement(majunga, (ItemLike)UPItems.MAJUNGA_HELMET.get(), "obtain_majunga_helmet", FrameType.TASK, true, true, true)
@@ -219,6 +244,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_veloci", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.VELOCI.get())))))
                 .addCriterion("interact_veloci", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.VELOCI.get()).build())))
                 .addCriterion("killed_veloci", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.VELOCI.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/veloci"));
 
         Advancement veloci_shield = getAdvancement(veloci, (ItemLike)UPItems.VELOCI_SHIELD.get(), "obtain_veloci_shield", FrameType.CHALLENGE, true, true, true)
@@ -229,18 +256,24 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_dunk", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.DUNK.get())))))
                 .addCriterion("interact_dunk", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.DUNK.get()).build())))
                 .addCriterion("killed_dunk", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.DUNK.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/dunk"));
 
         Advancement anuro = getAdvancement(eggs, (ItemLike)UPItems.ANURO_FLASK.get(), "interact_anuro", FrameType.TASK, true, true, true)
                 .addCriterion("damage_anuro", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ANURO.get())))))
                 .addCriterion("interact_anuro", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.ANURO.get()).build())))
                 .addCriterion("killed_anuro", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ANURO.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/anuro"));
 
         Advancement trike = getAdvancement(eggs, (ItemLike)UPItems.TRIKE_FLASK.get(), "interact_trike", FrameType.TASK, true, true, true)
                 .addCriterion("damage_trike", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TRIKE.get())))))
                 .addCriterion("interact_trike", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.TRIKE.get()).build())))
                 .addCriterion("killed_trike", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TRIKE.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/trike"));
 
         Advancement trike_shield = getAdvancement(trike, (ItemLike)UPItems.TRIKE_SHIELD.get(), "obtain_trike_shield", FrameType.CHALLENGE, true, true, true)
@@ -251,6 +284,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_coty", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.COTY.get())))))
                 .addCriterion("interact_coty", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.COTY.get()).build())))
                 .addCriterion("killed_coty", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.COTY.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/coty"));
 
         Advancement grog = getAdvancement(coty, (ItemLike)UPItems.GROG.get(), "obtain_grog", FrameType.CHALLENGE, true, true, true)
@@ -261,6 +296,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_rex", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.COTY.get())))))
                 .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.REX.get()).build())))
                 .addCriterion("killed_rex", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.COTY.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/rex"));
 
         Advancement rex_defeat = getAdvancement(rex, (ItemLike)UPItems.REX_TOOTH.get(), "rex_passify", FrameType.CHALLENGE, true, true, true)
@@ -271,6 +308,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_smilodon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get())))))
                 .addCriterion("interact_smilodon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get()).build())))
                 .addCriterion("killed_smilodon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/smilodon"));
 
         Advancement insulator = getAdvancement(smilodon, (ItemLike)UPItems.INSULATOR.get(), "obtain_insulator", FrameType.TASK, true, true, false)
@@ -285,6 +324,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_palaeo", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get())))))
                 .addCriterion("interact_palaeo", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get()).build())))
                 .addCriterion("killed_palaeo", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/palaeophis"));
 
         Advancement shedscale = getAdvancement(palaeo, (ItemLike)UPItems.PALAEO_SKIN.get(), "obtain_shedscale", FrameType.CHALLENGE, true, true, true)
@@ -298,6 +339,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_gigantopithicus", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.GIGANTOPITHICUS.get())))))
                 .addCriterion("interact_gigantopithicus", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.GIGANTOPITHICUS.get()).build())))
                 .addCriterion("killed_gigantopithicus", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.GIGANTOPITHICUS.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/gigantopithicus"));
 
         Advancement giganto_weapon = getAdvancement(giganto, (ItemLike)UPItems.HANDMADE_SPEAR.get(), "obtain_monkey_weapon", FrameType.CHALLENGE, true, true, true)
@@ -306,7 +349,7 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("handmade_club", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.HANDMADE_CLUB.get()))
                 .save(consumer, this.getNameId("main/gigantopithicus_weapons"));
 
-        Advancement giganto_fruits = getAdvancement(giganto, (ItemLike)UPItems.RED_FRUIT.get(), "obtain_monkey_fruits", FrameType.TASK, true, true, true)
+        Advancement giganto_fruits = getAdvancement(giganto, (ItemLike)UPItems.RED_FRUIT.get(), "obtain_monkey_fruits", FrameType.CHALLENGE, true, true, true)
                 .addCriterion("red_fruit", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.RED_FRUIT.get()))
                 .addCriterion("white_fruit", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.WHITE_FRUIT.get()))
                 .addCriterion("yellow_fruit", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.YELLOW_FRUIT.get()))
@@ -317,18 +360,24 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_talapanas", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get())))))
                 .addCriterion("interact_talapanas", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get()).build())))
                 .addCriterion("killed_talapanas", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/talapanas"));
 
         Advancement mammoth = getAdvancement(birthingPod, (ItemLike)UPItems.MAMMOTH_FLASK.get(), "interact_mammoth", FrameType.TASK, true, true, true)
                 .addCriterion("damage_mammoth", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.MAMMOTH.get())))))
                 .addCriterion("interact_mammoth", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.MAMMOTH.get()).build())))
                 .addCriterion("killed_mammoth", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MAMMOTH.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/mammoth"));
 
         Advancement barina = getAdvancement(birthingPod, (ItemLike)UPItems.BARIN_FLASK.get(), "interact_barina", FrameType.TASK, true, true, true)
                 .addCriterion("damage_barina", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get())))))
                 .addCriterion("interact_barina", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get()).build())))
                 .addCriterion("killed_barina", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/barina"));
 
         Advancement tameBarina = getAdvancement(barina, (ItemLike)UPItems.BARINA_WHISTLE.get(), "tame_barina", FrameType.TASK, true, true, true)
@@ -339,12 +388,16 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("damage_paracer", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.PARACERATHERIUM.get())))))
                 .addCriterion("interact_paracer", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.PARACERATHERIUM.get()).build())))
                 .addCriterion("killed_paracer", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.PARACERATHERIUM.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/paraceratherium"));
 
         Advancement megalania = getAdvancement(birthingPod, (ItemLike)UPItems.MEGALA_FLASK.get(), "interact_megala", FrameType.TASK, true, true, true)
                 .addCriterion("damage_megala", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))))
                 .addCriterion("interact_megala", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get()).build())))
                 .addCriterion("killed_megala", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))
+                .requirements(RequirementsStrategy.OR)
+
                 .save(consumer, this.getNameId("main/megalania"));
 
         Advancement petrified = getAdvancement(fossil, (ItemLike) UPBlocks.PETRIFIED_WOOD_LOG.get(), "petrified_wood", FrameType.TASK, true, true, true)

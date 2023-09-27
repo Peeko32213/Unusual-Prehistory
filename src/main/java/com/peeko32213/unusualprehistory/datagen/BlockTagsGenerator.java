@@ -98,6 +98,11 @@ public class BlockTagsGenerator extends BlockTagsProvider {
         tag(UPTags.MEGATHERIUM_EATABLES)
                 .addTag(BlockTags.LEAVES);
 
+        tag(UPTags.MEGATHERIUM_MINEABLES)
+                .addTag(BlockTags.LEAVES)
+                .addTag(BlockTags.DIRT)
+                .addTag(BlockTags.BASE_STONE_OVERWORLD);
+
         tag(UPTags.ERYON_DIGGABLES)
                 .add(Blocks.SAND);
 
@@ -465,7 +470,12 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .addTags(BlockTags.BASE_STONE_OVERWORLD)
                 .addTags(BlockTags.TERRACOTTA)
                 .add(Blocks.SANDSTONE)
-                .add(Blocks.RED_SANDSTONE);
+                .add(Blocks.RED_SANDSTONE)
+                .add(Blocks.TNT)
+                .add(Blocks.ANVIL)
+                .add(Blocks.CHIPPED_ANVIL)
+                .add(Blocks.DAMAGED_ANVIL)
+        ;
 
         tag(UPTags.ZULOAGAE_PLANTABLE_ON)
                 .addTags(BlockTags.SAND)

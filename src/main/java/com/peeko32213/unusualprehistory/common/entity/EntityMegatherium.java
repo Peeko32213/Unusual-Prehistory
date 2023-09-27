@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -244,7 +245,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
             for (int x = -2; x < 2; x++) {
                 for (int z = -2; z < 2; z++) {
                     for (int y = 0; y < 5; y++) {
-                        if (serverLevel.getBlockState(targetPos.offset(x, y, z)).is(BlockTags.DIRT))
+                        if (serverLevel.getBlockState(targetPos.offset(x, y, z)).is(UPTags.MEGATHERIUM_MINEABLES))
                             serverLevel.destroyBlock(targetPos.offset(x, y, z), true);
                     }
                 }

@@ -33,6 +33,7 @@ public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider
         tag(UPTags.IS_ANTARCTO_BIOME).add(Biomes.OLD_GROWTH_BIRCH_FOREST).add(Biomes.OLD_GROWTH_PINE_TAIGA).add(Biomes.OLD_GROWTH_SPRUCE_TAIGA);
         tag(UPTags.IS_ULUG_BIOME).addTags(BiomeTags.IS_BEACH).addTags(BiomeTags.IS_RIVER);
         tag(UPTags.IS_KENTRO_BIOME).addTag(BiomeTags.IS_JUNGLE).addTag(Tags.Biomes.IS_SWAMP).addTags(BiomeTags.IS_FOREST);
+        tag(UPTags.IS_ENCRUSTED_BIOME).addTag(Tags.Biomes.IS_UNDERGROUND);
         tag(UPTags.IS_HWACHA_BIOME).addTag(Tags.Biomes.IS_SWAMP);
         tag(UPTags.IS_MAMMOTH_BIOME).addTags(Tags.Biomes.IS_PLAINS).addTag(Tags.Biomes.IS_COLD);
         tag(UPTags.IS_PALAEO_BIOME).add(Biomes.WARM_OCEAN);

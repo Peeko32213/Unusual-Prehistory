@@ -31,6 +31,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -49,7 +50,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
-public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketable, NeutralMob, IAnimatable {
+public class EntityStethacanthus extends AbstractSchoolingFish implements Bucketable, NeutralMob, IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
@@ -66,10 +67,8 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityStethacanthus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityStethacanthus.class, EntityDataSerializers.BOOLEAN);
 
-    public EntityStethacanthus(EntityType<? extends SchoolingWaterAnimal> entityType, Level level) {
+    public EntityStethacanthus(EntityType<? extends AbstractSchoolingFish> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
         this.maxUpStep = 0.9f;
     }
 
@@ -80,6 +79,7 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
     }
 
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
@@ -89,18 +89,6 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 3.0D, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.7D, 1) {
-            @Override
-            public boolean canUse() {
-                return super.canUse() && isInWater();
-            }
-        });
-        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.7D, 15) {
-            @Override
-            public boolean canUse() {
-                return !this.mob.isInWater() && super.canUse();
-            }
-        });
     }
 
     public void checkDespawn() {
@@ -140,17 +128,6 @@ public class EntityStethacanthus extends SchoolingWaterAnimal implements Bucketa
         return 7;
     }
 
-
-    public void aiStep() {
-        if (!this.isInWater() && this.onGround && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((double) ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), (double) 0.4F, (double) ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.onGround = false;
-            this.hasImpulse = true;
-            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-        }
-
-        super.aiStep();
-    }
 
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(5);

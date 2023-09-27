@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_barina"
-    ],
-    [
-      "interact_barina"
-    ],
-    [
+      "damage_barina",
+      "interact_barina",
       "killed_barina"
     ]
   ]
