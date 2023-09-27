@@ -271,7 +271,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL, "Deepslate Amber Ore");
         addBlock(UPBlocks.ANALYZER, "Analyzer");
         addBlock(UPBlocks.CULTIVATOR, "Cultivator");
-        addBlock(UPBlocks.DNA_FRIDGE, "Dna Fridge");
+        addBlock(UPBlocks.DNA_FRIDGE, "DNA Fridge");
         addBlock(UPBlocks.AMBER_GLASS, "Amber Glass");
         addBlock(UPBlocks.REX_HEAD, "Rex Head Mount");
         addBlock(UPBlocks.AMMONITE_SHELL, "Ammonite Shell");
@@ -708,7 +708,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.advancement.interact_giganto.desc", "Revive a Gigantopithicus");
 
         add("unusualprehistory.advancement.obtain_monkey_weapon", "Blood, Sweat, and Bamboo");
-        add("unusualprehistory.advancement.obtain_monkey_weapon.desc", "Acquire Any Handmade Weapon");
+        add("unusualprehistory.advancement.obtain_monkey_weapon.desc", "Acquire All Handmade Weapons!");
 
         add("unusualprehistory.advancement.obtain_monkey_fruits", "Strange Fruits");
         add("unusualprehistory.advancement.obtain_monkey_fruits.desc", "Acquire Any of the Fruits from Gigantopithicus");
@@ -731,8 +731,8 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.advancement.petrified_wood", "Odd Looking Wood");
         add("unusualprehistory.advancement.petrified_wood.desc", "Find Some Petrified Wood");
 
-        add("unusualprehistory.advancement.plants", "Unusual Botany");
-        add("unusualprehistory.advancement.plants.desc", "Revive your First Prehistoric Plant");
+        add("unusualprehistory.advancement.prehistoric_plants", "Unusual Botany");
+        add("unusualprehistory.advancement.prehistoric_plants.desc", "Revive your First Prehistoric Plant");
 
         add("unusualprehistory.advancement.ginkgo", "Priest of Hiroshima");
         add("unusualprehistory.advancement.ginkgo.desc", "Revive a Prehistoric Ginkgo Tree");

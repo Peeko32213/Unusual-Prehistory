@@ -347,8 +347,8 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("killed_megala", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))
                 .save(consumer, this.getNameId("main/megalania"));
 
-        Advancement petrified = getAdvancement(fossil, (ItemLike) UPBlocks.PETRIFIED_WOOD.get(), "petrified_wood", FrameType.TASK, true, true, true)
-                .addCriterion("petrified_wood", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.PETRIFIED_WOOD.get()))
+        Advancement petrified = getAdvancement(fossil, (ItemLike) UPBlocks.PETRIFIED_WOOD_LOG.get(), "petrified_wood", FrameType.TASK, true, true, true)
+                .addCriterion("petrified_wood", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.PETRIFIED_WOOD_LOG.get()))
                 .requirements(RequirementsStrategy.OR)
                 .save(consumer, this.getNameId("main/petrified"));
 
