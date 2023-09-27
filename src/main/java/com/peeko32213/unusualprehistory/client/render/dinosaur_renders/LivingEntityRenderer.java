@@ -20,7 +20,7 @@ public class LivingEntityRenderer<T extends LivingEntity & IAnimatable> extends 
 
     @Override
     public RenderType getRenderType(T animatable, float partialTick, PoseStack poseStack, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, int packedLight, ResourceLocation texture) {
-        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
+        return RenderType.entityCutout(getTextureLocation(animatable));
     }
 
 

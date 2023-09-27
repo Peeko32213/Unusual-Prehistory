@@ -55,7 +55,7 @@
     "description": {
       "translate": "unusualprehistory.advancement.obtain_monkey_fruits.desc"
     },
-    "frame": "task",
+    "frame": "challenge",
     "hidden": true,
     "icon": {
       "item": "unusualprehistory:red_fruit"

@@ -1,5 +1,5 @@
 {
-  "parent": "unusualprehistory:main/anaylzer",
+  "parent": "unusualprehistory:main/analyzer",
   "criteria": {
     "cultivator": {
       "conditions": {

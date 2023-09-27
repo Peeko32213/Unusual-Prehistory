@@ -28,6 +28,7 @@
         "Name": "unusualprehistory:dryo_leaves",
         "Properties": {
           "distance": "7",
+          "distance_big": "1",
           "persistent": "false",
           "waterlogged": "false"
         }

@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_dunk"
-    ],
-    [
-      "interact_dunk"
-    ],
-    [
+      "damage_dunk",
+      "interact_dunk",
       "killed_dunk"
     ]
   ]

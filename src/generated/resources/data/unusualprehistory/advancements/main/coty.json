@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_coty"
-    ],
-    [
-      "interact_coty"
-    ],
-    [
+      "damage_coty",
+      "interact_coty",
       "killed_coty"
     ]
   ]

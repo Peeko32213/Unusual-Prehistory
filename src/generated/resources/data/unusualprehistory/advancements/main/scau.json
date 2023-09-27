@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_scau"
-    ],
-    [
-      "interact_scau"
-    ],
-    [
+      "damage_scau",
+      "interact_scau",
       "killed_scau"
     ]
   ]

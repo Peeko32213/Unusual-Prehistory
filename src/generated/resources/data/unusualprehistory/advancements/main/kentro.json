@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_kentro"
-    ],
-    [
-      "interact_kentro"
-    ],
-    [
+      "damage_kentro",
+      "interact_kentro",
       "killed_kentro"
     ]
   ]

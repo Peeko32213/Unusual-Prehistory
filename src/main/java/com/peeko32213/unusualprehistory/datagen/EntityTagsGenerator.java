@@ -304,6 +304,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(EntityType.GOAT)
                 .add(UPEntities.COTY.get())
                 .add(UPEntities.PACHY.get())
+                .addTag(UPTags.HERBIVORES)
                 .addOptional(new ResourceLocation("alexsmobs:rocky_roller"))
                 .addOptional(new ResourceLocation("alexsmobs:anaconda"))
                 .addOptional(new ResourceLocation("alexsmobs:bunfungus"))

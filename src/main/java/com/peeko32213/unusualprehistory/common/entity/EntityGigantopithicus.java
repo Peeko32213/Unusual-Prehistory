@@ -282,7 +282,6 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
 
         public void tick() {
 
-
             LivingEntity target = this.mob.getTarget();
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);

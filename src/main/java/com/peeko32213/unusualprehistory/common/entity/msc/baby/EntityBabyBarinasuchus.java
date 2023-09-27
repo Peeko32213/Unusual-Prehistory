@@ -150,7 +150,12 @@ public class EntityBabyBarinasuchus extends EntityTameableBaseDinosaurAnimal imp
                 frog.setCustomName(this.getCustomName());
                 frog.setCustomNameVisible(this.isCustomNameVisible());
             }
-
+            if (this.isTame()) {
+                Player player = this.level.getPlayerByUUID(this.getOwnerUUID());
+                if (player != null) {
+                    frog.tame(player);
+                }
+            }
             frog.setPersistenceRequired();
             this.playSound(SoundEvents.PLAYER_LEVELUP, 0.15F, 1.0F);
             server.addFreshEntityWithPassengers(frog);

@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_gigantopithicus"
-    ],
-    [
-      "interact_gigantopithicus"
-    ],
-    [
+      "damage_gigantopithicus",
+      "interact_gigantopithicus",
       "killed_gigantopithicus"
     ]
   ]

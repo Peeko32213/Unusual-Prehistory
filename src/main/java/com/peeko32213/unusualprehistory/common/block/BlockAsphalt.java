@@ -25,9 +25,9 @@ public class BlockAsphalt extends Block {
     @Override
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
         if(pEntity.hasControllingPassenger()){
-            pEntity.setDeltaMovement(pEntity.getDeltaMovement().normalize().scale(0.6));
+            pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(pEntity.getDeltaMovement().normalize().scale(0.3)));
         } else {
-            pEntity.setDeltaMovement(pEntity.getDeltaMovement().normalize().scale(0.2));
+            pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(pEntity.getDeltaMovement().normalize().scale(0.1)));
         }
         super.stepOn(pLevel, pPos, pState, pEntity);
     }

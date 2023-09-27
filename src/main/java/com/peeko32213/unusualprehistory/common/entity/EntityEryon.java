@@ -66,6 +66,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     private Ingredient temptationItems;
     public float prevFeedProgress;
     public float feedProgress;
+
     public EntityEryon(EntityType<? extends PathfinderMob> p_21683_, Level p_21684_) {
         super(p_21683_, p_21684_);
     }
@@ -145,9 +146,9 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         Level level = p_28134_.getLevel();
         this.setPersistenceRequired();
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.001){
+        if (variantChange <= 0.001) {
             this.setVariant(1);
-        }else{
+        } else {
             this.setVariant(0);
         }
         return p_28137_;
@@ -158,7 +159,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     }
 
     private Ingredient getTemptationItems() {
-        if(temptationItems == null)
+        if (temptationItems == null)
             temptationItems = Ingredient.merge(Lists.newArrayList(
                     Ingredient.of(ItemTags.FISHES)
             ));
@@ -194,9 +195,11 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     public boolean isFromBook() {
         return this.entityData.get(FROM_BOOK).booleanValue();
     }
+
     public void setIsFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
     }
+
     public void tick() {
         super.tick();
         this.prevFeedProgress = feedProgress;
@@ -206,29 +209,30 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         if (this.getFeedingTime() <= 0 && feedProgress > 0F) {
             feedProgress--;
         }
-        BlockPos feedingPos = this.entityData.get(FEEDING_POS).orElse(null);
-        if(feedingPos == null){
-            float f2 = (float) -((float) this.getDeltaMovement().y * 2.2F * (double) (180F / (float) Math.PI));
-            this.setXRot(f2);
-        }else if(this.getFeedingTime() > 0){
-            Vec3 face = Vec3.atCenterOf(feedingPos).subtract(this.position());
-            double d0 = face.horizontalDistance();
-            this.setXRot((float)(-Mth.atan2(face.y, d0) * (double)(180F / (float)Math.PI)));
-            this.setYRot(((float) Mth.atan2(face.z, face.x)) * (180F / (float) Math.PI) - 90F);
-            this.yBodyRot = this.getYRot();
-            this.yHeadRot = this.getYRot();
-            BlockState state = level.getBlockState(feedingPos);
-            if(random.nextInt(2) == 0 && !state.isAir()){
-                Vec3 mouth = new Vec3(0, this.getBbHeight() * 0.5F, 0.4F * -0.5).xRot(this.getXRot() * ((float)Math.PI / 180F)).yRot(-this.getYRot() * ((float)Math.PI / 180F));
-                for (int i = 0; i < 4 + random.nextInt(2); i++) {
-                    double motX = this.random.nextGaussian() * 0.02D;
-                    double motY = 0.1F + random.nextFloat() * 0.2F;
-                    double motZ = this.random.nextGaussian() * 0.02D;
-                    level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + mouth.x, this.getY() + mouth.y, this.getZ() + mouth.z, motX, motY, motZ);
-                }
-            }
-        }
+       //BlockPos feedingPos = this.entityData.get(FEEDING_POS).orElse(null);
+       //if (feedingPos == null) {
+       //    float f2 = (float) -((float) this.getDeltaMovement().y * 2.2F * (double) (180F / (float) Math.PI));
+       //    this.setXRot(f2);
+       //} else if (this.getFeedingTime() > 0) {
+       //    Vec3 face = Vec3.atCenterOf(feedingPos).subtract(this.position());
+       //    double d0 = face.horizontalDistance();
+       //    this.setXRot((float) (-Mth.atan2(face.y, d0) * (double) (180F / (float) Math.PI)));
+       //    this.setYRot(((float) Mth.atan2(face.z, face.x)) * (180F / (float) Math.PI) - 90F);
+       //    this.yBodyRot = this.getYRot();
+       //    this.yHeadRot = this.getYRot();
+       //    BlockState state = level.getBlockState(feedingPos);
+       //    if (random.nextInt(2) == 0 && !state.isAir()) {
+       //        Vec3 mouth = new Vec3(0, this.getBbHeight() * 0.5F, 0.4F * -0.5).xRot(this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.getYRot() * ((float) Math.PI / 180F));
+       //        for (int i = 0; i < 4 + random.nextInt(2); i++) {
+       //            double motX = this.random.nextGaussian() * 0.02D;
+       //            double motY = 0.1F + random.nextFloat() * 0.2F;
+       //            double motZ = this.random.nextGaussian() * 0.02D;
+       //            level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + mouth.x, this.getY() + mouth.y, this.getZ() + mouth.z, motX, motY, motZ);
+       //        }
+       //    }
+       //}
     }
+
     private class DigSandGoal extends Goal {
         private final int searchLength;
         private final int verticalSearchRange;
@@ -238,6 +242,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         private int maxFeedTime = 200;
         private final int MAX_TIME = 6000;
         private int timer = 0;
+        private int cooldownTime;
         private DigSandGoal(EntityEryon crab) {
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
             this.crab = crab;
@@ -246,7 +251,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         }
 
         public boolean canContinueToUse() {
-            return destinationBlock != null && isDigBlock(crab.level, destinationBlock.mutable()) && isCloseToMoss(16) || !(timer > MAX_TIME);
+            return destinationBlock != null && isDigBlock(crab.level, destinationBlock.mutable()) && isCloseToMoss(16) && !(timer > MAX_TIME) && !(cooldownTime > 0);
         }
 
         public boolean isCloseToMoss(double dist) {
@@ -255,8 +260,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
 
         @Override
         public boolean canUse() {
-            if (this.runDelay > 0) {
-                --this.runDelay;
+            if (--this.runDelay > 0 || --this.cooldownTime > 0) {
                 return false;
             } else {
                 this.runDelay = 200 + crab.random.nextInt(150);
@@ -264,25 +268,26 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
             }
         }
 
-        public void start(){
+        public void start() {
             maxFeedTime = 60 + random.nextInt(60);
         }
 
         public void tick() {
+            if (destinationBlock == null) stop();
             Vec3 vec = Vec3.atCenterOf(destinationBlock);
             if (vec != null) {
                 timer++;
-                if(crab.blockPosition().offset(0,-1,0) != destinationBlock){
-                    crab.getNavigation().moveTo(vec.x, vec.y, vec.z, 1F);
-                } else if(crab.distanceToSqr(vec) < 1F){
+                double dist = crab.blockPosition().distToCenterSqr(vec.x, vec.y, vec.z);
+                if (dist > 2D) {
+                    crab.getNavigation().moveTo(vec.x - 0.5, vec.y + 1, vec.z - 0.5, 1F);
+                } else if (crab.distanceToSqr(vec) <= 2F) {
                     crab.entityData.set(FEEDING_POS, Optional.of(destinationBlock));
                     Vec3 face = vec.subtract(crab.position());
                     crab.setDeltaMovement(crab.getDeltaMovement().add(face.normalize().scale(0.1F)));
                     crab.setFeedingTime(crab.getFeedingTime() + 1);
                     crab.playSound(SoundEvents.SAND_BREAK, crab.getSoundVolume(), crab.getVoicePitch());
-                    if(crab.getFeedingTime() > maxFeedTime){
-                        destinationBlock = null;
-                        if(random.nextInt(1) == 0) {
+                    if (crab.getFeedingTime() > maxFeedTime) {
+                        if (random.nextInt(1) == 0) {
                             List<ItemStack> lootList = getDigLoot(crab);
                             if (lootList.size() > 0) {
                                 for (ItemStack stack : lootList) {
@@ -291,18 +296,40 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
                                     e.setDeltaMovement(e.getDeltaMovement().multiply(0.2, 0.2, 0.2));
                                 }
                             }
+
+                        }
+                        stop();
+                    } else {
+                        BlockPos feedingPos = this.crab.entityData.get(FEEDING_POS).orElse(null);
+                        double d0 = face.horizontalDistance();
+                        this.crab.setXRot((float) (-Mth.atan2(face.y, d0) * (double) (180F / (float) Math.PI)));
+                        this.crab.setYRot(((float) Mth.atan2(face.z, face.x)) * (180F / (float) Math.PI) - 90F);
+                        this.crab.yBodyRot = this.crab.getYRot();
+                        this.crab.yHeadRot = this.crab.getYRot();
+                        BlockState state = level.getBlockState(feedingPos);
+                        if (random.nextInt(2) == 0 && !state.isAir()) {
+                            Vec3 mouth = new Vec3(0, this.crab.getBbHeight() * 0.5F, 0.4F * -0.5).xRot(this.crab.getXRot() * ((float) Math.PI / 180F)).yRot(-this.crab.getYRot() * ((float) Math.PI / 180F));
+                            for (int i = 0; i < 4 + random.nextInt(2); i++) {
+                                double motX = this.crab.random.nextGaussian() * 0.02D;
+                                double motY = 0.1F + random.nextFloat() * 0.2F;
+                                double motZ = this.crab.random.nextGaussian() * 0.02D;
+                                ((ServerLevel)level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), this.crab.getX() - mouth.x, this.crab.getY() + mouth.y, this.crab.getZ() - mouth.z, 1,  motX, motY, motZ, 0.1D);
+                            }
                         }
                     }
-                }else{
+                } else {
                     crab.entityData.set(FEEDING_POS, Optional.empty());
                 }
             }
+
+
         }
 
         public void stop() {
+            super.stop();
             crab.entityData.set(FEEDING_POS, Optional.empty());
-            destinationBlock = null;
             crab.setFeedingTime(0);
+            this.cooldownTime = 3000;
         }
 
         protected boolean searchForDestination() {
@@ -351,7 +378,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
@@ -359,8 +386,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.eryon.walk"));
                 event.getController().setAnimationSpeed(1.5D);
             }
-        }
-        else {
+        } else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.eryon.idle"));
             event.getController().setAnimationSpeed(1.0D);
         }
@@ -387,7 +413,9 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     public AnimationFactory getFactory() {
         return this.factory;
     }
+
     public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends EntityEryon> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE)  && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();    }
+        return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
+    }
 
 }

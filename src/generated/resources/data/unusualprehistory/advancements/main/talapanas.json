@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_talapanas"
-    ],
-    [
-      "interact_talapanas"
-    ],
-    [
+      "damage_talapanas",
+      "interact_talapanas",
       "killed_talapanas"
     ]
   ]

@@ -93,10 +93,7 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
         super.mobInteract(p_218703_, p_218704_);
 
         ItemStack itemstack = p_218703_.getItemInHand(p_218704_);
-        if(itemstack.is(UPItems.DINO_POUCH.get())){
-            InteractionResult interactionresult = itemstack.interactLivingEntity(p_218703_, this, p_218704_);
-        }
-
+        InteractionResult interactionresult = itemstack.interactLivingEntity(p_218703_, this, p_218704_);
 
         if (this.isFood(itemstack)) {
             this.eatFood(p_218703_, itemstack);
@@ -110,7 +107,7 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
 
     private void eatFood(Player player, ItemStack stack) {
         this.decrementItem(player, stack);
-        this.increaseAge((int)((float)(this.getTicksUntilGrowth() / 20) * 0.1F));
+        this.increaseAge((int) ((float) (this.getTicksUntilGrowth() / 20) * 0.1F));
         this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
     }
 
@@ -141,6 +138,11 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
         return null;
     }
 
+    @Override
+    protected void ageBoundaryReached() {
+        super.ageBoundaryReached();
+    }
+
     public void setAge(int age) {
         this.age = age;
         if (this.age >= MAX_TADPOLE_AGE) this.growUp();
@@ -158,6 +160,14 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
                 frog.setCustomName(this.getCustomName());
                 frog.setCustomNameVisible(this.isCustomNameVisible());
             }
+
+            if (this.isTame()) {
+                Player player = this.level.getPlayerByUUID(this.getOwnerUUID());
+                if (player != null) {
+                    frog.tame(player);
+                }
+            }
+            
 
             frog.setPersistenceRequired();
             this.playSound(SoundEvents.PLAYER_LEVELUP, 0.15F, 1.0F);
@@ -185,6 +195,7 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
     protected SoundEvent getDeathSound() {
         return UPSounds.MEGATHER_DEATH.get();
     }
+
     @Override
     protected SoundEvent getAttackSound() {
         return null;
@@ -246,13 +257,11 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
                 return PlayState.CONTINUE;
 
             }
-        }
-        else {
+        } else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.baby_megatherium.idle"));
         }
         return PlayState.CONTINUE;
     }
-
 
 
     @Override

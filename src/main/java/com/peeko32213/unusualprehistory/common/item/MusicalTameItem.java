@@ -97,9 +97,8 @@ public class MusicalTameItem extends Item {
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, int pTimeCharged) {
         if (pLivingEntity instanceof ServerPlayer player) {
-
             int i = this.getUseDuration(pStack) - pTimeCharged;
-            if (i < 99) {
+            if (i < 80) {
                 player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.too_early").withStyle(ChatFormatting.GRAY));
                 return;
             }

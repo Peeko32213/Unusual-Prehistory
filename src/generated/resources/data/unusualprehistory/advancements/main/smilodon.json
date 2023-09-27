@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_smilodon"
-    ],
-    [
-      "interact_smilodon"
-    ],
-    [
+      "damage_smilodon",
+      "interact_smilodon",
       "killed_smilodon"
     ]
   ]

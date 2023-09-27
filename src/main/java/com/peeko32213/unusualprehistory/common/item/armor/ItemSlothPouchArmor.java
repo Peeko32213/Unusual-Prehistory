@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -53,6 +54,7 @@ public class ItemSlothPouchArmor extends GeoArmorItem implements IAnimatable {
                 if (tag.getBoolean("tamed") && !babyMegatherium.isTame()) {
                     babyMegatherium.tame(pPlayer);
                 }
+                babyMegatherium.setAge(-24000);
                 babyMegatherium.setUUID(UUID.randomUUID());
                 pLevel.addFreshEntity(babyMegatherium);
             }
@@ -68,13 +70,9 @@ public class ItemSlothPouchArmor extends GeoArmorItem implements IAnimatable {
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
         if (pLevel.isClientSide || pSlotId != EquipmentSlot.CHEST.getIndex()) return;
-        UnusualPrehistory.LOGGER.info("Chest? " + EquipmentSlot.CHEST.getIndex());
-        if (!pStack.hasTag() || pStack.getTag() == null) return;
+        if (!pStack.hasTag() || pStack.getTag() == null || !pStack.getTag().contains("megatherium") || !pStack.getTag().contains("gameTime")) addTag(pStack, pLevel);
         CompoundTag tag = pStack.getTag();
         if (tag.contains("gameTime") && tag.contains("megatherium")) {
-            //EntityBabyMegatherium babyMegatherium = UPEntities.BABY_MEGATHERIUM.get().create(pLevel);
-            //babyMegatherium.deserializeNBT(tag.getCompound("megatherium"));
-            //babyMegatherium.setPos(pEntity.position());
             long currentTime = pLevel.getGameTime();
             long timeToCheck = tag.getLong("gameTime");
             long checkTime = currentTime - tameTime; //72000 is one hour
@@ -85,6 +83,17 @@ public class ItemSlothPouchArmor extends GeoArmorItem implements IAnimatable {
         super.inventoryTick(pStack, pLevel, pEntity, pSlotId, pIsSelected);
     }
 
+    public ItemStack addTag(ItemStack stack, Level level){
+        CompoundTag tag = stack.getTag();
+        EntityBabyMegatherium entityBabyMegatherium = UPEntities.BABY_MEGATHERIUM.get().create(level);
+        tag.put("megatherium", entityBabyMegatherium.serializeNBT());
+        tag.putBoolean("tamed", entityBabyMegatherium.isTame());
+        long currentTime = level.getGameTime();
+        tag.putLong("gameTime", currentTime);
+        stack.setTag(tag);
+        return stack;
+    }
+
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         CompoundTag tag = pStack.getTag();
@@ -92,6 +101,9 @@ public class ItemSlothPouchArmor extends GeoArmorItem implements IAnimatable {
             long currentTime = pLevel.getGameTime();
             long timeToCheck = tag.getLong("gameTime");
             int minutesLeft = (int) Math.ceil((((tameTime - (currentTime - timeToCheck))) * 0.05F)/ 60F);
+            if(minutesLeft < 0){
+                minutesLeft = 0;
+            }
             if (tag.getBoolean("tamed")) {
                 MutableComponent component = Component.translatable("unusualprehistory.megatherium_baby.tame_tooltip", tag.getBoolean("tamed")).withStyle(ChatFormatting.AQUA);
                 pTooltipComponents.add(component);

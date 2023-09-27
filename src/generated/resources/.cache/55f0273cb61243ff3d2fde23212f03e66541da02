@@ -1,4 +1,4 @@
-// 1.19.2	2023-09-20T20:35:10.6282	Tags for minecraft:worldgen/biome
+// 1.19.2	2023-09-27T13:35:24.492659	Tags for minecraft:worldgen/biome
 afd9da16b8e57511d3b12c69ccd4555d71ebb29f data/unusualprehistory/tags/worldgen/biome/is_ammon_biome.json
 b0df3b2f6141dce35a16bb95148a6ff4821c7a48 data/unusualprehistory/tags/worldgen/biome/is_antarcto_biome.json
 589afa42d505a96240cc0dd94313f013f1d171fd data/unusualprehistory/tags/worldgen/biome/is_anuro_biome.json
@@ -8,6 +8,7 @@ b0df3b2f6141dce35a16bb95148a6ff4821c7a48 data/unusualprehistory/tags/worldgen/bi
 123a8c4cf362352d397dc85738c4e8bb2ef2dc40 data/unusualprehistory/tags/worldgen/biome/is_brachi_biome.json
 45707864d688ef531d52bd0287366ea1e7736874 data/unusualprehistory/tags/worldgen/biome/is_coty_biome.json
 4e2349a9acdd444a39b16cb1ed573045190a4b8b data/unusualprehistory/tags/worldgen/biome/is_dunk_biome.json
+06d846b5e910c1373b52152765403847fc50079f data/unusualprehistory/tags/worldgen/biome/is_encrusted_biome.json
 a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/unusualprehistory/tags/worldgen/biome/is_eryon_biome.json
 c3d4e55bd4ed5d178abb10df76626eccdab7c209 data/unusualprehistory/tags/worldgen/biome/is_giganto_biome.json
 2baf25447b6e6be292fa28c96583cdcde3854de8 data/unusualprehistory/tags/worldgen/biome/is_hwacha_biome.json

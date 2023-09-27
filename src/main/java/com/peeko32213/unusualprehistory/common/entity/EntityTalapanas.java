@@ -184,14 +184,13 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
-       if(this.isPassenger()){
+       if(this.isPassenger() && pSource.isFall()){
            return false;
        }
         return super.hurt(pSource, pAmount);
     }
 
     public void tick() {
-        super.tick();
         super.tick();
         if (soundTimer > 0) {
             soundTimer--;
@@ -535,6 +534,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
 
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }

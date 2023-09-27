@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_brachi"
-    ],
-    [
-      "interact_brachi"
-    ],
-    [
+      "damage_brachi",
+      "interact_brachi",
       "killed_brachi"
     ]
   ]

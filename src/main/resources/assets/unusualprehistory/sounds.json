@@ -511,10 +511,6 @@
       {
         "name": "unusualprehistory:raptor_death_0",
         "volume": 0.5
-      },
-      {
-        "name": "unusualprehistory:raptor_death_1",
-        "volume": 0.5
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.raptor_death"

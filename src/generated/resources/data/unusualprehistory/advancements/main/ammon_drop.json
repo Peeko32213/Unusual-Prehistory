@@ -19,7 +19,7 @@
     "description": {
       "translate": "unusualprehistory.advancement.obtain_ammon_drop.desc"
     },
-    "frame": "challenge",
+    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "unusualprehistory:shell_shard"

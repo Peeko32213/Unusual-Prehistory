@@ -11,6 +11,7 @@
     "minecraft:goat",
     "unusualprehistory:coty",
     "unusualprehistory:pachy",
+    "#unusualprehistory:herbivores",
     {
       "id": "alexsmobs:rocky_roller",
       "required": false

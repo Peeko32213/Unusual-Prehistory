@@ -60,12 +60,8 @@
   },
   "requirements": [
     [
-      "damage_megala"
-    ],
-    [
-      "interact_megala"
-    ],
-    [
+      "damage_megala",
+      "interact_megala",
       "killed_megala"
     ]
   ]
