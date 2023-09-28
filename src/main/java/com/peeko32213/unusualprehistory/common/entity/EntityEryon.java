@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -16,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -54,7 +56,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class EntityEryon extends PathfinderMob implements IAnimatable {
+public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable {
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
@@ -67,7 +69,7 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
     public float prevFeedProgress;
     public float feedProgress;
 
-    public EntityEryon(EntityType<? extends PathfinderMob> p_21683_, Level p_21684_) {
+    public EntityEryon(EntityType<? extends EntityBaseDinosaurAnimal> p_21683_, Level p_21684_) {
         super(p_21683_, p_21684_);
     }
 
@@ -132,6 +134,51 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         }
     }
 
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
+    }
+
     public boolean removeWhenFarAway(double d) {
         return !this.hasCustomName();
     }
@@ -152,6 +199,12 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
             this.setVariant(0);
         }
         return p_28137_;
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+        return null;
     }
 
     public boolean isFood(ItemStack stack) {
@@ -414,8 +467,6 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         return this.factory;
     }
 
-    public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends EntityEryon> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
-    }
+
 
 }
