@@ -121,7 +121,10 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
-
+    @Override
+    public float getStepHeight() {
+        return 1.5F;
+    }
 
     public void performAttack() {
         if (this.level.isClientSide) {
