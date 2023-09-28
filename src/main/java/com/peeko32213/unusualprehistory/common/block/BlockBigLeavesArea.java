@@ -92,7 +92,7 @@ public class BlockBigLeavesArea extends LeavesBlock {
         if (pNeighbor.is(BlockTags.LOGS)) {
             return 0;
         } else {
-            return pNeighbor.getBlock() instanceof LeavesBlock ? pNeighbor.getValue(DISTANCE_BIG) : decayDistance;
+            return pNeighbor.getBlock() instanceof BlockBigLeavesArea ? pNeighbor.getValue(DISTANCE_BIG) : decayDistance;
         }
     }
 
