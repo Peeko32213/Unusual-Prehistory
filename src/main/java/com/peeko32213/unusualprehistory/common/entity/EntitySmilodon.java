@@ -79,6 +79,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
 
     }
 
+
     public int groomTimer;
 
     @Override
