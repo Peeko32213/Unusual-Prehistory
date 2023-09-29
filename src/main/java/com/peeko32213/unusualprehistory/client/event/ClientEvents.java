@@ -259,6 +259,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), PalaeophisRenderer::new);
         event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
         event.registerEntityRenderer(UPEntities.ENTITY_TRAIL.get(), EntityTrailRenderer::new);
+        event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new SludgeModel()));
 
 
         event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));

@@ -396,6 +396,9 @@ public class UPItems {
 
     public static final RegistryObject<ForgeSpawnEggItem> MEGALANIA_EGG = registerSpawnEggs("megalania_spawn_egg",
             UPEntities.MEGALANIA , 0x2e2319, 0x96874b);
+
+    public static final RegistryObject<ForgeSpawnEggItem> SLUDGE_EGG = registerSpawnEggs("sludge_spawn_egg",
+            UPEntities.SLUDGE , 0x0a090a, 0x282627);
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

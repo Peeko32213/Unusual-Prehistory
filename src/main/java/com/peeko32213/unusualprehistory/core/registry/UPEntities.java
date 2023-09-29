@@ -208,6 +208,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityBabyBarinasuchus::new, MobCategory.CREATURE).sized(1.3f, 0.5f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_barina").toString()));
 
+    public static final RegistryObject<EntityType<EntitySludge>> SLUDGE = ENTITIES.register("sludge",
+            () -> EntityType.Builder.of(EntitySludge::new, MobCategory.MONSTER).sized(3.0f, 3.0f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "sludge").toString()));
+
     public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
             () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
                     .fireImmune().sized(1, 1).noSummon()
