@@ -258,6 +258,10 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         return 1.2F;
     }
 
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
+    }
+
     public boolean isAlliedTo(Entity entityIn) {
         if (this.isTame()) {
             LivingEntity livingentity = this.getOwner();

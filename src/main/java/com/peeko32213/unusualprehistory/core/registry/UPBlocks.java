@@ -434,7 +434,7 @@ public class UPBlocks {
             () -> new Block(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
 
     public static final RegistryObject<Block> OPAL_BLOCK = registerBlock("opal_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_LIGHT_BLUE).strength(0.5F).speedFactor(0.4F).sound(SoundType.AMETHYST)));
+            () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_LIGHT_BLUE).strength(0.5F).sound(SoundType.AMETHYST)));
 
     public static final RegistryObject<Block> INCUBATOR = registerBlock("incubator",
             () -> new BlockIncubator(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.METAL).noOcclusion()));

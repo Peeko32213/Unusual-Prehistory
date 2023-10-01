@@ -9,6 +9,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -373,6 +374,11 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     protected SoundEvent getDeathSound() {
         return UPSounds.BEELZE_DEATH.get();
     }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(SoundEvents.FROG_STEP, 0.1F, 1.0F);
+    }
+
     @Override
     protected SoundEvent getAttackSound() {
         return null;

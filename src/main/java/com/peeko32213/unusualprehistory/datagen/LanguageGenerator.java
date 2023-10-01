@@ -559,6 +559,14 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.PALAEO_BITE, "Hissing Snap");
         addSound(UPSounds.TAR_POP, "Tar Popping");
         addSound(UPSounds.TAR_AMBIENT, "Tar Settling");
+        addSound(UPSounds.MEGALANIA_DEATH, "Dying Hissing");
+        addSound(UPSounds.MEGALANIA_HURT, "Distressed Hissing");
+        addSound(UPSounds.MEGALANIA_IDLE, "Idling Hiss");
+        addSound(UPSounds.SLUDGE_DEATH, "Gurgling Death");
+        addSound(UPSounds.SLUDGE_HURT, "Painful Gurgles");
+        addSound(UPSounds.SLUDGE_IDLE, "Gurgles");
+        addSound(UPSounds.SLUDGE_SLAM, "Wet Slam");
+        addSound(UPSounds.SLUDGE_SLAP, "Wet Slap");
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");
         add("entity.unusualprehistory.all.command_1", "%s is following");

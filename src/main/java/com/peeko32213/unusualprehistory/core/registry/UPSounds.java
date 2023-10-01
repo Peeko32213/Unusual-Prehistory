@@ -135,6 +135,16 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> TAR_POP = createSoundEvent("tar_pop");
     public static final RegistryObject<SoundEvent> TAR_AMBIENT = createSoundEvent("tar_ambient");
 
+    public static final RegistryObject<SoundEvent> MEGALANIA_DEATH = createSoundEvent("megalania_death");
+    public static final RegistryObject<SoundEvent> MEGALANIA_HURT = createSoundEvent("megalania_hurt");
+    public static final RegistryObject<SoundEvent> MEGALANIA_IDLE = createSoundEvent("megalania_idle");
+
+    public static final RegistryObject<SoundEvent> SLUDGE_DEATH = createSoundEvent("sludge_death");
+    public static final RegistryObject<SoundEvent> SLUDGE_HURT = createSoundEvent("sludge_hurt");
+    public static final RegistryObject<SoundEvent> SLUDGE_IDLE = createSoundEvent("sludge_idle");
+    public static final RegistryObject<SoundEvent> SLUDGE_SLAM = createSoundEvent("sludge_slam");
+    public static final RegistryObject<SoundEvent> SLUDGE_SLAP = createSoundEvent("sludge_slap");
+
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));
     }

@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.TameableFollowOwn
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -187,6 +188,10 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
             this.setSprinting(false);
         }
         super.customServerAiStep();
+    }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
     protected SoundEvent getAmbientSound() {

@@ -78,15 +78,15 @@ public class EntitySludge extends EntityBaseDinosaurAnimal {
 
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.PARACER_IDLE.get();
+        return UPSounds.SLUDGE_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.PARACER_HURT.get();
+        return UPSounds.SLUDGE_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.PARACER_DEATH.get();
+        return UPSounds.SLUDGE_DEATH.get();
     }
 
     @Override
@@ -379,20 +379,21 @@ public class EntitySludge extends EntityBaseDinosaurAnimal {
 
         protected void preformSlamAttack () {
             Vec3 pos = mob.position();
+            this.mob.playSound(UPSounds.SLUDGE_SLAM.get(), 1.0F, 1.0F);
             HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),10.0f, 0.1f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
 
         protected void preformRightSlapAttack () {
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
+            this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
             HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),5.0f, 2.0f, mob, pos,  8.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
         }
 
         protected void preformLeftSlapAttack () {
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
+            this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
             HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),5.0f, 2.0f, mob, pos,  8.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
         }

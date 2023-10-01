@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.SleepRandomLookAroundGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -13,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -30,6 +32,7 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -385,6 +388,23 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         return data;
     }
 
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.15F, 1.0F);
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.MEGALANIA_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.MEGALANIA_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.MEGALANIA_DEATH.get();
+    }
+
+
     static class MegaMeleeAttackGoal extends Goal {
 
         protected final EntityMegalania mob;
@@ -594,6 +614,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
 
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
+            this.mob.playSound(UPSounds.PALAEO_BITE.get(), 1.0F, 1.0F);
             HitboxHelper.PivotedPolyHitCheck(this.mob, this.biteOffSet, 3f, 2f, 2f, (ServerLevel)this.mob.getLevel(), 5f, DamageSource.mobAttack(mob), 0.5f, false);
             List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(1));
             for (LivingEntity e : list) {
@@ -605,11 +626,13 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
 
         protected void preformClawAttack () {
             Vec3 pos = mob.position();
+            this.mob.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 1.0F, 1.0F);
             HitboxHelper.PivotedPolyHitCheck(this.mob, this.clawOffSet, 2f, 2f, 2f, (ServerLevel)this.mob.getLevel(), 8f, DamageSource.mobAttack(mob), 0.5f, true);
         }
 
         protected void preformWhipAttack () {
             Vec3 pos = mob.position();
+            this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
             HitboxHelper.PivotedPolyHitCheck(this.mob, this.whipOffSet, 5f, 1f, 5f, (ServerLevel)this.mob.getLevel(), 6f, DamageSource.mobAttack(mob), 1.1f, false);
         }
 
