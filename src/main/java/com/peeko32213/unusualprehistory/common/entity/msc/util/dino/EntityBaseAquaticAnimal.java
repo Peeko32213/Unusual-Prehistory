@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
+import com.peeko32213.unusualprehistory.common.entity.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -36,7 +38,7 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAnimatable {
+public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAnimatable, IBookEntity, IHatchableEntity {
     private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.INT);
 
@@ -246,6 +248,12 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
      *                      The value should be within the range [0, 100].
      */
     public void determineVariant(int variantChange) {
+    }
+
+
+    @Override
+    public void setFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
     }
 
     @Nullable

@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block;
 
+import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ambient.Bat;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -161,18 +163,15 @@ public class BlockDinosaurLandEggs extends Block {
                 for (int j = 0; j < state.getValue(EGGS); ++j) {
                     worldIn.levelEvent(4001, pos, Block.getId(state));
                     Mob dinosaurToSpawn = (Mob) dinosaur.get().create(worldIn);
+                    if(dinosaurToSpawn instanceof IHatchableEntity hatchableEntity){
+                        hatchableEntity.determineVariant(random.nextInt(100));
+                    }
 
-                    if(dinosaurToSpawn instanceof EntityBaseDinosaurAnimal baseAnimal){
-                        baseAnimal.setAge(-24000);
-                        baseAnimal.determineVariant(random.nextInt(100));
+
+                    if(dinosaurToSpawn instanceof Animal animal){
+                        animal.setAge(-24000);
                     }
-                    if(dinosaurToSpawn instanceof EntityTameableBaseDinosaurAnimal baseTame){
-                        baseTame.setAge(-24000);
-                        baseTame.determineVariant(random.nextInt(100));
-                    }
-                    if(dinosaurToSpawn instanceof EntityBaseAquaticAnimal waterDino){
-                        waterDino.determineVariant(random.nextInt(100));
-                    }
+
                     dinosaurToSpawn.restrictTo(pos, 20);
                     dinosaurToSpawn.moveTo((double) pos.getX() + 0.3D + (double) j * 0.2D, pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);
                     if (!worldIn.isClientSide) {

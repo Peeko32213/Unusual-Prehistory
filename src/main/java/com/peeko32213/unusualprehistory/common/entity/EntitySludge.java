@@ -26,6 +26,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -41,24 +42,26 @@ import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.List;
 
-public class EntitySludge extends EntityBaseDinosaurAnimal {
-
+public class EntitySludge extends Monster implements IAnimatable {
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntitySludge.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntitySludge.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntitySludge.class, EntityDataSerializers.INT);
 
-    public EntitySludge(EntityType<? extends Animal> entityType, Level level) {
+    public EntitySludge(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0D)
-                .add(Attributes.ATTACK_DAMAGE, 10.0D)
+                .add(Attributes.ATTACK_DAMAGE, 15.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.12D)
                 .add(Attributes.ARMOR, 10.0D)
                 .add(Attributes.ARMOR_TOUGHNESS, 10.0D)
@@ -74,6 +77,7 @@ public class EntitySludge extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(1, new EntitySludge.SludgeMeleeAttackGoal(this, 2F, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+
     }
 
 
@@ -87,46 +91,6 @@ public class EntitySludge extends EntityBaseDinosaurAnimal {
 
     protected SoundEvent getDeathSound() {
         return UPSounds.SLUDGE_DEATH.get();
-    }
-
-    @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
     }
 
     public int getAnimationState() {
@@ -345,10 +309,10 @@ public class EntitySludge extends EntityBaseDinosaurAnimal {
         protected void tickRightSlapAttack () {
             animTime++;
             //this.mob.getNavigation().stop();
-            if(animTime>=15 && animTime < 18) {
+            if(animTime>=5 && animTime < 10) {
                 preformRightSlapAttack();
             }
-            if(animTime>=16) {
+            if(animTime>=10) {
                 animTime=0;
 
                 this.mob.setAnimationState(0);
@@ -362,10 +326,10 @@ public class EntitySludge extends EntityBaseDinosaurAnimal {
         protected void tickLeftSlapAttack () {
             animTime++;
             //this.mob.getNavigation().stop();
-            if(animTime>=25 && animTime < 30) {
+            if(animTime>=5 && animTime < 10) {
                 preformLeftSlapAttack();
             }
-            if(animTime>=30) {
+            if(animTime>=5) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -420,53 +384,42 @@ public class EntitySludge extends EntityBaseDinosaurAnimal {
         }
     }
 
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
-    }
-
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        return null;
-    }
-
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         int animState = this.getAnimationState();
 
 
-        {
+
             switch (animState) {
 
                 case 21:
                     event.getController().setAnimationSpeed(0.9F);
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.sludge.slam"));
-                    break;
+                    return PlayState.CONTINUE;
+
 
                 case 22:
                     event.getController().setAnimationSpeed(0.8F);
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.sludge.right_slap"));
-                    break;
+                    return PlayState.CONTINUE;
+
 
                 case 23:
                     event.getController().setAnimationSpeed(0.8F);
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.sludge.left_slap"));
-                    break;
+                    return PlayState.CONTINUE;
+
 
                 default:
                     if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.sludge.walk"));
-
+                        return PlayState.CONTINUE;
                     } else {
                         event.getController().setAnimationSpeed(1.0);
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.sludge.idle"));
+                        return PlayState.CONTINUE;
                     }
-                    break;
 
             }
-        }
-        return PlayState.CONTINUE;
     }
 
     @Override
@@ -474,5 +427,10 @@ public class EntitySludge extends EntityBaseDinosaurAnimal {
         data.setResetSpeedInTicks(5);
         AnimationController<EntitySludge> controller = new AnimationController<>(this, "controller", 5, this::predicate);
         data.addAnimationController(controller);
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
     }
 }

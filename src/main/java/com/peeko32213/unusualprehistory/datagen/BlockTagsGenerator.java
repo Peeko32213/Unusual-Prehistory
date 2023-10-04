@@ -101,7 +101,10 @@ public class BlockTagsGenerator extends BlockTagsProvider {
         tag(UPTags.MEGATHERIUM_MINEABLES)
                 .addTag(BlockTags.LEAVES)
                 .addTag(BlockTags.DIRT)
-                .addTag(BlockTags.BASE_STONE_OVERWORLD);
+                .addTag(BlockTags.SAND)
+                .add(Blocks.SNOW)
+                .add(Blocks.SNOW_BLOCK)
+                .add(Blocks.POWDER_SNOW);
 
         tag(UPTags.ERYON_DIGGABLES)
                 .add(Blocks.SAND);

@@ -50,7 +50,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
-public class EntityStethacanthus extends AbstractSchoolingFish implements Bucketable, NeutralMob, IAnimatable {
+public class EntityStethacanthus extends AbstractSchoolingFish implements Bucketable, NeutralMob, IAnimatable, IBookEntity {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
@@ -304,6 +304,11 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
         int i = pLevel.getSeaLevel();
         int j = i - 13;
         return pPos.getY() >= j && pPos.getY() <= i && pLevel.getFluidState(pPos.below()).is(FluidTags.WATER) && pLevel.getBlockState(pPos.above()).is(Blocks.WATER) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
+    }
+
+    @Override
+    public void setFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
     }
 }
 

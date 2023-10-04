@@ -7,7 +7,6 @@ import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.trail.EntityTrail;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -211,13 +210,6 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntitySludge>> SLUDGE = ENTITIES.register("sludge",
             () -> EntityType.Builder.of(EntitySludge::new, MobCategory.MONSTER).sized(3.0f, 3.0f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "sludge").toString()));
-
-    public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
-            () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
-                    .fireImmune().sized(1, 1).noSummon()
-                    .clientTrackingRange(4)
-                    .updateInterval(5)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "entity_trail").toString()));
 
     public static final RegistryObject<EntityType<IcebergMammoth>> ICEBERG_MAMMOTH = ENTITIES.register("iceberg_mammoth",
             () -> EntityType.Builder.<IcebergMammoth>of(IcebergMammoth::new, MobCategory.CREATURE)

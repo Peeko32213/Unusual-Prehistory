@@ -61,8 +61,6 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.BOOLEAN);
-
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private Ingredient temptationItems;
@@ -225,8 +223,6 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable
         this.entityData.define(FEEDING_TIME, 0);
         this.entityData.define(VARIANT, 0);
         this.entityData.define(FEEDING_POS, Optional.empty());
-        this.entityData.define(FROM_BOOK, false);
-
     }
 
     public int getVariant() {
@@ -245,14 +241,6 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable
         this.entityData.set(FEEDING_TIME, feedingTime);
     }
 
-    public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
-    }
-
-    public void setIsFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
     public void tick() {
         super.tick();
         this.prevFeedProgress = feedProgress;
@@ -262,28 +250,6 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable
         if (this.getFeedingTime() <= 0 && feedProgress > 0F) {
             feedProgress--;
         }
-       //BlockPos feedingPos = this.entityData.get(FEEDING_POS).orElse(null);
-       //if (feedingPos == null) {
-       //    float f2 = (float) -((float) this.getDeltaMovement().y * 2.2F * (double) (180F / (float) Math.PI));
-       //    this.setXRot(f2);
-       //} else if (this.getFeedingTime() > 0) {
-       //    Vec3 face = Vec3.atCenterOf(feedingPos).subtract(this.position());
-       //    double d0 = face.horizontalDistance();
-       //    this.setXRot((float) (-Mth.atan2(face.y, d0) * (double) (180F / (float) Math.PI)));
-       //    this.setYRot(((float) Mth.atan2(face.z, face.x)) * (180F / (float) Math.PI) - 90F);
-       //    this.yBodyRot = this.getYRot();
-       //    this.yHeadRot = this.getYRot();
-       //    BlockState state = level.getBlockState(feedingPos);
-       //    if (random.nextInt(2) == 0 && !state.isAir()) {
-       //        Vec3 mouth = new Vec3(0, this.getBbHeight() * 0.5F, 0.4F * -0.5).xRot(this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.getYRot() * ((float) Math.PI / 180F));
-       //        for (int i = 0; i < 4 + random.nextInt(2); i++) {
-       //            double motX = this.random.nextGaussian() * 0.02D;
-       //            double motY = 0.1F + random.nextFloat() * 0.2F;
-       //            double motZ = this.random.nextGaussian() * 0.02D;
-       //            level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + mouth.x, this.getY() + mouth.y, this.getZ() + mouth.z, motX, motY, motZ);
-       //        }
-       //    }
-       //}
     }
 
     private class DigSandGoal extends Goal {

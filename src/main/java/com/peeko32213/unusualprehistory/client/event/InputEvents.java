@@ -25,16 +25,10 @@ public class InputEvents {
     }
 
     private static void onInput(Minecraft mc, int key, int action) {
-        if (mc.screen == null && ClientEvents.roarKey.isDown()) {
-            UPMessages.sendToServer(new HwachaKeyInputMessage(key));
-            UPMessages.sendToServer(new TrikeKeyInputMessage(key));
-            UPMessages.sendToServer(new UlughKeyInputMessage(key));
-            UPMessages.sendToServer(new MegatheriumKeyInputMessage(key));
-        } else if(mc.screen == null && !ClientEvents.roarKey.isDown()){
-            UPMessages.sendToServer(new HwachaKeyOutputMessage(key));
-            UPMessages.sendToServer(new TrikeKeyOutputMessage(key));
-            UPMessages.sendToServer(new UlughKeyOutputMessage(key));
-            UPMessages.sendToServer(new MegatheriumKeyOutputMessage(key));
+        if (mc.screen == null && ClientEvents.roarKey.consumeClick()) {
+            UPMessages.sendToServer(new AttackInputMessage(key));
+        } else if(mc.screen == null && !ClientEvents.roarKey.consumeClick()){
+            UPMessages.sendToServer(new AttackOutputMessage(key));
         }
 
     }

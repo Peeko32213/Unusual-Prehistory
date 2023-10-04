@@ -51,7 +51,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 
-public class EntityAnurognathus extends AgeableMob implements IAnimatable, NeutralMob {
+public class EntityAnurognathus extends AgeableMob implements IAnimatable, NeutralMob, IBookEntity {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);    
     @javax.annotation.Nullable
     private UUID persistentAngerTarget;
@@ -384,6 +384,11 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         AnimationController<EntityAnurognathus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
         data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
         data.addAnimationController(controller);
+    }
+
+    @Override
+    public void setFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
     }
 
     private class AIFlyIdle extends Goal {
