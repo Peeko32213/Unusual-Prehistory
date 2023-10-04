@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
+import com.peeko32213.unusualprehistory.common.entity.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -42,7 +44,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal implements IAnimatable {
+public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal implements IAnimatable, IBookEntity, IHatchableEntity {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
@@ -349,6 +351,11 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
      * @param fromBook true if the entity should be set as from a book, false otherwise.
      */
     public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
+    }
+
+    @Override
+    public void setFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
     }
 

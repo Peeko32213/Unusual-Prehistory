@@ -423,7 +423,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.SCAU, "Scaumenacia");
         addEntityType(UPEntities.AMBER_SHOT, "Amber Shot");
         addEntityType(UPEntities.HWACHA_SPIKE, "Hwachavenator Pin");
-        addEntityType(UPEntities.ENTITY_TRAIL, "Trail");
         addEntityType(UPEntities.AUSTRO, "Austroraptor");
         addEntityType(UPEntities.ANTARCO, "Antarctopelta");
         addEntityType(UPEntities.ULUG, "Ulughbegsaurus");

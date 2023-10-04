@@ -15,7 +15,6 @@ import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntity
 import com.peeko32213.unusualprehistory.client.render.block.ThrowableFallingBlockRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
 import com.peeko32213.unusualprehistory.client.render.tool.FlatMovingThrownItemRenderer;
-import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
@@ -258,8 +257,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), PalaeophisRenderer::new);
         event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
-        event.registerEntityRenderer(UPEntities.ENTITY_TRAIL.get(), EntityTrailRenderer::new);
-        event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new SludgeModel()));
+        event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new SludgeModel()));
 
 
         event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));

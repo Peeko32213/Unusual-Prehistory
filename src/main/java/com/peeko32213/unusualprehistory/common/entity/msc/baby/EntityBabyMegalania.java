@@ -171,7 +171,6 @@ public class EntityBabyMegalania extends EntityTameableBaseDinosaurAnimal implem
         this.setVariant(0);
     }
 
-    @Override
     public void determineVariant(int variantChange) {
         if(this.getLevel().dimension() == Level.NETHER)
         {

@@ -1,7 +1,9 @@
 package com.peeko32213.unusualprehistory.common.world.feature;
 
 import com.mojang.serialization.Codec;
+import com.peeko32213.unusualprehistory.common.entity.EntitySludge;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,6 +17,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.phys.Vec3;
 
 import static net.minecraft.world.level.block.MultifaceBlock.getFaceProperty;
 
@@ -37,6 +40,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
 
         createTarPitFeature(worldGenLevel, blockPos, random, 15, 30, noiseTar, true);
         preProcessTarFeature(worldGenLevel, blockPos, random, 17, 15, noisePreprocessor,noiseTar ,true);
+        spawnTarMonster(worldGenLevel, blockPos);
         return true;
     }
 
@@ -162,7 +166,13 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
         //}
     }
 
-
+    private static void spawnTarMonster(WorldGenLevel worldgenlevel, BlockPos origin){
+        EntitySludge sludge = UPEntities.SLUDGE.get().create(worldgenlevel.getLevel());
+        sludge.requiresCustomPersistence();
+        sludge.setPersistenceRequired();
+        sludge.setPos(Vec3.atCenterOf(origin));
+        worldgenlevel.addFreshEntity(sludge);
+    }
     public static double distance(double x, double y, double z, double xRadius, double yRadius, double zRadius) {
         return Mth.square((double) x / (xRadius)) + Mth.square((double) y / (yRadius)) + Mth.square((double) z / (zRadius));
     }

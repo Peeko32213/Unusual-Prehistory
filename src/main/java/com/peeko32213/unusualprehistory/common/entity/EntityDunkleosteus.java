@@ -54,7 +54,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
+public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, IBookEntity {
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
@@ -580,6 +580,12 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable {
         return this.entityData.get(FROM_BOOK).booleanValue();
     }
     public void setIsFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
+    }
+
+
+    @Override
+    public void setFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
     }
 

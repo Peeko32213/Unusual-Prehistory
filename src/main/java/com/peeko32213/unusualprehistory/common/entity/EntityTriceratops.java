@@ -57,7 +57,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implements IAnimatable, CustomFollower {
+public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implements IAnimatable, CustomFollower, IAttackEntity {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
 
 
@@ -78,6 +78,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public static final Logger LOGGER = LogManager.getLogger();
     private int stunnedTick;
     private boolean canBePushed = true;
+    private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
 
     public EntityTriceratops(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
@@ -274,8 +275,10 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     public void tick() {
         super.tick();
-
-        //if (riderAttackCooldown > 0) {
+        if(attackCooldown > 0) {
+            attackCooldown--;
+        }
+        //if (riderAttackCool down > 0) {
         //    riderAttackCooldown--;
         //}
         //if(this.getControllingPassenger() != null && this.getControllingPassenger() instanceof Player){
@@ -681,6 +684,8 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     public void performAttack() {
         if (!this.level.isClientSide) {
+            this.goalSelector.getRunningGoals().forEach(WrappedGoal::stop);
+            this.setSwinging(true);
             for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D))) {
                 if (!(entity instanceof EntityTriceratops) && !(entity instanceof Player)) {
                     if (this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
@@ -688,7 +693,29 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
                     }
                 }
             }
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.23F);
         }
+    }
+
+    @Override
+    public void afterAttack() {
+        this.level.broadcastEntityEvent(this, (byte)5);
+        this.setSwinging(false);
+    }
+
+    @Override
+    public int getMaxAttackCooldown() {
+        return ATTACK_COOLDOWN;
+    }
+
+    @Override
+    public int getAttackCooldown() {
+        return attackCooldown;
+    }
+
+    @Override
+    public void setAttackCooldown(int cooldown) {
+        this.attackCooldown = cooldown;
     }
 
     public boolean isEating() {

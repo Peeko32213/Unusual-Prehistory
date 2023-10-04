@@ -354,6 +354,7 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("white_fruit", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.WHITE_FRUIT.get()))
                 .addCriterion("yellow_fruit", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.YELLOW_FRUIT.get()))
                 .addCriterion("blue_fruit", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.BLUE_FRUIT.get()))
+
                 .save(consumer, this.getNameId("main/gigantopithicus_fruits"));
 
         Advancement talapanas = getAdvancement(birthingPod, (ItemLike)UPItems.TALAPANAS_FLASK.get(), "interact_talapanas", FrameType.TASK, true, true, true)

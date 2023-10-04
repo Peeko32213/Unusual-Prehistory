@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityBrachiosaurusTeenPart;
-import com.peeko32213.unusualprehistory.common.entity.msc.trail.EntityTrail;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
@@ -79,7 +78,6 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
     private int age;
 
     private int shakeCooldown = 0;
-    private int footPrintCooldown = 0;
 
     public final EntityBrachiosaurusTeenPart neck;
     public final EntityBrachiosaurusTeenPart[] theEntireNeck;
@@ -299,24 +297,8 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
                 }
                 shakeCooldown = 40;
             }
-
-            if(this.footPrintCooldown <= 0 && UnusualPrehistoryConfig.BRACHI_EXPERIMENTAL_FOOTPRINTS.get()) {
-                float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
-                float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-                LOGGER.info("angle" + this.getLookAngle().x);
-                EntityTrail entityTrail = new EntityTrail(this, this.position().add(1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x, 1.0F);
-                EntityTrail entityTrail2 = new EntityTrail(this, this.position().add(1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
-                EntityTrail entityTrail3 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
-                EntityTrail entityTrail4 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
-                this.level.addFreshEntity(entityTrail);
-                this.level.addFreshEntity(entityTrail2);
-                this.level.addFreshEntity(entityTrail3);
-                this.level.addFreshEntity(entityTrail4);
-                footPrintCooldown = 100;
-            }
         }
         shakeCooldown--;
-        footPrintCooldown--;
     }
 
     private double getMaxFluidHeight() {

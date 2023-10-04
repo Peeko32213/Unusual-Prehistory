@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
+import com.peeko32213.unusualprehistory.common.entity.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -38,7 +40,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimatable {
+public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimatable, IHatchableEntity, IBookEntity {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
@@ -335,6 +337,11 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
+    @Override
+    public void setFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
+    }
+
     /**
      * Checks if the entity requires custom persistence.
      * This is equivalent to calling {@link #isFromEgg()}.
@@ -410,14 +417,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimat
         this.entityData.set(VARIANT, variant);
     }
 
-    /**
-     * Determines the variant of the entity based on the provided variant change value.
-     * The variant change value is used to determine the specific variant of the entity.
-     * The method sets the appropriate attributes and variant number based on the variant change value.
-     *
-     * @param variantChange The variant change value used to determine the entity's variant.
-     *                      The value should be within the range [0, 100].
-     */
+
     public void determineVariant(int variantChange) {
     }
 

@@ -45,7 +45,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-public class EntityScaumenacia extends AbstractFish implements Bucketable, IAnimatable {
+public class EntityScaumenacia extends AbstractFish implements Bucketable, IAnimatable, IBookEntity {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
 
@@ -219,4 +219,8 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, IAnim
         return pPos.getY() >= j && pPos.getY() <= i && pLevel.getFluidState(pPos.below()).is(FluidTags.WATER) && pLevel.getBlockState(pPos.above()).is(Blocks.WATER) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
     }
 
+    @Override
+    public void setFromBook(boolean fromBook) {
+        this.entityData.set(FROM_BOOK, fromBook);
+    }
 }

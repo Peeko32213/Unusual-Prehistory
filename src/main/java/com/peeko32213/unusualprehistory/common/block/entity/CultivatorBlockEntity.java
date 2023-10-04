@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
+import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;

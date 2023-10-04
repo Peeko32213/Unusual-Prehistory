@@ -48,7 +48,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
-public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implements CustomFollower {
+public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implements CustomFollower, IAttackEntity {
     private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.INT);
@@ -59,7 +59,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     public EntityMegatherium(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
-
+    private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -115,6 +115,11 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     public void tick() {
         super.tick();
+
+        if(attackCooldown > 0){
+            attackCooldown--;
+        }
+
         if (!this.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
             this.setEating(true);
         }
@@ -229,6 +234,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     @Override
     public void performAttack() {
         if (!this.level.isClientSide) {
+            this.setSwinging(true);
             ServerLevel serverLevel = (ServerLevel) this.level;
             float angle = (0.01745329251F * this.yBodyRot);
             double radius = this.getBbWidth();
@@ -251,6 +257,27 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
                 }
             }
         }
+    }
+
+    @Override
+    public void afterAttack() {
+        this.level.broadcastEntityEvent(this, (byte)5);
+        this.setSwinging(false);
+    }
+
+    @Override
+    public int getMaxAttackCooldown() {
+        return ATTACK_COOLDOWN;
+    }
+
+    @Override
+    public int getAttackCooldown() {
+        return attackCooldown;
+    }
+
+    @Override
+    public void setAttackCooldown(int cooldown) {
+        this.attackCooldown = cooldown;
     }
 
     @Override

@@ -2,6 +2,9 @@
   "values": [
     "#minecraft:leaves",
     "#minecraft:dirt",
-    "#minecraft:base_stone_overworld"
+    "#minecraft:sand",
+    "minecraft:snow",
+    "minecraft:snow_block",
+    "minecraft:powder_snow"
   ]
 }

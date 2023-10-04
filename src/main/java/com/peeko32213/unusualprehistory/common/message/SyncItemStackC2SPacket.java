@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.networking.packet;
+package com.peeko32213.unusualprehistory.common.message;
 
 import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import net.minecraft.client.Minecraft;

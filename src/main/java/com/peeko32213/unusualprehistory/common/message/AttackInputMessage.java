@@ -1,8 +1,11 @@
 package com.peeko32213.unusualprehistory.common.message;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
+import com.peeko32213.unusualprehistory.common.entity.IAttackEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 import org.apache.logging.log4j.LogManager;
@@ -10,15 +13,15 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.function.Supplier;
 
-public class UlughKeyInputMessage {
+public class AttackInputMessage {
     public int key;
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public UlughKeyInputMessage(int key) {
+    public AttackInputMessage(int key) {
         this.key = key;
     }
 
-    public UlughKeyInputMessage(FriendlyByteBuf buf) {
+    public AttackInputMessage(FriendlyByteBuf buf) {
         this.key = buf.readInt();
     }
 
@@ -27,18 +30,16 @@ public class UlughKeyInputMessage {
         buffer.writeInt(key);
     }
 
-    public static void handle(UlughKeyInputMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void handle(AttackInputMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
             Player player = context.getSender();
             Entity vehicle = player.getVehicle();
-            if (vehicle instanceof EntityUlughbegsaurus ulughbegsaurus) {
-                if (ulughbegsaurus.isSaddled() && ulughbegsaurus.isTame() && ulughbegsaurus.getControllingPassenger() == player) {
-                    if (!(ulughbegsaurus.attackCooldown > 0)) {
-                        ulughbegsaurus.setSwinging(true);
-                        ulughbegsaurus.performAttack();
-                        ulughbegsaurus.attackCooldown = EntityUlughbegsaurus.ATTACK_COOLDOWN;
-
+            if (vehicle instanceof IAttackEntity attackEntity && vehicle instanceof TamableAnimal animal) {
+                if (animal.isTame() && animal.getControllingPassenger() == player) {
+                    if (attackEntity.getAttackCooldown() <= 0) {
+                        attackEntity.performAttack();
+                        attackEntity.setAttackCooldown(attackEntity.getMaxAttackCooldown());
                     }
                 }
             }

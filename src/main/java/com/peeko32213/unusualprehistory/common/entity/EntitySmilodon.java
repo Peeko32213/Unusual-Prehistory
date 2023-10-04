@@ -71,7 +71,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new GroomGoal(this, 1.5));
-        //this.goalSelector.addGoal(1, new SmilodonStalkGoal(this));
         this.goalSelector.addGoal(2, new SmilodonAttackGoal(this));
         this.goalSelector.addGoal(1, new PounceGoal(this, 5));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
