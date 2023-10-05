@@ -2,11 +2,14 @@ package com.peeko32213.unusualprehistory.client.event;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -75,6 +78,22 @@ public final class ClientForgeEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
+        if (Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()) != null && !Minecraft.getInstance().isPaused() && UnusualPrehistoryConfig.SCREEN_SHAKE.get()) {
+            int duration = Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()).getDuration();
+            if(!(duration > 0)){
+                Minecraft.getInstance().player.removeEffect(UPEffects.SCREEN_SHAKE.get());
+                return;
+            }
 
+            int amplifier = Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()).getAmplifier();
+            float f = (Math.min(10, duration) + Minecraft.getInstance().getFrameTime()) * 0.1F;
+            double intensity = f * Minecraft.getInstance().options.screenEffectScale().get();
+            RandomSource rng = Minecraft.getInstance().player.getRandom();
+            double totalAmp = (0.1 + 0.1 * amplifier);
+            event.getCamera().move(rng.nextFloat() * 0.4F * intensity * totalAmp, rng.nextFloat() * 0.2F * intensity * totalAmp, rng.nextFloat() * 0.4F * intensity * totalAmp);
+        }
+    }
 
 }
