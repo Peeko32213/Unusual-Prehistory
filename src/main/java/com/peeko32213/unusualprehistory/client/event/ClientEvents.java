@@ -327,23 +327,6 @@ public final class ClientEvents {
     }
 
     @SubscribeEvent
-    public void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
-        if (Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()) != null && !Minecraft.getInstance().isPaused() && UnusualPrehistoryConfig.SCREEN_SHAKE.get()) {
-            int duration = Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()).getDuration();
-            if(!(duration > 0)){ Minecraft.getInstance().player.removeEffect(UPEffects.SCREEN_SHAKE.get());
-                return;
-            }
-
-            int amplifier = Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()).getAmplifier();
-            float f = (Math.min(10, duration) + Minecraft.getInstance().getFrameTime()) * 0.1F;
-            double intensity = f * Minecraft.getInstance().options.screenEffectScale().get();
-            RandomSource rng = Minecraft.getInstance().player.getRandom();
-            double totalAmp = (0.1 + 0.1 * amplifier);
-            event.getCamera().move(rng.nextFloat() * 0.4F * intensity * totalAmp, rng.nextFloat() * 0.2F * intensity * totalAmp, rng.nextFloat() * 0.4F * intensity * totalAmp);
-        }
-    }
-
-    @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll("amber_protection", AmberProtectionOverlay.HUD_AMBER_PROTECTION);
         event.registerAboveAll("tar_overlay", TarOverlay.TAR_OVERLAY);
