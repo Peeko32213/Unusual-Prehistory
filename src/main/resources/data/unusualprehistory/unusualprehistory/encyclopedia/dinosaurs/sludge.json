@@ -6,9 +6,9 @@
     {
       "entity": "unusualprehistory:sludge",
       "x": 90,
-      "y": 90,
+      "y": 80,
       "page" : 0,
-      "scale": 0.8,
+      "scale": 1.8,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
@@ -18,13 +18,13 @@
   "entity_button":[
     {
       "entity": "unusualprehistory:sludge",
-      "x": 230,
+      "x": 290,
       "y": 80,
       "page" : 0,
-      "scale": 1.0,
-      "entity_scale": 0.45,
-      "offset_x": 9,
-      "offset_y": 4,
+      "scale": 0.45,
+      "entity_scale": 1.1,
+      "offset_x": -2,
+      "offset_y": -9,
       "hover_text": "Sludge"
     }
   ]

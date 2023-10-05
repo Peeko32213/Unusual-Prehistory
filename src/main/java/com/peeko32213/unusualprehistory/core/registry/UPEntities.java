@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.EntityBookSnake;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -243,6 +244,13 @@ public class UPEntities {
                     .clientTrackingRange(10)
                     .updateInterval(20)
                     .build(prefix("throwable_falling_block").toString()));
+
+    public static final RegistryObject<EntityType<EntityBookSnake>> BOOK_PALAEO = ENTITIES.register("book_palaeo",
+            () -> EntityType.Builder.<EntityBookSnake>of(EntityBookSnake::new, MobCategory.MISC)
+                    .noSummon()
+                    .fireImmune()
+                    .sized(2, 2)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "book_palaeo").toString()));
 
     //Plants
 

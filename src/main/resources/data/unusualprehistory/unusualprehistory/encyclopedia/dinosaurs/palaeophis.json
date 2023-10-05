@@ -4,10 +4,9 @@
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:palaeophis",
-      "entity_data": "{ShedTime:-2}",
+      "entity": "unusualprehistory:book_palaeo",
       "x": 90,
-      "y": 90,
+      "y": 80,
       "page" : 0,
       "scale": 0.7,
       "rot_x": 30,
