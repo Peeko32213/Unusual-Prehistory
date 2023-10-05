@@ -1,4 +1,4 @@
-// 1.19.2	2023-09-29T15:42:41.1872401	unusualprehistory Advancements
+// 1.19.2	2023-10-04T11:31:28.8474727	unusualprehistory Advancements
 bfb68fc35ab555f3b124cefa85dd1491c2bbd83d data/unusualprehistory/advancements/main/adorned_staff.json
 786af57c13bceeda39adc5f83543ede81e825b40 data/unusualprehistory/advancements/main/amber_fossil.json
 2f148ab790671cdc7508f46906193c3b99b3c6c5 data/unusualprehistory/advancements/main/amber_gummy.json
@@ -20,6 +20,7 @@ e7b52b77c2b94e204223fe9856e82dfc841d05f6 data/unusualprehistory/advancements/mai
 731f22e61cea2fc5431b283e1362ef352b2c16ee data/unusualprehistory/advancements/main/dunk.json
 c9e9c5c0491e583656b7ae96397baf4d10d051a7 data/unusualprehistory/advancements/main/egg.json
 4195b31af5e72cfc708716b6c2f6e480ed746a7e data/unusualprehistory/advancements/main/embryo.json
+325c0de78bbe7de182feb7d1b5daaafa93f1d1bf data/unusualprehistory/advancements/main/encrusted.json
 f4ef381bda7e1381ac14d72013c91f726c1fbf40 data/unusualprehistory/advancements/main/eryon.json
 6efee9c7339280fefd09538a963ffa67e18e0635 data/unusualprehistory/advancements/main/fossil.json
 de4099a0b45729af756463d857d328cb33b614d6 data/unusualprehistory/advancements/main/fossil_stand.json
@@ -53,6 +54,7 @@ a5f3a121a68ab64c25b83b82e2cf7d824685d9be data/unusualprehistory/advancements/mai
 66e67fdac24a1d694aed5c6668c220b1c9ca0cd8 data/unusualprehistory/advancements/main/root.json
 a5f722fe9ced0d940dd49c25c2d4ff8385f6d5ef data/unusualprehistory/advancements/main/scau.json
 6ea7db63e294a0c07314444275d0cd70a8facaf4 data/unusualprehistory/advancements/main/shedscale.json
+4faa205300980d8629833df7c305da3cfdf5998c data/unusualprehistory/advancements/main/sludge.json
 13a7bf57cc950fb7944333ede9bf0bca82f4fbbd data/unusualprehistory/advancements/main/smilodon.json
 2a79096c88d7653a6978a740f80173f015d7186a data/unusualprehistory/advancements/main/stetha.json
 bf71bbbcec04d2a6739972c3467e60f80aa05717 data/unusualprehistory/advancements/main/talapanas.json

@@ -471,6 +471,20 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .requirements(RequirementsStrategy.OR)
                 .save(consumer, this.getNameId("main/amber_gummy"));
 
+        Advancement encrusted = getAdvancement(amberFossil, (ItemLike)UPItems.ENCRUSTED_FLASK.get(), "interact_encrusted", FrameType.TASK, true, true, true)
+                .addCriterion("damage_encrusted", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get())))))
+                .addCriterion("interact_encrusted", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get()).build())))
+                .addCriterion("killed_encrusted", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get())))
+                .requirements(RequirementsStrategy.OR)
+                .save(consumer, this.getNameId("main/encrusted"));
+
+        Advancement sludge = getAdvancement(fossil, (ItemLike)UPItems.TAR_FOSSIL.get(), "interact_sludge", FrameType.TASK, true, true, true)
+                .addCriterion("damage_sludge", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get())))))
+                .addCriterion("interact_sludge", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get()).build())))
+                .addCriterion("killed_sludge", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get())))
+                .requirements(RequirementsStrategy.OR)
+                .save(consumer, this.getNameId("main/sludge"));
+
 
     }
 

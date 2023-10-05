@@ -775,11 +775,20 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.advancement.amber_gummy", "Extra Protection");
         add("unusualprehistory.advancement.amber_gummy.desc", "Obtain Amber Gummies");
 
+        add("unusualprehistory.advancement.interact_encrusted", "Chaos Theory");
+        add("unusualprehistory.advancement.interact_encrusted.desc", "Revive a Encrusted");
+
+        add("unusualprehistory.advancement.interact_sludge", "It Came from The Pit");
+        add("unusualprehistory.advancement.interact_sludge.desc", "Encounter a Sludge");
+
         add("death.attack.hwacha_0.player", "%s was turned into a pincushion by %s");
         add("death.attack.hwacha_1.player", "%s was shredded by %s");
         add("death.attack.hwacha_2.player", "%s was turned to fine paste by %s");
         add("death.attack.hwacha_3.player", "%s was shot by %s");
         add("item.unusualprehistory.zulogae_disc.desc", " Shroomy - Zulogae");
+
+        add("death.attack.sludge_0.player", "%s was slapped to death by %s");
+
 
         add("unusualprehistory.megalania_damage", " %s Venomous Coating");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");
