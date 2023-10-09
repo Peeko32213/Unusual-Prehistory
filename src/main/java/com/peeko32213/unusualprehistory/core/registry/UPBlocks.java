@@ -217,10 +217,10 @@ public class UPBlocks {
                     Block.box(0, 0, 0, 16, 1.5, 16)
             ));
 
-    public static final RegistryObject<Block> TALAPANAS_EGG = registerBlock("talapanas_egg",
+    public static final RegistryObject<Block> TALPANAS_EGG = registerBlock("talpanas_egg",
             () -> new BlockDinosaurLandEggs(
                     BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.TALAPANAS, 1,
+                    UPEntities.TALPANAS, 1,
                     Block.box(3, 0, 3, 13, 12, 13)
             ));
 

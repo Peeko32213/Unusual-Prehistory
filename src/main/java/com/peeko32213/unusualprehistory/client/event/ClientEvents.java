@@ -19,7 +19,6 @@ import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
-import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemSlothPouchArmor;
@@ -27,7 +26,6 @@ import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -37,7 +35,6 @@ import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
@@ -230,7 +227,7 @@ public final class ClientEvents {
                         .withLayers(HWACHA_MODEL)
                         .withSaddleLayer(HWACHA_SADDLE_OVERLAY)
                         .build());
-        event.registerEntityRenderer(UPEntities.TALAPANAS.get(), e -> new DinosaurRenderer<>(e, new TalapanasModel()));
+        event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new DinosaurRenderer<>(e, new TalpanasModel()));
         event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e ->
                 UPRenderUtils.createDinosaurRenderer(e, new GigantopithicusModel())
                         .withItemHoldingLayer()

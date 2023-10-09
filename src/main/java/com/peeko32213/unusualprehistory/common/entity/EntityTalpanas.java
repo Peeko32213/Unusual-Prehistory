@@ -56,17 +56,17 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class EntityTalapanas extends EntityBaseDinosaurAnimal {
-    private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EntityTalapanas.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
-    private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityTalapanas.class, EntityDataSerializers.INT);
-    public static final ResourceLocation TALAPANAS_REWARD = new ResourceLocation("unusualprehistory", "gameplay/talapanas_reward");
+public class EntityTalpanas extends EntityBaseDinosaurAnimal {
+    private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EntityTalpanas.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
+    private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityTalpanas.class, EntityDataSerializers.INT);
+    public static final ResourceLocation TALAPANAS_REWARD = new ResourceLocation("unusualprehistory", "gameplay/talpanas_reward");
     private Ingredient temptationItems;
     public float prevFeedProgress;
     public float feedProgress;
     private int rideCooldown = 0;
     public int soundTimer = 0;
 
-    public EntityTalapanas(EntityType<? extends Animal> entityType, Level level) {
+    public EntityTalpanas(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -101,15 +101,15 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.TALAPANAS_IDLE.get();
+        return UPSounds.TALPANAS_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.TALAPANAS_HURT.get();
+        return UPSounds.TALPANAS_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.TALAPANAS_DEATH.get();
+        return UPSounds.TALPANAS_DEATH.get();
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
@@ -264,7 +264,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
 
     private void playPanicSound() {
         if (this.soundTimer <= 0) {
-            this.playSound(UPSounds.TALAPANAS_PANIC.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
+            this.playSound(UPSounds.TALPANAS_PANIC.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
             soundTimer = 80;
         }
     }
@@ -292,11 +292,11 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
         private final int searchLength;
         private final int verticalSearchRange;
         protected BlockPos destinationBlock;
-        private EntityTalapanas crab;
+        private EntityTalpanas crab;
         private int runDelay = 70;
         private int maxFeedTime = 200;
 
-        private DigRootedDirtGoal(EntityTalapanas crab) {
+        private DigRootedDirtGoal(EntityTalpanas crab) {
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
             this.crab = crab;
             searchLength = 16;
@@ -402,7 +402,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
         return result.getBlockPos().equals(destinationBlock);
     }
 
-    private static List<ItemStack> getDigLoot(EntityTalapanas crab) {
+    private static List<ItemStack> getDigLoot(EntityTalpanas crab) {
         LootTable loottable = crab.level.getServer().getLootTables().get(TALAPANAS_REWARD);
         return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level)).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level.random).create(LootContextParamSets.PIGLIN_BARTER));
     }
@@ -563,7 +563,7 @@ public class EntityTalapanas extends EntityBaseDinosaurAnimal {
     @Override
     public void registerControllers(AnimationData data) {
         data.setResetSpeedInTicks(1);
-        AnimationController<EntityTalapanas> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        AnimationController<EntityTalpanas> controller = new AnimationController<>(this, "controller", 5, this::predicate);
         data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::eatPredicate));
         data.addAnimationController(controller);
     }

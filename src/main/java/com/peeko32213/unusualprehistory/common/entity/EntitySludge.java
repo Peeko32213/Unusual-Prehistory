@@ -331,14 +331,14 @@ public class EntitySludge extends Monster implements IAnimatable {
         protected void preformRightSlapAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.rightOffset, 1f, 2f, 1f, (ServerLevel)this.mob.getLevel(), 2f, DamageSource.mobAttack(mob), 0.3f, false);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.rightOffset, 1f, 2f, 1f, (ServerLevel)this.mob.getLevel(), 8f, DamageSource.mobAttack(mob), 0.3f, false);
 
         }
 
         protected void preformLeftSlapAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.leftOffset, 1f, 2f, 1f, (ServerLevel)this.mob.getLevel(), 2f, DamageSource.mobAttack(mob), 0.3f, false);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.leftOffset, 1f, 2f, 1f, (ServerLevel)this.mob.getLevel(), 8f, DamageSource.mobAttack(mob), 0.3f, false);
 
         }
 

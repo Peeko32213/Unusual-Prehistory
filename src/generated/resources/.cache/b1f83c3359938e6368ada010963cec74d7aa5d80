@@ -1,4 +1,4 @@
-// 1.19.2	2023-10-04T11:31:28.8474727	unusualprehistory Advancements
+// 1.19.2	2023-10-08T19:22:25.1492507	unusualprehistory Advancements
 bfb68fc35ab555f3b124cefa85dd1491c2bbd83d data/unusualprehistory/advancements/main/adorned_staff.json
 786af57c13bceeda39adc5f83543ede81e825b40 data/unusualprehistory/advancements/main/amber_fossil.json
 2f148ab790671cdc7508f46906193c3b99b3c6c5 data/unusualprehistory/advancements/main/amber_gummy.json
@@ -18,7 +18,7 @@ fa9c244cd8081d24e7df533945eb7c5657e49bdf data/unusualprehistory/advancements/mai
 e7b52b77c2b94e204223fe9856e82dfc841d05f6 data/unusualprehistory/advancements/main/cultivator.json
 04a14614a837e205198b5d81af2554fa6be912ea data/unusualprehistory/advancements/main/dryo.json
 731f22e61cea2fc5431b283e1362ef352b2c16ee data/unusualprehistory/advancements/main/dunk.json
-c9e9c5c0491e583656b7ae96397baf4d10d051a7 data/unusualprehistory/advancements/main/egg.json
+c90075a7499487ae151f5c92ef38df72df9ce8cf data/unusualprehistory/advancements/main/egg.json
 4195b31af5e72cfc708716b6c2f6e480ed746a7e data/unusualprehistory/advancements/main/embryo.json
 325c0de78bbe7de182feb7d1b5daaafa93f1d1bf data/unusualprehistory/advancements/main/encrusted.json
 f4ef381bda7e1381ac14d72013c91f726c1fbf40 data/unusualprehistory/advancements/main/eryon.json
@@ -57,7 +57,7 @@ a5f722fe9ced0d940dd49c25c2d4ff8385f6d5ef data/unusualprehistory/advancements/mai
 4faa205300980d8629833df7c305da3cfdf5998c data/unusualprehistory/advancements/main/sludge.json
 13a7bf57cc950fb7944333ede9bf0bca82f4fbbd data/unusualprehistory/advancements/main/smilodon.json
 2a79096c88d7653a6978a740f80173f015d7186a data/unusualprehistory/advancements/main/stetha.json
-bf71bbbcec04d2a6739972c3467e60f80aa05717 data/unusualprehistory/advancements/main/talapanas.json
+4896128ae379ee7f67ea0fd328b49f514d08b586 data/unusualprehistory/advancements/main/talapanas.json
 141760a410684f9437fe4c13ab39e0359079f511 data/unusualprehistory/advancements/main/tame_barina.json
 f11af562b311b1141b0e08ba0a9f88f3af674019 data/unusualprehistory/advancements/main/trike.json
 e87f3b3f148fb8febfac04276bd2671a62c3c3b0 data/unusualprehistory/advancements/main/trike_shield.json

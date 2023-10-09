@@ -70,7 +70,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         createCustomEgg(UPBlocks.AUSTRO_EGG.get(), "majunga");
         createEggDefaultSmall(UPBlocks.RAPTOR_EGG.get());
         createEggDefaultSmall(UPBlocks.PACHY_EGG.get());
-        createSingleEgg(UPBlocks.TALAPANAS_EGG.get());
+        createSingleEgg(UPBlocks.TALPANAS_EGG.get());
         createEggDefaultSmall(UPBlocks.BARINA_EGG.get());
         createEggDefaultMedium(UPBlocks.MEGALA_EGG.get());
 

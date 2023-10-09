@@ -1,10 +1,10 @@
 {
-  "text": "talapanas.txt",
-  "title": "  Talapanas",
+  "text": "talpanas.txt",
+  "title": "  Talpanas",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:talapanas",
+      "entity": "unusualprehistory:talpanas",
       "x": 90,
       "y": 100,
       "page" : 0,
@@ -17,7 +17,7 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:talapanas",
+      "entity": "unusualprehistory:talpanas",
       "x": 290,
       "y": 40,
       "page" : 0,

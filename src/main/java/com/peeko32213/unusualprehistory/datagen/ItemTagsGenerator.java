@@ -69,7 +69,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.BARIN_FLASK.get())
                 .add(UPItems.PALAEO_FLASK.get())
                 .add(UPItems.MEGALA_FLASK.get())
-                .add(UPItems.TALAPANAS_FLASK.get())
+                .add(UPItems.TALPANAS_FLASK.get())
                 .add(UPItems.ZULOAGAE_FLASK.get())
                 .add(UPItems.RAIGUENRAYUN_FLASK.get())
                 .add(UPItems.FOXXI_FLASK.get())
@@ -320,7 +320,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.BARIN_FLASK.get())
                 .add(UPItems.PARACER_FLASK.get())
                 .add(UPItems.GIGANTO_FLASK.get())
-                .add(UPItems.TALAPANAS_FLASK.get());
+                .add(UPItems.TALPANAS_FLASK.get());
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_OPAL)
                 .add(UPItems.PALAEO_FLASK.get());

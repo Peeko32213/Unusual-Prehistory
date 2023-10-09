@@ -66,7 +66,7 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("raptor_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.RAPTOR_EGG.get()))
                 .addCriterion("rex_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.REX_EGG.get()))
                 .addCriterion("barina_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.BARINA_EGG.get()))
-                .addCriterion("talapanas_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.TALAPANAS_EGG.get()))
+                .addCriterion("talapanas_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.TALPANAS_EGG.get()))
                 .addCriterion("trike_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.TRIKE_EGG.get()))
                 .addCriterion("ulugh_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.ULUGH_EGG.get()))
                 .addCriterion("eryon_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.ERYON_EGGS.get()))
@@ -357,10 +357,10 @@ public class AdvancementGenerator extends AdvancementProvider {
 
                 .save(consumer, this.getNameId("main/gigantopithicus_fruits"));
 
-        Advancement talapanas = getAdvancement(birthingPod, (ItemLike)UPItems.TALAPANAS_FLASK.get(), "interact_talapanas", FrameType.TASK, true, true, true)
-                .addCriterion("damage_talapanas", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get())))))
-                .addCriterion("interact_talapanas", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get()).build())))
-                .addCriterion("killed_talapanas", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get())))
+        Advancement talapanas = getAdvancement(birthingPod, (ItemLike)UPItems.TALPANAS_FLASK.get(), "interact_talpanas", FrameType.TASK, true, true, true)
+                .addCriterion("damage_talapanas", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))))
+                .addCriterion("interact_talapanas", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get()).build())))
+                .addCriterion("killed_talapanas", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))
                 .requirements(RequirementsStrategy.OR)
 
                 .save(consumer, this.getNameId("main/talapanas"));

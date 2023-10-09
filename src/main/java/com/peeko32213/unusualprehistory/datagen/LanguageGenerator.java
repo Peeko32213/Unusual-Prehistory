@@ -146,7 +146,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ANTARCO_EGG, "Antarctopelta Egg");
         addBlock(UPBlocks.HWACHA_EGG, "Hwachavenator Egg");
         addBlock(UPBlocks.BARINA_EGG, "Barinasuchus Egg");
-        addBlock(UPBlocks.TALAPANAS_EGG, "Talapanas Egg");
+        addBlock(UPBlocks.TALPANAS_EGG, "Talpanas Egg");
         addBlock(UPBlocks.MEGALA_EGG, "Megalania Egg");
 
 
@@ -171,7 +171,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ULUG_EGG, "Ulughbegsaurus Spawn Egg");
         addItem(UPItems.KENTRO_EGG, "Kentrosaurus Spawn Egg");
         addItem(UPItems.HWACHA_EGG, "Hwachavenator Spawn Egg");
-        addItem(UPItems.TALAPANAS_EGG, "Talapanas Spawn Egg");
+        addItem(UPItems.TALPANAS_EGG, "Talpanas Spawn Egg");
         addItem(UPItems.GIGANTO_EGG, "Gigantopithicus Spawn Egg");
         addItem(UPItems.BARINA_EGG, "Barinasuchus Spawn Egg");
         addItem(UPItems.MEGATH_EGG, "Megatherium Spawn Egg");
@@ -248,7 +248,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.BARIN_FLASK, "Barinasuchus DNA Flask");
         addItem(UPItems.PALAEO_FLASK, "Palaeolophis DNA Flask");
         addItem(UPItems.MEGALA_FLASK, "Megalania DNA Flask");
-        addItem(UPItems.TALAPANAS_FLASK, "Talapanas DNA Flask");
+        addItem(UPItems.TALPANAS_FLASK, "Talpanas DNA Flask");
         addItem(UPItems.ZULOAGAE_FLASK, "Zuloagae DNA Flask");
         addItem(UPItems.RAIGUENRAYUN_FLASK, "Raiguenrayun DNA Flask");
         addItem(UPItems.FOXXI_FLASK, "Foxii DNA Flask");
@@ -428,7 +428,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.ULUG, "Ulughbegsaurus");
         addEntityType(UPEntities.KENTRO, "Kentrosaurus");
         addEntityType(UPEntities.HWACHA, "Hwachavenator");
-        addEntityType(UPEntities.TALAPANAS, "Talapanas");
+        addEntityType(UPEntities.TALPANAS, "Talpanas");
         addEntityType(UPEntities.GIGANTOPITHICUS, "Gigantopithicus");
         addEntityType(UPEntities.SMILODON, "Smilodon");
         addEntityType(UPEntities.BARINASUCHUS, "Barinasuchus");
@@ -537,10 +537,10 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.PARACER_HURT, "Sternful Grunt");
         addSound(UPSounds.PARACER_IDLE, "Sternful Gruff");
         addSound(UPSounds.PARACER_STOMP, "Sternful Stomp");
-        addSound(UPSounds.TALAPANAS_DEATH, "Dying Quack");
-        addSound(UPSounds.TALAPANAS_HURT, "Painful Quack");
-        addSound(UPSounds.TALAPANAS_IDLE, "Idling Quack");
-        addSound(UPSounds.TALAPANAS_PANIC, "Panicked Quack");
+        addSound(UPSounds.TALPANAS_DEATH, "Dying Quack");
+        addSound(UPSounds.TALPANAS_HURT, "Painful Quack");
+        addSound(UPSounds.TALPANAS_IDLE, "Idling Quack");
+        addSound(UPSounds.TALPANAS_PANIC, "Panicked Quack");
         addSound(UPSounds.CROCARINA, "Soothing Tunes");
         addSound(UPSounds.BARINA_DEATH, "Crocodilain Groans");
         addSound(UPSounds.BARINA_HURT, "Crocodilain Pain");
@@ -724,8 +724,8 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.advancement.obtain_monkey_fruits", "Strange Fruits");
         add("unusualprehistory.advancement.obtain_monkey_fruits.desc", "Acquire Any of the Fruits from Gigantopithicus");
 
-        add("unusualprehistory.advancement.interact_talapanas", "Duck Fortress");
-        add("unusualprehistory.advancement.interact_talapanas.desc", "Revive a Talapanas");
+        add("unusualprehistory.advancement.interact_talpanas", "Duck Fortress");
+        add("unusualprehistory.advancement.interact_talpanas.desc", "Revive a Talpanas");
 
         add("unusualprehistory.advancement.interact_mammoth", "Ice Age Super Star");
         add("unusualprehistory.advancement.interact_mammoth.desc", "Revive a Mammoth");
