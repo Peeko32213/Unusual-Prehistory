@@ -60,7 +60,7 @@ public class EntitySludge extends Monster implements IAnimatable {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0D)
+                .add(Attributes.MAX_HEALTH, 80.0D)
                 .add(Attributes.ATTACK_DAMAGE, 15.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.12D)
                 .add(Attributes.ARMOR, 10.0D)
@@ -79,6 +79,8 @@ public class EntitySludge extends Monster implements IAnimatable {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 
     }
+
+
 
 
     protected SoundEvent getAmbientSound() {
@@ -331,14 +333,14 @@ public class EntitySludge extends Monster implements IAnimatable {
         protected void preformRightSlapAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.rightOffset, 1f, 2f, 1f, (ServerLevel)this.mob.getLevel(), 8f, DamageSource.mobAttack(mob), 0.3f, false);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.rightOffset, 1f, 2f, 1f, (ServerLevel)this.mob.getLevel(), 15f, DamageSource.mobAttack(mob), 0.3f, false);
 
         }
 
         protected void preformLeftSlapAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.leftOffset, 1f, 2f, 1f, (ServerLevel)this.mob.getLevel(), 8f, DamageSource.mobAttack(mob), 0.3f, false);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.leftOffset, 1f, 2f, 1f, (ServerLevel)this.mob.getLevel(), 15f, DamageSource.mobAttack(mob), 0.3f, false);
 
         }
 
