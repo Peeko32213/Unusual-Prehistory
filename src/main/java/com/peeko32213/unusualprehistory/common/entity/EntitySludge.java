@@ -75,7 +75,7 @@ public class EntitySludge extends Monster implements IAnimatable {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(1, new EntitySludge.SludgeMeleeAttackGoal(this, 2F, true));
+        this.goalSelector.addGoal(1, new EntitySludge.SludgeMeleeAttackGoal(this, 1.0F, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 
     }
@@ -147,9 +147,8 @@ public class EntitySludge extends Monster implements IAnimatable {
         private long lastCanUseCheck;
 
         private int animTime = 0;
-        Vec3 slamOffSet = new Vec3(0, 0, 4);
-        Vec3 rightOffset = new Vec3(0, 0, 4);
-        Vec3 leftOffset = new Vec3(0, 0, -4);
+        Vec3 rightOffset = new Vec3(0, 0, 0.5);
+
 
         public SludgeMeleeAttackGoal(EntitySludge p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
@@ -230,8 +229,7 @@ public class EntitySludge extends Monster implements IAnimatable {
             int animState = this.mob.getAnimationState();
 
             switch (animState) {
-                case 21 -> tickRightSlapAttack();
-                case 22 -> tickLeftSlapAttack();
+                case 21 -> tickClapAttack();
                 default -> {
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -295,52 +293,31 @@ public class EntitySludge extends Monster implements IAnimatable {
 
 
 
-        protected void tickRightSlapAttack () {
+        protected void tickClapAttack () {
             animTime++;
-            //this.mob.getNavigation().stop();
-            if(animTime>=5 && animTime < 10) {
-                preformRightSlapAttack();
-            }
-            if(animTime>=10) {
-                animTime=0;
 
+            if (animTime <= 3) {
+                this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==6) {
+                preformClapAttack();
+            }
+
+            if(animTime>=11) {
+                animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
                 this.ticksUntilNextPathRecalculation = 0;
-
             }
-
-        }
-
-        protected void tickLeftSlapAttack () {
-            animTime++;
-            //this.mob.getNavigation().stop();
-            if(animTime>=5 && animTime < 10) {
-                preformLeftSlapAttack();
-            }
-            if(animTime>=10) {
-                animTime=0;
-
-                this.mob.setAnimationState(0);
-                this.resetAttackCooldown();
-                this.ticksUntilNextPathRecalculation = 0;
-
-            }
-
         }
 
 
-        protected void preformRightSlapAttack () {
+        protected void preformClapAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.rightOffset, 1f, 2f, 1f, (ServerLevel)this.mob.getLevel(), 15f, DamageSource.mobAttack(mob), 0.3f, false);
-
-        }
-
-        protected void preformLeftSlapAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.leftOffset, 1f, 2f, 1f, (ServerLevel)this.mob.getLevel(), 15f, DamageSource.mobAttack(mob), 0.3f, false);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.rightOffset, 2f, 2f, 2f, (ServerLevel)this.mob.getLevel(), 15f, DamageSource.mobAttack(mob), 0.5f, false);
 
         }
 
@@ -375,13 +352,7 @@ public class EntitySludge extends Monster implements IAnimatable {
 
                 case 21:
                     event.getController().setAnimationSpeed(0.8F);
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.sludge.right_slap"));
-                    return PlayState.CONTINUE;
-
-
-                case 22:
-                    event.getController().setAnimationSpeed(0.8F);
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.sludge.left_slap"));
+                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.sludge.clap"));
                     return PlayState.CONTINUE;
 
 
