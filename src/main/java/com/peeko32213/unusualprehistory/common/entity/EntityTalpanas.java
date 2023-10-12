@@ -538,14 +538,20 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isPassenger()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isPassenger()&& !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.walk"));
             return PlayState.CONTINUE;
         }
-        if (this.isPassenger()) {
+        if (this.isPassenger()&& !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.sit"));
             return PlayState.CONTINUE;
-        } else {
+        }
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.swim"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.idle"));
         }
         return PlayState.CONTINUE;

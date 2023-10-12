@@ -418,28 +418,33 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
             return PlayState.CONTINUE;
         }
 
-        if (groom1()) {
+        if (groom1() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.groom_1"));
             event.getController().setAnimationSpeed(2.5F);
             return PlayState.CONTINUE;
         }
-        if (groom2()) {
+        if (groom2() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.groom_2"));
             event.getController().setAnimationSpeed(2.5F);
             return PlayState.CONTINUE;
         }
 
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
-            if (this.isSprinting()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
+            if (this.isSprinting() && !this.isSwimming()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.sprint"));
                 event.getController().setAnimationSpeed(2.5F);
                 return PlayState.CONTINUE;
-            } else if (this.isCrouching()) {
+            } else if (this.isCrouching() && !this.isSwimming()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.sneak"));
                 event.getController().setAnimationSpeed(0.8F);
                 return PlayState.CONTINUE;
             }
             event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.move"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.swim"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }

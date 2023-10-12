@@ -132,6 +132,70 @@
 					}
 				}
 			}
+		},
+		"animation.talapanas.swim": {
+			"loop": true,
+			"animation_length": 0.5,
+			"bones": {
+				"Head": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 720 ) * 1", 0, "Math.sin((query.anim_time - 0.2) * 720 ) * 3"]
+					}
+				},
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.0) * 720 ) * 2", 0, "Math.sin((query.anim_time - 0.0) * 720 ) * 2"]
+					}
+				},
+				"TailFeathers": {
+					"rotation": {
+						"vector": ["45+Math.cos((query.anim_time - 0.2) * 720 ) * 1", 0, "0+Math.sin((query.anim_time - 0.2) * 720 ) * 8"]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 720 ) * 30", 0, 0]
+					},
+					"position": {
+						"0.0833": {
+							"vector": [0, 0, 1]
+						},
+						"0.25": {
+							"vector": [0, 2, 2]
+						},
+						"0.4167": {
+							"vector": [0, 0, 1]
+						}
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": ["Math.sin((query.anim_time - 0.0) * 720 ) * -30", 0, 0]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 2, 2]
+						},
+						"0.125": {
+							"vector": [0, 0, 1]
+						},
+						"0.25": {
+							"vector": [0, 0, 1]
+						},
+						"0.375": {
+							"vector": [0, 2, 2]
+						}
+					}
+				},
+				"Duck": {
+					"rotation": {
+						"vector": [-17.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -6, 0]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

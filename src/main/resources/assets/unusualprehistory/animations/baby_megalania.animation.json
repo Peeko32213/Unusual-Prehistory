@@ -142,6 +142,120 @@
 					}
 				}
 			}
+		},
+		"animation.baby_megalania.swim": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"Barina": {
+					"rotation": {
+						"vector": [-20, 0, 0]
+					},
+					"position": {
+						"vector": [0, -27, 0]
+					}
+				},
+				"Torso": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 360) * 0.5", 0, "Math.sin((query.anim_time - 0.2) * 360) * 3"]
+					},
+					"position": {
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 3, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"vector": ["-12.5 + Math.cos((query.anim_time - 0.2) * 360) * 3", 0, "Math.sin((query.anim_time - 0.2) * 360) * 5"]
+					},
+					"position": {
+						"vector": [0, 0, 2]
+					}
+				},
+				"TailMid": {
+					"rotation": {
+						"vector": [
+							"10 + Math.cos((query.anim_time - 0.5) * 360) * 0.5",
+							"Math.sin((query.anim_time - 0.5) * 360) * 5",
+							"Math.sin((query.anim_time - 0.5) * 360) * 5"
+						]
+					}
+				},
+				"TailTip": {
+					"rotation": {
+						"vector": [
+							"10 + Math.cos((query.anim_time - 0.8) * 360) * 0.5",
+							"Math.sin((query.anim_time - 0.8) * 360) * 5",
+							"Math.sin((query.anim_time - 0.8) * 360) * 5"
+						]
+					}
+				},
+				"Megalania": {
+					"rotation": {
+						"vector": [-10, 0, 0]
+					},
+					"position": {
+						"vector": [0, -12, 0]
+					}
+				},
+				"Body": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.2) * 360) * 1", 0, "Math.sin((query.anim_time - 0.2) * 360) * 6"]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": ["-12.5 + Math.cos((query.anim_time - 0.2) * 360) * 3", 0, "Math.sin((query.anim_time - 0.2) * 360) * 5"]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": [
+							"10 + Math.cos((query.anim_time - 0.5) * 360) * 1",
+							"Math.sin((query.anim_time - 0.5) * 360) * 10",
+							"Math.sin((query.anim_time - 0.5) * 360) * 10"
+						]
+					}
+				},
+				"Arm1": {
+					"rotation": {
+						"vector": [0, -42.5, 0]
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": [0, 42.5, 0]
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"vector": [0, -45, 0]
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"vector": [0, 45, 0]
+					}
+				},
+				"Lizard": {
+					"rotation": {
+						"vector": [-15, 0, 0]
+					},
+					"position": {
+						"vector": [0, -4, 0]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

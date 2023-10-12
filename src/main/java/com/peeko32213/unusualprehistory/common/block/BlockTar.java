@@ -65,7 +65,7 @@ public class BlockTar extends Block implements BucketPickup {
                 RandomSource randomsource = pLevel.getRandom();
                 boolean flag = pEntity.xOld != pEntity.getX() || pEntity.zOld != pEntity.getZ();
                 if (flag && randomsource.nextBoolean()) {
-                    pLevel.addParticle(ParticleTypes.SMOKE, pEntity.getX(), (double)(pPos.getY() + 1), pEntity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
+                    pLevel.addParticle(UPParticles.TAR_BUBBLE.get(), pEntity.getX(), (double)(pPos.getY() + 1), pEntity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
                 }
             }
         }

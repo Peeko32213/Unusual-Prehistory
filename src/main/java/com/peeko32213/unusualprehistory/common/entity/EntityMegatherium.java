@@ -159,8 +159,12 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     //TODO add getPassengersRidingOffset to base class so we dont have to do all this again
     public double getPassengersRidingOffset() {
-        return 2.6D;
-
+        if (this.isInWater()) {
+            return 0.535;
+        }
+        else {
+            return 2.6;
+        }
     }
 
     //TODO add mobinteract to base class so we dont have to do all this again
@@ -422,11 +426,16 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.move"));
             return PlayState.CONTINUE;
         }
-        if (this.isInSittingPose() && !this.isInWater()) {
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.swim"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.sitting"));
             return PlayState.CONTINUE;
         } else {
@@ -437,7 +446,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
-        if (this.isEating() && !this.isInSittingPose()) {
+        if (this.isEating() && !this.isInSittingPose() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.eating"));
             return PlayState.CONTINUE;
         }

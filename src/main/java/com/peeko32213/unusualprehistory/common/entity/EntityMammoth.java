@@ -371,18 +371,21 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.mammoth.swim"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6  && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.mammoth.move"));
             return PlayState.CONTINUE;
         }
-
-
         event.getController().setAnimation(new AnimationBuilder().loop("animation.mammoth.idle"));
         return PlayState.CONTINUE;
     }
 
     private <E extends IAnimatable> PlayState trunkPredicate(AnimationEvent<E> event) {
-        if (this.isTrunking()) {
+        if (this.isTrunking() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.mammoth.idle_trunk"));
             return PlayState.CONTINUE;
         }

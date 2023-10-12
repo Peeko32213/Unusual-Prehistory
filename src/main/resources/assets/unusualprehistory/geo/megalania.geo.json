@@ -6,22 +6,24 @@
 				"identifier": "geometry.unknown",
 				"texture_width": 256,
 				"texture_height": 256,
-				"visible_bounds_width": 14,
-				"visible_bounds_height": 3.5,
-				"visible_bounds_offset": [0, 1.25, 0]
+				"visible_bounds_width": 16,
+				"visible_bounds_height": 4,
+				"visible_bounds_offset": [0, 1, 0]
 			},
 			"bones": [
 				{
+					"name": "Megalania",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "OuterTorso",
+					"parent": "Megalania",
 					"pivot": [0, 22, 8]
 				},
 				{
 					"name": "Torso",
 					"parent": "OuterTorso",
-					"pivot": [0, 23, 0],
-					"cubes": [
-						{"origin": [-11.5, 8, -20], "size": [23, 18, 44], "uv": [0, 0]}
-					]
+					"pivot": [0, 23, 0]
 				},
 				{
 					"name": "Neck",
@@ -73,6 +75,14 @@
 					]
 				},
 				{
+					"name": "Body",
+					"parent": "Torso",
+					"pivot": [0, 23, 0],
+					"cubes": [
+						{"origin": [-11.5, 8, -20], "size": [23, 18, 44], "uv": [0, 0]}
+					]
+				},
+				{
 					"name": "Arms",
 					"parent": "OuterTorso",
 					"pivot": [0, 15, -14]
@@ -97,6 +107,7 @@
 				},
 				{
 					"name": "Legs",
+					"parent": "Megalania",
 					"pivot": [0, 17, 0]
 				},
 				{

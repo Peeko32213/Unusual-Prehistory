@@ -677,16 +677,21 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.megalania.tail_whip"));
                     break;
                 default:
-                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isAsleep()) {
-                        if (this.isSprinting() || !this.getPassengers().isEmpty()) {
+                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isAsleep()  && !this.isSwimming()) {
+                        if (this.isSprinting() || !this.getPassengers().isEmpty() && !this.isSwimming()) {
                             event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.sprint"));
                             return PlayState.CONTINUE;
-                        } else if (event.isMoving() && !this.isAsleep()) {
+                        } else if (event.isMoving() && !this.isAsleep() && !this.isSwimming()) {
                             event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.walk"));
                             return PlayState.CONTINUE;
                         }
                     }
-                    if (isAsleep()) {
+                    if (this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.swim"));
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    }
+                    if (isAsleep() && !this.isSwimming()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.resting"));
                         return PlayState.CONTINUE;
                     }

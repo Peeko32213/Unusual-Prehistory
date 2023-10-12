@@ -585,17 +585,22 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.barinasuchus.bite"));
                     break;
                 default:
-                     if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()){
+                     if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isSwimming()){
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.move"));
                         return PlayState.CONTINUE;
-                    } if (this.isSprinting() && !this.isInSittingPose()) {
+                    } if (this.isSprinting() && !this.isInSittingPose() && !this.isSwimming()) {
                     event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.sprint"));
                     return PlayState.CONTINUE;
                 }
-                     if (this.isInSittingPose()) {
+                     if (this.isInSittingPose() && !this.isSwimming()) {
                          event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.sitting"));
                          return PlayState.CONTINUE;
                 }
+                    if (this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.swim"));
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    }
                      event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.idle"));
                     return PlayState.CONTINUE;
             }

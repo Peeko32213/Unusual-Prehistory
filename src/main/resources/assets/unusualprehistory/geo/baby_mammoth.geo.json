@@ -7,12 +7,17 @@
 				"texture_width": 128,
 				"texture_height": 128,
 				"visible_bounds_width": 3,
-				"visible_bounds_height": 3.5,
-				"visible_bounds_offset": [0, 1.25, 0]
+				"visible_bounds_height": 3,
+				"visible_bounds_offset": [0, 0.5, 0]
 			},
 			"bones": [
 				{
+					"name": "Mammoth",
+					"pivot": [0, 23, 0]
+				},
+				{
 					"name": "Body",
+					"parent": "Mammoth",
 					"pivot": [0, 22, 0],
 					"cubes": [
 						{"origin": [-7.5, 9, -11], "size": [15, 17, 21], "uv": [0, 0]},
@@ -48,6 +53,7 @@
 				},
 				{
 					"name": "Arm1",
+					"parent": "Mammoth",
 					"pivot": [4, 9, -7],
 					"cubes": [
 						{"origin": [2, 0, -10], "size": [5, 9, 6], "uv": [72, 21]}
@@ -55,6 +61,7 @@
 				},
 				{
 					"name": "Arm2",
+					"parent": "Mammoth",
 					"pivot": [-4, 9, -7],
 					"cubes": [
 						{"origin": [-7, 0, -10], "size": [5, 9, 6], "uv": [72, 21], "mirror": true}
@@ -62,6 +69,7 @@
 				},
 				{
 					"name": "Leg1",
+					"parent": "Mammoth",
 					"pivot": [4, 9, 5],
 					"cubes": [
 						{"origin": [2, 0, 2], "size": [5, 9, 6], "uv": [72, 21]}
@@ -69,6 +77,7 @@
 				},
 				{
 					"name": "Leg2",
+					"parent": "Mammoth",
 					"pivot": [-4, 9, 5],
 					"cubes": [
 						{"origin": [-7, 0, 2], "size": [5, 9, 6], "uv": [72, 21], "mirror": true}
