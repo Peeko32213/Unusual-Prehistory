@@ -160,7 +160,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     //TODO add getPassengersRidingOffset to base class so we dont have to do all this again
     public double getPassengersRidingOffset() {
         if (this.isInWater()) {
-            return 0.535;
+            return 0.99;
         }
         else {
             return 2.6;
@@ -175,16 +175,6 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
             InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         }
         if (hand == InteractionHand.MAIN_HAND && !this.level.isClientSide) {
-
-
-
-            if (!isTame() && itemstack.is(ItemTags.LEAVES)) {
-                //int size = itemstack.getCount();
-                if (random.nextBoolean()) {
-                    this.tame(player);
-                }
-                itemstack.shrink(1);
-            }
             if (isTame() && isOwnedBy(player)) {
                 if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                     if (!player.getAbilities().instabuild) {
@@ -426,7 +416,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isSwimming()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isInSittingPose() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.move"));
             return PlayState.CONTINUE;
         }
@@ -438,7 +428,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.sitting"));
             return PlayState.CONTINUE;
-        } else {
+        } else if (!this.isInWater() && !this.isSwimming()){
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.idle"));
         }
         return PlayState.CONTINUE;

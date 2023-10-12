@@ -63,7 +63,7 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.07D);
+                .add(Attributes.MOVEMENT_SPEED, 0.13D);
     }
 
     protected void registerGoals() {

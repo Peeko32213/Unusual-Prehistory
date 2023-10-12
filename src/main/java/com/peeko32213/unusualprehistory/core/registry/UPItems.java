@@ -217,7 +217,7 @@ public class UPItems {
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> MEGALA_FLASK = ITEMS.register("megala_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-    public static final RegistryObject<Item> TALPANAS_FLASK = ITEMS.register("talapanas_flask",
+    public static final RegistryObject<Item> TALPANAS_FLASK = ITEMS.register("talpanas_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> ZULOAGAE_FLASK = ITEMS.register("zuloagae_flask",
