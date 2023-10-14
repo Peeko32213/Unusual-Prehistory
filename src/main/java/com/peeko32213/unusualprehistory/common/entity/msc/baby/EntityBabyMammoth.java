@@ -235,12 +235,17 @@ public class EntityBabyMammoth extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isSwimming()) {
             {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.baby_mammoth.move"));
                 return PlayState.CONTINUE;
 
             }
+        }
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.baby_mammoth.swim"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
         }
         else {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.baby_mammoth.idle"));

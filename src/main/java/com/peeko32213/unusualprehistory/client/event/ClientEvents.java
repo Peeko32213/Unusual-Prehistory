@@ -15,12 +15,10 @@ import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntity
 import com.peeko32213.unusualprehistory.client.render.block.ThrowableFallingBlockRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
 import com.peeko32213.unusualprehistory.client.render.tool.FlatMovingThrownItemRenderer;
-import com.peeko32213.unusualprehistory.client.render.trail.EntityTrailRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
-import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemSlothPouchArmor;
@@ -28,7 +26,6 @@ import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -38,7 +35,6 @@ import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
@@ -216,7 +212,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BABY_SMILODON.get(), e -> new LivingEntityRenderer<>(e, new BabySmilodonModel()));
         event.registerEntityRenderer(UPEntities.BABY_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new BabyMammothModel()));
 
-        event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new LivingEntityRenderer<>(e, new EryonModel()));
+        event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new EryonModel()));
         event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new AustroraptorModel()));
         event.registerEntityRenderer(UPEntities.ANTARCO.get(), e -> new DinosaurRenderer<>(e, new AntarctopeltaModel()));
         event.registerEntityRenderer(UPEntities.ULUG.get(), e ->
@@ -231,7 +227,7 @@ public final class ClientEvents {
                         .withLayers(HWACHA_MODEL)
                         .withSaddleLayer(HWACHA_SADDLE_OVERLAY)
                         .build());
-        event.registerEntityRenderer(UPEntities.TALAPANAS.get(), e -> new DinosaurRenderer<>(e, new TalapanasModel()));
+        event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new DinosaurRenderer<>(e, new TalpanasModel()));
         event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e ->
                 UPRenderUtils.createDinosaurRenderer(e, new GigantopithicusModel())
                         .withItemHoldingLayer()
@@ -258,11 +254,13 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), PalaeophisRenderer::new);
         event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
-        event.registerEntityRenderer(UPEntities.ENTITY_TRAIL.get(), EntityTrailRenderer::new);
+        event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new SludgeModel()));
 
 
         event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));
         event.registerEntityRenderer(UPEntities.ICEBERG_SMILODON.get(), e -> new LivingEntityRenderer<>(e, new IcebergSmilodonModel()));
+
+        event.registerEntityRenderer(UPEntities.BOOK_PALAEO.get(), e -> new LivingEntityRenderer<>(e, new BookSnakeModel()));
 
         //Plants
         event.registerEntityRenderer(UPEntities.FOXXI_SAPLING.get(), e -> new PlantEntityRenderer<>(e, new PlantModel("tall_plant", "plants/foxxi_sapling.png"), 1));
@@ -325,23 +323,6 @@ public final class ClientEvents {
         GeoArmorRenderer.registerArmorRenderer(ItemTyrantsCrown.class, TyrantsCrownRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemShedscaleArmor.class, ShedscaleArmorRenderer::new);
         GeoArmorRenderer.registerArmorRenderer(ItemSlothPouchArmor.class, SlothPouchArmorRenderer::new);
-    }
-
-    @SubscribeEvent
-    public void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
-        if (Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()) != null && !Minecraft.getInstance().isPaused() && UnusualPrehistoryConfig.SCREEN_SHAKE.get()) {
-            int duration = Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()).getDuration();
-            if(!(duration > 0)){ Minecraft.getInstance().player.removeEffect(UPEffects.SCREEN_SHAKE.get());
-                return;
-            }
-
-            int amplifier = Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()).getAmplifier();
-            float f = (Math.min(10, duration) + Minecraft.getInstance().getFrameTime()) * 0.1F;
-            double intensity = f * Minecraft.getInstance().options.screenEffectScale().get();
-            RandomSource rng = Minecraft.getInstance().player.getRandom();
-            double totalAmp = (0.1 + 0.1 * amplifier);
-            event.getCamera().move(rng.nextFloat() * 0.4F * intensity * totalAmp, rng.nextFloat() * 0.2F * intensity * totalAmp, rng.nextFloat() * 0.4F * intensity * totalAmp);
-        }
     }
 
     @SubscribeEvent

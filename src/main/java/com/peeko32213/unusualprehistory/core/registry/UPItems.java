@@ -217,7 +217,7 @@ public class UPItems {
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> MEGALA_FLASK = ITEMS.register("megala_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
-    public static final RegistryObject<Item> TALAPANAS_FLASK = ITEMS.register("talapanas_flask",
+    public static final RegistryObject<Item> TALPANAS_FLASK = ITEMS.register("talpanas_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> ZULOAGAE_FLASK = ITEMS.register("zuloagae_flask",
@@ -373,8 +373,8 @@ public class UPItems {
             UPEntities.HWACHA , 0x14191b, 0xf4f435);
     public static final RegistryObject<ForgeSpawnEggItem> GIGANTO_EGG = registerSpawnEggs("giganto_spawn_egg",
             UPEntities.GIGANTOPITHICUS , 0x7c3c23, 0x665f58);
-    public static final RegistryObject<ForgeSpawnEggItem> TALAPANAS_EGG = registerSpawnEggs("talapanas_spawn_egg",
-            UPEntities.TALAPANAS , 0x1d1311, 0x3c4849);
+    public static final RegistryObject<ForgeSpawnEggItem> TALPANAS_EGG = registerSpawnEggs("talpanas_spawn_egg",
+            UPEntities.TALPANAS , 0x1d1311, 0x3c4849);
 
     public static final RegistryObject<ForgeSpawnEggItem> BARINA_EGG = registerSpawnEggs("barinasuchus_spawn_egg",
             UPEntities.BARINASUCHUS , 0x0e0b03, 0xbea61e);
@@ -396,6 +396,9 @@ public class UPItems {
 
     public static final RegistryObject<ForgeSpawnEggItem> MEGALANIA_EGG = registerSpawnEggs("megalania_spawn_egg",
             UPEntities.MEGALANIA , 0x2e2319, 0x96874b);
+
+    public static final RegistryObject<ForgeSpawnEggItem> SLUDGE_EGG = registerSpawnEggs("sludge_spawn_egg",
+            UPEntities.SLUDGE , 0x0a090a, 0x282627);
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, EquipmentSlot.HEAD,
                     new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));

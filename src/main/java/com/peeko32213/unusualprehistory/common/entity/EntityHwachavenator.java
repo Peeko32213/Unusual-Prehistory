@@ -9,11 +9,14 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -54,7 +57,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.Optional;
 
-public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implements RangedAttackMob, CustomFollower {
+public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implements RangedAttackMob, CustomFollower,IAttackEntity {
     private static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(EntityHwachavenator.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityHwachavenator.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityHwachavenator.class, EntityDataSerializers.BOOLEAN);
@@ -63,7 +66,8 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     public float shootProgress;
     public float sitProgress;
     public int soundTimer = 0;
-
+    private int attackCooldown;
+    public static final int ATTACK_COOLDOWN = 30;
     public EntityHwachavenator(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
@@ -307,8 +311,16 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         this.entityData.set(SHOOTING, shooting);
     }
 
+
+
     public void tick() {
         super.tick();
+
+        if(attackCooldown > 0){
+            attackCooldown--;
+        }
+
+
         if(soundTimer > 0){
             soundTimer--;
         }
@@ -345,8 +357,32 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     }
 
     @Override
-    protected void performAttack() {
-        return;
+    public void performAttack() {
+        this.setIsShooting(true);
+    }
+
+    @Override
+    public void afterAttack() {
+        this.setIsShooting(false);
+        this.soundTimer = 0;
+        ClientboundStopSoundPacket clientboundstopsoundpacket = new ClientboundStopSoundPacket(UPSounds.HWACHA_SHOOT.getId(), SoundSource.NEUTRAL);
+        ServerPlayer serverPlayer = (ServerPlayer) this.getControllingPassenger();
+        serverPlayer.connection.send(clientboundstopsoundpacket);
+    }
+
+    @Override
+    public int getMaxAttackCooldown() {
+        return ATTACK_COOLDOWN;
+    }
+
+    @Override
+    public int getAttackCooldown() {
+        return attackCooldown;
+    }
+
+    @Override
+    public void setAttackCooldown(int cooldown) {
+        this.attackCooldown = cooldown;
     }
 
     public boolean hurt(DamageSource source, float amount) {

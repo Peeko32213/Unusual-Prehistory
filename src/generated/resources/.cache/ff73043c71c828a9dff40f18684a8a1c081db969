@@ -1,4 +1,4 @@
-// 1.19.2	2023-09-21T19:29:51.2458026	unusualprehistory Item Tags
+// 1.19.2	2023-10-14T09:45:02.6738	unusualprehistory Item Tags
 9c732831ed6ac09a1a4607681080e74fd3f930ea data/minecraft/tags/items/buttons.json
 9edb75fd2a2fc58fad5cb177d8cd36a6b449e37d data/minecraft/tags/items/fishes.json
 c058532b8dc116a7ddd6535c6021e5b16efff81c data/minecraft/tags/items/leaves.json
@@ -29,11 +29,11 @@ ffec7a0db4d4e282c3a135578a12215d38084cdf data/unusualprehistory/tags/items/analy
 85276021f92ca319f0aba92945149e2f7ca5e56c data/unusualprehistory/tags/items/analyzer_items_output_raw_coty.json
 eca28e743a302b42edeea770211beb348b28ecf4 data/unusualprehistory/tags/items/analyzer_items_output_raw_scau.json
 a1bde0b759e1556ddcca3f534588404d57b9c4e3 data/unusualprehistory/tags/items/analyzer_items_output_raw_stetha.json
-3bfac7be3299010d55e6fc076690cb3065fa2976 data/unusualprehistory/tags/items/analyzer_items_output_tar_fossil.json
+37946f9db96ae0d16dfc1187c193e984790fbf12 data/unusualprehistory/tags/items/analyzer_items_output_tar_fossil.json
 4b1f76a42f844547b0522cb40900ee9e00b6758d data/unusualprehistory/tags/items/analyzer_items_output_tree.json
 44781e5f7f2454bcee0bf16949c2262e19022ac0 data/unusualprehistory/tags/items/blue_ulugh_food.json
 edfbea327e9b9dfda94be452430f8b7269236ed4 data/unusualprehistory/tags/items/brown_ulugh_food.json
-da4290e7948df2334741b648ba3c8ffc6ac3c68d data/unusualprehistory/tags/items/dna_flasks.json
+a8b05b58e208c53a0e172b38a4d5baa9ff270a33 data/unusualprehistory/tags/items/dna_flasks.json
 e7979fa1ee3401c63e5b609e5c51d79f07e44332 data/unusualprehistory/tags/items/dryo.json
 291718131b430f202c603d9f307f34ade8dc2264 data/unusualprehistory/tags/items/filled_flasks.json
 678b5f4dc6ccd09e6f0ab7a1397e054e4160ef3e data/unusualprehistory/tags/items/fossils.json

@@ -7,7 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.trail.EntityTrail;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.EntityBookSnake;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -134,9 +134,9 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityHwachavenator::new, MobCategory.CREATURE).sized(1.95F, 2.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hwachavenator").toString()));
 
-    public static final RegistryObject<EntityType<EntityTalapanas>> TALAPANAS = ENTITIES.register("talapanas",
-            () -> EntityType.Builder.of(EntityTalapanas::new, MobCategory.CREATURE).sized(0.8F, 0.8F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "talapanas").toString()));
+    public static final RegistryObject<EntityType<EntityTalpanas>> TALPANAS = ENTITIES.register("talpanas",
+            () -> EntityType.Builder.of(EntityTalpanas::new, MobCategory.CREATURE).sized(0.8F, 0.8F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "talpanas").toString()));
 
     public static final RegistryObject<EntityType<EntityGigantopithicus>> GIGANTOPITHICUS = ENTITIES.register("gigantopithicus",
             () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(3.0F, 3.0F)
@@ -208,12 +208,9 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityBabyBarinasuchus::new, MobCategory.CREATURE).sized(1.3f, 0.5f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_barina").toString()));
 
-    public static final RegistryObject<EntityType<EntityTrail>> ENTITY_TRAIL = ENTITIES.register("entity_trail",
-            () -> EntityType.Builder.<EntityTrail>of(EntityTrail::new, MobCategory.MISC)
-                    .fireImmune().sized(1, 1).noSummon()
-                    .clientTrackingRange(4)
-                    .updateInterval(5)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "entity_trail").toString()));
+    public static final RegistryObject<EntityType<EntitySludge>> SLUDGE = ENTITIES.register("sludge",
+            () -> EntityType.Builder.of(EntitySludge::new, MobCategory.MONSTER).sized(3.0f, 3.0f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "sludge").toString()));
 
     public static final RegistryObject<EntityType<IcebergMammoth>> ICEBERG_MAMMOTH = ENTITIES.register("iceberg_mammoth",
             () -> EntityType.Builder.<IcebergMammoth>of(IcebergMammoth::new, MobCategory.CREATURE)
@@ -247,6 +244,13 @@ public class UPEntities {
                     .clientTrackingRange(10)
                     .updateInterval(20)
                     .build(prefix("throwable_falling_block").toString()));
+
+    public static final RegistryObject<EntityType<EntityBookSnake>> BOOK_PALAEO = ENTITIES.register("book_palaeo",
+            () -> EntityType.Builder.<EntityBookSnake>of(EntityBookSnake::new, MobCategory.MISC)
+                    .noSummon()
+                    .fireImmune()
+                    .sized(2, 2)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "book_palaeo").toString()));
 
     //Plants
 

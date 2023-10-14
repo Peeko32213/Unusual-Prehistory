@@ -483,44 +483,10 @@ public class BookScreen extends Screen {
      * @param entity The LivingEntity instance to render.
      */
     public static void drawEntityOnScreen(PoseStack stackIn, int posX, int posY, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, LivingEntity entity) {
-        //Ew Todo Fix this mess some day
-        if(entity instanceof EntityBaseDinosaurAnimal dinosaurAnimal) {
-            dinosaurAnimal.setIsFromBook(true);
-        }
-        if(entity instanceof EntityTameableBaseDinosaurAnimal dinosaurAnimal) {
-            dinosaurAnimal.setIsFromBook(true);
-        }
-        if(entity instanceof EntityDunkleosteus dinosaurAnimal) {
-            dinosaurAnimal.setIsFromBook(true);
-        }
-        if(entity instanceof EntityEncrusted dinosaurAnimal) {
-            dinosaurAnimal.setIsFromBook(true);
-        }
 
-        if(entity instanceof EntityAmmonite dinosaurAnimal) {
-            dinosaurAnimal.setIsFromBook(true);
+        if(entity instanceof IBookEntity bookEntity) {
+            bookEntity.setFromBook(true);
         }
-
-        if(entity instanceof EntityScaumenacia dinosaurAnimal) {
-            dinosaurAnimal.setIsFromBook(true);
-        }
-
-        if(entity instanceof EntityStethacanthus dinosaurAnimal) {
-            dinosaurAnimal.setIsFromBook(true);
-        }
-
-        if(entity instanceof EntityEryon dinosaurAnimal) {
-            dinosaurAnimal.setIsFromBook(true);
-        }
-
-        if(entity instanceof EntityAnurognathus dinosaurAnimal) {
-            dinosaurAnimal.setIsFromBook(true);
-        }
-
-        if(entity instanceof EntityBaseAquaticAnimal dinosaurAnimal) {
-            dinosaurAnimal.setIsFromBook(true);
-        }
-
 
         PoseStack posestack = RenderSystem.getModelViewStack();
         posestack.pushPose();

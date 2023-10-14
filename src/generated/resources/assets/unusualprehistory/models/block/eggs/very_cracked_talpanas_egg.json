@@ -1,0 +1,6 @@
+{
+  "parent": "unusualprehistory:block/template_eggs/template_talpanas_egg",
+  "textures": {
+    "texture": "unusualprehistory:block/eggs/talpanas_egg_very_cracked"
+  }
+}

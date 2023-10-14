@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block;
 
+import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
@@ -136,22 +137,15 @@ public class BlockDinosaurWaterEggs extends Block {
         for (int index = 1; index <= i; ++index) {
             Mob entityToSpawn = (Mob) dinosaur.get().create(level);
 
-            if(entityToSpawn instanceof EntityBaseDinosaurAnimal baseAnimal){
-                baseAnimal.setAge(-24000);
-                baseAnimal.determineVariant(random.nextInt(100));
-            }
-            if(entityToSpawn instanceof EntityTameableBaseDinosaurAnimal baseTame){
-                baseTame.setAge(-24000);
-                baseTame.determineVariant(random.nextInt(100));
-            }
-            if(entityToSpawn instanceof EntityBaseAquaticAnimal waterDino){
-                waterDino.determineVariant(random.nextInt(100));
+            if(entityToSpawn instanceof IHatchableEntity hatchableEntity){
+                hatchableEntity.determineVariant(random.nextInt(100));
             }
 
             if(entityToSpawn instanceof Animal animal){
                 animal.setAge(-24000);
                 animal.restrictTo(pos, 20);
             }
+
             if (entityToSpawn != null) {
                 double x = (double)pos.getX() + this.getSpawnOffset(random);
                 double z = (double)pos.getZ() + this.getSpawnOffset(random);

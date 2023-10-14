@@ -66,7 +66,7 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("raptor_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.RAPTOR_EGG.get()))
                 .addCriterion("rex_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.REX_EGG.get()))
                 .addCriterion("barina_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.BARINA_EGG.get()))
-                .addCriterion("talapanas_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.TALAPANAS_EGG.get()))
+                .addCriterion("talapanas_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.TALPANAS_EGG.get()))
                 .addCriterion("trike_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.TRIKE_EGG.get()))
                 .addCriterion("ulugh_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.ULUGH_EGG.get()))
                 .addCriterion("eryon_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.ERYON_EGGS.get()))
@@ -354,12 +354,13 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("white_fruit", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.WHITE_FRUIT.get()))
                 .addCriterion("yellow_fruit", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.YELLOW_FRUIT.get()))
                 .addCriterion("blue_fruit", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.BLUE_FRUIT.get()))
+
                 .save(consumer, this.getNameId("main/gigantopithicus_fruits"));
 
-        Advancement talapanas = getAdvancement(birthingPod, (ItemLike)UPItems.TALAPANAS_FLASK.get(), "interact_talapanas", FrameType.TASK, true, true, true)
-                .addCriterion("damage_talapanas", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get())))))
-                .addCriterion("interact_talapanas", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get()).build())))
-                .addCriterion("killed_talapanas", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALAPANAS.get())))
+        Advancement talapanas = getAdvancement(birthingPod, (ItemLike)UPItems.TALPANAS_FLASK.get(), "interact_talpanas", FrameType.TASK, true, true, true)
+                .addCriterion("damage_talapanas", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))))
+                .addCriterion("interact_talapanas", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get()).build())))
+                .addCriterion("killed_talapanas", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))
                 .requirements(RequirementsStrategy.OR)
 
                 .save(consumer, this.getNameId("main/talapanas"));
@@ -469,6 +470,20 @@ public class AdvancementGenerator extends AdvancementProvider {
                 .addCriterion("amber_gummy", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.AMBER_GUMMY.get()))
                 .requirements(RequirementsStrategy.OR)
                 .save(consumer, this.getNameId("main/amber_gummy"));
+
+        Advancement encrusted = getAdvancement(amberFossil, (ItemLike)UPItems.ENCRUSTED_FLASK.get(), "interact_encrusted", FrameType.TASK, true, true, true)
+                .addCriterion("damage_encrusted", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get())))))
+                .addCriterion("interact_encrusted", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get()).build())))
+                .addCriterion("killed_encrusted", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get())))
+                .requirements(RequirementsStrategy.OR)
+                .save(consumer, this.getNameId("main/encrusted"));
+
+        Advancement sludge = getAdvancement(fossil, (ItemLike)UPItems.TAR_FOSSIL.get(), "interact_sludge", FrameType.TASK, true, true, true)
+                .addCriterion("damage_sludge", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get())))))
+                .addCriterion("interact_sludge", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get()).build())))
+                .addCriterion("killed_sludge", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get())))
+                .requirements(RequirementsStrategy.OR)
+                .save(consumer, this.getNameId("main/sludge"));
 
 
     }

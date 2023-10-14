@@ -48,7 +48,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
-public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implements CustomFollower {
+public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implements CustomFollower, IAttackEntity {
     private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.INT);
@@ -59,7 +59,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     public EntityMegatherium(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
-
+    private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -115,6 +115,11 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     public void tick() {
         super.tick();
+
+        if(attackCooldown > 0){
+            attackCooldown--;
+        }
+
         if (!this.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
             this.setEating(true);
         }
@@ -154,8 +159,12 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     //TODO add getPassengersRidingOffset to base class so we dont have to do all this again
     public double getPassengersRidingOffset() {
-        return 2.6D;
-
+        if (this.isInWater()) {
+            return 0.99;
+        }
+        else {
+            return 2.6;
+        }
     }
 
     //TODO add mobinteract to base class so we dont have to do all this again
@@ -166,16 +175,6 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
             InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         }
         if (hand == InteractionHand.MAIN_HAND && !this.level.isClientSide) {
-
-
-
-            if (!isTame() && itemstack.is(ItemTags.LEAVES)) {
-                //int size = itemstack.getCount();
-                if (random.nextBoolean()) {
-                    this.tame(player);
-                }
-                itemstack.shrink(1);
-            }
             if (isTame() && isOwnedBy(player)) {
                 if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                     if (!player.getAbilities().instabuild) {
@@ -229,6 +228,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     @Override
     public void performAttack() {
         if (!this.level.isClientSide) {
+            this.setSwinging(true);
             ServerLevel serverLevel = (ServerLevel) this.level;
             float angle = (0.01745329251F * this.yBodyRot);
             double radius = this.getBbWidth();
@@ -254,8 +254,33 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     @Override
+    public void afterAttack() {
+        this.level.broadcastEntityEvent(this, (byte)5);
+        this.setSwinging(false);
+    }
+
+    @Override
+    public int getMaxAttackCooldown() {
+        return ATTACK_COOLDOWN;
+    }
+
+    @Override
+    public int getAttackCooldown() {
+        return attackCooldown;
+    }
+
+    @Override
+    public void setAttackCooldown(int cooldown) {
+        this.attackCooldown = cooldown;
+    }
+
+    @Override
     public float getStepHeight() {
         return 1.2F;
+    }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
     public boolean isAlliedTo(Entity entityIn) {
@@ -391,14 +416,19 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isInSittingPose() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.move"));
             return PlayState.CONTINUE;
         }
-        if (this.isInSittingPose() && !this.isInWater()) {
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.swim"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.sitting"));
             return PlayState.CONTINUE;
-        } else {
+        } else if (!this.isInWater() && !this.isSwimming()){
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.idle"));
         }
         return PlayState.CONTINUE;
@@ -406,7 +436,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
-        if (this.isEating() && !this.isInSittingPose()) {
+        if (this.isEating() && !this.isInSittingPose() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.eating"));
             return PlayState.CONTINUE;
         }

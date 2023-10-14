@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.EntityBookSnake;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -42,7 +43,7 @@ public class CommonEvents {
         event.put(UPEntities.ULUG.get(), EntityUlughbegsaurus.createAttributes().build());
         event.put(UPEntities.KENTRO.get(), EntityKentrosaurus.createAttributes().build());
         event.put(UPEntities.HWACHA.get(), EntityHwachavenator.createAttributes().build());
-        event.put(UPEntities.TALAPANAS.get(), EntityTalapanas.createAttributes().build());
+        event.put(UPEntities.TALPANAS.get(), EntityTalpanas.createAttributes().build());
         event.put(UPEntities.GIGANTOPITHICUS.get(), EntityGigantopithicus.createAttributes().build());
         event.put(UPEntities.BARINASUCHUS.get(), EntityBarinasuchus.createAttributes().build());
         event.put(UPEntities.MEGATHERIUM.get(), EntityMegatherium.createAttributes().build());
@@ -60,12 +61,14 @@ public class CommonEvents {
         event.put(UPEntities.BABY_SMILODON.get(), EntityBabySmilodon.createAttributes().build());
         event.put(UPEntities.BABY_MAMMOTH.get(), EntityBabyMammoth.createAttributes().build());
         event.put(UPEntities.BABY_BARINA.get(), EntityBabyBarinasuchus.createAttributes().build());
+        event.put(UPEntities.SLUDGE.get(), EntitySludge.createAttributes().build());
 
 
 
 
         event.put(UPEntities.ICEBERG_SMILODON.get(), EntityWorldSpawnable.bakeAttributes().build());
         event.put(UPEntities.ICEBERG_MAMMOTH.get(), EntityWorldSpawnable.bakeAttributes().build());
+        event.put(UPEntities.BOOK_PALAEO.get(), EntityBookSnake.createAttributes().build());
 
         //Plants
         event.put(UPEntities.FOXXI_SAPLING.get(), EntityPlant.bakeAttributes().build());

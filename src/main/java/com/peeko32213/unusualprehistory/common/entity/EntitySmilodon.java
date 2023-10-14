@@ -6,12 +6,14 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.SmilodonAttackGoa
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -24,6 +26,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -68,7 +71,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new GroomGoal(this, 1.5));
-        //this.goalSelector.addGoal(1, new SmilodonStalkGoal(this));
         this.goalSelector.addGoal(2, new SmilodonAttackGoal(this));
         this.goalSelector.addGoal(1, new PounceGoal(this, 5));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
@@ -78,6 +80,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.SMILODON_TARGETS)));
 
     }
+
 
     public int groomTimer;
 
@@ -110,6 +113,9 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
         return UPSounds.SMILODON_DEATH.get();
     }
 
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(SoundEvents.RAVAGER_STEP, 0.1F, 1.0F);
+    }
 
     @Override
     protected SoundEvent getAttackSound() {
@@ -412,28 +418,33 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
             return PlayState.CONTINUE;
         }
 
-        if (groom1()) {
+        if (groom1() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.groom_1"));
             event.getController().setAnimationSpeed(2.5F);
             return PlayState.CONTINUE;
         }
-        if (groom2()) {
+        if (groom2() && !this.isSwimming()) {
             event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.groom_2"));
             event.getController().setAnimationSpeed(2.5F);
             return PlayState.CONTINUE;
         }
 
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
-            if (this.isSprinting()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
+            if (this.isSprinting() && !this.isSwimming()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.sprint"));
                 event.getController().setAnimationSpeed(2.5F);
                 return PlayState.CONTINUE;
-            } else if (this.isCrouching()) {
+            } else if (this.isCrouching() && !this.isSwimming()) {
                 event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.sneak"));
                 event.getController().setAnimationSpeed(0.8F);
                 return PlayState.CONTINUE;
             }
             event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.move"));
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.swim"));
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }

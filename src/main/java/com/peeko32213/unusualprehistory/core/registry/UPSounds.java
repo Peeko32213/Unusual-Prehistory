@@ -112,10 +112,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> PARACER_HURT = createSoundEvent("paracer_hurt");
     public static final RegistryObject<SoundEvent> PARACER_IDLE = createSoundEvent("paracer_idle");
     public static final RegistryObject<SoundEvent> PARACER_STOMP = createSoundEvent("paracer_stomp");
-    public static final RegistryObject<SoundEvent> TALAPANAS_DEATH = createSoundEvent("talapanas_death");
-    public static final RegistryObject<SoundEvent> TALAPANAS_HURT = createSoundEvent("talapanas_hurt");
-    public static final RegistryObject<SoundEvent> TALAPANAS_IDLE = createSoundEvent("talapanas_idle");
-    public static final RegistryObject<SoundEvent> TALAPANAS_PANIC = createSoundEvent("talapanas_panic");
+    public static final RegistryObject<SoundEvent> TALPANAS_DEATH = createSoundEvent("talapanas_death");
+    public static final RegistryObject<SoundEvent> TALPANAS_HURT = createSoundEvent("talapanas_hurt");
+    public static final RegistryObject<SoundEvent> TALPANAS_IDLE = createSoundEvent("talapanas_idle");
+    public static final RegistryObject<SoundEvent> TALPANAS_PANIC = createSoundEvent("talapanas_panic");
     public static final RegistryObject<SoundEvent> CROCARINA = createSoundEvent("crocarina");
     public static final RegistryObject<SoundEvent> BARINA_DEATH = createSoundEvent("barina_death");
     public static final RegistryObject<SoundEvent> BARINA_HURT = createSoundEvent("barina_hurt");
@@ -134,6 +134,16 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> PALAEO_IDLE = createSoundEvent("palaeo_idle");
     public static final RegistryObject<SoundEvent> TAR_POP = createSoundEvent("tar_pop");
     public static final RegistryObject<SoundEvent> TAR_AMBIENT = createSoundEvent("tar_ambient");
+
+    public static final RegistryObject<SoundEvent> MEGALANIA_DEATH = createSoundEvent("megalania_death");
+    public static final RegistryObject<SoundEvent> MEGALANIA_HURT = createSoundEvent("megalania_hurt");
+    public static final RegistryObject<SoundEvent> MEGALANIA_IDLE = createSoundEvent("megalania_idle");
+
+    public static final RegistryObject<SoundEvent> SLUDGE_DEATH = createSoundEvent("sludge_death");
+    public static final RegistryObject<SoundEvent> SLUDGE_HURT = createSoundEvent("sludge_hurt");
+    public static final RegistryObject<SoundEvent> SLUDGE_IDLE = createSoundEvent("sludge_idle");
+    public static final RegistryObject<SoundEvent> SLUDGE_SLAM = createSoundEvent("sludge_slam");
+    public static final RegistryObject<SoundEvent> SLUDGE_SLAP = createSoundEvent("sludge_slap");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));

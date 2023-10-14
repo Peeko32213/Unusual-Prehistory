@@ -415,7 +415,8 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.PALAEOPHIS_PART.get());
 
         tag(UPTags.TAR_WALKABLE_ON_MOBS)
-                .add(EntityType.RABBIT);
+                .add(EntityType.RABBIT)
+                .add(UPEntities.SLUDGE.get());
 
         tag(UPTags.TAR_WALKABLE_THROUGH_MOBS)
                 .add(EntityType.RAVAGER);
@@ -452,6 +453,8 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.ULUG.get())
                 .add(UPEntities.VELOCI.get())
                 .add(UPEntities.MAJUNGA.get())
+                .add(UPEntities.SLUDGE.get())
+
         ;
     }
 

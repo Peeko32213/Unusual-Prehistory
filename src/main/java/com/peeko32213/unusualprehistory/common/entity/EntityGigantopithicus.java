@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.TradeGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -94,6 +95,10 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         }
 
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
     @Override
@@ -431,13 +436,18 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.attack"));
                     break;
                 default:
-                    if (this.isTrading()) {
+                    if (this.isTrading() && !this.isSwimming()) {
                        // event.getController().markNeedsReload();
                         event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.hold"));
                         event.getController().setAnimationSpeed(0.9D);
                         return PlayState.CONTINUE;
                     }
-                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+                    if (this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.swim"));
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6  && !this.isSwimming()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.walk"));
                         return PlayState.CONTINUE;
                     } else {

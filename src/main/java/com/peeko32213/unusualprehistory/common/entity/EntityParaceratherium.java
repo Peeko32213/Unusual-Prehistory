@@ -484,12 +484,17 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
                     event.getController().setAnimation(new AnimationBuilder().playOnce("animation.paraceratherium.attack"));
                     break;
                 default:
-                    if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
+                    if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && !this.isSwimming()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.paraceratherium.move"));
                         event.getController().setAnimationSpeed(1.5D);
                         return PlayState.CONTINUE;
-                    } else if (!this.isInWater()) {
-
+                    }
+                    if (this.isInWater()) {
+                        event.getController().setAnimation(new AnimationBuilder().loop("animation.paraceratherium.swim"));
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    }
+                    else if (!this.isInWater() && !this.isSwimming()) {
                         event.getController().setAnimation(new AnimationBuilder().loop("animation.paraceratherium.idle"));
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;

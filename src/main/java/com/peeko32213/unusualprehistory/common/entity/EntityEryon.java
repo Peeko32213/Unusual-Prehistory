@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -16,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -54,20 +56,18 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class EntityEryon extends PathfinderMob implements IAnimatable {
+public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable {
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.BOOLEAN);
-
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private Ingredient temptationItems;
     public float prevFeedProgress;
     public float feedProgress;
 
-    public EntityEryon(EntityType<? extends PathfinderMob> p_21683_, Level p_21684_) {
+    public EntityEryon(EntityType<? extends EntityBaseDinosaurAnimal> p_21683_, Level p_21684_) {
         super(p_21683_, p_21684_);
     }
 
@@ -132,6 +132,51 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         }
     }
 
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
+    }
+
     public boolean removeWhenFarAway(double d) {
         return !this.hasCustomName();
     }
@@ -154,6 +199,12 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         return p_28137_;
     }
 
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+        return null;
+    }
+
     public boolean isFood(ItemStack stack) {
         return !stack.isEmpty() && getTemptationItems().test(stack);
     }
@@ -172,8 +223,6 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         this.entityData.define(FEEDING_TIME, 0);
         this.entityData.define(VARIANT, 0);
         this.entityData.define(FEEDING_POS, Optional.empty());
-        this.entityData.define(FROM_BOOK, false);
-
     }
 
     public int getVariant() {
@@ -192,14 +241,6 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         this.entityData.set(FEEDING_TIME, feedingTime);
     }
 
-    public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
-    }
-
-    public void setIsFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
     public void tick() {
         super.tick();
         this.prevFeedProgress = feedProgress;
@@ -209,28 +250,6 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         if (this.getFeedingTime() <= 0 && feedProgress > 0F) {
             feedProgress--;
         }
-       //BlockPos feedingPos = this.entityData.get(FEEDING_POS).orElse(null);
-       //if (feedingPos == null) {
-       //    float f2 = (float) -((float) this.getDeltaMovement().y * 2.2F * (double) (180F / (float) Math.PI));
-       //    this.setXRot(f2);
-       //} else if (this.getFeedingTime() > 0) {
-       //    Vec3 face = Vec3.atCenterOf(feedingPos).subtract(this.position());
-       //    double d0 = face.horizontalDistance();
-       //    this.setXRot((float) (-Mth.atan2(face.y, d0) * (double) (180F / (float) Math.PI)));
-       //    this.setYRot(((float) Mth.atan2(face.z, face.x)) * (180F / (float) Math.PI) - 90F);
-       //    this.yBodyRot = this.getYRot();
-       //    this.yHeadRot = this.getYRot();
-       //    BlockState state = level.getBlockState(feedingPos);
-       //    if (random.nextInt(2) == 0 && !state.isAir()) {
-       //        Vec3 mouth = new Vec3(0, this.getBbHeight() * 0.5F, 0.4F * -0.5).xRot(this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.getYRot() * ((float) Math.PI / 180F));
-       //        for (int i = 0; i < 4 + random.nextInt(2); i++) {
-       //            double motX = this.random.nextGaussian() * 0.02D;
-       //            double motY = 0.1F + random.nextFloat() * 0.2F;
-       //            double motZ = this.random.nextGaussian() * 0.02D;
-       //            level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + mouth.x, this.getY() + mouth.y, this.getZ() + mouth.z, motX, motY, motZ);
-       //        }
-       //    }
-       //}
     }
 
     private class DigSandGoal extends Goal {
@@ -414,8 +433,6 @@ public class EntityEryon extends PathfinderMob implements IAnimatable {
         return this.factory;
     }
 
-    public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends EntityEryon> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
-    }
+
 
 }

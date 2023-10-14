@@ -1,12 +1,10 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
+import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabySmilodon;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackC2SPacket;
-import com.peeko32213.unusualprehistory.common.networking.packet.SyncItemStackS2CPacket;
+import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
+import com.peeko32213.unusualprehistory.common.message.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
@@ -26,6 +24,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -151,11 +150,13 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
                 BlockPos pos = entity.worldPosition;
                 Direction dir = entity.getBlockState().getValue(FACING);
                 pos = pos.relative(dir,1);
-                spawnEntity((ServerLevel) level, pos, toSpawn, match.get());
+                boolean entitySpawned = spawnEntity((ServerLevel) level, pos, toSpawn, match.get());
 
                // if(entity.getDestroyChance(level)){
                 //
-                entity.level.destroyBlock(entity.worldPosition, true);
+                if(entitySpawned) {
+                    entity.level.destroyBlock(entity.worldPosition, true);
+                }
                 //}
             }
 
@@ -174,42 +175,39 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
         return stack;
     }
 
-    private static void spawnEntity(ServerLevel serverLevel, BlockPos pos, ResourceLocation toSpawn, IncubatorRecipe recipe){
+    private static boolean spawnEntity(ServerLevel serverLevel, BlockPos pos, ResourceLocation toSpawn, IncubatorRecipe recipe){
         EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(toSpawn);
         LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
         if(livingEntity == null)
         {
             LOGGER.error("Invalid entity resourcelocation for {}", recipe.getId());
-            return;
+            return false;
         }
 
         livingEntity.setPos(Vec3.atCenterOf(pos));
         livingEntity.setUUID(UUID.randomUUID());
-        if(livingEntity instanceof EntityBaseDinosaurAnimal animal){
+
+        if(livingEntity instanceof IHatchableEntity hatchableEntity){
+            hatchableEntity.determineVariant(serverLevel.random.nextInt(100));
+        }
+
+
+        if(livingEntity instanceof Animal animal){
             animal.setAge(-24000);
+
             if(livingEntity instanceof EntitySmilodon smilodon){
-                animal.determineVariant(0);
+                smilodon.determineVariant(0);
             } else if(livingEntity instanceof EntityBabySmilodon smilodon){
-                animal.determineVariant(0);
-            } else {
-                animal.determineVariant(serverLevel.random.nextInt(100));
+                smilodon.determineVariant(0);
             }
 
-            serverLevel.addFreshEntity(animal);
-        }
-        if(livingEntity instanceof EntityTameableBaseDinosaurAnimal animal){
-            animal.setAge(-24000);
-            animal.determineVariant(serverLevel.random.nextInt(100));
-            serverLevel.addFreshEntity(animal);
-        }
-        if(livingEntity instanceof EntityBaseAquaticAnimal animal){
-            animal.determineVariant(serverLevel.random.nextInt(100));
             serverLevel.addFreshEntity(animal);
         }
 
         else {
             serverLevel.addFreshEntity(livingEntity);
         }
+        return true;
     }
 
     private boolean getDestroyChance(Level level){

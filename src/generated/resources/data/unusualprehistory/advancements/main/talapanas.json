@@ -6,7 +6,7 @@
         "damage": {
           "type": {
             "direct_entity": {
-              "type": "unusualprehistory:talapanas"
+              "type": "unusualprehistory:talpanas"
             }
           }
         }
@@ -20,7 +20,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusualprehistory:talapanas"
+              "type": "unusualprehistory:talpanas"
             }
           }
         ],
@@ -35,7 +35,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusualprehistory:talapanas"
+              "type": "unusualprehistory:talpanas"
             }
           }
         ]
@@ -46,16 +46,16 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "unusualprehistory.advancement.interact_talapanas.desc"
+      "translate": "unusualprehistory.advancement.interact_talpanas.desc"
     },
     "frame": "task",
     "hidden": true,
     "icon": {
-      "item": "unusualprehistory:talapanas_flask"
+      "item": "unusualprehistory:talpanas_flask"
     },
     "show_toast": true,
     "title": {
-      "translate": "unusualprehistory.advancement.interact_talapanas"
+      "translate": "unusualprehistory.advancement.interact_talpanas"
     }
   },
   "requirements": [

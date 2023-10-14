@@ -59,7 +59,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal implements CustomFollower {
+public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal implements CustomFollower, IAttackEntity {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> BLUE = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> YELLOW = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
@@ -75,6 +75,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     private static final Map<DyeColor, float[]> COLORARRAY_BY_COLOR = Maps.<DyeColor, float[]>newEnumMap(Arrays.stream(DyeColor.values()).collect(Collectors.toMap((p_29868_) -> {
         return p_29868_;
     }, EntityUlughbegsaurus::createSheepColor)));
+    private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
     private boolean hasBlueAttributes = false;
     private boolean hasYellowAttributes = false;
@@ -224,6 +225,8 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         if (this.level.isClientSide) {
             return;
         }
+
+        this.setSwinging(true);
         for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
             if (!this.hasSwung() && this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
                 if (entity instanceof EntityUlughbegsaurus ulughbegsaurus) {
@@ -241,6 +244,27 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                     entity.hurt(DamageSource.mobAttack(this), 8.0F);
             }
         }
+    }
+
+    @Override
+    public void afterAttack() {
+        this.level.broadcastEntityEvent(this, (byte) 5);
+        this.setSwinging(false);
+    }
+
+    @Override
+    public int getMaxAttackCooldown() {
+        return ATTACK_COOLDOWN;
+    }
+
+    @Override
+    public int getAttackCooldown() {
+        return attackCooldown;
+    }
+
+    @Override
+    public void setAttackCooldown(int cooldown) {
+        this.attackCooldown = cooldown;
     }
 
 
@@ -450,6 +474,10 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public void tick() {
         super.tick();
 
+        if(attackCooldown > 0){
+            attackCooldown--;
+        }
+
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
         }
@@ -631,7 +659,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.heal(this.getMaxHealth());
         this.entityData.set(BROWN, green);
     }
-    @Override
+
     public void determineVariant(int variantChange){
         if (variantChange <= 30) {
             this.setWhite(true);
