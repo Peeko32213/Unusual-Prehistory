@@ -64,7 +64,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.SMILODON_EMBRYO, "Smilodon Embryo");
         addItem(UPItems.MAMMOTH_EMBRYO, "Mammoth Embryo");
         addItem(UPItems.MEGATH_EMBRYO, "Megatherium Embryo");
-        addItem(UPItems.GIGANTO_EMBRYO, "Gigantopithicus Embryo");
+        addItem(UPItems.GIGANTO_EMBRYO, "Gigantopithecus Embryo");
         addItem(UPItems.PARACER_EMBRYO, "Paraceratherium Embryo");
         addItem(UPItems.PALAEO_EMBRYO, "Palaeolophis Embryo");
 
@@ -172,7 +172,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.KENTRO_EGG, "Kentrosaurus Spawn Egg");
         addItem(UPItems.HWACHA_EGG, "Hwachavenator Spawn Egg");
         addItem(UPItems.TALPANAS_EGG, "Talpanas Spawn Egg");
-        addItem(UPItems.GIGANTO_EGG, "Gigantopithicus Spawn Egg");
+        addItem(UPItems.GIGANTO_EGG, "Gigantopithecus Spawn Egg");
         addItem(UPItems.BARINA_EGG, "Barinasuchus Spawn Egg");
         addItem(UPItems.MEGATH_EGG, "Megatherium Spawn Egg");
         addItem(UPItems.SMILO_EGG, "Smilodon Spawn Egg");
@@ -240,7 +240,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.HWACHA_FLASK, "Hwachavenator DNA Flask");
         addItem(UPItems.KENTRO_FLASK, "Kentrosaurus DNA Flask");
         addItem(UPItems.ULUGH_FLASK, "Ulughbegsaurus DNA Flask");
-        addItem(UPItems.GIGANTO_FLASK, "Gigantopithicus DNA Flask");
+        addItem(UPItems.GIGANTO_FLASK, "Gigantopithecus DNA Flask");
         addItem(UPItems.SMILO_FLASK, "Smilodon DNA Flask");
         addItem(UPItems.MEGATH_FLASK, "Megatherium DNA Flask");
         addItem(UPItems.PARACER_FLASK, "Paraceratherium DNA Flask");
@@ -429,7 +429,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.KENTRO, "Kentrosaurus");
         addEntityType(UPEntities.HWACHA, "Hwachavenator");
         addEntityType(UPEntities.TALPANAS, "Talpanas");
-        addEntityType(UPEntities.GIGANTOPITHICUS, "Gigantopithicus");
+        addEntityType(UPEntities.GIGANTOPITHICUS, "Gigantopithecus");
         addEntityType(UPEntities.SMILODON, "Smilodon");
         addEntityType(UPEntities.BARINASUCHUS, "Barinasuchus");
         addEntityType(UPEntities.PARACERATHERIUM, "Paraceratherium");
@@ -440,7 +440,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BABY_MEGATHERIUM, "Baby Megatherium");
         addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
         addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-        addEntityType(UPEntities.BABY_GIGANTO, "Baby Gigantopithicus");
+        addEntityType(UPEntities.BABY_GIGANTO, "Baby Gigantopithecus");
         addEntityType(UPEntities.BABY_PARACER, "Baby Paraceratherium");
         addEntityType(UPEntities.BABY_MEGALANIA, "Baby Megalania");
         addEntityType(UPEntities.BABY_PALAEO, "Baby Palaeolophis");
@@ -716,13 +716,13 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.advancement.obtain_shedscale.desc", "Obtain a Piece of Shedscale Armor");
 
         add("unusualprehistory.advancement.interact_giganto", "Give Orange Me Give Eat Orange");
-        add("unusualprehistory.advancement.interact_giganto.desc", "Revive a Gigantopithicus");
+        add("unusualprehistory.advancement.interact_giganto.desc", "Revive a Gigantopithecus");
 
         add("unusualprehistory.advancement.obtain_monkey_weapon", "Blood, Sweat, and Bamboo");
         add("unusualprehistory.advancement.obtain_monkey_weapon.desc", "Acquire All Handmade Weapons!");
 
         add("unusualprehistory.advancement.obtain_monkey_fruits", "Strange Fruits");
-        add("unusualprehistory.advancement.obtain_monkey_fruits.desc", "Acquire Any of the Fruits from Gigantopithicus");
+        add("unusualprehistory.advancement.obtain_monkey_fruits.desc", "Acquire Any of the Fruits from Gigantopithecus");
 
         add("unusualprehistory.advancement.interact_talpanas", "Duck Fortress");
         add("unusualprehistory.advancement.interact_talpanas.desc", "Revive a Talpanas");
