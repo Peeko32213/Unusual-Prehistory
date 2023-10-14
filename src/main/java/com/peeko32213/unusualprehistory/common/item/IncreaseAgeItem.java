@@ -25,16 +25,16 @@ public class IncreaseAgeItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
         if(pInteractionTarget instanceof Animal animal && animal.getType().is(toAge)){
-            if(!pPlayer.level.isClientSide) {
+            if(!pPlayer.level().isClientSide) {
                 int percentageAge = (int) (24000D * (age / 100D));
                 int currentAge = animal.getAge();
                 animal.setAge(animal.getAge() + percentageAge);
             }
             for(int i = 0; i < 10; i ++) {
-                double d0 = pPlayer.level.random.nextGaussian() * 0.02D;
-                double d1 = pPlayer.level.random.nextGaussian() * 0.01D;
-                double d2 = pPlayer.level.random.nextGaussian() * 0.02D;
-                pPlayer.level.addParticle(ParticleTypes.POOF, animal.getRandomX(1.0D), animal.getRandomY() + 0.5D, animal.getRandomZ(1.0D), d0, d1, d2);
+                double d0 = pPlayer.level().random.nextGaussian() * 0.02D;
+                double d1 = pPlayer.level().random.nextGaussian() * 0.01D;
+                double d2 = pPlayer.level().random.nextGaussian() * 0.02D;
+                pPlayer.level().addParticle(ParticleTypes.POOF, animal.getRandomX(1.0D), animal.getRandomY() + 0.5D, animal.getRandomZ(1.0D), d0, d1, d2);
 
                 //pPlayer.level.addParticle(ParticleTypes.POOF, (animal.position().x()) - d0 * 10.0D, (animal.position().y() + ) - d1 * 10.0D, (animal.position().z() + 0.5), d0, d1, d2);
             }

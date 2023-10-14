@@ -16,6 +16,13 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -27,8 +34,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
-public class ItemTrikeShield extends ShieldItem  implements IAnimatable {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+public class ItemTrikeShield extends ShieldItem  implements GeoItem {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
 
     public ItemTrikeShield(Properties group) {
@@ -61,12 +68,6 @@ public class ItemTrikeShield extends ShieldItem  implements IAnimatable {
 
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "controller",
-                0, this::predicate));
-    }
-
-    @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
             private final ToolRenderer renderer = new ToolRenderer<>(new TrikeShieldModel());
@@ -78,15 +79,15 @@ public class ItemTrikeShield extends ShieldItem  implements IAnimatable {
         });
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().loop("idle"));
 
-        return PlayState.CONTINUE;
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "idle", state -> PlayState.CONTINUE)
+                .triggerableAnim("idle", DefaultAnimations.IDLE));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
-
 }

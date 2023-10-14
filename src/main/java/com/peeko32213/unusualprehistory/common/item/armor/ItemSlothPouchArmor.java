@@ -14,12 +14,13 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
@@ -29,14 +30,14 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.List;
 import java.util.UUID;
 
-public class ItemSlothPouchArmor extends GeoArmorItem implements IAnimatable {
+public class ItemSlothPouchArmor extends ArmorItem implements GeoItem {
 
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int tameTime;
     /**
      * @param tameTime time it takes to tame the entity in ticks. 1200 ticks is one minute.
      * **/
-    public ItemSlothPouchArmor(ArmorMaterial material, EquipmentSlot slot, int tameTime, Properties settings) {
+    public ItemSlothPouchArmor(ArmorMaterial material, ArmorItem.Type slot, int tameTime, Properties settings) {
         super(material, slot, settings);
         this.tameTime = tameTime;
     }
@@ -123,11 +124,12 @@ public class ItemSlothPouchArmor extends GeoArmorItem implements IAnimatable {
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 }

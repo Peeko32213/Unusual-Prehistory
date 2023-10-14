@@ -24,7 +24,7 @@ public class LootFruitTierPacketS2C {
         try {
             return DataResult.success(Integer.valueOf(instantString));
         } catch (NumberFormatException e) {
-            return DataResult.error(e.getMessage());
+            return DataResult.error(() -> e.getMessage());
         }
     }
 

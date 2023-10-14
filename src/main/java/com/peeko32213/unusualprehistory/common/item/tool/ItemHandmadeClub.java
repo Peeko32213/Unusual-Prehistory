@@ -27,6 +27,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolActions;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -38,15 +42,14 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
-public class ItemHandmadeClub extends SwordItem implements IAnimatable {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+public class ItemHandmadeClub extends SwordItem implements GeoItem {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
 
     public ItemHandmadeClub(Tier tier, int attackDamage, float attackSpeed) {
         super(tier, attackDamage, attackSpeed, new Properties()
                 .stacksTo(1)
                 .defaultDurability(tier.getUses() * 3)
-                .tab(UnusualPrehistory.DINO_TAB)
         );
     }
 
@@ -110,4 +113,13 @@ public class ItemHandmadeClub extends SwordItem implements IAnimatable {
         return this.factory;
     }
 
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
 }

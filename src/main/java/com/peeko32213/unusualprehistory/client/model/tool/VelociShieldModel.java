@@ -4,9 +4,10 @@ package com.peeko32213.unusualprehistory.client.model.tool;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.tool.ItemVelociShield;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-public class VelociShieldModel extends AnimatedGeoModel<ItemVelociShield> {
+public class VelociShieldModel extends GeoModel<ItemVelociShield> {
     @Override
     public ResourceLocation getModelResource(ItemVelociShield object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/veloci_shield.geo.json");

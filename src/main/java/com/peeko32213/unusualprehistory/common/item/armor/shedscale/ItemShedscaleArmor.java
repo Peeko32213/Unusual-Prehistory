@@ -11,19 +11,19 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.item.GeoArmorItem;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.*;
 
-public class ItemShedscaleArmor extends GeoArmorItem implements IAnimatable {
+public class ItemShedscaleArmor extends ArmorItem implements GeoItem {
     private static final Map<MobEffect, MobEffect> TO_CHANGE_MAP = new HashMap<>() {{
         put(MobEffects.POISON, MobEffects.REGENERATION);
         put(MobEffects.MOVEMENT_SLOWDOWN, MobEffects.MOVEMENT_SPEED);
@@ -47,17 +47,17 @@ public class ItemShedscaleArmor extends GeoArmorItem implements IAnimatable {
 
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public ItemShedscaleArmor(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder, double swimSpeed) {
+    public ItemShedscaleArmor(ArmorMaterial materialIn, ArmorItem.Type slot, Properties builder, double swimSpeed) {
         super(materialIn, slot, builder);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = ImmutableMultimap.builder();
         this.material = materialIn;
-        this.slot = slot;
-        this.defense = materialIn.getDefenseForSlot(slot);
+        this.slot = slot.getSlot();
+        this.defense = materialIn.getDefenseForType(slot);
         this.toughness = materialIn.getToughness();
         this.knockbackResistance = materialIn.getKnockbackResistance();
-        UUID uuid = SWIM_SPEED_MOD_UUID[slot.getIndex()];
+        UUID uuid = SWIM_SPEED_MOD_UUID[slot.getSlot().getIndex()];
         attributeBuilder.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", (double)this.defense, AttributeModifier.Operation.ADDITION));
         attributeBuilder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", (double)this.toughness, AttributeModifier.Operation.ADDITION));
         attributeBuilder.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "Swim Speed Mod", swimSpeed, AttributeModifier.Operation.ADDITION));
@@ -147,12 +147,15 @@ public class ItemShedscaleArmor extends GeoArmorItem implements IAnimatable {
         return pEquipmentSlot == this.slot ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
+
+
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 }

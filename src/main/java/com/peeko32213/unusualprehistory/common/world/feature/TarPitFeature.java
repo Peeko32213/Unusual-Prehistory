@@ -92,7 +92,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
                                     worldgenlevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                                 }
                             }
-                            if(f < -0.1 && f > -0.8 && pos.getY() >= origin.getY() && pos.getY() < origin.getY() + 1 && random.nextFloat() < 0.5F && worldgenlevel.getBlockState(pos.below()).getMaterial().isSolid()){
+                            if(f < -0.1 && f > -0.8 && pos.getY() >= origin.getY() && pos.getY() < origin.getY() + 1 && random.nextFloat() < 0.5F && worldgenlevel.getBlockState(pos.below()).isSolid()){
                                 worldgenlevel.setBlock(pos, block4, 3);
                             }
                         }// else{
@@ -125,7 +125,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
             for (int z = -radius; z < radius; z++) {
                 BlockPos pos = origin.offset(x, 0, z);
                 double yHeight = worldgenlevel.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int) pos.getX(), (int) pos.getZ()) - 1;
-                BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
+                BlockPos pos2 =  BlockPos.containing(pos.getX(), yHeight, pos.getZ());
                 double distance = distance(x, 0, z, radius, 1, radius);
                 float f = noise.GetNoise(x, (float) yHeight, z);
                 float f2 = noise2.GetNoise(x, (float) yHeight, z);

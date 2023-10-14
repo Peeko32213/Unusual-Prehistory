@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -148,23 +150,23 @@ public class UPTags {
     public static final TagKey<Biome> IS_GIGANTO_BIOME = registerBiomeTag("is_giganto_biome");
 
     private static TagKey<Item> registerItemTag(String name) {
-        return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
+        return TagKey.create(Registries.ITEM, new ResourceLocation(UnusualPrehistory.MODID, name));
     }
 
     private static TagKey<Block> registerBlockTag(String name) {
-        return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
+        return TagKey.create(Registries.BLOCK, new ResourceLocation(UnusualPrehistory.MODID, name));
     }
 
     private static TagKey<EntityType<?>> registerEntityTag(String name) {
-        return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
+        return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(UnusualPrehistory.MODID, name));
     }
 
     private static TagKey<Instrument> registerInstrument(String name) {
-        return TagKey.create(Registry.INSTRUMENT_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
+        return TagKey.create(Registries.INSTRUMENT, new ResourceLocation(UnusualPrehistory.MODID, name));
     }
 
     private static TagKey<Biome> registerBiomeTag(String name){
-        return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(UnusualPrehistory.MODID, name));
+        return TagKey.create(Registries.BIOME, new ResourceLocation(UnusualPrehistory.MODID, name));
 
     }
 }

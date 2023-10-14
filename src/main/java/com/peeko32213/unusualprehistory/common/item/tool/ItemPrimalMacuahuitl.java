@@ -25,14 +25,13 @@ public class ItemPrimalMacuahuitl extends SwordItem {
         super(tier, attackDamage, attackSpeed, new Properties()
                 .stacksTo(1)
                 .defaultDurability(tier.getUses() * 3)
-                .tab(UnusualPrehistory.DINO_TAB)
         );
     }
 
     @Override
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
         if(pTarget.getArmorValue() == 0){
-            pTarget.hurt(DamageSource.playerAttack((Player) pAttacker), 3);
+            pTarget.hurt(pAttacker.damageSources().playerAttack((Player) pAttacker), 3);
         }
         return super.hurtEnemy(pStack, pTarget, pAttacker);
     }

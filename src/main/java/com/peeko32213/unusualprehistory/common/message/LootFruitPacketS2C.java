@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
@@ -18,7 +19,7 @@ import java.util.function.Supplier;
 
 public class LootFruitPacketS2C {
     private static final Codec<Map<Item, List<LootFruitCodec>>> MAPPER = Codec.unboundedMap(
-                    Registry.ITEM.byNameCodec(),
+                    BuiltInRegistries.ITEM.byNameCodec(),
                     LootFruitCodec.CODEC.listOf())
             .xmap(LootFruitCodec::convertToMap, LootFruitCodec::convertFromMap)
             .orElse(e -> {UnusualPrehistory.LOGGER.error("Failed to parse lootfruits can't send packet! Due to " + e);},

@@ -146,7 +146,7 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> SLUDGE_SLAP = createSoundEvent("sludge_slap");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
-        return DEF_REG.register(soundName, () -> new SoundEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));
+        return DEF_REG.register(soundName, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));
     }
 
 }

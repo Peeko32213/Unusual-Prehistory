@@ -24,7 +24,7 @@ public class DinoPouchItem extends Item  {
        if (pInteractionTarget instanceof EntityBabyMegatherium entityBabyMegatherium && !pPlayer.getLevel().isClientSide) {
            ItemStack slotPouch = UPItems.SLOTH_POUCH_ARMOR.get().getDefaultInstance();
            CompoundTag tag = slotPouch.getTag();
-           Level level = pPlayer.getLevel();
+           Level level = pPlayer.level();
            tag.put("megatherium", entityBabyMegatherium.serializeNBT());
            tag.putBoolean("tamed", entityBabyMegatherium.isTame());
            long currentTime = level.getGameTime();

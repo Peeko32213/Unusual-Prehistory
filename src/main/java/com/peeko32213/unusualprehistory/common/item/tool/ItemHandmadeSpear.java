@@ -15,6 +15,13 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolActions;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -27,8 +34,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class ItemHandmadeSpear extends SwordItem implements IAnimatable {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+public class ItemHandmadeSpear extends SwordItem implements GeoItem {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
 
     private static final UUID ATTACK_KNOCKBACK_UUID = UUID.fromString("20D3EB3F-226F-4325-873E-9B0932E4E5C6");
@@ -37,7 +44,6 @@ public class ItemHandmadeSpear extends SwordItem implements IAnimatable {
         super(tier, attackDamage, attackSpeed, new Properties()
                 .stacksTo(1)
                 .defaultDurability(tier.getUses() * 3)
-                .tab(UnusualPrehistory.DINO_TAB)
         );
     }
 
@@ -88,8 +94,13 @@ public class ItemHandmadeSpear extends SwordItem implements IAnimatable {
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "idle", state -> PlayState.CONTINUE)
+                .triggerableAnim("idle", DefaultAnimations.IDLE));
     }
 
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
 }

@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiFoliagePlacer;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoFoliagePlacer;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
@@ -16,7 +17,7 @@ import java.util.function.Supplier;
 public class UPFeatureModifiers {
 
     public static long seed;
-    public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIERS = DeferredRegister.create(Registry.PLACEMENT_MODIFIER_REGISTRY, UnusualPrehistory.MODID);
+    public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIERS = DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, UnusualPrehistory.MODID);
     public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACERS = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, UnusualPrehistory.MODID);
 
     public static final RegistryObject<FoliagePlacerType<GinkgoFoliagePlacer>> FOLIAGE_SPHEROID = FOLIAGE_PLACERS.register("spheroid_foliage_placer", () -> new FoliagePlacerType<>(GinkgoFoliagePlacer.CODEC));

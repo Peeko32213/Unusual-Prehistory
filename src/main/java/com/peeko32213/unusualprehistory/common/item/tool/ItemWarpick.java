@@ -23,7 +23,6 @@ public class ItemWarpick extends SwordItem {
         super(tier, attackDamage, attackSpeed, new Properties()
                 .stacksTo(1)
                 .defaultDurability(tier.getUses() * 3)
-                .tab(UnusualPrehistory.DINO_TAB)
         );
     }
 

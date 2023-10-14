@@ -5,6 +5,8 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.data.ItemWeightedPairCodec;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
@@ -19,7 +21,7 @@ import java.util.function.Supplier;
 public class AnalyzerRecipeS2C {
     private static final Codec<Map<Item, List<ItemWeightedPairCodec>>> MAPPER =
             Codec.unboundedMap(
-                    Registry.ITEM.byNameCodec(),
+                    BuiltInRegistries.ITEM.byNameCodec(),
                     ItemWeightedPairCodec.CODEC.listOf()
             ).xmap(ItemWeightedPairCodec::convertToMap, ItemWeightedPairCodec::convertFromMap)
                     .orElse(e -> {UnusualPrehistory.LOGGER.error("Failed to parse Analyzer Entries can't send packet! Due to " + e);},

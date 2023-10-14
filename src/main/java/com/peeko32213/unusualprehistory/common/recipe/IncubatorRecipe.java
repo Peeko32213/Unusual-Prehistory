@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -34,10 +35,10 @@ public class IncubatorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer) {
-        //This does nothing
+    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
         return ItemStack.EMPTY;
     }
+
 
 
 
@@ -47,9 +48,11 @@ public class IncubatorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
         return ItemStack.EMPTY;
     }
+
+
 
     public ResourceLocation getOutput() {
         return output;

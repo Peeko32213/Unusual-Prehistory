@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -33,9 +34,10 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer) {
+    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
         return output.copy();
     }
+
 
     @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
@@ -43,7 +45,7 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
         return output;
     }
 

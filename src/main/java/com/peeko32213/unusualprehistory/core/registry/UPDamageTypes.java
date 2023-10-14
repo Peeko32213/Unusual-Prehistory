@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.core.registry;
+/*package com.peeko32213.unusualprehistory.core.registry;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
@@ -26,4 +26,4 @@ public class UPDamageTypes {
             return livingentity != null ? Component.translatable(s1, attacked.getDisplayName(), livingentity.getDisplayName()) : Component.translatable(s, attacked.getDisplayName());
         }
     }
-}
+}*/

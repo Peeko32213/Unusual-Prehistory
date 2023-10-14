@@ -9,7 +9,6 @@ public class ItemModPickaxe extends PickaxeItem {
         super(tier, attackDamage, attackSpeed, new Properties()
                 .stacksTo(1)
                 .defaultDurability(tier.getUses())
-                .tab(UnusualPrehistory.DINO_TAB)
         );
     }
 

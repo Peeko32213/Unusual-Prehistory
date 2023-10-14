@@ -51,8 +51,8 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
         double cornerBlockX = worldgenlevel.getChunk(blockpos.getX() >> 4, blockpos.getZ() >> 4).getPos().getMinBlockX();
 
 
-        BlockPos blockPosMid = new BlockPos(middleBlockX, worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) middleBlockX, (int) middleBlockZ), middleBlockZ);
-        BlockPos blockPosCorner = new BlockPos(cornerBlockX, worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) cornerBlockX, (int) cornerBlockZ), cornerBlockZ);
+        BlockPos blockPosMid =  BlockPos.containing(middleBlockX, worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) middleBlockX, (int) middleBlockZ), middleBlockZ);
+        BlockPos blockPosCorner =  BlockPos.containing(cornerBlockX, worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) cornerBlockX, (int) cornerBlockZ), cornerBlockZ);
 
         int radius = random.nextInt(5, 25);
 
@@ -108,7 +108,7 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
             for (int z = -radius; z < radius; z++) {
                 BlockPos pos = origin.offset(x, 0, z);
                 double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ()) - 1;
-                BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
+                BlockPos pos2 =  BlockPos.containing(pos.getX(), yHeight, pos.getZ());
                 double distance = distance(x, 0, z, radius, 1, radius);
                 float f = noise.GetNoise(x, (float) yHeight, z);
                 if (distance < 1) {
@@ -131,7 +131,7 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
             for (int z = -radius; z < radius; z++) {
                 BlockPos pos = origin.offset(x, 0, z);
                 double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ()) - 1;
-                BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
+                BlockPos pos2 =  BlockPos.containing(pos.getX(), yHeight, pos.getZ());
                 if(worldgenlevel.getBiome(pos2).is(BiomeTags.IS_BADLANDS)){
                     block = Blocks.RED_SAND.defaultBlockState();
                 }
@@ -157,7 +157,7 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
             for (int z = -radius; z < radius; z++) {
                 BlockPos pos = origin.offset(x, 0, z);
                 double yHeight = worldgenlevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, (int) pos.getX(), (int) pos.getZ());
-                BlockPos pos2 = new BlockPos(pos.getX(), yHeight, pos.getZ());
+                BlockPos pos2 =  BlockPos.containing(pos.getX(), yHeight, pos.getZ());
                 double distance = distance(x, 0, z, radius, 1, radius);
                 float f = noise.GetNoise(x, (float) yHeight, z);
                 if (distance < 1) {

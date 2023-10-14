@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.core.registry;
+/*package com.peeko32213.unusualprehistory.core.registry;
 
 import com.google.common.collect.ImmutableList;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
@@ -123,3 +123,4 @@ public class UPPlacedFeatures {
 
 }
 
+*/

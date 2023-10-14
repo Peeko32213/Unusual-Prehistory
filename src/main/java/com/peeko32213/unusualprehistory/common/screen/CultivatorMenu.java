@@ -21,7 +21,7 @@ public class CultivatorMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public CultivatorMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
     }
 
 
@@ -29,7 +29,7 @@ public class CultivatorMenu extends AbstractContainerMenu {
         super(UPMenuTypes.CULTIVATOR_MENU.get(), pContainerId);
         checkContainerSize(inv, 4);
         blockEntity = ((CultivatorBlockEntity) entity);
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

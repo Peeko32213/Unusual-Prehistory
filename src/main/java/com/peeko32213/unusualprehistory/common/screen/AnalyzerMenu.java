@@ -23,7 +23,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public AnalyzerMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(8));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(8));
     }
 
 
@@ -31,7 +31,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         super(UPMenuTypes.ANALYZER_MENU.get(), pContainerId);
         checkContainerSize(inv, 8);
         blockEntity = ((AnalyzerBlockEntity) entity);
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

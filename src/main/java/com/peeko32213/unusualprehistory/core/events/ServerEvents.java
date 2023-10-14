@@ -89,7 +89,7 @@ public class ServerEvents {
 
        if(playerList != null && !playerList.isEmpty()){
            for(ServerPlayer player1 : playerList){
-               ServerLevel serverLevel = (ServerLevel) player1.level;
+               ServerLevel serverLevel = (ServerLevel) player1.level();
                if(AnalyzerRecipeJsonManager.getRecipes().isEmpty()){
                    AnalyzerRecipeJsonManager.populateRecipeMap(serverLevel);
                }
@@ -255,9 +255,9 @@ public class ServerEvents {
     @SubscribeEvent
     //cant be canceled
     public void spearFallDamageAttack(TickEvent.PlayerTickEvent event) {
-        if(event.phase == TickEvent.Phase.START || event.player.level.isClientSide) return;
+        if(event.phase == TickEvent.Phase.START || event.player.level().isClientSide) return;
         if(event.player instanceof ServerPlayer serverPlayer){
-            ServerLevel serverLevel = (ServerLevel) serverPlayer.level;
+            ServerLevel serverLevel = (ServerLevel) serverPlayer.level();
             ItemStack itemStack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
             if(!itemStack.is(UPItems.HANDMADE_SPEAR.get()) || (serverPlayer.fallDistance < 4)) return;
             if(serverPlayer.getCooldowns().isOnCooldown(itemStack.getItem())) return;
@@ -269,7 +269,7 @@ public class ServerEvents {
                 List<LivingEntity> entities = serverLevel.getEntitiesOfClass(LivingEntity.class, serverPlayer.getBoundingBox().inflate(4), (e) -> !(e.is(serverPlayer)));
                 for(LivingEntity entity : entities)
                 {
-                    entity.hurt(DamageSource.playerAttack(serverPlayer), serverPlayer.fallDistance);
+                    entity.hurt(serverPlayer.damageSources().mobAttack(serverPlayer), serverPlayer.fallDistance);
                 }
             }
 
