@@ -34,14 +34,14 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class EntityBaseDinosaurAnimal extends Animal implements IAnimatable, IHatchableEntity, IBookEntity {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnimatable, IHatchableEntity, IBookEntity {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
 

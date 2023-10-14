@@ -19,6 +19,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -37,22 +38,21 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.AnimationState;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 
-public class EntityAnurognathus extends AgeableMob implements IAnimatable, NeutralMob, IBookEntity {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);    
+public class EntityAnurognathus extends AgeableMob implements GeoAnimatable, NeutralMob, IBookEntity {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @javax.annotation.Nullable
     private UUID persistentAngerTarget;
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(EntityAnurognathus.class, EntityDataSerializers.BOOLEAN);
@@ -72,6 +72,10 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
     public int ringBufferIndex = -1;
     private boolean isLandNavigator;
     private int timeFlying;
+    private static final RawAnimation ANURO_WALK = RawAnimation.begin().thenLoop("animation.anuro.walk");
+    private static final RawAnimation ANURO_IDLE = RawAnimation.begin().thenLoop("animation.anuro.idle");
+    private static final RawAnimation ANURO_FLY = RawAnimation.begin().thenLoop("animation.anuro.fly");
+    private static final RawAnimation ANURO_BITE = RawAnimation.begin().thenPlay("animation.anuro.bite");
 
     public EntityAnurognathus(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
@@ -105,7 +109,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
@@ -116,11 +120,11 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
     private void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new MoveControl(this);
-            this.navigation = new GroundPathNavigation(this, level);
+            this.navigation = new GroundPathNavigation(this, level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new FlyingMoveController(this, 0.6F, false, true);
-            this.navigation = new FlyingPathNavigation(this, level) {
+            this.navigation = new FlyingPathNavigation(this, level()) {
                 public boolean isStableDestination(BlockPos pos) {
                     return !this.level.getBlockState(pos.below(2)).isAir();
                 }
@@ -163,7 +167,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         if (this.ringBufferIndex == this.ringBuffer.length) {
             this.ringBufferIndex = 0;
         }
-        if (!level.isClientSide) {
+        if (!level().isClientSide) {
             if (isFlying() && this.isLandNavigator) {
                 switchNavigator(false);
             }
@@ -171,12 +175,12 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
                 switchNavigator(true);
             }
             if (this.isFlying()) {
-                if (this.isFlying() && !this.onGround) {
+                if (this.isFlying() && !this.onGround()) {
                     if (!this.isInWaterOrBubble()) {
                         this.setDeltaMovement(this.getDeltaMovement().multiply(1F, 0.6F, 1F));
                     }
                 }
-                if (this.isOnGround() && timeFlying > 20) {
+                if (this.onGround() && timeFlying > 20) {
                     this.setFlying(false);
                 }
                 this.timeFlying++;
@@ -193,9 +197,8 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || super.isInvulnerableTo(source);
+        return source.is(DamageTypes.IN_WALL)  || source.is(DamageTypes.FALL) || source.is(DamageTypes.CACTUS) || super.isInvulnerableTo(source);
     }
-
     public boolean isFlying() {
         return this.entityData.get(FLYING);
     }
@@ -219,7 +222,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         double x = pos.getX() + 0.5F;
         double y = pos.getY() + 0.5F;
         double z = pos.getZ() + 0.5F;
-        HitResult result = this.level.clip(new ClipContext(new Vec3(this.getX(), this.getY() + (double) this.getEyeHeight(), this.getZ()), new Vec3(x, y, z), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+        HitResult result = this.level().clip(new ClipContext(new Vec3(this.getX(), this.getY() + (double) this.getEyeHeight(), this.getZ()), new Vec3(x, y, z), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         double dist = result.getLocation().distanceToSqr(x, y, z);
         return dist <= 1.0D || result.getType() == HitResult.Type.MISS;
     }
@@ -262,13 +265,13 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         float angle = (0.01745329251F * renderYawOffset) + 3.15F + (this.getRandom().nextFloat() * neg);
         double extraX = radius * Mth.sin((float) (Math.PI + angle));
         double extraZ = radius * Mth.cos(angle);
-        BlockPos radialPos = new BlockPos(fleePos.x() + extraX, getY(), fleePos.z() + extraZ);
+        final BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), (int) getY(), (int) (fleePos.z() + extraZ));
         BlockPos ground = this.getAnuroGround(radialPos);
         if (ground.getY() < -64) {
             return null;
         } else {
             ground = this.blockPosition();
-            while (ground.getY() > -64 && !level.getBlockState(ground).getMaterial().isSolidBlocking()) {
+            while (ground.getY() > -64 && !level().getBlockState(ground).getMaterial().isSolidBlocking()) {
                 ground = ground.below();
             }
         }
@@ -281,7 +284,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
     public boolean isTargetBlocked(Vec3 target) {
         Vec3 Vector3d = new Vec3(this.getX(), this.getEyeY(), this.getZ());
 
-        return this.level.clip(new ClipContext(Vector3d, target, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).getType() != HitResult.Type.MISS;
+        return this.level().clip(new ClipContext(Vector3d, target, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).getType() != HitResult.Type.MISS;
     }
 
     public Vec3 getBlockInViewAway(Vec3 fleePos, float radiusAdd) {
@@ -291,7 +294,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
         float angle = (0.01745329251F * renderYawOffset) + 3.15F + (this.getRandom().nextFloat() * neg);
         double extraX = radius * Mth.sin((float) (Math.PI + angle));
         double extraZ = radius * Mth.cos(angle);
-        BlockPos radialPos = new BlockPos(fleePos.x() + extraX, 0, fleePos.z() + extraZ);
+        final BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), (int) getY(), (int) (fleePos.z() + extraZ));
         BlockPos ground = getAnuroGround(radialPos);
         int distFromGround = (int) this.getY() - ground.getY();
         int flightHeight = 5 + this.getRandom().nextInt(5);
@@ -313,18 +316,18 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
 
     private boolean isOverWaterOrVoid() {
         BlockPos position = this.blockPosition();
-        while (position.getY() > -65 && level.isEmptyBlock(position)) {
+        while (position.getY() > -65 && level().isEmptyBlock(position)) {
             position = position.below();
         }
-        return !level.getFluidState(position).isEmpty() || level.getBlockState(position).is(Blocks.VINE) || position.getY() <= -65;
+        return !level().getFluidState(position).isEmpty() || level().getBlockState(position).is(Blocks.VINE) || position.getY() <= -65;
     }
 
     public BlockPos getAnuroGround(BlockPos in) {
         BlockPos position = new BlockPos(in.getX(), this.getY(), in.getZ());
-        while (position.getY() < 320 && !level.getFluidState(position).isEmpty()) {
+        while (position.getY() < 320 && !level().getFluidState(position).isEmpty()) {
             position = position.above();
         }
-        while (position.getY() > -64 && !level.getBlockState(position).getMaterial().isSolidBlocking() && level.getFluidState(position).isEmpty()) {
+        while (position.getY() > -64 && !level().getBlockState(position).getMaterial().isSolidBlocking() && level().getFluidState(position).isEmpty()) {
             position = position.below();
         }
         return position;
@@ -352,38 +355,42 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
     }
 
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
+    }
+
+    protected <E extends EntityAnurognathus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
-        if (event.isMoving() && this.isOnGround() && this.onGround) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.anuro.walk"));
-            event.getController().setAnimationSpeed(1.05);
-            return PlayState.CONTINUE;
+        if (event.isMoving() && this.onGround() && this.onGround()) {
+            return event.setAndContinue(ANURO_WALK);
+
         }
-        if (!event.isMoving() && this.isOnGround() && this.onGround) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.anuro.idle"));
-            return PlayState.CONTINUE;
+        if (!event.isMoving() && this.onGround() && this.onGround()) {
+            return event.setAndContinue(ANURO_IDLE);
         }
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.anuro.fly"));
-        return PlayState.CONTINUE;
+        return event.setAndContinue(ANURO_FLY);
     }
 
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
+    protected <E extends EntityAnurognathus> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.anuro.bite"));
+            return event.setAndContinue(ANURO_BITE);
             this.swinging = false;
         }
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityAnurognathus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
-        data.addAnimationController(controller);
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
     }
 
     @Override
@@ -424,7 +431,7 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
 
         public void tick() {
             EntityAnurognathus.this.getMoveControl().setWantedPosition(this.x, this.y, this.z, 1F);
-            if (isFlying() && EntityAnurognathus.this.onGround && EntityAnurognathus.this.timeFlying > 10) {
+            if (isFlying() && EntityAnurognathus.this.onGround() && EntityAnurognathus.this.timeFlying > 10) {
                 EntityAnurognathus.this.setFlying(false);
             }
         }
@@ -456,12 +463,6 @@ public class EntityAnurognathus extends AgeableMob implements IAnimatable, Neutr
             super.stop();
         }
 
-    }
-
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
     }
 
     @Override

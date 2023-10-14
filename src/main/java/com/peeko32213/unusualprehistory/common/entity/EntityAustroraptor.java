@@ -32,26 +32,33 @@ import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.AnimationState;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
 
 public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Integer> PREENING_TIME = SynchedEntityData.defineId(EntityAustroraptor.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PREENING = SynchedEntityData.defineId(EntityAustroraptor.class, EntityDataSerializers.BOOLEAN);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public int timeUntilDrops = this.random.nextInt(200) + 400;
     public float prevPreenProgress;
     public float preenProgress;
     public float preenSoundTimer = 100;
     public static final Logger LOGGER = LogManager.getLogger();
+
+    private static final RawAnimation AUSTRO_WALK = RawAnimation.begin().thenLoop("animation.austroraptor.walk");
+    private static final RawAnimation AUSTRO_IDLE = RawAnimation.begin().thenLoop("animation.austroraptor.idle");
+    private static final RawAnimation AUSTRO_SWIM = RawAnimation.begin().thenLoop("animation.austroraptor.swim");
+    private static final RawAnimation AUSTRO_PREEN = RawAnimation.begin().thenPlay("animation.austroraptor.preening");
+    private static final RawAnimation AUSTRO_ATTACK = RawAnimation.begin().thenPlay("animation.austroraptor.attack");
+
     public EntityAustroraptor(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 1.0f;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -328,54 +335,53 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         return null;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+
+    protected <E extends EntityAustroraptor> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
-            {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.walk"));
-                return PlayState.CONTINUE;
-            }
+            return event.setAndContinue(AUSTRO_WALK);
         }
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.swim"));
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
+            return event.setAndContinue(AUSTRO_SWIM);
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.idle"));
-            event.getController().setAnimationSpeed(1.0D);
+            return event.setAndContinue(AUSTRO_IDLE);
         }
-        return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
-        if (this.getIsPreening() && !this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.austroraptor.preening"));
-            return PlayState.CONTINUE;
-        }
-        event.getController().markNeedsReload();
-        return PlayState.STOP;
-    }
-
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
+    protected <E extends EntityAustroraptor> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.austroraptor.attack"));
-
+            return event.setAndContinue(AUSTRO_ATTACK);
             this.swinging = false;
         }
         return PlayState.CONTINUE;
     }
 
+    protected <E extends EntityAustroraptor> PlayState preenController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.getIsPreening() && !this.isInWater()) {
+            return event.setAndContinue(AUSTRO_PREEN);
+        }
+        return PlayState.STOP;
+    }
+
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::eatPredicate));
-        AnimationController<EntityAustroraptor> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "attackController", 3, this::attackPredicate));
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "Attack", 3, this::attackController));
+        controllers.add(new AnimationController<>(this, "Preen", 5, this::preenController));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
     }
 
 }

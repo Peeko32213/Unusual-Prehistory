@@ -39,19 +39,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
 
 import javax.annotation.Nullable;
 import java.util.UUID;
-public class EntityStethacanthus extends AbstractSchoolingFish implements Bucketable, NeutralMob, IAnimatable, IBookEntity {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+public class EntityStethacanthus extends AbstractSchoolingFish implements Bucketable, NeutralMob, GeoAnimatable, IBookEntity {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation STETHA_SWIM = RawAnimation.begin().thenLoop("animation.stethacanthus.swim");
 
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private int remainingPersistentAngerTime;
@@ -69,7 +69,6 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
 
     public EntityStethacanthus(EntityType<? extends AbstractSchoolingFish> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 0.9f;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -92,7 +91,7 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
@@ -101,7 +100,7 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {
-        this.level.broadcastEntityEvent(this, (byte)4);
+        this.level().broadcastEntityEvent(this, (byte)4);
         float f = this.getAttackDamage();
         float f1 = (int)f > 0 ? f / 2.0F + (float)this.random.nextInt((int)f) : f;
         boolean flag = entityIn.hurt(DamageSource.mobAttack(this), f1);
@@ -225,7 +224,7 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
         super.readAdditionalSaveData(compound);
         this.setFromBucket(compound.getBoolean("FromBucket"));
         this.setFromBucket(compound.getBoolean("Bucketed"));
-        this.readPersistentAngerSaveData(this.level, compound);
+        this.readPersistentAngerSaveData(this.level(), compound);
     }
 
 
@@ -266,26 +265,18 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
-            return PlayState.CONTINUE;
-        }
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.stethacanthus.swim"));
-        }
-        return PlayState.CONTINUE;
-    }
-
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "animation.stethacanthus.swim", 0, state -> state.setAndContinue(STETHA_SWIM)));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
     }
 
     @Nullable

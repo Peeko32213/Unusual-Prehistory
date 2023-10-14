@@ -156,7 +156,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
             this.standCounter = 0;
             this.setStanding(false);
         }
-        if(this.isOnGround() && this.isJumping()){
+        if(this.onGround() && this.isJumping()){
             setIsJumping(false);
         }
 
@@ -178,12 +178,12 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
                 float f = livingentity.xxa * 0.5F;
                 float f1 = livingentity.zza;
 
-                if (this.onGround && this.playerJumpPendingScale == 0.0F && this.isStanding() && !this.allowStandSliding) {
+                if (this.onGround() && this.playerJumpPendingScale == 0.0F && this.isStanding() && !this.allowStandSliding) {
                     f = 0.0F;
                     f1 = 0.0F;
                 }
 
-                if (this.playerJumpPendingScale > 0.0F && !this.isJumping() && this.onGround) {
+                if (this.playerJumpPendingScale > 0.0F && !this.isJumping() && this.onGround()) {
                     double d0 = this.getCustomJump() * (double) this.playerJumpPendingScale * (double) this.getBlockJumpFactor();
                     double d1 = d0 + this.getJumpBoostPower();
                     Vec3 vec3 = this.getDeltaMovement();
@@ -208,7 +208,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
                     this.setDeltaMovement(Vec3.ZERO);
                 }
 
-                if (this.onGround) {
+                if (this.onGround()) {
                     this.playerJumpPendingScale = 0.0F;
                     this.setIsJumping(false);
                 }
@@ -249,7 +249,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     }
 
     @Nullable
-    public Entity getControllingPassenger() {
+    public LivingEntity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {
             if (passenger instanceof Player player) {
                 if (player.getMainHandItem().getItem() == UPItems.MEAT_ON_A_STICK.get() || player.getOffhandItem().getItem() == UPItems.MEAT_ON_A_STICK.get()) {
@@ -292,7 +292,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
             }
             if (!isFood(itemstack)) {
                 if (!player.isShiftKeyDown() && this.isSaddled()) {
-                    if (!this.level.isClientSide) {
+                    if (!this.level().isClientSide) {
                         player.startRiding(this);
                         //Todo fix this: Somehow display client message doesnt work anymore....
                         player.sendSystemMessage(Component.translatable("unusualprehistory.beelzebufo.meat_stick").withStyle(ChatFormatting.WHITE));
@@ -322,8 +322,8 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     public boolean swallowEntity(Entity entity) {
         this.setIsSwallowing(true);
         if (entity instanceof final LivingEntity mob) {
-            if(!entity.getLevel().isClientSide) {
-                ExperienceOrb.award((ServerLevel) entity.level, entity.position(), ((LivingEntity) entity).getExperienceReward());
+            if(!entity.level().isClientSide) {
+                ExperienceOrb.award((ServerLevel) entity.level(), entity.position(), ((LivingEntity) entity).getExperienceReward());
                 mob.remove(RemovalReason.KILLED);
                 this.spawnAtLocation(UPItems.FROG_SALIVA.get());
             }

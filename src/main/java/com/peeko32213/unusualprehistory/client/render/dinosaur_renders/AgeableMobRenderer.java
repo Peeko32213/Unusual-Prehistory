@@ -5,13 +5,16 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.AgeableMob;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
-public class AgeableMobRenderer<T extends AgeableMob & IAnimatable> extends GeoEntityRenderer<T> {
+public class AgeableMobRenderer<T extends AgeableMob & GeoAnimatable> extends GeoEntityRenderer<T> {
 
-    public AgeableMobRenderer(EntityRendererProvider.Context context, AnimatedGeoModel<T> model) {
+    public AgeableMobRenderer(EntityRendererProvider.Context context, DefaultedEntityGeoModel<T> model) {
         super(context, model);
     }
 

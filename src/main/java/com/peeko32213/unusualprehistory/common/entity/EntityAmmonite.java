@@ -35,28 +35,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.example.entity.DynamicExampleEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable, IAnimatable, IBookEntity {
+public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable, GeoAnimatable, IBookEntity {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SHOULD_DROP = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
+    private static final RawAnimation AMMONITE_SWIM = RawAnimation.begin().thenLoop("animation.ammonite.swim");
 
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private boolean isSchool = true;
 
     public EntityAmmonite(EntityType<? extends AbstractSchoolingFish> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 0.9f;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -80,7 +81,7 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
@@ -200,26 +201,18 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
     }
 
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
-            return PlayState.CONTINUE;
-        }
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.ammonite.swim"));
-        }
-        return PlayState.CONTINUE;
-    }
-
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "animation.ammonite.swim", 0, state -> state.setAndContinue(AMMONITE_SWIM)));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
     }
 
     @Nullable
