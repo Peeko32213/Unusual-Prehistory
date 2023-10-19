@@ -61,7 +61,7 @@ public class BetterAbstractHurtingProjectile extends Projectile {
 
     public void tick() {
         Entity entity = this.getOwner();
-        if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
+        if (this.level().isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
             super.tick();
             if (this.shouldBurn()) {
                 this.setSecondsOnFire(1);
@@ -82,14 +82,14 @@ public class BetterAbstractHurtingProjectile extends Projectile {
             if (this.isInWater()) {
                 for(int i = 0; i < 4; ++i) {
                     float f1 = 0.25F;
-                    this.level.addParticle(ParticleTypes.BUBBLE, d0 - vec3.x * 0.25D, d1 - vec3.y * 0.25D, d2 - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
+                    this.level().addParticle(ParticleTypes.BUBBLE, d0 - vec3.x * 0.25D, d1 - vec3.y * 0.25D, d2 - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
                 }
 
                 f = 0.8F;
             }
 
             this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale((double)f));
-            this.level.addParticle(this.getTrailParticle(), d0, d1 + 0.5D, d2, 0.0D, 0.0D, 0.0D);
+            this.level().addParticle(this.getTrailParticle(), d0, d1 + 0.5D, d2, 0.0D, 0.0D, 0.0D);
             this.setPos(d0, d1, d2);
         } else {
             this.discard();
@@ -145,7 +145,7 @@ public class BetterAbstractHurtingProjectile extends Projectile {
             this.markHurt();
             Entity entity = p_36839_.getEntity();
             if (entity != null) {
-                if (!this.level.isClientSide) {
+                if (!this.level().isClientSide) {
                     Vec3 vec3 = entity.getLookAngle();
                     this.setDeltaMovement(vec3);
                     this.xPower = vec3.x * 0.1D;

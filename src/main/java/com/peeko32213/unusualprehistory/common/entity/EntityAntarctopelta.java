@@ -202,7 +202,7 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;
@@ -373,7 +373,7 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
 
         protected void preformSliceAttack () {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 1.0f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),25.0f, 1.0f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             this.mob.playSound(UPSounds.TAIL_SWIPE.get(), 0.1F, 1.0F);
             if (mob.random.nextInt(5) == 0 && mob.getTarget() instanceof Enemy) {
                 mob.spawnAtLocation(UPItems.ANTARCTO_PLATE.get());

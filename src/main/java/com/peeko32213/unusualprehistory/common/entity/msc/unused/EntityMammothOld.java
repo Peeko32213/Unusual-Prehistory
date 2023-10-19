@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity.msc.unused;
+/*package com.peeko32213.unusualprehistory.common.entity.msc.unused;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothMeleeAttackGoal;
@@ -529,3 +529,4 @@ public class EntityMammothOld extends EntityBaseDinosaurAnimal implements Contai
         data.addAnimationController(controller);
     }
 }
+*/

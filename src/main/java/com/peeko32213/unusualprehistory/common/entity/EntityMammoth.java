@@ -203,7 +203,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
 
     public void tick() {
         super.tick();
-        if (dirtyCooldown-- < 0 && this.mammothInventory.isEmpty() && !this.level.isClientSide) {
+        if (dirtyCooldown-- < 0 && this.mammothInventory.isEmpty() && !this.level().isClientSide) {
             List<ItemStack> itemStack = getShearLoot(this);
             if (!itemStack.isEmpty()) {
                 ItemStack item = itemStack.get(this.random.nextInt(itemStack.size()));
@@ -219,9 +219,9 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
 
     @Override
     public void shear(SoundSource category) {
-        this.level.playSound(null, this, SoundEvents.SHEEP_SHEAR, category, 1.0F, 1.0F);
+        this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, category, 1.0F, 1.0F);
         this.gameEvent(GameEvent.ENTITY_INTERACT);
-        if (!this.level.isClientSide() && this.mammothInventory != null && !this.mammothInventory.isEmpty()) {
+        if (!this.level().isClientSide() && this.mammothInventory != null && !this.mammothInventory.isEmpty()) {
             List<ItemStack> lootList = Collections.singletonList(this.mammothInventory.getItem(0));
             for (ItemStack stack : lootList) {
                 ItemEntity e = this.spawnAtLocation(stack.copy());
@@ -233,11 +233,11 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
     }
 
     private static List<ItemStack> getShearLoot(EntityMammoth mammoth) {
-        if (!mammoth.level.isClientSide) {
-            LootTable loottable = mammoth.level.getServer().getLootTables().get(MAMMOTH_LOOT);
-            return loottable.getRandomItems((new LootContext.Builder((ServerLevel) mammoth.level))
+        if (!mammoth.level().isClientSide) {
+            LootTable loottable = mammoth.level().getServer().getLootTables().get(MAMMOTH_LOOT);
+            return loottable.getRandomItems((new LootContext.Builder((ServerLevel) mammoth.level()))
                     .withParameter(LootContextParams.THIS_ENTITY, mammoth)
-                    .withRandom(mammoth.level.random)
+                    .withRandom(mammoth.level().random)
                     .withParameter(LootContextParams.ORIGIN, mammoth.position())
                     .create(LootContextParamSets.CHEST));
         }
@@ -283,7 +283,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
 
         @Override
         public boolean canUse() {
-            return this.mammoth.isOnGround() && this.mammoth.getRandom().nextInt(100) == 0;
+            return this.mammoth.onGround() && this.mammoth.getRandom().nextInt(100) == 0;
         }
 
         @Override

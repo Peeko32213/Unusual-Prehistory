@@ -147,7 +147,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     }
 
     private void attack(LivingEntity entity) {
-        entity.hurt(DamageSource.mobAttack(this), 8.0F);
+        entity.hurt(this.damageSources().mobAttack(this), 8.0F);
     }
 
     public void tick() {
@@ -260,10 +260,11 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
         return null;
     }
 
-    public void positionRider(Entity passenger) {
+    @Override
+    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-        passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 0.1F, this.getZ() - (double) (0.5F * yCos));
+        pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() - 0.1F, this.getZ() - (double) (0.5F * yCos));
     }
 
     public double getPassengersRidingOffset() {
@@ -596,7 +597,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
             } else {
                 executionCooldown = 50 + random.nextInt(50);
                 if(beelzebufo.isHungry()){
-                    final List<Entity> list = beelzebufo.level.getEntitiesOfClass(Entity.class, beelzebufo.getBoundingBox().inflate(8, 8, 8), EntitySelector.NO_SPECTATORS.and(entity -> entity != beelzebufo && beelzebufo.isFood(entity) && !(entity instanceof EntityBeelzebufoTadpole)));
+                    final List<Entity> list = beelzebufo.level().getEntitiesOfClass(Entity.class, beelzebufo.getBoundingBox().inflate(8, 8, 8), EntitySelector.NO_SPECTATORS.and(entity -> entity != beelzebufo && beelzebufo.isFood(entity) && !(entity instanceof EntityBeelzebufoTadpole)));
                     list.sort(Comparator.comparingDouble(beelzebufo::distanceToSqr));
                     if (!list.isEmpty()) {
                         food = list.get(0);
@@ -627,7 +628,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
                 //food.setDeltaMovement(food.getDeltaMovement().add(delta));
                 if (beelzebufo.distanceTo(food) < eatDist) {
                     if (food instanceof Player) {
-                        food.hurt(DamageSource.mobAttack(beelzebufo), 12000);
+                        food.hurt(this.beelzebufo.damageSources().mobAttack(beelzebufo), 12000);
                     } else if (beelzebufo.swallowEntity(food)) {
                         beelzebufo.gameEvent(GameEvent.EAT);
                         beelzebufo.playSound(SoundEvents.GENERIC_EAT, beelzebufo.getSoundVolume(), beelzebufo.getVoicePitch());

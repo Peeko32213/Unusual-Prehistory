@@ -127,7 +127,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     }
 
     @javax.annotation.Nullable
-    public Entity getControllingPassenger() {
+    public LivingEntity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {
             if (passenger instanceof Player) {
                 return (Player) passenger;
@@ -237,7 +237,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             }
             else {
                 if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
-                    if(!this.level.isClientSide) {
+                    if(!this.level().isClientSide) {
                         player.startRiding(this);
 
                         //Todo fix this: displayClientMessage not working!!
@@ -245,23 +245,23 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                     }
                     return InteractionResult.SUCCESS;
                 } else {
-                    if(!this.level.isClientSide) {
+                    if(!this.level().isClientSide) {
                         this.setCommand((this.getCommand() + 1));
                     }
                     if (this.getCommand() >= 3) {
-                        if(!this.level.isClientSide) {
+                        if(!this.level().isClientSide) {
                             this.setCommand(0);
                         }
                     }
                     player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
                     boolean sit = this.getCommand() == 2;
                     if (sit) {
-                        if(!this.level.isClientSide) {
+                        if(!this.level().isClientSide) {
                             this.setInSittingPose(true);
                         }
                         return InteractionResult.SUCCESS;
                     } else {
-                        if(!this.level.isClientSide) {
+                        if(!this.level().isClientSide) {
                             this.setOrderedToSit(false);
                         }
                         return InteractionResult.SUCCESS;
@@ -459,7 +459,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         }
         this.lookAt(target, 100, 100);
         for (int i = 0; i < 2 + random.nextInt(2); i++) {
-            EntityHwachaSpike llamaspitentity = new EntityHwachaSpike(this.level, this);
+            EntityHwachaSpike llamaspitentity = new EntityHwachaSpike(this.level(), this);
             double d0 = target.getX() - this.getX();
             double d1 = target.getY() - llamaspitentity.getY();
             double d2 = target.getZ() - this.getZ();
@@ -468,7 +468,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
             playShootSound();
 
-            this.level.addFreshEntity(llamaspitentity);
+            this.level().addFreshEntity(llamaspitentity);
         }
     }
 
@@ -483,10 +483,10 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         int messageTimer = 0;
         for (int i = 0; i < MIN_SHOTS + random.nextInt(MAX_SHOTS); i++) {
             try {
-                if (this.level.isClientSide) {
+                if (this.level().isClientSide) {
                     return;
                 }
-                EntityHwachaSpike llamaspitentity = new EntityHwachaSpike(this.level, this);
+                EntityHwachaSpike llamaspitentity = new EntityHwachaSpike(this.level(), this);
                 Player player = (Player) this.getControllingPassenger();
                 if (player == null) {
                     return;
@@ -494,7 +494,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                 //You can change the entity pov here, so for hitresult we check the hit using the player
                 //and for entity we use hwacha entity, these can be changed so see what you think is best
 
-                BlockPos blockPlayerIsLookingAt = level.clip(new ClipContext(player.getEyePosition(1f),
+                BlockPos blockPlayerIsLookingAt = level().clip(new ClipContext(player.getEyePosition(1f),
                         (player.getEyePosition(1f).add(player.getViewVector(1f).scale(MAX_DISTANCE))),
                         ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player)).getBlockPos();
 
@@ -512,7 +512,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                     BlockPos blockPosEntity = entity.get().getOnPos();
 
                     Vec3 eyePosition = entity1.getEyePosition();
-                    BlockPos blockPos = new BlockPos(eyePosition.x, eyePosition.y, eyePosition.z);
+                    BlockPos blockPos = BlockPos.containing(eyePosition.x, eyePosition.y, eyePosition.z);
                     d0 = blockPos.getX() - this.getX();
                     d1 = blockPos.getY() - this.getY();
                     d2 = blockPos.getZ() - this.getZ();
@@ -538,7 +538,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                 playShootSound();
                 llamaspitentity.shoot(d0, d1, d2, 2.0F, 0.0F);
                 //llamaspitentity.isNoGravity();
-                this.level.addFreshEntity(llamaspitentity);
+                this.level().addFreshEntity(llamaspitentity);
 
             } catch (NullPointerException exception) {
                 LOGGER.error("Something went wrong shooting a spike due to: {}", exception.getMessage());

@@ -90,7 +90,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemInHand = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
         if(pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if (LootFruitJsonManager.getTrades().containsKey(itemInHand.getItem()) && this.isTrading() && !this.level.isClientSide) {
+        if (LootFruitJsonManager.getTrades().containsKey(itemInHand.getItem()) && this.isTrading() && !this.level().isClientSide) {
             setTradingAndGottenItem(true);
         }
 
@@ -221,7 +221,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;
@@ -388,7 +388,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
 
         protected void preformSlamAttack() {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob), 10.0f, 2.5f, mob, pos, 9.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 2.5f, mob, pos, 9.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
         }
 
 

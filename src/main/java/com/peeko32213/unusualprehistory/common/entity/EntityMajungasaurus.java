@@ -57,7 +57,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
 
     public EntityMajungasaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 1.0f;
+        this.setMaxUpStep(1.0f);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -124,7 +124,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
         boolean shouldHurt;
         float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float knockback = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
+        if (shouldHurt = target.hurt(this.damageSources().mobAttack(this), damage)) {
             if (knockback > 0.0f && target instanceof LivingEntity) {
                 ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
@@ -185,7 +185,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
     }
 
     private void attack(LivingEntity entity) {
-        entity.hurt(DamageSource.mobAttack(this), 8.0F);
+        entity.hurt(this.damageSources().mobAttack(this), 8.0F);
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -314,7 +314,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
             double d = this.getX() - (double) this.getBbWidth() * Math.sin(this.yBodyRot * ((float) Math.PI / 180)) + (this.random.nextDouble() * 0.6 - 0.3);
             double e = this.getY() + (double) this.getBbHeight() - 0.3;
             double f = this.getZ() + (double) this.getBbWidth() * Math.cos(this.yBodyRot * ((float) Math.PI / 180)) + (this.random.nextDouble() * 0.6 - 0.3);
-            level.addParticle(ParticleTypes.CRIT, true, this.getX(), this.getEyeY() + 0.5F, this.getZ(), 0, 0, 0);
+            level().addParticle(ParticleTypes.CRIT, true, this.getX(), this.getEyeY() + 0.5F, this.getZ(), 0, 0, 0);
         }
     }
 
@@ -329,7 +329,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
         this.resetChargeCooldownTicks();
         this.getNavigation().stop();
         this.playSound(SoundEvents.RAVAGER_STUNNED, 1.0f, 1.0f);
-        this.level.broadcastEntityEvent(this, (byte) 39);
+        this.level().broadcastEntityEvent(this, (byte) 39);
         defender.push(this);
         defender.hurtMarked = true;
     }
@@ -467,23 +467,23 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
         @Override
         public void tick() {
             this.mob.getLookControl().setLookAt(Vec3.atCenterOf(this.path.getTarget()));
-            if (this.mob.horizontalCollision && this.mob.onGround) {
+            if (this.mob.horizontalCollision && this.mob.onGround()) {
                 this.mob.jumpFromGround();
             }
-            if (this.mob.level.getGameTime() % 2L == 0L) {
+            if (this.mob.level().getGameTime() % 2L == 0L) {
                 this.mob.playSound(UPSounds.MAJUNGA_STEP.get(), 0.5F, this.mob.getVoicePitch());
             }
             this.tryToHurt();
         }
 
         protected void tryToHurt() {
-            List<LivingEntity> nearbyEntities = this.mob.level.getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this.mob, this.mob.getBoundingBox());
+            List<LivingEntity> nearbyEntities = this.mob.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this.mob, this.mob.getBoundingBox());
             if (!nearbyEntities.isEmpty()) {
                 LivingEntity livingEntity = nearbyEntities.get(0);
                 if (!(livingEntity instanceof EntityMajungasaurus)) {
-                    livingEntity.hurt(DamageSource.mobAttack(this.mob), (float) this.mob.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                    livingEntity.hurt(this.mob.damageSources().mobAttack(this.mob), (float) this.mob.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     float speed = Mth.clamp(this.mob.getSpeed() * 1.65f, 0.2f, 3.0f);
-                    float shieldBlockModifier = livingEntity.isDamageSourceBlocked(DamageSource.mobAttack(this.mob)) ? 0.5f : 1.0f;
+                    float shieldBlockModifier = livingEntity.isDamageSourceBlocked(this.mob.damageSources().mobAttack(this.mob)) ? 0.5f : 1.0f;
                     livingEntity.knockback(shieldBlockModifier * speed * 2.0D, this.chargeDirection.x(), this.chargeDirection.z());
                     double knockbackResistance = Math.max(0.0, 1.0 - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
                     livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().add(0.0, 0.4f * knockbackResistance, 0.0));

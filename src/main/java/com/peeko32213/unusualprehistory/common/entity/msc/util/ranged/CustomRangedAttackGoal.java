@@ -70,7 +70,7 @@ public class CustomRangedAttackGoal extends Goal {
                     if (this.attackTime == 6 && this.multiShot) {
                         this.attack.shoot();
 
-                        boolean isInsideWaterBlock = entity.level.isWaterAt(entity.blockPosition());
+                        boolean isInsideWaterBlock = entity.level().isWaterAt(entity.blockPosition());
                     }
                     if (this.attackTime >= 8) {
                         this.entity.setAttackingState(0);

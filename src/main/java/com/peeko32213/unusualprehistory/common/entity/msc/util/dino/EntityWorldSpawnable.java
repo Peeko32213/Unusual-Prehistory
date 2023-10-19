@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -74,7 +75,7 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements IAnim
         if (itemStack.isEmpty() && pHand == InteractionHand.MAIN_HAND) {
             if (!hasGivenDna) {
                 ItemStack dna = getDnaItem();
-                if (!dna.isEmpty() && !level.isClientSide) {
+                if (!dna.isEmpty() && !level().isClientSide) {
                     this.spawnAtLocation(dna, 1);
                     hasGivenDna = true;
                 }
@@ -93,7 +94,7 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements IAnim
 
     public void itemDrop() {
         ItemStack drop = getSoundForDrop();
-        if (!drop.isEmpty() && !level.isClientSide) {
+        if (!drop.isEmpty() && !level().isClientSide) {
             this.spawnAtLocation(drop, 1);
         }
     }
@@ -109,7 +110,7 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements IAnim
     }
 
     public ItemStack getItemFromLootTable() {
-        if (this.level.getServer() == null) {
+        if (this.level().getServer() == null) {
             return ItemStack.EMPTY;
         }
         LootTable loottable = this.level.getServer().getLootTables().get(this.getDeadLootTable());
@@ -178,7 +179,7 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements IAnim
 
     @Override
     public boolean hurt(DamageSource source, float damage) {
-        if (source == DamageSource.IN_WALL || source == DamageSource.GENERIC) {
+        if (source == this.damageSources().inWall() || source == this.damageSources().generic()) {
             return false;
         }
 
@@ -196,7 +197,7 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements IAnim
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
     @Nullable

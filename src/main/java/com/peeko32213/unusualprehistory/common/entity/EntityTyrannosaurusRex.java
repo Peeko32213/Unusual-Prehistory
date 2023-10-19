@@ -67,7 +67,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
     public EntityTyrannosaurusRex(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 1.0f;
+        this.setMaxUpStep(1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -90,7 +90,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new EntityTyrannosaurusRex.RexMeleeAttackGoal(this, 2F, true){
             public boolean canUse() {
-                return !isBaby() && passiveFor == 0 && level.getDifficulty() != Difficulty.PEACEFUL && super.canUse()   ;
+                return !isBaby() && passiveFor == 0 && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse()   ;
             }
         });
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
@@ -117,7 +117,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             itemstack.hurtAndBreak(5, player, (p_29822_) -> {
                 p_29822_.broadcastBreakEvent(hand);
             });
-            if(!this.level.isClientSide) {
+            if(!this.level().isClientSide) {
                 this.heal(200);
                 this.setTarget(null);
                 this.setEepy(false);
@@ -260,7 +260,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         }
 
 
-        if (!this.level.isClientSide && this.isAlive() && this.passiveFor > 0 && --this.timeUntilDrops <= 0) {
+        if (!this.level().isClientSide && this.isAlive() && this.passiveFor > 0 && --this.timeUntilDrops <= 0) {
             this.spawnAtLocation(UPItems.REX_TOOTH.get(), 4);
             this.spawnAtLocation(UPItems.REX_SCALE.get(), 9);
             this.timeUntilDrops = this.random.nextInt(12000) + 24000;
@@ -270,7 +270,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_REX_RANGE.get();
                 int rexShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_REX_AMPLIFIER.get();
                 float rexMoveSoundVolume= UnusualPrehistoryConfig.REX_SOUND_VOLUME.get();
-                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(rexShakeRange));
+                List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(rexShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityTyrannosaurusRex) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, rexShakeAmp, false, false, false));
@@ -299,19 +299,19 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         if (this.shouldBeEepy()) {
             this.stunnedTick = 60;
-            this.level.broadcastEntityEvent(this, (byte)39);
+            this.level().broadcastEntityEvent(this, (byte)39);
             this.setEepy(true);
             this.setAggressive(false);
             this.setTarget(null);
         }
 
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.isSprinting()) {
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isSprinting()) {
             boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                BlockState blockstate = this.level.getBlockState(blockpos);
+                BlockState blockstate = this.level().getBlockState(blockpos);
                 if (blockstate.is(UPTags.TRIKE_BREAKABLES)) {
-                    flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                    flag = this.level().destroyBlock(blockpos, true, this) || flag;
                 }
             }
         }
@@ -389,7 +389,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;
@@ -577,24 +577,24 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_BITE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),10.0f, 0.1f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),10.0f, 0.1f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
         }
 
         protected void preformWhipAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),10.0f, 2.0f, mob, pos,  8.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),10.0f, 2.0f, mob, pos,  8.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
         }
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_STOMP_ATTACK.get(), 1.9F, 1.9F);
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
-                List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(rexShakeRange));
+                List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(rexShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityTyrannosaurusRex) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, 3, false, false, false));

@@ -81,7 +81,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(1, new EntityParaceratherium.ParacerMeleeAttackGoal(this, 1.8F, true));
         this.targetSelector.addGoal(2, new NearestTargetAI(this, LivingEntity.class, 110, false, true, null) {
             public boolean canUse() {
-                return !isBaby() && level.getDifficulty() != Difficulty.PEACEFUL && super.canUse();
+                return !isBaby() && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
             }
         });
     }
@@ -105,9 +105,9 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 int brachiShakeAmp = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_AMPLIFIER.get();
                 float brachiMoveSoundVolume = UnusualPrehistoryConfig.BRACHI_SOUND_VOLUME.get();
-                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
+                List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                    if (!(e instanceof EntityParaceratherium) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiShakeAmp, false, false, false));
                         this.playSound(UPSounds.BRACHI_STEP.get(), brachiMoveSoundVolume, 0.40F);
                     }
@@ -131,7 +131,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
             for (int j = 0; j < i; ++j) {
                 float f1 = (this.random.nextFloat() * 2.0F - 1.0F) * this.getBbWidth() * 0.4F;
                 float f2 = (this.random.nextFloat() * 2.0F - 1.0F) * this.getBbWidth() * 0.4F;
-                this.level.addParticle(ParticleTypes.SPLASH, this.getX() + (double) f1, (double) (f + getBbHeight()*0.85), this.getZ() + (double) f2, vec3.x, vec3.y, vec3.z);
+                this.level().addParticle(ParticleTypes.SPLASH, this.getX() + (double) f1, (double) (f + getBbHeight()*0.85), this.getZ() + (double) f2, vec3.x, vec3.y, vec3.z);
             }
         }
     }
@@ -252,7 +252,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;
@@ -423,11 +423,11 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
             this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0));
             //this.mob.willItBreak = true;
             //HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),5.0f, 1.5f, mob, pos,  80.0F, -Math.PI/6, Math.PI/6, -1.0f, 3.0f);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.slamOffSet, 6f, 6f, 6f, (ServerLevel) this.mob.getLevel(), 25f, DamageSource.mobAttack(mob), 2f, true);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.slamOffSet, 6f, 6f, 6f, (ServerLevel) this.mob.level(), 25f, this.mob.damageSources().mobAttack(mob), 2f, true);
             //THIS METHOD CAN ONLY BE RAN ON THE SERVERSIDE.
             if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
-                List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
+                List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 6, false, false, false));

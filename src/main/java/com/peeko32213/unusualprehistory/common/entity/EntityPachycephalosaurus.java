@@ -57,7 +57,7 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
 
     public EntityPachycephalosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 1.0f;
+        this.setMaxUpStep(1.0F);
     }
 
 
@@ -104,7 +104,7 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
@@ -239,7 +239,7 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
         Item item = itemstack.getItem();
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isFood(itemstack) && (this.getPassiveTicks() <= 0 || this.getHealth() < this.getMaxHealth())) {
-            if(!this.level.isClientSide) {
+            if(!this.level().isClientSide) {
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }
@@ -355,7 +355,7 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;
@@ -585,7 +585,7 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
 
                 Vec3 pos = mob.position();
                 this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 2.0f, 0.2f);
-                HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),8.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
+                HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),8.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
 
             }
 
@@ -594,7 +594,7 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
 
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 0.5F, 0.5F);
-            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),12.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),12.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
 
         }
 
@@ -604,7 +604,7 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
 
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PACHY_KICK.get(), 0.5F, 0.5F);
-            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),15.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),15.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
 
         }
 

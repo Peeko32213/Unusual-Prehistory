@@ -115,7 +115,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
@@ -124,7 +124,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
 
 
     public void pushEntities() {
-        final List<Entity> entities = this.level.getEntities(this, this.getBoundingBox().expandTowards(0.2D, 0.0D, 0.2D));
+        final List<Entity> entities = this.level().getEntities(this, this.getBoundingBox().expandTowards(0.2D, 0.0D, 0.2D));
         entities.stream().filter(entity -> !(entity instanceof EntityPalaeophisPart) && entity.isPushable()).forEach(entity -> entity.push(this));
     }
 
@@ -212,8 +212,8 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
 
     public Entity getChild() {
         UUID id = getChildId();
-        if (id != null && !level.isClientSide) {
-            return ((ServerLevel) level).getEntity(id);
+        if (id != null && !level().isClientSide) {
+            return ((ServerLevel) level()).getEntity(id);
         }
         return null;
     }
@@ -230,7 +230,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
             this.ringBufferIndex = 0;
         }
         this.ringBuffer[this.ringBufferIndex] = this.getYRot();
-        if(!this.level.isClientSide){
+        if(!this.level().isClientSide){
         final int segments = 15;
         final Entity child = getChild();
         if (child == null) {
@@ -255,7 +255,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
                 }
                 part.setPos(part.tickMultipartPosition(this.getId(), partIndex, prevPos, this.getXRot(), prevReqRot, reqRot, true));
                 partParent = part;
-                level.addFreshEntity(part);
+                level().addFreshEntity(part);
                 parts[i] = part;
                 partIndex = part.getPartType();
                 prevPos = part.position();
@@ -305,7 +305,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
             return;
         }
 
-        if (!this.level.isClientSide && this.isAlive() && this.getSheddingTime() < 0 && sheddingCooldown < 0) {
+        if (!this.level().isClientSide && this.isAlive() && this.getSheddingTime() < 0 && sheddingCooldown < 0) {
             // The snake is not in "shed mode," so let's start shedding.
             this.spawnAtLocation(UPItems.PALAEO_SKIN.get(), 1);
 
@@ -571,7 +571,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             {
                 this.lastCanUseCheck = i;
@@ -744,7 +744,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
 
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PALAEO_BITE.get(), 0.1F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob), 10.0f, 0.2f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), 10.0f, 0.2f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
 
         }
 

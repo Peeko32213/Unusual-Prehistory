@@ -129,7 +129,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
                     double d2 = this.random.nextGaussian() * 0.02D;
                     double d0 = this.random.nextGaussian() * 0.02D;
                     double d1 = this.random.nextGaussian() * 0.02D;
-                    this.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, this.getItemInHand(InteractionHand.MAIN_HAND)), this.getX() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, this.getY() + this.getBbHeight() * 0.5F + (double) (this.random.nextFloat() * this.getBbHeight() * 0.5F), this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, d0, d1, d2);
+                    this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, this.getItemInHand(InteractionHand.MAIN_HAND)), this.getX() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, this.getY() + this.getBbHeight() * 0.5F + (double) (this.random.nextFloat() * this.getBbHeight() * 0.5F), this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, d0, d1, d2);
                 }
             }
             if (eatingTime % 5 == 0) {
@@ -225,14 +225,14 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     @Override
     public void performAttack() {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.setSwinging(true);
-            ServerLevel serverLevel = (ServerLevel) this.level;
+            ServerLevel serverLevel = (ServerLevel) this.level();
             float angle = (0.01745329251F * this.yBodyRot);
             double radius = this.getBbWidth();
             double extraX = radius * Mth.sin((float) (Math.PI + angle));
             double extraZ = radius * Mth.cos(angle);
-            BlockPos targetPos = new BlockPos(this.getX() + extraX, this.getY(), this.getZ() + extraZ);
+            BlockPos targetPos = BlockPos.containing(this.getX() + extraX, this.getY(), this.getZ() + extraZ);
             if (((Player) this.getControllingPassenger()).getItemInHand(InteractionHand.MAIN_HAND).is(Items.WOODEN_SHOVEL)) {
                 targetPos = targetPos.offset(0, -1, 0);
             }
@@ -253,7 +253,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     @Override
     public void afterAttack() {
-        this.level.broadcastEntityEvent(this, (byte)5);
+        this.level().broadcastEntityEvent(this, (byte)5);
         this.setSwinging(false);
     }
 

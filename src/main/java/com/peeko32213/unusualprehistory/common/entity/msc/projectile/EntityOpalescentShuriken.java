@@ -4,7 +4,6 @@ import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -41,7 +40,7 @@ public class EntityOpalescentShuriken extends ThrowableItemProjectile {
      */
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
-        pResult.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 10.0F);
+        pResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 10.0F);
     }
 
     /**
@@ -50,7 +49,7 @@ public class EntityOpalescentShuriken extends ThrowableItemProjectile {
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
         if(toPlaceStack != null) {
-            RandomSource rand = this.level.random;
+            RandomSource rand = this.level().random;
             if(rand.nextInt(0,100) < 10){
                 this.discard();
             }
@@ -81,7 +80,7 @@ public class EntityOpalescentShuriken extends ThrowableItemProjectile {
 
     public void dropStack(){
         if(toPlaceStack != null && !(toPlaceStack.getDamageValue() > toPlaceStack.getMaxDamage())) {
-            Level level = this.level;
+            Level level = this.level();
             ItemEntity item = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), toPlaceStack);
             level.addFreshEntity(item);
         }
@@ -90,7 +89,7 @@ public class EntityOpalescentShuriken extends ThrowableItemProjectile {
     @Nullable
     public Entity changeDimension(ServerLevel pServer, net.minecraftforge.common.util.ITeleporter teleporter) {
         Entity entity = this.getOwner();
-        if (entity != null && entity.level.dimension() != pServer.dimension()) {
+        if (entity != null && entity.level().dimension() != pServer.dimension()) {
             this.setOwner((Entity) null);
         }
 

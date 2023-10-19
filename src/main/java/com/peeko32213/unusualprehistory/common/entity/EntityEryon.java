@@ -122,7 +122,7 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
@@ -267,7 +267,7 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable
         }
 
         public boolean canContinueToUse() {
-            return destinationBlock != null && isDigBlock(crab.level, destinationBlock.mutable()) && isCloseToMoss(16) && !(timer > MAX_TIME) && !(cooldownTime > 0);
+            return destinationBlock != null && isDigBlock(crab.level(), destinationBlock.mutable()) && isCloseToMoss(16) && !(timer > MAX_TIME) && !(cooldownTime > 0);
         }
 
         public boolean isCloseToMoss(double dist) {
@@ -322,14 +322,14 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable
                         this.crab.setYRot(((float) Mth.atan2(face.z, face.x)) * (180F / (float) Math.PI) - 90F);
                         this.crab.yBodyRot = this.crab.getYRot();
                         this.crab.yHeadRot = this.crab.getYRot();
-                        BlockState state = level.getBlockState(feedingPos);
+                        BlockState state = level().getBlockState(feedingPos);
                         if (random.nextInt(2) == 0 && !state.isAir()) {
                             Vec3 mouth = new Vec3(0, this.crab.getBbHeight() * 0.5F, 0.4F * -0.5).xRot(this.crab.getXRot() * ((float) Math.PI / 180F)).yRot(-this.crab.getYRot() * ((float) Math.PI / 180F));
                             for (int i = 0; i < 4 + random.nextInt(2); i++) {
                                 double motX = this.crab.random.nextGaussian() * 0.02D;
                                 double motY = 0.1F + random.nextFloat() * 0.2F;
                                 double motZ = this.crab.random.nextGaussian() * 0.02D;
-                                ((ServerLevel)level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), this.crab.getX() - mouth.x, this.crab.getY() + mouth.y, this.crab.getZ() - mouth.z, 1,  motX, motY, motZ, 0.1D);
+                                ((ServerLevel)level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), this.crab.getX() - mouth.x, this.crab.getY() + mouth.y, this.crab.getZ() - mouth.z, 1,  motX, motY, motZ, 0.1D);
                             }
                         }
                     }
@@ -359,7 +359,7 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable
                     for (int lvt_7_1_ = 0; lvt_7_1_ <= lvt_6_1_; lvt_7_1_ = lvt_7_1_ > 0 ? -lvt_7_1_ : 1 - lvt_7_1_) {
                         for (int lvt_8_1_ = lvt_7_1_ < lvt_6_1_ && lvt_7_1_ > -lvt_6_1_ ? lvt_6_1_ : 0; lvt_8_1_ <= lvt_6_1_; lvt_8_1_ = lvt_8_1_ > 0 ? -lvt_8_1_ : 1 - lvt_8_1_) {
                             lvt_4_1_.setWithOffset(lvt_3_1_, lvt_7_1_, lvt_5_1_ - 1, lvt_8_1_);
-                            if (this.isDigBlock(crab.level, lvt_4_1_) && crab.canSeeBlock(lvt_4_1_)) {
+                            if (this.isDigBlock(crab.level(), lvt_4_1_) && crab.canSeeBlock(lvt_4_1_)) {
                                 this.destinationBlock = lvt_4_1_;
                                 return true;
                             }
@@ -385,8 +385,8 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable
     }
 
     private static List<ItemStack> getDigLoot(EntityEryon crab) {
-        LootTable loottable = crab.level.getServer().getLootTables().get(ERYON_REWARD);
-        return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level)).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level.random).create(LootContextParamSets.PIGLIN_BARTER));
+        LootTable loottable = crab.level().getServer().getLootTables().get(ERYON_REWARD);
+        return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level())).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level().random).create(LootContextParamSets.PIGLIN_BARTER));
     }
 
     public boolean canBreatheUnderwater() {

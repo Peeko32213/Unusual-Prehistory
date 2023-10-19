@@ -180,7 +180,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         boolean shouldHurt;
         float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float knockback = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
+        if (shouldHurt = target.hurt(this.damageSources().mobAttack(this), damage)) {
             if (knockback > 0.0f && target instanceof LivingEntity) {
                 ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
@@ -304,7 +304,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
     }
 
     private void attack(LivingEntity entity) {
-        entity.hurt(DamageSource.mobAttack(this), 5.0F);
+        entity.hurt(this.damageSources().mobAttack(this), 5.0F);
     }
 
     class IMeleeAttackGoal extends MeleeAttackGoal {

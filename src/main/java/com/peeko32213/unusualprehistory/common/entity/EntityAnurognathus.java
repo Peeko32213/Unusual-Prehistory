@@ -322,7 +322,7 @@ public class EntityAnurognathus extends AgeableMob implements GeoAnimatable, Neu
     }
 
     public BlockPos getAnuroGround(BlockPos in) {
-        BlockPos position = new BlockPos(in.getX(), this.getY(), in.getZ());
+        BlockPos position = BlockPos.containing(in.getX(), this.getY(), in.getZ());
         while (position.getY() < 320 && !level().getFluidState(position).isEmpty()) {
             position = position.above();
         }
@@ -342,7 +342,7 @@ public class EntityAnurognathus extends AgeableMob implements GeoAnimatable, Neu
             damage += livingEntity.getMobType().equals(MobType.ARTHROPOD) ? damage : 0;
             knockback += (float) EnchantmentHelper.getKnockbackBonus(this);
         }
-        if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
+        if (shouldHurt = target.hurt(this.damageSources().mobAttack(this), damage)) {
             if (knockback > 0.0f && target instanceof LivingEntity) {
                 ((LivingEntity)target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float)Math.PI / 180)), -Mth.cos(this.getYRot() * ((float)Math.PI / 180)));
                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));

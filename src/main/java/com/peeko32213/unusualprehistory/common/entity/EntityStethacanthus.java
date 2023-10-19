@@ -99,7 +99,7 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
         this.level().broadcastEntityEvent(this, (byte)4);
         float f = this.getAttackDamage();
         float f1 = (int)f > 0 ? f / 2.0F + (float)this.random.nextInt((int)f) : f;
-        boolean flag = entityIn.hurt(DamageSource.mobAttack(this), f1);
+        boolean flag = entityIn.hurt(this.damageSources().mobAttack(this), f1);
         if (flag) {
             entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, (double)0.4F, 0.0D));
             this.doEnchantDamageEffects(this, entityIn);

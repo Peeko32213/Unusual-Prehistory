@@ -128,7 +128,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
 
 
     @Nullable
-    public Entity getControllingPassenger() {
+    public LivingEntity getControllingPassenger() {
         if (this.isSaddled()) {
             for (Entity passenger : this.getPassengers()) {
                 if (passenger instanceof Player) {
@@ -138,6 +138,9 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         }
         return null;
     }
+
+
+
     public void positionRider(Entity passenger) {
         float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));
@@ -178,7 +181,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         return InteractionResult.PASS;
     }
     public boolean notClientSide(){
-        return !this.level.isClientSide;
+        return !this.level().isClientSide;
     }
     @Override
     protected void defineSynchedData() {
@@ -354,7 +357,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 }
             }
         }
-        if (!level.isClientSide) {
+        if (!level().isClientSide) {
             if (this.isVehicle()) {
                 ridingTime++;
                 if (ridingTime >= this.getMaxRidingTime()) {
@@ -366,10 +369,10 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 this.setLaunching(false);
             }
             if (this.isAlive() && ridingTime > 0 && this.getDeltaMovement().horizontalDistanceSqr() > 0.1D && this.isLaunching()) {
-                for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0D))) {
+                for (Entity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0D))) {
                     if (!(entity instanceof EntityBrachiosaurus) && !entity.isPassengerOfSameVehicle(this)) {
-                        entity.hurt(DamageSource.mobAttack(this), 4F + random.nextFloat() * 3.0F);
-                        if (entity.isOnGround()) {
+                        entity.hurt(this.damageSources().mobAttack(this), 4F + random.nextFloat() * 3.0F);
+                        if (entity.onGround()) {
                             double d0 = entity.getX() - this.getX();
                             double d1 = entity.getZ() - this.getZ();
                             double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
@@ -396,7 +399,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 int brachiShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_AMPLIFIER.get();
                 float brachiMoveSoundVolume= UnusualPrehistoryConfig.BRACHI_SOUND_VOLUME.get();
-                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
+                List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiShakeAmp, false, false, false));
@@ -465,9 +468,9 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
             float f = 0.8F;
             Vec3 vec3 = new Vec3(neck.getX(), offset, neck.getZ());
             AABB axisalignedbb = AABB.ofSize(vec3, (double)f, 1.0E-6D, (double)f);
-            return this.level.getBlockStates(axisalignedbb).filter(Predicate.not(BlockBehaviour.BlockStateBase::isAir)).anyMatch((p_185969_) -> {
-                BlockPos blockpos = new BlockPos(vec3);
-                return p_185969_.isSuffocating(this.level, blockpos) && Shapes.joinIsNotEmpty(p_185969_.getCollisionShape(this.level, blockpos).move(vec3.x, vec3.y, vec3.z), Shapes.create(axisalignedbb), BooleanOp.AND);
+            return this.level().getBlockStates(axisalignedbb).filter(Predicate.not(BlockBehaviour.BlockStateBase::isAir)).anyMatch((p_185969_) -> {
+                BlockPos blockpos = BlockPos.containing(vec3.x, vec3.y, vec3.z);
+                return p_185969_.isSuffocating(this.level(), blockpos) && Shapes.joinIsNotEmpty(p_185969_.getCollisionShape(this.level(), blockpos).move(vec3.x, vec3.y, vec3.z), Shapes.create(axisalignedbb), BooleanOp.AND);
             });
         }
     }
@@ -532,23 +535,23 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         super.aiStep();
         //scaleParts();
 
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
             boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                BlockState blockstate = this.level.getBlockState(blockpos);
+                BlockState blockstate = this.level().getBlockState(blockpos);
                 if (blockstate.is(UPTags.PASSIVE_BRACHI_BREAKABLES)) {
-                    flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                    flag = this.level().destroyBlock(blockpos, true, this) || flag;
                 }
             }
         }
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.isAggressive()) {
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isAggressive()) {
             boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                BlockState blockstate = this.level.getBlockState(blockpos);
+                BlockState blockstate = this.level().getBlockState(blockpos);
                 if (blockstate.is(UPTags.ANGRY_BRACHI_BREAKABLES)) {
-                    flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                    flag = this.level().destroyBlock(blockpos, true, this) || flag;
                 }
             }
         }
@@ -618,7 +621,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;

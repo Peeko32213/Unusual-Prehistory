@@ -127,10 +127,10 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
     }
 
     public void performAttack() {
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             return;
         }
-        for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
+        for (Entity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
             if (!this.hasSwung() && this.isTame()) {
                 if (entity instanceof EntityBarinasuchus ulughbegsaurus) {
                     if (ulughbegsaurus.isTame()) {
@@ -383,7 +383,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;

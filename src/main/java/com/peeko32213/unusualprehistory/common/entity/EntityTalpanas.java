@@ -213,14 +213,14 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
             this.setYRot(((float) Mth.atan2(face.z, face.x)) * (180F / (float) Math.PI) - 90F);
             this.yBodyRot = this.getYRot();
             this.yHeadRot = this.getYRot();
-            BlockState state = level.getBlockState(feedingPos);
+            BlockState state = level().getBlockState(feedingPos);
             if (random.nextInt(2) == 0 && !state.isAir()) {
                 Vec3 mouth = new Vec3(0, this.getBbHeight() * 0.5F, 0.4F * -0.5).xRot(this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.getYRot() * ((float) Math.PI / 180F));
                 for (int i = 0; i < 4 + random.nextInt(2); i++) {
                     double motX = this.random.nextGaussian() * 0.02D;
                     double motY = 0.1F + random.nextFloat() * 0.2F;
                     double motZ = this.random.nextGaussian() * 0.02D;
-                    level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + mouth.x, this.getY() + mouth.y, this.getZ() + mouth.z, motX, motY, motZ);
+                    level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + mouth.x, this.getY() + mouth.y, this.getZ() + mouth.z, motX, motY, motZ);
                 }
             }
         }
@@ -304,7 +304,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
         }
 
         public boolean canContinueToUse() {
-            return destinationBlock != null && isDigBlock(crab.level, destinationBlock.mutable()) && isCloseToMoss(16);
+            return destinationBlock != null && isDigBlock(crab.level(), destinationBlock.mutable()) && isCloseToMoss(16);
         }
 
         public boolean isCloseToMoss(double dist) {
@@ -398,13 +398,13 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
     private boolean canSeeBlock(BlockPos destinationBlock) {
         Vec3 Vector3d = new Vec3(this.getX(), this.getEyeY(), this.getZ());
         Vec3 blockVec = net.minecraft.world.phys.Vec3.atCenterOf(destinationBlock);
-        BlockHitResult result = this.level.clip(new ClipContext(Vector3d, blockVec, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+        BlockHitResult result = this.level().clip(new ClipContext(Vector3d, blockVec, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         return result.getBlockPos().equals(destinationBlock);
     }
 
     private static List<ItemStack> getDigLoot(EntityTalpanas crab) {
-        LootTable loottable = crab.level.getServer().getLootTables().get(TALAPANAS_REWARD);
-        return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level)).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level.random).create(LootContextParamSets.PIGLIN_BARTER));
+        LootTable loottable = crab.level().getServer().getLootTables().get(TALAPANAS_REWARD);
+        return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level())).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level().random).create(LootContextParamSets.PIGLIN_BARTER));
     }
 
     @Override
@@ -436,7 +436,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
             double d3 = this.getBoundingBox().maxY + 0.75D;
 
             while(true) {
-                double d4 = this.level.getBlockFloorHeight(blockpos$mutableblockpos);
+                double d4 = this.level().getBlockFloorHeight(blockpos$mutableblockpos);
                 if ((double)blockpos$mutableblockpos.getY() + d4 > d3) {
                     break;
                 }
@@ -444,7 +444,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
                 if (DismountHelper.isBlockFloorValid(d4)) {
                     AABB aabb = pPassenger.getLocalBoundsForPose(pose);
                     Vec3 vec3 = new Vec3(d0, (double)blockpos$mutableblockpos.getY() + d4, d2);
-                    if (DismountHelper.canDismountTo(this.level, pPassenger, aabb.move(vec3))) {
+                    if (DismountHelper.canDismountTo(this.level(), pPassenger, aabb.move(vec3))) {
                         pPassenger.setPose(pose);
                         return vec3;
                     }
@@ -473,14 +473,14 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
         public FleeLightGoal(PathfinderMob p_i1623_1_, double p_i1623_2_) {
             this.creature = p_i1623_1_;
             this.movementSpeed = p_i1623_2_;
-            this.world = p_i1623_1_.level;
+            this.world = p_i1623_1_.level();
             this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public FleeLightGoal(PathfinderMob p_i1623_1_, double p_i1623_2_, int chance, int level) {
             this.creature = p_i1623_1_;
             this.movementSpeed = p_i1623_2_;
-            this.world = p_i1623_1_.level;
+            this.world = p_i1623_1_.level();
             this.executeChance = chance;
             this.lightLevel = level;
             this.setFlags(EnumSet.of(Flag.MOVE));
@@ -523,7 +523,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
 
             for (int lvt_3_1_ = 0; lvt_3_1_ < 10; ++lvt_3_1_) {
                 BlockPos lvt_4_1_ = lvt_2_1_.offset(lvt_1_1_.nextInt(20) - 10, lvt_1_1_.nextInt(6) - 3, lvt_1_1_.nextInt(20) - 10);
-                if (this.creature.level.getMaxLocalRawBrightness(lvt_4_1_) < lightLevel) {
+                if (this.creature.level().getMaxLocalRawBrightness(lvt_4_1_) < lightLevel) {
                     return Vec3.atBottomCenterOf(lvt_4_1_);
                 }
             }

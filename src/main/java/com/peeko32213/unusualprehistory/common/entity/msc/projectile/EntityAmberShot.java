@@ -7,7 +7,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -74,8 +73,8 @@ public class EntityAmberShot extends BetterAbstractHurtingProjectile implements 
     @Override
     public void tick() {
         Entity entity = this.getOwner();
-        if (this.level.isClientSide
-                || (entity == null || entity.isAlive()) && this.level.hasChunkAt(this.blockPosition())) {
+        if (this.level().isClientSide
+                || (entity == null || entity.isAlive()) && this.level().hasChunkAt(this.blockPosition())) {
             super.tick();
             HitResult raytraceresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
             if (raytraceresult.getType() != HitResult.Type.MISS
@@ -91,7 +90,7 @@ public class EntityAmberShot extends BetterAbstractHurtingProjectile implements 
             float f = this.getInertia();
             if (this.isInWater()) {
                 for (int i = 0; i < 4; ++i) {
-                    this.level.addParticle(ParticleTypes.DRIPPING_HONEY, d0 - vector3d.x * 0.25D, d1 - vector3d.y * 0.25D,
+                    this.level().addParticle(ParticleTypes.DRIPPING_HONEY, d0 - vector3d.x * 0.25D, d1 - vector3d.y * 0.25D,
                             d2 - vector3d.z * 0.25D, vector3d.x, vector3d.y, vector3d.z);
                 }
                 f = 0.8F;
@@ -137,11 +136,11 @@ public class EntityAmberShot extends BetterAbstractHurtingProjectile implements 
     @Override
     protected void onHitEntity(EntityHitResult p_213868_1_) {
         super.onHitEntity(p_213868_1_);
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             Entity entity = p_213868_1_.getEntity();
             Entity entity1 = this.getOwner();
             if (!(entity instanceof RangedMeleeMob))
-                entity.hurt(DamageSource.mobAttack((LivingEntity) entity1), directHitDamage);
+                entity.hurt(this.damageSources().mobAttack((LivingEntity) entity1), directHitDamage);
             this.remove(RemovalReason.KILLED);
             if (entity1 instanceof LivingEntity) {
                 if (!(entity instanceof RangedMeleeMob))

@@ -143,7 +143,7 @@ public class EntitySludge extends Monster implements IAnimatable {
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;
@@ -302,7 +302,7 @@ public class EntitySludge extends Monster implements IAnimatable {
         protected void preformClapAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.rightOffset, 2f, 2f, 2f, (ServerLevel)this.mob.getLevel(), 15f, DamageSource.mobAttack(mob), 0.5f, false);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.rightOffset, 2f, 2f, 2f, (ServerLevel)this.mob.level(), 15f, this.mob.damageSources().mobAttack(mob), 0.5f, false);
 
         }
 

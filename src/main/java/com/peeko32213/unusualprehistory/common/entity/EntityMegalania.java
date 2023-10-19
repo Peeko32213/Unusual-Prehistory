@@ -204,13 +204,13 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         if (this.isNoAi()) {
             return false;
         }
-        if (this.level.dimension() == Level.NETHER) {
+        if (this.level().dimension() == Level.NETHER) {
             return true;
         } else {
             int i = Mth.floor(this.getX());
             int j = Mth.floor(this.getY());
             int k = Mth.floor(this.getZ());
-            return this.level.getBiome(new BlockPos(i, 0, k)).value().shouldSnowGolemBurn(new BlockPos(i, j, k));
+            return this.level().getBiome(new BlockPos(i, 0, k)).value().shouldSnowGolemBurn(new BlockPos(i, j, k));
         }
     }
 
@@ -218,13 +218,13 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         if (this.isNoAi()) {
             return false;
         }
-        if (this.level.dimension() == Level.NETHER) {
+        if (this.level().dimension() == Level.NETHER) {
             return false;
         } else {
             int i = Mth.floor(this.getX());
             int j = Mth.floor(this.getY());
             int k = Mth.floor(this.getZ());
-            return this.level.getBiome(new BlockPos(i, 0, k)).value().coldEnoughToSnow(new BlockPos(i, j, k));
+            return this.level().getBiome(new BlockPos(i, 0, k)).value().coldEnoughToSnow(new BlockPos(i, j, k));
         }
     }
 
@@ -433,7 +433,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;

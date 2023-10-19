@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.msc.part;
 import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -70,7 +71,7 @@ public class EntityBrachiosaurusPart extends PartEntity<EntityBrachiosaurus> {
         return this == entityIn || this.getParent() == entityIn;
     }
 
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         throw new UnsupportedOperationException();
     }
 

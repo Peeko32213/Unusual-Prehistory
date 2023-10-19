@@ -6,7 +6,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -41,7 +40,7 @@ public class EntityOpalescentPearl extends ThrowableItemProjectile {
      */
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
-        pResult.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
+        pResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 0.0F);
     }
 
     /**
@@ -61,9 +60,9 @@ public class EntityOpalescentPearl extends ThrowableItemProjectile {
         Entity entity = this.getOwner();
         if (entity instanceof Player && !entity.isAlive() || tickCount > 200) {
             this.discard();
-        } else if(!this.level.getBlockState(this.blockPosition()).is(Blocks.BEDROCK) && !(this.position().y() <= -64)) {
+        } else if(!this.level().getBlockState(this.blockPosition()).is(Blocks.BEDROCK) && !(this.position().y() <= -64)) {
             this.noPhysics = true;
-            RandomSource rand = this.level.random;
+            RandomSource rand = this.level().random;
             if(rand.nextInt(0,100) < 10){
                 randomTeleport();
             }
@@ -73,14 +72,14 @@ public class EntityOpalescentPearl extends ThrowableItemProjectile {
 
     public void randomTeleport(){
         for (int i = 0; i < 32; ++i) {
-            this.level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
+            this.level().addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
         }
 
-        if (!this.level.isClientSide && !this.isRemoved()) {
+        if (!this.level().isClientSide && !this.isRemoved()) {
             Entity entity = this.getOwner();
             if (entity instanceof ServerPlayer) {
                 ServerPlayer serverplayer = (ServerPlayer) entity;
-                if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == this.level && !serverplayer.isSleeping()) {
+                if (serverplayer.connection.connection.isConnected() && serverplayer.level() == this.level() && !serverplayer.isSleeping()) {
                         //if (this.random.nextFloat() < 0.05F && this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
                         //    Endermite endermite = EntityType.ENDERMITE.create(this.level);
                         //    endermite.moveTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), entity.getXRot());
@@ -95,7 +94,7 @@ public class EntityOpalescentPearl extends ThrowableItemProjectile {
 
                         //entity.teleportTo(this.getTargetX(), event.getTargetY(), event.getTargetZ());
                         entity.resetFallDistance();
-                        entity.hurt(DamageSource.FALL, 2);
+                        entity.hurt(this.damageSources().fall(), 2);
                 }
             } else if (entity != null) {
                 entity.teleportTo(this.getX(), this.getY(), this.getZ());
@@ -109,7 +108,7 @@ public class EntityOpalescentPearl extends ThrowableItemProjectile {
     @Nullable
     public Entity changeDimension(ServerLevel pServer, net.minecraftforge.common.util.ITeleporter teleporter) {
         Entity entity = this.getOwner();
-        if (entity != null && entity.level.dimension() != pServer.dimension()) {
+        if (entity != null && entity.level().dimension() != pServer.dimension()) {
             this.setOwner((Entity) null);
         }
 

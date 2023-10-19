@@ -213,14 +213,14 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
     @Override
     public void playerTouch(Player entity) {
         super.playerTouch(entity);
-        if (!entity.isCreative() && this.attackCooldown == 0 && entity.level.getDifficulty() != Difficulty.PEACEFUL && isOrderedToSit()) {
-            entity.hurt(DamageSource.mobAttack(this), 5.0F);
+        if (!entity.isCreative() && this.attackCooldown == 0 && entity.level().getDifficulty() != Difficulty.PEACEFUL && isOrderedToSit()) {
+            entity.hurt(this.damageSources().mobAttack(this), 5.0F);
             this.attackCooldown = 80;
         }
     }
 
     private void touch(LivingEntity pMob) {
-        pMob.hurt(DamageSource.mobAttack(this), (float) (5.0D));
+        pMob.hurt(this.damageSources().mobAttack(this), (float) (5.0D));
     }
 
 
@@ -308,7 +308,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
         public boolean canUse() {
             if (this.mob.isInWaterOrBubble()) {
                 return false;
-            } else if (!this.mob.isOnGround()) {
+            } else if (!this.mob.onGround()) {
                 return false;
             } else {
                 return this.mob.isOrderedToSit();
@@ -389,7 +389,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;
@@ -557,7 +557,7 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
 
         protected void preformSlashAttack() {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob), 10.0f, 1.0f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 1.0f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
             this.mob.playSound(UPSounds.TAIL_SWIPE.get(), 0.1F, 1.0F);
         }
 

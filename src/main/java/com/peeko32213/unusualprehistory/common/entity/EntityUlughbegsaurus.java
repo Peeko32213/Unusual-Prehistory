@@ -87,7 +87,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     public EntityUlughbegsaurus(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 1.2F;
+        this.setMaxUpStep(1.2F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -203,7 +203,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         boolean shouldHurt;
         float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float knockback = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
+        if (shouldHurt = target.hurt(this.damageSources().mobAttack(this), damage)) {
             if (knockback > 0.0f && target instanceof LivingEntity) {
                 ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
@@ -214,19 +214,19 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             this.doEnchantDamageEffects(this, target);
             this.setLastHurtMob(target);
         }
-        this.level.broadcastEntityEvent(this, (byte) 4);
+        this.level().broadcastEntityEvent(this, (byte) 4);
         return shouldHurt;
     }
 
 
 
     public void performAttack() {
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             return;
         }
 
         this.setSwinging(true);
-        for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
+        for (Entity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
             if (!this.hasSwung() && this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
                 if (entity instanceof EntityUlughbegsaurus ulughbegsaurus) {
                     if (ulughbegsaurus.isTame()) {
@@ -238,16 +238,16 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                 }
 
                 if (this.isOrange()) {
-                    entity.hurt(DamageSource.mobAttack(this), 12.0F);
+                    entity.hurt(this.damageSources().mobAttack(this), 12.0F);
                 } else
-                    entity.hurt(DamageSource.mobAttack(this), 8.0F);
+                    entity.hurt(this.damageSources().mobAttack(this), 8.0F);
             }
         }
     }
 
     @Override
     public void afterAttack() {
-        this.level.broadcastEntityEvent(this, (byte) 5);
+        this.level().broadcastEntityEvent(this, (byte) 5);
         this.setSwinging(false);
     }
 
@@ -280,7 +280,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (this.isYellow()) {
                 if (isYellowFood(itemstack) && !isTame()) {
-                    if(!this.level.isClientSide) {
+                    if(!this.level().isClientSide) {
                         int size = itemstack.getCount();
                         this.tame(player);
                         itemstack.shrink(size);
@@ -292,7 +292,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             }
             if (this.isBlue()) {
                 if (isBlueFood(itemstack) && !isTame()) {
-                    if(!this.level.isClientSide) {
+                    if(!this.level().isClientSide) {
                         int size = itemstack.getCount();
                         this.tame(player);
                         itemstack.shrink(size);
@@ -304,7 +304,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             }
             if (this.isOrange()) {
                 if (isOrangeFood(itemstack) && !isTame()) {
-                    if(!this.level.isClientSide) {
+                    if(!this.level().isClientSide) {
                         int size = itemstack.getCount();
                         this.tame(player);
                         itemstack.shrink(size);
@@ -316,7 +316,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             }
             if (this.isWhite()) {
                 if (isWhiteFood(itemstack) && !isTame()) {
-                    if(!this.level.isClientSide) {
+                    if(!this.level().isClientSide) {
                         int size = itemstack.getCount();
                         this.tame(player);
                         itemstack.shrink(size);
@@ -328,7 +328,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             }
             if (this.isBrown()) {
                 if (isBrownFood(itemstack) && !isTame()) {
-                    if(!this.level.isClientSide) {
+                    if(!this.level().isClientSide) {
                         int size = itemstack.getCount();
                         this.tame(player);
                         itemstack.shrink(size);
@@ -343,7 +343,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                     if (!player.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
-                    if(!this.level.isClientSide) {
+                    if(!this.level().isClientSide) {
                         this.heal((float) itemstack.getFoodProperties(this).getNutrition());
                     }
                     this.gameEvent(GameEvent.EAT, this);
@@ -358,7 +358,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                     return InteractionResult.SUCCESS;
                 } else {
                     if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
-                        if(!this.level.isClientSide) {
+                        if(!this.level().isClientSide) {
                             player.startRiding(this);
                         }
                         return InteractionResult.SUCCESS;
@@ -442,7 +442,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     }
 
     @javax.annotation.Nullable
-    public Entity getControllingPassenger() {
+    public LivingEntity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {
             if (passenger instanceof Player) {
                 return (Player) passenger;
@@ -735,7 +735,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     }
 
     private void attack(LivingEntity entity) {
-        entity.hurt(DamageSource.mobAttack(this), 5.0F);
+        entity.hurt(this.damageSources().mobAttack(this), 5.0F);
     }
 
     public boolean hurt(DamageSource source, float amount) {
