@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class ItemWeightedPairCodec {
      */
     public static Codec<ItemWeightedPairCodec> CODEC = RecordCodecBuilder.create(inst -> inst
             .group(
-                    Registry.ITEM.byNameCodec().fieldOf("item").forGetter(i -> i.item),
+                    BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter(i -> i.item),
                     Codec.INT.fieldOf("weight").forGetter(w -> w.weight),
                     Codec.INT.optionalFieldOf("amount", 1).forGetter(a -> a.amount)
 

@@ -40,9 +40,9 @@ public class AnimalAttacherItem extends Item {
         if (attachTo == null || toAttach == null) return InteractionResult.FAIL;
         if (pInteractionTarget instanceof Animal animal) {
             if (animal.getType().is(attachTo) && !animal.isBaby()) {
-                if (pPlayer.getLevel().isClientSide()) return InteractionResult.PASS;
+                if (pPlayer.level().isClientSide()) return InteractionResult.PASS;
                 LazyOptional<UPAnimalCapability> animalCap = animal.getCapability(UPCapabilities.ANIMAL_CAPABILITY);
-                ServerLevel serverLevel = (ServerLevel) pPlayer.getLevel();
+                ServerLevel serverLevel = (ServerLevel) pPlayer.level();
                 animalCap.ifPresent(capability -> {
                     if (capability.getEmbryoAnimal() == null || capability.getEmbryoAnimal().equals("")) {
                         LivingEntity livingEntity = (LivingEntity) toAttach.get().create(serverLevel);
@@ -65,9 +65,9 @@ public class AnimalAttacherItem extends Item {
 
         if (pInteractionTarget instanceof WaterAnimal waterAnimal) {
             if (waterAnimal.getType().is(attachTo) && !waterAnimal.isBaby()) {
-                if (pPlayer.getLevel().isClientSide()) return InteractionResult.PASS;
+                if (pPlayer.level().isClientSide()) return InteractionResult.PASS;
                 LazyOptional<UPAnimalCapability> animalCap = waterAnimal.getCapability(UPCapabilities.ANIMAL_CAPABILITY);
-                ServerLevel serverLevel = (ServerLevel) pPlayer.getLevel();
+                ServerLevel serverLevel = (ServerLevel) pPlayer.level();
                 animalCap.ifPresent(capability -> {
                     if (capability.getEmbryoAnimal() == null || capability.getEmbryoAnimal().equals("")) {
                         LivingEntity livingEntity = (LivingEntity) toAttach.get().create(serverLevel);

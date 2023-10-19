@@ -45,9 +45,9 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
 
 
     public static void tickAnimal(LivingEvent.LivingTickEvent event) {
-        if (!(event.getEntity() instanceof Animal) || event.getEntity().getLevel().isClientSide) return;
+        if (!(event.getEntity() instanceof Animal) || event.getEntity().level().isClientSide) return;
 
-        ServerLevel serverLevel = (ServerLevel) event.getEntity().getLevel();
+        ServerLevel serverLevel = (ServerLevel) event.getEntity().level();
         LazyOptional<UPAnimalCapability> animalCap = event.getEntity().getCapability(UPCapabilities.ANIMAL_CAPABILITY);
         animalCap.ifPresent(capability -> {
             if (capability.embryoAnimal == null || capability.getEmbryoAnimal().equals(BASE_EMBRYO)) {
@@ -90,9 +90,9 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
     }
 
     public static void tickWaterAnimal(LivingEvent.LivingTickEvent event) {
-        if (!(event.getEntity() instanceof WaterAnimal) || event.getEntity().getLevel().isClientSide) return;
+        if (!(event.getEntity() instanceof WaterAnimal) || event.getEntity().level().isClientSide) return;
 
-        ServerLevel serverLevel = (ServerLevel) event.getEntity().getLevel();
+        ServerLevel serverLevel = (ServerLevel) event.getEntity().level();
         LazyOptional<UPAnimalCapability> animalCap = event.getEntity().getCapability(UPCapabilities.ANIMAL_CAPABILITY);
         animalCap.ifPresent(capability -> {
             if (capability.embryoAnimal == null || capability.getEmbryoAnimal().equals(BASE_EMBRYO)) {

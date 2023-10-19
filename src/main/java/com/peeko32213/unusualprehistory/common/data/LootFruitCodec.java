@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.Item;
 
@@ -16,7 +16,7 @@ public class LootFruitCodec {
             .group(
                     Codec.INT.fieldOf("tier").forGetter(t -> t.tier),
                     Codec.STRING.fieldOf("translation_key").forGetter(t -> t.translationKey),
-                    Registry.ITEM.byNameCodec().fieldOf("trade_item").forGetter(t -> t.tradeItem),
+                    BuiltInRegistries.ITEM.byNameCodec().fieldOf("trade_item").forGetter(t -> t.tradeItem),
                     RollableItemCodec.CODEC.listOf().fieldOf("items").forGetter(i -> i.items),
                     TextColor.CODEC.fieldOf("color").forGetter(c -> c.color),
                     Codec.INT.fieldOf("CustomModelData").forGetter(m -> m.customModelData)

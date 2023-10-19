@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.item;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyMegatherium;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +20,7 @@ public class DinoPouchItem extends Item  {
 
     @Override
    public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
-       if (pInteractionTarget instanceof EntityBabyMegatherium entityBabyMegatherium && !pPlayer.getLevel().isClientSide) {
+       if (pInteractionTarget instanceof EntityBabyMegatherium entityBabyMegatherium && !pPlayer.level().isClientSide) {
            ItemStack slotPouch = UPItems.SLOTH_POUCH_ARMOR.get().getDefaultInstance();
            CompoundTag tag = slotPouch.getTag();
            Level level = pPlayer.level();

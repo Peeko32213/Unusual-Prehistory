@@ -12,8 +12,6 @@ import net.minecraft.ReportedException;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -57,13 +55,12 @@ public class UnusualPrehistory {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.CONFIG_BUILDER);
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
+        UPTabs.TABS.register(modEventBus);
         UPFeatures.FEATURES.register(modEventBus);
         UPParticles.PARTICLE_TYPES.register(modEventBus);
         UPAdvancementTriggerRegistry.init();
         UPTrunkPlacerType.TRUNK_PLACER_TYPES.register(modEventBus);
         UPInstruments.INSTRUMENT.register(modEventBus);
-        UPConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
-        UPPlacedFeatures.PLACED_FEATURES.register(modEventBus);
         UPBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         UPMenuTypes.MENUS.register(modEventBus);
         UPRecipes.SERIALIZERS.register(modEventBus);
@@ -152,22 +149,6 @@ public class UnusualPrehistory {
     public static void addToComposter(ItemLike item, float amountOfCompost){
         ComposterBlock.COMPOSTABLES.put(item, amountOfCompost);
     }
-
-    public static final CreativeModeTab DINO_TAB = new CreativeModeTab(MODID) {
-        @Override
-        public ItemStack makeIcon() {
-            return UPItems.AMMONITE_SHELL_ICON.get().getDefaultInstance();
-        }
-    };
-
-    public static final CreativeModeTab DINO_SPAWN_EGGS= new CreativeModeTab(MODID+"_spawn_eggs") {
-        @Override
-        public ItemStack makeIcon() {
-            return UPItems.DUNK_EGG.get().getDefaultInstance();
-        }
-
-
-    };
 
     public static ResourceLocation prefix(String name) {
         return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));

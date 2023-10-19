@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.tool.HandmadeBattleaxeModel;
 import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
 import net.minecraft.ChatFormatting;
@@ -32,7 +31,6 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.List;
 import java.util.UUID;

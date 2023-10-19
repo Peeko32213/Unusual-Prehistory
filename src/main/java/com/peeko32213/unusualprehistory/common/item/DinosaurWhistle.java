@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.common.item;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ShriekParticleOption;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -12,7 +11,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -109,17 +107,6 @@ public class DinosaurWhistle extends Item {
                 level.addParticle(new ShriekParticleOption(j * 10), true, (double) blockPlayerIsLookingAt.getX() + 0.5D, (double) blockPlayerIsLookingAt.getY() + 0.3, (double) blockPlayerIsLookingAt.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
             }
             return InteractionResultHolder.success(itemStack);
-    }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
-        ItemStack istack = new ItemStack(this);
-        if(allowedIn(tab)){
-            CompoundTag compoundTag = new CompoundTag();
-            compoundTag.putInt("command", 0);
-            istack.setTag(compoundTag);
-            list.add(istack);
-        }
     }
 
 }

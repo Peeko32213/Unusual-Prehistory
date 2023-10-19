@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiFoliagePlacer;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoFoliagePlacer;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;

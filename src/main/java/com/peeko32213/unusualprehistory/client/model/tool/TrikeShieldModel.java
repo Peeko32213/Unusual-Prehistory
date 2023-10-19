@@ -5,7 +5,6 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.tool.ItemTrikeShield;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class TrikeShieldModel extends GeoModel<ItemTrikeShield> {
     @Override

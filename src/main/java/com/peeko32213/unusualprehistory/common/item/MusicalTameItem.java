@@ -2,12 +2,11 @@ package com.peeko32213.unusualprehistory.common.item;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
 import com.peeko32213.unusualprehistory.core.registry.UPAdvancementTriggerRegistry;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -25,7 +24,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
@@ -47,27 +49,19 @@ public class MusicalTameItem extends Item {
         this.instrument = instrument;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        Optional<Holder<Instrument>> optional = this.getInstrument(itemstack);
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
+        Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemstack);
         if (optional.isPresent()) {
             Instrument instrument = optional.get().value();
-            pPlayer.startUsingItem(pHand);
+            pPlayer.startUsingItem(pUsedHand);
             play(pLevel, pPlayer, instrument);
             pPlayer.getCooldowns().addCooldown(this, instrument.useDuration());
+            pPlayer.awardStat(Stats.ITEM_USED.get(this));
             return InteractionResultHolder.consume(itemstack);
         } else {
             return InteractionResultHolder.fail(itemstack);
         }
-    }
-
-    public void fillItemCategory(CreativeModeTab pCategory, NonNullList<ItemStack> pItems) {
-        if (this.allowedIn(pCategory)) {
-            for(Holder<Instrument> holder : Registry.INSTRUMENT.getTagOrEmpty(this.instrument)) {
-                pItems.add(create(UPItems.BARINA_WHISTLE.get(), holder));
-            }
-        }
-
     }
 
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
@@ -128,25 +122,27 @@ public class MusicalTameItem extends Item {
     }
 
     public int getUseDuration(ItemStack pStack) {
-        Optional<Holder<Instrument>> optional = this.getInstrument(pStack);
-        return optional.isPresent() ? optional.get().value().useDuration() : 100;
+        Optional<? extends Holder<Instrument>> optional = this.getInstrument(pStack);
+        return optional.map((p_248418_) -> {
+            return p_248418_.value().useDuration();
+        }).orElse(0);
     }
 
-    private Optional<Holder<Instrument>> getInstrument(ItemStack pStack) {
+    private Optional<? extends Holder<Instrument>> getInstrument(ItemStack pStack) {
         CompoundTag compoundtag = pStack.getTag();
-        if (compoundtag != null) {
+        if (compoundtag != null && compoundtag.contains("instrument", 8)) {
             ResourceLocation resourcelocation = ResourceLocation.tryParse(compoundtag.getString("instrument"));
             if (resourcelocation != null) {
-                return Registry.INSTRUMENT.getHolder(ResourceKey.create(Registry.INSTRUMENT_REGISTRY, resourcelocation));
+                return BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, resourcelocation));
             }
         }
 
-        Iterator<Holder<Instrument>> iterator = Registry.INSTRUMENT.getTagOrEmpty(this.instrument).iterator();
+        Iterator<Holder<Instrument>> iterator = BuiltInRegistries.INSTRUMENT.getTagOrEmpty(this.instrument).iterator();
         return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
     }
 
     private static void play(Level pLevel, Player pPlayer, Instrument pInstrument) {
-        SoundEvent soundevent = pInstrument.soundEvent();
+        SoundEvent soundevent = pInstrument.soundEvent().value();
         float f = pInstrument.range() / 16.0F;
         pLevel.playSound(pPlayer, pPlayer, soundevent, SoundSource.RECORDS, f, 1.0F);
         pLevel.gameEvent(GameEvent.INSTRUMENT_PLAY, pPlayer.position(), GameEvent.Context.of(pPlayer));

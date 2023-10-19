@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.item;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tier;
 

@@ -157,7 +157,7 @@ public class BlockZuloagae extends Block implements BonemealableBlock, net.minec
     /**
      * @return whether bonemeal can be used on this block
      */
-    public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
         int i = this.getHeightAboveUpToMax(pLevel, pPos);
         int j = this.getHeightBelowUpToMax(pLevel, pPos);
         return i + j + 1 < 16 && pLevel.getBlockState(pPos.above(i)).getValue(STAGE) != 1;

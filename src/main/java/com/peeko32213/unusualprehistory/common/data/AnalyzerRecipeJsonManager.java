@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -138,8 +138,8 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
             List<ResourceLocation> itemsRL = analyzerRecipeCodec.getInputItems();
 
             for (ResourceLocation tag : tagsRL) {
-                TagKey<Item> itemTagKey = TagKey.create(Registry.ITEM_REGISTRY, tag);
-                level.registryAccess().registry(Registry.ITEM_REGISTRY).ifPresent(reg -> {
+                TagKey<Item> itemTagKey = TagKey.create(Registries.ITEM, tag);
+                level.registryAccess().registry(Registries.ITEM).ifPresent(reg -> {
                     Iterable<Holder<Item>> itemHolder = reg.getTagOrEmpty(itemTagKey);
 
                     for (Holder<Item> tempItemHolder : itemHolder) {
@@ -158,7 +158,7 @@ public class AnalyzerRecipeJsonManager extends SimpleJsonResourceReloadListener 
             }
 
             for (ResourceLocation items : itemsRL) {
-                level.registryAccess().registry(Registry.ITEM_REGISTRY).ifPresent(reg -> {
+                level.registryAccess().registry(Registries.ITEM).ifPresent(reg -> {
                     Item item = reg.get(items);
                     if(item == null) {
                         LOGGER.error("Item {} does not exist, currently parsing through {}!", items, resourceLocation);

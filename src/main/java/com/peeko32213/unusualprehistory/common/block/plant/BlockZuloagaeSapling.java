@@ -13,7 +13,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.BambooBlock;
+import net.minecraft.world.level.block.BambooStalkBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -76,7 +76,7 @@ public class BlockZuloagaeSapling extends Block implements BonemealableBlock {
     /**
      * @return whether bonemeal can be used on this block
      */
-    public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
         return pLevel.getBlockState(pPos.above()).isAir();
     }
 
@@ -99,6 +99,6 @@ public class BlockZuloagaeSapling extends Block implements BonemealableBlock {
     }
 
     protected void growBamboo(Level pLevel, BlockPos pState) {
-        pLevel.setBlock(pState.above(), UPBlocks.ZULOAGAE.get().defaultBlockState().setValue(BambooBlock.LEAVES, BambooLeaves.SMALL), 3);
+        pLevel.setBlock(pState.above(), UPBlocks.ZULOAGAE.get().defaultBlockState().setValue(BambooStalkBlock.LEAVES, BambooLeaves.SMALL), 3);
     }
 }

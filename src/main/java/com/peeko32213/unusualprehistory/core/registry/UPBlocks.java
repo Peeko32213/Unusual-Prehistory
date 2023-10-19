@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.block.BlockBigLeavesArea;
 import com.peeko32213.unusualprehistory.common.block.*;
 import com.peeko32213.unusualprehistory.common.block.decorations.BlockFossilDecoration;
 import com.peeko32213.unusualprehistory.common.block.plant.*;
