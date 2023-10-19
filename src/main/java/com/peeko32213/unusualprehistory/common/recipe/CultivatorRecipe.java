@@ -49,6 +49,10 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
         return output;
     }
 
+    public ItemStack getResultItem() {
+        return output;
+    }
+
     @Override
     public NonNullList<Ingredient> getIngredients() {
         return recipeItems;

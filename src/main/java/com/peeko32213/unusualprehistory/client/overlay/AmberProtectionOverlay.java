@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.ClientAmberProtectionData;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -46,7 +47,7 @@ public class AmberProtectionOverlay {
         for (int level = 0; level <= numProtectionLevels && shouldBlit && !isCreative && !isSpectator; level++) {
 
             // Calculate the row, height, and offset for the current heart icon
-            int rowMultpl = Mth.absFloor(level / MAX_PROTECTION_LEVELS_PER_ROW);
+            int rowMultpl = Mth.abs(level / MAX_PROTECTION_LEVELS_PER_ROW);
             blitY = blitY - (rowMultpl * ROW_HEIGHT_OFFSET);
             xOffset = (HEART_WIDTH_OFFSET * rowMultpl);
 
@@ -58,16 +59,27 @@ public class AmberProtectionOverlay {
             // Render the current heart icon, half heart of full heart
             if (level < numProtectionLevels) {
                 if (level % 2 == 0) {
-                    RenderSystem.setShaderTexture(0, AMBER_PROTECTION_HALF_TEXTURE);
+                    renderTextureOverlay(poseStack, AMBER_PROTECTION_HALF_TEXTURE,1,blitX, blitY, BLIT_SIZE, BLIT_SIZE);
                 } else {
-                    RenderSystem.setShaderTexture(0, AMBER_PROTECTION_TEXTURE);
+                    renderTextureOverlay(poseStack, AMBER_PROTECTION_TEXTURE, 1, blitX, blitY,  BLIT_SIZE, BLIT_SIZE);
                 }
-                gui.blit(poseStack, blitX, blitY, 0, 0, BLIT_SIZE, BLIT_SIZE, BLIT_SIZE, BLIT_SIZE);
+
             } else {
                 break;
             }
         }
     };
+
+
+    protected static void renderTextureOverlay(GuiGraphics pGuiGraphics, ResourceLocation pShaderLocation, float pAlpha, int x , int y, int sizeX, int sizeY) {
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, pAlpha);
+        pGuiGraphics.blit(pShaderLocation, x, y, -90, 0.0F, 0.0F, sizeX, sizeY, sizeX, sizeY);
+        RenderSystem.depthMask(true);
+        RenderSystem.enableDepthTest();
+        pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+    }
 }
 
 

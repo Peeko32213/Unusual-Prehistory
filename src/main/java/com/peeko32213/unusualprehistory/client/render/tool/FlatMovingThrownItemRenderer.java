@@ -1,9 +1,8 @@
 package com.peeko32213.unusualprehistory.client.render.tool;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -13,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.ItemSupplier;
+import net.minecraft.world.item.ItemDisplayContext;
 
 public class FlatMovingThrownItemRenderer<T extends Entity & ItemSupplier> extends EntityRenderer<T> {
     private static final float MIN_CAMERA_DISTANCE_SQUARED = 12.25F;
@@ -42,9 +42,9 @@ public class FlatMovingThrownItemRenderer<T extends Entity & ItemSupplier> exten
             pMatrixStack.pushPose();
             pMatrixStack.scale(this.scale, this.scale, this.scale);
             pMatrixStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
-            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F + rotateAngleY * (45F / (float) Math.PI)));
-            pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(90.0F));
-            this.itemRenderer.renderStatic(pEntity.getItem(), ItemTransforms.TransformType.GROUND, pPackedLight, OverlayTexture.NO_OVERLAY, pMatrixStack, pBuffer, pEntity.getId());
+            pMatrixStack.mulPose(Axis.YP.rotationDegrees(180.0F + rotateAngleY * (45F / (float) Math.PI)));
+            pMatrixStack.mulPose(Axis.XP.rotationDegrees(90.0F));
+            this.itemRenderer.renderStatic(pEntity.getItem(), ItemDisplayContext.GROUND, pPackedLight, OverlayTexture.NO_OVERLAY, pMatrixStack, pBuffer, pEntity.level(), pEntity.getId());
             pMatrixStack.popPose();
             super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
         }

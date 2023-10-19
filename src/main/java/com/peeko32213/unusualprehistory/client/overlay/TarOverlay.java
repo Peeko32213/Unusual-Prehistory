@@ -28,7 +28,7 @@ public class TarOverlay {
         boolean isSpectator = player.isSpectator();
         Level level = Minecraft.getInstance().level;
 
-        BlockState state = level.getBlockState(new BlockPos(player.getEyePosition()));
+        BlockState state = level.getBlockState( BlockPos.containing(player.getEyePosition()));
         boolean isTar = state.is(UPBlocks.TAR.get());
 
         if (isTar && !isCreative && !isSpectator) {
@@ -57,6 +57,7 @@ public class TarOverlay {
         RenderSystem.enableDepthTest();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
+
 }
 
 

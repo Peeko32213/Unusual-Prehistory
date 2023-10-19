@@ -1,15 +1,15 @@
 package com.peeko32213.unusualprehistory.client.render.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.peeko32213.unusualprehistory.common.block.entity.IncubatorBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class IncubatorBlockEntityRenderer implements BlockEntityRenderer<IncubatorBlockEntity> {
@@ -32,11 +32,11 @@ public class IncubatorBlockEntityRenderer implements BlockEntityRenderer<Incubat
         poseStack.translate(0.5, 0.5 + Math.sin(age * 0.05) * 0.2, 0.5);
         poseStack.scale(0.5F, 0.5F, 0.5F);
 
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(rotateAngleY * (45F / (float) Math.PI)));
+        poseStack.mulPose(Axis.YP.rotationDegrees(rotateAngleY * (45F / (float) Math.PI)));
 
 
-        itemRenderer.renderStatic(itemStack, ItemTransforms.TransformType.GUI, packedLight,
-                OverlayTexture.NO_OVERLAY, poseStack, multiBufferSource, 1);
+        itemRenderer.renderStatic(itemStack, ItemDisplayContext.GUI, packedLight,
+                OverlayTexture.NO_OVERLAY, poseStack, multiBufferSource, blockEntity.getLevel(),1);
 
         poseStack.popPose();
         // poseStack.scale(0.1F, 0.1F, 0.1F);

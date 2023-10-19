@@ -28,9 +28,9 @@ public final class ClientForgeEvents {
     {
         if(minecraft == null) return;
         Player player = minecraft.player;
-        Level level = player.level;
+        Level level = player.level();
         Vec3 vec3 = player.getEyePosition();
-        BlockState blockState = level.getBlockState(new BlockPos(vec3));
+        BlockState blockState = level.getBlockState(BlockPos.containing(vec3.x, vec3.y, vec3.z));
         boolean isCreative = player.isCreative();
         boolean isSpectator = player.isSpectator();
         if(blockState.is(UPBlocks.TAR.get()) && event.getMode().equals(FogRenderer.FogMode.FOG_TERRAIN) && !isCreative && !isSpectator)
@@ -50,9 +50,9 @@ public final class ClientForgeEvents {
     public static void fogColors(ViewportEvent.ComputeFogColor event) {
         if(minecraft == null) return;
         Player player = minecraft.player;
-        Level level = player.level;
+        Level level = player.level();
         Vec3 vec3 = player.getEyePosition();
-        BlockState blockState = level.getBlockState(new BlockPos(vec3));
+        BlockState blockState = level.getBlockState(BlockPos.containing(vec3.x, vec3.y, vec3.z));
         boolean isCreative = player.isCreative();
         boolean isSpectator = player.isSpectator();
         boolean insideTar = blockState.is(UPBlocks.TAR.get());
