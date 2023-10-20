@@ -34,11 +34,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAnimatable, IBookEntity, IHatchableEntity {
+public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements GeoAnimatable, IBookEntity, IHatchableEntity {
     private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.INT);
 
@@ -47,7 +47,7 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.INT);
     int lastTimeSinceHungry;
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public EntityBaseAquaticAnimal(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -325,8 +325,13 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements IAn
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
     }
 
     public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends WaterAnimal> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {

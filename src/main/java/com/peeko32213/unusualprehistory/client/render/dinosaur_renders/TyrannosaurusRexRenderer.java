@@ -8,13 +8,13 @@ import com.peeko32213.unusualprehistory.client.render.layer.TyrannosaurusRexEepy
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class TyrannosaurusRexRenderer extends GeoEntityRenderer<EntityTyrannosaurusRex> {
 
     public TyrannosaurusRexRenderer(EntityRendererProvider.Context context) {
         super(context, new TyrannosaurusRexModel());
-        this.addLayer(new TyrannosaurusRexEepyLayer(this));
+        this.addRenderLayer(new TyrannosaurusRexEepyLayer(this));
     }
 
     @Override

@@ -4,12 +4,12 @@ package com.peeko32213.unusualprehistory.client.model;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyDunk;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
-public class BabyDunkModel extends AnimatedGeoModel<EntityBabyDunk>
+public class BabyDunkModel extends GeoModel<EntityBabyDunk>
 {
     @Override
     public ResourceLocation getModelResource(EntityBabyDunk object)

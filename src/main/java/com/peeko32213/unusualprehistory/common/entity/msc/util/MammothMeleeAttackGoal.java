@@ -38,7 +38,7 @@ public class MammothMeleeAttackGoal extends Goal {
      * method as well.
      */
     public boolean canUse() {
-        long i = this.mob.level.getGameTime();
+        long i = this.mob.level().getGameTime();
         if (i - this.lastCanUseCheck < 20L) {
             return false;
         } else {

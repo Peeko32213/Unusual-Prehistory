@@ -2,11 +2,11 @@ package com.peeko32213.unusualprehistory.client.model.plant;
 
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class PlantModel extends AnimatedGeoModel<EntityPlant> {
+public class PlantModel extends GeoModel<EntityPlant> {
     //MODELS
     private String modelMod;
     private String textureName;

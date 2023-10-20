@@ -207,7 +207,7 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
 
     @Override
     public double getTick(Object o) {
-        return 0;
+        return tickCount;
     }
 
     @Nullable

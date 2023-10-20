@@ -39,7 +39,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -386,7 +385,7 @@ public class EntityAnurognathus extends AgeableMob implements GeoEntity, Neutral
 
     @Override
     public double getTick(Object o) {
-        return 0;
+        return tickCount;
     }
 
     @Override

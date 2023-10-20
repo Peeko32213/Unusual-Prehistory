@@ -1,14 +1,14 @@
 package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.peeko32213.unusualprehistory.client.model.PalaeophisPartModel;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class PalaeophisPartRender extends GeoEntityRenderer<EntityPalaeophisPart> {
     public PalaeophisPartRender(EntityRendererProvider.Context renderManager) {
@@ -25,8 +25,8 @@ public class PalaeophisPartRender extends GeoEntityRenderer<EntityPalaeophisPart
         Pose pose = entity.getPose();
         if (pose != Pose.SLEEPING) {
             //   stack.mulPose(Vector3f.YP.rotationDegrees(180.0F - yawIn));
-            stack.mulPose(Vector3f.YP.rotationDegrees(180.0F - newYaw));
-            stack.mulPose(Vector3f.XP.rotationDegrees(entity.getXRot()));
+            stack.mulPose(Axis.YP.rotationDegrees(180.0F - newYaw));
+            stack.mulPose(Axis.XP.rotationDegrees(entity.getXRot()));
         }
 
         if (entity.deathTime > 0) {
@@ -36,12 +36,12 @@ public class PalaeophisPartRender extends GeoEntityRenderer<EntityPalaeophisPart
                 f = 1.0F;
             }
 
-            stack.mulPose(Vector3f.ZP.rotationDegrees(f * 90F));
+            stack.mulPose(Axis.ZP.rotationDegrees(f * 90F));
         } else if (entity.hasCustomName()) {
             String s = ChatFormatting.stripFormatting(entity.getName().getString());
             if (("Dinnerbone".equals(s) || "Grumm".equals(s))) {
                 stack.translate(0.0D, (double)(entity.getBbHeight() + 0.1F), 0.0D);
-                stack.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
+                stack.mulPose(Axis.ZP.rotationDegrees(180.0F));
             }
         }
     }

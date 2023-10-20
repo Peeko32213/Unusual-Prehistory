@@ -7,6 +7,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import software.bernie.geckolib.core.animation.RawAnimation;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
@@ -20,10 +21,11 @@ public class IcebergMammoth extends EntityWorldSpawnable {
     public ResourceLocation getDeadLootTable() {
         return MAMMOTH_LOOT;
     }
+    protected static final RawAnimation FROZEN = RawAnimation.begin().thenPlay("animation.mammoth.frozen");
 
     @Override
-    protected String getFrozenState() {
-        return "animation.mammoth.frozen";
+    protected RawAnimation getFrozenState() {
+        return FROZEN;
     }
 
     @Override
@@ -35,4 +37,6 @@ public class IcebergMammoth extends EntityWorldSpawnable {
     protected int dropCount() {
         return 10;
     }
+
+
 }

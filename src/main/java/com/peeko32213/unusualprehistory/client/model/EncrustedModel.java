@@ -4,9 +4,9 @@ package com.peeko32213.unusualprehistory.client.model;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityEncrusted;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class EncrustedModel extends AnimatedGeoModel<EntityEncrusted>
+public class EncrustedModel extends GeoModel<EntityEncrusted>
 {
     @Override
     public ResourceLocation getModelResource(EntityEncrusted object)

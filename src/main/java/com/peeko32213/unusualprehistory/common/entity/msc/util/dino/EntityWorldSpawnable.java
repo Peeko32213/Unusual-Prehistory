@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,26 +20,27 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.network.NetworkHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public abstract class EntityWorldSpawnable extends LivingEntity implements IAnimatable {
+public abstract class EntityWorldSpawnable extends LivingEntity implements GeoAnimatable {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityWorldSpawnable.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> WIDTH_SCALE = SynchedEntityData.defineId(EntityWorldSpawnable.class, EntityDataSerializers.FLOAT);
@@ -46,7 +48,7 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements IAnim
     public static final ResourceLocation MAMMOTH_LOOT = prefix("entities/iceberg/mammoth");
     public static final ResourceLocation SMILODON_LOOT = prefix("entities/iceberg/smilodon");
     public static final ResourceLocation ERYON_LOOT = prefix("entities/iceberg/eryon");
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final Logger LOGGER = LogManager.getLogger();
     private boolean hasGivenDna;
     private boolean canGiveItems;
@@ -113,9 +115,11 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements IAnim
         if (this.level().getServer() == null) {
             return ItemStack.EMPTY;
         }
-        LootTable loottable = this.level.getServer().getLootTables().get(this.getDeadLootTable());
-        LootContext.Builder lootcontext$builder = this.createLootContext(false, DamageSource.GENERIC);
-        for (ItemStack itemstack : loottable.getRandomItems(lootcontext$builder.create(LootContextParamSets.ENTITY))) {
+        LootTable loottable = this.level().getServer().getLootData().getLootTable(this.getDeadLootTable());
+
+        LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level())).withParameter(LootContextParams.DAMAGE_SOURCE, this.damageSources().generic()).create(LootContextParamSets.CHEST);
+
+        for (ItemStack itemstack : loottable.getRandomItems(lootparams)) {
             return itemstack;
         }
         return ItemStack.EMPTY;
@@ -201,23 +205,29 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements IAnim
         return NetworkHooks.getEntitySpawningPacket(this);
     }
     @Nullable
-    protected abstract String getFrozenState();
+    protected abstract RawAnimation getFrozenState();
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    private <E extends EntityWorldSpawnable> PlayState predicate(AnimationState<E> event) {
         if(getFrozenState() != null){
-        event.getController().setAnimation(new AnimationBuilder().addAnimation(getFrozenState()));
+        event.getController().setAnimation(getFrozenState());
         }
         return PlayState.CONTINUE;
     }
 
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 10, this::predicate));
+
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
     }
 }

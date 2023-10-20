@@ -32,7 +32,7 @@ public class HitboxHelper {
                 ));
 
         Vec2 aim = MathHelpers.OrizontalAimVector(entityIn.getLookAngle());
-        Level worldIn = entityIn.level;
+        Level worldIn = entityIn.level();
 
         for(int i = 0; i<=radius/d; ++i) {
 
@@ -96,7 +96,7 @@ public class HitboxHelper {
                 ));
 
         Vec2 aim = MathHelpers.OrizontalAimVector(entityIn.getLookAngle());
-        Level worldIn = entityIn.level;
+        Level worldIn = entityIn.level();
 
 
         for(int i = 0; i<=radius/d; ++i) {
@@ -163,7 +163,7 @@ public class HitboxHelper {
         AffineTransform.getRotateInstance(Math.toRadians(entityAngle), sourcePos.x, sourcePos.z).transform(trueXZ, 0, trueXZ, 0, 1);
         double[] transformedTrueXY = trueXZ;
         Vec3 rotatedPos = new Vec3(transformedTrueXY[0], truePos.y, transformedTrueXY[1]);
-        BlockPos finalPos = new BlockPos(rotatedPos);
+        BlockPos finalPos = BlockPos.containing(rotatedPos.x, rotatedPos.y, rotatedPos.z);
         AABB Hitbox = new AABB(finalPos).inflate(attackWidth, attackHeight, attackLength);
         //hitboxOutline(Hitbox, world);
         //world.sendParticles(ParticleTypes.EXPLOSION, rotatedPos.x, rotatedPos.y, rotatedPos.z, 1, 0, 0, 0, 0);
@@ -199,12 +199,12 @@ public class HitboxHelper {
         if (!mainHand.isEmpty() && mainHand.is(Items.SHIELD) && pPlayer.isBlocking()) {
             //float f = 0.25F + (float) EnchantmentHelper.getBlockEfficiency(source) * 0.05F;
             pPlayer.getCooldowns().addCooldown(Items.SHIELD, 100);
-            source.level.broadcastEntityEvent(pPlayer, (byte)30);
+            source.level().broadcastEntityEvent(pPlayer, (byte)30);
 
         } else if (!offHand.isEmpty() && offHand.is(Items.SHIELD) && pPlayer.isBlocking()) {
             //float f = 0.25F + (float) EnchantmentHelper.getBlockEfficiency(source) * 0.05F;
             pPlayer.getCooldowns().addCooldown(Items.SHIELD, 100);
-            source.level.broadcastEntityEvent(pPlayer, (byte)30);
+            source.level().broadcastEntityEvent(pPlayer, (byte)30);
         }
 
     }
@@ -229,7 +229,7 @@ public class HitboxHelper {
                 ));
 
         Vec2 aim = MathHelpers.OrizontalAimVector(entityIn.getLookAngle());
-        Level worldIn = entityIn.level;
+        Level worldIn = entityIn.level();
 
 
         for(int i = 0; i<=radius/d; ++i) {

@@ -6,15 +6,15 @@ import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MajungasaurusModel extends AnimatedGeoModel<EntityMajungasaurus>
+public class MajungasaurusModel extends GeoModel<EntityMajungasaurus>
 {
     @Override
     public ResourceLocation getModelResource(EntityMajungasaurus object)

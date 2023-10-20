@@ -47,15 +47,12 @@ import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -63,7 +60,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimatable, IAnimationTickable {
+public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnimatable {
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
@@ -71,7 +68,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
     private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> CHILD_ID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SHEDDING_TIME = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
 
     public final float[] ringBuffer = new float[64];
     public int ringBufferIndex = -1;
@@ -317,11 +314,6 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
 
     }
 
-    @Override
-    public int tickTimer() {
-        return tickCount;
-    }
-
     private float calcPartRotation(int i) {
         final float f = 1 - (this.strangleProgress * 0.2F);
         final float strangleIntensity = (float) (Mth.clamp(strangleTimer * 3, 0, 100F) * (1.0F + 0.2F * Math.sin(0.15F * strangleTimer)));
@@ -403,7 +395,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         return 1;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    private <E extends EntityPalaeophis> PlayState predicate(AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
@@ -432,14 +424,11 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
         return PlayState.CONTINUE;
     }
 
-    public void registerControllers(AnimationData data) {
-        AnimationController<EntityPalaeophis> controller = new AnimationController<>(this, "controller", 0, this::predicate);
-        data.addAnimationController(controller);
-    }
-
     @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        AnimationController<EntityPalaeophis> controller = new AnimationController<>(this, "controller", 0, this::predicate);
+        controllerRegistrar.add(controller);
+
     }
 
     public boolean requiresCustomPersistence() {
@@ -494,6 +483,8 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements IAnimat
     protected TagKey<EntityType<?>> getTargetTag() {
         return null;
     }
+
+
 
     static class MoveHelperController extends MoveControl {
         private final EntityPalaeophis dolphin;

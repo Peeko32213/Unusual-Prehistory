@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBrachiosaur
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityBrachiosaurusTeenPart;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class BrachiosaurusTeenRenderer extends GeoEntityRenderer<EntityBrachiosaurusTeen> {
 

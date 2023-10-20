@@ -45,7 +45,7 @@ public class CustomRideGoal  extends Goal {
 
     @Override
     public void tick() {
-        tameableEntity.maxUpStep = 1;
+        tameableEntity.setMaxUpStep(1.0F);
         tameableEntity.getNavigation().stop();
         tameableEntity.setTarget(null);
         double x = tameableEntity.getX();

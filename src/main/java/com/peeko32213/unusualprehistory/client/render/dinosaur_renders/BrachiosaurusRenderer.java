@@ -1,19 +1,22 @@
 package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.BrachiosaurusModel;
-import com.peeko32213.unusualprehistory.client.render.layer.BrachiosaurusSaddleLayer;
+import com.peeko32213.unusualprehistory.client.render.layer.BaseDinosaurSaddleLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityBrachiosaurusPart;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class BrachiosaurusRenderer extends GeoEntityRenderer<EntityBrachiosaurus> {
-
+    private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus_saddle.png");
+    private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/brachi.geo.json");
     public BrachiosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new BrachiosaurusModel());
-        this.addLayer(new BrachiosaurusSaddleLayer(this));
+        this.addRenderLayer(new BaseDinosaurSaddleLayer<>(this, OVERLAY, MODEL));
     }
 
     public boolean shouldRender(EntityBrachiosaurus livingEntityIn, Frustum camera, double camX, double camY, double camZ) {

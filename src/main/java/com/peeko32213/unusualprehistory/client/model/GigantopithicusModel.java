@@ -4,9 +4,9 @@ package com.peeko32213.unusualprehistory.client.model;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityGigantopithicus;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class GigantopithicusModel extends AnimatedGeoModel<EntityGigantopithicus>
+public class GigantopithicusModel extends GeoModel<EntityGigantopithicus>
 {
 
     private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/gigantopithicus.png");

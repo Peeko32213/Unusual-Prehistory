@@ -479,7 +479,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
 
     @Override
     public double getTick(Object o) {
-        return 0;
+        return tickCount;
     }
 
     public void onPlayerJump(int p_30591_) {

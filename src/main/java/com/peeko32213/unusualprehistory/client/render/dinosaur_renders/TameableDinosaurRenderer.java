@@ -10,18 +10,19 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class TameableDinosaurRenderer<T extends EntityTameableBaseDinosaurAnimal> extends GeoEntityRenderer<T> {
 
 
-    public TameableDinosaurRenderer(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider) {
+    public TameableDinosaurRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
     }
 
     @Override
-    public RenderType getRenderType(T animatable, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int PackedLightIn, ResourceLocation textureLocation){
+    public RenderType getRenderType(T animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
         return RenderType.entityCutout(getTextureLocation(animatable));
     }
 

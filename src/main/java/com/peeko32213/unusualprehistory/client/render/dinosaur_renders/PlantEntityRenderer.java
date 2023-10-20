@@ -9,13 +9,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class PlantEntityRenderer<T extends LivingEntity & IAnimatable> extends GeoEntityRenderer<T> {
+public class PlantEntityRenderer<T extends LivingEntity & GeoAnimatable> extends GeoEntityRenderer<T> {
     private float scale;
-    public PlantEntityRenderer(EntityRendererProvider.Context context, AnimatedGeoModel<T> model, float scale) {
+    public PlantEntityRenderer(EntityRendererProvider.Context context, GeoModel<T> model, float scale) {
         super(context, model);
         this.scale = scale;
     }
@@ -27,7 +27,7 @@ public class PlantEntityRenderer<T extends LivingEntity & IAnimatable> extends G
     }
 
     @Override
-    public RenderType getRenderType(T animatable, float partialTick, PoseStack poseStack, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, int packedLight, ResourceLocation texture) {
+    public RenderType getRenderType(T animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
         return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
     }
 

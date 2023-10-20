@@ -8,13 +8,13 @@ import com.peeko32213.unusualprehistory.client.render.layer.MegalaniaEepyLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class MegalaniaRenderer extends GeoEntityRenderer<EntityMegalania> {
 
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
         super(context, new MegalaniaModel());
-        this.addLayer(new MegalaniaEepyLayer(this));
+        this.addRenderLayer(new MegalaniaEepyLayer(this));
     }
 
     @Override

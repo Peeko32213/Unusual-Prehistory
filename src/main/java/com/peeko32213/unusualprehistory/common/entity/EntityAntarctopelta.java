@@ -40,7 +40,6 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-
 import java.util.EnumSet;
 
 public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
@@ -453,7 +452,7 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
 
     @Override
     public double getTick(Object o) {
-        return 0;
+        return tickCount;
     }
 
 

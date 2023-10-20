@@ -18,8 +18,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -69,27 +67,27 @@ public class UPBlocks {
 
     public static final Supplier<Block> STETHA_EGGS = create("stetha_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
-                    UPEntities.STETHACANTHUS, false), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+                    UPEntities.STETHACANTHUS, false), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
     public static final Supplier<Block> BEELZE_EGGS = create("beelze_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.BEELZE_TADPOLE,
                     false
             ),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
     public static final Supplier<Block> AMON_EGGS = create("ammon_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.AMMON,
                     false
             ),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
     public static final Supplier<Block> DUNK_EGGS = create("dunk_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.BABY_DUNK,
                     false),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
     public static final Supplier<Block> SCAU_EGGS = create("scau_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
@@ -97,7 +95,7 @@ public class UPBlocks {
                     //Turn this to false if you want it to be placed on water
                     false
             ),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
     public static final RegistryObject<Block> ANURO_EGG = registerBlock("anuro_eggs",
             () -> new BlockDinosaurLandEggs(
@@ -305,19 +303,19 @@ public class UPBlocks {
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
 
     public static final RegistryObject<FenceGateBlock> FOXXI_FENCE_GATE = registerBlock("foxxi_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE)));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), UPWoodTypes.FOXXI));
 
-    public static final RegistryObject<WoodButtonBlock> FOXXI_BUTTON = registerBlock("foxxi_button",
-            () -> new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
+    public static final RegistryObject<ButtonBlock> FOXXI_BUTTON = registerBlock("foxxi_button",
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.FOXXI, 1,true));
 
     public static final RegistryObject<PressurePlateBlock> FOXXI_PRESSURE_PLATE = registerBlock("foxxi_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE)));
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), UPBlockSetType.FOXXI));
 
     public static final RegistryObject<DoorBlock> FOXXI_DOOR = registerBlock("foxxi_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion()));
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion(), UPBlockSetType.FOXXI));
 
     public static final RegistryObject<TrapDoorBlock> FOXXI_TRAPDOOR = registerBlock("foxxi_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion()));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion(), UPBlockSetType.FOXXI)));
     public static final RegistryObject<Block> GINKGO_PLANKS = registerBlock("ginkgo_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
@@ -363,20 +361,20 @@ public class UPBlocks {
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
 
     public static final RegistryObject<FenceGateBlock> GINKGO_FENCE_GATE = registerBlock("ginkgo_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE)));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), UPWoodTypes.GINKGO));
     public static final RegistryObject<DoorBlock> GINKGO_DOOR = registerBlock("ginkgo_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion()));
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion(), UPBlockSetType.GINKGO));
     public static final RegistryObject<TrapDoorBlock> GINKGO_TRAPDOOR = registerBlock("ginkgo_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion()));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion(), UPBlockSetType.GINKGO));
 
     public static final RegistryObject<ButtonBlock> GINKGO_BUTTON = registerBlock("ginkgo_button",
-            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.GINKGO, 1 ,true));
 
     public static final RegistryObject<ButtonBlock> AMBER_BUTTON = registerBlock("amber_button",
-            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.GINKGO, 1, true));
 
     public static final RegistryObject<PressurePlateBlock> GINKGO_PRESSURE_PLATE = registerBlock("ginkgo_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE)));
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), UPBlockSetType.GINKGO));
 
     public static final RegistryObject<Block> GINKGO_SAPLING = registerBlock("ginkgo_sapling",
             () -> new SaplingBlock(new GinkgoTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
@@ -415,28 +413,28 @@ public class UPBlocks {
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
 
     public static final RegistryObject<FenceGateBlock> DRYO_FENCE_GATE = registerBlock("dryo_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE)));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), UPWoodTypes.DRYO));
 
-    public static final RegistryObject<WoodButtonBlock> DRYO_BUTTON = registerBlock("dryo_button",
-            () -> new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
+    public static final RegistryObject<ButtonBlock> DRYO_BUTTON = registerBlock("dryo_button",
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.DRYO, 1, true));
 
     public static final RegistryObject<PressurePlateBlock> DRYO_PRESSURE_PLATE = registerBlock("dryo_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE)));
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), UPBlockSetType.DRYO));
 
     public static final RegistryObject<DoorBlock> DRYO_DOOR = registerBlock("dryo_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion()));
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion(), UPBlockSetType.DRYO));
 
     public static final RegistryObject<TrapDoorBlock> DRYO_TRAPDOOR = registerBlock("dryo_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion()));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion(), UPBlockSetType.DRYO));
 
     public static final RegistryObject<Block> AMBER_BLOCK = registerBlock("amber_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
 
     public static final RegistryObject<Block> OPAL_BLOCK = registerBlock("opal_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_LIGHT_BLUE).strength(0.5F).sound(SoundType.AMETHYST)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(0.5F).sound(SoundType.AMETHYST)));
 
     public static final RegistryObject<Block> INCUBATOR = registerBlock("incubator",
-            () -> new BlockIncubator(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_YELLOW).strength(0.5F).speedFactor(0.4F).sound(SoundType.METAL).noOcclusion()));
+            () -> new BlockIncubator(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(0.5F).speedFactor(0.4F).sound(SoundType.METAL).noOcclusion()));
 
 
     public static final RegistryObject<Block> COTY_FOSSIL = registerBlock("coty_fossil",
@@ -536,52 +534,52 @@ public class UPBlocks {
             ));
 
     public static final RegistryObject<Block> DEAD_CLATHRODICTYON_BLOCK = registerBlock("dead_clathrodictyon_block", () ->
-            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+            new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
 
 
     public static final RegistryObject<Block> CLATHRODICTYON_BLOCK = registerBlock("clathrodictyon_block", () ->
-            new CoralBlock(DEAD_CLATHRODICTYON_BLOCK.get(), BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+            new CoralBlock(DEAD_CLATHRODICTYON_BLOCK.get(), BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
 
 
     public static final RegistryObject<Block> DEAD_CLATHRODICTYON = registerBlock("dead_clathrodictyon", () ->
-            new BaseCoralPlantBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().noCollission().instabreak()));
+            new BaseCoralPlantBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().noCollission().instabreak()));
 
     public static final RegistryObject<Block> CLATHRODICTYON = registerBlock("clathrodictyon", () ->
-            new CoralPlantBlock(DEAD_CLATHRODICTYON.get(), BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+            new CoralPlantBlock(DEAD_CLATHRODICTYON.get(), BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
 
     public static final RegistryObject<Block> ANOSTYLOSTROMA_BLOCK = registerBlock("anostylostroma_block", () ->
-            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.GRASS)));
+            new Block(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.GRASS)));
 
     public static final RegistryObject<Block> DEAD_CLATHRODICTYON_FAN = BLOCKS.register("dead_clathrodictyon_fan", () ->
-            new BaseCoralFanBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().noCollission().instabreak()));
+            new BaseCoralFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_FAN).requiresCorrectToolForDrops().noCollission().instabreak()));
 
     public static final RegistryObject<Block> DEAD_CLATHRODICTYON_WALL_FAN = BLOCKS.register("dead_clathrodictyon_wall_fan", () ->
-            new BaseCoralWallFanBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().noCollission().instabreak().dropsLike(DEAD_CLATHRODICTYON_FAN.get())));
+            new BaseCoralWallFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_WALL_FAN).requiresCorrectToolForDrops().noCollission().instabreak().dropsLike(DEAD_CLATHRODICTYON_FAN.get())));
 
     public static final RegistryObject<Block> CLATHRODICTYON_FAN = BLOCKS.register("clathrodictyon_fan", () ->
-            new CoralFanBlock(DEAD_CLATHRODICTYON_FAN.get(), BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+            new CoralFanBlock(DEAD_CLATHRODICTYON_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
 
     public static final RegistryObject<Block> CLATHRODICTYON_WALL_FAN = BLOCKS.register("clathrodictyon_wall_fan", () ->
-            new CoralWallFanBlock(DEAD_CLATHRODICTYON_WALL_FAN.get(), BlockBehaviour.Properties.of(Material.WATER_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.WET_GRASS).dropsLike(CLATHRODICTYON_FAN.get())));
+            new CoralWallFanBlock(DEAD_CLATHRODICTYON_WALL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_WALL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS).dropsLike(CLATHRODICTYON_FAN.get())));
 
     public static final RegistryObject<Block> ARCHAEFRUCTUS = registerBlock("archaefructus", () ->
-            new BlockArchaefructus(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+            new BlockArchaefructus(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
 
     public static final RegistryObject<Block> GINKGO_SIGN = BLOCKS.register("ginkgo_sign", ()
-            -> new BlockUPStandingSign(BlockBehaviour.Properties.of(Material.WOOD, GINKGO_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPSignTypes.GINKGO));
+            -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(GINKGO_LOG.get()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.GINKGO));
     public static final RegistryObject<Block> GINKGO_WALL_SIGN = BLOCKS.register("ginkgo_wall_sign", ()
-            -> new BlockUPWallSign(BlockBehaviour.Properties.of(Material.WOOD, GINKGO_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPSignTypes.GINKGO));
+            -> new BlockUPWallSign(BlockBehaviour.Properties.copy(GINKGO_LOG.get()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPWoodTypes.GINKGO));
 
     public static final Supplier<Block> NELUMBITES = create("nelumbites",
-            () -> new WaterlilyBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).instabreak().noOcclusion().sound(SoundType.WET_GRASS)),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new WaterlilyBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).instabreak().noOcclusion().sound(SoundType.WET_GRASS)),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
     public static final RegistryObject<Block> QUEREUXIA_PLANT = registerBlockWithoutBlockItem("quereuxia_plant",
-            () -> new DoubleHeadPlantBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
+            () -> new DoubleHeadPlantBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
     public static final RegistryObject<Block> QUEREUXIA = registerBlock("quereuxia",
-            () -> new DoubleHeadBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noCollission().noOcclusion().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
+            () -> new DoubleHeadBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().noOcclusion().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
     public static final Supplier<Block> QUEREUXIA_TOP = create("quereuxia_top",
-            () -> new WaterLilyUpdate(BlockBehaviour.Properties.of(Material.WATER_PLANT).instabreak().noOcclusion().noCollission().sound(SoundType.WET_GRASS)),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+            () -> new WaterLilyUpdate(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).instabreak().noOcclusion().noCollission().sound(SoundType.WET_GRASS)),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
     public static final RegistryObject<Block> PETRIFIED_WOOD_PLANKS = registerBlock("petrified_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
@@ -608,22 +606,22 @@ public class UPBlocks {
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
 
     public static final RegistryObject<FenceGateBlock> PETRIFIED_WOOD_FENCE_GATE = registerBlock("petrified_wood_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS), UPWoodTypes.PETRIFIED));
     public static final RegistryObject<DoorBlock> PETRIFIED_WOOD_DOOR = registerBlock("petrified_wood_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).noOcclusion()));
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).noOcclusion(), UPBlockSetType.PETRIFIED));
     public static final RegistryObject<TrapDoorBlock> PETRIFIED_WOOD_TRAPDOOR = registerBlock("petrified_wood_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).noOcclusion()));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).noOcclusion(), UPBlockSetType.PETRIFIED));
 
-    public static final RegistryObject<WoodButtonBlock> PETRIFIED_WOOD_BUTTON = registerBlock("petrified_wood_button",
-            () -> new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON)));
+    public static final RegistryObject<ButtonBlock> PETRIFIED_WOOD_BUTTON = registerBlock("petrified_wood_button",
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON), UPBlockSetType.PETRIFIED,1,true));
 
     public static final RegistryObject<PressurePlateBlock> PETRIFIED_WOOD_PRESSURE_PLATE = registerBlock("petrified_wood_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.STONE_PRESSURE_PLATE)));
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.STONE_PRESSURE_PLATE), UPBlockSetType.PETRIFIED));
 
     public static final RegistryObject<StandingSignBlock> PETRIFIED_WOOD_SIGN = BLOCKS.register("petrified_wood_sign", ()
-            -> new BlockUPStandingSign(BlockBehaviour.Properties.of(Material.WOOD, PETRIFIED_WOOD_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPSignTypes.PETRIFIED));
+            -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.STONE).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.PETRIFIED));
     public static final RegistryObject<WallSignBlock> PETRIFIED_WOOD_WALL_SIGN = BLOCKS.register("petrified_wood_wall_sign", ()
-            -> new BlockUPWallSign(BlockBehaviour.Properties.of(Material.WOOD, PETRIFIED_WOOD_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(PETRIFIED_WOOD_SIGN.get()), UPSignTypes.PETRIFIED));
+            -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(PETRIFIED_WOOD_SIGN.get()), UPWoodTypes.PETRIFIED));
 
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD = registerBlock("polished_petrified_wood",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE).requiresCorrectToolForDrops()));
@@ -635,35 +633,35 @@ public class UPBlocks {
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> PETRIFIED_BUSH = registerBlock("petrified_bush", () ->
-            new DeadBushBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.WOOD).noCollission().instabreak().sound(SoundType.GRASS)));
+            new DeadBushBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().instabreak().sound(SoundType.GRASS)));
 
     public static final RegistryObject<Block> ASPHALT = registerBlock("asphalt", () ->
-            new BlockAsphalt(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).instabreak().sound(SoundType.STONE)));
+            new BlockAsphalt(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE)));
 
     public static final RegistryObject<Block> GOLD_ENGRAVED_ASPHALT = registerBlock("gold_engraved_asphalt", () ->
-            new BlockAsphalt(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).instabreak().sound(SoundType.STONE)));
+            new BlockAsphalt(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE)));
 
     public static final RegistryObject<Block> QUARTZ_ENGRAVED_ASPHALT = registerBlock("quartz_engraved_asphalt", () ->
-            new BlockAsphalt(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).instabreak().sound(SoundType.STONE)));
+            new BlockAsphalt(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE)));
     public static final RegistryObject<Block> POTTED_PETRIFIED_BUSH = registerBlockWithoutBlockItem("potted_petrified_bush",
             () -> new FlowerPotBlock(null, UPBlocks.PETRIFIED_BUSH, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
 
     public static final RegistryObject<Block> TAR = registerBlockWithoutBlockItem("tar",
-            () -> new BlockTar(BlockBehaviour.Properties.of(Material.POWDER_SNOW).strength(0.25F).sound(SoundType.MUD).dynamicShape().noOcclusion()));
+            () -> new BlockTar(BlockBehaviour.Properties.copy(Blocks.POWDER_SNOW).strength(0.25F).sound(SoundType.MUD).dynamicShape().noOcclusion()));
 
 
 
     public static final RegistryObject<Block> ZULOAGAE_SAPLING = registerBlockWithoutBlockItem("zuloagae_sapling",
-            () -> new BlockZuloagaeSapling(BlockBehaviour.Properties.of(Material.BAMBOO_SAPLING).randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ)));
+            () -> new BlockZuloagaeSapling(BlockBehaviour.Properties.copy(Blocks.BAMBOO_SAPLING).randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ)));
 
     public static final RegistryObject<Block> ZULOAGAE = registerBlock("zuloagae",
-            () -> new BlockZuloagae(BlockBehaviour.Properties.of(Material.BAMBOO, MaterialColor.PLANT).randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ)));
+            () -> new BlockZuloagae(BlockBehaviour.Properties.copy(Blocks.BAMBOO).randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ)));
 
     public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun",
             () -> new BlockUPTallPlant(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
 
     public static final RegistryObject<Block> SPLATTERED_TAR = registerBlock("splattered_tar",
-            () -> new BlockSplatteredTar(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_BLACK).noCollission().strength(0.2F).sound(SoundType.HONEY_BLOCK)));
+            () -> new BlockSplatteredTar(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().strength(0.2F).sound(SoundType.HONEY_BLOCK)));
 
     public static final RegistryObject<Block> STONE_OPAL_FOSSIL = registerBlock("stone_opal_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
@@ -678,25 +676,25 @@ public class UPBlocks {
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
     public static final RegistryObject<Block> PERMAFROST_FOSSIL = registerBlock("permafrost_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.ICE_SOLID).strength(3.0F, 3.0F).requiresCorrectToolForDrops().strength(0.5F).sound(SoundType.GLASS)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.FROSTED_ICE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().strength(0.5F).sound(SoundType.GLASS)));
 
     public static final RegistryObject<Block> PERMAFROST = registerBlock("permafrost",
-            () -> new Block(BlockBehaviour.Properties.of(Material.ICE_SOLID, MaterialColor.ICE).strength(0.5F).requiresCorrectToolForDrops().friction(0.98F).strength(0.5F).sound(SoundType.GLASS)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.ICE).strength(0.5F).requiresCorrectToolForDrops().friction(0.98F).strength(0.5F).sound(SoundType.GLASS)));
 
     public static final RegistryObject<StandingSignBlock> FOXXI_SIGN = BLOCKS.register("foxxi_sign", ()
-            -> new BlockUPStandingSign(BlockBehaviour.Properties.of(Material.WOOD, FOXXI_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPSignTypes.FOXXI));
+            -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.FOXXI));
     public static final RegistryObject<WallSignBlock> FOXXI_WALL_SIGN = BLOCKS.register("foxxi_wall_sign", ()
-            -> new BlockUPWallSign(BlockBehaviour.Properties.of(Material.WOOD, FOXXI_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FOXXI_SIGN.get()), UPSignTypes.FOXXI));
+            -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FOXXI_SIGN.get()), UPWoodTypes.FOXXI));
 
     public static final RegistryObject<StandingSignBlock> DRYO_SIGN = BLOCKS.register("dryo_sign", ()
-            -> new BlockUPStandingSign(BlockBehaviour.Properties.of(Material.WOOD, DRYO_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPSignTypes.DRYO));
+            -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.DRYO));
     public static final RegistryObject<WallSignBlock> DRYO_WALL_SIGN = BLOCKS.register("dryo_wall_sign", ()
-            -> new BlockUPWallSign(BlockBehaviour.Properties.of(Material.WOOD, DRYO_LOG.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(DRYO_SIGN.get()), UPSignTypes.DRYO));
+            -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(DRYO_SIGN.get()), UPWoodTypes.DRYO));
 
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
-        UPItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+        UPItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         return block;
     }
 
@@ -711,7 +709,7 @@ public class UPBlocks {
     }
 
     private static <T extends Block> Supplier<T> create(String key, Supplier<T> block, CreativeModeTab tab) {
-        return create(key, block, entry -> new BlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+        return create(key, block, entry -> new BlockItem(entry.get(), new Item.Properties()));
     }
 
 

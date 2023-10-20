@@ -1,19 +1,22 @@
 package com.peeko32213.unusualprehistory.client.render.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
-import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.renderer.GeoRenderer;
+import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
-public class BaseDinosaurSaddleLayer<T extends EntityBaseDinosaurAnimal> extends GeoLayerRenderer<T> {
+public class BaseDinosaurSaddleLayer<T extends EntityBaseDinosaurAnimal> extends GeoRenderLayer<T> {
     private final ResourceLocation overlayLocation;
     private final ResourceLocation modelLocation;
+
     //private final GeoModel model;
-    public BaseDinosaurSaddleLayer(IGeoRenderer<T> entityRendererIn, ResourceLocation overlayLocation, ResourceLocation modelLocation) {
+    public BaseDinosaurSaddleLayer(GeoRenderer<T> entityRendererIn, ResourceLocation overlayLocation, ResourceLocation modelLocation) {
         super(entityRendererIn);
 
         this.overlayLocation = overlayLocation;
@@ -21,14 +24,13 @@ public class BaseDinosaurSaddleLayer<T extends EntityBaseDinosaurAnimal> extends
     }
 
     @Override
-    public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entityLivingBaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        //ResourceLocation boneLoc = this.getEntityModel().getModelResource(entityLivingBaseIn);
-        //GeoModel model = this.getEntityModel().getModel(boneLoc);
-
+    public void render(PoseStack poseStack, T entityLivingBaseIn, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
         if (entityLivingBaseIn.isSaddled()) {
             RenderType cameo = RenderType.entityCutout(overlayLocation);
-            this.getRenderer().render(this.getEntityModel().getModel(modelLocation), entityLivingBaseIn, partialTicks, cameo, matrixStackIn, bufferIn,
-                    bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            getRenderer().reRender(this.getGeoModel().getBakedModel(modelLocation), poseStack, bufferSource, entityLivingBaseIn, renderType,
+                    bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY,
+                    1, 1, 1, 1);
         }
     }
 }
+

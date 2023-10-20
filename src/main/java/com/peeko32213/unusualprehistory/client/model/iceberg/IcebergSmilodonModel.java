@@ -2,11 +2,11 @@ package com.peeko32213.unusualprehistory.client.model.iceberg;
 
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class IcebergSmilodonModel extends AnimatedGeoModel<IcebergSmilodon> {
+public class IcebergSmilodonModel extends GeoModel<IcebergSmilodon> {
     //MODELS
     private static final ResourceLocation SMILODON_MODEL_LOCATION = prefix("geo/smilodon.geo.json");
 

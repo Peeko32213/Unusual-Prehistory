@@ -3,11 +3,11 @@ package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class MegalaniaModel extends AnimatedGeoModel<EntityMegalania>
+public class MegalaniaModel extends GeoModel<EntityMegalania>
 {
     private static final ResourceLocation NORMAL_LOCATION = prefix("textures/entity/megalania.png");
     private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/megalania_hot.png");

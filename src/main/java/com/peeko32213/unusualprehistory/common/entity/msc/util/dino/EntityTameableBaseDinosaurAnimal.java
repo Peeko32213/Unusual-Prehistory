@@ -446,6 +446,11 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         return this.cache;
     }
 
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
+    }
+
     public void makeStuckInBlock(BlockState blockstate, Vec3 vec3) {
         if(!hasMakeStuckInBlock()){
              super.makeStuckInBlock(blockstate, vec3);

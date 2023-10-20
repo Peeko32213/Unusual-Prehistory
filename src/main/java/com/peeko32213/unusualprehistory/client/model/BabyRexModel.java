@@ -4,9 +4,9 @@ package com.peeko32213.unusualprehistory.client.model;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyRex;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class BabyRexModel extends AnimatedGeoModel<EntityBabyRex>
+public class BabyRexModel extends GeoModel<EntityBabyRex>
 {
     @Override
     public ResourceLocation getModelResource(EntityBabyRex object)

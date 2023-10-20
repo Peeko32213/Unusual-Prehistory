@@ -4,9 +4,9 @@ package com.peeko32213.unusualprehistory.client.model;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class HwachaSpikeModel extends AnimatedGeoModel<EntityHwachaSpike>
+public class HwachaSpikeModel extends GeoModel<EntityHwachaSpike>
 {
     @Override
     public ResourceLocation getModelResource(EntityHwachaSpike object)

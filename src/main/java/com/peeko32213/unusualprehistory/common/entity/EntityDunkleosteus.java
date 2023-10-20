@@ -267,7 +267,7 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
 
     @Override
     public double getTick(Object o) {
-        return 0;
+        return tickCount;
     }
 
 

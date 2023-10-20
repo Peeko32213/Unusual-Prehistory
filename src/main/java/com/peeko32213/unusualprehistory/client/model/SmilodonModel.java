@@ -4,9 +4,9 @@ package com.peeko32213.unusualprehistory.client.model;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class SmilodonModel extends AnimatedGeoModel<EntitySmilodon>
+public class SmilodonModel extends GeoModel<EntitySmilodon>
 {
     @Override
     public ResourceLocation getModelResource(EntitySmilodon object)

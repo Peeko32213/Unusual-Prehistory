@@ -84,7 +84,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
     public final EntityBrachiosaurusTeenPart[] allParts;
     public EntityBrachiosaurusTeen(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 2.0f;
+        this.setMaxUpStep(2.0F);
         this.neck = new EntityBrachiosaurusTeenPart(this, 3,5.3F);
         this.theEntireNeck = new EntityBrachiosaurusTeenPart[]{this.neck};
         this.allParts = new EntityBrachiosaurusTeenPart[]{this.neck};
@@ -142,7 +142,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
         if (this.isFood(itemstack)) {
             this.eatFood(p_218703_, itemstack);
         }
-        return InteractionResult.sidedSuccess(this.level.isClientSide);
+        return InteractionResult.sidedSuccess(this.level().isClientSide);
     }
 
     public boolean isFood(ItemStack stack) {
@@ -165,12 +165,12 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
     }
 
     private void growUp() {
-        if (this.level instanceof ServerLevel server) {
-            EntityBrachiosaurus frog = UPEntities.BRACHI.get().create(this.level);
+        if (this.level() instanceof ServerLevel server) {
+            EntityBrachiosaurus frog = UPEntities.BRACHI.get().create(this.level());
             if (frog == null) return;
 
             frog.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-            frog.finalizeSpawn(server, this.level.getCurrentDifficultyAt(frog.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            frog.finalizeSpawn(server, this.level().getCurrentDifficultyAt(frog.blockPosition()), MobSpawnType.CONVERSION, null, null);
             frog.setNoAi(this.isNoAi());
             if (this.hasCustomName()) {
                 frog.setCustomName(this.getCustomName());
@@ -185,7 +185,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
@@ -205,7 +205,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
     private void eatFood(Player player, ItemStack stack) {
         this.decrementItem(player, stack);
         this.increaseAge((int)((float)(this.getTicksUntilGrowth() / 20) * 0.1F));
-        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
+        this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
     }
 
     @Override
@@ -288,7 +288,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
                 double brachiTeenShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_TEEN_BRACHI_RANGE.get();
                 int brachiTeenShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER.get();
                 float brachiTeenMoveSoundVolume= UnusualPrehistoryConfig.BRACHI_TEEN_SOUND_VOLUME.get();
-                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiTeenShakeRange));
+                List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiTeenShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiTeenShakeAmp, false, false, false));
@@ -332,9 +332,9 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
             float f = 0.8F;
             Vec3 vec3 = new Vec3(neck.getX(), offset, neck.getZ());
             AABB axisalignedbb = AABB.ofSize(vec3, (double)f, 1.0E-6D, (double)f);
-            return this.level.getBlockStates(axisalignedbb).filter(Predicate.not(BlockBehaviour.BlockStateBase::isAir)).anyMatch((p_185969_) -> {
-                BlockPos blockpos = new BlockPos(vec3);
-                return p_185969_.isSuffocating(this.level, blockpos) && Shapes.joinIsNotEmpty(p_185969_.getCollisionShape(this.level, blockpos).move(vec3.x, vec3.y, vec3.z), Shapes.create(axisalignedbb), BooleanOp.AND);
+            return this.level().getBlockStates(axisalignedbb).filter(Predicate.not(BlockBehaviour.BlockStateBase::isAir)).anyMatch((p_185969_) -> {
+                BlockPos blockpos = BlockPos.containing(vec3.x ,vec3.y, vec3.z);
+                return p_185969_.isSuffocating(this.level(), blockpos) && Shapes.joinIsNotEmpty(p_185969_.getCollisionShape(this.level(), blockpos).move(vec3.x, vec3.y, vec3.z), Shapes.create(axisalignedbb), BooleanOp.AND);
             });
         }
     }
@@ -404,25 +404,25 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
     public void aiStep() {
         super.aiStep();
         scaleParts();
-        if (!this.level.isClientSide) this.setAge(this.age + 1);
+        if (!this.level().isClientSide) this.setAge(this.age + 1);
 
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
             boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                BlockState blockstate = this.level.getBlockState(blockpos);
+                BlockState blockstate = this.level().getBlockState(blockpos);
                 if (blockstate.is(UPTags.PASSIVE_BRACHI_BREAKABLES)) {
-                    flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                    flag = this.level().destroyBlock(blockpos, true, this) || flag;
                 }
             }
         }
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.isAggressive()) {
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isAggressive()) {
             boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                BlockState blockstate = this.level.getBlockState(blockpos);
+                BlockState blockstate = this.level().getBlockState(blockpos);
                 if (blockstate.is(UPTags.ANGRY_BRACHI_BREAKABLES)) {
-                    flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                    flag = this.level().destroyBlock(blockpos, true, this) || flag;
                 }
             }
         }
@@ -485,7 +485,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
             if (i - this.lastCanUseCheck < 20L) {
                 return false;
@@ -655,9 +655,9 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttackWithTargetCheck(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
-                List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(15, 8, 15));
+                List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(15, 8, 15));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 1, false, false, false));

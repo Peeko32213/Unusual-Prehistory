@@ -32,10 +32,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.network.NetworkHooks;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -43,8 +43,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class EntityPalaeophisPart extends LivingEntity implements IHurtableMultipart, IAnimatable {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+public class EntityPalaeophisPart extends LivingEntity implements IHurtableMultipart, GeoAnimatable {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
 
     private static final EntityDataAccessor<Integer> BODYINDEX = SynchedEntityData.defineId(EntityPalaeophisPart.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> BODY_TYPE = SynchedEntityData.defineId(EntityPalaeophisPart.class, EntityDataSerializers.INT);
@@ -67,7 +68,7 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
     }
 
     public EntityPalaeophisPart(EntityType t, LivingEntity parent) {
-        super(t, parent.level);
+        super(t, parent.level());
         this.setParent(parent);
     }
 
@@ -82,7 +83,7 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || super.isInvulnerableTo(source);
+        return source == this.damageSources().inWall() || source == this.damageSources().fallingBlock(source.getEntity()) || super.isInvulnerableTo(source);
     }
 
     @Override
@@ -96,7 +97,7 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
         if (this.tickCount > 1) {
             final Entity parent = getParent();
             refreshDimensions();
-            if (!level.isClientSide) {
+            if (!level().isClientSide) {
                 if (parent == null) {
                     this.remove(RemovalReason.DISCARDED);
                 }
@@ -203,9 +204,9 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
             final double d = 1D;
             final Vec3 vec3 = new Vec3(x, y, z);
             final AABB axisAlignedBB = AABB.ofSize(vec3, d, 1.0E-6D, d);
-            return this.level.getBlockStates(axisAlignedBB).filter(Predicate.not(BlockBehaviour.BlockStateBase::isAir)).anyMatch((p_185969_) -> {
-                BlockPos blockpos = new BlockPos(vec3);
-                return p_185969_.isSuffocating(this.level, blockpos) && Shapes.joinIsNotEmpty(p_185969_.getCollisionShape(this.level, blockpos).move(vec3.x, vec3.y, vec3.z), Shapes.create(axisAlignedBB), BooleanOp.AND);
+            return this.level().getBlockStates(axisAlignedBB).filter(Predicate.not(BlockBehaviour.BlockStateBase::isAir)).anyMatch((p_185969_) -> {
+                BlockPos blockpos = BlockPos.containing(vec3.x, vec3.y, vec3.z);
+                return p_185969_.isSuffocating(this.level(), blockpos) && Shapes.joinIsNotEmpty(p_185969_.getCollisionShape(this.level(), blockpos).move(vec3.x, vec3.y, vec3.z), Shapes.create(axisAlignedBB), BooleanOp.AND);
             });
         }
     }
@@ -222,13 +223,13 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
         if (this.noPhysics) {
             return false;
         } else {
-            return !level.getFluidState(new BlockPos(x, y, z)).isEmpty();
+            return !level().getFluidState(BlockPos.containing(x, y, z)).isEmpty();
         }
     }
 
     public boolean hurtHeadId(DamageSource source, float f) {
         if (headEntityId != -1) {
-            Entity e = level.getEntity(headEntityId);
+            Entity e = level().getEntity(headEntityId);
             if (e instanceof EntityPalaeophis) {
                 return e.hurt(source, f);
             }
@@ -238,9 +239,9 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
 
     @Override
     public boolean hurt(DamageSource source, float damage) {
-        if(source != DamageSource.IN_WALL && source != DamageSource.FALLING_BLOCK && !super.isInvulnerableTo(source)) {
+        if(source != this.damageSources().inWall() && source != this.damageSources().fallingBlock(source.getEntity()) && !super.isInvulnerableTo(source)) {
             final Entity parent = getParent();
-            if(!level.isClientSide){
+            if(!level().isClientSide){
                 if(source.getEntity() instanceof ServerPlayer player) {
                    // UPMessages.sendToPlayer(new UPMessageHurtMultipart(this.getId(), parent.getId(), damage),player);
                 }
@@ -267,7 +268,7 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
 
 
     public void pushEntities() {
-        final List<Entity> entities = this.level.getEntities(this, this.getBoundingBox().expandTowards(0.2D, 0.0D, 0.2D));
+        final List<Entity> entities = this.level().getEntities(this, this.getBoundingBox().expandTowards(0.2D, 0.0D, 0.2D));
         final Entity parent = this.getParent();
         if (parent != null) {
             entities.stream().filter(entity -> !entity.is(parent) && !(entity instanceof EntityPalaeophisPart || entity instanceof EntityPalaeophis) && entity.isPushable()).forEach(entity -> entity.push(parent));
@@ -308,10 +309,10 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
     }
 
     public Entity getParent() {
-        if (!level.isClientSide) {
+        if (!level().isClientSide) {
             final UUID id = getParentId();
             if (id != null) {
-                return ((ServerLevel) level).getEntity(id);
+                return ((ServerLevel) level()).getEntity(id);
             }
         }
 
@@ -332,10 +333,10 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
     }
 
     public Entity getChild() {
-        if (!level.isClientSide) {
+        if (!level().isClientSide) {
             final UUID id = getChildId();
             if (id != null) {
-                return ((ServerLevel) level).getEntity(id);
+                return ((ServerLevel) level()).getEntity(id);
             }
         }
 
@@ -464,12 +465,18 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
         return IHurtableMultipart.super.limitAngle(sourceAngle, targetAngle, maximumChange);
     }
 
+
     @Override
-    public void registerControllers(AnimationData data) {
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
     }
 }

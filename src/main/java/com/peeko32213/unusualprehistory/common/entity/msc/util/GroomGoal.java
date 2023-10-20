@@ -29,7 +29,7 @@ public class GroomGoal extends Goal {
 
     public GroomGoal(EntitySmilodon pAnimal, double pSpeedModifier, Class<? extends EntitySmilodon> pPartnerClass) {
         this.smilodon = pAnimal;
-        this.level = pAnimal.level;
+        this.level = pAnimal.level();
         this.partnerClass = pPartnerClass;
         this.speedModifier = pSpeedModifier;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));

@@ -7,11 +7,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import software.bernie.geckolib.core.animation.RawAnimation;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class IcebergSmilodon extends EntityWorldSpawnable {
     public static final ResourceLocation SMILODON_LOOT = prefix("entities/iceberg/smilodon");
+    protected static final RawAnimation FROZEN = RawAnimation.begin().thenPlay("animation.smilodon.frozen");
+
     public IcebergSmilodon(EntityType<? extends LivingEntity> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
     }
@@ -22,8 +25,8 @@ public class IcebergSmilodon extends EntityWorldSpawnable {
     }
 
     @Override
-    protected String getFrozenState() {
-        return "animation.smilodon.frozen";
+    protected RawAnimation getFrozenState() {
+        return FROZEN;
     }
     @Override
     protected ItemStack getDnaItem() {

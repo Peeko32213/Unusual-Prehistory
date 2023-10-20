@@ -61,7 +61,7 @@ public class EatLeavesGoal extends MoveToBlockGoal {
     }
 
     private boolean isWithinXZDist(BlockPos blockpos, Vec3 positionVec, double distance) {
-        return blockpos.distSqr(new BlockPos(positionVec.x(), blockpos.getY(), positionVec.z())) < distance * distance;
+        return blockpos.distSqr( BlockPos.containing(positionVec.x(), blockpos.getY(), positionVec.z())) < distance * distance;
     }
 
     protected boolean isReachedTarget() {
@@ -69,15 +69,15 @@ public class EatLeavesGoal extends MoveToBlockGoal {
     }
 
     private void breakLeaves() {
-        if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(sloth.level, sloth)) {
-            BlockState blockstate = sloth.level.getBlockState(this.blockPos);
+        if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(sloth.level(), sloth)) {
+            BlockState blockstate = sloth.level().getBlockState(this.blockPos);
             if (blockstate.is(UPTags.MEGATHERIUM_EATABLES)) {
-                sloth.level.destroyBlock(blockPos, false);
+                sloth.level().destroyBlock(blockPos, false);
                 final RandomSource rand = this.sloth.getRandom();
                 ItemStack stack = new ItemStack(blockstate.getBlock().asItem());
-                ItemEntity itementity = new ItemEntity(sloth.level, blockPos.getX() + rand.nextFloat(), blockPos.getY() + rand.nextFloat(), blockPos.getZ() + rand.nextFloat(), stack);
+                ItemEntity itementity = new ItemEntity(sloth.level(), blockPos.getX() + rand.nextFloat(), blockPos.getY() + rand.nextFloat(), blockPos.getZ() + rand.nextFloat(), stack);
                 itementity.setDefaultPickUpDelay();
-                sloth.level.addFreshEntity(itementity);
+                sloth.level().addFreshEntity(itementity);
                 stop();
             }
         }

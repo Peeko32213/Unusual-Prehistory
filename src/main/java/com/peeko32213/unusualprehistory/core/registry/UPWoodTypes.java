@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import net.minecraft.world.level.block.state.properties.WoodType;
 
-public class UPSignTypes {
+public class UPWoodTypes {
 
     public static final WoodType GINKGO = WoodType.register(new WoodType("ginkgo", UPBlockSetType.GINKGO));
     public static final WoodType PETRIFIED = WoodType.register(new WoodType("petrified", UPBlockSetType.PETRIFIED));

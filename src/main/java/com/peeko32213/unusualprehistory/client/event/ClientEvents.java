@@ -45,7 +45,7 @@ import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 import java.awt.event.KeyEvent;
 
-import static com.peeko32213.unusualprehistory.core.registry.UPSignTypes.*;
+import static com.peeko32213.unusualprehistory.core.registry.UPWoodTypes.*;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class ClientEvents {
@@ -136,10 +136,10 @@ public final class ClientEvents {
         MenuScreens.register(UPMenuTypes.DNA_FRIDGE_MENU.get(), DNAFridgeScreen::new);
 
 
-        WoodType.register(UPSignTypes.GINKGO);
-        WoodType.register(UPSignTypes.PETRIFIED);
-        WoodType.register(UPSignTypes.FOXXI);
-        WoodType.register(UPSignTypes.DRYO);
+        WoodType.register(UPWoodTypes.GINKGO);
+        WoodType.register(UPWoodTypes.PETRIFIED);
+        WoodType.register(UPWoodTypes.FOXXI);
+        WoodType.register(UPWoodTypes.DRYO);
 
         Sheets.addWoodType(GINKGO);
         Sheets.addWoodType(DRYO);

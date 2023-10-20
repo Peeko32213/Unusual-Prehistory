@@ -4,11 +4,11 @@ package com.peeko32213.unusualprehistory.client.model;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityPalaeophis;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class PalaeophisModel extends AnimatedGeoModel<EntityPalaeophis>
+public class PalaeophisModel extends GeoModel<EntityPalaeophis>
 {
     private ResourceLocation headModel = prefix("geo/palaeophis_head.geo.json");
     private ResourceLocation DEEP_ONE_SHED = prefix("textures/entity/palaeophis_deep_head_shed.png");

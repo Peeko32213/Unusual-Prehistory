@@ -4,12 +4,12 @@ package com.peeko32213.unusualprehistory.client.model;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBeelzebufoTadpole;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
-public class BeelzebufoTadpoleModel extends AnimatedGeoModel<EntityBeelzebufoTadpole>
+public class BeelzebufoTadpoleModel extends GeoModel<EntityBeelzebufoTadpole>
 {
     @Override
     public ResourceLocation getModelResource(EntityBeelzebufoTadpole object)

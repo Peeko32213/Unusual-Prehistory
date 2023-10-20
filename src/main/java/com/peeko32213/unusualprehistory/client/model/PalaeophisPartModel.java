@@ -3,11 +3,11 @@ package com.peeko32213.unusualprehistory.client.model;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartIndex;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class PalaeophisPartModel extends AnimatedGeoModel<EntityPalaeophisPart>  {
+public class PalaeophisPartModel extends GeoModel<EntityPalaeophisPart> {
     private ResourceLocation neckModel = prefix("geo/palaeophis_neck.geo.json");
     private ResourceLocation bodyModel = prefix("geo/palaeophis_body.geo.json");
     private ResourceLocation bodyFinModel = prefix("geo/palaeophis_body_fin.geo.json");

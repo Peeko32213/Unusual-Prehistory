@@ -76,7 +76,7 @@ public class AnuroPolinateGoal extends MoveToBlockGoal {
     }
 
     private boolean isWithinXZDist(BlockPos blockpos, Vec3 positionVec, double distance) {
-        return blockpos.distSqr(new BlockPos(positionVec.x(), blockpos.getY(), positionVec.z())) < distance * distance;
+        return blockpos.distSqr(BlockPos.containing(positionVec.x(), blockpos.getY(), positionVec.z())) < distance * distance;
     }
 
     protected boolean isReachedTarget() {
@@ -84,12 +84,12 @@ public class AnuroPolinateGoal extends MoveToBlockGoal {
     }
 
     private void pollinate() {
-        anuro.level.levelEvent(2005, blockPos, 0);
+        anuro.level().levelEvent(2005, blockPos, 0);
         anuro.setCropsPollinated(anuro.getCropsPollinated() + 1);
         anuro.pollinateCooldown = 200;
         if(anuro.getCropsPollinated() > 3){
-            if(isGrowable(blockPos, (ServerLevel) anuro.level)){
-                BoneMealItem.growCrop(new ItemStack(Items.BONE_MEAL), anuro.level, blockPos);
+            if(isGrowable(blockPos, (ServerLevel) anuro.level())){
+                BoneMealItem.growCrop(new ItemStack(Items.BONE_MEAL), anuro.level(), blockPos);
             }
             anuro.setCropsPollinated(0);
         }

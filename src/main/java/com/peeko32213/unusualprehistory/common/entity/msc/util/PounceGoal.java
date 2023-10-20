@@ -36,7 +36,7 @@ public class PounceGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.ticks < this.chargeTime + 1 && this.entity.isOnGround() && this.target.isAlive() && !(timer >0);
+        return this.ticks < this.chargeTime + 1 && this.entity.onGround() && this.target.isAlive() && !(timer >0);
     }
 
     @Override

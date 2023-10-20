@@ -21,7 +21,7 @@ public class LandCreaturePathNavigation extends GroundPathNavigation {
         double y = Math.abs(this.mob.getY() - (double) nextPos.getY());
         double z = Math.abs(this.mob.getZ() - ((double) nextPos.getZ() + 0.5));
         shouldAdvance = x < (double) this.maxDistanceToWaypoint && z < (double) this.maxDistanceToWaypoint && y < 1.0;
-        if (shouldAdvance || this.mob.canCutCorner(this.path.getNextNode().type) && this.shouldTargetNextNodeInDirection(tempMobPos)) {
+        if (shouldAdvance || canCutCorner(this.path.getNextNode().type) && this.shouldTargetNextNodeInDirection(tempMobPos)) {
             this.path.advance();
         }
         this.doStuckDetection(tempMobPos);

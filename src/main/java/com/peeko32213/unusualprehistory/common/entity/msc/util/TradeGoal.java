@@ -47,7 +47,7 @@ public class TradeGoal extends Goal {
         if (this.mob.getTradingCooldownTimer() > 0 || this.mob.isInWaterRainOrBubble() || this.items == null) {
             return false;
         } else {
-            this.player = this.mob.level.getNearestPlayer(this.targetingConditions, this.mob);
+            this.player = this.mob.level().getNearestPlayer(this.targetingConditions, this.mob);
             return this.player != null;
         }
     }
@@ -58,7 +58,7 @@ public class TradeGoal extends Goal {
         if (this.mob.getTradingCooldownTimer() > 0 || this.mob.isInWaterRainOrBubble()) {
             return false;
         } else {
-            this.player = this.mob.level.getNearestPlayer(this.targetingConditions, this.mob);
+            this.player = this.mob.level().getNearestPlayer(this.targetingConditions, this.mob);
             return this.player != null;
         }
     }
@@ -95,9 +95,9 @@ public class TradeGoal extends Goal {
                 vec3.multiply(0.5, 0.5 ,0.5);
                 this.mob.playSound(UPSounds.GIGANTO_TRADE.get(), 1.0F, 1.0F);
 
-                ItemEntity lootFruitEntity = new ItemEntity(this.mob.level, this.mob.getX(), this.mob.getY(), this.mob.getZ(), lootFruit,vec3.x(), vec3.y(), vec3.z());
+                ItemEntity lootFruitEntity = new ItemEntity(this.mob.level(), this.mob.getX(), this.mob.getY(), this.mob.getZ(), lootFruit,vec3.x(), vec3.y(), vec3.z());
                 this.player.getItemInHand(InteractionHand.MAIN_HAND).shrink(1);
-                this.mob.level.addFreshEntity(lootFruitEntity);
+                this.mob.level().addFreshEntity(lootFruitEntity);
                 this.mob.setTradingAndGottenItem(false);
                 this.mob.setTradingCooldownTimer(this.mob.TRADING_COOLDOWN);
                 this.stop();

@@ -440,6 +440,11 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
         return this.cache;
     }
 
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
+    }
+
     public void makeStuckInBlock(BlockState blockstate, Vec3 vec3) {
         if(!hasMakeStuckInBlock()){
              super.makeStuckInBlock(blockstate, vec3);

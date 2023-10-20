@@ -5,13 +5,13 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
-public class DunkleosteusModel extends AnimatedGeoModel<EntityDunkleosteus>
+public class DunkleosteusModel extends GeoModel<EntityDunkleosteus>
 {
     @Override
     public ResourceLocation getModelResource(EntityDunkleosteus object)

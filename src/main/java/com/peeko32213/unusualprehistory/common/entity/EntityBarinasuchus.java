@@ -44,7 +44,6 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
 
@@ -619,7 +618,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
 
     @Override
     public double getTick(Object o) {
-        return 0;
+        return tickCount;
     }
 
 }

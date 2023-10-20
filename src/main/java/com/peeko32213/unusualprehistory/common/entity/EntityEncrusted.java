@@ -36,23 +36,25 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class EntityEncrusted extends RangedMeleeMob implements IAnimatable, IBookEntity {
+public class EntityEncrusted extends RangedMeleeMob implements GeoAnimatable, IBookEntity {
     private static final EntityDataAccessor<Boolean> SPITTING = SynchedEntityData.defineId(EntityEncrusted.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityEncrusted.class, EntityDataSerializers.BOOLEAN);
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public EntityEncrusted(EntityType<? extends RangedMeleeMob> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 1.0f;
+        this.setMaxUpStep(1.0F);
     }
 
 
@@ -122,7 +124,7 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable, IBoo
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
@@ -164,9 +166,20 @@ public class EntityEncrusted extends RangedMeleeMob implements IAnimatable, IBoo
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
     }
 
+
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
     }
 
 

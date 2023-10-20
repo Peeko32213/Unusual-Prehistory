@@ -85,7 +85,7 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) this.setAge(this.age + 1);
+        if (!this.level().isClientSide) this.setAge(this.age + 1);
         super.aiStep();
     }
 
@@ -98,7 +98,7 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
         if (this.isFood(itemstack)) {
             this.eatFood(p_218703_, itemstack);
         }
-        return InteractionResult.sidedSuccess(this.level.isClientSide);
+        return InteractionResult.sidedSuccess(this.level().isClientSide);
     }
 
     public boolean isFood(ItemStack stack) {
@@ -108,7 +108,7 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
     private void eatFood(Player player, ItemStack stack) {
         this.decrementItem(player, stack);
         this.increaseAge((int) ((float) (this.getTicksUntilGrowth() / 20) * 0.1F));
-        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
+        this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
     }
 
     private void decrementItem(Player player, ItemStack stack) {
@@ -149,12 +149,12 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
     }
 
     private void growUp() {
-        if (this.level instanceof ServerLevel server) {
-            EntityMegatherium frog = UPEntities.MEGATHERIUM.get().create(this.level);
+        if (this.level() instanceof ServerLevel server) {
+            EntityMegatherium frog = UPEntities.MEGATHERIUM.get().create(this.level());
             if (frog == null) return;
 
             frog.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-            frog.finalizeSpawn(server, this.level.getCurrentDifficultyAt(frog.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            frog.finalizeSpawn(server, this.level().getCurrentDifficultyAt(frog.blockPosition()), MobSpawnType.CONVERSION, null, null);
             frog.setNoAi(this.isNoAi());
             if (this.hasCustomName()) {
                 frog.setCustomName(this.getCustomName());
@@ -162,7 +162,7 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
             }
 
             if (this.isTame()) {
-                Player player = this.level.getPlayerByUUID(this.getOwnerUUID());
+                Player player = this.level().getPlayerByUUID(this.getOwnerUUID());
                 if (player != null) {
                     frog.tame(player);
                 }
@@ -177,7 +177,7 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal impl
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
