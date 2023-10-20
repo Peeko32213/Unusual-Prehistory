@@ -46,6 +46,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 
 public class EntityBookSnake extends LivingEntity implements IAnimatable, IBookEntity {
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityBookSnake.class, EntityDataSerializers.BOOLEAN);
@@ -69,12 +70,12 @@ public class EntityBookSnake extends LivingEntity implements IAnimatable, IBookE
 
     @Override
     public Iterable<ItemStack> getArmorSlots() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public ItemStack getItemBySlot(EquipmentSlot pSlot) {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -84,7 +85,7 @@ public class EntityBookSnake extends LivingEntity implements IAnimatable, IBookE
 
     @Override
     public HumanoidArm getMainArm() {
-        return null;
+        return HumanoidArm.RIGHT;
     }
 
 
