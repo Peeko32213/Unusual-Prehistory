@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -50,7 +51,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 
-public class EntityAnurognathus extends AgeableMob implements GeoAnimatable, NeutralMob, IBookEntity {
+public class EntityAnurognathus extends AgeableMob implements GeoEntity, NeutralMob, IBookEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @javax.annotation.Nullable
     private UUID persistentAngerTarget;
@@ -375,12 +376,13 @@ public class EntityAnurognathus extends AgeableMob implements GeoAnimatable, Neu
     }
 
     protected <E extends EntityAnurognathus> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+        if (this.swinging && event.getController().getAnimationState().equals()) {
             return event.setAndContinue(ANURO_BITE);
             this.swinging = false;
         }
         return PlayState.CONTINUE;
     }
+
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

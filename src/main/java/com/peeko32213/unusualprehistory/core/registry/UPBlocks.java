@@ -33,22 +33,22 @@ public class UPBlocks {
             UnusualPrehistory.MODID);
 
     public static final RegistryObject<Block> STONE_FOSSIL = registerBlock("stone_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
     public static final RegistryObject<Block> DEEPSLATE_PLANT_FOSSIL = registerBlock("deepslate_plant_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
     public static final RegistryObject<Block> PLANT_FOSSIL = registerBlock("plant_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> STONE_AMBER_FOSSIL = registerBlock("stone_amber_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> DEEPSLATE_AMBER_FOSSIL = registerBlock("deepslate_amber_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
     public static final RegistryObject<Block> ANALYZER = registerBlock("analyzer",
             () -> new BlockAnalyzer(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
 
@@ -60,7 +60,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> FRUIT_LOOT_BOX = registerBlock("fruit_loot_box",
             () -> new BlockFruitLootBox(BlockBehaviour.Properties.copy(Blocks.PUMPKIN).noOcclusion().strength(0.1F)));
     public static final RegistryObject<Block> AMBER_GLASS = registerBlock("amber_glass",
-            () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(3.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
+            () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).strength(3.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
 
     public static final RegistryObject<Block> REX_HEAD = registerBlock("rex_head", BlockRexHead::new);
 
@@ -68,31 +68,31 @@ public class UPBlocks {
 
 
     public static final Supplier<Block> STETHA_EGGS = create("stetha_eggs",
-            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission().randomTicks(),
+            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.STETHACANTHUS, false), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final Supplier<Block> BEELZE_EGGS = create("beelze_eggs",
-            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission().randomTicks(),
+            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.BEELZE_TADPOLE,
                     false
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final Supplier<Block> AMON_EGGS = create("ammon_eggs",
-            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission().randomTicks(),
+            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.AMMON,
                     false
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final Supplier<Block> DUNK_EGGS = create("dunk_eggs",
-            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission().randomTicks(),
+            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.BABY_DUNK,
                     false),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
 
     public static final Supplier<Block> SCAU_EGGS = create("scau_eggs",
-            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).instabreak().noOcclusion().noCollission().randomTicks(),
+            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.SCAU,
                     //Turn this to false if you want it to be placed on water
                     false
@@ -101,7 +101,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> ANURO_EGG = registerBlock("anuro_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.ANURO, 4,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
@@ -109,7 +109,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> MAJUNGA_EGG = registerBlock("majunga_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.MAJUNGA, 3,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
@@ -117,7 +117,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> COTY_EGG = registerBlock("coty_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.COTY, 4,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
@@ -125,14 +125,14 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> BRACHI_EGG = registerBlock("brachi_egg",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.BABY_BRACHI, 1,
                     Block.box(3, 0, 3, 13, 12, 13)
             ));
 
     public static final RegistryObject<Block> REX_EGG = registerBlock("rex_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.BABY_REX, 2,
                     Block.box(4, 0, 8, 11, 9, 15),
                     Block.box(2, 0, 1, 14, 10, 15)
@@ -140,7 +140,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> TRIKE_EGG = registerBlock("trike_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.TRIKE, 2,
                     Block.box(4, 0, 8, 11, 9, 15),
                     Block.box(2, 0, 1, 14, 10, 15)
@@ -148,7 +148,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> RAPTOR_EGG = registerBlock("raptor_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.VELOCI, 4,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
@@ -156,7 +156,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> PACHY_EGG = registerBlock("pachy_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.PACHY, 4,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
@@ -164,14 +164,14 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> ENCRUSTED_SACK = registerBlock("encrusted_sack",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.ENCRUSTED, 1,
                     Block.box(4, 0, 4, 12, 8, 12)
             ));
 
     public static final RegistryObject<Block> HWACHA_EGG = registerBlock("hwacha_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.HWACHA, 3,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
@@ -179,7 +179,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> KENTRO_EGG = registerBlock("kentro_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.KENTRO, 3,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
@@ -187,7 +187,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> ULUGH_EGG = registerBlock("ulugh_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.ULUG, 3,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
@@ -195,7 +195,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> ANTARCO_EGG = registerBlock("antarcto_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.ANTARCO, 3,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
@@ -204,28 +204,28 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> AUSTRO_EGG = registerBlock("austro_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.AUSTRO, 3,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(3.0D, 0.0D, 3.0D, 15.0D, 7.0D, 15.0D)
             ));
     public static final RegistryObject<Block> ERYON_EGGS = registerBlock("eryon_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.HONEY_BLOCK).randomTicks().noOcclusion().noCollission(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.HONEY_BLOCK).randomTicks().noOcclusion().noCollission(),
                     UPEntities.ERYON, 1,
                     Block.box(0, 0, 0, 16, 1.5, 16)
             ));
 
     public static final RegistryObject<Block> TALPANAS_EGG = registerBlock("talpanas_egg",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.TALPANAS, 1,
                     Block.box(3, 0, 3, 13, 12, 13)
             ));
 
     public static final RegistryObject<Block> BARINA_EGG = registerBlock("barina_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.BABY_BARINA, 4,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
@@ -233,14 +233,14 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> MEGALA_EGG = registerBlock("megala_eggs",
             () -> new BlockDinosaurLandEggs(
-                    BlockBehaviour.Properties.of(Material.EGG, MaterialColor.SAND).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
                     UPEntities.BABY_MEGALANIA, 2,
                     Block.box(4, 0, 8, 11, 9, 15),
                     Block.box(2, 0, 1, 14, 10, 15)
             ));
 
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
-            () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.EGG).strength(0.5F).requiresCorrectToolForDrops(),
+            () -> new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).requiresCorrectToolForDrops(),
                     Block.box(5, 0, 2, 11, 12, 14),
                     Block.box(2, 0, 5, 14, 12, 11)
             ));
@@ -440,103 +440,103 @@ public class UPBlocks {
 
 
     public static final RegistryObject<Block> COTY_FOSSIL = registerBlock("coty_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(-7, 0.08658283817455159, 1.3806023374435663, 23, 30.086582838174543, 5.380602337443565),
                     Block.box(1.3806023374435663, 0.08658283817455159, -7, 5.380602337443565, 30.086582838174543, 23)
             ));
 
     public static final RegistryObject<Block> STETHA_FOSSIL = registerBlock("stetha_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(-2, 0, 2, 18, 20, 6),
                     Block.box(2, 0, -2, 6, 20, 18)
             ));
 
     public static final RegistryObject<Block> ANURO_FOSSIL = registerBlock("anuro_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(-2, 0, 2, 18, 20, 6),
                     Block.box(2, 0, -2, 6, 20, 18)
             ));
 
     public static final RegistryObject<Block> SCAU_FOSSIL = registerBlock("scau_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(-6, 2, 3, 22, 17, 6),
                     Block.box(3, 2, -6, 6, 17, 22)
             ));
 
     public static final RegistryObject<Block> BEELZE_FOSSIL = registerBlock("beelze_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(0, 7, 3, 17, 12, 11),
                     Block.box(3, 7, 0, 11, 12, 17)
             ));
 
     public static final RegistryObject<Block> BRACHI_FOSSIL = registerBlock("brachi_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(-1, 5, 2, 17, 21, 17),
                     Block.box(2, 5, -1, 17, 21, 17)
             ));
 
     public static final RegistryObject<Block> DUNK_FOSSIL = registerBlock("dunk_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(0.5, 1, 6, 15.5, 6, 9),
                     Block.box(6, 1, 0.5, 9, 6, 15.5)
             ));
 
     public static final RegistryObject<Block> MAJUNGA_FOSSIL = registerBlock("majunga_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(3.5, 10, 1, 12.5, 17, 13),
                     Block.box(1, 10, 3.5, 13, 17, 12.5)
             ));
 
     public static final RegistryObject<Block> PACHY_FOSSIL = registerBlock("pachy_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(2.5, 7, 4, 13.5, 17, 14),
                     Block.box(4, 7, 2.5, 14, 17, 13.5)
             ));
 
     public static final RegistryObject<Block> VELOCI_FOSSIL = registerBlock("veloci_fossil",
-            () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () -> new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(5.5, 7, 7, 10.5, 12, 12),
                     Block.box(7, 7, 5.5, 12, 12, 10.5)
             ));
 
     public static final RegistryObject<Block> ERYON_FOSSIL = registerBlock("eryon_fossil",
-            () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () -> new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(-2, 0, 2, 18, 20, 6),
                     Block.box(2, 0, -2, 6, 20, 18)
             ));
 
     public static final RegistryObject<Block> AUSTRO_FOSSIL = registerBlock("austro_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(5.5, 7, 7, 10.5, 12, 12),
                     Block.box(7, 7, 5.5, 12, 12, 10.5)
             ));
 
     public static final RegistryObject<Block> ULUGH_FOSSIL = registerBlock("ulugh_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(-1, 5, 2, 17, 21, 17),
                     Block.box(2, 5, -1, 17, 21, 17)
             ));
 
     public static final RegistryObject<Block> KENTRO_FOSSIL = registerBlock("kentro_fossil",
-            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () ->  new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(0.5, 1, 6, 15.5, 6, 9),
                     Block.box(6, 1, 0.5, 9, 6, 15.5)
             ));
 
     public static final RegistryObject<Block> ANTARCTO_FOSSIL = registerBlock("antarcto_fossil",
-            () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () -> new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(-7.5, 2, 8, 22.5, 4, 25),
                     Block.box(8, 2, -7.5, 25, 4, 22.5)
             ));
 
     public static final RegistryObject<Block> HWACHA_FOSSIL = registerBlock("hwacha_fossil",
-            () -> new BlockFossilDecoration(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F).requiresCorrectToolForDrops(),
+            () -> new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
                     Block.box(-1, 5, 2, 17, 21, 17),
                     Block.box(2, 5, -1, 17, 21, 17)
             ));
 
     public static final RegistryObject<Block> DEAD_CLATHRODICTYON_BLOCK = registerBlock("dead_clathrodictyon_block", () ->
-            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
 
 
     public static final RegistryObject<Block> CLATHRODICTYON_BLOCK = registerBlock("clathrodictyon_block", () ->
@@ -666,16 +666,16 @@ public class UPBlocks {
             () -> new BlockSplatteredTar(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_BLACK).noCollission().strength(0.2F).sound(SoundType.HONEY_BLOCK)));
 
     public static final RegistryObject<Block> STONE_OPAL_FOSSIL = registerBlock("stone_opal_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> DEEPSLATE_OPAL_FOSSIL = registerBlock("deepslate_opal_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
     public static final RegistryObject<Block> STONE_TAR_FOSSIL = registerBlock("stone_tar_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> DEEPSLATE_TAR_FOSSIL = registerBlock("deepslate_tar_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
     public static final RegistryObject<Block> PERMAFROST_FOSSIL = registerBlock("permafrost_fossil",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.ICE_SOLID).strength(3.0F, 3.0F).requiresCorrectToolForDrops().strength(0.5F).sound(SoundType.GLASS)));
