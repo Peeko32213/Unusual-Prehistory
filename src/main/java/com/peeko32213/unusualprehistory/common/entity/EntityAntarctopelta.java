@@ -35,6 +35,10 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 
 import java.util.EnumSet;
@@ -43,7 +47,10 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityAntarctopelta.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityAntarctopelta.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityAntarctopelta.class, EntityDataSerializers.INT);
-
+    private static final RawAnimation ANTARCTO_SLASH = RawAnimation.begin().thenLoop("animation.antarctopelta.slash");
+    private static final RawAnimation ANTARCTO_IDLE = RawAnimation.begin().thenLoop("animation.antarctopelta.idle");
+    private static final RawAnimation ANTARCTO_WALK = RawAnimation.begin().thenLoop("animation.antarctopelta.walk");
+    private static final RawAnimation ANTARCTO_SWIM = RawAnimation.begin().thenPlay("animation.antarctopelta.swim");
     public EntityAntarctopelta(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
@@ -171,6 +178,7 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
     public boolean isAlliedTo(Entity pEntity) {
         return pEntity.is(this);
     }
+
 
     static class AntarcoMeleeAttackGoal extends Goal {
 
@@ -409,43 +417,44 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
         return UPSounds.ANTARCTO_DEATH.get();
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
+
+    protected <E extends EntityAntarctopelta> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
+
         if(!this.isFromBook()) {
-            {
-                switch (animState) {
-
-                    case 21:
-                        event.getController().setAnimation(new AnimationBuilder().playOnce("animation.antarctopelta.slash"));
-                        break;
-                    default:
-                        if (this.isInWater()) {
-                            event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.swim"));
+            switch (animState) {
+                case 21:
+                    event.setAndContinue(ANTARCTO_SLASH);
+                    break;
+                default:
+                    if (this.isInWater()) {
+                        event.setAndContinue(ANTARCTO_SWIM);
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
+                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
+                        {
+                            event.setAndContinue(ANTARCTO_WALK);
                             event.getController().setAnimationSpeed(1.0F);
-                            return PlayState.CONTINUE;
                         }
-                        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
-                            {
-                                event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.walk"));
-                                event.getController().setAnimationSpeed(1.5D);
-                                return PlayState.CONTINUE;
-                            }
-                        } else if (!this.isInWater()) {
-                            event.getController().setAnimation(new AnimationBuilder().loop("animation.antarctopelta.idle"));
-                            event.getController().setAnimationSpeed(1.0F);
-                            return PlayState.CONTINUE;
-                        }
-
-                }
+                    } else if (!this.isInWater()) {
+                        event.setAndContinue(ANTARCTO_IDLE);
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
             }
         }
         return PlayState.CONTINUE;
     }
 
+
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityAntarctopelta> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public double getTick(Object o) {
+        return 0;
     }
+
+
 }

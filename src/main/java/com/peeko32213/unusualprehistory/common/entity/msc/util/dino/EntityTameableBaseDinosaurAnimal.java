@@ -38,14 +38,15 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal implements IAnimatable, IBookEntity, IHatchableEntity {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal implements GeoAnimatable, IBookEntity, IHatchableEntity {
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
 
@@ -440,10 +441,10 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     }
 
 
-   @Override
-   public AnimationFactory getFactory() {
-       return this.factory;
-   }
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
 
     public void makeStuckInBlock(BlockState blockstate, Vec3 vec3) {
         if(!hasMakeStuckInBlock()){
@@ -473,8 +474,8 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     }
 
     static class CustomNodeEvaluator extends WalkNodeEvaluator {
-        protected BlockPathTypes evaluateBlockPathType(BlockGetter p_33387_, boolean p_33388_, boolean p_33389_, BlockPos p_33390_, BlockPathTypes p_33391_) {
-            return p_33391_ == BlockPathTypes.LEAVES ? BlockPathTypes.OPEN : super.evaluateBlockPathType(p_33387_, p_33388_, p_33389_, p_33390_, p_33391_);
+        protected BlockPathTypes evaluateBlockPathType(BlockGetter p_33387_, BlockPos p_33390_, BlockPathTypes p_33391_) {
+            return p_33391_ == BlockPathTypes.LEAVES ? BlockPathTypes.OPEN : super.evaluateBlockPathType(p_33387_, p_33390_, p_33391_);
         }
     }
 

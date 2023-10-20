@@ -46,12 +46,12 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -75,9 +75,16 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
 
     private int shakeCooldown = 0;
     private int footPrintCooldown = 0;
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    private static final RawAnimation BRACHI_LAUNCH = RawAnimation.begin().thenLoop("animation.brachiosaurus.launch");
+    private static final RawAnimation BRACHI_WALK = RawAnimation.begin().thenLoop("animation.brachiosaurus.walk");
+    private static final RawAnimation BRACHI_SWIM = RawAnimation.begin().thenLoop("animation.brachiosaurus.swim");
+    private static final RawAnimation BRACHI_ATTACK = RawAnimation.begin().thenPlay("animation.brachiosaurus.attack");
+    private static final RawAnimation BRACHI_IDLE = RawAnimation.begin().thenPlay("animation.brachiosaurus.idle");
+
     public EntityBrachiosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 2.0f;
         this.neck = new EntityBrachiosaurusPart(this, 3,9.3F);
         this.theEntireNeck = new EntityBrachiosaurusPart[]{this.neck};
         this.allParts = new EntityBrachiosaurusPart[]{this.neck};
@@ -140,11 +147,11 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     }
 
 
-
-    public void positionRider(Entity passenger) {
+    @Override
+    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));
-        passenger.setPos(this.getX() + (double)(-1.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 0.1F, this.getZ() - (double)(-1.5F * yCos));
+        pPassenger.setPos(this.getX() + (double)(-1.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() - 0.1F, this.getZ() - (double)(-1.5F * yCos));
     }
 
     public double getPassengersRidingOffset() {
@@ -216,7 +223,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     protected void dropEquipment() {
         super.dropEquipment();
         if (this.isSaddled()) {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 this.spawnAtLocation(Items.SADDLE);
             }
         }
@@ -325,7 +332,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
             }
         }
         if (entityToLaunchId != -1 && this.isAlive()) {
-            Entity launch = this.level.getEntity(entityToLaunchId);
+            Entity launch = this.level().getEntity(entityToLaunchId);
             this.ejectPassengers();
             entityToLaunchId = -1;
             if (launch != null && !launch.isPassenger()) {
@@ -381,7 +388,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                         }
                     }
                 }
-                maxUpStep = 2;
             }
         }
         if ( headPeakCooldown == 0) {
@@ -791,10 +797,10 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),25.0f, 2.5f, mob, pos,  3.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),25.0f, 2.5f, mob, pos,  3.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
-                List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
+                List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 6, false, false, false));
@@ -827,36 +833,35 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         }
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
-            return PlayState.CONTINUE;
-        }
+
+    protected <E extends EntityBrachiosaurus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
-        {
+
+        if(!this.isFromBook()) {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.brachiosaurus.attack"));
-                    break;
+                    return event.setAndContinue(BRACHI_ATTACK);
+
                 default:
 
                     if (this.isLaunching()) {
-                        event.getController().setAnimation(new AnimationBuilder().playOnce("animation.brachiosaurus.launch"));
+                        event.setAndContinue(BRACHI_LAUNCH);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                     if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.swim"));
+                        event.setAndContinue(BRACHI_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                     else if(event.isMoving() && !this.isInWater()){
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.walk"));
+                        event.setAndContinue(BRACHI_WALK);
                         event.getController().setAnimationSpeed(1.5D);
                         return PlayState.CONTINUE;
                     }else if(!this.isInWater()) {
 
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.idle"));
+                        event.setAndContinue(BRACHI_IDLE);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
@@ -866,9 +871,18 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityBrachiosaurus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
+    }
+
 }

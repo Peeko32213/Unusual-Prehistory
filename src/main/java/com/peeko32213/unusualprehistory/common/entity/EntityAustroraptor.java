@@ -342,20 +342,23 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
-            return event.setAndContinue(AUSTRO_WALK);
+            event.setAndContinue(AUSTRO_WALK);
+            event.getController().setAnimationSpeed(1.0F);
         }
         if (this.isInWater()) {
-            return event.setAndContinue(AUSTRO_SWIM);
+            event.setAndContinue(AUSTRO_SWIM);
+            event.getController().setAnimationSpeed(1.0F);
         }
         else {
-            return event.setAndContinue(AUSTRO_IDLE);
+            event.setAndContinue(AUSTRO_IDLE);
+            event.getController().setAnimationSpeed(1.0F);
         }
+        return PlayState.CONTINUE;
     }
 
     protected <E extends EntityAustroraptor> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
+        if (this.swinging && event.getController().getAnimationState().equals(AnimationController.State.PAUSED)) {
             return event.setAndContinue(AUSTRO_ATTACK);
-            this.swinging = false;
         }
         return PlayState.CONTINUE;
     }

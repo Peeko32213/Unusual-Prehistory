@@ -42,26 +42,29 @@ import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, IBookEntity {
+public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IBookEntity {
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.BOOLEAN);
 
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation DUNK_SWIM = RawAnimation.begin().thenLoop("animation.dunk.swim");
+    private static final RawAnimation DUNK_IDLE = RawAnimation.begin().thenLoop("animation.dunk.idle");
+    private static final RawAnimation DUNK_ATTACK = RawAnimation.begin().thenLoop("animation.dunk.bite");
+    private static final RawAnimation DUNK_BEACHED = RawAnimation.begin().thenLoop("animation.dunk.flop");
 
     private int passiveFor = 0;
 
@@ -90,13 +93,13 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, IBoo
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
         this.targetSelector.addGoal(2, new NearestTargetAI(this, LivingEntity.class, 110, false, true, null) {
             public boolean canUse() {
-                return !isBaby() && passiveFor == 0 && level.getDifficulty() != Difficulty.PEACEFUL && super.canUse();
+                return !isBaby() && passiveFor == 0 && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
             }
         });
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
@@ -111,7 +114,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, IBoo
         ItemStack lvt_3_1_ = player.getItemInHand(hand);
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if(lvt_3_1_.getItem() == UPItems.GOLDEN_SCAU.get()){
-            if(!this.level.isClientSide) {
+            if(!this.level().isClientSide) {
                 if (!player.isCreative()) {
                     lvt_3_1_.shrink(1);
                 }
@@ -211,47 +214,43 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, IBoo
     }
 
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
-        if(this.isFromBook()){
-            return PlayState.CONTINUE;
-        }
+    protected <E extends EntityDunkleosteus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
-        {
+
+        if(!this.isFromBook()) {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.dunk.bite"));
-                    break;
+                    return event.setAndContinue(DUNK_ATTACK);
+
                 default:
+
+
                     if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunk.swim"));
+                        event.setAndContinue(DUNK_SWIM);
                         return PlayState.CONTINUE;
                     }
                     if (!this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunk.flop"));
+                        event.setAndContinue(DUNK_BEACHED);
                         event.getController().setAnimationSpeed(2.0F);
                         return PlayState.CONTINUE;
                     }
                     else {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.dunk.idle"));
+                        event.setAndContinue(DUNK_IDLE);
                         return PlayState.CONTINUE;
                     }
-
             }
         }
         return PlayState.CONTINUE;
     }
 
-
-
-
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(1);
-        AnimationController<EntityDunkleosteus> controller = new AnimationController<>(this, "controller", 2, this::predicate);
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
+
+
 
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.hasCustomName();
@@ -262,8 +261,13 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, IBoo
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
     }
 
 
@@ -342,7 +346,7 @@ public class EntityDunkleosteus extends WaterAnimal implements IAnimatable, IBoo
         }
 
         public boolean canUse() {
-            long i = this.mob.level.getGameTime();
+            long i = this.mob.level().getGameTime();
 
              {
                 this.lastCanUseCheck = i;

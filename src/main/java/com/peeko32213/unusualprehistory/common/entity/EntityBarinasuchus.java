@@ -39,12 +39,11 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+
 
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
@@ -57,7 +56,12 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
 
     private Ingredient temptationItems;
     public float sitProgress;
-
+    private static final RawAnimation BARINA_BITE = RawAnimation.begin().thenLoop("animation.barinasuchus.bite");
+    private static final RawAnimation BARINA_MOVE = RawAnimation.begin().thenLoop("animation.barinasuchus.move");
+    private static final RawAnimation BARINA_SPRINT = RawAnimation.begin().thenLoop("animation.barinasuchus.sprint");
+    private static final RawAnimation BARINA_SIT = RawAnimation.begin().thenPlay("animation.barinasuchus.sitting");
+    private static final RawAnimation BARINA_SWIM = RawAnimation.begin().thenLoop("animation.barinasuchus.swim");
+    private static final RawAnimation BARINA_IDLE = RawAnimation.begin().thenPlay("animation.barinasuchus.idle");
     public EntityBarinasuchus(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
@@ -547,7 +551,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
 
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),15.0f, 2.5f, mob, pos,  4.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),15.0f, 2.5f, mob, pos,  4.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
 
@@ -572,46 +576,50 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         }
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
-            return PlayState.CONTINUE;
-        }
+
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
+
+    protected <E extends EntityBarinasuchus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
-        {
+
+        if(!this.isFromBook()) {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.barinasuchus.bite"));
-                    break;
+                    return event.setAndContinue(BARINA_BITE);
+
                 default:
-                     if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isSwimming()){
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.move"));
+                    if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isSwimming()){
+                        event.setAndContinue(BARINA_MOVE);
                         return PlayState.CONTINUE;
                     } if (this.isSprinting() && !this.isInSittingPose() && !this.isSwimming()) {
-                    event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.sprint"));
+                    event.setAndContinue(BARINA_SPRINT);
                     return PlayState.CONTINUE;
                 }
-                     if (this.isInSittingPose() && !this.isSwimming()) {
-                         event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.sitting"));
-                         return PlayState.CONTINUE;
-                }
+                    if (this.isInSittingPose() && !this.isSwimming()) {
+                        event.setAndContinue(BARINA_SIT);
+                        return PlayState.CONTINUE;
+                    }
                     if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.swim"));
+                        event.setAndContinue(BARINA_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
-                     event.getController().setAnimation(new AnimationBuilder().loop("animation.barinasuchus.idle"));
+                    event.setAndContinue(BARINA_IDLE);
                     return PlayState.CONTINUE;
             }
         }
         return PlayState.CONTINUE;
     }
 
+
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityBarinasuchus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public double getTick(Object o) {
+        return 0;
     }
 
 }

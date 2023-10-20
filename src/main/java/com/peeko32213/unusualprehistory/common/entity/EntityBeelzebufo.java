@@ -42,12 +42,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -63,7 +63,14 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     private boolean allowStandSliding;
     private int standCounter;
     protected boolean isJumping;
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
+    private static final RawAnimation BEELZE_BITE = RawAnimation.begin().thenLoop("animation.beelzebufo.bite");
+    private static final RawAnimation BEELZE_WALK = RawAnimation.begin().thenLoop("animation.beelzebufo.walk");
+    private static final RawAnimation BEELZE_SWIM = RawAnimation.begin().thenLoop("animation.beelzebufo.swim");
+    private static final RawAnimation BEELZE_JUMP = RawAnimation.begin().thenPlay("animation.beelzebufo.jump");
+    private static final RawAnimation BEELZE_JUMP_HOLD = RawAnimation.begin().thenLoop("animation.beelzebufo.jump_hold");
+    private static final RawAnimation BEELZE_IDLE = RawAnimation.begin().thenPlay("animation.beelzebufo.idle");
     private int eatCooldown = 0;
     public EntityBeelzebufo(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -200,7 +207,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
                     this.playerJumpPendingScale = 0.0F;
                 }
 
-                this.flyingSpeed = this.getSpeed() * 0.1F;
+                this.flyDist = this.getSpeed() * 0.1F;
                 if (this.isControlledByLocalInstance()) {
                     this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
                     super.travel(new Vec3(f, p_30633_.y, f1));
@@ -213,10 +220,10 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
                     this.setIsJumping(false);
                 }
 
-                this.calculateEntityAnimation(this, false);
+                this.calculateEntityAnimation(false);
                 this.tryCheckInsideBlocks();
             } else {
-                this.flyingSpeed = 0.02F;
+                this.flyDist = 0.02F;
                 super.travel(p_30633_);
             }
         }
@@ -231,7 +238,7 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
             damage += livingEntity.getMobType().equals(MobType.ARTHROPOD) ? damage : 0;
             knockback += (float) EnchantmentHelper.getKnockbackBonus(this);
         }
-        if (shouldHurt = target.hurt(DamageSource.mobAttack(this), damage)) {
+        if (shouldHurt = target.hurt(this.damageSources().mobAttack(this), damage)) {
             if (knockback > 0.0f && target instanceof LivingEntity) {
                 ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
@@ -425,59 +432,54 @@ public class EntityBeelzebufo extends EntityBaseDinosaurAnimal implements Player
     protected void dropEquipment() {
         super.dropEquipment();
         if (this.isSaddled()) {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 this.spawnAtLocation(Items.SADDLE);
             }
         }
         this.setSaddled(false);
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+    protected <E extends EntityBeelzebufo> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
         if(this.isSwallowing()){
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.bite"));
+            event.setAndContinue(BEELZE_BITE);
             event.getController().setAnimationSpeed(0.9D);
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isJumping && !this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.walk"));
+            event.setAndContinue(BEELZE_WALK);
             event.getController().setAnimationSpeed(0.8D);
             return PlayState.CONTINUE;
         }
         if (this.isInWater() && !this.isJumping()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.swim"));
+            event.setAndContinue(BEELZE_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         else if (this.isJumping()) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.beelzebufo.jump").addRepeatingAnimation("animation.beelzebufo.jump_hold", 1));
+            event.setAndContinue(BEELZE_JUMP);
             return PlayState.CONTINUE;
         }
-
-
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.beelzebufo.idle"));
-        event.getController().setAnimationSpeed(1.0D);
-
+        event.setAndContinue(BEELZE_IDLE);
         return PlayState.CONTINUE;
     }
 
-
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-       //if (this.isSwallowing() && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-       //    event.getController().markNeedsReload();
-
-       //}
-       return PlayState.CONTINUE;
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityBeelzebufo> controller = new AnimationController<>(this, "controller", 2, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
-        data.addAnimationController(controller);
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
     }
 
     public void onPlayerJump(int p_30591_) {

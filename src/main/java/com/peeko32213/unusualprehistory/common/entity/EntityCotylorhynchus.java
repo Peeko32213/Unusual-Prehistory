@@ -33,24 +33,25 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IAnimatable {
+
+public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal {
     private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.MELON, Items.MELON_SLICE, Items.MELON_SEEDS, Items.GLISTERING_MELON_SLICE);
     private static final EntityDataAccessor<Boolean> FERMENTED = SynchedEntityData.defineId(EntityCotylorhynchus.class, EntityDataSerializers.BOOLEAN);
 
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation COTY_WALK = RawAnimation.begin().thenLoop("animation.cotylorhynchus.walk");
+    private static final RawAnimation COTY_IDLE = RawAnimation.begin().thenLoop("animation.cotylorhynchus.idle");
+    private static final RawAnimation COTY_SWIM = RawAnimation.begin().thenLoop("animation.cotylorhynchus.swim");
 
     public EntityCotylorhynchus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.maxUpStep = 1.0f;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -189,7 +190,7 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
             double d = this.getX() - (double) this.getBbWidth() * Math.sin(this.yBodyRot * ((float) Math.PI / 180)) + (this.random.nextDouble() * 0.6 - 0.3);
             double e = this.getY() + (double) this.getBbHeight() - 0.3;
             double f = this.getZ() + (double) this.getBbWidth() * Math.cos(this.yBodyRot * ((float) Math.PI / 180)) + (this.random.nextDouble() * 0.6 - 0.3);
-            level.addParticle(ParticleTypes.COMPOSTER, true, this.getX(), this.getEyeY() + 0.5F, this.getZ(), 0, 0, 0);
+            level().addParticle(ParticleTypes.COMPOSTER, true, this.getX(), this.getEyeY() + 0.5F, this.getZ(), 0, 0, 0);
         }
     }
 
@@ -202,32 +203,31 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
     }
 
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.isFromBook()) {
+    protected <E extends EntityCotylorhynchus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
             {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.walk"));
-                event.getController().setAnimationSpeed(1.5D);
+                event.setAndContinue(COTY_WALK);
+                event.getController().setAnimationSpeed(1.0F);
                 return PlayState.CONTINUE;
             }
         }
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.swim"));
+            event.setAndContinue(COTY_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         } else if (!this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.cotylorhynchus.idle"));
-            event.getController().setAnimationSpeed(1.0D);
+            event.setAndContinue(COTY_IDLE);
+            event.getController().setAnimationSpeed(1.0F);
         }
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     protected SoundEvent getAmbientSound() {
@@ -247,8 +247,13 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal implements IA
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
     }
 
     public boolean requiresCustomPersistence() {

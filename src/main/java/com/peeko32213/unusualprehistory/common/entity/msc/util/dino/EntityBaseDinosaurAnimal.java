@@ -435,10 +435,10 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
     }
 
 
-   @Override
-   public AnimationFactory getFactory() {
-       return this.factory;
-   }
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
 
     public void makeStuckInBlock(BlockState blockstate, Vec3 vec3) {
         if(!hasMakeStuckInBlock()){
@@ -468,8 +468,8 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
     }
 
     static class CustomNodeEvaluator extends WalkNodeEvaluator {
-        protected BlockPathTypes evaluateBlockPathType(BlockGetter p_33387_, boolean p_33388_, boolean p_33389_, BlockPos p_33390_, BlockPathTypes p_33391_) {
-            return p_33391_ == BlockPathTypes.LEAVES ? BlockPathTypes.OPEN : super.evaluateBlockPathType(p_33387_, p_33388_, p_33389_, p_33390_, p_33391_);
+        protected BlockPathTypes evaluateBlockPathType(BlockGetter p_33387_, BlockPos p_33390_, BlockPathTypes p_33391_) {
+            return p_33391_ == BlockPathTypes.LEAVES ? BlockPathTypes.OPEN : super.evaluateBlockPathType(p_33387_, p_33390_, p_33391_);
         }
     }
 

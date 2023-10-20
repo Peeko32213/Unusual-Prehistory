@@ -259,24 +259,24 @@ public class EntityAnurognathus extends AgeableMob implements GeoEntity, Neutral
 
 
     public Vec3 getBlockGrounding(Vec3 fleePos) {
-        float radius = 1 + this.getRandom().nextInt(15);
+        final float radius = 3.15F * -3 - this.getRandom().nextInt(24);
         float neg = this.getRandom().nextBoolean() ? 1 : -1;
         float renderYawOffset = this.yBodyRot;
         float angle = (0.01745329251F * renderYawOffset) + 3.15F + (this.getRandom().nextFloat() * neg);
-        double extraX = radius * Mth.sin((float) (Math.PI + angle));
-        double extraZ = radius * Mth.cos(angle);
+        final double extraX = radius * Mth.sin(Mth.PI + angle);
+        final double extraZ = radius * Mth.cos(angle);
         final BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), (int) getY(), (int) (fleePos.z() + extraZ));
         BlockPos ground = this.getAnuroGround(radialPos);
-        if (ground.getY() < -64) {
-            return null;
+        if (ground.getY() == -64) {
+            return this.position();
         } else {
             ground = this.blockPosition();
-            while (ground.getY() > -64 && !level().getBlockState(ground).getMaterial().isSolidBlocking()) {
+            while (ground.getY() > -64 && !level().getBlockState(ground).isSolid()) {
                 ground = ground.below();
             }
         }
         if (!this.isTargetBlocked(Vec3.atCenterOf(ground.above()))) {
-            return Vec3.atCenterOf(ground.below());
+            return Vec3.atCenterOf(ground);
         }
         return null;
     }
@@ -323,16 +323,12 @@ public class EntityAnurognathus extends AgeableMob implements GeoEntity, Neutral
     }
 
     public BlockPos getAnuroGround(BlockPos in) {
-        BlockPos position = BlockPos.containing(in.getX(), this.getY(), in.getZ());
-        while (position.getY() < 320 && !level().getFluidState(position).isEmpty()) {
-            position = position.above();
-        }
-        while (position.getY() > -64 && !level().getBlockState(position).getMaterial().isSolidBlocking() && level().getFluidState(position).isEmpty()) {
+        BlockPos position = new BlockPos(in.getX(), (int) this.getY(), in.getZ());
+        while (position.getY() > -64 && !level().getBlockState(position).isSolid() && level().getFluidState(position).isEmpty()) {
             position = position.below();
         }
         return position;
     }
-
 
     @Override
     public boolean doHurtTarget(Entity target) {
@@ -376,9 +372,8 @@ public class EntityAnurognathus extends AgeableMob implements GeoEntity, Neutral
     }
 
     protected <E extends EntityAnurognathus> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals()) {
+        if (this.swinging && event.getController().getAnimationState().equals(AnimationController.State.PAUSED)) {
             return event.setAndContinue(ANURO_BITE);
-            this.swinging = false;
         }
         return PlayState.CONTINUE;
     }
