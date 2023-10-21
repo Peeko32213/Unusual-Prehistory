@@ -34,4 +34,5 @@ public class AmberShotRenderer extends GeoProjectilesRenderer<EntityAmberShot> {
                 animatable.tickCount > 2 ? 0.5F : 0.0F);
     }
 
+
 }

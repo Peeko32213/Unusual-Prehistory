@@ -8,6 +8,7 @@ import com.peeko32213.unusualprehistory.client.render.layer.TyrannosaurusRexEepy
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class TyrannosaurusRexRenderer extends GeoEntityRenderer<EntityTyrannosaurusRex> {
@@ -18,11 +19,10 @@ public class TyrannosaurusRexRenderer extends GeoEntityRenderer<EntityTyrannosau
     }
 
     @Override
-    public void renderEarly(EntityTyrannosaurusRex animatable, PoseStack stackIn, float ticks, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
-        super.renderEarly(animatable, stackIn, ticks, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
+    public void preRender(PoseStack poseStack, EntityTyrannosaurusRex animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
         if (animatable.isBaby()) {
-            stackIn.scale(0.5F, 0.5F, 0.5F);
+            poseStack.scale(0.5F, 0.5F, 0.5F);
         }
     }
-
 }
