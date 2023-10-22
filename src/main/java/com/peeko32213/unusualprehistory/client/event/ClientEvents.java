@@ -41,6 +41,7 @@ import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 import java.awt.event.KeyEvent;
@@ -318,11 +319,11 @@ public final class ClientEvents {
 
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.AddLayers event) {
-        GeoArmorRenderer.registerArmorRenderer(ItemMajungaHelmet.class, MajungaHelmetRenderer::new);
-        GeoArmorRenderer.registerArmorRenderer(ItemAustroBoots.class, AustroBootsRenderer::new);
-        GeoArmorRenderer.registerArmorRenderer(ItemTyrantsCrown.class, TyrantsCrownRenderer::new);
-        GeoArmorRenderer.registerArmorRenderer(ItemShedscaleArmor.class, ShedscaleArmorRenderer::new);
-        GeoArmorRenderer.registerArmorRenderer(ItemSlothPouchArmor.class, SlothPouchArmorRenderer::new);
+        GeoArmorRenderer.createMesh(ItemMajungaHelmet.class, MajungaHelmetRenderer::new);
+        GeoArmorRenderer.createMesh(ItemAustroBoots.class, AustroBootsRenderer::new);
+        GeoArmorRenderer.createMesh(ItemTyrantsCrown.class, TyrantsCrownRenderer::new);
+        GeoArmorRenderer.createMesh(ItemShedscaleArmor.class, ShedscaleArmorRenderer::new);
+        GeoArmorRenderer.createMesh(ItemSlothPouchArmor.class, SlothPouchArmorRenderer::new);
     }
 
     @SubscribeEvent

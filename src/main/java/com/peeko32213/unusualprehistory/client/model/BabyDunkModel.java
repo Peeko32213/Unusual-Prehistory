@@ -5,9 +5,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyDunk;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.provider.data.EntityModelData;
+
 
 public class BabyDunkModel extends GeoModel<EntityBabyDunk>
 {
@@ -27,21 +25,6 @@ public class BabyDunkModel extends GeoModel<EntityBabyDunk>
     public ResourceLocation getAnimationResource(EntityBabyDunk object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/babydunk.animation.json");
-    }
-
-    @Override
-    public void setCustomAnimations(EntityBabyDunk entity, int uniqueID, AnimationEvent customPredicate) {
-        super.setCustomAnimations(entity, uniqueID, customPredicate);
-        IBone body = this.getAnimationProcessor().getBone("Body");
-        EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
-
-        if (!entity.isInWater()) {
-            body.setRotationZ(1.5708f);
-        }
-        else {
-            body.setRotationX(extraData.headPitch * (float)Math.PI / 250F);
-            body.setRotationY(extraData.netHeadYaw * (float)Math.PI / 250F);
-        }
     }
 
 }

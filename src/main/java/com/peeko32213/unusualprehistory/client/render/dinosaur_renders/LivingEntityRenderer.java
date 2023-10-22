@@ -10,11 +10,12 @@ import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class LivingEntityRenderer<T extends LivingEntity & GeoAnimatable> extends GeoEntityRenderer<T> {
 
-    public LivingEntityRenderer(EntityRendererProvider.Context context, DefaultedEntityGeoModel<T> model) {
+    public LivingEntityRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
         super(context, model);
     }
 

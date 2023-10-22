@@ -468,6 +468,7 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Sit", 5, this::sitController));
+        return null;
     }
 
     @Override

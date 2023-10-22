@@ -424,6 +424,7 @@ public class EntityEryon extends EntityBaseDinosaurAnimal{
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Normal", 10, this::digController));
+        return null;
     }
 
     @Override

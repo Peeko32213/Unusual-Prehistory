@@ -1,16 +1,35 @@
 package com.peeko32213.unusualprehistory.client.model;
 
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityScaumenacia;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.model.GeoModel;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
-
-public class ScaumenaciaModel extends DefaultedEntityGeoModel<EntityScaumenacia>
+public class ScaumenaciaModel extends GeoModel<EntityScaumenacia>
 {
-    public ScaumenaciaModel() {
-        super(prefix("scaumenacia"));
+
+    @Override
+    public ResourceLocation getModelResource(EntityScaumenacia object)
+    {
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/scaumenacia.geo.json");
     }
+
+    @Override
+    public ResourceLocation getTextureResource(EntityScaumenacia object)
+    {
+        if (object.isGolden()) {
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/scaumenacia_buddah.png");
+        }
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/scaumenacia.png");
+    }
+
+    @Override
+    public ResourceLocation getAnimationResource(EntityScaumenacia object)
+    {
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/scaumenacia.animation.json");
+    }
+
 
 }
 

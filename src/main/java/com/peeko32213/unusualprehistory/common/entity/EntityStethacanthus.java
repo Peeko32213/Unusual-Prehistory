@@ -263,6 +263,7 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
 
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "animation.stethacanthus.swim", 0, state -> state.setAndContinue(STETHA_SWIM)));
+        return null;
     }
 
     @Override

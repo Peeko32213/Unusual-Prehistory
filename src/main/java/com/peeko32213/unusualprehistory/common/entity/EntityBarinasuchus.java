@@ -580,6 +580,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        return null;
     }
 
     protected <E extends EntityBarinasuchus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {

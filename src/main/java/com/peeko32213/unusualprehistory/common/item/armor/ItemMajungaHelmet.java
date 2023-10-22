@@ -31,6 +31,7 @@ public class ItemMajungaHelmet extends ArmorItem implements GeoItem {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
 
+        return null;
     }
 
     @Override

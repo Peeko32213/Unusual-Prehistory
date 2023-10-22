@@ -537,6 +537,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Attack", 5, this::attackController));
+        return null;
     }
 
     protected <E extends EntityMajungasaurus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {

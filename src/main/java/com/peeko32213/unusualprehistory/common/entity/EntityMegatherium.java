@@ -461,6 +461,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         controllers.add(new AnimationController<>(this, "Eat", 5, this::eatController));
         controllers.add(new AnimationController<>(this, "Digging", 2, this::digController));
 
+        return null;
     }
 
     @Override

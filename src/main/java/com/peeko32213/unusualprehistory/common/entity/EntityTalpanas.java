@@ -567,6 +567,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 10, this::Controller));
         controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
+        return null;
     }
 
     @Override

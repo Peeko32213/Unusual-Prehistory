@@ -2,17 +2,17 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.entity.EntityKentrosaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.provider.data.EntityModelData;
+import software.bernie.geckolib.model.data.EntityModelData;
 
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class MajungasaurusModel extends GeoModel<EntityMajungasaurus>
 {
@@ -40,22 +40,19 @@ public class MajungasaurusModel extends GeoModel<EntityMajungasaurus>
 
 
     @Override
-    public void setCustomAnimations(EntityMajungasaurus dino, int uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setCustomAnimations(dino, uniqueID, customPredicate);
+    public void setCustomAnimations(EntityMajungasaurus animatable, long instanceId, AnimationState<EntityMajungasaurus> animationState) {
+        super.setCustomAnimations(animatable, instanceId, animationState);
+        if (animationState == null) return;
+        EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+        CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
 
-        if (customPredicate == null) return;
-
-        List<EntityModelData> extraDataOfType = customPredicate.getExtraDataOfType(EntityModelData.class);
-        IBone head = this.getAnimationProcessor().getBone("Head");
-
-        if (dino.isBaby()) {
+        if (animatable.isBaby()) {
             head.setScaleX(1.75F);
             head.setScaleY(1.75F);
             head.setScaleZ(1.75F);
         }
-
-        if (!dino.isSprinting()) {
-            head.setRotationY(extraDataOfType.get(0).netHeadYaw * Mth.DEG_TO_RAD);
+        if (!animatable.isSprinting()) {
+            head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
     }
 

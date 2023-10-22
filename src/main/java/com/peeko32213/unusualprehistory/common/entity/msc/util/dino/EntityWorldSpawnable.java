@@ -219,6 +219,7 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements GeoAn
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 10, this::predicate));
 
+        return null;
     }
 
     @Override

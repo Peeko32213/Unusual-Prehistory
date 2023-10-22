@@ -9,21 +9,21 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
 
 import java.util.Collections;
 
-public class EntityBookSnake extends LivingEntity implements IAnimatable, IBookEntity {
+public class EntityBookSnake extends LivingEntity implements GeoAnimatable, IBookEntity {
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityBookSnake.class, EntityDataSerializers.BOOLEAN);
 
 
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public EntityBookSnake(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
@@ -66,21 +66,24 @@ public class EntityBookSnake extends LivingEntity implements IAnimatable, IBookE
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
-
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    protected <E extends EntityBookSnake> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         return PlayState.CONTINUE;
     }
 
-
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        return null;
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
     }
 
     @Override

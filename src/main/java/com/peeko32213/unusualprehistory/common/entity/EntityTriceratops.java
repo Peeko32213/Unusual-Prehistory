@@ -796,6 +796,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         controllers.add(new AnimationController<>(this, "Normal", 2, this::Controller));
         controllers.add(new AnimationController<>(this, "Attack", 2, this::attackController));
         controllers.add(new AnimationController<>(this, "Eat", 2, this::eatController));
+        return null;
     }
 
     @Override

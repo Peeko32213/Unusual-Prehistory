@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.projectile;
 
+import com.peeko32213.unusualprehistory.common.entity.EntityAntarctopelta;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.BetterAbstractHurtingProjectile;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.RangedMeleeMob;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -16,21 +17,21 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class EntityAmberShot extends BetterAbstractHurtingProjectile implements IAnimatable {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+public class EntityAmberShot extends BetterAbstractHurtingProjectile implements GeoAnimatable {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     protected int timeInAir;
     protected boolean inAir;
     private int ticksInAir;
+    private static final RawAnimation AMBER_SHOT = RawAnimation.begin().thenPlay("animation.amber_shot.move");
 
     public EntityAmberShot(EntityType<? extends EntityAmberShot> p_i50160_1_, Level p_i50160_2_) {
         super(p_i50160_1_, p_i50160_2_);
@@ -150,19 +151,24 @@ public class EntityAmberShot extends BetterAbstractHurtingProjectile implements 
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "controller",
-                0, this::predicate));
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.amber_shot.move"));
+    protected <E extends EntityAmberShot> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        event.setAndContinue(AMBER_SHOT);
         return PlayState.CONTINUE;
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        return null;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
     }
 }
 

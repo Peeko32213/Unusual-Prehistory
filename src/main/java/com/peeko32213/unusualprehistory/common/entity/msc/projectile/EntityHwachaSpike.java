@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.projectile;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
-import com.peeko32213.unusualprehistory.core.registry.UPDamageTypes;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -23,26 +22,27 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class EntityHwachaSpike extends Entity implements IAnimatable{
+public class EntityHwachaSpike extends Entity implements GeoAnimatable {
     public static final Logger LOGGER = LogManager.getLogger();
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private UUID ownerUUID;
     private int ownerNetworkId;
     private boolean leftOwner;
     public int shakeTime;
+    private static final RawAnimation PIN_SPIN = RawAnimation.begin().thenPlay("animation.pin.spin");
+
     public EntityHwachaSpike(EntityType p_i50162_1_, Level p_i50162_2_) {
         super(p_i50162_1_, p_i50162_2_);
     }
@@ -250,24 +250,24 @@ public class EntityHwachaSpike extends Entity implements IAnimatable{
         this.setYRot( lerpRotation(this.yRotO, (float) (Mth.atan2(vector3d.x, vector3d.z) * (double) (180F / (float) Math.PI))));
     }
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "controller",
-                0, this::predicate));
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.pin.spin"));
+    protected <E extends EntityHwachaSpike> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        event.setAndContinue(PIN_SPIN);
         return PlayState.CONTINUE;
     }
 
     @Override
-    public boolean isNoGravity() {
-        return true;
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        return null;
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public double getTick(Object o) {
+        return tickCount;
     }
 }
 
