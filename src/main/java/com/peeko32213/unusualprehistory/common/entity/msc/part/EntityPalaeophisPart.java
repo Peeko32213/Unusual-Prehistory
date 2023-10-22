@@ -468,7 +468,6 @@ public class EntityPalaeophisPart extends LivingEntity implements IHurtableMulti
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        return null;
     }
 
     @Override

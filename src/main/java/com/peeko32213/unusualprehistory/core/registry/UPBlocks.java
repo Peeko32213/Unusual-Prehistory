@@ -315,7 +315,7 @@ public class UPBlocks {
             () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion(), UPBlockSetType.FOXXI));
 
     public static final RegistryObject<TrapDoorBlock> FOXXI_TRAPDOOR = registerBlock("foxxi_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion(), UPBlockSetType.FOXXI)));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion(), UPBlockSetType.FOXXI));
     public static final RegistryObject<Block> GINKGO_PLANKS = registerBlock("ginkgo_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
@@ -565,10 +565,10 @@ public class UPBlocks {
     public static final RegistryObject<Block> ARCHAEFRUCTUS = registerBlock("archaefructus", () ->
             new BlockArchaefructus(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
 
-    public static final RegistryObject<Block> GINKGO_SIGN = BLOCKS.register("ginkgo_sign", ()
-            -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(GINKGO_LOG.get()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.GINKGO));
-    public static final RegistryObject<Block> GINKGO_WALL_SIGN = BLOCKS.register("ginkgo_wall_sign", ()
-            -> new BlockUPWallSign(BlockBehaviour.Properties.copy(GINKGO_LOG.get()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPWoodTypes.GINKGO));
+    //public static final RegistryObject<Block> GINKGO_SIGN = BLOCKS.register("ginkgo_sign", ()
+    //        -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(GINKGO_LOG.get()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.GINKGO));
+    //public static final RegistryObject<Block> GINKGO_WALL_SIGN = BLOCKS.register("ginkgo_wall_sign", ()
+    //        -> new BlockUPWallSign(BlockBehaviour.Properties.copy(GINKGO_LOG.get()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPWoodTypes.GINKGO));
 
     public static final Supplier<Block> NELUMBITES = create("nelumbites",
             () -> new WaterlilyBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).instabreak().noOcclusion().sound(SoundType.WET_GRASS)),
@@ -618,10 +618,10 @@ public class UPBlocks {
     public static final RegistryObject<PressurePlateBlock> PETRIFIED_WOOD_PRESSURE_PLATE = registerBlock("petrified_wood_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.STONE_PRESSURE_PLATE), UPBlockSetType.PETRIFIED));
 
-    public static final RegistryObject<StandingSignBlock> PETRIFIED_WOOD_SIGN = BLOCKS.register("petrified_wood_sign", ()
-            -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.STONE).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.PETRIFIED));
-    public static final RegistryObject<WallSignBlock> PETRIFIED_WOOD_WALL_SIGN = BLOCKS.register("petrified_wood_wall_sign", ()
-            -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(PETRIFIED_WOOD_SIGN.get()), UPWoodTypes.PETRIFIED));
+    //public static final RegistryObject<StandingSignBlock> PETRIFIED_WOOD_SIGN = BLOCKS.register("petrified_wood_sign", ()
+    //        -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.STONE).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.PETRIFIED));
+    //public static final RegistryObject<WallSignBlock> PETRIFIED_WOOD_WALL_SIGN = BLOCKS.register("petrified_wood_wall_sign", ()
+    //        -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(PETRIFIED_WOOD_SIGN.get()), UPWoodTypes.PETRIFIED));
 
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD = registerBlock("polished_petrified_wood",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE).requiresCorrectToolForDrops()));
@@ -681,15 +681,15 @@ public class UPBlocks {
     public static final RegistryObject<Block> PERMAFROST = registerBlock("permafrost",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.ICE).strength(0.5F).requiresCorrectToolForDrops().friction(0.98F).strength(0.5F).sound(SoundType.GLASS)));
 
-    public static final RegistryObject<StandingSignBlock> FOXXI_SIGN = BLOCKS.register("foxxi_sign", ()
-            -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.FOXXI));
-    public static final RegistryObject<WallSignBlock> FOXXI_WALL_SIGN = BLOCKS.register("foxxi_wall_sign", ()
-            -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FOXXI_SIGN.get()), UPWoodTypes.FOXXI));
+    //public static final RegistryObject<StandingSignBlock> FOXXI_SIGN = BLOCKS.register("foxxi_sign", ()
+    //        -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.FOXXI));
+    //public static final RegistryObject<WallSignBlock> FOXXI_WALL_SIGN = BLOCKS.register("foxxi_wall_sign", ()
+    //        -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FOXXI_SIGN.get()), UPWoodTypes.FOXXI));
 
-    public static final RegistryObject<StandingSignBlock> DRYO_SIGN = BLOCKS.register("dryo_sign", ()
-            -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.DRYO));
-    public static final RegistryObject<WallSignBlock> DRYO_WALL_SIGN = BLOCKS.register("dryo_wall_sign", ()
-            -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(DRYO_SIGN.get()), UPWoodTypes.DRYO));
+    //public static final RegistryObject<StandingSignBlock> DRYO_SIGN = BLOCKS.register("dryo_sign", ()
+    //        -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.DRYO));
+    //public static final RegistryObject<WallSignBlock> DRYO_WALL_SIGN = BLOCKS.register("dryo_wall_sign", ()
+    //        -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(DRYO_SIGN.get()), UPWoodTypes.DRYO));
 
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {

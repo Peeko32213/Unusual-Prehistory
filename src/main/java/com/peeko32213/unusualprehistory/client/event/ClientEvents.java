@@ -9,7 +9,6 @@ import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.overlay.TarOverlay;
 import com.peeko32213.unusualprehistory.client.particles.TarBubbleParticle;
 import com.peeko32213.unusualprehistory.client.render.UPRenderUtils;
-import com.peeko32213.unusualprehistory.client.render.armor.*;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.ThrowableFallingBlockRenderer;
@@ -19,11 +18,6 @@ import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
-import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
-import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
-import com.peeko32213.unusualprehistory.common.item.armor.ItemSlothPouchArmor;
-import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -41,8 +35,6 @@ import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import software.bernie.geckolib.renderer.GeoArmorRenderer;
-import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 import java.awt.event.KeyEvent;
 
@@ -147,15 +139,14 @@ public final class ClientEvents {
         Sheets.addWoodType(FOXXI);
         Sheets.addWoodType(PETRIFIED);
 
-        BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
+       // BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
 
 
     }
 
     @SubscribeEvent
     public static void registerParticleTypes(RegisterParticleProvidersEvent event){
-        event.register(UPParticles.TAR_BUBBLE.get(), TarBubbleParticle.Provider::new);
-
+        event.registerSpriteSet(UPParticles.TAR_BUBBLE.get(), TarBubbleParticle.Provider::new);
     }
     private static final ResourceLocation TRICERATOPS_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops_saddle.png");
     private static final ResourceLocation TRICERATOPS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/trike.geo.json");
@@ -317,14 +308,6 @@ public final class ClientEvents {
         event.register((pStack, pTintIndex) -> pStack.getOrCreateTag().getInt("color"), UPBlocks.FRUIT_LOOT_BOX.get());
     }
 
-    @SubscribeEvent
-    public static void registerRenderers(final EntityRenderersEvent.AddLayers event) {
-        GeoArmorRenderer.createMesh(ItemMajungaHelmet.class, MajungaHelmetRenderer::new);
-        GeoArmorRenderer.createMesh(ItemAustroBoots.class, AustroBootsRenderer::new);
-        GeoArmorRenderer.createMesh(ItemTyrantsCrown.class, TyrantsCrownRenderer::new);
-        GeoArmorRenderer.createMesh(ItemShedscaleArmor.class, ShedscaleArmorRenderer::new);
-        GeoArmorRenderer.createMesh(ItemSlothPouchArmor.class, SlothPouchArmorRenderer::new);
-    }
 
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {

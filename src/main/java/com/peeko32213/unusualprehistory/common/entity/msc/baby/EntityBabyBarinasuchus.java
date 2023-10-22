@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
-import com.peeko32213.unusualprehistory.common.entity.EntityEryon;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
@@ -33,7 +32,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -259,7 +257,6 @@ public class EntityBabyBarinasuchus extends EntityTameableBaseDinosaurAnimal {
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        return null;
     }
 
     @Override

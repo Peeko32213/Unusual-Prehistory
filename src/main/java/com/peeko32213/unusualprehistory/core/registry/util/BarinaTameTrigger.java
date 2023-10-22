@@ -1,60 +1,97 @@
 package com.peeko32213.unusualprehistory.core.registry.util;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.peeko32213.unusualprehistory.core.registry.UPAdvancementTriggerRegistry;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+
+import java.util.Arrays;
 
 public class BarinaTameTrigger extends SimpleCriterionTrigger<BarinaTameTrigger.TriggerInstance> {
-    static final ResourceLocation ID = new ResourceLocation("barina_trigger");
+    final ResourceLocation id;
+
+    public BarinaTameTrigger(ResourceLocation p_286779_) {
+        this.id = p_286779_;
+    }
 
     public ResourceLocation getId() {
-        return ID;
+        return this.id;
     }
 
-    public BarinaTameTrigger.TriggerInstance createInstance(JsonObject pJson, EntityPredicate.Composite pEntityPredicate, DeserializationContext pConditionsParser) {
-        return new BarinaTameTrigger.TriggerInstance(pEntityPredicate, ItemPredicate.fromJson(pJson.get("item")));
+    public BarinaTameTrigger.TriggerInstance createInstance(JsonObject p_286301_, ContextAwarePredicate p_286748_, DeserializationContext p_286322_) {
+        ContextAwarePredicate contextawarepredicate = ContextAwarePredicate.fromElement("location", p_286322_, p_286301_.get("location"), LootContextParamSets.ADVANCEMENT_LOCATION);
+        if (contextawarepredicate == null) {
+            throw new JsonParseException("Failed to parse 'location' field");
+        } else {
+            return new BarinaTameTrigger.TriggerInstance(this.id, p_286748_, contextawarepredicate);
+        }
     }
 
-    public void trigger(ServerPlayer pPlayer, ItemStack pItem) {
-        this.trigger(pPlayer, (p_23687_) -> {
-            return p_23687_.matches(pItem);
+    public void trigger(ServerPlayer p_286813_, BlockPos p_286625_, ItemStack p_286620_) {
+        ServerLevel serverlevel = p_286813_.serverLevel();
+        BlockState blockstate = serverlevel.getBlockState(p_286625_);
+        LootParams lootparams = (new LootParams.Builder(serverlevel)).withParameter(LootContextParams.ORIGIN, p_286625_.getCenter()).withParameter(LootContextParams.THIS_ENTITY, p_286813_).withParameter(LootContextParams.BLOCK_STATE, blockstate).withParameter(LootContextParams.TOOL, p_286620_).create(LootContextParamSets.ADVANCEMENT_LOCATION);
+        LootContext lootcontext = (new LootContext.Builder(lootparams)).create((ResourceLocation)null);
+        this.trigger(p_286813_, (p_286596_) -> {
+            return p_286596_.matches(lootcontext);
         });
     }
 
     public static class TriggerInstance extends AbstractCriterionTriggerInstance {
-        private final ItemPredicate item;
+        private final ContextAwarePredicate location;
 
-        public TriggerInstance(EntityPredicate.Composite pPlayer, ItemPredicate pItem) {
-            super(BarinaTameTrigger.ID, pPlayer);
-            this.item = pItem;
+        public TriggerInstance(ResourceLocation p_286265_, ContextAwarePredicate p_286333_, ContextAwarePredicate p_286319_) {
+            super(p_286265_, p_286333_);
+            this.location = p_286319_;
         }
 
-        public static BarinaTameTrigger.TriggerInstance usedItem() {
-            return new BarinaTameTrigger.TriggerInstance(EntityPredicate.Composite.ANY, ItemPredicate.ANY);
+        public static BarinaTameTrigger.TriggerInstance placedBlock(Block p_286530_) {
+            ContextAwarePredicate contextawarepredicate = ContextAwarePredicate.create(LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_286530_).build());
+            return new BarinaTameTrigger.TriggerInstance(UPAdvancementTriggerRegistry.BARINA_TRIGGER.id, ContextAwarePredicate.ANY, contextawarepredicate);
         }
 
-        public static BarinaTameTrigger.TriggerInstance usedItem(ItemPredicate pItem) {
-            return new BarinaTameTrigger.TriggerInstance(EntityPredicate.Composite.ANY, pItem);
+        public static BarinaTameTrigger.TriggerInstance placedBlock(LootItemCondition.Builder... p_286365_) {
+            ContextAwarePredicate contextawarepredicate = ContextAwarePredicate.create(Arrays.stream(p_286365_).map(LootItemCondition.Builder::build).toArray((p_286827_) -> {
+                return new LootItemCondition[p_286827_];
+            }));
+            return new BarinaTameTrigger.TriggerInstance(UPAdvancementTriggerRegistry.BARINA_TRIGGER.id, ContextAwarePredicate.ANY, contextawarepredicate);
         }
 
-        public static BarinaTameTrigger.TriggerInstance usedItem(ItemLike pItem) {
-            return new BarinaTameTrigger.TriggerInstance(EntityPredicate.Composite.ANY, new ItemPredicate((TagKey<Item>)null, ImmutableSet.of(pItem.asItem()), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, (Potion)null, NbtPredicate.ANY));
+        private static BarinaTameTrigger.TriggerInstance itemUsedOnLocation(LocationPredicate.Builder p_286740_, ItemPredicate.Builder p_286777_, ResourceLocation p_286742_) {
+            ContextAwarePredicate contextawarepredicate = ContextAwarePredicate.create(LocationCheck.checkLocation(p_286740_).build(), MatchTool.toolMatches(p_286777_).build());
+            return new BarinaTameTrigger.TriggerInstance(p_286742_, ContextAwarePredicate.ANY, contextawarepredicate);
         }
 
-        public boolean matches(ItemStack pItem) {
-            return this.item.matches(pItem);
+        public static BarinaTameTrigger.TriggerInstance itemUsedOnBlock(LocationPredicate.Builder p_286808_, ItemPredicate.Builder p_286486_) {
+            return itemUsedOnLocation(p_286808_, p_286486_, UPAdvancementTriggerRegistry.BARINA_TRIGGER.id);
         }
 
-        public JsonObject serializeToJson(SerializationContext pConditions) {
-            JsonObject jsonobject = super.serializeToJson(pConditions);
-            jsonobject.add("item", this.item.serializeToJson());
+        public static BarinaTameTrigger.TriggerInstance allayDropItemOnBlock(LocationPredicate.Builder p_286325_, ItemPredicate.Builder p_286531_) {
+            return itemUsedOnLocation(p_286325_, p_286531_, UPAdvancementTriggerRegistry.BARINA_TRIGGER.id);
+        }
+
+        public boolean matches(LootContext p_286800_) {
+            return this.location.matches(p_286800_);
+        }
+
+        public JsonObject serializeToJson(SerializationContext p_286870_) {
+            JsonObject jsonobject = super.serializeToJson(p_286870_);
+            jsonobject.add("location", this.location.toJson(p_286870_));
             return jsonobject;
         }
     }

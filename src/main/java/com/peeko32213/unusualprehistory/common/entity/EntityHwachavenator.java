@@ -55,7 +55,6 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-
 import java.util.Optional;
 
 public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implements RangedAttackMob, CustomFollower,IAttackEntity {
@@ -695,7 +694,6 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        return null;
     }
 
     @Override

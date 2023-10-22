@@ -375,7 +375,6 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Attack", 3, this::attackController));
         controllers.add(new AnimationController<>(this, "Preen", 5, this::preenController));
-        return null;
     }
 
     @Override

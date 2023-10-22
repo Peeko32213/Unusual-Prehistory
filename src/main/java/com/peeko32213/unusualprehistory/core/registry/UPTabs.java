@@ -63,7 +63,7 @@ public class UPTabs {
             .build();
 
     public static final RegistryObject<CreativeModeTab> UP_TAB = TABS.register("unusual_prehistory", () -> UP);
-    public static final RegistryObject<CreativeModeTab> UP_EGG_TAB = TABS.register("unusual_prehistory_EGG", () -> UP_EGGS);
+    public static final RegistryObject<CreativeModeTab> UP_EGG_TAB = TABS.register("unusual_prehistory_egg", () -> UP_EGGS);
 
 
     private static void generateInstrumentTypes(CreativeModeTab.Output pOutput, HolderLookup<Instrument> pInstruments, Item pItem, TagKey<Instrument> pInstrument, CreativeModeTab.TabVisibility pTabVisibility) {

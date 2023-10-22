@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.client.model.armor;
+/*package com.peeko32213.unusualprehistory.client.model.armor;
 
 import net.minecraft.world.item.ArmorItem;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -19,4 +19,4 @@ public class ArmorItemRenderer<T extends ArmorItem & IAnimatable> extends GeoArm
         this.leftBootBone = "armorLeftBoot";
 
     }
-}
+}*/

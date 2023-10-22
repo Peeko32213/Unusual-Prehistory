@@ -1,4 +1,4 @@
-// 1.19.2	2023-10-04T14:55:31.3662017	unusualprehistory Block Tags
+// 1.20.1	2023-10-22T21:07:06.2483576	unusualprehistory Block Tags
 debe8c18f123ad9423e8563eeb2f7c47542e6672 data/minecraft/tags/blocks/buttons.json
 3dc74d776e39d9ddeeb390e35bb4c16d035881a1 data/minecraft/tags/blocks/corals.json
 e6afd6c925171023d0cd3e728553bf722ac86176 data/minecraft/tags/blocks/coral_blocks.json
@@ -8,20 +8,20 @@ e6afd6c925171023d0cd3e728553bf722ac86176 data/minecraft/tags/blocks/coral_blocks
 c058532b8dc116a7ddd6535c6021e5b16efff81c data/minecraft/tags/blocks/leaves.json
 32a4cbf19cdc4432fb13e63eadd001e4389b7e35 data/minecraft/tags/blocks/logs.json
 32a4cbf19cdc4432fb13e63eadd001e4389b7e35 data/minecraft/tags/blocks/logs_that_burn.json
-e9ea9a85d775471a0dd9c2ec3192ddd0bb6374e2 data/minecraft/tags/blocks/mineable/axe.json
-e4e60724bed9f6db9371325002f65838f6a00f7f data/minecraft/tags/blocks/mineable/pickaxe.json
+2e518db37e65a26aada416ca0786d57536fa07ac data/minecraft/tags/blocks/mineable/axe.json
+1696581e1cc3b43d277316d0f15b373345f7b369 data/minecraft/tags/blocks/mineable/pickaxe.json
 f0b24d1eb39746ae3a2259ff5ff0eb148a61a3e4 data/minecraft/tags/blocks/needs_diamond_tool.json
-22dce0b096ec431e07a8c5b577e7da642c10b1d9 data/minecraft/tags/blocks/needs_iron_tool.json
+fc70f9faf074982790c8fa50dab8d03c9e7c0a3d data/minecraft/tags/blocks/needs_iron_tool.json
 f8913b03c93467355af8bc3763a792364e2a3612 data/minecraft/tags/blocks/planks.json
 0357db8bbf68512a1c2988b8b1fb696c0b9b9a13 data/minecraft/tags/blocks/pressure_plates.json
 1ede207d0901efa70501fae86768234fa961b3be data/minecraft/tags/blocks/slabs.json
 9dd9118904a8c66e123e5253da58d147edadaa65 data/minecraft/tags/blocks/small_flowers.json
 1e3e56e13897086a21893dc1ab0e2d7389b64ba6 data/minecraft/tags/blocks/stairs.json
-58358db258d7aac5f435c080394d4e7edac43369 data/minecraft/tags/blocks/standing_signs.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/blocks/standing_signs.json
 fc2e77c51219a889dc4969c1983614358a8301c7 data/minecraft/tags/blocks/tall_flowers.json
 82e1b65fe351aeb322b268e1f9c41480a0cdd646 data/minecraft/tags/blocks/trapdoors.json
 6ab52a528a732e37f276fe3edb7f94744d0778c0 data/minecraft/tags/blocks/wall_corals.json
-04cc98b2c6d4858051978231f5ce8d4f51860dd2 data/minecraft/tags/blocks/wall_signs.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/blocks/wall_signs.json
 cf5435fa98165144da25fa3b2f1d598e1b7674f3 data/minecraft/tags/blocks/wooden_buttons.json
 dbbe0218522c0b8a0b3cf9e2c8c4e56a92452157 data/minecraft/tags/blocks/wooden_doors.json
 13a3a20a21c195285c271b3970cbd9643e99c466 data/minecraft/tags/blocks/wooden_fences.json

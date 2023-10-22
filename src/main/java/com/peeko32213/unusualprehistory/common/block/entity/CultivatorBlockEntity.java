@@ -263,7 +263,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
                 .getRecipeFor(CultivatorRecipe.Type.INSTANCE, inventory, level);
 
         return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
-                && canInsertItemIntoOutputSlot(inventory, match.get().assemble(inventory))
+                && canInsertItemIntoOutputSlot(inventory, match.get().assemble(inventory, level.registryAccess()))
                 && canDiscardFlask(inventory, new ItemStack(UPItems.FLASK.get()))
                 && entity.hasFuel();
     }
@@ -280,7 +280,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
 
         if(match.isPresent()) {
             entity.itemHandler.extractItem(0,1, false);
-            entity.itemHandler.insertItem(2, match.get().assemble(inventory), false);
+            entity.itemHandler.insertItem(2, match.get().assemble(inventory, level.registryAccess()), false);
             entity.itemHandler.insertItem(3, new ItemStack(UPItems.FLASK.get()), false);
             entity.resetProgress();
         }

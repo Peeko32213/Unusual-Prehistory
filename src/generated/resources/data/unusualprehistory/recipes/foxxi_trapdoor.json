@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "P": {
       "item": "unusualprehistory:foxxi_planks"
@@ -12,5 +13,6 @@
   "result": {
     "count": 2,
     "item": "unusualprehistory:foxxi_trapdoor"
-  }
+  },
+  "show_notification": true
 }

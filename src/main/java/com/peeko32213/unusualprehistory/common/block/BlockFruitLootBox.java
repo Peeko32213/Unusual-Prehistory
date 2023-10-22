@@ -1,23 +1,22 @@
 package com.peeko32213.unusualprehistory.common.block;
 
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
-import com.peeko32213.unusualprehistory.common.data.ItemWeightedPairCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
-import com.peeko32213.unusualprehistory.common.data.RollableItemCodec;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -36,7 +35,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final IntegerProperty LOOT_BOX = IntegerProperty.create("loot_box", 1, 5);
@@ -154,46 +152,7 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
     private static final List<LootFruitCodec> LOOT_FRUIT_LIST = new ArrayList<>() {{
         add(LOOT_FRUIT);
     }};
-    @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
 
-            boolean isEmpty = LootFruitJsonManager.getTierTrades().isEmpty();
-            if(!isEmpty) {
-                Map<Integer, List<LootFruitCodec>> lootFruitItem= LootFruitJsonManager.getTierTrades();
-                for(List<LootFruitCodec> lootFruitCodecs : lootFruitItem.values()){
-                    for(LootFruitCodec lootFruitCodec : lootFruitCodecs){
-
-                        ItemStack istack = new ItemStack(this);
-                        CompoundTag lootFruitTag = istack.getOrCreateTag();
-                        int color = lootFruitCodec.getColor().getValue();
-                        lootFruitTag.putString("translationKey", lootFruitCodec.getTranslationKey());
-                        lootFruitTag.putInt("color", color);
-                        lootFruitTag.put("tradeItem", lootFruitCodec.getTradeItem().getDefaultInstance().serializeNBT());
-                        lootFruitTag.putInt("CustomModelData", lootFruitCodec.getCustomModelData());
-                        istack.setTag(lootFruitTag);
-                        list.add(istack);
-                    }
-                }
-
-
-            } else {
-                ItemStack istack = new ItemStack(this);
-                List<ItemWeightedPairCodec> itemWeightedPairCodecs = new ArrayList<>();
-                itemWeightedPairCodecs.add(new ItemWeightedPairCodec(UPItems.PALEO_FOSSIL.get(), 100, 1));
-                List<RollableItemCodec> rollableItemCodecs =  new ArrayList<>();
-                rollableItemCodecs.add(new RollableItemCodec(1, itemWeightedPairCodecs));
-                LootFruitCodec lootFruitCodec = LOOT_FRUIT;
-                CompoundTag lootFruitTag = istack.getOrCreateTag();
-                if(lootFruitCodec == null) return;
-                int color = lootFruitCodec.getColor().getValue();
-                lootFruitTag.putString("translationKey", lootFruitCodec.getTranslationKey());
-                lootFruitTag.putInt("color", color);
-                lootFruitTag.putInt("CustomModelData", lootFruitCodec.getCustomModelData());
-                lootFruitTag.put("tradeItem", lootFruitCodec.getTradeItem().getDefaultInstance().serializeNBT());
-                istack.setTag(lootFruitTag);
-                list.add(istack);
-            }
-    }
 
     @Nullable
     @Override

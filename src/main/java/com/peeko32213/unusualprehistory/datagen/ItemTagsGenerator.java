@@ -4,23 +4,26 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import javax.annotation.Nullable;
+import java.util.concurrent.CompletableFuture;
 
 public class ItemTagsGenerator extends ItemTagsProvider {
-    public ItemTagsGenerator(DataGenerator generatorIn, BlockTagsProvider blockTagProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generatorIn, blockTagProvider, UnusualPrehistory.MODID, existingFileHelper);
+    public ItemTagsGenerator(PackOutput p_275343_, CompletableFuture<HolderLookup.Provider> p_275729_,
+                            CompletableFuture<TagLookup<Block>> p_275322_, @Nullable ExistingFileHelper existingFileHelper) {
+        super(p_275343_, p_275729_, p_275322_, UnusualPrehistory.MODID, existingFileHelper);
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider pProvider) {
         /**Example**/
         //tag(UPTags.ALLOWED_FRIDGE_ITEMS).add(UPItems.AMBER_FOSSIL.get());
         tag(UPTags.ALLOWED_FRIDGE_ITEMS)
@@ -169,11 +172,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(ItemTags.SAPLINGS)
                 .add(UPBlocks.GINKGO_SAPLING.get().asItem());
 
-        tag(ItemTags.SIGNS)
-                .add(UPBlocks.GINKGO_SIGN.get().asItem())
-                .add(UPBlocks.FOXXI_SIGN.get().asItem())
-                .add(UPBlocks.DRYO_SIGN.get().asItem())
-                .add(UPBlocks.PETRIFIED_WOOD_SIGN.get().asItem());
+        tag(ItemTags.SIGNS);
+               //.add(UPBlocks.GINKGO_SIGN.get().asItem())
+               //.add(UPBlocks.FOXXI_SIGN.get().asItem())
+               //.add(UPBlocks.DRYO_SIGN.get().asItem())
+               //.add(UPBlocks.PETRIFIED_WOOD_SIGN.get().asItem());
 
         tag(ItemTags.SMALL_FLOWERS)
                 .add(UPBlocks.LEEFRUCTUS.get().asItem())

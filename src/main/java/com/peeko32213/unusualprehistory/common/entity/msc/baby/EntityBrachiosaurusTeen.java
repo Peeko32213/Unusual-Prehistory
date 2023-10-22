@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.EntityAntarctopelta;
 import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityBrachiosaurusTeenPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
@@ -56,7 +55,6 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
-
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -774,7 +772,6 @@ public class EntityBrachiosaurusTeen extends EntityBaseDinosaurAnimal {
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        return null;
     }
 
     @Override

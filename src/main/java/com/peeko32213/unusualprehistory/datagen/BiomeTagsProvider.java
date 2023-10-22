@@ -2,15 +2,23 @@ package com.peeko32213.unusualprehistory.datagen;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import java.util.concurrent.CompletableFuture;
+
 public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider {
-    public BiomeTagsProvider(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
-        super(pGenerator, UnusualPrehistory.MODID, existingFileHelper);
+    public BiomeTagsProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pPro,ExistingFileHelper existingFileHelper) {
+        super(pOutput,pPro ,UnusualPrehistory.MODID, existingFileHelper);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider pProvider) {
+        this.addTags();
     }
 
     protected void addTags() {

@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.client.model.armor;
+/*package com.peeko32213.unusualprehistory.client.model.armor;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
@@ -23,3 +23,4 @@ public class ShedscaleArmorModel extends AnimatedGeoModel<ItemShedscaleArmor> {
     }
 
 }
+*/

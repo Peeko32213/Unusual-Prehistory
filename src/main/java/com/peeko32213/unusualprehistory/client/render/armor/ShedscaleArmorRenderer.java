@@ -1,19 +1,13 @@
 package com.peeko32213.unusualprehistory.client.render.armor;
 
-import com.peeko32213.unusualprehistory.client.model.armor.ShedscaleArmorModel;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
-import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
+import software.bernie.geckolib.model.DefaultedItemGeoModel;
+import software.bernie.geckolib.renderer.GeoArmorRenderer;
+
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class ShedscaleArmorRenderer extends GeoArmorRenderer<ItemShedscaleArmor> {
     public ShedscaleArmorRenderer() {
-        super(new ShedscaleArmorModel());
-        this.rightBootBone = "armorRightBoot";
-        this.leftBootBone = "armorLeftBoot";
-        this.rightLegBone = "armorRightLeg";
-        this.leftLegBone = "armorLeftLeg";
-        this.bodyBone = "armorBody";
-        this.rightArmBone = "armorRightArm";
-        this.leftArmBone = "armorLeftArm";
-        this.headBone = "armorHead";
+        super(new DefaultedItemGeoModel<>(prefix("armor/shedscale_armor")));
     }
 }

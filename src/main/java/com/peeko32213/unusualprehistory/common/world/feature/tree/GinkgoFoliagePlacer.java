@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.core.registry.UPFeatureModifiers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -57,8 +56,8 @@ public class GinkgoFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader worldReader, BiConsumer<BlockPos, BlockState> worldPlacer, RandomSource random, TreeConfiguration baseTreeFeatureConfig, int trunkHeight, FoliageAttachment foliage, int foliageHeight, int radius, int offset) {
-        BlockPos center = foliage.pos().above(offset); // foliage.getCenter
+    protected void createFoliage(LevelSimulatedReader worldReader, FoliageSetter worldPlacer, RandomSource random, TreeConfiguration baseTreeFeatureConfig, int pMaxFreeTreeHeight, FoliageAttachment foliage, int pFoliageHeight, int pFoliageRadius, int pOffset) {
+       /* BlockPos center = foliage.pos().above(offset); // foliage.getCenter
 
         FeaturePlacers.placeSpheroid(worldReader, worldPlacer, FeaturePlacers.VALID_TREE_POS, random, center, foliage.radiusOffset() + this.horizontalRadius + random.nextInt(this.randomHorizontal + 1), foliage.radiusOffset() + this.verticalRadius + random.nextInt(this.randomVertical + 1), this.verticalBias, baseTreeFeatureConfig.foliageProvider);
 
@@ -74,7 +73,7 @@ public class GinkgoFoliagePlacer extends FoliagePlacer {
 
                 placeLeafCluster(worldReader, worldPlacer, random, placement.immutable(), baseTreeFeatureConfig.foliageProvider);
             }
-        }
+        }*/
     }
 
     private static void placeLeafCluster(LevelSimulatedReader worldReader, BiConsumer<BlockPos, BlockState> worldPlacer, RandomSource random, BlockPos pos, BlockStateProvider state) {

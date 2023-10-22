@@ -30,7 +30,6 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-
 import javax.annotation.Nullable;
 import java.util.UUID;
 
@@ -89,7 +88,7 @@ public class EntityHwachaSpike extends Entity implements GeoAnimatable {
             this.remove(RemovalReason.DISCARDED);
         }
         Vec3 vector3d = this.getDeltaMovement();
-        HitResult raytraceresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
+        HitResult raytraceresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
         if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS) {
             this.onImpact(raytraceresult);
         }
@@ -118,7 +117,7 @@ public class EntityHwachaSpike extends Entity implements GeoAnimatable {
     protected void onEntityHit(EntityHitResult p_213868_1_) {
         Entity entity = this.getOwner();
         if (entity instanceof LivingEntity && p_213868_1_.getEntity() != getOwner()) {
-            p_213868_1_.getEntity().hurt(UPDamageTypes.causeHwachaDamage((LivingEntity) entity), 2.0F);
+            p_213868_1_.getEntity().hurt(entity.damageSources().mobAttack((LivingEntity) entity), 2.0F);
         }
     }
 
@@ -262,7 +261,6 @@ public class EntityHwachaSpike extends Entity implements GeoAnimatable {
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        return null;
     }
 
     @Override

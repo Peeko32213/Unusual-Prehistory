@@ -1,11 +1,11 @@
-// 1.19.2	2023-10-14T09:45:02.6738	unusualprehistory Item Tags
+// 1.20.1	2023-10-22T21:07:06.2538133	unusualprehistory Item Tags
 9c732831ed6ac09a1a4607681080e74fd3f930ea data/minecraft/tags/items/buttons.json
 9edb75fd2a2fc58fad5cb177d8cd36a6b449e37d data/minecraft/tags/items/fishes.json
 c058532b8dc116a7ddd6535c6021e5b16efff81c data/minecraft/tags/items/leaves.json
 cf0b8af7c505f393f4af85d132b77ec2dca63d1d data/minecraft/tags/items/logs_that_burn.json
 4143ed0f504a3dd74445b576e476de7901277e84 data/minecraft/tags/items/planks.json
 c789a0539989eb380d43ab15fa7b20a7ec46c401 data/minecraft/tags/items/saplings.json
-72072264274801a574349184ea25ed9abfde4b84 data/minecraft/tags/items/signs.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/items/signs.json
 9dd9118904a8c66e123e5253da58d147edadaa65 data/minecraft/tags/items/small_flowers.json
 fc2e77c51219a889dc4969c1983614358a8301c7 data/minecraft/tags/items/tall_flowers.json
 cf5435fa98165144da25fa3b2f1d598e1b7674f3 data/minecraft/tags/items/wooden_buttons.json

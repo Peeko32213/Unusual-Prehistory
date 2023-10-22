@@ -3,20 +3,24 @@ package com.peeko32213.unusualprehistory.datagen;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.concurrent.CompletableFuture;
 
 public class EntityTagsGenerator extends EntityTypeTagsProvider {
 
 
-    public EntityTagsGenerator(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
-        super(pGenerator, UnusualPrehistory.MODID, existingFileHelper);
+    public EntityTagsGenerator(PackOutput p_256095_, CompletableFuture<HolderLookup.Provider> p_256572_, @Nullable ExistingFileHelper existingFileHelper) {
+        super(p_256095_, p_256572_, UnusualPrehistory.MODID, existingFileHelper);
     }
 
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider pProvider) {
 
         /**Example**/
         //tag(UPTags.ANURO_TARGETS).add(UPEntities.BABY_BRACHI.get());

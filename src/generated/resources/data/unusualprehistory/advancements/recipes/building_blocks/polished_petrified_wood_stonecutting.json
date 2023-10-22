@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusualprehistory:polished_petrified_wood_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_unusualprehistory:petrified_wood": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:petrified_wood"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_unusualprehistory:petrified_wood",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusualprehistory:polished_petrified_wood_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -2,9 +2,9 @@ package com.peeko32213.unusualprehistory.client.screen;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -37,26 +37,26 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
     }
 
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         Lighting.setupForFlatItems();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
         // render background image
-        this.blit(pPoseStack, leftPos, topPos, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        pGuiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         // render progress bars
         if(menu.isCrafting()) {
             int vHeight = menu.getScaledProgress(PROGRESS_HEIGHT);
             int blitY = PROGRESS_HEIGHT - vHeight;
-            blit(pPoseStack, leftPos + LEFT_PROGRESS_X, topPos + LEFT_PROGRESS_Y + blitY, 176, blitY, PROGRESS_WIDTH, vHeight);
-            blit(pPoseStack, leftPos + RIGHT_PROGRESS_X, topPos + RIGHT_PROGRESS_Y + blitY, 187, blitY, PROGRESS_WIDTH, vHeight);
+            pGuiGraphics.blit(TEXTURE, leftPos + LEFT_PROGRESS_X, topPos + LEFT_PROGRESS_Y + blitY, 176, blitY, PROGRESS_WIDTH, vHeight);
+            pGuiGraphics.blit(TEXTURE, leftPos + RIGHT_PROGRESS_X, topPos + RIGHT_PROGRESS_Y + blitY, 187, blitY, PROGRESS_WIDTH, vHeight);
         }
     }
 
     @Override
-    public void render(PoseStack pPoseStack, int mouseX, int mouseY, float delta) {
-        renderBackground(pPoseStack);
-        super.render(pPoseStack, mouseX, mouseY, delta);
-        renderTooltip(pPoseStack, mouseX, mouseY);
+    public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        renderBackground(pGuiGraphics);
+        super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+        renderTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
 }

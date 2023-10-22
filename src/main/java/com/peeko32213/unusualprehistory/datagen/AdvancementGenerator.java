@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.datagen;
+/*package com.peeko32213.unusualprehistory.datagen;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
@@ -9,23 +9,46 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
+import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ForgeAdvancementProvider;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.getTranslation;
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class AdvancementGenerator extends AdvancementProvider {
-    public AdvancementGenerator(DataGenerator generatorIn, ExistingFileHelper fileHelperIn) {
-        super(generatorIn, fileHelperIn);
+public class AdvancementGenerator extends ForgeAdvancementProvider {
+
+
+    /**
+     * Constructs an advancement provider using the generators to write the
+     * advancements to a file.
+     *
+     * @param output             the target directory of the data generator
+     * @param registries         a future of a lookup for registries and their objects
+     * @param existingFileHelper a helper used to find whether a file exists
+     * @param subProviders       the generators used to create the advancements
+     */
+/*
+    public AdvancementGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper existingFileHelper, List<AdvancementGenerator> subProviders) {
+        super(output, registries, existingFileHelper, subProviders);
     }
 
     @Override
+    public CompletableFuture<?> run(CachedOutput pOutput) {
+
+    }
+
     protected void registerAdvancements(Consumer<Advancement> consumer, ExistingFileHelper fileHelper) {
         Advancement unusualprehistory = Advancement.Builder.advancement().display(UPItems.ENCYLOPEDIA.get(), getTranslation("advancement.root", new Object[0]), getTranslation("advancement.root.desc", new Object[0]), prefix("textures/block/ginkgo_log_side.png"), FrameType.TASK, false, true, false).addCriterion("acquired_encyclopedia", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ENCYLOPEDIA.get())).save(consumer, this.getNameId("main/root"));
         Advancement fossil = getAdvancement(unusualprehistory, (ItemLike)UPItems.MEZO_FOSSIL.get(), "acquire_fossil", FrameType.TASK, true, true, false)
@@ -495,9 +518,5 @@ public class AdvancementGenerator extends AdvancementProvider {
     private String getNameId(String id) {
         return "unusualprehistory:" + id;
     }
-
-
-    public String getName() {
-        return UnusualPrehistory.MODID + " Advancements";
-    }
 }
+*/

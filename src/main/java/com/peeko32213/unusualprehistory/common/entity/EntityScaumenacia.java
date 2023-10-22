@@ -178,7 +178,6 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
 
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "animation.scaumenacia.swim", 0, state -> state.setAndContinue(SCAU_SWIM)));
-        return null;
     }
 
     @Override

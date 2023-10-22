@@ -2,8 +2,13 @@ package com.peeko32213.unusualprehistory.common.message;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.IHurtableMultipart;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -56,14 +61,16 @@ public class UPMessageHurtMultipart {
             }
 
             if (player != null) {
-                if (player.level != null) {
-                    Entity part = player.level.getEntity(message.part);
-                    Entity parent = player.level.getEntity(message.parent);
+                if (player.level() != null) {
+                    Entity part = player.level().getEntity(message.part);
+                    Entity parent = player.level().getEntity(message.parent);
+                    //ResourceKey<DamageType> resourceKey = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(message.damageType));
+                    //Holder<DamageType> holder = player.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolder(resourceKey).get();
                     if(part instanceof IHurtableMultipart && parent instanceof LivingEntity){
-                        ((IHurtableMultipart) part).onAttackedFromServer((LivingEntity)parent, message.damage, new DamageSource(message.damageType));
+                        ((IHurtableMultipart) part).onAttackedFromServer((LivingEntity)parent, message.damage, part.damageSources().mobAttack(player));
                     }
                     if(part == null && parent != null && parent.isMultipartEntity()){
-                        parent.hurt(new DamageSource(message.damageType), message.damage);
+                        parent.hurt(parent.damageSources().mobAttack(player), message.damage);
                     }
                 }
             }

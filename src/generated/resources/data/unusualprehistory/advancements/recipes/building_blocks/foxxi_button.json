@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_foxxi_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:foxxi_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusualprehistory:foxxi_button"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_foxxi_planks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusualprehistory:foxxi_button"
+    ]
+  },
+  "sends_telemetry_event": false
+}

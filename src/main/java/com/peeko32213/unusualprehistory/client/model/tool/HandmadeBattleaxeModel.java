@@ -4,9 +4,9 @@ package com.peeko32213.unusualprehistory.client.model.tool;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.tool.ItemHandmadeBattleaxe;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class HandmadeBattleaxeModel extends AnimatedGeoModel<ItemHandmadeBattleaxe> {
+public class HandmadeBattleaxeModel extends GeoModel<ItemHandmadeBattleaxe> {
     @Override
     public ResourceLocation getModelResource(ItemHandmadeBattleaxe object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/handmade_battleaxe.geo.json");

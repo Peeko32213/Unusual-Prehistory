@@ -106,7 +106,7 @@ public class MusicalTameItem extends Item {
                 if (toTameList.get(0).isTame()) {
                     //TODO even though this is a general class it will only trigger for barina for now
                     if(toTameList.get(0) instanceof EntityBarinasuchus) {
-                        UPAdvancementTriggerRegistry.BARINA_TRIGGER.trigger(player, this.getDefaultInstance());
+                        UPAdvancementTriggerRegistry.BARINA_TRIGGER.trigger(player, player.blockPosition(), this.getDefaultInstance());
                     }
                     player.sendSystemMessage(Component.translatable("unusualprehistory.musical_tame.tame", mutableComponent).withStyle(ChatFormatting.GREEN));
                 } else {

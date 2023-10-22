@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.plants;
 
 import com.google.common.collect.ImmutableList;
-import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;

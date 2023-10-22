@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "M": {
       "item": "unusualprehistory:petrified_wood"
@@ -12,5 +13,6 @@
   "result": {
     "count": 4,
     "item": "unusualprehistory:polished_petrified_wood"
-  }
+  },
+  "show_notification": true
 }

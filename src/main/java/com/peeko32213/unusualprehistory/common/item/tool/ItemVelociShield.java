@@ -89,7 +89,6 @@ public class ItemVelociShield extends ShieldItem  implements GeoItem {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<>(this, "idle", state -> PlayState.CONTINUE)
                 .triggerableAnim("idle", DefaultAnimations.IDLE));
-        return null;
     }
 
     @Override

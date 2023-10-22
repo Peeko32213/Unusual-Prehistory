@@ -21,10 +21,6 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -69,30 +65,15 @@ public class ItemHandmadeSpear extends SwordItem implements GeoItem {
 
     @Override
     public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
-
-
-
         return ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(event.isMoving()){
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.handmade_spear.idle"));
-        }
-        return PlayState.CONTINUE;
-    }
 
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
-    }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<>(this, "idle", state -> PlayState.CONTINUE)
-                .triggerableAnim("idle", DefaultAnimations.IDLE));
-        return null;
+                .triggerableAnim("animation.handmade_spear.idle", DefaultAnimations.IDLE));
     }
 
     @Override

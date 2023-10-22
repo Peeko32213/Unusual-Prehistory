@@ -61,13 +61,13 @@ public class BetterAbstractHurtingProjectile extends Projectile {
 
     public void tick() {
         Entity entity = this.getOwner();
-        if (this.level().isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
+        if (this.level().isClientSide || (entity == null || !entity.isRemoved()) && this.level().hasChunkAt(this.blockPosition())) {
             super.tick();
             if (this.shouldBurn()) {
                 this.setSecondsOnFire(1);
             }
 
-            HitResult hitresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
+            HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
             if (hitresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) {
                 this.onHit(hitresult);
             }

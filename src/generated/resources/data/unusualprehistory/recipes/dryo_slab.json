@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "M": {
       "item": "unusualprehistory:dryo_planks"
@@ -11,5 +12,6 @@
   "result": {
     "count": 6,
     "item": "unusualprehistory:dryo_slab"
-  }
+  },
+  "show_notification": true
 }

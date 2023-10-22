@@ -870,7 +870,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
         controllers.add(new AnimationController<>(this, "Eating", 5, this::eatController));
-        return null;
     }
 
     @Override

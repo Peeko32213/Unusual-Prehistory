@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.datagen;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -14,19 +14,21 @@ import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import java.util.function.Consumer;
 
 public class RecipeGenerator extends UPRecipeProvider implements IConditionBuilder {
-    public RecipeGenerator(DataGenerator pGenerator) {
+    public RecipeGenerator(PackOutput pGenerator) {
         super(pGenerator);
     }
     public static final int FAST_COOKING = 100;		// 5 seconds
     public static final int NORMAL_COOKING = 200;	// 10 seconds
     public static final int SLOW_COOKING = 400;		// 20 seconds
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+
+
         makePlanks(UPBlocks.PETRIFIED_WOOD_PLANKS, UPTags.PETRIFIED_WOOD).save(consumer);
 
         makeWood(UPBlocks.PETRIFIED_WOOD, UPBlocks.PETRIFIED_WOOD_LOG).save(consumer);
 
-        makeSign(UPBlocks.PETRIFIED_WOOD_SIGN, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
+        //makeSign(UPBlocks.PETRIFIED_WOOD_SIGN, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
 
         makeStairs(UPBlocks.PETRIFIED_WOOD_STAIRS, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
         makeStairs(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS, UPBlocks.POLISHED_PETRIFIED_WOOD).save(consumer);
@@ -74,7 +76,7 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         makePressurePlate(UPBlocks.FOXXI_PRESSURE_PLATE, UPBlocks.FOXXI_PLANKS).save(consumer);
 
-        makeSign(UPBlocks.FOXXI_SIGN, UPBlocks.FOXXI_PLANKS).save(consumer);
+        //makeSign(UPBlocks.FOXXI_SIGN, UPBlocks.FOXXI_PLANKS).save(consumer);
 
         // Dryo
         makePlanks(UPBlocks.DRYO_PLANKS, UPTags.DRYO).save(consumer);
@@ -95,7 +97,7 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         makePressurePlate(UPBlocks.DRYO_PRESSURE_PLATE, UPBlocks.DRYO_PLANKS).save(consumer);
 
-        makeSign(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS).save(consumer);
+        //makeSign(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS).save(consumer);
 
         //oreSmelting();
     }

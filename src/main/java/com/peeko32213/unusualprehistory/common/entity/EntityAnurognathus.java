@@ -354,7 +354,6 @@ public class EntityAnurognathus extends AgeableMob implements GeoEntity, Neutral
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
-        return null;
     }
 
     protected <E extends EntityAnurognathus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {

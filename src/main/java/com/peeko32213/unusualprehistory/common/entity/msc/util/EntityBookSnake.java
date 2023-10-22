@@ -16,7 +16,6 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-
 import java.util.Collections;
 
 public class EntityBookSnake extends LivingEntity implements GeoAnimatable, IBookEntity {
@@ -73,7 +72,6 @@ public class EntityBookSnake extends LivingEntity implements GeoAnimatable, IBoo
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        return null;
     }
 
     @Override

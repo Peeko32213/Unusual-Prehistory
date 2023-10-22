@@ -1,9 +1,11 @@
 package com.peeko32213.unusualprehistory.common.item.armor;
 
+import com.peeko32213.unusualprehistory.client.render.armor.SlothPouchArmorRenderer;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyMegatherium;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -11,17 +13,22 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class ItemSlothPouchArmor extends ArmorItem implements GeoItem {
 
@@ -33,6 +40,24 @@ public class ItemSlothPouchArmor extends ArmorItem implements GeoItem {
     public ItemSlothPouchArmor(ArmorMaterial material, ArmorItem.Type slot, int tameTime, Properties settings) {
         super(material, slot, settings);
         this.tameTime = tameTime;
+    }
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            private GeoArmorRenderer<?> renderer;
+
+            @Override
+            public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+                if (this.renderer == null)
+                    this.renderer = new SlothPouchArmorRenderer();
+
+                // This prepares our GeoArmorRenderer for the current render frame.
+                // These parameters may be null however, so we don't do anything further with them
+                this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
+
+                return this.renderer;
+            }
+        });
     }
 
     @Override
@@ -118,8 +143,6 @@ public class ItemSlothPouchArmor extends ArmorItem implements GeoItem {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-
-        return null;
     }
 
     @Override

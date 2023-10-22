@@ -2,9 +2,9 @@ package com.peeko32213.unusualprehistory.client.screen;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -40,28 +40,28 @@ public class CultivatorScreen extends AbstractContainerScreen<CultivatorMenu> {
     }
 
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
-        this.renderBackground(pPoseStack);
+    protected void renderBg(GuiGraphics graphics, float pPartialTick, int pMouseX, int pMouseY) {
+        this.renderBackground(graphics);
         Lighting.setupForFlatItems();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
         // render background image
-        this.blit(pPoseStack, leftPos, topPos, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        graphics.blit(TEXTURE, leftPos, topPos, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         // render progress bar
         if(menu.isCrafting()) {
             int uWidth = menu.getScaledProgress(PROGRESS_WIDTH);
-            blit(pPoseStack, leftPos + PROGRESS_X, topPos + PROGRESS_Y, 176, 0, uWidth, PROGRESS_HEIGHT);
+            graphics.blit(TEXTURE, leftPos + PROGRESS_X, topPos + PROGRESS_Y, 176, 0, uWidth, PROGRESS_HEIGHT);
         }
         // render fuel
         int uWidth = menu.getScaledFuel(FUEL_WIDTH);
-        blit(pPoseStack, leftPos + FUEL_X, topPos + FUEL_Y, 176, 20, uWidth, FUEL_HEIGHT);
+        graphics.blit(TEXTURE, leftPos + FUEL_X, topPos + FUEL_Y, 176, 20, uWidth, FUEL_HEIGHT);
     }
 
     @Override
-    public void render(PoseStack pPoseStack, int mouseX, int mouseY, float delta) {
-        renderBackground(pPoseStack);
-        super.render(pPoseStack, mouseX, mouseY, delta);
-        renderTooltip(pPoseStack, mouseX, mouseY);
+    public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        renderBackground(pGuiGraphics);
+        super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+        renderTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
 }

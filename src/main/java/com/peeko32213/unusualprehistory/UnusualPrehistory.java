@@ -85,8 +85,8 @@ public class UnusualPrehistory {
     //Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib
     // isnt added
     public static void checkForGeckoLib(){
-            if(ModList.get().isLoaded("geckolib3")){
-                LOGGER.debug("Geckolib3 loaded correctly!");
+            if(ModList.get().isLoaded("geckolib")){
+                LOGGER.debug("Geckolib loaded correctly!");
             } else {
                 try {
                     LOGGER.debug("Geckolib3 version 3.1.39 and up didn't seem to be loaded!");

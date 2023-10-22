@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.projectile;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityAntarctopelta;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.BetterAbstractHurtingProjectile;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.RangedMeleeMob;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -77,7 +76,7 @@ public class EntityAmberShot extends BetterAbstractHurtingProjectile implements 
         if (this.level().isClientSide
                 || (entity == null || entity.isAlive()) && this.level().hasChunkAt(this.blockPosition())) {
             super.tick();
-            HitResult raytraceresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
+            HitResult raytraceresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
             if (raytraceresult.getType() != HitResult.Type.MISS
                     && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
                 this.onHit(raytraceresult);
@@ -163,7 +162,6 @@ public class EntityAmberShot extends BetterAbstractHurtingProjectile implements 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        return null;
     }
 
     @Override

@@ -6,6 +6,7 @@ import net.minecraft.CrashReportCategory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.protocol.Packet;
@@ -178,7 +179,7 @@ public class ThrowableFallingBlockEntity extends ThrowableProjectile {
 
             this.move(MoverType.SELF, this.getDeltaMovement());
 
-            HitResult hitresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
+            HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
             boolean flagHit = false;
             if (hitresult.getType() == HitResult.Type.BLOCK) {
                 BlockPos blockpos = ((BlockHitResult)hitresult).getBlockPos();
@@ -299,20 +300,19 @@ public class ThrowableFallingBlockEntity extends ThrowableProjectile {
             if (i < 0) {
                 return false;
             } else {
-                Predicate<Entity> predicate;
+                Predicate<Entity> predicate = EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE);
                 DamageSource damagesource;
                 if (this.blockState.getBlock() instanceof Fallable) {
                     Fallable fallable = (Fallable)this.blockState.getBlock();
-                    predicate = fallable.getHurtsEntitySelector();
-                    damagesource = fallable.getFallDamageSource();
+                    damagesource = fallable.getFallDamageSource(this);
                 } else {
-                    predicate = EntitySelector.NO_SPECTATORS;
                     damagesource = this.damageSources().fallingBlock(this);
                 }
 
+                DamageSource damagesource1 = damagesource;
                 float f = (float)Math.min(Mth.floor((float)i * this.fallDamagePerDistance), this.fallDamageMax);
-                this.level.getEntities(this, this.getBoundingBox(), predicate).forEach((p_149649_) -> {
-                    p_149649_.hurt(damagesource, f);
+                this.level().getEntities(this, this.getBoundingBox(), predicate).forEach((p_149649_) -> {
+                    p_149649_.hurt(damagesource1, f);
                 });
                 boolean flag = this.blockState.is(BlockTags.ANVIL);
                 if (flag && f > 0.0F && this.random.nextFloat() < 0.05F + (float)i * 0.05F) {
@@ -346,7 +346,7 @@ public class ThrowableFallingBlockEntity extends ThrowableProjectile {
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     public void readAdditionalSaveData(CompoundTag pCompound) {
-        this.blockState = NbtUtils.readBlockState(pCompound.getCompound("BlockState"));
+        this.blockState = NbtUtils.readBlockState(this.level().holderLookup(Registries.BLOCK), pCompound.getCompound("BlockState"));
         this.time = pCompound.getInt("Time");
         if (pCompound.contains("HurtEntities", 99)) {
             this.hurtEntities = pCompound.getBoolean("HurtEntities");

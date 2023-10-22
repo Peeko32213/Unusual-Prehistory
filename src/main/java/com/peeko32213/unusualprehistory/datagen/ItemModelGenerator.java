@@ -3,8 +3,8 @@ package com.peeko32213.unusualprehistory.datagen;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
@@ -16,13 +16,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ItemModelGenerator extends ItemModelProvider {
-    public ItemModelGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper){
-        super(generator, UnusualPrehistory.MODID, existingFileHelper);
+    public ItemModelGenerator(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, UnusualPrehistory.MODID, existingFileHelper);
     }
 
     @Override
     protected void registerModels(){
-        for (Item i : Registry.ITEM) {
+        for (Item i : BuiltInRegistries.ITEM) {
             if (i instanceof SpawnEggItem && ForgeRegistries.ITEMS.getKey(i).getNamespace().equals(UnusualPrehistory.MODID)) {
                 getBuilder(ForgeRegistries.ITEMS.getKey(i).getPath())
                         .parent(getExistingFile(new ResourceLocation("item/template_spawn_egg")));

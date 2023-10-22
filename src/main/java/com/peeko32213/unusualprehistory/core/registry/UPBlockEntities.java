@@ -33,17 +33,17 @@ public class UPBlockEntities {
                     BlockEntityType.Builder.of(DNAFridgeBlockEntity::new,
                             UPBlocks.DNA_FRIDGE.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<BlockUPSignBlockEntity>> UP_SIGN = BLOCK_ENTITIES.register("sign", () ->
-            BlockEntityType.Builder.of(BlockUPSignBlockEntity::new,
-                    UPBlocks.GINKGO_SIGN.get(),
-                    UPBlocks.GINKGO_WALL_SIGN.get(),
-                    UPBlocks.PETRIFIED_WOOD_SIGN.get(),
-                    UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get(),
-                    UPBlocks.FOXXI_SIGN.get(),
-                    UPBlocks.FOXXI_WALL_SIGN.get(),
-                    UPBlocks.DRYO_SIGN.get(),
-                    UPBlocks.DRYO_WALL_SIGN.get()
-            ).build(null));
+   // public static final RegistryObject<BlockEntityType<BlockUPSignBlockEntity>> UP_SIGN = BLOCK_ENTITIES.register("sign", () ->
+   //         BlockEntityType.Builder.of(BlockUPSignBlockEntity::new,
+   //                 //UPBlocks.GINKGO_SIGN.get(),
+   //                 //UPBlocks.GINKGO_WALL_SIGN.get(),
+   //                 //UPBlocks.PETRIFIED_WOOD_SIGN.get(),
+   //                 //UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get(),
+   //                 //UPBlocks.FOXXI_SIGN.get(),
+   //                 //UPBlocks.FOXXI_WALL_SIGN.get(),
+   //                 //UPBlocks.DRYO_SIGN.get(),
+   //                 //UPBlocks.DRYO_WALL_SIGN.get()
+   //         ).build(null));
 
 
     public static final RegistryObject<BlockEntityType<FruitLootBoxEntity>> FRUIT_LOOT_BOX_BLOCK_ENTITY =

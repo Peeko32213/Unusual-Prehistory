@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_petrified_wood": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:petrified_wood"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusualprehistory:polished_petrified_wood"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_petrified_wood",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusualprehistory:polished_petrified_wood"
+    ]
+  },
+  "sends_telemetry_event": false
+}

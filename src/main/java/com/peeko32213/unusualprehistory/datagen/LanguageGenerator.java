@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.datagen;
 import com.mojang.logging.LogUtils;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.*;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.alchemy.Potion;
@@ -13,12 +13,9 @@ import org.slf4j.Logger;
 
 import java.util.function.Supplier;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.DINO_SPAWN_EGGS;
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.DINO_TAB;
-
 public class LanguageGenerator extends LanguageProvider {
-    public LanguageGenerator(DataGenerator gen){
-        super(gen, UnusualPrehistory.MODID, "en_us");
+    public LanguageGenerator(PackOutput output) {
+        super(output, UnusualPrehistory.MODID, "en_us");
     }
     private static final Logger LOGGER = LogUtils.getLogger();
     @Override
@@ -26,8 +23,8 @@ public class LanguageGenerator extends LanguageProvider {
 
 
         //TABS
-        addTabName(DINO_TAB, "Unusual Prehistory");
-        addTabName(DINO_SPAWN_EGGS, "Unusual Spawn Eggs");
+        addTabName(UPTabs.UP_TAB.get(), "Unusual Prehistory");
+        addTabName(UPTabs.UP_EGG_TAB.get(), "Unusual Spawn Eggs");
         addItem(UPItems.TAB_EGG_ICON, "Spawn Egg Tab Icon");
 
         //MISC
@@ -323,7 +320,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.GINKGO_TRAPDOOR, "Prehistoric Ginkgo Trapdoor");
         addBlock(UPBlocks.GINKGO_BUTTON, "Prehistoric Ginkgo Button");
         addBlock(UPBlocks.GINKGO_PRESSURE_PLATE, "Prehistoric Ginkgo Pressure Plate");
-        addItem(UPItems.GINKGO_SIGN, "Prehistoric Ginkgo Sign");
+        //addItem(UPItems.GINKGO_SIGN, "Prehistoric Ginkgo Sign");
         addBlock(UPBlocks.AMBER_BUTTON, "Amber Button");
 
         //FOXXI
@@ -342,7 +339,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.FOXXI_DOOR, "Foxii Door");
         addBlock(UPBlocks.FOXXI_TRAPDOOR, "Foxii Trapdoor");
         addBlock(UPBlocks.FOXII_SAPLING, "Foxii Sapling");
-        addItem(UPItems.FOXXI_WOOD_SIGN, "Foxii Sign");
+        //addItem(UPItems.FOXXI_WOOD_SIGN, "Foxii Sign");
 
         //DRYO
         addBlock(UPBlocks.DRYO_PLANKS, "Dryophyllum Planks");
@@ -360,7 +357,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.DRYO_DOOR, "Dryophyllum Door");
         addBlock(UPBlocks.DRYO_TRAPDOOR, "Dryophyllum Trapdoor");
         addBlock(UPBlocks.DRYO_SAPLING, "Dryophyllum Sapling");
-        addItem(UPItems.DRYO_WOOD_SIGN, "Dryophyllum Sign");
+        //addItem(UPItems.DRYO_WOOD_SIGN, "Dryophyllum Sign");
 
         //PETRIFIED
         addBlock(UPBlocks.PETRIFIED_WOOD_PLANKS, "Petrified Planks");
@@ -376,7 +373,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.PETRIFIED_WOOD_TRAPDOOR, "Petrified Trapdoor");
         addBlock(UPBlocks.PETRIFIED_WOOD_BUTTON, "Petrified Button");
         addBlock(UPBlocks.PETRIFIED_WOOD_PRESSURE_PLATE, "Petrified Pressure Plate");
-        addItem(UPItems.PETRIFIED_WOOD_SIGN, "Petrified Sign");
+        //addItem(UPItems.PETRIFIED_WOOD_SIGN, "Petrified Sign");
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD, "Polished Petrified Wood");
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS, "Polished Petrified Wood Stairs");
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB, "Polished Petrified Wood Slab");

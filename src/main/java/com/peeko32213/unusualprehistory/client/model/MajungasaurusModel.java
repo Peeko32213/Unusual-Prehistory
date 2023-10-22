@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityKentrosaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;

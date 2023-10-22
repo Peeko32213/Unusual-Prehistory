@@ -269,7 +269,6 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal {
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        return null;
     }
 
     @Override
