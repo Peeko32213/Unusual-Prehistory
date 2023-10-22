@@ -34,12 +34,10 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -54,6 +52,10 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
 
     private float shakeAnim;
     private float shakeAnimO;
+    private static final RawAnimation PARACER_WALK = RawAnimation.begin().thenLoop("animation.paraceratherium.move");
+    private static final RawAnimation PARACER_IDLE = RawAnimation.begin().thenLoop("animation.paraceratherium.idle");
+    private static final RawAnimation PARACER_ATTACK = RawAnimation.begin().thenLoop("animation.paraceratherium.attack");
+    private static final RawAnimation PARACER_SWIM = RawAnimation.begin().thenLoop("animation.paraceratherium.swim");
 
     public EntityParaceratherium(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -472,7 +474,8 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
         return null;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+    protected <E extends EntityParaceratherium> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
@@ -481,21 +484,21 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.paraceratherium.attack"));
+                    event.setAndContinue(PARACER_ATTACK);
                     break;
                 default:
                     if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && !this.isSwimming()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.paraceratherium.move"));
+                        event.setAndContinue(PARACER_WALK);
                         event.getController().setAnimationSpeed(1.5D);
                         return PlayState.CONTINUE;
                     }
                     if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.paraceratherium.swim"));
+                        event.setAndContinue(PARACER_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                     else if (!this.isInWater() && !this.isSwimming()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.paraceratherium.idle"));
+                        event.setAndContinue(PARACER_IDLE);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
@@ -505,9 +508,13 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityParaceratherium> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
+    }
+
 }

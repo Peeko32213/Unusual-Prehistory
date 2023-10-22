@@ -21,6 +21,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -41,12 +42,10 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -64,6 +63,15 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     private int shakeCooldown = 0;
 
     private int stunnedTick;
+    private static final RawAnimation REX_BITE = RawAnimation.begin().thenLoop("rex.bite");
+    private static final RawAnimation REX_WHIP = RawAnimation.begin().thenLoop("rex.whip");
+    private static final RawAnimation REX_STOMP_L = RawAnimation.begin().thenLoop("rex.stompl");
+    private static final RawAnimation REX_STOMP_R = RawAnimation.begin().thenLoop("rex.stompr");
+    private static final RawAnimation REX_EEPY = RawAnimation.begin().thenLoop("rex.eepy");
+    private static final RawAnimation REX_SWIM = RawAnimation.begin().thenLoop("rex.swim");
+    private static final RawAnimation REX_CHARGE = RawAnimation.begin().thenLoop("rex.charge");
+    private static final RawAnimation REX_WALK = RawAnimation.begin().thenLoop("rex.walk");
+    private static final RawAnimation REX_IDLE = RawAnimation.begin().thenLoop("rex.idle");
 
     public EntityTyrannosaurusRex(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -634,7 +642,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source == DamageSource.FALL || source == DamageSource.MAGIC || source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || source == DamageSource.CACTUS || source.isProjectile() || super.isInvulnerableTo(source);
+        return source.is(DamageTypes.FALL) ||source.is(DamageTypes.MAGIC) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FALLING_BLOCK) || source.is(DamageTypes.CACTUS) || source.is(DamageTypes.MOB_PROJECTILE) || super.isInvulnerableTo(source);
     }
 
     @Override
@@ -665,7 +673,8 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         return UPSounds.REX_DEATH.get();
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+    protected <E extends EntityTyrannosaurusRex> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
@@ -674,42 +683,42 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("rex.bite"));
+                    event.setAndContinue(REX_BITE);
                     break;
                 case 22:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("rex.whip"));
+                    event.setAndContinue(REX_WHIP);
                     break;
                 case 23:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompl"));
+                    event.setAndContinue(REX_STOMP_L);
                     break;
                 case 24:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("rex.stompr"));
+                    event.setAndContinue(REX_STOMP_R);
                     break;
                 default:
                     if (this.hasEepy()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("rex.eepy"));
+                        event.setAndContinue(REX_EEPY);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                     if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("rex.swim"));
+                        event.setAndContinue(REX_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                     else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && ! this.isInWater()){
                         if(this.isSprinting()) {
-                            event.getController().setAnimation(new AnimationBuilder().loop("rex.charge"));
+                            event.setAndContinue(REX_CHARGE);
                             event.getController().setAnimationSpeed(1.0F);
                             return PlayState.CONTINUE;
                         } else {
-                            event.getController().setAnimation(new AnimationBuilder().loop("rex.walk"));
+                            event.setAndContinue(REX_WALK);
                             event.getController().setAnimationSpeed(1.0F);
                             return PlayState.CONTINUE;
                         }
                     }else{
 
                         if(!this.isInWater()) {
-                            event.getController().setAnimation(new AnimationBuilder().loop("rex.idle"));
+                            event.setAndContinue(REX_IDLE);
                             event.getController().setAnimationSpeed(1.0F);
                             return PlayState.CONTINUE;
                         }
@@ -721,9 +730,13 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(1);
-        AnimationController<EntityTyrannosaurusRex> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
+    }
+
 }

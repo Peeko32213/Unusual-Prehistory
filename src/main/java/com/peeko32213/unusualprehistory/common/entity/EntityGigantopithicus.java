@@ -33,12 +33,12 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
@@ -47,6 +47,13 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityGigantopithicus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityGigantopithicus.class, EntityDataSerializers.INT);
     private Ingredient temptationItems;
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation GIGANTO_WALK = RawAnimation.begin().thenLoop("animation.gigantopithicus.walk");
+    private static final RawAnimation GIGANTO_IDLE = RawAnimation.begin().thenLoop("animation.gigantopithicus.idle");
+    private static final RawAnimation GIGANTO_ATTACK = RawAnimation.begin().thenLoop("animation.gigantopithicus.attack");
+    private static final RawAnimation GIGANTO_SITTING = RawAnimation.begin().thenLoop("animation.gigantopithicus.sit");
+    private static final RawAnimation GIGANTO_SWIM = RawAnimation.begin().thenLoop("animation.gigantopithicus.swim");
+    private static final RawAnimation GIGANTO_HOLD = RawAnimation.begin().thenLoop("animation.gigantopithicus.hold");
 
     public EntityGigantopithicus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -425,33 +432,31 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         return UPSounds.GIGANTO_DEATH.get();
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.isFromBook()){
-            return PlayState.CONTINUE;
-        }
+
+    protected <E extends EntityGigantopithicus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
         {
             switch (animState) {
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.attack"));
+                    event.setAndContinue(GIGANTO_ATTACK);
                     break;
                 default:
                     if (this.isTrading() && !this.isSwimming()) {
-                       // event.getController().markNeedsReload();
-                        event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.hold"));
+                        // event.getController().markNeedsReload();
+                        event.setAndContinue(GIGANTO_HOLD);
                         event.getController().setAnimationSpeed(0.9D);
                         return PlayState.CONTINUE;
                     }
                     if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.swim"));
+                        event.setAndContinue(GIGANTO_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                     if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6  && !this.isSwimming()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.walk"));
+                        event.setAndContinue(GIGANTO_WALK);
                         return PlayState.CONTINUE;
                     } else {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.gigantopithicus.idle"));
+                        event.setAndContinue(GIGANTO_IDLE);
                     }
                     return PlayState.CONTINUE;
             }
@@ -459,7 +464,19 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
         return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState sitPredicate(AnimationEvent<E> event) {
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "Sit", 5, this::sitController));
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
+    }
+
+    protected <E extends EntityGigantopithicus> PlayState sitController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        int animState = this.getAnimationState();
     //  if (this.isTrading() && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
     //      event.getController().markNeedsReload();
     //      event.getController().setAnimation(new AnimationBuilder().playOnce("animation.gigantopithicus.sit"));
@@ -469,13 +486,6 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
     }
 
 
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityGigantopithicus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        AnimationController<EntityGigantopithicus> sitController = new AnimationController<>(this, "sitController", 5, this::sitPredicate);
-        data.addAnimationController(controller);
-        data.addAnimationController(sitController);
-    }
+
 
 }

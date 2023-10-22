@@ -48,12 +48,13 @@ import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
 
 import java.util.Optional;
 
@@ -68,6 +69,14 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     public int soundTimer = 0;
     private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation HWACHA_WALK = RawAnimation.begin().thenLoop("animation.hwacha.walk");
+    private static final RawAnimation HWACHA_IDLE = RawAnimation.begin().thenLoop("animation.hwacha.idle");
+    private static final RawAnimation HWACHA_SPRINT = RawAnimation.begin().thenLoop("animation.hwacha.sprinting");
+    private static final RawAnimation HWACHA_SIT = RawAnimation.begin().thenLoop("animation.hwacha.sitting");
+    private static final RawAnimation HWACHA_TURRET_FIRE = RawAnimation.begin().thenLoop("animation.hwacha.turret_firing");
+    private static final RawAnimation HWACHA_SWIM = RawAnimation.begin().thenLoop("animation.hwacha.swim");
+
     public EntityHwachavenator(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
@@ -136,16 +145,17 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         return null;
     }
 
-    public void positionRider(Entity passenger) {
 
+
+    @Override
+    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
         if(!this.isInSittingPose()) {
-            passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
+            pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
             return;
         }
-        passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 1.0, this.getZ() - (double) (0.5F * yCos));
-
+        pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() - 1.0, this.getZ() - (double) (0.5F * yCos));
 
     }
 
@@ -190,7 +200,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if(this.level.isClientSide) return InteractionResult.PASS;
+        if(this.level().isClientSide) return InteractionResult.PASS;
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
@@ -646,48 +656,55 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         }
     }
 
-
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    protected <E extends EntityHwachavenator> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
         if (event.isMoving() && !isShooting() && !this.isInSittingPose() && !this.isInWater()) {
             if (this.isSprinting() || !this.getPassengers().isEmpty() ) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.sprinting"));
+                event.setAndContinue(HWACHA_SPRINT);
                 event.getController().setAnimationSpeed(2.0D);
                 return PlayState.CONTINUE;
             } else if (event.isMoving()){
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.walk"));
+                event.setAndContinue(HWACHA_WALK);
                 event.getController().setAnimationSpeed(1.0D);
                 return PlayState.CONTINUE;
             }
         }
         if (isShooting() && !this.isInSittingPose()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.turret_firing"));
+            event.setAndContinue(HWACHA_TURRET_FIRE);
             return PlayState.CONTINUE;
         }
         if (this.isInSittingPose() && !isShooting()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.sitting"));
+            event.setAndContinue(HWACHA_SIT);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (this.isInWater()  && !isShooting() && !this.isInSittingPose()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.swim"));
+            event.setAndContinue(HWACHA_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if(!this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.hwacha.idle"));
+            event.setAndContinue(HWACHA_IDLE);
             event.getController().setAnimationSpeed(1.0D);
         }
-            return PlayState.CONTINUE;
+        return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityHwachavenator> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
     }
 
     @Override

@@ -43,20 +43,16 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implements IAnimatable, CustomFollower, IAttackEntity {
+public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implements CustomFollower, IAttackEntity {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
 
 
@@ -65,7 +61,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public int riderAttackCooldown = 0;
     public float prevSitProgress;
     public float sitProgress;
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.INT);
@@ -79,6 +74,14 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     private boolean canBePushed = true;
     private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
+    private static final RawAnimation TRIKE_SWIM = RawAnimation.begin().thenLoop("animation.trike.swimming");
+    private static final RawAnimation TRIKE_MOVE = RawAnimation.begin().thenLoop("animation.trike.move");
+    private static final RawAnimation TRIKE_PREP = RawAnimation.begin().thenLoop("animation.trike.prep");
+    private static final RawAnimation TRIKE_RUN = RawAnimation.begin().thenLoop("animation.trike.run");
+    private static final RawAnimation TRIKE_SIT = RawAnimation.begin().thenLoop("animation.trike.sit");
+    private static final RawAnimation TRIKE_IDLE = RawAnimation.begin().thenLoop("animation.trike.idle");
+    private static final RawAnimation TRIKE_ATTACK = RawAnimation.begin().thenLoop("animation.trike.attack");
+    private static final RawAnimation TRIKE_EAT = RawAnimation.begin().thenLoop("animation.trike.eat");
 
     public EntityTriceratops(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
@@ -362,10 +365,12 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         return null;
     }
 
-    public void positionRider(Entity passenger) {
+
+    @Override
+    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-        passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
+        pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
     }
 
     public double getPassengersRidingOffset() {
@@ -660,7 +665,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         if (this.level().isClientSide) {
             this.eatAnimationTick = Math.max(0, this.eatAnimationTick - 1);
         }
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.isAggressive() && !this.isTame()) {
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isAggressive() && !this.isTame()) {
             boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
@@ -728,78 +733,74 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         }
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+    protected <E extends EntityTriceratops> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
 
         if (this.isInWater() || this.isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.swimming"));
+            event.setAndContinue(TRIKE_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
 
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater() && !this.isSprinting()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.move"));
+            event.setAndContinue(TRIKE_MOVE);
             event.getController().setAnimationSpeed(0.7D);
             return PlayState.CONTINUE;
         }
 
 
         if (this.hasChargeCooldown() && this.hasTarget() && !this.isInSittingPose()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.prep"));
+            event.setAndContinue(TRIKE_PREP);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
 
         if ((this.isSprinting() || !this.getPassengers().isEmpty()) && !this.isInWater() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.run"));
+            event.setAndContinue(TRIKE_RUN);
             event.getController().setAnimationSpeed(2.0D);
             return PlayState.CONTINUE;
         }
 
         if (this.isInSittingPose()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.sit"));
+            event.setAndContinue(TRIKE_SIT);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
 
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.idle"));
+        event.setAndContinue(TRIKE_IDLE);
         event.getController().setAnimationSpeed(1.0F);
         return PlayState.CONTINUE;
     }
 
-
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.trike.attack"));
+    protected <E extends EntityTriceratops> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.swinging && event.getController().getAnimationState().equals(AnimationController.State.PAUSED)) {
+            event.setAndContinue(TRIKE_ATTACK);
         }
         return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
+    protected <E extends EntityTriceratops> PlayState eatController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isEating()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.trike.eat"));
+            event.setAndContinue(TRIKE_EAT);
             return PlayState.CONTINUE;
         }
-        event.getController().markNeedsReload();
+        event.getController().forceAnimationReset();
         return PlayState.STOP;
     }
 
-
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityTriceratops> controller = new AnimationController<>(this, "controller", 2, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "eatController", 2, this::eatPredicate));
-        data.addAnimationController(new AnimationController<>(this, "attackController", 2, this::attackPredicate));
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 2, this::Controller));
+        controllers.add(new AnimationController<>(this, "Attack", 2, this::attackController));
+        controllers.add(new AnimationController<>(this, "Eat", 2, this::eatController));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public double getTick(Object o) {
+        return 0;
     }
 
     static class TrikeNearestAttackablePlayerTargetGoal extends NearestAttackableTargetGoal<Player> {

@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathNavigation;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -12,14 +13,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -31,23 +30,21 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
-public class EntityBabyRex extends PathfinderMob implements IAnimatable {
+public class EntityBabyRex extends EntityTameableBaseDinosaurAnimal {
 
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.BEEF, Items.PORKCHOP, Items.CHICKEN, UPItems.RAW_COTY.get());
     private int age;
-
-    public EntityBabyRex(EntityType<? extends PathfinderMob> entityType, Level level) {
+    private static final RawAnimation BABY_WALK = RawAnimation.begin().thenLoop("animation.babyrex.walk");
+    private static final RawAnimation BABY_IDLE = RawAnimation.begin().thenLoop("animation.babyrex.idle");
+    private static final RawAnimation BABY_SWIM = RawAnimation.begin().thenLoop("animation.babyrex.swim");
+    public EntityBabyRex(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -73,6 +70,11 @@ public class EntityBabyRex extends PathfinderMob implements IAnimatable {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 15.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+    }
+
+    @Override
+    protected void performAttack() {
+        
     }
 
     protected SoundEvent getAmbientSound() {
@@ -106,7 +108,7 @@ public class EntityBabyRex extends PathfinderMob implements IAnimatable {
         return InteractionResult.sidedSuccess(this.level().isClientSide);
     }
 
-    private boolean isFood(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         return EntityBabyRex.FOOD_ITEMS.test(stack);
     }
 
@@ -134,6 +136,12 @@ public class EntityBabyRex extends PathfinderMob implements IAnimatable {
 
     private void increaseAge(int seconds) {
         this.setAge(this.age + seconds * 20);
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+        return null;
     }
 
     public void setAge(int age) {
@@ -169,6 +177,51 @@ public class EntityBabyRex extends PathfinderMob implements IAnimatable {
         }
     }
 
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
+    }
+
     private int getTicksUntilGrowth() {
         return Math.max(0, MAX_TADPOLE_AGE - this.age);
     }
@@ -178,34 +231,31 @@ public class EntityBabyRex extends PathfinderMob implements IAnimatable {
         return false;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
-
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.babyrex.walk"));
-            return PlayState.CONTINUE;
-
-        }
+    protected <E extends EntityBabyRex> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.babyrex.swim"));
+            event.setAndContinue(BABY_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
+        }
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+            event.setAndContinue(BABY_WALK);
+            event.getController().setAnimationSpeed(1.5D);
         } else {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.babyrex.idle"));
+            event.setAndContinue(BABY_IDLE);
+            event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
     }
 
 
+
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityBabyRex> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public double getTick(Object o) {
+        return tickCount;
     }
-
 }

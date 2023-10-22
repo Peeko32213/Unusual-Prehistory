@@ -36,12 +36,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -54,6 +52,13 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
 
     private int stunnedTick;
     private boolean canBePushed = true;
+    private static final RawAnimation MAJUNGA_WALK = RawAnimation.begin().thenLoop("animation.majungasaurus.walk");
+    private static final RawAnimation MAJUNGA_IDLE = RawAnimation.begin().thenLoop("animation.majungasaurus.idle");
+    private static final RawAnimation MAJUNGA_RUN = RawAnimation.begin().thenLoop("animation.majungasaurus.run");
+    private static final RawAnimation MAJUNGA_CHARGE_PREP = RawAnimation.begin().thenLoop("animation.majungasaurus.prep");
+    private static final RawAnimation MAJUNGA_STUNNED = RawAnimation.begin().thenLoop("animation.majungasaurus.stunned");
+    private static final RawAnimation MAJUNGA_SWIM = RawAnimation.begin().thenLoop("animation.majungasaurus.swim");
+    private static final RawAnimation MAJUNGA_BITE = RawAnimation.begin().thenLoop("animation.majungasaurus.bite");
 
     public EntityMajungasaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -528,55 +533,58 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
 
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "Attack", 5, this::attackController));
+    }
+
+    protected <E extends EntityMajungasaurus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.swim"));
+            event.setAndContinue(MAJUNGA_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (this.stunnedTick > 0) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.stunned"));
+            event.setAndContinue(MAJUNGA_STUNNED);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         } else if (event.isMoving()) {
             if (this.isSprinting() && !this.isInWater()) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.run"));
+                event.setAndContinue(MAJUNGA_RUN);
                 event.getController().setAnimationSpeed(3.0F);
                 return PlayState.CONTINUE;
             } else {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.walk"));
+                event.setAndContinue(MAJUNGA_WALK);
                 event.getController().setAnimationSpeed(1.0F);
                 return PlayState.CONTINUE;
             }
         } else if (this.hasChargeCooldown() && this.hasTarget()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.prep"));
+            event.setAndContinue(MAJUNGA_CHARGE_PREP);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         } else if (!this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.majungasaurus.idle"));
+            event.setAndContinue(MAJUNGA_IDLE);
             event.getController().setAnimationSpeed(1.0F);
         }
-
         return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.majungasaurus.bite"));
+    protected <E extends EntityMajungasaurus> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.swinging && event.getController().getAnimationState().equals(AnimationController.State.PAUSED)) {
+            event.getController().forceAnimationReset();
+            event.setAndContinue(MAJUNGA_BITE);
             this.swinging = false;
         }
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityMajungasaurus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
-        data.addAnimationController(controller);
+    public double getTick(Object o) {
+        return tickCount;
     }
+
 }

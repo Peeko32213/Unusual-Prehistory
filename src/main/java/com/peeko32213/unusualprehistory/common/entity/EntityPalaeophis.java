@@ -48,11 +48,12 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -68,7 +69,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
     private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> CHILD_ID = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SHEDDING_TIME = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
-
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public final float[] ringBuffer = new float[64];
     public int ringBufferIndex = -1;
@@ -82,6 +83,8 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
     private boolean isLandNavigator;
     private int swimTimer = -1000;
     private int passiveFor = 0;
+    private static final RawAnimation PALAEO_BITE = RawAnimation.begin().thenLoop("animation.palaophis_head.bite");
+    private static final RawAnimation PALAEO_IDLE_TOUNGE = RawAnimation.begin().thenLoop("animation.palaophis_head.idle_tounge");
 
 
     public EntityPalaeophis(EntityType<? extends EntityBaseAquaticAnimal> entityType, Level level) {
@@ -314,6 +317,11 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
 
     }
 
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
+    }
+
     private float calcPartRotation(int i) {
         final float f = 1 - (this.strangleProgress * 0.2F);
         final float strangleIntensity = (float) (Mth.clamp(strangleTimer * 3, 0, 100F) * (1.0F + 0.2F * Math.sin(0.15F * strangleTimer)));
@@ -395,28 +403,28 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
         return 1;
     }
 
-    private <E extends EntityPalaeophis> PlayState predicate(AnimationState<E> event) {
+    protected <E extends EntityPalaeophis> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        int animState = this.getAnimationState();
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        int animState = this.getAnimationState();
         switch (animState) {
 
             case 21:
-                event.getController().setAnimation(new AnimationBuilder().playOnce("animation.palaophis_head.bite"));
+                event.setAndContinue(PALAEO_BITE);
                 break;
             default:
                 if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
-                    event.getController().setAnimation(new AnimationBuilder().loop("animation.palaophis_head.idle_tounge"));
+                    event.setAndContinue(PALAEO_IDLE_TOUNGE);
                     event.getController().setAnimationSpeed(0.6D);
                     return PlayState.CONTINUE;
                 }
                 if (!this.isInWater()) {
-                    event.getController().setAnimation(new AnimationBuilder().loop("animation.palaophis_head.idle_tounge"));
+                    event.setAndContinue(PALAEO_IDLE_TOUNGE);
                     event.getController().setAnimationSpeed(0.3D);
                     return PlayState.CONTINUE;
                 } else {
-                    event.getController().setAnimation(new AnimationBuilder().loop("animation.palaophis_head.idle_tounge"));
+                    event.setAndContinue(PALAEO_IDLE_TOUNGE);
                     return PlayState.CONTINUE;
                 }
 
@@ -425,10 +433,13 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        AnimationController<EntityPalaeophis> controller = new AnimationController<>(this, "controller", 0, this::predicate);
-        controllerRegistrar.add(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
 
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
     public boolean requiresCustomPersistence() {
@@ -483,8 +494,6 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
     protected TagKey<EntityType<?>> getTargetTag() {
         return null;
     }
-
-
 
     static class MoveHelperController extends MoveControl {
         private final EntityPalaeophis dolphin;

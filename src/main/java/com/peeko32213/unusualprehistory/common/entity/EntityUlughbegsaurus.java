@@ -46,12 +46,10 @@ import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -84,7 +82,13 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public float prevEatProgress;
     public float eatProgress;
     public float sitProgress;
-
+    private static final RawAnimation ULUGH_SPRINT = RawAnimation.begin().thenLoop("animation.ulugh.sprint");
+    private static final RawAnimation ULUGH_WALK = RawAnimation.begin().thenLoop("animation.ulugh.walk");
+    private static final RawAnimation ULUGH_SITTING = RawAnimation.begin().thenLoop("animation.ulugh.sitting");
+    private static final RawAnimation ULUGH_SWIM = RawAnimation.begin().thenLoop("animation.ulugh.swim");
+    private static final RawAnimation ULUGH_IDLE = RawAnimation.begin().thenLoop("animation.ulugh.idle");
+    private static final RawAnimation ULUGH_EATING = RawAnimation.begin().thenLoop("animation.ulugh.eating");
+    private static final RawAnimation ULUGH_BITE = RawAnimation.begin().thenLoop("animation.ulugh.bite");
     public EntityUlughbegsaurus(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.2F);
@@ -451,10 +455,11 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         return null;
     }
 
-    public void positionRider(Entity passenger) {
+    @Override
+    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-        passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
+        pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
     }
 
     public double getPassengersRidingOffset() {
@@ -811,65 +816,65 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         return null;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+    protected <E extends EntityUlughbegsaurus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) {
             if (this.isSprinting() || !this.getPassengers().isEmpty()) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.sprint"));
+                event.setAndContinue(ULUGH_SPRINT);
                 event.getController().setAnimationSpeed(2.0D);
                 return PlayState.CONTINUE;
             } else if (event.isMoving()) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.walk"));
+                event.setAndContinue(ULUGH_WALK);
                 event.getController().setAnimationSpeed(1.0D);
                 return PlayState.CONTINUE;
             }
         }
         if (this.isInSittingPose() && !this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.sitting"));
+            event.setAndContinue(ULUGH_SITTING);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.swim"));
+            event.setAndContinue(ULUGH_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if(!this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.idle"));
+            event.setAndContinue(ULUGH_IDLE);
             event.getController().setAnimationSpeed(1.0F);
         }
         return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
-        if (this.getEatingTime() > 0) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.ulugh.eating"));
-            return PlayState.CONTINUE;
-        }
-        event.getController().markNeedsReload();
-        return PlayState.STOP;
-    }
-
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            //setSwinging(false);
-            //setHasSwung(true);
-            //this.swinging = false;
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.ulugh.bite"));
+    protected <E extends EntityUlughbegsaurus> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.swinging && event.getController().getAnimationState().equals(AnimationController.State.PAUSED)) {
+            return event.setAndContinue(ULUGH_BITE);
         }
         return PlayState.CONTINUE;
     }
 
+    protected <E extends EntityUlughbegsaurus> PlayState eatController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.getEatingTime() > 0) {
+            event.setAndContinue(ULUGH_EATING);
+            return PlayState.CONTINUE;
+        }
+        event.getController().forceAnimationReset();
+        return PlayState.STOP;
+    }
+
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityUlughbegsaurus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::eatPredicate));
-        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
+        controllers.add(new AnimationController<>(this, "Eating", 5, this::eatController));
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
     }
 
 }

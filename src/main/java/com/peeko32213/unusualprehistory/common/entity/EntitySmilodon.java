@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -26,18 +27,17 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
 
@@ -50,6 +50,14 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Boolean> GROOM_2 = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.BOOLEAN);
 
     private Ingredient temptationItems;
+    private static final RawAnimation SMILO_GROOM_1 = RawAnimation.begin().thenLoop("animation.smilodon.groom_1");
+    private static final RawAnimation SMILO_GROOM_2 = RawAnimation.begin().thenLoop("animation.smilodon.groom_2");
+    private static final RawAnimation SMILO_SPRINT = RawAnimation.begin().thenLoop("animation.smilodon.sprint");
+    private static final RawAnimation SMILO_SNEAK = RawAnimation.begin().thenLoop("animation.smilodon.sneak");
+    private static final RawAnimation SMILO_MOVE = RawAnimation.begin().thenLoop("animation.smilodon.move");
+    private static final RawAnimation SMILO_SWIM = RawAnimation.begin().thenLoop("animation.smilodon.swim");
+    private static final RawAnimation SMILO_IDLE = RawAnimation.begin().thenLoop("animation.smilodon.idle");
+    private static final RawAnimation SMILO_BITE = RawAnimation.begin().thenLoop("animation.smilodon.bite");
 
     public EntitySmilodon(EntityType<? extends EntityBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
@@ -404,70 +412,69 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
     }
 
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        if(pSource.isFall()){
-            return false;
-        }
-        return super.hurt(pSource, pAmount);
+    public boolean isInvulnerableTo(DamageSource source) {
+        return source.is(DamageTypes.FALL);
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+    protected <E extends EntitySmilodon> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
 
         if (groom1() && !this.isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.groom_1"));
+            event.setAndContinue(SMILO_GROOM_1);
             event.getController().setAnimationSpeed(2.5F);
             return PlayState.CONTINUE;
         }
         if (groom2() && !this.isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.groom_2"));
+            event.setAndContinue(SMILO_GROOM_2);
             event.getController().setAnimationSpeed(2.5F);
             return PlayState.CONTINUE;
         }
 
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
             if (this.isSprinting() && !this.isSwimming()) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.sprint"));
+                event.setAndContinue(SMILO_SPRINT);
                 event.getController().setAnimationSpeed(2.5F);
                 return PlayState.CONTINUE;
             } else if (this.isCrouching() && !this.isSwimming()) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.sneak"));
+                event.setAndContinue(SMILO_SNEAK);
                 event.getController().setAnimationSpeed(0.8F);
                 return PlayState.CONTINUE;
             }
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.move"));
+            event.setAndContinue(SMILO_MOVE);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.swim"));
+            event.setAndContinue(SMILO_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
 
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.smilodon.idle"));
+        event.setAndContinue(SMILO_IDLE);
         event.getController().setAnimationSpeed(1.0F);
 
         return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.smilodon.bite"));
-            this.swinging = false;
+    protected <E extends EntitySmilodon> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.swinging && event.getController().getAnimationState().equals(AnimationController.State.PAUSED)) {
+            return event.setAndContinue(SMILO_BITE);
         }
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
-        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 10, this::Controller));
+        controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
     }
 
+    @Override
+    public double getTick(Object o) {
+        return 0;
+    }
 
 }

@@ -39,12 +39,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implements CustomFollower, IAttackEntity {
     private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.BOOLEAN);
@@ -53,6 +51,12 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     private Ingredient temptationItems;
     private int eatingTime;
 
+    private static final RawAnimation MEGATHERIUM_WALK = RawAnimation.begin().thenLoop("animation.megatherium.move");
+    private static final RawAnimation MEGATHERIUM_IDLE = RawAnimation.begin().thenLoop("animation.megatherium.idle");
+    private static final RawAnimation MEGATHERIUM_DIG = RawAnimation.begin().thenLoop("animation.megatherium.digging");
+    private static final RawAnimation MEGATHERIUM_SIT = RawAnimation.begin().thenLoop("animation.megatherium.sitting");
+    private static final RawAnimation MEGATHERIUM_SWIM = RawAnimation.begin().thenLoop("animation.megatherium.swim");
+    private static final RawAnimation MEGATHERIUM_EAT = RawAnimation.begin().thenLoop("animation.megatherium.eating");
 
     public EntityMegatherium(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
@@ -145,14 +149,15 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
 
     //TODO add positionRider to base class so we dont have to do all this again we can just use a method to fetch the offset
-    public void positionRider(Entity passenger) {
-            float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
-            float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-            if (!this.isInSittingPose()) {
-                passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
-                return;
-            }
-            passenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset() - 1.0, this.getZ() - (double) (0.5F * yCos));
+    @Override
+    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
+        float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+        float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+        if (!this.isInSittingPose()) {
+            pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
+            return;
+        }
+        pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() - 1.0, this.getZ() - (double) (0.5F * yCos));
     }
 
     //TODO add getPassengersRidingOffset to base class so we dont have to do all this again
@@ -172,7 +177,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         if(itemstack.is(UPItems.ENCYLOPEDIA.get())){
             InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         }
-        if (hand == InteractionHand.MAIN_HAND && !this.level.isClientSide) {
+        if (hand == InteractionHand.MAIN_HAND && !this.level().isClientSide) {
             if (isTame() && isOwnedBy(player)) {
                 if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                     if (!player.getAbilities().instabuild) {
@@ -410,52 +415,57 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         return null;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    protected <E extends EntityMegatherium> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isInSittingPose() && !this.isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.move"));
+            event.setAndContinue(MEGATHERIUM_WALK);
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.swim"));
+            event.setAndContinue(MEGATHERIUM_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.sitting"));
+            event.setAndContinue(MEGATHERIUM_SIT);
             return PlayState.CONTINUE;
         } else if (!this.isInWater() && !this.isSwimming()){
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.idle"));
+            event.setAndContinue(MEGATHERIUM_IDLE);
         }
         return PlayState.CONTINUE;
 
     }
 
-    private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
+    protected <E extends EntityMegatherium> PlayState eatController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isEating() && !this.isInSittingPose() && !this.isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.eating"));
+            event.setAndContinue(MEGATHERIUM_EAT);
             return PlayState.CONTINUE;
         }
-        event.getController().markNeedsReload();
+        event.getController().forceAnimationReset();
         return PlayState.STOP;
     }
 
-    private <E extends IAnimatable> PlayState diggingPredicate(AnimationEvent<E> event) {
-        if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationState.Stopped) && !this.isInSittingPose()) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.megatherium.digging"));
+    protected <E extends EntityMegatherium> PlayState digController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationController.State.STOPPED) && !this.isInSittingPose()) {
+            event.getController().forceAnimationReset();
+            event.setAndContinue(MEGATHERIUM_DIG);
         }
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityMegatherium> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "attackController", 2, this::diggingPredicate));
-        data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::eatPredicate));
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "Eat", 5, this::eatController));
+        controllers.add(new AnimationController<>(this, "Digging", 2, this::digController));
+
     }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
+    }
+
 }

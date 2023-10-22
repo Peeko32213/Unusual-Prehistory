@@ -22,6 +22,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -38,6 +39,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -45,12 +47,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+
 
 import java.util.EnumSet;
 import java.util.List;
@@ -65,7 +66,11 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
     public float feedProgress;
     private int rideCooldown = 0;
     public int soundTimer = 0;
-
+    private static final RawAnimation TALAPANAS_WALK = RawAnimation.begin().thenLoop("animation.talapanas.walk");
+    private static final RawAnimation TALAPANAS_IDLE = RawAnimation.begin().thenLoop("animation.talapanas.idle");
+    private static final RawAnimation TALAPANAS_SWIM = RawAnimation.begin().thenLoop("animation.talapanas.swim");
+    private static final RawAnimation TALAPANAS_SIT = RawAnimation.begin().thenLoop("animation.talapanas.sit");
+    private static final RawAnimation TALAPANAS_FORGE = RawAnimation.begin().thenLoop("animation.talapanas.forge");
     public EntityTalpanas(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
@@ -182,14 +187,6 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
         this.entityData.set(FEEDING_TIME, feedingTime);
     }
 
-    @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-       if(this.isPassenger() && pSource.isFall()){
-           return false;
-       }
-        return super.hurt(pSource, pAmount);
-    }
-
     public void tick() {
         super.tick();
         if (soundTimer > 0) {
@@ -271,7 +268,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source == DamageSource.IN_WALL || super.isInvulnerableTo(source);
+        return source.is(DamageTypes.FALL) || source.is(DamageTypes.IN_WALL);
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -372,7 +369,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
                     for (int lvt_7_1_ = 0; lvt_7_1_ <= lvt_6_1_; lvt_7_1_ = lvt_7_1_ > 0 ? -lvt_7_1_ : 1 - lvt_7_1_) {
                         for (int lvt_8_1_ = lvt_7_1_ < lvt_6_1_ && lvt_7_1_ > -lvt_6_1_ ? lvt_6_1_ : 0; lvt_8_1_ <= lvt_6_1_; lvt_8_1_ = lvt_8_1_ > 0 ? -lvt_8_1_ : 1 - lvt_8_1_) {
                             lvt_4_1_.setWithOffset(lvt_3_1_, lvt_7_1_, lvt_5_1_ - 1, lvt_8_1_);
-                            if (this.isDigBlock(crab.level, lvt_4_1_) && crab.canSeeBlock(lvt_4_1_)) {
+                            if (this.isDigBlock(crab.level(), lvt_4_1_) && crab.canSeeBlock(lvt_4_1_)) {
                                 this.destinationBlock = lvt_4_1_;
                                 return true;
                             }
@@ -403,8 +400,8 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
     }
 
     private static List<ItemStack> getDigLoot(EntityTalpanas crab) {
-        LootTable loottable = crab.level().getServer().getLootTables().get(TALAPANAS_REWARD);
-        return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level())).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level().random).create(LootContextParamSets.PIGLIN_BARTER));
+        LootTable loottable = crab.level().getServer().getLootData().getLootTable(TALAPANAS_REWARD);
+        return loottable.getRandomItems((new LootParams.Builder((ServerLevel) crab.level())).withParameter(LootContextParams.THIS_ENTITY, crab).create(LootContextParamSets.PIGLIN_BARTER));
     }
 
     @Override
@@ -533,44 +530,47 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
     }
 
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    protected <E extends EntityTalpanas> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isPassenger()&& !this.isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.walk"));
+            event.setAndContinue(TALAPANAS_WALK);
             return PlayState.CONTINUE;
         }
         if (this.isPassenger()&& !this.isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.sit"));
+            event.setAndContinue(TALAPANAS_SIT);
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.megatherium.swim"));
+            event.setAndContinue(TALAPANAS_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.idle"));
+            event.setAndContinue(TALAPANAS_IDLE);
         }
         return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
+    protected <E extends EntityTalpanas> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.getFeedingTime() > 0) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.talapanas.forge"));
+            event.setAndContinue(TALAPANAS_FORGE);
             return PlayState.CONTINUE;
         }
-        event.getController().markNeedsReload();
+        event.getController().forceAnimationReset();
         return PlayState.STOP;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(1);
-        AnimationController<EntityTalpanas> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::eatPredicate));
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 10, this::Controller));
+        controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
     }
 }

@@ -15,6 +15,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -32,6 +33,7 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -42,12 +44,12 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -62,6 +64,14 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
     private float sleepProgress = 0.0F;
     private float prevSleepProgress = 0.0F;
     private int stunnedTick;
+    private static final RawAnimation MEGALANIA_WALK = RawAnimation.begin().thenLoop("animation.megalania.walk");
+    private static final RawAnimation MEGALANIA_IDLE = RawAnimation.begin().thenLoop("animation.megalania.idle");
+    private static final RawAnimation MEGALANIA_SPRINT = RawAnimation.begin().thenLoop("animation.megalania.sprint");
+    private static final RawAnimation MEGALANIA_SWIM = RawAnimation.begin().thenLoop("animation.megalania.swim");
+    private static final RawAnimation MEGALANIA_REST = RawAnimation.begin().thenLoop("animation.megalania.resting");
+    private static final RawAnimation MEGALANIA_BITE = RawAnimation.begin().thenLoop("animation.megalania.bite");
+    private static final RawAnimation MEGALANIA_CLAW_SWIPE = RawAnimation.begin().thenLoop("animation.megalania.claw_swipe");
+    private static final RawAnimation MEGALANIA_TAIL_WHIP = RawAnimation.begin().thenLoop("animation.megalania.tail_whip");
 
     public EntityMegalania(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -207,12 +217,10 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         if (this.level().dimension() == Level.NETHER) {
             return true;
         } else {
-            int i = Mth.floor(this.getX());
-            int j = Mth.floor(this.getY());
-            int k = Mth.floor(this.getZ());
-            return this.level().getBiome(new BlockPos(i, 0, k)).value().shouldSnowGolemBurn(new BlockPos(i, j, k));
+            return this.level().getBiome(this.blockPosition()).is(BiomeTags.SNOW_GOLEM_MELTS);
         }
     }
+
 
     public boolean isColdBiome() {
         if (this.isNoAi()) {
@@ -342,7 +350,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         }
 
 
-        if(!this.level.isClientSide){
+        if(!this.level().isClientSide){
             if (this.isHotBiome() && !isInWaterRainOrBubble()) {
                 this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2);
                 this.setAsleep(false);
@@ -614,8 +622,8 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PALAEO_BITE.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.biteOffSet, 3f, 2f, 2f, (ServerLevel)this.mob.getLevel(), 5f, DamageSource.mobAttack(mob), 0.5f, false);
-            List<LivingEntity> list = this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(1));
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.biteOffSet, 3f, 2f, 2f, (ServerLevel)this.mob.level(), 5f, this.mob.damageSources().mobAttack(mob), 0.5f, false);
+            List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(1));
             for (LivingEntity e : list) {
                 if (!(e instanceof EntityMegalania) && e.isAlive()) {
                     e.addEffect(new MobEffectInstance(UPEffects.HEALTH_REDUCTION.get(), 400, 1, false, true, true));
@@ -626,13 +634,13 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         protected void preformClawAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.clawOffSet, 2f, 2f, 2f, (ServerLevel)this.mob.getLevel(), 8f, DamageSource.mobAttack(mob), 0.5f, true);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.clawOffSet, 2f, 2f, 2f, (ServerLevel)this.mob.level(), 8f, this.mob.damageSources().mobAttack(mob), 0.5f, true);
         }
 
         protected void preformWhipAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.whipOffSet, 5f, 1f, 5f, (ServerLevel)this.mob.getLevel(), 6f, DamageSource.mobAttack(mob), 1.1f, false);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.whipOffSet, 5f, 1f, 5f, (ServerLevel)this.mob.level(), 6f,this.mob.damageSources().mobAttack(mob), 1.1f, false);
         }
 
 
@@ -658,43 +666,44 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
         }
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+    protected <E extends EntityMegalania> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        int animState = this.getAnimationState();
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
-        int animState = this.getAnimationState();
         {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.megalania.bite"));
+                    event.setAndContinue(MEGALANIA_BITE);
                     break;
                 case 22:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.megalania.claw_swipe"));
+                    event.setAndContinue(MEGALANIA_CLAW_SWIPE);
                     break;
                 case 23:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.megalania.tail_whip"));
+                    event.setAndContinue(MEGALANIA_TAIL_WHIP);
                     break;
                 default:
                     if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isAsleep()  && !this.isSwimming()) {
                         if (this.isSprinting() || !this.getPassengers().isEmpty() && !this.isSwimming()) {
-                            event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.sprint"));
+                            event.setAndContinue(MEGALANIA_SPRINT);
                             return PlayState.CONTINUE;
                         } else if (event.isMoving() && !this.isAsleep() && !this.isSwimming()) {
-                            event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.walk"));
+                            event.setAndContinue(MEGALANIA_WALK);
                             return PlayState.CONTINUE;
                         }
                     }
                     if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.swim"));
+                        event.setAndContinue(MEGALANIA_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                     if (isAsleep() && !this.isSwimming()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.resting"));
+                        event.setAndContinue(MEGALANIA_REST);
                         return PlayState.CONTINUE;
                     }
-                     event.getController().setAnimation(new AnimationBuilder().loop("animation.megalania.idle"));
+                    event.setAndContinue(MEGALANIA_IDLE);
                     return PlayState.CONTINUE;
             }
         }
@@ -702,10 +711,13 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityMegalania> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
     }
 
 }

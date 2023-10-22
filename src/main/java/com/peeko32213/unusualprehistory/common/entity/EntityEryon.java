@@ -34,35 +34,36 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable {
+public class EntityEryon extends EntityBaseDinosaurAnimal{
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
-
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private Ingredient temptationItems;
     public float prevFeedProgress;
     public float feedProgress;
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation ERYON_WALK = RawAnimation.begin().thenLoop("animation.eryon.walk");
+    private static final RawAnimation ERYON_IDLE = RawAnimation.begin().thenLoop("animation.eryon.idle");
+    private static final RawAnimation ERYON_DIG = RawAnimation.begin().thenLoop("animation.eryon.dig");
 
     public EntityEryon(EntityType<? extends EntityBaseDinosaurAnimal> p_21683_, Level p_21684_) {
         super(p_21683_, p_21684_);
@@ -380,54 +381,59 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IAnimatable
     private boolean canSeeBlock(BlockPos destinationBlock) {
         Vec3 Vector3d = new Vec3(this.getX(), this.getEyeY(), this.getZ());
         Vec3 blockVec = net.minecraft.world.phys.Vec3.atCenterOf(destinationBlock);
-        BlockHitResult result = this.level.clip(new ClipContext(Vector3d, blockVec, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+        BlockHitResult result = this.level().clip(new ClipContext(Vector3d, blockVec, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         return result.getBlockPos().equals(destinationBlock);
     }
 
     private static List<ItemStack> getDigLoot(EntityEryon crab) {
-        LootTable loottable = crab.level().getServer().getLootTables().get(ERYON_REWARD);
-        return loottable.getRandomItems((new LootContext.Builder((ServerLevel) crab.level())).withParameter(LootContextParams.THIS_ENTITY, crab).withRandom(crab.level().random).create(LootContextParamSets.PIGLIN_BARTER));
+        LootTable loottable = crab.level().getServer().getLootData().getLootTable(ERYON_REWARD);
+        return loottable.getRandomItems((new LootParams.Builder((ServerLevel) crab.level())).withParameter(LootContextParams.THIS_ENTITY, crab).create(LootContextParamSets.PIGLIN_BARTER));
     }
 
     public boolean canBreatheUnderwater() {
         return true;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+    protected <E extends EntityEryon> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
             {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.eryon.walk"));
+                event.setAndContinue(ERYON_WALK);
                 event.getController().setAnimationSpeed(1.5D);
             }
         } else {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.eryon.idle"));
+            event.setAndContinue(ERYON_IDLE);
             event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState eatPredicate(AnimationEvent<E> event) {
+    protected <E extends EntityEryon> PlayState digController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.getFeedingTime() > 0) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.eryon.dig"));
+            event.setAndContinue(ERYON_DIG);
             return PlayState.CONTINUE;
         }
-        event.getController().markNeedsReload();
+        event.getController().forceAnimationReset();
         return PlayState.STOP;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::eatPredicate));
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "Normal", 10, this::digController));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
     }
 
 

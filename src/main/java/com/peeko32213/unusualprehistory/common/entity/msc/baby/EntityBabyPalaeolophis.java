@@ -36,22 +36,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements IAnimatable, IAnimationTickable, Bucketable {
+public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements GeoAnimatable, Bucketable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityBabyPalaeolophis.class, EntityDataSerializers.BOOLEAN);
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_palaeophis.swim");
     private int age;
     public EntityBabyPalaeolophis(EntityType<? extends EntityBaseAquaticAnimal> entityType, Level level) {
         super(entityType, level);
@@ -250,25 +249,30 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements I
         return SoundEvents.TADPOLE_FLOP;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    protected <E extends EntityBabyPalaeolophis> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.baby_palaeophis.move"));
+            event.setAndContinue(BABY_SWIM);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
     }
 
-
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
+    }
+    
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
         Level level = p_28134_.getLevel();
@@ -333,8 +337,4 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements I
         }
     }
 
-    @Override
-    public int tickTimer() {
-        return tickCount;
-    }
 }

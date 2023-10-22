@@ -22,23 +22,24 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
-public class EntitySludge extends Monster implements IAnimatable {
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+public class EntitySludge extends Monster implements GeoAnimatable {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntitySludge.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntitySludge.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntitySludge.class, EntityDataSerializers.INT);
-
+    private static final RawAnimation SLUDGE_CLAP = RawAnimation.begin().thenLoop("animation.sludge.clap");
+    private static final RawAnimation SLUDGE_WALK = RawAnimation.begin().thenLoop("animation.sludge.walk");
+    private static final RawAnimation SLUDGE_IDLE = RawAnimation.begin().thenLoop("animation.sludge.idle");
     public EntitySludge(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
@@ -328,41 +329,42 @@ public class EntitySludge extends Monster implements IAnimatable {
         }
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    protected <E extends EntitySludge> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
+        switch (animState) {
+
+            case 21:
+                event.getController().setAnimationSpeed(0.8F);
+                event.setAndContinue(SLUDGE_CLAP);
+                return PlayState.CONTINUE;
 
 
-
-            switch (animState) {
-
-                case 21:
-                    event.getController().setAnimationSpeed(0.8F);
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.sludge.clap"));
+            default:
+                if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
+                    event.setAndContinue(SLUDGE_WALK);
                     return PlayState.CONTINUE;
+                } else {
+                    event.getController().setAnimationSpeed(1.0);
+                    event.setAndContinue(SLUDGE_IDLE);
+                    return PlayState.CONTINUE;
+                }
 
-
-                default:
-                    if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.sludge.walk"));
-                        return PlayState.CONTINUE;
-                    } else {
-                        event.getController().setAnimationSpeed(1.0);
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.sludge.idle"));
-                        return PlayState.CONTINUE;
-                    }
-
-            }
+        }
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntitySludge> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public double getTick(Object o) {
+        return tickCount;
     }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
 }

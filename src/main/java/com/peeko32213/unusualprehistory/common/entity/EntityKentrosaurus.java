@@ -39,12 +39,12 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
@@ -67,7 +67,11 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
 
     private boolean orderedToSit;
     protected int attackCooldown = 0;
-
+    private static final RawAnimation KENTRO_WALK = RawAnimation.begin().thenLoop("animation.kentro.walk");
+    private static final RawAnimation KENTRO_IDLE = RawAnimation.begin().thenLoop("animation.kentro.idle");
+    private static final RawAnimation KENTRO_SIT = RawAnimation.begin().thenLoop("animation.kentro.laying");
+    private static final RawAnimation KENTRO_SWIM = RawAnimation.begin().thenLoop("animation.kentro.swim");
+    private static final RawAnimation KENTRO_SWIPE = RawAnimation.begin().thenLoop("animation.kentro.swipe");
 
     public EntityKentrosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -583,7 +587,12 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
         }
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
+
+    protected <E extends EntityKentrosaurus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
@@ -592,26 +601,26 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.kentro.swipe"));
+                    event.setAndContinue(KENTRO_SWIPE);
                     break;
                 default:
                     if (this.isInSittingPose()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.laying"));
+                        event.setAndContinue(KENTRO_SIT);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                     if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.swimming"));
+                        event.setAndContinue(KENTRO_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     } else if (event.isMoving() && !this.isInSittingPose()) {
                         {
-                            event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.walk"));
+                            event.setAndContinue(KENTRO_WALK);
                             event.getController().setAnimationSpeed(1.0F);
                             return PlayState.CONTINUE;
                         }
                     } else {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.kentro.idle"));
+                        event.setAndContinue(KENTRO_IDLE);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
@@ -623,9 +632,8 @@ public class EntityKentrosaurus extends EntityBaseDinosaurAnimal {
 
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityKentrosaurus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public double getTick(Object o) {
+        return tickCount;
     }
+
 }

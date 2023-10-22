@@ -29,12 +29,10 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -44,7 +42,10 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(EntityVelociraptor.class, EntityDataSerializers.INT);
 
     protected boolean pushingState = false;
-
+    private static final RawAnimation VELOCI_WALK = RawAnimation.begin().thenLoop("animation.velociraptor.walk");
+    private static final RawAnimation VELOCI_IDLE = RawAnimation.begin().thenLoop("animation.velociraptor.idle");
+    private static final RawAnimation VELOCI_ATTACK = RawAnimation.begin().thenLoop("animation.velociraptor.attack");
+    private static final RawAnimation VELOCI_SWIM = RawAnimation.begin().thenLoop("animation.velociraptor.swim");
     public EntityVelociraptor(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
@@ -389,45 +390,46 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
         return UPEntities.VELOCI.get().create(serverLevel);
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+    protected <E extends EntityVelociraptor> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.velociraptor.swim"));
+            event.setAndContinue(VELOCI_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
             {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.velociraptor.walk"));
+                event.setAndContinue(VELOCI_WALK);
                 event.getController().setAnimationSpeed(1.5D);
                 return PlayState.CONTINUE;
 
             }
         } else {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.velociraptor.idle"));
+            event.setAndContinue(VELOCI_IDLE);
             event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if (this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)) {
-            event.getController().markNeedsReload();
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.velociraptor.attack"));
-            this.swinging = false;
+    protected <E extends EntityVelociraptor> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.swinging && event.getController().getAnimationState().equals(AnimationController.State.PAUSED)) {
+            return event.setAndContinue(VELOCI_ATTACK);
         }
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityVelociraptor> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
     }
 
+    @Override
+    public double getTick(Object o) {
+        return 0;
+    }
 
 }

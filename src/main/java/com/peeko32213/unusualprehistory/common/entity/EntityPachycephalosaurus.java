@@ -41,20 +41,24 @@ import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implements IAnimatable {
+public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityPachycephalosaurus.class, EntityDataSerializers.INT);
-
+    private static final RawAnimation PACHY_HEADSWING_1 = RawAnimation.begin().thenLoop("animation.pachy.headswing1");
+    private static final RawAnimation PACHY_HEADSWING_2 = RawAnimation.begin().thenLoop("animation.pachy.headswing2");
+    private static final RawAnimation PACHY_ATTACK = RawAnimation.begin().thenLoop("animation.pachy.attack");
+    private static final RawAnimation PACHY_KICK = RawAnimation.begin().thenLoop("animation.pachy.kick");
+    private static final RawAnimation PACHY_SWIM = RawAnimation.begin().thenLoop("animation.pachy.swim");
+    private static final RawAnimation PACHY_WALK = RawAnimation.begin().thenLoop("animation.pachy.walk");
+    private static final RawAnimation PACHY_IDLE = RawAnimation.begin().thenLoop("animation.pachy.idle");
     public EntityPachycephalosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.0F);
@@ -282,8 +286,7 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
         return prev;
     }
 
-
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    protected <E extends EntityPachycephalosaurus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
@@ -292,28 +295,28 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
             switch (animState) {
 
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.pachy.headswing1"));
+                    event.setAndContinue(PACHY_HEADSWING_1);
                     break;
                 case 22:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.pachy.headswing2"));
+                    event.setAndContinue(PACHY_HEADSWING_2);
                     break;
                 case 23:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.pachy.attack"));
+                    event.setAndContinue(PACHY_ATTACK);
                     break;
                 case 24:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.pachy.kick"));
+                    event.setAndContinue(PACHY_KICK);
                     break;
                 default:
                     if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.pachy.swim"));
+                        event.setAndContinue(PACHY_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                     else if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F && !this.isInWater())) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.pachy.walk"));
+                        event.setAndContinue(PACHY_WALK);
                         return PlayState.CONTINUE;
                     } else if(!this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.pachy.idle"));
+                        event.setAndContinue(PACHY_IDLE);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
@@ -322,12 +325,14 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal implement
         return PlayState.CONTINUE;
     }
 
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityPachycephalosaurus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public double getTick(Object o) {
+        return tickCount;
     }
 
     static class PachyMeleeAttackGoal extends Goal {

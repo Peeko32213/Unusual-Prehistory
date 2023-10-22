@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
+import com.peeko32213.unusualprehistory.common.entity.EntityEryon;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.LandCreaturePathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
@@ -32,21 +33,21 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
-public class EntityBabyBarinasuchus extends EntityTameableBaseDinosaurAnimal implements IAnimatable {
+
+public class EntityBabyBarinasuchus extends EntityTameableBaseDinosaurAnimal {
 
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.CHICKEN);
     private int age;
+    private static final RawAnimation BABY_WALK = RawAnimation.begin().thenLoop("animation.baby_barinasuchus.walk");
+    private static final RawAnimation BABY_IDLE = RawAnimation.begin().thenLoop("animation.baby_barinasuchus.idle");
+    private static final RawAnimation BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_barinasuchus.swim");
 
     public EntityBabyBarinasuchus(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
@@ -84,7 +85,7 @@ public class EntityBabyBarinasuchus extends EntityTameableBaseDinosaurAnimal imp
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) this.setAge(this.age + 1);
+        if (!this.level().isClientSide) this.setAge(this.age + 1);
         super.aiStep();
     }
 
@@ -237,20 +238,18 @@ public class EntityBabyBarinasuchus extends EntityTameableBaseDinosaurAnimal imp
         return false;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isSwimming()) {
-            {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.baby_barinasuchus.walk"));
-                return PlayState.CONTINUE;
-            }
-        }
+    protected <E extends EntityBabyBarinasuchus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.baby_barinasuchus.swim"));
+            event.setAndContinue(BABY_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        else {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.baby_barinasuchus.idle"));
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+            event.setAndContinue(BABY_WALK);
+            event.getController().setAnimationSpeed(1.5D);
+        } else {
+            event.setAndContinue(BABY_IDLE);
+            event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
     }
@@ -258,15 +257,13 @@ public class EntityBabyBarinasuchus extends EntityTameableBaseDinosaurAnimal imp
 
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityBabyBarinasuchus> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public double getTick(Object o) {
+        return tickCount;
     }
 
 }

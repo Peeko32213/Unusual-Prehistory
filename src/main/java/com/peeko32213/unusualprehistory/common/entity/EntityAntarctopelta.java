@@ -416,12 +416,6 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
         return UPSounds.ANTARCTO_DEATH.get();
     }
 
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
     protected <E extends EntityAntarctopelta> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
 
@@ -449,6 +443,10 @@ public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
         return PlayState.CONTINUE;
     }
 
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
 
     @Override
     public double getTick(Object o) {

@@ -1,11 +1,13 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.EntityAntarctopelta;
 import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityBrachiosaurusTeenPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -17,6 +19,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
@@ -49,42 +52,40 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
+public class EntityBrachiosaurusTeen extends EntityBaseDinosaurAnimal {
     public static final Ingredient FOOD_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityBrachiosaurusTeen.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityBrachiosaurusTeen.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityBrachiosaurusTeen.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> HEAD_HEIGHT = SynchedEntityData.defineId(EntityBrachiosaurusTeen.class, EntityDataSerializers.FLOAT);
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public static final Logger LOGGER = LogManager.getLogger();
 
     public float prevHeadHeight = 0F;
     private int headPeakCooldown = 0;
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
     private int age;
-
     private int shakeCooldown = 0;
 
     public final EntityBrachiosaurusTeenPart neck;
     public final EntityBrachiosaurusTeenPart[] theEntireNeck;
     public final EntityBrachiosaurusTeenPart[] allParts;
+    private static final RawAnimation TEEN_WALK = RawAnimation.begin().thenLoop("animation.brachiosaurus.walk");
+    private static final RawAnimation TEEN_IDLE = RawAnimation.begin().thenLoop("animation.brachiosaurus.idle");
+    private static final RawAnimation TEEN_SWIM = RawAnimation.begin().thenLoop("animation.brachiosaurus.swim");
+    private static final RawAnimation TEEN_ATTACK = RawAnimation.begin().thenLoop("animation.brachiosaurus.attack");
     public EntityBrachiosaurusTeen(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(2.0F);
         this.neck = new EntityBrachiosaurusTeenPart(this, 3,5.3F);
         this.theEntireNeck = new EntityBrachiosaurusTeenPart[]{this.neck};
         this.allParts = new EntityBrachiosaurusTeenPart[]{this.neck};
@@ -190,6 +191,51 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
         } else {
             this.noActionTime = 0;
         }
+    }
+
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
     }
 
     private int getTicksUntilGrowth() {
@@ -333,7 +379,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
             Vec3 vec3 = new Vec3(neck.getX(), offset, neck.getZ());
             AABB axisalignedbb = AABB.ofSize(vec3, (double)f, 1.0E-6D, (double)f);
             return this.level().getBlockStates(axisalignedbb).filter(Predicate.not(BlockBehaviour.BlockStateBase::isAir)).anyMatch((p_185969_) -> {
-                BlockPos blockpos = BlockPos.containing(vec3.x ,vec3.y, vec3.z);
+                BlockPos blockpos = BlockPos.containing(vec3.x, vec3.y, vec3.z);
                 return p_185969_.isSuffocating(this.level(), blockpos) && Shapes.joinIsNotEmpty(p_185969_.getCollisionShape(this.level(), blockpos).move(vec3.x, vec3.y, vec3.z), Shapes.create(axisalignedbb), BooleanOp.AND);
             });
         }
@@ -689,9 +735,7 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
             return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
         }
     }
-
-
-
+    
 
     @Nullable
     @Override
@@ -700,46 +744,41 @@ public class EntityBrachiosaurusTeen extends Animal implements IAnimatable {
     }
 
 
-
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    protected <E extends EntityBrachiosaurusTeen> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
-        {
-            switch (animState) {
 
+        if(!this.isFromBook()) {
+            switch (animState) {
                 case 21:
-                    event.getController().setAnimation(new AnimationBuilder().playOnce("animation.brachiosaurus.attack"));
+                    event.setAndContinue(TEEN_ATTACK);
                     break;
                 default:
                     if (this.isInWater()) {
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.swim"));
+                        event.setAndContinue(TEEN_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                     }
-                    else if(event.isMoving()){
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.walk"));
-                        event.getController().setAnimationSpeed(1.5D);
-                    }
-                    else{
-                        event.getController().setAnimation(new AnimationBuilder().loop("animation.brachiosaurus.idle"));
+                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
+                        {
+                            event.setAndContinue(TEEN_WALK);
+                            event.getController().setAnimationSpeed(1.0F);
+                        }
+                    } else if (!this.isInWater()) {
+                        event.setAndContinue(TEEN_IDLE);
                         event.getController().setAnimationSpeed(1.0F);
                     }
-
-                    break;
-
             }
         }
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityBrachiosaurusTeen> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public double getTick(Object o) {
+        return tickCount;
     }
 
 

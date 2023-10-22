@@ -39,22 +39,23 @@ import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
 
 public class EntityEncrusted extends RangedMeleeMob implements GeoAnimatable, IBookEntity {
     private static final EntityDataAccessor<Boolean> SPITTING = SynchedEntityData.defineId(EntityEncrusted.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityEncrusted.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation ENCRUSTED_SPRINT = RawAnimation.begin().thenLoop("animation.encrusted.sprint");
+    private static final RawAnimation ENCRUSTED_WALK = RawAnimation.begin().thenLoop("animation.encrusted.walk");
+    private static final RawAnimation ENCRUSTED_IDLE = RawAnimation.begin().thenLoop("animation.encrusted.idle");
+    private static final RawAnimation ENCRUSTED_ATTACK = RawAnimation.begin().thenLoop("animation.encrusted.attack");
+    private static final RawAnimation ENCRUSTED_SHOOT = RawAnimation.begin().thenLoop("animation.encrusted.shoot");
 
     public EntityEncrusted(EntityType<? extends RangedMeleeMob> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1.0F);
     }
 
 
@@ -166,23 +167,6 @@ public class EntityEncrusted extends RangedMeleeMob implements GeoAnimatable, IB
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
     }
 
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
-    }
-
-
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.hasCustomName();
     }
@@ -217,56 +201,58 @@ public class EntityEncrusted extends RangedMeleeMob implements GeoAnimatable, IB
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    protected <E extends EntityEncrusted> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
         if(event.isMoving()){
             if(this.isAggressive()) {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.encrusted.sprint"));
+                event.setAndContinue(ENCRUSTED_SPRINT);
                 event.getController().setAnimationSpeed(1.0F);
             } else {
-                event.getController().setAnimation(new AnimationBuilder().loop("animation.encrusted.walk"));
+                event.setAndContinue(ENCRUSTED_WALK);
                 event.getController().setAnimationSpeed(1.0F);
             }
         }else{
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.encrusted.idle"));
+            event.setAndContinue(ENCRUSTED_IDLE);
             event.getController().setAnimationSpeed(1.0F);
         }
         return PlayState.CONTINUE;
     }
 
-
-
-
-
-    private <E extends IAnimatable> PlayState predicate1(AnimationEvent<E> event) {
-
+    protected <E extends EntityEncrusted> PlayState Attack(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
         if (this.entityData.get(STATE) == 1 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.encrusted.attack"));
+            event.setAndContinue(ENCRUSTED_ATTACK);
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
     }
 
-    private <E extends IAnimatable> PlayState predicate2(AnimationEvent<E> event) {
+    protected <E extends EntityEncrusted> PlayState Shoot(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.entityData.get(STATE) == 2 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.encrusted.shoot"));
+            event.setAndContinue(ENCRUSTED_SHOOT);
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityEncrusted> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        AnimationController<EntityEncrusted> controller1 = new AnimationController<EntityEncrusted>(this, "controller1", 0, this::predicate1);
-        AnimationController<EntityEncrusted> controller2 = new AnimationController<EntityEncrusted>(this, "controller2", 0, this::predicate2);
-        data.addAnimationController(controller);
-        data.addAnimationController(controller1);
-        data.addAnimationController(controller2);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "Attack", 0, this::Attack));
+        controllers.add(new AnimationController<>(this, "Shoot", 0, this::Shoot));
+
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
     }
 
     public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends EntityEncrusted> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {

@@ -34,18 +34,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.Collections;
 import java.util.List;
@@ -58,7 +57,10 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
     private Ingredient temptationItems;
     public SimpleContainer mammothInventory;
     private int dirtyCooldown;
-
+    private static final RawAnimation MAMMOTH_WALK = RawAnimation.begin().thenLoop("animation.mammoth.move");
+    private static final RawAnimation MAMMOTH_IDLE = RawAnimation.begin().thenLoop("animation.mammoth.idle");
+    private static final RawAnimation MAMMOTH_SWIM = RawAnimation.begin().thenLoop("animation.mammoth.swim");
+    private static final RawAnimation MAMMOTH_TRUNK = RawAnimation.begin().thenLoop("animation.mammoth.idle_trunk");
     public EntityMammoth(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         initMammothInventory();
@@ -234,10 +236,9 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
 
     private static List<ItemStack> getShearLoot(EntityMammoth mammoth) {
         if (!mammoth.level().isClientSide) {
-            LootTable loottable = mammoth.level().getServer().getLootTables().get(MAMMOTH_LOOT);
-            return loottable.getRandomItems((new LootContext.Builder((ServerLevel) mammoth.level()))
+            LootTable loottable = mammoth.level().getServer().getLootData().getLootTable(MAMMOTH_LOOT);
+            return loottable.getRandomItems((new LootParams.Builder((ServerLevel) mammoth.level()))
                     .withParameter(LootContextParams.THIS_ENTITY, mammoth)
-                    .withRandom(mammoth.level().random)
                     .withParameter(LootContextParams.ORIGIN, mammoth.position())
                     .create(LootContextParamSets.CHEST));
         }
@@ -367,37 +368,41 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
         return null;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    protected <E extends EntityMammoth> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.mammoth.swim"));
+            event.setAndContinue(MAMMOTH_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6  && !this.isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().loop("animation.mammoth.move"));
+            event.setAndContinue(MAMMOTH_WALK);
             return PlayState.CONTINUE;
         }
-        event.getController().setAnimation(new AnimationBuilder().loop("animation.mammoth.idle"));
+        event.setAndContinue(MAMMOTH_IDLE);
         return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState trunkPredicate(AnimationEvent<E> event) {
+    protected <E extends EntityMammoth> PlayState trunkController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isTrunking() && !this.isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.mammoth.idle_trunk"));
+            event.setAndContinue(MAMMOTH_TRUNK);
             return PlayState.CONTINUE;
         }
-        event.getController().markNeedsReload();
+        event.getController().forceAnimationReset();
         return PlayState.STOP;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        AnimationController<EntityMammoth> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        data.addAnimationController(new AnimationController<>(this, "eatController", 5, this::trunkPredicate));
-        data.addAnimationController(controller);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::trunkController));
     }
+
+    @Override
+    public double getTick(Object o) {
+        return tickCount;
+    }
+
 }
