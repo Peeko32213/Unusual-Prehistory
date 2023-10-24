@@ -1,4 +1,4 @@
-/*package com.peeko32213.unusualprehistory.core.registry;
+package com.peeko32213.unusualprehistory.core.registry;
 
 import com.google.common.collect.ImmutableList;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiFoliagePl
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoFoliagePlacer;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.trunkplacer.GiantTrunkPlacerWithRoots;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -37,7 +38,7 @@ public class UPConfiguredFeatures {
 
     public static List<String> configuredFeatureList = new ArrayList<>();
 
-    public static final DeferredRegister<ConfiguredFeature<?,?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, UnusualPrehistory.MODID);
+    public static final DeferredRegister<ConfiguredFeature<?,?>> CONFIGURED_FEATURES = DeferredRegister.create(Registries.CONFIGURED_FEATURE, UnusualPrehistory.MODID);
 
     private static final String PETRIFIED_WOOD_FOREST_FEATURE_NAME = "petrified_wood_forest_feature_name";
 
@@ -96,4 +97,3 @@ public class UPConfiguredFeatures {
     }
 
 }
-*/

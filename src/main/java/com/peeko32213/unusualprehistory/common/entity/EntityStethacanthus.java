@@ -272,7 +272,7 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
 
     @Override
     public double getTick(Object o) {
-        return 0;
+        return tickCount;
     }
 
     @Nullable

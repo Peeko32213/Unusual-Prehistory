@@ -1,10 +1,11 @@
-/*package com.peeko32213.unusualprehistory.core.registry;
+package com.peeko32213.unusualprehistory.core.registry;
 
 import com.google.common.collect.ImmutableList;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Blocks;
@@ -21,7 +22,7 @@ import java.util.function.Supplier;
 public class UPPlacedFeatures {
     public static List<String> placedFeatureList = new ArrayList<>();
 
-    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, UnusualPrehistory.MODID);
+    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registries.PLACED_FEATURE, UnusualPrehistory.MODID);
 
     private static final String PETRIFIED_WOOD_FOREST_FEATURE_NAME_PLACED = "petrified_wood_forest_feature_placed";
 
@@ -123,4 +124,3 @@ public class UPPlacedFeatures {
 
 }
 
-*/

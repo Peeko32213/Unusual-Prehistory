@@ -38,13 +38,14 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAnimatable, IBookEntity {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
-    private static final RawAnimation SCAU_SWIM = RawAnimation.begin().thenLoop("animation.scaumenacia.swim");
+    private static final RawAnimation SCAU_SWIM = RawAnimation.begin().thenLoop("animation.scaumenacia.move");
 
 
 
@@ -176,8 +177,19 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
         return stack;
     }
 
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "animation.scaumenacia.swim", 0, state -> state.setAndContinue(SCAU_SWIM)));
+    protected <E extends EntityScaumenacia> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if(!this.isFromBook()) {
+            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
+                event.setAndContinue(SCAU_SWIM);
+                return PlayState.CONTINUE;
+            }
+        }
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     @Override
@@ -187,7 +199,7 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
 
     @Override
     public double getTick(Object o) {
-        return 0;
+        return tickCount;
     }
 
     @Nullable

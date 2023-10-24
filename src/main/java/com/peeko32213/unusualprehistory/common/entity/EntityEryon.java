@@ -399,13 +399,9 @@ public class EntityEryon extends EntityBaseDinosaurAnimal{
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
-            {
                 event.setAndContinue(ERYON_WALK);
-                event.getController().setAnimationSpeed(1.5D);
-            }
         } else {
             event.setAndContinue(ERYON_IDLE);
-            event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
     }
