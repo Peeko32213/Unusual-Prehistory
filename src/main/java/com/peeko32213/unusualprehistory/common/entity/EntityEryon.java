@@ -394,14 +394,19 @@ public class EntityEryon extends EntityBaseDinosaurAnimal{
     }
 
 
+
     protected <E extends EntityEryon> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
-                event.setAndContinue(ERYON_WALK);
+             {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.eryon.walk"));
+                event.getController().setAnimationSpeed(1.5D);
+            }
         } else {
-            event.setAndContinue(ERYON_IDLE);
+            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.eryon.idle"));
+            event.getController().setAnimationSpeed(1.0D);
         }
         return PlayState.CONTINUE;
     }
@@ -418,7 +423,7 @@ public class EntityEryon extends EntityBaseDinosaurAnimal{
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        controllers.add(new AnimationController<>(this, "Normal", 10, this::digController));
+        controllers.add(new AnimationController<>(this, "Dig", 10, this::digController));
     }
 
     @Override
