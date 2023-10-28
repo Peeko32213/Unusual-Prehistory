@@ -239,9 +239,9 @@ public class EntityEncrusted extends RangedMeleeMob implements GeoAnimatable, IB
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        controllers.add(new AnimationController<>(this, "Attack", 0, this::Attack));
-        controllers.add(new AnimationController<>(this, "Shoot", 0, this::Shoot));
+        controllers.add(new AnimationController<>(this, "controller", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "attack", 0, this::Attack));
+        controllers.add(new AnimationController<>(this, "shoot", 0, this::Shoot));
     }
 
     @Override
