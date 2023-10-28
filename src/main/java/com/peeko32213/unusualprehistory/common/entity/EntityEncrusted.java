@@ -202,20 +202,27 @@ public class EntityEncrusted extends RangedMeleeMob implements GeoAnimatable, IB
     }
 
     private <E extends EntityEncrusted> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
-        }
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6){
-            if(this.isAggressive()) {
-                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.encrusted.sprint"));
+        } else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+            if (this.isSprinting()) {
+                event.setAndContinue(ENCRUSTED_SPRINT);
                 event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
             } else {
-                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.encrusted.walk"));
+                event.setAndContinue(ENCRUSTED_WALK);
                 event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
+
             }
-        }else{
-            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.encrusted.idle"));
-            event.getController().setAnimationSpeed(1.0F);
+        }
+        else{
+
+            if (!this.isInWater()) {
+                event.setAndContinue(ENCRUSTED_IDLE);
+                event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
+            }
         }
         return PlayState.CONTINUE;
     }
