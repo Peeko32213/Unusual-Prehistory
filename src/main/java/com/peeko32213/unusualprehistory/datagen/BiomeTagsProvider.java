@@ -47,7 +47,7 @@ public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider
         tag(UPTags.IS_PALAEO_BIOME).add(Biomes.WARM_OCEAN);
         tag(UPTags.IS_MEGATHERIUM_BIOME).add(Biomes.SAVANNA);
         tag(UPTags.IS_SMILODON_BIOME).addTag(Tags.Biomes.IS_COLD).addTag(Tags.Biomes.IS_MOUNTAIN);
-        tag(UPTags.IS_TALAPANAS_BIOME).add(Biomes.LUSH_CAVES);
+        tag(UPTags.IS_TALPANAS_BIOME).add(Biomes.LUSH_CAVES);
         tag(UPTags.IS_PARACER_BIOME).add(Biomes.SAVANNA);
         tag(UPTags.IS_MEGALANIA_BIOME).addTags(Tags.Biomes.IS_HOT_OVERWORLD);
         tag(UPTags.IS_BARINA_BIOME).add(Biomes.SPARSE_JUNGLE);

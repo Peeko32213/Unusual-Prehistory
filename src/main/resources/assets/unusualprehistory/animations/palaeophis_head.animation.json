@@ -29,7 +29,7 @@
 				"Tounge": {
 					"rotation": {
 						"vector": [
-							"Math.cos((query.anim_time - 0.2) * 180) * 2(0.4)",
+							"Math.cos((query.anim_time - 0.2) * 180) * 2",
 							"Math.sin((query.anim_time - 0.2) * 180) * -2",
 							"Math.cos((query.anim_time - 0.2) * 180) * -1"
 						]

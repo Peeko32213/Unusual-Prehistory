@@ -34,11 +34,6 @@
 						"vector": ["35 + Math.cos((query.anim_time - 0.0) * 360) * -3", 0, 0]
 					}
 				},
-				"Arm2": {
-					"rotation": {
-						"vector": ["35 + Math.cos((query.anim_time - 0.0) * 360) * -3", 0, 0]
-					}
-				},
 				"Neck": {
 					"rotation": {
 						"vector": ["Math.cos((query.anim_time - 0.2) * 360) * 1", 0, "Math.sin((query.anim_time - 0.2) * 360) * 1"]
@@ -50,16 +45,6 @@
 				"HeadCrest": {
 					"rotation": {
 						"vector": ["-30 + Math.cos((query.anim_time - 0.0) * 360) * -3", 0, 0]
-					}
-				},
-				"SideCrest1": {
-					"rotation": {
-						"vector": ["-44.6137 + Math.cos((query.anim_time - 0.0) * 360) * -5", 19.3688, 35.39956]
-					}
-				},
-				"SideCrest2": {
-					"rotation": {
-						"vector": ["-44.6137 + Math.cos((query.anim_time - 0.0) * 360) * -5", -19.3688, -35.3996]
 					}
 				},
 				"Leg1": {
@@ -110,6 +95,11 @@
 				"Austroraptor": {
 					"position": {
 						"vector": [0, 0, 0]
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": ["35 + Math.cos((query.anim_time - 0.0) * 360) * -3", 0, 0]
 					}
 				}
 			}
@@ -263,22 +253,6 @@
 						}
 					}
 				},
-				"Arm2": {
-					"rotation": {
-						"0.0": {
-							"vector": [-120, 55, 0]
-						},
-						"0.1667": {
-							"vector": [-45, 55, 0]
-						},
-						"0.3333": {
-							"vector": [-25, 55, 0]
-						},
-						"0.5": {
-							"vector": [0, 55, 0]
-						}
-					}
-				},
 				"Neck": {
 					"rotation": {
 						"0.0": {
@@ -333,16 +307,6 @@
 				"HeadCrest": {
 					"rotation": {
 						"vector": ["10 + Math.cos((query.anim_time - 0.0) * 720) * 10", 0, 0]
-					}
-				},
-				"SideCrest1": {
-					"rotation": {
-						"vector": ["15.7976 + Math.cos((query.anim_time - 0.0) * 720) * 10", "27.1557 + Math.cos((query.anim_time - 0.0) * 720) * 10", -7.26456]
-					}
-				},
-				"SideCrest2": {
-					"rotation": {
-						"vector": ["15.7976 + Math.cos((query.anim_time - 0.0) * 720) * 10", "--27.1557 + Math.cos((query.anim_time - 0.0) * 720) * - 10", 7.2646]
 					}
 				},
 				"Leg1": {
@@ -406,6 +370,22 @@
 					"scale": {
 						"vector": [0.1, 0.1, 0.1]
 					}
+				},
+				"Arm2": {
+					"rotation": {
+						"0.0": {
+							"vector": [-120, 55, 0]
+						},
+						"0.1667": {
+							"vector": [-45, 35, 0]
+						},
+						"0.3333": {
+							"vector": [-25, 15, 0]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						}
+					}
 				}
 			}
 		},
@@ -439,11 +419,6 @@
 					}
 				},
 				"Arm1": {
-					"rotation": {
-						"vector": [55, 0, 0]
-					}
-				},
-				"Arm2": {
 					"rotation": {
 						"vector": [55, 0, 0]
 					}
@@ -499,6 +474,11 @@
 				"Austroraptor": {
 					"position": {
 						"vector": [0, -17, 0]
+					}
+				},
+				"Arm2": {
+					"rotation": {
+						"vector": [55, 0, 0]
 					}
 				}
 			}

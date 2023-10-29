@@ -76,12 +76,12 @@
 				},
 				"LegPart1": {
 					"rotation": {
-						"vector": [0, 0, "Math.sin((query.anim_time+) * 360) * 10"]
+						"vector": [0, 0, "Math.sin((query.anim_time) * 360) * 10"]
 					}
 				},
 				"Foot1": {
 					"rotation": {
-						"vector": [0, 0, "Math.sin((query.anim_time+) * 360) * 10"]
+						"vector": [0, 0, "Math.sin((query.anim_time) * 360) * 10"]
 					}
 				},
 				"Leg2": {
@@ -91,12 +91,12 @@
 				},
 				"LegPart2": {
 					"rotation": {
-						"vector": [0, 0, "Math.sin((query.anim_time+) * 360) * 10"]
+						"vector": [0, 0, "Math.sin((query.anim_time) * 360) * 10"]
 					}
 				},
 				"Foot2": {
 					"rotation": {
-						"vector": [0, 0, "Math.sin((query.anim_time+) * 360) * 10"]
+						"vector": [0, 0, "Math.sin((query.anim_time) * 360) * 10"]
 					}
 				},
 				"Leg3": {
@@ -302,12 +302,12 @@
 				},
 				"LegPart1": {
 					"rotation": {
-						"vector": [0, 0, "Math.sin((query.anim_time+) * 720) * 20"]
+						"vector": [0, 0, "Math.sin((query.anim_time) * 720) * 20"]
 					}
 				},
 				"Foot1": {
 					"rotation": {
-						"vector": [0, 0, "Math.sin((query.anim_time+) * 720) * 10"]
+						"vector": [0, 0, "Math.sin((query.anim_time) * 720) * 10"]
 					}
 				},
 				"Leg2": {
@@ -317,12 +317,12 @@
 				},
 				"LegPart2": {
 					"rotation": {
-						"vector": [0, 0, "Math.sin((query.anim_time+) * 720) * 20"]
+						"vector": [0, 0, "Math.sin((query.anim_time) * 720) * 20"]
 					}
 				},
 				"Foot2": {
 					"rotation": {
-						"vector": [0, 0, "Math.sin((query.anim_time+) * 720) * 10"]
+						"vector": [0, 0, "Math.sin((query.anim_time) * 720) * 10"]
 					}
 				},
 				"Leg3": {

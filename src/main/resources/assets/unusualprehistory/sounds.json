@@ -1169,61 +1169,61 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.paracer_stomp"
   },
-  "talapanas_death": {
+  "talpanas_death": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:talapanas_death_0",
+        "name": "unusualprehistory:talpanas_death_0",
         "volume": 0.2
       },
       {
-        "name": "unusualprehistory:talapanas_death_1",
+        "name": "unusualprehistory:talpanas_death_1",
         "volume": 0.2
       }
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.talapanas_death"
+    "subtitle": "unusualprehistory.sound.subtitle.talpanas_death"
   },
-  "talapanas_hurt": {
+  "talpanas_hurt": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:talapanas_hurt_0",
+        "name": "unusualprehistory:talpanas_hurt_0",
         "volume": 0.2
       },
       {
-        "name": "unusualprehistory:talapanas_hurt_1",
+        "name": "unusualprehistory:talpanas_hurt_1",
         "volume": 0.2
       }
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.talapanas_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.talpanas_hurt"
   },
-  "talapanas_panic": {
+  "talpanas_panic": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:talapanas_panic_0",
+        "name": "unusualprehistory:talpanas_panic_0",
         "volume": 0.2
       }
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.talapanas_panic"
+    "subtitle": "unusualprehistory.sound.subtitle.talpanas_panic"
   },
-  "talapanas_idle": {
+  "talpanas_idle": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "unusualprehistory:talapanas_idle_0",
+        "name": "unusualprehistory:talpanas_idle_0",
         "volume": 0.2
       },
       {
-        "name": "unusualprehistory:talapanas_idle_1",
+        "name": "unusualprehistory:talpanas_idle_1",
         "volume": 0.2
       },
       {
-        "name": "unusualprehistory:talapanas_idle_2",
+        "name": "unusualprehistory:talpanas_idle_2",
         "volume": 0.2
       }
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.talapanas_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.talpanas_idle"
   },
   "crocarina": {
     "category": "records",

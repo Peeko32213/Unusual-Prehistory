@@ -58,17 +58,17 @@ import java.util.Optional;
 public class EntityTalpanas extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EntityTalpanas.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityTalpanas.class, EntityDataSerializers.INT);
-    public static final ResourceLocation TALAPANAS_REWARD = new ResourceLocation("unusualprehistory", "gameplay/talpanas_reward");
+    public static final ResourceLocation TALPANAS_REWARD = new ResourceLocation("unusualprehistory", "gameplay/talpanas_reward");
     private Ingredient temptationItems;
     public float prevFeedProgress;
     public float feedProgress;
     private int rideCooldown = 0;
     public int soundTimer = 0;
-    private static final RawAnimation TALAPANAS_WALK = RawAnimation.begin().thenLoop("animation.talapanas.walk");
-    private static final RawAnimation TALAPANAS_IDLE = RawAnimation.begin().thenLoop("animation.talapanas.idle");
-    private static final RawAnimation TALAPANAS_SWIM = RawAnimation.begin().thenLoop("animation.talapanas.swim");
-    private static final RawAnimation TALAPANAS_SIT = RawAnimation.begin().thenLoop("animation.talapanas.sit");
-    private static final RawAnimation TALAPANAS_FORGE = RawAnimation.begin().thenLoop("animation.talapanas.forge");
+    private static final RawAnimation TALPANAS_WALK = RawAnimation.begin().thenLoop("animation.talpanas.walk");
+    private static final RawAnimation TALPANAS_IDLE = RawAnimation.begin().thenLoop("animation.talpanas.idle");
+    private static final RawAnimation TALPANAS_SWIM = RawAnimation.begin().thenLoop("animation.talpanas.swim");
+    private static final RawAnimation TALPANAS_SIT = RawAnimation.begin().thenLoop("animation.talpanas.sit");
+    private static final RawAnimation TALPANAS_FORGE = RawAnimation.begin().thenLoop("animation.talpanas.forge");
     public EntityTalpanas(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
@@ -380,7 +380,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
         }
 
         private boolean isDigBlock(Level world, BlockPos.MutableBlockPos pos) {
-            return world.getBlockState(pos).is(UPTags.TALAPANAS_DIGGABLES);
+            return world.getBlockState(pos).is(UPTags.TALPANAS_DIGGABLES);
         }
 
     }
@@ -398,7 +398,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
     }
 
     private static List<ItemStack> getDigLoot(EntityTalpanas crab) {
-        LootTable loottable = crab.level().getServer().getLootData().getLootTable(TALAPANAS_REWARD);
+        LootTable loottable = crab.level().getServer().getLootData().getLootTable(TALPANAS_REWARD);
         return loottable.getRandomItems((new LootParams.Builder((ServerLevel) crab.level())).withParameter(LootContextParams.THIS_ENTITY, crab).create(LootContextParamSets.PIGLIN_BARTER));
     }
 
@@ -534,27 +534,27 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isPassenger()&& !this.isSwimming()) {
-            event.setAndContinue(TALAPANAS_WALK);
+            event.setAndContinue(TALPANAS_WALK);
             return PlayState.CONTINUE;
         }
         if (this.isPassenger()&& !this.isSwimming()) {
-            event.setAndContinue(TALAPANAS_SIT);
+            event.setAndContinue(TALPANAS_SIT);
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.setAndContinue(TALAPANAS_SWIM);
+            event.setAndContinue(TALPANAS_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         else {
-            event.setAndContinue(TALAPANAS_IDLE);
+            event.setAndContinue(TALPANAS_IDLE);
         }
         return PlayState.CONTINUE;
     }
 
-    protected <E extends EntityTalpanas> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    protected <E extends EntityTalpanas> PlayState digController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.getFeedingTime() > 0) {
-            event.setAndContinue(TALAPANAS_FORGE);
+            event.setAndContinue(TALPANAS_FORGE);
             return PlayState.CONTINUE;
         }
         event.getController().forceAnimationReset();
@@ -564,7 +564,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 10, this::Controller));
-        controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
+        controllers.add(new AnimationController<>(this, "Attack", 0, this::digController));
     }
 
     @Override

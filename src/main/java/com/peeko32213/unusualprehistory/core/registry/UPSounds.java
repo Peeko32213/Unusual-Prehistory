@@ -112,10 +112,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> PARACER_HURT = createSoundEvent("paracer_hurt");
     public static final RegistryObject<SoundEvent> PARACER_IDLE = createSoundEvent("paracer_idle");
     public static final RegistryObject<SoundEvent> PARACER_STOMP = createSoundEvent("paracer_stomp");
-    public static final RegistryObject<SoundEvent> TALPANAS_DEATH = createSoundEvent("talapanas_death");
-    public static final RegistryObject<SoundEvent> TALPANAS_HURT = createSoundEvent("talapanas_hurt");
-    public static final RegistryObject<SoundEvent> TALPANAS_IDLE = createSoundEvent("talapanas_idle");
-    public static final RegistryObject<SoundEvent> TALPANAS_PANIC = createSoundEvent("talapanas_panic");
+    public static final RegistryObject<SoundEvent> TALPANAS_DEATH = createSoundEvent("talpanas_death");
+    public static final RegistryObject<SoundEvent> TALPANAS_HURT = createSoundEvent("talpanas_hurt");
+    public static final RegistryObject<SoundEvent> TALPANAS_IDLE = createSoundEvent("talpanas_idle");
+    public static final RegistryObject<SoundEvent> TALPANAS_PANIC = createSoundEvent("talpanas_panic");
     public static final RegistryObject<SoundEvent> CROCARINA = createSoundEvent("crocarina");
     public static final RegistryObject<SoundEvent> BARINA_DEATH = createSoundEvent("barina_death");
     public static final RegistryObject<SoundEvent> BARINA_HURT = createSoundEvent("barina_hurt");

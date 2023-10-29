@@ -113,7 +113,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
         tag(UPTags.ERYON_DIGGABLES)
                 .add(Blocks.SAND);
 
-        tag(UPTags.TALAPANAS_DIGGABLES)
+        tag(UPTags.TALPANAS_DIGGABLES)
                 .add(Blocks.ROOTED_DIRT);
 
 

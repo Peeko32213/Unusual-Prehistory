@@ -101,7 +101,7 @@ public class UPTags {
     public static final TagKey<Block> REX_BREAKABLES = registerBlockTag("rex_breakables");
     public static final TagKey<Block> ANGRY_BRACHI_BREAKABLES = registerBlockTag("angry_brachi_breakables");
     public static final TagKey<Block> ERYON_DIGGABLES = registerBlockTag("eryon_diggables");
-    public static final TagKey<Block> TALAPANAS_DIGGABLES = registerBlockTag("talapanas_diggables");
+    public static final TagKey<Block> TALPANAS_DIGGABLES = registerBlockTag("talpanas_diggables");
 
     public static final TagKey<Block> DINO_HATCHABLE_BLOCKS = registerBlockTag("dino_hatchable_blocks");
 
@@ -141,7 +141,7 @@ public class UPTags {
     public static final TagKey<Biome> IS_PALAEO_BIOME = registerBiomeTag("is_palaeo_biome");
     public static final TagKey<Biome> IS_MEGATHERIUM_BIOME = registerBiomeTag("is_megatherium_biome");
     public static final TagKey<Biome> IS_SMILODON_BIOME = registerBiomeTag("is_smilodon_biome");
-    public static final TagKey<Biome> IS_TALAPANAS_BIOME = registerBiomeTag("is_talapanas_biome");
+    public static final TagKey<Biome> IS_TALPANAS_BIOME = registerBiomeTag("is_talpanas_biome");
     public static final TagKey<Biome> IS_PARACER_BIOME = registerBiomeTag("is_paracer_biome");
     public static final TagKey<Biome> IS_MEGALANIA_BIOME = registerBiomeTag("is_megalania_biome");
     public static final TagKey<Biome> IS_BARINA_BIOME = registerBiomeTag("is_barina_biome");

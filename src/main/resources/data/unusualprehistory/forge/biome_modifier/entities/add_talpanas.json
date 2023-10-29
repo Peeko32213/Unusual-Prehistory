@@ -1,8 +1,8 @@
 {
   "type": "forge:add_spawns",
-  "biomes": "#unusualprehistory:is_talapanas_biome",
+  "biomes": "#unusualprehistory:is_talpanas_biome",
   "spawners": {
-    "type": "unusualprehistory:talapanas",
+    "type": "unusualprehistory:talpanas",
     "weight": 2,
     "minCount": 2,
     "maxCount": 4,

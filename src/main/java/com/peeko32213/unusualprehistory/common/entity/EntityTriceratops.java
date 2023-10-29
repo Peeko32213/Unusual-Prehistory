@@ -734,23 +734,45 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     protected <E extends EntityTriceratops> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-         if (event.isMoving()) {
-            if (this.isSprinting()) {
-                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.trike.run"));
-            } else {
-                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.trike.move"));
-            }
-             event.getController().setAnimationSpeed(1.0F);
-             return PlayState.CONTINUE;
-         } else if (this.hasChargeCooldown() && this.hasTarget()) {
-             event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.trike.prep"));
-             event.getController().setAnimationSpeed(1.0F);
-             return PlayState.CONTINUE;
-        } else {
-             event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.trike.idle"));
-             event.getController().setAnimationSpeed(1.0F);
-             return PlayState.CONTINUE;
+
+        if (this.isFromBook()) {
+            return PlayState.CONTINUE;
         }
+
+        if (this.isInWater() || this.isSwimming()) {
+            event.setAndContinue(TRIKE_SWIM);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater() && !this.isSprinting()) {
+            event.setAndContinue(TRIKE_MOVE);
+            event.getController().setAnimationSpeed(0.7D);
+            return PlayState.CONTINUE;
+        }
+
+
+        if (this.hasChargeCooldown() && this.hasTarget() && !this.isInSittingPose()) {
+            event.setAndContinue(TRIKE_PREP);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        if ((this.isSprinting() || !this.getPassengers().isEmpty()) && !this.isInWater() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2) {
+            event.setAndContinue(TRIKE_RUN);
+            event.getController().setAnimationSpeed(2.0D);
+            return PlayState.CONTINUE;
+        }
+
+        if (this.isInSittingPose()) {
+            event.setAndContinue(TRIKE_SIT);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        event.setAndContinue(TRIKE_IDLE);
+        event.getController().setAnimationSpeed(1.0F);
+        return PlayState.CONTINUE;
     }
 
     protected <E extends EntityTriceratops> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
