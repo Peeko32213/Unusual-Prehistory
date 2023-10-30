@@ -799,7 +799,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     @Override
     public double getTick(Object o) {
-        return 0;
+        return tickCount;
     }
 
     static class TrikeNearestAttackablePlayerTargetGoal extends NearestAttackableTargetGoal<Player> {

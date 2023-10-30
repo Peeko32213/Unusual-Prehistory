@@ -7,7 +7,7 @@
 			"bones": {
 				"Body": {
 					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.0) * 360) * 1", 0, "Math.sin((query.anim_time - 0.0) * 360) * 1"]
+						"vector": ["Math.cos((query.anim_time) * 360) * 1", 0, "Math.sin((query.anim_time) * 360) * 1"]
 					},
 					"position": {
 						"0.0": {
@@ -71,7 +71,7 @@
 				},
 				"Leg1": {
 					"rotation": {
-						"vector": ["Math.sin((query.anim_time) * 360) * (-5)", "Math.cos((query.anim_time) * 360) * (-10)", "Math.sin((query.anim_time) * 360) * (-10)"]
+						"vector": ["Math.sin(query.anim_time * 360) * -5", "Math.cos(query.anim_time * 360) * -10", "Math.sin(query.anim_time * 360) * -10"]
 					}
 				},
 				"LegPart1": {
@@ -86,7 +86,7 @@
 				},
 				"Leg2": {
 					"rotation": {
-						"vector": ["Math.sin((query.anim_time) * 360) * (-5)", "Math.cos((query.anim_time) * 360) * (-10)", "Math.sin((query.anim_time) * 360) * (-10)"]
+						"vector": ["Math.sin(query.anim_time * 360) * -5", "Math.cos(query.anim_time * 360) * -10", "Math.sin(query.anim_time * 360) * -10"]
 					}
 				},
 				"LegPart2": {
@@ -101,7 +101,7 @@
 				},
 				"Leg3": {
 					"rotation": {
-						"vector": ["Math.cos((query.anim_time) * 360) * (-5)", "Math.cos((query.anim_time) * 360) * 10", "Math.sin((query.anim_time) * 360) * 5"]
+						"vector": ["Math.cos(query.anim_time * 360) * -5", "Math.cos(query.anim_time * 360) * 10", "Math.cos(query.anim_time * 360) * 5"]
 					}
 				},
 				"LegPart3": {
@@ -116,7 +116,7 @@
 				},
 				"Leg4": {
 					"rotation": {
-						"vector": ["Math.cos((query.anim_time) * 360) * (-5)", "Math.cos((query.anim_time) * 360) * 10", "Math.sin((query.anim_time) * 360) * 5"]
+						"vector": ["Math.cos(query.anim_time * 360) * -5", "Math.cos(query.anim_time * 360) * 10", "Math.sin(query.anim_time * 360) * 5"]
 					}
 				},
 				"LegPart4": {

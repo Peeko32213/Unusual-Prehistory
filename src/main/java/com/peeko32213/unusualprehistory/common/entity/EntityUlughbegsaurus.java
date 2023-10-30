@@ -874,7 +874,7 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     @Override
     public double getTick(Object o) {
-        return 0;
+        return tickCount;
     }
 
 }

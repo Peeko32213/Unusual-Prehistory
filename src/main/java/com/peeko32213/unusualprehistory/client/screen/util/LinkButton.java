@@ -6,11 +6,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.gui.widget.ExtendedButton;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
@@ -19,7 +21,7 @@ import org.joml.Vector3f;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LinkButton extends Button {
+public class LinkButton extends ExtendedButton {
     private static final Quaternionf ENTITY_ROTATION = (new Quaternionf()).rotationXYZ((float) Math.toRadians(30), (float) Math.toRadians(130), (float) Math.PI);
 
     private static final Map<String, Entity> renderedEntites = new HashMap<>();
@@ -33,14 +35,12 @@ public class LinkButton extends Button {
    //     this.data = linkData;
    //     //this.bookGUI = bookGUI;
    // }
-   public LinkButton(BookScreen book, EntityLinkData linkData, int x, int y, int width, int height, Component component, ItemStack previewStack, net.minecraft.client.gui.components.Button.OnPress onPress) {
-       super(width, height, (int) (24 * linkData.getScale()), (int) (24 * linkData.getScale()), component, onPress, Button.DEFAULT_NARRATION);
+   public LinkButton(BookScreen bookGUI, EntityLinkData linkData, int k, int l, Button.OnPress o) {
+       super(k, l, (int) (24 * linkData.getScale()), (int) (24 * linkData.getScale()), CommonComponents.GUI_DONE, o);
        this.data = linkData;
-       this.bookGUITest = book;
+       this.bookGUITest = bookGUI;
    }
-    public LinkButton(BookScreen book, EntityLinkData linkData,int x, int y, int width, int height, Component component, net.minecraft.client.gui.components.Button.OnPress onPress) {
-        this(book, linkData, x, y, width, height, component, ItemStack.EMPTY, onPress);
-    }
+
 
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         int lvt_5_1_ = 0;

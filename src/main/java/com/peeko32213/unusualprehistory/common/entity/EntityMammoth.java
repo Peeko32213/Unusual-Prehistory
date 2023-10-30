@@ -298,6 +298,11 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
         public boolean canContinueToUse() {
             return this.canUse();
         }
+
+        @Override
+        public void stop() {
+            this.mammoth.setTrunking(false);
+        }
     }
 
     @Override

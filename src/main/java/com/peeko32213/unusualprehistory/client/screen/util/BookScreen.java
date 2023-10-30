@@ -36,7 +36,9 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.io.IOUtils;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -155,10 +157,10 @@ public class BookScreen extends Screen {
 
         int maxHeight = p + 162;
         int maxWidth = this.xSize + 30;
-        RenderSystem.enableBlend();
-        RenderSystem.setShaderTexture(0, BOOK_BIND);
-        BookBlit.blitWithColor(guiGraphics, BOOK_LOCATION, i, p, 0.0F, 0.0F, this.xSize, this.ySize, this.xSize, this.ySize, r, g, b, 255);
-        BookBlit.blitWithColor(guiGraphics, this.getBookWidgetTexture(), i, p, 0.0F, 0.0F, this.xSize, this.ySize, this.xSize, this.ySize, 255, 255, 255, 255);
+        //RenderSystem.enableBlend();
+        //RenderSystem.setShaderTexture(0, BOOK_BIND);
+        BookBlit.blitWithColor(guiGraphics,BOOK_BIND , i, p, 0.0F, 0.0F, this.xSize, this.ySize, this.xSize, this.ySize, r, g, b, 255);
+        BookBlit.blitWithColor(guiGraphics, BOOK_LOCATION, i, p, 0.0F, 0.0F, this.xSize, this.ySize, this.xSize, this.ySize, 255, 255, 255, 255);
 
         for (EncyclopediaPictureCodec pictures : this.pictures) {
             if (pictures.getPageNr() != this.currentPage) continue;
@@ -369,7 +371,7 @@ public class BookScreen extends Screen {
                         }
                     }
 
-                    drawEntityOnScreen(matrixStack, k + data.getX(), l + data.getY(), 30 * scale, data.isFollow_cursor(), data.getRot_x(), data.getRot_y(), data.getRot_z(), mouseX, mouseY, (LivingEntity) model);
+                    drawEntityOnScreen(graphics, k + data.getX(), l + data.getY(), 30 * scale, data.isFollow_cursor(), data.getRot_x(), data.getRot_y(), data.getRot_z(), mouseX, mouseY, (LivingEntity) model);
                 }
             }
         }
@@ -446,31 +448,33 @@ public class BookScreen extends Screen {
      * @param mouseY The current Y position of the mouse.
      * @param entity The LivingEntity instance to render.
      */
-    public static void drawEntityOnScreen(PoseStack stackIn, int posX, int posY, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, LivingEntity entity) {
+    public static void drawEntityOnScreen(GuiGraphics graphics, int posX, int posY, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, LivingEntity entity) {
 
         if(entity instanceof IBookEntity bookEntity) {
             bookEntity.setFromBook(true);
         }
 
-        PoseStack posestack = RenderSystem.getModelViewStack();
+        PoseStack posestack =  graphics.pose();
         posestack.pushPose();
-        posestack.scale(1.0F, 1.0F, -1.0F);
-        RenderSystem.applyModelViewMatrix();
-        PoseStack posestack1 = new PoseStack();
-        posestack1.translate(posX, posY, 120.0D);
-        posestack1.scale((float)scale, (float)scale, (float)scale);
+        posestack.translate((float)posX, (float)posY, 100);
+        posestack.mulPoseMatrix((new Matrix4f()).scaling(scale, scale, -scale));
         Quaternionf quaternion = Axis.ZP.rotationDegrees(180.0F);
-        Quaternionf quaternion1 = Axis.XP.rotationDegrees(0.0F);
+        Quaternionf quaternion1 = Axis.XP.rotationDegrees(20.0F);
         quaternion.mul(quaternion1);
-        posestack1.mulPose(quaternion);
-        posestack1.mulPose(Axis.XP.rotationDegrees((float) xRot - 55F));
-        posestack1.mulPose(Axis.YP.rotationDegrees((float) yRot - 10));
-        posestack1.mulPose(Axis.ZP.rotationDegrees((float) zRot));
-        if(entity instanceof EntityPlant) {
-            Lighting.setupForFlatItems();
-        } else {
-            Lighting.setupForEntityInInventory();
-        }
+        posestack.mulPose(quaternion);
+        posestack.mulPose(Axis.XP.rotationDegrees((float) xRot + 125));
+        posestack.mulPose(Axis.YP.rotationDegrees((float) yRot + 100));
+        posestack.mulPose(Axis.ZP.rotationDegrees((float) zRot));
+        posestack.mulPose(quaternion);
+
+        Vector3f light0 = (new Vector3f(1.0F, -1.0F, -1.0F)).normalize();
+        Vector3f light1 = (new Vector3f(-1.0F, 1.0F, 1.0F)).normalize();
+        RenderSystem.setShaderLights(light0, light1);
+        //if(entity instanceof EntityPlant) {
+        //    Lighting.setupForFlatItems();
+        //} else {
+        //    Lighting.setupForEntityInInventory();
+        //}
 
         EntityRenderDispatcher entityrenderdispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
         quaternion1.conjugate();
@@ -479,7 +483,7 @@ public class BookScreen extends Screen {
         entityrenderdispatcher.setRenderShadow(true);
 
         MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
-        RenderSystem.runAsFancy(() -> entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, posestack1, multibuffersource$buffersource, 15728880));
+        RenderSystem.runAsFancy(() -> entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, posestack, multibuffersource$buffersource, 15728880));
 
         multibuffersource$buffersource.endBatch();
         entityrenderdispatcher.setRenderShadow(false);
@@ -493,6 +497,36 @@ public class BookScreen extends Screen {
         RenderSystem.applyModelViewMatrix();
         Lighting.setupFor3DItems();
     }
+
+    /**
+     * Copy
+     * **/
+    private static final Quaternionf ENTITY_ROTATION = (new Quaternionf()).rotationXYZ((float) Math.toRadians(30), (float) Math.toRadians(130), (float) Math.PI);
+    public static void drawEntityOnScreenCopy(GuiGraphics graphics, int posX, int posY, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, LivingEntity entity) {
+
+        if(entity instanceof IBookEntity bookEntity) {
+            bookEntity.setFromBook(true);
+        }
+
+        graphics.pose().pushPose();
+        graphics.pose().translate((double)posX, (double)posY, 50.0D);
+        graphics.pose().mulPoseMatrix((new Matrix4f()).scaling(scale, scale,  (-scale)));
+        graphics.pose().mulPose(ENTITY_ROTATION);
+
+        Vector3f light0 = new Vector3f(1, -1.0F, -1.0F).normalize();
+        Vector3f light1 = new Vector3f(-1, 1.0F, 1.0F).normalize();
+        RenderSystem.setShaderLights(light0, light1);
+        EntityRenderDispatcher entityrenderdispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+        entityrenderdispatcher.setRenderShadow(false);
+        RenderSystem.runAsFancy(() -> {
+            entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, graphics.pose(), graphics.bufferSource(), 15728880);
+        });
+        graphics.flush();
+        entityrenderdispatcher.setRenderShadow(true);
+        graphics.pose().popPose();
+        Lighting.setupFor3DItems();
+    }
+
 
     /**
      * Adds link buttons to the screen based on the current page and index data.
@@ -559,7 +593,7 @@ public class BookScreen extends Screen {
                     }
                 }
                 yIndexesToSkip.add(new Whitespace(this.currentPage, (int) (startingOffsetX + (columnCount * 24 * linkData.getScale() - 12)), (int) (startingOffsetY + l + rowCount * 24 * linkData.getScale()), 100, 20));
-                this.addRenderableWidget(new LinkButton(this, linkData, (int) (startingOffsetX + k + (columnCount * 24 * linkData.getScale())), (int) (startingOffsetY + l + (rowCount * 24 * linkData.getScale())),0,0, Component.literal(""),(p_213021_1_) -> {
+                this.addRenderableWidget(new LinkButton(this, linkData, (int) (startingOffsetX + k + (columnCount * 24 * linkData.getScale())), (int) (startingOffsetY + l + (rowCount * 24 * linkData.getScale())),(p_213021_1_) -> {
                     Minecraft.getInstance().setScreen(new BookScreen(new ResourceLocation(linkData.linked_page), 0));
                     addNextPreviousButtons();
                 }));
