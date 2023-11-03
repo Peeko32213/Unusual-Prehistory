@@ -529,8 +529,4 @@ public class UPItems {
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties()));
     }
-
-    public static final RegistryObject<Item> TAB_EGG_ICON = ITEMS.register("tab_spawn_egg", () -> new Item(new Item.Properties()));
-
-
 }

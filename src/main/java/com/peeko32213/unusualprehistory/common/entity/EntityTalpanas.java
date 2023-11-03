@@ -273,7 +273,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
         ItemStack itemstack = player.getItemInHand(hand);
         ItemStack itemstack2 = player.getItemInHand(InteractionHand.OFF_HAND);
         Item item = itemstack.getItem();
-        if (!isFood(itemstack)) {
+        if (!isFood(itemstack) && itemstack.isEmpty() && hand == InteractionHand.MAIN_HAND) {
             if (player.getPassengers().isEmpty()) {
                 this.startRiding(player);
                 rideCooldown = 20;
