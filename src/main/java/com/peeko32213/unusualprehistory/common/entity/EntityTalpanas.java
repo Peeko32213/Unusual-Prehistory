@@ -552,6 +552,7 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
         return PlayState.CONTINUE;
     }
 
+
     protected <E extends EntityTalpanas> PlayState digController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.getFeedingTime() > 0) {
             event.setAndContinue(TALPANAS_FORGE);

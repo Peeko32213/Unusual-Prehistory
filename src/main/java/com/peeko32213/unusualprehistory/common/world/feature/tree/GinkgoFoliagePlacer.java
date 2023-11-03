@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.core.registry.UPFeatureModifiers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -56,10 +57,10 @@ public class GinkgoFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader worldReader, FoliageSetter worldPlacer, RandomSource random, TreeConfiguration baseTreeFeatureConfig, int pMaxFreeTreeHeight, FoliageAttachment foliage, int pFoliageHeight, int pFoliageRadius, int pOffset) {
-       /* BlockPos center = foliage.pos().above(offset); // foliage.getCenter
+    protected void createFoliage(LevelSimulatedReader worldReader, FoliageSetter setter, RandomSource random, TreeConfiguration baseTreeFeatureConfig, int trunkHeight, FoliageAttachment foliage, int foliageHeight, int radius, int offset) {
+       BlockPos center = foliage.pos().above(offset); // foliage.getCenter
 
-        FeaturePlacers.placeSpheroid(worldReader, worldPlacer, FeaturePlacers.VALID_TREE_POS, random, center, foliage.radiusOffset() + this.horizontalRadius + random.nextInt(this.randomHorizontal + 1), foliage.radiusOffset() + this.verticalRadius + random.nextInt(this.randomVertical + 1), this.verticalBias, baseTreeFeatureConfig.foliageProvider);
+        FeaturePlacers.placeSpheroid(worldReader, setter, FeaturePlacers.VALID_TREE_POS, random, center, foliage.radiusOffset() + this.horizontalRadius + random.nextInt(this.randomHorizontal + 1), foliage.radiusOffset() + this.verticalRadius + random.nextInt(this.randomVertical + 1), this.verticalBias, baseTreeFeatureConfig.foliageProvider);
 
         if (this.shag_factor > 0) {
             for (int i = 0; i < this.shag_factor; i++) {
@@ -69,18 +70,18 @@ public class GinkgoFoliagePlacer extends FoliagePlacer {
                 float xCircleOffset = yUnit * Mth.cos(randomYaw) * (this.horizontalRadius - 1f); // We do radius minus 1 here so the leaf 2x2 generates overlapping the existing foilage
                 float zCircleOffset = yUnit * Mth.sin(randomYaw) * (this.horizontalRadius - 1f); // instead of making awkward 2x2 pieces of foilage jutting out
 
-                BlockPos placement = center.offset(xCircleOffset + ((int) xCircleOffset >> 31), randomPitch * (this.verticalRadius + 0.25f) + this.verticalBias, zCircleOffset + ((int) zCircleOffset >> 31));
+                BlockPos placement = center.offset((int) (xCircleOffset + ((int) xCircleOffset >> 31)), (int) (randomPitch * (this.verticalRadius + 0.25f) + this.verticalBias), (int) (zCircleOffset + ((int) zCircleOffset >> 31)));
 
-                placeLeafCluster(worldReader, worldPlacer, random, placement.immutable(), baseTreeFeatureConfig.foliageProvider);
+                placeLeafCluster(worldReader, setter, random, placement.immutable(), baseTreeFeatureConfig.foliageProvider);
             }
-        }*/
+        }
     }
 
-    private static void placeLeafCluster(LevelSimulatedReader worldReader, BiConsumer<BlockPos, BlockState> worldPlacer, RandomSource random, BlockPos pos, BlockStateProvider state) {
-        FeaturePlacers.placeProvidedBlock(worldReader, worldPlacer, FeaturePlacers.VALID_TREE_POS, pos, state, random);
-        FeaturePlacers.placeProvidedBlock(worldReader, worldPlacer, FeaturePlacers.VALID_TREE_POS, pos.east(), state, random);
-        FeaturePlacers.placeProvidedBlock(worldReader, worldPlacer, FeaturePlacers.VALID_TREE_POS, pos.south(), state, random);
-        FeaturePlacers.placeProvidedBlock(worldReader, worldPlacer, FeaturePlacers.VALID_TREE_POS, pos.offset(1, 0, 1), state, random);
+    private static void placeLeafCluster(LevelSimulatedReader worldReader, FoliageSetter setter, RandomSource random, BlockPos pos, BlockStateProvider state) {
+        FeaturePlacers.placeProvidedBlock(worldReader, setter, FeaturePlacers.VALID_TREE_POS, pos, state, random);
+        FeaturePlacers.placeProvidedBlock(worldReader, setter, FeaturePlacers.VALID_TREE_POS, pos.east(), state, random);
+        FeaturePlacers.placeProvidedBlock(worldReader, setter, FeaturePlacers.VALID_TREE_POS, pos.south(), state, random);
+        FeaturePlacers.placeProvidedBlock(worldReader, setter, FeaturePlacers.VALID_TREE_POS, pos.offset(1, 0, 1), state, random);
     }
 
     @Override // foliage Height

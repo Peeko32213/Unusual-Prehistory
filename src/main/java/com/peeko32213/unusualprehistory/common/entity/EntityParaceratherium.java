@@ -421,11 +421,11 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
         }
 
         protected void preformStompAttack() {
-            //Vec3 pos = mob.position();
+            Vec3 pos = mob.position();
             this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0));
             //this.mob.willItBreak = true;
             //HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),5.0f, 1.5f, mob, pos,  80.0F, -Math.PI/6, Math.PI/6, -1.0f, 3.0f);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.slamOffSet, 6f, 6f, 6f, (ServerLevel) this.mob.level(), 25f, this.mob.damageSources().mobAttack(mob), 2f, true);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),25.0f, 1f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             //THIS METHOD CAN ONLY BE RAN ON THE SERVERSIDE.
             if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();

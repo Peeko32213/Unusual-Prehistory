@@ -30,7 +30,7 @@ public class UPTabs {
     private static final CreativeModeTab UP = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 9)
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .title(Component.translatable("itemGroup.unusual_prehistory"))
-            .icon(() -> new ItemStack(Items.NETHER_BRICK))
+            .icon(() -> new ItemStack(UPItems.AMMONITE_SHELL_ICON.get()))
             .displayItems((d, entries) ->{
 
                 for(RegistryObject<Item> item : UPItems.ITEMS.getEntries()){
@@ -51,7 +51,7 @@ public class UPTabs {
     private static final CreativeModeTab UP_EGGS = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 9)
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .title(Component.translatable("itemGroup.unusual_prehistory_eggs"))
-            .icon(() -> new ItemStack(Items.NETHER_BRICK))
+            .icon(() -> new ItemStack(UPItems.MAJUNGA_EGG.get()))
             .displayItems((d, entries) ->{
                 UPItems.ITEMS.getEntries().forEach(i ->{
                     if((i.get() instanceof ForgeSpawnEggItem)) {
