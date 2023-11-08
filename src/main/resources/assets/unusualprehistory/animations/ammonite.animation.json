@@ -55,14 +55,14 @@
 						"vector": [0, "Math.cos((query.anim_time - 0.1) * 360) * 12", 0]
 					}
 				},
-				"UpperArms": {
-					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.1) * 360) * -12", 0, 0]
-					}
-				},
 				"SideArms2": {
 					"rotation": {
 						"vector": [0, "Math.cos((query.anim_time - 0.1) * 360) * -12", 0]
+					}
+				},
+				"UpperArms": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.1) * 360) * -12", 0, 0]
 					}
 				}
 			}
@@ -89,6 +89,39 @@
 						"1.0": {
 							"vector": [0, 1, 8]
 						}
+					}
+				}
+			}
+		},
+		"animation.ammonite.flop": {
+			"loop": true,
+			"bones": {
+				"Body": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.0) * 720) * 8", -90]
+					},
+					"position": {
+						"vector": [5, 3, 0]
+					}
+				},
+				"LowerArms": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.1) * 360) * 12", 0, 0]
+					}
+				},
+				"UpperArms": {
+					"rotation": {
+						"vector": ["Math.cos((query.anim_time - 0.1) * 360) * -12", 0, 0]
+					}
+				},
+				"SideArms1": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.1) * 360) * 12", 0]
+					}
+				},
+				"SideArms2": {
+					"rotation": {
+						"vector": [0, "Math.cos((query.anim_time - 0.1) * 360) * -12", 0]
 					}
 				}
 			}

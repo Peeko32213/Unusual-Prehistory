@@ -38,6 +38,7 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -47,6 +48,7 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
     private static final EntityDataAccessor<Boolean> SHOULD_DROP = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
     private static final RawAnimation AMMONITE_SWIM = RawAnimation.begin().thenLoop("animation.ammonite.swim");
+    private static final RawAnimation AMMONITE_FLOP = RawAnimation.begin().thenLoop("animation.ammonite.flop");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private boolean isSchool = true;
@@ -196,8 +198,25 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
     }
 
 
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "animation.ammonite.swim", 0, state -> state.setAndContinue(AMMONITE_SWIM)));
+    protected <E extends EntityAmmonite> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if(!this.isFromBook()) {
+            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+                event.setAndContinue(AMMONITE_SWIM);
+                return PlayState.CONTINUE;
+            }
+            if (!this.isInWater()) {
+                event.setAndContinue(AMMONITE_FLOP);
+                event.getController().setAnimationSpeed(2.0F);
+                return PlayState.CONTINUE;
+            }
+        }
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     @Override
