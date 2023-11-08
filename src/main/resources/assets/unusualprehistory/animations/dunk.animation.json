@@ -234,7 +234,7 @@
 				},
 				"Body": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.2) * 360) * 5", "Math.sin((query.anim_time - 0.2) * 360) * 6"]
+						"vector": [0, "Math.cos((query.anim_time - 0.2) * 360) * 5", "90 - Math.sin((query.anim_time - 0.2) * 360) * 6"]
 					},
 					"position": {
 						"vector": [

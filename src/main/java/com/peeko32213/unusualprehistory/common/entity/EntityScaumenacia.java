@@ -46,6 +46,7 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
     private static final RawAnimation SCAU_SWIM = RawAnimation.begin().thenLoop("animation.scaumenacia.move");
+    private static final RawAnimation SCAU_FLOP = RawAnimation.begin().thenLoop("animation.scaumenacia.flop");
 
 
 
@@ -178,9 +179,15 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
     }
 
     protected <E extends EntityScaumenacia> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
         if(!this.isFromBook()) {
-            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
+            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
                 event.setAndContinue(SCAU_SWIM);
+                return PlayState.CONTINUE;
+            }
+            if (!this.isInWater()) {
+                event.setAndContinue(SCAU_FLOP);
+                event.getController().setAnimationSpeed(2.0F);
                 return PlayState.CONTINUE;
             }
         }

@@ -107,7 +107,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
     }
 
 
-
     @Override
     @Nonnull
     protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -209,7 +208,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
     }
 
     public void aiStep() {
-
         super.aiStep();
     }
 
@@ -227,7 +225,7 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
                 default:
 
 
-                    if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
+                    if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
                         event.setAndContinue(DUNK_SWIM);
                         return PlayState.CONTINUE;
                     }
@@ -236,7 +234,7 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
                         event.getController().setAnimationSpeed(2.0F);
                         return PlayState.CONTINUE;
                     }
-                    else {
+                    else if (this.isInWater()){
                         event.setAndContinue(DUNK_IDLE);
                         return PlayState.CONTINUE;
                     }

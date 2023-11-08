@@ -41,6 +41,7 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -48,6 +49,7 @@ import java.util.UUID;
 public class EntityStethacanthus extends AbstractSchoolingFish implements Bucketable, NeutralMob, GeoAnimatable, IBookEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final RawAnimation STETHA_SWIM = RawAnimation.begin().thenLoop("animation.stethacanthus.swim");
+    private static final RawAnimation STETHA_FLOP = RawAnimation.begin().thenLoop("animation.stethacanthus.flop");
 
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private int remainingPersistentAngerTime;
@@ -261,8 +263,25 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "animation.stethacanthus.swim", 0, state -> state.setAndContinue(STETHA_SWIM)));
+    protected <E extends EntityStethacanthus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if(!this.isFromBook()) {
+            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+                event.setAndContinue(STETHA_SWIM);
+                return PlayState.CONTINUE;
+            }
+            if (!this.isInWater()) {
+                event.setAndContinue(STETHA_FLOP);
+                event.getController().setAnimationSpeed(2.0F);
+                return PlayState.CONTINUE;
+            }
+        }
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     @Override
