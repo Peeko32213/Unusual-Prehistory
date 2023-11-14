@@ -278,24 +278,6 @@
 				}
 			}
 		},
-		"animation.velociraptor.peck": {
-			"animation_length": 0.25,
-			"bones": {
-				"Head": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.125": {
-							"vector": [77.5, 0, 0]
-						},
-						"0.25": {
-							"vector": [0, 0, 0]
-						}
-					}
-				}
-			}
-		},
 		"animation.velociraptor.swim": {
 			"loop": true,
 			"animation_length": 1,

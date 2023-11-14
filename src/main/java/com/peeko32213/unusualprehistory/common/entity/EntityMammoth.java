@@ -401,7 +401,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::trunkController));
+        controllers.add(new AnimationController<>(this, "Trunk", 5, this::trunkController));
     }
 
     @Override

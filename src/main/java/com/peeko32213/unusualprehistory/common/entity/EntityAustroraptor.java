@@ -228,7 +228,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
 
 
 
-        if (random.nextInt(2000) == 0 && !this.getIsPreening()) {
+        if (random.nextInt(5000) == 0 && !this.getIsPreening()) {
             this.setPreeningTime(100 + random.nextInt(30));
             this.setIsPreening(true);
         }
@@ -344,6 +344,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
             event.setAndContinue(AUSTRO_WALK);
             event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
             event.setAndContinue(AUSTRO_SWIM);
@@ -352,6 +353,7 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         else {
             event.setAndContinue(AUSTRO_IDLE);
             event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
     }
@@ -365,8 +367,10 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
 
     protected <E extends EntityAustroraptor> PlayState preenController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.getIsPreening() && !this.isInWater()) {
-            return event.setAndContinue(AUSTRO_PREEN);
+            event.setAndContinue(AUSTRO_PREEN);
+            return PlayState.CONTINUE;
         }
+        event.getController().forceAnimationReset();
         return PlayState.STOP;
     }
 

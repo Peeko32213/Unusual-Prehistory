@@ -81,15 +81,15 @@
 				},
 				"Body": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.0) * 720) * 8", -90]
+						"vector": [0, "Math.cos((query.anim_time) * 720) * 8", -90]
 					},
 					"position": {
-						"vector": [0, 0, "Math.cos((query.anim_time - 0.1) * 360) * -0.5"]
+						"vector": [0, 0, "Math.cos((query.anim_time - 0.1) * 360) * (-0.5)"]
 					}
 				},
 				"Tail": {
 					"rotation": {
-						"vector": [0, "Math.cos((query.anim_time - 0.0) * 720) * 15", 0]
+						"vector": [0, "Math.cos((query.anim_time) * 720) * 15", 0]
 					}
 				},
 				"BackFin1": {
