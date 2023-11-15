@@ -360,11 +360,11 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.DEEPSLATE_AMBER_FOSSIL.get())
                 .add(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get());
 
-        tag(BlockTags.STANDING_SIGNS);
-                //.add(UPBlocks.GINKGO_SIGN.get())
-                //.add(UPBlocks.PETRIFIED_WOOD_SIGN.get())
-                //.add(UPBlocks.FOXXI_SIGN.get())
-                //.add(UPBlocks.DRYO_SIGN.get());
+        tag(BlockTags.STANDING_SIGNS)
+                .add(UPBlocks.GINKGO_SIGN.get())
+                .add(UPBlocks.PETRIFIED_WOOD_SIGN.get())
+                .add(UPBlocks.FOXXI_SIGN.get())
+                .add(UPBlocks.DRYO_SIGN.get());
 
         tag(BlockTags.TALL_FLOWERS)
                 .add(UPBlocks.TALL_SARACENIA.get())

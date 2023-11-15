@@ -15,10 +15,10 @@ public class BlockUPStandingSign extends StandingSignBlock {
         super(properties, type);
     }
 
-    //@Override
-    //public BlockEntity newBlockEntity(BlockPos p_154556_, BlockState p_154557_) {
-    //    return UPBlockEntities.UP_SIGN.get().create(p_154556_, p_154557_);
-    //}
+    @Override
+    public BlockEntity newBlockEntity(BlockPos p_154556_, BlockState p_154557_) {
+        return UPBlockEntities.UP_SIGN.get().create(p_154556_, p_154557_);
+    }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(ROTATION, WATERLOGGED);

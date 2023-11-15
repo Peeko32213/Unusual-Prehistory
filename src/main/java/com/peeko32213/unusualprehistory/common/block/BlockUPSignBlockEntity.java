@@ -12,8 +12,8 @@ public class BlockUPSignBlockEntity extends SignBlockEntity {
         super(p_155700_, p_155701_);
     }
 
-    //@Override
-    //public BlockEntityType<?> getType() {
-    //    return UPBlockEntities.UP_SIGN.get();
-    //}
+    @Override
+    public BlockEntityType<?> getType() {
+       return UPBlockEntities.UP_SIGN.get();
+    }
 }

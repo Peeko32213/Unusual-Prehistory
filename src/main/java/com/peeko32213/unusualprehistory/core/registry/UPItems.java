@@ -440,17 +440,17 @@ public class UPItems {
 
     public static final RegistryObject<Item> DEFROSTED_FROZEN_FOSSIL = ITEMS.register("defrosted_frozen_fossil",
             () -> new Item(new Item.Properties().food(ModFood.DEFROSTED_FOSSIL)));
-    //public static final RegistryObject<Item> GINKGO_SIGN = ITEMS.register("ginkgo_sign",
-    //        () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.GINKGO_SIGN.get(), UPBlocks.GINKGO_WALL_SIGN.get()));
-//
-    //public static final RegistryObject<Item> PETRIFIED_WOOD_SIGN = ITEMS.register("petrified_wood_sign",
-    //        () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.PETRIFIED_WOOD_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get()));
-//
-    //public static final RegistryObject<Item> FOXXI_WOOD_SIGN = ITEMS.register("foxxi_sign",
-    //        () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.FOXXI_SIGN.get(), UPBlocks.FOXXI_WALL_SIGN.get()));
-//
-    //public static final RegistryObject<Item> DRYO_WOOD_SIGN = ITEMS.register("dryo_sign",
-    //        () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.DRYO_SIGN.get(), UPBlocks.DRYO_WALL_SIGN.get()));
+    public static final RegistryObject<Item> GINKGO_SIGN = ITEMS.register("ginkgo_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.GINKGO_SIGN.get(), UPBlocks.GINKGO_WALL_SIGN.get()));
+
+    public static final RegistryObject<Item> PETRIFIED_WOOD_SIGN = ITEMS.register("petrified_wood_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.PETRIFIED_WOOD_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get()));
+
+    public static final RegistryObject<Item> FOXXI_WOOD_SIGN = ITEMS.register("foxxi_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.FOXXI_SIGN.get(), UPBlocks.FOXXI_WALL_SIGN.get()));
+
+    public static final RegistryObject<Item> DRYO_WOOD_SIGN = ITEMS.register("dryo_sign",
+           () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.DRYO_SIGN.get(), UPBlocks.DRYO_WALL_SIGN.get()));
 
     public static final RegistryObject<Item> BARINA_WHISTLE = ITEMS.register("barina_whistle",
             () -> new MusicalTameItem(new Item.Properties().stacksTo(1), UPEntities.BARINASUCHUS, UPTags.OCARINA_WHISTLE));
