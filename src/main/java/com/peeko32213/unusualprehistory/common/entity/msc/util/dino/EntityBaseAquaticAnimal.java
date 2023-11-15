@@ -122,7 +122,7 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
     }
 
     public boolean doHurtTarget(Entity entityIn) {
-        if (super.doHurtTarget(entityIn)) {
+        if (super.doHurtTarget(entityIn) && getAttackSound() != null) {
             this.playSound(getAttackSound() , 0.1F, 1.0F);
             return true;
         } else {

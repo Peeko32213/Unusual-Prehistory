@@ -164,7 +164,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     }
 
     public boolean doHurtTarget(Entity entityIn) {
-        if (super.doHurtTarget(entityIn)) {
+        if (super.doHurtTarget(entityIn) && getAttackSound() != null) {
             if(getAttackSound() != null) this.playSound(getAttackSound() , 0.1F, 1.0F);
             return true;
         } else {

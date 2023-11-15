@@ -130,7 +130,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
     }
 
     public boolean doHurtTarget(Entity entityIn) {
-        if (super.doHurtTarget(entityIn)) {
+        if (super.doHurtTarget(entityIn) && getAttackSound() != null) {
             this.playSound(getAttackSound() , 0.1F, 1.0F);
             return true;
         } else {

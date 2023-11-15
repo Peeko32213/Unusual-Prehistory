@@ -25,12 +25,17 @@ public class LivingEntityFishRenderer<T extends LivingEntity & GeoAnimatable> ex
     }
 
     @Override
+    public void render(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+        poseStack.scale(-1,-1,-1);
+    }
+    @Override
     protected void applyRotations(T animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
         super.applyRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
         float f = 4.3F * Mth.sin(0.6F * ageInTicks);
         poseStack.mulPose(Axis.YP.rotationDegrees(f));
         if (!animatable.isInWater()) {
-            poseStack.translate(0.1F, 0.1F, -0.1F);
+            poseStack.translate(0.1F, 0.1F, 0.1F);
             poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
         }
     }
