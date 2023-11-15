@@ -46,6 +46,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
+
 public class EntityStethacanthus extends AbstractSchoolingFish implements Bucketable, NeutralMob, GeoAnimatable, IBookEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final RawAnimation STETHA_SWIM = RawAnimation.begin().thenLoop("animation.stethacanthus.swim");
@@ -98,19 +99,19 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {
-        this.level().broadcastEntityEvent(this, (byte)4);
+        this.level().broadcastEntityEvent(this, (byte) 4);
         float f = this.getAttackDamage();
-        float f1 = (int)f > 0 ? f / 2.0F + (float)this.random.nextInt((int)f) : f;
+        float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
         boolean flag = entityIn.hurt(this.damageSources().mobAttack(this), f1);
         if (flag) {
-            entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, (double)0.4F, 0.0D));
+            entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, (double) 0.4F, 0.0D));
             this.doEnchantDamageEffects(this, entityIn);
         }
         return flag;
     }
 
     private float getAttackDamage() {
-        return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        return (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
     }
 
     public int getMaxSpawnClusterSize() {
@@ -226,7 +227,6 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
     }
 
 
-
     public void setRemainingPersistentAngerTime(int p_34448_) {
         this.remainingPersistentAngerTime = p_34448_;
     }
@@ -251,9 +251,11 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
     public boolean isPreventingPlayerRest(Player p_34475_) {
         return this.isAngryAt(p_34475_);
     }
+
     public boolean isFromBook() {
         return this.entityData.get(FROM_BOOK).booleanValue();
     }
+
     public void setIsFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
     }
@@ -264,17 +266,12 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
     }
 
     protected <E extends EntityStethacanthus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-
-        if(!this.isFromBook()) {
-            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                event.setAndContinue(STETHA_SWIM);
-                return PlayState.CONTINUE;
-            }
-            if (!this.isInWater()) {
-                event.setAndContinue(STETHA_FLOP);
-                event.getController().setAnimationSpeed(2.0F);
-                return PlayState.CONTINUE;
-            }
+        if (this.isFromBook()) {
+            return PlayState.STOP;
+        }
+        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+            event.setAndContinue(STETHA_SWIM);
+            return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
     }

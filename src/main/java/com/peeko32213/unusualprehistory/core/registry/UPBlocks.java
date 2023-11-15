@@ -566,10 +566,10 @@ public class UPBlocks {
             new BlockArchaefructus(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
 
     public static final RegistryObject<Block> GINKGO_SIGN = BLOCKS.register("ginkgo_sign", ()
-          -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(GINKGO_LOG.get()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.GINKGO));
+          -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(GINKGO_PLANKS.get()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.GINKGO));
 
     public static final RegistryObject<Block> GINKGO_WALL_SIGN = BLOCKS.register("ginkgo_wall_sign", ()
-           -> new BlockUPWallSign(BlockBehaviour.Properties.copy(GINKGO_LOG.get()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPWoodTypes.GINKGO));
+           -> new BlockUPWallSign(BlockBehaviour.Properties.copy(GINKGO_PLANKS.get()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPWoodTypes.GINKGO));
 
     public static final Supplier<Block> NELUMBITES = create("nelumbites",
             () -> new WaterlilyBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).instabreak().noOcclusion().sound(SoundType.WET_GRASS)),

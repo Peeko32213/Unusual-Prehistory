@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.client.screen.util;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.peeko32213.unusualprehistory.common.entity.IBookEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -91,7 +92,9 @@ public class LinkButton extends ExtendedButton {
         guiGraphics.pose().translate((double)xPos, (double)yPos, 50.0D);
         guiGraphics.pose().mulPoseMatrix((new Matrix4f()).scaling(scale, scale,  (-scale)));
         guiGraphics.pose().mulPose(rotation);
-
+        if(entity instanceof IBookEntity bookEntity){
+            bookEntity.setFromBook(true);
+        }
         Vector3f light0 = new Vector3f(1, -1.0F, -1.0F).normalize();
         Vector3f light1 = new Vector3f(-1, 1.0F, 1.0F).normalize();
         RenderSystem.setShaderLights(light0, light1);

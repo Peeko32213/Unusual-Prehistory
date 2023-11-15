@@ -42,6 +42,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
+
 public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAnimatable, IBookEntity {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
@@ -49,8 +50,8 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
     private static final RawAnimation SCAU_FLOP = RawAnimation.begin().thenLoop("animation.scaumenacia.flop");
 
 
-
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     public EntityScaumenacia(EntityType<? extends AbstractFish> entityType, Level level) {
         super(entityType, level);
     }
@@ -151,6 +152,7 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
     public boolean isFromBook() {
         return this.entityData.get(FROM_BOOK).booleanValue();
     }
+
     public void setIsFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
     }
@@ -180,17 +182,15 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
 
     protected <E extends EntityScaumenacia> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
-        if(!this.isFromBook()) {
-            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                event.setAndContinue(SCAU_SWIM);
-                return PlayState.CONTINUE;
-            }
-            if (!this.isInWater()) {
-                event.setAndContinue(SCAU_FLOP);
-                event.getController().setAnimationSpeed(2.0F);
-                return PlayState.CONTINUE;
-            }
+        if (this.isFromBook()) {
+            return PlayState.STOP;
+
         }
+        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+            event.setAndContinue(SCAU_SWIM);
+            return PlayState.CONTINUE;
+        }
+
         return PlayState.CONTINUE;
     }
 

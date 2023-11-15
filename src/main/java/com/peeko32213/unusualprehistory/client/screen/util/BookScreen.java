@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
@@ -31,6 +32,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
@@ -375,13 +377,58 @@ public class BookScreen extends Screen {
                 }
             }
         }
-
+        for (RecipeCodec recipeData : recipes) {
+            if (recipeData.getPageNr() == this.currentPage) {
+                Recipe recipe = getRecipeByName(recipeData.getRecipe());
+                if (recipe != null) {
+                    renderRecipe(graphics, recipe, recipeData, k, l);
+                }
+            }
+        }
         // Iterate over item render data and render item models
         for (ItemRenderData itemRenderData : itemRenders) {
             if (itemRenderData.getPage() == this.currentPage) {
-                drawItemOnScreen(graphics, k, l, (float) itemRenderData.getScale(), false, 0, 0, 0, 0, 0, itemRenderData);
+                //drawItemOnScreen(graphics, k, l, (float) itemRenderData.getScale(), false, 0, 0, 0, 0, 0, itemRenderData);
             }
         }
+    }
+
+    protected void renderRecipe(GuiGraphics guiGraphics, Recipe recipe, RecipeCodec recipeData, int k, int l) {
+        int playerTicks = Minecraft.getInstance().player.tickCount;
+        float scale = (float) recipeData.getScale();
+        NonNullList<Ingredient> ingredients =  recipe.getIngredients();
+        NonNullList<ItemStack> displayedStacks = NonNullList.create();
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            Ingredient ing = ingredients.get(i);
+            ItemStack stack = ItemStack.EMPTY;
+            if (!ing.isEmpty()) {
+                if (ing.getItems().length > 1) {
+                    int currentIndex = (int) ((playerTicks / 20F) % ing.getItems().length);
+                    stack = ing.getItems()[currentIndex];
+                } else {
+                    stack = ing.getItems()[0];
+                }
+            }
+            if (!stack.isEmpty()) {
+                guiGraphics.pose().pushPose();
+                guiGraphics.pose().translate(k, l, 32.0F);
+                guiGraphics.pose().translate((int) (recipeData.getXLocation() + (i % 3) * 20 * scale), (int) (recipeData.getYLocation() + (i / 3) * 20 * scale), 0);
+                guiGraphics.pose().scale(scale, scale, scale);
+                guiGraphics.renderItem(stack, 0, 0);
+                guiGraphics.pose().popPose();
+            }
+            displayedStacks.add(i, stack);
+        }
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate(k, l, 32.0F);
+        float finScale = scale * 1.5F;
+        guiGraphics.pose().translate(recipeData.getXLocation() + 70 * finScale, recipeData.getYLocation() + 10 * finScale, 0);
+        guiGraphics.pose().scale(finScale, finScale, finScale);
+        ItemStack result = recipe.getResultItem(Minecraft.getInstance().level.registryAccess());
+        guiGraphics.pose().translate(0.0F, 0.0F, 100.0F);
+        guiGraphics.renderItem(result, 0, 0);
+        guiGraphics.pose().popPose();
     }
 
     /**
@@ -436,7 +483,6 @@ public class BookScreen extends Screen {
     /**
      * Draws an entity on the screen at the specified position with given attributes.
      *
-     * @param stackIn The pose stack for rendering transformations.
      * @param posX The X position to render the entity.
      * @param posY The Y position to render the entity.
      * @param scale The scaling factor for the entity.
@@ -459,7 +505,7 @@ public class BookScreen extends Screen {
         posestack.translate((float)posX, (float)posY, 100);
         posestack.mulPoseMatrix((new Matrix4f()).scaling(scale, scale, -scale));
         Quaternionf quaternion = Axis.ZP.rotationDegrees(180.0F);
-        Quaternionf quaternion1 = Axis.XP.rotationDegrees(20.0F);
+        Quaternionf quaternion1 = Axis.XP.rotationDegrees(0.0F);
         quaternion.mul(quaternion1);
         posestack.mulPose(quaternion);
         posestack.mulPose(Axis.XP.rotationDegrees((float) xRot + 125));

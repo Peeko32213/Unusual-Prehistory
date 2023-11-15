@@ -25,7 +25,6 @@ public class LanguageGenerator extends LanguageProvider {
         //TABS
         addTabName(UPTabs.UP_TAB.get(), "Unusual Prehistory");
         addTabName(UPTabs.UP_EGG_TAB.get(), "Unusual Spawn Eggs");
-        addItem(UPItems.TAB_EGG_ICON, "Spawn Egg Tab Icon");
 
         //MISC
         addItem(UPItems.ENCYLOPEDIA, "Encyclopedia of Prehistory");
