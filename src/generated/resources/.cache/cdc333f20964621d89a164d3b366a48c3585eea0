@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-22T21:07:06.2607573	Tags for minecraft:worldgen/biome mod id unusualprehistory
+// 1.20.1	2023-11-13T16:09:07.8941922	Tags for minecraft:worldgen/biome mod id unusualprehistory
 afd9da16b8e57511d3b12c69ccd4555d71ebb29f data/unusualprehistory/tags/worldgen/biome/is_ammon_biome.json
 b0df3b2f6141dce35a16bb95148a6ff4821c7a48 data/unusualprehistory/tags/worldgen/biome/is_antarcto_biome.json
 589afa42d505a96240cc0dd94313f013f1d171fd data/unusualprehistory/tags/worldgen/biome/is_anuro_biome.json
@@ -26,7 +26,7 @@ bf8f305d2f00f6c6091e15ccc9502f2d90031b7c data/unusualprehistory/tags/worldgen/bi
 4e2349a9acdd444a39b16cb1ed573045190a4b8b data/unusualprehistory/tags/worldgen/biome/is_scau_biome.json
 77ad1e63ea5e7851452f1cba29f2a74be3a0df80 data/unusualprehistory/tags/worldgen/biome/is_smilodon_biome.json
 4e2349a9acdd444a39b16cb1ed573045190a4b8b data/unusualprehistory/tags/worldgen/biome/is_stetha_biome.json
-0f241c94b10e4b16b4304f66ad949bb089955b1e data/unusualprehistory/tags/worldgen/biome/is_talapanas_biome.json
+0f241c94b10e4b16b4304f66ad949bb089955b1e data/unusualprehistory/tags/worldgen/biome/is_talpanas_biome.json
 2e8f3d217b558bbd95069c59f41b99f62a09069f data/unusualprehistory/tags/worldgen/biome/is_tar_biome.json
 07ecd21cae8acc4735861c19ee51bbd8457289ae data/unusualprehistory/tags/worldgen/biome/is_trike_biome.json
 e66697bb831551333b23bb9c7310bac4e8064d3d data/unusualprehistory/tags/worldgen/biome/is_ulug_biome.json

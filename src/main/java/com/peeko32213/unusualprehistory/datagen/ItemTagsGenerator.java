@@ -172,11 +172,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(ItemTags.SAPLINGS)
                 .add(UPBlocks.GINKGO_SAPLING.get().asItem());
 
-        tag(ItemTags.SIGNS);
-               //.add(UPBlocks.GINKGO_SIGN.get().asItem())
-               //.add(UPBlocks.FOXXI_SIGN.get().asItem())
-               //.add(UPBlocks.DRYO_SIGN.get().asItem())
-               //.add(UPBlocks.PETRIFIED_WOOD_SIGN.get().asItem());
+        tag(ItemTags.SIGNS)
+               .add(UPBlocks.GINKGO_SIGN.get().asItem())
+               .add(UPBlocks.FOXXI_SIGN.get().asItem())
+               .add(UPBlocks.DRYO_SIGN.get().asItem())
+               .add(UPBlocks.PETRIFIED_WOOD_SIGN.get().asItem());
 
         tag(ItemTags.SMALL_FLOWERS)
                 .add(UPBlocks.LEEFRUCTUS.get().asItem())

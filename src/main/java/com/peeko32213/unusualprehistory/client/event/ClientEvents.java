@@ -139,7 +139,7 @@ public final class ClientEvents {
         Sheets.addWoodType(FOXXI);
         Sheets.addWoodType(PETRIFIED);
 
-       // BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
+       BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
 
 
     }
