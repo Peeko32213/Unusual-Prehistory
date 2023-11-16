@@ -22,7 +22,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
 
 
-version = '1.5.0-beta'
+version = '1.5.0-beta-2'
 group = 'com.peeko32213.unusualprehistory'
 archivesBaseName = 'unusualprehistory'
 
@@ -133,7 +133,7 @@ jar {
         attributes([
                 "Specification-Title"     : "unusualprehistory",
                 "Specification-Vendor"    : "Peeko32213",
-                "Specification-Version"   : "1.5.0-beta", // We are version 1.5.0-beta of ourselves
+                "Specification-Version"   : "1.5.0-beta-2", // We are version 1.5.0-beta-2 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "unusualprehistory",

@@ -181,16 +181,12 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
     }
 
     protected <E extends EntityScaumenacia> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-
-        if (this.isFromBook()) {
-            return PlayState.STOP;
-
+        if(!this.isFromBook()) {
+            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+                event.setAndContinue(SCAU_SWIM);
+                return PlayState.CONTINUE;
+            }
         }
-        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-            event.setAndContinue(SCAU_SWIM);
-            return PlayState.CONTINUE;
-        }
-
         return PlayState.CONTINUE;
     }
 

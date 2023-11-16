@@ -266,12 +266,11 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
     }
 
     protected <E extends EntityStethacanthus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.isFromBook()) {
-            return PlayState.STOP;
-        }
-        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-            event.setAndContinue(STETHA_SWIM);
-            return PlayState.CONTINUE;
+        if(!this.isFromBook()) {
+            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+                event.setAndContinue(STETHA_SWIM);
+                return PlayState.CONTINUE;
+            }
         }
         return PlayState.CONTINUE;
     }
