@@ -4,7 +4,7 @@
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
-      "entity": "unusualprehistory:book_palaeo",
+      "entity": "unusualprehistory:palaeo_book_palaeo",
       "x": 90,
       "y": 80,
       "page" : 0,
@@ -17,15 +17,15 @@
   ],
   "entity_button":[
     {
-      "entity": "unusualprehistory:palaeophis",
+      "entity": "unusualprehistory:palaeo_book_palaeo",
       "entity_data": "{ShedTime:-2}",
       "x": 320,
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 1,
-      "offset_x": -4,
-      "offset_y": -8,
+      "entity_scale": 0.2,
+      "offset_x": -3,
+      "offset_y": -35,
       "hover_text": "Palaeophis"
     }
   ]

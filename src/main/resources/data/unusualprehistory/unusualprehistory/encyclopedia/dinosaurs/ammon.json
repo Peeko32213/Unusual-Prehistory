@@ -40,7 +40,7 @@
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 1.0,
+      "entity_scale": 1,
       "offset_x": 1,
       "offset_y": -6,
       "hover_text": "Ammonite"

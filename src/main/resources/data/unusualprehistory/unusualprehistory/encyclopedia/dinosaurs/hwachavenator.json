@@ -22,9 +22,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.3,
-      "offset_x": 11,
-      "offset_y": 11,
+      "entity_scale": 0.25,
+      "offset_x": 13,
+      "offset_y": -18,
       "hover_text": "Hwachavenator"
     }
   ]

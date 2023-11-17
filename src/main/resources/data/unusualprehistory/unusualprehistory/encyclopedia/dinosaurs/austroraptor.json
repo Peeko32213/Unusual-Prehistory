@@ -32,9 +32,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.4,
-      "offset_x": 11,
-      "offset_y":9,
+      "entity_scale": 0.3,
+      "offset_x": 14,
+      "offset_y":-14,
       "hover_text": "Austroraptor"
     }
   ]

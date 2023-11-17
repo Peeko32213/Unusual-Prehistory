@@ -33,9 +33,9 @@
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.8,
+      "entity_scale": 0.56,
       "offset_x": 3,
-      "offset_y": -4,
+      "offset_y": -11,
       "hover_text": "Beelzebufo"
     }
   ]

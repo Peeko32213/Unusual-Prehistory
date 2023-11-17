@@ -32,9 +32,9 @@
       "y": 80,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 1.1,
-      "offset_x": -2,
-      "offset_y": -9,
+      "entity_scale": 1,
+      "offset_x": 3,
+      "offset_y": -6,
       "hover_text": "Scaumenacia"
     }
   ]

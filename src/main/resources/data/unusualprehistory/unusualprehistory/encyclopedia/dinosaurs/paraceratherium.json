@@ -22,9 +22,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.18,
-      "offset_x": 9,
-      "offset_y": 13,
+      "entity_scale": 0.1,
+      "offset_x": 5,
+      "offset_y": -35,
       "hover_text": "Paraceratherium"
     }
   ]

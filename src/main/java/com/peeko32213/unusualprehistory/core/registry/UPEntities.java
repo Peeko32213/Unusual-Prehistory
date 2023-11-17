@@ -245,12 +245,12 @@ public class UPEntities {
                     .updateInterval(20)
                     .build(prefix("throwable_falling_block").toString()));
 
-    public static final RegistryObject<EntityType<EntityBookSnake>> BOOK_PALAEO = ENTITIES.register("book_palaeo",
+    public static final RegistryObject<EntityType<EntityBookSnake>> BOOK_PALAEO = ENTITIES.register("palaeo_book_palaeo",
             () -> EntityType.Builder.<EntityBookSnake>of(EntityBookSnake::new, MobCategory.MISC)
                     .noSummon()
                     .fireImmune()
                     .sized(2, 2)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "book_palaeo").toString()));
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "palaeo_book_palaeo").toString()));
 
     //Plants
 

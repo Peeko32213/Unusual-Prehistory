@@ -32,9 +32,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.5,
-      "offset_x": 7,
-      "offset_y": 5,
+      "entity_scale": 0.47,
+      "offset_x": 1,
+      "offset_y": -12,
       "hover_text": "Smilodon"
     }
   ]

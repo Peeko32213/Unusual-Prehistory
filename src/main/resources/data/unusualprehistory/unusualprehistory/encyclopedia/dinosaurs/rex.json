@@ -10,8 +10,8 @@
       "page" : 1,
       "scale": 1.2,
       "entity_scale": 0.18,
-      "offset_x": 12,
-      "offset_y": 13,
+      "offset_x": 3,
+      "offset_y": -26,
       "hover_text": "Tyrannosaurus Rex"
     }
   ],

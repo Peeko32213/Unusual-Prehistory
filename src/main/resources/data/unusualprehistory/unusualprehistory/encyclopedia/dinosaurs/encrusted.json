@@ -32,9 +32,9 @@
       "y": 120,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.38,
-      "offset_x": 8,
-      "offset_y": 6,
+      "entity_scale": 0.25,
+      "offset_x": 5,
+      "offset_y": -23,
       "hover_text": "Encrusted"
     }
   ]

@@ -22,9 +22,9 @@
       "y": 80,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.4,
-      "offset_x": 7,
-      "offset_y": 5,
+      "entity_scale": 0.33,
+      "offset_x": 9,
+      "offset_y": -18,
       "hover_text": "Sludge"
     }
   ]

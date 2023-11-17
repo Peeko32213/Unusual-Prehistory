@@ -22,9 +22,9 @@
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.4,
-      "offset_x": 8,
-      "offset_y":5,
+      "entity_scale": 0.25,
+      "offset_x": 10,
+      "offset_y": -26,
       "hover_text": "Dunkleosteus"
     }
   ]

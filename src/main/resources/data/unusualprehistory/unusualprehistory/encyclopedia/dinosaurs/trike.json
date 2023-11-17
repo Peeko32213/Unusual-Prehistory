@@ -22,9 +22,9 @@
       "y": 20,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.3,
-      "offset_x": 8,
-      "offset_y": 10,
+      "entity_scale": 0.18,
+      "offset_x": 3,
+      "offset_y": -26,
       "hover_text": "Triceratops"
     }
   ]

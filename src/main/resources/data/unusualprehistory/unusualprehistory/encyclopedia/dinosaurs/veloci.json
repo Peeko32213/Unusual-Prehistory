@@ -9,9 +9,9 @@
       "y": 60,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.57,
+      "entity_scale": 0.47,
       "offset_x": 9,
-      "offset_y": 3,
+      "offset_y": -10,
       "hover_text": "Velociraptor"
     }
   ],

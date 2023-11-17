@@ -22,9 +22,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.3,
-      "offset_x": 9,
-      "offset_y": 8,
+      "entity_scale": 0.2,
+      "offset_x": 15,
+      "offset_y": -20,
       "hover_text": "Barinasuchus"
     }
   ]
