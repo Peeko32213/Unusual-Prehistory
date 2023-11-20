@@ -458,6 +458,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.VELOCI.get())
                 .add(UPEntities.MAJUNGA.get())
                 .add(UPEntities.SLUDGE.get())
+                .add(UPEntities.OTAROCYON.get())
 
         ;
     }

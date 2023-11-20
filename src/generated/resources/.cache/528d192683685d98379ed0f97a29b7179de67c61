@@ -1,8 +1,8 @@
-// 1.20.1	2023-10-22T21:07:06.2548053	unusualprehistory Entity type tags provider
+// 1.20.1	2023-11-20T10:41:34.6053255	unusualprehistory Entity type tags provider
 a51f099fd7a79cf8ac8b705aeda14e1d56307ad6 data/unusualprehistory/tags/entity_types/antarcto_targets.json
 f6aaf288203062a671f170c0381ed4a60f1d18e4 data/unusualprehistory/tags/entity_types/anuro_targets.json
 bafd33c9a94592349029324bc465d05788b591b1 data/unusualprehistory/tags/entity_types/beelze_targets.json
-71570c9994b4fb7eccd9b3c80529cfedcb21d4b1 data/unusualprehistory/tags/entity_types/carnivores.json
+f972385c516b684d2b66a995a0d74f72979279d3 data/unusualprehistory/tags/entity_types/carnivores.json
 69d3b95846b0f41fc88f5c84c1d66c72afb0964c data/unusualprehistory/tags/entity_types/dunk_targets.json
 83a55a1b4cf30e3ed05fb4661a6dcd49bb9ecf40 data/unusualprehistory/tags/entity_types/encrusted_targets.json
 ad899b95647a5f6e16c619f0dafa977014b9bb8d data/unusualprehistory/tags/entity_types/giganto_embryo_attach_to.json

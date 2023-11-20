@@ -59,13 +59,13 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.INT);
-
+    private static final EntityDataAccessor<Boolean> ASLEEP = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
 
     public static final Logger LOGGER = LogManager.getLogger();
     private boolean orderedToSit;
     public int attackCooldown = 0;
     int lastTimeSinceHungry;
-
+    public int alertTicks = 0;
     protected EntityTameableBaseDinosaurAnimal(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
         this.reassessTameGoals();
@@ -215,6 +215,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.entityData.define(IS_FROM_EGG, false);
         this.entityData.define(FROM_BOOK, false);
         this.entityData.define(VARIANT, 0);
+        this.entityData.define(ASLEEP, false);
     }
 
     @Override
@@ -228,6 +229,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         compound.putInt("PassiveTicks", this.getPassiveTicks());
         compound.putBoolean("fromEgg", this.isFromEgg());
         compound.putInt("variant", this.getVariant());
+        compound.putBoolean("IsAsleep", this.isAsleep());
     }
 
     @Override
@@ -241,6 +243,7 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
         this.setIsFromEgg(compound.getBoolean("fromEgg"));
         this.setVariant(compound.getInt("variant"));
+        this.setAsleep(compound.getBoolean("IsAsleep"));
     }
 
     public boolean canBeLeashed(Player p_21813_) {
@@ -416,6 +419,14 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         this.entityData.set(HAS_SWUNG, Boolean.valueOf(swinging));
     }
 
+    public boolean isAsleep() {
+        return this.entityData.get(ASLEEP);
+    }
+
+    public void setAsleep(boolean isAsleep) {
+        this.entityData.set(ASLEEP, isAsleep);
+    }
+
     /**
      * Determines the variant of the entity based on the provided variant change value.
      * The variant change value is used to determine the specific variant of the entity.
@@ -440,6 +451,20 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
         return spawnGroupData;
     }
 
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.isAsleep()) this.navigation.setSpeedModifier(0);
+        if (!this.level().isClientSide) {
+            if (this.alertTicks != 0) alertTicks--;
+        }
+    }
+
+    public void setAwakeTicks(int ticks) {
+        if (!this.level().isClientSide) {
+            this.alertTicks = ticks;
+        }
+    }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

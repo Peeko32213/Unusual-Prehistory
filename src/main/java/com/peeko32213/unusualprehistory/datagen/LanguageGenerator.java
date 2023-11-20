@@ -177,6 +177,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.MEGALANIA_EGG, "Megalania Spawn Egg");
         addItem(UPItems.PALAEOPHIS_EGG, "Palaeolophis Spawn Egg");
         addItem(UPItems.SLUDGE_EGG, "Sludge Spawn Egg");
+        addItem(UPItems.OTAROCYON_EGG, "Otarocyon Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -447,6 +448,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.SLUDGE, "Sludge");
         addEntityType(UPEntities.ICEBERG_MAMMOTH, "Frozen Mammoth");
         addEntityType(UPEntities.ICEBERG_SMILODON, "Frozen Smilodon");
+        addEntityType(UPEntities.OTAROCYON, "Otarocyon");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");
