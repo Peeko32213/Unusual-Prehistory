@@ -37,11 +37,14 @@ public class VelociraptorModel extends GeoModel<EntityVelociraptor>
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
         CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
-
         if (animatable.isBaby()) {
             head.setScaleX(1.75F);
             head.setScaleY(1.75F);
             head.setScaleZ(1.75F);
+        } else {
+            head.setScaleX(1.0F);
+            head.setScaleY(1.0F);
+            head.setScaleZ(1.0F);
         }
         if (!animatable.isSprinting()) {
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);

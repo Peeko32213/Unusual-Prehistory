@@ -10,8 +10,8 @@
       "page" : 0,
       "scale": 1.2,
       "plant_scale": 1.1,
-      "offset_x": -5,
-      "offset_y": -8,
+      "offset_x": 1,
+      "offset_y": -3,
       "hover_text": "Nelumbites"
     }
   ],

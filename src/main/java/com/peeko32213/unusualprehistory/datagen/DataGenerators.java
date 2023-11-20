@@ -31,6 +31,7 @@ public class DataGenerators {
         ExistingFileHelper helper = evt.getExistingFileHelper();
         Set<BlockStateGenerator> set = Sets.newHashSet();
         Consumer<BlockStateGenerator> consumer = set::add;
+        CompletableFuture<HolderLookup.Provider> provider = evt.getLookupProvider();
         CompletableFuture<HolderLookup.Provider> lookupProvider = evt.getLookupProvider();
         generator.addProvider(true,new EntityTagsGenerator(packOutput, lookupProvider, helper));
         generator.addProvider(true,new RecipeGenerator(packOutput));
@@ -40,7 +41,7 @@ public class DataGenerators {
         generator.addProvider(evt.includeServer(), LootGenerator.create(packOutput));
         generator.addProvider(true,new BiomeTagsProvider(packOutput, lookupProvider, helper));
         generator.addProvider(true,new InstrumentTagsGenerator(packOutput, lookupProvider,helper));
-        //generator.addProvider(true,new AdvancementGenerator(generator, helper));
+        generator.addProvider(true,new AdvancementProvider(packOutput, provider, helper));
 
         BlockTagsGenerator blockTagGenerator = generator.addProvider(evt.includeServer(),
                 new BlockTagsGenerator(packOutput, lookupProvider, helper));

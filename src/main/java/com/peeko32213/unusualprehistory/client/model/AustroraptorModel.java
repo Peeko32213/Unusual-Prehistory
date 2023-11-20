@@ -37,7 +37,6 @@ public class AustroraptorModel extends GeoModel<EntityAustroraptor>
 
         if (animationState == null) return;
 
-
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
         CoreGeoBone head = this.getAnimationProcessor().getBone("Neck");
 

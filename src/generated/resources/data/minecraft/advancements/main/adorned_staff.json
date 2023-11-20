@@ -1,0 +1,39 @@
+{
+  "parent": "minecraft:main/amber_fossil",
+  "criteria": {
+    "adorned_staff": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:adorned_staff"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.acquire_adorned_staff.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:adorned_staff",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.acquire_adorned_staff"
+    }
+  },
+  "requirements": [
+    [
+      "adorned_staff"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
