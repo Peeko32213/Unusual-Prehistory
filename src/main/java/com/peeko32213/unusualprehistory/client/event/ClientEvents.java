@@ -158,6 +158,7 @@ public final class ClientEvents {
     private static final ResourceLocation MEGATHERIUM_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium_saddled.png");
     private static final ResourceLocation MEGATHERIUM_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium.geo.json");
     private static final ResourceLocation OTAROCYCON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/otarocyon.geo.json");
+    private static final ResourceLocation LONGISQUAMA_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/longisquama.geo.json");
 
     private static final ResourceLocation BARINASUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus.geo.json");
     private static final ResourceLocation BEELZE_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_saddle.png");
@@ -258,6 +259,12 @@ public final class ClientEvents {
                 UPRenderUtils.createTamableDinosaurRenderer(e, new OtarocyonModel())
                         .withLayers(OTAROCYCON_MODEL)
                         .build());
+
+        event.registerEntityRenderer(UPEntities.LONGISQUAMA.get(),
+                e -> new TameableDinosaurCutoutNoCullRenderer<>(e, new LongisquamaModel()));
+        event.registerEntityRenderer(UPEntities.FURCA.get(), e -> new LivingEntityFishRenderer<>(e, new FurcacaudaModel()));
+        event.registerEntityRenderer(UPEntities.TARTUOSTEUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TartuosteusModel()));
+
 
 
         //Plants

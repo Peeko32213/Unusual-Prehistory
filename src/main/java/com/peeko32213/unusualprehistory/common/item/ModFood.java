@@ -17,6 +17,10 @@ public class ModFood {
     public static final FoodProperties RAW_AUSTRO = (new FoodProperties.Builder()).nutrition(1).saturationMod(0.3F).meat().effect(new MobEffectInstance(MobEffects.HUNGER, 600, 1), 1.0F).build();
     public static final FoodProperties RAW_MAMMOTH = (new FoodProperties.Builder()).nutrition(5).saturationMod(0.3F).meat().build();
 
+    public static final FoodProperties RAW_FURCA = (new FoodProperties.Builder()).nutrition(1).saturationMod(0.1F).meat().build();
+    public static final FoodProperties RAW_TARTU = (new FoodProperties.Builder()).nutrition(3).saturationMod(0.3F).meat().build();
+    public static final FoodProperties RAW_OPHIODON = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.3F).meat().build();
+
 
     //Cooked
     public static final FoodProperties COOKED_STETHA = (new FoodProperties.Builder()).nutrition(5).saturationMod(0.4F).meat().fast().build();
@@ -26,6 +30,11 @@ public class ModFood {
     public static final FoodProperties COOKED_AUSTRO = (new FoodProperties.Builder()).nutrition(12).saturationMod(1.2F).meat().build();
     public static final FoodProperties COOKED_MAMMOTH = (new FoodProperties.Builder()).nutrition(10).saturationMod(1.6F).meat().build();
     public static final FoodProperties MAMMOTH_MEATBALL = (new FoodProperties.Builder()).nutrition(20).saturationMod(10F).meat().build();
+
+    public static final FoodProperties COOKED_FURCA = (new FoodProperties.Builder()).nutrition(2).saturationMod(1.4F).meat().fast().build();
+    public static final FoodProperties COOKED_TARTU = (new FoodProperties.Builder()).nutrition(6).saturationMod(1.5F).meat().build();
+    public static final FoodProperties COOKED_OPHIODON = (new FoodProperties.Builder()).nutrition(8).saturationMod(1.5F).meat().build();
+
 
     //Special
     public static final FoodProperties GOLDEN_SCAU = (new FoodProperties.Builder()).nutrition(15).saturationMod(2.2F).meat().build();

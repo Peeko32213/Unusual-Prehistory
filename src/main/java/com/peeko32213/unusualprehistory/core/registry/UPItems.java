@@ -231,6 +231,16 @@ public class UPItems {
 
     public static final RegistryObject<Item> DRYO_FLASK = ITEMS.register("dryo_flask",
             () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> OTAROCYON_FLASK = ITEMS.register("otarocyon_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> LONGI_FLASK = ITEMS.register("longisquama_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> FURCA_FLASK = ITEMS.register("furcacauda_flask",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FROG_SALIVA = ITEMS.register("frog_saliva",
@@ -312,6 +322,10 @@ public class UPItems {
 
     public static final RegistryObject<Item> PALAEO_BUCKET = ITEMS.register("palaeo_bucket",
             () -> new ItemModFishBucket(UPEntities.BABY_PALAEO, () -> Fluids.WATER, Items.BUCKET, false,
+                    new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> FURCA_BUCKET = ITEMS.register("furca_bucket",
+            () -> new ItemModFishBucket(UPEntities.FURCA, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<ForgeSpawnEggItem> STETHA_EGG = registerSpawnEggs("stetha_spawn_egg",
@@ -401,7 +415,16 @@ public class UPItems {
             UPEntities.SLUDGE , 0x0a090a, 0x282627);
 
     public static final RegistryObject<ForgeSpawnEggItem> OTAROCYON_EGG = registerSpawnEggs("otarocyon_spawn_egg",
-            UPEntities.OTAROCYON , 0x0a090a, 0x282627);
+            UPEntities.OTAROCYON , 0x1d121b, 0x681523);
+
+    public static final RegistryObject<ForgeSpawnEggItem> LONGISQUAMA_EGG = registerSpawnEggs("longisquama_spawn_egg",
+            UPEntities.LONGISQUAMA , 0x5e4fa7, 0x7edbdd);
+
+    public static final RegistryObject<ForgeSpawnEggItem> FURCA_EGG = registerSpawnEggs("furcacauda_spawn_egg",
+            UPEntities.FURCA , 0x9a32af, 0xe7cd39);
+
+    public static final RegistryObject<ForgeSpawnEggItem> TARTUOSTEUS_EGG = registerSpawnEggs("tartuosteus_spawn_egg",
+            UPEntities.TARTUOSTEUS , 0x12352f, 0x73a658);
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,
@@ -526,6 +549,23 @@ public class UPItems {
     public static final RegistryObject<Item> COOKED_MAMMOTH = ITEMS.register("cooked_mammoth",
             () -> new Item(new Item.Properties().food(ModFood.COOKED_MAMMOTH)));
 
+    public static final RegistryObject<Item> RAW_FURCACAUDA = ITEMS.register("raw_furcacauda",
+            () -> new Item(new Item.Properties().food(ModFood.RAW_FURCA)));
+
+    public static final RegistryObject<Item> COOKED_FURCACAUDA = ITEMS.register("cooked_furcacauda",
+            () -> new Item(new Item.Properties().food(ModFood.COOKED_FURCA)));
+
+    public static final RegistryObject<Item> RAW_TARTU = ITEMS.register("raw_tartuosteus",
+            () -> new Item(new Item.Properties().food(ModFood.RAW_TARTU)));
+
+    public static final RegistryObject<Item> COOKED_TARTU = ITEMS.register("cooked_tartuosteus",
+            () -> new Item(new Item.Properties().food(ModFood.COOKED_TARTU)));
+
+    public static final RegistryObject<Item> RAW_OPHIODON = ITEMS.register("raw_ophiodon",
+            () -> new Item(new Item.Properties().food(ModFood.RAW_OPHIODON)));
+
+    public static final RegistryObject<Item> COOKED_OPHIODON = ITEMS.register("cooked_ophiodon",
+            () -> new Item(new Item.Properties().food(ModFood.COOKED_OPHIODON)));
     public static final RegistryObject<Item> MAMMOTH_MEATBALL = ITEMS.register("mammoth_meatball",
             () -> new ModItemDrinkable(soupItem().food(ModFood.MAMMOTH_MEATBALL), true, false));
     public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",

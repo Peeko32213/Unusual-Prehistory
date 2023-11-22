@@ -459,7 +459,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.MAJUNGA.get())
                 .add(UPEntities.SLUDGE.get())
                 .add(UPEntities.OTAROCYON.get())
-
+                .add(UPEntities.LONGISQUAMA.get())
         ;
     }
 

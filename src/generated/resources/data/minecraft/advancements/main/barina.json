@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:main/incubator",
+  "parent": "minecraft:main/egg",
   "criteria": {
     "damage_barina": {
       "conditions": {

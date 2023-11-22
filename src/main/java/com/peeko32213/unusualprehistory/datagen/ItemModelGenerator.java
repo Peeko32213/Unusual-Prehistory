@@ -53,6 +53,15 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.RAW_MAMMOTH);
         singleTex(UPItems.MAMMOTH_MEATBALL);
         singleTex(UPItems.COOKED_MAMMOTH);
+        singleTex(UPItems.FURCA_FLASK);
+        singleTex(UPItems.OTAROCYON_FLASK);
+        singleTex(UPItems.LONGI_FLASK);
+        singleTex(UPItems.RAW_FURCACAUDA);
+        singleTex(UPItems.COOKED_FURCACAUDA);
+        singleTex(UPItems.RAW_TARTU);
+        singleTex(UPItems.COOKED_TARTU);
+        singleTex(UPItems.RAW_OPHIODON);
+        singleTex(UPItems.COOKED_OPHIODON);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());

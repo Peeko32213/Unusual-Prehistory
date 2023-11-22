@@ -1,4 +1,4 @@
-// 1.20.1	2023-11-19T21:55:46.3428277	Advancements
+// 1.20.1	2023-11-21T10:49:00.307814	Advancements
 21236e9a1c80ed3171d8b4b50e75901457aabb13 data/minecraft/advancements/main/adorned_staff.json
 60693ebe5691dcd574172e628365832a140d7275 data/minecraft/advancements/main/amber_fossil.json
 a6e7343d951194a747d09bb16642e2a51e4d9313 data/minecraft/advancements/main/amber_gummy.json
@@ -11,7 +11,7 @@ a48a72eb30db0d6c3494a1ccf560537313086dbf data/minecraft/advancements/main/antarc
 690df96c862ba3ae84f4b11f1d93e036282b69af data/minecraft/advancements/main/anuro.json
 a39a95af52bbe712a76244423201ba8ce0e817e7 data/minecraft/advancements/main/austro.json
 76e3ceb5eb8f6a32736e391cf84b875ee9c7efa5 data/minecraft/advancements/main/austro_boots.json
-263c6d746df4a306eb98d6296c221c39c5370485 data/minecraft/advancements/main/barina.json
+9cb48e991dd9c475952369cbc2ff43cd7b7737d9 data/minecraft/advancements/main/barina.json
 e7f146c56f5277377afba55f654b2f6662106ee7 data/minecraft/advancements/main/beelze.json
 9cc5d675c11075f3d35fe85adc720daa62c5b688 data/minecraft/advancements/main/brachi.json
 f6b53955e9fd4dcb37abd1bef9b458208ce6e22d data/minecraft/advancements/main/coty.json
@@ -40,10 +40,11 @@ be9a8cffcd626b3d6cf57b53a568a3b576d4f1c5 data/minecraft/advancements/main/majung
 4cee30b89c58648249effa85a84336985a3eb7f3 data/minecraft/advancements/main/mammoth.json
 17e94b15b89ca7e4f58f821f278445f0dc018b9d data/minecraft/advancements/main/mammoth_meatball.json
 330e8714fb1df21e531ffdf245ab078de7b74f93 data/minecraft/advancements/main/meat_stick.json
-26b8eb861bc5312bc9421229040764d15b0965da data/minecraft/advancements/main/megalania.json
+e04e03d53a78656f21b2c585c1c70462bcbacea3 data/minecraft/advancements/main/megalania.json
 890e93d159cdecf6e94e84f051190b6efba5aaf0 data/minecraft/advancements/main/opal_fossil.json
 196d6b2c733e94cdc6f43881fc94642332366464 data/minecraft/advancements/main/opal_pearl.json
 3a6bf0de7cae1b0b1e0c68fd477af5edcd0744a7 data/minecraft/advancements/main/opal_shuriken.json
+d27798e1401919b3f46cc629aafba75ebd5ad783 data/minecraft/advancements/main/otarocyon.json
 5e84008ec2be2769c5ccdd2cbde6adc7f786f92d data/minecraft/advancements/main/pachy.json
 c53220fe479ababc31e76365e5cf5dc592e92a45 data/minecraft/advancements/main/palaeophis.json
 83f5d6a940c2923de2db25eb1a6498c931acc76f data/minecraft/advancements/main/paraceratherium.json
@@ -57,7 +58,7 @@ d067022f3c61d8d4e807595daa6518004d9eaf04 data/minecraft/advancements/main/scau.j
 5906d15fa3931887fe593d8d40d03a77cd2bb448 data/minecraft/advancements/main/sludge.json
 fdd409f5afdde75f35cc563420fb8dafd7ae2ef0 data/minecraft/advancements/main/smilodon.json
 1c34864ed0dc51955fbeb5b82e2c150049807ea1 data/minecraft/advancements/main/stetha.json
-1dc9854822af73b6fcfe36885e41d34bf961e2f5 data/minecraft/advancements/main/talapanas.json
+1ad950f76309013e1c734980029da29a7e464ba1 data/minecraft/advancements/main/talapanas.json
 52db718f09f2b3f1c5c0ce472b17baea7a0a8edd data/minecraft/advancements/main/tame_barina.json
 dfc86301e348e774b16e9939c2f1f4fa889cf777 data/minecraft/advancements/main/trike.json
 5451d0144ce1fcad38a7c20c3b458781156a8e30 data/minecraft/advancements/main/trike_shield.json

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "unusualprehistory:raw_ophiodon"
+  },
+  "result": "unusualprehistory:cooked_ophiodon",
+  "experience": 0.35,
+  "cookingtime": 400
+}

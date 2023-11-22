@@ -177,8 +177,20 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()));
 
     public static final RegistryObject<EntityType<EntityOtarocyon>> OTAROCYON = ENTITIES.register("otarocyon",
-            () -> EntityType.Builder.of(EntityOtarocyon::new, MobCategory.CREATURE).sized(8.0F, 8.0F)
+            () -> EntityType.Builder.of(EntityOtarocyon::new, MobCategory.CREATURE).sized(1.0F, 1.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "otarocyon").toString()));
+
+    public static final RegistryObject<EntityType<EntityLongisquama>> LONGISQUAMA = ENTITIES.register("longisquama",
+            () -> EntityType.Builder.of(EntityLongisquama::new, MobCategory.CREATURE).sized(1.0F, 1.0F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "longisquama").toString()));
+
+    public static final RegistryObject<EntityType<EntityFurcacauda>> FURCA = ENTITIES.register("furca",
+            () -> EntityType.Builder.of(EntityFurcacauda::new, MobCategory.WATER_AMBIENT).sized(1.1f, 0.6f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "furca").toString()));
+
+    public static final RegistryObject<EntityType<EntityTartuosteus>> TARTUOSTEUS = ENTITIES.register("tartuosteus",
+            () -> EntityType.Builder.of(EntityTartuosteus::new, MobCategory.WATER_CREATURE).sized(2.0f, 0.8f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "tartuosteus").toString()));
 
     public static final RegistryObject<EntityType<EntityBabyMegatherium>> BABY_MEGATHERIUM = ENTITIES.register("baby_megatherium",
             () -> EntityType.Builder.of(EntityBabyMegatherium::new, MobCategory.CREATURE).sized(0.8f, 0.6f)

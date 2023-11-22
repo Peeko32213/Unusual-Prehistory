@@ -362,7 +362,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
 
                 .save(consumer, "main/gigantopithicus_fruits");
 
-        Advancement talapanas = getAdvancement(birthingPod, (ItemLike)UPItems.TALPANAS_FLASK.get(), "interact_talpanas", FrameType.TASK, true, true, true)
+        Advancement talapanas = getAdvancement(eggs, (ItemLike)UPItems.TALPANAS_FLASK.get(), "interact_talpanas", FrameType.TASK, true, true, true)
                 .addCriterion("damage_talapanas", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))))
                 .addCriterion("interact_talapanas", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get()).build())))
                 .addCriterion("killed_talapanas", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))
@@ -378,7 +378,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
 
                 .save(consumer, "main/mammoth");
 
-        Advancement barina = getAdvancement(birthingPod, (ItemLike)UPItems.BARIN_FLASK.get(), "interact_barina", FrameType.TASK, true, true, true)
+        Advancement barina = getAdvancement(eggs, (ItemLike)UPItems.BARIN_FLASK.get(), "interact_barina", FrameType.TASK, true, true, true)
                 .addCriterion("damage_barina", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get())))))
                 .addCriterion("interact_barina", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get()).build())))
                 .addCriterion("killed_barina", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get())))
@@ -398,13 +398,20 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
 
                 .save(consumer, "main/paraceratherium");
 
-        Advancement megalania = getAdvancement(birthingPod, (ItemLike)UPItems.MEGALA_FLASK.get(), "interact_megala", FrameType.TASK, true, true, true)
+        Advancement megalania = getAdvancement(eggs, (ItemLike)UPItems.MEGALA_FLASK.get(), "interact_megala", FrameType.TASK, true, true, true)
                 .addCriterion("damage_megala", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))))
                 .addCriterion("interact_megala", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get()).build())))
                 .addCriterion("killed_megala", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))
                 .requirements(RequirementsStrategy.OR)
 
                 .save(consumer, "main/megalania");
+
+        Advancement otarocyon = getAdvancement(birthingPod, (ItemLike)UPItems.OTAROCYON_FLASK.get(), "interact_otarocyon", FrameType.TASK, true, true, true)
+                .addCriterion("damage_otarocyon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))))
+                .addCriterion("interact_otarocyon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get()).build())))
+                .addCriterion("killed_otarocyon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))
+                .requirements(RequirementsStrategy.OR)
+                .save(consumer, "main/otarocyon");
 
         Advancement petrified = getAdvancement(fossil, (ItemLike) UPBlocks.PETRIFIED_WOOD_LOG.get(), "petrified_wood", FrameType.TASK, true, true, true)
                 .addCriterion("petrified_wood", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.PETRIFIED_WOOD_LOG.get()))

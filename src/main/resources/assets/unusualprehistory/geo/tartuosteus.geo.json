@@ -1,0 +1,49 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.tartuosteus",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 6,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "Body",
+					"pivot": [0, 8, 0],
+					"cubes": [
+						{"origin": [-10, 0, -8], "size": [20, 10, 18], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Tail",
+					"parent": "Body",
+					"pivot": [0, 7, 10],
+					"cubes": [
+						{"origin": [0, 2, 10], "size": [0, 11, 30], "uv": [0, 0]},
+						{"origin": [-1.5, 5, 10], "size": [3, 5, 26], "uv": [34, 28]}
+					]
+				},
+				{
+					"name": "Fin1",
+					"parent": "Body",
+					"pivot": [10, 8, 7],
+					"cubes": [
+						{"origin": [10, 8, 2], "size": [16, 2, 8], "uv": [0, 41]}
+					]
+				},
+				{
+					"name": "Fin2",
+					"parent": "Body",
+					"pivot": [-10, 8, 7],
+					"cubes": [
+						{"origin": [-26, 8, 2], "size": [16, 2, 8], "uv": [0, 41], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

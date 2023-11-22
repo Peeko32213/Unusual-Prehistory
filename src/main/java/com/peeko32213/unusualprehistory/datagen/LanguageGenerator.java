@@ -104,6 +104,12 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAW_MAMMOTH, "Raw Mammoth Meat");
         addItem(UPItems.COOKED_MAMMOTH, "Cooked Mammoth");
         addItem(UPItems.MAMMOTH_MEATBALL, "Mammoth Meatball");
+        addItem(UPItems.RAW_FURCACAUDA, "Raw Furcacauda");
+        addItem(UPItems.COOKED_FURCACAUDA, "Cooked Furcacauda");
+        addItem(UPItems.RAW_TARTU, "Raw Tartuosteus");
+        addItem(UPItems.COOKED_TARTU, "Cooked Tartuosteus");
+        addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon");
+        addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon");
 
         //SCRAPS
         addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
@@ -118,6 +124,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
         addItem(UPItems.DUNK_BUCKET, "Bucket of Baby Dunkleosteus");
         addItem(UPItems.PALAEO_BUCKET, "Bucket of Baby Palaeolophis");
+        addItem(UPItems.FURCA_BUCKET, "Bucket of Furcacauda");
 
 
         //EGGS
@@ -178,6 +185,9 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PALAEOPHIS_EGG, "Palaeolophis Spawn Egg");
         addItem(UPItems.SLUDGE_EGG, "Sludge Spawn Egg");
         addItem(UPItems.OTAROCYON_EGG, "Otarocyon Spawn Egg");
+        addItem(UPItems.LONGISQUAMA_EGG, "Longisquama Spawn Egg");
+        addItem(UPItems.FURCA_EGG, "Furcacauda Spawn Egg");
+        addItem(UPItems.TARTUOSTEUS_EGG, "Tartuosteus Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -250,6 +260,9 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAIGUENRAYUN_FLASK, "Raiguenrayun DNA Flask");
         addItem(UPItems.FOXXI_FLASK, "Foxii DNA Flask");
         addItem(UPItems.DRYO_FLASK, "Dryophyllum DNA Flask");
+        addItem(UPItems.OTAROCYON_FLASK, "Otarocyon DNA Flask");
+        addItem(UPItems.LONGI_FLASK, "Longisquama DNA Flask");
+        addItem(UPItems.FURCA_FLASK, "Furcacauda DNA Flask");
 
         //CORALS
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");
@@ -449,6 +462,9 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.ICEBERG_MAMMOTH, "Frozen Mammoth");
         addEntityType(UPEntities.ICEBERG_SMILODON, "Frozen Smilodon");
         addEntityType(UPEntities.OTAROCYON, "Otarocyon");
+        addEntityType(UPEntities.LONGISQUAMA, "Longisquama");
+        addEntityType(UPEntities.FURCA, "Furcacauda");
+        addEntityType(UPEntities.TARTUOSTEUS, "Tartuosteus");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");
@@ -736,6 +752,9 @@ public class LanguageGenerator extends LanguageProvider {
 
         add("unusualprehistory.advancement.interact_megala", "Health Sapper");
         add("unusualprehistory.advancement.interact_megala.desc", "Revive a Megalania");
+
+        add("unusualprehistory.advancement.interact_otarocyon", "Creatures of the Night");
+        add("unusualprehistory.advancement.interact_otarocyon.desc", "Revive a Otarocyon");
 
         add("unusualprehistory.advancement.petrified_wood", "Odd Looking Wood");
         add("unusualprehistory.advancement.petrified_wood.desc", "Find Some Petrified Wood");

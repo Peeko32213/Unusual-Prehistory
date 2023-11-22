@@ -77,7 +77,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.RAIGUENRAYUN_FLASK.get())
                 .add(UPItems.FOXXI_FLASK.get())
                 .add(UPItems.GINKGO_FLASK.get())
-                .add(UPItems.DRYO_FLASK.get());
+                .add(UPItems.DRYO_FLASK.get())
+                .add(UPItems.OTAROCYON_FLASK.get())
+                .add(UPItems.LONGI_FLASK.get())
+                .add(UPItems.FURCA_FLASK.get())
+        ;
 
         tag(UPTags.FOSSILS)
                 .add(UPItems.AMBER_FOSSIL.get())
@@ -264,7 +268,9 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.REX_FLASK.get())
                 .add(UPItems.TRIKE_FLASK.get())
                 .add(UPItems.HWACHA_FLASK.get())
-                .add(UPItems.ENCRUSTED_FLASK.get());
+                .add(UPItems.ENCRUSTED_FLASK.get())
+                .add(UPItems.LONGI_FLASK.get())
+        ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_ENCRUSTED)
                 .add(UPItems.ENCRUSTED_FLASK.get());
@@ -286,7 +292,9 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.SCAU_FLASK.get())
                 .add(UPItems.COTY_FLASK.get())
                 .add(UPItems.STETHA_FLASK.get())
-                .add(UPItems.DUNK_FLASK.get());
+                .add(UPItems.DUNK_FLASK.get())
+                .add(UPItems.FURCA_FLASK.get())
+        ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_PLANT)
                 .add(Items.COAL)
@@ -323,7 +331,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.BARIN_FLASK.get())
                 .add(UPItems.PARACER_FLASK.get())
                 .add(UPItems.GIGANTO_FLASK.get())
-                .add(UPItems.TALPANAS_FLASK.get());
+                .add(UPItems.TALPANAS_FLASK.get())
+                .add(UPItems.OTAROCYON_FLASK.get());
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_OPAL)
                 .add(UPItems.PALAEO_FLASK.get());

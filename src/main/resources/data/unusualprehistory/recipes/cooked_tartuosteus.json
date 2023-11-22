@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "unusualprehistory:raw_tartuosteus"
+  },
+  "result": "unusualprehistory:cooked_tartuosteus",
+  "experience": 0.1,
+  "cookingtime": 300
+}
