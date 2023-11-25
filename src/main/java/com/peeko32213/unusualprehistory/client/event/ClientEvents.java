@@ -264,6 +264,7 @@ public final class ClientEvents {
                 e -> new TameableDinosaurCutoutNoCullRenderer<>(e, new LongisquamaModel()));
         event.registerEntityRenderer(UPEntities.FURCA.get(), e -> new LivingEntityFishRenderer<>(e, new FurcacaudaModel()));
         event.registerEntityRenderer(UPEntities.TARTUOSTEUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TartuosteusModel()));
+        event.registerEntityRenderer(UPEntities.PSITTACO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsittacosaurusModel()));
 
 
 

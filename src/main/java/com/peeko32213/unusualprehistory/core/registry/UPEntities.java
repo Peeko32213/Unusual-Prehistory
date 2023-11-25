@@ -192,6 +192,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityTartuosteus::new, MobCategory.WATER_CREATURE).sized(2.0f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "tartuosteus").toString()));
 
+    public static final RegistryObject<EntityType<EntityPsittacosaurus>> PSITTACO = ENTITIES.register("psittaco",
+            () -> EntityType.Builder.of(EntityPsittacosaurus::new, MobCategory.CREATURE).sized(1.0F, 1.0F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "psittaco").toString()));
+
     public static final RegistryObject<EntityType<EntityBabyMegatherium>> BABY_MEGATHERIUM = ENTITIES.register("baby_megatherium",
             () -> EntityType.Builder.of(EntityBabyMegatherium::new, MobCategory.CREATURE).sized(0.8f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_megatherium").toString()));

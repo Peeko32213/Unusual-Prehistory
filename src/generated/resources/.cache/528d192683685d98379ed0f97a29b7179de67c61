@@ -1,4 +1,4 @@
-// 1.20.1	2023-11-21T10:49:00.3067815	unusualprehistory Entity type tags provider
+// 1.20.1	2023-11-24T13:02:39.8227679	unusualprehistory Entity type tags provider
 a51f099fd7a79cf8ac8b705aeda14e1d56307ad6 data/unusualprehistory/tags/entity_types/antarcto_targets.json
 f6aaf288203062a671f170c0381ed4a60f1d18e4 data/unusualprehistory/tags/entity_types/anuro_targets.json
 bafd33c9a94592349029324bc465d05788b591b1 data/unusualprehistory/tags/entity_types/beelze_targets.json
@@ -14,6 +14,7 @@ bda291a6e6416b0e14a087cc86f33600be45cc1d data/unusualprehistory/tags/entity_type
 498443039e5f5973e61ae5884b2293383cd397c3 data/unusualprehistory/tags/entity_types/megath_embryo_attach_to.json
 304bda22acd12baeb19975ce00f2eacf236a820c data/unusualprehistory/tags/entity_types/palaeo_embryo_attach_to.json
 7e8abd9a60094e4752e4b027b33b79eacd35fc08 data/unusualprehistory/tags/entity_types/paracer_embryo_attach_to.json
+4bf1e9b7f209f3bff1c855090443f2e7a0b8dc8d data/unusualprehistory/tags/entity_types/psittaco_targets.json
 97a82ea62bdf8bc728e8ab323da3ecaaa5d0d7c9 data/unusualprehistory/tags/entity_types/raptor_targets.json
 5067a79eee67c3164ef997fb8f9a91075e975696 data/unusualprehistory/tags/entity_types/rex_targets.json
 21bdb4d5abdc75bff1314258fbf2dbf0ba120be1 data/unusualprehistory/tags/entity_types/smilodon_embryo_attach_to.json

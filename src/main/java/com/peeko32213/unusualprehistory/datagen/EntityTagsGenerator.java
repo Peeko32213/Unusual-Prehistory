@@ -346,6 +346,13 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .addOptional(new ResourceLocation("naturalist:tortoise"))
         ;
 
+        tag(UPTags.PSITTACO_TARGETS)
+                .add(UPEntities.BEELZ.get())
+                .add(UPEntities.VELOCI.get())
+                .add(UPEntities.MAJUNGA.get())
+                .add(UPEntities.SMILODON.get())
+        ;
+
 
 
         tag(UPTags.MEGALANIA_TARGETS)

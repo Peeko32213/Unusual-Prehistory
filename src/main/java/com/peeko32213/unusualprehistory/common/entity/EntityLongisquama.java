@@ -411,11 +411,11 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater() ) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater() && this.isClimbing()) {
             event.setAndContinue(LONGISQUAMA_WALK);
             return PlayState.CONTINUE;
         }
-        if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
+        if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming() && this.isClimbing()) {
             event.setAndContinue(LONGISQUAMA_BASKING);
             return PlayState.CONTINUE;
         }
@@ -424,20 +424,20 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        if (this.isPassenger()&& !this.isSwimming() && !this.isInSittingPose()) {
+        if (this.isPassenger() && !this.isSwimming() && !this.isInSittingPose() && this.isClimbing()) {
             event.setAndContinue(LONGISQUAMA_SHAKING);
             return PlayState.CONTINUE;
         }
-        else if (this.isClimbing()) {
+        else if (this.isClimbing() && !this.isSwimming()) {
             event.setAndContinue(LONGISQUAMA_CLIMBING);
             return PlayState.CONTINUE;
         }
-        if (isStillEnough() && random.nextInt(500) == 0 && !this.isInSittingPose() && !this.isSwimming()) {
+        if (isStillEnough() && random.nextInt(500) == 0 && !this.isInSittingPose() && !this.isSwimming() && this.isClimbing()) {
             float rand = random.nextFloat();
-            if (rand < 0.2F) {
+            if (rand < 0.55F) {
                 event.setAndContinue(LONGISQUAMA_BASKING);
             }
-            if (rand < 0.45F) {
+            if (rand < 0.75F) {
                 event.setAndContinue(LONGISQUAMA_FLAIRING);
             }
             else {

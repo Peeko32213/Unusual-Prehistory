@@ -62,6 +62,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.COOKED_TARTU);
         singleTex(UPItems.RAW_OPHIODON);
         singleTex(UPItems.COOKED_OPHIODON);
+        singleTex(UPItems.PSITTACO_QUIL);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());

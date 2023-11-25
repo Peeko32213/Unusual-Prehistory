@@ -581,7 +581,6 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
                     this.resetAttackCooldown();
                     this.ticksUntilNextPathRecalculation = 0;
                 }
-
             }
 
 

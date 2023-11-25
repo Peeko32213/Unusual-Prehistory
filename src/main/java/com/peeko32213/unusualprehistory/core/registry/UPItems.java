@@ -426,6 +426,9 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> TARTUOSTEUS_EGG = registerSpawnEggs("tartuosteus_spawn_egg",
             UPEntities.TARTUOSTEUS , 0x12352f, 0x73a658);
 
+    public static final RegistryObject<ForgeSpawnEggItem> PSITTACO_EGG = registerSpawnEggs("psittaco_spawn_egg",
+            UPEntities.PSITTACO , 0xa04f2a, 0xd6b560);
+
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,
                     new Item.Properties()));
@@ -570,6 +573,9 @@ public class UPItems {
             () -> new ModItemDrinkable(soupItem().food(ModFood.MAMMOTH_MEATBALL), true, false));
     public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",
             () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157));
+
+    public static final RegistryObject<Item> PSITTACO_QUIL = ITEMS.register("psittaco_quil",
+            () -> new Item(new Item.Properties()));
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties()));
     }

@@ -58,7 +58,7 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 15.0D)
                 .add(Attributes.ARMOR, 0.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.23D)
+                .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
     }
@@ -67,7 +67,7 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
         super.registerGoals();
         this.goalSelector.addGoal(1, new PounceGoal(this, 0));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
-        this.goalSelector.addGoal(5, new PushButtonsGoal(this, 1.0F, 5, 2));
+        this.goalSelector.addGoal(5, new PushButtonsGoal(this, 0.5F, 5, 2));
         this.goalSelector.addGoal(2, new EntityVelociraptor.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));

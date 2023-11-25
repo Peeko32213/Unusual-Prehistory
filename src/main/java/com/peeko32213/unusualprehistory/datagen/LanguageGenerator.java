@@ -77,6 +77,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.SMILO_FUR, "Smilodon Fur");
         addItem(UPItems.PALAEO_SKIN, "Discarded Palaeolophis Skin");
         addItem(UPItems.INSULATOR, "Insulator");
+        addItem(UPItems.PSITTACO_QUIL, "Psittacosaurus Quil");
 
         //FOODS
         addItem(UPItems.GROG, "Flask of Grog");
@@ -188,6 +189,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.LONGISQUAMA_EGG, "Longisquama Spawn Egg");
         addItem(UPItems.FURCA_EGG, "Furcacauda Spawn Egg");
         addItem(UPItems.TARTUOSTEUS_EGG, "Tartuosteus Spawn Egg");
+        addItem(UPItems.PSITTACO_EGG, "Psittacosaurus Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -465,6 +467,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.LONGISQUAMA, "Longisquama");
         addEntityType(UPEntities.FURCA, "Furcacauda");
         addEntityType(UPEntities.TARTUOSTEUS, "Tartuosteus");
+        addEntityType(UPEntities.PSITTACO, "Psittacosaurus");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");

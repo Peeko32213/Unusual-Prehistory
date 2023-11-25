@@ -172,7 +172,7 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
         if (!this.isOrderedToSit() && sitProgress > 0F) {
             sitProgress--;
         }
-        if (this.getCommand() == 2) {
+        if (this.getCommand() == 2 && !this.isVehicle()) {
             this.setOrderedToSit(true);
         } else {
             this.setOrderedToSit(false);
@@ -357,15 +357,15 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
             return PlayState.CONTINUE;
         }
 
-        if (isStillEnough() && random.nextInt(500) == 0 && !this.isInSittingPose() && !this.isSwimming()) {
+        else if (isStillEnough() && random.nextInt(100) == 0 && !this.isInSittingPose() && !this.isSwimming()) {
             float rand = random.nextFloat();
-            if (rand < 0.2F) {
+            if (rand < 0.55F) {
                 event.setAndContinue(OTAROCYON_LOAF);
             }
-            if (rand < 0.45F) {
+            if (rand < 0.66F) {
                 event.setAndContinue(OTAROCYON_DIG);
             }
-            if (rand < 0.35F) {
+            if (rand < 0.77F) {
                 event.setAndContinue(OTAROCYON_YAWN);
             }
             else {

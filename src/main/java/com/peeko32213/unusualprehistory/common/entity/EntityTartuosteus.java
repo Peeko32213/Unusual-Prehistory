@@ -145,7 +145,7 @@ public class EntityTartuosteus extends WaterAnimal implements GeoAnimatable, IBo
 
         if (isStillEnough() && random.nextInt(500) == 0 && this.isInWater()) {
             float rand = random.nextFloat();
-            if (rand < 0.45F) {
+            if (rand < 0.5F) {
                 event.setAndContinue(TARTUO_REST);
             }
             else {
