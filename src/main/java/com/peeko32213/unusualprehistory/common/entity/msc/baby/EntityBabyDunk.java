@@ -235,7 +235,7 @@ public class EntityBabyDunk extends AbstractFish implements GeoAnimatable {
 
     @Override
     protected SoundEvent getFlopSound() {
-        return null;
+        return SoundEvents.TADPOLE_FLOP;
     }
 
     protected <E extends EntityBabyDunk> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {

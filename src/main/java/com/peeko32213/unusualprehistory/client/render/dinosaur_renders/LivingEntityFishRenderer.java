@@ -29,6 +29,7 @@ public class LivingEntityFishRenderer<T extends LivingEntity & GeoAnimatable> ex
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
         poseStack.scale(-1,-1,-1);
     }
+    
     @Override
     protected void applyRotations(T animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
         super.applyRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
