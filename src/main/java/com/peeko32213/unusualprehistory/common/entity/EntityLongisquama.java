@@ -228,14 +228,13 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
 
 
     private boolean touch(Mob pMob) {
+        if (this.isAlliedTo(pMob) || pMob instanceof EntityLongisquama ){
+            return false;
+        }
         if (pMob.hurt(this.damageSources().mobAttack(this), (float)(1.2))) {
             pMob.addEffect(new MobEffectInstance(MobEffects.POISON, 60 , 0), this);
             this.playSound(SoundEvents.PUFFER_FISH_STING, 1.0F, 1.0F);
         }
-        else if (this.isAlliedTo(pMob) || pMob instanceof EntityLongisquama ){
-            return false;
-        }
-
         return false;
     }
 
@@ -254,7 +253,13 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
 
     }
 
-
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if(pSource.getEntity() != null && pSource.getEntity().is(this)){
+            return false;
+        }
+        return super.hurt(pSource, pAmount);
+    }
 
     public void tick() {
         super.tick();
@@ -411,41 +416,32 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater() && this.isClimbing()) {
-            event.setAndContinue(LONGISQUAMA_WALK);
-            return PlayState.CONTINUE;
+        if ((this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) || this.isClimbing()) {
+            return event.setAndContinue(LONGISQUAMA_WALK);
         }
-        if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming() && this.isClimbing()) {
-            event.setAndContinue(LONGISQUAMA_BASKING);
-            return PlayState.CONTINUE;
+        if (this.isInSittingPose() && ((!this.isInWater() && !this.isSwimming()) || this.isClimbing())) {
+            return event.setAndContinue(LONGISQUAMA_BASKING);
         }
         if (this.isInWater()) {
             event.setAndContinue(LONGISQUAMA_SWIM);
             event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
         }
         if (this.isPassenger() && !this.isSwimming() && !this.isInSittingPose() && this.isClimbing()) {
-            event.setAndContinue(LONGISQUAMA_SHAKING);
-            return PlayState.CONTINUE;
+            return event.setAndContinue(LONGISQUAMA_SHAKING);
         }
         else if (this.isClimbing() && !this.isSwimming()) {
-            event.setAndContinue(LONGISQUAMA_CLIMBING);
-            return PlayState.CONTINUE;
+            return event.setAndContinue(LONGISQUAMA_CLIMBING);
         }
         if (isStillEnough() && random.nextInt(500) == 0 && !this.isInSittingPose() && !this.isSwimming() && this.isClimbing()) {
             float rand = random.nextFloat();
             if (rand < 0.55F) {
-                event.setAndContinue(LONGISQUAMA_BASKING);
+                return event.setAndContinue(LONGISQUAMA_BASKING);
             }
             if (rand < 0.75F) {
-                event.setAndContinue(LONGISQUAMA_FLAIRING);
-            }
-            else {
-                event.setAndContinue(LONGISQUAMA_IDLE);
-                return PlayState.CONTINUE;
+                return event.setAndContinue(LONGISQUAMA_FLAIRING);
             }
         }
-
+        event.setAndContinue(LONGISQUAMA_IDLE);
         return PlayState.CONTINUE;
     }
 

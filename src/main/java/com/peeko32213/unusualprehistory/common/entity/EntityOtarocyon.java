@@ -334,8 +334,7 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
             }
         }
         if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
-            event.setAndContinue(OTAROCYON_SIT);
-            return PlayState.CONTINUE;
+            return event.setAndContinue(OTAROCYON_SIT);
         }
         if (this.isInWater()) {
             event.setAndContinue(OTAROCYON_SWIM);
@@ -353,27 +352,22 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
             return PlayState.CONTINUE;
         }
         else if (this.isJumping()) {
-            event.setAndContinue(OTAROCYON_LEAP_HOLD);
-            return PlayState.CONTINUE;
+            return event.setAndContinue(OTAROCYON_LEAP_HOLD);
         }
 
         else if (isStillEnough() && random.nextInt(100) == 0 && !this.isInSittingPose() && !this.isSwimming()) {
             float rand = random.nextFloat();
             if (rand < 0.55F) {
-                event.setAndContinue(OTAROCYON_LOAF);
+                return event.setAndContinue(OTAROCYON_LOAF);
             }
             if (rand < 0.66F) {
-                event.setAndContinue(OTAROCYON_DIG);
+                return event.setAndContinue(OTAROCYON_DIG);
             }
             if (rand < 0.77F) {
-                event.setAndContinue(OTAROCYON_YAWN);
-            }
-            else {
-                event.setAndContinue(OTAROCYON_IDLE);
-                return PlayState.CONTINUE;
+                return event.setAndContinue(OTAROCYON_YAWN);
             }
         }
-
+        event.setAndContinue(OTAROCYON_IDLE);
         return PlayState.CONTINUE;
     }
 
