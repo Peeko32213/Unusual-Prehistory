@@ -190,6 +190,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.FURCA_EGG, "Furcacauda Spawn Egg");
         addItem(UPItems.TARTUOSTEUS_EGG, "Tartuosteus Spawn Egg");
         addItem(UPItems.PSITTACO_EGG, "Psittacosaurus Spawn Egg");
+        addItem(UPItems.TANY_EGG, "Tanystropheus Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -468,6 +469,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.FURCA, "Furcacauda");
         addEntityType(UPEntities.TARTUOSTEUS, "Tartuosteus");
         addEntityType(UPEntities.PSITTACO, "Psittacosaurus");
+        addEntityType(UPEntities.TANY, "Tanystropheus");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");

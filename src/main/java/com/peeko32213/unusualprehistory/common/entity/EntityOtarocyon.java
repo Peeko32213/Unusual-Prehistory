@@ -1,7 +1,10 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.NocturnalSleepingGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -26,12 +29,10 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,7 +41,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
@@ -93,6 +93,7 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new NocturnalSleepingGoal(this));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new EntityOtarocyon.FoxPounceGoal());
@@ -354,10 +355,9 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
         else if (this.isJumping()) {
             return event.setAndContinue(OTAROCYON_LEAP_HOLD);
         }
-
         else if (isStillEnough() && random.nextInt(100) == 0 && !this.isInSittingPose() && !this.isSwimming()) {
             float rand = random.nextFloat();
-            if (rand < 0.55F) {
+            if (rand < 0.15F) {
                 return event.setAndContinue(OTAROCYON_LOAF);
             }
             if (rand < 0.66F) {
@@ -366,8 +366,8 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
             if (rand < 0.77F) {
                 return event.setAndContinue(OTAROCYON_YAWN);
             }
+            event.setAndContinue(OTAROCYON_IDLE);
         }
-        event.setAndContinue(OTAROCYON_IDLE);
         return PlayState.CONTINUE;
     }
 

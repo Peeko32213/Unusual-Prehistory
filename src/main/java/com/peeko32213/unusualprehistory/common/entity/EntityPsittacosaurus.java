@@ -1,11 +1,10 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -556,10 +555,7 @@ public class EntityPsittacosaurus extends EntityBaseDinosaurAnimal {
                         if (rand < 0.85F) {
                             event.setAndContinue(PSITTACO_IDLE_2);
                         }
-                        else {
-                            event.setAndContinue(PSITTACO_IDLE_1);
-                            return PlayState.CONTINUE;
-                        }
+                        event.setAndContinue(PSITTACO_IDLE_1);
                     }
             }
         }

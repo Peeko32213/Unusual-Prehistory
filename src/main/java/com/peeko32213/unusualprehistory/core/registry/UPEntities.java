@@ -7,7 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.EntityBookSnake;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBookSnake;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -195,6 +195,10 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityPsittacosaurus>> PSITTACO = ENTITIES.register("psittaco",
             () -> EntityType.Builder.of(EntityPsittacosaurus::new, MobCategory.CREATURE).sized(1.0F, 1.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "psittaco").toString()));
+
+    public static final RegistryObject<EntityType<EntityTanystropheus>> TANY = ENTITIES.register("tany",
+            () -> EntityType.Builder.of(EntityTanystropheus::new, MobCategory.CREATURE).sized(1.8F, 0.7F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "tany").toString()));
 
     public static final RegistryObject<EntityType<EntityBabyMegatherium>> BABY_MEGATHERIUM = ENTITIES.register("baby_megatherium",
             () -> EntityType.Builder.of(EntityBabyMegatherium::new, MobCategory.CREATURE).sized(0.8f, 0.6f)

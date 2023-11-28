@@ -4,7 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.EntityBookSnake;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBookSnake;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -67,6 +67,7 @@ public class CommonEvents {
         event.put(UPEntities.FURCA.get(), EntityFurcacauda.createAttributes().build());
         event.put(UPEntities.TARTUOSTEUS.get(), EntityTartuosteus.createAttributes().build());
         event.put(UPEntities.PSITTACO.get(), EntityPsittacosaurus.createAttributes().build());
+        event.put(UPEntities.TANY.get(), EntityTanystropheus.createAttributes().build());
 
 
         event.put(UPEntities.ICEBERG_SMILODON.get(), EntityWorldSpawnable.bakeAttributes().build());

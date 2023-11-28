@@ -468,6 +468,12 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.OTAROCYON.get())
                 .add(UPEntities.LONGISQUAMA.get())
         ;
+
+        tag(UPTags.PISCIVORE_DIET)
+                .add(EntityType.TROPICAL_FISH)
+                .add(EntityType.COD)
+                .add(EntityType.SALMON)
+        ;
     }
 
     @Override

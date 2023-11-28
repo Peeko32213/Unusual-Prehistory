@@ -1,0 +1,145 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.tanystropheus",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 10,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Body",
+					"parent": "root",
+					"pivot": [0, 6, 0],
+					"cubes": [
+						{"origin": [-4.5, 4, -8], "size": [9, 8, 17], "uv": [0, 32]}
+					]
+				},
+				{
+					"name": "Neck",
+					"parent": "Body",
+					"pivot": [0, 10, -8],
+					"cubes": [
+						{"origin": [-1.5, 8, -41], "size": [3, 4, 33], "uv": [36, 0]}
+					]
+				},
+				{
+					"name": "NeckFront",
+					"parent": "Neck",
+					"pivot": [0, 10, -41],
+					"cubes": [
+						{"origin": [-1.5, 8, -73], "size": [3, 4, 32], "uv": [37, 38]}
+					]
+				},
+				{
+					"name": "Head",
+					"parent": "NeckFront",
+					"pivot": [0, 10, -73],
+					"cubes": [
+						{"origin": [-1.5, 8, -84], "size": [3, 4, 11], "inflate": 0.01, "uv": [29, 0]}
+					]
+				},
+				{
+					"name": "Tail",
+					"parent": "Body",
+					"pivot": [0, 10.95, 9],
+					"rotation": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1.5, 7.95, 9], "size": [3, 4, 17], "uv": [0, 69]}
+					]
+				},
+				{
+					"name": "TailFin",
+					"parent": "Tail",
+					"pivot": [0, 10.95, 26],
+					"rotation": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, 4.95, 26], "size": [2, 7, 25], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "ArmControl",
+					"parent": "root",
+					"pivot": [0, 6, -6]
+				},
+				{
+					"name": "Arm1",
+					"parent": "ArmControl",
+					"pivot": [5, 6, -6],
+					"cubes": [
+						{"origin": [4, 0, -7], "size": [2, 6, 2], "uv": [146, 0]}
+					]
+				},
+				{
+					"name": "Fingers1",
+					"parent": "Arm1",
+					"pivot": [5, 0, -6],
+					"cubes": [
+						{"origin": [2.5, 0, -10], "size": [5, 0, 5], "uv": [164, 1]}
+					]
+				},
+				{
+					"name": "Arm2",
+					"parent": "ArmControl",
+					"pivot": [-5, 6, -6],
+					"cubes": [
+						{"origin": [-6, 0, -7], "size": [2, 6, 2], "uv": [146, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "Fingers2",
+					"parent": "Arm2",
+					"pivot": [-5, 0, -6],
+					"cubes": [
+						{"origin": [-7.5, 0, -10], "size": [5, 0, 5], "uv": [164, 1], "mirror": true}
+					]
+				},
+				{
+					"name": "LegControl",
+					"parent": "root",
+					"pivot": [0, 6, 7]
+				},
+				{
+					"name": "Leg1",
+					"parent": "LegControl",
+					"pivot": [4, 6, 7],
+					"cubes": [
+						{"origin": [4, 0, 5], "size": [3, 7, 3], "uv": [104, 0]}
+					]
+				},
+				{
+					"name": "Toes1",
+					"parent": "Leg1",
+					"pivot": [5, 0, 7],
+					"cubes": [
+						{"origin": [2.5, 0, 2], "size": [5, 0, 5], "uv": [164, 1]}
+					]
+				},
+				{
+					"name": "Leg2",
+					"parent": "LegControl",
+					"pivot": [-4, 6, 7],
+					"cubes": [
+						{"origin": [-7, 0, 5], "size": [3, 7, 3], "uv": [104, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "Toes2",
+					"parent": "Leg2",
+					"pivot": [-5, 0, 7],
+					"cubes": [
+						{"origin": [-7.5, 0, 2], "size": [5, 0, 5], "uv": [164, 1], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

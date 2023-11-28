@@ -1,7 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;

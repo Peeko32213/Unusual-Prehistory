@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartIndex;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;

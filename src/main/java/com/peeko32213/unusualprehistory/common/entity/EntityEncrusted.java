@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityAmberShot;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.AttackSound;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.CustomAbstractRangedAttack;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.ranged.CustomRangedAttackGoal;

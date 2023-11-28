@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.MammothMeleeAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.MammothMeleeAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;

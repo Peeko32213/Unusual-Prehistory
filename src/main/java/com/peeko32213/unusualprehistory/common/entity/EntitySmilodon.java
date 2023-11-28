@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.GroomGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.PounceGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.SmilodonAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.GroomGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.PounceGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.SmilodonAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;

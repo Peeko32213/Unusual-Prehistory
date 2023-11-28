@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.NearestTargetAI;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.NearestTargetAI;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;

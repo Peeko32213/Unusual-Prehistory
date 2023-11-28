@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.WallClimbingNavigation;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WallClimbingNavigation;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;

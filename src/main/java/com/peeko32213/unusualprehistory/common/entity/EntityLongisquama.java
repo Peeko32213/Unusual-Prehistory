@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomFollower;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.TameableFollowOwner;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableClimbingAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -432,7 +432,7 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
         else if (this.isClimbing() && !this.isSwimming()) {
             return event.setAndContinue(LONGISQUAMA_CLIMBING);
         }
-        if (isStillEnough() && random.nextInt(500) == 0 && !this.isInSittingPose() && !this.isSwimming() && this.isClimbing()) {
+        else if (isStillEnough() && random.nextInt(500) == 0 && !this.isInSittingPose() && !this.isSwimming() && this.isClimbing()) {
             float rand = random.nextFloat();
             if (rand < 0.55F) {
                 return event.setAndContinue(LONGISQUAMA_BASKING);
@@ -440,8 +440,8 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
             if (rand < 0.75F) {
                 return event.setAndContinue(LONGISQUAMA_FLAIRING);
             }
+            event.setAndContinue(LONGISQUAMA_IDLE);
         }
-        event.setAndContinue(LONGISQUAMA_IDLE);
         return PlayState.CONTINUE;
     }
 
