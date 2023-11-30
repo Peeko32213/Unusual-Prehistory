@@ -81,6 +81,15 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.OTAROCYON_FLASK.get())
                 .add(UPItems.LONGI_FLASK.get())
                 .add(UPItems.FURCA_FLASK.get())
+                .add(UPItems.TARTUO_FLASK.get())
+                .add(UPItems.TANY_FLASK.get())
+                .add(UPItems.PSITTACO_FLASK.get())
+                .add(UPItems.KAPRO_FLASK.get())
+                .add(UPItems.PSILO_FLASK.get())
+                .add(UPItems.OPHIO_FLASK.get())
+                .add(UPItems.DIPLO_FLASK.get())
+                .add(UPItems.HYNERP_FLASK.get())
+                .add(UPItems.BALAUR_FLASK.get())
         ;
 
         tag(UPTags.FOSSILS)
@@ -231,7 +240,14 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.COOKED_STETHA.get())
                 .add(UPItems.RAW_SCAU.get())
                 .add(UPItems.COOKED_SCAU.get())
-                .add(UPItems.GOLDEN_SCAU.get());
+                .add(UPItems.GOLDEN_SCAU.get())
+                .add(UPItems.RAW_FURCACAUDA.get())
+                .add(UPItems.COOKED_FURCACAUDA.get())
+                .add(UPItems.RAW_TARTU.get())
+                .add(UPItems.COOKED_TARTU.get())
+                .add(UPItems.RAW_OPHIODON.get())
+                .add(UPItems.COOKED_OPHIODON.get())
+        ;
 
         tag(ItemTags.BUTTONS)
                 .add(UPBlocks.AMBER_BUTTON.get().asItem())
@@ -261,7 +277,12 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.RAPTOR_FLASK.get())
                 .add(UPItems.PACHY_FLASK.get())
                 .add(UPItems.ERYON_FLASK.get())
-                .add(UPItems.ULUGH_FLASK.get());
+                .add(UPItems.ULUGH_FLASK.get())
+                .add(UPItems.TANY_FLASK.get())
+                .add(UPItems.PSITTACO_FLASK.get())
+                .add(UPItems.KAPRO_FLASK.get())
+        ;
+
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_AMBER)
                 .add(UPItems.BRACHI_FLASK.get())
@@ -270,6 +291,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.HWACHA_FLASK.get())
                 .add(UPItems.ENCRUSTED_FLASK.get())
                 .add(UPItems.LONGI_FLASK.get())
+                .add(UPItems.BALAUR_FLASK.get())
         ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_ENCRUSTED)
@@ -294,6 +316,9 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.STETHA_FLASK.get())
                 .add(UPItems.DUNK_FLASK.get())
                 .add(UPItems.FURCA_FLASK.get())
+                .add(UPItems.TARTUO_FLASK.get())
+                .add(UPItems.DIPLO_FLASK.get())
+                .add(UPItems.HYNERP_FLASK.get())
         ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_PLANT)
@@ -332,10 +357,14 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.PARACER_FLASK.get())
                 .add(UPItems.GIGANTO_FLASK.get())
                 .add(UPItems.TALPANAS_FLASK.get())
-                .add(UPItems.OTAROCYON_FLASK.get());
+                .add(UPItems.OTAROCYON_FLASK.get())
+                .add(UPItems.PSILO_FLASK.get())
+        ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_OPAL)
-                .add(UPItems.PALAEO_FLASK.get());
+                .add(UPItems.PALAEO_FLASK.get())
+                .add(UPItems.OPHIO_FLASK.get())
+        ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_RAW_COTY)
                 .add(UPItems.COTY_FLASK.get());

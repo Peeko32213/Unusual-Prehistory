@@ -241,6 +241,32 @@ public class UPItems {
     public static final RegistryObject<Item> FURCA_FLASK = ITEMS.register("furcacauda_flask",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> TARTUO_FLASK = ITEMS.register("tartuo_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> TANY_FLASK = ITEMS.register("tany_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PSITTACO_FLASK = ITEMS.register("psittaco_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> KAPRO_FLASK = ITEMS.register("kapro_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PSILO_FLASK = ITEMS.register("psilo_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> OPHIO_FLASK = ITEMS.register("ophio_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> DIPLO_FLASK = ITEMS.register("diplo_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> HYNERP_FLASK = ITEMS.register("hynerp_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> BALAUR_FLASK = ITEMS.register("balaur_flask",
+            () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FROG_SALIVA = ITEMS.register("frog_saliva",

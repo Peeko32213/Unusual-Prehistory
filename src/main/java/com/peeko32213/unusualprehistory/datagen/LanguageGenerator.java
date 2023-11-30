@@ -129,11 +129,11 @@ public class LanguageGenerator extends LanguageProvider {
 
 
         //EGGS
-        addBlock(UPBlocks.STETHA_EGGS, "Stethacanthus Egg");
-        addBlock(UPBlocks.BEELZE_EGGS, "Beelzebufo Egg");
-        addBlock(UPBlocks.AMON_EGGS, "Ammonite Egg");
-        addBlock(UPBlocks.DUNK_EGGS, "Dunkleosteus Egg");
-        addBlock(UPBlocks.SCAU_EGGS, "Scaumenacia Egg");
+        addBlock(UPBlocks.STETHA_EGGS, "Stethacanthus Eggs");
+        addBlock(UPBlocks.BEELZE_EGGS, "Beelzebufo Eggs");
+        addBlock(UPBlocks.AMON_EGGS, "Ammonite Eggs");
+        addBlock(UPBlocks.DUNK_EGGS, "Dunkleosteus Eggs");
+        addBlock(UPBlocks.SCAU_EGGS, "Scaumenacia Eggs");
         addBlock(UPBlocks.ANURO_EGG, "Anurognathus Egg");
         addBlock(UPBlocks.MAJUNGA_EGG, "Majungasaurus Egg");
         addBlock(UPBlocks.COTY_EGG, "Cotylorhynchus Egg");
@@ -143,7 +143,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.RAPTOR_EGG, "Velociraptor Egg");
         addBlock(UPBlocks.PACHY_EGG, "Pachycephalosaurus Egg");
         addBlock(UPBlocks.ENCRUSTED_SACK, "Encrusted Sack");
-        addBlock(UPBlocks.ERYON_EGGS, "Eryon Egg");
+        addBlock(UPBlocks.ERYON_EGGS, "Eryon Eggs");
         addBlock(UPBlocks.AUSTRO_EGG, "Austroraptor Egg");
         addBlock(UPBlocks.KENTRO_EGG, "Kentrosaurus Egg");
         addBlock(UPBlocks.ULUGH_EGG, "Ulughbegsaurus Egg");
@@ -152,6 +152,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.BARINA_EGG, "Barinasuchus Egg");
         addBlock(UPBlocks.TALPANAS_EGG, "Talpanas Egg");
         addBlock(UPBlocks.MEGALA_EGG, "Megalania Egg");
+        addBlock(UPBlocks.FURCACAUDA_EGGS, "Furcacauda Eggs");
 
 
         //SPAWN EGGS
@@ -266,6 +267,15 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.OTAROCYON_FLASK, "Otarocyon DNA Flask");
         addItem(UPItems.LONGI_FLASK, "Longisquama DNA Flask");
         addItem(UPItems.FURCA_FLASK, "Furcacauda DNA Flask");
+        addItem(UPItems.TARTUO_FLASK, "Tartuosteus DNA Flask");
+        addItem(UPItems.TANY_FLASK, "Tanystropheus DNA Flask");
+        addItem(UPItems.PSITTACO_FLASK, "Psittacosaurus DNA Flask");
+        addItem(UPItems.KAPRO_FLASK, "Kaprosuchus DNA Flask");
+        addItem(UPItems.PSILO_FLASK, "Psilopterus DNA Flask");
+        addItem(UPItems.OPHIO_FLASK, "Ophiodon DNA Flask");
+        addItem(UPItems.DIPLO_FLASK, "Diplocaulus DNA Flask");
+        addItem(UPItems.HYNERP_FLASK, "Hynerpeton DNA Flask");
+        addItem(UPItems.BALAUR_FLASK, "Balaur DNA Flask");
 
         //CORALS
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");

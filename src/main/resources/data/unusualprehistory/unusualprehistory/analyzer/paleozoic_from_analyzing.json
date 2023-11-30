@@ -32,6 +32,22 @@
     {
       "weight": 15,
       "item": "unusualprehistory:dunk_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:furcacauda_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:diplo_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:hynerp_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:tartuo_flask"
     }
   ]
 }

@@ -20,6 +20,14 @@
     {
       "weight": 15,
       "item": "unusualprehistory:talpanas_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:otarocyon_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:psilo_flask"
     }
   ]
 }

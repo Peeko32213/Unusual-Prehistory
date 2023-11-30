@@ -80,6 +80,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         createFlatWaterEgg(UPBlocks.AMON_EGGS.get());
         createFlatWaterEgg(UPBlocks.SCAU_EGGS.get());
         createFlatWaterEgg(UPBlocks.ERYON_EGGS.get());
+        createFlatWaterEgg(UPBlocks.FURCACAUDA_EGGS.get());
         simpleBlock(UPBlocks.PETRIFIED_WOOD.get());
 
         logBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());

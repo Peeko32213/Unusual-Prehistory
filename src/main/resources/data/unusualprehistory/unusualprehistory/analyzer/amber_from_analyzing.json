@@ -20,6 +20,14 @@
     {
       "weight": 15,
       "item": "unusualprehistory:encrusted_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:balaur_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:longisquama_flask"
     }
   ]
 }

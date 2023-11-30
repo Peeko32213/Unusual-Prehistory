@@ -48,7 +48,7 @@ import java.util.EnumSet;
 import java.util.List;
 //TODO LIST
 // - Figure Out How to make Catching Fish Unique
-// - Basking is implemented, however the actual animation logic is being funky 
+// - Basking is implemented, however the actual animation logic is being funky
 public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements SemiAquatic {
     private static final EntityDataAccessor<Boolean> BASKING = SynchedEntityData.defineId(EntityTanystropheus.class, EntityDataSerializers.BOOLEAN);
     private static final RawAnimation TANY_IDLE = RawAnimation.begin().thenLoop("animation.tanystropheus.idle");

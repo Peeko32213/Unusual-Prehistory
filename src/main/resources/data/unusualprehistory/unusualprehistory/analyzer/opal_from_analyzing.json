@@ -2,8 +2,12 @@
   "input": ["unusualprehistory:opal_fossil"],
   "entries": [
     {
-      "weight": 100,
+      "weight": 15,
       "item": "unusualprehistory:palaeo_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:ophio_flask"
     }
   ]
 }

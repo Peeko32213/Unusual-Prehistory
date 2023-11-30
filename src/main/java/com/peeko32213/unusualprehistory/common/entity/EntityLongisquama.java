@@ -50,7 +50,6 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.function.Predicate;
 //TODO LIST
-// - Longisquama seem to be dealing damage to each other, which is less than ideal
 // - They look around too much while climbing, breaking the immersion a bit
 // - Sounds + Eggs need to be done
 // - Chances in DNA loot pool need to be added (Added to Amber as amber needs more stuff in it)

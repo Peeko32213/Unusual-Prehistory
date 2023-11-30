@@ -56,6 +56,18 @@
     {
       "weight": 15,
       "item": "unusualprehistory:ulugh_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:tany_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:kapro_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:psittaco_flask"
     }
   ]
 }

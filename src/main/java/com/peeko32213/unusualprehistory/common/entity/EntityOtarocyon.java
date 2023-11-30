@@ -48,10 +48,9 @@ import java.util.EnumSet;
 import java.util.List;
 //TODO LIST
 // - Sounds need to be done and tied to the howling
-// - While ordered to sit it sometimes goes into the animation but still slides around, though it usually fixes itself after commanding it again
 // - Leaping does not work, along with the animations (Leaps like fox and has the animations for it)
 // - Walking animation sometimes play while idling
-
+//      - Scouters Fix, while working, caused none of the other idles to play
 public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements CustomFollower {
 
     private static final RawAnimation OTAROCYON_IDLE = RawAnimation.begin().thenLoop("animation.otarocyon.idle");
