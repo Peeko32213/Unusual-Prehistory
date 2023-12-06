@@ -160,7 +160,8 @@ public final class ClientEvents {
     private static final ResourceLocation MEGATHERIUM_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium_saddled.png");
     private static final ResourceLocation MEGATHERIUM_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium.geo.json");
     private static final ResourceLocation OTAROCYCON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/otarocyon.geo.json");
-    private static final ResourceLocation LONGISQUAMA_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/longisquama.geo.json");
+    private static final ResourceLocation KAPROSUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kaprosuchus.geo.json");
+
 
     private static final ResourceLocation BARINASUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus.geo.json");
     private static final ResourceLocation BEELZE_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_saddle.png");
@@ -269,6 +270,10 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PSITTACO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsittacosaurusModel()));
         event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));
 
+        event.registerEntityRenderer(UPEntities.KAPROSUCHUS.get(), e ->
+                UPRenderUtils.createTamableDinosaurRenderer(e, new KaprosuchusModel())
+                        .withLayers(KAPROSUCHUS_MODEL)
+                        .build());
 
 
         //Plants

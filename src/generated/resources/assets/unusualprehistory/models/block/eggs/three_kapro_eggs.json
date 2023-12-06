@@ -1,0 +1,6 @@
+{
+  "parent": "unusualprehistory:block/template_eggs/template_three_kapro_eggs",
+  "textures": {
+    "texture": "unusualprehistory:block/eggs/kapro_eggs"
+  }
+}

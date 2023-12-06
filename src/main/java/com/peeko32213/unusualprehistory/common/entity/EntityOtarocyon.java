@@ -155,7 +155,8 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
                 }
             }
         return InteractionResult.SUCCESS;
-        }
+
+    }
 
 
 
@@ -322,7 +323,7 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater() ) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) {
             if (this.isSprinting()) {
                 event.setAndContinue(OTAROCYON_RUN);
                 event.getController().setAnimationSpeed(2.0D);

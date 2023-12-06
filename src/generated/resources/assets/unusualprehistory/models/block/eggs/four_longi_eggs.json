@@ -1,0 +1,6 @@
+{
+  "parent": "unusualprehistory:block/template_eggs/template_four_longi_eggs",
+  "textures": {
+    "texture": "unusualprehistory:block/eggs/longi_eggs"
+  }
+}

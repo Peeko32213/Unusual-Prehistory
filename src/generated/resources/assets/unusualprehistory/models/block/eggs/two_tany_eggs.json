@@ -1,0 +1,6 @@
+{
+  "parent": "unusualprehistory:block/template_eggs/template_two_tany_eggs",
+  "textures": {
+    "texture": "unusualprehistory:block/eggs/tany_eggs"
+  }
+}

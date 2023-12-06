@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFoll
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableClimbingAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -299,22 +300,29 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
     }
 
     public void rideTick() {
-        Entity mount = this.getVehicle();
-
-        if (this.isPassenger() && !mount.isAlive()) {
+        Entity entity = this.getVehicle();
+        if (this.isPassenger() && !entity.isAlive()) {
             this.stopRiding();
-        } else if (mount instanceof Player player && this.isPassenger()) {
+        } else if (isTame() && entity instanceof LivingEntity && isOwnedBy((LivingEntity) entity)) {
             this.setDeltaMovement(0, 0, 0);
-            //this.yBodyRot = ((LivingEntity) player).yBodyRot;
-            //this.setYRot(player.getYRot());
-            //this.yHeadRot = ((LivingEntity) player).yHeadRot;
-            //this.yRotO = ((LivingEntity) player).yHeadRot;
-            float radius = 0F;
-            float angle = (0.01745329251F * (((LivingEntity) player).yBodyRot - 180F));
-            double extraX = radius * Mth.sin((float) (Math.PI + angle));
-            double extraZ = radius * Mth.cos(angle);this.setPos(player.getX() + extraX, Math.max(player.getY() + player.getBbHeight() + 0.1, player.getY()), player.getZ() + extraZ);
-            if (!player.isAlive() || rideCooldown == 0 || player.isShiftKeyDown() || !mount.isAlive()) {
-                this.stopRiding();
+            this.tick();
+            if (this.isPassenger()) {
+                Entity mount = this.getVehicle();
+                if (mount instanceof Player) {
+                    this.yBodyRot = ((LivingEntity) mount).yBodyRot;
+                    this.setYRot(mount.getYRot());
+                    this.yHeadRot = ((LivingEntity) mount).yHeadRot;
+                    this.yRotO = ((LivingEntity) mount).yHeadRot;
+                    final float radius = 0F;
+                    final float angle = (UPMath.STARTING_ANGLE * (((LivingEntity) mount).yBodyRot - 180F));
+                    double extraX = radius * Mth.sin(Mth.PI + angle);
+                    double extraZ = radius * Mth.cos(angle);
+                    this.setPos(mount.getX() + extraX, Math.max(mount.getY() + mount.getBbHeight() + 0.1, mount.getY()), mount.getZ() + extraZ);
+                    if (!mount.isAlive() || rideCooldown == 0 && mount.isShiftKeyDown()) {
+                        this.removeVehicle();
+                    }
+                }
+
             }
         } else {
             super.rideTick();

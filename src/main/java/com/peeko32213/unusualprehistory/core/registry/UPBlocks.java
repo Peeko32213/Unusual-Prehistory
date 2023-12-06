@@ -244,6 +244,38 @@ public class UPBlocks {
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
+    public static final RegistryObject<Block> KAPRO_EGG = registerBlock("kapro_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.KAPROSUCHUS, 3,
+                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
+
+    public static final RegistryObject<Block> LONGI_EGG = registerBlock("longi_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.LONGISQUAMA, 4,
+                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
+
+    public static final RegistryObject<Block> PSITTACO_EGG = registerBlock("psittaco_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.PSITTACO, 4,
+                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
+
+    public static final RegistryObject<Block> TANY_EGG = registerBlock("tany_eggs",
+            () -> new BlockDinosaurLandEggs(
+                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+                    UPEntities.TANY, 4,
+                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+            ));
+
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
             () -> new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).requiresCorrectToolForDrops(),
                     Block.box(5, 0, 2, 11, 12, 14),

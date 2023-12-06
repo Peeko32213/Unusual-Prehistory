@@ -1,4 +1,4 @@
-// 1.20.1	2023-11-29T14:07:07.6956864	Item Models: unusualprehistory
+// 1.20.1	2023-11-29T19:00:34.163452	Item Models: unusualprehistory
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ammon_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/antarcto_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/anuro_spawn_egg.json
@@ -29,6 +29,7 @@ f9432aa0b21cf618c07924abd3e596cff3d99c90 assets/unusualprehistory/models/item/di
 06c7e6ab31a5473936257607ac15707adcb613a8 assets/unusualprehistory/models/item/hynerp_flask.json
 450f8f77dcbd2add59235afb8625ee883e956cfb assets/unusualprehistory/models/item/insulator.json
 d4dec1ecc07889b9758617022f08a49116386c2f assets/unusualprehistory/models/item/kapro_flask.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/kapro_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/kentro_spawn_egg.json
 75be47cf63a02febaafd15e2d8a5c7355ff7d4d8 assets/unusualprehistory/models/item/longisquama_flask.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/longisquama_spawn_egg.json

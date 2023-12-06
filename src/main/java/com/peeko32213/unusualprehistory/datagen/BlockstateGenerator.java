@@ -73,6 +73,10 @@ public class BlockstateGenerator extends BlockStateProvider {
         createSingleEgg(UPBlocks.TALPANAS_EGG.get());
         createEggDefaultSmall(UPBlocks.BARINA_EGG.get());
         createEggDefaultMedium(UPBlocks.MEGALA_EGG.get());
+        createEgg(UPBlocks.KAPRO_EGG.get());
+        createEgg(UPBlocks.LONGI_EGG.get());
+        createEgg(UPBlocks.PSITTACO_EGG.get());
+        createEgg(UPBlocks.TANY_EGG.get());
 
         createFlatWaterEgg(UPBlocks.DUNK_EGGS.get());
         createFlatWaterEgg(UPBlocks.STETHA_EGGS.get());
@@ -81,8 +85,9 @@ public class BlockstateGenerator extends BlockStateProvider {
         createFlatWaterEgg(UPBlocks.SCAU_EGGS.get());
         createFlatWaterEgg(UPBlocks.ERYON_EGGS.get());
         createFlatWaterEgg(UPBlocks.FURCACAUDA_EGGS.get());
-        simpleBlock(UPBlocks.PETRIFIED_WOOD.get());
 
+
+        simpleBlock(UPBlocks.PETRIFIED_WOOD.get());
         logBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
         simpleBlockItem(UPBlocks.STRIPPED_PETRIFIED_WOOD.get(), existingModel((getName(UPBlocks.STRIPPED_PETRIFIED_WOOD.get()))));
         simpleBlock(UPBlocks.POLISHED_PETRIFIED_WOOD.get());

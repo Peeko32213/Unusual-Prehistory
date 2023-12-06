@@ -458,6 +458,9 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> TANY_EGG = registerSpawnEggs("tany_spawn_egg",
             UPEntities.TANY , 0x08090d, 0xf2f6f8);
 
+    public static final RegistryObject<ForgeSpawnEggItem> KAPROSUCUHS_EGG = registerSpawnEggs("kapro_spawn_egg",
+            UPEntities.KAPROSUCHUS , 0x322f2c, 0xf6f050);
+
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,
                     new Item.Properties()));
