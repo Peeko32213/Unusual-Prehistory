@@ -204,6 +204,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityKaprosuchus::new, MobCategory.CREATURE).sized(1.8F, 1.1F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "kaprosuchus").toString()));
 
+    public static final RegistryObject<EntityType<EntityPsilopterus>> PSILOPTERUS = ENTITIES.register("psilopterus",
+            () -> EntityType.Builder.of(EntityPsilopterus::new, MobCategory.CREATURE).sized(1.1F, 1.5F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "psilopterus").toString()));
+
     public static final RegistryObject<EntityType<EntityBabyMegatherium>> BABY_MEGATHERIUM = ENTITIES.register("baby_megatherium",
             () -> EntityType.Builder.of(EntityBabyMegatherium::new, MobCategory.CREATURE).sized(0.8f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_megatherium").toString()));

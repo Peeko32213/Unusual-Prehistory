@@ -1,0 +1,31 @@
+{
+  "text": "tartu.txt",
+  "title": "  Tartuosteus",
+  "page_to_go": "unusualprehistory:dinosaurs",
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:tartuosteus",
+      "x": 90,
+      "y": 90,
+      "page" : 0,
+      "scale": 0.6,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:tartuosteus",
+      "x": 350,
+      "y": 40,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 0.25,
+      "offset_x": 10,
+      "offset_y": -26,
+      "hover_text": "Tartuosteus"
+    }
+  ]
+}

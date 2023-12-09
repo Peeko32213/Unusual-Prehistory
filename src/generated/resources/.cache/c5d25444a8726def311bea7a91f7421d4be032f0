@@ -1,4 +1,4 @@
-// 1.20.1	2023-11-29T19:00:34.163452	Item Models: unusualprehistory
+// 1.20.1	2023-12-06T14:18:26.0960473	Item Models: unusualprehistory
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ammon_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/antarcto_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/anuro_spawn_egg.json
@@ -54,6 +54,7 @@ b311adfedcf2ed2928c1fe905a882a3382d68f70 assets/unusualprehistory/models/item/pa
 c73f6e797f3256a8c51acf381690c0e54b97fe94 assets/unusualprehistory/models/item/permafrost.json
 3c8bb78ac9964f51f87f1b9689134cbafba8fc4a assets/unusualprehistory/models/item/permafrost_fossil.json
 cf98c3c192a25ad998ccea70a7685475a267fd31 assets/unusualprehistory/models/item/psilo_flask.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/psilo_spawn_egg.json
 c9ac9aac53d4a13c41a5bff2bf1f3429b47fa850 assets/unusualprehistory/models/item/psittaco_flask.json
 2ff39643db9094b50fba201c5b4ecca6a2b199fc assets/unusualprehistory/models/item/psittaco_quil.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/psittaco_spawn_egg.json

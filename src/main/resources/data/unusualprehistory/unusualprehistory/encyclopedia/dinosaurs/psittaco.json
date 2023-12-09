@@ -1,0 +1,33 @@
+{
+  "text": "psittaco.txt",
+  "title": " Psittacosaurus",
+  "page_to_go": "unusualprehistory:dinosaurs",
+  "recipes": [
+  ],
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:psittaco",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 1,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:psittaco",
+      "x": 290,
+      "y": 120,
+      "page" : 1,
+      "scale": 1.2,
+      "entity_scale": 0.47,
+      "offset_x": 7,
+      "offset_y": -10,
+      "hover_text": "Psittacosaurus"
+    }
+  ]
+}

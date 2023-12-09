@@ -1,23 +1,25 @@
 {
-  "title": "Pachycephalosaurus",
-  "text": "pachy.txt",
+  "text": "psilo.txt",
+  "title": "Psilopterus",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_button":[
     {
-      "entity": "unusualprehistory:pachy",
+      "entity": "unusualprehistory:psilopterus",
       "x": 290,
-      "y": 120,
-      "page" : 1,
+      "y": 60,
+      "page" : 0,
       "scale": 1.2,
       "entity_scale": 0.47,
-      "offset_x": 7,
+      "offset_x": 9,
       "offset_y": -10,
-      "hover_text": "Pachycephalosaurus"
+      "hover_text": "Psilopterus"
     }
+  ],
+  "recipes": [
   ],
   "entity_renders": [
     {
-      "entity": "unusualprehistory:pachy",
+      "entity": "unusualprehistory:psilopterus",
       "x": 90,
       "y": 100,
       "page" : 0,
@@ -27,6 +29,5 @@
       "rot_z": 0,
       "follow_cursor": false
     }
-
   ]
 }

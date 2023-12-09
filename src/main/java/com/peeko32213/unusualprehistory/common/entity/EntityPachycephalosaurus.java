@@ -201,9 +201,6 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
     }
 
 
-
-
-
     public int getAnimationState() {
 
         return this.entityData.get(ANIMATION_STATE);

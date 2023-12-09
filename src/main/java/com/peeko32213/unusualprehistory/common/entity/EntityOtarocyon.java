@@ -121,6 +121,7 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
                 if (getRandom().nextInt(3) == 0) {
                     this.tame(player);
                     this.level().broadcastEntityEvent(this, (byte) 7);
+                    itemstack.shrink(1);
                 } else {
                     this.level().broadcastEntityEvent(this, (byte) 6);
                 }

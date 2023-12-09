@@ -126,6 +126,7 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
                 if (getRandom().nextInt(3) == 0) {
                     this.tame(player);
                     this.level().broadcastEntityEvent(this, (byte) 7);
+                    itemstack.shrink(1);
                 } else {
                     this.level().broadcastEntityEvent(this, (byte) 6);
                 }

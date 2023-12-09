@@ -1,0 +1,31 @@
+{
+  "text": "tany.txt",
+  "title": "Tanystropheus",
+  "page_to_go": "unusualprehistory:dinosaurs",
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:tany",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 0.5,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:tany",
+      "x": 320,
+      "y": 160,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 0.2,
+      "offset_x": 13,
+      "offset_y": -29,
+      "hover_text": "Tanystropheus"
+    }
+  ]
+}

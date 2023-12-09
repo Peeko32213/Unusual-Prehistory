@@ -1,0 +1,34 @@
+{
+  "parent": "root.json",
+  "text": "longi.txt",
+  "title": "  Longisquama",
+  "page_to_go": "unusualprehistory:dinosaurs",
+  "recipes": [
+  ],
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:longisquama",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 1.05,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:longisquama",
+      "x": 320,
+      "y": 40,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 0.56,
+      "offset_x": 3,
+      "offset_y": -11,
+      "hover_text": "Longisquama"
+    }
+  ]
+}

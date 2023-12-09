@@ -80,7 +80,7 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         // Dryo
         makePlanks(UPBlocks.DRYO_PLANKS, UPTags.DRYO).save(consumer);
-        makeWood(UPBlocks.DRYO_WOOD, UPBlocks.FOXXI_LOG).save(consumer);
+        makeWood(UPBlocks.DRYO_WOOD, UPBlocks.DRYO_LOG).save(consumer);
         makeStairs(UPBlocks.DRYO_STAIRS, UPBlocks.DRYO_PLANKS).save(consumer);
 
         makeSlab(UPBlocks.DRYO_SLAB, UPBlocks.DRYO_PLANKS).save(consumer);

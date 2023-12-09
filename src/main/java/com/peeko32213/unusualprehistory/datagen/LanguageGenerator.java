@@ -197,6 +197,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PSITTACO_EGG, "Psittacosaurus Spawn Egg");
         addItem(UPItems.TANY_EGG, "Tanystropheus Spawn Egg");
         addItem(UPItems.KAPROSUCUHS_EGG, "Kaprosuchus Spawn Egg");
+        addItem(UPItems.PSILOPTERUS_EGG, "Psilopterus Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -486,6 +487,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.PSITTACO, "Psittacosaurus");
         addEntityType(UPEntities.TANY, "Tanystropheus");
         addEntityType(UPEntities.KAPROSUCHUS, "Kaprosuchus");
+        addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");

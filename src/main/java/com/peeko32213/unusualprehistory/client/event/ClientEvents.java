@@ -269,11 +269,11 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.TARTUOSTEUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TartuosteusModel()));
         event.registerEntityRenderer(UPEntities.PSITTACO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsittacosaurusModel()));
         event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));
-
         event.registerEntityRenderer(UPEntities.KAPROSUCHUS.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new KaprosuchusModel())
                         .withLayers(KAPROSUCHUS_MODEL)
                         .build());
+        event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
 
 
         //Plants

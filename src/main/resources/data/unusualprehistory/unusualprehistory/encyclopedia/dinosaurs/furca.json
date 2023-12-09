@@ -1,0 +1,33 @@
+{
+  "text": "furca.txt",
+  "title": "    Furcacauda",
+  "page_to_go": "unusualprehistory:dinosaurs",
+  "recipes": [
+  ],
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:furca",
+      "x": 90,
+      "y": 100,
+      "page" : 0,
+      "scale": 1.5,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:furca",
+      "x": 290,
+      "y": 40,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 1,
+      "offset_x": 1,
+      "offset_y": -6,
+      "hover_text": "Furcacauda"
+    }
+  ]
+}
