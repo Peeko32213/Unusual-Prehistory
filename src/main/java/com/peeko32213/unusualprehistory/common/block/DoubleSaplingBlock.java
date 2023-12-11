@@ -72,9 +72,8 @@ public class DoubleSaplingBlock extends SaplingBlock {
         }
     }
 
-
-
-    public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    @Override
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
         return pState.getValue(HALF) == DoubleBlockHalf.UPPER;
     }
 

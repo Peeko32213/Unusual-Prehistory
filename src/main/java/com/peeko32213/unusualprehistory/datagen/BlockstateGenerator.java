@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         //simpleBlock(UPBlocks.STRIPPED_GINKGO_LOG.get());
         //logBlock(UPBlocks.GINKGO_LOG.get());
         //This one makes a json file with model as template_+egg name as parent
-        
+
         createEgg(UPBlocks.COTY_EGG.get());
         createEgg(UPBlocks.MAJUNGA_EGG.get());
         createSingleEgg(UPBlocks.BRACHI_EGG.get());

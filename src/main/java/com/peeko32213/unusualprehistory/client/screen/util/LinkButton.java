@@ -15,6 +15,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -29,7 +31,7 @@ public class LinkButton extends ExtendedButton {
     private final EntityLinkData data;
     //private final AbstractBookScreen bookGUI;
     private final BookScreen bookGUITest;
-
+    public static final Logger LOGGER = LogManager.getLogger();
     private static final ResourceLocation BOOK_WIDGET_TEXTURE = new ResourceLocation("unusualprehistory:textures/gui/book/widgets.png");
    // public LinkButton(AbstractBookScreen bookGUI, EntityLinkData linkData, int k, int l, Button.OnPress o) {
    //     super(k + linkData.getX() - 12, l + linkData.getY(), (int) (24 * linkData.getScale()), (int) (24 * linkData.getScale()), CommonComponents.GUI_DONE, o);

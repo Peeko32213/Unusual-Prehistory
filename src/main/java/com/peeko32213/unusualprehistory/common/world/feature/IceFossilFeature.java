@@ -59,8 +59,6 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
         FastNoiseLite noiseBlueIce = createNoise(worldGenLevel.getSeed() + random.nextLong(), 0.11F);
         FastNoiseLite noiseFossil = createNoise(worldGenLevel.getSeed() + random.nextLong(), 0.1F);
 
-        //LOGGER.info("Where am I? " + blockPos + " What am I? " + firstState);
-
         createIceBerg(worldGenLevel, random, blockPos, noiseBlueIce);
         addFossil(worldGenLevel, random, blockPos, noiseFossil);
         return true;
@@ -198,7 +196,7 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
         float randomRot = rand.nextInt(360);
         entityWorldSpawnable.setYRot(randomRot);
         entityWorldSpawnable.setPos(new Vec3(origin.getX(), origin.getY(), origin.getZ()));
-        worldgenlevel.getLevel().addFreshEntity(entityWorldSpawnable);
+        worldgenlevel.addFreshEntity(entityWorldSpawnable);
     }
 
 
