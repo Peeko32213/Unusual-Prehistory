@@ -64,7 +64,7 @@ public class EntityTartuosteus extends WaterAnimal implements GeoAnimatable, IBo
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 0.7D, 10));
     }
 
     public void travel(Vec3 travelVector) {

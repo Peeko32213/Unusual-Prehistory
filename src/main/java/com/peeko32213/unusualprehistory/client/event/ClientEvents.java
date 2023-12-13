@@ -274,6 +274,7 @@ public final class ClientEvents {
                         .withLayers(KAPROSUCHUS_MODEL)
                         .build());
         event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
+        event.registerEntityRenderer(UPEntities.BOOK_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BookSnakeModel()));
 
 
         //Plants

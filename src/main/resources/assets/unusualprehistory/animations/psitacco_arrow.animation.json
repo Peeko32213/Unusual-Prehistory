@@ -1,0 +1,16 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.model.spin": {
+			"loop": true,
+			"bones": {
+				"bomb_arrow": {
+					"rotation": {
+						"vector": [0, 0, "((query.anim_time - 0.8) * 720) * 1"]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
