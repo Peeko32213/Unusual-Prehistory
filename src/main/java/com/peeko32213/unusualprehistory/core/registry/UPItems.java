@@ -612,6 +612,9 @@ public class UPItems {
 
     public static final RegistryObject<Item> PSITTACO_QUIL = ITEMS.register("psittaco_quil",
             () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PSITTACCO_ARROW = ITEMS.register("psittaco_arrow", () -> new PsittaccoArrow(new Item.Properties().rarity(Rarity.RARE)));
+
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties()));
     }

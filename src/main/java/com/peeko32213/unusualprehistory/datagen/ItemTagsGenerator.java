@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.datagen;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.HolderLookup;
@@ -31,7 +32,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(UPTags.FILLED_FLASKS)
                 .addTag(UPTags.DNA_FLASKS);
-
+        tag(ItemTags.ARROWS).add(UPItems.PSITTACCO_ARROW.get());
         tag(UPTags.DNA_FLASKS)
                 .add(UPItems.AMMONITE_FLASK.get())
                 .add(UPItems.QUEREUXIA_FLASK.get())

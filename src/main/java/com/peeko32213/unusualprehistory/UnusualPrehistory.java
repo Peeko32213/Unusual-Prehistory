@@ -137,9 +137,8 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
             addToComposter(UPBlocks.ZULOAGAE.get().asItem(), 0.2f);
 
-
         });
-
+        event.enqueueWork(UPDispenserRegistry::registerDispenserBehaviour);
         UPMessages.register();
     }
 

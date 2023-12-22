@@ -330,7 +330,7 @@ public class UPBlocks {
             () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
 
     public static final RegistryObject<Block> FOXXI_LEAVES = registerBlock("foxxi_leaves",
-            () -> new BlockBigLeavesArea(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), 15, 60, 30 , true));
+            () -> new BlockBigLeavesArea(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).randomTicks(), 15, 60, 30 , true));
 
     public static final RegistryObject<StairBlock> FOXXI_STAIRS = registerBlock("foxxi_stairs",
             () -> new StairBlock(() -> FOXXI_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(FOXXI_PLANKS.get())));

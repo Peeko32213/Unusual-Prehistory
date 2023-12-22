@@ -34,6 +34,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.OPALESCENT_PEARL, "Opalescent Pearl");
         addItem(UPItems.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
         addItem(UPItems.ZULOGAE_DISC, "Music Disc ");
+        addItem(UPItems.PSITTACCO_ARROW, "Psittacco Arrow");
 
         //TOOLS
         addItem(UPItems.WARPICK, "War Pick");

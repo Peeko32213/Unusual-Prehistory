@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_foxxi_log": {
+    "has_dryo_log": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusualprehistory:foxxi_log"
+              "unusualprehistory:dryo_log"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_foxxi_log",
+      "has_dryo_log",
       "has_the_recipe"
     ]
   ],
