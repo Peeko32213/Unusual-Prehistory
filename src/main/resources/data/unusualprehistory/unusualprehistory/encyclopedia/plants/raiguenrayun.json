@@ -1,6 +1,6 @@
 {
   "text": "raiguenrayun.txt",
-  "title": "    Raiguenrayun",
+  "title": "block.unusualprehistory.raiguenrayun",
   "page_to_go": "unusualprehistory:plants",
   "plant_button":[
     {
@@ -12,7 +12,7 @@
       "plant_scale": 1.1,
       "offset_x": 1,
       "offset_y": -2,
-      "hover_text": "Raiguenrayun"
+      "hover_text": "block.unusualprehistory.raiguenrayun"
     }
   ],
   "entity_renders": [

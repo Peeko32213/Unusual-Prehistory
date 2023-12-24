@@ -1,6 +1,6 @@
 {
   "text": "psittaco.txt",
-  "title": " Psittacosaurus",
+  "title": "entity.unusualprehistory.psittaco",
   "page_to_go": "unusualprehistory:dinosaurs",
   "recipes": [
   ],
@@ -27,7 +27,7 @@
       "entity_scale": 0.47,
       "offset_x": 7,
       "offset_y": -10,
-      "hover_text": "Psittacosaurus"
+      "hover_text": "entity.unusualprehistory.psittaco"
     }
   ]
 }

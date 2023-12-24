@@ -1,6 +1,6 @@
 {
   "text": "stetha.txt",
-  "title": "Stethacanthus",
+  "title": "entity.unusualprehistory.stethacanthus",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 1,
       "offset_x": 3,
       "offset_y": -6,
-      "hover_text": "Stethacanthus"
+      "hover_text": "entity.unusualprehistory.stethacanthus"
     }
   ]
 }

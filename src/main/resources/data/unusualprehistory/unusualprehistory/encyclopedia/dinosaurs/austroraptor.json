@@ -1,6 +1,6 @@
 {
   "text": "austro.txt",
-  "title": "Austroraptor",
+  "title": "entity.unusualprehistory.austroraptor",
   "page_to_go": "unusualprehistory:dinosaurs",
   "recipes": [
     {
@@ -35,7 +35,7 @@
       "entity_scale": 0.3,
       "offset_x": 14,
       "offset_y":-14,
-      "hover_text": "Austroraptor"
+      "hover_text": "entity.unusualprehistory.austroraptor"
     }
   ]
 }

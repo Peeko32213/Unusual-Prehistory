@@ -1,6 +1,6 @@
 {
   "text": "sarracenia.txt",
-  "title": "     Sarracenia",
+  "title": "block.unusualprehistory.sarracenia",
   "page_to_go": "unusualprehistory:plants",
   "plant_button":[
     {
@@ -12,7 +12,7 @@
       "plant_scale": 1.1,
       "offset_x": 1,
       "offset_y": -3,
-      "hover_text": "Sarracenia"
+      "hover_text": "block.unusualprehistory.sarracenia"
     }
   ],
   "entity_renders": [

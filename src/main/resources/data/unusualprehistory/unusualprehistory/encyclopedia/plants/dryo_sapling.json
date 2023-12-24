@@ -1,6 +1,6 @@
 {
   "text": "dryo.txt",
-  "title": "   Dryophyllum",
+  "title": "unusualprehistory.encyclopedia.dryo_sapling",
   "page_to_go": "unusualprehistory:plants",
   "plant_button":[
     {
@@ -12,7 +12,7 @@
       "plant_scale": 1.1,
       "offset_x": 1,
       "offset_y": -3,
-      "hover_text": "Dryophyllum"
+      "hover_text": "unusualprehistory.encyclopedia.dryo_sapling"
     }
   ],
   "entity_renders": [

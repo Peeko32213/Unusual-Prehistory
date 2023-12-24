@@ -1,6 +1,6 @@
 {
   "text": "psilo.txt",
-  "title": "Psilopterus",
+  "title": "entity.unusualprehistory.psilopterus",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_button":[
     {
@@ -12,7 +12,7 @@
       "entity_scale": 0.47,
       "offset_x": 9,
       "offset_y": -10,
-      "hover_text": "Psilopterus"
+      "hover_text": "entity.unusualprehistory.psilopterus"
     }
   ],
   "recipes": [

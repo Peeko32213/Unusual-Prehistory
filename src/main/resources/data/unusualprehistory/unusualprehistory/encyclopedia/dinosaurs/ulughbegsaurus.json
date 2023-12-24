@@ -1,6 +1,6 @@
 {
   "text": "ulugh.txt",
-  "title": "Ulughbegsaurus",
+  "title": "entity.unusualprehistory.ulughbegsaurus",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.23,
       "offset_x": 13,
       "offset_y": -18,
-      "hover_text": "Ulughbegsaurus"
+      "hover_text": "entity.unusualprehistory.ulughbegsaurus"
     }
   ]
 }

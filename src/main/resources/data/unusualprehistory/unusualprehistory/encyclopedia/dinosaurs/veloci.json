@@ -1,6 +1,6 @@
 {
   "text": "raptor.txt",
-  "title": "Velociraptor",
+  "title": "entity.unusualprehistory.veloci",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_button":[
     {
@@ -12,7 +12,7 @@
       "entity_scale": 0.47,
       "offset_x": 9,
       "offset_y": -10,
-      "hover_text": "Velociraptor"
+      "hover_text": "entity.unusualprehistory.veloci"
     }
   ],
   "recipes": [

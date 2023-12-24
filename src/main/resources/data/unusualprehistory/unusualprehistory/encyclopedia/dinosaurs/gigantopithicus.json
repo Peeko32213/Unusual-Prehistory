@@ -1,6 +1,6 @@
 {
   "text": "gigantopithicus.txt",
-  "title": "  Gigantopithicus",
+  "title": "entity.unusualprehistory.gigantopithicus",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.28,
       "offset_x": 5,
       "offset_y": -22,
-      "hover_text": "Gigantopithicus"
+      "hover_text": "entity.unusualprehistory.gigantopithicus"
     }
   ]
 }

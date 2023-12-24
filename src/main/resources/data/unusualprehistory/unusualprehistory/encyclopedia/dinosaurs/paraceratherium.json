@@ -1,6 +1,6 @@
 {
   "text": "paraceratherium.txt",
-  "title": " Paraceratherium",
+  "title": "entity.unusualprehistory.paraceratherium",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.1,
       "offset_x": 5,
       "offset_y": -35,
-      "hover_text": "Paraceratherium"
+      "hover_text": "entity.unusualprehistory.paraceratherium"
     }
   ]
 }

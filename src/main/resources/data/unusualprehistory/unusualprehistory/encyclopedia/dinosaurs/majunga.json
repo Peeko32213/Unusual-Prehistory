@@ -1,6 +1,6 @@
 {
   "text": "majunga.txt",
-  "title": "Majungasaurus",
+  "title": "entity.unusualprehistory.majunga",
   "page_to_go": "unusualprehistory:dinosaurs",
   "recipes": [
     {
@@ -36,7 +36,7 @@
       "entity_scale": 0.32,
       "offset_x": 9.5,
       "offset_y": -20,
-      "hover_text": "Majungasaurus"
+      "hover_text": "entity.unusualprehistory.majunga"
     }
   ]
 }

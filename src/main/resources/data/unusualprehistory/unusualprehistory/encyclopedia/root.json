@@ -1,5 +1,5 @@
 {
-  "title": "Encyclopedia of Prehistory",
+  "title": "unusualprehistory.encyclopedia.root",
   "text": "root.txt",
   "pictures": [
     {
@@ -23,21 +23,21 @@
   "linked_page_buttons": [
     {
       "linked_page": "unusualprehistory:tutorial",
-      "text": "How to Revive Mobs",
+      "text": "unusualprehistory.root.1",
       "x": 300,
       "y": 10,
       "page": 0
     },
     {
       "linked_page": "unusualprehistory:plants",
-      "text": "Plants of Prehistory",
+      "text": "unusualprehistory.root.2",
       "x": 300,
       "y": 40,
       "page": 0
     },
     {
       "linked_page": "unusualprehistory:dinosaurs",
-      "text": "Animals of Prehistory",
+      "text": "unusualprehistory.root.3",
       "x": 300,
       "y": 70,
       "page": 0

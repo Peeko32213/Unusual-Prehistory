@@ -1,6 +1,6 @@
 {
   "text": "kapro.txt",
-  "title": "    Kaprosuchus",
+  "title": "entity.unusualprehistory.kaprosuchus",
   "page_to_go": "unusualprehistory:dinosaurs",
   "recipes": [
   ],
@@ -27,7 +27,7 @@
       "entity_scale": 0.47,
       "offset_x": 7,
       "offset_y": -10,
-      "hover_text": "Kaprosuchus"
+      "hover_text": "entity.unusualprehistory.kaprosuchus"
     }
   ]
 }

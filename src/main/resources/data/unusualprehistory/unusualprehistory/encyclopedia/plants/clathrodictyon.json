@@ -1,6 +1,6 @@
 {
   "text": "clathrodictyon.txt",
-  "title": " Clathrodictyon",
+  "title": "unusualprehistory.encyclopedia.clathrodictyon",
   "page_to_go": "unusualprehistory:plants",
   "plant_button":[
     {
@@ -12,7 +12,7 @@
       "plant_scale": 1.1,
       "offset_x": 1,
       "offset_y": -3,
-      "hover_text": "Clathrodictyon"
+      "hover_text": "unusualprehistory.encyclopedia.clathrodictyon"
     }
   ],
   "entity_renders": [

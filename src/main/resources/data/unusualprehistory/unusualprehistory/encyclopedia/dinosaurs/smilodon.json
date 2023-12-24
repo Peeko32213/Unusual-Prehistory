@@ -1,6 +1,6 @@
 {
   "text": "smilodon.txt",
-  "title": "    Smilodon",
+  "title": "entity.unusualprehistory.smilodon",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -35,7 +35,7 @@
       "entity_scale": 0.47,
       "offset_x": 1,
       "offset_y": -12,
-      "hover_text": "Smilodon"
+      "hover_text": "entity.unusualprehistory.smilodon"
     }
   ]
 }

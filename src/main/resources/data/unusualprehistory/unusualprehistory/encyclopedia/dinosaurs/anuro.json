@@ -1,6 +1,6 @@
 {
   "text": "anuro.txt",
-  "title": "  Anurognathus",
+  "title": "entity.unusualprehistory.anuro",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.8,
       "offset_x": 3,
       "offset_y": -8,
-      "hover_text": "Anurognathus"
+      "hover_text": "entity.unusualprehistory.anuro"
     }
   ]
 }

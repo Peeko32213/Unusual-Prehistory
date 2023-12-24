@@ -1,6 +1,6 @@
 {
   "text": "megalania.txt",
-  "title": "  Megalania",
+  "title": "entity.unusualprehistory.megalania",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.2,
       "offset_x": 13,
       "offset_y": -29,
-      "hover_text": "Megalania"
+      "hover_text": "entity.unusualprehistory.megalania"
     }
   ]
 }
