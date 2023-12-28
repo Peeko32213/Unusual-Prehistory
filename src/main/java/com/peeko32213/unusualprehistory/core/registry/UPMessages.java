@@ -87,6 +87,13 @@ public class UPMessages {
                 EncyclopediaRootPageS2C::encode,
                 EncyclopediaRootPageS2C::decode,
                 EncyclopediaRootPageS2C::onPacketReceived);
+
+
+        net.messageBuilder(ParticleSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ParticleSyncS2CPacket::new)
+                .encoder(ParticleSyncS2CPacket::toBytes)
+                .consumerMainThread(ParticleSyncS2CPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

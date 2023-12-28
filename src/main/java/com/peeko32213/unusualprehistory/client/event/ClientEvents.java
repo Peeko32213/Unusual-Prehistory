@@ -7,6 +7,8 @@ import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergSmilodonMode
 import com.peeko32213.unusualprehistory.client.model.plant.PlantModel;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.overlay.TarOverlay;
+import com.peeko32213.unusualprehistory.client.particles.ElectricAttackParticle;
+import com.peeko32213.unusualprehistory.client.particles.ElectricOrbitParticle;
 import com.peeko32213.unusualprehistory.client.particles.TarBubbleParticle;
 import com.peeko32213.unusualprehistory.client.render.UPRenderUtils;
 import com.peeko32213.unusualprehistory.client.render.arrow.PsittaccoArrowRenderer;
@@ -153,6 +155,8 @@ public final class ClientEvents {
     @SubscribeEvent
     public static void registerParticleTypes(RegisterParticleProvidersEvent event){
         event.registerSpriteSet(UPParticles.TAR_BUBBLE.get(), TarBubbleParticle.Provider::new);
+        event.registerSpecial(UPParticles.ELECTRIC_ORBIT.get(), new ElectricOrbitParticle.PillarFactory());
+        event.registerSpecial(UPParticles.ELECTRIC_ATTACK.get(), new ElectricAttackParticle.ElectricAttackFactory());
     }
     private static final ResourceLocation TRICERATOPS_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops_saddle.png");
     private static final ResourceLocation TRICERATOPS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/trike.geo.json");

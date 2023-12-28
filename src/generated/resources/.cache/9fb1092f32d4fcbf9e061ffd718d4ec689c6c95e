@@ -1,4 +1,8 @@
-// 1.20.1	2023-12-21T08:56:40.1245698	Recipes
+// 1.20.1	2023-12-28T17:28:57.8496139	Recipes
+f5d6e647dea88ad02658a94412970a9b856a4d88 data/minecraft/advancements/recipes/building_blocks/opal_block.json
+fa09756118e625ca7d02294c6e8fa56ed86a188f data/minecraft/advancements/recipes/misc/opalescent_pearl.json
+d98dc19d4d6e101a90a57017d61cd27e05bc6b4b data/minecraft/recipes/opalescent_pearl.json
+b15eecb362159e566e65d65d46be6de4dbd7d4c6 data/minecraft/recipes/opal_block.json
 24f49eb372470fbb690643cb4ee13cab1f876039 data/unusualprehistory/advancements/recipes/building_blocks/dryo_button.json
 70c708ae6b411044cd6d3f4d7827edd56025c2fc data/unusualprehistory/advancements/recipes/building_blocks/dryo_door.json
 c82bb869127fa849bdb2e8886cce134a8e830735 data/unusualprehistory/advancements/recipes/building_blocks/dryo_fence.json

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "unusualprehistory:block/electric_pillar_bottom"
+    },
+    "half=upper": {
+      "model": "unusualprehistory:block/electric_pillar_top"
+    }
+  }
+}

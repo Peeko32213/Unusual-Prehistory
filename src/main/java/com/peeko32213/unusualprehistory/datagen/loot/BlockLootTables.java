@@ -71,6 +71,7 @@ public class BlockLootTables extends BlockLootSubProvider {
         //dropSelf(UPBlocks.FOXXI_WALL_SIGN.get());
         //dropSelf(UPBlocks.FOXII_SAPLING.get());
 
+        dropSelf(UPBlocks.OPAL_BLOCK.get());
         dropSelf(UPBlocks.DRYO_WOOD.get());
         dropSelf(UPBlocks.DRYO_LOG.get());
         dropSelf(UPBlocks.DRYO_FENCE_GATE.get());
@@ -108,7 +109,6 @@ public class BlockLootTables extends BlockLootSubProvider {
 
         dropSelf(UPBlocks.ZULOAGAE.get());
         dropOther(UPBlocks.ZULOAGAE_SAPLING.get(), UPBlocks.ZULOAGAE.get());
-
         dropSelf(UPBlocks.PERMAFROST.get());
         dropOther(UPBlocks.PERMAFROST_FOSSIL.get(), UPItems.FROZEN_FOSSIL.get());
 
