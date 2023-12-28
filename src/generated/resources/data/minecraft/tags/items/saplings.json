@@ -1,5 +1,8 @@
 {
   "values": [
-    "unusualprehistory:ginkgo_sapling"
+    "unusualprehistory:ginkgo_sapling",
+    "unusualprehistory:foxii_sapling",
+    "unusualprehistory:dryo_sapling",
+    "minecraft:air"
   ]
 }

@@ -82,7 +82,6 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.ARMOR, 0.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.18D)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
     }
 
@@ -126,9 +125,8 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
                     }
                 }
         );
-        this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.PISCIVORE_DIET)));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
 
     }
 

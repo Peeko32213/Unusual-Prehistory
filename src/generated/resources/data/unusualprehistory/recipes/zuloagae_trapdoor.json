@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "unusualprehistory:zuloagae_planks"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "PPP"
+  ],
+  "result": {
+    "count": 2,
+    "item": "unusualprehistory:zuloagae_trapdoor"
+  },
+  "show_notification": true
+}

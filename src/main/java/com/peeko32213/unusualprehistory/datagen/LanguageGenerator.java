@@ -199,6 +199,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.TANY_EGG, "Tanystropheus Spawn Egg");
         addItem(UPItems.KAPROSUCUHS_EGG, "Kaprosuchus Spawn Egg");
         addItem(UPItems.PSILOPTERUS_EGG, "Psilopterus Spawn Egg");
+        addItem(UPItems.DIPLOCAULUS_EGG, "Diplocaulus Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -411,6 +412,18 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS, "Polished Petrified Wood Stairs");
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB, "Polished Petrified Wood Slab");
 
+        //FOXXI
+        addBlock(UPBlocks.ZULOAGAE_BLOCK, "Zuloagae Block");
+        addBlock(UPBlocks.ZULOAGAE_PLANKS, "Zuloagae Planks");
+        addBlock(UPBlocks.STRIPPED_ZULOAGAE_BLOCK, "Stripped Zuloagae Block");
+        addBlock(UPBlocks.ZULOAGAE_STAIRS, "Zuloagae Stairs");
+        addBlock(UPBlocks.ZULOAGAE_SLAB, "Zuloagae Slab");
+        addBlock(UPBlocks.ZULOAGAE_FENCE, "Zuloagae Fence");
+        addBlock(UPBlocks.ZULOAGAE_FENCE_GATE, "Zuloagae Fence Gate");
+        addBlock(UPBlocks.ZULOAGAE_BUTTON, "Zuloagae Button");
+        addBlock(UPBlocks.ZULOAGAE_PRESSURE_PLATE, "Zuloagae Pressure Plate");
+        addBlock(UPBlocks.ZULOAGAE_DOOR, "Zuloagae Door");
+        addBlock(UPBlocks.ZULOAGAE_TRAPDOOR, "Zuloagae Trapdoor");
 
         //FOSSILS
         addBlock(UPBlocks.COTY_FOSSIL, "Cotylorhynchus Fossil");
@@ -489,6 +502,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.TANY, "Tanystropheus");
         addEntityType(UPEntities.KAPROSUCHUS, "Kaprosuchus");
         addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
+        addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");

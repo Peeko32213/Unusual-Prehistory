@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "/": {
+      "tag": "forge:rods/wooden"
+    },
+    "M": {
+      "item": "unusualprehistory:zuloagae_planks"
+    }
+  },
+  "pattern": [
+    "M/M",
+    "M/M"
+  ],
+  "result": {
+    "count": 6,
+    "item": "unusualprehistory:zuloagae_fence"
+  },
+  "show_notification": true
+}

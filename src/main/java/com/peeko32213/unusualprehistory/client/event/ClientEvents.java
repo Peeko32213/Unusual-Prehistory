@@ -69,6 +69,8 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.FOXXI_TRAPDOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.DRYO_DOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.DRYO_TRAPDOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.ZULOAGAE_DOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.ZULOAGAE_TRAPDOOR.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.HORSETAIL.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.LEEFRUCTUS.get(), RenderType.cutout());
@@ -276,6 +278,7 @@ public final class ClientEvents {
                         .withLayers(KAPROSUCHUS_MODEL)
                         .build());
         event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
+        event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DiplocaulusModel()));
         event.registerEntityRenderer(UPEntities.BOOK_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BookSnakeModel()));
 
 

@@ -732,6 +732,38 @@ public class UPBlocks {
     public static final RegistryObject<WallSignBlock> DRYO_WALL_SIGN = BLOCKS.register("dryo_wall_sign", ()
             -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(DRYO_SIGN.get()), UPWoodTypes.DRYO));
 
+    public static final RegistryObject<RotatedPillarBlock> ZULOAGAE_BLOCK = registerBlock("zuloagae_block",
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.BAMBOO_BLOCK).strength(5f)));
+
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_ZULOAGAE_BLOCK = registerBlock("stripped_zuloagae_block",
+            () -> new BlockGinkgoWood(BlockBehaviour.Properties.copy(Blocks.BAMBOO_BLOCK)));
+
+    public static final RegistryObject<Block> ZULOAGAE_PLANKS = registerBlock("zuloagae_planks",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS)));
+
+    public static final RegistryObject<StairBlock> ZULOAGAE_STAIRS = registerBlock("zuloagae_stairs",
+            () -> new StairBlock(() -> ZULOAGAE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(ZULOAGAE_PLANKS.get())));
+
+    public static final RegistryObject<SlabBlock> ZULOAGAE_SLAB = registerBlock("zuloagae_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(ZULOAGAE_PLANKS.get())));
+
+    public static final RegistryObject<FenceBlock> ZULOAGAE_FENCE = registerBlock("zuloagae_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_FENCE)));
+
+    public static final RegistryObject<FenceGateBlock> ZULOAGAE_FENCE_GATE = registerBlock("zuloagae_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_FENCE_GATE), UPWoodTypes.PETRIFIED));
+
+    public static final RegistryObject<DoorBlock> ZULOAGAE_DOOR = registerBlock("zuloagae_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_DOOR).noOcclusion(), UPBlockSetType.ZULOAGAE));
+
+    public static final RegistryObject<TrapDoorBlock> ZULOAGAE_TRAPDOOR = registerBlock("zuloagae_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_TRAPDOOR).noOcclusion(), UPBlockSetType.ZULOAGAE));
+
+    public static final RegistryObject<ButtonBlock> ZULOAGAE_BUTTON = registerBlock("zuloagae_button",
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_BUTTON), UPBlockSetType.ZULOAGAE,1,true));
+
+    public static final RegistryObject<PressurePlateBlock> ZULOAGAE_PRESSURE_PLATE = registerBlock("zuloagae_pressure_plate",
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.BAMBOO_PRESSURE_PLATE), UPBlockSetType.ZULOAGAE));
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

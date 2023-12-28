@@ -111,6 +111,17 @@ public class BlockLootTables extends BlockLootSubProvider {
 
         dropSelf(UPBlocks.PERMAFROST.get());
         dropOther(UPBlocks.PERMAFROST_FOSSIL.get(), UPItems.FROZEN_FOSSIL.get());
+
+        dropSelf(UPBlocks.ZULOAGAE_BLOCK.get());
+        dropSelf(UPBlocks.ZULOAGAE_FENCE_GATE.get());
+        dropSelf(UPBlocks.ZULOAGAE_BUTTON.get());
+        dropSelf(UPBlocks.ZULOAGAE_FENCE.get());
+        dropSelf(UPBlocks.ZULOAGAE_SLAB.get());
+        dropSelf(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get());
+        dropSelf(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get());
+        dropSelf(UPBlocks.ZULOAGAE_PLANKS.get());
+        dropSelf(UPBlocks.ZULOAGAE_STAIRS.get());
+        dropSelf(UPBlocks.ZULOAGAE_TRAPDOOR.get());
     }
 
     protected LootTable.Builder createCopperLikeOreDrops(Block pBlock, Item item) {

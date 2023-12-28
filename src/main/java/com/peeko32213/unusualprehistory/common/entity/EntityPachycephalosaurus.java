@@ -231,6 +231,8 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
         this.entityData.set(ENTITY_STATE, anim);
     }
 
+
+
     public boolean isFood(ItemStack stack) {
         return stack.is(UPTags.PACHY_FOOD);
     }

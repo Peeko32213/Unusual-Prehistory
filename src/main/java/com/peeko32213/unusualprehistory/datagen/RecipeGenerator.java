@@ -100,6 +100,27 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
         //makeSign(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS).save(consumer);
 
         //oreSmelting();
+
+        // Zuloagae
+        makePlanks(UPBlocks.ZULOAGAE_PLANKS, UPTags.ZULOAGAE).save(consumer);
+
+        makeStairs(UPBlocks.ZULOAGAE_STAIRS, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
+
+        makeSlab(UPBlocks.ZULOAGAE_SLAB, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
+
+        makeFence(UPBlocks.ZULOAGAE_FENCE, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
+
+        makeFenceGate(UPBlocks.ZULOAGAE_FENCE_GATE, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
+
+        makeDoor(UPBlocks.ZULOAGAE_DOOR, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
+
+        makeTrapdoor(UPBlocks.ZULOAGAE_TRAPDOOR, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
+
+        makeButton(UPBlocks.ZULOAGAE_BUTTON, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
+
+        makePressurePlate(UPBlocks.ZULOAGAE_PRESSURE_PLATE, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
+
+
     }
 
 

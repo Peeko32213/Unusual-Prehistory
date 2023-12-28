@@ -92,6 +92,7 @@ public class UPTags {
     public static final TagKey<Item> PETRIFIED_WOOD = registerItemTag("petrified_wood");
     public static final TagKey<Item> FOXXI = registerItemTag("foxxi");
     public static final TagKey<Item> DRYO = registerItemTag("dryo");
+    public static final TagKey<Item> ZULOAGAE = registerItemTag("zuloagae");
 
 
     //Breakables Tags

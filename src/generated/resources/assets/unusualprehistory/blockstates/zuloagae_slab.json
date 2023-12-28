@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "unusualprehistory:block/zuloagae_slab"
+    },
+    "type=double": {
+      "model": "unusualprehistory:block/zuloagae_planks"
+    },
+    "type=top": {
+      "model": "unusualprehistory:block/zuloagae_slab_top"
+    }
+  }
+}

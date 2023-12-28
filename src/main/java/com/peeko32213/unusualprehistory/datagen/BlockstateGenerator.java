@@ -177,6 +177,27 @@ public class BlockstateGenerator extends BlockStateProvider {
         simpleBlock(UPBlocks.PERMAFROST.get());
         simpleBlock(UPBlocks.PERMAFROST_FOSSIL.get());
 
+        //Zuloagae
+
+        logBlock(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get());
+        simpleBlockItem(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get(), existingModel((getName(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get()))));
+        logBlock(UPBlocks.ZULOAGAE_BLOCK.get());
+        simpleBlockItem(UPBlocks.ZULOAGAE_BLOCK.get(), existingModel((getName(UPBlocks.ZULOAGAE_BLOCK.get()))));
+        simpleBlock(UPBlocks.ZULOAGAE_PLANKS.get());
+        simpleBlockItem(UPBlocks.ZULOAGAE_PLANKS.get(), existingModel((getName(UPBlocks.ZULOAGAE_PLANKS.get()))));
+        slabBlock(UPBlocks.ZULOAGAE_SLAB.get(), resourceBlock(getName(UPBlocks.ZULOAGAE_PLANKS.get())), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        simpleBlockItem(UPBlocks.ZULOAGAE_SLAB.get(), existingModel((getName(UPBlocks.ZULOAGAE_SLAB.get()))));
+
+        doorBlock(UPBlocks.ZULOAGAE_DOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_door_bottom"),new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_door_top"));
+        trapdoorBlock(UPBlocks.ZULOAGAE_TRAPDOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_trapdoor"), true);
+        stairsBlock(UPBlocks.ZULOAGAE_STAIRS.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        simpleBlockItem(UPBlocks.ZULOAGAE_STAIRS.get(), existingModel((getName(UPBlocks.ZULOAGAE_STAIRS.get()))));
+        pressurePlateBlock(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        simpleBlockItem(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get(), existingModel((getName(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get()))));
+        buttonBlock(UPBlocks.ZULOAGAE_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        fenceBlock(UPBlocks.ZULOAGAE_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        fenceGateBlock(UPBlocks.ZULOAGAE_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+
     }
 
     public void createEgg(Block block){

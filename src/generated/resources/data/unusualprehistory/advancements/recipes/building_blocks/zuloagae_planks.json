@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_log": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "unusualprehistory:zuloagae"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusualprehistory:zuloagae_planks"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_log",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusualprehistory:zuloagae_planks"
+    ]
+  },
+  "sends_telemetry_event": false
+}

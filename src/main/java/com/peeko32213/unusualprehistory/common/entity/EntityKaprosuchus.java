@@ -72,9 +72,9 @@ public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implemen
     private static final RawAnimation KAPROSUCHUS_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.kaprosuchus.swimidle");
 
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityKaprosuchus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityPsittacosaurus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityPsittacosaurus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityPsittacosaurus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityKaprosuchus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityKaprosuchus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityKaprosuchus.class, EntityDataSerializers.INT);
     public float sitProgress;
     public float prevSwimProgress;
     public float swimProgress;

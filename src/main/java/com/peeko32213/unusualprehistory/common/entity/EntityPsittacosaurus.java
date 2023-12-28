@@ -543,13 +543,13 @@ public class EntityPsittacosaurus extends EntityBaseDinosaurAnimal {
                         return PlayState.CONTINUE;
                     } else if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
                         float rand = random.nextFloat();
-                        if (rand < 0.85F) {
+                        if (rand < 0.65F) {
                             event.setAndContinue(PSITTACO_SIT);
                         }
-                        if (rand < 0.85F) {
+                        if (rand < 0.74F) {
                             event.setAndContinue(PSITTACO_SCRATCH_2);
                         }
-                        if (rand < 0.85F) {
+                        if (rand < 0.75F) {
                             event.setAndContinue(PSITTACO_SCRATCH_1);
                         }
                         if (rand < 0.85F) {

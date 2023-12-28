@@ -159,7 +159,9 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.FOXXI_LOG.get())
                 .add(UPBlocks.FOXXI_WOOD.get())
                 .add(UPBlocks.STRIPPED_FOXXI_WOOD.get())
-                .add(UPBlocks.STRIPPED_FOXXI_LOG.get());
+                .add(UPBlocks.STRIPPED_FOXXI_LOG.get())
+                .add(UPBlocks.ZULOAGAE_BLOCK.get())
+                ;
 
         tag(BlockTags.LOGS_THAT_BURN)
                 .add(UPBlocks.GINKGO_LOG.get())
@@ -178,6 +180,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.FOXXI_WOOD.get())
                 .add(UPBlocks.STRIPPED_FOXXI_WOOD.get())
                 .add(UPBlocks.STRIPPED_FOXXI_LOG.get())
+                .add(UPBlocks.ZULOAGAE_BLOCK.get())
 
         ;
 
@@ -257,7 +260,6 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.STRIPPED_FOXXI_WOOD.get())
                 .add(UPBlocks.STRIPPED_FOXXI_LOG.get())
                 .add(UPBlocks.GINKGO_PLANKS.get())
-                .add(UPBlocks.FOXXI_PLANKS.get())
                 .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get())
                 .add(UPBlocks.DRYO_PLANKS.get())
                 //.add(UPBlocks.GINKGO_WALL_SIGN.get())
@@ -299,6 +301,16 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.FOXXI_BUTTON.get())
                 .add(UPBlocks.DRYO_BUTTON.get())
                 .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get())
+                .add(UPBlocks.ZULOAGAE_BLOCK.get())
+                .add(UPBlocks.ZULOAGAE_PLANKS.get())
+                .add(UPBlocks.ZULOAGAE_BUTTON.get())
+                .add(UPBlocks.ZULOAGAE_DOOR.get())
+                .add(UPBlocks.ZULOAGAE_FENCE.get())
+                .add(UPBlocks.ZULOAGAE_FENCE_GATE.get())
+                .add(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get())
+                .add(UPBlocks.ZULOAGAE_STAIRS.get())
+                .add(UPBlocks.ZULOAGAE_SLAB.get())
+                .add(UPBlocks.ZULOAGAE_TRAPDOOR.get())
         ;
 
 
@@ -384,6 +396,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.GINKGO_PLANKS.get())
                 .add(UPBlocks.FOXXI_PLANKS.get())
                 .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get())
+                .add(UPBlocks.ZULOAGAE_PLANKS.get())
                 .add(UPBlocks.DRYO_PLANKS.get());
 
         tag(BlockTags.WALL_SIGNS);
@@ -396,26 +409,34 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.GINKGO_DOOR.get())
                 .add(UPBlocks.FOXXI_DOOR.get())
                 .add(UPBlocks.DRYO_DOOR.get())
-                .add(UPBlocks.PETRIFIED_WOOD_DOOR.get());
+                .add(UPBlocks.PETRIFIED_WOOD_DOOR.get())
+                .add(UPBlocks.ZULOAGAE_DOOR.get())
+                ;
 
         tag(BlockTags.WOODEN_FENCES)
                 .add(UPBlocks.GINKGO_FENCE.get())
                 .add(UPBlocks.FOXXI_FENCE.get())
                 .add(UPBlocks.DRYO_FENCE.get())
-                .add(UPBlocks.PETRIFIED_WOOD_FENCE.get());
+                .add(UPBlocks.PETRIFIED_WOOD_FENCE.get())
+                .add(UPBlocks.ZULOAGAE_FENCE.get())
+        ;
 
         tag(BlockTags.PRESSURE_PLATES)
                 .add(UPBlocks.GINKGO_PRESSURE_PLATE.get())
                 .add(UPBlocks.FOXXI_PRESSURE_PLATE.get())
                 .add(UPBlocks.DRYO_PRESSURE_PLATE.get())
-                .add(UPBlocks.PETRIFIED_WOOD_PRESSURE_PLATE.get());
+                .add(UPBlocks.PETRIFIED_WOOD_PRESSURE_PLATE.get())
+                .add(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get())
+        ;
 
         tag(BlockTags.SLABS)
                 .add(UPBlocks.GINKGO_SLAB.get())
                 .add(UPBlocks.PETRIFIED_WOOD_SLAB.get())
                 .add(UPBlocks.FOXXI_SLAB.get())
                 .add(UPBlocks.DRYO_SLAB.get())
-                .add(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
+                .add(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get())
+                .add(UPBlocks.ZULOAGAE_SLAB.get())
+        ;
 
 
         tag(BlockTags.STAIRS)
@@ -423,26 +444,34 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.PETRIFIED_WOOD_STAIRS.get())
                 .add(UPBlocks.FOXXI_STAIRS.get())
                 .add(UPBlocks.DRYO_STAIRS.get())
-                .add(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
+                .add(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get())
+                .add(UPBlocks.ZULOAGAE_STAIRS.get())
+        ;
 
         tag(BlockTags.TRAPDOORS)
                 .add(UPBlocks.GINKGO_TRAPDOOR.get())
                 .add(UPBlocks.FOXXI_TRAPDOOR.get())
                 .add(UPBlocks.DRYO_TRAPDOOR.get())
-                .add(UPBlocks.PETRIFIED_WOOD_TRAPDOOR.get());
+                .add(UPBlocks.PETRIFIED_WOOD_TRAPDOOR.get())
+                .add(UPBlocks.ZULOAGAE_TRAPDOOR.get())
+        ;
 
         tag(BlockTags.BUTTONS)
                 .add(UPBlocks.GINKGO_BUTTON.get())
                 .add(UPBlocks.AMBER_BUTTON.get())
                 .add(UPBlocks.FOXXI_BUTTON.get())
                 .add(UPBlocks.DRYO_BUTTON.get())
-                .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get());
+                .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get())
+                .add(UPBlocks.ZULOAGAE_BUTTON.get())
+        ;
 
         tag(BlockTags.WOODEN_BUTTONS)
                 .add(UPBlocks.GINKGO_BUTTON.get())
                 .add(UPBlocks.FOXXI_BUTTON.get())
                 .add(UPBlocks.DRYO_BUTTON.get())
-                .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get());
+                .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get())
+                .add(UPBlocks.ZULOAGAE_BUTTON.get())
+        ;
 
         tag(BlockTags.CORAL_BLOCKS)
                 .add(UPBlocks.CLATHRODICTYON_BLOCK.get())
