@@ -106,7 +106,7 @@ public class FoxiiFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected boolean shouldSkipLocation(RandomSource pRandom, int pLocalX, int pLocalY, int pLocalZ, int pRange, boolean pLarge) {
-        if (pLocalX + pLocalZ >= 8) {
+        if (pLocalX + pLocalZ >= 7) {
             return true;
         } else {
             return pLocalX * pLocalX + pLocalZ * pLocalZ > pRange * pRange;
