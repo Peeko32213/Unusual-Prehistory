@@ -767,30 +767,10 @@ public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implemen
         return PlayState.CONTINUE;
     }
 
-    protected <E extends EntityKaprosuchus> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        int animState = this.getAnimationState();
-        {
-            switch (animState) {
-
-                case 21:
-                    event.setAndContinue(KAPROSUCHUS_ATTACK_1);
-                    break;
-                case 22:
-                    event.setAndContinue(KAPROSUCHUS_ATTACK_2);
-                    break;
-                case 23:
-                    event.setAndContinue(KAPROSUCHUS_ATTACK_SWIM);
-                    break;
-            }
-        }
-        return PlayState.STOP;
-    }
-
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 10, this::Controller));
-        //controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
     }
 
 }

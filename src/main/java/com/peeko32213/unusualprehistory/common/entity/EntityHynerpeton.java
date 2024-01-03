@@ -10,13 +10,9 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAqu
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -38,20 +34,16 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-import java.util.List;
-
-//TODO LIST
-// - Figure Out Sliding
-// - Figure out Idle Animations for Swimmers
-public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiAquatic {
-    private static final RawAnimation DIPLOCAULUS_IDLE = RawAnimation.begin().thenLoop("animation.diplocaulus.idle");
-    private static final RawAnimation DIPLOCAULUS_WALK = RawAnimation.begin().thenLoop("animation.diplocaulus.walk");
-    private static final RawAnimation DIPLOCAULUS_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.diplocaulus.swim_idle");
-    private static final RawAnimation DIPLOCAULUS_SWIM = RawAnimation.begin().thenLoop("animation.diplocaulus.swim");
-    private static final RawAnimation DIPLOCAULUS_SLIDE = RawAnimation.begin().thenLoop("animation.diplocaulus.slide");
-    private static final RawAnimation DIPLOCAULUS_BURROW_START = RawAnimation.begin().thenLoop("animation.diplocaulus.burrow_start");
-    private static final RawAnimation DIPLOCAULUS_BURROW_HOLD = RawAnimation.begin().thenLoop("animation.diplocaulus.burrow_hold");
-    private static final RawAnimation DIPLOCAULUS_ACROBAT = RawAnimation.begin().thenLoop("animation.diplocaulus.acrobat");
+public class EntityHynerpeton extends EntityBaseDinosaurAnimal implements SemiAquatic {
+    private static final RawAnimation HYNERPETON_IDLE = RawAnimation.begin().thenLoop("animation.hynerpeton.idle");
+    private static final RawAnimation HYNERPETON_BASK_1 = RawAnimation.begin().thenLoop("animation.hynerpeton.bask1");
+    private static final RawAnimation HYNERPETON_BASK_2 = RawAnimation.begin().thenLoop("animation.hynerpeton.bask2");
+    private static final RawAnimation HYNERPETON_WALK = RawAnimation.begin().thenLoop("animation.hynerpeton.walk");
+    private static final RawAnimation HYNERPETON_RUN = RawAnimation.begin().thenLoop("animation.hynerpeton.run");
+    private static final RawAnimation HYNERPETON_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.hynerpeton.swim_idle");
+    private static final RawAnimation HYNERPETON_SWIM = RawAnimation.begin().thenLoop("animation.hynerpeton.swim");
+    private static final RawAnimation HYNERPETON_BELLOW = RawAnimation.begin().thenLoop("animation.hynerpeton.bellow");
+    private static final RawAnimation HYNERPETON_EXPLODE = RawAnimation.begin().thenLoop("animation.hynerpeton.explode");
 
 
     public float prevSwimProgress;
@@ -59,7 +51,7 @@ public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiA
     private int swimTimer = -1000;
     private boolean isLandNavigator;
 
-    public EntityDiplocaulus(EntityType<? extends Animal> entityType, Level level) {
+    public EntityHynerpeton(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -68,7 +60,7 @@ public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiA
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10.0D)
+                .add(Attributes.MAX_HEALTH, 15.0D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D)
                 .add(Attributes.ARMOR, 0.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.18D)
@@ -126,7 +118,7 @@ public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiA
     }
 
     public void travel(Vec3 travelVector) {
-         if (this.isEffectiveAi() && this.isInWater()) {
+        if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
@@ -134,7 +126,7 @@ public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiA
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
             }
         }
-         else {
+        else {
             super.travel(travelVector);
         }
     }
@@ -233,33 +225,35 @@ public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiA
     }
 
 
-    protected <E extends EntityDiplocaulus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    protected <E extends EntityHynerpeton> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
         if (event.isMoving() && !this.isInWater()) {
-            event.setAndContinue(DIPLOCAULUS_WALK);
+            event.setAndContinue(HYNERPETON_WALK);
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.setAndContinue(DIPLOCAULUS_SWIM);
+            event.setAndContinue(HYNERPETON_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
             float rand = random.nextFloat();
             if (rand < 0.45F) {
-                return event.setAndContinue(DIPLOCAULUS_BURROW_HOLD);
+                return event.setAndContinue(HYNERPETON_BELLOW);
             }
-            event.setAndContinue(DIPLOCAULUS_IDLE);
+            if (rand < 0.55F) {
+                return event.setAndContinue(HYNERPETON_BASK_2);
+            }
+            if (rand < 0.65F) {
+                return event.setAndContinue(HYNERPETON_BASK_1);
+            }
+            event.setAndContinue(HYNERPETON_IDLE);
         }
-        if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
-            float rand = random.nextFloat();
-            if (rand < 0.45F) {
-                return event.setAndContinue(DIPLOCAULUS_ACROBAT);
-            }
-            event.setAndContinue(DIPLOCAULUS_SWIM_IDLE);
+        if (isStillEnough() && this.isInWater()) {
+            event.setAndContinue(HYNERPETON_SWIM_IDLE);
         }
         return PlayState.CONTINUE;
     }

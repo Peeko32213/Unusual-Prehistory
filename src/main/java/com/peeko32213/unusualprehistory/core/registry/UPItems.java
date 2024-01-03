@@ -462,10 +462,16 @@ public class UPItems {
             UPEntities.KAPROSUCHUS , 0x322f2c, 0xf6f050);
 
     public static final RegistryObject<ForgeSpawnEggItem> PSILOPTERUS_EGG = registerSpawnEggs("psilo_spawn_egg",
-            UPEntities.PSILOPTERUS , 0x18100d, 0xc27d28);
+            UPEntities.PSILOPTERUS , 0xc59d7d, 0xc27d28);
 
     public static final RegistryObject<ForgeSpawnEggItem> DIPLOCAULUS_EGG = registerSpawnEggs("diplocaulus_spawn_egg",
             UPEntities.DIPLOCAULUS , 0x1b0e05, 0xf1fa59);
+
+    public static final RegistryObject<ForgeSpawnEggItem> HYNERPETON_EGG = registerSpawnEggs("hynerpeton_spawn_egg",
+            UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
+
+    public static final RegistryObject<ForgeSpawnEggItem> BALAUR_EGG = registerSpawnEggs("balaur_spawn_egg",
+            UPEntities.BALAUR , 0x1f6731, 0xe5cb36);
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,

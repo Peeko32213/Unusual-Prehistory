@@ -76,6 +76,14 @@ public class UPTags {
     public static final TagKey<Item> FOSSILS = registerItemTag("fossils");
     public static final TagKey<Item> ORGANIC_OOZE = registerItemTag("organic_ooze");
     public static final TagKey<Item> MAMMOTH_WEAPONS = registerItemTag("mammoth_weapons");
+
+
+    public static final TagKey<Item> IS_SHINY_HEAD = registerItemTag("shiny_head");
+    public static final TagKey<Item> IS_SHINY_CHEST = registerItemTag("shiny_chest");
+    public static final TagKey<Item> IS_SHINY_LEGS = registerItemTag("shiny_legs");
+    public static final TagKey<Item> IS_SHINY_BOOTS = registerItemTag("shiny_boots");
+
+
     //Food Tags
     public static final TagKey<Item> KENTRO_FOOD = registerItemTag( "kentro_food");
     public static final TagKey<Item> MAJUNGA_FOOD = registerItemTag("majunga_food");

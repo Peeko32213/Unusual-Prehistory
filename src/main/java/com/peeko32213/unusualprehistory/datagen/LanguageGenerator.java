@@ -200,6 +200,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.KAPROSUCUHS_EGG, "Kaprosuchus Spawn Egg");
         addItem(UPItems.PSILOPTERUS_EGG, "Psilopterus Spawn Egg");
         addItem(UPItems.DIPLOCAULUS_EGG, "Diplocaulus Spawn Egg");
+        addItem(UPItems.HYNERPETON_EGG, "Hynerpeton Spawn Egg");
+        addItem(UPItems.BALAUR_EGG, "Balaur Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -503,6 +505,8 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.KAPROSUCHUS, "Kaprosuchus");
         addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
         addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
+        addEntityType(UPEntities.HYNERPETON, "Hynerpeton");
+        addEntityType(UPEntities.BALAUR, "Balaur");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");

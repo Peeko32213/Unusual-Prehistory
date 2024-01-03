@@ -192,6 +192,25 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         ;
 
+        tag(UPTags.IS_SHINY_HEAD)
+                .add(Items.DIAMOND_HELMET.asItem())
+                .add(Items.NETHERITE_HELMET.asItem())
+        ;
+
+        tag(UPTags.IS_SHINY_CHEST)
+                .add(Items.DIAMOND_CHESTPLATE.asItem())
+                .add(Items.NETHERITE_CHESTPLATE.asItem())
+        ;
+
+        tag(UPTags.IS_SHINY_LEGS)
+                .add(Items.DIAMOND_LEGGINGS.asItem())
+                .add(Items.NETHERITE_LEGGINGS.asItem())
+        ;
+
+        tag(UPTags.IS_SHINY_BOOTS)
+                .add(Items.DIAMOND_BOOTS.asItem())
+                .add(Items.NETHERITE_BOOTS.asItem())
+        ;
 
 
         tag(ItemTags.SAPLINGS)

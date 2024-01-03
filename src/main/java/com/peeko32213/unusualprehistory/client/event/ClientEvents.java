@@ -170,6 +170,7 @@ public final class ClientEvents {
     private static final ResourceLocation OTAROCYCON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/otarocyon.geo.json");
     private static final ResourceLocation KAPROSUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kaprosuchus.geo.json");
 
+    private static final ResourceLocation BALAUR_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/balaur.geo.json");
 
     private static final ResourceLocation BARINASUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus.geo.json");
     private static final ResourceLocation BEELZE_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_saddle.png");
@@ -284,7 +285,11 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
         event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DiplocaulusModel()));
         event.registerEntityRenderer(UPEntities.BOOK_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BookSnakeModel()));
-
+        event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new HynerpetonModel()));
+        event.registerEntityRenderer(UPEntities.BALAUR.get(), e ->
+                UPRenderUtils.createTamableDinosaurRenderer(e, new BalaurModel())
+                        .withLayers(BALAUR_MODEL)
+                        .build());
 
         //Plants
         event.registerEntityRenderer(UPEntities.FOXXI_SAPLING.get(), e -> new PlantEntityRenderer<>(e, new PlantModel("tall_plant", "plants/foxxi_sapling.png"), 1));
