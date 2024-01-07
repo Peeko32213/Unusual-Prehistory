@@ -1,9 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.FindWaterGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.LeaveWaterGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.SemiAquaticSwimmingGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
@@ -86,6 +83,7 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
     }
 
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.2F, false));
         this.goalSelector.addGoal(7, new FindWaterGoal(this));
         this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
@@ -93,7 +91,7 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34) {
                     @Override
                     public boolean canUse() {
-                        if (this.mob.isVehicle()) {
+                        if (this.mob.isVehicle() || ((EntityTanystropheus)this.mob).isBasking()) {
                             return false;
                         } else {
                             if (!this.forceTrigger) {
@@ -125,8 +123,19 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
                     }
                 }
         );
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(5, new BaskRandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F)
+        {
+            @Override
+            public boolean canUse() {
+                if(this.mob instanceof EntityTanystropheus entityTanystropheus)
+                {
+                    if(entityTanystropheus.isBasking()) return false;
+                }
+
+                return super.canUse();
+            }
+        });
 
     }
 
@@ -147,10 +156,12 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
     public void tick() {
         super.tick();
         this.prevSwimProgress = swimProgress;
-        prevBaskProgress = baskProgress;
-
         final boolean ground = !this.isInWaterOrBubble();
-
+        if (isBasking()) {
+            baskingTimer++;
+        } else {
+            baskingTimer = 0;
+        }
         if (!ground && this.isLandNavigator) {
             switchNavigator(false);
         }
@@ -170,34 +181,23 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
                 swimTimer--;
             }
         }
-        if (isBasking() && baskProgress < 5F) {
-            baskProgress++;
-        }
-        if (!isBasking() && baskProgress > 0F) {
-            baskProgress--;
-        }
         if (!this.level().isClientSide) {
             if (isBasking()) {
                 if (this.getLastHurtByMob() != null || this.isInWaterOrBubble() || this.getTarget() != null || baskingTimer > 1000 && this.getRandom().nextInt(100) == 0) {
                     this.setBasking(false);
                 }
             } else {
-                if (this.getTarget() == null && !isInLove() && this.getLastHurtByMob() == null && !isBasking() && baskingTimer == 0 && this.getRandom().nextInt(15) == 0) {
+                if (this.getTarget() == null && !isInLove() && this.getLastHurtByMob() == null && !isBasking() && this.level().isDay() && baskingTimer == 0 && this.getRandom().nextInt(1) == 0) {
                     if (!isInWaterOrBubble()) {
                         this.setBasking(true);
                     }
                 }
             }
         }
-        if (isBasking()) {
-            baskingTimer++;
-        } else {
-            baskingTimer = 0;
-        }
     }
 
     public void travel(Vec3 travelVector) {
-         if (this.isEffectiveAi() && this.isInWater()) {
+         if (this.isEffectiveAi() && this.isInWater() && !this.isBasking()) {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
@@ -205,6 +205,15 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
             }
         }
+        if (this.isBasking()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            this.getLookControl().setLookAt(this.position().add(2,0,2));
+            travelVector = Vec3.ZERO;
+            super.travel(travelVector);
+        }
+
          else {
             super.travel(travelVector);
         }
@@ -334,6 +343,11 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
+
+        if (this.isBasking() && !this.isInWater()) {
+            event.setAndContinue(TANY_VIBE_HOLD);
+        }
+
         if (event.isMoving() && !this.isInWater()) {
             event.setAndContinue(TANY_WALK);
             event.getController().setAnimationSpeed(1.0D);
@@ -358,9 +372,6 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
     }
 
     protected <E extends EntityTanystropheus> PlayState baskController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.isBasking() && !this.isInWater() || !event.isMoving()) {
-            event.setAndContinue(TANY_VIBE_HOLD);
-        }
         return PlayState.STOP;
     }
 
