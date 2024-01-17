@@ -62,17 +62,19 @@ public class CommonEvents {
         event.put(UPEntities.BABY_MAMMOTH.get(), EntityBabyMammoth.createAttributes().build());
         event.put(UPEntities.BABY_BARINA.get(), EntityBabyBarinasuchus.createAttributes().build());
         event.put(UPEntities.SLUDGE.get(), EntitySludge.createAttributes().build());
-        event.put(UPEntities.OTAROCYON.get(), EntityOtarocyon.createAttributes().build());  //65% Done
-        event.put(UPEntities.LONGISQUAMA.get(), EntityLongisquama.createAttributes().build()); //70% Done
-        event.put(UPEntities.FURCA.get(), EntityFurcacauda.createAttributes().build()); //100% Done
+        event.put(UPEntities.OTAROCYON.get(), EntityOtarocyon.createAttributes().build());  //80% Done
+        event.put(UPEntities.LONGISQUAMA.get(), EntityLongisquama.createAttributes().build()); //80% Done
+        event.put(UPEntities.FURCA.get(), EntityFurcacauda.createAttributes().build()); //50% Done
         event.put(UPEntities.TARTUOSTEUS.get(), EntityTartuosteus.createAttributes().build()); //80% Done
         event.put(UPEntities.PSITTACO.get(), EntityPsittacosaurus.createAttributes().build()); //70% Done
         event.put(UPEntities.TANY.get(), EntityTanystropheus.createAttributes().build()); //70% Done
-        event.put(UPEntities.KAPROSUCHUS.get(), EntityKaprosuchus.createAttributes().build());
-        event.put(UPEntities.PSILOPTERUS.get(), EntityPsilopterus.createAttributes().build());
-        event.put(UPEntities.DIPLOCAULUS.get(), EntityDiplocaulus.createAttributes().build());
-        event.put(UPEntities.HYNERPETON.get(), EntityHynerpeton.createAttributes().build());
-        event.put(UPEntities.BALAUR.get(), EntityBalaur.createAttributes().build());
+        event.put(UPEntities.KAPROSUCHUS.get(), EntityKaprosuchus.createAttributes().build()); //80% Done
+        event.put(UPEntities.PSILOPTERUS.get(), EntityPsilopterus.createAttributes().build()); //80% Done
+        event.put(UPEntities.DIPLOCAULUS.get(), EntityDiplocaulus.createAttributes().build()); //80% Done
+        event.put(UPEntities.HYNERPETON.get(), EntityHynerpeton.createAttributes().build()); //80% Done
+        event.put(UPEntities.BALAUR.get(), EntityBalaur.createAttributes().build()); //70% Done
+        event.put(UPEntities.OPHIODON.get(), EntityOphiodon.createAttributes().build()); //80% Done
+        event.put(UPEntities.PROTOSPHYRAENA.get(), EntityProtosphyraena.createAttributes().build());
 
 
         event.put(UPEntities.ICEBERG_SMILODON.get(), EntityWorldSpawnable.bakeAttributes().build());

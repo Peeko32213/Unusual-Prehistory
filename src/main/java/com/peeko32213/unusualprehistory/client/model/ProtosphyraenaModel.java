@@ -2,9 +2,8 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityAustroraptor;
-import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
-import net.minecraft.client.Minecraft;
+import com.peeko32213.unusualprehistory.common.entity.EntityOphiodon;
+import com.peeko32213.unusualprehistory.common.entity.EntityProtosphyraena;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -14,33 +13,33 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class DunkleosteusModel extends GeoModel<EntityDunkleosteus>
+public class ProtosphyraenaModel extends GeoModel<EntityProtosphyraena>
 {
     @Override
-    public ResourceLocation getModelResource(EntityDunkleosteus object)
+    public ResourceLocation getModelResource(EntityProtosphyraena object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/dunk.geo.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/protosphyraena.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityDunkleosteus object)
+    public ResourceLocation getTextureResource(EntityProtosphyraena object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/dunkleosteus.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/protosphyraena.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityDunkleosteus object)
+    public ResourceLocation getAnimationResource(EntityProtosphyraena object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/dunk.animation.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/protosphyraena.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityDunkleosteus animatable, long instanceId, AnimationState<EntityDunkleosteus> animationState) {
+    public void setCustomAnimations(EntityProtosphyraena animatable, long instanceId, AnimationState<EntityProtosphyraena> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
 
-        CoreGeoBone backBody = this.getAnimationProcessor().getBone("BackBody");
-        CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tailfin");
+        CoreGeoBone backBody = this.getAnimationProcessor().getBone("MidBody");
+        CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tail");
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         CoreGeoBone root = this.getAnimationProcessor().getBone("Body");

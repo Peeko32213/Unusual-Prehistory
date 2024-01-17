@@ -1,4 +1,5 @@
-// 1.20.1	2024-01-03T14:55:02.4354443	Item Models: unusualprehistory
+// 1.20.1	2024-01-17T12:57:13.8064303	Item Models: unusualprehistory
+b2ddf74df63b61d13d834643f401749b7f334d89 assets/unusualprehistory/models/item/amber_idol.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ammon_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/antarcto_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/anuro_spawn_egg.json
@@ -45,6 +46,7 @@ f99c20ff32ece811a8fca9c3cf9a7a1a8ef1f14e assets/unusualprehistory/models/item/ma
 5a0490bc95316e0e6c1c5c199975c9d4699838af assets/unusualprehistory/models/item/megath_embryo.json
 374f66a66af8ec9d3f2841d79b32b4c8979f16dc assets/unusualprehistory/models/item/opalescent_pearl.json
 ac07907ace280525d01567a6bc5e614e12bd9e97 assets/unusualprehistory/models/item/opalescent_shuriken.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ophiodon_spawn_egg.json
 6e3c5d974071c92c874034e76d151cd450730420 assets/unusualprehistory/models/item/ophio_flask.json
 490e7bb856f5877be2941738dac903c2d187487b assets/unusualprehistory/models/item/otarocyon_flask.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/otarocyon_spawn_egg.json
@@ -56,6 +58,7 @@ b311adfedcf2ed2928c1fe905a882a3382d68f70 assets/unusualprehistory/models/item/pa
 8d548726b07bdf5df1ac32639e969a980f768576 assets/unusualprehistory/models/item/paracer_embryo.json
 c73f6e797f3256a8c51acf381690c0e54b97fe94 assets/unusualprehistory/models/item/permafrost.json
 3c8bb78ac9964f51f87f1b9689134cbafba8fc4a assets/unusualprehistory/models/item/permafrost_fossil.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/protosphyraena_spawn_egg.json
 cf98c3c192a25ad998ccea70a7685475a267fd31 assets/unusualprehistory/models/item/psilo_flask.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/psilo_spawn_egg.json
 c5cd11c890dce8fa70ab4e5f6bc0a01f84bf855b assets/unusualprehistory/models/item/psittaco_arrow.json

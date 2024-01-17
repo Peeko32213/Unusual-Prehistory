@@ -218,6 +218,13 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityBalaur>> BALAUR = ENTITIES.register("balaur",
             () -> EntityType.Builder.of(EntityBalaur::new, MobCategory.CREATURE).sized(1.1F, 1.5F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "balaur").toString()));
+    public static final RegistryObject<EntityType<EntityOphiodon>> OPHIODON = ENTITIES.register("ophiodon",
+            () -> EntityType.Builder.of(EntityOphiodon::new, MobCategory.WATER_CREATURE).sized(1.6f, 0.8f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "ophiodon").toString()));
+
+    public static final RegistryObject<EntityType<EntityProtosphyraena>> PROTOSPHYRAENA = ENTITIES.register("protosphyraena",
+            () -> EntityType.Builder.of(EntityProtosphyraena::new, MobCategory.WATER_CREATURE).sized(1.6f, 0.8f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "protosphyraena").toString()));
     public static final RegistryObject<EntityType<EntityBabyMegatherium>> BABY_MEGATHERIUM = ENTITIES.register("baby_megatherium",
             () -> EntityType.Builder.of(EntityBabyMegatherium::new, MobCategory.CREATURE).sized(0.8f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_megatherium").toString()));

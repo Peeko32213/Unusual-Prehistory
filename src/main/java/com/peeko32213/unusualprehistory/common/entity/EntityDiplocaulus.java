@@ -242,7 +242,7 @@ public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiA
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
-        if (this.isInWater()) {
+        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
             event.setAndContinue(DIPLOCAULUS_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;

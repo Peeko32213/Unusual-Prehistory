@@ -79,6 +79,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PALAEO_SKIN, "Discarded Palaeolophis Skin");
         addItem(UPItems.INSULATOR, "Insulator");
         addItem(UPItems.PSITTACO_QUIL, "Psittacosaurus Quil");
+        addItem(UPItems.AMBER_IDOL, "Amber Idol");
 
         //FOODS
         addItem(UPItems.GROG, "Flask of Grog");
@@ -110,8 +111,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.COOKED_FURCACAUDA, "Cooked Furcacauda");
         addItem(UPItems.RAW_TARTU, "Raw Tartuosteus");
         addItem(UPItems.COOKED_TARTU, "Cooked Tartuosteus");
-        addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon");
-        addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon");
+        addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon Ozymandias");
+        addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon Ozymandias");
 
         //SCRAPS
         addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
@@ -202,6 +203,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.DIPLOCAULUS_EGG, "Diplocaulus Spawn Egg");
         addItem(UPItems.HYNERPETON_EGG, "Hynerpeton Spawn Egg");
         addItem(UPItems.BALAUR_EGG, "Balaur Spawn Egg");
+        addItem(UPItems.OPHIODON_EGG, "Ophiodon Ozymandias Spawn Egg");
+        addItem(UPItems.PROTOSPHYRAENA_EGG, "Protosphyraena Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -282,7 +285,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PSITTACO_FLASK, "Psittacosaurus DNA Flask");
         addItem(UPItems.KAPRO_FLASK, "Kaprosuchus DNA Flask");
         addItem(UPItems.PSILO_FLASK, "Psilopterus DNA Flask");
-        addItem(UPItems.OPHIO_FLASK, "Ophiodon DNA Flask");
+        addItem(UPItems.OPHIO_FLASK, "Ophiodon Ozymandias DNA Flask");
         addItem(UPItems.DIPLO_FLASK, "Diplocaulus DNA Flask");
         addItem(UPItems.HYNERP_FLASK, "Hynerpeton DNA Flask");
         addItem(UPItems.BALAUR_FLASK, "Balaur DNA Flask");
@@ -507,6 +510,8 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
         addEntityType(UPEntities.HYNERPETON, "Hynerpeton");
         addEntityType(UPEntities.BALAUR, "Balaur");
+        addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");
+        addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");

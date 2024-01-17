@@ -123,7 +123,7 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
                     }
                 }
         );
-        this.goalSelector.addGoal(5, new BaskRandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new BaskRandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F)
         {
             @Override
@@ -183,11 +183,11 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
         }
         if (!this.level().isClientSide) {
             if (isBasking()) {
-                if (this.getLastHurtByMob() != null || this.isInWaterOrBubble() || this.getTarget() != null || baskingTimer > 1000 && this.getRandom().nextInt(100) == 0) {
+                if (this.getLastHurtByMob() != null || this.isInWaterOrBubble() || this.getTarget() != null || baskingTimer > 500 && this.getRandom().nextInt(10) == 0) {
                     this.setBasking(false);
                 }
             } else {
-                if (this.getTarget() == null && !isInLove() && this.getLastHurtByMob() == null && !isBasking() && this.level().isDay() && baskingTimer == 0 && this.getRandom().nextInt(1) == 0) {
+                if (this.getTarget() == null && !isInLove() && this.getLastHurtByMob() == null && !isBasking() && this.level().isDay() && baskingTimer == 0 && this.getRandom().nextInt(200) == 0) {
                     if (!isInWaterOrBubble()) {
                         this.setBasking(true);
                     }

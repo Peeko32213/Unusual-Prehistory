@@ -353,7 +353,10 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.SMILODON.get())
         ;
 
-
+        tag(UPTags.OPHIODON_TARGETS)
+                .add(EntityType.TROPICAL_FISH)
+                .add(EntityType.SALMON)
+                ;
 
         tag(UPTags.MEGALANIA_TARGETS)
                 .add(EntityType.PIG)
