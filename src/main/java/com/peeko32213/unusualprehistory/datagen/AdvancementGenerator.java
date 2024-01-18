@@ -298,9 +298,9 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .save(consumer, "main/grog");
 
         Advancement rex = getAdvancement(eggs, (ItemLike)UPItems.REX_FLASK.get(), "interact_rex", FrameType.TASK, true, true, true)
-                .addCriterion("damage_rex", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.COTY.get())))))
+                .addCriterion("damage_rex", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.REX.get())))))
                 .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.REX.get()).build())))
-                .addCriterion("killed_rex", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.COTY.get())))
+                .addCriterion("killed_rex", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.REX.get())))
                 .requirements(RequirementsStrategy.OR)
 
                 .save(consumer, "main/rex");

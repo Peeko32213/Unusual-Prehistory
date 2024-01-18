@@ -409,6 +409,9 @@ public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implemen
     public int getWaterSearchRange() {
         return 12;
     }
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
 
     @Override
     public boolean shouldStopMoving() {

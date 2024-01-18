@@ -178,9 +178,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if(itemstack.is(UPItems.ENCYLOPEDIA.get())){
-            InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        }
+        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (hand == InteractionHand.MAIN_HAND && !this.level().isClientSide) {
             if (isTame() && isOwnedBy(player)) {
                 if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
@@ -238,7 +236,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
             this.setSwinging(true);
             ServerLevel serverLevel = (ServerLevel) this.level();
             float angle = (0.01745329251F * this.yBodyRot);
-            double radius = this.getBbWidth();
+            double radius = this.getBbWidth() + 1;
             double extraX = radius * Mth.sin((float) (Math.PI + angle));
             double extraZ = radius * Mth.cos(angle);
             BlockPos targetPos = BlockPos.containing(this.getX() + extraX, this.getY(), this.getZ() + extraZ);

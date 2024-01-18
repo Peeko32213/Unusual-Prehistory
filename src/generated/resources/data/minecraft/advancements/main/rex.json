@@ -6,7 +6,7 @@
         "damage": {
           "type": {
             "direct_entity": {
-              "type": "unusualprehistory:coty"
+              "type": "unusualprehistory:rex"
             }
           }
         }
@@ -35,7 +35,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusualprehistory:coty"
+              "type": "unusualprehistory:rex"
             }
           }
         ]

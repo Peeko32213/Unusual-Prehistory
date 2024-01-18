@@ -246,7 +246,9 @@ public class EntityProtosphyraena extends WaterAnimal implements GeoAnimatable, 
     protected <E extends EntityProtosphyraena> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
 
-        if(!this.isFromBook()) {
+        if(this.isFromBook()) {
+            return PlayState.STOP;
+        }
             switch (animState) {
 
                 case 21:
@@ -256,22 +258,23 @@ public class EntityProtosphyraena extends WaterAnimal implements GeoAnimatable, 
 
 
                     if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                        event.setAndContinue(PROTOSPHYRAENA_SWIM);
+                        event.setAnimation(PROTOSPHYRAENA_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                     if (!this.isInWater()) {
-                        event.setAndContinue(PROTOSPHYRAENA_BEACHED);
+                        event.setAnimation(PROTOSPHYRAENA_BEACHED);
                         event.getController().setAnimationSpeed(2.0F);
                         return PlayState.CONTINUE;
                     }
                     else if (this.isInWater()) {
-                        event.setAndContinue(PROTOSPHYRAENA_WATER_IDLE);
+                        event.setAnimation(PROTOSPHYRAENA_WATER_IDLE);
+                        return PlayState.CONTINUE;
                     }
             }
-        }
-        return PlayState.CONTINUE;
+        return PlayState.STOP;
     }
+
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {

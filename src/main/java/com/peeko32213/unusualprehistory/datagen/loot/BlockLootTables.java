@@ -110,7 +110,7 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.ZULOAGAE.get());
         dropOther(UPBlocks.ZULOAGAE_SAPLING.get(), UPBlocks.ZULOAGAE.get());
         dropSelf(UPBlocks.PERMAFROST.get());
-        dropOther(UPBlocks.PERMAFROST_FOSSIL.get(), UPItems.FROZEN_FOSSIL.get());
+        createFortuneDrops(UPBlocks.PERMAFROST_FOSSIL.get(), UPItems.FROZEN_FOSSIL.get(),1,3);
 
         dropSelf(UPBlocks.ZULOAGAE_BLOCK.get());
         dropSelf(UPBlocks.ZULOAGAE_FENCE_GATE.get());
@@ -122,6 +122,8 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.ZULOAGAE_PLANKS.get());
         dropSelf(UPBlocks.ZULOAGAE_STAIRS.get());
         dropSelf(UPBlocks.ZULOAGAE_TRAPDOOR.get());
+
+
     }
 
     protected LootTable.Builder createCopperLikeOreDrops(Block pBlock, Item item) {
@@ -132,7 +134,16 @@ public class BlockLootTables extends BlockLootSubProvider {
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
 
+    protected void  createFortuneDrops(Block pBlock, Item item, int minCount, int maxCount) {
+        add(pBlock, createSilkTouchDispatchTable(pBlock,
+                this.applyExplosionDecay(pBlock,
+                        LootItem.lootTableItem(item)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(minCount, maxCount)))
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))));
+    }
+
     protected LootTable.Builder createMultipleDrops(Block pBlock, Item item1, Item item2) {
+
         return createSilkTouchDispatchTable(pBlock,
                 this.applyExplosionDecay(pBlock,
                         LootItem.lootTableItem(item1)
@@ -142,6 +153,8 @@ public class BlockLootTables extends BlockLootSubProvider {
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
+
+
 
     @Override
     protected Iterable<Block> getKnownBlocks() {

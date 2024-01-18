@@ -60,6 +60,9 @@ public class UPBlocks {
             () -> new BlockDNAFridge(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FRUIT_LOOT_BOX = registerBlock("fruit_loot_box",
             () -> new BlockFruitLootBox(BlockBehaviour.Properties.copy(Blocks.PUMPKIN).noOcclusion().strength(0.1F)));
+
+    public static final RegistryObject<Block> DINO_LAND_EGGS = registerBlock("dino_land_eggs",
+            () -> new BlockDinosaurLandEggsBase(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).noOcclusion().strength(0.1F)));
     public static final RegistryObject<Block> AMBER_GLASS = registerBlock("amber_glass",
             () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).strength(3.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
 

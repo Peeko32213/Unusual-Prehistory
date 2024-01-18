@@ -72,6 +72,7 @@ public class ItemSlothPouchArmor extends ArmorItem implements GeoItem {
 
                 if (tag.getBoolean("tamed") && !babyMegatherium.isTame()) {
                     babyMegatherium.tame(pPlayer);
+                    babyMegatherium.setOwnerUUID(pPlayer.getUUID());
                 }
                 babyMegatherium.setAge(-24000);
                 babyMegatherium.setUUID(UUID.randomUUID());

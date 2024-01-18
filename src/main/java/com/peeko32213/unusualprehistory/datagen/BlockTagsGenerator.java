@@ -473,18 +473,18 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.ZULOAGAE_BUTTON.get())
         ;
 
-        tag(BlockTags.CORAL_BLOCKS)
-                .add(UPBlocks.CLATHRODICTYON_BLOCK.get())
-                .add(UPBlocks.ANOSTYLOSTROMA_BLOCK.get());
+        //tag(BlockTags.CORAL_BLOCKS)
+        //        .add(UPBlocks.CLATHRODICTYON_BLOCK.get())
+        //        .add(UPBlocks.ANOSTYLOSTROMA_BLOCK.get());
 
         tag(BlockTags.CORAL_PLANTS)
                 .add(UPBlocks.CLATHRODICTYON.get());
 
-        tag(BlockTags.CORALS)
-                .add(UPBlocks.CLATHRODICTYON_FAN.get());
+       //tag(BlockTags.CORALS)
+       //        .add(UPBlocks.CLATHRODICTYON_FAN.get());
 
-        tag(BlockTags.WALL_CORALS)
-                .add(UPBlocks.CLATHRODICTYON_WALL_FAN.get());
+        //tag(BlockTags.WALL_CORALS)
+        //        .add(UPBlocks.CLATHRODICTYON_WALL_FAN.get());
 
         tag(BlockTags.LEAVES)
                 .add(UPBlocks.FOXXI_LEAVES.get())

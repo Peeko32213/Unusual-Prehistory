@@ -1,7 +1,5 @@
-// 1.20.1	2023-12-20T11:28:32.9061991	unusualprehistory Block Tags
+// 1.20.1	2024-01-18T13:25:04.1488714	unusualprehistory Block Tags
 1bdb6f062024d7ca0d614a46e7f230bf6a9ba463 data/minecraft/tags/blocks/buttons.json
-3dc74d776e39d9ddeeb390e35bb4c16d035881a1 data/minecraft/tags/blocks/corals.json
-e6afd6c925171023d0cd3e728553bf722ac86176 data/minecraft/tags/blocks/coral_blocks.json
 6830c7f7a234c9fe6a51d401d4b4d74f297c7a35 data/minecraft/tags/blocks/coral_plants.json
 13a3a20a21c195285c271b3970cbd9643e99c466 data/minecraft/tags/blocks/fences.json
 39ccdfc1d6b86d381afa1c178b2a6cc88e0e40a8 data/minecraft/tags/blocks/fence_gates.json
@@ -20,7 +18,6 @@ cf1cd0a1f427242c50c8ebd70eac726ed74809ee data/minecraft/tags/blocks/pressure_pla
 58358db258d7aac5f435c080394d4e7edac43369 data/minecraft/tags/blocks/standing_signs.json
 fc2e77c51219a889dc4969c1983614358a8301c7 data/minecraft/tags/blocks/tall_flowers.json
 80c9027f612c5d145bdb82bef80e958b109747f1 data/minecraft/tags/blocks/trapdoors.json
-6ab52a528a732e37f276fe3edb7f94744d0778c0 data/minecraft/tags/blocks/wall_corals.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/blocks/wall_signs.json
 45cb7eec2c864ed5343259f2f9a0fd10583c382a data/minecraft/tags/blocks/wooden_buttons.json
 5c213a5d3d70be21908eb2846b9c00100f0fb415 data/minecraft/tags/blocks/wooden_doors.json

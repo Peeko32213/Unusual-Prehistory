@@ -3,7 +3,7 @@
   "criteria": {
     "tame_barina": {
       "conditions": {},
-      "trigger": "minecraft:barina_trigger"
+      "trigger": "unusualprehistory:barina_trigger"
     }
   },
   "display": {
