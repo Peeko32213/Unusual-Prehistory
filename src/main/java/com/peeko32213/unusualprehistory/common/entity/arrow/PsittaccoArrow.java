@@ -44,13 +44,13 @@ public class PsittaccoArrow extends AbstractArrow {
     @Override
     protected void onHitBlock(BlockHitResult pResult) {
         super.onHitBlock(pResult);
-        launchMultipleProjectile(3);
+        launchMultipleProjectile(12);
     }
 
     @Override
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
-        launchMultipleProjectile(3);
+        launchMultipleProjectile(12);
     }
 
 

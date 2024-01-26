@@ -75,6 +75,7 @@ public class CommonEvents {
         event.put(UPEntities.BALAUR.get(), EntityBalaur.createAttributes().build()); //70% Done
         event.put(UPEntities.OPHIODON.get(), EntityOphiodon.createAttributes().build()); //80% Done
         event.put(UPEntities.PROTOSPHYRAENA.get(), EntityProtosphyraena.createAttributes().build());
+        event.put(UPEntities.KIMMER.get(), EntityKimmeridgebrachypteraeschnidium.createAttributes().build());
 
 
         event.put(UPEntities.ICEBERG_SMILODON.get(), EntityWorldSpawnable.bakeAttributes().build());

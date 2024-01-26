@@ -205,6 +205,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.BALAUR_EGG, "Balaur Spawn Egg");
         addItem(UPItems.OPHIODON_EGG, "Ophiodon Ozymandias Spawn Egg");
         addItem(UPItems.PROTOSPHYRAENA_EGG, "Protosphyraena Spawn Egg");
+        addItem(UPItems.KIMMER_EGG, "Kimmeridgebrachypteraeschnidium Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -512,6 +513,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BALAUR, "Balaur");
         addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");
         addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
+        addEntityType(UPEntities.KIMMER, "Kimmeridgebrachypteraeschnidium");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");

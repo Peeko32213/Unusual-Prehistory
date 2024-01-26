@@ -84,7 +84,7 @@ public class EntityProtosphyraena extends WaterAnimal implements GeoAnimatable, 
                 .add(Attributes.ATTACK_DAMAGE, 8.0D)
                 .add(Attributes.ARMOR, 0.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.9)
+                .add(Attributes.MOVEMENT_SPEED, 1.0)
                 .add(Attributes.FOLLOW_RANGE, 6.0D);
 
     }
@@ -94,10 +94,9 @@ public class EntityProtosphyraena extends WaterAnimal implements GeoAnimatable, 
         this.goalSelector.addGoal(1, new EntityProtosphyraena.OphiodonMeleeAttackGoal(this, 2F, true));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.4D, 10));
-        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.OPHIODON_TARGETS)));
-        this.targetSelector.addGoal(5, new ShoalHunterGoal(this, Player.class, 30, false, 5));
-        this.targetSelector.addGoal(5, new ShoalHunterGoal(this, Pig.class, 30, false, 3));
+        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.PROTOSPHYRAENA_TARGETS)));
+        this.targetSelector.addGoal(5, new ShoalHunterGoal(this, Player.class, 30, false, 8));
         this.goalSelector.addGoal(5, new JoinPackGoal(this, 60, 8));
 
     }
@@ -122,7 +121,6 @@ public class EntityProtosphyraena extends WaterAnimal implements GeoAnimatable, 
         } else {
             super.travel(travelVector);
         }
-
     }
 
 

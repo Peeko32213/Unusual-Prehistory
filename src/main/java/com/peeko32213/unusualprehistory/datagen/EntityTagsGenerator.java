@@ -358,6 +358,10 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(EntityType.SALMON)
                 ;
 
+        tag(UPTags.PROTOSPHYRAENA_TARGETS)
+                .add(EntityType.SQUID)
+        ;
+
         tag(UPTags.MEGALANIA_TARGETS)
                 .add(EntityType.PIG)
                 .add(EntityType.COW)

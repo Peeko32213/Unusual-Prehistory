@@ -292,6 +292,7 @@ public final class ClientEvents {
                         .build());
         event.registerEntityRenderer(UPEntities.OPHIODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OphiodonModel()));
         event.registerEntityRenderer(UPEntities.PROTOSPHYRAENA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new ProtosphyraenaModel()));
+        event.registerEntityRenderer(UPEntities.KIMMER.get(), e -> new AgeableMobRenderer<>(e, new KimmeridgebrachypteraeschnidiumModel()));
 
         //Plants
         event.registerEntityRenderer(UPEntities.FOXXI_SAPLING.get(), e -> new PlantEntityRenderer<>(e, new PlantModel("tall_plant", "plants/foxxi_sapling.png"), 1));
