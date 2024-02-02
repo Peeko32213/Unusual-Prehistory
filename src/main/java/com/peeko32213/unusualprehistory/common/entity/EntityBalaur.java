@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandom
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.PounceGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
+import com.peeko32213.unusualprehistory.common.message.BalaurMountMessage;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
 import net.minecraft.core.BlockPos;
@@ -85,6 +86,7 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
 
     protected boolean pushingState = false;
     public float sitProgress;
+    private int latchTime = 0;
 
     public EntityBalaur(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
@@ -156,6 +158,7 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.goalSelector.addGoal(2, new LatchTowardsTarget(this));
     }
 
     @Override
@@ -226,6 +229,60 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
 
     }
 
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.getEntity() != null && this.getRootVehicle() == source.getEntity().getRootVehicle()) {
+            return super.hurt(source, amount * 0.333F);
+        }
+        return super.hurt(source, amount);
+    }
+
+    public void rideTick() {
+        final Entity entity = this.getVehicle();
+        if (this.isPassenger() && !entity.isAlive()) {
+            this.stopRiding();
+        } else {
+            this.setDeltaMovement(0, 0, 0);
+            this.tick();
+            if (this.isPassenger()) {
+                final Entity mount = this.getVehicle();
+                if (mount instanceof final LivingEntity livingEntity) {
+                    this.yBodyRot = livingEntity.yBodyRot;
+                    this.setYRot(livingEntity.getYRot());
+                    this.yHeadRot = livingEntity.yHeadRot;
+                    this.yRotO = livingEntity.yHeadRot;
+                    final float radius = 1F;
+                    final float angle = (UPMath.STARTING_ANGLE * livingEntity.yBodyRot);
+                    final double extraX = radius * Mth.sin(Mth.PI + angle);
+                    final double extraZ = radius * Mth.cos(angle);
+                    this.setPos(mount.getX() + extraX, Math.max(mount.getY() + mount.getEyeHeight() * 0.25F, mount.getY()), mount.getZ() + extraZ);
+                    if (!mount.isAlive() || mount instanceof Player && ((Player) mount).isCreative()) {
+                        this.removeVehicle();
+                    }
+                    if (!this.level().isClientSide) {
+                        if (latchTime % 20 == 0 && this.isAlive()) {
+                            if (mount.hurt(this.damageSources().mobAttack(this), 5.0F)) {
+                                this.gameEvent(GameEvent.EAT);
+                                this.playSound(SoundEvents.HONEY_DRINK, this.getSoundVolume(), this.getVoicePitch());
+                            }
+                        }
+                        if (latchTime > 81) {
+                            latchTime = -20 - random.nextInt(20);
+                            this.removeVehicle();
+                            UPMessages.sendMSGToAll(new BalaurMountMessage(this.getId(), mount.getId()));
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    @Override
+    public boolean canRiderInteract() {
+        return true;
+    }
+
 
     @Override
     public boolean doHurtTarget(Entity target) {
@@ -260,7 +317,14 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         } else {
             this.setOrderedToSit(false);
         }
+        if (isPassenger()) {
+            if (latchTime < 0)
+                latchTime = 0;
 
+            latchTime++;
+        } else {
+            latchTime = 0;
+        }
     }
 
     @Override
@@ -878,6 +942,9 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                     if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
                         return event.setAndContinue(BALAUR_SIT);
                     }
+                    if (this.isPassenger() && !this.isInWater() && !this.isSwimming()) {
+                        return event.setAndContinue(BALAUR_POUNCE_HOLD);
+                    }
                     if (this.isInWater()) {
                         event.setAndContinue(BALAUR_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
@@ -917,6 +984,50 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
     @Override
     public double getTick(Object o) {
         return tickCount;
+    }
+
+    public static class LatchTowardsTarget extends Goal {
+        private final EntityBalaur parentEntity;
+
+        public LatchTowardsTarget(EntityBalaur balaur) {
+            this.parentEntity = balaur;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        }
+
+        public boolean canUse() {
+            if (parentEntity.latchTime < 0) {
+                return false;
+            }
+            return !parentEntity.isPassenger() && parentEntity.getTarget() != null && !isBittenByMosquito(parentEntity.getTarget()) && parentEntity.isTame();
+        }
+
+        public boolean canContinueToUse() {
+            return parentEntity.latchTime >= 0 && parentEntity.getTarget() != null && !isBittenByMosquito(parentEntity.getTarget()) && !parentEntity.horizontalCollision && parentEntity.getMoveControl().hasWanted();
+        }
+
+        public boolean isBittenByMosquito(Entity entity) {
+            for (Entity e : entity.getPassengers()) {
+                if (e instanceof EntityBalaur) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void stop() {
+        }
+
+        public void tick() {
+            if (parentEntity.getTarget() != null) {
+                this.parentEntity.getMoveControl().setWantedPosition(parentEntity.getTarget().getX(), parentEntity.getTarget().getY(), parentEntity.getTarget().getZ(), 1.0D);
+                if (parentEntity.getBoundingBox().inflate(0.3F, 0.3F, 0.3F).intersects(parentEntity.getTarget().getBoundingBox()) && !isBittenByMosquito(parentEntity.getTarget()) && parentEntity.latchTime == 0) {
+                    parentEntity.startRiding(parentEntity.getTarget(), true);
+                    if (!parentEntity.level().isClientSide) {
+                        UPMessages.sendMSGToAll(new BalaurMountMessage(parentEntity.getId(), parentEntity.getTarget().getId()));
+                    }
+                }
+            }
+        }
     }
 
 }

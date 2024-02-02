@@ -53,7 +53,9 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-
+//TODO LIST
+// - Add In Taming Method + Sword Form
+// - Add in Flask + Eggs
 public class EntityProtosphyraena extends WaterAnimal implements GeoAnimatable, IBookEntity, PackHunter {
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityProtosphyraena.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityProtosphyraena.class, EntityDataSerializers.INT);

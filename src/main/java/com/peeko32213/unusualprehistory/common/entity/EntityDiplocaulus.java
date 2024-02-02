@@ -53,7 +53,6 @@ public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiA
     private static final RawAnimation DIPLOCAULUS_BURROW_HOLD = RawAnimation.begin().thenLoop("animation.diplocaulus.burrow_hold");
     private static final RawAnimation DIPLOCAULUS_ACROBAT = RawAnimation.begin().thenLoop("animation.diplocaulus.acrobat");
 
-
     public float prevSwimProgress;
     public float swimProgress;
     private int swimTimer = -1000;
@@ -76,7 +75,6 @@ public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiA
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.2F, false));
         this.goalSelector.addGoal(7, new FindWaterGoal(this));
         this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
         this.goalSelector.addGoal(9, new SemiAquaticSwimmingGoal(this, 1.0D, 10));

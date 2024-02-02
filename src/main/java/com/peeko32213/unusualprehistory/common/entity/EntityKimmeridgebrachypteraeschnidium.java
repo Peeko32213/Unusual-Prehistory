@@ -53,7 +53,11 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
-
+//TODO LIST
+// - Add in Kimmer in a Flask
+// - Add in randomized color selection akin to tropical fish
+// - Add in Flask + Eggs
+// - Make Larvae State
 public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements GeoEntity, IBookEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Nullable
