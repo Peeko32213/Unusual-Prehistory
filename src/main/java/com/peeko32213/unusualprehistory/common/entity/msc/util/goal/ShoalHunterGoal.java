@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.PackHunter;
 import net.minecraft.world.entity.animal.WaterAnimal;
 

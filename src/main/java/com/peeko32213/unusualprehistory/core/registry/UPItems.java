@@ -8,7 +8,7 @@ import com.peeko32213.unusualprehistory.common.item.armor.ItemSlothPouchArmor;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
-import com.peeko32213.unusualprehistory.common.item.tool.*;
+import com.peeko32213.unusualprehistory.common.loot.tool.*;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;

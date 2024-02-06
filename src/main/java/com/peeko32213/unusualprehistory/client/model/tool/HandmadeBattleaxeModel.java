@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model.tool;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.item.tool.ItemHandmadeBattleaxe;
+import com.peeko32213.unusualprehistory.common.loot.tool.ItemHandmadeBattleaxe;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 

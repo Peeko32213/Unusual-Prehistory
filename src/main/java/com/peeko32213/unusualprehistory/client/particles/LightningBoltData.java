@@ -4,15 +4,11 @@ package com.peeko32213.unusualprehistory.client.particles;//
 //
 
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Vector4f;
+
+import java.util.*;
 
 public class LightningBoltData {
     private final Random random;

@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
 import com.peeko32213.unusualprehistory.common.entity.EntityTanystropheus;
 import net.minecraft.world.entity.ai.goal.Goal;
 

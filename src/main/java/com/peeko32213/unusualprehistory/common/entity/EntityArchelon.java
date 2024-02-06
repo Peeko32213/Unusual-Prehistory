@@ -1,17 +1,14 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.anim_goal.AnimationHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.anim_goal.SimpleAnimationAI;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -20,34 +17,24 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -55,9 +42,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import javax.annotation.Nonnull;
-
-public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements SemiAquatic, CustomFollower {
+public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements SemiAquatic, CustomFollower, GeoEntity {
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> CHILL_TIME = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.INT);
@@ -69,8 +54,11 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     private static final RawAnimation ARCHELON_BITE_BLEND = RawAnimation.begin().thenLoop("animation.archelon.bite_blend");
     private static final RawAnimation ARCHELON_RAMMING = RawAnimation.begin().thenLoop("animation.archelon.ramming");
     private static final RawAnimation ARCHELON_SHAKE = RawAnimation.begin().thenLoop("animation.archelon.shake");
-    private static final RawAnimation ARCHELON_SPIN1 = RawAnimation.begin().thenLoop("animation.archelon.spin1");
-    private static final RawAnimation ARCHELON_SPIN2 = RawAnimation.begin().thenLoop("animation.archelon.spin2");
+    //private static final RawAnimation ARCHELON_SPIN1 = RawAnimation.begin().thenLoop("animation.archelon.spin1");
+    //private static final RawAnimation ARCHELON_SPIN2 = RawAnimation.begin().thenLoop("animation.archelon.spin2");
+
+    private static final AnimationHelper ARCHELON_SPIN = AnimationHelper.loopingAnimation("spin1", "animation.archelon.spin1");
+    private static final AnimationHelper ARCHELON_SPIN2 = AnimationHelper.loopingAnimation("spin2", "animation.archelon.spin2");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public float prevSwimProgress;
@@ -96,6 +84,15 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     }
 
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_SPIN, 100, 1200, (livingEntity -> {
+            return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
+        })));
+        this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_SPIN2, 100, 1200, (livingEntity -> {
+            return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
+        })));
+
+
+
         this.goalSelector.addGoal(1, new FindWaterGoal(this));
         this.goalSelector.addGoal(8, new LeaveWaterGoal(this));
         this.goalSelector.addGoal(5, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
@@ -357,18 +354,18 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
-        if (event.isMoving() && this.isInWater() && random.nextInt(100) == 0)  {
-            float rand = random.nextFloat();
-            event.setAnimation(ARCHELON_SWIM);
-            if (rand < 0.55F) {
-                return event.setAndContinue(ARCHELON_SPIN1);
-            }
-            if (rand < 0.56F) {
-                return event.setAndContinue(ARCHELON_SPIN2);
-            }
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
+        //if (event.isMoving() && this.isInWater() && random.nextInt(100) == 0)  {
+        //    float rand = random.nextFloat();
+        //    event.setAnimation(ARCHELON_SWIM);
+        //    if (rand < 0.55F) {
+        //        return event.setAndContinue(ARCHELON_SPIN1);
+        //    }
+        //    if (rand < 0.56F) {
+        //        return event.setAndContinue(ARCHELON_SPIN2);
+        //    }
+        //    event.getController().setAnimationSpeed(1.0F);
+        //    return PlayState.CONTINUE;
+        //}
         if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
             float rand = random.nextFloat();
             return event.setAndContinue(ARCHELON_IDLE);
@@ -387,6 +384,9 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, ARCHELON_SPIN.getControllerName(), 5, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN.getAnimName(), ARCHELON_SPIN.getAnimation()));
+        controllers.add(new AnimationController<>(this, ARCHELON_SPIN2.getControllerName(), 5, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN2.getAnimName(), ARCHELON_SPIN2.getAnimation()));
+
     }
 
     private boolean isStillEnough() {

@@ -2,9 +2,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityAustroraptor;
-import com.peeko32213.unusualprehistory.common.entity.EntityLongisquama;
-import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityOtarocyon;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;

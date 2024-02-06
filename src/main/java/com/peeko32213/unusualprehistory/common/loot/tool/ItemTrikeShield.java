@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.item.tool;
+package com.peeko32213.unusualprehistory.common.loot.tool;
 
 import com.peeko32213.unusualprehistory.client.model.tool.TrikeShieldModel;
 import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;

@@ -1,28 +1,37 @@
-package com.peeko32213.unusualprehistory.common.item.tool;
+package com.peeko32213.unusualprehistory.common.loot.tool;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraftforge.common.ToolActions;
 
 import java.util.UUID;
 
-public class ItemWarpick extends SwordItem {
+public class ItemPrimalMacuahuitl extends SwordItem {
 
     private static final UUID ATTACK_KNOCKBACK_UUID = UUID.fromString("20D3EB3F-226F-4325-873E-9B0932E4E5C6");
 
-    public ItemWarpick(Tier tier, int attackDamage, float attackSpeed) {
+    public ItemPrimalMacuahuitl(Tier tier, int attackDamage, float attackSpeed) {
         super(tier, attackDamage, attackSpeed, new Properties()
                 .stacksTo(1)
                 .defaultDurability(tier.getUses() * 3)
         );
+    }
+
+    @Override
+    public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
+        if(pTarget.getArmorValue() == 0){
+            pTarget.hurt(pAttacker.damageSources().playerAttack((Player) pAttacker), 3);
+        }
+        return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
 
     @Override
@@ -38,22 +47,8 @@ public class ItemWarpick extends SwordItem {
 
 
     @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return enchantment.category.canEnchant(stack.getItem())
-                && enchantment != Enchantments.KNOCKBACK
-                && enchantment != Enchantments.BANE_OF_ARTHROPODS
-                && enchantment != Enchantments.BLOCK_EFFICIENCY
-                && enchantment != Enchantments.BLOCK_FORTUNE
-                && enchantment != Enchantments.FIRE_ASPECT
-                && enchantment != Enchantments.SHARPNESS
-
-                && enchantment != Enchantments.BINDING_CURSE;
-
-    }
-
-    @Override
     public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
-        return net.minecraftforge.common.ToolActions.DEFAULT_PICKAXE_ACTIONS.contains(toolAction);
+        return ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
     }
 
 

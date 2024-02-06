@@ -7,7 +7,6 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGo
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.EatLeavesGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;

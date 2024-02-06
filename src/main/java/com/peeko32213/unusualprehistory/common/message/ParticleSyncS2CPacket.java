@@ -1,18 +1,12 @@
 package com.peeko32213.unusualprehistory.common.message;
 
-import com.peeko32213.unusualprehistory.common.block.entity.IncubatorBlockEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.function.Supplier;
 
 public class ParticleSyncS2CPacket {

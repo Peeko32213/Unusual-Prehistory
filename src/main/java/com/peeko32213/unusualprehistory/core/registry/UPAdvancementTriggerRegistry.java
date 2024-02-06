@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.core.registry.util.BarinaTameTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.resources.ResourceLocation;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
