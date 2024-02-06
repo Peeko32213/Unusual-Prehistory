@@ -75,15 +75,15 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     private static final RawAnimation ARCHELON_IDLE = RawAnimation.begin().thenLoop("animation.archelon.idle");
     private static final RawAnimation ARCHELON_WALK = RawAnimation.begin().thenLoop("animation.archelon.walk");
     private static final RawAnimation ARCHELON_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.archelon.swim_idle");
-    private static final RawAnimation ARCHELON_SWIM = RawAnimation.begin().thenLoop("animation.archelon.swim");
+    private static final AnimationHelper ARCHELON_SWIM = AnimationHelper.loopingAnimation("swim","animation.archelon.swim");
     private static final RawAnimation ARCHELON_BITE_BLEND = RawAnimation.begin().thenLoop("animation.archelon.bite_blend");
-    private static final RawAnimation ARCHELON_RAMMING = RawAnimation.begin().thenLoop("animation.archelon.ramming");
+    private static final AnimationHelper ARCHELON_RAMMING = AnimationHelper.playAnimation("rammin","animation.archelon.ramming").addLoop(ARCHELON_SWIM.getGetRawAnimName());
     private static final RawAnimation ARCHELON_SHAKE = RawAnimation.begin().thenLoop("animation.archelon.shake");
     //private static final RawAnimation ARCHELON_SPIN1 = RawAnimation.begin().thenLoop("animation.archelon.spin1");
     //private static final RawAnimation ARCHELON_SPIN2 = RawAnimation.begin().thenLoop("animation.archelon.spin2");
 
-    private static final AnimationHelper ARCHELON_SPIN = AnimationHelper.loopingAnimation("spin1", "animation.archelon.spin1");
-    private static final AnimationHelper ARCHELON_SPIN2 = AnimationHelper.loopingAnimation("spin2", "animation.archelon.spin2");
+    private static final AnimationHelper ARCHELON_SPIN = AnimationHelper.playAnimation("spin1", "animation.archelon.spin1");
+    private static final AnimationHelper ARCHELON_SPIN2 = AnimationHelper.playAnimation("spin2", "animation.archelon.spin2");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public float prevSwimProgress;
@@ -109,13 +109,15 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_SPIN, 100, 1200, (livingEntity -> {
+        //this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_SPIN, 100, 1200, (livingEntity -> {
+        //    return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
+        //})));
+        //this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_SPIN2, 100, 1200, (livingEntity -> {
+        //    return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
+        //})));
+        this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_RAMMING, 50, 1200, (livingEntity -> {
             return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
         })));
-        this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_SPIN2, 100, 1200, (livingEntity -> {
-            return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
-        })));
-
 
 
         this.goalSelector.addGoal(1, new FindWaterGoal(this));
@@ -379,18 +381,18 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
-        //if (event.isMoving() && this.isInWater() && random.nextInt(100) == 0)  {
-        //    float rand = random.nextFloat();
-        //    event.setAnimation(ARCHELON_SWIM);
-        //    if (rand < 0.55F) {
-        //        return event.setAndContinue(ARCHELON_SPIN1);
-        //    }
-        //    if (rand < 0.56F) {
-        //        return event.setAndContinue(ARCHELON_SPIN2);
-        //    }
-        //    event.getController().setAnimationSpeed(1.0F);
-        //    return PlayState.CONTINUE;
-        //}
+        if (event.isMoving() && this.isInWater() && random.nextInt(100) == 0)  {
+            float rand = random.nextFloat();
+            event.setAnimation(ARCHELON_SWIM.getAnimation());
+            //if (rand < 0.55F) {
+            //    return event.setAndContinue(ARCHELON_SPIN1);
+            //}
+            //if (rand < 0.56F) {
+            //    return event.setAndContinue(ARCHELON_SPIN2);
+            //}
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
         if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
             float rand = random.nextFloat();
             return event.setAndContinue(ARCHELON_IDLE);
@@ -409,10 +411,11 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        controllers.add(new AnimationController<>(this, ARCHELON_SPIN.getControllerName(), 5, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN.getAnimName(), ARCHELON_SPIN.getAnimation()));
-        controllers.add(new AnimationController<>(this, ARCHELON_SPIN2.getControllerName(), 5, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN2.getAnimName(), ARCHELON_SPIN2.getAnimation()));
-
+        controllers.add(new AnimationController<>(this, "Normal", 0, this::Controller));
+        controllers.add(new AnimationController<>(this, ARCHELON_SPIN.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN.getAnimName(), ARCHELON_SPIN.getAnimation()));
+        controllers.add(new AnimationController<>(this, ARCHELON_SPIN2.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN2.getAnimName(), ARCHELON_SPIN2.getAnimation()));
+        controllers.add(new AnimationController<>(this, ARCHELON_RAMMING.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_RAMMING.getAnimName(), ARCHELON_RAMMING.getAnimation()));
+       // controllers.add(new AnimationController<>(this, ARCHELON_SWIM.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SWIM.getAnimName(), ARCHELON_SWIM.getAnimation()));
     }
 
     private boolean isStillEnough() {

@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.anim_goal;
 
+import com.peeko32213.unusualprehistory.common.entity.EntityArchelon;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -62,7 +63,7 @@ public abstract class AnimationAI<T extends GeoEntity> extends Goal {
     @Override
     public void start() {
         triggered = true;
-        if(((LivingEntity)this.entity).level().isClientSide)
+        //if(((LivingEntity)this.entity).level().isClientSide)
             this.entity.triggerAnim(animationHelper.getControllerName(), animationHelper.getAnimName());
     }
 
