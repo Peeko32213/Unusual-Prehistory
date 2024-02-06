@@ -58,7 +58,6 @@ import java.util.EnumSet;
 import java.util.Locale;
 
 public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements CustomFollower {
-    private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(EntityBalaur.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(EntityBalaur.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityBalaur.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityBalaur.class, EntityDataSerializers.INT);
@@ -108,7 +107,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
-        this.goalSelector.addGoal(5, new PushButtonsGoal(this, 0.5F, 5, 2));
         this.goalSelector.addGoal(2, new EntityBalaur.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -158,7 +156,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(2, new LatchTowardsTarget(this));
     }
 
     @Override
@@ -436,7 +433,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("Press", this.hasPressed());
         compound.putInt("scale", this.getModelScale());
         compound.putInt("Command", this.getCommand());
     }
@@ -444,7 +440,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setPress(compound.getBoolean("Press"));
         this.setScale(Math.min(compound.getInt("scale"), 0));
         this.setCommand(compound.getInt("Command"));
     }
@@ -452,7 +447,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(PRESS, false);
         this.entityData.define(SCALE, 0);
         this.entityData.define(COMMAND, 0);
         this.entityData.define(ANIMATION_STATE, 0);
@@ -527,100 +521,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         this.entityData.set(SCALE, scale);
     }
 
-    public void setPress(boolean eepy) {
-        this.entityData.set(PRESS, Boolean.valueOf(eepy));
-    }
-
-    public boolean hasPressed() {
-        return this.entityData.get(PRESS).booleanValue();
-    }
-
-    private static class PushButtonsGoal extends MoveToBlockGoal {
-        private final EntityBalaur raptor;
-
-        private static final int COOLDOWN = 5000;
-        protected int ticksWaited;
-
-        private static int cooldownTicks = COOLDOWN;
-
-        public PushButtonsGoal(EntityBalaur pMob, double pSpeedModifier, int pSearchRange, int pVerticalSearchRange) {
-            super(pMob, pSpeedModifier, pSearchRange, pVerticalSearchRange);
-            this.raptor = pMob;
-        }
-
-        public double getDesiredSquaredDistanceToTarget() {
-            return 1.5D;
-        }
-
-        public boolean canUse() {
-            return cooldownTicks-- <= 0 && super.canUse();
-        }
-
-        public boolean canContinueToUse() {
-            return super.canContinueToUse();
-        }
-
-        public void tick() {
-            if (this.isReachedTarget()) {
-                if (this.ticksWaited >= 40) {
-                    this.onReachedTarget();
-                    if (raptor.random.nextFloat() <= 0.05F) {
-                        if (raptor.random.nextFloat() < 0.1F) {
-                            raptor.spawnAtLocation(UPItems.RAPTOR_FEATHERS.get());
-                        }
-                    }
-                } else {
-                    ++this.ticksWaited;
-                }
-            } else if (!this.isReachedTarget() && raptor.random.nextFloat() < 0.05F) {
-                raptor.playSound(UPSounds.RAPTOR_SEARCH.get(), 0.1F, 1.0F);
-            }
-
-            super.tick();
-        }
-
-        protected void onReachedTarget() {
-            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(raptor.level(), raptor)) {
-                BlockState blockstate = raptor.level().getBlockState(this.blockPos);
-                if (blockstate.is(UPBlocks.AMBER_BUTTON.get())) {
-                    this.pushButton(blockstate);
-                    this.stop();
-                }
-
-            }
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            cooldownTicks = COOLDOWN;
-        }
-
-        @Override
-        protected BlockPos getMoveToTarget() {
-            return this.blockPos;
-        }
-
-        @Override
-        protected boolean isValidTarget(LevelReader world, BlockPos pos) {
-            BlockState blockState = world.getBlockState(pos);
-            return (blockState.is(UPBlocks.AMBER_BUTTON.get()));
-        }
-
-        private void pushButton(BlockState p_148929_) {
-            ((EntityBalaur) this.mob).pushingState = true;
-            this.nextStartTick = this.nextStartTick(this.mob);
-            BlockState state = this.mob.level().getBlockState(this.blockPos);
-            ((ButtonBlock) state.getBlock()).use(state, this.mob.level(), this.blockPos, null, null, null);
-
-        }
-
-        public void start() {
-            this.ticksWaited = 0;
-            super.start();
-        }
-
-    }
 
     @Nullable
     @Override
@@ -849,7 +749,7 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
             animTime++;
             if(animTime==4) {
                 this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
-                preformClawAttack();
+                preformBiteAttack();
             }
             if(animTime>=8) {
                 animTime=0;
@@ -861,6 +761,27 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                     this.ticksUntilNextPathRecalculation = 0;
                 }
             }
+        }
+
+        protected void tickLatchAttack () {
+            this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
+            this.mob.yBodyRot = this.mob.yHeadRot;
+            this.mob.getNavigation().stop();
+            animTime++;
+
+            if(animTime==16) {
+                preformLatchAttack();
+            }
+
+            if(animTime>=24) {
+                animTime=0;
+
+                this.mob.setAnimationState(0);
+                this.resetAttackCooldown();
+                this.ticksUntilNextPathRecalculation = 0;
+
+            }
+
         }
 
         protected void preformClawAttack() {
@@ -876,6 +797,18 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         protected void  preformBiteAttack() {
             Vec3 pos = mob.position();
             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 3.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+        }
+
+        protected void  preformLatchAttack() {
+            if (mob.getTarget() != null) {
+                this.mob.getMoveControl().setWantedPosition(mob.getTarget().getX(), mob.getTarget().getY(), mob.getTarget().getZ(), 1.0D);
+                if (mob.getBoundingBox().inflate(0.3F, 0.3F, 0.3F).intersects(mob.getTarget().getBoundingBox()) && !mob.isBittenByMosquito(mob.getTarget()) && mob.latchTime == 0) {
+                    mob.startRiding(mob.getTarget(), true);
+                    if (!mob.level().isClientSide) {
+                        UPMessages.sendMSGToAll(new BalaurMountMessage(mob.getId(), mob.getTarget().getId()));
+                    }
+                }
+            }
         }
 
         protected void resetAttackCooldown() {
@@ -926,6 +859,9 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                 case 25:
                     event.setAndContinue(BALAUR_BITE_2);
                     break;
+                case 26:
+                    event.setAndContinue(BALAUR_POUNCE_HOLD);
+                    break;
                 default:
 
                     if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) {
@@ -941,9 +877,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                     }
                     if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
                         return event.setAndContinue(BALAUR_SIT);
-                    }
-                    if (this.isPassenger() && !this.isInWater() && !this.isSwimming()) {
-                        return event.setAndContinue(BALAUR_POUNCE_HOLD);
                     }
                     if (this.isInWater()) {
                         event.setAndContinue(BALAUR_SWIM);
@@ -981,53 +914,18 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         controllers.add(new AnimationController<>(this, "Normal", 10, this::Controller));
     }
 
+    public boolean isBittenByMosquito(Entity entity) {
+        for (Entity e : entity.getPassengers()) {
+            if (e instanceof EntityBalaur) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public double getTick(Object o) {
         return tickCount;
-    }
-
-    public static class LatchTowardsTarget extends Goal {
-        private final EntityBalaur parentEntity;
-
-        public LatchTowardsTarget(EntityBalaur balaur) {
-            this.parentEntity = balaur;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            if (parentEntity.latchTime < 0) {
-                return false;
-            }
-            return !parentEntity.isPassenger() && parentEntity.getTarget() != null && !isBittenByMosquito(parentEntity.getTarget()) && parentEntity.isTame();
-        }
-
-        public boolean canContinueToUse() {
-            return parentEntity.latchTime >= 0 && parentEntity.getTarget() != null && !isBittenByMosquito(parentEntity.getTarget()) && !parentEntity.horizontalCollision && parentEntity.getMoveControl().hasWanted();
-        }
-
-        public boolean isBittenByMosquito(Entity entity) {
-            for (Entity e : entity.getPassengers()) {
-                if (e instanceof EntityBalaur) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public void stop() {
-        }
-
-        public void tick() {
-            if (parentEntity.getTarget() != null) {
-                this.parentEntity.getMoveControl().setWantedPosition(parentEntity.getTarget().getX(), parentEntity.getTarget().getY(), parentEntity.getTarget().getZ(), 1.0D);
-                if (parentEntity.getBoundingBox().inflate(0.3F, 0.3F, 0.3F).intersects(parentEntity.getTarget().getBoundingBox()) && !isBittenByMosquito(parentEntity.getTarget()) && parentEntity.latchTime == 0) {
-                    parentEntity.startRiding(parentEntity.getTarget(), true);
-                    if (!parentEntity.level().isClientSide) {
-                        UPMessages.sendMSGToAll(new BalaurMountMessage(parentEntity.getId(), parentEntity.getTarget().getId()));
-                    }
-                }
-            }
-        }
     }
 
 }
