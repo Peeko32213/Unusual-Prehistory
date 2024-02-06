@@ -37,6 +37,18 @@ public class AnimationHelper {
     }
 
 
+    public static AnimationHelper loopingAnimationWController(String controllerName, String animName, String animEName) {
+        RawAnimation anim = RawAnimation.begin().thenLoop(animEName);
+        return new  AnimationHelper(controllerName,animName, anim, animEName);
+    }
+
+    public static AnimationHelper loopingAnimationWController(String controllerName, String animName) {
+        RawAnimation anim = RawAnimation.begin().thenLoop(animName);
+        return new  AnimationHelper(controllerName,animName, anim, animName);
+    }
+
+
+
     public static AnimationHelper playAnimation(String animName, String animEName) {
         RawAnimation anim = RawAnimation.begin().thenPlay(animEName);
         return new  AnimationHelper(animName, anim, animEName);
@@ -46,6 +58,17 @@ public class AnimationHelper {
         RawAnimation anim = RawAnimation.begin().thenPlay(animName);
         return new  AnimationHelper(animName, anim, animName);
     }
+
+    public static AnimationHelper playAnimationWController(String controllerName,String animName, String animEName) {
+        RawAnimation anim = RawAnimation.begin().thenPlay(animEName);
+        return new  AnimationHelper(controllerName,animName, anim, animEName);
+    }
+
+    public static AnimationHelper playAnimationWController(String controllerName,String animName) {
+        RawAnimation anim = RawAnimation.begin().thenPlay(animName);
+        return new  AnimationHelper(controllerName,animName, anim, animName);
+    }
+
 
     public AnimationHelper addLoop(String animName) {
         this.animation.thenLoop(animName);
