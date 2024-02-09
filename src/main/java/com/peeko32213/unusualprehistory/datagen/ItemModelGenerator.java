@@ -75,6 +75,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.BALAUR_FLASK);
         singleTex(UPItems.PSITTACCO_ARROW);
         singleTex(UPItems.AMBER_IDOL);
+        singleTex(UPItems.LEEDS_CAVIAR);
+        singleTex(UPItems.LEEDS_SLICE);
 
     }
     private void toBlock(RegistryObject<Block> b) {

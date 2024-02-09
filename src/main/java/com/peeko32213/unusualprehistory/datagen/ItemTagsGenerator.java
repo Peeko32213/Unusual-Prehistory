@@ -293,6 +293,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.COOKED_TARTU.get())
                 .add(UPItems.RAW_OPHIODON.get())
                 .add(UPItems.COOKED_OPHIODON.get())
+                .add(UPItems.LEEDS_CAVIAR.get())
+                .add(UPItems.LEEDS_SLICE.get())
         ;
 
         tag(ItemTags.BUTTONS)

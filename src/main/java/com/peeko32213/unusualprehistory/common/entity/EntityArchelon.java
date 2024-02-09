@@ -115,9 +115,9 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         //this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_SPIN2, 100, 1200, (livingEntity -> {
         //    return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
         //})));
-        this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_RAMMING, 50, 1200, (livingEntity -> {
-            return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
-        })));
+        //this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_RAMMING, 50, 1200, (livingEntity -> {
+        //    return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
+       // })));
 
 
         this.goalSelector.addGoal(1, new FindWaterGoal(this));

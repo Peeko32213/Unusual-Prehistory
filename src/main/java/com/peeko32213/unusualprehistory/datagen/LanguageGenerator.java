@@ -113,6 +113,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.COOKED_TARTU, "Cooked Tartuosteus");
         addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon Ozymandias");
         addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon Ozymandias");
+        addItem(UPItems.LEEDS_CAVIAR, "Bowl of Leedsichthys Caviar");
+        addItem(UPItems.LEEDS_SLICE, "Leedsichthys Sashimi");
 
         //SCRAPS
         addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
@@ -207,6 +209,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PROTOSPHYRAENA_EGG, "Protosphyraena Spawn Egg");
         addItem(UPItems.KIMMER_EGG, "Kimmeridgebrachypteraeschnidium Spawn Egg");
         addItem(UPItems.ARCHELON_EGG, "Archelon Spawn Egg");
+        addItem(UPItems.LEEDS_EGG, "Leedsichthys Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -516,6 +519,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
         addEntityType(UPEntities.KIMMER, "Kimmeridgebrachypteraeschnidium");
         addEntityType(UPEntities.ARCHELON, "Archelon");
+        addEntityType(UPEntities.LEEDSICHTHYS, "Leedsichthys");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");

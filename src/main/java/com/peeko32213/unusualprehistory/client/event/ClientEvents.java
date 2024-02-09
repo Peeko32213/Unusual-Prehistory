@@ -299,6 +299,8 @@ public final class ClientEvents {
                 UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel())
                         .withLayers(ARCHELON_MODEL)
                         .build());
+        event.registerEntityRenderer(UPEntities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
+        event.registerEntityRenderer(UPEntities.LEEDS_PART.get(), LeedsichthysPartRender::new);
 
         //Plants
         event.registerEntityRenderer(UPEntities.FOXXI_SAPLING.get(), e -> new PlantEntityRenderer<>(e, new PlantModel("tall_plant", "plants/foxxi_sapling.png"), 1));

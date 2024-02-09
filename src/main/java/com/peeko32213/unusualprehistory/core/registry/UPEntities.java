@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.arrow.PsittaccoArrow;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityLeedsichthysPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBookSnake;
@@ -172,6 +173,16 @@ public class UPEntities {
                     .setUpdateInterval(1)
                     .noSummon()
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "palaeophis_part").toString()));
+
+    public static final RegistryObject<EntityType<EntityLeedsichthys>> LEEDSICHTHYS = ENTITIES.register("leedsichthys",
+            () -> EntityType.Builder.of(EntityLeedsichthys::new, MobCategory.WATER_CREATURE).sized(8.0F, 5.0F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "leedsichthys").toString()));
+    public static final RegistryObject<EntityType<EntityLeedsichthysPart>> LEEDS_PART = ENTITIES.register("leeds_part",
+            () -> EntityType.Builder.<EntityLeedsichthysPart>of(EntityLeedsichthysPart::new, MobCategory.MISC)
+                    .sized(10.0F, 10.0F).setShouldReceiveVelocityUpdates(true)
+                    .setUpdateInterval(1)
+                    .noSummon()
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "leeds_part").toString()));
 
     public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = ENTITIES.register("megalania",
             () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(3.0F, 2.0F)

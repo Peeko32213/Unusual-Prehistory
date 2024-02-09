@@ -1453,22 +1453,29 @@
 				"Body": {
 					"rotation": {
 						"0.0": {
-							"vector": ["-5+math.sin(query.anim_time*180/1)*10", 0, "math.sin(query.anim_time*180/2)*30"]
+							"vector": ["-5 + math.sin(query.anim_time * 180/1) * 10", 0, "math.sin(query.anim_time * 180/2) * 30"]
 						},
 						"2.0": {
-							"vector": ["-20+math.sin(query.anim_time*360)*2.5", 0, "query.anim_time*-60"]
+							"vector": ["-20 + math.sin(query.anim_time * 360) * 2.5", 0, "query.anim_time * -60"]
 						},
 						"4.0": {
-							"vector": ["20+math.sin(query.anim_time*360)*2.5", 0, "query.anim_time*-90"]
+							"vector": ["20 + math.sin(query.anim_time * 360) * 2.5", 0, "query.anim_time * -90"]
 						},
 						"4.9583": {
 							"vector": [-5, 0, -360]
 						},
-						"5.0": {"pre": {"vector": [-5, 0, -360]}, "post": {"vector": [-5, 0, 0]}}
+						"5.0": {
+							"pre": {
+								"vector": [-5, 0, -360]
+							},
+							"post": {
+								"vector": [-5, 0, 0]
+							}
+						}
 					},
 					"position": {
 						"0.0": {
-							"vector": [0, "10+math.sin(query.anim_time*180/2)*-5", 0]
+							"vector": [0, "10 + math.sin(query.anim_time * 180/2) * -5", 0]
 						},
 						"2.0": {
 							"vector": [0, 40, 0]
@@ -1715,13 +1722,13 @@
 				"Body": {
 					"rotation": {
 						"0.0": {
-							"vector": ["-5+math.sin(query.anim_time*180/1)*-10", 0, "math.sin(query.anim_time*180/2)*-30"]
+							"vector": ["-5 + math.sin(query.anim_time * 180/1) * -10", 0, "math.sin(query.anim_time * 180/2) * -30"]
 						},
 						"2.0": {
-							"vector": ["20+math.sin(query.anim_time*360)*2.5", 0, "query.anim_time*60"]
+							"vector": ["20 + math.sin(query.anim_time * 360) * 2.5", 0, "query.anim_time * 60"]
 						},
 						"4.0": {
-							"vector": ["-20+math.sin(query.anim_time*360)*2.5", 0, "query.anim_time*90"]
+							"vector": ["-20 + math.sin(query.anim_time * 360) * 2.5", 0, "query.anim_time * 90"]
 						},
 						"4.9583": {
 							"vector": [-5, 0, 360]
@@ -1730,7 +1737,7 @@
 					},
 					"position": {
 						"0.0": {
-							"vector": [0, "10+math.sin(query.anim_time*180/2)*-5", 0]
+							"vector": [0, "10 + math.sin(query.anim_time * 180/2) * -5", 0]
 						},
 						"2.0": {
 							"vector": [0, 40, 0]

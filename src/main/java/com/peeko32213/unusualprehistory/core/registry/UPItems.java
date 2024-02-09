@@ -485,6 +485,9 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> ARCHELON_EGG = registerSpawnEggs("archelon_spawn_egg",
             UPEntities.ARCHELON , 0x618b89, 0x171923);
 
+    public static final RegistryObject<ForgeSpawnEggItem> LEEDS_EGG =registerSpawnEggs("leeds_spawn_egg",
+            UPEntities.LEEDSICHTHYS , 0x5a6b75, 0xe8eaea);
+
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,
                     new Item.Properties()));
@@ -627,6 +630,13 @@ public class UPItems {
             () -> new Item(new Item.Properties().food(ModFood.COOKED_OPHIODON)));
     public static final RegistryObject<Item> MAMMOTH_MEATBALL = ITEMS.register("mammoth_meatball",
             () -> new ModItemDrinkable(soupItem().food(ModFood.MAMMOTH_MEATBALL), true, false));
+
+    public static final RegistryObject<Item> LEEDS_CAVIAR = ITEMS.register("leedsichthys_caviar_bowl",
+            () -> new ModItemConsumable(new Item.Properties().food(ModFood.LEEDS_CAVIAR).craftRemainder(Items.BOWL)));
+
+    public static final RegistryObject<Item> LEEDS_SLICE = ITEMS.register("leedsichthys_slice",
+            () -> new Item(new Item.Properties().food(ModFood.LEEDS_SLICE)));
+
     public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",
             () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157));
 
