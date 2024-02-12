@@ -1,15 +1,20 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.KimmerVariant;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.FlyingMoveController;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,6 +28,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -41,6 +47,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.function.IntFunction;
+
 //TODO LIST
 // - Add in Kimmer in a Flask
 // - Add in randomized color selection akin to tropical fish
@@ -51,7 +59,7 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
     @Nullable
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(EntityKimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityKimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityKimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(EntityKimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
 
     public final float[] ringBuffer = new float[64];
     public float prevFlyProgress;
@@ -68,15 +76,6 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
     public EntityKimmeridgebrachypteraeschnidium(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
         switchNavigator(true);
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-        KimmerVariant[] variants = KimmerVariant.values();
-        KimmerVariant variant = Util.getRandom(variants, serverLevelAccessor.getRandom());
-        this.setVariant(variant);
-        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -117,16 +116,6 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
             this.isLandNavigator = false;
         }
     }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(FLYING, false);
-        this.entityData.define(FROM_BOOK, false);
-        this.entityData.define(VARIANT, KimmerVariant.RED.id());
-    }
-
-
 
     public void tick() {
         super.tick();
@@ -197,18 +186,6 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
         HitResult result = this.level().clip(new ClipContext(new Vec3(this.getX(), this.getY() + (double) this.getEyeHeight(), this.getZ()), new Vec3(x, y, z), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         double dist = result.getLocation().distanceToSqr(x, y, z);
         return dist <= 1.0D || result.getType() == HitResult.Type.MISS;
-    }
-
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Flying", this.isFlying());
-        compound.putInt("Variant", this.getVariant().id());
-    }
-
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setFlying(compound.getBoolean("Flying"));
-        this.setVariant(KimmerVariant.byId(compound.getInt("Variant")));
     }
 
     public void killed(ServerLevel world, LivingEntity entity) {
@@ -308,11 +285,6 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
         return shouldHurt;
     }
 
-    private boolean isStillEnough() {
-        return this.getDeltaMovement().horizontalDistance() < 0.05;
-    }
-
-
     protected <E extends EntityKimmeridgebrachypteraeschnidium> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
@@ -326,6 +298,7 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
         }
         return event.setAndContinue(KIMMER_FLY);
     }
+
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
@@ -430,14 +403,6 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
         return !this.hasCustomName();
     }
 
-    public KimmerVariant getVariant() {
-        return KimmerVariant.byId(this.entityData.get(VARIANT));
-    }
-
-    public void setVariant(KimmerVariant variant) {
-        this.entityData.set(VARIANT, variant.id());
-    }
-
 
     @org.jetbrains.annotations.Nullable
     @Override
@@ -445,5 +410,168 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
         return null;
     }
 
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+        SpawnGroupData spawnGroupData2 = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+        if (mobSpawnType == MobSpawnType.BUCKET && compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setPackedVariant(compoundTag.getInt("BucketVariantTag"));
+        } else {
+            RandomSource randomSource = serverLevelAccessor.getRandom();
+            Variant variant;
+            Pattern[] patterns = Pattern.values();
+            DyeColor[] dyeColors = DyeColor.values();
+            Pattern pattern = Util.getRandom(patterns, randomSource);
+            DyeColor dyeColor = Util.getRandom(dyeColors, randomSource);
+            DyeColor dyeColor2 = Util.getRandom(dyeColors, randomSource);
+            variant = new Variant(pattern, dyeColor, dyeColor2);
+
+            this.setPackedVariant(variant.getPackedId());
+        }
+        return spawnGroupData2;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(FLYING, false);
+        this.entityData.define(FROM_BOOK, false);
+        this.entityData.define(DATA_ID_TYPE_VARIANT, 0);
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("Flying", this.isFlying());
+        compound.putInt("Variant", this.getPackedVariant());
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setFlying(compound.getBoolean("Flying"));
+        this.setPackedVariant(compound.getInt("Variant"));
+    }
+
+    public void setPackedVariant(int i) {
+        this.entityData.set(DATA_ID_TYPE_VARIANT, i);
+    }
+
+    public int getPackedVariant() {
+        return this.entityData.get(DATA_ID_TYPE_VARIANT);
+    }
+
+    public static String getPredefinedName(int i) {
+        return "entity.spawn.seahorse.variant.predefined." + i;
+    }
+
+    static int packVariant(Pattern pattern, DyeColor dyeColor, DyeColor dyeColor2) {
+        return pattern.getPackedId() & '\uffff' | (dyeColor.getId() & 255) << 16 | (dyeColor2.getId() & 255) << 24;
+    }
+
+    public static DyeColor getBaseColor(int i) {
+        return DyeColor.byId(i >> 16 & 255);
+    }
+
+    public static DyeColor getPatternColor(int i) {
+        return DyeColor.byId(i >> 24 & 255);
+    }
+
+    public static Pattern getPattern(int i) {
+        return Pattern.byId(i & '\uffff');
+    }
+
+    public DyeColor getBaseColor() {
+        return getBaseColor(this.getPackedVariant());
+    }
+
+    public DyeColor getPatternColor() {
+        return getPatternColor(this.getPackedVariant());
+    }
+
+    public Pattern getVariant() {
+        return getPattern(this.getPackedVariant());
+    }
+
+    public void setVariant(Pattern pattern) {
+        int i = this.getPackedVariant();
+        DyeColor dyeColor = getBaseColor(i);
+        DyeColor dyeColor2 = getPatternColor(i);
+        this.setPackedVariant(packVariant(pattern, dyeColor, dyeColor2));
+    }
+
+    public enum Pattern implements StringRepresentable {
+        COLORED_BODY("abdomen", EntityKimmeridgebrachypteraeschnidium.Base.SMALL, 0),
+        COLORED_HEAD("head", EntityKimmeridgebrachypteraeschnidium.Base.SMALL, 1),
+        COLORED_LEG("legs", EntityKimmeridgebrachypteraeschnidium.Base.SMALL, 2),
+        COLORED_BUTT("thorax", EntityKimmeridgebrachypteraeschnidium.Base.SMALL, 3),
+;
+
+        public static final Codec<Pattern> CODEC = StringRepresentable.fromEnum(Pattern::values);
+        private static final IntFunction<Pattern> BY_ID = ByIdMap.sparse(Pattern::getPackedId, values(), COLORED_BODY);
+        private final String name;
+        private final Component displayName;
+        private final EntityKimmeridgebrachypteraeschnidium.Base base;
+        private final int packedId;
+
+        Pattern(String string2, EntityKimmeridgebrachypteraeschnidium.Base base, int j) {
+            this.name = string2;
+            this.base = base;
+            this.packedId = base.id | j << 8;
+            this.displayName = Component.translatable("entity.unusualprehistory.kimmer.variant." + this.name);
+        }
+
+        public static Pattern byId(int i) {
+            return BY_ID.apply(i);
+        }
+
+        public EntityKimmeridgebrachypteraeschnidium.Base base() {
+            return this.base;
+        }
+
+        public int getPackedId() {
+            return this.packedId;
+        }
+
+        public String getSerializedName() {
+            return this.name;
+        }
+
+        public Component displayName() {
+            return this.displayName;
+        }
+    }
+
+    public record Variant(Pattern pattern, DyeColor dyeColor, DyeColor dyeColor2) {
+        public Variant(Pattern pattern, DyeColor dyeColor, DyeColor dyeColor2) {
+            this.pattern = pattern;
+            this.dyeColor = dyeColor;
+            this.dyeColor2 = dyeColor2;
+        }
+
+        public int getPackedId() {
+            return packVariant(this.pattern, this.dyeColor, this.dyeColor2);
+        }
+
+        public Pattern pattern() {
+            return this.pattern;
+        }
+
+        public DyeColor dyeColor() {
+            return this.dyeColor;
+        }
+
+        public DyeColor dyeColor2() {
+            return this.dyeColor2;
+        }
+    }
+
+    public enum Base {
+        SMALL(0),
+        LARGE(1);
+
+        final int id;
+
+        Base(int j) {
+            this.id = j;
+        }
+    }
 
 }

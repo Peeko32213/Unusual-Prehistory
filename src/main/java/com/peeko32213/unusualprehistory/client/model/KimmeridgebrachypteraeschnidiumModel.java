@@ -2,13 +2,14 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.client.model.util.ColorableGeoModel;
 import com.peeko32213.unusualprehistory.common.entity.EntityKimmeridgebrachypteraeschnidium;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class KimmeridgebrachypteraeschnidiumModel extends GeoModel<EntityKimmeridgebrachypteraeschnidium>
+public class KimmeridgebrachypteraeschnidiumModel extends ColorableGeoModel<EntityKimmeridgebrachypteraeschnidium>
 {
 
     private static final ResourceLocation KIMMER_YELLOW_GREEN_LOCATION = prefix("textures/entity/kimmer/kimmeridgebrachypteraeschnidium_yellow_green.png");
@@ -25,19 +26,15 @@ public class KimmeridgebrachypteraeschnidiumModel extends GeoModel<EntityKimmeri
     @Override
     public ResourceLocation getTextureResource(EntityKimmeridgebrachypteraeschnidium object)
     {
-        return switch (object.getVariant()) {
-            case YELLOW -> KIMMER_YELLOW_GREEN_LOCATION;
-            case BLUE -> KIMMER_BLUE_LIGHTBLUE_LOCATION;
-            case RED -> KIMMER_RED_DARKRED_LOCATION;
-            case PINK -> KIMMER_PURPLE_PINK_LOCATION;
-
-        };    }
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/kimmeridgebrachypteraeschnidium_pattern_a.png");
+    }
 
     @Override
     public ResourceLocation getAnimationResource(EntityKimmeridgebrachypteraeschnidium object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/kimmeridgebrachypteraeschnidium.animation.json");
     }
+
 
 }
 
