@@ -459,7 +459,7 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
     }
 
     public static String getPredefinedName(int i) {
-        return "entity.spawn.seahorse.variant.predefined." + i;
+        return "entity.unusualprehistory.kimmer.variant.predefined." + i;
     }
 
     static int packVariant(Pattern pattern, DyeColor dyeColor, DyeColor dyeColor2) {
@@ -498,11 +498,7 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
     }
 
     public enum Pattern implements StringRepresentable {
-        COLORED_BODY("abdomen", EntityKimmeridgebrachypteraeschnidium.Base.SMALL, 0),
-        COLORED_HEAD("head", EntityKimmeridgebrachypteraeschnidium.Base.SMALL, 1),
-        COLORED_LEG("legs", EntityKimmeridgebrachypteraeschnidium.Base.SMALL, 2),
-        COLORED_BUTT("thorax", EntityKimmeridgebrachypteraeschnidium.Base.SMALL, 3),
-;
+        COLORED_BODY("body", EntityKimmeridgebrachypteraeschnidium.Base.SMALL, 0);
 
         public static final Codec<Pattern> CODEC = StringRepresentable.fromEnum(Pattern::values);
         private static final IntFunction<Pattern> BY_ID = ByIdMap.sparse(Pattern::getPackedId, values(), COLORED_BODY);

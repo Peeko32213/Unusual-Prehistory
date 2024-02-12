@@ -6,13 +6,17 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.model.KimmeridgebrachypteraeschnidiumModel;
 import com.peeko32213.unusualprehistory.client.model.TyrannosaurusRexModel;
 import com.peeko32213.unusualprehistory.client.render.layer.KimmeridgebrachypteraeschnidiumPatternLayer;
+import com.peeko32213.unusualprehistory.client.render.layer.KimmeridgebrachypteraeschnidiumWingLayer;
 import com.peeko32213.unusualprehistory.client.render.layer.TyrannosaurusRexEepyLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityKimmeridgebrachypteraeschnidium;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import net.minecraft.client.model.ColorableHierarchicalModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.TropicalFishRenderer;
+import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.core.object.Color;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
@@ -29,11 +33,17 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends GeoEntityRenderer<E
     public KimmeridgebrachypteraeschnidiumRenderer(EntityRendererProvider.Context context) {
         super(context, new KimmeridgebrachypteraeschnidiumModel());
         this.addRenderLayer(new KimmeridgebrachypteraeschnidiumPatternLayer(this));
+        this.addRenderLayer(new KimmeridgebrachypteraeschnidiumWingLayer(this));
     }
 
     @Override
     public Color getRenderColor(EntityKimmeridgebrachypteraeschnidium animatable, float partialTick, int packedLight) {
         return getColor();
+    }
+
+    @Override
+    public RenderType getRenderType(EntityKimmeridgebrachypteraeschnidium animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
+        return RenderType.entityTranslucent(getTextureLocation(animatable));
     }
 
     @Override

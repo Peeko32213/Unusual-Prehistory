@@ -280,7 +280,7 @@ public class EntityLeedsichthys extends WaterAnimal implements GeoAnimatable, IB
                 default:
 
                     if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                        event.setAndContinue(LEEDS_SWIM_FAST);
+                        event.setAndContinue(LEEDS_SWIM);
                         return PlayState.CONTINUE;
                     }
                     if (this.onGround()) {

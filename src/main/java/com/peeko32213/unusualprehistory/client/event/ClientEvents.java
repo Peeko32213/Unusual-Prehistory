@@ -294,13 +294,13 @@ public final class ClientEvents {
                         .build());
         event.registerEntityRenderer(UPEntities.OPHIODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OphiodonModel()));
         event.registerEntityRenderer(UPEntities.PROTOSPHYRAENA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new ProtosphyraenaModel()));
-        event.registerEntityRenderer(UPEntities.KIMMER.get(), e -> new AgeableMobRenderer<>(e, new KimmeridgebrachypteraeschnidiumModel()));
         event.registerEntityRenderer(UPEntities.ARCHELON.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel())
                         .withLayers(ARCHELON_MODEL)
                         .build());
         event.registerEntityRenderer(UPEntities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
         event.registerEntityRenderer(UPEntities.LEEDS_PART.get(), LeedsichthysPartRender::new);
+        event.registerEntityRenderer(UPEntities.KIMMER.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
 
         //Plants
         event.registerEntityRenderer(UPEntities.FOXXI_SAPLING.get(), e -> new PlantEntityRenderer<>(e, new PlantModel("tall_plant", "plants/foxxi_sapling.png"), 1));
