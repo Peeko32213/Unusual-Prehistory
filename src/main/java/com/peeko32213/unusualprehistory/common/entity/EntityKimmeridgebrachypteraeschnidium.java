@@ -242,7 +242,8 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
         return null;
     }
 
-    public boolean causeFallDamage(float distance, float damageMultiplier) {
+    @Override
+    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
         return false;
     }
 
@@ -474,6 +475,11 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
         return DyeColor.byId(i >> 24 & 255);
     }
 
+    //TODO keep or not?
+    public static DyeColor getWingColor(int i) {
+        return DyeColor.byId((i * 2) >> 24 & 255);
+    }
+
     public static Pattern getPattern(int i) {
         return Pattern.byId(i & '\uffff');
     }
@@ -484,6 +490,10 @@ public class EntityKimmeridgebrachypteraeschnidium extends AgeableMob implements
 
     public DyeColor getPatternColor() {
         return getPatternColor(this.getPackedVariant());
+    }
+
+    public DyeColor getWingColor() {
+        return getWingColor(this.getPackedVariant());
     }
 
     public Pattern getVariant() {

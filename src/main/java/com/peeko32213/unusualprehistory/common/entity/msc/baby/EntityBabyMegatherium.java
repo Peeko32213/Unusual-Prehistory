@@ -163,6 +163,7 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal {
                 Player player = this.level().getPlayerByUUID(this.getOwnerUUID());
                 if (player != null) {
                     megatherium.tame(player);
+                    megatherium.setOwnerUUID(player.getUUID());
                 }
             }
 
