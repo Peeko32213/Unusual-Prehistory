@@ -163,9 +163,7 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.is(UPItems.ENCYLOPEDIA.get())) {
-            InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        }
+        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (
                 player.getItemBySlot(EquipmentSlot.HEAD).is(UPTags.IS_SHINY_HEAD) &&
                 player.getItemBySlot(EquipmentSlot.CHEST).is(UPTags.IS_SHINY_CHEST) &&

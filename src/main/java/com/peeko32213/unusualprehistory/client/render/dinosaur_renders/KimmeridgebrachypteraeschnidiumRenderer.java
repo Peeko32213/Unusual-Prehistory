@@ -14,30 +14,43 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.TropicalFishRenderer;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.core.object.Color;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class KimmeridgebrachypteraeschnidiumRenderer extends GeoEntityRenderer<EntityKimmeridgebrachypteraeschnidium> {
+
+
+
+    private float r = 1.0F;
+    private float g = 1.0F;
+    private float b = 1.0F;
+
 
     public KimmeridgebrachypteraeschnidiumRenderer(EntityRendererProvider.Context context) {
         super(context, new KimmeridgebrachypteraeschnidiumModel());
         this.addRenderLayer(new KimmeridgebrachypteraeschnidiumPatternLayer(this));
     }
 
+    @Override
+    public Color getRenderColor(EntityKimmeridgebrachypteraeschnidium animatable, float partialTick, int packedLight) {
+        return getColor();
+    }
 
     @Override
     public void render(EntityKimmeridgebrachypteraeschnidium kimmer, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
-
-        KimmeridgebrachypteraeschnidiumModel model = new KimmeridgebrachypteraeschnidiumModel();
-
-
-        float[] fs = kimmer.getBaseColor().getTextureDiffuseColors();
-        model.setColor(fs[0], fs[1], fs[2]);
-
         super.render(kimmer, f, g, poseStack, multiBufferSource, i);
-
-        model.setColor(1.0F, 1.0F, 1.0F);
+        float[] fs = kimmer.getBaseColor().getTextureDiffuseColors();
+        this.setColor(fs[0], fs[1], fs[2]);
     }
 
+    public void setColor(float pR, float pG, float pB) {
+        this.r = pR;
+        this.g = pG;
+        this.b = pB;
+    }
 
+    public Color getColor() {
+        return Color.ofRGBA(r,g,b,1);
+    }
 
 }

@@ -3,9 +3,7 @@ package com.peeko32213.unusualprehistory.client.render.layer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.model.KimmeridgebrachypteraeschnidiumModel;
 import com.peeko32213.unusualprehistory.common.entity.EntityKimmeridgebrachypteraeschnidium;
-import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -29,8 +27,7 @@ public class KimmeridgebrachypteraeschnidiumPatternLayer extends GeoRenderLayer<
 
     @Override
     public void render(PoseStack poseStack, EntityKimmeridgebrachypteraeschnidium entityLivingBaseIn, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
-        EntityKimmeridgebrachypteraeschnidium.Pattern pattern = EntityKimmeridgebrachypteraeschnidium.getVariant();
-        KimmeridgebrachypteraeschnidiumModel entityModel = new KimmeridgebrachypteraeschnidiumModel();
+        EntityKimmeridgebrachypteraeschnidium.Pattern pattern = entityLivingBaseIn.getVariant();
 
         ResourceLocation resourceLocation = switch (pattern) {
             case COLORED_BODY -> COLORED_BODY;
@@ -39,8 +36,12 @@ public class KimmeridgebrachypteraeschnidiumPatternLayer extends GeoRenderLayer<
             case COLORED_BUTT -> COLORED_BUTT;
         };
 
-        float[] fs = EntityKimmeridgebrachypteraeschnidium.getPatternColor().getTextureDiffuseColors();
-        coloredCutoutModelCopyLayerRender(this.getParentModel(), entityModel, resourceLocation, poseStack, multiBufferSource, i, EntityKimmeridgebrachypteraeschnidium, f, g, j, k, l, h, fs[0], fs[1], fs[2]);
+        RenderType cameo = RenderType.entityCutout(resourceLocation);
+
+        float[] fs = entityLivingBaseIn.getPatternColor().getTextureDiffuseColors();
+        getRenderer().reRender(this.getGeoModel().getBakedModel(MODEL), poseStack, bufferSource, entityLivingBaseIn, renderType,
+                bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY,
+                fs[0], fs[1], fs[2], 1);
     }
 
 
