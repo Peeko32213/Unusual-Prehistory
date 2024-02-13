@@ -1,7 +1,5 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.anim_goal;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityArchelon;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import software.bernie.geckolib.animatable.GeoEntity;

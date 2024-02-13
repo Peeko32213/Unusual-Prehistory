@@ -1,6 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
+import com.peeko32213.unusualprehistory.common.entity.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.LandCreaturePathNavigation;
@@ -8,6 +10,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -38,7 +41,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 
-public class EntityBabySmilodon extends EntityBaseDinosaurAnimal{
+public class EntityBabySmilodon extends EntityBaseDinosaurAnimal implements IVariantEntity {
 
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.CHICKEN);
@@ -265,5 +268,15 @@ public class EntityBabySmilodon extends EntityBaseDinosaurAnimal{
     public double getTick(Object o) {
         return tickCount;
     }
+    private static ResourceLocation OCELOT_SMILO = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_ocelot_smilodon.png");
+    //not needed tbh
+    private static ResourceLocation SMILO = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_ocelot_smilodon.png");
 
+    @Override
+    public ResourceLocation getVariantTexture() {
+        if(getVariant() == 1){
+            return OCELOT_SMILO;
+        }
+        return SMILO;
+    }
 }

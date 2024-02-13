@@ -1,7 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityBeelzebufo;
 import com.peeko32213.unusualprehistory.common.entity.EntityPalaeophis;
+import com.peeko32213.unusualprehistory.common.entity.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -10,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -46,7 +49,9 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements GeoAnimatable, Bucketable {
+public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements GeoAnimatable, Bucketable, IVariantEntity {
+    private static final ResourceLocation DEEP = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_deep_palaeophis.png");
+    private static final ResourceLocation NORMAL = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_palaeophis.png");
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityBabyPalaeolophis.class, EntityDataSerializers.BOOLEAN);
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -337,4 +342,11 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements G
         }
     }
 
+    @Override
+    public ResourceLocation getVariantTexture() {
+        if(getVariant() == 1){
+            return DEEP;
+        }
+        return NORMAL;
+    }
 }

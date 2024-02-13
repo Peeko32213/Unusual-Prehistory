@@ -16,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -60,7 +61,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal implements CustomFollower, IAttackEntity {
+public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal implements CustomFollower, IAttackEntity, IVariantEntity {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> BLUE = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> YELLOW = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
@@ -70,6 +71,11 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus.png");
+    private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_yellow.png");
+    private static final ResourceLocation TEXTURE_ORANGE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_orange.png");
+    private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_white.png");
+    private static final ResourceLocation TEXTURE_BROWN = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_brown.png");
 
     private static final EntityDataAccessor<Integer> EATING_TIME = SynchedEntityData.defineId(EntityUlughbegsaurus.class, EntityDataSerializers.INT);
     public static final Logger LOGGER = LogManager.getLogger();
@@ -763,6 +769,17 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     @Override
     public boolean shouldFollow() {
         return this.getCommand() == 1;
+    }
+
+    @Override
+    public ResourceLocation getVariantTexture() {
+        return switch (getVariant()) {
+            case 1 -> TEXTURE_WHITE;
+            case 2 -> TEXTURE_YELLOW;
+            case 3 -> TEXTURE_ORANGE;
+            case 4 -> TEXTURE_BROWN;
+            default -> TEXTURE_BLUE;
+        };
     }
 
 

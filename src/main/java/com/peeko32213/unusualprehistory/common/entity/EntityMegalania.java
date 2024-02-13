@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -51,7 +52,13 @@ import software.bernie.geckolib.core.object.PlayState;
 import java.util.EnumSet;
 import java.util.List;
 
-public class EntityMegalania extends EntityBaseDinosaurAnimal {
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+
+public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVariantEntity{
+    private static final ResourceLocation NORMAL_LOCATION = prefix("textures/entity/megalania.png");
+    private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/megalania_hot.png");
+    private static final ResourceLocation COLD_LOCATION = prefix("textures/entity/megalania_cold.png");
+    private static final ResourceLocation NETHER_LOCATION = prefix("textures/entity/megalania_nether.png");
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
@@ -406,6 +413,23 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal {
 
     protected SoundEvent getDeathSound() {
         return UPSounds.MEGALANIA_DEATH.get();
+    }
+
+    @Override
+    public ResourceLocation getVariantTexture() {
+        if(getVariant() == 1){
+            return COLD_LOCATION;
+        }
+        if(getVariant() == 2)
+        {
+            return HOT_LOCATION;
+        }
+        if(getVariant() == 3)
+        {
+            return NETHER_LOCATION;
+        }
+
+        return NORMAL_LOCATION;
     }
 
 

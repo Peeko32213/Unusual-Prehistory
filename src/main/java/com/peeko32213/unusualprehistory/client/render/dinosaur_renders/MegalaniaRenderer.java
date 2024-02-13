@@ -3,7 +3,8 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.client.model.MegalaniaModel;
+import com.peeko32213.unusualprehistory.client.model.DefaultModel;
+import com.peeko32213.unusualprehistory.client.model.ModelLocations;
 import com.peeko32213.unusualprehistory.client.render.layer.MegalaniaEepyLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -14,7 +15,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 public class MegalaniaRenderer extends GeoEntityRenderer<EntityMegalania> {
 
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
-        super(context, new MegalaniaModel());
+        super(context, new DefaultModel<>(ModelLocations.MEGALANIA));
         this.addRenderLayer(new MegalaniaEepyLayer(this));
     }
 

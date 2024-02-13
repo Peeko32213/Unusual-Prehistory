@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.KimmerVariant;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.FlyingMoveController;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;

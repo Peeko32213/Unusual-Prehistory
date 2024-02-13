@@ -2,7 +2,8 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.model.BrachiosaurusModel;
+import com.peeko32213.unusualprehistory.client.model.DefaultModel;
+import com.peeko32213.unusualprehistory.client.model.ModelLocations;
 import com.peeko32213.unusualprehistory.client.render.layer.BaseDinosaurSaddleLayer;
 import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityBrachiosaurusPart;
@@ -15,7 +16,7 @@ public class BrachiosaurusRenderer extends GeoEntityRenderer<EntityBrachiosaurus
     private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus_saddle.png");
     private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/brachi.geo.json");
     public BrachiosaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new BrachiosaurusModel());
+        super(context, new DefaultModel<>(ModelLocations.BRACHIOSAURUS));
         this.addRenderLayer(new BaseDinosaurSaddleLayer<>(this, OVERLAY, MODEL));
     }
 

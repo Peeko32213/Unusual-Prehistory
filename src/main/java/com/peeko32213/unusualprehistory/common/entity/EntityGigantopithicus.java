@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
@@ -42,7 +43,11 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
-public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
+public class EntityGigantopithicus extends EntityBaseDinosaurAnimal implements IVariantEntity{
+
+    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/gigantopithicus.png");
+    private static final ResourceLocation TEXTURE_VARIANT = new ResourceLocation("unusualprehistory:textures/entity/braypithicus.png");
+
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityGigantopithicus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityGigantopithicus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityGigantopithicus.class, EntityDataSerializers.INT);
@@ -201,6 +206,20 @@ public class EntityGigantopithicus extends EntityBaseDinosaurAnimal {
     @Override
     public boolean isAlliedTo(Entity pEntity) {
         return pEntity.is(this);
+    }
+
+    @Override
+    public ResourceLocation getVariantTexture() {
+
+
+
+        if (hasCustomName()) {
+            if(getCustomName().getString().equalsIgnoreCase("braypithicus")){
+                return TEXTURE_VARIANT;
+            }
+
+        }
+        return TEXTURE_NORMAL;
     }
 
     static class ApeMeleeAttackGoal extends Goal {

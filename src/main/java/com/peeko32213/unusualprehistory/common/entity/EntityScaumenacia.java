@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.ChatFormatting;
@@ -8,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -43,7 +45,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAnimatable, IBookEntity {
+public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAnimatable, IBookEntity, IVariantEntity {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityScaumenacia.class, EntityDataSerializers.BOOLEAN);
     private static final RawAnimation SCAU_SWIM = RawAnimation.begin().thenLoop("animation.scaumenacia.move");
@@ -226,5 +228,15 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
     @Override
     public void setFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
+    }
+    public static ResourceLocation GOLDEN = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/scaumenacia_buddah.png");
+    public static ResourceLocation NORMAL = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/scaumenacia.png");
+
+    @Override
+    public ResourceLocation getVariantTexture() {
+        if (isGolden()) {
+            return GOLDEN;
+        }
+        return NORMAL;
     }
 }

@@ -42,7 +42,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
 
-public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
+public class EntityAntarctopelta extends EntityBaseDinosaurAnimal implements ICustomAnimationsEntity {
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityAntarctopelta.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityAntarctopelta.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityAntarctopelta.class, EntityDataSerializers.INT);

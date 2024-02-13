@@ -32,15 +32,20 @@ import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.model.data.EntityModelData;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 
-public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
+public class EntityAustroraptor extends EntityBaseDinosaurAnimal implements ICustomAnimationsEntity {
     private static final EntityDataAccessor<Integer> PREENING_TIME = SynchedEntityData.defineId(EntityAustroraptor.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PREENING = SynchedEntityData.defineId(EntityAustroraptor.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -391,4 +396,15 @@ public class EntityAustroraptor extends EntityBaseDinosaurAnimal {
         return tickCount;
     }
 
+    @Override
+    public void setCustomAnimation(GeoModel model, EntityBaseDinosaurAnimal animatable, long instanceId, AnimationState animationState) {
+        if (animationState == null) return;
+
+        EntityModelData extraDataOfType = (EntityModelData) animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+        CoreGeoBone head = model.getAnimationProcessor().getBone("Neck");
+
+        if (!animatable.isSprinting()) {
+            head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
+        }
+    }
 }

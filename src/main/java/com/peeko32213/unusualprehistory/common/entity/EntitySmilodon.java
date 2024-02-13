@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.GroomGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.PounceGoal;
@@ -11,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -40,7 +42,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
 
-public class EntitySmilodon extends EntityBaseDinosaurAnimal {
+public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariantEntity {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntitySmilodon.class, EntityDataSerializers.INT);
@@ -270,6 +272,20 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal {
             this.setSprinting(false);
         }
 
+    }
+
+    public static ResourceLocation OCELOT_SMILO = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon_ocelot.png");;
+    public static ResourceLocation NORMAL = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon.png");
+
+
+
+    @Override
+    public ResourceLocation getVariantTexture() {
+        if(getVariant() == 1){
+            return OCELOT_SMILO;
+        }
+
+        return NORMAL;
     }
 
     static class SmilodonStalkGoal extends Goal {

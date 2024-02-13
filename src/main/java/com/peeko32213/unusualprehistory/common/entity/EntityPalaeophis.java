@@ -14,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -61,8 +62,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnimatable {
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
+public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnimatable {
+    private ResourceLocation DEEP_ONE_SHED = prefix("textures/entity/palaeophis_deep_head_shed.png");
+    private ResourceLocation DEEP_ONE = prefix("textures/entity/palaeophis_deep_head.png");
+    private ResourceLocation NORMAL = prefix("textures/entity/palaeophis_head.png");
+    private ResourceLocation NORMAL_SHED = prefix("textures/entity/palaeophis_head_shed.png");
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityPalaeophis.class, EntityDataSerializers.INT);
