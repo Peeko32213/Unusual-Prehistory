@@ -35,7 +35,6 @@ import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -67,13 +66,13 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     private static final RawAnimation ARCHELON_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.archelon.swim_idle");
     private static final AnimationHelper ARCHELON_SWIM = AnimationHelper.loopingAnimation("swim","animation.archelon.swim");
     private static final RawAnimation ARCHELON_BITE_BLEND = RawAnimation.begin().thenLoop("animation.archelon.bite_blend");
-    private static final AnimationHelper ARCHELON_RAMMING = AnimationHelper.playAnimation("rammin","animation.archelon.ramming").addLoop(ARCHELON_SWIM.getGetRawAnimName());
+    private static final AnimationHelper ARCHELON_RAMMING = AnimationHelper.playAnimationWController("Normal","rammin","animation.archelon.ramming").addLoop(ARCHELON_SWIM.getGetRawAnimName());
     private static final RawAnimation ARCHELON_SHAKE = RawAnimation.begin().thenLoop("animation.archelon.shake");
     //private static final RawAnimation ARCHELON_SPIN1 = RawAnimation.begin().thenLoop("animation.archelon.spin1");
     //private static final RawAnimation ARCHELON_SPIN2 = RawAnimation.begin().thenLoop("animation.archelon.spin2");
 
-    private static final AnimationHelper ARCHELON_SPIN = AnimationHelper.playAnimation("spin1", "animation.archelon.spin1");
-    private static final AnimationHelper ARCHELON_SPIN2 = AnimationHelper.playAnimation("spin2", "animation.archelon.spin2");
+    private static final AnimationHelper ARCHELON_SPIN = AnimationHelper.playAnimationWController("Normal","spin1", "animation.archelon.spin1");
+    private static final AnimationHelper ARCHELON_SPIN2 = AnimationHelper.playAnimationWController("Normal","spin2", "animation.archelon.spin2");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -111,12 +110,15 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
     }
 
+
+
     public void tick() {
         super.tick();
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
         }
         if (!this.isOrderedToSit() && sitProgress > 0F) {
+
             sitProgress--;
         }
         if (this.getCommand() == 2 && !this.isVehicle()) {
@@ -312,6 +314,8 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         return false;
     }
 
+
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
@@ -330,6 +334,12 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         if (event.isMoving() && this.isInWater() && random.nextInt(100) == 0)  {
             float rand = random.nextFloat();
             event.setAnimation(ARCHELON_SWIM.getAnimation());
+            //if (rand < 0.55F) {
+            //    return event.setAndContinue(ARCHELON_SPIN1);
+            //}
+            //if (rand < 0.56F) {
+            //    return event.setAndContinue(ARCHELON_SPIN2);
+            //}
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
@@ -351,10 +361,14 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        controllers.add(new AnimationController<>(this, ARCHELON_SPIN.getControllerName(), 5, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN.getAnimName(), ARCHELON_SPIN.getAnimation()));
-        controllers.add(new AnimationController<>(this, ARCHELON_SPIN2.getControllerName(), 5, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN2.getAnimName(), ARCHELON_SPIN2.getAnimation()));
-        controllers.add(new AnimationController<>(this, ARCHELON_RAMMING.getControllerName(), 5, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_RAMMING.getAnimName(), ARCHELON_RAMMING.getAnimation()));
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller)
+                .triggerableAnim(ARCHELON_SPIN.getAnimName(), ARCHELON_SPIN.getAnimation())
+                .triggerableAnim(ARCHELON_SPIN2.getAnimName(), ARCHELON_SPIN2.getAnimation())
+                .triggerableAnim(ARCHELON_RAMMING.getAnimName(), ARCHELON_RAMMING.getAnimation()));
+
+        //controllers.add(new AnimationController<>(this, ARCHELON_SPIN.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN.getAnimName(), ARCHELON_SPIN.getAnimation()));
+        //controllers.add(new AnimationController<>(this, ARCHELON_SPIN2.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN2.getAnimName(), ARCHELON_SPIN2.getAnimation()));
+        //controllers.add(new AnimationController<>(this, ARCHELON_RAMMING.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_RAMMING.getAnimName(), ARCHELON_RAMMING.getAnimation()));
        // controllers.add(new AnimationController<>(this, ARCHELON_SWIM.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SWIM.getAnimName(), ARCHELON_SWIM.getAnimation()));
     }
 
@@ -550,6 +564,7 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     }
 
     protected PathNavigation createNavigation(Level pLevel) {
+
         return new EntityArchelon.TurtlePathNavigation(this, pLevel);
     }
 
