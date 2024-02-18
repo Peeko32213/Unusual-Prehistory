@@ -35,6 +35,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
         addItem(UPItems.ZULOGAE_DISC, "Music Disc ");
         addItem(UPItems.PSITTACCO_ARROW, "Psittacco Arrow");
+        addItem(UPItems.ENCASED_DISC, "Music Disc ");
 
         //TOOLS
         addItem(UPItems.WARPICK, "War Pick");
@@ -129,7 +130,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
         addItem(UPItems.DUNK_BUCKET, "Bucket of Baby Dunkleosteus");
         addItem(UPItems.PALAEO_BUCKET, "Bucket of Baby Palaeolophis");
-        addItem(UPItems.FURCA_BUCKET, "Bucket of Furcacauda");
+        addItem(UPItems.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
 
 
         //EGGS
@@ -196,7 +197,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.SLUDGE_EGG, "Sludge Spawn Egg");
         addItem(UPItems.OTAROCYON_EGG, "Otarocyon Spawn Egg");
         addItem(UPItems.LONGISQUAMA_EGG, "Longisquama Spawn Egg");
-        addItem(UPItems.FURCA_EGG, "Furcacauda Spawn Egg");
+        addItem(UPItems.JAWLESS_FISH_EGG, "Jawless Fish Spawn Egg");
         addItem(UPItems.TARTUOSTEUS_EGG, "Tartuosteus Spawn Egg");
         addItem(UPItems.PSITTACO_EGG, "Psittacosaurus Spawn Egg");
         addItem(UPItems.TANY_EGG, "Tanystropheus Spawn Egg");
@@ -284,7 +285,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.DRYO_FLASK, "Dryophyllum DNA Flask");
         addItem(UPItems.OTAROCYON_FLASK, "Otarocyon DNA Flask");
         addItem(UPItems.LONGI_FLASK, "Longisquama DNA Flask");
-        addItem(UPItems.FURCA_FLASK, "Furcacauda DNA Flask");
+        addItem(UPItems.JAWLESS_FISH_FLASK, "Furcacauda DNA Flask");
         addItem(UPItems.TARTUO_FLASK, "Tartuosteus DNA Flask");
         addItem(UPItems.TANY_FLASK, "Tanystropheus DNA Flask");
         addItem(UPItems.PSITTACO_FLASK, "Psittacosaurus DNA Flask");
@@ -506,7 +507,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.ICEBERG_SMILODON, "Frozen Smilodon");
         addEntityType(UPEntities.OTAROCYON, "Otarocyon");
         addEntityType(UPEntities.LONGISQUAMA, "Longisquama");
-        addEntityType(UPEntities.FURCA, "Furcacauda");
+        addEntityType(UPEntities.JAWLESS_FISH, "Furcacauda");
         addEntityType(UPEntities.TARTUOSTEUS, "Tartuosteus");
         addEntityType(UPEntities.PSITTACO, "Psittacosaurus");
         addEntityType(UPEntities.TANY, "Tanystropheus");
@@ -615,6 +616,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.BARINA_HURT, "Crocodilain Pain");
         addSound(UPSounds.BARINA_IDLE, "Crocodilain Growls");
         addSound(UPSounds.ZULOGAE_DISC, "Music Disc");
+        addSound(UPSounds.ENCASED_DISC, "Music Disc");
         addSound(UPSounds.MEGATHER_DEATH, "Odd Death Noise");
         addSound(UPSounds.MEGATHER_HURT, "Odd Hurt Noise");
         addSound(UPSounds.MEGATHER_IDLE, "Odd Idling");
@@ -858,6 +860,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_2.player", "%s was turned to fine paste by %s");
         add("death.attack.hwacha_3.player", "%s was shot by %s");
         add("item.unusualprehistory.zulogae_disc.desc", " Shroomy - Zulogae");
+        add("item.unusualprehistory.encased_disc.desc", " TheValiantSquidward - Encased");
 
         add("death.attack.sludge_0.player", "%s was slapped to death by %s");
 

@@ -279,7 +279,7 @@ public final class ClientEvents {
 
         event.registerEntityRenderer(UPEntities.LONGISQUAMA.get(),
                 e -> new TameableDinosaurCutoutNoCullRenderer<>(e, new LongisquamaModel()));
-        event.registerEntityRenderer(UPEntities.FURCA.get(), e -> new LivingEntityFishRenderer<>(e, new DefaultModel<>(ModelLocations.FURACACAUDA)));
+        event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new LivingEntityFishRenderer<>(e, new DefaultModel<>(ModelLocations.FURACACAUDA)));
         event.registerEntityRenderer(UPEntities.TARTUOSTEUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.TARTUOSTEUS)));
         event.registerEntityRenderer(UPEntities.PSITTACO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsittacosaurusModel()));
         event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));

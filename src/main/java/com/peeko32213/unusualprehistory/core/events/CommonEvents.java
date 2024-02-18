@@ -65,7 +65,7 @@ public class CommonEvents {
         event.put(UPEntities.SLUDGE.get(), EntitySludge.createAttributes().build());
         event.put(UPEntities.OTAROCYON.get(), EntityOtarocyon.createAttributes().build());  //80% Done
         event.put(UPEntities.LONGISQUAMA.get(), EntityLongisquama.createAttributes().build()); //80% Done
-        event.put(UPEntities.FURCA.get(), EntityFurcacauda.createAttributes().build()); //50% Done
+        event.put(UPEntities.JAWLESS_FISH.get(), EntityJawlessFish.createAttributes().build()); //50% Done
         event.put(UPEntities.TARTUOSTEUS.get(), EntityTartuosteus.createAttributes().build()); //80% Done
         event.put(UPEntities.PSITTACO.get(), EntityPsittacosaurus.createAttributes().build()); //70% Done
         event.put(UPEntities.TANY.get(), EntityTanystropheus.createAttributes().build()); //70% Done

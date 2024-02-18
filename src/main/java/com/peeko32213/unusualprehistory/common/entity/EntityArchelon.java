@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.Custom
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,6 +19,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.effect.MobEffects;
@@ -25,15 +27,20 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -48,10 +55,12 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements SemiAquatic, CustomFollower, GeoEntity {
+public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements CustomFollower, GeoEntity {
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> CHILL_TIME = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> TRAVELLING = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<BlockPos> TRAVEL_POS = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.BLOCK_POS);
 
     private static final RawAnimation ARCHELON_IDLE = RawAnimation.begin().thenLoop("animation.archelon.idle");
     private static final RawAnimation ARCHELON_WALK = RawAnimation.begin().thenLoop("animation.archelon.walk");
@@ -67,100 +76,47 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     private static final AnimationHelper ARCHELON_SPIN2 = AnimationHelper.playAnimation("spin2", "animation.archelon.spin2");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public float prevSwimProgress;
-    public float swimProgress;
-    private int swimTimer = -1000;
-    private boolean isLandNavigator;
+
     public float sitProgress;
 
     public EntityArchelon(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
-        switchNavigator(false);
+        this.moveControl = new EntityArchelon.TurtleMoveControl(this);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 60D)
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 60.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE, 1.0D)
                 .add(Attributes.ARMOR, 10D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3F)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                ;
     }
 
+
     protected void registerGoals() {
-        //this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_SPIN, 100, 1200, (livingEntity -> {
-        //    return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
-        //})));
-        //this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_SPIN2, 100, 1200, (livingEntity -> {
-        //    return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
-        //})));
-        //this.goalSelector.addGoal(0, new SimpleAnimationAI<>(this,ARCHELON_RAMMING, 50, 1200, (livingEntity -> {
-        //    return livingEntity.isInWater() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2;
-       // })));
-
-
-        this.goalSelector.addGoal(1, new FindWaterGoal(this));
-        this.goalSelector.addGoal(8, new LeaveWaterGoal(this));
-        this.goalSelector.addGoal(5, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(5, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
+        this.goalSelector.addGoal(3, new EntityArchelon.TurtleGoToWaterGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new EntityArchelon.TurtleTravelGoal(this, 1.0D));
+        this.goalSelector.addGoal(9, new EntityArchelon.TurtleRandomStrollGoal(this, 1.0D, 100));
         this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
+        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
     }
 
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
-
-
-    private void switchNavigator(boolean onLand) {
-        if (onLand) {
-            this.moveControl = new MoveControl(this);
-            this.navigation = new GroundPathNavigation(this, level());
-            this.isLandNavigator = true;
-        } else {
-            this.moveControl = new WaterMoveController(this, 1.1F);
-            this.navigation = new SemiAquaticPathNavigation(this, level());
-            this.isLandNavigator = false;
-        }
-    }
-
     public void tick() {
         super.tick();
-        this.prevSwimProgress = swimProgress;
-
-        final boolean ground = !this.isInWaterOrBubble();
-
-        if (!ground && this.isLandNavigator) {
-            switchNavigator(false);
-        }
-        if (ground && !this.isLandNavigator) {
-            switchNavigator(true);
-        }
-        if (ground && swimProgress > 0) {
-            swimProgress--;
-        }
-        if (!ground && swimProgress < 5F) {
-            swimProgress++;
-        }
-        if (!this.level().isClientSide) {
-            if (isInWater()) {
-                swimTimer++;
-            } else {
-                swimTimer--;
-            }
-        }
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
         }
         if (!this.isOrderedToSit() && sitProgress > 0F) {
-
             sitProgress--;
         }
         if (this.getCommand() == 2 && !this.isVehicle()) {
@@ -235,11 +191,12 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         this.entityData.define(COMMAND, 0);
         this.entityData.define(SADDLED, Boolean.valueOf(false));
         this.entityData.define(CHILL_TIME, 0);
+        this.entityData.define(TRAVELLING, false);
+        this.entityData.define(TRAVEL_POS, BlockPos.ZERO);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("SwimTimer", this.swimTimer);
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("Command", this.getCommand());
         compound.putInt("ChillTime", this.getChillTime());
@@ -247,10 +204,29 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.swimTimer = compound.getInt("SwimTimer");
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setCommand(compound.getInt("TrikeCommand"));
         this.setChillTime(compound.getInt("ChillTime"));
+        int l = compound.getInt("TravelPosX");
+        int i1 = compound.getInt("TravelPosY");
+        int j1 = compound.getInt("TravelPosZ");
+        this.setTravelPos(new BlockPos(l, i1, j1));
+    }
+
+    void setTravelPos(BlockPos pTravelPos) {
+        this.entityData.set(TRAVEL_POS, pTravelPos);
+    }
+
+    BlockPos getTravelPos() {
+        return this.entityData.get(TRAVEL_POS);
+    }
+
+    boolean isTravelling() {
+        return this.entityData.get(TRAVELLING);
+    }
+
+    void setTravelling(boolean pIsTravelling) {
+        this.entityData.set(TRAVELLING, pIsTravelling);
     }
 
     public int getChillTime() {
@@ -272,6 +248,18 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     @Override
     protected void performAttack() {
 
+    }
+
+    public boolean isPushedByFluid() {
+        return false;
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
+    public MobType getMobType() {
+        return MobType.WATER;
     }
 
     @Override
@@ -324,29 +312,6 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         return false;
     }
 
-    @Override
-    public boolean shouldEnterWater() {
-        return !shouldLeaveWater() && swimTimer <= -1000;
-    }
-
-    public boolean shouldLeaveWater() {
-        LivingEntity target = this.getTarget();
-        if (target != null && !target.isInWater()) {
-            return true;
-        }
-        return swimTimer > 600;
-    }
-
-    @Override
-    public int getWaterSearchRange() {
-        return 12;
-    }
-
-    @Override
-    public boolean shouldStopMoving() {
-        return false;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
@@ -357,7 +322,7 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (event.isMoving() && !this.isInWater() && !this.isSwimming()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isSwimming()) {
             event.setAnimation(ARCHELON_WALK);
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
@@ -365,12 +330,6 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         if (event.isMoving() && this.isInWater() && random.nextInt(100) == 0)  {
             float rand = random.nextFloat();
             event.setAnimation(ARCHELON_SWIM.getAnimation());
-            //if (rand < 0.55F) {
-            //    return event.setAndContinue(ARCHELON_SPIN1);
-            //}
-            //if (rand < 0.56F) {
-            //    return event.setAndContinue(ARCHELON_SPIN2);
-            //}
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
@@ -392,10 +351,10 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 0, this::Controller));
-        controllers.add(new AnimationController<>(this, ARCHELON_SPIN.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN.getAnimName(), ARCHELON_SPIN.getAnimation()));
-        controllers.add(new AnimationController<>(this, ARCHELON_SPIN2.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN2.getAnimName(), ARCHELON_SPIN2.getAnimation()));
-        controllers.add(new AnimationController<>(this, ARCHELON_RAMMING.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_RAMMING.getAnimName(), ARCHELON_RAMMING.getAnimation()));
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, ARCHELON_SPIN.getControllerName(), 5, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN.getAnimName(), ARCHELON_SPIN.getAnimation()));
+        controllers.add(new AnimationController<>(this, ARCHELON_SPIN2.getControllerName(), 5, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN2.getAnimName(), ARCHELON_SPIN2.getAnimation()));
+        controllers.add(new AnimationController<>(this, ARCHELON_RAMMING.getControllerName(), 5, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_RAMMING.getAnimName(), ARCHELON_RAMMING.getAnimation()));
        // controllers.add(new AnimationController<>(this, ARCHELON_SWIM.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SWIM.getAnimName(), ARCHELON_SWIM.getAnimation()));
     }
 
@@ -415,61 +374,183 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
 
     }
 
-    static class MoveController extends MoveControl {
-        private final EntityArchelon archelon;
+    static class TurtleGoToWaterGoal extends MoveToBlockGoal {
+        private static final int GIVE_UP_TICKS = 1200;
+        private final EntityArchelon turtle;
 
-        public MoveController(EntityArchelon dolphinIn) {
-            super(dolphinIn);
-            this.archelon = dolphinIn;
+        TurtleGoToWaterGoal(EntityArchelon pTurtle, double pSpeedModifier) {
+            super(pTurtle, pTurtle.isBaby() ? 2.0D : pSpeedModifier, 24);
+            this.turtle = pTurtle;
+            this.verticalSearchStart = -1;
+        }
+
+        public boolean canContinueToUse() {
+            return !this.turtle.isInWater() && this.tryTicks <= 1200 && this.isValidTarget(this.turtle.level(), this.blockPos);
+        }
+
+
+        public boolean canUse() {
+            if (this.turtle.isBaby() && !this.turtle.isInWater()) {
+                return super.canUse();
+            } else {
+                return !this.turtle.isInWater();
+            }
+        }
+
+        public boolean shouldRecalculatePath() {
+            return this.tryTicks % 160 == 0;
+        }
+
+
+        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
+            return pLevel.getBlockState(pPos).is(Blocks.WATER);
+        }
+    }
+
+    static class TurtleTravelGoal extends Goal {
+        private final EntityArchelon turtle;
+        private final double speedModifier;
+        private boolean stuck;
+
+        TurtleTravelGoal(EntityArchelon pTurtle, double pSpeedModifier) {
+            this.turtle = pTurtle;
+            this.speedModifier = pSpeedModifier;
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean canUse() {
+            return this.turtle.isInWater();
+        }
+
+        /**
+         * Execute a one shot task or start executing a continuous task
+         */
+        public void start() {
+            int i = 512;
+            int j = 4;
+            RandomSource randomsource = this.turtle.random;
+            int k = randomsource.nextInt(1025) - 512;
+            int l = randomsource.nextInt(9) - 4;
+            int i1 = randomsource.nextInt(1025) - 512;
+            if ((double)l + this.turtle.getY() > (double)(this.turtle.level().getSeaLevel() - 1)) {
+                l = 0;
+            }
+
+            BlockPos blockpos = BlockPos.containing((double)k + this.turtle.getX(), (double)l + this.turtle.getY(), (double)i1 + this.turtle.getZ());
+            this.turtle.setTravelPos(blockpos);
+            this.turtle.setTravelling(true);
+            this.stuck = false;
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void tick() {
+            if (this.turtle.getNavigation().isDone()) {
+                Vec3 vec3 = Vec3.atBottomCenterOf(this.turtle.getTravelPos());
+                Vec3 vec31 = DefaultRandomPos.getPosTowards(this.turtle, 16, 3, vec3, (double)((float)Math.PI / 10F));
+                if (vec31 == null) {
+                    vec31 = DefaultRandomPos.getPosTowards(this.turtle, 8, 7, vec3, (double)((float)Math.PI / 2F));
+                }
+
+                if (vec31 != null) {
+                    int i = Mth.floor(vec31.x);
+                    int j = Mth.floor(vec31.z);
+                    int k = 34;
+                    if (!this.turtle.level().hasChunksAt(i - 34, j - 34, i + 34, j + 34)) {
+                        vec31 = null;
+                    }
+                }
+
+                if (vec31 == null) {
+                    this.stuck = true;
+                    return;
+                }
+
+                this.turtle.getNavigation().moveTo(vec31.x, vec31.y, vec31.z, this.speedModifier);
+            }
+
+        }
+
+        /**
+         * Returns whether an in-progress EntityAIBase should continue executing
+         */
+        public boolean canContinueToUse() {
+            return !this.turtle.getNavigation().isDone() && !this.stuck && !this.turtle.isInLove();
+        }
+
+        /**
+         * Reset the task's internal state. Called when this task is interrupted by another one
+         */
+        public void stop() {
+            this.turtle.setTravelling(false);
+            super.stop();
+        }
+    }
+
+    static class TurtleRandomStrollGoal extends RandomStrollGoal {
+        private final EntityArchelon turtle;
+
+        TurtleRandomStrollGoal(EntityArchelon pTurtle, double pSpeedModifier, int pInterval) {
+            super(pTurtle, pSpeedModifier, pInterval);
+            this.turtle = pTurtle;
+        }
+
+        public boolean canUse() {
+            return !this.mob.isInWater();
+        }
+    }
+
+    static class TurtleMoveControl extends MoveControl {
+        private final EntityArchelon turtle;
+
+        TurtleMoveControl(EntityArchelon pTurtle) {
+            super(pTurtle);
+            this.turtle = pTurtle;
+        }
+
+        private void updateSpeed() {
+            if (this.turtle.isInWater()) {
+                this.turtle.setDeltaMovement(this.turtle.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
+
+                if (this.turtle.isBaby()) {
+                    this.turtle.setSpeed(Math.max(this.turtle.getSpeed() / 3.0F, 0.06F));
+                }
+            } else if (this.turtle.onGround()) {
+                this.turtle.setSpeed(Math.max(this.turtle.getSpeed() / 2.0F, 0.06F));
+            }
+
         }
 
         public void tick() {
-            float speed = (float) (this.speedModifier * 3 * archelon.getAttributeValue(Attributes.MOVEMENT_SPEED));
-            if (!archelon.isVehicle()) {
-                if (this.archelon.isChilling()) {
-                    speed *= 0.5F;
-                } else if (this.archelon.shouldSwim()) {
-                    this.archelon.setDeltaMovement(this.archelon.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-                }
-            }
-            if (this.operation == Operation.MOVE_TO && (!this.archelon.getNavigation().isDone() || archelon.getControllingPassenger() != null)) {
-                double lvt_1_1_ = this.wantedX - archelon.getX();
-                double lvt_3_1_ = this.wantedY - archelon.getY();
-                double lvt_5_1_ = this.wantedZ - archelon.getZ();
-
-                double lvt_7_1_ = lvt_1_1_ * lvt_1_1_ + lvt_3_1_ * lvt_3_1_ + lvt_5_1_ * lvt_5_1_;
-                if (lvt_7_1_ < 2.5F) {
-                    this.archelon.setZza(0.0F);
+            this.updateSpeed();
+            if (this.operation == MoveControl.Operation.MOVE_TO && !this.turtle.getNavigation().isDone()) {
+                double d0 = this.wantedX - this.turtle.getX();
+                double d1 = this.wantedY - this.turtle.getY();
+                double d2 = this.wantedZ - this.turtle.getZ();
+                double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+                if (d3 < (double)1.0E-5F) {
+                    this.mob.setSpeed(0.0F);
                 } else {
-                    float lvt_9_1_ = (float) (Mth.atan2(lvt_5_1_, lvt_1_1_) * 57.2957763671875D) - 90.0F;
-                    this.archelon.setYRot(this.rotlerp(this.archelon.getYRot(), lvt_9_1_, 5F));
-                    this.archelon.setYHeadRot(this.rotlerp(this.archelon.getYHeadRot(), lvt_9_1_, 90.0F));
-                    //BlockPos blockpos = this.mob.blockPosition();
-                    //BlockState blockstate = this.mob.level().getBlockState(blockpos);
-                    //VoxelShape voxelshape = blockstate.getCollisionShape(this.mob.level(), blockpos);
-                    if (lvt_3_1_ >= 0 && archelon.horizontalCollision) {
-                        archelon.setDeltaMovement(archelon.getDeltaMovement().add(0.0D, 0.5D, 0.0D));
-                    } else {
-                        archelon.setDeltaMovement(archelon.getDeltaMovement().add(0.0D, (double) archelon.getSpeed() * lvt_3_1_ * 0.6D, 0.0D));
-                    }
-                    if (archelon.shouldSwim()) {
-                        archelon.setSpeed(speed * 0.03F);
-                        float lvt_11_1_ = -((float) (Mth.atan2(lvt_3_1_, Mth.sqrt((float) (lvt_1_1_ * lvt_1_1_ + lvt_5_1_ * lvt_5_1_))) * 57.2957763671875D));
-                        lvt_11_1_ = Mth.clamp(Mth.wrapDegrees(lvt_11_1_), -85.0F, 85.0F);
-                        archelon.setXRot(this.rotlerp(archelon.getXRot(), lvt_11_1_, 25.0F));
-                        float lvt_12_1_ = Mth.cos(archelon.getXRot() * 0.017453292F);
-                        float lvt_13_1_ = Mth.sin(archelon.getXRot() * 0.017453292F);
-                        archelon.zza = lvt_12_1_ * speed;
-                        archelon.yya = -lvt_13_1_ * speed;
-                    } else {
-                        archelon.setSpeed(speed * 0.1F);
-                    }
-
+                    d1 /= d3;
+                    float f = (float)(Mth.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
+                    this.turtle.setYRot(this.rotlerp(this.turtle.getYRot(), f, 90.0F));
+                    this.turtle.yBodyRot = this.turtle.getYRot();
+                    float f1 = (float)(this.speedModifier * this.turtle.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    this.turtle.setSpeed(Mth.lerp(0.125F, this.turtle.getSpeed(), f1));
+                    this.turtle.setDeltaMovement(this.turtle.getDeltaMovement().add(0.0D, (double)this.turtle.getSpeed() * d1 * 0.1D, 0.0D));
                 }
-            }else if(!archelon.level().getBlockState(this.archelon.blockPosition().above()).getFluidState().isEmpty() && archelon.getChillTime() <= 0){
-                this.archelon.setDeltaMovement(this.archelon.getDeltaMovement().add(0.0D, -0.05D, 0.0D));
+            } else {
+                this.turtle.setSpeed(0.0F);
             }
         }
+    }
+
+    protected PathNavigation createNavigation(Level pLevel) {
+        return new EntityArchelon.TurtlePathNavigation(this, pLevel);
     }
 
     public boolean shouldSwim() {
@@ -480,7 +561,20 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         return Math.max(this.getFluidHeight(FluidTags.LAVA), this.getFluidHeight(FluidTags.WATER));
     }
 
-    public boolean isChilling() {
-        return this.getChillTime() > 0 && this.getMaxFluidHeight() <= this.getBbHeight() * 0.5F;
+    static class TurtlePathNavigation extends AmphibiousPathNavigation {
+        TurtlePathNavigation(EntityArchelon pTurtle, Level pLevel) {
+            super(pTurtle, pLevel);
+        }
+
+        public boolean isStableDestination(BlockPos pPos) {
+            Mob mob = this.mob;
+            if (mob instanceof EntityArchelon turtle) {
+                if (turtle.isTravelling()) {
+                    return this.level.getBlockState(pPos).is(Blocks.WATER);
+                }
+            }
+
+            return !this.level.getBlockState(pPos.below()).isAir();
+        }
     }
 }

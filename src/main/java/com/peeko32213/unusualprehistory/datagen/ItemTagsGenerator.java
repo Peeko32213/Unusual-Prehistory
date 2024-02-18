@@ -436,7 +436,10 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(Items.DIAMOND_PICKAXE)
                 .add(Items.DIAMOND_AXE);
 
-
+        tag(ItemTags.MUSIC_DISCS)
+                .add(UPItems.ZULOGAE_DISC.get())
+                .add(UPItems.ENCASED_DISC.get())
+        ;
 
     }
 

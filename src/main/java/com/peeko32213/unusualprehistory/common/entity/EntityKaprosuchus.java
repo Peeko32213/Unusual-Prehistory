@@ -82,7 +82,7 @@ public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implemen
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 25.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.22D)
+                .add(Attributes.MOVEMENT_SPEED, 0.18D)
                 .add(Attributes.ARMOR, 10.0D)
                 .add(Attributes.ARMOR_TOUGHNESS, 10.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);

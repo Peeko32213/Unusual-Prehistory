@@ -84,11 +84,8 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
     private float prevStrangleProgress = 0F;
     private float strangleProgress = 0F;
     private int strangleTimer = 0;
-    private int shedCooldown = 0;
-    private int feedings = 0;
     private boolean isLandNavigator;
     private int swimTimer = -1000;
-    private int passiveFor = 0;
     private static final RawAnimation PALAEO_BITE = RawAnimation.begin().thenLoop("animation.palaophis_head.bite");
     private static final RawAnimation PALAEO_IDLE_TOUNGE = RawAnimation.begin().thenLoop("animation.palaophis_head.idle_tounge");
 

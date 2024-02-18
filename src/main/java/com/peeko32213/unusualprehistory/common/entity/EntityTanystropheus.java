@@ -57,6 +57,8 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
     private int baskingTimer = 0;
     public float prevBaskProgress;
     public float baskProgress;
+    public int fishingCooldown = 1200 + random.nextInt(1200);
+
     public EntityTanystropheus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
@@ -79,6 +81,7 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
         this.goalSelector.addGoal(7, new FindWaterGoal(this));
         this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
         this.goalSelector.addGoal(9, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(1, new TanyFishingGoal(this));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34) {
                     @Override
                     public boolean canUse() {
@@ -173,6 +176,11 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
             }
         }
         if (!this.level().isClientSide) {
+            if (fishingCooldown > 0) {
+                fishingCooldown--;
+            }
+        }
+        if (!this.level().isClientSide) {
             if (isBasking()) {
                 if (this.getLastHurtByMob() != null || this.isInWaterOrBubble() || this.getTarget() != null || baskingTimer > 500 && this.getRandom().nextInt(10) == 0) {
                     this.setBasking(false);
@@ -234,6 +242,7 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
         compound.putBoolean("Basking", this.isBasking());
         compound.putInt("BaskingTimer", this.baskingTimer);
         compound.putInt("SwimTimer", this.swimTimer);
+        compound.putInt("FishingTimer", this.fishingCooldown);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -241,6 +250,11 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
         this.setBasking(compound.getBoolean("Basking"));
         this.baskingTimer = compound.getInt("BaskingTimer");
         this.swimTimer = compound.getInt("SwimTimer");
+        this.fishingCooldown = compound.getInt("FishingTimer");
+    }
+
+    public void resetFishingCooldown(){
+        fishingCooldown = Math.max(700 + random.nextInt(700), 100);
     }
 
     public boolean isBasking() {

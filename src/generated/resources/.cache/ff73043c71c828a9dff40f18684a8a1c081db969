@@ -1,9 +1,10 @@
-// 1.20.1	2024-02-07T16:20:54.6198578	unusualprehistory Item Tags
+// 1.20.1	2024-02-13T10:37:09.9443531	unusualprehistory Item Tags
 bc7e0fe2b69718f92222d63f69f3505863ee0fb3 data/minecraft/tags/items/arrows.json
 5c5d8ce6ffd4b0079c585611f9169a81f8bd2c51 data/minecraft/tags/items/buttons.json
 67aca3e4e202f6d42d31a79f081bce07d4d65006 data/minecraft/tags/items/fishes.json
 c058532b8dc116a7ddd6535c6021e5b16efff81c data/minecraft/tags/items/leaves.json
 d66add5dc322977638e5637ad4264555e160b3cd data/minecraft/tags/items/logs_that_burn.json
+69a3b0d382500cfa2a5649efc7286a3465f005ab data/minecraft/tags/items/music_discs.json
 c6327f07f01a52c8691d0b76d3ef7e3494c75d15 data/minecraft/tags/items/planks.json
 70ff7d509b708740c357ca323ed7ca01bfd1e17e data/minecraft/tags/items/saplings.json
 72072264274801a574349184ea25ed9abfde4b84 data/minecraft/tags/items/signs.json

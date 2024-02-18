@@ -245,7 +245,7 @@ public class UPBlocks {
 
     public static final Supplier<Block> FURCACAUDA_EGGS = create("furcacauda_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
-                    UPEntities.FURCA,
+                    UPEntities.JAWLESS_FISH,
                     false
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));

@@ -128,6 +128,8 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> SMILODON_HURT = createSoundEvent("smilodon_hurt");
     public static final RegistryObject<SoundEvent> SMILODON_IDLE = createSoundEvent("smilodon_idle");
     public static final RegistryObject<SoundEvent> ZULOGAE_DISC = createSoundEvent("zulogae_disc");
+    public static final RegistryObject<SoundEvent> ENCASED_DISC = createSoundEvent("encased_disc");
+
     public static final RegistryObject<SoundEvent> PALAEO_DEATH = createSoundEvent("palaeo_death");
     public static final RegistryObject<SoundEvent> PALAEO_BITE = createSoundEvent("palaeo_bite");
     public static final RegistryObject<SoundEvent> PALAEO_HURT = createSoundEvent("palaeo_hurt");

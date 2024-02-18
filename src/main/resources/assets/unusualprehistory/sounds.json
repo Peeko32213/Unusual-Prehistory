@@ -1397,6 +1397,14 @@
       }
     ]
   },
+  "encased_disc": {
+    "sounds": [
+      {
+        "name": "unusualprehistory:encased_disc",
+        "stream": true
+      }
+    ]
+  },
   "palaeo_death": {
     "category": "neutral",
     "sounds": [

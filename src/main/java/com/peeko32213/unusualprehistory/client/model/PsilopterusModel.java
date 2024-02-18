@@ -30,7 +30,8 @@ public class PsilopterusModel extends GeoModel<EntityPsilopterus> {
         if(object.isDominate()){
             return DOMINATE;
         }
-        return NORMAL;    }
+        return NORMAL;
+    }
 
     @Override
     public ResourceLocation getAnimationResource(EntityPsilopterus object)

@@ -196,9 +196,9 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityLongisquama::new, MobCategory.CREATURE).sized(1.0F, 1.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "longisquama").toString()));
 
-    public static final RegistryObject<EntityType<EntityFurcacauda>> FURCA = ENTITIES.register("furca",
-            () -> EntityType.Builder.of(EntityFurcacauda::new, MobCategory.WATER_AMBIENT).sized(1.1f, 0.6f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "furca").toString()));
+    public static final RegistryObject<EntityType<EntityJawlessFish>> JAWLESS_FISH = ENTITIES.register("jawless_fish",
+            () -> EntityType.Builder.of(EntityJawlessFish::new, MobCategory.WATER_AMBIENT).sized(1.1f, 0.6f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "jawless_fish").toString()));
 
     public static final RegistryObject<EntityType<EntityTartuosteus>> TARTUOSTEUS = ENTITIES.register("tartuosteus",
             () -> EntityType.Builder.of(EntityTartuosteus::new, MobCategory.WATER_CREATURE).sized(2.0f, 0.8f)

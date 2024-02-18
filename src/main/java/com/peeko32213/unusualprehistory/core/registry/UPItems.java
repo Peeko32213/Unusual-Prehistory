@@ -238,7 +238,7 @@ public class UPItems {
     public static final RegistryObject<Item> LONGI_FLASK = ITEMS.register("longisquama_flask",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> FURCA_FLASK = ITEMS.register("furcacauda_flask",
+    public static final RegistryObject<Item> JAWLESS_FISH_FLASK = ITEMS.register("jawless_fish_flask",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> TARTUO_FLASK = ITEMS.register("tartuo_flask",
@@ -350,8 +350,8 @@ public class UPItems {
             () -> new ItemModFishBucket(UPEntities.BABY_PALAEO, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> FURCA_BUCKET = ITEMS.register("furca_bucket",
-            () -> new ItemModFishBucket(UPEntities.FURCA, () -> Fluids.WATER, Items.BUCKET, false,
+    public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("furca_bucket",
+            () -> new ItemModFishBucket(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<ForgeSpawnEggItem> STETHA_EGG = registerSpawnEggs("stetha_spawn_egg",
@@ -446,8 +446,8 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> LONGISQUAMA_EGG = registerSpawnEggs("longisquama_spawn_egg",
             UPEntities.LONGISQUAMA , 0x5e4fa7, 0x7edbdd);
 
-    public static final RegistryObject<ForgeSpawnEggItem> FURCA_EGG = registerSpawnEggs("furcacauda_spawn_egg",
-            UPEntities.FURCA , 0x9a32af, 0xe7cd39);
+    public static final RegistryObject<ForgeSpawnEggItem> JAWLESS_FISH_EGG = registerSpawnEggs("jawless_fish_spawn_egg",
+            UPEntities.JAWLESS_FISH , 0x9a32af, 0xe7cd39);
 
     public static final RegistryObject<ForgeSpawnEggItem> TARTUOSTEUS_EGG = registerSpawnEggs("tartuosteus_spawn_egg",
             UPEntities.TARTUOSTEUS , 0x12352f, 0x73a658);
@@ -639,6 +639,10 @@ public class UPItems {
 
     public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",
             () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157));
+
+    public static final RegistryObject<Item> ENCASED_DISC = ITEMS.register("encased_disc",
+            () -> new RecordItem(15, UPSounds.ENCASED_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157));
+
 
     public static final RegistryObject<Item> PSITTACO_QUIL = ITEMS.register("psittaco_quil",
             () -> new Item(new Item.Properties()));
