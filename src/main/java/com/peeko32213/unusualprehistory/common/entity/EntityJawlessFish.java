@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
@@ -33,9 +34,21 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+
 //TODO LIST
 // - Basically Done, nothing else really needed other than chances in the DNA loot pool
 public class EntityJawlessFish extends EntityBoidFish implements Bucketable, GeoAnimatable, IBookEntity{
+
+    private static final ResourceLocation TEXTURE_CEPHALAPIS = prefix("textures/entity/cephalaspis.png");
+    private static final ResourceLocation TEXTURE_DORYASPIS = prefix("textures/entity/doryaspis.png");
+    private static final ResourceLocation TEXTURE_FURCACAUDA = prefix("textures/entity/furcacauda.png");
+    private static final ResourceLocation TEXTURE_SACAMAMBASPIS = prefix("textures/entity/sacabambaspis.png");
+
+    private static final ResourceLocation MODEL_CEPHALAPIS = prefix("geo/jawless_fish/cephalaspis.geo.json");
+    private static final ResourceLocation MODEL_DORYASPIS = prefix("geo/jawless_fish/doryaspis.geo.json");
+    private static final ResourceLocation MODEL_FURCACAUDA = prefix("geo/jawless_fish/furcacauda.geo.json");
+    private static final ResourceLocation MODEL_SACAMAMBASPIS = prefix("geo/jawless_fish/sacabambaspis.geo.json");
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityJawlessFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityJawlessFish.class, EntityDataSerializers.BOOLEAN);
@@ -49,15 +62,6 @@ public class EntityJawlessFish extends EntityBoidFish implements Bucketable, Geo
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02f, 0.1f, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
-    }
-
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "doryaspis";
-            case 2 -> "cephalaspis";
-            case 3 -> "furcacauda";
-            default -> "sacabambaspis";
-        };
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -139,7 +143,7 @@ public class EntityJawlessFish extends EntityBoidFish implements Bucketable, Geo
     }
 
 
-    public static int getVariant() {
+    public int getVariant() {
         return this.entityData.get(VARIANT);
     }
 
@@ -191,6 +195,39 @@ public class EntityJawlessFish extends EntityBoidFish implements Bucketable, Geo
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
+
+    public ResourceLocation getVariantTexture() {
+        if(getVariant() == 1){
+            return TEXTURE_DORYASPIS;
+        }
+        if(getVariant() == 2)
+        {
+            return TEXTURE_CEPHALAPIS;
+        }
+        if(getVariant() == 3)
+        {
+            return TEXTURE_FURCACAUDA;
+        }
+
+        return TEXTURE_SACAMAMBASPIS;
+    }
+
+    public ResourceLocation getVariantModel() {
+        if(getVariant() == 1){
+            return MODEL_DORYASPIS;
+        }
+        if(getVariant() == 2)
+        {
+            return MODEL_CEPHALAPIS;
+        }
+        if(getVariant() == 3)
+        {
+            return MODEL_FURCACAUDA;
+        }
+
+        return MODEL_SACAMAMBASPIS;
+    }
+
 
     protected <E extends EntityJawlessFish> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(!this.isFromBook()) {
