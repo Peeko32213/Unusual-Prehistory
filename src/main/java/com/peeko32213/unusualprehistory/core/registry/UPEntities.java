@@ -197,7 +197,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "longisquama").toString()));
 
     public static final RegistryObject<EntityType<EntityJawlessFish>> JAWLESS_FISH = ENTITIES.register("jawless_fish",
-            () -> EntityType.Builder.of(EntityJawlessFish::new, MobCategory.WATER_AMBIENT).sized(1.1f, 0.6f)
+            () -> EntityType.Builder.of(EntityJawlessFish::new, MobCategory.WATER_AMBIENT).sized(0.6f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "jawless_fish").toString()));
 
     public static final RegistryObject<EntityType<EntityTartuosteus>> TARTUOSTEUS = ENTITIES.register("tartuosteus",
