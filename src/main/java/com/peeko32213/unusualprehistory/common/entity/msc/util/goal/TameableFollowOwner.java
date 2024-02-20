@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 
 public class TameableFollowOwner extends FollowOwnerGoal {

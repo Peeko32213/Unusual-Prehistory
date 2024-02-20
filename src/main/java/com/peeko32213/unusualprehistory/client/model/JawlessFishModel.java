@@ -1,9 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityHynerpeton;
 import com.peeko32213.unusualprehistory.common.entity.EntityJawlessFish;
-import com.peeko32213.unusualprehistory.common.entity.EntityLeedsichthys;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;

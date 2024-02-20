@@ -27,6 +27,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -96,8 +97,8 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
-        this.goalSelector.addGoal(2, new EntityBalaur.IMeleeAttackGoal());
+        //this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
+        //this.goalSelector.addGoal(2, new EntityBalaur.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new EntityBalaur.BalaurMeleeAttackGoal(this, 1.5F, true));
@@ -138,11 +139,11 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
 
         );
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
@@ -604,7 +605,7 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         public void stop() {
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget((LivingEntity) null);
+                //this.mob.setTarget((LivingEntity) null);
             }
             this.mob.setAnimationState(0);
 
@@ -619,14 +620,13 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
             int animState = this.mob.getAnimationState();
             Vec3 aim = this.mob.getLookAngle();
             Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
+            animState = 25;
 
             switch (animState) {
                 case 21 -> tickClawAttack();
-                case 22 -> tickScratchAttack();
-                case 23 -> tickScratchAttack();
+                case 22, 23 -> tickScratchAttack();
                 case 24 -> tickBiteAttack();
-                case 25 -> tickBiteAttack();
+                case 25 -> tickLatchAttack();
                 case 26 -> tickLatchAttack();
 
                 default -> {
@@ -791,7 +791,7 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         protected void  preformLatchAttack() {
             if (mob.getTarget() != null) {
                 this.mob.getMoveControl().setWantedPosition(mob.getTarget().getX(), mob.getTarget().getY(), mob.getTarget().getZ(), 1.0D);
-                if (mob.getBoundingBox().inflate(0.3F, 0.3F, 0.3F).intersects(mob.getTarget().getBoundingBox()) && !mob.isBittenByMosquito(mob.getTarget()) && mob.latchTime == 0) {
+                if (mob.getBoundingBox().inflate(3F, 3F, 3F).intersects(mob.getTarget().getBoundingBox()) && !mob.isBittenByMosquito(mob.getTarget()) && mob.latchTime == 0) {
                     mob.startRiding(mob.getTarget(), true);
                     if (!mob.level().isClientSide) {
                         UPMessages.sendMSGToAll(new BalaurMountMessage(mob.getId(), mob.getTarget().getId()));

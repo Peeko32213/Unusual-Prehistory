@@ -1,5 +1,7 @@
 package com.peeko32213.unusualprehistory.datagen.loot;
 
+import com.peeko32213.unusualprehistory.common.block.BlockDinosaurLandEggs;
+import com.peeko32213.unusualprehistory.common.block.BlockDinosaurWaterEggs;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -8,15 +10,21 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -123,7 +131,35 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.ZULOAGAE_STAIRS.get());
         dropSelf(UPBlocks.ZULOAGAE_TRAPDOOR.get());
 
+        createPotFlowerItemTable(UPBlocks.POTTED_ARCHAEOSIGILARIA.get(),UPBlocks.ARCHAEOSIGILARIA.get());
+        createPotFlowerItemTable(UPBlocks.POTTED_BENNETTITALES.get(),UPBlocks.BENNETTITALES.get());
+        createPotFlowerItemTable(UPBlocks.POTTED_HORSETAIL.get(),UPBlocks.HORSETAIL.get());
+        createPotFlowerItemTable(UPBlocks.POTTED_LEEFRUCTUS.get(),UPBlocks.LEEFRUCTUS.get());
+        createPotFlowerItemTable(UPBlocks.POTTED_SARACENIA.get(),UPBlocks.SARACENIA.get());
+        createPotFlowerItemTable(UPBlocks.POTTED_GINKGO_SAPLING.get(),UPBlocks.GINKGO_SAPLING.get());
+        createPotFlowerItemTable(UPBlocks.POTTED_PETRIFIED_BUSH.get(),UPBlocks.PETRIFIED_BUSH.get());
+        //createPotFlowerItemTable(UPBlocks.POTTED_FOXXI.get(),UPBlocks.FOXII_SAPLING.get());
+        createPotFlowerItemTable(UPBlocks.POTTED_ZULOGAE.get(),UPBlocks.ZULOAGAE_SAPLING.get());
+        createPotFlowerItemTable(UPBlocks.POTTED_DRYO.get(),UPBlocks.DRYO_SAPLING.get());
 
+        for(RegistryObject<Block> blockRegistryObject : UPBlocks.BLOCKS.getEntries()) {
+            if(blockRegistryObject.get() instanceof BlockDinosaurLandEggs || blockRegistryObject.get() instanceof BlockDinosaurWaterEggs) {
+                createSingleItemTableSilkTouch(blockRegistryObject.get(), Items.AIR);
+            }
+        }
+     }
+    public void createSingleItemTableSilkTouch(Block pBlock, ItemLike pItem) {
+        add(pBlock, createSilkTouchDispatchTable(pBlock, this.applyExplosionCondition(pBlock, LootItem.lootTableItem(pItem))));
+    }
+
+    protected void createPotFlowerItemTable(Block flowerpotBlock, ItemLike pItem) {
+        add(flowerpotBlock ,LootTable.lootTable()
+                .withPool(this.applyExplosionCondition(Blocks.FLOWER_POT, LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(Blocks.FLOWER_POT))))
+                .withPool(this.applyExplosionCondition(pItem, LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(pItem)))));
     }
 
     protected LootTable.Builder createCopperLikeOreDrops(Block pBlock, Item item) {
@@ -143,7 +179,6 @@ public class BlockLootTables extends BlockLootSubProvider {
     }
 
     protected LootTable.Builder createMultipleDrops(Block pBlock, Item item1, Item item2) {
-
         return createSilkTouchDispatchTable(pBlock,
                 this.applyExplosionDecay(pBlock,
                         LootItem.lootTableItem(item1)

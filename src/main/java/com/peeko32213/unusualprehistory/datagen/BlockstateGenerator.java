@@ -12,11 +12,14 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 public class BlockstateGenerator extends BlockStateProvider {
     public BlockstateGenerator(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -198,7 +201,16 @@ public class BlockstateGenerator extends BlockStateProvider {
         buttonBlock(UPBlocks.ZULOAGAE_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
         fenceBlock(UPBlocks.ZULOAGAE_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
         fenceGateBlock(UPBlocks.ZULOAGAE_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
-
+        createPottedPlant(UPBlocks.ARCHAEOSIGILARIA, UPBlocks.POTTED_ARCHAEOSIGILARIA,"cutout");
+        createPottedPlant(UPBlocks.BENNETTITALES, UPBlocks.POTTED_BENNETTITALES,"cutout");
+        createPottedPlant(UPBlocks.HORSETAIL, UPBlocks.POTTED_HORSETAIL,"cutout");
+        createPottedPlant(UPBlocks.LEEFRUCTUS, UPBlocks.POTTED_LEEFRUCTUS,"cutout");
+        createPottedPlant(UPBlocks.SARACENIA, UPBlocks.POTTED_SARACENIA,"cutout");
+        createPottedPlant(UPBlocks.GINKGO_SAPLING, UPBlocks.POTTED_GINKGO_SAPLING,"cutout");
+        createPottedPlant(UPBlocks.PETRIFIED_BUSH, UPBlocks.POTTED_PETRIFIED_BUSH,"cutout");
+        createPottedPlant(UPBlocks.DRYO_SAPLING, UPBlocks.POTTED_DRYO,"cutout");
+        createPottedPlant(UPBlocks.ZULOAGAE_SAPLING, UPBlocks.POTTED_ZULOGAE,"cutout");
+        //createPottedPlant(UPBlocks.FOXII_SAPLING, UPBlocks.POTTED_FOXXI,"cutout");
     }
 
     public void createEgg(Block block){
@@ -420,6 +432,25 @@ public class BlockstateGenerator extends BlockStateProvider {
         return generated(getName(block), new ResourceLocation(UnusualPrehistory.MODID,"item/" + getName(block).replace("eggs", "egg")));
     }
 
+    public ModelFile singleTexture(String name, ResourceLocation parent, String textureKey, ResourceLocation texture, String renderType) {
+        return models().withExistingParent(name, parent)
+                .texture(textureKey, texture).renderType(renderType);
+    }
+
+    private void createPottedPlant(RegistryObject<Block> plant, RegistryObject<Block> pottedPlant, String renderType){
+        ConfiguredModel cFfile = new ConfiguredModel(pottedPlant(name(pottedPlant.get()), blockTexture(plant.get()), renderType));
+        getVariantBuilder(pottedPlant.get()).partialState().setModels(cFfile);
+        //impleBlockItem(plant.get(), file);
+    }
+
+    public ModelFile pottedPlant(String name, ResourceLocation plant, String renderType) {
+        return singleTexture(name, BLOCK_FOLDER + "/flower_pot_cross", "plant", plant, renderType);
+    }
+
+    private ModelFile singleTexture(String name, String parent, String textureKey, ResourceLocation texture, String renderType) {
+        return singleTexture(name, mcLoc(parent), textureKey, texture, renderType);
+    }
+
     private BlockModelBuilder singleTexWaterEgg(Block block) {
         return generated(getName(block), new ResourceLocation(UnusualPrehistory.MODID,"item/" + getName(block)));
     }
@@ -432,6 +463,9 @@ public class BlockstateGenerator extends BlockStateProvider {
         return builder;
     }
 
+    private String name(Block block) {
+        return key(block).getPath();
+    }
 
     @Override
     public String getName() {

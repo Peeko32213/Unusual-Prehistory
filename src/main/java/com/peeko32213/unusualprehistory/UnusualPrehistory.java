@@ -113,6 +113,9 @@ public class UnusualPrehistory {
             addToFlowerPot(UPBlocks.PETRIFIED_BUSH.getId(), UPBlocks.POTTED_PETRIFIED_BUSH);
             addToFlowerPot(UPBlocks.SARACENIA.getId(), UPBlocks.POTTED_SARACENIA);
             addToFlowerPot(UPBlocks.GINKGO_SAPLING.getId(), UPBlocks.POTTED_GINKGO_SAPLING);
+            //addToFlowerPot(UPBlocks.FOXII_SAPLING.getId(), UPBlocks.POTTED_FOXXI);
+            addToFlowerPot(UPBlocks.ZULOAGAE_SAPLING.getId(), UPBlocks.POTTED_ZULOGAE);
+            addToFlowerPot(UPBlocks.DRYO_SAPLING.getId(), UPBlocks.POTTED_DRYO);
 
             //Todo add this to own class
             addToComposter(UPBlocks.HORSETAIL.get().asItem(), 0.4f);

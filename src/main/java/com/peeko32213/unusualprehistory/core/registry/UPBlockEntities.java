@@ -51,11 +51,6 @@ public class UPBlockEntities {
                     BlockEntityType.Builder.of(FruitLootBoxEntity::new,
                             UPBlocks.FRUIT_LOOT_BOX.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<DinosaurLandEggsBlockEntity>> DINO_LAND_EGGS =
-            BLOCK_ENTITIES.register("dino_land_eggs_block_entity", () ->
-                    BlockEntityType.Builder.of(DinosaurLandEggsBlockEntity::new,
-                            UPBlocks.DINO_LAND_EGGS.get()).build(null));
-
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
