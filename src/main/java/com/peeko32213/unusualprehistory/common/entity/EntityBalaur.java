@@ -627,6 +627,7 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                 case 23 -> tickScratchAttack();
                 case 24 -> tickBiteAttack();
                 case 25 -> tickBiteAttack();
+                case 26 -> tickLatchAttack();
 
                 default -> {
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
