@@ -3,6 +3,8 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.arrow.PsittaccoArrow;
+import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
+import com.peeko32213.unusualprehistory.common.entity.eggs.EggSize;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
@@ -11,13 +13,21 @@ import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisP
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBookSnake;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
+import com.peeko32213.unusualprehistory.common.item.DinosaurLandEggItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
@@ -428,8 +438,21 @@ public class UPEntities {
                     .sized(2, 2)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "raiguenrayun").toString()));
 
+
+    public static final RegistryObject<EntityType<DinosaurLandEgg>> DINO_LAND_EGG = ENTITIES.register("dino_land_egg",
+            () -> EntityType.Builder.<DinosaurLandEgg>of(DinosaurLandEgg::new, MobCategory.MISC)
+                    .noSummon()
+                    .sized(1, 1)
+                    .build(prefix("dino_land_egg").toString()));
+
     public static final RegistryObject<EntityType<PsittaccoArrow>> PSITTACCO_ARROW = ENTITIES.register("psittacco_arrow",
             () -> EntityType.Builder.<PsittaccoArrow>of(PsittaccoArrow::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).setCustomClientFactory(PsittaccoArrow::new)
                     .build(prefix("psittacco_arrow").toString()));
+
+    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize,  int hatchTime ,float eggBaseColor, float eggSpotColor) {
+        RegistryObject<T> dino = ENTITIES.register(name, dinosaur);
+        UPItems.ITEMS.register(name+"_egg", () -> new DinosaurLandEggItem(dino, eggSize, hatchTime, eggBaseColor, eggSpotColor));
+        return dino;
+    }
 }

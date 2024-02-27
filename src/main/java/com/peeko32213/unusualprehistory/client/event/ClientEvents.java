@@ -16,6 +16,7 @@ import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntit
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.ThrowableFallingBlockRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
+import com.peeko32213.unusualprehistory.client.render.egg.DinosaurLandEggRenderer;
 import com.peeko32213.unusualprehistory.client.render.tool.FlatMovingThrownItemRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
@@ -304,6 +305,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
         event.registerEntityRenderer(UPEntities.LEEDS_PART.get(), LeedsichthysPartRender::new);
         event.registerEntityRenderer(UPEntities.KIMMER.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
+
         event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new JawlessFishModel()));
         event.registerEntityRenderer(UPEntities.PTERODAUSTRO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<EntityPterodaustro>(ModelLocations.PTERODAUSTRO)));
 
@@ -333,9 +335,9 @@ public final class ClientEvents {
         event.registerBlockEntityRenderer(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);
         EntityRenderers.register(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
 
-        //event.registerBlockEntityRenderer(UPBlockEntities.FRUIT_LOOT_BOX_BLOCK_ENTITY.get(), FruitLootBoxRenderer::new);
+        event.registerEntityRenderer(UPEntities.DINO_LAND_EGG.get(), DinosaurLandEggRenderer::new);
 
-       // MinecraftForge.EVENT_BUS.register(new ClientEvents());
+
         try {
             ItemProperties.register(UPItems.TRIKE_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
             ItemProperties.register(UPItems.VELOCI_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);

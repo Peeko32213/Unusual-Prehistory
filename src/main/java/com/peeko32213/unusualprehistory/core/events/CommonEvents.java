@@ -9,6 +9,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBookSn
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -103,6 +104,8 @@ public class CommonEvents {
         event.put(UPEntities.NELUMBITES.get(), EntityPlant.bakeAttributes().build());
         event.put(UPEntities.QUEREUXIA.get(), EntityPlant.bakeAttributes().build());
         event.put(UPEntities.RAIGUENRAYUN.get(), EntityPlant.bakeAttributes().build());
+
+        event.put(UPEntities.DINO_LAND_EGG.get(), LivingEntity.createLivingAttributes().build());
 
     }
 }
