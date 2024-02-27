@@ -14,40 +14,60 @@
       "item": "minecraft:bone"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:ammonite_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:scau_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:coty_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:stetha_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:dunk_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:jawless_fish_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:diplo_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:hynerp_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:tartuo_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:edapho_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:estemmano_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:scuto_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:arthropleura_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:hyneria_flask"
     }
   ]
 }

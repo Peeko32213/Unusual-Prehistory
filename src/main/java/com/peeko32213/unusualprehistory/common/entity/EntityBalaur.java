@@ -248,7 +248,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                         if (latchTime % 20 == 0 && this.isAlive()) {
                             if (mount.hurt(this.damageSources().mobAttack(this), 5.0F)) {
                                 this.gameEvent(GameEvent.EAT);
-                                this.playSound(SoundEvents.HONEY_DRINK, this.getSoundVolume(), this.getVoicePitch());
                             }
                         }
                         if (latchTime > 81) {
@@ -627,7 +626,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                 case 22, 23 -> tickScratchAttack();
                 case 24 -> tickBiteAttack();
                 case 25 -> tickLatchAttack();
-                case 26 -> tickLatchAttack();
 
                 default -> {
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -755,11 +753,11 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         protected void tickLatchAttack () {
             this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
             this.mob.yBodyRot = this.mob.yHeadRot;
-            this.mob.getNavigation().stop();
             animTime++;
 
             if(animTime==16) {
                 preformLatchAttack();
+                this.mob.getNavigation().stop();
             }
 
             if(animTime>=24) {
@@ -846,9 +844,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                     event.setAndContinue(BALAUR_BITE_1);
                     break;
                 case 25:
-                    event.setAndContinue(BALAUR_BITE_2);
-                    break;
-                case 26:
                     event.setAndContinue(BALAUR_POUNCE_HOLD);
                     break;
                 default:
@@ -869,6 +864,11 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                     }
                     if (this.isInWater()) {
                         event.setAndContinue(BALAUR_SWIM);
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.isPassenger()) {
+                        event.setAndContinue(BALAUR_POUNCE_HOLD);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }

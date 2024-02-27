@@ -77,7 +77,24 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.AMBER_IDOL);
         singleTex(UPItems.LEEDS_CAVIAR);
         singleTex(UPItems.LEEDS_SLICE);
-
+        singleTex(UPItems.PTERY_FLASK);
+        singleTex(UPItems.EDAPHO_FLASK);
+        singleTex(UPItems.PTERYDACTYLUS_FLASK);
+        singleTex(UPItems.ERETMORPHIS_FLASK);
+        singleTex(UPItems.LEEDS_FLASK);
+        singleTex(UPItems.PTERODAUSTRO_FLASK);
+        singleTex(UPItems.XIPHACT_FLASK);
+        singleTex(UPItems.OVIRAPTOR_FLASK);
+        singleTex(UPItems.GLOBIDENS_FLASK);
+        singleTex(UPItems.ARCHELON_FLASK);
+        singleTex(UPItems.ESTEMMENO_FLASK);
+        singleTex(UPItems.ARTHROPLEURA_FLASK);
+        singleTex(UPItems.SCUTO_FLASK);
+        singleTex(UPItems.HYNERIA_FLASK);
+        singleTex(UPItems.PROTOSPHYRAENA_FLASK);
+        singleTex(UPItems.KIMMER_FLASK);
+        singleTex(UPItems.ENCHODUS_FLASK);
+        singleTex(UPItems.IGUANODON_FLASK);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());

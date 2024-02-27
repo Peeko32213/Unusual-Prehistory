@@ -14,60 +14,84 @@
       "item": "minecraft:bone"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:ammonite_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:anuro_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:beelz_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:kentro_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:majunga_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:antarcto_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:austro_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:raptor_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:pachy_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:eryon_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:ulugh_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:tany_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:kapro_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:psittaco_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:pterodaustro_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:pterydactylus_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:eretmorhipis_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:protosphyraena_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:kimmer_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:enchodus_flask"
     }
   ]
 }

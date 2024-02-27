@@ -90,6 +90,25 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.DIPLO_FLASK.get())
                 .add(UPItems.HYNERP_FLASK.get())
                 .add(UPItems.BALAUR_FLASK.get())
+                .add(UPItems.PTERY_FLASK.get())
+                .add(UPItems.EDAPHO_FLASK.get())
+                .add(UPItems.HYNERP_FLASK.get())
+                .add(UPItems.PTERYDACTYLUS_FLASK.get())
+                .add(UPItems.ERETMORPHIS_FLASK.get())
+                .add(UPItems.LEEDS_FLASK.get())
+                .add(UPItems.PTERODAUSTRO_FLASK.get())
+                .add(UPItems.XIPHACT_FLASK.get())
+                .add(UPItems.OVIRAPTOR_FLASK.get())
+                .add(UPItems.GLOBIDENS_FLASK.get())
+                .add(UPItems.ARCHELON_FLASK.get())
+                .add(UPItems.ESTEMMENO_FLASK.get())
+                .add(UPItems.SCUTO_FLASK.get())
+                .add(UPItems.ARTHROPLEURA_FLASK.get())
+                .add(UPItems.HYNERIA_FLASK.get())
+                .add(UPItems.PROTOSPHYRAENA_FLASK.get())
+                .add(UPItems.KIMMER_FLASK.get())
+                .add(UPItems.ENCHODUS_FLASK.get())
+                .add(UPItems.IGUANODON_FLASK.get())
         ;
 
         tag(UPTags.FOSSILS)
@@ -311,9 +330,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.FOXXI_BUTTON.get().asItem())
                 .add(UPBlocks.DRYO_BUTTON.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get().asItem())
-                .add(UPBlocks.ZULOAGAE_BUTTON.get().asItem());
+                .add(UPBlocks.ZULOAGAE_BUTTON.get().asItem())
         ;
-
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_MESOZOIC)
                 .add(Items.COAL)
@@ -333,8 +351,13 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.TANY_FLASK.get())
                 .add(UPItems.PSITTACO_FLASK.get())
                 .add(UPItems.KAPRO_FLASK.get())
+                .add(UPItems.PTERODAUSTRO_FLASK.get())
+                .add(UPItems.PTERYDACTYLUS_FLASK.get())
+                .add(UPItems.ERETMORPHIS_FLASK.get())
+                .add(UPItems.PROTOSPHYRAENA_FLASK.get())
+                .add(UPItems.KIMMER_FLASK.get())
+                .add(UPItems.ENCHODUS_FLASK.get())
         ;
-
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_AMBER)
                 .add(UPItems.BRACHI_FLASK.get())
@@ -344,6 +367,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.ENCRUSTED_FLASK.get())
                 .add(UPItems.LONGI_FLASK.get())
                 .add(UPItems.BALAUR_FLASK.get())
+                .add(UPItems.OVIRAPTOR_FLASK.get())
+                .add(UPItems.IGUANODON_FLASK.get())
         ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_ENCRUSTED)
@@ -371,6 +396,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.TARTUO_FLASK.get())
                 .add(UPItems.DIPLO_FLASK.get())
                 .add(UPItems.HYNERP_FLASK.get())
+                .add(UPItems.EDAPHO_FLASK.get())
+                .add(UPItems.ESTEMMENO_FLASK.get())
+                .add(UPItems.SCUTO_FLASK.get())
+                .add(UPItems.ARTHROPLEURA_FLASK.get())
+                .add(UPItems.HYNERIA_FLASK.get())
         ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_PLANT)
@@ -416,6 +446,10 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_OPAL)
                 .add(UPItems.PALAEO_FLASK.get())
                 .add(UPItems.OPHIO_FLASK.get())
+                .add(UPItems.LEEDS_FLASK.get())
+                .add(UPItems.XIPHACT_FLASK.get())
+                .add(UPItems.GLOBIDENS_FLASK.get())
+                .add(UPItems.ARCHELON_FLASK.get())
         ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_RAW_COTY)

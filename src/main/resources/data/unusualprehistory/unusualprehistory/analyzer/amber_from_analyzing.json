@@ -2,32 +2,40 @@
   "input": ["unusualprehistory:amber_fossil"],
   "entries": [
     {
-      "weight": 15,
+      "weight": 50,
+      "item": "unusualprehistory:amber_shard"
+    },
+    {
+      "weight": 5,
       "item": "unusualprehistory:brachi_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:rex_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:trike_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:hwacha_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:encrusted_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:balaur_flask"
     },
     {
-      "weight": 15,
+      "weight": 5,
       "item": "unusualprehistory:longisquama_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:iguanodon_flask"
     }
   ]
 }

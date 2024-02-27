@@ -47,6 +47,7 @@ public class ModelLocations {
     public static ModelData ANTARCTOPELTA = new ModelData("antarctopelta");
     public static ModelData AUSTRORAPTOR = new ModelData("austroraptor");
     public static ModelData ERYON = new ModelData("eryon");
+    public static ModelData PTERODAUSTRO = new ModelData("pterodaustro");
 
     public static class ModelData {
         private ResourceLocation model;

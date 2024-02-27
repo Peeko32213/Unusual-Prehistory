@@ -267,6 +267,62 @@ public class UPItems {
 
     public static final RegistryObject<Item> BALAUR_FLASK = ITEMS.register("balaur_flask",
             () -> new Item(new Item.Properties()));
+
+
+    public static final RegistryObject<Item> PTERY_FLASK = ITEMS.register("ptery_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> EDAPHO_FLASK = ITEMS.register("edapho_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PTERYDACTYLUS_FLASK = ITEMS.register("pterydactylus_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ERETMORPHIS_FLASK = ITEMS.register("eretmorhipis_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> LEEDS_FLASK = ITEMS.register("leeds_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PTERODAUSTRO_FLASK = ITEMS.register("pterodaustro_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> XIPHACT_FLASK = ITEMS.register("xiphact_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> OVIRAPTOR_FLASK = ITEMS.register("oviraptor_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> GLOBIDENS_FLASK = ITEMS.register("globidens_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ARCHELON_FLASK = ITEMS.register("archelon_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ESTEMMENO_FLASK = ITEMS.register("estemmano_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ARTHROPLEURA_FLASK = ITEMS.register("arthropleura_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> SCUTO_FLASK = ITEMS.register("scuto_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> HYNERIA_FLASK = ITEMS.register("hyneria_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PROTOSPHYRAENA_FLASK = ITEMS.register("protosphyraena_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> KIMMER_FLASK = ITEMS.register("kimmer_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ENCHODUS_FLASK = ITEMS.register("enchodus_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> IGUANODON_FLASK = ITEMS.register("iguanodon_flask",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FROG_SALIVA = ITEMS.register("frog_saliva",
@@ -487,6 +543,9 @@ public class UPItems {
 
     public static final RegistryObject<ForgeSpawnEggItem> LEEDS_EGG =registerSpawnEggs("leeds_spawn_egg",
             UPEntities.LEEDSICHTHYS , 0x5a6b75, 0xe8eaea);
+
+    public static final RegistryObject<ForgeSpawnEggItem> PTERODAUSTRO_EGG =registerSpawnEggs("pterodaustro_spawn_egg",
+            UPEntities.PTERODAUSTRO , 0xc93660, 0xfff3fd);
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,

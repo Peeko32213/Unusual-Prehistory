@@ -211,6 +211,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.KIMMER_EGG, "Kimmeridgebrachypteraeschnidium Spawn Egg");
         addItem(UPItems.ARCHELON_EGG, "Archelon Spawn Egg");
         addItem(UPItems.LEEDS_EGG, "Leedsichthys Spawn Egg");
+        addItem(UPItems.PTERODAUSTRO_EGG, "Pterodaustro Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -295,6 +296,25 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.DIPLO_FLASK, "Diplocaulus DNA Flask");
         addItem(UPItems.HYNERP_FLASK, "Hynerpeton DNA Flask");
         addItem(UPItems.BALAUR_FLASK, "Balaur DNA Flask");
+
+        addItem(UPItems.PTERY_FLASK, "Pterygotus DNA Flask");
+        addItem(UPItems.EDAPHO_FLASK, "Edaphosaurus DNA Flask");
+        addItem(UPItems.PTERYDACTYLUS_FLASK, "Pterydactylus DNA Flask");
+        addItem(UPItems.ERETMORPHIS_FLASK, "Eretmorphis DNA Flask");
+        addItem(UPItems.LEEDS_FLASK, "Leedsichthys DNA Flask");
+        addItem(UPItems.PTERODAUSTRO_FLASK, "Pterodaustro DNA Flask");
+        addItem(UPItems.XIPHACT_FLASK, "Xiphactinus DNA Flask");
+        addItem(UPItems.OVIRAPTOR_FLASK, "Oviraptor DNA Flask");
+        addItem(UPItems.GLOBIDENS_FLASK, "Globidens DNA Flask");
+        addItem(UPItems.ARCHELON_FLASK, "Archelon DNA Flask");
+        addItem(UPItems.ESTEMMENO_FLASK, "Estemmenosuchus DNA Flask");
+        addItem(UPItems.ARTHROPLEURA_FLASK, "Arthropleura DNA Flask");
+        addItem(UPItems.SCUTO_FLASK, "Scutosaurus DNA Flask");
+        addItem(UPItems.HYNERIA_FLASK, "Hyneria DNA Flask");
+        addItem(UPItems.PROTOSPHYRAENA_FLASK, "Protosphyraena DNA Flask");
+        addItem(UPItems.KIMMER_FLASK, "Kimmeridgebrachypteraeschnidium DNA Flask");
+        addItem(UPItems.ENCHODUS_FLASK, "Enchodus DNA Flask");
+        addItem(UPItems.IGUANODON_FLASK, "Iguanodon DNA Flask");
 
         //CORALS
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");
@@ -521,6 +541,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.KIMMER, "Kimmeridgebrachypteraeschnidium");
         addEntityType(UPEntities.ARCHELON, "Archelon");
         addEntityType(UPEntities.LEEDSICHTHYS, "Leedsichthys");
+        addEntityType(UPEntities.PTERODAUSTRO, "Pterodaustro");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");

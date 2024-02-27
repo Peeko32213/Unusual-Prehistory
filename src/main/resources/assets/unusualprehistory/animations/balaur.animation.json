@@ -5794,6 +5794,11 @@
 					"rotation": {
 						"vector": ["20+math.sin(query.anim_time*720-120)*20", 0, 0]
 					}
+				},
+				"root": {
+					"rotation": {
+						"vector": [0, -180, 0]
+					}
 				}
 			}
 		}
