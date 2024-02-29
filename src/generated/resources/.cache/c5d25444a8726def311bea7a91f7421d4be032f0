@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-26T10:43:07.7806662	Item Models: unusualprehistory
+// 1.20.1	2024-02-27T10:32:49.2783711	Item Models: unusualprehistory
 b2ddf74df63b61d13d834643f401749b7f334d89 assets/unusualprehistory/models/item/amber_idol.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ammon_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/antarcto_spawn_egg.json
@@ -85,6 +85,7 @@ c9ac9aac53d4a13c41a5bff2bf1f3429b47fa850 assets/unusualprehistory/models/item/ps
 2ff39643db9094b50fba201c5b4ecca6a2b199fc assets/unusualprehistory/models/item/psittaco_quil.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/psittaco_spawn_egg.json
 86bfec7c83e03848c915a136c2a06d5ac69bb73e assets/unusualprehistory/models/item/pterodaustro_flask.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/pterodaustro_spawn_egg.json
 143e0e7e3bac31d38fbcfcdd065660d5b38b48ba assets/unusualprehistory/models/item/pterydactylus_flask.json
 67e51d86d2a1c881d28b24a3e159f70b4dc3397b assets/unusualprehistory/models/item/ptery_flask.json
 772e410e0e76a961c64ec65e8ee093c422cbe639 assets/unusualprehistory/models/item/raiguenrayun_flask.json

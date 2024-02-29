@@ -61,10 +61,6 @@ public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEn
     public int ringBufferIndex = -1;
     private boolean isLandNavigator;
     private int timeFlying;
-    private static final RawAnimation ANURO_WALK = RawAnimation.begin().thenLoop("animation.anuro.walk");
-    private static final RawAnimation ANURO_IDLE = RawAnimation.begin().thenLoop("animation.anuro.idle");
-    private static final RawAnimation ANURO_FLY = RawAnimation.begin().thenLoop("animation.anuro.fly");
-    private static final RawAnimation ANURO_BITE = RawAnimation.begin().thenPlay("animation.anuro.bite");
 
     private static final RawAnimation PTERODAUSTRO_IDLE = RawAnimation.begin().thenPlay("animation.pterodaustro.idle");
     private static final RawAnimation PTERODAUSTRO_SIT = RawAnimation.begin().thenPlay("animation.pterodaustro.sit");
@@ -313,25 +309,6 @@ public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEn
         return position;
     }
 
-    @Override
-    public boolean doHurtTarget(Entity target) {
-        boolean shouldHurt;
-        float damage = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        float knockback = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        if (target instanceof LivingEntity livingEntity) {
-            damage += livingEntity.getMobType().equals(MobType.ARTHROPOD) ? damage : 0;
-            knockback += (float) EnchantmentHelper.getKnockbackBonus(this);
-        }
-        if (shouldHurt = target.hurt(this.damageSources().mobAttack(this), damage)) {
-            if (knockback > 0.0f && target instanceof LivingEntity) {
-                ((LivingEntity)target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float)Math.PI / 180)), -Mth.cos(this.getYRot() * ((float)Math.PI / 180)));
-                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
-            }
-            this.doEnchantDamageEffects(this, target);
-            this.setLastHurtMob(target);
-        }
-        return shouldHurt;
-    }
 
 
     @Override
@@ -347,28 +324,28 @@ public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEn
             return event.setAndContinue(PTERODAUSTRO_WALK);
 
         }
-        if (!event.isMoving() && this.onGround() && this.onGround()) {
-            if (this.isStillEnough() && random.nextInt(100) == 0) {
+        else if (!event.isMoving() && this.onGround() && this.onGround() && random.nextInt(100) == 0) {
                 float rand = random.nextFloat();
                 if (rand < 0.15F) {
-                    return event.setAndContinue(PTERODAUSTRO_SIT);
-                }
-                if (rand < 0.66F) {
-                    return event.setAndContinue(PTERODAUSTRO_DISPLAY);
-                }
-                if (rand < 0.77F) {
                     return event.setAndContinue(PTERODAUSTRO_FLAP);
                 }
-                return event.setAndContinue(PTERODAUSTRO_IDLE);
+                if (rand < 0.66F) {
+                    return event.setAndContinue(PTERODAUSTRO_SIT);
+                }
+                if (rand < 0.77F) {
+                    return event.setAndContinue(PTERODAUSTRO_DISPLAY);
+                }
+                if (rand < 0.90F) {
+                    return event.setAndContinue(PTERODAUSTRO_IDLE);
             }
-        }
-        if (!event.isMoving()) {
-            return event.setAndContinue(PTERODAUSTRO_HOVER);
         }
         if (this.isInWaterOrBubble()) {
             return event.setAndContinue(PTERODAUSTRO_SWIM);
         }
-        return event.setAndContinue(PTERODAUSTRO_FLY);
+        if (this.isFlying()){
+            return event.setAndContinue(PTERODAUSTRO_FLY);
+        }
+        return event.setAndContinue(PTERODAUSTRO_IDLE);
     }
 
     private boolean isStillEnough() {
