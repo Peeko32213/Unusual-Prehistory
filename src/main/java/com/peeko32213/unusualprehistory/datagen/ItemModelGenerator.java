@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.datagen;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -100,7 +101,10 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.ENCHODUS_FLASK);
         singleTex(UPItems.IGUANODON_FLASK);
 
-        addDinoEgg(UPEntities.TALPANAS);
+        for(RegistryObject<?> object : UPEntities.dinos) {
+                addDinoEgg(object.getId());
+        }
+
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());
@@ -117,6 +121,9 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     public void addDinoEgg(Supplier<? extends EntityType<?>> dino) {
         generated( dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", prefix("item/" + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "")  + "_egg"));
+    }
+    public void addDinoEgg(ResourceLocation dino) {
+        generated( dino.getPath() + "_entity_egg", prefix("item/" + dino.getPath()  + "_egg"));
     }
 
 

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/megalania_egg"
+    "layer0": "unusualprehistory:item/psittaco_egg"
   }
 }

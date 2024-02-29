@@ -170,6 +170,7 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
 
         if (!level().isClientSide) {
             BlockPos pos = dinosaurToSpawn.blockPosition();
+            showBreakingParticles();
             level().addFreshEntity(dinosaurToSpawn);
             this.spawnAnim((ServerLevel) level(), pos);
         }
@@ -189,15 +190,37 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
     private static final ResourceLocation MASSIVE_EGG_SPOTS = prefix("textures/entity/eggs/massive_egg_spots.png");
     private static final ResourceLocation MASSIVE_EGG_MODEL = prefix("geo/eggs/massive_egg.geo.json");
     private static final ResourceLocation MASSIVE_EGG_ANIMATIONS = prefix("animations/eggs/massive_egg.animation.json");
+
+
+    private static final ResourceLocation SMALL_EGG_BASE = prefix("textures/entity/eggs/small_egg_base.png");
+    private static final ResourceLocation SMALL_EGG_SLIGHTLY_CRACKED = prefix("textures/entity/eggs/small_egg_slightly_cracked.png");
+    private static final ResourceLocation SMALL_EGG_VERY_CRACKED = prefix("textures/entity/eggs/small_egg_very_cracked.png");
+    private static final ResourceLocation SMALL_EGG_SPOTS = prefix("textures/entity/eggs/small_egg_spots.png");
+    private static final ResourceLocation SMALL_EGG_MODEL = prefix("geo/eggs/small_egg.geo.json");
+    private static final ResourceLocation SMALL_EGG_ANIMATIONS = prefix("animations/eggs/small_egg.animation.json");
+
+    private static final ResourceLocation MEDIUM_EGG_BASE = prefix("textures/entity/eggs/medium_egg_base.png");
+    private static final ResourceLocation MEDIUM_EGG_SLIGHTLY_CRACKED = prefix("textures/entity/eggs/medium_egg_slightly_cracked.png");
+    private static final ResourceLocation MEDIUM_EGG_VERY_CRACKED = prefix("textures/entity/eggs/medium_egg_very_cracked.png");
+    private static final ResourceLocation MEDIUM_EGG_SPOTS = prefix("textures/entity/eggs/medium_egg_spots.png");
+    private static final ResourceLocation MEDIUM_EGG_MODEL = prefix("geo/eggs/medium_egg.geo.json");
+    private static final ResourceLocation MEDIUM_EGG_ANIMATIONS = prefix("animations/eggs/medium_egg.animation.json");
+
+    private static final ResourceLocation NORMAL_EGG_BASE = prefix("textures/entity/eggs/normal_egg_base.png");
+    private static final ResourceLocation NORMAL_EGG_SLIGHTLY_CRACKED = prefix("textures/entity/eggs/normal_egg_slightly_cracked.png");
+    private static final ResourceLocation NORMAL_EGG_VERY_CRACKED = prefix("textures/entity/eggs/normal_egg_very_cracked.png");
+    private static final ResourceLocation NORMAL_EGG_SPOTS = prefix("textures/entity/eggs/normal_egg_spots.png");
+    private static final ResourceLocation NORMAL_EGG_MODEL = prefix("geo/eggs/normal_egg.geo.json");
+    private static final ResourceLocation NORMAL_EGG_ANIMATIONS = prefix("animations/eggs/normal_egg.animation.json");
     @Override
     public ResourceLocation getTexture() {
         int scale = getModelScale();
+        scale = 3;
         return switch (scale) {
-            case 0 -> null;
-            case 1 -> null;
-            case 2 -> null;
+            case 1 -> NORMAL_EGG_BASE;
+            case 2 -> MEDIUM_EGG_BASE;
             case 3 -> MASSIVE_EGG_BASE;
-            default -> null;
+            default -> SMALL_EGG_BASE;
         };
     }
 
@@ -205,12 +228,12 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
     @Override
     public ResourceLocation getModel() {
         int scale = getModelScale();
+        scale = 3;
         return switch (scale) {
-            case 0 -> null;
-            case 1 -> null;
-            case 2 -> null;
+            case 1 -> NORMAL_EGG_MODEL;
+            case 2 -> MEDIUM_EGG_MODEL;
             case 3 -> MASSIVE_EGG_MODEL;
-            default -> null;
+            default -> SMALL_EGG_MODEL;
         };
     }
 
@@ -218,36 +241,25 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
     public ResourceLocation getCrackTexture() {
         int hatchCount = getHatchCount();
         int scale = getModelScale();
+        scale = 3;
         if(hatchCount == 1)
         {
             return switch (scale) {
-                case 0 -> null;
-                case 1 -> null;
-                case 2 -> null;
+                case 1 -> NORMAL_EGG_SLIGHTLY_CRACKED;
+                case 2 -> MEDIUM_EGG_SLIGHTLY_CRACKED;
                 case 3 -> MASSIVE_EGG_SLIGHTLY_CRACKED;
-                default -> null;
+                default -> SMALL_EGG_SLIGHTLY_CRACKED;
             };
         }
         if(hatchCount == 2)
         {
             return switch (scale) {
-                case 0 -> null;
-                case 1 -> null;
-                case 2 -> null;
+                case 1 -> NORMAL_EGG_VERY_CRACKED;
+                case 2 -> MEDIUM_EGG_VERY_CRACKED;
                 case 3 -> MASSIVE_EGG_VERY_CRACKED;
-                default -> null;
+                default -> SMALL_EGG_VERY_CRACKED;
             };
         }
-        //if(hatchCount == 3)
-        //{
-        //    return switch (scale) {
-        //        case 0 -> null;
-        //        case 1 -> null;
-        //        case 2 -> null;
-        //        case 3 -> null;
-        //        default -> null;
-        //    };
-        //}
 
         return null;
     }
@@ -255,24 +267,24 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
     @Override
     public ResourceLocation getSpotTexture() {
         int scale = getModelScale();
+        scale = 3;
         return switch (scale) {
-            case 0 -> null;
-            case 1 -> null;
-            case 2 -> null;
+            case 1 -> NORMAL_EGG_SPOTS;
+            case 2 -> MEDIUM_EGG_SPOTS;
             case 3 -> MASSIVE_EGG_SPOTS;
-            default -> null;
+            default -> SMALL_EGG_SPOTS;
         };
     }
 
     @Override
     public ResourceLocation getAnimation() {
         int scale = getModelScale();
+        scale = 3;
         return switch (scale) {
-            case 0 -> null;
-            case 1 -> null;
-            case 2 -> null;
+            case 1 -> NORMAL_EGG_ANIMATIONS;
+            case 2 -> MEDIUM_EGG_ANIMATIONS;
             case 3 -> MASSIVE_EGG_ANIMATIONS;
-            default -> null;
+            default -> SMALL_EGG_ANIMATIONS;
         };
     }
 
@@ -311,8 +323,6 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(HATCH_COUNT, 0);
-        //this.maxHatchTime = 1000000;
-
     }
 
     @Override

@@ -198,7 +198,7 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
         this.level().playSound((Player)null, this.getX(), this.getY(), this.getZ(), SoundEvents.TURTLE_EGG_BREAK, this.getSoundSource(), 1.0F, 1.0F);
     }
 
-    private void showBreakingParticles() {
+    public void showBreakingParticles() {
         if (this.level() instanceof ServerLevel) {
             //((ServerLevel)this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OAK_PLANKS.defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, (double)(this.getBbWidth() / 4.0F), (double)(this.getBbHeight() / 4.0F), (double)(this.getBbWidth() / 4.0F), 0.05D);
             ((ServerLevel)this.level()).sendParticles(ParticleTypes.EGG_CRACK, this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, (double)(this.getBbWidth() / 4.0F), (double)(this.getBbHeight() / 4.0F), (double)(this.getBbWidth() / 4.0F), 0.05D);

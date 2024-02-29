@@ -171,38 +171,39 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.STETHA_EGG, "Stethacanthus Spawn Egg");
         addItem(UPItems.DUNK_EGG, "Dunkleosteus Spawn Egg");
         addItem(UPItems.MAJUNGA_EGG, "Majungasaurus Spawn Egg");
-        addItem(UPItems.ANURO_EGG, "Anurognathus Spawn Egg");
+        addDinoEgg(UPEntities.ANURO, "Anurognathus");
         addItem(UPItems.BEELZ_EGG, "Beelzebufo Spawn Egg");
-        addItem(UPItems.COTY_EGG, "Cotylorhynchus Spawn Egg");
+        addDinoEgg(UPEntities.COTY, "Cotylorhynchus");
         addItem(UPItems.SCAU_EGG, "Scaumenacia Spawn Egg");
-        addItem(UPItems.BRACHI_EGG, "Brachiosaurus Spawn Egg");
-        addItem(UPItems.REX_EGG, "Tyrannosaurus Rex Spawn Egg");
-        addItem(UPItems.VELOCI_EGG, "Velociraptor Spawn Egg");
-        addItem(UPItems.TRIKE_EGG, "Triceratops Spawn Egg");
-        addItem(UPItems.PACHY_EGG, "Pachycephalosaurus Spawn Egg");
-        addItem(UPItems.ENCRUSTED_EGG, "Encrusted Spawn Egg");
+        addDinoEgg(UPEntities.BRACHI, "Brachiosaurus");
+        addDinoEgg(UPEntities.REX, "Tyrannosaurus Rex");
+        addDinoEgg(UPEntities.VELOCI, "Velociraptor");
+        addDinoEgg(UPEntities.TRIKE, "Triceratops");
+        addDinoEgg(UPEntities.PACHY, "Pachycephalosaurus");
+        addDinoEgg(UPEntities.ENCRUSTED, "Encrusted");
         addItem(UPItems.ERYON_EGG, "Eryon Spawn Egg");
-        addItem(UPItems.AUSTRO_EGG, "Austroraptor Spawn Egg");
-        addItem(UPItems.ANTARCO_EGG, "Antarctopelta Spawn Egg");
-        addItem(UPItems.ULUG_EGG, "Ulughbegsaurus Spawn Egg");
-        addItem(UPItems.KENTRO_EGG, "Kentrosaurus Spawn Egg");
-        addItem(UPItems.HWACHA_EGG, "Hwachavenator Spawn Egg");
+        addDinoEgg(UPEntities.AUSTRO, "Austroraptor");
+        addDinoEgg(UPEntities.ANTARCO, "Antarctopelta");
+        addDinoEgg(UPEntities.ULUG, "Ulughbegsaurus");
+        addDinoEgg(UPEntities.KENTRO, "Kentrosaurus");
+        addDinoEgg(UPEntities.HWACHA, "Hwachavenator");
         //addItem(UPItems.TALPANAS_EGG, "Talpanas Spawn Egg");
-        addItem(UPItems.GIGANTO_EGG, "Gigantopithecus Spawn Egg");
-        addItem(UPItems.BARINA_EGG, "Barinasuchus Spawn Egg");
+        addItem(UPItems.GIGANTO_EGG, "Gigantopithecus");
+        addDinoEgg(UPEntities.BARINASUCHUS, "Barinasuchus Spawn Egg");
         addItem(UPItems.MEGATH_EGG, "Megatherium Spawn Egg");
         addItem(UPItems.SMILO_EGG, "Smilodon Spawn Egg");
         addItem(UPItems.PARACER_EGG, "Paraceratherium Spawn Egg");
         addItem(UPItems.MAMMOTH_EGG, "Mammoth Spawn Egg");
-        addItem(UPItems.MEGALANIA_EGG, "Megalania Spawn Egg");
+        addDinoEgg(UPEntities.MEGALANIA, "Megalania");
+        addDinoEgg(UPEntities.MAJUNGA, "Majunga", false);
         addItem(UPItems.PALAEOPHIS_EGG, "Palaeolophis Spawn Egg");
         addItem(UPItems.SLUDGE_EGG, "Sludge Spawn Egg");
         addItem(UPItems.OTAROCYON_EGG, "Otarocyon Spawn Egg");
-        addItem(UPItems.LONGISQUAMA_EGG, "Longisquama Spawn Egg");
+        addDinoEgg(UPEntities.LONGISQUAMA, "Longisquama");
         addItem(UPItems.JAWLESS_FISH_EGG, "Jawless Fish Spawn Egg");
         addItem(UPItems.TARTUOSTEUS_EGG, "Tartuosteus Spawn Egg");
-        addItem(UPItems.PSITTACO_EGG, "Psittacosaurus Spawn Egg");
-        addItem(UPItems.TANY_EGG, "Tanystropheus Spawn Egg");
+        addDinoEgg(UPEntities.PSITTACO, "Psittacosaurus");
+        addDinoEgg(UPEntities.TANY, "Tanystropheus");
         addItem(UPItems.KAPROSUCUHS_EGG, "Kaprosuchus Spawn Egg");
         addItem(UPItems.PSILOPTERUS_EGG, "Psilopterus Spawn Egg");
         addItem(UPItems.DIPLOCAULUS_EGG, "Diplocaulus Spawn Egg");
@@ -922,7 +923,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBETranslatable("cultivator", "Cultivator");
         addBETranslatable("cultivator_jei", "Cultivator");
 
-        addDinoEgg(UPEntities.TALPANAS, "Talpanas Egg");
+        addDinoEgg(UPEntities.TALPANAS, "Talpanas");
     }
 
     @Override
@@ -934,11 +935,19 @@ public class LanguageGenerator extends LanguageProvider {
         add(UnusualPrehistory.MODID + ".blockentity." + beName, name);
     }
 
-
     public void addDinoEgg(Supplier<? extends EntityType<?>> dino, String name) {
-        add("item.unusualprehistory." + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", name);
+        addDinoEgg(dino, name, true);
+    }
+    public void addDinoEgg(Supplier<? extends EntityType<?>> dino, String name, boolean addSpawnEgg) {
+        add("item.unusualprehistory." + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", name + " Egg");
+        if(addSpawnEgg) {
+            addDinoSpawnEgg(dino, name);
+        }
     }
 
+    public void addDinoSpawnEgg(Supplier<? extends EntityType<?>> dino, String name) {
+        add("item.unusualprehistory." + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_spawn_egg", name + " Spawn Egg");
+    }
 
     public void addSound(Supplier<? extends SoundEvent> key, String name){
         add(UnusualPrehistory.MODID + ".sound.subtitle." + key.get().getLocation().getPath(), name);

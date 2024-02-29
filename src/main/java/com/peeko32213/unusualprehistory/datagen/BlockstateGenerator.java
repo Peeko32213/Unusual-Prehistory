@@ -68,18 +68,18 @@ public class BlockstateGenerator extends BlockStateProvider {
         //This one makes a json file with default models as template_medium_eggs, etc as parent
         createEggDefaultMedium(UPBlocks.TRIKE_EGG.get());
         createEggDefaultMedium(UPBlocks.REX_EGG.get());
-        createCustomEgg(UPBlocks.ULUGH_EGG.get(), "majunga");
-        createCustomEgg(UPBlocks.ANTARCO_EGG.get(), "majunga");
-        createCustomEgg(UPBlocks.KENTRO_EGG.get(), "majunga");
-        createCustomEgg(UPBlocks.HWACHA_EGG.get(), "majunga");
-        createCustomEgg(UPBlocks.AUSTRO_EGG.get(), "majunga");
-        createEggDefaultSmall(UPBlocks.RAPTOR_EGG.get());
+        createCustomEggCustom(UPBlocks.ULUGH_EGG.get(), "majunga", "ulughbegsaurus_egg");
+        createCustomEggCustom(UPBlocks.ANTARCO_EGG.get(), "majunga", "antarctopelta_eggs");
+        createCustomEggCustom(UPBlocks.KENTRO_EGG.get(), "majunga", "kentrosaurus_egg");
+        createCustomEggCustom(UPBlocks.HWACHA_EGG.get(), "majunga", "hwachavenator_egg");
+        createCustomEggCustom(UPBlocks.AUSTRO_EGG.get(), "majunga", "austroraptor_eggs");
+        createEggDefaultSmallCustom(UPBlocks.RAPTOR_EGG.get(), "veloci_eggs");
         createEggDefaultSmall(UPBlocks.PACHY_EGG.get());
         createSingleEgg(UPBlocks.TALPANAS_EGG.get());
-        createEggDefaultSmall(UPBlocks.BARINA_EGG.get());
-        createEggDefaultMedium(UPBlocks.MEGALA_EGG.get());
-        createEgg(UPBlocks.KAPRO_EGG.get());
-        createEgg(UPBlocks.LONGI_EGG.get());
+        createEggDefaultSmallCustom(UPBlocks.BARINA_EGG.get(), "barinasuchus_eggs");
+        createEggDefaultMediumCustom(UPBlocks.MEGALA_EGG.get(), "megalania_eggs");
+        createEggCustom(UPBlocks.KAPRO_EGG.get(), "kaprosuchus_egg");
+        createEggCustom(UPBlocks.LONGI_EGG.get(), "longisquama_egg");
         createEgg(UPBlocks.PSITTACO_EGG.get());
         createEgg(UPBlocks.TANY_EGG.get());
 
@@ -213,6 +213,15 @@ public class BlockstateGenerator extends BlockStateProvider {
         //createPottedPlant(UPBlocks.FOXII_SAPLING, UPBlocks.POTTED_FOXXI,"cutout");
     }
 
+
+    public void createEggCustom(Block block, String name){
+        createEgg(block, "");
+        createEgg(block, "two_");
+        createEgg(block, "three_");
+        createEgg(block, "four_");
+        eggBlockVariantY(block);
+        singleTexCustom(block,name);
+    }
     public void createEgg(Block block){
         createEgg(block, "");
         createEgg(block, "two_");
@@ -220,6 +229,14 @@ public class BlockstateGenerator extends BlockStateProvider {
         createEgg(block, "four_");
         eggBlockVariantY(block);
         singleTex(block);
+    }
+    public void createCustomEggCustom(Block block, String modifier, String name){
+        createCustomEgg(block, "", modifier);
+        createCustomEgg(block, "two_", modifier);
+        createCustomEgg(block, "three_", modifier);
+        createCustomEgg(block, "four_", modifier);
+        eggBlockVariantY(block);
+        singleTexCustom(block,name);
     }
 
     public void createCustomEgg(Block block, String modifier){
@@ -231,6 +248,15 @@ public class BlockstateGenerator extends BlockStateProvider {
         singleTex(block);
     }
 
+    public void createEggDefaultSmallCustom(Block block, String name){
+        createEggDefaultSmall(block, "");
+        createEggDefaultSmall(block, "two_");
+        createEggDefaultSmall(block, "three_");
+        createEggDefaultSmall(block, "four_");
+        eggBlockVariantY(block);
+        singleTexCustom(block,name);
+    }
+
     public void createEggDefaultSmall(Block block){
         createEggDefaultSmall(block, "");
         createEggDefaultSmall(block, "two_");
@@ -239,7 +265,14 @@ public class BlockstateGenerator extends BlockStateProvider {
         eggBlockVariantY(block);
         singleTex(block);
     }
-
+    public void createEggDefaultMediumCustom(Block block, String name){
+        createEggDefaultMedium(block, "");
+        createEggDefaultMedium(block, "two_");
+        createEggDefaultMedium(block, "three_");
+        createEggDefaultMedium(block, "four_");
+        eggBlockVariantY(block);
+        singleTexCustom(block,name);
+    }
     public void createEggDefaultMedium(Block block){
         createEggDefaultMedium(block, "");
         createEggDefaultMedium(block, "two_");
@@ -427,6 +460,10 @@ public class BlockstateGenerator extends BlockStateProvider {
             case 4 -> s;
             default -> throw new UnsupportedOperationException();
         };
+    }
+
+    private BlockModelBuilder singleTexCustom(Block block,String name) {
+        return generated(getName(block), new ResourceLocation(UnusualPrehistory.MODID,"item/" + name.replace("eggs", "egg")));
     }
     private BlockModelBuilder singleTex(Block block) {
         return generated(getName(block), new ResourceLocation(UnusualPrehistory.MODID,"item/" + getName(block).replace("eggs", "egg")));
