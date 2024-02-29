@@ -7,6 +7,9 @@ import net.minecraft.world.entity.LivingEntity;
 public interface IEggEntity {
     ResourceLocation getTexture();
     ResourceLocation getModel();
+    ResourceLocation getCrackTexture();
+    ResourceLocation getSpotTexture();
+    ResourceLocation getAnimation();
     int getHatchTime();
     int getCurrentHatchTime();
 }

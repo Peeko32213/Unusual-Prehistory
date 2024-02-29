@@ -146,9 +146,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityHwachavenator::new, MobCategory.CREATURE).sized(1.95F, 2.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hwachavenator").toString()));
 
-    public static final RegistryObject<EntityType<EntityTalpanas>> TALPANAS = ENTITIES.register("talpanas",
+    public static final RegistryObject<EntityType<EntityTalpanas>> TALPANAS = registerLandDinoWithEggs("talpanas",
             () -> EntityType.Builder.of(EntityTalpanas::new, MobCategory.CREATURE).sized(0.8F, 0.8F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "talpanas").toString()));
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "talpanas").toString()),
+            EggSize.BIG, 1200, 0x1d1311, 0x3c4849);
 
     public static final RegistryObject<EntityType<EntityGigantopithicus>> GIGANTOPITHICUS = ENTITIES.register("gigantopithicus",
             () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(3.0F, 3.0F)
@@ -450,9 +451,11 @@ public class UPEntities {
                     .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).setCustomClientFactory(PsittaccoArrow::new)
                     .build(prefix("psittacco_arrow").toString()));
 
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize,  int hatchTime ,float eggBaseColor, float eggSpotColor) {
+    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
         RegistryObject<T> dino = ENTITIES.register(name, dinosaur);
-        UPItems.ITEMS.register(name+"_egg", () -> new DinosaurLandEggItem(dino, eggSize, hatchTime, eggBaseColor, eggSpotColor));
+        UPItems.ITEMS.register(name+"_entity_egg", () -> new DinosaurLandEggItem(dino, eggSize, hatchTime, eggBaseColor, eggSpotColor));
+        UPItems.ITEMS.register(name+ "_spawn_egg", () -> new ForgeSpawnEggItem(() -> (EntityType<? extends Mob>) dino.get(), eggBaseColor, eggSpotColor,new Item.Properties()));
         return dino;
     }
+
 }

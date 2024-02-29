@@ -5,10 +5,12 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 import java.util.function.Supplier;
@@ -185,7 +187,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ULUG_EGG, "Ulughbegsaurus Spawn Egg");
         addItem(UPItems.KENTRO_EGG, "Kentrosaurus Spawn Egg");
         addItem(UPItems.HWACHA_EGG, "Hwachavenator Spawn Egg");
-        addItem(UPItems.TALPANAS_EGG, "Talpanas Spawn Egg");
+        //addItem(UPItems.TALPANAS_EGG, "Talpanas Spawn Egg");
         addItem(UPItems.GIGANTO_EGG, "Gigantopithecus Spawn Egg");
         addItem(UPItems.BARINA_EGG, "Barinasuchus Spawn Egg");
         addItem(UPItems.MEGATH_EGG, "Megatherium Spawn Egg");
@@ -919,6 +921,8 @@ public class LanguageGenerator extends LanguageProvider {
         addBETranslatable("dna_fridge", "DNA Fridge");
         addBETranslatable("cultivator", "Cultivator");
         addBETranslatable("cultivator_jei", "Cultivator");
+
+        addDinoEgg(UPEntities.TALPANAS, "Talpanas Egg");
     }
 
     @Override
@@ -931,8 +935,9 @@ public class LanguageGenerator extends LanguageProvider {
     }
 
 
-
-
+    public void addDinoEgg(Supplier<? extends EntityType<?>> dino, String name) {
+        add("item.unusualprehistory." + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", name);
+    }
 
 
     public void addSound(Supplier<? extends SoundEvent> key, String name){

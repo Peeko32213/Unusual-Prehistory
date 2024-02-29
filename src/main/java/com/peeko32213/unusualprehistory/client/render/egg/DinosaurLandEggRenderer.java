@@ -20,6 +20,7 @@ public class DinosaurLandEggRenderer extends GeoEntityRenderer<DinosaurLandEgg> 
         super(context, new DinosaurLandEggModel());
         this.addRenderLayer(new DinosaurLandEggBaseColorLayer(this));
         this.addRenderLayer(new DinosaurLandEggSpotColorLayer(this));
+        this.addRenderLayer(new DinosaurLandEggCrackLayer(this));
     }
 
     @Override

@@ -1,7 +1,11 @@
 package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
+import com.peeko32213.unusualprehistory.common.block.BlockDinosaurLandEggs;
+import com.peeko32213.unusualprehistory.common.block.DinoBlockItem;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
+import com.peeko32213.unusualprehistory.common.item.DinosaurLandEggItem;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.CrashReport;
@@ -9,6 +13,9 @@ import net.minecraft.ReportedException;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -25,6 +32,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -86,11 +94,11 @@ public class UnusualPrehistory {
                 LOGGER.debug("Geckolib loaded correctly!");
             } else {
                 try {
-                    LOGGER.debug("Geckolib3 version 3.1.39 and up didn't seem to be loaded!");
+                    LOGGER.debug("Geckolib3 version 1.20.1:4.2.4 and up didn't seem to be loaded!");
                     throw new Exception("Something went wrong setting up compat");
                 }
                 catch (Exception e) {
-                        CrashReport crashreport = CrashReport.forThrowable(e, "Geckolib3 version 3.1.39 and up didn't seem to be loaded!");
+                        CrashReport crashreport = CrashReport.forThrowable(e, "Geckolib3 version 1.20.1:4.2.4 and up didn't seem to be loaded!");
                         crashreport.addCategory("Mod not loaded");
                         throw new ReportedException(crashreport);
                 }
@@ -136,7 +144,11 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
             addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
             addToComposter(UPBlocks.ZULOAGAE.get().asItem(), 0.2f);
-
+            for(RegistryObject<Item> object : UPItems.ITEMS.getEntries()) {
+                if(object.get() instanceof DinosaurLandEggItem item) {
+                        DinoBlockItem.registerReplacementItem(item.getDinosaur(), item.getDefaultInstance());
+                }
+            }
         });
         event.enqueueWork(UPDispenserRegistry::registerDispenserBehaviour);
         UPMessages.register();

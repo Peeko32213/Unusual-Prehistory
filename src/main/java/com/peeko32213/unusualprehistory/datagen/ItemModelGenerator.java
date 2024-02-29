@@ -2,10 +2,12 @@ package com.peeko32213.unusualprehistory.datagen;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
@@ -14,6 +16,8 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class ItemModelGenerator extends ItemModelProvider {
     public ItemModelGenerator(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -95,6 +99,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.KIMMER_FLASK);
         singleTex(UPItems.ENCHODUS_FLASK);
         singleTex(UPItems.IGUANODON_FLASK);
+
+        addDinoEgg(UPEntities.TALPANAS);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());
@@ -107,6 +113,12 @@ public class ItemModelGenerator extends ItemModelProvider {
     private void toBlockModel(RegistryObject<Block> b, ResourceLocation model) {
         withExistingParent(b.getId().getPath(), model);
     }
+
+
+    public void addDinoEgg(Supplier<? extends EntityType<?>> dino) {
+        generated( dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", prefix("item/" + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "")  + "_egg"));
+    }
+
 
     private ItemModelBuilder singleTex(RegistryObject<Item> item) {
         return generated(item.getId().getPath(), prefix("item/" + item.getId().getPath()));

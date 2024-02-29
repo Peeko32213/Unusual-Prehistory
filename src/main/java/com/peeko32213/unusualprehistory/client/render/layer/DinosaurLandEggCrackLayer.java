@@ -12,19 +12,21 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
-public class DinosaurLandEggSpotColorLayer extends GeoRenderLayer<DinosaurLandEgg> {
+public class DinosaurLandEggCrackLayer extends GeoRenderLayer<DinosaurLandEgg> {
 
-
-    public DinosaurLandEggSpotColorLayer(GeoRenderer<DinosaurLandEgg> entityRendererIn) {
+    public DinosaurLandEggCrackLayer(GeoRenderer<DinosaurLandEgg> entityRendererIn) {
         super(entityRendererIn);
     }
 
     @Override
     public void render(PoseStack poseStack, DinosaurLandEgg entityLivingBaseIn, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
-        ResourceLocation MODEL = entityLivingBaseIn.getModel();
-        ResourceLocation SPOT_LAYER = entityLivingBaseIn.getSpotTexture();
-        RenderType cameo = RenderType.entityCutout(SPOT_LAYER);
-        float[] fs = entityLivingBaseIn.getEggColorFromVector(entityLivingBaseIn.getEggSpotColor());
-        getRenderer().reRender(this.getGeoModel().getBakedModel(MODEL), poseStack, bufferSource, entityLivingBaseIn, renderType, bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY, fs[0], fs[1], fs[2], 1);
+        if (entityLivingBaseIn.getHatchCount() >= 1) {
+            ResourceLocation MODEL = entityLivingBaseIn.getModel();
+            ResourceLocation TEXTURE = entityLivingBaseIn.getCrackTexture();
+            RenderType cameo = RenderType.entityCutout(TEXTURE);
+
+            float[] fs = entityLivingBaseIn.getEggColorFromVector(entityLivingBaseIn.getEggSpotColor());
+            getRenderer().reRender(this.getGeoModel().getBakedModel(MODEL), poseStack, bufferSource, entityLivingBaseIn, renderType, bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY, 0, 0, 0, 1);
+        }
     }
 }

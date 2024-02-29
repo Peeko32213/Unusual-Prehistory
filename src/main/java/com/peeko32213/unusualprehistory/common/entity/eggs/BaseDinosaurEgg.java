@@ -48,11 +48,20 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
         this.refreshDimensions();
     }
 
-    public BaseDinosaurEgg(EntityType<? extends LivingEntity>pEntityType, Level pLevel, double pX, double pY, double pZ, ItemStack stack, EggSize size, float color1, float color2) {
-        this(pEntityType, pLevel);
+    public BaseDinosaurEgg(EntityType<? extends LivingEntity>pEntityType, Level pLevel, double pX, double pY, double pZ, ItemStack stack, EggSize size, int color1, int color2) {
+        super(pEntityType, pLevel);
         this.setPos(pX, pY, pZ);
         this.stack = stack.copy();
         this.eggSize = size;
+        this.setScale(eggSize.getSizeNr());
+        int r1 = (color1 & 0xFF0000) >> 16;
+        int g1 = (color1 & 0xFF00) >> 8;
+        int b1 = (color1 & 0xFF);
+        int r2 = (color2 & 0xFF0000) >> 16;
+        int g2 = (color2 & 0xFF00) >> 8;
+        int b2 = (color2 & 0xFF);
+        setEggBaseColor(new Vector3f(r1, g1, b1));
+        setEggSpotColor(new Vector3f(r2, g2, b2));
         this.refreshDimensions();
     }
 
@@ -212,6 +221,9 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
                 this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.TURTLE_EGG_CRACK, this.getSoundSource(), 0.3F, 1.0F, false);
                 this.lastHit = this.level().getGameTime();
             }
+        }
+        if (pId == 20) {
+            this.spawnAnim();
         } else {
             super.handleEntityEvent(pId);
         }
@@ -282,7 +294,7 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(SCALE, eggSize.getSizeNr());
+        this.entityData.define(SCALE, 0);
         this.entityData.define(EGG_BASE_COLOR, new Vector3f(251,62,249));
         this.entityData.define(EGG_SPOT_COLOR, new Vector3f(0,0,0));
     }
@@ -368,5 +380,30 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
         colors[1] = green;
         colors[2] = blue;
         return colors;
+    }
+
+    public void spawnAnim() {
+        if (this.level().isClientSide) {
+            for(int i = 0; i < 20; ++i) {
+                double d0 = this.random.nextGaussian() * 0.02D;
+                double d1 = this.random.nextGaussian() * 0.02D;
+                double d2 = this.random.nextGaussian() * 0.02D;
+                double d3 = 10.0D;
+                this.level().addParticle(ParticleTypes.POOF, this.getX(1.0D) - d0 * 10.0D, this.getRandomY() - d1 * 10.0D, this.getRandomZ(1.0D) - d2 * 10.0D, d0, d1, d2);
+            }
+        } else {
+            this.level().broadcastEntityEvent(this, (byte)20);
+        }
+
+    }
+
+    public void spawnAnim(ServerLevel level, BlockPos pos) {
+        for(int i = 0; i < 3; ++i) {
+            double d0 = level.random.nextGaussian() * 0.02D;
+            double d1 = level.random.nextGaussian() * 0.02D;
+            double d2 = level.random.nextGaussian() * 0.02D;
+            double d3 = 10.0D;
+            level.sendParticles(ParticleTypes.POOF, (pos.getX() + 0.5 )- d0 * 10.0D, (pos.getY() + 0.5) - d1 * 10.0D, (pos.getZ() + 0.5)- d2 * 10.0D,3, d0, d1, d2, 0.01);
+        }
     }
 }

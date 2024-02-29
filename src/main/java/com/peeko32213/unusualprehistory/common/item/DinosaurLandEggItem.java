@@ -58,16 +58,15 @@ public class DinosaurLandEggItem extends Item {
             BlockPlaceContext blockplacecontext = new BlockPlaceContext(pContext);
             BlockPos blockpos = blockplacecontext.getClickedPos();
             ItemStack itemstack = pContext.getItemInHand();
-            Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
+            Vec3 vec3 = Vec3.atCenterOf(blockpos);
             AABB aabb = UPEntities.DINO_LAND_EGG.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
             if (level.noCollision((Entity) null, aabb) && level.getEntities((Entity) null, aabb).isEmpty()) {
-                if (level instanceof ServerLevel) {
-                    ServerLevel serverlevel = (ServerLevel) level;
-                    DinosaurLandEgg egg = new DinosaurLandEgg(serverlevel, blockpos.getX(), blockpos.getY(), blockpos.getZ(), dinosaur, size, color1, color2, hatchTime, this.getDefaultInstance());
+
+                    DinosaurLandEgg egg = new DinosaurLandEgg(level, vec3.x(), blockpos.getY(), vec3.z(), dinosaur, size, color1, color2, hatchTime, this.getDefaultInstance());
                     if (egg == null) {
                         return InteractionResult.FAIL;
                     }
-
+                if (level instanceof ServerLevel serverlevel) {
                     float f = (float) Mth.floor((Mth.wrapDegrees(pContext.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     serverlevel.addFreshEntityWithPassengers(egg);
                     level.playSound((Player) null, egg.getX(), egg.getY(), egg.getZ(), SoundEvents.ARMOR_STAND_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
@@ -80,5 +79,9 @@ public class DinosaurLandEggItem extends Item {
                 return InteractionResult.FAIL;
             }
         }
+    }
+
+    public Supplier<? extends EntityType<?>> getDinosaur() {
+        return dinosaur;
     }
 }

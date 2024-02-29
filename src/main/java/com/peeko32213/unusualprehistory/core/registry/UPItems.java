@@ -469,8 +469,8 @@ public class UPItems {
             UPEntities.HWACHA , 0x14191b, 0xf4f435);
     public static final RegistryObject<ForgeSpawnEggItem> GIGANTO_EGG = registerSpawnEggs("giganto_spawn_egg",
             UPEntities.GIGANTOPITHICUS , 0x7c3c23, 0x665f58);
-    public static final RegistryObject<ForgeSpawnEggItem> TALPANAS_EGG = registerSpawnEggs("talpanas_spawn_egg",
-            UPEntities.TALPANAS , 0x1d1311, 0x3c4849);
+   //public static final RegistryObject<ForgeSpawnEggItem> TALPANAS_EGG = registerSpawnEggs("talpanas_spawn_egg",
+   //        UPEntities.TALPANAS , 0x1d1311, 0x3c4849);
 
     public static final RegistryObject<ForgeSpawnEggItem> BARINA_EGG = registerSpawnEggs("barinasuchus_spawn_egg",
             UPEntities.BARINASUCHUS , 0x0e0b03, 0xbea61e);

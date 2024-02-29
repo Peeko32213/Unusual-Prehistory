@@ -24,7 +24,8 @@ public class DinosaurLandEggBaseColorLayer extends GeoRenderLayer<DinosaurLandEg
     @Override
     public void render(PoseStack poseStack, DinosaurLandEgg entityLivingBaseIn, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
         ResourceLocation MODEL = entityLivingBaseIn.getModel();
-        RenderType cameo = RenderType.entityCutout(EGG_BASE_COLOR);
+        ResourceLocation BASE = entityLivingBaseIn.getTexture();
+        RenderType cameo = RenderType.entityCutout(BASE);
         float[] fs = entityLivingBaseIn.getEggColorFromVector(entityLivingBaseIn.getEggBaseColor());
         getRenderer().reRender(this.getGeoModel().getBakedModel(MODEL), poseStack, bufferSource, entityLivingBaseIn, renderType, bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY, fs[0], fs[1], fs[2], 1);
     }

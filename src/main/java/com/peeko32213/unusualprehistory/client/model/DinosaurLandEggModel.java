@@ -8,16 +8,16 @@ public class DinosaurLandEggModel extends GeoModel<DinosaurLandEgg> {
 
     @Override
     public ResourceLocation getModelResource(DinosaurLandEgg animatable) {
-        return null;
+        return animatable.getModel();
     }
 
     @Override
     public ResourceLocation getTextureResource(DinosaurLandEgg animatable) {
-        return null;
+        return animatable.getTexture();
     }
 
     @Override
     public ResourceLocation getAnimationResource(DinosaurLandEgg animatable) {
-        return null;
+        return animatable.getAnimation();
     }
 }
