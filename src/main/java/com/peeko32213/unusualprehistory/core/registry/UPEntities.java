@@ -48,7 +48,7 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityMajungasaurus>> MAJUNGA = registerLandDinoWithEggs("majunga",
             () -> EntityType.Builder.of(EntityMajungasaurus::new, MobCategory.CREATURE).sized(1.95F, 2.2F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "majunga").toString()),
-            EggSize.SMALL, 1200, 0x1d600e, 0xacd35d, false);
+            EggSize.SMALL, EggVariant.STRIPES,1200, 0x1d600e, 0xacd35d, false);
 
     public static final RegistryObject<EntityType<EntityAnurognathus>> ANURO = registerLandDinoWithEggs("anuro",
             () -> EntityType.Builder.of(EntityAnurognathus::new, MobCategory.CREATURE).sized(0.8f, 0.8f)

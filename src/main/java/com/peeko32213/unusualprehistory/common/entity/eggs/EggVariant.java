@@ -8,7 +8,8 @@ import net.minecraft.util.StringRepresentable;
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public enum EggVariant implements StringRepresentable {
-    SPOTS("spots", 0);
+    SPOTS("spots", 0),
+    STRIPES("stripes", 1);
 
 
 

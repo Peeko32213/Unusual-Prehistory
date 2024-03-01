@@ -270,7 +270,7 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
 
     @Override
     public ResourceLocation getSpotTexture() {
-        return getEggVariant().getVariantForEggSize(getModelScale());
+        return getEggVariant().getVariantForEggSize(3);
     }
 
     @Override
