@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.arrow.PsittaccoArrow;
 import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
 import com.peeko32213.unusualprehistory.common.entity.eggs.EggSize;
+import com.peeko32213.unusualprehistory.common.entity.eggs.EggVariant;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
@@ -169,7 +170,7 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityTalpanas>> TALPANAS = registerLandDinoWithEggs("talpanas",
             () -> EntityType.Builder.of(EntityTalpanas::new, MobCategory.CREATURE).sized(0.8F, 0.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "talpanas").toString()),
-            EggSize.BIG, 1200, 0xe5e0c5, 0xb8a68c);
+            EggSize.BIG, 3600, 0xe5e0c5, 0xb8a68c);
 
     public static final RegistryObject<EntityType<EntityGigantopithicus>> GIGANTOPITHICUS = ENTITIES.register("gigantopithicus",
             () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(3.0F, 3.0F)
@@ -468,7 +469,6 @@ public class UPEntities {
 
     public static final RegistryObject<EntityType<DinosaurLandEgg>> DINO_LAND_EGG = ENTITIES.register("dino_land_egg",
             () -> EntityType.Builder.<DinosaurLandEgg>of(DinosaurLandEgg::new, MobCategory.MISC)
-                    .noSummon()
                     .sized(1, 1)
                     .build(prefix("dino_land_egg").toString()));
 
@@ -478,11 +478,19 @@ public class UPEntities {
                     .build(prefix("psittacco_arrow").toString()));
 
     private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
-        return registerLandDinoWithEggs(name, dinosaur, eggSize, hatchTime, eggBaseColor, eggSpotColor, true);
+        return registerLandDinoWithEggs(name, dinosaur, eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, true);
     }
+
     private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
+        return registerLandDinoWithEggs(name, dinosaur, eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, registerSpawnEgg);
+    }
+    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
+        return registerLandDinoWithEggs(name, dinosaur, eggSize, variant, hatchTime, eggBaseColor, eggSpotColor, true);
+    }
+
+    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
         RegistryObject<T> dino = ENTITIES.register(name, dinosaur);
-        UPItems.ITEMS.register(name+"_entity_egg", () -> new DinosaurLandEggItem(dino, eggSize, hatchTime, eggBaseColor, eggSpotColor));
+        UPItems.ITEMS.register(name+"_entity_egg", () -> new DinosaurLandEggItem(dino, eggSize, variant, hatchTime, eggBaseColor, eggSpotColor));
         if(registerSpawnEgg) {
             UPItems.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(() -> (EntityType<? extends Mob>) dino.get(), eggBaseColor, eggSpotColor, new Item.Properties()));
         }
@@ -490,13 +498,22 @@ public class UPEntities {
         return dino;
     }
 
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
-        return registerLandDinoWithEggsAndBaby(name, dinosaur, baby,eggSize, hatchTime, eggBaseColor, eggSpotColor, true);
+    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
+        return registerLandDinoWithEggsAndBaby(name, dinosaur, baby,eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, registerSpawnEgg);
     }
 
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize, int hatchTime , int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
+    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
+        return registerLandDinoWithEggsAndBaby(name, dinosaur, baby,eggSize, variant, hatchTime, eggBaseColor, eggSpotColor, true);
+    }
+
+
+    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
+        return registerLandDinoWithEggsAndBaby(name, dinosaur, baby,eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, true);
+    }
+
+    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize, EggVariant variant, int hatchTime , int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
         RegistryObject<T> dino = ENTITIES.register(name, dinosaur);
-        UPItems.ITEMS.register(name+"_entity_egg", () -> new DinosaurLandEggItem(baby, eggSize, hatchTime, eggBaseColor, eggSpotColor));
+        UPItems.ITEMS.register(name+"_entity_egg", () -> new DinosaurLandEggItem(baby, eggSize, variant, hatchTime, eggBaseColor, eggSpotColor));
         if(registerSpawnEgg) {
             UPItems.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(() -> (EntityType<? extends Mob>) dino.get(), eggBaseColor, eggSpotColor, new Item.Properties()));
         }

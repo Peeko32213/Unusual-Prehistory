@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.item;
 
 import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
 import com.peeko32213.unusualprehistory.common.entity.eggs.EggSize;
+import com.peeko32213.unusualprehistory.common.entity.eggs.EggVariant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,21 +32,24 @@ public class DinosaurLandEggItem extends Item {
 
     private Supplier<? extends EntityType<?>> dinosaur;
     private EggSize size;
+    private EggVariant variant;
     private float color1;
     private float color2;
     private int hatchTime;
 
-    public DinosaurLandEggItem(Supplier<? extends EntityType<?>> dinosaur, EggSize eggSize, int hatchTime ,float eggBaseColor, float eggSpotColor) {
-        this(new Item.Properties().rarity(Rarity.RARE), dinosaur, eggSize, hatchTime, eggBaseColor, eggSpotColor);
+
+    public DinosaurLandEggItem(Supplier<? extends EntityType<?>> dinosaur, EggSize eggSize, EggVariant variant, int hatchTime ,float eggBaseColor, float eggSpotColor) {
+        this(new Item.Properties().rarity(Rarity.RARE), dinosaur, eggSize,variant, hatchTime, eggBaseColor, eggSpotColor);
     }
 
-    public DinosaurLandEggItem(Properties pProperties, Supplier<? extends EntityType<?>> dinosaur, EggSize eggSize, int hatchTime ,float eggBaseColor, float eggSpotColor) {
+    public DinosaurLandEggItem(Properties pProperties, Supplier<? extends EntityType<?>> dinosaur, EggSize eggSize, EggVariant variant, int hatchTime , float eggBaseColor, float eggSpotColor) {
         super(pProperties);
         this.dinosaur= dinosaur;
         this.size = eggSize;
         this.color1 = eggBaseColor;
         this.color2 = eggSpotColor;
         this.hatchTime = hatchTime;
+        this.variant = variant;
     }
 
 
@@ -62,7 +66,7 @@ public class DinosaurLandEggItem extends Item {
             AABB aabb = UPEntities.DINO_LAND_EGG.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
             if (level.noCollision((Entity) null, aabb) && level.getEntities((Entity) null, aabb).isEmpty()) {
 
-                    DinosaurLandEgg egg = new DinosaurLandEgg(level, vec3.x(), blockpos.getY(), vec3.z(), dinosaur, size, color1, color2, hatchTime, this.getDefaultInstance());
+                    DinosaurLandEgg egg = new DinosaurLandEgg(level, vec3.x(), blockpos.getY(), vec3.z(), dinosaur, size, variant, color1, color2, hatchTime, itemstack);
                     if (egg == null) {
                         return InteractionResult.FAIL;
                     }

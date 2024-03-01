@@ -36,6 +36,7 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
     private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(BaseDinosaurEgg.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Vector3f> EGG_BASE_COLOR = SynchedEntityData.defineId(BaseDinosaurEgg.class, EntityDataSerializers.VECTOR3);
     private static final EntityDataAccessor<Vector3f> EGG_SPOT_COLOR = SynchedEntityData.defineId(BaseDinosaurEgg.class, EntityDataSerializers.VECTOR3);
+    private static final EntityDataAccessor<ItemStack> EGG_ITEM = SynchedEntityData.defineId(BaseDinosaurEgg.class, EntityDataSerializers.ITEM_STACK);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private boolean invisible;
     public long lastHit;
@@ -54,14 +55,9 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
         this.stack = stack.copy();
         this.eggSize = size;
         this.setScale(eggSize.getSizeNr());
-        int r1 = (color1 & 0xFF0000) >> 16;
-        int g1 = (color1 & 0xFF00) >> 8;
-        int b1 = (color1 & 0xFF);
-        int r2 = (color2 & 0xFF0000) >> 16;
-        int g2 = (color2 & 0xFF00) >> 8;
-        int b2 = (color2 & 0xFF);
-        setEggBaseColor(new Vector3f(r1, g1, b1));
-        setEggSpotColor(new Vector3f(r2, g2, b2));
+        setEggItem(stack.copy());
+        setEggBaseColor(getVector3fFromColor(color1));
+        setEggSpotColor(getVector3fFromColor(color2));
         this.refreshDimensions();
     }
 
@@ -244,10 +240,10 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
 
     public ItemStack getDinosaurEgg() {
         int time = getCurrentHatchTime();
-        ItemStack eggItem = stack;
+        ItemStack eggItem = getEggItem();
         CompoundTag tag = null;
-        if(stack.getTag() != null && !stack.getTag().isEmpty()) {
-            tag = stack.getTag();
+        if(eggItem.hasTag() && !eggItem.getTag().isEmpty()) {
+            tag = eggItem.getTag();
         } else {
             tag = new CompoundTag();
         }
@@ -271,24 +267,25 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("scale", this.getModelScale());
-        //CompoundTag egg = (CompoundTag) EggSize.CODEC.encodeStart(NbtOps.INSTANCE, eggSize).result().orElse(new CompoundTag());
-        compound.putString("eggSize", eggSize.name());
-        compound.put("eggItem", this.stack.save(new CompoundTag()));
+        compound.putString("eggSize", eggSize.toString());
+        compound.put("eggItem", getEggItem().save(new CompoundTag()));
         compound.put("eggBaseColor", writeVector3f(getEggBaseColor()));
         compound.put("eggSpotColor", writeVector3f(getEggSpotColor()));
+        compound.putBoolean("Invisible", this.isInvisible());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setScale(Math.min(compound.getInt("scale"), 0));
+        this.setScale(compound.getInt("scale"));
         EggSize egg = EggSize.valueOf(compound.getString("eggSize"));
         this.eggSize = egg;
         if (compound.contains("eggItem", 10)) {
-            this.stack = ItemStack.of(compound.getCompound("eggItem"));
+            setEggItem(ItemStack.of(compound.getCompound("eggItem")));
         }
         setEggBaseColor(readVector3f(compound.getCompound("eggBaseColor")));
         setEggSpotColor(readVector3f(compound.getCompound("eggSpotColor")));
+        this.setInvisible(compound.getBoolean("Invisible"));
     }
 
     @Override
@@ -297,6 +294,7 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
         this.entityData.define(SCALE, 0);
         this.entityData.define(EGG_BASE_COLOR, new Vector3f(251,62,249));
         this.entityData.define(EGG_SPOT_COLOR, new Vector3f(0,0,0));
+        this.entityData.define(EGG_ITEM, ItemStack.EMPTY);
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
@@ -354,6 +352,14 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
         this.entityData.set(EGG_SPOT_COLOR, color);
     }
 
+    public ItemStack getEggItem() {
+        return this.entityData.get(EGG_ITEM);
+    }
+
+    public void setEggItem(ItemStack item) {
+        this.entityData.set(EGG_ITEM, item);
+    }
+
     public EggSize getEggSize() {
         return eggSize;
     }
@@ -405,5 +411,12 @@ public abstract class BaseDinosaurEgg extends LivingEntity implements GeoAnimata
             double d3 = 10.0D;
             level.sendParticles(ParticleTypes.POOF, (pos.getX() + 0.5 )- d0 * 10.0D, (pos.getY() + 0.5) - d1 * 10.0D, (pos.getZ() + 0.5)- d2 * 10.0D,3, d0, d1, d2, 0.01);
         }
+    }
+
+    public Vector3f getVector3fFromColor(int color) {
+        int r1 = (color & 0xFF0000) >> 16;
+        int g1 = (color & 0xFF00) >> 8;
+        int b1 = (color & 0xFF);
+        return new Vector3f(r1, g1, b1);
     }
 }

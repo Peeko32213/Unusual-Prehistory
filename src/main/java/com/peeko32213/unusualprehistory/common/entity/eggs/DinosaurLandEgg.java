@@ -45,22 +45,26 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
 
     //private static final EntityDataAccessor<Integer> EGG_SIZE = SynchedEntityData.defineId(DinosaurLandEgg.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> HATCH_COUNT = SynchedEntityData.defineId(DinosaurLandEgg.class, EntityDataSerializers.INT);
-
+    private static final EntityDataAccessor<String> EGG_VARIANT = SynchedEntityData.defineId(DinosaurLandEgg.class, EntityDataSerializers.STRING);
     private int currentHatchTime;
     private int maxHatchTime;
     private int hatchUpdateTimer;
 
     private LivingEntity dinosaur;
+    private EggVariant variant;
     private final int MAX_HATCH_COUNT = 2;
     private  final Map<BlockPos, Integer> cachedBlockStatePos = new HashMap<>();
     private  final Map<BlockPos, Integer> cachedLightEmissionPos = new HashMap<>();
 
     private static final AnimationHelper EGG_HATCH = AnimationHelper.playAnimationWController("egg_hatch", "animation.hatch");
 
-    public DinosaurLandEgg(Level pLevel, double pX, double pY, double pZ, Supplier<? extends EntityType<?>> toSpawn, EggSize eggsize, float eggColor1, float eggColor2, int hatchTime, ItemStack stack) {
+    public DinosaurLandEgg(Level pLevel, double pX, double pY, double pZ, Supplier<? extends EntityType<?>> toSpawn, EggSize eggsize, EggVariant variant, float eggColor1, float eggColor2, int hatchTime, ItemStack stack) {
         super(UPEntities.DINO_LAND_EGG.get(), pLevel, pX, pY, pZ, stack, eggsize, (int) eggColor1, (int) eggColor2);
+        this.variant = variant;
         this.maxHatchTime = hatchTime;
         this.dinosaur = (LivingEntity) toSpawn.get().create(pLevel);
+        String name = variant.toString();
+        setEggVariant(name);
     }
 
     public DinosaurLandEgg(EntityType<DinosaurLandEgg> dinosaurLandEggEntityType, Level level) {
@@ -266,14 +270,7 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
 
     @Override
     public ResourceLocation getSpotTexture() {
-        int scale = getModelScale();
-        scale = 3;
-        return switch (scale) {
-            case 1 -> NORMAL_EGG_SPOTS;
-            case 2 -> MEDIUM_EGG_SPOTS;
-            case 3 -> MASSIVE_EGG_SPOTS;
-            default -> SMALL_EGG_SPOTS;
-        };
+        return getEggVariant().getVariantForEggSize(getModelScale());
     }
 
     @Override
@@ -303,26 +300,34 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        dinosaur.save(compound);
+        CompoundTag dino = new CompoundTag();
+        dinosaur.save(dino);
+        compound.put("dinosaur", dino);
         compound.putInt("hatchTime", currentHatchTime);
         compound.putInt("maxHatchTime", maxHatchTime);
         compound.putInt("hatchCount", getHatchCount());
+        compound.putString("eggVariant", getEggVariantString());
+
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        Optional<Entity> type = EntityType.create(compound, level());
+        Optional<Entity> type = EntityType.create(compound.getCompound("dinosaur"), level());
         this.dinosaur = (LivingEntity) type.orElse(EntityType.PIG.create(level()));
         this.currentHatchTime = compound.getInt("hatchTime");
         this.maxHatchTime = compound.getInt("maxHatchTime");
+        //this.variant = EggVariant.valueOf(compound.getString("eggVariant"));
         setHatchCount(compound.getInt("hatchCount"));
+        setEggVariant(compound.getString("eggVariant"));
+
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(HATCH_COUNT, 0);
+        this.entityData.define(EGG_VARIANT, "spots");
     }
 
     @Override
@@ -338,5 +343,17 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
 
     public void setHatchCount(int count) {
         this.entityData.set(HATCH_COUNT, count);
+    }
+
+    public EggVariant getEggVariant() {
+        return EggVariant.valueOf(getEggVariantString());
+    }
+
+    public String getEggVariantString() {
+        return this.entityData.get(EGG_VARIANT);
+    }
+
+    public void setEggVariant(String string) {
+        this.entityData.set(EGG_VARIANT, string);
     }
 }
