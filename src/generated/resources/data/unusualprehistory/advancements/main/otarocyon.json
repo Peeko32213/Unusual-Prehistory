@@ -1,0 +1,69 @@
+{
+  "parent": "unusualprehistory:main/incubator",
+  "criteria": {
+    "damage_otarocyon": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "direct_entity": {
+              "type": "unusualprehistory:talpanas"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    },
+    "interact_otarocyon": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:talpanas"
+            }
+          }
+        ],
+        "item": {}
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "killed_otarocyon": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:talpanas"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.interact_otarocyon.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:otarocyon_flask"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.interact_otarocyon"
+    }
+  },
+  "requirements": [
+    [
+      "damage_otarocyon",
+      "interact_otarocyon",
+      "killed_otarocyon"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

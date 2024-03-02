@@ -64,7 +64,8 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     private static final EntityDataAccessor<Integer> CHILL_TIME = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> TRAVELLING = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<BlockPos> TRAVEL_POS = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.BLOCK_POS);
-
+    private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.BOOLEAN);
     private static final RawAnimation ARCHELON_IDLE = RawAnimation.begin().thenLoop("animation.archelon.idle");
     private static final RawAnimation ARCHELON_WALK = RawAnimation.begin().thenLoop("animation.archelon.walk");
     private static final RawAnimation ARCHELON_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.archelon.swim_idle");
@@ -110,7 +111,7 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         this.goalSelector.addGoal(3, new EntityArchelon.TurtleGoToWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new EntityArchelon.TurtleTravelGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new EntityArchelon.TurtleRandomStrollGoal(this, 1.0D, 100));
-        this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
+        //this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
@@ -125,13 +126,6 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        // LOGGER.info("Yellow " +this.isYellow() );
-        // LOGGER.info("Blue " +this.isBlue() );
-        // LOGGER.info("White " +this.isWhite() );
-        // LOGGER.info("Orange " +this.isOrange() );
-        // LOGGER.info("hp " + this.getMaxHealth());
-        // LOGGER.info("Speed" + this.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
-        // LOGGER.info("Speed" + this.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isFood(itemstack)) {
             if (!isTame()) {
@@ -273,6 +267,8 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         this.entityData.define(CHILL_TIME, 0);
         this.entityData.define(TRAVELLING, false);
         this.entityData.define(TRAVEL_POS, BlockPos.ZERO);
+        this.entityData.define(RANDOM_BOOL, false);
+        this.entityData.define(RANDOM_NUMBER,0);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -280,6 +276,8 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("Command", this.getCommand());
         compound.putInt("ChillTime", this.getChillTime());
+        compound.putInt("randomNr", this.getRandomNumber());
+        compound.putBoolean("randomBool", this.getRandomBool());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -291,6 +289,9 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         int i1 = compound.getInt("TravelPosY");
         int j1 = compound.getInt("TravelPosZ");
         this.setTravelPos(new BlockPos(l, i1, j1));
+
+        this.setRandomNumber(compound.getInt("randomNr"));
+        this.setRandomBool(compound.getBoolean("randomBool"));
     }
 
     public boolean isSaddled() {
@@ -300,6 +301,33 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     public void setSaddled(boolean saddled) {
         this.entityData.set(SADDLED, Boolean.valueOf(saddled));
     }
+
+    public int getRandomAnimationNumber() {
+        setRandomNumber(random.nextInt(100));
+        return getRandomNumber();
+    }
+
+    public int getRandomNumber() {
+        return this.entityData.get(RANDOM_NUMBER);
+    }
+
+    public void setRandomNumber(int nr) {
+        this.entityData.set(RANDOM_NUMBER,nr);
+    }
+
+    public boolean getRandomAnimationBool() {
+        setRandomBool(random.nextBoolean());
+        return getRandomBool();
+    }
+
+    public boolean getRandomBool() {
+        return this.entityData.get(RANDOM_BOOL);
+    }
+
+    public void setRandomBool(boolean bool) {
+        this.entityData.set(RANDOM_BOOL,bool);
+    }
+
 
     @javax.annotation.Nullable
     public LivingEntity getControllingPassenger() {
@@ -443,8 +471,8 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
-        if (event.isMoving() && this.isInWater() && random.nextInt(100) == 0)  {
-            float rand = random.nextFloat();
+        if (event.isMoving() && this.isInWater() && getRandomNumber() == 0)  {
+             boolean randomAnimationBool = getRandomAnimationBool();
             event.setAnimation(ARCHELON_SWIM.getAnimation());
             //if (rand < 0.55F) {
             //    return event.setAndContinue(ARCHELON_SPIN1);
@@ -455,13 +483,10 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
-            float rand = random.nextFloat();
-            return event.setAndContinue(ARCHELON_IDLE);
-        }
-        if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
-            float rand = random.nextFloat();
-            if (rand < 0.45F) {
+
+        if (isStillEnough() && !this.isSwimming() && getRandomNumber() == 0) {
+            boolean bool = getRandomAnimationBool();
+            if (bool) {
                 return event.setAndContinue(ARCHELON_SHAKE);
             }
             return  event.setAndContinue(ARCHELON_SWIM_IDLE);
@@ -469,17 +494,14 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         if (this.isSaddled()) {
             event.setAnimation(ARCHELON_HEART_SPIN);
         }
-        return PlayState.CONTINUE;
+        return event.setAndContinue(ARCHELON_IDLE);
     }
 
 
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller)
-                .triggerableAnim(ARCHELON_SPIN.getAnimName(), ARCHELON_SPIN.getAnimation())
-                .triggerableAnim(ARCHELON_SPIN2.getAnimName(), ARCHELON_SPIN2.getAnimation())
-                .triggerableAnim(ARCHELON_RAMMING.getAnimName(), ARCHELON_RAMMING.getAnimation()));
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
 
         //controllers.add(new AnimationController<>(this, ARCHELON_SPIN.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN.getAnimName(), ARCHELON_SPIN.getAnimation()));
         //controllers.add(new AnimationController<>(this, ARCHELON_SPIN2.getControllerName(), 0, event -> { return PlayState.STOP;}).triggerableAnim(ARCHELON_SPIN2.getAnimName(), ARCHELON_SPIN2.getAnimation()));

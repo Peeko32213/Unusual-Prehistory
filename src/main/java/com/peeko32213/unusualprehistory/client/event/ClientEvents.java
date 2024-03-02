@@ -304,7 +304,6 @@ public final class ClientEvents {
                 UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel())
                         .withLayers(ARCHELON_MODEL)
                         .withSaddleLayer(ARCHELON_SADDLE_EMPTY_OVERLAY)
-                        .withSaddleLayer(ARCHELON_SADDLE_EMPTY_OVERLAY)
                         .build());
 
         event.registerEntityRenderer(UPEntities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);

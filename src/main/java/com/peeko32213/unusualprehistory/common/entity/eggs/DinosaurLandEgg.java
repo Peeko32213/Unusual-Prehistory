@@ -285,7 +285,6 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
         };
     }
 
-
     @Override
     public int getHatchTime() {
         return maxHatchTime;

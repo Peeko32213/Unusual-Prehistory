@@ -1,0 +1,83 @@
+{
+  "parent": "unusualprehistory:main/gigantopithicus",
+  "criteria": {
+    "blue_fruit": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:blue_fruit"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "red_fruit": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:red_fruit"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "white_fruit": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:white_fruit"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "yellow_fruit": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:yellow_fruit"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.obtain_monkey_fruits.desc"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:red_fruit"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.obtain_monkey_fruits"
+    }
+  },
+  "requirements": [
+    [
+      "red_fruit"
+    ],
+    [
+      "white_fruit"
+    ],
+    [
+      "yellow_fruit"
+    ],
+    [
+      "blue_fruit"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

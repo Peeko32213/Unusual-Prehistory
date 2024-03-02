@@ -63,4 +63,6 @@ public enum EggVariant implements StringRepresentable {
     public int getNr() {
         return nr;
     }
+
+
 }

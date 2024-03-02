@@ -165,6 +165,10 @@ public class UnusualPrehistory {
         return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
     }
 
+    public static String prefixS(String name) {
+        return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT)).toString();
+    }
+
     public static MutableComponent getTranslation(String key, Object... args) {
         return Component.translatable("unusualprehistory." + key, args);
     }

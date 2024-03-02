@@ -1,0 +1,103 @@
+{
+  "parent": "unusualprehistory:main/cultivator",
+  "criteria": {
+    "giganto_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:giganto_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "mammoth_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:mammoth_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "megath_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:megath_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "palaeo_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:palaeo_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "paracer_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:paracer_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "smilodon_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:smilodon_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.obtain_embryo.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:smilodon_embryo"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.obtain_embryo"
+    }
+  },
+  "requirements": [
+    [
+      "smilodon_embryo",
+      "mammoth_embryo",
+      "megath_embryo",
+      "giganto_embryo",
+      "paracer_embryo",
+      "palaeo_embryo"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
