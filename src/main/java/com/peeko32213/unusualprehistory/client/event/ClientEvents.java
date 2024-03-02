@@ -181,6 +181,8 @@ public final class ClientEvents {
     private static final ResourceLocation BEELZE_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_saddle.png");
     private static final ResourceLocation BEELZE_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/beelzebufo.geo.json");
     private static final ResourceLocation ARCHELON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/archelon.geo.json");
+    private static final ResourceLocation ARCHELON_SADDLE_EMPTY_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/archelon_saddle_empty.png");
+    private static final ResourceLocation ARCHELON_SADDLE_HEART_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/archelon_saddle_heart.png");
 
 
     //private static final ResourceLocation BRACHI_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus_saddle.png");
@@ -301,7 +303,10 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.ARCHELON.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel())
                         .withLayers(ARCHELON_MODEL)
+                        .withSaddleLayer(ARCHELON_SADDLE_EMPTY_OVERLAY)
+                        .withSaddleLayer(ARCHELON_SADDLE_EMPTY_OVERLAY)
                         .build());
+
         event.registerEntityRenderer(UPEntities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
         event.registerEntityRenderer(UPEntities.LEEDS_PART.get(), LeedsichthysPartRender::new);
         event.registerEntityRenderer(UPEntities.KIMMER.get(), KimmeridgebrachypteraeschnidiumRenderer::new);

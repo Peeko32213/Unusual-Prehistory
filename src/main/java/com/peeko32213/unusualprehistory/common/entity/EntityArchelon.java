@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFoll
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -18,6 +19,8 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.effect.MobEffects;
@@ -33,10 +36,14 @@ import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -48,6 +55,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements CustomFollower, GeoEntity {
@@ -69,6 +77,9 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
 
     private static final AnimationHelper ARCHELON_SPIN = AnimationHelper.playAnimationWController("Normal","spin1", "animation.archelon.spin1");
     private static final AnimationHelper ARCHELON_SPIN2 = AnimationHelper.playAnimationWController("Normal","spin2", "animation.archelon.spin2");
+
+    private static final RawAnimation ARCHELON_HEART_SPIN = RawAnimation.begin().thenLoop("animation.archelon.heartspin");
+
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -106,7 +117,78 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
     }
 
+    public boolean isFood(ItemStack pStack) {
+        Item item = pStack.getItem();
+        return item.isEdible() && pStack.getFoodProperties(this).isMeat();
+    }
 
+    public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        Item item = itemstack.getItem();
+        // LOGGER.info("Yellow " +this.isYellow() );
+        // LOGGER.info("Blue " +this.isBlue() );
+        // LOGGER.info("White " +this.isWhite() );
+        // LOGGER.info("Orange " +this.isOrange() );
+        // LOGGER.info("hp " + this.getMaxHealth());
+        // LOGGER.info("Speed" + this.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
+        // LOGGER.info("Speed" + this.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
+        if (isFood(itemstack)) {
+            if (!isTame()) {
+                if(!this.level().isClientSide) {
+                    int size = itemstack.getCount();
+                    this.tame(player);
+                    itemstack.shrink(size);
+                }
+                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        if (isTame() && isOwnedBy(player)) {
+            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                if(!this.level().isClientSide) {
+                    this.heal((float) itemstack.getFoodProperties(this).getNutrition());
+                }
+                this.gameEvent(GameEvent.EAT, this);
+                return InteractionResult.SUCCESS;
+            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
+                this.usePlayerItem(player, hand, itemstack);
+                this.setSaddled(true);
+                return InteractionResult.SUCCESS;
+            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+                this.setSaddled(false);
+                this.spawnAtLocation(Items.SADDLE);
+                return InteractionResult.SUCCESS;
+            } else {
+                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
+                    if(!this.level().isClientSide) {
+                        player.startRiding(this);
+                    }
+                    return InteractionResult.SUCCESS;
+                } else {
+                    this.setCommand((this.getCommand() + 1) % 3);
+
+                    if (this.getCommand() == 3) {
+                        this.setCommand(0);
+                    }
+                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
+                    boolean sit = this.getCommand() == 2;
+                    if (sit) {
+                        this.setOrderedToSit(true);
+                        return InteractionResult.SUCCESS;
+                    } else {
+                        this.setOrderedToSit(false);
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+            }
+
+        }
+        return InteractionResult.PASS;
+    }
 
     public void tick() {
         super.tick();
@@ -209,6 +291,40 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         int i1 = compound.getInt("TravelPosY");
         int j1 = compound.getInt("TravelPosZ");
         this.setTravelPos(new BlockPos(l, i1, j1));
+    }
+
+    public boolean isSaddled() {
+        return this.entityData.get(SADDLED).booleanValue();
+    }
+
+    public void setSaddled(boolean saddled) {
+        this.entityData.set(SADDLED, Boolean.valueOf(saddled));
+    }
+
+    @javax.annotation.Nullable
+    public LivingEntity getControllingPassenger() {
+        for (Entity passenger : this.getPassengers()) {
+            if (passenger instanceof Player) {
+                return (Player) passenger;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
+        float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+        float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+        pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
+    }
+
+    public double getPassengersRidingOffset() {
+        if (this.isInWater()) {
+            return 0.535;
+        }
+        else {
+            return 2.35;
+        }
     }
 
     void setTravelPos(BlockPos pTravelPos) {
@@ -349,6 +465,9 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
                 return event.setAndContinue(ARCHELON_SHAKE);
             }
             return  event.setAndContinue(ARCHELON_SWIM_IDLE);
+        }
+        if (this.isSaddled()) {
+            event.setAnimation(ARCHELON_HEART_SPIN);
         }
         return PlayState.CONTINUE;
     }
