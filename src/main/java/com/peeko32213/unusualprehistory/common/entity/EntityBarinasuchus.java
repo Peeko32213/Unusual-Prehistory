@@ -1,10 +1,10 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;

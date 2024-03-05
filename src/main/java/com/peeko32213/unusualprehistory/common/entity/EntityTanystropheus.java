@@ -1,18 +1,11 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.FindWaterGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.LeaveWaterGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.SemiAquaticSwimmingGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
-import net.minecraft.client.model.PandaModel;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -20,23 +13,19 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -44,7 +33,6 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-import java.util.EnumSet;
 import java.util.List;
 //TODO LIST
 // - Figure Out How to make Catching Fish Unique
@@ -69,6 +57,8 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
     private int baskingTimer = 0;
     public float prevBaskProgress;
     public float baskProgress;
+    public int fishingCooldown = 1200 + random.nextInt(1200);
+
     public EntityTanystropheus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
@@ -82,19 +72,20 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.ARMOR, 0.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.18D)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
     }
 
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.2F, false));
         this.goalSelector.addGoal(7, new FindWaterGoal(this));
         this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
         this.goalSelector.addGoal(9, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(1, new TanyFishingGoal(this));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34) {
                     @Override
                     public boolean canUse() {
-                        if (this.mob.isVehicle()) {
+                        if (this.mob.isVehicle() || ((EntityTanystropheus)this.mob).isBasking()) {
                             return false;
                         } else {
                             if (!this.forceTrigger) {
@@ -126,9 +117,19 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
                     }
                 }
         );
-        this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.PISCIVORE_DIET)));
+        this.goalSelector.addGoal(8, new BaskRandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F)
+        {
+            @Override
+            public boolean canUse() {
+                if(this.mob instanceof EntityTanystropheus entityTanystropheus)
+                {
+                    if(entityTanystropheus.isBasking()) return false;
+                }
+
+                return super.canUse();
+            }
+        });
 
     }
 
@@ -149,10 +150,12 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
     public void tick() {
         super.tick();
         this.prevSwimProgress = swimProgress;
-        prevBaskProgress = baskProgress;
-
         final boolean ground = !this.isInWaterOrBubble();
-
+        if (isBasking()) {
+            baskingTimer++;
+        } else {
+            baskingTimer = 0;
+        }
         if (!ground && this.isLandNavigator) {
             switchNavigator(false);
         }
@@ -172,34 +175,28 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
                 swimTimer--;
             }
         }
-        if (isBasking() && baskProgress < 5F) {
-            baskProgress++;
-        }
-        if (!isBasking() && baskProgress > 0F) {
-            baskProgress--;
+        if (!this.level().isClientSide) {
+            if (fishingCooldown > 0) {
+                fishingCooldown--;
+            }
         }
         if (!this.level().isClientSide) {
             if (isBasking()) {
-                if (this.getLastHurtByMob() != null || this.isInWaterOrBubble() || this.getTarget() != null || baskingTimer > 1000 && this.getRandom().nextInt(100) == 0) {
+                if (this.getLastHurtByMob() != null || this.isInWaterOrBubble() || this.getTarget() != null || baskingTimer > 500 && this.getRandom().nextInt(10) == 0) {
                     this.setBasking(false);
                 }
             } else {
-                if (this.getTarget() == null && !isInLove() && this.getLastHurtByMob() == null && !isBasking() && baskingTimer == 0 && this.getRandom().nextInt(15) == 0) {
+                if (this.getTarget() == null && !isInLove() && this.getLastHurtByMob() == null && !isBasking() && this.level().isDay() && baskingTimer == 0 && this.getRandom().nextInt(200) == 0) {
                     if (!isInWaterOrBubble()) {
                         this.setBasking(true);
                     }
                 }
             }
         }
-        if (isBasking()) {
-            baskingTimer++;
-        } else {
-            baskingTimer = 0;
-        }
     }
 
     public void travel(Vec3 travelVector) {
-         if (this.isEffectiveAi() && this.isInWater()) {
+         if (this.isEffectiveAi() && this.isInWater() && !this.isBasking()) {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
@@ -207,6 +204,15 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
             }
         }
+        if (this.isBasking()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            this.getLookControl().setLookAt(this.position().add(2,0,2));
+            travelVector = Vec3.ZERO;
+            super.travel(travelVector);
+        }
+
          else {
             super.travel(travelVector);
         }
@@ -236,6 +242,7 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
         compound.putBoolean("Basking", this.isBasking());
         compound.putInt("BaskingTimer", this.baskingTimer);
         compound.putInt("SwimTimer", this.swimTimer);
+        compound.putInt("FishingTimer", this.fishingCooldown);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -243,6 +250,11 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
         this.setBasking(compound.getBoolean("Basking"));
         this.baskingTimer = compound.getInt("BaskingTimer");
         this.swimTimer = compound.getInt("SwimTimer");
+        this.fishingCooldown = compound.getInt("FishingTimer");
+    }
+
+    public void resetFishingCooldown(){
+        fishingCooldown = Math.max(700 + random.nextInt(700), 100);
     }
 
     public boolean isBasking() {
@@ -336,6 +348,11 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
+
+        if (this.isBasking() && !this.isInWater()) {
+            event.setAndContinue(TANY_VIBE_HOLD);
+        }
+
         if (event.isMoving() && !this.isInWater()) {
             event.setAndContinue(TANY_WALK);
             event.getController().setAnimationSpeed(1.0D);
@@ -360,9 +377,6 @@ public class EntityTanystropheus extends EntityBaseDinosaurAnimal implements Sem
     }
 
     protected <E extends EntityTanystropheus> PlayState baskController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.isBasking() && !this.isInWater() || !event.isMoving()) {
-            event.setAndContinue(TANY_VIBE_HOLD);
-        }
         return PlayState.STOP;
     }
 

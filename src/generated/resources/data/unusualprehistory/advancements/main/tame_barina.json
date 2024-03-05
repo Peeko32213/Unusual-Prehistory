@@ -1,0 +1,30 @@
+{
+  "parent": "unusualprehistory:main/barina",
+  "criteria": {
+    "tame_barina": {
+      "conditions": {},
+      "trigger": "unusualprehistory:barina_trigger"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.tame_barina.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:barina_whistle"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.tame_barina"
+    }
+  },
+  "requirements": [
+    [
+      "tame_barina"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.PounceGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -309,8 +309,10 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
     private static class PushButtonsGoal extends MoveToBlockGoal {
         private final EntityVelociraptor raptor;
 
-        private static final int WAIT_TICKS = 20;
+        private static final int COOLDOWN = 5000;
         protected int ticksWaited;
+
+        private static int cooldownTicks = COOLDOWN;
 
         public PushButtonsGoal(EntityVelociraptor pMob, double pSpeedModifier, int pSearchRange, int pVerticalSearchRange) {
             super(pMob, pSpeedModifier, pSearchRange, pVerticalSearchRange);
@@ -322,7 +324,7 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
         }
 
         public boolean canUse() {
-            return super.canUse();
+            return cooldownTicks-- <= 0 && super.canUse();
         }
 
         public boolean canContinueToUse() {
@@ -353,9 +355,16 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
                 BlockState blockstate = raptor.level().getBlockState(this.blockPos);
                 if (blockstate.is(UPBlocks.AMBER_BUTTON.get())) {
                     this.pushButton(blockstate);
+                    this.stop();
                 }
 
             }
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            cooldownTicks = COOLDOWN;
         }
 
         @Override

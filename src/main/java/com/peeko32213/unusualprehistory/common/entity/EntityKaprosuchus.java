@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 
-import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
@@ -9,7 +8,6 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.Custom
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
-import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.nbt.CompoundTag;
@@ -22,7 +20,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -33,11 +30,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.util.LandRandomPos;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.entity.animal.Rabbit;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -55,7 +47,6 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
-import java.util.List;
 
 public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implements CustomFollower, SemiAquatic {
 
@@ -72,9 +63,9 @@ public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implemen
     private static final RawAnimation KAPROSUCHUS_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.kaprosuchus.swimidle");
 
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityKaprosuchus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityPsittacosaurus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityPsittacosaurus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityPsittacosaurus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityKaprosuchus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityKaprosuchus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityKaprosuchus.class, EntityDataSerializers.INT);
     public float sitProgress;
     public float prevSwimProgress;
     public float swimProgress;
@@ -91,7 +82,7 @@ public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implemen
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 25.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.22D)
+                .add(Attributes.MOVEMENT_SPEED, 0.18D)
                 .add(Attributes.ARMOR, 10.0D)
                 .add(Attributes.ARMOR_TOUGHNESS, 10.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
@@ -408,6 +399,9 @@ public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implemen
     @Override
     public int getWaterSearchRange() {
         return 12;
+    }
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 
     @Override
@@ -767,30 +761,10 @@ public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implemen
         return PlayState.CONTINUE;
     }
 
-    protected <E extends EntityKaprosuchus> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        int animState = this.getAnimationState();
-        {
-            switch (animState) {
-
-                case 21:
-                    event.setAndContinue(KAPROSUCHUS_ATTACK_1);
-                    break;
-                case 22:
-                    event.setAndContinue(KAPROSUCHUS_ATTACK_2);
-                    break;
-                case 23:
-                    event.setAndContinue(KAPROSUCHUS_ATTACK_SWIM);
-                    break;
-            }
-        }
-        return PlayState.STOP;
-    }
-
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 10, this::Controller));
-        //controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
     }
 
 }

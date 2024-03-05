@@ -5,7 +5,9 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -16,6 +18,8 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 public class BlockstateGenerator extends BlockStateProvider {
     public BlockstateGenerator(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -64,18 +68,18 @@ public class BlockstateGenerator extends BlockStateProvider {
         //This one makes a json file with default models as template_medium_eggs, etc as parent
         createEggDefaultMedium(UPBlocks.TRIKE_EGG.get());
         createEggDefaultMedium(UPBlocks.REX_EGG.get());
-        createCustomEgg(UPBlocks.ULUGH_EGG.get(), "majunga");
-        createCustomEgg(UPBlocks.ANTARCO_EGG.get(), "majunga");
-        createCustomEgg(UPBlocks.KENTRO_EGG.get(), "majunga");
-        createCustomEgg(UPBlocks.HWACHA_EGG.get(), "majunga");
-        createCustomEgg(UPBlocks.AUSTRO_EGG.get(), "majunga");
-        createEggDefaultSmall(UPBlocks.RAPTOR_EGG.get());
+        createCustomEggCustom(UPBlocks.ULUGH_EGG.get(), "majunga", "ulughbegsaurus_egg");
+        createCustomEggCustom(UPBlocks.ANTARCO_EGG.get(), "majunga", "antarctopelta_eggs");
+        createCustomEggCustom(UPBlocks.KENTRO_EGG.get(), "majunga", "kentrosaurus_egg");
+        createCustomEggCustom(UPBlocks.HWACHA_EGG.get(), "majunga", "hwachavenator_egg");
+        createCustomEggCustom(UPBlocks.AUSTRO_EGG.get(), "majunga", "austroraptor_eggs");
+        createEggDefaultSmallCustom(UPBlocks.RAPTOR_EGG.get(), "veloci_eggs");
         createEggDefaultSmall(UPBlocks.PACHY_EGG.get());
         createSingleEgg(UPBlocks.TALPANAS_EGG.get());
-        createEggDefaultSmall(UPBlocks.BARINA_EGG.get());
-        createEggDefaultMedium(UPBlocks.MEGALA_EGG.get());
-        createEgg(UPBlocks.KAPRO_EGG.get());
-        createEgg(UPBlocks.LONGI_EGG.get());
+        createEggDefaultSmallCustom(UPBlocks.BARINA_EGG.get(), "barinasuchus_eggs");
+        createEggDefaultMediumCustom(UPBlocks.MEGALA_EGG.get(), "megalania_eggs");
+        createEggCustom(UPBlocks.KAPRO_EGG.get(), "kaprosuchus_egg");
+        createEggCustom(UPBlocks.LONGI_EGG.get(), "longisquama_egg");
         createEgg(UPBlocks.PSITTACO_EGG.get());
         createEgg(UPBlocks.TANY_EGG.get());
 
@@ -177,8 +181,47 @@ public class BlockstateGenerator extends BlockStateProvider {
         simpleBlock(UPBlocks.PERMAFROST.get());
         simpleBlock(UPBlocks.PERMAFROST_FOSSIL.get());
 
+        //Zuloagae
+
+        logBlock(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get());
+        simpleBlockItem(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get(), existingModel((getName(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get()))));
+        logBlock(UPBlocks.ZULOAGAE_BLOCK.get());
+        simpleBlockItem(UPBlocks.ZULOAGAE_BLOCK.get(), existingModel((getName(UPBlocks.ZULOAGAE_BLOCK.get()))));
+        simpleBlock(UPBlocks.ZULOAGAE_PLANKS.get());
+        simpleBlockItem(UPBlocks.ZULOAGAE_PLANKS.get(), existingModel((getName(UPBlocks.ZULOAGAE_PLANKS.get()))));
+        slabBlock(UPBlocks.ZULOAGAE_SLAB.get(), resourceBlock(getName(UPBlocks.ZULOAGAE_PLANKS.get())), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        simpleBlockItem(UPBlocks.ZULOAGAE_SLAB.get(), existingModel((getName(UPBlocks.ZULOAGAE_SLAB.get()))));
+
+        doorBlock(UPBlocks.ZULOAGAE_DOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_door_bottom"),new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_door_top"));
+        trapdoorBlock(UPBlocks.ZULOAGAE_TRAPDOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_trapdoor"), true);
+        stairsBlock(UPBlocks.ZULOAGAE_STAIRS.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        simpleBlockItem(UPBlocks.ZULOAGAE_STAIRS.get(), existingModel((getName(UPBlocks.ZULOAGAE_STAIRS.get()))));
+        pressurePlateBlock(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        simpleBlockItem(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get(), existingModel((getName(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get()))));
+        buttonBlock(UPBlocks.ZULOAGAE_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        fenceBlock(UPBlocks.ZULOAGAE_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        fenceGateBlock(UPBlocks.ZULOAGAE_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+        createPottedPlant(UPBlocks.ARCHAEOSIGILARIA, UPBlocks.POTTED_ARCHAEOSIGILARIA,"cutout");
+        createPottedPlant(UPBlocks.BENNETTITALES, UPBlocks.POTTED_BENNETTITALES,"cutout");
+        createPottedPlant(UPBlocks.HORSETAIL, UPBlocks.POTTED_HORSETAIL,"cutout");
+        createPottedPlant(UPBlocks.LEEFRUCTUS, UPBlocks.POTTED_LEEFRUCTUS,"cutout");
+        createPottedPlant(UPBlocks.SARACENIA, UPBlocks.POTTED_SARACENIA,"cutout");
+        createPottedPlant(UPBlocks.GINKGO_SAPLING, UPBlocks.POTTED_GINKGO_SAPLING,"cutout");
+        createPottedPlant(UPBlocks.PETRIFIED_BUSH, UPBlocks.POTTED_PETRIFIED_BUSH,"cutout");
+        createPottedPlant(UPBlocks.DRYO_SAPLING, UPBlocks.POTTED_DRYO,"cutout");
+        createPottedPlant(UPBlocks.ZULOAGAE_SAPLING, UPBlocks.POTTED_ZULOGAE,"cutout");
+        //createPottedPlant(UPBlocks.FOXII_SAPLING, UPBlocks.POTTED_FOXXI,"cutout");
     }
 
+
+    public void createEggCustom(Block block, String name){
+        createEgg(block, "");
+        createEgg(block, "two_");
+        createEgg(block, "three_");
+        createEgg(block, "four_");
+        eggBlockVariantY(block);
+        singleTexCustom(block,name);
+    }
     public void createEgg(Block block){
         createEgg(block, "");
         createEgg(block, "two_");
@@ -186,6 +229,14 @@ public class BlockstateGenerator extends BlockStateProvider {
         createEgg(block, "four_");
         eggBlockVariantY(block);
         singleTex(block);
+    }
+    public void createCustomEggCustom(Block block, String modifier, String name){
+        createCustomEgg(block, "", modifier);
+        createCustomEgg(block, "two_", modifier);
+        createCustomEgg(block, "three_", modifier);
+        createCustomEgg(block, "four_", modifier);
+        eggBlockVariantY(block);
+        singleTexCustom(block,name);
     }
 
     public void createCustomEgg(Block block, String modifier){
@@ -197,6 +248,15 @@ public class BlockstateGenerator extends BlockStateProvider {
         singleTex(block);
     }
 
+    public void createEggDefaultSmallCustom(Block block, String name){
+        createEggDefaultSmall(block, "");
+        createEggDefaultSmall(block, "two_");
+        createEggDefaultSmall(block, "three_");
+        createEggDefaultSmall(block, "four_");
+        eggBlockVariantY(block);
+        singleTexCustom(block,name);
+    }
+
     public void createEggDefaultSmall(Block block){
         createEggDefaultSmall(block, "");
         createEggDefaultSmall(block, "two_");
@@ -205,7 +265,14 @@ public class BlockstateGenerator extends BlockStateProvider {
         eggBlockVariantY(block);
         singleTex(block);
     }
-
+    public void createEggDefaultMediumCustom(Block block, String name){
+        createEggDefaultMedium(block, "");
+        createEggDefaultMedium(block, "two_");
+        createEggDefaultMedium(block, "three_");
+        createEggDefaultMedium(block, "four_");
+        eggBlockVariantY(block);
+        singleTexCustom(block,name);
+    }
     public void createEggDefaultMedium(Block block){
         createEggDefaultMedium(block, "");
         createEggDefaultMedium(block, "two_");
@@ -394,8 +461,31 @@ public class BlockstateGenerator extends BlockStateProvider {
             default -> throw new UnsupportedOperationException();
         };
     }
+
+    private BlockModelBuilder singleTexCustom(Block block,String name) {
+        return generated(getName(block), new ResourceLocation(UnusualPrehistory.MODID,"item/" + name.replace("eggs", "egg")));
+    }
     private BlockModelBuilder singleTex(Block block) {
         return generated(getName(block), new ResourceLocation(UnusualPrehistory.MODID,"item/" + getName(block).replace("eggs", "egg")));
+    }
+
+    public ModelFile singleTexture(String name, ResourceLocation parent, String textureKey, ResourceLocation texture, String renderType) {
+        return models().withExistingParent(name, parent)
+                .texture(textureKey, texture).renderType(renderType);
+    }
+
+    private void createPottedPlant(RegistryObject<Block> plant, RegistryObject<Block> pottedPlant, String renderType){
+        ConfiguredModel cFfile = new ConfiguredModel(pottedPlant(name(pottedPlant.get()), blockTexture(plant.get()), renderType));
+        getVariantBuilder(pottedPlant.get()).partialState().setModels(cFfile);
+        //impleBlockItem(plant.get(), file);
+    }
+
+    public ModelFile pottedPlant(String name, ResourceLocation plant, String renderType) {
+        return singleTexture(name, BLOCK_FOLDER + "/flower_pot_cross", "plant", plant, renderType);
+    }
+
+    private ModelFile singleTexture(String name, String parent, String textureKey, ResourceLocation texture, String renderType) {
+        return singleTexture(name, mcLoc(parent), textureKey, texture, renderType);
     }
 
     private BlockModelBuilder singleTexWaterEgg(Block block) {
@@ -410,6 +500,9 @@ public class BlockstateGenerator extends BlockStateProvider {
         return builder;
     }
 
+    private String name(Block block) {
+        return key(block).getPath();
+    }
 
     @Override
     public String getName() {

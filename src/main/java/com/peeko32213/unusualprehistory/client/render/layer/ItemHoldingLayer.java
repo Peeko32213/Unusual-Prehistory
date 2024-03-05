@@ -51,6 +51,7 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoRen
         RenderUtils.translateToPivotPoint(stack,bone);
         RenderUtils.translateToPivotPoint(stack,bone);
         //RenderUtils.rotateMatrixAroundCube(stack,bone);
+
         RenderUtils.scaleMatrixForBone(stack, bone);
         RenderUtils.translateAwayFromPivotPoint(stack, bone);
 
@@ -68,7 +69,7 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoRen
                 stack.scale(0.5f, 0.5f, 0.5f);
                 // Change mainHand to predefined Itemstack and TransformType to what transform you would want to use.
                 ItemStack itemStack = mammoth.getHoldItemStack();
-                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemDisplayContext.GUI, packedLightIn,
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemDisplayContext.NONE, packedLightIn,
                         OverlayTexture.NO_OVERLAY, stack, renderBuffer, entity.level(),1);
 
                 stack.popPose();
@@ -94,11 +95,12 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoRen
                                           int packedOverlayIn) {
 
         stack.pushPose();
-        RenderUtils.translateToPivotPoint(stack,bone);
-        RenderUtils.translateToPivotPoint(stack,bone);
-        //RenderUtils.rotateMatrixAroundCube(stack,bone);
-        RenderUtils.scaleMatrixForBone(stack, bone);
-        RenderUtils.translateAwayFromPivotPoint(stack, bone);
+        RenderUtils.translateAwayFromPivotPoint(stack,bone);
+        //RenderUtils.translateToPivotPoint(stack,bone);
+        ////RenderUtils.rotateMatrixAroundCube(stack,bone);
+        //RenderUtils.scaleMatrixForBone(stack, bone);
+        //RenderUtils.translateAwayFromPivotPoint(stack, bone);
+        RenderUtils.translateAndRotateMatrixForBone(stack, bone);
         if(entity instanceof EntityBaseDinosaurAnimal entityBaseDinosaurAnimal) {
             if (bone.getName().equals("Arm1") && entityBaseDinosaurAnimal.isTrading() && entityBaseDinosaurAnimal instanceof EntityGigantopithicus) {
                 stack.pushPose();
@@ -106,9 +108,9 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoRen
                 stack.mulPose(Axis.XP.rotationDegrees(-45));
                 stack.mulPose(Axis.YP.rotationDegrees(0));
                 stack.mulPose(Axis.ZP.rotationDegrees(0));
-
+                //float angle = (0.01745329251F * entityBaseDinosaurAnimal.yr);
                 //You'll need to play around with this to render the item in the correct spot.
-                stack.translate(1.55D, 0.1D, -0.75D);
+                stack.translate(1.55D , 0.1D, -0.75D );
                 //Sets the scaling of the item.
                 stack.scale(2.5f, 2.5f, 2.5f);
 

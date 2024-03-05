@@ -51,11 +51,13 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class EntityEryon extends EntityBaseDinosaurAnimal{
+public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEntity{
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
+    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/eryon.png");
+    private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation("unusualprehistory:textures/entity/eryon_blue.png");
     private Ingredient temptationItems;
     public float prevFeedProgress;
     public float feedProgress;
@@ -247,6 +249,14 @@ public class EntityEryon extends EntityBaseDinosaurAnimal{
         if (this.getFeedingTime() <= 0 && feedProgress > 0F) {
             feedProgress--;
         }
+    }
+
+    @Override
+    public ResourceLocation getVariantTexture() {
+        if (getVariant() == 1) {
+            return TEXTURE_BLUE;
+        }
+        return TEXTURE_NORMAL;
     }
 
     private class DigSandGoal extends Goal {

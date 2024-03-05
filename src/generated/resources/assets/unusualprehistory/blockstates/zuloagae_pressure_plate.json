@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "unusualprehistory:block/zuloagae_pressure_plate"
+    },
+    "powered=true": {
+      "model": "unusualprehistory:block/zuloagae_pressure_plate_down"
+    }
+  }
+}

@@ -3,7 +3,8 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.client.model.HwachaSpikeModel;
+import com.peeko32213.unusualprehistory.client.model.DefaultModel;
+import com.peeko32213.unusualprehistory.client.model.ModelLocations;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -14,7 +15,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 public class HwachaSpikeRenderer extends GeoEntityRenderer<EntityHwachaSpike> {
 
     public HwachaSpikeRenderer(EntityRendererProvider.Context context) {
-        super(context, new HwachaSpikeModel());
+        super(context, new DefaultModel<>(ModelLocations.HWACHA_SPIKE));
     }
 
     public RenderType getRenderType(EntityHwachaSpike animatable, float partialTicks, PoseStack stack,

@@ -9,7 +9,6 @@ import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 public final class FeaturePlacers {

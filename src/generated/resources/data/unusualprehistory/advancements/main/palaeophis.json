@@ -1,0 +1,69 @@
+{
+  "parent": "unusualprehistory:main/incubator",
+  "criteria": {
+    "damage_palaeo": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "direct_entity": {
+              "type": "unusualprehistory:palaeophis"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    },
+    "interact_palaeo": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:palaeophis"
+            }
+          }
+        ],
+        "item": {}
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "killed_palaeo": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusualprehistory:palaeophis"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "unusualprehistory.advancement.interact_palaeo.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "unusualprehistory:palaeo_flask"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "unusualprehistory.advancement.interact_palaeo"
+    }
+  },
+  "requirements": [
+    [
+      "damage_palaeo",
+      "interact_palaeo",
+      "killed_palaeo"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

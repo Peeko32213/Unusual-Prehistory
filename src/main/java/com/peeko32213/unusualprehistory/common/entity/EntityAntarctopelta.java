@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
@@ -42,7 +42,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
 
-public class EntityAntarctopelta extends EntityBaseDinosaurAnimal {
+public class EntityAntarctopelta extends EntityBaseDinosaurAnimal implements ICustomAnimationsEntity {
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityAntarctopelta.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityAntarctopelta.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityAntarctopelta.class, EntityDataSerializers.INT);

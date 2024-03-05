@@ -1,13 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
+import com.peeko32213.unusualprehistory.common.entity.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.LandCreaturePathNavigation;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -38,7 +40,9 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-public class EntityBabyMegalania extends EntityTameableBaseDinosaurAnimal {
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+
+public class EntityBabyMegalania extends EntityTameableBaseDinosaurAnimal implements IVariantEntity {
 
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Items.CHICKEN);
@@ -46,6 +50,11 @@ public class EntityBabyMegalania extends EntityTameableBaseDinosaurAnimal {
     private static final RawAnimation BABY_WALK = RawAnimation.begin().thenLoop("animation.baby_megalania.walk");
     private static final RawAnimation BABY_IDLE = RawAnimation.begin().thenLoop("animation.baby_megalania.idle");
     private static final RawAnimation BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_megalania.swim");
+    private static final ResourceLocation NORMAL_LOCATION = prefix("textures/entity/baby_megalania.png");
+    private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/baby_megalania_hot.png");
+    private static final ResourceLocation COLD_LOCATION = prefix("textures/entity/baby_megalania_cold.png");
+    private static final ResourceLocation NETHER_LOCATION = prefix("textures/entity/baby_megalania_nether.png");
+
     public EntityBabyMegalania(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
@@ -310,4 +319,20 @@ public class EntityBabyMegalania extends EntityTameableBaseDinosaurAnimal {
         return tickCount;
     }
 
+    @Override
+    public ResourceLocation getVariantTexture() {
+        if(getVariant() == 1){
+            return COLD_LOCATION;
+        }
+        if(getVariant() == 2)
+        {
+            return HOT_LOCATION;
+        }
+        if(getVariant() == 3)
+        {
+            return NETHER_LOCATION;
+        }
+
+        return NORMAL_LOCATION;
+    }
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "unusualprehistory:block/stripped_zuloagae_block_top",
+    "side": "unusualprehistory:block/stripped_zuloagae_block"
+  }
+}

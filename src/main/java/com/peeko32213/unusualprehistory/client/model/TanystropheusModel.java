@@ -2,8 +2,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
-import com.peeko32213.unusualprehistory.common.entity.EntityPsittacosaurus;
 import com.peeko32213.unusualprehistory.common.entity.EntityTanystropheus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -50,6 +48,19 @@ public class TanystropheusModel extends GeoModel<EntityTanystropheus>
         }
         if (!animatable.isSprinting()) {
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
+        }
+        CoreGeoBone tail = this.getAnimationProcessor().getBone("Tail");
+        CoreGeoBone tailfin = this.getAnimationProcessor().getBone("TailFin");
+        CoreGeoBone neck = this.getAnimationProcessor().getBone("Neck");
+        CoreGeoBone neckfront = this.getAnimationProcessor().getBone("NeckFront");
+        CoreGeoBone root = this.getAnimationProcessor().getBone("Body");
+        if (animatable.isInWater()) {
+            root.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 7));
+            root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(animatable.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
+            tail.setRotY(tail.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+            tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+            neck.setRotY(neck.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+            neckfront.setRotZ(neckfront.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
         }
     }
 

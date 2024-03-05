@@ -19,6 +19,7 @@ import java.util.List;
 public class UPRenderUtils {
     public static <T extends EntityTameableBaseDinosaurAnimal> TamableDinosaurRendererBuilder<T> createTamableDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
         return new TamableDinosaurRendererBuilder<>(context, model);
+
     }
 
     public static <T extends EntityBaseDinosaurAnimal> DinosaurRendererBuilder<T> createDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {

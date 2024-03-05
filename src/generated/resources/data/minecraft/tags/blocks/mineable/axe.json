@@ -20,7 +20,6 @@
     "unusualprehistory:stripped_foxxi_wood",
     "unusualprehistory:stripped_foxxi_log",
     "unusualprehistory:ginkgo_planks",
-    "unusualprehistory:foxxi_planks",
     "unusualprehistory:petrified_planks",
     "unusualprehistory:dryo_planks",
     "unusualprehistory:ginkgo_door",
@@ -57,6 +56,16 @@
     "unusualprehistory:ginkgo_button",
     "unusualprehistory:foxxi_button",
     "unusualprehistory:dryo_button",
-    "unusualprehistory:petrified_wood_button"
+    "unusualprehistory:petrified_wood_button",
+    "unusualprehistory:zuloagae_block",
+    "unusualprehistory:zuloagae_planks",
+    "unusualprehistory:zuloagae_button",
+    "unusualprehistory:zuloagae_door",
+    "unusualprehistory:zuloagae_fence",
+    "unusualprehistory:zuloagae_fence_gate",
+    "unusualprehistory:zuloagae_pressure_plate",
+    "unusualprehistory:zuloagae_stairs",
+    "unusualprehistory:zuloagae_slab",
+    "unusualprehistory:zuloagae_trapdoor"
   ]
 }

@@ -59,6 +59,7 @@ public class BlockTar extends Block implements BucketPickup {
         if (!(pEntity instanceof LivingEntity) || pEntity.getFeetBlockState().is(this)) {
             if(!pEntity.getType().is(UPTags.TAR_WALKABLE_THROUGH_MOBS)) {
                 pEntity.makeStuckInBlock(pState, new Vec3((double) 0.2F, 1.5D, (double) 0.2F));
+                pEntity.hurt(pEntity.damageSources().inWall(),1);
             }
             if (pLevel.isClientSide) {
                 RandomSource randomsource = pLevel.getRandom();

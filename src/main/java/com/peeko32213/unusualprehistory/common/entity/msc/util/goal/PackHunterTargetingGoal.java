@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 
 import javax.annotation.Nullable;

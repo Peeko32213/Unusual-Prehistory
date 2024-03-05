@@ -65,6 +65,9 @@ public class BlockGinkgoWood extends RotatedPillarBlock {
             if(state.is(UPBlocks.DRYO_WOOD.get())) {
                 return UPBlocks.STRIPPED_DRYO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
+            if(state.is(UPBlocks.ZULOAGAE_BLOCK.get())) {
+                return UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            }
         }
         return super.getToolModifiedState(state, context, toolAction, simulate);
     }

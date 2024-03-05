@@ -51,7 +51,6 @@ public class UPBlockEntities {
                     BlockEntityType.Builder.of(FruitLootBoxEntity::new,
                             UPBlocks.FRUIT_LOOT_BOX.get()).build(null));
 
-
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }

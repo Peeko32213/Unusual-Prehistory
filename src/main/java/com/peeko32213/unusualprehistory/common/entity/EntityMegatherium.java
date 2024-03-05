@@ -7,7 +7,6 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGo
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.EatLeavesGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -178,9 +177,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if(itemstack.is(UPItems.ENCYLOPEDIA.get())){
-            InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        }
+        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (hand == InteractionHand.MAIN_HAND && !this.level().isClientSide) {
             if (isTame() && isOwnedBy(player)) {
                 if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
@@ -238,7 +235,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
             this.setSwinging(true);
             ServerLevel serverLevel = (ServerLevel) this.level();
             float angle = (0.01745329251F * this.yBodyRot);
-            double radius = this.getBbWidth();
+            double radius = this.getBbWidth() + 1;
             double extraX = radius * Mth.sin((float) (Math.PI + angle));
             double extraZ = radius * Mth.cos(angle);
             BlockPos targetPos = BlockPos.containing(this.getX() + extraX, this.getY(), this.getZ() + extraZ);

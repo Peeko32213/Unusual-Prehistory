@@ -36,6 +36,9 @@ public class UPTags {
     public static final TagKey<EntityType<?>> PSITTACO_TARGETS = registerEntityTag("psittaco_targets");
 
     public static final TagKey<EntityType<?>> SMILODON_TARGETS = registerEntityTag("smilodon_targets");
+    public static final TagKey<EntityType<?>> OPHIODON_TARGETS = registerEntityTag("ophiodon_targets");
+    public static final TagKey<EntityType<?>> PROTOSPHYRAENA_TARGETS = registerEntityTag("protosphyraena_targets");
+
     public static final TagKey<EntityType<?>> HERBIVORES = registerEntityTag("herbivores");
     public static final TagKey<EntityType<?>> CARNIVORES = registerEntityTag("carnivores");
     public static final TagKey<EntityType<?>> OMNIVORES = registerEntityTag("omnivores");
@@ -76,6 +79,14 @@ public class UPTags {
     public static final TagKey<Item> FOSSILS = registerItemTag("fossils");
     public static final TagKey<Item> ORGANIC_OOZE = registerItemTag("organic_ooze");
     public static final TagKey<Item> MAMMOTH_WEAPONS = registerItemTag("mammoth_weapons");
+
+
+    public static final TagKey<Item> IS_SHINY_HEAD = registerItemTag("shiny_head");
+    public static final TagKey<Item> IS_SHINY_CHEST = registerItemTag("shiny_chest");
+    public static final TagKey<Item> IS_SHINY_LEGS = registerItemTag("shiny_legs");
+    public static final TagKey<Item> IS_SHINY_BOOTS = registerItemTag("shiny_boots");
+
+
     //Food Tags
     public static final TagKey<Item> KENTRO_FOOD = registerItemTag( "kentro_food");
     public static final TagKey<Item> MAJUNGA_FOOD = registerItemTag("majunga_food");
@@ -92,6 +103,7 @@ public class UPTags {
     public static final TagKey<Item> PETRIFIED_WOOD = registerItemTag("petrified_wood");
     public static final TagKey<Item> FOXXI = registerItemTag("foxxi");
     public static final TagKey<Item> DRYO = registerItemTag("dryo");
+    public static final TagKey<Item> ZULOAGAE = registerItemTag("zuloagae");
 
 
     //Breakables Tags

@@ -34,12 +34,8 @@ public class BarinaTameTrigger extends SimpleCriterionTrigger<BarinaTameTrigger.
     }
 
     public BarinaTameTrigger.TriggerInstance createInstance(JsonObject p_286301_, ContextAwarePredicate p_286748_, DeserializationContext p_286322_) {
-        ContextAwarePredicate contextawarepredicate = ContextAwarePredicate.fromElement("location", p_286322_, p_286301_.get("location"), LootContextParamSets.ADVANCEMENT_LOCATION);
-        if (contextawarepredicate == null) {
-            throw new JsonParseException("Failed to parse 'location' field");
-        } else {
-            return new BarinaTameTrigger.TriggerInstance(this.id, p_286748_, contextawarepredicate);
-        }
+        //ContextAwarePredicate contextawarepredicate = ContextAwarePredicate.fromElement("location", p_286322_, p_286301_.get("location"), LootContextParamSets.ADVANCEMENT_LOCATION);
+        return new BarinaTameTrigger.TriggerInstance(this.id, p_286748_);
     }
 
     public void trigger(ServerPlayer p_286813_, BlockPos p_286625_, ItemStack p_286620_) {
@@ -48,33 +44,33 @@ public class BarinaTameTrigger extends SimpleCriterionTrigger<BarinaTameTrigger.
         LootParams lootparams = (new LootParams.Builder(serverlevel)).withParameter(LootContextParams.ORIGIN, p_286625_.getCenter()).withParameter(LootContextParams.THIS_ENTITY, p_286813_).withParameter(LootContextParams.BLOCK_STATE, blockstate).withParameter(LootContextParams.TOOL, p_286620_).create(LootContextParamSets.ADVANCEMENT_LOCATION);
         LootContext lootcontext = (new LootContext.Builder(lootparams)).create((ResourceLocation)null);
         this.trigger(p_286813_, (p_286596_) -> {
-            return p_286596_.matches(lootcontext);
+            return p_286596_.matches();
         });
     }
 
     public static class TriggerInstance extends AbstractCriterionTriggerInstance {
-        private final ContextAwarePredicate location;
+        //private final ContextAwarePredicate location;
 
-        public TriggerInstance(ResourceLocation p_286265_, ContextAwarePredicate p_286333_, ContextAwarePredicate p_286319_) {
+        public TriggerInstance(ResourceLocation p_286265_, ContextAwarePredicate p_286333_) {
             super(p_286265_, p_286333_);
-            this.location = p_286319_;
+            //this.location = p_286319_;
         }
 
         public static BarinaTameTrigger.TriggerInstance placedBlock(Block p_286530_) {
             ContextAwarePredicate contextawarepredicate = ContextAwarePredicate.create(LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_286530_).build());
-            return new BarinaTameTrigger.TriggerInstance(UPAdvancementTriggerRegistry.BARINA_TRIGGER.id, ContextAwarePredicate.ANY, contextawarepredicate);
+            return new BarinaTameTrigger.TriggerInstance(UPAdvancementTriggerRegistry.BARINA_TRIGGER.id, ContextAwarePredicate.ANY);
         }
 
         public static BarinaTameTrigger.TriggerInstance placedBlock(LootItemCondition.Builder... p_286365_) {
             ContextAwarePredicate contextawarepredicate = ContextAwarePredicate.create(Arrays.stream(p_286365_).map(LootItemCondition.Builder::build).toArray((p_286827_) -> {
                 return new LootItemCondition[p_286827_];
             }));
-            return new BarinaTameTrigger.TriggerInstance(UPAdvancementTriggerRegistry.BARINA_TRIGGER.id, ContextAwarePredicate.ANY, contextawarepredicate);
+            return new BarinaTameTrigger.TriggerInstance(UPAdvancementTriggerRegistry.BARINA_TRIGGER.id, ContextAwarePredicate.ANY);
         }
 
-        private static BarinaTameTrigger.TriggerInstance itemUsedOnLocation(LocationPredicate.Builder p_286740_, ItemPredicate.Builder p_286777_, ResourceLocation p_286742_) {
+        public static BarinaTameTrigger.TriggerInstance itemUsedOnLocation(LocationPredicate.Builder p_286740_, ItemPredicate.Builder p_286777_, ResourceLocation p_286742_) {
             ContextAwarePredicate contextawarepredicate = ContextAwarePredicate.create(LocationCheck.checkLocation(p_286740_).build(), MatchTool.toolMatches(p_286777_).build());
-            return new BarinaTameTrigger.TriggerInstance(p_286742_, ContextAwarePredicate.ANY, contextawarepredicate);
+            return new BarinaTameTrigger.TriggerInstance(p_286742_, ContextAwarePredicate.ANY);
         }
 
         public static BarinaTameTrigger.TriggerInstance itemUsedOnBlock(LocationPredicate.Builder p_286808_, ItemPredicate.Builder p_286486_) {
@@ -85,13 +81,13 @@ public class BarinaTameTrigger extends SimpleCriterionTrigger<BarinaTameTrigger.
             return itemUsedOnLocation(p_286325_, p_286531_, UPAdvancementTriggerRegistry.BARINA_TRIGGER.id);
         }
 
-        public boolean matches(LootContext p_286800_) {
-            return this.location.matches(p_286800_);
+        public boolean matches() {
+            return true;
         }
 
         public JsonObject serializeToJson(SerializationContext p_286870_) {
             JsonObject jsonobject = super.serializeToJson(p_286870_);
-            jsonobject.add("location", this.location.toJson(p_286870_));
+            //jsonobject.add("location", this.location.toJson(p_286870_));
             return jsonobject;
         }
     }

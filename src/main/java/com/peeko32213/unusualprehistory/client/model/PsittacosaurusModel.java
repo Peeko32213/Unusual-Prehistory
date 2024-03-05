@@ -2,8 +2,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
-import com.peeko32213.unusualprehistory.common.entity.EntityOtarocyon;
 import com.peeko32213.unusualprehistory.common.entity.EntityPsittacosaurus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;

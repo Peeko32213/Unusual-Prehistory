@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityMegatherium;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.LandCreaturePathNavigation;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -148,28 +148,29 @@ public class EntityBabyMegatherium extends EntityTameableBaseDinosaurAnimal {
 
     private void growUp() {
         if (this.level() instanceof ServerLevel server) {
-            EntityMegatherium frog = UPEntities.MEGATHERIUM.get().create(this.level());
-            if (frog == null) return;
+            EntityMegatherium megatherium = UPEntities.MEGATHERIUM.get().create(this.level());
+            if (megatherium == null) return;
 
-            frog.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-            frog.finalizeSpawn(server, this.level().getCurrentDifficultyAt(frog.blockPosition()), MobSpawnType.CONVERSION, null, null);
-            frog.setNoAi(this.isNoAi());
+            megatherium.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+            megatherium.finalizeSpawn(server, this.level().getCurrentDifficultyAt(megatherium.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            megatherium.setNoAi(this.isNoAi());
             if (this.hasCustomName()) {
-                frog.setCustomName(this.getCustomName());
-                frog.setCustomNameVisible(this.isCustomNameVisible());
+                megatherium.setCustomName(this.getCustomName());
+                megatherium.setCustomNameVisible(this.isCustomNameVisible());
             }
 
             if (this.isTame()) {
                 Player player = this.level().getPlayerByUUID(this.getOwnerUUID());
                 if (player != null) {
-                    frog.tame(player);
+                    megatherium.tame(player);
+                    megatherium.setOwnerUUID(player.getUUID());
                 }
             }
-            
 
-            frog.setPersistenceRequired();
+
+            megatherium.setPersistenceRequired();
             this.playSound(SoundEvents.PLAYER_LEVELUP, 0.15F, 1.0F);
-            server.addFreshEntityWithPassengers(frog);
+            server.addFreshEntityWithPassengers(megatherium);
             this.discard();
         }
     }

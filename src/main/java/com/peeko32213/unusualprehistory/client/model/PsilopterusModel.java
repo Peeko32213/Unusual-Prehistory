@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityKaprosuchus;
 import com.peeko32213.unusualprehistory.common.entity.EntityPsilopterus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -31,7 +30,8 @@ public class PsilopterusModel extends GeoModel<EntityPsilopterus> {
         if(object.isDominate()){
             return DOMINATE;
         }
-        return NORMAL;    }
+        return NORMAL;
+    }
 
     @Override
     public ResourceLocation getAnimationResource(EntityPsilopterus object)

@@ -1,10 +1,11 @@
 package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
-import com.peeko32213.unusualprehistory.common.capabilities.UPAnimalCapability;
-import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
-import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
+import com.peeko32213.unusualprehistory.common.block.BlockDinosaurLandEggs;
+import com.peeko32213.unusualprehistory.common.block.DinoBlockItem;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
+import com.peeko32213.unusualprehistory.common.item.DinosaurLandEggItem;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.CrashReport;
@@ -12,6 +13,9 @@ import net.minecraft.ReportedException;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -28,6 +32,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -74,12 +79,12 @@ public class UnusualPrehistory {
         PROXY.init();
         //If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that
         // triggers the capability class otherwise it also wont hotswap
-       UPCapabilities.setupCapabilities();
-       eventBus.addListener(UPPlayerCapability::onPlayerCloned);
-       eventBus.addListener(UPPlayerCapability::onLivingDamage);
-       eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
-       eventBus.addListener(UPAnimalCapability::tickAnimal);
-       eventBus.addListener(UPAnimalCapability::tickWaterAnimal);
+      // UPCapabilities.setupCapabilities();
+      // eventBus.addListener(UPPlayerCapability::onPlayerCloned);
+      // eventBus.addListener(UPPlayerCapability::onLivingDamage);
+      // eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
+      // eventBus.addListener(UPAnimalCapability::tickAnimal);
+      // eventBus.addListener(UPAnimalCapability::tickWaterAnimal);
     }
 
     //Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib
@@ -89,11 +94,11 @@ public class UnusualPrehistory {
                 LOGGER.debug("Geckolib loaded correctly!");
             } else {
                 try {
-                    LOGGER.debug("Geckolib3 version 3.1.39 and up didn't seem to be loaded!");
+                    LOGGER.debug("Geckolib3 version 1.20.1:4.2.4 and up didn't seem to be loaded!");
                     throw new Exception("Something went wrong setting up compat");
                 }
                 catch (Exception e) {
-                        CrashReport crashreport = CrashReport.forThrowable(e, "Geckolib3 version 3.1.39 and up didn't seem to be loaded!");
+                        CrashReport crashreport = CrashReport.forThrowable(e, "Geckolib3 version 1.20.1:4.2.4 and up didn't seem to be loaded!");
                         crashreport.addCategory("Mod not loaded");
                         throw new ReportedException(crashreport);
                 }
@@ -116,6 +121,9 @@ public class UnusualPrehistory {
             addToFlowerPot(UPBlocks.PETRIFIED_BUSH.getId(), UPBlocks.POTTED_PETRIFIED_BUSH);
             addToFlowerPot(UPBlocks.SARACENIA.getId(), UPBlocks.POTTED_SARACENIA);
             addToFlowerPot(UPBlocks.GINKGO_SAPLING.getId(), UPBlocks.POTTED_GINKGO_SAPLING);
+            //addToFlowerPot(UPBlocks.FOXII_SAPLING.getId(), UPBlocks.POTTED_FOXXI);
+            addToFlowerPot(UPBlocks.ZULOAGAE_SAPLING.getId(), UPBlocks.POTTED_ZULOGAE);
+            addToFlowerPot(UPBlocks.DRYO_SAPLING.getId(), UPBlocks.POTTED_DRYO);
 
             //Todo add this to own class
             addToComposter(UPBlocks.HORSETAIL.get().asItem(), 0.4f);
@@ -136,7 +144,11 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
             addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
             addToComposter(UPBlocks.ZULOAGAE.get().asItem(), 0.2f);
-
+            for(RegistryObject<Item> object : UPItems.ITEMS.getEntries()) {
+                if(object.get() instanceof DinosaurLandEggItem item) {
+                        DinoBlockItem.registerReplacementItem(item.getDinosaur(), item.getDefaultInstance());
+                }
+            }
         });
         event.enqueueWork(UPDispenserRegistry::registerDispenserBehaviour);
         UPMessages.register();
@@ -153,6 +165,10 @@ public class UnusualPrehistory {
         return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
     }
 
+    public static String prefixS(String name) {
+        return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT)).toString();
+    }
+
     public static MutableComponent getTranslation(String key, Object... args) {
         return Component.translatable("unusualprehistory." + key, args);
     }
@@ -160,4 +176,7 @@ public class UnusualPrehistory {
     private void setupClient(FMLClientSetupEvent event) {
         PROXY.clientInit();
     }
+
+
+
 }

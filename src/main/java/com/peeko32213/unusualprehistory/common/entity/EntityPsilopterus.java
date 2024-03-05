@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.JoinPackGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.PackHunterGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.PackHunter;
@@ -20,11 +21,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -84,12 +83,14 @@ public class EntityPsilopterus extends EntityBaseDinosaurAnimal implements PackH
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new EntityPsilopterus.PsiloMeleeAttackGoal(this,  1.3F, true));
         this.targetSelector.addGoal(5, new PackHunterGoal(this, Player.class, 30, false, 5));
+        this.targetSelector.addGoal(5, new PackHunterGoal(this, Pig.class, 30, false, 3));
+        this.goalSelector.addGoal(5, new JoinPackGoal(this, 60, 8));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 15.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, EntityPsilopterus.class)).setAlertOthers());
     }
 
     public void tick() {
