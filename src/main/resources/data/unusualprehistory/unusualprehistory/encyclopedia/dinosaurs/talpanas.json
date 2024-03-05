@@ -1,6 +1,6 @@
 {
   "text": "talpanas.txt",
-  "title": "  Talpanas",
+  "title": "entity.unusualprehistory.talpanas",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.8,
       "offset_x": 1,
       "offset_y": -5,
-      "hover_text": "Talpanas"
+      "hover_text": "entity.unusualprehistory.talpanas"
     }
   ]
 }

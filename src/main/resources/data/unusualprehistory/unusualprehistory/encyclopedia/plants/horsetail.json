@@ -1,6 +1,6 @@
 {
   "text": "horsetail.txt",
-  "title": "       Horsetail",
+  "title": "block.unusualprehistory.horsetail",
   "page_to_go": "unusualprehistory:plants",
   "plant_button":[
     {
@@ -12,7 +12,7 @@
       "plant_scale": 1.1,
       "offset_x": 1,
       "offset_y": -3,
-      "hover_text": "Horsetail"
+      "hover_text": "block.unusualprehistory.horsetail"
     }
   ],
   "entity_renders": [

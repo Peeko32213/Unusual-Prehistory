@@ -1,6 +1,6 @@
 {
   "text": "foxii.txt",
-  "title": "       Foxii",
+  "title": "unusualprehistory.encyclopedia.foxii",
   "page_to_go": "unusualprehistory:plants",
   "plant_button":[
     {
@@ -12,7 +12,7 @@
       "plant_scale": 1.1,
       "offset_x": 1,
       "offset_y": -3,
-      "hover_text": "Foxii"
+      "hover_text": "unusualprehistory.encyclopedia.foxii"
     }
   ],
   "entity_renders": [

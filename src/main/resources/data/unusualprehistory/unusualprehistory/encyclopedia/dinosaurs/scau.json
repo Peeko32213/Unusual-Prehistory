@@ -1,6 +1,6 @@
 {
   "text": "scau.txt",
-  "title": "   Scaumenacia",
+  "title": "entity.unusualprehistory.scau",
   "page_to_go": "unusualprehistory:dinosaurs",
   "recipes": [
     {
@@ -35,7 +35,7 @@
       "entity_scale": 1,
       "offset_x": 3,
       "offset_y": -6,
-      "hover_text": "Scaumenacia"
+      "hover_text": "entity.unusualprehistory.scau"
     }
   ]
 }

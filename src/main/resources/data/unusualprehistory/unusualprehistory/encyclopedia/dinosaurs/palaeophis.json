@@ -1,6 +1,6 @@
 {
   "text": "palaeophis.txt",
-  "title": "  Palaeophis",
+  "title": "entity.unusualprehistory.palaeophis",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -26,7 +26,7 @@
       "entity_scale": 0.2,
       "offset_x": -3,
       "offset_y": -35,
-      "hover_text": "Palaeophis"
+      "hover_text": "entity.unusualprehistory.palaeophis"
     }
   ]
 }

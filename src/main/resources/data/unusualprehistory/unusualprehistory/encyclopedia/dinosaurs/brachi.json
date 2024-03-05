@@ -1,6 +1,6 @@
 {
   "text": "brachi.txt",
-  "title": "Brachiosaurus",
+  "title": "entity.unusualprehistory.brachi",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.08,
       "offset_x": 15,
       "offset_y": -35,
-      "hover_text": "Brachiosaurus"
+      "hover_text": "entity.unusualprehistory.brachi"
     }
   ]
 }

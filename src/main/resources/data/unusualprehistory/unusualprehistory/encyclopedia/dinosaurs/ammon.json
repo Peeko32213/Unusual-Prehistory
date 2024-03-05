@@ -1,6 +1,6 @@
 {
   "text": "ammon.txt",
-  "title": "    Ammonite",
+  "title": "entity.unusualprehistory.ammon",
   "page_to_go": "unusualprehistory:dinosaurs",
   "recipes": [
     {
@@ -43,7 +43,7 @@
       "entity_scale": 1,
       "offset_x": 1,
       "offset_y": -6,
-      "hover_text": "Ammonite"
+      "hover_text": "entity.unusualprehistory.ammon"
     }
   ]
 }

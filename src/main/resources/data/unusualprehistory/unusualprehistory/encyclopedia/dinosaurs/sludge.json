@@ -1,6 +1,6 @@
 {
   "text": "sludge.txt",
-  "title": "  Sludge",
+  "title": "entity.unusualprehistory.sludge",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.33,
       "offset_x": 9,
       "offset_y": -18,
-      "hover_text": "Sludge"
+      "hover_text": "entity.unusualprehistory.sludge"
     }
   ]
 }

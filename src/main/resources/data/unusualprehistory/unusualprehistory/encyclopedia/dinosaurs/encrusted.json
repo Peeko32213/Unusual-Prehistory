@@ -1,6 +1,6 @@
 {
   "text": "encrusted.txt",
-  "title": "Encrusted",
+  "title": "entity.unusualprehistory.encrusted",
   "page_to_go": "unusualprehistory:dinosaurs",
   "recipes": [
     {
@@ -35,7 +35,7 @@
       "entity_scale": 0.25,
       "offset_x": 5,
       "offset_y": -23,
-      "hover_text": "Encrusted"
+      "hover_text": "entity.unusualprehistory.encrusted"
     }
   ]
 }

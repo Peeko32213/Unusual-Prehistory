@@ -1,6 +1,6 @@
 {
   "text": "trike.txt",
-  "title": "Triceratops",
+  "title": "entity.unusualprehistory.trike",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.18,
       "offset_x": 3,
       "offset_y": -26,
-      "hover_text": "Triceratops"
+      "hover_text": "entity.unusualprehistory.trike"
     }
   ]
 }

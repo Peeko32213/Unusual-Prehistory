@@ -1,7 +1,7 @@
 {
   "parent": "root.json",
   "text": "beelz.txt",
-  "title": "  Beelzebufo",
+  "title": "entity.unusualprehistory.beelz",
   "page_to_go": "unusualprehistory:dinosaurs",
   "recipes": [
     {
@@ -36,7 +36,7 @@
       "entity_scale": 0.56,
       "offset_x": 3,
       "offset_y": -11,
-      "hover_text": "Beelzebufo"
+      "hover_text": "entity.unusualprehistory.beelz"
     }
   ]
 }

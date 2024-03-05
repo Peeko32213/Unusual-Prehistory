@@ -1,6 +1,6 @@
 {
   "text": "archaeos.txt",
-  "title": "   Archaeosigilaria",
+  "title": "block.unusualprehistory.archaeos",
   "page_to_go": "unusualprehistory:plants",
   "plant_button":[
     {
@@ -12,7 +12,7 @@
       "plant_scale": 1.1,
       "offset_x": 1,
       "offset_y": -3,
-      "hover_text": "Archaeosigilaria"
+      "hover_text": "block.unusualprehistory.archaeos"
     }
   ],
   "entity_renders": [

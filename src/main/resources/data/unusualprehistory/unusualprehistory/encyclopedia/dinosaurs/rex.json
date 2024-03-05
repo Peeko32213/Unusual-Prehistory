@@ -1,5 +1,5 @@
 {
-  "title": "Tyrannosaurus Rex",
+  "title": "entity.unusualprehistory.rex",
   "text": "rex.txt",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_button":[
@@ -12,7 +12,7 @@
       "entity_scale": 0.18,
       "offset_x": 3,
       "offset_y": -26,
-      "hover_text": "Tyrannosaurus Rex"
+      "hover_text": "entity.unusualprehistory.rex"
     }
   ],
   "entity_renders": [

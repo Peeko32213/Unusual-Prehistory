@@ -1,6 +1,6 @@
 {
   "text": "mammoth.txt",
-  "title": "  Mammoth",
+  "title": "entity.unusualprehistory.mammoth",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -35,7 +35,7 @@
       "entity_scale": 0.18,
       "offset_x": 2,
       "offset_y": -26,
-      "hover_text": "Mammoth"
+      "hover_text": "entity.unusualprehistory.mammoth"
     }
   ]
 }

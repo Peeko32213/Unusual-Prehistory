@@ -1,6 +1,6 @@
 {
   "text": "coty.txt",
-  "title": "  Cotylorhynchus",
+  "title": "entity.unusualprehistory.coty",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.28,
       "offset_x": 11,
       "offset_y": -20,
-      "hover_text": "Cotylorhynchus"
+      "hover_text": "entity.unusualprehistory.coty"
     }
   ]
 }

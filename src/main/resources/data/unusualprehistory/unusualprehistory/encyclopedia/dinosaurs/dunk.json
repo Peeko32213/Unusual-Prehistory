@@ -1,6 +1,6 @@
 {
   "text": "dunk.txt",
-  "title": "  Dunkleosteus",
+  "title": "entity.unusualprehistory.dunk",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.25,
       "offset_x": 10,
       "offset_y": -26,
-      "hover_text": "Dunkleosteus"
+      "hover_text": "entity.unusualprehistory.dunk"
     }
   ]
 }

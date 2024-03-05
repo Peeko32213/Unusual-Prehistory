@@ -1,5 +1,5 @@
 {
-  "title": "Pachycephalosaurus",
+  "title": "entity.unusualprehistory.pachy",
   "text": "pachy.txt",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_button":[
@@ -12,7 +12,7 @@
       "entity_scale": 0.47,
       "offset_x": 7,
       "offset_y": -10,
-      "hover_text": "Pachycephalosaurus"
+      "hover_text": "entity.unusualprehistory.pachy"
     }
   ],
   "entity_renders": [

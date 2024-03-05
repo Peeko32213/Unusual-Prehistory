@@ -1,7 +1,7 @@
 {
   "parent": "root.json",
   "text": "longi.txt",
-  "title": "  Longisquama",
+  "title": "entity.unusualprehistory.longisquama",
   "page_to_go": "unusualprehistory:dinosaurs",
   "recipes": [
   ],
@@ -28,7 +28,7 @@
       "entity_scale": 0.56,
       "offset_x": 3,
       "offset_y": -11,
-      "hover_text": "Longisquama"
+      "hover_text": "entity.unusualprehistory.longisquama"
     }
   ]
 }

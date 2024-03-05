@@ -1,6 +1,6 @@
 {
   "text": "antarcto.txt",
-  "title": "Antarctopelta",
+  "title": "entity.unusualprehistory.antarctopelta",
   "page_to_go": "unusualprehistory:dinosaurs",
   "recipes": [
     {
@@ -35,7 +35,7 @@
       "entity_scale": 0.2,
       "offset_x": 15,
       "offset_y": -20,
-      "hover_text": "Antarctopelta"
+      "hover_text": "entity.unusualprehistory.antarctopelta"
     }
   ]
 }

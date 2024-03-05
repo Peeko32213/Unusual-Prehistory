@@ -1,6 +1,6 @@
 {
   "text": "eryon.txt",
-  "title": "    Eryon",
+  "title": "entity.unusualprehistory.eryon",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.8,
       "offset_x": 1,
       "offset_y": -9,
-      "hover_text": "Eryon"
+      "hover_text": "entity.unusualprehistory.eryon"
     }
   ]
 }

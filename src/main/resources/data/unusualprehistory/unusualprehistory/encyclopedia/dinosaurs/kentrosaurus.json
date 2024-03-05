@@ -1,6 +1,6 @@
 {
   "text": "kentro.txt",
-  "title": "Kentrosaurus",
+  "title": "entity.unusualprehistory.kentrosaurus",
   "page_to_go": "unusualprehistory:dinosaurs",
   "entity_renders": [
     {
@@ -25,7 +25,7 @@
       "entity_scale": 0.28,
       "offset_x": 9.5,
       "offset_y": -18,
-      "hover_text": "Kentrosaurus"
+      "hover_text": "entity.unusualprehistory.kentrosaurus"
     }
   ]
 }
