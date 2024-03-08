@@ -2,9 +2,11 @@ package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.*;
+import com.peeko32213.unusualprehistory.common.effect.EffectPissed;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyMegatherium;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.JarateFindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.message.*;
@@ -26,7 +28,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -36,10 +42,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LootingLevelEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -50,6 +53,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ServerEvents {
@@ -161,6 +165,12 @@ public class ServerEvents {
                 tag.putInt("megalania_damage", count);
                 if(count <= 0) tag.remove("megalania_damage");
                 itemStack.setTag(tag);
+
+                if (entity.hasEffect(UPEffects.PISSED_UPON.get())) {
+                    //urine triples damage
+                    event.setAmount(event.getAmount() * 3);
+                    System.out.println(event.getAmount());
+                }
             }
     }
 
@@ -278,6 +288,47 @@ public class ServerEvents {
 
     @SubscribeEvent
     //cant be canceled
+    public void jarateFacilitatorEvent(LivingEvent.LivingTickEvent event) {
+        Entity titty = event.getEntity();
+
+        if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.PISSED_UPON.get()) && !checkContainPiss(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+            //has effect but has no piss(add)
+            ((PathfinderMob) titty).goalSelector.addGoal(-1, new JarateFindWaterGoal(((PathfinderMob) titty)));
+        }
+
+        if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.PISSED_UPON.get()) && checkContainPiss(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+            //has no effect but has piss(remove)
+            cutPissGoal(((PathfinderMob) titty));
+        }
+    }
+
+    private boolean checkContainPiss(Set<WrappedGoal> availableGoals) {
+        WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
+
+        for (int i = 0; i < arring.length; i++) {
+            if (arring[i].getGoal() instanceof JarateFindWaterGoal) {
+                return true;
+                //has piss goal
+            }
+        }
+
+        return false;
+        //has no piss goal
+        //remember this check also happens clientside and if that's the case it returns false.
+    }
+
+    private void cutPissGoal(PathfinderMob titty) {
+        WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
+
+        for (int i = 0; i < arring.length; i++) {
+            if (arring[i].getGoal() instanceof JarateFindWaterGoal) {
+                titty.goalSelector.removeGoal(arring[i].getGoal());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    //cant be canceled
     public void preventClick(PlayerInteractEvent.LeftClickEmpty event) {
         if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
             event.setCanceled(true);
@@ -326,6 +377,7 @@ public class ServerEvents {
             event.setCanceled(true);
         }
     }
+
 }
 
 

@@ -16,6 +16,7 @@ public class UPEffects {
     public static final RegistryObject<MobEffect> PACHYS_MIGHT = EFFECT_DEF_REG.register("pachys_might", EffectPachysMight::new);
     public static final RegistryObject<MobEffect> SCREEN_SHAKE = EFFECT_DEF_REG.register("screen_shake", EffectScreenShake::new);
     public static final RegistryObject<MobEffect> PREVENT_CLICK = EFFECT_DEF_REG.register("prevent_click", EffectPreventClick::new);
+    public static final RegistryObject<MobEffect> PISSED_UPON = EFFECT_DEF_REG.register("pissed_upon", EffectPissed::new);
     public static final RegistryObject<MobEffect> HEALTH_REDUCTION = EFFECT_DEF_REG.register("health_reduction",  () ->new EffectHealthReduction());
 
 }

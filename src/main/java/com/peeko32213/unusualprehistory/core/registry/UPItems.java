@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
+import ca.weblite.objc.Proxy;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.*;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
@@ -22,7 +23,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-public class UPItems {
+public class UPItems { ;
+
     private UPItems() {
     }
 
@@ -231,6 +233,7 @@ public class UPItems {
 
     public static final RegistryObject<Item> DRYO_FLASK = ITEMS.register("dryo_flask",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
+
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
     public static final RegistryObject<Item> FROG_SALIVA = ITEMS.register("frog_saliva",
@@ -502,8 +505,12 @@ public class UPItems {
     public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket",
             () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).tab(UnusualPrehistory.DINO_TAB).craftRemainder(Items.BUCKET)));
 
-    public static final RegistryObject<Item> OPALESCENT_PEARL =  ITEMS.register("opalescent_pearl", () -> new OpalescentPearlItem((new Item.Properties()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB)));
-    public static final RegistryObject<Item> OPALESCENT_SHURIKEN =  ITEMS.register("opalescent_shuriken", () -> new OpalescentShurikenItem((new Item.Properties()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<Item> OPALESCENT_PEARL =  ITEMS.register("opalescent_pearl",
+            () -> new OpalescentPearlItem((new Item.Properties()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<Item> OPALESCENT_SHURIKEN =  ITEMS.register("opalescent_shuriken",
+            () -> new OpalescentShurikenItem((new Item.Properties()).stacksTo(16).tab(UnusualPrehistory.DINO_TAB)));
+    public static final RegistryObject<Item> T_JARATE =  ITEMS.register("t_jarate",
+            () -> new TyrannosaurineJarateItem((new Item.Properties()).stacksTo(24).tab(UnusualPrehistory.DINO_TAB)));
 
     public static final RegistryObject<Item> SMILO_FUR = ITEMS.register("smilo_fur",
             () -> new Item(new Item.Properties().tab(UnusualPrehistory.DINO_TAB)));
