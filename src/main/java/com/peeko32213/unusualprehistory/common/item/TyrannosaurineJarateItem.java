@@ -29,7 +29,7 @@ public class TyrannosaurineJarateItem extends Item {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         pLevel.playSound((Player)null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.SPLASH_POTION_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
         double perhaps = Math.random();
-        if (perhaps <= 0.1) {
+        if (perhaps <= 0.01) {
             pLevel.playSound((Player)null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), UPSounds.JARATE_SNIPER.get(), SoundSource.NEUTRAL, 0.5F, 1F);
         }
 
