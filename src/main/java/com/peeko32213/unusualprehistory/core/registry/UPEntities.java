@@ -345,6 +345,13 @@ public class UPEntities {
                     .updateInterval(10)
                     .build(prefix("opalescent_shuriken").toString()));
 
+    public static final RegistryObject<EntityType<EntityTyrannosaurineJarate>> T_JARATE = ENTITIES.register("t_jarate",
+            () ->  EntityType.Builder.<EntityTyrannosaurineJarate>of(EntityTyrannosaurineJarate::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10)
+                    .build(prefix("t_jarate").toString()));
+
     public static final RegistryObject<EntityType<ThrowableFallingBlockEntity>> THROWABLE_FALLING_BLOCK = ENTITIES.register("throwable_falling_block",
             () -> EntityType.Builder.<ThrowableFallingBlockEntity>of(ThrowableFallingBlockEntity::new, MobCategory.MISC)
                     .sized(0.98F, 0.98F)

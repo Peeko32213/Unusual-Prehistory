@@ -1604,5 +1604,25 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_slap"
+  },
+  "jarate_explode": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:jarate_explode",
+        "volume": 0.05
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.jarate_explode"
+  },
+  "jarate_sniper": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "unusualprehistory:jarate_sniper",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.jarate_sniper"
   }
 }

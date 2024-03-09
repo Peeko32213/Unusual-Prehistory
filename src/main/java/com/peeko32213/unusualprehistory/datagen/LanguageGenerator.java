@@ -35,6 +35,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.DINO_POUCH, "Dino Pouch");
         addItem(UPItems.OPALESCENT_PEARL, "Opalescent Pearl");
         addItem(UPItems.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
+        addItem(UPItems.T_JARATE, "Tyrannosaur Urine");
         addItem(UPItems.ZULOGAE_DISC, "Music Disc ");
         addItem(UPItems.PSITTACCO_ARROW, "Psittacco Arrow");
         addItem(UPItems.ENCASED_DISC, "Music Disc ");
@@ -517,6 +518,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BABY_MEGATHERIUM, "Baby Megatherium");
         addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
         addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
+        addEntityType(UPEntities.T_JARATE, "Tyrannosaur Urine");
         addEntityType(UPEntities.BABY_GIGANTO, "Baby Gigantopithecus");
         addEntityType(UPEntities.BABY_PARACER, "Baby Paraceratherium");
         addEntityType(UPEntities.BABY_MEGALANIA, "Baby Megalania");
@@ -661,6 +663,8 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.SLUDGE_IDLE, "Gurgles");
         addSound(UPSounds.SLUDGE_SLAM, "Wet Slam");
         addSound(UPSounds.SLUDGE_SLAP, "Wet Slap");
+        addSound(UPSounds.JARATE_EXPLODE, "Urine impact");
+        addSound(UPSounds.JARATE_SNIPER, "Jarate!");
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");
         add("entity.unusualprehistory.all.command_1", "%s is following");
@@ -915,6 +919,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEffect(UPEffects.PREVENT_CLICK, "Debilitating Toxin");
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");
         addEffect(UPEffects.HEALTH_REDUCTION, "Draining Venom");
+        addEffect(UPEffects.PISSED_UPON, "Soaked in Pee");
 
         //BLOCK ENTITY TRANSLATABLE
         addBETranslatable("analyzer", "                             Analyzer");

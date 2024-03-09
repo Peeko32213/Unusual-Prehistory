@@ -59,6 +59,8 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(EntityTyrannosaurusRex.class, EntityDataSerializers.BOOLEAN);
     public int timeUntilDrops = this.random.nextInt(12000) + 24000;
+
+    private int bladder = 3000;
     private int passiveFor = 0;
     private int shakeCooldown = 0;
 
@@ -133,6 +135,26 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             }
             return InteractionResult.SUCCESS;
         }
+
+        if(item == UPItems.FLASK.get() && this.bladder >= 600) {
+            //each jarate harvest consumes 600 piss
+
+            player.getItemInHand(hand).shrink(1);
+            player.addItem(new ItemStack(UPItems.T_JARATE.get()));
+            //add jarate if the rex is ready to piss
+
+            double anger = Math.random();
+            //between 0 and 1
+            if (anger <= 0.25) {
+                this.setTarget(player);
+                //rex will randomly be pissed off if it had been harvested
+            }
+
+            this.bladder -= 600;
+            //bladder drain
+            return InteractionResult.SUCCESS;
+        }
+
         return InteractionResult.FAIL;
     }
 
@@ -265,6 +287,11 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         if (this.shouldBeEepy()) {
             this.setEepy(true);
+        }
+
+        if (this.bladder < 6000) {
+            // a rex can stash a max of 10 jars of jarate inside itself
+            this.bladder += 1;
         }
 
 
