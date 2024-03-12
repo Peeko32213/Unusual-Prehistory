@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityLeedsichthys;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -10,13 +11,13 @@ import net.minecraft.world.entity.ai.goal.JumpGoal;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 
-public class LeedsJumpGoal extends JumpGoal {
+public class CustomJumpGoal extends JumpGoal {
     private static final int[] STEPS_TO_CHECK = new int[]{0, 1, 4, 5, 6, 7};
-    private final EntityLeedsichthys dolphin;
+    private final EntityBaseAquaticAnimal dolphin;
     private final int interval;
     private boolean breached;
 
-    public LeedsJumpGoal(EntityLeedsichthys pDolphin, int pInterval) {
+    public CustomJumpGoal(EntityBaseAquaticAnimal pDolphin, int pInterval) {
         this.dolphin = pDolphin;
         this.interval = reducedTickDelay(pInterval);
     }

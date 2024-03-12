@@ -82,6 +82,7 @@ public class CommonEvents {
         event.put(UPEntities.LEEDSICHTHYS.get(), EntityLeedsichthys.createAttributes().build());
         event.put(UPEntities.LEEDS_PART.get(), EntityLeedsichthysPart.createAttributes().build());
         event.put(UPEntities.PTERODAUSTRO.get(), EntityPterodaustro.createAttributes().build());
+        event.put(UPEntities.HYNERIA.get(), EntityHyneria.createAttributes().build());
 
 
         event.put(UPEntities.ICEBERG_SMILODON.get(), EntityWorldSpawnable.bakeAttributes().build());

@@ -451,7 +451,7 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
 
     @Override
     public boolean shouldFollow() {
-        return false;
+        return this.getCommand() == 1;
     }
 
 

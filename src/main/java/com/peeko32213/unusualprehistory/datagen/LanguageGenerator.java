@@ -222,6 +222,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ARCHELON_EGG, "Archelon Spawn Egg");
         addItem(UPItems.LEEDS_EGG, "Leedsichthys Spawn Egg");
         addItem(UPItems.PTERODAUSTRO_EGG, "Pterodaustro Spawn Egg");
+        addItem(UPItems.HYNERIA_EGG, "Hyneria Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -524,7 +525,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BABY_MEGATHERIUM, "Baby Megatherium");
         addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
         addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-        addEntityType(UPEntities.T_JARATE, "Tyrannosaur Urine");
+        addEntityType(UPEntities.T_JARATE, "Jarate");
         addEntityType(UPEntities.BABY_GIGANTO, "Baby Gigantopithecus");
         addEntityType(UPEntities.BABY_PARACER, "Baby Paraceratherium");
         addEntityType(UPEntities.BABY_MEGALANIA, "Baby Megalania");
@@ -553,6 +554,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.ARCHELON, "Archelon");
         addEntityType(UPEntities.LEEDSICHTHYS, "Leedsichthys");
         addEntityType(UPEntities.PTERODAUSTRO, "Pterodaustro");
+        addEntityType(UPEntities.HYNERIA, "Hyneria");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Massive croaks");
@@ -934,7 +936,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEffect(UPEffects.PREVENT_CLICK, "Debilitating Toxin");
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");
         addEffect(UPEffects.HEALTH_REDUCTION, "Draining Venom");
-        addEffect(UPEffects.PISSED_UPON, "Soaked in Pee");
+        addEffect(UPEffects.PISSED_UPON, "Soaked in Jarate");
         addEffect(UPEffects.RABIES, "Yi Xian Rampage");
         addEffect(UPEffects.RABIES_VACCINE, "M-Lyssavirus Vaccine");
 

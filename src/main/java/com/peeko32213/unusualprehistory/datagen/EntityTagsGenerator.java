@@ -362,6 +362,14 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(EntityType.SQUID)
         ;
 
+        tag(UPTags.HYNERIA_TARGETS)
+                .add(EntityType.SQUID)
+                .add(EntityType.TROPICAL_FISH)
+                .add(EntityType.SALMON)
+                .add(UPEntities.DIPLOCAULUS.get())
+                .add(UPEntities.HYNERPETON.get())
+        ;
+
         tag(UPTags.MEGALANIA_TARGETS)
                 .add(EntityType.PIG)
                 .add(EntityType.COW)

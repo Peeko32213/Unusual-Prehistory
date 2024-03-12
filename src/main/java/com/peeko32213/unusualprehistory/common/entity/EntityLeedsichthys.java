@@ -3,8 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityLeedsichthysPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.LeedsJumpGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomJumpGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -118,7 +117,7 @@ public class EntityLeedsichthys extends EntityBaseAquaticAnimal implements GeoAn
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(5, new LeedsJumpGoal(this, 50));
+        this.goalSelector.addGoal(5, new CustomJumpGoal(this, 50));
         this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1.8D, 10));
     }
 
