@@ -58,12 +58,8 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
             event.getOriginal().getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(oldStore -> {
                 event.getOriginal().getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(newStore -> {
                     newStore.amberProtection = oldStore.amberProtection;
-                });
-            });
-
-            event.getOriginal().getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(oldStore -> {
-                event.getOriginal().getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(newStore -> {
                     newStore.playerVaccinationTime = oldStore.playerVaccinationTime;
+                    newStore.playersRabiesHadTime = oldStore.playersRabiesHadTime;
                 });
             });
         }
@@ -83,10 +79,8 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
                 for(int i = 0; i < damage; i++){
                     if(capability.amberProtection >= serverPlayer.getHealth()){
                         capability.amberProtection = capability.amberProtection - 1;
-                        LOGGER.info("doing damage to amber");
                     } else {
                         serverPlayer.setHealth(serverPlayer.getHealth() - 1);
-                        LOGGER.info("doing damage to hp");
                     }
                     UPMessages.sendToPlayer(new AmberProtectionSyncS2CPacket(capability.amberProtection), serverPlayer);
                 }
@@ -107,27 +101,6 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
         }
 
 
-    }
-
-
-    public static class PlayerProvider implements ICapabilityProvider, ICapabilitySerializable<CompoundTag>
-    {
-        private final LazyOptional<UPPlayerCapability.PlayerProvider> instance = LazyOptional.of(UPPlayerCapability.PlayerProvider::new);
-
-        @Override
-        public CompoundTag serializeNBT() {
-            return instance.orElseThrow(NullPointerException::new).serializeNBT();
-        }
-
-        @Override
-        public void deserializeNBT(CompoundTag nbt) {
-            instance.orElseThrow(NullPointerException::new).deserializeNBT(nbt);
-        }
-        @Nonnull
-        @Override
-        public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-            return UPCapabilities.PLAYER_CAPABILITY.orEmpty(cap, instance.cast());
-        }
     }
 
 }

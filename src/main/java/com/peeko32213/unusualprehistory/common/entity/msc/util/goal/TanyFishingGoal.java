@@ -47,7 +47,7 @@ public class TanyFishingGoal extends Goal {
     public void tick() {
         if (targetPos != null && waterPos != null) {
             double dist = tany.distanceToSqr(Vec3.atCenterOf(waterPos));
-            if (dist <= 1F) {
+            if (dist <= 3F) {
                 navigateTime = 0;
                 double d0 = waterPos.getX() + 0.5D - tany.getX();
                 double d2 = waterPos.getZ() + 0.5D - tany.getZ();
@@ -60,8 +60,8 @@ public class TanyFishingGoal extends Goal {
                 if(idleTime > 45){
                     this.tany.gameEvent(GameEvent.ITEM_INTERACT_START);
                     this.tany.playSound(SoundEvents.GENERIC_SPLASH, 0.7F, 0.5F + tany.getRandom().nextFloat());
-                    this.tany.resetFishingCooldown();
                     this.spawnFishingLoot();
+                    this.tany.resetFishingCooldown();
                     this.stop();
                 }
             }else{
@@ -122,6 +122,9 @@ public class TanyFishingGoal extends Goal {
             }
             if (isConnectedToLand(blockpos1)) {
                 blockpos = blockpos1;
+            }
+            if(blockpos != null) {
+                break;
             }
         }
         return blockpos;

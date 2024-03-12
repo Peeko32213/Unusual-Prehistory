@@ -293,7 +293,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
         event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.DIPLOCAULUS)));
         event.registerEntityRenderer(UPEntities.BOOK_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BOOK_SNAKE)));
-        event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new HynerpetonModel()));
+        event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new NoOverlayRenderer<>(e, new DefaultModel<>(ModelLocations.HYPERNETON)));
         event.registerEntityRenderer(UPEntities.BALAUR.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new BalaurModel())
                         .withLayers(BALAUR_MODEL)

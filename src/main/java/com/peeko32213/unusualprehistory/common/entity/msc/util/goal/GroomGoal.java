@@ -85,18 +85,9 @@ public class GroomGoal extends Goal {
         this.groomTime = groomTime + 1;
         double d0 = this.smilodon.distanceToSqr(this.partner);
         if (this.groomTime >= 2 && d0 < 3.5D) {
-            //this.smilodon.getNavigation().moveTo(this.smilodon.position().x, this.smilodon.position().y, this.smilodon.position().z, 1);
-            //this.partner.getNavigation().moveTo(this.partner.position().x, this.partner.position().y, this.partner.position().z, 1);
             this.smilodon.getLookControl().setLookAt(this.partner, 10.0F, (float) this.smilodon.getMaxHeadXRot());
             this.partner.getLookControl().setLookAt(this.smilodon, 10.0F, (float) this.partner.getMaxHeadXRot());
-
-            //if (!partner.groom1() && !partner.groom2()) {
- //               if (groom) {
-                    this.smilodon.setGroom1(true);
-  //              } else {
-  //                  this.smilodon.setGroom2(true);
-  //              };
-            //}
+            this.smilodon.setGroom1(true);
         } else {
             this.smilodon.getLookControl().setLookAt(this.partner, 10.0F, (float) this.smilodon.getMaxHeadXRot());
             this.partner.getLookControl().setLookAt(this.smilodon, 10.0F, (float) this.partner.getMaxHeadXRot());

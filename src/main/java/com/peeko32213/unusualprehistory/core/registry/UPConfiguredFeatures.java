@@ -56,8 +56,8 @@ public class UPConfiguredFeatures {
                     new StraightTrunkPlacer(9, 5, 0),
                     BlockStateProvider.simple(UPBlocks.GINKGO_LEAVES.get()),
                     new GinkgoFoliagePlacer( 2F, 4.5F, ConstantInt.of(0), 1, 0, 0.5f, 2),
-              //todo test this!! original:new TwoLayersFeatureSize(6, 3, 5)).build()));
                     new TwoLayersFeatureSize(1, 1, 2))
+                    .dirt(BlockStateProvider.simple(Blocks.DIAMOND_BLOCK))
                     .build()));
 
 

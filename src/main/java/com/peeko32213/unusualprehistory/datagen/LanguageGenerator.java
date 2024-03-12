@@ -5,6 +5,9 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.alchemy.Potion;
@@ -913,8 +916,17 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.attacher.embryo_attached", "Successfully attached embryo to %s!");
         add("unusualprehistory.megatherium_baby.tame_tooltip", "Baby Megatherium is Tamed!");
         add("unusualprehistory.megatherium_baby.minutes_tooltip", "%s Minutes left until Baby Megatherium is Tamed!");
-
-
+        add("unusualprehistory.encyclopedia.clathrodictyon", "Clathrodictyon");
+        add("unusualprehistory.encyclopedia.dryo_sapling", "Dryophyllum");
+        add("unusualprehistory.encyclopedia.foxii", "Foxii");
+        add("unusualprehistory.encyclopedia.ginkgo_sapling", "Prehistoric Ginkgo");
+        add("unusualprehistory.encyclopedia.dinosaurs", "Animals of Prehistory");
+        add("unusualprehistory.encyclopedia.help", "Oh no, something went wrong!");
+        add("unusualprehistory.encyclopedia.plants","Encyclopedia of Prehistory");
+        add("unusualprehistory.root.1", "How to Revive Mobs");
+        add("unusualprehistory.root.2", "Plants of Prehistory");
+        add("unusualprehistory.root.3", "Animals of Prehistory");
+        add( "unusualprehistory.encyclopedia.tutorial", "Intro to Revival");
 
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
