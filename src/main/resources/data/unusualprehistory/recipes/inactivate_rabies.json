@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "unusualprehistory:rabid_juice"
+  },
+  "result": "unusualprehistory:inactive_rabies",
+  "experience": 2,
+  "cookingtime": 150
+}

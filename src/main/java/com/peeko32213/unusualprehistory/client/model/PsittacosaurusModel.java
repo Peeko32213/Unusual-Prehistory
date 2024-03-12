@@ -37,10 +37,16 @@ public class PsittacosaurusModel extends GeoModel<EntityPsittacosaurus>
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
         CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+        CoreGeoBone root = this.getAnimationProcessor().getBone("root");
         if (animatable.isBaby()) {
             head.setScaleX(1.75F);
             head.setScaleY(1.75F);
             head.setScaleZ(1.75F);
+
+            root.setScaleX(0.5F);
+            root.setScaleY(0.5F);
+            root.setScaleZ(0.5F);
+
         } else {
             head.setScaleX(1.0F);
             head.setScaleY(1.0F);

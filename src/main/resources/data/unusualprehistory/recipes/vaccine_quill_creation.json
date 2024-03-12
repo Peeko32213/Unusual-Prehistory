@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:psittaco_quil"
+    },
+    {
+      "item": "unusualprehistory:inactive_rabies"
+    }
+
+  ],
+  "result": {
+    "item": "unusualprehistory:quill_vaccine",
+    "count": 1
+  }
+}

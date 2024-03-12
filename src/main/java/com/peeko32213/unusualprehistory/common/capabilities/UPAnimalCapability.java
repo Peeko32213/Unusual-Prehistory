@@ -4,15 +4,18 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -23,6 +26,8 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
     private String embryoAnimal = "";
 
     private int timer = 0;
+    public int entityVaccinationTime = 0;
+    public int entityRabiesHadTime = 0;
 
     private static final String BASE_EMBRYO = "";
     private static final int RESET_TIMER = 0;
@@ -33,6 +38,8 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
 
         nbt.putString("animal", this.embryoAnimal);
         nbt.putInt("timer", this.timer);
+        nbt.putInt("entityVaccinationTime", this.entityVaccinationTime);
+        nbt.putInt("entityRabiesHadTime", this.entityRabiesHadTime);
 
         return nbt;
     }
@@ -41,6 +48,8 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
     public void deserializeNBT(CompoundTag nbt) {
         this.embryoAnimal = nbt.getString("animal");
         this.timer = nbt.getInt("timer");
+        this.entityVaccinationTime = nbt.getInt("entityVaccinationTime");
+        this.entityRabiesHadTime = nbt.getInt("entityRabiesHadTime");
     }
 
 
@@ -131,6 +140,11 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 UnusualPrehistory.LOGGER.error("Embryo is incorrect for {}", event.getEntity());
             }
         });
+    }
+
+    public static void Tick(LivingEvent.LivingTickEvent event) {
+
+
     }
 
     public void setEmbryoAnimal(String embryoAnimal) {

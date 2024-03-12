@@ -651,8 +651,12 @@ public class UPItems {
 
     public static final RegistryObject<Item> OPALESCENT_PEARL =  ITEMS.register("opalescent_pearl", () -> new OpalescentPearlItem((new Item.Properties()).stacksTo(16)));
     public static final RegistryObject<Item> OPALESCENT_SHURIKEN =  ITEMS.register("opalescent_shuriken", () -> new OpalescentShurikenItem((new Item.Properties()).stacksTo(16)));
-
     public static final RegistryObject<Item> T_JARATE =  ITEMS.register("t_jarate", () -> new TyrannosaurineJarateItem((new Item.Properties()).stacksTo(24)));
+    public static final RegistryObject<Item> RABID_JUICE = ITEMS.register("rabid_juice", () -> new ModItemDrinkable(drinkItem().stacksTo(16).food(ModFood.RABID_SALIVA), true, false));
+    //TODO: Make rabies drinkable
+    public static final RegistryObject<Item> INACTIVE_RABIES = ITEMS.register("inactive_rabies", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> QUILL_VACCINE = ITEMS.register("quill_vaccine", () -> new QuillVaccineRabiesItem(new Item.Properties()));
+
     public static final RegistryObject<Item> SMILO_FUR = ITEMS.register("smilo_fur",
             () -> new Item(new Item.Properties()));
 

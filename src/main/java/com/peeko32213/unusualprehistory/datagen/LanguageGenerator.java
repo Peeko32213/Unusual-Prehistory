@@ -36,8 +36,11 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.OPALESCENT_PEARL, "Opalescent Pearl");
         addItem(UPItems.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
         addItem(UPItems.T_JARATE, "Tyrannosaur Urine");
+        addItem(UPItems.RABID_JUICE, "Infectious Saliva");
+        addItem(UPItems.INACTIVE_RABIES, "Inactive Contaminated Saliva");
+        addItem(UPItems.QUILL_VACCINE, "Vaccine On A Quill");
+        addItem(UPItems.PSITTACCO_ARROW, "Psittaco Arrow");
         addItem(UPItems.ZULOGAE_DISC, "Music Disc ");
-        addItem(UPItems.PSITTACCO_ARROW, "Psittacco Arrow");
         addItem(UPItems.ENCASED_DISC, "Music Disc ");
 
         //TOOLS
@@ -920,6 +923,8 @@ public class LanguageGenerator extends LanguageProvider {
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");
         addEffect(UPEffects.HEALTH_REDUCTION, "Draining Venom");
         addEffect(UPEffects.PISSED_UPON, "Soaked in Pee");
+        addEffect(UPEffects.RABIES, "Yi Xian Rampage");
+        addEffect(UPEffects.RABIES_VACCINE, "M-Lyssavirus Vaccine");
 
         //BLOCK ENTITY TRANSLATABLE
         addBETranslatable("analyzer", "                             Analyzer");

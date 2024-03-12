@@ -1,13 +1,18 @@
 package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
 import com.peeko32213.unusualprehistory.common.data.*;
+import com.peeko32213.unusualprehistory.common.effect.EffectPissed;
+import com.peeko32213.unusualprehistory.common.effect.EffectRabies;
+import com.peeko32213.unusualprehistory.common.effect.EffectVaccineRabies;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
 import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.JarateFindWaterGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.common.message.*;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -143,6 +148,22 @@ public class ServerEvents {
     @SubscribeEvent
     public void onLivingAttack(LivingDamageEvent event) {
             if (event.getSource().getEntity() instanceof LivingEntity living) {
+
+                LivingEntity entity = event.getEntity();
+                Entity offender = event.getSource().getEntity();
+
+                if (offender instanceof LivingEntity && ((LivingEntity) offender).hasEffect(UPEffects.RABIES.get())) {
+                    //rabies spread
+                    entity.addEffect(new MobEffectInstance(UPEffects.RABIES.get(), -1));
+                    event.setAmount(event.getAmount()/4);
+                    //rabid animals only deal quarter damage to each other
+                }
+
+                if (entity.hasEffect(UPEffects.PISSED_UPON.get())) {
+                    //urine triples damage
+                    event.setAmount(event.getAmount() * 3);
+                }
+
                 ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
                 if(!itemStack.hasTag()) return;
                 CompoundTag tag = itemStack.getTag();
@@ -150,7 +171,6 @@ public class ServerEvents {
                 int count = tag.getInt("megalania_damage");
                 float amount = event.getAmount();
                 amount *= 0.75;
-                LivingEntity entity = event.getEntity();
                 int hpReduction = 0;
 
                 if(entity.hasEffect(UPEffects.HEALTH_REDUCTION.get())){
@@ -164,12 +184,6 @@ public class ServerEvents {
                 tag.putInt("megalania_damage", count);
                 if(count <= 0) tag.remove("megalania_damage");
                 itemStack.setTag(tag);
-
-                if (entity.hasEffect(UPEffects.PISSED_UPON.get())) {
-                    //urine triples damage
-                    event.setAmount(event.getAmount() * 3);
-                    System.out.println(event.getAmount());
-                }
             }
     }
 
@@ -189,6 +203,55 @@ public class ServerEvents {
         }
     }
 
+    @SubscribeEvent
+    //cant be canceled
+    public void rabiesFacilitatorEvent(LivingEvent.LivingTickEvent event) {
+        Entity titty = event.getEntity();
+
+        if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.RABIES.get()) && !checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+            //has effect but has no piss(add)
+            ((PathfinderMob) titty).goalSelector.addGoal(-1, new RabiesHuntGoal(((PathfinderMob) titty)));
+            //TODO: Make rabies only manifest after a certain number of ticks
+        }
+
+        if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.RABIES.get()) && checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+            //has no effect but has piss(remove)
+            cutRabies(((PathfinderMob) titty));
+        }
+    }
+
+    @SubscribeEvent
+    public void thingsThatCannotBeMilkedEvent(MobEffectEvent.Remove event) {
+        if (event.getEffect() instanceof EffectRabies && !event.getEntity().hasEffect(UPEffects.RABIES_VACCINE.get())) {
+            //rabies can't be milked away unless you are vaccinated
+            event.setCanceled(true);
+        }
+
+        if (event.getEffect() instanceof EffectVaccineRabies) {
+
+            if(event.getEntity() instanceof ServerPlayer serverPlayer){
+                serverPlayer.getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(capability -> {
+
+                    if (serverPlayer.hasEffect(UPEffects.RABIES_VACCINE.get())) {
+                        capability.playerVaccinationTime = 0;
+                        System.out.println(capability.playerVaccinationTime);
+                    }
+                    //set vac time to 0 if the player has no vacc effect
+
+                });
+
+            }
+        } else {
+            event.getEntity().getCapability(UPCapabilities.ANIMAL_CAPABILITY).ifPresent(capability -> {
+                if (!event.getEntity().hasEffect(UPEffects.RABIES_VACCINE.get())) {
+                    capability.entityVaccinationTime = 0;
+                    //set vac time to 0 if the entity has no vacc effect
+                }
+            });
+        }
+        //can remove vaccines so that particles don't shit themselves
+    }
+
     private boolean checkContainPiss(Set<WrappedGoal> availableGoals) {
         WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
 
@@ -204,11 +267,36 @@ public class ServerEvents {
         //remember this check also happens clientside and if that's the case it returns false.
     }
 
+    private boolean checkContainRabies(Set<WrappedGoal> availableGoals) {
+        WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
+
+        for (int i = 0; i < arring.length; i++) {
+            if (arring[i].getGoal() instanceof RabiesHuntGoal) {
+                return true;
+                //has piss goal
+            }
+        }
+
+        return false;
+        //has no piss goal
+        //remember this check also happens clientside and if that's the case it returns false.
+    }
+
     private void cutPissGoal(PathfinderMob titty) {
         WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
 
         for (int i = 0; i < arring.length; i++) {
             if (arring[i].getGoal() instanceof JarateFindWaterGoal) {
+                titty.goalSelector.removeGoal(arring[i].getGoal());
+            }
+        }
+    }
+
+    private void cutRabies(PathfinderMob titty) {
+        WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
+
+        for (int i = 0; i < arring.length; i++) {
+            if (arring[i].getGoal() instanceof RabiesHuntGoal) {
                 titty.goalSelector.removeGoal(arring[i].getGoal());
             }
         }

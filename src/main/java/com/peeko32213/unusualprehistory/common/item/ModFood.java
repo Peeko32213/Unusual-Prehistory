@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.item;
 
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -48,6 +49,8 @@ public class ModFood {
     public static final FoodProperties WHITE_FRUIT = (new FoodProperties.Builder()).nutrition(7).saturationMod(0.8F).build();
     public static final FoodProperties YELLOW_FRUIT = (new FoodProperties.Builder()).nutrition(9).saturationMod(1.6F).build();
     public static final FoodProperties BLUE_FRUIT = (new FoodProperties.Builder()).nutrition(11).saturationMod(3.2F).build();
+
+    public static final FoodProperties RABID_SALIVA = (new FoodProperties.Builder()).nutrition(0).saturationMod(0).effect(new MobEffectInstance(UPEffects.RABIES.get(), -1), 1).build();
 
     //Special Food
     public static final FoodProperties DEFROSTED_FOSSIL = (new FoodProperties.Builder())

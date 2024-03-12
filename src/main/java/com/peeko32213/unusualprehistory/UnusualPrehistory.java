@@ -3,6 +3,9 @@ package com.peeko32213.unusualprehistory;
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
 import com.peeko32213.unusualprehistory.common.block.BlockDinosaurLandEggs;
 import com.peeko32213.unusualprehistory.common.block.DinoBlockItem;
+import com.peeko32213.unusualprehistory.common.capabilities.UPAnimalCapability;
+import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
+import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
 import com.peeko32213.unusualprehistory.common.item.DinosaurLandEggItem;
@@ -79,12 +82,12 @@ public class UnusualPrehistory {
         PROXY.init();
         //If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that
         // triggers the capability class otherwise it also wont hotswap
-      // UPCapabilities.setupCapabilities();
-      // eventBus.addListener(UPPlayerCapability::onPlayerCloned);
-      // eventBus.addListener(UPPlayerCapability::onLivingDamage);
-      // eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
-      // eventBus.addListener(UPAnimalCapability::tickAnimal);
-      // eventBus.addListener(UPAnimalCapability::tickWaterAnimal);
+       UPCapabilities.setupCapabilities();
+       eventBus.addListener(UPPlayerCapability::onPlayerCloned);
+       eventBus.addListener(UPPlayerCapability::onLivingDamage);
+       eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
+       eventBus.addListener(UPAnimalCapability::tickAnimal);
+       eventBus.addListener(UPAnimalCapability::tickWaterAnimal);
     }
 
     //Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib
