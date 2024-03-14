@@ -15,7 +15,7 @@ public class HyneriaJumpGoal extends JumpGoal {
     private static final int[] STEPS_TO_CHECK = new int[]{0, 1, 4, 5, 6, 7};
     private final EntityHyneria dolphin;
     private final int interval;
-    private boolean breached;
+    public boolean breached;
 
     public HyneriaJumpGoal(EntityHyneria pDolphin, int pInterval) {
         this.dolphin = pDolphin;

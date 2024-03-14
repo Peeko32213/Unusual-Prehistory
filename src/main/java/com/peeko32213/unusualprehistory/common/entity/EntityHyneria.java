@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimalNoFloat;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
@@ -24,10 +25,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -49,7 +47,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 
-public class EntityHyneria extends EntityTameableBaseDinosaurAnimal implements CustomFollower, GeoEntity, SemiAquatic {
+public class EntityHyneria extends EntityTameableBaseDinosaurAnimalNoFloat implements CustomFollower, GeoEntity, SemiAquatic {
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityHyneria.class, EntityDataSerializers.INT);
     private static final RawAnimation HYNERIA_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.hyneria.swim_idle");
     private static final RawAnimation HYNERIA_SWIM = RawAnimation.begin().thenLoop("animation.hyneria.swim");
@@ -69,7 +67,7 @@ public class EntityHyneria extends EntityTameableBaseDinosaurAnimal implements C
 
 
 
-    public EntityHyneria(EntityType<? extends EntityTameableBaseDinosaurAnimal> pEntityType, Level pLevel) {
+    public EntityHyneria(EntityType<? extends EntityTameableBaseDinosaurAnimalNoFloat> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -82,22 +80,24 @@ public class EntityHyneria extends EntityTameableBaseDinosaurAnimal implements C
                 .add(Attributes.MAX_HEALTH, 25.0D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0D)
                 .add(Attributes.ARMOR, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.18D)
+                .add(Attributes.MOVEMENT_SPEED, 0.28D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
     }
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.2F, false));
-        this.goalSelector.addGoal(7, new FindWaterGoal(this));
-        this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
-        this.goalSelector.addGoal(9, new SemiAquaticWaterAnimalSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2F, false));
+        this.goalSelector.addGoal(2, new FindWaterGoal(this));
+        this.goalSelector.addGoal(2, new LeaveWaterGoal(this));
+        this.goalSelector.addGoal(1, new SemiAquaticWaterAnimalSwimmingGoal(this, 2.0D, 10));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(3, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1.8D, 10));
-        this.goalSelector.addGoal(5, new HyneriaJumpGoal(this, 20));
-        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.HYNERIA_TARGETS)));
+        this.goalSelector.addGoal(6, new HyneriaJumpGoal(this, 50));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.HYNERIA_TARGETS)));
 
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 
     @Override
@@ -228,6 +228,7 @@ public class EntityHyneria extends EntityTameableBaseDinosaurAnimal implements C
         this.entityData.set(COMMAND, Integer.valueOf(command));
     }
 
+
     static class MoveHelperController extends MoveControl {
         private final EntityHyneria dolphin;
 
@@ -322,34 +323,37 @@ public class EntityHyneria extends EntityTameableBaseDinosaurAnimal implements C
         return UPTags.HYNERIA_TARGETS;
     }
 
+    public boolean isJumping() {
+        return this.jumping;
+    }
+
     protected <E extends EntityHyneria> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isSwimming()) {
+        if (event.isMoving() && !this.isInWaterOrBubble()) {
             event.setAnimation(HYNERIA_WALK);
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && this.isInWater()) {
+        if (event.isMoving() && !this.isInSittingPose() && this.isInWaterOrBubble()) {
             if (this.isSprinting()) {
                 event.setAndContinue(HYNERIA_SWIM_FAST);
                 event.getController().setAnimationSpeed(2.0D);
-                return PlayState.CONTINUE;
-            } else if (event.isMoving()) {
+            } else {
                 event.setAndContinue(HYNERIA_SWIM);
                 event.getController().setAnimationSpeed(1.0D);
-                return PlayState.CONTINUE;
             }
+            return PlayState.CONTINUE;
         }
-        if (isStillEnough() && !this.isSwimming() && random.nextInt(100) == 0) {
+        if (isStillEnough() && !this.isInWaterOrBubble() && random.nextInt(100) == 0) {
             float rand = random.nextFloat();
             if (rand < 0.3F) {
                 return event.setAndContinue(HYNERIA_BASK);
             }
             return event.setAndContinue(HYNERIA_IDLE);
         }
-        else if (this.isFallFlying()) {
+        if (this.isJumping()) {
             return event.setAndContinue(HYNERIA_JUMP);
         } else if (isStillEnough() && random.nextInt(100) == 0 && this.isInWaterOrBubble()) {
             float rand = random.nextFloat();
@@ -373,6 +377,7 @@ public class EntityHyneria extends EntityTameableBaseDinosaurAnimal implements C
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
     }
+
 
 
     private boolean isStillEnough() {

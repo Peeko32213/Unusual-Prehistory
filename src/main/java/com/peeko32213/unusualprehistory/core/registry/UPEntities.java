@@ -285,7 +285,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "pterodaustro").toString()));
 
     public static final RegistryObject<EntityType<EntityHyneria>> HYNERIA = ENTITIES.register("hyneria",
-            () -> EntityType.Builder.of(EntityHyneria::new, MobCategory.WATER_CREATURE).sized(4.0f, 1.2f)
+            () -> EntityType.Builder.of(EntityHyneria::new, MobCategory.WATER_CREATURE).sized(1.5f, 1.0f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hyneria").toString()));
     public static final RegistryObject<EntityType<EntityBabyMegatherium>> BABY_MEGATHERIUM = ENTITIES.register("baby_megatherium",
             () -> EntityType.Builder.of(EntityBabyMegatherium::new, MobCategory.CREATURE).sized(0.8f, 0.6f)
