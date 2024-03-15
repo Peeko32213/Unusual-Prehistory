@@ -331,38 +331,46 @@ public class EntityHyneria extends EntityTameableBaseDinosaurAnimalNoFloat imple
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
-        if (event.isMoving() && !this.isInWaterOrBubble()) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isSwimming()) {
             event.setAnimation(HYNERIA_WALK);
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
-        if (event.isMoving() && !this.isInSittingPose() && this.isInWaterOrBubble()) {
+        if (event.isMoving() && this.isInWater() && getRandomNumber() == 0)  {
+            boolean randomAnimationBool = getRandomAnimationBool();
             if (this.isSprinting()) {
                 event.setAndContinue(HYNERIA_SWIM_FAST);
                 event.getController().setAnimationSpeed(2.0D);
-            } else {
-                event.setAndContinue(HYNERIA_SWIM);
-                event.getController().setAnimationSpeed(1.0D);
             }
+            event.setAndContinue(HYNERIA_SWIM);
+            //if (rand < 0.55F) {
+            //    return event.setAndContinue(ARCHELON_SPIN1);
+            //}
+            //if (rand < 0.56F) {
+            //    return event.setAndContinue(ARCHELON_SPIN2);
+            //}
+            event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        if (isStillEnough() && !this.isInWaterOrBubble() && random.nextInt(100) == 0) {
-            float rand = random.nextFloat();
-            if (rand < 0.3F) {
+
+        if (isStillEnough() && getRandomNumber() == 0) {
+            boolean bool = getRandomAnimationBool();
+            if (bool) {
                 return event.setAndContinue(HYNERIA_BASK);
             }
-            return event.setAndContinue(HYNERIA_IDLE);
+            return  event.setAndContinue(HYNERIA_IDLE);
         }
         if (this.isJumping()) {
             return event.setAndContinue(HYNERIA_JUMP);
-        } else if (isStillEnough() && random.nextInt(100) == 0 && this.isInWaterOrBubble()) {
-            float rand = random.nextFloat();
-            if (rand < 0.3F) {
+        }
+        if (isStillEnough() && !this.isSwimming() && this.isInWaterOrBubble() && getRandomNumber() == 0) {
+            boolean bool = getRandomAnimationBool();
+            if (bool) {
                 return event.setAndContinue(HYNERIA_YAWN_BLEND);
             }
-            event.setAndContinue(HYNERIA_SWIM_IDLE);
+            return  event.setAndContinue(HYNERIA_SWIM_IDLE);
         }
-        return PlayState.CONTINUE;
+        return event.setAndContinue(HYNERIA_IDLE);
     }
 
     protected <E extends EntityHyneria> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {

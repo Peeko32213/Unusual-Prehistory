@@ -60,6 +60,8 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimalNoFloat.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimalNoFloat.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> ASLEEP = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimalNoFloat.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimalNoFloat.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimalNoFloat.class, EntityDataSerializers.BOOLEAN);
 
     public static final Logger LOGGER = LogManager.getLogger();
     private boolean orderedToSit;
@@ -214,6 +216,8 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
         this.entityData.define(FROM_BOOK, false);
         this.entityData.define(VARIANT, 0);
         this.entityData.define(ASLEEP, false);
+        this.entityData.define(RANDOM_BOOL, false);
+        this.entityData.define(RANDOM_NUMBER,0);
     }
 
     @Override
@@ -228,6 +232,8 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
         compound.putBoolean("fromEgg", this.isFromEgg());
         compound.putInt("variant", this.getVariant());
         compound.putBoolean("IsAsleep", this.isAsleep());
+        compound.putInt("randomNr", this.getRandomNumber());
+        compound.putBoolean("randomBool", this.getRandomBool());
     }
 
     @Override
@@ -242,6 +248,8 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
         this.setIsFromEgg(compound.getBoolean("fromEgg"));
         this.setVariant(compound.getInt("variant"));
         this.setAsleep(compound.getBoolean("IsAsleep"));
+        this.setRandomNumber(compound.getInt("randomNr"));
+        this.setRandomBool(compound.getBoolean("randomBool"));
     }
 
     public boolean canBeLeashed(Player p_21813_) {
@@ -423,6 +431,32 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
 
     public void setAsleep(boolean isAsleep) {
         this.entityData.set(ASLEEP, isAsleep);
+    }
+
+    public int getRandomAnimationNumber() {
+        setRandomNumber(random.nextInt(100));
+        return getRandomNumber();
+    }
+
+    public int getRandomNumber() {
+        return this.entityData.get(RANDOM_NUMBER);
+    }
+
+    public void setRandomNumber(int nr) {
+        this.entityData.set(RANDOM_NUMBER,nr);
+    }
+
+    public boolean getRandomAnimationBool() {
+        setRandomBool(random.nextBoolean());
+        return getRandomBool();
+    }
+
+    public boolean getRandomBool() {
+        return this.entityData.get(RANDOM_BOOL);
+    }
+
+    public void setRandomBool(boolean bool) {
+        this.entityData.set(RANDOM_BOOL,bool);
     }
 
     /**
