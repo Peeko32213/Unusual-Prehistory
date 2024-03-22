@@ -117,16 +117,16 @@ public class UnusualPrehistory {
             UPEntityPlacement.entityPlacement();
 
             //Todo add this to own class
-            addToFlowerPot(UPBlocks.HORSETAIL.getId(), UPBlocks.POTTED_HORSETAIL);
-            addToFlowerPot(UPBlocks.LEEFRUCTUS.getId(), UPBlocks.POTTED_LEEFRUCTUS);
-            addToFlowerPot(UPBlocks.BENNETTITALES.getId(), UPBlocks.POTTED_BENNETTITALES);
-            addToFlowerPot(UPBlocks.ARCHAEOSIGILARIA.getId(), UPBlocks.POTTED_ARCHAEOSIGILARIA);
-            addToFlowerPot(UPBlocks.PETRIFIED_BUSH.getId(), UPBlocks.POTTED_PETRIFIED_BUSH);
-            addToFlowerPot(UPBlocks.SARACENIA.getId(), UPBlocks.POTTED_SARACENIA);
-            addToFlowerPot(UPBlocks.GINKGO_SAPLING.getId(), UPBlocks.POTTED_GINKGO_SAPLING);
+            addToFlowerPot(UPBlocks.HORSETAIL, UPBlocks.POTTED_HORSETAIL);
+            addToFlowerPot(UPBlocks.LEEFRUCTUS, UPBlocks.POTTED_LEEFRUCTUS);
+            addToFlowerPot(UPBlocks.BENNETTITALES, UPBlocks.POTTED_BENNETTITALES);
+            addToFlowerPot(UPBlocks.ARCHAEOSIGILARIA, UPBlocks.POTTED_ARCHAEOSIGILARIA);
+            addToFlowerPot(UPBlocks.PETRIFIED_BUSH, UPBlocks.POTTED_PETRIFIED_BUSH);
+            addToFlowerPot(UPBlocks.SARACENIA, UPBlocks.POTTED_SARACENIA);
+            addToFlowerPot(UPBlocks.GINKGO_SAPLING, UPBlocks.POTTED_GINKGO_SAPLING);
             //addToFlowerPot(UPBlocks.FOXII_SAPLING.getId(), UPBlocks.POTTED_FOXXI);
-            addToFlowerPot(UPBlocks.ZULOAGAE_SAPLING.getId(), UPBlocks.POTTED_ZULOGAE);
-            addToFlowerPot(UPBlocks.DRYO_SAPLING.getId(), UPBlocks.POTTED_DRYO);
+            addToFlowerPot(UPBlocks.ZULOAGAE_SAPLING, UPBlocks.POTTED_ZULOGAE);
+            addToFlowerPot(UPBlocks.DRYO_SAPLING, UPBlocks.POTTED_DRYO);
 
             //Todo add this to own class
             addToComposter(UPBlocks.HORSETAIL.get().asItem(), 0.4f);
@@ -157,8 +157,8 @@ public class UnusualPrehistory {
         UPMessages.register();
     }
 
-    public static void addToFlowerPot(ResourceLocation plantBlockLoc, Supplier<? extends Block> pottedPlantBlock){
-        ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(plantBlockLoc,pottedPlantBlock);
+    public static void addToFlowerPot(RegistryObject<Block> plantBlockLoc, Supplier<? extends Block> pottedPlantBlock){
+        ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(plantBlockLoc.getId(),pottedPlantBlock);
     }
     public static void addToComposter(ItemLike item, float amountOfCompost){
         ComposterBlock.COMPOSTABLES.put(item, amountOfCompost);

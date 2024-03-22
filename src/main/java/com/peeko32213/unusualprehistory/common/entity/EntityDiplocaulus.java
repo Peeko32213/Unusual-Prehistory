@@ -227,6 +227,7 @@ public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiA
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
+
         if (event.isMoving() && !this.isInWater() && !this.isSwimming()) {
             event.setAnimation(DIPLOCAULUS_WALK);
             event.getController().setAnimationSpeed(1.0D);
@@ -237,16 +238,24 @@ public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiA
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
-            float rand = random.nextFloat();
-            if (rand < 0.45F) {
+
+        if(playingAnimation())
+        {
+            return PlayState.CONTINUE;
+        }
+
+        if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isSwimming()) {
+            int rand = getRandomAnimationNumber();
+            if (rand < 45) {
+                setAnimationTimer(300);
                 return event.setAndContinue(DIPLOCAULUS_BURROW_HOLD);
             }
            return event.setAndContinue(DIPLOCAULUS_IDLE);
         }
-        if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
-            float rand = random.nextFloat();
-            if (rand < 0.45F) {
+        if (isStillEnough() && getRandomAnimationNumber() == 0 && this.isSwimming()) {
+            int rand = getRandomAnimationNumber();
+            if (rand < 45) {
+                setAnimationTimer(300);
                 return event.setAndContinue(DIPLOCAULUS_ACROBAT);
             }
             return  event.setAndContinue(DIPLOCAULUS_SWIM_IDLE);

@@ -93,6 +93,17 @@ public class EntityPsilopterus extends EntityBaseDinosaurAnimal implements PackH
         this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, EntityPsilopterus.class)).setAlertOthers());
     }
 
+    @Override
+    public void travel(Vec3 pTravelVector) {
+
+        if(playingAnimation()){
+
+
+            super.travel(Vec3.ZERO);
+        }
+        super.travel(pTravelVector);
+    }
+
     public void tick() {
         super.tick();
 
@@ -560,6 +571,7 @@ public class EntityPsilopterus extends EntityBaseDinosaurAnimal implements PackH
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
+
         int animState = this.getAnimationState();
         {
             switch (animState) {
@@ -587,21 +599,31 @@ public class EntityPsilopterus extends EntityBaseDinosaurAnimal implements PackH
                         }
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
-                    } else if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
-                        float rand = random.nextFloat();
-                        if (rand < 0.55F) {
+                    }
+                    if(playingAnimation()){
+                        return PlayState.CONTINUE;
+                    }
+
+                    if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isSwimming()) {
+                        int rand = getRandomAnimationNumber();
+                        if (rand < 40) {
+                            setAnimationTimer(150);
                             event.setAndContinue(PSILO_SIT);
                         }
-                        if (rand < 0.85F) {
+                        if (rand < 60) {
+                            setAnimationTimer(150);
                             event.setAndContinue(PSILO_PREEN_1);
                         }
-                        if (rand < 0.85F) {
+                        if (rand < 70) {
+                            setAnimationTimer(150);
                             event.setAndContinue(PSILO_PREEN_2);
                         }
-                        if (rand < 0.85F) {
+                        if (rand < 80F) {
+                            setAnimationTimer(150);
                             event.setAndContinue(PSILO_LOOKOUT_1);
                         }
-                        if (rand < 0.85F) {
+                        if (rand < 90F) {
+                            setAnimationTimer(150);
                             event.setAndContinue(PSILO_LOOKOUT_2);
                         }
                         event.setAndContinue(PSILO_IDLE);

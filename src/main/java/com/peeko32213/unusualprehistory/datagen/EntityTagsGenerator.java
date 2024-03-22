@@ -439,7 +439,10 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
         tag(UPTags.PALAEO_EMBRYO_ATTACH_TO)
                 .add(UPEntities.PALAEOPHIS.get())
                 .add(UPEntities.PALAEOPHIS_PART.get());
-
+        tag(UPTags.OTAROCYON_EMBRYO_ATTACH_TO)
+                .add(EntityType.OCELOT)
+                .add(EntityType.FOX)
+                .add(UPEntities.OTAROCYON.get());
         tag(UPTags.TAR_WALKABLE_ON_MOBS)
                 .add(EntityType.RABBIT)
                 .add(UPEntities.SLUDGE.get());

@@ -27,4 +27,10 @@ public class DinosaurLandEggRenderer extends GeoEntityRenderer<DinosaurLandEgg> 
     public RenderType getRenderType(DinosaurLandEgg animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
         return RenderType.entityCutout(getTextureLocation(animatable));
     }
+
+
+    @Override
+    public boolean shouldShowName(DinosaurLandEgg animatable) {
+        return super.shouldShowName(animatable);
+    }
 }

@@ -36,6 +36,7 @@ public class DunkleosteusModel extends GeoModel<EntityDunkleosteus>
     public void setCustomAnimations(EntityDunkleosteus animatable, long instanceId, AnimationState<EntityDunkleosteus> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
+        if(animatable.isFromBook()) return;
 
         CoreGeoBone backBody = this.getAnimationProcessor().getBone("BackBody");
         CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tailfin");

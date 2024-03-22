@@ -1400,7 +1400,7 @@
   "encased_disc": {
     "sounds": [
       {
-        "name": "unusualprehistory:encased_disc",
+        "name": "unusualprehistory:encased",
         "stream": true
       }
     ]

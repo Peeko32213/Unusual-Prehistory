@@ -1,10 +1,12 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.block.BlockDinosaurLandEggs;
 import com.peeko32213.unusualprehistory.common.data.ItemWeightedPairCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.data.RollableItemCodec;
+import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
 import com.peeko32213.unusualprehistory.common.item.MusicalTameItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -38,6 +40,12 @@ public class UPTabs {
                         d.holders().lookup(Registries.INSTRUMENT).ifPresent((p_270036_) -> {
                             generateInstrumentTypes(entries, p_270036_, UPItems.BARINA_WHISTLE.get(), UPTags.OCARINA_WHISTLE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                         });
+                        if(item.get() instanceof BlockItem b) {
+                            if(b.getBlock() instanceof BlockDinosaurLandEggs) {
+                                continue;
+                            }
+                        }
+
                         if(!item.get().getDefaultInstance().is(UPItems.BARINA_WHISTLE.get()) && !item.get().getDefaultInstance().is(UPBlocks.FRUIT_LOOT_BOX.get().asItem())) {
                             entries.accept(item.get());
                         }

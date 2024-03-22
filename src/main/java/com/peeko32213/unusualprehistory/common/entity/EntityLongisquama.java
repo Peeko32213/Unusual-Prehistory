@@ -309,7 +309,7 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
             this.tick();
             if (this.isPassenger()) {
                 Entity mount = this.getVehicle();
-                if (mount instanceof Player) {
+                if (mount instanceof Player player) {
                     this.yBodyRot = ((LivingEntity) mount).yBodyRot;
                     this.setYRot(mount.getYRot());
                     this.yHeadRot = ((LivingEntity) mount).yHeadRot;
@@ -319,8 +319,8 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
                     double extraX = radius * Mth.sin(Mth.PI + angle);
                     double extraZ = radius * Mth.cos(angle);
                     this.setPos(mount.getX() + extraX, Math.max(mount.getY() + mount.getBbHeight() + 0.1, mount.getY()), mount.getZ() + extraZ);
-                    if (!mount.isAlive() || rideCooldown == 0 && mount.isShiftKeyDown()) {
-                        this.removeVehicle();
+                    if (!player.isAlive() || rideCooldown == 0 || player.isShiftKeyDown() || !mount.isAlive()) {
+                        this.stopRiding();
                     }
                 }
 
@@ -424,6 +424,7 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
+
         if ((this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) || this.isClimbing()) {
             return event.setAndContinue(LONGISQUAMA_WALK);
         }
@@ -440,12 +441,19 @@ public class EntityLongisquama extends EntityTameableClimbingAnimal implements C
         else if (this.isClimbing() && !this.isSwimming()) {
             return event.setAndContinue(LONGISQUAMA_CLIMBING);
         }
-        else if (isStillEnough() && random.nextInt(500) == 0 && !this.isInSittingPose() && !this.isSwimming() && this.isClimbing()) {
-            float rand = random.nextFloat();
-            if (rand < 0.55F) {
+
+        if(playingAnimation())
+        {
+            return PlayState.CONTINUE;
+        }
+        if (isStillEnough() && getRandomAnimationNumber(500) == 0 && !this.isInSittingPose() && !this.isSwimming() && this.isClimbing()) {
+            int rand = getRandomAnimationNumber();
+            if (rand < 55) {
+                setAnimationTimer(100);
                 return event.setAndContinue(LONGISQUAMA_BASKING);
             }
-            if (rand < 0.75F) {
+            if (rand < 75) {
+                setAnimationTimer(100);
                 return event.setAndContinue(LONGISQUAMA_FLAIRING);
             }
             event.setAndContinue(LONGISQUAMA_IDLE);

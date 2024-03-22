@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:protosphyraena_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:protosphyraena_entity_egg"
+  }
+}

@@ -2,18 +2,27 @@ package com.peeko32213.unusualprehistory.datagen;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeBuilder;
-import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 import java.util.function.Consumer;
+
+import static com.peeko32213.unusualprehistory.datagen.ItemModelGenerator.prefix;
 
 public class RecipeGenerator extends UPRecipeProvider implements IConditionBuilder {
     public RecipeGenerator(PackOutput pGenerator) {
@@ -30,7 +39,7 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         makeWood(UPBlocks.PETRIFIED_WOOD, UPBlocks.PETRIFIED_WOOD_LOG).save(consumer);
 
-        //makeSign(UPBlocks.PETRIFIED_WOOD_SIGN, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
+        makeSign(UPBlocks.PETRIFIED_WOOD_SIGN, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
 
         makeStairs(UPBlocks.PETRIFIED_WOOD_STAIRS, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
         makeStairs(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS, UPBlocks.POLISHED_PETRIFIED_WOOD).save(consumer);
@@ -78,7 +87,7 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         makePressurePlate(UPBlocks.FOXXI_PRESSURE_PLATE, UPBlocks.FOXXI_PLANKS).save(consumer);
 
-        //makeSign(UPBlocks.FOXXI_SIGN, UPBlocks.FOXXI_PLANKS).save(consumer);
+        makeSign(UPBlocks.FOXXI_SIGN, UPBlocks.FOXXI_PLANKS).save(consumer);
 
         // Dryo
         makePlanks(UPBlocks.DRYO_PLANKS, UPTags.DRYO).save(consumer);
@@ -99,7 +108,7 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         makePressurePlate(UPBlocks.DRYO_PRESSURE_PLATE, UPBlocks.DRYO_PLANKS).save(consumer);
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.OPALESCENT_PEARL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.OPAL_BLOCK.get().asItem());
-        //makeSign(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS).save(consumer);
+        makeSign(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS).save(consumer);
 
         //oreSmelting();
 
@@ -121,15 +130,64 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
         makeButton(UPBlocks.ZULOAGAE_BUTTON, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
 
         makePressurePlate(UPBlocks.ZULOAGAE_PRESSURE_PLATE, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
+        shieldSmithing(consumer, Items.SHIELD, RecipeCategory.COMBAT, UPItems.TRIKE_SHIELD.get());
+        copySmithingTemplate(consumer, UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD.get(), UPItems.TRIKE_HORN.get());
+        incubating(consumer, UPItems.OTAROCYON_EMBRYO.get().getDefaultInstance(), UPEntities.OTAROCYON.get());
+        cultivating(consumer, UPItems.LONGI_FLASK.get(), UPEntities.LONGISQUAMA.get());
+        cultivating(consumer, UPItems.JAWLESS_FISH_FLASK.get(), UPBlocks.FURCACAUDA_EGGS.get().asItem());
+        cultivating(consumer, UPItems.TARTUO_FLASK.get(), UPBlocks.TARTUO_EGGS.get().asItem());
+        cultivating(consumer, UPItems.TANY_FLASK.get(), UPEntities.TANY.get());
+        cultivating(consumer, UPItems.PSITTACO_FLASK.get(), UPEntities.PSITTACO.get());
+        cultivating(consumer, UPItems.KAPRO_FLASK.get(), UPEntities.KAPROSUCHUS.get());
+        cultivating(consumer, UPItems.PSILO_FLASK.get(), UPEntities.PSILOPTERUS.get());
+        cultivating(consumer, UPItems.OPHIO_FLASK.get(), UPBlocks.OPHIDION_EGGS.get().asItem());
+        cultivating(consumer, UPItems.DIPLO_FLASK.get(), UPBlocks.DIPLOCAULUS_EGGS.get().asItem());
+        cultivating(consumer, UPItems.KIMMER_FLASK.get(), UPBlocks.KIMMER_EGGS.get().asItem());
+        cultivating(consumer, UPItems.HYNERIA_FLASK.get(), UPBlocks.HYNERIA_EGGS.get().asItem());
+        cultivating(consumer, UPItems.HYNERP_FLASK.get(), UPEntities.HYNERPETON.get());
+        cultivating(consumer, UPItems.BALAUR_FLASK.get(), UPEntities.BALAUR.get());
+        cultivating(consumer, UPItems.LEEDS_FLASK.get(), UPEntities.LEEDSICHTHYS.get());
+        cultivating(consumer, UPItems.PTERODAUSTRO_FLASK.get(), UPEntities.PTERODAUSTRO.get());
+        cultivating(consumer, UPItems.ARCHELON_FLASK.get(), UPEntities.ARCHELON.get());
+        cultivating(consumer, UPItems.PROTOSPHYRAENA_FLASK.get(), UPEntities.PROTOSPHYRAENA.get());
+    }
 
-
+    protected static void copySmithingTemplate(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, ItemLike pBaseItem) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, pResult, 2).define('#', Items.DIAMOND).define('C', pBaseItem).define('S', pResult).pattern("#S#").pattern("#C#").pattern("###").unlockedBy(getHasName(pResult), has(pResult)).save(pFinishedRecipeConsumer);
+    }
+    protected static void shieldSmithing(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item pIngredientItem, RecipeCategory pCategory, Item pResultItem) {
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD.get()), Ingredient.of(pIngredientItem), Ingredient.of(UPItems.TRIKE_HORN.get()), pCategory, pResultItem).unlocks("has_trike_horn", has(UPItems.TRIKE_HORN.get())).save(pFinishedRecipeConsumer, prefix(getItemName(pResultItem) + "_smithing"));
     }
 
 
 
+    protected static void incubating(Consumer<FinishedRecipe> finishedRecipeConsumer, ItemStack ingredients, EntityType<?> result){
+        Ingredient ingredient = Ingredient.of(ingredients);
+        NonNullList<Ingredient> ingredients1 = NonNullList.of(Ingredient.EMPTY, ingredient);
+        DinoSpawnerRecipeBuilder.incubating(ingredients1, result).save(finishedRecipeConsumer, prefix("incubating/" + getEntityName(result) + "_from_incubating"));
+    }
+
+    protected static void cultivating(Consumer<FinishedRecipe> finishedRecipeConsumer, Item ingredients, Item result){
+        Ingredient ingredient = Ingredient.of(ingredients);
+        NonNullList<Ingredient> ingredients1 = NonNullList.of(Ingredient.EMPTY, ingredient);
+        DinoSpawnerRecipeBuilder.cultivating(ingredients1, result).save(finishedRecipeConsumer, prefix("cultivating/" + getItemName(result) + "_from_cultivating"));
+    }
+
+    protected static void cultivating(Consumer<FinishedRecipe> finishedRecipeConsumer, Item ingredients, EntityType<?> result){
+        Ingredient ingredient = Ingredient.of(ingredients);
+        NonNullList<Ingredient> ingredients1 = NonNullList.of(Ingredient.EMPTY, ingredient);
+        String name = BuiltInRegistries.ENTITY_TYPE.getKey(result).toString();
+        Item item = BuiltInRegistries.ITEM.get(new ResourceLocation(name + "_entity_egg"));
+        DinoSpawnerRecipeBuilder.cultivating(ingredients1, item).save(finishedRecipeConsumer, prefix("cultivating/" + getItemName(item) + "_from_cultivating"));
+    }
+
     //Wrappers for conditionals
     private void wrap(RecipeBuilder builder, String name, Consumer<FinishedRecipe> consumer, ICondition... conds) {
         wrap(builder, UnusualPrehistory.MODID, name, consumer, conds);
+    }
+
+    protected static String getEntityName(EntityType<?> pItemLike) {
+        return BuiltInRegistries.ENTITY_TYPE.getKey(pItemLike).getPath();
     }
     private ResourceLocation name(String name) {
         return new ResourceLocation(UnusualPrehistory.MODID, name);

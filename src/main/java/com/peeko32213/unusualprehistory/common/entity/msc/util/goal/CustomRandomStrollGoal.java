@@ -1,5 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimalNoFloat;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
@@ -17,6 +21,34 @@ public class CustomRandomStrollGoal extends RandomStrollGoal {
     }
 
     public boolean canUse() {
+        if(this.mob instanceof EntityBaseDinosaurAnimal entityBaseDinosaurAnimal)
+        {
+            if(entityBaseDinosaurAnimal.playingAnimation())
+            {
+                return false;
+        }
+        }
+        if(this.mob instanceof EntityBaseAquaticAnimal entityBaseDinosaurAnimal)
+        {
+            if(entityBaseDinosaurAnimal.playingAnimation())
+            {
+                return false;
+            }
+        }
+        if(this.mob instanceof EntityTameableBaseDinosaurAnimal entityBaseDinosaurAnimal)
+        {
+            if(entityBaseDinosaurAnimal.playingAnimation())
+            {
+                return false;
+            }
+        }
+        if(this.mob instanceof EntityTameableBaseDinosaurAnimalNoFloat entityBaseDinosaurAnimal)
+        {
+            if(entityBaseDinosaurAnimal.playingAnimation())
+            {
+                return false;
+            }
+        }
         if (this.mob.isVehicle()) {
             return false;
         } else {

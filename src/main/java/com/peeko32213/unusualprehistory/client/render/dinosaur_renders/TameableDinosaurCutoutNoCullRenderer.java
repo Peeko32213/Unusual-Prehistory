@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -23,4 +24,11 @@ public class TameableDinosaurCutoutNoCullRenderer<T extends EntityTameableBaseDi
         return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
     }
 
+    @Override
+    public void render(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+        if (entity.isBaby()) {
+            poseStack.scale(0.5F, 0.5F, 0.5F);
+        }
+    }
 }

@@ -709,6 +709,7 @@ public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implemen
         if(this.isFromBook()){
             return PlayState.CONTINUE;
         }
+
         int animState = this.getAnimationState();
         {
             switch (animState) {
@@ -746,12 +747,20 @@ public class EntityKaprosuchus extends EntityTameableBaseDinosaurAnimal implemen
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
-                     else if (isStillEnough() && random.nextInt(100) == 0 && !this.isInSittingPose() && !this.isSwimming()) {
-                        float rand = random.nextFloat();
-                        if (rand < 0.15F) {
+
+                    if(playingAnimation())
+                    {
+                        return PlayState.CONTINUE;
+                    }
+
+                     else if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isInSittingPose() && !this.isSwimming()) {
+                        int rand = getRandomAnimationNumber();
+                        if (rand < 15) {
+                            setAnimationTimer(150);
                             return event.setAndContinue(KAPROSUCHUS_ROAR);
                         }
-                        if (rand < 0.66F) {
+                        if (rand < 66) {
+                            setAnimationTimer(150);
                             return event.setAndContinue(KAPROSUCHUS_SCRATCH);
                         }
                         event.setAndContinue(KAPROSUCHUS_IDLE);

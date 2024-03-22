@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:archelon_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:archelon_entity_egg"
+  }
+}

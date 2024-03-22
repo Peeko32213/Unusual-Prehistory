@@ -75,23 +75,11 @@
     },
     {
       "weight": 5,
-      "item": "unusualprehistory:pterydactylus_flask"
-    },
-    {
-      "weight": 5,
-      "item": "unusualprehistory:eretmorhipis_flask"
-    },
-    {
-      "weight": 5,
       "item": "unusualprehistory:protosphyraena_flask"
     },
     {
       "weight": 5,
       "item": "unusualprehistory:kimmer_flask"
-    },
-    {
-      "weight": 5,
-      "item": "unusualprehistory:enchodus_flask"
     }
   ]
 }

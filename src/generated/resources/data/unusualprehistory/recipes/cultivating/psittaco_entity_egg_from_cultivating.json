@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:psittaco_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:psittaco_entity_egg"
+  }
+}

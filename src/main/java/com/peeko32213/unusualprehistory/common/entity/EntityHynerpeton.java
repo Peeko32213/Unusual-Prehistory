@@ -339,22 +339,34 @@ public class EntityHynerpeton extends EntityBaseDinosaurAnimal implements SemiAq
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
-            float rand = random.nextFloat();
-            if (rand < 0.45F) {
+
+        if (isStillEnough() && this.isInWater()) {
+            event.setAndContinue(HYNERPETON_SWIM_IDLE);
+        }
+
+
+        if(playingAnimation())
+        {
+            return PlayState.CONTINUE;
+        }
+
+        if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isSwimming()) {
+            int rand = getRandomAnimationNumber();
+            if (rand < 45) {
+                setAnimationTimer(100);
                 return event.setAndContinue(HYNERPETON_BELLOW);
             }
-            if (rand < 0.55F) {
+            if (rand < 55) {
+                setAnimationTimer(100);
                 return event.setAndContinue(HYNERPETON_BASK_2);
             }
-            if (rand < 0.65F) {
+            if (rand < 65) {
+                setAnimationTimer(100);
                 return event.setAndContinue(HYNERPETON_BASK_1);
             }
             event.setAndContinue(HYNERPETON_IDLE);
         }
-        if (isStillEnough() && this.isInWater()) {
-            event.setAndContinue(HYNERPETON_SWIM_IDLE);
-        }
+
         return PlayState.CONTINUE;
     }
 

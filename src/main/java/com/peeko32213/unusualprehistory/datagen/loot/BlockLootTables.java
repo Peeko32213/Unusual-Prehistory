@@ -47,8 +47,8 @@ public class BlockLootTables extends BlockLootSubProvider {
     protected void generate() {
         dropSelf(UPBlocks.PETRIFIED_WOOD.get());
         dropSelf(UPBlocks.PETRIFIED_WOOD_LOG.get());
-        //dropSelf(UPBlocks.PETRIFIED_WOOD_SIGN.get());
-        //dropSelf(UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_SIGN.get());
+        dropSelf(UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get());
         dropSelf(UPBlocks.PETRIFIED_WOOD_FENCE_GATE.get());
         dropSelf(UPBlocks.PETRIFIED_WOOD_BUTTON.get());
         dropSelf(UPBlocks.PETRIFIED_WOOD_FENCE.get());
@@ -75,9 +75,9 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.FOXXI_PLANKS.get());
         dropSelf(UPBlocks.FOXXI_STAIRS.get());
         dropSelf(UPBlocks.FOXXI_TRAPDOOR.get());
-        //dropSelf(UPBlocks.FOXXI_SIGN.get());
-        //dropSelf(UPBlocks.FOXXI_WALL_SIGN.get());
-        //dropSelf(UPBlocks.FOXII_SAPLING.get());
+        dropSelf(UPBlocks.FOXXI_SIGN.get());
+        dropSelf(UPBlocks.FOXXI_WALL_SIGN.get());
+        dropSelf(UPBlocks.FOXII_SAPLING.get());
 
         dropSelf(UPBlocks.OPAL_BLOCK.get());
         dropSelf(UPBlocks.DRYO_WOOD.get());
@@ -92,10 +92,10 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.DRYO_PLANKS.get());
         dropSelf(UPBlocks.DRYO_STAIRS.get());
         dropSelf(UPBlocks.DRYO_TRAPDOOR.get());
-        //dropSelf(UPBlocks.DRYO_SIGN.get());
-        //dropSelf(UPBlocks.DRYO_WALL_SIGN.get());
-        //dropSelf(UPBlocks.DRYO_SAPLING.get());
-        //dropSelf(UPBlocks.GINKGO_SAPLING.get());
+        dropSelf(UPBlocks.DRYO_SIGN.get());
+        dropSelf(UPBlocks.DRYO_WALL_SIGN.get());
+        dropSelf(UPBlocks.DRYO_SAPLING.get());
+        dropSelf(UPBlocks.GINKGO_SAPLING.get());
 
 
         dropSelf(UPBlocks.HWACHA_FOSSIL.get());
@@ -130,7 +130,9 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.ZULOAGAE_PLANKS.get());
         dropSelf(UPBlocks.ZULOAGAE_STAIRS.get());
         dropSelf(UPBlocks.ZULOAGAE_TRAPDOOR.get());
-
+        dropSelf(UPBlocks.ZULOAGAE_DOOR.get());
+        dropSelf(UPBlocks.AMBER_BLOCK.get());
+        dropSelf(UPBlocks.OPAL_BLOCK.get());
         createPotFlowerItemTable(UPBlocks.POTTED_ARCHAEOSIGILARIA.get(),UPBlocks.ARCHAEOSIGILARIA.get());
         createPotFlowerItemTable(UPBlocks.POTTED_BENNETTITALES.get(),UPBlocks.BENNETTITALES.get());
         createPotFlowerItemTable(UPBlocks.POTTED_HORSETAIL.get(),UPBlocks.HORSETAIL.get());

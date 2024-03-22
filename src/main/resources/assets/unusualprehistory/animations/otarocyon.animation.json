@@ -520,7 +520,7 @@
 				"Head": {
 					"rotation": {
 						"vector": [
-							"math.sin(query.anim_time*180+60)*-2.5+(math.clamp(query.distance_from_camera,0,10)*1)",
+							"math.sin(query.anim_time*180+60)*2.5+(math.clamp(query.distance_from_camera,0,10)*1)",
 							"math.sin(query.anim_time*45)*2.5",
 							"math.sin(query.anim_time*90)*2.5"
 						]

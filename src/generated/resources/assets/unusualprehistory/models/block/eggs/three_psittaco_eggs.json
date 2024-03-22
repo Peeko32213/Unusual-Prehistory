@@ -1,6 +1,0 @@
-{
-  "parent": "unusualprehistory:block/template_eggs/template_three_psittaco_eggs",
-  "textures": {
-    "texture": "unusualprehistory:block/eggs/psittaco_eggs"
-  }
-}

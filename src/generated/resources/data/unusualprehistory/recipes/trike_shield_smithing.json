@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "unusualprehistory:trike_horn"
+  },
+  "base": {
+    "item": "minecraft:shield"
+  },
+  "result": {
+    "item": "unusualprehistory:trike_shield"
+  },
+  "template": {
+    "item": "unusualprehistory:trike_shield_upgrade_smithing_template"
+  }
+}

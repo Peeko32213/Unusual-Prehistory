@@ -62,7 +62,7 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
     private static final EntityDataAccessor<Boolean> ASLEEP = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimalNoFloat.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimalNoFloat.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimalNoFloat.class, EntityDataSerializers.BOOLEAN);
-
+    private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(EntityTameableBaseDinosaurAnimalNoFloat.class, EntityDataSerializers.INT);
     public static final Logger LOGGER = LogManager.getLogger();
     private boolean orderedToSit;
     public int attackCooldown = 0;
@@ -99,7 +99,9 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
             attackCooldown--;
 
         }
-
+        if(playingAnimation()) {
+            setAnimationTimer(getAnimationTimer() - 1);
+        }
        // if (this.isSwinging() && !hasSwung()) {
        //     setSwinging(false);
        //     setHasSwung(true);
@@ -218,6 +220,7 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
         this.entityData.define(ASLEEP, false);
         this.entityData.define(RANDOM_BOOL, false);
         this.entityData.define(RANDOM_NUMBER,0);
+        this.entityData.define(ANIM_TIMER, 0);
     }
 
     @Override
@@ -234,6 +237,7 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
         compound.putBoolean("IsAsleep", this.isAsleep());
         compound.putInt("randomNr", this.getRandomNumber());
         compound.putBoolean("randomBool", this.getRandomBool());
+        compound.putInt("animTimer", this.getAnimationTimer());
     }
 
     @Override
@@ -250,6 +254,7 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
         this.setAsleep(compound.getBoolean("IsAsleep"));
         this.setRandomNumber(compound.getInt("randomNr"));
         this.setRandomBool(compound.getBoolean("randomBool"));
+        this.setAnimationTimer(compound.getInt("animTimer"));
     }
 
     public boolean canBeLeashed(Player p_21813_) {
@@ -431,6 +436,18 @@ public abstract class EntityTameableBaseDinosaurAnimalNoFloat extends TamableAni
 
     public void setAsleep(boolean isAsleep) {
         this.entityData.set(ASLEEP, isAsleep);
+    }
+
+    public boolean playingAnimation() {
+        return getAnimationTimer() > 0;
+    }
+
+    public int getAnimationTimer() {
+        return this.entityData.get(ANIM_TIMER);
+    }
+
+    public void setAnimationTimer(int time) {
+        this.entityData.set(ANIM_TIMER,time);
     }
 
     public int getRandomAnimationNumber() {

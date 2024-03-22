@@ -68,6 +68,7 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
     private static final RawAnimation OTAROCYON_LEAP_HOLD = RawAnimation.begin().thenLoop("animation.otarocyon.leap_hold");
 
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityOtarocyon.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> SPOOKED = SynchedEntityData.defineId(EntityOtarocyon.class, EntityDataSerializers.INT);
     private Goal landTargetGoal;
 
     public float sitProgress;
@@ -217,6 +218,7 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(COMMAND, 0);
+        this.entityData.define(SPOOKED, 0);
     }
 
     public int getCommand() {
@@ -230,11 +232,13 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Command", this.getCommand());
+        compound.putInt("spooked", this.spookMobsTime);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setCommand(compound.getInt("Command"));
+        this.setSpooked(compound.getInt("spooked"));
     }
 
     @Override
@@ -324,6 +328,8 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
+
+
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) {
             if (this.isSprinting()) {
                 event.setAndContinue(OTAROCYON_RUN);
@@ -343,7 +349,7 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        if (spookMobsTime > 0 && !this.isInSittingPose()) {
+        if (getSpooked() > 0 && !this.isInSittingPose()) {
             event.setAndContinue(OTAROCYON_SCREAM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
@@ -356,20 +362,29 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
         else if (this.isJumping()) {
             return event.setAndContinue(OTAROCYON_LEAP_HOLD);
         }
-        else if (isStillEnough() && random.nextInt(100) == 0 && !this.isInSittingPose() && !this.isSwimming()) {
-            float rand = random.nextFloat();
-            if (rand < 0.15F) {
+
+
+        if(playingAnimation()) {
+            return PlayState.CONTINUE;
+        }
+
+        else if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isInSittingPose() && !this.isSwimming()) {
+            int rand = getRandomAnimationNumber();
+            if (rand < 15) {
+                setAnimationTimer(200);
                 return event.setAndContinue(OTAROCYON_LOAF);
             }
-            if (rand < 0.66F) {
+            if (rand < 66) {
+                setAnimationTimer(300);
                 return event.setAndContinue(OTAROCYON_DIG);
             }
-            if (rand < 0.77F) {
+            if (rand < 77) {
+                setAnimationTimer(300);
                 return event.setAndContinue(OTAROCYON_YAWN);
             }
-            event.setAndContinue(OTAROCYON_IDLE);
+
         }
-        return PlayState.CONTINUE;
+        return event.setAndContinue(OTAROCYON_IDLE);
     }
 
     protected <E extends EntityOtarocyon> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -582,5 +597,12 @@ public class EntityOtarocyon extends EntityTameableBaseDinosaurAnimal implements
     void setFaceplanted(boolean pFaceplanted) {
         this.setFlag(64, pFaceplanted);
     }
+    public int getSpooked() {
+        setSpooked(spookMobsTime);
+        return this.entityData.get(SPOOKED);
+    }
 
+    public void setSpooked(int nr) {
+        this.entityData.set(SPOOKED,nr);
+    }
 }

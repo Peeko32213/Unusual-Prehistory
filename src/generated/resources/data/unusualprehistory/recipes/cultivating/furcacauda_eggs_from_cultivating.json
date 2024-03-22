@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:jawless_fish_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:furcacauda_eggs"
+  }
+}

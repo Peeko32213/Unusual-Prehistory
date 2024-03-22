@@ -1,0 +1,31 @@
+{
+  "text": "archelon.txt",
+  "title": "entity.unusualprehistory.archelon",
+  "page_to_go": "unusualprehistory:dinosaurs",
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:archelon",
+      "x": 90,
+      "y": 85,
+      "page" : 0,
+      "scale": 0.8,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ],
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:archelon",
+      "x": 350,
+      "y": 120,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 0.2,
+      "offset_x": 4,
+      "offset_y": -25,
+      "hover_text": "entity.unusualprehistory.archelon"
+    }
+  ]
+}

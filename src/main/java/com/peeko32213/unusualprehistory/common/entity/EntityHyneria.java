@@ -331,9 +331,20 @@ public class EntityHyneria extends EntityTameableBaseDinosaurAnimalNoFloat imple
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
+
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isSwimming()) {
             event.setAnimation(HYNERIA_WALK);
             event.getController().setAnimationSpeed(1.0D);
+            return PlayState.CONTINUE;
+        }
+
+        if (this.isJumping()) {
+            return event.setAndContinue(HYNERIA_JUMP);
+        }
+
+
+        if(playingAnimation())
+        {
             return PlayState.CONTINUE;
         }
         if (event.isMoving() && this.isInWater() && getRandomNumber() == 0)  {
@@ -343,26 +354,19 @@ public class EntityHyneria extends EntityTameableBaseDinosaurAnimalNoFloat imple
                 event.getController().setAnimationSpeed(2.0D);
             }
             event.setAndContinue(HYNERIA_SWIM);
-            //if (rand < 0.55F) {
-            //    return event.setAndContinue(ARCHELON_SPIN1);
-            //}
-            //if (rand < 0.56F) {
-            //    return event.setAndContinue(ARCHELON_SPIN2);
-            //}
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
 
-        if (isStillEnough() && getRandomNumber() == 0) {
+        if (isStillEnough() && getRandomAnimationNumber() == 0) {
             boolean bool = getRandomAnimationBool();
             if (bool) {
+                setAnimationTimer(200);
                 return event.setAndContinue(HYNERIA_BASK);
             }
             return  event.setAndContinue(HYNERIA_IDLE);
         }
-        if (this.isJumping()) {
-            return event.setAndContinue(HYNERIA_JUMP);
-        }
+
         if (isStillEnough() && !this.isSwimming() && this.isInWaterOrBubble() && getRandomNumber() == 0) {
             boolean bool = getRandomAnimationBool();
             if (bool) {
@@ -377,7 +381,7 @@ public class EntityHyneria extends EntityTameableBaseDinosaurAnimalNoFloat imple
         if (this.swinging && event.getController().getAnimationState().equals(AnimationController.State.PAUSED)) {
             return event.setAndContinue(HYNERIA_ATTACK_BLEND);
         }
-        return PlayState.CONTINUE;
+        return event.setAndContinue(HYNERIA_SWIM_IDLE);
     }
 
     @Override

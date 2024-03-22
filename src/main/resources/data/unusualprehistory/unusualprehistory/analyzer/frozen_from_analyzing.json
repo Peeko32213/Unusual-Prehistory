@@ -20,6 +20,18 @@
     {
       "weight": 15,
       "item": "unusualprehistory:smilo_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:psilo_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:ophio_flask"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:otarocyon_flask"
     }
   ]
 }

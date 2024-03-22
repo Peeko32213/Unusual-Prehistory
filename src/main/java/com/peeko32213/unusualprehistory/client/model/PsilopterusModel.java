@@ -46,9 +46,9 @@ public class PsilopterusModel extends GeoModel<EntityPsilopterus> {
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
         CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
         if (animatable.isBaby()) {
-            head.setScaleX(1.75F);
-            head.setScaleY(1.75F);
-            head.setScaleZ(1.75F);
+            //head.setScaleX(1.25F);
+            //head.setScaleY(1.25F);
+            //head.setScaleZ(1.25F);
         } else {
             head.setScaleX(1.0F);
             head.setScaleY(1.0F);

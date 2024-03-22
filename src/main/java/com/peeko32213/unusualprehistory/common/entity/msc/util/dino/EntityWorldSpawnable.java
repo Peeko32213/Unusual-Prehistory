@@ -117,7 +117,8 @@ public abstract class EntityWorldSpawnable extends LivingEntity implements GeoAn
         }
         LootTable loottable = this.level().getServer().getLootData().getLootTable(this.getDeadLootTable());
 
-        LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level())).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.DAMAGE_SOURCE, this.damageSources().generic()).create(LootContextParamSets.CHEST);
+        LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level())).withParameter(LootContextParams.ORIGIN, this.position())
+                .withParameter(LootContextParams.DAMAGE_SOURCE, this.damageSources().generic()).create(LootContextParamSets.CHEST);
 
         for (ItemStack itemstack : loottable.getRandomItems(lootparams)) {
             return itemstack;

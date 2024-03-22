@@ -9,7 +9,11 @@ import com.peeko32213.unusualprehistory.common.item.armor.ItemTyrantsCrown;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
 import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ItemShedscaleArmor;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -20,7 +24,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.List;
 import java.util.function.Supplier;
+
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class UPItems {
     private UPItems() {
@@ -269,17 +276,17 @@ public class UPItems {
             () -> new Item(new Item.Properties()));
 
 
-    public static final RegistryObject<Item> PTERY_FLASK = ITEMS.register("ptery_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> PTERY_FLASK = ITEMS.register("ptery_flask",
+    //        () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> EDAPHO_FLASK = ITEMS.register("edapho_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> EDAPHO_FLASK = ITEMS.register("edapho_flask",
+    //        () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> PTERYDACTYLUS_FLASK = ITEMS.register("pterydactylus_flask",
-            () -> new Item(new Item.Properties()));
+   //public static final RegistryObject<Item> PTERYDACTYLUS_FLASK = ITEMS.register("pterydactylus_flask",
+   //        () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> ERETMORPHIS_FLASK = ITEMS.register("eretmorhipis_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> ERETMORPHIS_FLASK = ITEMS.register("eretmorhipis_flask",
+    //        () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> LEEDS_FLASK = ITEMS.register("leeds_flask",
             () -> new Item(new Item.Properties()));
@@ -287,26 +294,26 @@ public class UPItems {
     public static final RegistryObject<Item> PTERODAUSTRO_FLASK = ITEMS.register("pterodaustro_flask",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> XIPHACT_FLASK = ITEMS.register("xiphact_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> XIPHACT_FLASK = ITEMS.register("xiphact_flask",
+    //        () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> OVIRAPTOR_FLASK = ITEMS.register("oviraptor_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> OVIRAPTOR_FLASK = ITEMS.register("oviraptor_flask",
+    //        () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> GLOBIDENS_FLASK = ITEMS.register("globidens_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> GLOBIDENS_FLASK = ITEMS.register("globidens_flask",
+    //        () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ARCHELON_FLASK = ITEMS.register("archelon_flask",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> ESTEMMENO_FLASK = ITEMS.register("estemmano_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> ESTEMMENO_FLASK = ITEMS.register("estemmano_flask",
+    //        () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> ARTHROPLEURA_FLASK = ITEMS.register("arthropleura_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> ARTHROPLEURA_FLASK = ITEMS.register("arthropleura_flask",
+    //        () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> SCUTO_FLASK = ITEMS.register("scuto_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> SCUTO_FLASK = ITEMS.register("scuto_flask",
+    //        () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> HYNERIA_FLASK = ITEMS.register("hyneria_flask",
             () -> new Item(new Item.Properties()));
@@ -317,11 +324,11 @@ public class UPItems {
     public static final RegistryObject<Item> KIMMER_FLASK = ITEMS.register("kimmer_flask",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> ENCHODUS_FLASK = ITEMS.register("enchodus_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> ENCHODUS_FLASK = ITEMS.register("enchodus_flask",
+    //        () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> IGUANODON_FLASK = ITEMS.register("iguanodon_flask",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> IGUANODON_FLASK = ITEMS.register("iguanodon_flask",
+    //        () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties()));
@@ -514,38 +521,38 @@ public class UPItems {
     //public static final RegistryObject<ForgeSpawnEggItem> TANY_EGG = registerSpawnEggs("tany_spawn_egg",
     //        UPEntities.TANY , 0x08090d, 0xf2f6f8);
 
-    public static final RegistryObject<ForgeSpawnEggItem> KAPROSUCUHS_EGG = registerSpawnEggs("kapro_spawn_egg",
-            UPEntities.KAPROSUCHUS , 0x322f2c, 0xf6f050);
+    //public static final RegistryObject<ForgeSpawnEggItem> KAPROSUCUHS_EGG = registerSpawnEggs("kapro_spawn_egg",
+    //        UPEntities.KAPROSUCHUS , 0x322f2c, 0xf6f050);
 
-    public static final RegistryObject<ForgeSpawnEggItem> PSILOPTERUS_EGG = registerSpawnEggs("psilo_spawn_egg",
-            UPEntities.PSILOPTERUS , 0xc59d7d, 0xc27d28);
+    //public static final RegistryObject<ForgeSpawnEggItem> PSILOPTERUS_EGG = registerSpawnEggs("psilo_spawn_egg",
+    //        UPEntities.PSILOPTERUS , 0xc59d7d, 0xc27d28);
 
     public static final RegistryObject<ForgeSpawnEggItem> DIPLOCAULUS_EGG = registerSpawnEggs("diplocaulus_spawn_egg",
             UPEntities.DIPLOCAULUS , 0x1b0e05, 0xf1fa59);
 
-    public static final RegistryObject<ForgeSpawnEggItem> HYNERPETON_EGG = registerSpawnEggs("hynerpeton_spawn_egg",
-            UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
+    //public static final RegistryObject<ForgeSpawnEggItem> HYNERPETON_EGG = registerSpawnEggs("hynerpeton_spawn_egg",
+    //        UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
 
-    public static final RegistryObject<ForgeSpawnEggItem> BALAUR_EGG = registerSpawnEggs("balaur_spawn_egg",
-            UPEntities.BALAUR , 0x1f6731, 0xe5cb36);
+    //public static final RegistryObject<ForgeSpawnEggItem> BALAUR_EGG = registerSpawnEggs("balaur_spawn_egg",
+    //        UPEntities.BALAUR , 0x1f6731, 0xe5cb36);
 
     public static final RegistryObject<ForgeSpawnEggItem> OPHIODON_EGG = registerSpawnEggs("ophiodon_spawn_egg",
             UPEntities.OPHIODON , 0x5b8486, 0xe141b34);
 
-    public static final RegistryObject<ForgeSpawnEggItem> PROTOSPHYRAENA_EGG = registerSpawnEggs("protosphyraena_spawn_egg",
-            UPEntities.PROTOSPHYRAENA , 0x283545, 0x462828);
+   //public static final RegistryObject<ForgeSpawnEggItem> PROTOSPHYRAENA_EGG = registerSpawnEggs("protosphyraena_spawn_egg",
+   //        UPEntities.PROTOSPHYRAENA , 0x283545, 0x462828);
 
     public static final RegistryObject<ForgeSpawnEggItem> KIMMER_EGG = registerSpawnEggs("kimmer_spawn_egg",
             UPEntities.KIMMER , 0x0a1206, 0xd2aa25);
 
-    public static final RegistryObject<ForgeSpawnEggItem> ARCHELON_EGG = registerSpawnEggs("archelon_spawn_egg",
-            UPEntities.ARCHELON , 0x618b89, 0x171923);
+    //public static final RegistryObject<ForgeSpawnEggItem> ARCHELON_EGG = registerSpawnEggs("archelon_spawn_egg",
+    //        UPEntities.ARCHELON , 0x618b89, 0x171923);
 
-    public static final RegistryObject<ForgeSpawnEggItem> LEEDS_EGG =registerSpawnEggs("leeds_spawn_egg",
-            UPEntities.LEEDSICHTHYS , 0x5a6b75, 0xe8eaea);
+   //public static final RegistryObject<ForgeSpawnEggItem> LEEDS_EGG =registerSpawnEggs("leeds_spawn_egg",
+   //        UPEntities.LEEDSICHTHYS , 0x5a6b75, 0xe8eaea);
 
-    public static final RegistryObject<ForgeSpawnEggItem> PTERODAUSTRO_EGG =registerSpawnEggs("pterodaustro_spawn_egg",
-            UPEntities.PTERODAUSTRO , 0xc93660, 0xfff3fd);
+    //public static final RegistryObject<ForgeSpawnEggItem> PTERODAUSTRO_EGG =registerSpawnEggs("pterodaustro_spawn_egg",
+    //        UPEntities.PTERODAUSTRO , 0xc93660, 0xfff3fd);
 
     public static final RegistryObject<ForgeSpawnEggItem> HYNERIA_EGG =registerSpawnEggs("hyneria_spawn_egg",
             UPEntities.HYNERIA , 0x1a2121, 0xbd2e2e);
@@ -649,6 +656,8 @@ public class UPItems {
     public static final RegistryObject<Item> PALAEO_EMBRYO = ITEMS.register("palaeo_embryo",
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.PALAEO_EMBRYO_ATTACH_TO, UPEntities.BABY_PALAEO, 1000));
 
+    public static final RegistryObject<Item> OTAROCYON_EMBRYO = ITEMS.register("otarocyon_embryo",
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.OTAROCYON_EMBRYO_ATTACH_TO, UPEntities.OTAROCYON, 1000));
     public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket",
             () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).craftRemainder(Items.BUCKET)));
 
@@ -705,10 +714,10 @@ public class UPItems {
             () -> new Item(new Item.Properties().food(ModFood.LEEDS_SLICE)));
 
     public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",
-            () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157));
+            () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157 * 20));
 
     public static final RegistryObject<Item> ENCASED_DISC = ITEMS.register("encased_disc",
-            () -> new RecordItem(15, UPSounds.ENCASED_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157));
+            () -> new RecordItem(15, UPSounds.ENCASED_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157 * 20));
 
 
     public static final RegistryObject<Item> PSITTACO_QUIL = ITEMS.register("psittaco_quil",
@@ -718,6 +727,18 @@ public class UPItems {
 
     public static final RegistryObject<Item> AMBER_IDOL = ITEMS.register("amber_idol",
             () -> new Item(new Item.Properties()));
+    private static final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
+    private static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
+    private static final Component TRIKE_SHIELD_UPGRADE_APPLIES_TO = Component.translatable(Util.makeDescriptionId("item", prefix("smithing_template.trike_shield.applies_to"))).withStyle(DESCRIPTION_FORMAT);
+    private static final Component TRIKE_SHIELD_UPGRADE_INGREDIENTS = Component.translatable(Util.makeDescriptionId("item", prefix("smithing_template.trike_shield.ingredients"))).withStyle(DESCRIPTION_FORMAT);
+    private static final Component TRIKE_SHIELD_UPGRADE = Component.translatable(Util.makeDescriptionId("upgrade", prefix("trike_shield_upgrade"))).withStyle(TITLE_FORMAT);
+    private static final Component TRIKE_SHIELD_UPGRADE_BASE_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", prefix("smithing_template.trike_shield.base_slot_description")));
+    private static final Component TRIKE_SHIELD_UPGRADE_ADDITIONS_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", prefix("smithing_template.trike_shield.additions_slot_description")));
+    private static final ResourceLocation EMPTY_SLOT_SHIELD = prefix("item/empty_armor_slot_shield");
+    private static final ResourceLocation EMPTY_SLOT_HORN = prefix("item/empty_slot_horn");
+
+    public static final RegistryObject<Item> SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD = ITEMS.register("trike_shield_upgrade_smithing_template",
+            () -> new SmithingTemplateItem(TRIKE_SHIELD_UPGRADE_APPLIES_TO, TRIKE_SHIELD_UPGRADE_INGREDIENTS, TRIKE_SHIELD_UPGRADE, TRIKE_SHIELD_UPGRADE_BASE_SLOT_DESCRIPTION, TRIKE_SHIELD_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, List.of(EMPTY_SLOT_SHIELD), List.of(EMPTY_SLOT_HORN)));
 
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties()));

@@ -36,7 +36,7 @@ public class OphiodonModel extends GeoModel<EntityOphiodon>
     public void setCustomAnimations(EntityOphiodon animatable, long instanceId, AnimationState<EntityOphiodon> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
-
+        if(animatable.isFromBook()) return;
         CoreGeoBone backBody = this.getAnimationProcessor().getBone("BackBody");
         CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tail");
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

@@ -64,8 +64,7 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
     private static final EntityDataAccessor<Integer> CHILL_TIME = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> TRAVELLING = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<BlockPos> TRAVEL_POS = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.BLOCK_POS);
-    private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(EntityArchelon.class, EntityDataSerializers.BOOLEAN);
+
     private static final RawAnimation ARCHELON_IDLE = RawAnimation.begin().thenLoop("animation.archelon.idle");
     private static final RawAnimation ARCHELON_WALK = RawAnimation.begin().thenLoop("animation.archelon.walk");
     private static final RawAnimation ARCHELON_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.archelon.swim_idle");
@@ -148,21 +147,25 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
                 }
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.setSaddled(true);
-                return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
-                this.setSaddled(false);
-                this.spawnAtLocation(Items.SADDLE);
-                return InteractionResult.SUCCESS;
-            } else {
-                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
-                    if(!this.level().isClientSide) {
-                        player.startRiding(this);
-                    }
-                    return InteractionResult.SUCCESS;
-                } else {
+            }
+            //else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
+            //    this.usePlayerItem(player, hand, itemstack);
+            //    this.setSaddled(true);
+            //    return InteractionResult.SUCCESS;
+            //}
+            //else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+            //    this.setSaddled(false);
+            //    this.spawnAtLocation(Items.SADDLE);
+            //    return InteractionResult.SUCCESS;
+            //}
+
+            else {
+                //if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
+                //    if(!this.level().isClientSide) {
+                //        player.startRiding(this);
+                //    }
+                //    return InteractionResult.SUCCESS;
+                //} else {
                     this.setCommand((this.getCommand() + 1) % 3);
 
                     if (this.getCommand() == 3) {
@@ -179,8 +182,6 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
                     }
                 }
             }
-
-        }
         return InteractionResult.PASS;
     }
 
@@ -267,8 +268,7 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         this.entityData.define(CHILL_TIME, 0);
         this.entityData.define(TRAVELLING, false);
         this.entityData.define(TRAVEL_POS, BlockPos.ZERO);
-        this.entityData.define(RANDOM_BOOL, false);
-        this.entityData.define(RANDOM_NUMBER,0);
+
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -276,8 +276,6 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("Command", this.getCommand());
         compound.putInt("ChillTime", this.getChillTime());
-        compound.putInt("randomNr", this.getRandomNumber());
-        compound.putBoolean("randomBool", this.getRandomBool());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -290,8 +288,6 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         int j1 = compound.getInt("TravelPosZ");
         this.setTravelPos(new BlockPos(l, i1, j1));
 
-        this.setRandomNumber(compound.getInt("randomNr"));
-        this.setRandomBool(compound.getBoolean("randomBool"));
     }
 
     public boolean isSaddled() {
@@ -307,25 +303,10 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         return getRandomNumber();
     }
 
-    public int getRandomNumber() {
-        return this.entityData.get(RANDOM_NUMBER);
-    }
-
-    public void setRandomNumber(int nr) {
-        this.entityData.set(RANDOM_NUMBER,nr);
-    }
 
     public boolean getRandomAnimationBool() {
         setRandomBool(random.nextBoolean());
         return getRandomBool();
-    }
-
-    public boolean getRandomBool() {
-        return this.entityData.get(RANDOM_BOOL);
-    }
-
-    public void setRandomBool(boolean bool) {
-        this.entityData.set(RANDOM_BOOL,bool);
     }
 
 
@@ -466,23 +447,33 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
+
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isSwimming()) {
             event.setAnimation(ARCHELON_WALK);
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
+
+        if(playingAnimation()) {
+            return PlayState.CONTINUE;
+        }
+
         if (event.isMoving() && this.isInWater() && getRandomNumber() == 0)  {
              boolean randomAnimationBool = getRandomAnimationBool();
             event.setAnimation(ARCHELON_SWIM.getAnimation());
-            //if (rand < 0.55F) {
-            //    return event.setAndContinue(ARCHELON_SPIN1);
-            //}
-            //if (rand < 0.56F) {
-            //    return event.setAndContinue(ARCHELON_SPIN2);
+            if (randomAnimationBool) {
+                setAnimationTimer(200);
+                return event.setAndContinue(ARCHELON_SPIN.getAnimation());
+            }
+            if (!randomAnimationBool) {
+                setAnimationTimer(200);
+                return event.setAndContinue(ARCHELON_SPIN2.getAnimation());
+            }
             //}
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
+
 
         if (isStillEnough() && !this.isSwimming() && getRandomNumber() == 0) {
             boolean bool = getRandomAnimationBool();
@@ -491,9 +482,9 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
             }
             return  event.setAndContinue(ARCHELON_SWIM_IDLE);
         }
-        if (this.isSaddled()) {
-            event.setAnimation(ARCHELON_HEART_SPIN);
-        }
+        //if (this.isSaddled()) {
+        //    event.setAnimation(ARCHELON_HEART_SPIN);
+        //}
         return event.setAndContinue(ARCHELON_IDLE);
     }
 

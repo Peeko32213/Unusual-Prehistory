@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:hynerp_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:hynerpteon_entity_egg"
+  }
+}

@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.AnuroPolinateGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.FlyingMoveController;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -12,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
@@ -50,7 +52,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 
-public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEntity {
+public class EntityPterodaustro extends EntityBaseDinosaurAnimal implements GeoEntity, IBookEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Nullable
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(EntityPterodaustro.class, EntityDataSerializers.BOOLEAN);
@@ -75,7 +77,7 @@ public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEn
     private static final RawAnimation PTERODAUSTRO_NESTING = RawAnimation.begin().thenPlay("animation.pterodaustro.nesting");
 
 
-    public EntityPterodaustro(EntityType<? extends AgeableMob> entityType, Level level) {
+    public EntityPterodaustro(EntityType<? extends EntityBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
         switchNavigator(true);
     }
@@ -111,6 +113,51 @@ public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEn
         }
     }
 
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
+    }
+
 
     private void switchNavigator(boolean onLand) {
         if (onLand) {
@@ -136,7 +183,6 @@ public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEn
         this.entityData.define(FROM_BOOK, false);
 
     }
-
 
 
     public void tick() {
@@ -188,8 +234,9 @@ public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEn
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source.is(DamageTypes.IN_WALL)  || source.is(DamageTypes.FALL) || source.is(DamageTypes.CACTUS) || super.isInvulnerableTo(source);
+        return source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FALL) || source.is(DamageTypes.CACTUS) || super.isInvulnerableTo(source);
     }
+
     public boolean isFlying() {
         return this.entityData.get(FLYING);
     }
@@ -310,41 +357,53 @@ public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEn
     }
 
 
-
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     protected <E extends EntityPterodaustro> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if(this.isFromBook()){
+        if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
+        if (this.isFlying()) {
+            return event.setAndContinue(PTERODAUSTRO_FLY);
+        }
+
         if (event.isMoving() && this.onGround() && this.onGround()) {
             return event.setAndContinue(PTERODAUSTRO_WALK);
 
         }
-        else if (!event.isMoving() && this.onGround() && this.onGround() && random.nextInt(100) == 0) {
-                float rand = random.nextFloat();
-                if (rand < 0.15F) {
-                    return event.setAndContinue(PTERODAUSTRO_FLAP);
-                }
-                if (rand < 0.66F) {
-                    return event.setAndContinue(PTERODAUSTRO_SIT);
-                }
-                if (rand < 0.77F) {
-                    return event.setAndContinue(PTERODAUSTRO_DISPLAY);
-                }
-                if (rand < 0.90F) {
-                    return event.setAndContinue(PTERODAUSTRO_IDLE);
-            }
-        }
+
         if (this.isInWaterOrBubble()) {
             return event.setAndContinue(PTERODAUSTRO_SWIM);
         }
-        if (this.isFlying()){
-            return event.setAndContinue(PTERODAUSTRO_FLY);
+
+        if (playingAnimation()) {
+            return PlayState.CONTINUE;
         }
+
+        if (!event.isMoving() && this.onGround() && this.onGround() && getRandomAnimationNumber() == 0) {
+            int rand = getRandomAnimationNumber();
+            if (rand < 15) {
+                setAnimationTimer(100);
+                return event.setAndContinue(PTERODAUSTRO_FLAP);
+            }
+            if (rand < 66) {
+                setAnimationTimer(100);
+                return event.setAndContinue(PTERODAUSTRO_SIT);
+            }
+            if (rand < 77) {
+                setAnimationTimer(100);
+                return event.setAndContinue(PTERODAUSTRO_DISPLAY);
+            }
+            if (rand < 90) {
+                setAnimationTimer(100);
+                return event.setAndContinue(PTERODAUSTRO_IDLE);
+            }
+        }
+
+
         return event.setAndContinue(PTERODAUSTRO_IDLE);
     }
 
@@ -400,7 +459,7 @@ public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEn
         }
 
         public void tick() {
-            EntityPterodaustro.this.getMoveControl().setWantedPosition(this.x, this.y, this.z, 1F);
+            EntityPterodaustro.this.getMoveControl().setWantedPosition(this.x, this.y, this.z, 3F);
             if (isFlying() && EntityPterodaustro.this.onGround() && EntityPterodaustro.this.timeFlying > 10) {
                 EntityPterodaustro.this.setFlying(false);
             }
@@ -462,7 +521,9 @@ public class EntityPterodaustro extends AgeableMob implements GeoEntity, IBookEn
         }
         return p_28137_;
     }
-    public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends EntityPterodaustro> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE)  && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();    }
+
+    //public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends AgeableMob> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
+    //    return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE)  && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
+    //}
 
 }

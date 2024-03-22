@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:ophio_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:ophiodon_eggs"
+  }
+}

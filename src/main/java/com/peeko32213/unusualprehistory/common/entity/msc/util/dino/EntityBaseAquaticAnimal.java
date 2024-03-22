@@ -46,6 +46,10 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
     private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(EntityBaseAquaticAnimal.class, EntityDataSerializers.INT);
+
     int lastTimeSinceHungry;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -85,6 +89,11 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
             float f = Mth.cos(this.getYRot() * ((float) Math.PI / 360F)) * 0.3F;
             float f1 = Mth.sin(this.getYRot() * ((float) Math.PI / 360F)) * 0.3F;
         }
+
+        if(playingAnimation()) {
+            setAnimationTimer(getAnimationTimer() - 1);
+        }
+
         if(!canGetHungry()) {
             return;
         }
@@ -160,6 +169,9 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
         this.entityData.define(PASSIVE, 0);
         this.entityData.define(FROM_BOOK, false);
         this.entityData.define(VARIANT, 0);
+        this.entityData.define(RANDOM_BOOL, false);
+        this.entityData.define(RANDOM_NUMBER,0);
+        this.entityData.define(ANIM_TIMER, 0);
     }
 
 
@@ -171,6 +183,9 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
         compound.putInt("variant", this.getVariant());
+        compound.putInt("randomNr", this.getRandomNumber());
+        compound.putInt("animTimer", this.getAnimationTimer());
+        compound.putBoolean("randomBool", this.getRandomBool());
     }
 
     @Override
@@ -181,6 +196,9 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
         this.setVariant(compound.getInt("variant"));
+        this.setRandomNumber(compound.getInt("randomNr"));
+        this.setRandomBool(compound.getBoolean("randomBool"));
+        this.setAnimationTimer(compound.getInt("animTimer"));
     }
 
     public boolean isHungry() {
@@ -250,6 +268,49 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
     public void determineVariant(int variantChange) {
     }
 
+
+    public int getRandomAnimationNumber(int nr) {
+        setRandomNumber(random.nextInt(nr));
+        return getRandomNumber();
+    }
+
+    public int getRandomAnimationNumber() {
+        setRandomNumber(random.nextInt(100));
+        return getRandomNumber();
+    }
+
+    public int getRandomNumber() {
+        return this.entityData.get(RANDOM_NUMBER);
+    }
+
+    public void setRandomNumber(int nr) {
+        this.entityData.set(RANDOM_NUMBER,nr);
+    }
+
+    public boolean getRandomAnimationBool() {
+        setRandomBool(random.nextBoolean());
+        return getRandomBool();
+    }
+
+    public boolean getRandomBool() {
+        return this.entityData.get(RANDOM_BOOL);
+    }
+
+    public void setRandomBool(boolean bool) {
+        this.entityData.set(RANDOM_BOOL,bool);
+    }
+
+    public boolean playingAnimation() {
+        return getAnimationTimer() > 0;
+    }
+
+    public int getAnimationTimer() {
+        return this.entityData.get(ANIM_TIMER);
+    }
+
+    public void setAnimationTimer(int time) {
+        this.entityData.set(ANIM_TIMER,time);
+    }
 
     @Override
     public void setFromBook(boolean fromBook) {

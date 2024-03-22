@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusualprehistory:trike_shield_upgrade_smithing_template"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_trike_shield_upgrade_smithing_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusualprehistory:trike_shield_upgrade_smithing_template"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_trike_shield_upgrade_smithing_template",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusualprehistory:trike_shield_upgrade_smithing_template"
+    ]
+  },
+  "sends_telemetry_event": false
+}

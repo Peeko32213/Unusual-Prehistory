@@ -165,9 +165,9 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (
                 player.getItemBySlot(EquipmentSlot.HEAD).is(UPTags.IS_SHINY_HEAD) &&
-                player.getItemBySlot(EquipmentSlot.CHEST).is(UPTags.IS_SHINY_CHEST) &&
-                player.getItemBySlot(EquipmentSlot.LEGS).is(UPTags.IS_SHINY_LEGS) &&
-                player.getItemBySlot(EquipmentSlot.FEET).is(UPTags.IS_SHINY_BOOTS)
+                        player.getItemBySlot(EquipmentSlot.CHEST).is(UPTags.IS_SHINY_CHEST) &&
+                        player.getItemBySlot(EquipmentSlot.LEGS).is(UPTags.IS_SHINY_LEGS) &&
+                        player.getItemBySlot(EquipmentSlot.FEET).is(UPTags.IS_SHINY_BOOTS)
 
         ) {
             if (itemstack.is(UPItems.RAW_AUSTRO.get())) {
@@ -188,13 +188,12 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                 if (!player.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
-                if(!this.level().isClientSide) {
+                if (!this.level().isClientSide) {
                     this.heal((float) itemstack.getFoodProperties(this).getNutrition());
                 }
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
-            }
-            else  {
+            } else {
                 this.setCommand((this.getCommand() + 1) % 3);
 
                 if (this.getCommand() == 3) {
@@ -396,6 +395,7 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
     protected void performAttack() {
 
     }
+
     class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {
             super(EntityBalaur.this, 1.6D, true);
@@ -449,6 +449,7 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
     public void setCommand(int command) {
         this.entityData.set(COMMAND, Integer.valueOf(command));
     }
+
     public int getAnimationState() {
 
         return this.entityData.get(ANIMATION_STATE);
@@ -693,19 +694,17 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         }
 
 
-
-
-        protected void tickScratchAttack () {
+        protected void tickScratchAttack() {
             animTime++;
-            if(animTime==4) {
+            if (animTime == 4) {
                 this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
                 preformScratchAttack();
             }
-            if(animTime>=8) {
-                animTime=0;
+            if (animTime >= 8) {
+                animTime = 0;
                 if (this.getRangeCheck()) {
                     this.mob.setAnimationState(22);
-                }else {
+                } else {
                     this.mob.setAnimationState(0);
                     this.resetAttackCooldown();
                     this.ticksUntilNextPathRecalculation = 0;
@@ -714,17 +713,17 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         }
 
 
-        protected void tickClawAttack () {
+        protected void tickClawAttack() {
             animTime++;
-            if(animTime==4) {
+            if (animTime == 4) {
                 this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
                 preformClawAttack();
             }
-            if(animTime>=8) {
-                animTime=0;
+            if (animTime >= 8) {
+                animTime = 0;
                 if (this.getRangeCheck()) {
                     this.mob.setAnimationState(22);
-                }else {
+                } else {
                     this.mob.setAnimationState(0);
                     this.resetAttackCooldown();
                     this.ticksUntilNextPathRecalculation = 0;
@@ -732,17 +731,17 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
             }
         }
 
-        protected void tickBiteAttack () {
+        protected void tickBiteAttack() {
             animTime++;
-            if(animTime==4) {
+            if (animTime == 4) {
                 this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
                 preformBiteAttack();
             }
-            if(animTime>=8) {
-                animTime=0;
+            if (animTime >= 8) {
+                animTime = 0;
                 if (this.getRangeCheck()) {
                     this.mob.setAnimationState(22);
-                }else {
+                } else {
                     this.mob.setAnimationState(0);
                     this.resetAttackCooldown();
                     this.ticksUntilNextPathRecalculation = 0;
@@ -750,18 +749,18 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
             }
         }
 
-        protected void tickLatchAttack () {
+        protected void tickLatchAttack() {
             this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
             this.mob.yBodyRot = this.mob.yHeadRot;
             animTime++;
 
-            if(animTime==16) {
+            if (animTime == 16) {
                 preformLatchAttack();
                 this.mob.getNavigation().stop();
             }
 
-            if(animTime>=24) {
-                animTime=0;
+            if (animTime >= 24) {
+                animTime = 0;
 
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -776,17 +775,17 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
         }
 
-        protected void  preformScratchAttack() {
+        protected void preformScratchAttack() {
             Vec3 pos = mob.position();
             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
         }
 
-        protected void  preformBiteAttack() {
+        protected void preformBiteAttack() {
             Vec3 pos = mob.position();
             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 3.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
         }
 
-        protected void  preformLatchAttack() {
+        protected void preformLatchAttack() {
             if (mob.getTarget() != null) {
                 this.mob.getMoveControl().setWantedPosition(mob.getTarget().getX(), mob.getTarget().getY(), mob.getTarget().getZ(), 1.0D);
                 if (mob.getBoundingBox().inflate(3F, 3F, 3F).intersects(mob.getTarget().getBoundingBox()) && !mob.isBittenByMosquito(mob.getTarget()) && mob.latchTime == 0) {
@@ -827,6 +826,7 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
+
         int animState = this.getAnimationState();
         {
             switch (animState) {
@@ -878,15 +878,21 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
                         return PlayState.CONTINUE;
                     } else if (this.isFallFlying()) {
                         return event.setAndContinue(BALAUR_FALL);
-                    } else if (isStillEnough() && random.nextInt(100) == 0 && !this.isInSittingPose() && !this.isSwimming()) {
-                        float rand = random.nextFloat();
-                        if (rand < 0.15F) {
+                    }
+                    if(playingAnimation())
+                    {
+                        return PlayState.CONTINUE;
+                    }
+
+                    if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isInSittingPose() && !this.isSwimming()) {
+                        int rand = getRandomAnimationNumber();
+                        if (rand < 15) {
                             return event.setAndContinue(BALAUR_PREEN_1);
                         }
-                        if (rand < 0.66F) {
+                        if (rand < 66) {
                             return event.setAndContinue(BALAUR_PREEN_2);
                         }
-                        if (rand < 0.77F) {
+                        if (rand < 77) {
                             return event.setAndContinue(BALAUR_IDLE_2);
                         }
                         event.setAndContinue(BALAUR_IDLE_1);
@@ -895,7 +901,6 @@ public class EntityBalaur extends EntityTameableBaseDinosaurAnimal implements Cu
             return PlayState.CONTINUE;
         }
     }
-
 
 
     @Override

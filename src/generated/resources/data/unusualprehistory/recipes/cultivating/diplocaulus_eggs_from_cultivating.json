@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:diplo_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:diplocaulus_eggs"
+  }
+}

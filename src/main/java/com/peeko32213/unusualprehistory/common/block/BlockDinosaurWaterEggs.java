@@ -6,14 +6,13 @@ import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -147,8 +146,9 @@ public class BlockDinosaurWaterEggs extends Block {
                 double x = (double)pos.getX() + this.getSpawnOffset(random);
                 double z = (double)pos.getZ() + this.getSpawnOffset(random);
                 int yaw = random.nextInt(1, 361);
-                entityToSpawn.moveTo(x, (double)pos.getY() - 0.5, z, yaw, 0.0F);
+                entityToSpawn.moveTo(x, (double)pos.getY() + 0.5, z, yaw, 0.0F);
                 entityToSpawn.setPersistenceRequired();
+                entityToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.NATURAL, (SpawnGroupData)null, (CompoundTag)null);
                 level.addFreshEntity(entityToSpawn);
             }
         }

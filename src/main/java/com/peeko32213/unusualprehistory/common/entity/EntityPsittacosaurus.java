@@ -554,18 +554,22 @@ public class EntityPsittacosaurus extends EntityBaseDinosaurAnimal {
                         }
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
-                    } else if (isStillEnough() && random.nextInt(100) == 0 && !this.isSwimming()) {
-                        float rand = random.nextFloat();
-                        if (rand < 0.65F) {
+                    } else if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isSwimming()) {
+                        int rand = getRandomAnimationNumber();
+                        if (rand < 50) {
+                            setAnimationTimer(150);
                             event.setAndContinue(PSITTACO_SIT);
                         }
-                        if (rand < 0.74F) {
+                        if (rand < 60) {
+                            setAnimationTimer(150);
                             event.setAndContinue(PSITTACO_SCRATCH_2);
                         }
-                        if (rand < 0.75F) {
+                        if (rand < 70) {
+                            setAnimationTimer(150);
                             event.setAndContinue(PSITTACO_SCRATCH_1);
                         }
-                        if (rand < 0.85F) {
+                        if (rand < 80) {
+                            setAnimationTimer(150);
                             event.setAndContinue(PSITTACO_IDLE_2);
                         }
                         event.setAndContinue(PSITTACO_IDLE_1);

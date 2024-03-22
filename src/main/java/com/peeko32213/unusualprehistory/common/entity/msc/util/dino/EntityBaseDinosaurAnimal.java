@@ -19,6 +19,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -51,6 +52,9 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
     private static final EntityDataAccessor<Boolean> TRADING = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(EntityBaseDinosaurAnimal.class, EntityDataSerializers.INT);
 
     private boolean tradingAndGottenItem;
     int lastTimeSinceHungry;
@@ -89,7 +93,9 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
         }
         tickHunger();
 
-
+        if(playingAnimation()) {
+            setAnimationTimer(getAnimationTimer() - 1);
+        }
 
     }
 
@@ -180,7 +186,9 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
         this.entityData.define(TRADING, false);
         this.entityData.define(FROM_BOOK, false);
         this.entityData.define(VARIANT, 0);
-
+        this.entityData.define(RANDOM_BOOL, false);
+        this.entityData.define(RANDOM_NUMBER,0);
+        this.entityData.define(ANIM_TIMER, 0);
     }
 
     @Override
@@ -195,6 +203,9 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
         compound.putInt("tradingCooldown", this.getTradingCooldownTimer());
         compound.putBoolean("tradingAndGotItem", this.getTradingAndGottenItem());
         compound.putInt("variant", this.getVariant());
+        compound.putInt("randomNr", this.getRandomNumber());
+        compound.putInt("animTimer", this.getAnimationTimer());
+        compound.putBoolean("randomBool", this.getRandomBool());
     }
 
     @Override
@@ -209,6 +220,9 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
         this.setTradingCooldownTimer(compound.getInt("tradingCooldown"));
         this.setTradingAndGottenItem(compound.getBoolean("tradingAndGotItem"));
         this.setVariant(compound.getInt("variant"));
+        this.setRandomNumber(compound.getInt("randomNr"));
+        this.setRandomBool(compound.getBoolean("randomBool"));
+        this.setAnimationTimer(compound.getInt("animTimer"));
     }
 
     /**
@@ -421,7 +435,44 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
     public void determineVariant(int variantChange) {
     }
 
+    public int getRandomAnimationNumber() {
+        setRandomNumber(random.nextInt(100));
+        return getRandomNumber();
+    }
 
+    public int getRandomNumber() {
+        return this.entityData.get(RANDOM_NUMBER);
+    }
+
+    public void setRandomNumber(int nr) {
+        this.entityData.set(RANDOM_NUMBER,nr);
+    }
+
+    public boolean getRandomAnimationBool() {
+        setRandomBool(random.nextBoolean());
+        return getRandomBool();
+    }
+
+    public boolean getRandomBool() {
+        return this.entityData.get(RANDOM_BOOL);
+    }
+
+    public void setRandomBool(boolean bool) {
+        this.entityData.set(RANDOM_BOOL,bool);
+    }
+
+    public boolean playingAnimation() {
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0D);
+        return getAnimationTimer() > 0;
+    }
+
+    public int getAnimationTimer() {
+        return this.entityData.get(ANIM_TIMER);
+    }
+
+    public void setAnimationTimer(int time) {
+        this.entityData.set(ANIM_TIMER,time);
+    }
 
     @javax.annotation.Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {

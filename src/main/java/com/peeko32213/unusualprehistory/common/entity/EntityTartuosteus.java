@@ -1,11 +1,13 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -23,6 +25,7 @@ import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -35,7 +38,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 //TODO LIST
 // - Burrowing At Night
 // - Electric Goop + Electric Fence, though waiting on crydigo to make textures
-public class EntityTartuosteus extends WaterAnimal implements GeoAnimatable, IBookEntity{
+public class EntityTartuosteus extends EntityBaseAquaticAnimal implements GeoAnimatable, IBookEntity{
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityTartuosteus.class, EntityDataSerializers.BOOLEAN);
     private static final RawAnimation TARTUO_SWIM = RawAnimation.begin().thenLoop("animation.tartuosteus.swim");
     private static final RawAnimation TARTUO_IDLE = RawAnimation.begin().thenLoop("animation.tartuosteus.idle");
@@ -120,6 +123,51 @@ public class EntityTartuosteus extends WaterAnimal implements GeoAnimatable, IBo
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
+    }
+
     private boolean isStillEnough() {
         return this.getDeltaMovement().horizontalDistance() < 0.05;
     }
@@ -129,6 +177,7 @@ public class EntityTartuosteus extends WaterAnimal implements GeoAnimatable, IBo
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
         }
+
         if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
             event.setAndContinue(TARTUO_SWIM);
             return PlayState.CONTINUE;
@@ -139,9 +188,15 @@ public class EntityTartuosteus extends WaterAnimal implements GeoAnimatable, IBo
             return PlayState.CONTINUE;
         }
 
-        if (isStillEnough() && random.nextInt(500) == 0 && this.isInWater()) {
-            float rand = random.nextFloat();
-            if (rand < 0.5F) {
+        if(playingAnimation())
+        {
+            return PlayState.CONTINUE;
+        }
+
+        if (isStillEnough() && getRandomAnimationNumber(500) == 0 && this.isInWater()) {
+            int rand = getRandomAnimationNumber();
+            if (rand < 50) {
+                setAnimationTimer(150);
                 event.setAndContinue(TARTUO_REST);
             }
             else {

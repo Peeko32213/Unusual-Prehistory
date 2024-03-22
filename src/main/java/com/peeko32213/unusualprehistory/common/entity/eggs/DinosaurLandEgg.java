@@ -1,15 +1,12 @@
 package com.peeko32213.unusualprehistory.common.entity.eggs;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityKimmeridgebrachypteraeschnidium;
 import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.anim_goal.AnimationAI;
 import com.peeko32213.unusualprehistory.common.entity.msc.anim_goal.AnimationHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,13 +21,10 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.HashMap;
@@ -355,4 +349,5 @@ public class DinosaurLandEgg extends BaseDinosaurEgg {
     public void setEggVariant(String string) {
         this.entityData.set(EGG_VARIANT, string);
     }
+
 }

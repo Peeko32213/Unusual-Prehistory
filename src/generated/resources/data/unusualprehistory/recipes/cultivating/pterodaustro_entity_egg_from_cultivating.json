@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:pterodaustro_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:pterodaustro_entity_egg"
+  }
+}

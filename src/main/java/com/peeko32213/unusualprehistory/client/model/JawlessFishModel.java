@@ -52,6 +52,7 @@ public class JawlessFishModel extends GeoModel<EntityJawlessFish> {
     public void setCustomAnimations(EntityJawlessFish animatable, long instanceId, AnimationState<EntityJawlessFish> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
+        if(animatable.isFromBook()) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         CoreGeoBone root = this.getAnimationProcessor().getBone("root");

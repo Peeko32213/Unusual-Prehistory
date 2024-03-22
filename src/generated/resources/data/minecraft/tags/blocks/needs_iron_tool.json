@@ -39,10 +39,15 @@
     "unusualprehistory:anuro_fossil",
     "unusualprehistory:petrified_wood_fence",
     "unusualprehistory:petrified_wood_fence_gate",
+    "unusualprehistory:petrified_wood_sign",
+    "unusualprehistory:petrified_wood_wall_sign",
     "unusualprehistory:rex_boombox",
     "unusualprehistory:stone_tar_fossil",
     "unusualprehistory:deepslate_tar_fossil",
     "unusualprehistory:permafrost_fossil",
-    "unusualprehistory:permafrost"
+    "unusualprehistory:permafrost",
+    "unusualprehistory:amber_block",
+    "unusualprehistory:opal_block",
+    "unusualprehistory:zuloagae_door"
   ]
 }

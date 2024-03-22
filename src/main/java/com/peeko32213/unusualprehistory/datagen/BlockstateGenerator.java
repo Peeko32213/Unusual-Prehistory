@@ -5,9 +5,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -78,10 +76,6 @@ public class BlockstateGenerator extends BlockStateProvider {
         createSingleEgg(UPBlocks.TALPANAS_EGG.get());
         createEggDefaultSmallCustom(UPBlocks.BARINA_EGG.get(), "barinasuchus_eggs");
         createEggDefaultMediumCustom(UPBlocks.MEGALA_EGG.get(), "megalania_eggs");
-        createEggCustom(UPBlocks.KAPRO_EGG.get(), "kaprosuchus_egg");
-        createEggCustom(UPBlocks.LONGI_EGG.get(), "longisquama_egg");
-        createEgg(UPBlocks.PSITTACO_EGG.get());
-        createEgg(UPBlocks.TANY_EGG.get());
 
         createFlatWaterEgg(UPBlocks.DUNK_EGGS.get());
         createFlatWaterEgg(UPBlocks.STETHA_EGGS.get());
@@ -90,7 +84,11 @@ public class BlockstateGenerator extends BlockStateProvider {
         createFlatWaterEgg(UPBlocks.SCAU_EGGS.get());
         createFlatWaterEgg(UPBlocks.ERYON_EGGS.get());
         createFlatWaterEgg(UPBlocks.FURCACAUDA_EGGS.get());
-
+        createFlatWaterEgg(UPBlocks.OPHIDION_EGGS.get());
+        createFlatWaterEgg(UPBlocks.DIPLOCAULUS_EGGS.get());
+        createFlatWaterEgg(UPBlocks.HYNERIA_EGGS.get());
+        createFlatWaterEgg(UPBlocks.KIMMER_EGGS.get());
+        createFlatWaterEgg(UPBlocks.TARTUO_EGGS.get());
 
         simpleBlock(UPBlocks.PETRIFIED_WOOD.get());
         logBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
@@ -111,7 +109,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         buttonBlock(UPBlocks.PETRIFIED_WOOD_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
         fenceBlock(UPBlocks.PETRIFIED_WOOD_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
         fenceGateBlock(UPBlocks.PETRIFIED_WOOD_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
-        //signBlock((StandingSignBlock) UPBlocks.PETRIFIED_WOOD_SIGN.get(), (WallSignBlock) UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_wood_sign"));
+        signBlock((StandingSignBlock) UPBlocks.PETRIFIED_WOOD_SIGN.get(), (WallSignBlock) UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_wood_sign"));
 
         //Foxxi
 
@@ -139,7 +137,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         buttonBlock(UPBlocks.FOXXI_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
         fenceBlock(UPBlocks.FOXXI_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
         fenceGateBlock(UPBlocks.FOXXI_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
-        //signBlock((StandingSignBlock) UPBlocks.FOXXI_SIGN.get(), (WallSignBlock) UPBlocks.FOXXI_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_sign"));
+        signBlock((StandingSignBlock) UPBlocks.FOXXI_SIGN.get(), (WallSignBlock) UPBlocks.FOXXI_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_sign"));
 
         //Dryophyllum
 
@@ -167,7 +165,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         buttonBlock(UPBlocks.DRYO_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
         fenceBlock(UPBlocks.DRYO_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
         fenceGateBlock(UPBlocks.DRYO_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
-        //signBlock((StandingSignBlock) UPBlocks.DRYO_SIGN.get(), (WallSignBlock) UPBlocks.DRYO_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_sign"));
+        signBlock((StandingSignBlock) UPBlocks.DRYO_SIGN.get(), (WallSignBlock) UPBlocks.DRYO_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_sign"));
 
         //Asphalt
 

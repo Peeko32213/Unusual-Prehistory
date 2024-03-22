@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:tany_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:tany_entity_egg"
+  }
+}

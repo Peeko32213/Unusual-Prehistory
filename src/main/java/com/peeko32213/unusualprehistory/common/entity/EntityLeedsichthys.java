@@ -321,9 +321,9 @@ public class EntityLeedsichthys extends EntityBaseAquaticAnimal implements GeoAn
                     }
                     else if (this.isFallFlying()) {
                         return event.setAndContinue(LEEDS_FREEFALL_1);
-                    } else if (isStillEnough() && random.nextInt(100) == 0 && this.isInWaterOrBubble()) {
-                        float rand = random.nextFloat();
-                        if (rand < 0.3F) {
+                    } else if (isStillEnough() && getRandomAnimationNumber() == 0 && this.isInWaterOrBubble()) {
+                        int rand = getRandomAnimationNumber();
+                        if (rand < 3) {
                             return event.setAndContinue(LEEDS_YAWN);
                         }
                         event.setAndContinue(LEEDS_SWIM);

@@ -66,6 +66,13 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.AMON_EGGS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.DUNK_EGGS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.SCAU_EGGS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.FURCACAUDA_EGGS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.OPHIDION_EGGS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.DIPLOCAULUS_EGGS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.HYNERIA_EGGS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.KIMMER_EGGS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.TARTUO_EGGS.get(), RenderType.cutout());
+
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_DOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_TRAPDOOR.get(), RenderType.cutout());

@@ -26,7 +26,7 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends GeoEntityRenderer<E
 
     @Override
     public RenderType getRenderType(EntityKimmeridgebrachypteraeschnidium animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityCutout(getTextureLocation(animatable));
+        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
     }
 
     @Override

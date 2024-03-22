@@ -3,6 +3,8 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import com.peeko32213.unusualprehistory.common.entity.EntityScaumenacia;
+import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -33,6 +35,12 @@ public class LivingEntityFishRenderer<T extends LivingEntity & GeoAnimatable> ex
     @Override
     protected void applyRotations(T animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
         super.applyRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
+        if(animatable instanceof EntityStethacanthus stethacanthus) {
+            if(stethacanthus.isFromBook()) return;
+        }
+        if(animatable instanceof EntityScaumenacia scaumenacia) {
+            if(scaumenacia.isFromBook()) return;
+        }
         float f = 4.3F * Mth.sin(0.6F * ageInTicks);
         poseStack.mulPose(Axis.YP.rotationDegrees(f));
         if (!animatable.isInWater()) {

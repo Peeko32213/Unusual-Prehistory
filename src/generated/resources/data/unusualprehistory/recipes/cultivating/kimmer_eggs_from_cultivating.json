@@ -1,0 +1,11 @@
+{
+  "type": "unusualprehistory:cultivator",
+  "ingredients": [
+    {
+      "item": "unusualprehistory:kimmer_flask"
+    }
+  ],
+  "output": {
+    "item": "unusualprehistory:kimmer_eggs"
+  }
+}

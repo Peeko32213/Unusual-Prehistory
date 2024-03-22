@@ -22,7 +22,7 @@ public class KimmeridgebrachypteraeschnidiumWingLayer extends GeoRenderLayer<Ent
 
     @Override
     public void render(PoseStack poseStack, EntityKimmeridgebrachypteraeschnidium entityLivingBaseIn, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
-        RenderType cameo = RenderType.entityCutout(WING);
+        RenderType cameo = RenderType.entityCutoutNoCull(WING);
         float[] fs = entityLivingBaseIn.getWingColor().getTextureDiffuseColors();
         getRenderer().reRender(this.getGeoModel().getBakedModel(MODEL), poseStack, bufferSource, entityLivingBaseIn, renderType,
                 bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY,
