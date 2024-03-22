@@ -15,8 +15,6 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class GuanlingsaurusModel extends GeoModel<EntityGuanlingsaurus> {
 
     //double rotYAdditive = 0;
-    double oldRotX = 0;
-    double xDiff = 0;
     double xAdditive = 0;
 
     @Override
@@ -62,12 +60,14 @@ public class GuanlingsaurusModel extends GeoModel<EntityGuanlingsaurus> {
 
         //dynamic yaw stuff
 
-        body.setRotY((float) (tail1AngleY + headingChange*3));
-        tail1.setRotY((float) (tail1AngleY + headingChange*2));
-        tail2.setRotY((float) (tail2AngleY + headingChange*2));
-        tailfin.setRotY((float) (tailfinAngleY + headingChange*3));
-        //essentially whenever a bone's parent turns it will turn on the next tick to compensate for the turning
-        //parenting is all body rn but that is planned to changefg
+        if (headingChange >= 0.02454369260617026 || headingChange <= -0.02454369260617026){
+            body.setRotY((float) (headingChange * 3));
+            tail1.setRotY((float) (headingChange * 2));
+            tail2.setRotY((float) (headingChange * 2));
+            tailfin.setRotY((float) (headingChange * 3));
+            //essentially whenever a bone's parent turns it will turn on the next tick to compensate for the turning
+            //parenting is all body rn but that is planned to changefg
+        }
 
         System.out.println(headingChange);
 
@@ -85,13 +85,7 @@ public class GuanlingsaurusModel extends GeoModel<EntityGuanlingsaurus> {
             animatable.oldRotX = body.getRotX();
             //find the old x rotation and the differential
 
-            this.xAdditive += xDiff;
-
-            if (this.xAdditive > 0.523599) {
-                this.xAdditive = 0.523599;
-            } else if (this.xAdditive < -0.523599) {
-                this.xAdditive = -0.523599;
-            }
+            this.xAdditive += animatable.xDiff;
 
             tail1.setRotX((float) ((float) (tail1AngleX-xAdditive)*2));
             tail2.setRotX((float) ((float) (tail2AngleX-xAdditive)*1.5));

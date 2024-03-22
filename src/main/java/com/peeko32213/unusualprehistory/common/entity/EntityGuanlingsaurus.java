@@ -51,6 +51,9 @@ public class EntityGuanlingsaurus extends WaterAnimal implements GeoAnimatable {
     public double prevYRot = 0;
     public double deltaYRot = 0;
 
+    public double xDiff = 0;
+    public double oldRotX = 0;
+
     public Vec3 prevPos = new Vec3(0, 0, 0);
     public Vec3 deltaPos = new Vec3(0, 0, 0);
     public double deltaDist = 0;
