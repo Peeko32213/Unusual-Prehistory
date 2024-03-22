@@ -171,6 +171,8 @@ public class LanguageGenerator extends LanguageProvider {
 
 
         //SPAWN EGGS
+        addItem(UPItems.GUANLINGSAURUS_EGG, "Guanlingsaurus Spawn Egg");
+        addItem(UPItems.MEGALAMPRIS_EGG, "Megalampris Spawn Egg");
         addItem(UPItems.AMMON_EGG, "Ammonite Spawn Egg");
         addItem(UPItems.STETHA_EGG, "Stethacanthus Spawn Egg");
         addItem(UPItems.DUNK_EGG, "Dunkleosteus Spawn Egg");
@@ -482,6 +484,8 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.HWACHA_FOSSIL, "Hwachavenator Fossil");
 
         //ENTITIES
+        addEntityType(UPEntities.MEGALAMPRIS, "Megalampris");
+        addEntityType(UPEntities.GUANLINGSAURUS, "Guanlingsaurus");
         addEntityType(UPEntities.AMMON, "Ammonite");
         addEntityType(UPEntities.STETHACANTHUS, "Stethacanthus");
         addEntityType(UPEntities.MAJUNGA, "Majungasaurus");

@@ -68,14 +68,14 @@ public class EffectRabies extends MobEffect {
                     //player's head randomly twitches
                 }
 
-                System.out.println(capability.playersRabiesHadTime);
+                //System.out.println(capability.playersRabiesHadTime);
                 capability.playersRabiesHadTime += 1;
                 //increase tick
             });
 
         } else {
             pLivingEntity.getCapability(UPCapabilities.ANIMAL_CAPABILITY).ifPresent(capability -> {
-                System.out.println(capability.entityRabiesHadTime);
+                //System.out.println(capability.entityRabiesHadTime);
                 capability.entityRabiesHadTime += 1;
             });
         }

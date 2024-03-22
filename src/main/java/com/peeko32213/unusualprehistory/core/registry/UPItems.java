@@ -410,6 +410,13 @@ public class UPItems {
             () -> new ItemModFishBucket(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().stacksTo(1)));
 
+
+    public static final RegistryObject<ForgeSpawnEggItem> MEGALAMPRIS_EGG = registerSpawnEggs("megalampris_spawn_egg",
+            UPEntities.MEGALAMPRIS , 0x983625, 0xe0cd52);
+
+    public static final RegistryObject<ForgeSpawnEggItem> GUANLINGSAURUS_EGG = registerSpawnEggs("guanlingsaurus_spawn_egg",
+            UPEntities.GUANLINGSAURUS , 0x3c4f69, 0xd89b5d);
+
     public static final RegistryObject<ForgeSpawnEggItem> STETHA_EGG = registerSpawnEggs("stetha_spawn_egg",
            UPEntities.STETHACANTHUS , 0x754123, 0xb59a6e);
 

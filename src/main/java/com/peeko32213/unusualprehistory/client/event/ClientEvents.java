@@ -300,6 +300,9 @@ public final class ClientEvents {
                         .build());
         event.registerEntityRenderer(UPEntities.OPHIODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OphiodonModel()));
         event.registerEntityRenderer(UPEntities.PROTOSPHYRAENA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new ProtosphyraenaModel()));
+        event.registerEntityRenderer(UPEntities.MEGALAMPRIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new MegalamprisModel()));
+        event.registerEntityRenderer(UPEntities.GUANLINGSAURUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new GuanlingsaurusModel()));
+
         event.registerEntityRenderer(UPEntities.ARCHELON.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel())
                         .withLayers(ARCHELON_MODEL)

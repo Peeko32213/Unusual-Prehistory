@@ -32,19 +32,28 @@ public class QuillVaccineRabiesItem extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
-        pInteractionTarget.addEffect(new MobEffectInstance(UPEffects.RABIES_VACCINE.get(), -1));
-        pStack.shrink(1);
-        pPlayer.addItem(new ItemStack(UPItems.PSITTACO_QUIL.get(), 1));
-        return InteractionResult.SUCCESS;
-        //Needle applies vaccine and then returns the quill
+        if (!pInteractionTarget.hasEffect(UPEffects.RABIES_VACCINE.get())) {
+            pInteractionTarget.addEffect(new MobEffectInstance(UPEffects.RABIES_VACCINE.get(), -1));
+            pStack.shrink(1);
+            pPlayer.addItem(new ItemStack(UPItems.PSITTACO_QUIL.get(), 1));
+            return InteractionResult.SUCCESS;
+            //Needle applies vaccine and then returns the quill if the target does not have the vacc
+        }
+
+        return InteractionResult.FAIL;
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        pPlayer.addEffect(new MobEffectInstance(UPEffects.RABIES_VACCINE.get(), -1));
-        pPlayer.getItemInHand(pUsedHand).shrink(1);
-        pPlayer.addItem(new ItemStack(UPItems.PSITTACO_QUIL.get(), 1));
+
+        if (!pPlayer.hasEffect(UPEffects.RABIES_VACCINE.get())) {
+            pPlayer.addEffect(new MobEffectInstance(UPEffects.RABIES_VACCINE.get(), -1));
+            pPlayer.getItemInHand(pUsedHand).shrink(1);
+            pPlayer.addItem(new ItemStack(UPItems.PSITTACO_QUIL.get(), 1));
+            return super.use(pLevel, pPlayer, pUsedHand);
+            //Needle applies vaccine and then returns the quill, same with player, if the target does not have the vacc
+        }
+
         return super.use(pLevel, pPlayer, pUsedHand);
-        //Needle applies vaccine and then returns the quill, same with player
     }
 }

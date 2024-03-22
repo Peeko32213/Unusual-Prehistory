@@ -45,6 +45,7 @@ public class ArchelonModel extends GeoModel<EntityArchelon>
             root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(animatable.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
 
             tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+
         }
     }
 

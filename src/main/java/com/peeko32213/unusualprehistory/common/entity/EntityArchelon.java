@@ -207,6 +207,7 @@ public class EntityArchelon extends EntityTameableBaseDinosaurAnimal implements 
                 }
             }
         }
+
     }
 
     public boolean isAlliedTo(Entity entityIn) {

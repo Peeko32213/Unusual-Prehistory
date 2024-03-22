@@ -41,6 +41,7 @@ public class UPEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES,
             UnusualPrehistory.MODID);
 
+
     public static final RegistryObject<EntityType<EntityStethacanthus>> STETHACANTHUS = ENTITIES.register("stethacanthus",
             () -> EntityType.Builder.of(EntityStethacanthus::new, MobCategory.WATER_CREATURE).sized(0.6f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "stethacanthus").toString()));
@@ -318,6 +319,14 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntitySludge>> SLUDGE = ENTITIES.register("sludge",
             () -> EntityType.Builder.of(EntitySludge::new, MobCategory.MONSTER).sized(3.0f, 3.0f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "sludge").toString()));
+
+    public static final RegistryObject<EntityType<EntityMegalampris>> MEGALAMPRIS = ENTITIES.register("megalampris",
+            () -> EntityType.Builder.<EntityMegalampris>of(EntityMegalampris::new, MobCategory.WATER_CREATURE).sized(1.5f, 2.1f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "megalampris").toString()));
+
+    public static final RegistryObject<EntityType<EntityGuanlingsaurus>> GUANLINGSAURUS = ENTITIES.register("guanlingsaurus",
+            () -> EntityType.Builder.<EntityGuanlingsaurus>of(EntityGuanlingsaurus::new, MobCategory.WATER_CREATURE).sized(4f, 1.5f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "guanlingsaurus").toString()));
 
     public static final RegistryObject<EntityType<IcebergMammoth>> ICEBERG_MAMMOTH = ENTITIES.register("iceberg_mammoth",
             () -> EntityType.Builder.<IcebergMammoth>of(IcebergMammoth::new, MobCategory.CREATURE)

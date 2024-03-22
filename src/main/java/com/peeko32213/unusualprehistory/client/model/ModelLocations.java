@@ -7,6 +7,7 @@ public class ModelLocations {
 
     public static ModelData AMBER_SHOT = new ModelData("amber_shot");
     public static ModelData JARATE = new ModelData("jarate");
+    public static ModelData MEGALAMPRIS = new ModelData("megalampris");
     public static ModelData AMMONITE = new ModelData("ammonite");
     public static ModelData ANURO = new ModelData("anuro");
     public static ModelData BABY_BARINA = new ModelData("baby_barinasuchus");

@@ -54,6 +54,7 @@ public class TanystropheusModel extends GeoModel<EntityTanystropheus>
         CoreGeoBone neck = this.getAnimationProcessor().getBone("Neck");
         CoreGeoBone neckfront = this.getAnimationProcessor().getBone("NeckFront");
         CoreGeoBone root = this.getAnimationProcessor().getBone("Body");
+
         if (animatable.isInWater()) {
             root.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 7));
             root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(animatable.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
@@ -61,6 +62,11 @@ public class TanystropheusModel extends GeoModel<EntityTanystropheus>
             tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
             neck.setRotY(neck.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
             neckfront.setRotZ(neckfront.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+
+            //dynamic pitch
+            CoreGeoBone trueroot = this.getAnimationProcessor().getBone("root");
+            trueroot.setRotX(extraDataOfType.headPitch() * (float)Math.PI / 180F);
+            //end of dynamic pitch
         }
     }
 

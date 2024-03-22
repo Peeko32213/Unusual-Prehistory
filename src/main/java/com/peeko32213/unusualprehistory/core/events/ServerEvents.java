@@ -234,7 +234,7 @@ public class ServerEvents {
 
                     if (serverPlayer.hasEffect(UPEffects.RABIES_VACCINE.get())) {
                         capability.playerVaccinationTime = 0;
-                        System.out.println(capability.playerVaccinationTime);
+                        //System.out.println(capability.playerVaccinationTime);
                     }
                     //set vac time to 0 if the player has no vacc effect
 

@@ -42,12 +42,15 @@ public class OphiodonModel extends GeoModel<EntityOphiodon>
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         CoreGeoBone root = this.getAnimationProcessor().getBone("root");
-        root.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 7));
         root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(animatable.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
 
         backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
-        tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+        tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 180F));
 
+        //pitch thingi
+        root.setRotX(extraDataOfType.headPitch() * (float)Math.PI / 180F);
+        root.setRotY(extraDataOfType.netHeadYaw() * (float)Math.PI / 180F);
+        //pitch thingi
     }
 
 }

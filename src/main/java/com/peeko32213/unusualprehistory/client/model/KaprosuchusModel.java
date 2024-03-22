@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.entity.EntityHynerpeton;
 import com.peeko32213.unusualprehistory.common.entity.EntityKaprosuchus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -49,6 +50,16 @@ public class KaprosuchusModel extends GeoModel<EntityKaprosuchus>
         if (!animatable.isSprinting()) {
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
+
+        //dynamic pitch
+        CoreGeoBone body = this.getAnimationProcessor().getBone("Main");
+
+        if (animatable.isInWater()) {
+            body.setRotX(extraDataOfType.headPitch() * (float)Math.PI / 180F);
+            body.setRotY(extraDataOfType.netHeadYaw() * (float)Math.PI / 180F);
+        }
+        //end of dynamic pitch
+
     }
 
 }

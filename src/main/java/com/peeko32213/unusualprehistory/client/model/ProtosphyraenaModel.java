@@ -39,6 +39,7 @@ public class ProtosphyraenaModel extends GeoModel<EntityProtosphyraena>
 
         CoreGeoBone backBody = this.getAnimationProcessor().getBone("MidBody");
         CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tail");
+        CoreGeoBone body = this.getAnimationProcessor().getBone("Body");
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         CoreGeoBone root = this.getAnimationProcessor().getBone("Body");
@@ -47,6 +48,16 @@ public class ProtosphyraenaModel extends GeoModel<EntityProtosphyraena>
 
         backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
         tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+
+        //dynamic pitch
+        if (!animatable.isInWater()) {
+            body.setRotZ(1.5708f);
+        }
+        else {
+            body.setRotX(extraDataOfType.headPitch() * (float)Math.PI / 180F);
+            body.setRotY(extraDataOfType.netHeadYaw() * (float)Math.PI / 180F);
+        }
+        //end of dynamic pitch
 
     }
 

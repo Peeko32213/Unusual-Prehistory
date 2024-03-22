@@ -25,6 +25,8 @@ public class CommonEvents {
         event.put(UPEntities.ANURO.get(), EntityAnurognathus.createAttributes().build());
         event.put(UPEntities.BEELZ.get(), EntityBeelzebufo.createAttributes().build());
         event.put(UPEntities.AMMON.get(), EntityAmmonite.createAttributes().build());
+        event.put(UPEntities.MEGALAMPRIS.get(), EntityMegalampris.createAttributes().build());
+        event.put(UPEntities.GUANLINGSAURUS.get(), EntityGuanlingsaurus.createAttributes().build());
         event.put(UPEntities.DUNK.get(), EntityDunkleosteus.createAttributes().build());
         event.put(UPEntities.COTY.get(), EntityCotylorhynchus.createAttributes().build());
         event.put(UPEntities.BEELZE_TADPOLE.get(), EntityBeelzebufoTadpole.createAttributes().build());
