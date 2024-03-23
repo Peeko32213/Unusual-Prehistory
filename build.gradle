@@ -22,7 +22,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
 
 
-version = '1.6.0.0.3-alpha'
+version = '1.6.0.0.4-alpha'
 group = 'com.peeko32213.unusualprehistory'
 archivesBaseName = 'unusualprehistory'
 

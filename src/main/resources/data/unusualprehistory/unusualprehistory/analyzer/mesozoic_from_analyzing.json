@@ -80,6 +80,14 @@
     {
       "weight": 5,
       "item": "unusualprehistory:kimmer_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:leeds_flask"
+    },
+    {
+      "weight": 5,
+      "item": "unusualprehistory:archelon_flask"
     }
   ]
 }

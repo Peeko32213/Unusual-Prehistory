@@ -462,7 +462,6 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
     }
 
     public boolean playingAnimation() {
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0D);
         return getAnimationTimer() > 0;
     }
 
