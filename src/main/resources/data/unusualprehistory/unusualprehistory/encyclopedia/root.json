@@ -41,6 +41,13 @@
       "x": 300,
       "y": 70,
       "page": 0
+    },
+    {
+      "linked_page": "unusualprehistory:fossils",
+      "text": "unusualprehistory.root.4",
+      "x": 300,
+      "y": 100,
+      "page": 0
     }
   ]
 }

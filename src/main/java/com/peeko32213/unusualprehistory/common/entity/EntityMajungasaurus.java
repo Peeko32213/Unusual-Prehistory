@@ -196,7 +196,7 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
+        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isFood(itemstack) && (this.getPassiveTicks() <= 0 || this.getHealth() < this.getMaxHealth())) {
             if (!player.isCreative()) {
                 itemstack.shrink(1);
@@ -306,13 +306,12 @@ public class EntityMajungasaurus extends EntityBaseDinosaurAnimal {
         if (this.stunnedTick > 0) {
             --this.stunnedTick;
             this.stunEffect();
-            if (random.nextFloat() <= 0.1F) {
-                if (random.nextFloat() < 0.1F) {
-                    this.spawnAtLocation(UPItems.MAJUNGA_SCUTE.get());
-                }
+            if (random.nextInt(0, 100) <= 30) {
+                this.spawnAtLocation(UPItems.MAJUNGA_SCUTE.get());
             }
         }
     }
+
 
     private void stunEffect() {
         if (this.random.nextInt(6) == 0) {

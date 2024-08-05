@@ -928,10 +928,13 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.encyclopedia.help", "Oh no, something went wrong!");
         add("unusualprehistory.encyclopedia.plants","Plants of Prehistory");
         add("unusualprehistory.root", "Encyclopedia of Prehistory");
+        add("unusualprehistory.encyclopedia.root", "Unusual Prehistory");
         add("unusualprehistory.root.1", "How to Revive Mobs");
         add("unusualprehistory.root.2", "Plants of Prehistory");
         add("unusualprehistory.root.3", "Animals of Prehistory");
+        add("unusualprehistory.root.4", "Fossils");
         add( "unusualprehistory.encyclopedia.tutorial", "Intro to Revival");
+        add( "unusualprehistory.encyclopedia.fossils", "Fossils");
         add( "item.unusualprehistory.smithing_template.trike_shield.applies_to", "Shield");
         add( "item.unusualprehistory.smithing_template.trike_shield.ingredients", "Trike Horn");
         add( "upgrade.unusualprehistory.trike_shield_upgrade", "Horn Upgrade");

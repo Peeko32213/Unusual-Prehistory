@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,6 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -158,22 +160,20 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if (item == Items.SWEET_BERRIES) {
+        if (item == Items.SWEET_BERRIES && !this.isFermented()) {
             int size = itemstack.getCount();
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
-            int brewAmount = 58 + random.nextInt(16);
-            if (size > brewAmount) {
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-                this.fullEffect();
+            int brewAmount = random.nextInt(0, 100);
+            if (brewAmount >= 70) {
+                this.playSound(SoundEvents.BREWING_STAND_BREW, 1.0F, 1.0F);
                 this.setFermented(true);
+            } else {
+                this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
             }
             return InteractionResult.SUCCESS;
-
-        }
-
-        if (item == UPItems.FLASK.get() && this.isFermented()) {
+        } else if (item == UPItems.FLASK.get() && this.isFermented()) {
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
@@ -181,16 +181,20 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal {
             this.setFermented(false);
             this.playSound(this.getBurpSound(itemstack), 1.0F, 1.0F);
             return InteractionResult.SUCCESS;
+        } else {
+            return InteractionResult.FAIL;
         }
-        return super.mobInteract(player, hand);
+    }
+    private void spawnFluidParticle(Level pLevel, double pStartX, double pEndX, double pStartZ, double pEndZ, double pPosY, ParticleOptions pParticleOption) {
+        pLevel.addParticle(pParticleOption, Mth.lerp(pLevel.random.nextDouble(), pStartX, pEndX), pPosY, Mth.lerp(pLevel.random.nextDouble(), pStartZ, pEndZ), 0.0D, 0.0D, 0.0D);
     }
 
-    private void fullEffect() {
-        if (this.random.nextInt(6) == 0) {
-            double d = this.getX() - (double) this.getBbWidth() * Math.sin(this.yBodyRot * ((float) Math.PI / 180)) + (this.random.nextDouble() * 0.6 - 0.3);
-            double e = this.getY() + (double) this.getBbHeight() - 0.3;
-            double f = this.getZ() + (double) this.getBbWidth() * Math.cos(this.yBodyRot * ((float) Math.PI / 180)) + (this.random.nextDouble() * 0.6 - 0.3);
-            level().addParticle(ParticleTypes.COMPOSTER, true, this.getX(), this.getEyeY() + 0.5F, this.getZ(), 0, 0, 0);
+    public void tick() {
+        super.tick();
+        if (this.isFermented() && this.random.nextFloat() < 0.05F) {
+            for(int i = 0; i < this.random.nextInt(2) + 1; ++i) {
+                this.spawnFluidParticle(this.level(), this.getX() - (double)1.6F, this.getX() + (double)1.6F, this.getZ() - (double)1.6F, this.getZ() + (double)1.6F, this.getY(0.8D), ParticleTypes.DRIPPING_HONEY);
+            }
         }
     }
 

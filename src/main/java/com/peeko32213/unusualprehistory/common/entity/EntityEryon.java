@@ -2,6 +2,11 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BottomFeederStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.FindWaterGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.LeaveWaterGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -20,6 +25,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -51,7 +58,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEntity{
+public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEntity, SemiAquatic {
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EntityEryon.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
@@ -72,11 +79,12 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEnt
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(1, new FindWaterGoal(this));
+        this.goalSelector.addGoal(1, new LeaveWaterGoal(this));
+        this.goalSelector.addGoal(2, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(5, new DigSandGoal(this));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new BottomFeederStrollGoal(this, 1.0D, 50, 50));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
@@ -89,6 +97,25 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEnt
                 .add(Attributes.ARMOR_TOUGHNESS, 2.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
     }
+
+    public void travel(Vec3 travelVector) {
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(this.getSpeed(), travelVector);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            if(this.jumping){
+                this.setDeltaMovement(this.getDeltaMovement().scale(1.4D));
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.72D, 0.0D));
+            }else{
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.4D));
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.08D, 0.0D));
+            }
+
+        } else {
+            super.travel(travelVector);
+        }
+
+    }
+
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
@@ -240,6 +267,44 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEnt
         this.entityData.set(FEEDING_TIME, feedingTime);
     }
 
+    public boolean passive = false;
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (itemstack.getItem() == UPItems.GOLDEN_SCAU.get() && !this.passive) {
+
+            if (!this.level().isClientSide) {
+
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
+
+                this.heal(20.0F);
+                this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
+                this.passive = true;
+                return InteractionResult.SUCCESS;
+            }
+        } else
+        if (itemstack.getItem() == UPItems.RAW_SCAU.get() && this.passive) {
+
+            if (!this.level().isClientSide) {
+
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
+
+                this.heal(10.0F);
+                this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
+                this.passive = false;
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.FAIL;
+    }
+
+
+
     public void tick() {
         super.tick();
         this.prevFeedProgress = feedProgress;
@@ -257,6 +322,26 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEnt
             return TEXTURE_BLUE;
         }
         return TEXTURE_NORMAL;
+    }
+
+    @Override
+    public boolean shouldEnterWater() {
+        return true;
+    }
+
+    @Override
+    public boolean shouldLeaveWater() {
+        return true;
+    }
+
+    @Override
+    public boolean shouldStopMoving() {
+        return false;
+    }
+
+    @Override
+    public int getWaterSearchRange() {
+        return 10;
     }
 
     private class DigSandGoal extends Goal {
@@ -299,7 +384,7 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEnt
         }
 
         public void tick() {
-            if (destinationBlock == null) stop();
+            if (destinationBlock == null || this.crab.passive) stop();
             Vec3 vec = Vec3.atCenterOf(destinationBlock);
             if (vec != null) {
                 timer++;

@@ -55,7 +55,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IBookEntity {
-    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityDunkleosteus.class, EntityDataSerializers.INT);
@@ -109,25 +108,42 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
     }
 
 
-    @Override
-    @Nonnull
-    protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
-        ItemStack lvt_3_1_ = player.getItemInHand(hand);
-        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if(lvt_3_1_.getItem() == UPItems.GOLDEN_SCAU.get()){
-            if(!this.level().isClientSide) {
-                if (!player.isCreative()) {
-                    lvt_3_1_.shrink(1);
-                }
-                this.heal(20);
-                this.setTarget(null);
-                this.passiveFor = 1000000000 + random.nextInt(1000000000);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return InteractionResult.PASS;
+    public boolean passive = false;
 
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (itemstack.getItem() == UPItems.GOLDEN_SCAU.get() && !this.passive) {
+
+            if (!this.level().isClientSide) {
+
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
+
+                this.heal(20.0F);
+                this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
+                this.passive = true;
+                return InteractionResult.SUCCESS;
+            }
+        } else
+        if (itemstack.getItem() == UPItems.RAW_SCAU.get() && this.passive) {
+
+            if (!this.level().isClientSide) {
+
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
+
+                this.heal(10.0F);
+                this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
+                this.passive = false;
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.FAIL;
     }
+
 
     @Override
     public boolean canAttack(LivingEntity entity) {
@@ -143,14 +159,7 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
     }
 
 
-    public int getPassiveTicks() {
-        return this.entityData.get(PASSIVE);
-    }
-
-    private void setPassiveTicks(int passiveTicks) {
-        this.entityData.set(PASSIVE, passiveTicks);
-    }
-
+ 
     protected PathNavigation createNavigation(Level p_27480_) {
         return new WaterBoundPathNavigation(this, p_27480_);
     }
@@ -177,7 +186,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
-        this.getEntityData().define(PASSIVE, 0);
         this.entityData.define(FROM_BOOK, false);
     }
 

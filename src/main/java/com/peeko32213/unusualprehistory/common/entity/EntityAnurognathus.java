@@ -28,6 +28,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
@@ -101,6 +102,7 @@ public class EntityAnurognathus extends AgeableMob implements GeoEntity, Neutral
         this.goalSelector.addGoal(3, new PanicGoal(this, 1D));
         this.goalSelector.addGoal(4, new AnuroPolinateGoal(this));
         this.goalSelector.addGoal(1, new AIFlyIdle());
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityMajungasaurus.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EntityTyrannosaurusRex.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
@@ -397,6 +399,7 @@ public class EntityAnurognathus extends AgeableMob implements GeoEntity, Neutral
         protected double x;
         protected double y;
         protected double z;
+        private boolean flightTarget;
 
         public AIFlyIdle() {
             super();
@@ -405,13 +408,17 @@ public class EntityAnurognathus extends AgeableMob implements GeoEntity, Neutral
 
         @Override
         public boolean canUse() {
-            if (EntityAnurognathus.this.isVehicle() || (EntityAnurognathus.this.getTarget() != null && EntityAnurognathus.this.getTarget().isAlive()) || EntityAnurognathus.this.isPassenger()) {
+            if (EntityAnurognathus.this.isVehicle() ||  (EntityAnurognathus.this.getTarget() != null && EntityAnurognathus.this.getTarget().isAlive()) || EntityAnurognathus.this.isPassenger()) {
                 return false;
             } else {
                 if (EntityAnurognathus.this.getRandom().nextInt(45) != 0 && !EntityAnurognathus.this.isFlying()) {
                     return false;
                 }
-
+                if (EntityAnurognathus.this.onGround()) {
+                    this.flightTarget = random.nextBoolean();
+                } else {
+                    this.flightTarget = random.nextInt(5) > 0 && EntityAnurognathus.this.timeFlying < 200;
+                }
                 Vec3 lvt_1_1_ = this.getPosition();
                 if (lvt_1_1_ == null) {
                     return false;
@@ -425,7 +432,14 @@ public class EntityAnurognathus extends AgeableMob implements GeoEntity, Neutral
         }
 
         public void tick() {
-            EntityAnurognathus.this.getMoveControl().setWantedPosition(this.x, this.y, this.z, 1F);
+            if (flightTarget) {
+                EntityAnurognathus.this.getMoveControl().setWantedPosition(this.x, this.y, this.z, 1F);
+            } else {
+                EntityAnurognathus.this.getNavigation().moveTo(this.x, this.y, this.z, 1F);
+            }
+            if (!flightTarget && isFlying() && EntityAnurognathus.this.onGround()) {
+                EntityAnurognathus.this.setFlying(false);
+            }
             if (isFlying() && EntityAnurognathus.this.onGround() && EntityAnurognathus.this.timeFlying > 10) {
                 EntityAnurognathus.this.setFlying(false);
             }
@@ -434,20 +448,36 @@ public class EntityAnurognathus extends AgeableMob implements GeoEntity, Neutral
         @javax.annotation.Nullable
         protected Vec3 getPosition() {
             Vec3 vector3d = EntityAnurognathus.this.position();
-            if (EntityAnurognathus.this.timeFlying < 200 || EntityAnurognathus.this.isOverWaterOrVoid()) {
-                return EntityAnurognathus.this.getBlockInViewAway(vector3d, 0);
+
+            if(EntityAnurognathus.this.isOverWaterOrVoid()){
+                flightTarget = true;
+            }
+            if (flightTarget) {
+                if (EntityAnurognathus.this.timeFlying < 200 || EntityAnurognathus.this.isOverWaterOrVoid()) {
+                    return EntityAnurognathus.this.getBlockInViewAway(vector3d, 0);
+                } else {
+                    return EntityAnurognathus.this.getBlockGrounding(vector3d);
+                }
             } else {
-                return EntityAnurognathus.this.getBlockGrounding(vector3d);
+                return LandRandomPos.getPos(EntityAnurognathus.this, 10, 7);
             }
         }
 
         public boolean canContinueToUse() {
-            return EntityAnurognathus.this.isFlying() && EntityAnurognathus.this.distanceToSqr(x, y, z) > 5F;
+            if (flightTarget) {
+                return EntityAnurognathus.this.isFlying() && EntityAnurognathus.this.distanceToSqr(x, y, z) > 5F;
+            } else {
+                return (!EntityAnurognathus.this.getNavigation().isDone()) && !EntityAnurognathus.this.isVehicle();
+            }
         }
 
         public void start() {
-            EntityAnurognathus.this.setFlying(true);
-            EntityAnurognathus.this.getMoveControl().setWantedPosition(this.x, this.y, this.z, 1F);
+            if (flightTarget) {
+                EntityAnurognathus.this.setFlying(true);
+                EntityAnurognathus.this.getMoveControl().setWantedPosition(x, y, z, 1F);
+            } else {
+                EntityAnurognathus.this.getNavigation().moveTo(this.x, this.y, this.z, 1F);
+            }
         }
 
         public void stop() {
