@@ -1,0 +1,12 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Este enorme terópodo, el dinosaurio más famoso, proviene del período Cretácico. Si bien al principio son neutrales con las personas, si son golpeados, estas criaturas se vuelven bastante feroces.
+<NEWLINE>
+El tiranosaurio tiene distintos ataques, desde un pisotón débil que provoca una pequeña nube de debilidad hasta un coletazo mortal que empuja a los atacantes. Sin embargo, su ataque más letal es su devastadora mordida. Con ella puede destruir fácilmente los escudos más débiles y puede matar casi al instante a la mayoría de las presas.
+<NEWLINE>
+La mejor manera de lidiar con esta criatura en su estado enfurecido es prepararse con pociones, armadura resistente y manzanas doradas para la resistencia y la regeneración. Cuando la bestia está al borde de la muerte, caerá en un estado debilitado en el que no puede atacar ni moverse. Cuando se usa un bastón adornado en él en este estado, se curará y soltará algunas recompensas.
+<NEWLINE>
+Estas recompensas consisten en escamas y dientes. Con las escamas se puede crear un magnífico trofeo de la bestia, mientras que con los dientes se puede crear un velociescudo. Además, se pacificarán por completo, no atacando a humanos ni animales que le hagan daño.
+Las escamas también se pueden usar para crear un altavoz rex, un bloque que crea un boom a su alrededor cuando se activa con redstone.
