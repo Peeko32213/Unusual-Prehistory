@@ -1,0 +1,26 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Un terópodo dudoso del período Cretácico inferior, estos dinosaurios de tamaño mediano son bastante mansos, ya que parecen estar más acostumbrados a perseguir habitantes de la playa que a animales más grandes.
+Sin embargo, su rasgo más singular es su cresta. El color de esta determina el estilo de vida que llevan estos dinosaurios.
+<NEWLINE>
+Los individuos de cresta azul son mucho más rápidos y están más adaptados a perseguir presas.
+Los individuos de cresta blanca son más voluminosos y están más adaptados a defenderse de depredadores o rivales.
+Los individuos de cresta naranja tienen mordeduras más potentes, lo que les permite romper huesos para obtener nutrientes.
+Los individuos de cresta amarilla tienen un veneno especial que incapacita las articulaciones, particularmente en los brazos, que evitan realizar cualquier acción salvo minar y atacar.
+Los individuos de cresta marrón son muy resistentes y tienen escamas gruesas que los protegen.
+<NEWLINE>
+Estas criaturas también son relativamente fáciles de domesticar y montar, ya que sus alimentos preferidos están indicados por sus crestas. Hasta ahora, he descubierto que los diferentes colores de crestas prefieren estos alimentos:
+<NEWLINE>
+Blanco: §oAustroraptor§r crudo
+<NEWLINE>
+Azul: §oScaumenacia§r cruda
+<NEWLINE>
+Amarillo: §oScaumenacia§r dorado
+<NEWLINE>
+Naranja: §oCotylorhynchus§r crudo
+<NEWLINE>
+Marrón: §oStethacanthus§r crudo
+<NEWLINE>
+Hay grandes posibilidades de que existan más crestas que aún tengo que documentar y más alimentos que aún tengo que descubrir.
