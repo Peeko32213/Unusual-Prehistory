@@ -32,14 +32,15 @@ public class UPTabs {
     private static final CreativeModeTab UP = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 9)
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .title(Component.translatable("itemGroup.unusual_prehistory"))
-            .icon(() -> new ItemStack(UPItems.AMMONITE_SHELL_ICON.get()))
+            .icon(() -> new ItemStack(UPBlocks.AMMONITE_SHELL.get()))
             .displayItems((d, entries) ->{
 
                 for(RegistryObject<Item> item : UPItems.ITEMS.getEntries()){
-                    if((item.get() instanceof ForgeSpawnEggItem)) {
+
                         d.holders().lookup(Registries.INSTRUMENT).ifPresent((p_270036_) -> {
                             generateInstrumentTypes(entries, p_270036_, UPItems.BARINA_WHISTLE.get(), UPTags.OCARINA_WHISTLE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                         });
+
                         if(item.get() instanceof BlockItem b) {
                             if(b.getBlock() instanceof BlockDinosaurLandEggs) {
                                 continue;
@@ -50,8 +51,7 @@ public class UPTabs {
                             entries.accept(item.get());
                         }
 
-                        addTagToLootFruit(entries, UPBlocks.FRUIT_LOOT_BOX.get().asItem(),CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-                    }
+                    addTagToLootFruit(entries, UPBlocks.FRUIT_LOOT_BOX.get().asItem(),CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                 }
             })
             .build();

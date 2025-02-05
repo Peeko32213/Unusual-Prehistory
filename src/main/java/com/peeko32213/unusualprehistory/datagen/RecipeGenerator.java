@@ -133,8 +133,6 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
         shieldSmithing(consumer, Items.SHIELD, RecipeCategory.COMBAT, UPItems.TRIKE_SHIELD.get());
         copySmithingTemplate(consumer, UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD.get(), UPItems.TRIKE_HORN.get());
 
-        cultivating(consumer, UPItems.JAWLESS_FISH_FLASK.get(), UPBlocks.FURCACAUDA_EGGS.get().asItem());
-
         cultivating(consumer, UPItems.KIMMER_FLASK.get(), UPBlocks.KIMMER_EGGS.get().asItem());
 
         // Unused 1.6 stuff
@@ -154,6 +152,7 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 //        cultivating(consumer, UPItems.PTERODAUSTRO_FLASK.get(), UPEntities.PTERODAUSTRO.get());
 //        cultivating(consumer, UPItems.ARCHELON_FLASK.get(), UPEntities.ARCHELON.get());
 //        cultivating(consumer, UPItems.PROTOSPHYRAENA_FLASK.get(), UPEntities.PROTOSPHYRAENA.get());
+//        cultivating(consumer, UPItems.JAWLESS_FISH_FLASK.get(), UPBlocks.FURCACAUDA_EGGS.get().asItem());
     }
 
     protected static void copySmithingTemplate(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, ItemLike pBaseItem) {

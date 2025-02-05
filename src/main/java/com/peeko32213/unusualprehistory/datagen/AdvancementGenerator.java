@@ -407,12 +407,12 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
 
                 .save(consumer, prefixS("main/megalania"));
 
-        Advancement otarocyon = getAdvancement(birthingPod, (ItemLike)UPItems.OTAROCYON_FLASK.get(), "interact_otarocyon", FrameType.TASK, true, true, true)
-                .addCriterion("damage_otarocyon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))))
-                .addCriterion("interact_otarocyon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get()).build())))
-                .addCriterion("killed_otarocyon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))
-                .requirements(RequirementsStrategy.OR)
-                .save(consumer, prefixS("main/otarocyon"));
+//        Advancement otarocyon = getAdvancement(birthingPod, (ItemLike)UPItems.OTAROCYON_FLASK.get(), "interact_otarocyon", FrameType.TASK, true, true, true)
+//                .addCriterion("damage_otarocyon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))))
+//                .addCriterion("interact_otarocyon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get()).build())))
+//                .addCriterion("killed_otarocyon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))
+//                .requirements(RequirementsStrategy.OR)
+//                .save(consumer, prefixS("main/otarocyon"));
 
         Advancement petrified = getAdvancement(fossil, (ItemLike) UPBlocks.PETRIFIED_WOOD_LOG.get(), "petrified_wood", FrameType.TASK, true, true, true)
                 .addCriterion("petrified_wood", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.PETRIFIED_WOOD_LOG.get()))

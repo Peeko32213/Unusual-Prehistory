@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
 import com.peeko32213.unusualprehistory.common.block.BlockDinosaurLandEggs;
-import com.peeko32213.unusualprehistory.common.block.DinoBlockItem;
+//import com.peeko32213.unusualprehistory.common.block.DinoBlockItem;
 import com.peeko32213.unusualprehistory.common.capabilities.UPAnimalCapability;
 import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
 import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
@@ -147,11 +147,11 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
             addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
             addToComposter(UPBlocks.ZULOAGAE.get().asItem(), 0.2f);
-            for(RegistryObject<Item> object : UPItems.ITEMS.getEntries()) {
-                if(object.get() instanceof DinosaurLandEggItem item) {
-                        DinoBlockItem.registerReplacementItem(item.getDinosaur(), item.getDefaultInstance());
-                }
-            }
+//            for(RegistryObject<Item> object : UPItems.ITEMS.getEntries()) {
+//                if(object.get() instanceof DinosaurLandEggItem item) {
+//                        DinoBlockItem.registerReplacementItem(item.getDinosaur(), item.getDefaultInstance());
+//                }
+//            }
         });
         event.enqueueWork(UPDispenserRegistry::registerDispenserBehaviour);
         UPMessages.register();
