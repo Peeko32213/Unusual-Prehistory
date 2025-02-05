@@ -32,7 +32,7 @@ public class UPTabs {
     private static final CreativeModeTab UP = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 9)
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .title(Component.translatable("itemGroup.unusual_prehistory"))
-            .icon(() -> new ItemStack(UPItems.AMMONITE_SHELL_ITEM.get()))
+            .icon(() -> new ItemStack(UPItems.AMMONITE_SHELL_ICON.get()))
             .displayItems((d, entries) ->{
 
                 for(RegistryObject<Item> item : UPItems.ITEMS.getEntries()){

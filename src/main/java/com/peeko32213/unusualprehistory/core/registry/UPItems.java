@@ -46,7 +46,7 @@ public class UPItems {
     public static final RegistryObject<Item> ENCYLOPEDIA = ITEMS.register("encyclopedia",
             () -> new ItemEncyclopedia(new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> AMMONITE_SHELL_ITEM = ITEMS.register("ammonite_shell",
+    public static final RegistryObject<Item> AMMONITE_SHELL_ICON = ITEMS.register("ammonite_shell_icon",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> SHELL_SHARD = ITEMS.register("shell_shard",
