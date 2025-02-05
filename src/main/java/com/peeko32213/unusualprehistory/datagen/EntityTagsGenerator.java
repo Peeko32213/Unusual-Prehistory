@@ -346,29 +346,29 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .addOptional(new ResourceLocation("naturalist:tortoise"))
         ;
 
-        tag(UPTags.PSITTACO_TARGETS)
-                .add(UPEntities.BEELZ.get())
-                .add(UPEntities.VELOCI.get())
-                .add(UPEntities.MAJUNGA.get())
-                .add(UPEntities.SMILODON.get())
-        ;
+//        tag(UPTags.PSITTACO_TARGETS)
+//                .add(UPEntities.BEELZ.get())
+//                .add(UPEntities.VELOCI.get())
+//                .add(UPEntities.MAJUNGA.get())
+//                .add(UPEntities.SMILODON.get())
+//        ;
+//
+//        tag(UPTags.OPHIODON_TARGETS)
+//                .add(EntityType.TROPICAL_FISH)
+//                .add(EntityType.SALMON)
+//                ;
+//
+//        tag(UPTags.PROTOSPHYRAENA_TARGETS)
+//                .add(EntityType.SQUID)
+//        ;
 
-        tag(UPTags.OPHIODON_TARGETS)
-                .add(EntityType.TROPICAL_FISH)
-                .add(EntityType.SALMON)
-                ;
-
-        tag(UPTags.PROTOSPHYRAENA_TARGETS)
-                .add(EntityType.SQUID)
-        ;
-
-        tag(UPTags.HYNERIA_TARGETS)
-                .add(EntityType.SQUID)
-                .add(EntityType.TROPICAL_FISH)
-                .add(EntityType.SALMON)
-                .add(UPEntities.DIPLOCAULUS.get())
-                .add(UPEntities.HYNERPETON.get())
-        ;
+//        tag(UPTags.HYNERIA_TARGETS)
+//                .add(EntityType.SQUID)
+//                .add(EntityType.TROPICAL_FISH)
+//                .add(EntityType.SALMON)
+//                .add(UPEntities.DIPLOCAULUS.get())
+//                .add(UPEntities.HYNERPETON.get())
+//        ;
 
         tag(UPTags.MEGALANIA_TARGETS)
                 .add(EntityType.PIG)
@@ -439,10 +439,10 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
         tag(UPTags.PALAEO_EMBRYO_ATTACH_TO)
                 .add(UPEntities.PALAEOPHIS.get())
                 .add(UPEntities.PALAEOPHIS_PART.get());
-        tag(UPTags.OTAROCYON_EMBRYO_ATTACH_TO)
-                .add(EntityType.OCELOT)
-                .add(EntityType.FOX)
-                .add(UPEntities.OTAROCYON.get());
+//        tag(UPTags.OTAROCYON_EMBRYO_ATTACH_TO)
+//                .add(EntityType.OCELOT)
+//                .add(EntityType.FOX)
+//                .add(UPEntities.OTAROCYON.get());
         tag(UPTags.TAR_WALKABLE_ON_MOBS)
                 .add(EntityType.RABBIT)
                 .add(UPEntities.SLUDGE.get());
@@ -483,8 +483,8 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.VELOCI.get())
                 .add(UPEntities.MAJUNGA.get())
                 .add(UPEntities.SLUDGE.get())
-                .add(UPEntities.OTAROCYON.get())
-                .add(UPEntities.LONGISQUAMA.get())
+//                .add(UPEntities.OTAROCYON.get())
+//                .add(UPEntities.LONGISQUAMA.get())
         ;
 
         tag(UPTags.PISCIVORE_DIET)

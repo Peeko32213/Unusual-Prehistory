@@ -9,7 +9,6 @@ import com.peeko32213.unusualprehistory.common.entity.eggs.EggVariant;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityLeedsichthysPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBookSnake;

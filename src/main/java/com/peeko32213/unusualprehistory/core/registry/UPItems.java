@@ -30,8 +30,6 @@ import java.util.function.Supplier;
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class UPItems {
-    private UPItems() {
-    }
 
     public static Item.Properties drinkItem() {
         return new Item.Properties().craftRemainder(UPItems.FLASK.get()).stacksTo(16);
@@ -47,7 +45,8 @@ public class UPItems {
 
     public static final RegistryObject<Item> ENCYLOPEDIA = ITEMS.register("encyclopedia",
             () -> new ItemEncyclopedia(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> AMMONITE_SHELL_ICON = ITEMS.register("ammonite_shell_icon",
+
+    public static final RegistryObject<Item> AMMONITE_SHELL = ITEMS.register("ammonite_shell",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> SHELL_SHARD = ITEMS.register("shell_shard",
@@ -503,8 +502,8 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> SLUDGE_EGG = registerSpawnEggs("sludge_spawn_egg",
             UPEntities.SLUDGE , 0x0a090a, 0x282627);
 
-    public static final RegistryObject<ForgeSpawnEggItem> OTAROCYON_EGG = registerSpawnEggs("otarocyon_spawn_egg",
-            UPEntities.OTAROCYON , 0x1d121b, 0x681523);
+//    public static final RegistryObject<ForgeSpawnEggItem> OTAROCYON_EGG = registerSpawnEggs("otarocyon_spawn_egg",
+//            UPEntities.OTAROCYON , 0x1d121b, 0x681523);
 
     //public static final RegistryObject<ForgeSpawnEggItem> LONGISQUAMA_EGG = registerSpawnEggs("longisquama_spawn_egg",
     //        UPEntities.LONGISQUAMA , 0x5e4fa7, 0x7edbdd);
@@ -512,8 +511,8 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> JAWLESS_FISH_EGG = registerSpawnEggs("jawless_fish_spawn_egg",
             UPEntities.JAWLESS_FISH , 0x9a32af, 0xe7cd39);
 
-    public static final RegistryObject<ForgeSpawnEggItem> TARTUOSTEUS_EGG = registerSpawnEggs("tartuosteus_spawn_egg",
-            UPEntities.TARTUOSTEUS , 0x12352f, 0x73a658);
+//    public static final RegistryObject<ForgeSpawnEggItem> TARTUOSTEUS_EGG = registerSpawnEggs("tartuosteus_spawn_egg",
+//            UPEntities.TARTUOSTEUS , 0x12352f, 0x73a658);
 
    //public static final RegistryObject<ForgeSpawnEggItem> PSITTACO_EGG = registerSpawnEggs("psittaco_spawn_egg",
    //        UPEntities.PSITTACO , 0xa04f2a, 0xd6b560);
@@ -527,8 +526,8 @@ public class UPItems {
     //public static final RegistryObject<ForgeSpawnEggItem> PSILOPTERUS_EGG = registerSpawnEggs("psilo_spawn_egg",
     //        UPEntities.PSILOPTERUS , 0xc59d7d, 0xc27d28);
 
-    public static final RegistryObject<ForgeSpawnEggItem> DIPLOCAULUS_EGG = registerSpawnEggs("diplocaulus_spawn_egg",
-            UPEntities.DIPLOCAULUS , 0x1b0e05, 0xf1fa59);
+//    public static final RegistryObject<ForgeSpawnEggItem> DIPLOCAULUS_EGG = registerSpawnEggs("diplocaulus_spawn_egg",
+//            UPEntities.DIPLOCAULUS , 0x1b0e05, 0xf1fa59);
 
     //public static final RegistryObject<ForgeSpawnEggItem> HYNERPETON_EGG = registerSpawnEggs("hynerpeton_spawn_egg",
     //        UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
@@ -536,8 +535,8 @@ public class UPItems {
     //public static final RegistryObject<ForgeSpawnEggItem> BALAUR_EGG = registerSpawnEggs("balaur_spawn_egg",
     //        UPEntities.BALAUR , 0x1f6731, 0xe5cb36);
 
-    public static final RegistryObject<ForgeSpawnEggItem> OPHIODON_EGG = registerSpawnEggs("ophiodon_spawn_egg",
-            UPEntities.OPHIODON , 0x5b8486, 0xe141b34);
+//    public static final RegistryObject<ForgeSpawnEggItem> OPHIODON_EGG = registerSpawnEggs("ophiodon_spawn_egg",
+//            UPEntities.OPHIODON , 0x5b8486, 0xe141b34);
 
    //public static final RegistryObject<ForgeSpawnEggItem> PROTOSPHYRAENA_EGG = registerSpawnEggs("protosphyraena_spawn_egg",
    //        UPEntities.PROTOSPHYRAENA , 0x283545, 0x462828);
@@ -554,8 +553,8 @@ public class UPItems {
     //public static final RegistryObject<ForgeSpawnEggItem> PTERODAUSTRO_EGG =registerSpawnEggs("pterodaustro_spawn_egg",
     //        UPEntities.PTERODAUSTRO , 0xc93660, 0xfff3fd);
 
-    public static final RegistryObject<ForgeSpawnEggItem> HYNERIA_EGG =registerSpawnEggs("hyneria_spawn_egg",
-            UPEntities.HYNERIA , 0x1a2121, 0xbd2e2e);
+//    public static final RegistryObject<ForgeSpawnEggItem> HYNERIA_EGG =registerSpawnEggs("hyneria_spawn_egg",
+//            UPEntities.HYNERIA , 0x1a2121, 0xbd2e2e);
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,
@@ -656,8 +655,9 @@ public class UPItems {
     public static final RegistryObject<Item> PALAEO_EMBRYO = ITEMS.register("palaeo_embryo",
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.PALAEO_EMBRYO_ATTACH_TO, UPEntities.BABY_PALAEO, 1000));
 
-    public static final RegistryObject<Item> OTAROCYON_EMBRYO = ITEMS.register("otarocyon_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.OTAROCYON_EMBRYO_ATTACH_TO, UPEntities.OTAROCYON, 1000));
+//    public static final RegistryObject<Item> OTAROCYON_EMBRYO = ITEMS.register("otarocyon_embryo",
+//            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.OTAROCYON_EMBRYO_ATTACH_TO, UPEntities.OTAROCYON, 1000));
+
     public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket",
             () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).craftRemainder(Items.BUCKET)));
 

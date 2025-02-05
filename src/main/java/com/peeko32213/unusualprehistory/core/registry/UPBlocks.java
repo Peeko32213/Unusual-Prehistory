@@ -30,6 +30,34 @@ import java.util.function.Supplier;
 
 public class UPBlocks {
 
+    // Unused 1.6 stuff
+//    public static final Supplier<Block> OPHIDION_EGGS = create("ophiodon_eggs",
+//            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
+//                    UPEntities.OPHIODON,
+//                    false
+//            ),
+//            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+//
+//    public static final Supplier<Block> DIPLOCAULUS_EGGS = create("diplocaulus_eggs",
+//            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
+//                    UPEntities.DIPLOCAULUS,
+//                    false
+//            ),
+//            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+//    public static final Supplier<Block> HYNERIA_EGGS = create("hyneria_eggs",
+//            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
+//                    UPEntities.HYNERIA,
+//                    false
+//            ),
+//            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+//
+//    public static final Supplier<Block> TARTUO_EGGS = create("tartuo_eggs",
+//            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
+//                    UPEntities.TARTUOSTEUS,
+//                    false
+//            ),
+//            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
             UnusualPrehistory.MODID);
 
@@ -107,20 +135,6 @@ public class UPBlocks {
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
-    public static final Supplier<Block> OPHIDION_EGGS = create("ophiodon_eggs",
-            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
-                    UPEntities.OPHIODON,
-                    false
-            ),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-
-    public static final Supplier<Block> DIPLOCAULUS_EGGS = create("diplocaulus_eggs",
-            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
-                    UPEntities.DIPLOCAULUS,
-                    false
-            ),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-
     public static final Supplier<Block> KIMMER_EGGS = create("kimmer_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.KIMMER,
@@ -128,19 +142,6 @@ public class UPBlocks {
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
-    public static final Supplier<Block> HYNERIA_EGGS = create("hyneria_eggs",
-            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
-                    UPEntities.HYNERIA,
-                    false
-            ),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-
-    public static final Supplier<Block> TARTUO_EGGS = create("tartuo_eggs",
-            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
-                    UPEntities.TARTUOSTEUS,
-                    false
-            ),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
     public static final RegistryObject<Block> ANURO_EGG = registerDino("anuro_eggs",
             () -> new BlockDinosaurLandEggs(
                     BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),

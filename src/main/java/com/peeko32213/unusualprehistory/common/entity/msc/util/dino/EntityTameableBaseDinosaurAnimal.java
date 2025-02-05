@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.EntityArchelon;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import com.peeko32213.unusualprehistory.common.entity.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;

@@ -32,11 +32,11 @@ public class UPTabs {
     private static final CreativeModeTab UP = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 9)
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .title(Component.translatable("itemGroup.unusual_prehistory"))
-            .icon(() -> new ItemStack(UPItems.AMMONITE_SHELL_ICON.get()))
+            .icon(() -> new ItemStack(UPItems.AMMONITE_SHELL.get()))
             .displayItems((d, entries) ->{
 
                 for(RegistryObject<Item> item : UPItems.ITEMS.getEntries()){
-                    if(!(item.get() instanceof ForgeSpawnEggItem)) {
+                    if((item.get() instanceof ForgeSpawnEggItem)) {
                         d.holders().lookup(Registries.INSTRUMENT).ifPresent((p_270036_) -> {
                             generateInstrumentTypes(entries, p_270036_, UPItems.BARINA_WHISTLE.get(), UPTags.OCARINA_WHISTLE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                         });
@@ -56,22 +56,22 @@ public class UPTabs {
             })
             .build();
 
-    private static final CreativeModeTab UP_EGGS = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 9)
-            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-            .title(Component.translatable("itemGroup.unusual_prehistory_eggs"))
-            .icon(() -> new ItemStack(UPItems.MAJUNGA_EGG.get()))
-            .displayItems((d, entries) ->{
-                UPItems.ITEMS.getEntries().forEach(i ->{
-                    if((i.get() instanceof ForgeSpawnEggItem)) {
-                        entries.accept(i.get());
-                    }
-                });
-
-            })
-            .build();
+//    private static final CreativeModeTab UP_EGGS = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 9)
+//            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+//            .title(Component.translatable("itemGroup.unusual_prehistory_eggs"))
+//            .icon(() -> new ItemStack(UPItems.MAJUNGA_EGG.get()))
+//            .displayItems((d, entries) ->{
+//                UPItems.ITEMS.getEntries().forEach(i ->{
+//                    if((i.get() instanceof ForgeSpawnEggItem)) {
+//                        entries.accept(i.get());
+//                    }
+//                });
+//
+//            })
+//            .build();
 
     public static final RegistryObject<CreativeModeTab> UP_TAB = TABS.register("unusual_prehistory", () -> UP);
-    public static final RegistryObject<CreativeModeTab> UP_EGG_TAB = TABS.register("unusual_prehistory_egg", () -> UP_EGGS);
+//    public static final RegistryObject<CreativeModeTab> UP_EGG_TAB = TABS.register("unusual_prehistory_egg", () -> UP_EGGS);
 
 
     private static void generateInstrumentTypes(CreativeModeTab.Output pOutput, HolderLookup<Instrument> pInstruments, Item pItem, TagKey<Instrument> pInstrument, CreativeModeTab.TabVisibility pTabVisibility) {

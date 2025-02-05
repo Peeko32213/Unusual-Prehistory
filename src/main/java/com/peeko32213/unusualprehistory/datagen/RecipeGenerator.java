@@ -132,24 +132,28 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
         makePressurePlate(UPBlocks.ZULOAGAE_PRESSURE_PLATE, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
         shieldSmithing(consumer, Items.SHIELD, RecipeCategory.COMBAT, UPItems.TRIKE_SHIELD.get());
         copySmithingTemplate(consumer, UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD.get(), UPItems.TRIKE_HORN.get());
-        incubating(consumer, UPItems.OTAROCYON_EMBRYO.get().getDefaultInstance(), UPEntities.OTAROCYON.get());
-        cultivating(consumer, UPItems.LONGI_FLASK.get(), UPEntities.LONGISQUAMA.get());
+
         cultivating(consumer, UPItems.JAWLESS_FISH_FLASK.get(), UPBlocks.FURCACAUDA_EGGS.get().asItem());
-        cultivating(consumer, UPItems.TARTUO_FLASK.get(), UPBlocks.TARTUO_EGGS.get().asItem());
-        cultivating(consumer, UPItems.TANY_FLASK.get(), UPEntities.TANY.get());
-        cultivating(consumer, UPItems.PSITTACO_FLASK.get(), UPEntities.PSITTACO.get());
-        cultivating(consumer, UPItems.KAPRO_FLASK.get(), UPEntities.KAPROSUCHUS.get());
-        cultivating(consumer, UPItems.PSILO_FLASK.get(), UPEntities.PSILOPTERUS.get());
-        cultivating(consumer, UPItems.OPHIO_FLASK.get(), UPBlocks.OPHIDION_EGGS.get().asItem());
-        cultivating(consumer, UPItems.DIPLO_FLASK.get(), UPBlocks.DIPLOCAULUS_EGGS.get().asItem());
+
         cultivating(consumer, UPItems.KIMMER_FLASK.get(), UPBlocks.KIMMER_EGGS.get().asItem());
-        cultivating(consumer, UPItems.HYNERIA_FLASK.get(), UPBlocks.HYNERIA_EGGS.get().asItem());
-        cultivating(consumer, UPItems.HYNERP_FLASK.get(), UPEntities.HYNERPETON.get());
-        cultivating(consumer, UPItems.BALAUR_FLASK.get(), UPEntities.BALAUR.get());
-        cultivating(consumer, UPItems.LEEDS_FLASK.get(), UPEntities.LEEDSICHTHYS.get());
-        cultivating(consumer, UPItems.PTERODAUSTRO_FLASK.get(), UPEntities.PTERODAUSTRO.get());
-        cultivating(consumer, UPItems.ARCHELON_FLASK.get(), UPEntities.ARCHELON.get());
-        cultivating(consumer, UPItems.PROTOSPHYRAENA_FLASK.get(), UPEntities.PROTOSPHYRAENA.get());
+
+        // Unused 1.6 stuff
+//        incubating(consumer, UPItems.OTAROCYON_EMBRYO.get().getDefaultInstance(), UPEntities.OTAROCYON.get());
+//        cultivating(consumer, UPItems.LONGI_FLASK.get(), UPEntities.LONGISQUAMA.get());
+//        cultivating(consumer, UPItems.TARTUO_FLASK.get(), UPBlocks.TARTUO_EGGS.get().asItem());
+//        cultivating(consumer, UPItems.TANY_FLASK.get(), UPEntities.TANY.get());
+//        cultivating(consumer, UPItems.PSITTACO_FLASK.get(), UPEntities.PSITTACO.get());
+//        cultivating(consumer, UPItems.KAPRO_FLASK.get(), UPEntities.KAPROSUCHUS.get());
+//        cultivating(consumer, UPItems.PSILO_FLASK.get(), UPEntities.PSILOPTERUS.get());
+//        cultivating(consumer, UPItems.OPHIO_FLASK.get(), UPBlocks.OPHIDION_EGGS.get().asItem());
+//        cultivating(consumer, UPItems.DIPLO_FLASK.get(), UPBlocks.DIPLOCAULUS_EGGS.get().asItem());
+//        cultivating(consumer, UPItems.HYNERIA_FLASK.get(), UPBlocks.HYNERIA_EGGS.get().asItem());
+//        cultivating(consumer, UPItems.HYNERP_FLASK.get(), UPEntities.HYNERPETON.get());
+//        cultivating(consumer, UPItems.BALAUR_FLASK.get(), UPEntities.BALAUR.get());
+//        cultivating(consumer, UPItems.LEEDS_FLASK.get(), UPEntities.LEEDSICHTHYS.get());
+//        cultivating(consumer, UPItems.PTERODAUSTRO_FLASK.get(), UPEntities.PTERODAUSTRO.get());
+//        cultivating(consumer, UPItems.ARCHELON_FLASK.get(), UPEntities.ARCHELON.get());
+//        cultivating(consumer, UPItems.PROTOSPHYRAENA_FLASK.get(), UPEntities.PROTOSPHYRAENA.get());
     }
 
     protected static void copySmithingTemplate(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, ItemLike pBaseItem) {

@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityLeedsichthys;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

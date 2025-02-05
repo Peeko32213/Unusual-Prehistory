@@ -77,6 +77,12 @@ public class BlockstateGenerator extends BlockStateProvider {
         createEggDefaultSmallCustom(UPBlocks.BARINA_EGG.get(), "barinasuchus_eggs");
         createEggDefaultMediumCustom(UPBlocks.MEGALA_EGG.get(), "megalania_eggs");
 
+        // Unused 1.6 stuff
+//        createFlatWaterEgg(UPBlocks.OPHIDION_EGGS.get());
+//        createFlatWaterEgg(UPBlocks.DIPLOCAULUS_EGGS.get());
+//        createFlatWaterEgg(UPBlocks.HYNERIA_EGGS.get());
+//        createFlatWaterEgg(UPBlocks.TARTUO_EGGS.get());
+
         createFlatWaterEgg(UPBlocks.DUNK_EGGS.get());
         createFlatWaterEgg(UPBlocks.STETHA_EGGS.get());
         createFlatWaterEgg(UPBlocks.BEELZE_EGGS.get());
@@ -84,11 +90,8 @@ public class BlockstateGenerator extends BlockStateProvider {
         createFlatWaterEgg(UPBlocks.SCAU_EGGS.get());
         createFlatWaterEgg(UPBlocks.ERYON_EGGS.get());
         createFlatWaterEgg(UPBlocks.FURCACAUDA_EGGS.get());
-        createFlatWaterEgg(UPBlocks.OPHIDION_EGGS.get());
-        createFlatWaterEgg(UPBlocks.DIPLOCAULUS_EGGS.get());
-        createFlatWaterEgg(UPBlocks.HYNERIA_EGGS.get());
         createFlatWaterEgg(UPBlocks.KIMMER_EGGS.get());
-        createFlatWaterEgg(UPBlocks.TARTUO_EGGS.get());
+
 
         simpleBlock(UPBlocks.PETRIFIED_WOOD.get());
         logBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
