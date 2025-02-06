@@ -3,9 +3,6 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.arrow.PsittaccoArrow;
-import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
-import com.peeko32213.unusualprehistory.common.entity.eggs.EggSize;
-import com.peeko32213.unusualprehistory.common.entity.eggs.EggVariant;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
@@ -13,7 +10,6 @@ import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisP
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBookSnake;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
-import com.peeko32213.unusualprehistory.common.item.DinosaurLandEggItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -44,15 +40,13 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityStethacanthus::new, MobCategory.WATER_CREATURE).sized(0.6f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "stethacanthus").toString()));
 
-    public static final RegistryObject<EntityType<EntityMajungasaurus>> MAJUNGA = registerLandDinoWithEggs("majunga",
+    public static final RegistryObject<EntityType<EntityMajungasaurus>> MAJUNGA = ENTITIES.register("majunga",
             () -> EntityType.Builder.of(EntityMajungasaurus::new, MobCategory.CREATURE).sized(1.95F, 2.2F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "majunga").toString()),
-            EggSize.SMALL, EggVariant.STRIPES,1200, 0x1d600e, 0xacd35d, false);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "majunga").toString()));
 
-    public static final RegistryObject<EntityType<EntityAnurognathus>> ANURO = registerLandDinoWithEggs("anuro",
+    public static final RegistryObject<EntityType<EntityAnurognathus>> ANURO = ENTITIES.register("anuro",
             () -> EntityType.Builder.of(EntityAnurognathus::new, MobCategory.CREATURE).sized(0.8f, 0.8f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "anuro").toString()),
-            EggSize.SMALL, 1200, 0x353121, 0xf4dd48);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "anuro").toString()));
 
     public static final RegistryObject<EntityType<EntityBeelzebufo>> BEELZ = ENTITIES.register("beelz",
             () -> EntityType.Builder.of(EntityBeelzebufo::new, MobCategory.CREATURE).sized(1.2f, 0.8f)
@@ -66,10 +60,9 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityDunkleosteus::new, MobCategory.WATER_CREATURE).sized(2.5F, 1.75F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "dunk").toString()));
 
-    public static final RegistryObject<EntityType<EntityCotylorhynchus>> COTY = registerLandDinoWithEggs("coty",
+    public static final RegistryObject<EntityType<EntityCotylorhynchus>> COTY = ENTITIES.register("coty",
             () -> EntityType.Builder.of(EntityCotylorhynchus::new, MobCategory.CREATURE).sized(2.3f, 1.8f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "coty").toString()),
-            EggSize.BIG, 1200, 0x9d5333, 0xd19c8e);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "coty").toString()));
 
     public static final RegistryObject<EntityType<EntityBeelzebufoTadpole>> BEELZE_TADPOLE = ENTITIES.register("beelz_tadpole",
             () -> EntityType.Builder.of(EntityBeelzebufoTadpole::new, MobCategory.WATER_AMBIENT).sized(1.1f, 0.6f)
@@ -83,45 +76,41 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityScaumenacia::new, MobCategory.WATER_AMBIENT).sized(1.1f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "scau").toString()));
 
-    public static final RegistryObject<EntityType<EntityTriceratops>> TRIKE = registerLandDinoWithEggs("trike",
+    public static final RegistryObject<EntityType<EntityTriceratops>> TRIKE = ENTITIES.register("trike",
             () -> EntityType.Builder.of(EntityTriceratops::new, MobCategory.CREATURE).sized(4.4F, 4.4F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "trike").toString()),
-            EggSize.NORMAL,1200, 0x47302c, 0xffcb23);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "trike").toString()));
 
-    public static final RegistryObject<EntityType<EntityPachycephalosaurus>> PACHY = registerLandDinoWithEggs("pachy",
+    public static final RegistryObject<EntityType<EntityPachycephalosaurus>> PACHY = ENTITIES.register("pachy",
             () -> EntityType.Builder.of(EntityPachycephalosaurus::new, MobCategory.CREATURE).sized(1.8F, 2.1F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "pachy").toString()),
-            EggSize.SMALL, 1200, 0x282d3d, 0x5d7170);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "pachy").toString()));
 
     public static final RegistryObject<EntityType<EntityBabyBrachi>> BABY_BRACHI = ENTITIES.register("baby_brachi",
             () -> EntityType.Builder.of(EntityBabyBrachi::new, MobCategory.CREATURE).sized(1.3f, 2.1f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_brachi").toString()));
+
     public static final RegistryObject<EntityType<EntityBrachiosaurusTeen>> BRACHI_TEEN = ENTITIES.register("brachi_teen",
             () -> EntityType.Builder.of(EntityBrachiosaurusTeen::new, MobCategory.CREATURE).sized(5.2F, 5.4F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi_teen").toString()));
 
-    public static final RegistryObject<EntityType<EntityBrachiosaurus>> BRACHI = registerLandDinoWithEggsAndBaby("brachi",
-            () -> EntityType.Builder.<EntityBrachiosaurus>of(EntityBrachiosaurus::new, MobCategory.CREATURE).sized(7.2F, 8.4F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi").toString()),
-            BABY_BRACHI, EggSize.BIG, 1200, 0x5e6f9a, 0xc7e1e4);
+    public static final RegistryObject<EntityType<EntityBrachiosaurus>> BRACHI = ENTITIES.register("brachi",
+            () -> EntityType.Builder.of(EntityBrachiosaurus::new, MobCategory.CREATURE).sized(7.2F, 8.4F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi").toString()));
 
-    public static final RegistryObject<EntityType<EntityVelociraptor>> VELOCI = registerLandDinoWithEggs("veloci",
+    public static final RegistryObject<EntityType<EntityVelociraptor>> VELOCI = ENTITIES.register("veloci",
             () -> EntityType.Builder.of(EntityVelociraptor::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "veloci").toString()),
-            EggSize.SMALL, 1200, 0x774228, 0xcb09464);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "veloci").toString()));
+
     public static final RegistryObject<EntityType<EntityBabyRex>> BABY_REX = ENTITIES.register("baby_rex",
             () -> EntityType.Builder.of(EntityBabyRex::new, MobCategory.CREATURE).sized(1.1f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_rex").toString()));
 
-    public static final RegistryObject<EntityType<EntityTyrannosaurusRex>> REX = registerLandDinoWithEggsAndBaby("rex",
+    public static final RegistryObject<EntityType<EntityTyrannosaurusRex>> REX = ENTITIES.register("rex",
             () -> EntityType.Builder.of(EntityTyrannosaurusRex::new, MobCategory.CREATURE).sized(3.4F, 5.0F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "rex").toString()),
-            BABY_REX, EggSize.BIG,1200 ,0x31171c, 0xb96a53);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "rex").toString()));
 
-    public static final RegistryObject<EntityType<EntityEncrusted>> ENCRUSTED = registerLandDinoWithEggs("encrusted",
+    public static final RegistryObject<EntityType<EntityEncrusted>> ENCRUSTED = ENTITIES.register("encrusted",
             () -> EntityType.Builder.of(EntityEncrusted::new, MobCategory.MONSTER).sized(2.3F, 1.95F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "encrusted").toString()),
-            EggSize.MEDIUM, 1200,0x482300, 0xffc656);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "encrusted").toString()));
 
     public static final RegistryObject<EntityType<EntityAmberShot>> AMBER_SHOT = ENTITIES.register(
             "amber_shot", () -> EntityType.Builder.<EntityAmberShot>of(EntityAmberShot::new, MobCategory.MISC)
@@ -137,47 +126,41 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityEryon::new, MobCategory.CREATURE).sized(0.8f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "eryon").toString()));
 
-    public static final RegistryObject<EntityType<EntityAustroraptor>> AUSTRO = registerLandDinoWithEggs("austroraptor",
+    public static final RegistryObject<EntityType<EntityAustroraptor>> AUSTRO = ENTITIES.register("austroraptor",
             () -> EntityType.Builder.of(EntityAustroraptor::new, MobCategory.CREATURE).sized(1.95F, 2.2F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "austroraptor").toString()),
-            EggSize.NORMAL, 1200, 0xcfb9b4, 0xcf683a);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "austroraptor").toString()));
 
-    public static final RegistryObject<EntityType<EntityAntarctopelta>> ANTARCO = registerLandDinoWithEggs("antarctopelta",
+    public static final RegistryObject<EntityType<EntityAntarctopelta>> ANTARCO = ENTITIES.register("antarctopelta",
             () -> EntityType.Builder.of(EntityAntarctopelta::new, MobCategory.CREATURE).sized(2.2F, 1.9F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "antarctopelta").toString()),
-            EggSize.NORMAL, 1200, 0x5a120d, 0xe5ce7a);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "antarctopelta").toString()));
 
-    public static final RegistryObject<EntityType<EntityUlughbegsaurus>> ULUG = registerLandDinoWithEggs("ulughbegsaurus",
+    public static final RegistryObject<EntityType<EntityUlughbegsaurus>> ULUG = ENTITIES.register("ulughbegsaurus",
             () -> EntityType.Builder.of(EntityUlughbegsaurus::new, MobCategory.CREATURE).sized(1.95F, 2.8F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "ulughbegsaurus").toString()),
-            EggSize.SMALL, 1200, 0x3a2424, 0xdbd8ce);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "ulughbegsaurus").toString()));
 
-    public static final RegistryObject<EntityType<EntityKentrosaurus>> KENTRO = registerLandDinoWithEggs("kentrosaurus",
+    public static final RegistryObject<EntityType<EntityKentrosaurus>> KENTRO = ENTITIES.register("kentrosaurus",
             () -> EntityType.Builder.of(EntityKentrosaurus::new, MobCategory.CREATURE).sized(2.2F, 1.9F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "kentrosaurus").toString()),
-            EggSize.NORMAL, 1200, 0x122407, 0xddcca4);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "kentrosaurus").toString()));
 
-    public static final RegistryObject<EntityType<EntityHwachavenator>> HWACHA = registerLandDinoWithEggs("hwachavenator",
+    public static final RegistryObject<EntityType<EntityHwachavenator>> HWACHA = ENTITIES.register("hwachavenator",
             () -> EntityType.Builder.of(EntityHwachavenator::new, MobCategory.CREATURE).sized(1.95F, 2.8F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "hwachavenator").toString()),
-            EggSize.NORMAL, 1200, 0x14191b, 0xf4f435);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "hwachavenator").toString()));
 
-    public static final RegistryObject<EntityType<EntityTalpanas>> TALPANAS = registerLandDinoWithEggs("talpanas",
+    public static final RegistryObject<EntityType<EntityTalpanas>> TALPANAS = ENTITIES.register("talpanas",
             () -> EntityType.Builder.of(EntityTalpanas::new, MobCategory.CREATURE).sized(0.8F, 0.8F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "talpanas").toString()),
-            EggSize.BIG, 3600, 0xe5e0c5, 0xb8a68c);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "talpanas").toString()));
 
     public static final RegistryObject<EntityType<EntityGigantopithicus>> GIGANTOPITHICUS = ENTITIES.register("gigantopithicus",
             () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(3.0F, 3.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "gigantopithicus").toString()));
+
     public static final RegistryObject<EntityType<EntityBabyBarinasuchus>> BABY_BARINA = ENTITIES.register("baby_barina",
             () -> EntityType.Builder.of(EntityBabyBarinasuchus::new, MobCategory.CREATURE).sized(1.3f, 0.5f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_barina").toString()));
-    
-    public static final RegistryObject<EntityType<EntityBarinasuchus>> BARINASUCHUS = registerLandDinoWithEggsAndBaby("barinasuchus",
+
+    public static final RegistryObject<EntityType<EntityBarinasuchus>> BARINASUCHUS = ENTITIES.register("barinasuchus",
             () -> EntityType.Builder.of(EntityBarinasuchus::new, MobCategory.CREATURE).sized(3.1F, 2.0F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "barinasuchus").toString()),
-            BABY_BARINA, EggSize.SMALL, 1200, 0x0e0b03, 0xbea61e);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "barinasuchus").toString()));
 
     public static final RegistryObject<EntityType<EntityMegatherium>> MEGATHERIUM = ENTITIES.register("megatherium",
             () -> EntityType.Builder.of(EntityMegatherium::new, MobCategory.CREATURE).sized(2.9F, 3.0F)
@@ -198,6 +181,7 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityPalaeophis>> PALAEOPHIS = ENTITIES.register("palaeophis",
             () -> EntityType.Builder.of(EntityPalaeophis::new, MobCategory.WATER_CREATURE).sized(0.8F, 0.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "palaophis").toString()));
+
     public static final RegistryObject<EntityType<EntityPalaeophisPart>> PALAEOPHIS_PART = ENTITIES.register("palaeophis_part",
             () -> EntityType.Builder.<EntityPalaeophisPart>of(EntityPalaeophisPart::new, MobCategory.MISC)
                     .sized(0.8F, 0.8F).setShouldReceiveVelocityUpdates(true)
@@ -209,14 +193,9 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityBabyMegalania::new, MobCategory.CREATURE).sized(0.8f, 0.5f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_megalania").toString()));
 
-    public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = registerLandDinoWithEggsAndBaby("megalania",
+    public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = ENTITIES.register("megalania",
             () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(3.0F, 2.0F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()),
-            BABY_MEGALANIA, EggSize.MEDIUM, 1200, 0x2e2319, 0x96874b);
-
-    public static final RegistryObject<EntityType<EntityJawlessFish>> JAWLESS_FISH = ENTITIES.register("jawless_fish",
-            () -> EntityType.Builder.of(EntityJawlessFish::new, MobCategory.WATER_AMBIENT).sized(0.6f, 0.6f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "jawless_fish").toString()));
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()));
 
     public static final RegistryObject<EntityType<EntityKimmeridgebrachypteraeschnidium>> KIMMER = ENTITIES.register("kimmer",
             () -> EntityType.Builder.of(EntityKimmeridgebrachypteraeschnidium::new, MobCategory.CREATURE).sized(0.8f, 0.8f)
@@ -404,19 +383,19 @@ public class UPEntities {
                     .sized(2, 2)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "raiguenrayun").toString()));
 
-
-    public static final RegistryObject<EntityType<DinosaurLandEgg>> DINO_LAND_EGG = ENTITIES.register("dino_land_egg",
-            () -> EntityType.Builder.<DinosaurLandEgg>of(DinosaurLandEgg::new, MobCategory.MISC)
-                    .sized(1, 1)
-                    .build(prefix("dino_land_egg").toString()));
-
     public static final RegistryObject<EntityType<PsittaccoArrow>> PSITTACCO_ARROW = ENTITIES.register("psittacco_arrow",
             () -> EntityType.Builder.<PsittaccoArrow>of(PsittaccoArrow::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).setCustomClientFactory(PsittaccoArrow::new)
                     .build(prefix("psittacco_arrow").toString()));
 
     // Unfinished 1.6 stuff
-
+//    public static final RegistryObject<EntityType<EntityJawlessFish>> JAWLESS_FISH = ENTITIES.register("jawless_fish",
+//            () -> EntityType.Builder.of(EntityJawlessFish::new, MobCategory.WATER_AMBIENT).sized(0.6f, 0.6f)
+//                    .build(new ResourceLocation(UnusualPrehistory.MODID, "jawless_fish").toString()));
+//    public static final RegistryObject<EntityType<DinosaurLandEgg>> DINO_LAND_EGG = ENTITIES.register("dino_land_egg",
+//            () -> EntityType.Builder.<DinosaurLandEgg>of(DinosaurLandEgg::new, MobCategory.MISC)
+//                    .sized(1, 1)
+//                    .build(prefix("dino_land_egg").toString()));
 //    public static final RegistryObject<EntityType<EntityLeedsichthys>> LEEDSICHTHYS = registerLandDinoWithEggs("leedsichthys",
 //            () -> EntityType.Builder.of(EntityLeedsichthys::new, MobCategory.WATER_CREATURE).sized(8.0F, 5.0F)
 //                    .build(new ResourceLocation(UnusualPrehistory.MODID, "leedsichthys").toString()),
@@ -482,49 +461,40 @@ public class UPEntities {
 //    public static final RegistryObject<EntityType<EntityHyneria>> HYNERIA = ENTITIES.register("hyneria",
 //            () -> EntityType.Builder.of(EntityHyneria::new, MobCategory.WATER_CREATURE).sized(1.5f, 1.0f)
 //                    .build(new ResourceLocation(UnusualPrehistory.MODID, "hyneria").toString()));
-
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
-        return registerLandDinoWithEggs(name, dinosaur, eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, true);
-    }
-
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
-        return registerLandDinoWithEggs(name, dinosaur, eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, registerSpawnEgg);
-    }
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
-        return registerLandDinoWithEggs(name, dinosaur, eggSize, variant, hatchTime, eggBaseColor, eggSpotColor, true);
-    }
-
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
-        RegistryObject<T> dino = ENTITIES.register(name, dinosaur);
-        UPItems.ITEMS.register(name+"_entity_egg", () -> new DinosaurLandEggItem(dino, eggSize, variant, hatchTime, eggBaseColor, eggSpotColor));
-        if(registerSpawnEgg) {
-            UPItems.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(() -> (EntityType<? extends Mob>) dino.get(), eggBaseColor, eggSpotColor, new Item.Properties()));
-        }
-        dinos.add(dino);
-        return dino;
-    }
-
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
-        return registerLandDinoWithEggsAndBaby(name, dinosaur, baby,eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, registerSpawnEgg);
-    }
-
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
-        return registerLandDinoWithEggsAndBaby(name, dinosaur, baby,eggSize, variant, hatchTime, eggBaseColor, eggSpotColor, true);
-    }
-
-
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
-        return registerLandDinoWithEggsAndBaby(name, dinosaur, baby,eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, true);
-    }
-
-    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize, EggVariant variant, int hatchTime , int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
-        RegistryObject<T> dino = ENTITIES.register(name, dinosaur);
-        UPItems.ITEMS.register(name+"_entity_egg", () -> new DinosaurLandEggItem(baby, eggSize, variant, hatchTime, eggBaseColor, eggSpotColor));
-        if(registerSpawnEgg) {
-            UPItems.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(() -> (EntityType<? extends Mob>) dino.get(), eggBaseColor, eggSpotColor, new Item.Properties()));
-        }
-        dinos.add(dino);
-        return dino;
-    }
-
+//    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
+//        return registerLandDinoWithEggs(name, dinosaur, eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, true);
+//    }
+//    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
+//        return registerLandDinoWithEggs(name, dinosaur, eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, registerSpawnEgg);
+//    }
+//    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
+//        return registerLandDinoWithEggs(name, dinosaur, eggSize, variant, hatchTime, eggBaseColor, eggSpotColor, true);
+//    }
+//    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggs(String name, Supplier<? extends T> dinosaur, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
+//        RegistryObject<T> dino = ENTITIES.register(name, dinosaur);
+//        UPItems.ITEMS.register(name+"_entity_egg", () -> new DinosaurLandEggItem(dino, eggSize, variant, hatchTime, eggBaseColor, eggSpotColor));
+//        if(registerSpawnEgg) {
+//            UPItems.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(() -> (EntityType<? extends Mob>) dino.get(), eggBaseColor, eggSpotColor, new Item.Properties()));
+//        }
+//        dinos.add(dino);
+//        return dino;
+//    }
+//    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
+//        return registerLandDinoWithEggsAndBaby(name, dinosaur, baby,eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, registerSpawnEgg);
+//    }
+//    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
+//        return registerLandDinoWithEggsAndBaby(name, dinosaur, baby,eggSize, variant, hatchTime, eggBaseColor, eggSpotColor, true);
+//    }
+//    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
+//        return registerLandDinoWithEggsAndBaby(name, dinosaur, baby,eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor, true);
+//    }
+//    private static <T extends EntityType<?>> RegistryObject<T> registerLandDinoWithEggsAndBaby(String name, Supplier<? extends T> dinosaur, Supplier<? extends EntityType<?>> baby, EggSize eggSize, EggVariant variant, int hatchTime , int eggBaseColor, int eggSpotColor, boolean registerSpawnEgg) {
+//        RegistryObject<T> dino = ENTITIES.register(name, dinosaur);
+//        UPItems.ITEMS.register(name+"_entity_egg", () -> new DinosaurLandEggItem(baby, eggSize, variant, hatchTime, eggBaseColor, eggSpotColor));
+//        if(registerSpawnEgg) {
+//            UPItems.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(() -> (EntityType<? extends Mob>) dino.get(), eggBaseColor, eggSpotColor, new Item.Properties()));
+//        }
+//        dinos.add(dino);
+//        return dino;
+//    }
 }

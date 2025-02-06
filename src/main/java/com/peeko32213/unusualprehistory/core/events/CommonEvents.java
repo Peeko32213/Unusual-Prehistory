@@ -20,7 +20,7 @@ public class CommonEvents {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
 
-        // Unused 1.6 stuff
+        // Unfinished 1.6 stuff
 //        event.put(UPEntities.OTAROCYON.get(), EntityOtarocyon.createAttributes().build());  //80% Done
 //        event.put(UPEntities.LONGISQUAMA.get(), EntityLongisquama.createAttributes().build()); //80% Done
 //        event.put(UPEntities.TARTUOSTEUS.get(), EntityTartuosteus.createAttributes().build()); //80% Done
@@ -38,6 +38,8 @@ public class CommonEvents {
 //        event.put(UPEntities.LEEDS_PART.get(), EntityLeedsichthysPart.createAttributes().build());
 //        event.put(UPEntities.PTERODAUSTRO.get(), EntityPterodaustro.createAttributes().build());
 //        event.put(UPEntities.HYNERIA.get(), EntityHyneria.createAttributes().build());
+//        event.put(UPEntities.JAWLESS_FISH.get(), EntityJawlessFish.createAttributes().build()); //50% Done
+//        event.put(UPEntities.DINO_LAND_EGG.get(), LivingEntity.createLivingAttributes().build());
 
         event.put(UPEntities.STETHACANTHUS.get(), EntityStethacanthus.createAttributes().build());
         event.put(UPEntities.MAJUNGA.get(), EntityMajungasaurus.createAttributes().build());
@@ -83,7 +85,6 @@ public class CommonEvents {
         event.put(UPEntities.BABY_MAMMOTH.get(), EntityBabyMammoth.createAttributes().build());
         event.put(UPEntities.BABY_BARINA.get(), EntityBabyBarinasuchus.createAttributes().build());
         event.put(UPEntities.SLUDGE.get(), EntitySludge.createAttributes().build());
-        event.put(UPEntities.JAWLESS_FISH.get(), EntityJawlessFish.createAttributes().build()); //50% Done
         event.put(UPEntities.KIMMER.get(), EntityKimmeridgebrachypteraeschnidium.createAttributes().build());
 
         event.put(UPEntities.ICEBERG_SMILODON.get(), EntityWorldSpawnable.bakeAttributes().build());
@@ -106,8 +107,6 @@ public class CommonEvents {
         event.put(UPEntities.NELUMBITES.get(), EntityPlant.bakeAttributes().build());
         event.put(UPEntities.QUEREUXIA.get(), EntityPlant.bakeAttributes().build());
         event.put(UPEntities.RAIGUENRAYUN.get(), EntityPlant.bakeAttributes().build());
-
-        event.put(UPEntities.DINO_LAND_EGG.get(), LivingEntity.createLivingAttributes().build());
 
     }
 }

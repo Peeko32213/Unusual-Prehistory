@@ -8,7 +8,6 @@ import com.peeko32213.unusualprehistory.common.effect.EffectRabies;
 import com.peeko32213.unusualprehistory.common.effect.EffectVaccineRabies;
 import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
 import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
-import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.JarateFindWaterGoal;

@@ -16,7 +16,6 @@ import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntit
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.ThrowableFallingBlockRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
-import com.peeko32213.unusualprehistory.client.render.egg.DinosaurLandEggRenderer;
 import com.peeko32213.unusualprehistory.client.render.tool.FlatMovingThrownItemRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
@@ -290,9 +289,8 @@ public final class ClientEvents {
 
         event.registerEntityRenderer(UPEntities.KIMMER.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
 
-        event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new JawlessFishModel()));
-
         // Unused 1.6 stuff
+//        event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new JawlessFishModel()));
 //        event.registerEntityRenderer(UPEntities.OTAROCYON.get(), e ->
 //                UPRenderUtils.createTamableDinosaurRenderer(e, new OtarocyonModel())
 //                        .withLayers(OTAROCYCON_MODEL)
@@ -352,7 +350,7 @@ public final class ClientEvents {
         event.registerBlockEntityRenderer(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);
         EntityRenderers.register(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
 
-        event.registerEntityRenderer(UPEntities.DINO_LAND_EGG.get(), DinosaurLandEggRenderer::new);
+//        event.registerEntityRenderer(UPEntities.DINO_LAND_EGG.get(), DinosaurLandEggRenderer::new);
 
 
         try {
