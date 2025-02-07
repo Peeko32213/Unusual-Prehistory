@@ -596,7 +596,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_1", "%s was shredded");
         add("death.attack.hwacha_2", "%s was turned to fine paste");
         add("death.attack.hwacha_3", "%s was shot");
-        add("instrument.unusualprehistory.ocarina", "Crocarina");
+        add("instrument.unusualprehistory.ocarina", "Crocodilian Lullaby");
 
         add("unusualprehistory.advancement.root", "Unusual Prehistory");
         add("unusualprehistory.advancement.root.desc", "Begin Your Journey Into the World of Prehistory!");
