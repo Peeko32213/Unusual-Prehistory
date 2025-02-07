@@ -43,7 +43,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.ARCHAO_FLASK.get())
                 .add(UPItems.SARR_FLASK.get())
                 .add(UPItems.BENNET_FLASK.get())
-                .add(UPItems.TALL_HORSETAIL_FLASK.get())
                 .add(UPItems.HORSETAIL_FLASK.get())
                 .add(UPItems.ERYON_FLASK.get())
                 .add(UPItems.PACHY_FLASK.get())

@@ -421,7 +421,6 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
 
         Advancement plants = getAdvancement(petrified, (ItemLike)UPItems.HORSETAIL_FLASK.get(), "prehistoric_plants", FrameType.TASK, true, true, true)
                 .addCriterion("horsetail_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.HORSETAIL_FLASK.get()))
-                .addCriterion("tall_horsetail_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.TALL_HORSETAIL_FLASK.get()))
                 .addCriterion("leefructus_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.LEEFRUCTUS_FLASK.get()))
                 .addCriterion("archao_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ARCHAO_FLASK.get()))
                 .addCriterion("bennet_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.BENNET_FLASK.get()))

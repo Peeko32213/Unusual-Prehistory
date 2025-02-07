@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "unusualprehistory:item/hyneria_flask"
-  }
-}

@@ -1,4 +1,4 @@
-// 1.20.1	2024-03-02T09:39:44.5738766	Advancements
+// 1.20.1	2025-02-07T12:31:29.509854	Advancements
 66edf66afb0c836e3907826a4348c067612704fd data/unusualprehistory/advancements/main/adorned_staff.json
 530f78b2877ef6332554551c4ac46e0a7c094ac7 data/unusualprehistory/advancements/main/amber_fossil.json
 234bc65bbe7fbf97a34d1b9330077b518c887fc3 data/unusualprehistory/advancements/main/amber_gummy.json
@@ -44,12 +44,11 @@ f082c6604be4aa1625c10776801e58b904e40cd0 data/unusualprehistory/advancements/mai
 ae734389e7d1c6f4e1d62b762490bf6a67ed97f1 data/unusualprehistory/advancements/main/opal_fossil.json
 a0da26387d1043d99a9da78fe3817fb60de9910e data/unusualprehistory/advancements/main/opal_pearl.json
 7663018ad8cd44097d17f0cc5864520616469164 data/unusualprehistory/advancements/main/opal_shuriken.json
-010d3743619a58b74f0ceac12f252b97c1b901da data/unusualprehistory/advancements/main/otarocyon.json
 46bd1337f9295f0cae547738f0e5f05da2558202 data/unusualprehistory/advancements/main/pachy.json
 9ca1bb2e3ade64fb823f13ec8b032732b8e44968 data/unusualprehistory/advancements/main/palaeophis.json
 bffbab3d07feaf4151f824283528eb702c687e53 data/unusualprehistory/advancements/main/paraceratherium.json
 7f725b8525669990da5e4d6a25f0320aecf71119 data/unusualprehistory/advancements/main/petrified.json
-ae9065c18d217ab39080ee3b64aacb7540c169d5 data/unusualprehistory/advancements/main/plants.json
+dfdbffa1aaf3a93fd3edda02d81eca235278f539 data/unusualprehistory/advancements/main/plants.json
 d31c3dee97afc5aa615e0430316a0fc1e46e7c9c data/unusualprehistory/advancements/main/rex.json
 2d368e062b1029add02c3b3bbf50b86cb7c701dd data/unusualprehistory/advancements/main/rex_passify.json
 b8c128ddf9da0989d356273cfc32fc1296f182e7 data/unusualprehistory/advancements/main/root.json

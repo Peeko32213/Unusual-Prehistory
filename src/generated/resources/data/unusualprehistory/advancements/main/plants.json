@@ -169,18 +169,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "tall_horsetail_flask": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusualprehistory:tall_horsetail_flask"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "zuloagae_flask": {
       "conditions": {
         "items": [
@@ -212,7 +200,6 @@
   "requirements": [
     [
       "horsetail_flask",
-      "tall_horsetail_flask",
       "leefructus_flask",
       "archao_flask",
       "bennet_flask",

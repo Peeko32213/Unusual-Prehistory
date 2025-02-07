@@ -31,103 +31,6 @@ import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class UPItems {
 
-    // Unfinished 1.6 stuff
-//        public static final RegistryObject<Item> OTAROCYON_FLASK = ITEMS.register("otarocyon_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> LONGI_FLASK = ITEMS.register("longisquama_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> JAWLESS_FISH_FLASK = ITEMS.register("jawless_fish_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> TARTUO_FLASK = ITEMS.register("tartuo_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> TANY_FLASK = ITEMS.register("tany_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PSITTACO_FLASK = ITEMS.register("psittaco_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> KAPRO_FLASK = ITEMS.register("kapro_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PSILO_FLASK = ITEMS.register("psilo_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> OPHIO_FLASK = ITEMS.register("ophio_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> DIPLO_FLASK = ITEMS.register("diplo_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> HYNERP_FLASK = ITEMS.register("hynerp_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> BALAUR_FLASK = ITEMS.register("balaur_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PTERY_FLASK = ITEMS.register("ptery_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> EDAPHO_FLASK = ITEMS.register("edapho_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PTERYDACTYLUS_FLASK = ITEMS.register("pterydactylus_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> ERETMORPHIS_FLASK = ITEMS.register("eretmorhipis_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> LEEDS_FLASK = ITEMS.register("leeds_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PTERODAUSTRO_FLASK = ITEMS.register("pterodaustro_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> XIPHACT_FLASK = ITEMS.register("xiphact_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> OVIRAPTOR_FLASK = ITEMS.register("oviraptor_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> GLOBIDENS_FLASK = ITEMS.register("globidens_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> ARCHELON_FLASK = ITEMS.register("archelon_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> ESTEMMENO_FLASK = ITEMS.register("estemmano_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> ARTHROPLEURA_FLASK = ITEMS.register("arthropleura_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> SCUTO_FLASK = ITEMS.register("scuto_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> HYNERIA_FLASK = ITEMS.register("hyneria_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PROTOSPHYRAENA_FLASK = ITEMS.register("protosphyraena_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> ENCHODUS_FLASK = ITEMS.register("enchodus_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> IGUANODON_FLASK = ITEMS.register("iguanodon_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("furca_bucket",
-//            () -> new ItemModFishBucket(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false,
-//                    new Item.Properties().stacksTo(1)));
-//    public static final RegistryObject<ForgeSpawnEggItem> OTAROCYON_EGG = registerSpawnEggs("otarocyon_spawn_egg",
-//            UPEntities.OTAROCYON , 0x1d121b, 0x681523);
-//    public static final RegistryObject<ForgeSpawnEggItem> LONGISQUAMA_EGG = registerSpawnEggs("longisquama_spawn_egg",
-//            UPEntities.LONGISQUAMA , 0x5e4fa7, 0x7edbdd);
-//    public static final RegistryObject<ForgeSpawnEggItem> JAWLESS_FISH_EGG = registerSpawnEggs("jawless_fish_spawn_egg",
-//            UPEntities.JAWLESS_FISH , 0x9a32af, 0xe7cd39);
-//    public static final RegistryObject<ForgeSpawnEggItem> TARTUOSTEUS_EGG = registerSpawnEggs("tartuosteus_spawn_egg",
-//            UPEntities.TARTUOSTEUS , 0x12352f, 0x73a658);
-//   public static final RegistryObject<ForgeSpawnEggItem> PSITTACO_EGG = registerSpawnEggs("psittaco_spawn_egg",
-//           UPEntities.PSITTACO , 0xa04f2a, 0xd6b560);
-//    public static final RegistryObject<ForgeSpawnEggItem> TANY_EGG = registerSpawnEggs("tany_spawn_egg",
-//            UPEntities.TANY , 0x08090d, 0xf2f6f8);
-//    public static final RegistryObject<ForgeSpawnEggItem> KAPROSUCUHS_EGG = registerSpawnEggs("kapro_spawn_egg",
-//            UPEntities.KAPROSUCHUS , 0x322f2c, 0xf6f050);
-//    public static final RegistryObject<ForgeSpawnEggItem> PSILOPTERUS_EGG = registerSpawnEggs("psilo_spawn_egg",
-//            UPEntities.PSILOPTERUS , 0xc59d7d, 0xc27d28);
-//    public static final RegistryObject<ForgeSpawnEggItem> DIPLOCAULUS_EGG = registerSpawnEggs("diplocaulus_spawn_egg",
-//            UPEntities.DIPLOCAULUS , 0x1b0e05, 0xf1fa59);
-//    public static final RegistryObject<ForgeSpawnEggItem> HYNERPETON_EGG = registerSpawnEggs("hynerpeton_spawn_egg",
-//            UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
-//    public static final RegistryObject<ForgeSpawnEggItem> BALAUR_EGG = registerSpawnEggs("balaur_spawn_egg",
-//            UPEntities.BALAUR , 0x1f6731, 0xe5cb36);
-//    public static final RegistryObject<ForgeSpawnEggItem> OPHIODON_EGG = registerSpawnEggs("ophiodon_spawn_egg",
-//            UPEntities.OPHIODON , 0x5b8486, 0xe141b34);
-//   public static final RegistryObject<ForgeSpawnEggItem> PROTOSPHYRAENA_EGG = registerSpawnEggs("protosphyraena_spawn_egg",
-//           UPEntities.PROTOSPHYRAENA , 0x283545, 0x462828);
-//    public static final RegistryObject<ForgeSpawnEggItem> ARCHELON_EGG = registerSpawnEggs("archelon_spawn_egg",
-//            UPEntities.ARCHELON , 0x618b89, 0x171923);
-//   public static final RegistryObject<ForgeSpawnEggItem> LEEDS_EGG =registerSpawnEggs("leeds_spawn_egg",
-//           UPEntities.LEEDSICHTHYS , 0x5a6b75, 0xe8eaea);
-//    public static final RegistryObject<ForgeSpawnEggItem> PTERODAUSTRO_EGG =registerSpawnEggs("pterodaustro_spawn_egg",
-//            UPEntities.PTERODAUSTRO , 0xc93660, 0xfff3fd);
-//    public static final RegistryObject<ForgeSpawnEggItem> HYNERIA_EGG =registerSpawnEggs("hyneria_spawn_egg",
-//            UPEntities.HYNERIA , 0x1a2121, 0xbd2e2e);
-
     public static Item.Properties drinkItem() {
         return new Item.Properties().craftRemainder(UPItems.FLASK.get()).stacksTo(16);
     }
@@ -230,9 +133,6 @@ public class UPItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> HORSETAIL_FLASK = ITEMS.register("horsetail_flask",
-            () -> new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> TALL_HORSETAIL_FLASK = ITEMS.register("tall_horsetail_flask",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> LEEFRUCTUS_FLASK = ITEMS.register("leefructus_flask",
@@ -659,6 +559,116 @@ public class UPItems {
     public static final RegistryObject<Item> COOKED_MAMMOTH = ITEMS.register("cooked_mammoth",
             () -> new Item(new Item.Properties().food(ModFood.COOKED_MAMMOTH)));
 
+    public static final RegistryObject<Item> MAMMOTH_MEATBALL = ITEMS.register("mammoth_meatball",
+            () -> new ModItemDrinkable(soupItem().food(ModFood.MAMMOTH_MEATBALL), true, false));
+
+    public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",
+            () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157 * 20));
+
+    public static final RegistryObject<Item> ENCASED_DISC = ITEMS.register("encased_disc",
+            () -> new RecordItem(15, UPSounds.ENCASED_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157 * 20));
+
+    private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
+        return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties()));
+    }
+}
+
+// Unfinished 1.6 stuff
+//        public static final RegistryObject<Item> OTAROCYON_FLASK = ITEMS.register("otarocyon_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> LONGI_FLASK = ITEMS.register("longisquama_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> JAWLESS_FISH_FLASK = ITEMS.register("jawless_fish_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> TARTUO_FLASK = ITEMS.register("tartuo_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> TANY_FLASK = ITEMS.register("tany_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> PSITTACO_FLASK = ITEMS.register("psittaco_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> KAPRO_FLASK = ITEMS.register("kapro_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> PSILO_FLASK = ITEMS.register("psilo_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> OPHIO_FLASK = ITEMS.register("ophio_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> DIPLO_FLASK = ITEMS.register("diplo_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> HYNERP_FLASK = ITEMS.register("hynerp_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> BALAUR_FLASK = ITEMS.register("balaur_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> PTERY_FLASK = ITEMS.register("ptery_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> EDAPHO_FLASK = ITEMS.register("edapho_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> PTERYDACTYLUS_FLASK = ITEMS.register("pterydactylus_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> ERETMORPHIS_FLASK = ITEMS.register("eretmorhipis_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> LEEDS_FLASK = ITEMS.register("leeds_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> PTERODAUSTRO_FLASK = ITEMS.register("pterodaustro_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> XIPHACT_FLASK = ITEMS.register("xiphact_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> OVIRAPTOR_FLASK = ITEMS.register("oviraptor_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> GLOBIDENS_FLASK = ITEMS.register("globidens_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> ARCHELON_FLASK = ITEMS.register("archelon_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> ESTEMMENO_FLASK = ITEMS.register("estemmano_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> ARTHROPLEURA_FLASK = ITEMS.register("arthropleura_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> SCUTO_FLASK = ITEMS.register("scuto_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> HYNERIA_FLASK = ITEMS.register("hyneria_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> PROTOSPHYRAENA_FLASK = ITEMS.register("protosphyraena_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> ENCHODUS_FLASK = ITEMS.register("enchodus_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> IGUANODON_FLASK = ITEMS.register("iguanodon_flask",
+//            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("furca_bucket",
+//            () -> new ItemModFishBucket(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false,
+//                    new Item.Properties().stacksTo(1)));
+//    public static final RegistryObject<ForgeSpawnEggItem> OTAROCYON_EGG = registerSpawnEggs("otarocyon_spawn_egg",
+//            UPEntities.OTAROCYON , 0x1d121b, 0x681523);
+//    public static final RegistryObject<ForgeSpawnEggItem> LONGISQUAMA_EGG = registerSpawnEggs("longisquama_spawn_egg",
+//            UPEntities.LONGISQUAMA , 0x5e4fa7, 0x7edbdd);
+//    public static final RegistryObject<ForgeSpawnEggItem> JAWLESS_FISH_EGG = registerSpawnEggs("jawless_fish_spawn_egg",
+//            UPEntities.JAWLESS_FISH , 0x9a32af, 0xe7cd39);
+//    public static final RegistryObject<ForgeSpawnEggItem> TARTUOSTEUS_EGG = registerSpawnEggs("tartuosteus_spawn_egg",
+//            UPEntities.TARTUOSTEUS , 0x12352f, 0x73a658);
+//   public static final RegistryObject<ForgeSpawnEggItem> PSITTACO_EGG = registerSpawnEggs("psittaco_spawn_egg",
+//           UPEntities.PSITTACO , 0xa04f2a, 0xd6b560);
+//    public static final RegistryObject<ForgeSpawnEggItem> TANY_EGG = registerSpawnEggs("tany_spawn_egg",
+//            UPEntities.TANY , 0x08090d, 0xf2f6f8);
+//    public static final RegistryObject<ForgeSpawnEggItem> KAPROSUCUHS_EGG = registerSpawnEggs("kapro_spawn_egg",
+//            UPEntities.KAPROSUCHUS , 0x322f2c, 0xf6f050);
+//    public static final RegistryObject<ForgeSpawnEggItem> PSILOPTERUS_EGG = registerSpawnEggs("psilo_spawn_egg",
+//            UPEntities.PSILOPTERUS , 0xc59d7d, 0xc27d28);
+//    public static final RegistryObject<ForgeSpawnEggItem> DIPLOCAULUS_EGG = registerSpawnEggs("diplocaulus_spawn_egg",
+//            UPEntities.DIPLOCAULUS , 0x1b0e05, 0xf1fa59);
+//    public static final RegistryObject<ForgeSpawnEggItem> HYNERPETON_EGG = registerSpawnEggs("hynerpeton_spawn_egg",
+//            UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
+//    public static final RegistryObject<ForgeSpawnEggItem> BALAUR_EGG = registerSpawnEggs("balaur_spawn_egg",
+//            UPEntities.BALAUR , 0x1f6731, 0xe5cb36);
+//    public static final RegistryObject<ForgeSpawnEggItem> OPHIODON_EGG = registerSpawnEggs("ophiodon_spawn_egg",
+//            UPEntities.OPHIODON , 0x5b8486, 0xe141b34);
+//   public static final RegistryObject<ForgeSpawnEggItem> PROTOSPHYRAENA_EGG = registerSpawnEggs("protosphyraena_spawn_egg",
+//           UPEntities.PROTOSPHYRAENA , 0x283545, 0x462828);
+//    public static final RegistryObject<ForgeSpawnEggItem> ARCHELON_EGG = registerSpawnEggs("archelon_spawn_egg",
+//            UPEntities.ARCHELON , 0x618b89, 0x171923);
+//   public static final RegistryObject<ForgeSpawnEggItem> LEEDS_EGG =registerSpawnEggs("leeds_spawn_egg",
+//           UPEntities.LEEDSICHTHYS , 0x5a6b75, 0xe8eaea);
+//    public static final RegistryObject<ForgeSpawnEggItem> PTERODAUSTRO_EGG =registerSpawnEggs("pterodaustro_spawn_egg",
+//            UPEntities.PTERODAUSTRO , 0xc93660, 0xfff3fd);
+//    public static final RegistryObject<ForgeSpawnEggItem> HYNERIA_EGG =registerSpawnEggs("hyneria_spawn_egg",
+//            UPEntities.HYNERIA , 0x1a2121, 0xbd2e2e);
 //    public static final RegistryObject<Item> T_JARATE =  ITEMS.register("t_jarate", () -> new TyrannosaurineJarateItem((new Item.Properties()).stacksTo(16)));
 //    public static final RegistryObject<Item> RABID_JUICE = ITEMS.register("rabid_juice", () -> new ModItemDrinkable(drinkItem().stacksTo(16).food(ModFood.RABID_SALIVA), true, false));
 //    public static final RegistryObject<Item> INACTIVE_RABIES = ITEMS.register("inactive_rabies", () -> new Item(new Item.Properties()));
@@ -697,17 +707,3 @@ public class UPItems {
 //    private static final ResourceLocation EMPTY_SLOT_HORN = prefix("item/empty_slot_horn");
 //    public static final RegistryObject<Item> SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD = ITEMS.register("trike_shield_upgrade_smithing_template",
 //            () -> new SmithingTemplateItem(TRIKE_SHIELD_UPGRADE_APPLIES_TO, TRIKE_SHIELD_UPGRADE_INGREDIENTS, TRIKE_SHIELD_UPGRADE, TRIKE_SHIELD_UPGRADE_BASE_SLOT_DESCRIPTION, TRIKE_SHIELD_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, List.of(EMPTY_SLOT_SHIELD), List.of(EMPTY_SLOT_HORN)));
-
-    public static final RegistryObject<Item> MAMMOTH_MEATBALL = ITEMS.register("mammoth_meatball",
-            () -> new ModItemDrinkable(soupItem().food(ModFood.MAMMOTH_MEATBALL), true, false));
-
-    public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",
-            () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157 * 20));
-
-    public static final RegistryObject<Item> ENCASED_DISC = ITEMS.register("encased_disc",
-            () -> new RecordItem(15, UPSounds.ENCASED_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157 * 20));
-
-    private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
-        return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties()));
-    }
-}
