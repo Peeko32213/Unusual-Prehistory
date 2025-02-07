@@ -1,5 +1,7 @@
-- Kimmeridgebrachypteraeschnidium
+- Added Kimmeridgebrachypteraeschnidium
+- Food rebalances
+- Changed lang for better consistency with vanilla mc
 - Removed spawn eggs creative tab
+- Added spawn eggs to main creative tab
 - Reorganized creative tab
 - Val fixes and other stuff
-- 
