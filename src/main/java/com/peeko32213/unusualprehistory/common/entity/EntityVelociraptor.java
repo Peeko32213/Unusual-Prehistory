@@ -167,9 +167,9 @@ public class EntityVelociraptor extends EntityBaseDinosaurAnimal {
         return UPSounds.RAPTOR_DEATH.get();
     }
 
-    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
-    }
+//    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+//        this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
+//    }
 
     @Override
     protected SoundEvent getAttackSound() {

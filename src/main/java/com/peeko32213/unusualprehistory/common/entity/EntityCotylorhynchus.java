@@ -247,7 +247,7 @@ public class EntityCotylorhynchus extends EntityBaseDinosaurAnimal {
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(SoundEvents.COW_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.CAMEL_STEP, 1.0F, 1.0F);
     }
 
     @Override
