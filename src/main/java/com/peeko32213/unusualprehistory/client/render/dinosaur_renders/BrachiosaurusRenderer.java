@@ -14,7 +14,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class BrachiosaurusRenderer extends GeoEntityRenderer<EntityBrachiosaurus> {
     private static final ResourceLocation OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus_saddle.png");
-    private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/brachi.geo.json");
+    private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/brachiosaurus.geo.json");
     public BrachiosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new DefaultModel<>(ModelLocations.BRACHIOSAURUS));
         this.addRenderLayer(new BaseDinosaurSaddleLayer<>(this, OVERLAY, MODEL));
