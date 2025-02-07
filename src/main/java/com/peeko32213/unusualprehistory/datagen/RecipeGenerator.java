@@ -130,8 +130,8 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
         makeButton(UPBlocks.ZULOAGAE_BUTTON, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
 
         makePressurePlate(UPBlocks.ZULOAGAE_PRESSURE_PLATE, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
-        shieldSmithing(consumer, Items.SHIELD, RecipeCategory.COMBAT, UPItems.TRIKE_SHIELD.get());
-        copySmithingTemplate(consumer, UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD.get(), UPItems.TRIKE_HORN.get());
+//        shieldSmithing(consumer, Items.SHIELD, RecipeCategory.COMBAT, UPItems.TRIKE_SHIELD.get());
+//        copySmithingTemplate(consumer, UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD.get(), UPItems.TRIKE_HORN.get());
 
         cultivating(consumer, UPItems.KIMMER_FLASK.get(), UPBlocks.KIMMER_EGGS.get().asItem());
 
@@ -155,12 +155,12 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 //        cultivating(consumer, UPItems.JAWLESS_FISH_FLASK.get(), UPBlocks.FURCACAUDA_EGGS.get().asItem());
     }
 
-    protected static void copySmithingTemplate(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, ItemLike pBaseItem) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, pResult, 2).define('#', Items.DIAMOND).define('C', pBaseItem).define('S', pResult).pattern("#S#").pattern("#C#").pattern("###").unlockedBy(getHasName(pResult), has(pResult)).save(pFinishedRecipeConsumer);
-    }
-    protected static void shieldSmithing(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item pIngredientItem, RecipeCategory pCategory, Item pResultItem) {
-        SmithingTransformRecipeBuilder.smithing(Ingredient.of(UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD.get()), Ingredient.of(pIngredientItem), Ingredient.of(UPItems.TRIKE_HORN.get()), pCategory, pResultItem).unlocks("has_trike_horn", has(UPItems.TRIKE_HORN.get())).save(pFinishedRecipeConsumer, prefix(getItemName(pResultItem) + "_smithing"));
-    }
+//    protected static void copySmithingTemplate(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, ItemLike pBaseItem) {
+//        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, pResult, 2).define('#', Items.DIAMOND).define('C', pBaseItem).define('S', pResult).pattern("#S#").pattern("#C#").pattern("###").unlockedBy(getHasName(pResult), has(pResult)).save(pFinishedRecipeConsumer);
+//    }
+//    protected static void shieldSmithing(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item pIngredientItem, RecipeCategory pCategory, Item pResultItem) {
+//        SmithingTransformRecipeBuilder.smithing(Ingredient.of(UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD.get()), Ingredient.of(pIngredientItem), Ingredient.of(UPItems.TRIKE_HORN.get()), pCategory, pResultItem).unlocks("has_trike_horn", has(UPItems.TRIKE_HORN.get())).save(pFinishedRecipeConsumer, prefix(getItemName(pResultItem) + "_smithing"));
+//    }
 
 
 

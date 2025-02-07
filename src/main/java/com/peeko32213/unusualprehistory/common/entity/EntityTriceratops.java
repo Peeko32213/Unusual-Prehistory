@@ -545,7 +545,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         super.ageBoundaryReached();
         if (!this.isBaby() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
             this.spawnAtLocation(UPItems.TRIKE_HORN.get(), 1);
-            this.spawnAtLocation(UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD.get(), 1);
         }
 
     }

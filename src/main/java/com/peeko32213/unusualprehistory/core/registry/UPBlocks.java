@@ -37,7 +37,6 @@ public class UPBlocks {
 //                    false
 //            ),
 //            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-//
 //    public static final Supplier<Block> DIPLOCAULUS_EGGS = create("diplocaulus_eggs",
 //            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
 //                    UPEntities.DIPLOCAULUS,
@@ -50,7 +49,6 @@ public class UPBlocks {
 //                    false
 //            ),
 //            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-//
 //    public static final Supplier<Block> TARTUO_EGGS = create("tartuo_eggs",
 //            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
 //                    UPEntities.TARTUOSTEUS,
@@ -722,11 +720,13 @@ public class UPBlocks {
 
     public static final RegistryObject<StandingSignBlock> FOXXI_SIGN = BLOCKS.register("foxxi_sign", ()
             -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.FOXXI));
+
     public static final RegistryObject<WallSignBlock> FOXXI_WALL_SIGN = BLOCKS.register("foxxi_wall_sign", ()
             -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FOXXI_SIGN.get()), UPWoodTypes.FOXXI));
 
     public static final RegistryObject<StandingSignBlock> DRYO_SIGN = BLOCKS.register("dryo_sign", ()
             -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.DRYO));
+
     public static final RegistryObject<WallSignBlock> DRYO_WALL_SIGN = BLOCKS.register("dryo_wall_sign", ()
             -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(DRYO_SIGN.get()), UPWoodTypes.DRYO));
 
@@ -763,9 +763,6 @@ public class UPBlocks {
     public static final RegistryObject<PressurePlateBlock> ZULOAGAE_PRESSURE_PLATE = registerBlock("zuloagae_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.BAMBOO_PRESSURE_PLATE), UPBlockSetType.ZULOAGAE));
 
-    public static final RegistryObject<Block> ELECTRIC_PILLAR = registerBlock("electric_pillar",
-            () -> new BlockElectricPillar(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(1.5F).lightLevel((state -> 9)).emissiveRendering((state, level, pos) -> true).noOcclusion()));
-
     public static final RegistryObject<Block> POTTED_ZULOGAE = registerBlockWithoutBlockItem("potted_zulogae",
             () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.ZULOAGAE_SAPLING, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
 
@@ -781,6 +778,8 @@ public class UPBlocks {
         return block;
     }
 
+//    public static final RegistryObject<Block> ELECTRIC_PILLAR = registerBlock("electric_pillar",
+//            () -> new BlockElectricPillar(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(1.5F).lightLevel((state -> 9)).emissiveRendering((state, level, pos) -> true).noOcclusion()));
 //    public static <B extends Block> RegistryObject<B> registerDino(String name, Supplier<? extends B> supplier) {
 //        RegistryObject<B> block = BLOCKS.register(name, supplier);
 //        UPItems.ITEMS.register(name, () -> new DinoBlockItem(block.get(), new Item.Properties()));

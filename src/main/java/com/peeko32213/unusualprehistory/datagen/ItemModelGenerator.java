@@ -61,13 +61,13 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.COOKED_MAMMOTH);
 //        singleTex(UPItems.OTAROCYON_FLASK);
 //        singleTex(UPItems.LONGI_FLASK);
-        singleTex(UPItems.RAW_FURCACAUDA);
-        singleTex(UPItems.COOKED_FURCACAUDA);
-        singleTex(UPItems.RAW_TARTU);
-        singleTex(UPItems.COOKED_TARTU);
-        singleTex(UPItems.RAW_OPHIODON);
-        singleTex(UPItems.COOKED_OPHIODON);
-        singleTex(UPItems.PSITTACO_QUIL);
+//        singleTex(UPItems.RAW_FURCACAUDA);
+//        singleTex(UPItems.COOKED_FURCACAUDA);
+//        singleTex(UPItems.RAW_TARTU);
+//        singleTex(UPItems.COOKED_TARTU);
+//        singleTex(UPItems.RAW_OPHIODON);
+//        singleTex(UPItems.COOKED_OPHIODON);
+//        singleTex(UPItems.PSITTACO_QUIL);
 //        singleTex(UPItems.JAWLESS_FISH_FLASK);
 //        singleTex(UPItems.TARTUO_FLASK);
 //        singleTex(UPItems.TANY_FLASK);
@@ -78,10 +78,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 //        singleTex(UPItems.DIPLO_FLASK);
 //        singleTex(UPItems.HYNERP_FLASK);
 //        singleTex(UPItems.BALAUR_FLASK);
-        singleTex(UPItems.PSITTACCO_ARROW);
-        singleTex(UPItems.AMBER_IDOL);
-        singleTex(UPItems.LEEDS_CAVIAR);
-        singleTex(UPItems.LEEDS_SLICE);
+//        singleTex(UPItems.PSITTACCO_ARROW);
+//        singleTex(UPItems.AMBER_IDOL);
+//        singleTex(UPItems.LEEDS_CAVIAR);
+//        singleTex(UPItems.LEEDS_SLICE);
         singleTex(UPItems.KIMMER_FLASK);
 //        singleTex(UPItems.PTERY_FLASK);
 //        singleTex(UPItems.EDAPHO_FLASK);
@@ -100,8 +100,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 //        singleTex(UPItems.PROTOSPHYRAENA_FLASK);
 //        singleTex(UPItems.ENCHODUS_FLASK);
 //        singleTex(UPItems.IGUANODON_FLASK);
-        singleTex(UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD);
-        toBlockModel(UPBlocks.ELECTRIC_PILLAR, "electric_pillar_bottom");
+//        singleTex(UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD);
+//        toBlockModel(UPBlocks.ELECTRIC_PILLAR, "electric_pillar_bottom");
         for(RegistryObject<?> object : UPEntities.dinos) {
                 addDinoEgg(object.getId());
         }

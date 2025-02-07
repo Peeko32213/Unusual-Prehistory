@@ -11,7 +11,7 @@ import com.peeko32213.unusualprehistory.client.particles.ElectricAttackParticle;
 import com.peeko32213.unusualprehistory.client.particles.ElectricOrbitParticle;
 import com.peeko32213.unusualprehistory.client.particles.TarBubbleParticle;
 import com.peeko32213.unusualprehistory.client.render.UPRenderUtils;
-import com.peeko32213.unusualprehistory.client.render.arrow.PsittaccoArrowRenderer;
+//import com.peeko32213.unusualprehistory.client.render.arrow.PsittaccoArrowRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.ThrowableFallingBlockRenderer;
@@ -343,13 +343,12 @@ public final class ClientEvents {
 
         event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), FlatMovingThrownItemRenderer::new);
-        event.registerEntityRenderer(UPEntities.T_JARATE.get(), TyrannosaurineJarateRenderer::new);
+//        event.registerEntityRenderer(UPEntities.T_JARATE.get(), TyrannosaurineJarateRenderer::new);
         event.registerEntityRenderer(UPEntities.THROWABLE_FALLING_BLOCK.get(), ThrowableFallingBlockRenderer::new);
 
         event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);
-        EntityRenderers.register(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
-
+//        EntityRenderers.register(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
 //        event.registerEntityRenderer(UPEntities.DINO_LAND_EGG.get(), DinosaurLandEggRenderer::new);
 
 

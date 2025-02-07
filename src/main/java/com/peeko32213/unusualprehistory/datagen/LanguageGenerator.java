@@ -91,11 +91,11 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.DINO_POUCH, "Dino Pouch");
         addItem(UPItems.OPALESCENT_PEARL, "Opalescent Pearl");
         addItem(UPItems.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-        addItem(UPItems.T_JARATE, "Tyrannosaur Urine");
-        addItem(UPItems.RABID_JUICE, "Infectious Saliva");
-        addItem(UPItems.INACTIVE_RABIES, "Inactive Contaminated Saliva");
-        addItem(UPItems.QUILL_VACCINE, "Vaccine On A Quill");
-        addItem(UPItems.PSITTACCO_ARROW, "Psittaco Arrow");
+//        addItem(UPItems.T_JARATE, "Tyrannosaur Urine");
+//        addItem(UPItems.RABID_JUICE, "Infectious Saliva");
+//        addItem(UPItems.INACTIVE_RABIES, "Inactive Contaminated Saliva");
+//        addItem(UPItems.QUILL_VACCINE, "Vaccine On A Quill");
+//        addItem(UPItems.PSITTACCO_ARROW, "Psittaco Arrow");
         addItem(UPItems.ZULOGAE_DISC, "Music Disc");
         addItem(UPItems.ENCASED_DISC, "Music Disc");
 
@@ -140,8 +140,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.SMILO_FUR, "Smilodon Fur");
         addItem(UPItems.PALAEO_SKIN, "Discarded Palaeolophis Skin");
         addItem(UPItems.INSULATOR, "Insulator");
-        addItem(UPItems.PSITTACO_QUIL, "Psittacosaurus Quil");
-        addItem(UPItems.AMBER_IDOL, "Amber Idol");
+//        addItem(UPItems.PSITTACO_QUIL, "Psittacosaurus Quil");
+//        addItem(UPItems.AMBER_IDOL, "Amber Idol");
 
         //FOODS
         addItem(UPItems.GROG, "Flask of Grog");
@@ -169,14 +169,14 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAW_MAMMOTH, "Raw Mammoth Meat");
         addItem(UPItems.COOKED_MAMMOTH, "Cooked Mammoth");
         addItem(UPItems.MAMMOTH_MEATBALL, "Mammoth Meatball");
-        addItem(UPItems.RAW_FURCACAUDA, "Raw Furcacauda");
-        addItem(UPItems.COOKED_FURCACAUDA, "Cooked Furcacauda");
-        addItem(UPItems.RAW_TARTU, "Raw Tartuosteus");
-        addItem(UPItems.COOKED_TARTU, "Cooked Tartuosteus");
-        addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon Ozymandias");
-        addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon Ozymandias");
-        addItem(UPItems.LEEDS_CAVIAR, "Bowl of Leedsichthys Caviar");
-        addItem(UPItems.LEEDS_SLICE, "Leedsichthys Sashimi");
+//        addItem(UPItems.RAW_FURCACAUDA, "Raw Furcacauda");
+//        addItem(UPItems.COOKED_FURCACAUDA, "Cooked Furcacauda");
+//        addItem(UPItems.RAW_TARTU, "Raw Tartuosteus");
+//        addItem(UPItems.COOKED_TARTU, "Cooked Tartuosteus");
+//        addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon Ozymandias");
+//        addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon Ozymandias");
+//        addItem(UPItems.LEEDS_CAVIAR, "Bowl of Leedsichthys Caviar");
+//        addItem(UPItems.LEEDS_SLICE, "Leedsichthys Sashimi");
 
         //SCRAPS
         addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
@@ -461,7 +461,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ZULOAGAE_PRESSURE_PLATE, "Zuloagae Pressure Plate");
         addBlock(UPBlocks.ZULOAGAE_DOOR, "Zuloagae Door");
         addBlock(UPBlocks.ZULOAGAE_TRAPDOOR, "Zuloagae Trapdoor");
-        addBlock(UPBlocks.ELECTRIC_PILLAR, "Electric Pillar");
+//        addBlock(UPBlocks.ELECTRIC_PILLAR, "Electric Pillar");
         //FOSSILS
         addBlock(UPBlocks.COTY_FOSSIL, "Cotylorhynchus Fossil");
         addBlock(UPBlocks.STETHA_FOSSIL, "Stethacanthus Fossil");
@@ -520,7 +520,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BABY_MEGATHERIUM, "Baby Megatherium");
         addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
         addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-        addEntityType(UPEntities.T_JARATE, "Jarate");
+//        addEntityType(UPEntities.T_JARATE, "Jarate");
         addEntityType(UPEntities.BABY_GIGANTO, "Baby Gigantopithecus");
         addEntityType(UPEntities.BABY_PARACER, "Baby Paraceratherium");
         addEntityType(UPEntities.BABY_MEGALANIA, "Baby Megalania");

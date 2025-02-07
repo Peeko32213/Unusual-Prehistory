@@ -159,8 +159,8 @@ public class ServerEvents {
                 }
 
                 if (entity.hasEffect(UPEffects.PISSED_UPON.get())) {
-                    //urine triples damage
-                    event.setAmount(event.getAmount() * 3);
+                    //urine doubles damage
+                    event.setAmount(event.getAmount() * 2);
                 }
 
                 ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);

@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
-import com.peeko32213.unusualprehistory.common.entity.arrow.PsittaccoArrow;
+//import com.peeko32213.unusualprehistory.common.entity.arrow.PsittaccoArrow;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
@@ -255,12 +255,12 @@ public class UPEntities {
                     .updateInterval(10)
                     .build(prefix("opalescent_shuriken").toString()));
 
-    public static final RegistryObject<EntityType<EntityTyrannosaurineJarate>> T_JARATE = ENTITIES.register("t_jarate",
-            () ->  EntityType.Builder.<EntityTyrannosaurineJarate>of(EntityTyrannosaurineJarate::new, MobCategory.MISC)
-                    .sized(0.25F, 0.25F)
-                    .clientTrackingRange(4)
-                    .updateInterval(10)
-                    .build(prefix("t_jarate").toString()));
+//    public static final RegistryObject<EntityType<EntityTyrannosaurineJarate>> T_JARATE = ENTITIES.register("t_jarate",
+//            () ->  EntityType.Builder.<EntityTyrannosaurineJarate>of(EntityTyrannosaurineJarate::new, MobCategory.MISC)
+//                    .sized(0.25F, 0.25F)
+//                    .clientTrackingRange(4)
+//                    .updateInterval(10)
+//                    .build(prefix("t_jarate").toString()));
 
     public static final RegistryObject<EntityType<ThrowableFallingBlockEntity>> THROWABLE_FALLING_BLOCK = ENTITIES.register("throwable_falling_block",
             () -> EntityType.Builder.<ThrowableFallingBlockEntity>of(ThrowableFallingBlockEntity::new, MobCategory.MISC)
@@ -383,10 +383,10 @@ public class UPEntities {
                     .sized(2, 2)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "raiguenrayun").toString()));
 
-    public static final RegistryObject<EntityType<PsittaccoArrow>> PSITTACCO_ARROW = ENTITIES.register("psittacco_arrow",
-            () -> EntityType.Builder.<PsittaccoArrow>of(PsittaccoArrow::new, MobCategory.MISC)
-                    .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).setCustomClientFactory(PsittaccoArrow::new)
-                    .build(prefix("psittacco_arrow").toString()));
+//    public static final RegistryObject<EntityType<PsittaccoArrow>> PSITTACCO_ARROW = ENTITIES.register("psittacco_arrow",
+//            () -> EntityType.Builder.<PsittaccoArrow>of(PsittaccoArrow::new, MobCategory.MISC)
+//                    .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).setCustomClientFactory(PsittaccoArrow::new)
+//                    .build(prefix("psittacco_arrow").toString()));
 
     // Unfinished 1.6 stuff
 //    public static final RegistryObject<EntityType<EntityJawlessFish>> JAWLESS_FISH = ENTITIES.register("jawless_fish",

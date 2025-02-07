@@ -31,7 +31,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(UPTags.FILLED_FLASKS)
                 .addTag(UPTags.DNA_FLASKS);
-        tag(ItemTags.ARROWS).add(UPItems.PSITTACCO_ARROW.get());
+//        tag(ItemTags.ARROWS).add(UPItems.PSITTACCO_ARROW.get());
         tag(UPTags.DNA_FLASKS)
                 .add(UPItems.AMMONITE_FLASK.get())
                 .add(UPItems.QUEREUXIA_FLASK.get())
@@ -306,14 +306,14 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.RAW_SCAU.get())
                 .add(UPItems.COOKED_SCAU.get())
                 .add(UPItems.GOLDEN_SCAU.get())
-                .add(UPItems.RAW_FURCACAUDA.get())
-                .add(UPItems.COOKED_FURCACAUDA.get())
-                .add(UPItems.RAW_TARTU.get())
-                .add(UPItems.COOKED_TARTU.get())
-                .add(UPItems.RAW_OPHIODON.get())
-                .add(UPItems.COOKED_OPHIODON.get())
-                .add(UPItems.LEEDS_CAVIAR.get())
-                .add(UPItems.LEEDS_SLICE.get())
+//                .add(UPItems.RAW_FURCACAUDA.get())
+//                .add(UPItems.COOKED_FURCACAUDA.get())
+//                .add(UPItems.RAW_TARTU.get())
+//                .add(UPItems.COOKED_TARTU.get())
+//                .add(UPItems.RAW_OPHIODON.get())
+//                .add(UPItems.COOKED_OPHIODON.get())
+//                .add(UPItems.LEEDS_CAVIAR.get())
+//                .add(UPItems.LEEDS_SLICE.get())
         ;
 
         tag(ItemTags.BUTTONS)

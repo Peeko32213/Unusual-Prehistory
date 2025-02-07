@@ -12,9 +12,6 @@ public enum UPItemTiers implements Tier {
 
     SHELL(3, 575, 6.0F, 3.0F, 8, () -> Ingredient.of(UPItems.SHELL_SHARD.get())),
     HANDMADE(2, 250, 6.5F, 4.0F, 6, () -> Ingredient.of(Items.BAMBOO))
-
-
-
     ;
 
     private final int level;
