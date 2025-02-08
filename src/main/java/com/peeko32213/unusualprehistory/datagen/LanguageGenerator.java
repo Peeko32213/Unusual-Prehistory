@@ -158,6 +158,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.MAJUNGA_EGG, "Majungasaurus Spawn Egg");
         addItem(UPItems.ANURO_EGG, "Anurognathus Spawn Egg");
         addItem(UPItems.BEELZ_EGG, "Beelzebufo Spawn Egg");
+        addItem(UPItems.BEELZ_TADPOLE_EGG, "Beelzebufo Tadpole Spawn Egg");
         addItem(UPItems.COTY_EGG, "Cotylorhynchus Spawn Egg");
         addItem(UPItems.SCAU_EGG, "Scaumenacia Spawn Egg");
         addItem(UPItems.BRACHI_EGG, "Brachiosaurus Spawn Egg");
@@ -457,7 +458,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BABY_PALAEO, "Baby Palaeolophis");
         addEntityType(UPEntities.BABY_BARINA, "Baby Barinasuchus");
         addEntityType(UPEntities.BABY_SMILODON, "Baby Smilodon");
-        addEntityType(UPEntities.BABY_MAMMOTH, "Baby Mammoth");
+//        addEntityType(UPEntities.BABY_MAMMOTH, "Baby Mammoth");
         addEntityType(UPEntities.PALAEOPHIS_PART, "Palaeophis Body");
         addEntityType(UPEntities.SLUDGE, "Sludge");
         addEntityType(UPEntities.ICEBERG_MAMMOTH, "Frozen Mammoth");

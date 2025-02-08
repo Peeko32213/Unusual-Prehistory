@@ -96,7 +96,7 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
                 return !isBaby() && passiveFor == 0 && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
             }
         });
-        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.OPHIODON_TARGETS)));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.DUNK_TARGETS)));
     }
 
     public void checkDespawn() {

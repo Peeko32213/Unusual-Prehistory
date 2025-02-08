@@ -217,9 +217,9 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityBabyPalaeolophis::new, MobCategory.WATER_AMBIENT).sized(1f, 0.3f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_palaophis").toString()));
 
-    public static final RegistryObject<EntityType<EntityBabyMammoth>> BABY_MAMMOTH = ENTITIES.register("baby_mammoth",
-            () -> EntityType.Builder.of(EntityBabyMammoth::new, MobCategory.CREATURE).sized(1.3f, 1.8f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_mammoth").toString()));
+//    public static final RegistryObject<EntityType<EntityBabyMammoth>> BABY_MAMMOTH = ENTITIES.register("baby_mammoth",
+//            () -> EntityType.Builder.of(EntityBabyMammoth::new, MobCategory.CREATURE).sized(1.3f, 1.8f)
+//                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_mammoth").toString()));
 
     public static final RegistryObject<EntityType<EntityBabySmilodon>> BABY_SMILODON = ENTITIES.register("baby_smilodon",
             () -> EntityType.Builder.of(EntityBabySmilodon::new, MobCategory.CREATURE).sized(0.8f, 1f)

@@ -109,6 +109,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.RAW_SCAU.get());
         tag(UPTags.BROWN_ULUGH_FOOD)
                 .add(UPItems.RAW_STETHA.get());
+
         tag(UPTags.TRIKE_FOOD)
                 .add(UPItems.GINKGO_FRUIT.get());
 

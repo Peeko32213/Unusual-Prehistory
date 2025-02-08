@@ -17,6 +17,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -118,7 +119,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, Ingredient.of(Items.MELON), false));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
@@ -170,9 +171,11 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
+            this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
             this.setSaddled(true);
             return InteractionResult.SUCCESS;
         } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+            this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
             this.setSaddled(false);
             this.spawnAtLocation(Items.SADDLE);
             return InteractionResult.SUCCESS;

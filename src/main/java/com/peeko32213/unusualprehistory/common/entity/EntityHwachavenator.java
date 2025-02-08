@@ -20,6 +20,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -87,7 +88,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 80D)
-                .add(Attributes.FOLLOW_RANGE, 50D)
+                .add(Attributes.FOLLOW_RANGE, 16D)
                 .add(Attributes.ARMOR, 5.0D)
                 .add(Attributes.ATTACK_DAMAGE, 2.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.3D)
@@ -95,25 +96,23 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
     }
 
-
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(4, new BabyPanicGoal(this, 2.0D));
-        if(!this.hasControllingPassenger()) {
-            this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0D, 1, 20.0F));
+        if(!this.hasControllingPassenger() && !this.isOrderedToSit() && !this.isInWater()) {
+            this.goalSelector.addGoal(0, new RangedAttackGoal(this, 0D, 1, 16.0F));
         }
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
-        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
+        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new CustomRideGoal(this, 3D));
-        this.goalSelector.addGoal(2, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
+        this.goalSelector.addGoal(4, new BabyPanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(4, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
+        this.targetSelector.addGoal(7, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(6, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(8, new OwnerHurtTargetGoal(this));
     }
-
 
     @Override
     protected void defineSynchedData() {
@@ -207,35 +206,45 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if (isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
-            }
-            this.heal(6);
-            return InteractionResult.SUCCESS;
-        }
         if (isFood(itemstack) && !isTame()) {
-            //int size = itemstack.getCount();
+
+            this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+            this.level().broadcastEntityEvent(this, (byte) 6);
 
             if(random.nextBoolean()) {
                 this.tame(player);
+                this.level().broadcastEntityEvent(this, (byte) 7);
             }
 
             itemstack.shrink(1);
-            this.spawnAtLocation(Items.BOWL);
+            if(!player.isCreative()) {
+                player.addItem(new ItemStack(Items.BOWL));
+            }
             return InteractionResult.SUCCESS;
         }
         if (isTame() && isOwnedBy(player)) {
-            if (isFood(itemstack)) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.spawnAtLocation(Items.BOWL);
+            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                if(!this.level().isClientSide) {
+                    this.heal((float) itemstack.getFoodProperties(this).getNutrition());
+                }
+                if(!player.isCreative()) {
+                    player.addItem(new ItemStack(Items.BOWL));
+                }
+                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                this.level().broadcastEntityEvent(this, (byte) 7);
+                this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
             } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                 this.usePlayerItem(player, hand, itemstack);
+                this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
                 this.setSaddled(true);
                 return InteractionResult.SUCCESS;
             } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
                 this.setSaddled(false);
+                this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
                 this.spawnAtLocation(Items.SADDLE);
                 return InteractionResult.SUCCESS;
             }
@@ -457,7 +466,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
     @Override
     public float getStepHeight() {
-        return 1.0F;
+        return 1.25F;
     }
     @Override
     public void killed() {

@@ -189,8 +189,10 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
                     this.gameEvent(GameEvent.EAT, this);
                 } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                     this.usePlayerItem(player, hand, itemstack);
+                    this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
                     this.setSaddled(true);
                 } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+                    this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
                     this.setSaddled(false);
                     this.spawnAtLocation(Items.SADDLE);
                 } else {

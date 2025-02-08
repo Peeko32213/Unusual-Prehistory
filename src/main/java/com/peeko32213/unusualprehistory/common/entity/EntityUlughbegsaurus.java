@@ -295,9 +295,9 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         if (this.isYellow()) {
                 if (isYellowFood(itemstack) && !isTame()) {
                     if(!this.level().isClientSide) {
-                        int size = itemstack.getCount();
+                        this.level().broadcastEntityEvent(this, (byte) 7);
                         this.tame(player);
-                        itemstack.shrink(size);
+                        itemstack.shrink(1);
                         this.setEatingTime(50 + random.nextInt(30));
                     }
                     this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
@@ -307,9 +307,9 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             if (this.isBlue()) {
                 if (isBlueFood(itemstack) && !isTame()) {
                     if(!this.level().isClientSide) {
-                        int size = itemstack.getCount();
+                        this.level().broadcastEntityEvent(this, (byte) 7);
                         this.tame(player);
-                        itemstack.shrink(size);
+                        itemstack.shrink(1);
                         this.setEatingTime(50 + random.nextInt(30));
                     }
                     this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
@@ -319,9 +319,9 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             if (this.isOrange()) {
                 if (isOrangeFood(itemstack) && !isTame()) {
                     if(!this.level().isClientSide) {
-                        int size = itemstack.getCount();
+                        this.level().broadcastEntityEvent(this, (byte) 7);
                         this.tame(player);
-                        itemstack.shrink(size);
+                        itemstack.shrink(1);
                         this.setEatingTime(50 + random.nextInt(30));
                     }
                     this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
@@ -331,9 +331,9 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             if (this.isWhite()) {
                 if (isWhiteFood(itemstack) && !isTame()) {
                     if(!this.level().isClientSide) {
-                        int size = itemstack.getCount();
+                        this.level().broadcastEntityEvent(this, (byte) 7);
                         this.tame(player);
-                        itemstack.shrink(size);
+                        itemstack.shrink(1);
                         this.setEatingTime(50 + random.nextInt(30));
                     }
                     this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
@@ -343,9 +343,9 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
             if (this.isBrown()) {
                 if (isBrownFood(itemstack) && !isTame()) {
                     if(!this.level().isClientSide) {
-                        int size = itemstack.getCount();
+                        this.level().broadcastEntityEvent(this, (byte) 7);
                         this.tame(player);
-                        itemstack.shrink(size);
+                        itemstack.shrink(1);
                         this.setEatingTime(50 + random.nextInt(30));
                     }
                     this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
@@ -360,14 +360,18 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
                     if(!this.level().isClientSide) {
                         this.heal((float) itemstack.getFoodProperties(this).getNutrition());
                     }
+                    this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                    this.level().broadcastEntityEvent(this, (byte) 7);
                     this.gameEvent(GameEvent.EAT, this);
                     return InteractionResult.SUCCESS;
                 } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                     this.usePlayerItem(player, hand, itemstack);
+                    this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
                     this.setSaddled(true);
                     return InteractionResult.SUCCESS;
                 } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
                     this.setSaddled(false);
+                    this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
                     this.spawnAtLocation(Items.SADDLE);
                     return InteractionResult.SUCCESS;
                 } else {

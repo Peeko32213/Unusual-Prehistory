@@ -5,6 +5,15 @@
 - Added spawn eggs to main creative tab
 - Reorganized creative tab
 - Val fixes and other stuff
+- Saddling and shearing saddles now has sounds
+- Taming now has sounds and particles
+- Lowered hwachavenator shooting range while not being controlled so they get stuck shooting less often
+- Hwachas stops shooting things when sitting
+- Lowered hwacha shooting goal priority
+- Mammoth meatball stacks to 16 instead of 8
+- Meaty buffet stacks to 16 instead of 64
+- Triceratops no longer eat a full stack of ginkgo berries at once
+- Triceratops can take more than one ginkgo berry to tame
 - Misc stuff
 
 to do:
@@ -13,7 +22,12 @@ to do:
 - clean up datagen stuff
 - tweak some animations(?)
 - reduce volume for some mob sounds (barinasuchus)
-- fix encrusted sack
+- fix encrusted sack model
 - more food tweaks
 - hanging signs (?)
 - boats (?)
+- merge baby and adult mobs
+- remove some of the random entities 
+- change some tame items and such to tags
+- remove a bunch of entities from target tags to make park building easier
+- change meaty buffet bowl drops and some others to give the bowl to the player instead

@@ -94,7 +94,7 @@ public class UPItems {
             () -> new ItemTrikeShield(new Item.Properties().durability(1300).rarity(Rarity.UNCOMMON)));
 
     public static final RegistryObject<Item> MEATY_BUFFET = ITEMS.register("meaty_buffet",
-            () -> new ModItemConsumable(new Item.Properties().food(ModFood.MEATY_BUFFET).craftRemainder(Items.BOWL)));
+            () -> new ModItemConsumable(new Item.Properties().food(ModFood.MEATY_BUFFET).stacksTo(16).craftRemainder(Items.BOWL)));
 
     public static final RegistryObject<Item> MAJUNGA_SCUTE = ITEMS.register("majunga_scute",
             () -> new Item(new Item.Properties()));
@@ -254,7 +254,7 @@ public class UPItems {
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.GIGANTO_EMBRYO_ATTACH_TO, UPEntities.BABY_GIGANTO, 1000));
 
     public static final RegistryObject<Item> MAMMOTH_EMBRYO = ITEMS.register("mammoth_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.MAMMOTH_EMBRYO_ATTACH_TO, UPEntities.BABY_MAMMOTH, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.MAMMOTH_EMBRYO_ATTACH_TO, UPEntities.MAMMOTH, 1000));
 
     public static final RegistryObject<Item> MEGATH_EMBRYO = ITEMS.register("megath_embryo",
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.MEGATH_EMBRYO_ATTACH_TO, UPEntities.BABY_MEGATHERIUM, 1000));
@@ -389,6 +389,9 @@ public class UPItems {
 
     public static final RegistryObject<ForgeSpawnEggItem> BEELZ_EGG = registerSpawnEggs("beelz_spawn_egg",
             UPEntities.BEELZ , 0x443f13, 0xa5db90);
+
+    public static final RegistryObject<ForgeSpawnEggItem> BEELZ_TADPOLE_EGG = registerSpawnEggs("beelz_tadpole_spawn_egg",
+            UPEntities.BEELZE_TADPOLE , 0x443f13, 0xa5db90);
 
     public static final RegistryObject<ForgeSpawnEggItem> BRACHI_EGG =registerSpawnEggs("brachi_spawn_egg",
             UPEntities.BRACHI , 0x5e6f9a, 0xc7e1e4);
@@ -567,7 +570,7 @@ public class UPItems {
             () -> new Item(new Item.Properties().food(ModFood.COOKED_MAMMOTH)));
 
     public static final RegistryObject<Item> MAMMOTH_MEATBALL = ITEMS.register("mammoth_meatball",
-            () -> new ModItemDrinkable(soupItem().food(ModFood.MAMMOTH_MEATBALL), true, false));
+            () -> new ModItemDrinkable(soupItem().food(ModFood.MAMMOTH_MEATBALL).stacksTo(16), true, false));
 
     public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",
             () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 157 * 20));

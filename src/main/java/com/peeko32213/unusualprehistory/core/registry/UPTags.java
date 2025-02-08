@@ -33,15 +33,15 @@ public class UPTags {
     public static final TagKey<EntityType<?>> ENCRUSTED_TARGETS = registerEntityTag("encrusted_targets");
     public static final TagKey<EntityType<?>> DUNK_TARGETS = registerEntityTag("dunk_targets");
     public static final TagKey<EntityType<?>> LAND_MOBS = registerEntityTag("land_mobs");
-    public static final TagKey<EntityType<?>> PSITTACO_TARGETS = registerEntityTag("psittaco_targets");
+//    public static final TagKey<EntityType<?>> PSITTACO_TARGETS = registerEntityTag("psittaco_targets");
     public static final TagKey<EntityType<?>> SMILODON_TARGETS = registerEntityTag("smilodon_targets");
-    public static final TagKey<EntityType<?>> OPHIODON_TARGETS = registerEntityTag("ophiodon_targets");
-    public static final TagKey<EntityType<?>> PROTOSPHYRAENA_TARGETS = registerEntityTag("protosphyraena_targets");
+//    public static final TagKey<EntityType<?>> OPHIODON_TARGETS = registerEntityTag("ophiodon_targets");
+//    public static final TagKey<EntityType<?>> PROTOSPHYRAENA_TARGETS = registerEntityTag("protosphyraena_targets");
 
     public static final TagKey<EntityType<?>> HERBIVORES = registerEntityTag("herbivores");
     public static final TagKey<EntityType<?>> CARNIVORES = registerEntityTag("carnivores");
     public static final TagKey<EntityType<?>> OMNIVORES = registerEntityTag("omnivores");
-    public static final TagKey<EntityType<?>> HYNERIA_TARGETS = registerEntityTag("hyneria_targets");
+//    public static final TagKey<EntityType<?>> HYNERIA_TARGETS = registerEntityTag("hyneria_targets");
 
     public static final TagKey<EntityType<?>> PISCIVORE_DIET = registerEntityTag("piscivore_diet");
 
@@ -52,7 +52,7 @@ public class UPTags {
     public static final TagKey<EntityType<?>> PARACER_EMBRYO_ATTACH_TO= registerEntityTag("paracer_embryo_attach_to");
     public static final TagKey<EntityType<?>> PALAEO_EMBRYO_ATTACH_TO= registerEntityTag("palaeo_embryo_attach_to");
 
-    public static final TagKey<EntityType<?>> OTAROCYON_EMBRYO_ATTACH_TO= registerEntityTag("otarocyon_embryo_attach_to");
+//    public static final TagKey<EntityType<?>> OTAROCYON_EMBRYO_ATTACH_TO= registerEntityTag("otarocyon_embryo_attach_to");
     public static final TagKey<EntityType<?>> TAR_WALKABLE_ON_MOBS= registerEntityTag("tar_walkable_on_mobs");
     public static final TagKey<EntityType<?>> TAR_WALKABLE_THROUGH_MOBS= registerEntityTag("tar_walkable_through_mobs");
 

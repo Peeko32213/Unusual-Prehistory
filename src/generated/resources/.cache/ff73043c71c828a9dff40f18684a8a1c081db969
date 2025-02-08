@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-07T12:31:29.5063466	unusualprehistory Item Tags
+// 1.20.1	2025-02-08T13:15:25.3162408	unusualprehistory Item Tags
 5c5d8ce6ffd4b0079c585611f9169a81f8bd2c51 data/minecraft/tags/items/buttons.json
 9edb75fd2a2fc58fad5cb177d8cd36a6b449e37d data/minecraft/tags/items/fishes.json
 c058532b8dc116a7ddd6535c6021e5b16efff81c data/minecraft/tags/items/leaves.json
@@ -51,7 +51,8 @@ a0ae93ebb6c1e0daf4745c49f8aadf5984b46e48 data/unusualprehistory/tags/items/pachy
 f7830fc0abd8edfa6ccff141f4214d4cb194ce53 data/unusualprehistory/tags/items/shiny_chest.json
 484e2b4e0ed5b49c8e8f0db1f875f93371aa6ce8 data/unusualprehistory/tags/items/shiny_head.json
 391f26c3c2aaf292f9c677ad5205fc0c07a9d4cf data/unusualprehistory/tags/items/shiny_legs.json
-506d6476cc7794fbbf746c92c5bd837843613273 data/unusualprehistory/tags/items/trike_food.json
+f45638566b338628959b551dba32d75f3225ff68 data/unusualprehistory/tags/items/trike_food.json
+14328f1e721fd1bb24c8b8e9441c8187987e74d9 data/unusualprehistory/tags/items/trike_tame_items.json
 e37b041e1bddca8674e575993c52d89db68797d3 data/unusualprehistory/tags/items/white_ulugh_food.json
 9ec6dc8481a939f8456d92d3f79b6536c1423d6f data/unusualprehistory/tags/items/yellow_ulugh_food.json
 0485cb374748be6448bddf4209c6e11d0efde57e data/unusualprehistory/tags/items/zuloagae.json

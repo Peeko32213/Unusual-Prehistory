@@ -15,6 +15,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -39,6 +40,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -104,13 +106,13 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         super.registerGoals();
         this.eatBlockGoal = new EatBlockGoal(this);
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, this.eatBlockGoal);
         this.goalSelector.addGoal(1, new EntityTriceratops.TrikeMeleeAttackGoal(this, 1.5D, false));
         this.goalSelector.addGoal(2, new EntityTriceratops.TrikePrepareChargeGoal(this));
         this.goalSelector.addGoal(3, new EntityTriceratops.TrikeChargeGoal(this, 2.5F));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(2, this.eatBlockGoal);
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this) {
 
@@ -390,32 +392,38 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if (isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-            if(!this.level().isClientSide) {
-                if (!player.isCreative()) {
-                    itemstack.shrink(1);
-                }
-                this.heal(6);
-            }
-            return InteractionResult.SUCCESS;
-        }
         if (isFood(itemstack) && !isTame()) {
-            if(!this.level().isClientSide) {
-                int size = itemstack.getCount();
+
+            this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+            this.level().broadcastEntityEvent(this, (byte) 6);
+
+            if(random.nextBoolean()) {
                 this.tame(player);
-                itemstack.shrink(size);
+                this.level().broadcastEntityEvent(this, (byte) 7);
             }
+            itemstack.shrink(1);
+
             return InteractionResult.SUCCESS;
         }
         if (isTame() && isOwnedBy(player)) {
-            if (isFood(itemstack)) {
-                this.usePlayerItem(player, hand, itemstack);
+            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                if(!this.level().isClientSide) {
+                    this.heal(6);
+                }
+                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                this.level().broadcastEntityEvent(this, (byte) 7);
+                this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
             } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                 this.usePlayerItem(player, hand, itemstack);
+                this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
                 this.setSaddled(true);
                 return InteractionResult.SUCCESS;
             } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+                this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
                 this.setSaddled(false);
                 this.spawnAtLocation(Items.SADDLE);
                 return InteractionResult.SUCCESS;
