@@ -263,12 +263,12 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ANOSTYLOSTROMA_BLOCK, "Anostylostroma Coral Block");
 
         //BLOCKS
-        addBlock(UPBlocks.STONE_FOSSIL, "Fossil Ore");
-        addBlock(UPBlocks.DEEPSLATE_FOSSIL, "Deepslate Fossil Ore");
-        addBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL, "Deepslate Plant Fossil Ore");
-        addBlock(UPBlocks.PLANT_FOSSIL, "Plant Fossil Ore");
-        addBlock(UPBlocks.STONE_AMBER_FOSSIL, "Amber Ore");
-        addBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL, "Deepslate Amber Ore");
+        addBlock(UPBlocks.STONE_FOSSIL, "Stone Fossil");
+        addBlock(UPBlocks.DEEPSLATE_FOSSIL, "Deepslate Fossil");
+        addBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL, "Deepslate Plant Fossil");
+        addBlock(UPBlocks.PLANT_FOSSIL, "Stone Plant Fossil");
+        addBlock(UPBlocks.STONE_AMBER_FOSSIL, "Stone Amber Fossil");
+        addBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL, "Deepslate Amber Fossil");
         addBlock(UPBlocks.ANALYZER, "Analyzer");
         addBlock(UPBlocks.CULTIVATOR, "Cultivator");
         addBlock(UPBlocks.DNA_FRIDGE, "DNA Fridge");
@@ -282,11 +282,11 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ASPHALT, "Asphalt");
         addBlock(UPBlocks.GOLD_ENGRAVED_ASPHALT, "Gold Engraved Asphalt");
         addBlock(UPBlocks.QUARTZ_ENGRAVED_ASPHALT, "Quartz Engraved Asphalt");
-        addBlock(UPBlocks.STONE_OPAL_FOSSIL, "Opal Ore");
-        addBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL, "Deepslate Opal Ore");
-        addBlock(UPBlocks.STONE_TAR_FOSSIL, "Tar Fossil Ore");
-        addBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL, "Deepslate Tar Fossil Ore");
-        addBlock(UPBlocks.PERMAFROST_FOSSIL, "Permafrost Fossil Ore");
+        addBlock(UPBlocks.STONE_OPAL_FOSSIL, "Stone Opal Fossil");
+        addBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL, "Deepslate Opal Fossil");
+        addBlock(UPBlocks.STONE_TAR_FOSSIL, "Stone Tar Fossil");
+        addBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL, "Deepslate Tar Fossil");
+        addBlock(UPBlocks.PERMAFROST_FOSSIL, "Permafrost Fossil");
         addBlock(UPBlocks.PERMAFROST, "Permafrost");
 
         //PLANTS
