@@ -184,10 +184,10 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
             int modelData = tag.getInt("CustomModelData");
             MutableComponent component = Component.translatable("unusualprehistory.fruit_loot_box.loot_box");
             if(modelData == 1){
-                pStack.setHoverName(Component.translatable(translationKey).withStyle(ChatFormatting.WHITE));
+                pStack.setHoverName(Component.translatable(translationKey).withStyle(ChatFormatting.RESET));
             }
             if(modelData == 2){
-                pStack.setHoverName(Component.translatable(translationKey).withStyle(ChatFormatting.WHITE));
+                pStack.setHoverName(Component.translatable(translationKey).withStyle(ChatFormatting.RESET));
             }
             if(modelData == 3){
                 pStack.setHoverName(Component.translatable(translationKey).withStyle(ChatFormatting.YELLOW));

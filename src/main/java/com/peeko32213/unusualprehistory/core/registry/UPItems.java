@@ -539,7 +539,7 @@ public class UPItems {
                     new Item.Properties()));
 
     public static final RegistryObject<Item> DINO_POUCH = ITEMS.register("dino_pouch",
-            () -> new DinoPouchItem(new Item.Properties()));
+            () -> new DinoPouchItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket",
             () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).craftRemainder(Items.BUCKET)));
