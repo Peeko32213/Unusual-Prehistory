@@ -121,7 +121,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(SoundEvents.RAVAGER_STEP, 0.1F, 1.0F);
+        this.playSound(SoundEvents.WOLF_STEP, 0.15F, 0.5F);
     }
 
     @Override
