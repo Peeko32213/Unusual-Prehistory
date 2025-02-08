@@ -41,6 +41,133 @@ public class UPTabs {
                         });
 
                         if(!item.get().getDefaultInstance().is(UPItems.BARINA_WHISTLE.get()) && !item.get().getDefaultInstance().is(UPBlocks.FRUIT_LOOT_BOX.get().asItem())) {
+                            // Paleo DNA
+                            entries.accept(UPItems.AMMONITE_FLASK.get());
+                            entries.accept(UPItems.COTY_FLASK.get());
+                            entries.accept(UPItems.DUNK_FLASK.get());
+                            entries.accept(UPItems.SCAU_FLASK.get());
+                            entries.accept(UPItems.STETHA_FLASK.get());
+
+                            // Meso DNA
+                            entries.accept(UPItems.ANTARCTO_FLASK.get());
+                            entries.accept(UPItems.ANURO_FLASK.get());
+                            entries.accept(UPItems.AUSTRO_FLASK.get());
+                            entries.accept(UPItems.BEELZ_FLASK.get());
+                            entries.accept(UPItems.BRACHI_FLASK.get());
+                            entries.accept(UPItems.ENCRUSTED_FLASK.get());
+                            entries.accept(UPItems.ERYON_FLASK.get());
+                            entries.accept(UPItems.HWACHA_FLASK.get());
+                            entries.accept(UPItems.KENTRO_FLASK.get());
+                            entries.accept(UPItems.KIMMER_FLASK.get());
+                            entries.accept(UPItems.MAJUNGA_FLASK.get());
+                            entries.accept(UPItems.PACHY_FLASK.get());
+                            entries.accept(UPItems.TRIKE_FLASK.get());
+                            entries.accept(UPItems.REX_FLASK.get());
+                            entries.accept(UPItems.ULUGH_FLASK.get());
+                            entries.accept(UPItems.RAPTOR_FLASK.get());
+
+                            // Ceno DNA
+                            entries.accept(UPItems.BARIN_FLASK.get());
+                            entries.accept(UPItems.GIGANTO_FLASK.get());
+                            entries.accept(UPItems.MAMMOTH_FLASK.get());
+                            entries.accept(UPItems.MEGALA_FLASK.get());
+                            entries.accept(UPItems.MEGATH_FLASK.get());
+                            entries.accept(UPItems.PALAEO_FLASK.get());
+                            entries.accept(UPItems.PARACER_FLASK.get());
+                            entries.accept(UPItems.SMILO_FLASK.get());
+                            entries.accept(UPItems.TALPANAS_FLASK.get());
+
+                            // Paleo DNA
+                            entries.accept(UPItems.AMMONITE_FLASK.get());
+                            entries.accept(UPItems.COTY_FLASK.get());
+                            entries.accept(UPItems.DUNK_FLASK.get());
+                            entries.accept(UPItems.SCAU_FLASK.get());
+                            entries.accept(UPItems.STETHA_FLASK.get());
+
+                            // Meso DNA
+                            entries.accept(UPItems.ANTARCTO_FLASK.get());
+                            entries.accept(UPItems.ANURO_FLASK.get());
+                            entries.accept(UPItems.AUSTRO_FLASK.get());
+                            entries.accept(UPItems.BEELZ_FLASK.get());
+                            entries.accept(UPItems.BRACHI_FLASK.get());
+                            entries.accept(UPItems.ENCRUSTED_FLASK.get());
+                            entries.accept(UPItems.ERYON_FLASK.get());
+                            entries.accept(UPItems.HWACHA_FLASK.get());
+                            entries.accept(UPItems.KENTRO_FLASK.get());
+                            entries.accept(UPItems.KIMMER_FLASK.get());
+                            entries.accept(UPItems.MAJUNGA_FLASK.get());
+                            entries.accept(UPItems.PACHY_FLASK.get());
+                            entries.accept(UPItems.TRIKE_FLASK.get());
+                            entries.accept(UPItems.REX_FLASK.get());
+                            entries.accept(UPItems.ULUGH_FLASK.get());
+                            entries.accept(UPItems.RAPTOR_FLASK.get());
+
+                            // Ceno DNA
+                            entries.accept(UPItems.BARIN_FLASK.get());
+                            entries.accept(UPItems.GIGANTO_FLASK.get());
+                            entries.accept(UPItems.MAMMOTH_FLASK.get());
+                            entries.accept(UPItems.MEGALA_FLASK.get());
+                            entries.accept(UPItems.MEGATH_FLASK.get());
+                            entries.accept(UPItems.PALAEO_FLASK.get());
+                            entries.accept(UPItems.PARACER_FLASK.get());
+                            entries.accept(UPItems.SMILO_FLASK.get());
+                            entries.accept(UPItems.TALPANAS_FLASK.get());
+
+                            // Plant DNA
+
+                            entries.accept(UPItems.ANOSTYLOSTRAMA_FLASK.get());
+                            entries.accept(UPItems.ARCHAEFRUCTUS_FLASK.get());
+                            entries.accept(UPItems.ARCHAO_FLASK.get());
+                            entries.accept(UPItems.BENNET_FLASK.get());
+                            entries.accept(UPItems.CLATHRODICTYON_FLASK.get());
+                            entries.accept(UPItems.DRYO_FLASK.get());
+                            entries.accept(UPItems.FOXXI_FLASK.get());
+                            entries.accept(UPItems.GINKGO_FLASK.get());
+                            entries.accept(UPItems.HORSETAIL_FLASK.get());
+                            entries.accept(UPItems.LEEFRUCTUS_FLASK.get());
+                            entries.accept(UPItems.NELUMBITES_FLASK.get());
+                            entries.accept(UPItems.QUEREUXIA_FLASK.get());
+                            entries.accept(UPItems.RAIGUENRAYUN_FLASK.get());
+                            entries.accept(UPItems.SARR_FLASK.get());
+                            entries.accept(UPItems.ZULOAGAE_FLASK.get());
+
+                            // Paleo eggs
+                            entries.accept(UPBlocks.AMON_EGGS.get());
+                            entries.accept(UPBlocks.COTY_EGG.get());
+                            entries.accept(UPBlocks.DUNK_EGGS.get());
+                            entries.accept(UPBlocks.SCAU_EGGS.get());
+                            entries.accept(UPBlocks.STETHA_EGGS.get());
+
+                            // Meso eggs
+                            entries.accept(UPBlocks.ANTARCO_EGG.get());
+                            entries.accept(UPBlocks.ANURO_EGG.get());
+                            entries.accept(UPBlocks.AUSTRO_EGG.get());
+                            entries.accept(UPBlocks.BEELZE_EGGS.get());
+                            entries.accept(UPBlocks.BRACHI_EGG.get());
+                            entries.accept(UPBlocks.ENCRUSTED_SACK.get());
+                            entries.accept(UPBlocks.ERYON_EGGS.get());
+                            entries.accept(UPBlocks.HWACHA_EGG.get());
+                            entries.accept(UPBlocks.KENTRO_EGG.get());
+                            entries.accept(UPBlocks.KIMMER_EGGS.get());
+                            entries.accept(UPBlocks.MAJUNGA_EGG.get());
+                            entries.accept(UPBlocks.PACHY_EGG.get());
+                            entries.accept(UPBlocks.TRIKE_EGG.get());
+                            entries.accept(UPBlocks.REX_EGG.get());
+                            entries.accept(UPBlocks.ULUGH_EGG.get());
+                            entries.accept(UPBlocks.RAPTOR_EGG.get());
+
+                            // Ceno eggs & embryos
+                            entries.accept(UPBlocks.BARINA_EGG.get());
+                            entries.accept(UPItems.GIGANTO_EMBRYO.get());
+                            entries.accept(UPItems.MAMMOTH_EMBRYO.get());
+                            entries.accept(UPBlocks.MEGALA_EGG.get());
+                            entries.accept(UPItems.MEGATH_EMBRYO.get());
+                            entries.accept(UPItems.PALAEO_EMBRYO.get());
+                            entries.accept(UPItems.PARACER_EMBRYO.get());
+                            entries.accept(UPItems.SMILODON_EMBRYO.get());
+                            entries.accept(UPBlocks.TALPANAS_EGG.get());
+
+                            // Unsorted stuff
                             entries.accept(item.get());
                         }
 
@@ -49,22 +176,7 @@ public class UPTabs {
             })
             .build();
 
-//    private static final CreativeModeTab UP_EGGS = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 9)
-//            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-//            .title(Component.translatable("itemGroup.unusual_prehistory_eggs"))
-//            .icon(() -> new ItemStack(UPItems.MAJUNGA_EGG.get()))
-//            .displayItems((d, entries) ->{
-//                UPItems.ITEMS.getEntries().forEach(i ->{
-//                    if((i.get() instanceof ForgeSpawnEggItem)) {
-//                        entries.accept(i.get());
-//                    }
-//                });
-//
-//            })
-//            .build();
-
     public static final RegistryObject<CreativeModeTab> UP_TAB = TABS.register("unusual_prehistory", () -> UP);
-//    public static final RegistryObject<CreativeModeTab> UP_EGG_TAB = TABS.register("unusual_prehistory_egg", () -> UP_EGGS);
 
 
     private static void generateInstrumentTypes(CreativeModeTab.Output pOutput, HolderLookup<Instrument> pInstruments, Item pItem, TagKey<Instrument> pInstrument, CreativeModeTab.TabVisibility pTabVisibility) {
