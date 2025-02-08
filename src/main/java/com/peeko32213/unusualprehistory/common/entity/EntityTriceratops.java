@@ -155,6 +155,11 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         return UPSounds.TRIKE_DEATH.get();
     }
 
+    @Override
+    public float getSoundVolume() {
+        return 0.75F;
+    }
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
