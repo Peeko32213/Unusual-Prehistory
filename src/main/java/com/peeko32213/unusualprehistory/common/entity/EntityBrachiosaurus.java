@@ -118,8 +118,8 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         });
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, Ingredient.of(Items.MELON), false));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, Ingredient.of(Items.MELON), false));
+        this.goalSelector.addGoal(4, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
@@ -410,7 +410,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 float brachiMoveSoundVolume= UnusualPrehistoryConfig.BRACHI_SOUND_VOLUME.get();
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                    if ((e instanceof Player)) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiShakeAmp, false, false, false));
                         this.playSound(UPSounds.BRACHI_STEP.get(), brachiMoveSoundVolume, 0.40F);
                     }
@@ -805,7 +805,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                    if (e instanceof Player) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 6, false, false, false));
                         this.mob.playSound(UPSounds.BRACHI_STEP.get(), 2F, 0.4F);
                     }

@@ -109,7 +109,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
                 float brachiMoveSoundVolume = UnusualPrehistoryConfig.BRACHI_SOUND_VOLUME.get();
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityParaceratherium) && e.isAlive()) {
+                    if (e instanceof Player) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiShakeAmp, false, false, false));
                         this.playSound(UPSounds.BRACHI_STEP.get(), brachiMoveSoundVolume, 0.40F);
                     }
@@ -431,7 +431,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                    if (e instanceof Player) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 6, false, false, false));
                         this.mob.playSound(UPSounds.PARACER_STOMP.get(), 2F, 0.4F);
                     }

@@ -48,28 +48,12 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .addTag(BlockTags.WOODEN_STAIRS)
                 .addTag(BlockTags.WOODEN_SLABS)
                 .addTag(BlockTags.WOOL)
-                .addTag(BlockTags.CROPS)
-                .addTag(BlockTags.FLOWERS)
                 .add(Blocks.LILY_PAD)
                 .add(Blocks.CACTUS)
-                .add(Blocks.BAMBOO)
-                .add(Blocks.GRASS)
-                .add(Blocks.FERN)
-                .add(Blocks.LARGE_FERN)
-                .add(Blocks.TALL_GRASS);
+                .add(Blocks.BAMBOO);
 
         tag(UPTags.PASSIVE_BRACHI_BREAKABLES)
-                .addTag(BlockTags.LEAVES)
-                .addTag(BlockTags.PLANKS)
-                .addTag(BlockTags.CROPS)
-                .addTag(BlockTags.FLOWERS)
-                .add(Blocks.LILY_PAD)
-                .add(Blocks.CACTUS)
-                .add(Blocks.BAMBOO)
-                .add(Blocks.GRASS)
-                .add(Blocks.FERN)
-                .add(Blocks.LARGE_FERN)
-                .add(Blocks.TALL_GRASS);
+                ;
 
         tag(UPTags.REX_BREAKABLES)
                 .addTag(BlockTags.LEAVES)
@@ -78,15 +62,9 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .addTag(BlockTags.WOODEN_STAIRS)
                 .addTag(BlockTags.WOODEN_SLABS)
                 .addTag(BlockTags.WOOL)
-                .addTag(BlockTags.CROPS)
-                .addTag(BlockTags.FLOWERS)
                 .add(Blocks.LILY_PAD)
                 .add(Blocks.CACTUS)
-                .add(Blocks.BAMBOO)
-                .add(Blocks.GRASS)
-                .add(Blocks.FERN)
-                .add(Blocks.LARGE_FERN)
-                .add(Blocks.TALL_GRASS);
+                .add(Blocks.BAMBOO);
 
         tag(UPTags.TRIKE_BREAKABLES)
                 .addTag(BlockTags.LEAVES)
@@ -107,15 +85,19 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .addTag(BlockTags.DIRT)
                 .addTag(BlockTags.SAND)
                 .add(Blocks.SNOW)
+                .add(Blocks.GRASS)
+                .add(Blocks.TALL_GRASS)
+                .add(Blocks.DEAD_BUSH)
+                .add(Blocks.SNOW_BLOCK)
+                .add(Blocks.SNOW_BLOCK)
                 .add(Blocks.SNOW_BLOCK)
                 .add(Blocks.POWDER_SNOW);
 
         tag(UPTags.ERYON_DIGGABLES)
-                .add(Blocks.SAND);
+                .addTag(BlockTags.SAND);
 
         tag(UPTags.TALPANAS_DIGGABLES)
                 .add(Blocks.ROOTED_DIRT);
-
 
         tag(UPTags.DINO_HATCHABLE_BLOCKS)
                 .addTag(BlockTags.SAND)

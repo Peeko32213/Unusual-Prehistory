@@ -307,7 +307,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                 float rexMoveSoundVolume= UnusualPrehistoryConfig.REX_SOUND_VOLUME.get();
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(rexShakeRange));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityTyrannosaurusRex) && e.isAlive()) {
+                    if (e instanceof Player) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, rexShakeAmp, false, false, false));
                         this.playSound(UPSounds.REX_STEP.get(), rexMoveSoundVolume, 0.70F);
                     }
@@ -631,7 +631,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(rexShakeRange));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityTyrannosaurusRex) && e.isAlive()) {
+                    if (e instanceof Player) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, 3, false, false, false));
                     }
                 }

@@ -56,7 +56,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     private static final RawAnimation MEGATHERIUM_WALK = RawAnimation.begin().thenLoop("animation.megatherium.move");
     private static final RawAnimation MEGATHERIUM_IDLE = RawAnimation.begin().thenLoop("animation.megatherium.idle");
-    private static final RawAnimation MEGATHERIUM_DIG = RawAnimation.begin().thenLoop("animation.megatherium.digging");
+    private static final RawAnimation MEGATHERIUM_DIG = RawAnimation.begin().thenPlay("animation.megatherium.digging");
     private static final RawAnimation MEGATHERIUM_SIT = RawAnimation.begin().thenLoop("animation.megatherium.sitting");
     private static final RawAnimation MEGATHERIUM_SWIM = RawAnimation.begin().thenLoop("animation.megatherium.swim");
     private static final RawAnimation MEGATHERIUM_EAT = RawAnimation.begin().thenLoop("animation.megatherium.eating");
@@ -233,24 +233,17 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     @Override
     public void performAttack() {
+        float angle = (0.01745329251F * this.yBodyRot);
+        double radius = this.getBbWidth() + 1;
+        double extraX = radius * Mth.sin((float) (Math.PI + angle));
+        double extraZ = radius * Mth.cos(angle);
+        BlockPos targetPos = BlockPos.containing(this.getX() + extraX, this.getY(), this.getZ() + extraZ);
         if (!this.level().isClientSide) {
             this.setSwinging(true);
             ServerLevel serverLevel = (ServerLevel) this.level();
-            float angle = (0.01745329251F * this.yBodyRot);
-            double radius = this.getBbWidth() + 1;
-            double extraX = radius * Mth.sin((float) (Math.PI + angle));
-            double extraZ = radius * Mth.cos(angle);
-            BlockPos targetPos = BlockPos.containing(this.getX() + extraX, this.getY(), this.getZ() + extraZ);
-            if (((Player) this.getControllingPassenger()).getItemInHand(InteractionHand.MAIN_HAND).is(Items.WOODEN_SHOVEL)) {
-                targetPos = targetPos.offset(0, -1, 0);
-            }
-            if (((Player) this.getControllingPassenger()).getItemInHand(InteractionHand.MAIN_HAND).is(Items.IRON_SHOVEL)) {
-                targetPos = targetPos.offset(0, 1, 0);
-            }
-
-            for (int x = -2; x < 2; x++) {
-                for (int z = -2; z < 2; z++) {
-                    for (int y = 0; y < 5; y++) {
+            for (int x = -3; x < 3; x++) {
+                for (int z = -3; z < 3; z++) {
+                    for (int y = 0; y < 6; y++) {
                         if (serverLevel.getBlockState(targetPos.offset(x, y, z)).is(UPTags.MEGATHERIUM_MINEABLES))
                             serverLevel.destroyBlock(targetPos.offset(x, y, z), true);
                     }
@@ -451,9 +444,10 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     protected <E extends EntityMegatherium> PlayState digController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationController.State.STOPPED) && !this.isInSittingPose()) {
+        if (this.isSwinging() && !event.getController().getAnimationState().equals(AnimationController.State.STOPPED) && !this.isInSittingPose()) {
             event.getController().forceAnimationReset();
             event.setAndContinue(MEGATHERIUM_DIG);
+            return PlayState.STOP;
         }
         return PlayState.CONTINUE;
     }

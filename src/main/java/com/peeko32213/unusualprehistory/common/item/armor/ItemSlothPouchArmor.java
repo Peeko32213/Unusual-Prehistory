@@ -127,7 +127,12 @@ public class ItemSlothPouchArmor extends ArmorItem implements GeoItem {
             if (tag.getBoolean("tamed")) {
                 MutableComponent component = Component.translatable("unusualprehistory.megatherium_baby.tame_tooltip", tag.getBoolean("tamed")).withStyle(ChatFormatting.GRAY);
                 pTooltipComponents.add(component);
-            } else {
+            }
+            else if (minutesLeft == 1 && !tag.getBoolean("tamed")) {
+                MutableComponent component = Component.translatable("unusualprehistory.megatherium_baby.minute_tooltip", minutesLeft).withStyle(ChatFormatting.GRAY);
+                pTooltipComponents.add(component);
+            }
+            else if (!tag.getBoolean("tamed")) {
                 MutableComponent component = Component.translatable("unusualprehistory.megatherium_baby.minutes_tooltip", minutesLeft).withStyle(ChatFormatting.GRAY);
                 pTooltipComponents.add(component);
             }

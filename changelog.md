@@ -14,6 +14,10 @@
 - Meaty buffet stacks to 16 instead of 64
 - Triceratops no longer eat a full stack of ginkgo berries at once
 - Triceratops can take more than one ginkgo berry to tame
+- Screen shake only gets applied to players
+- Mobs no longer break blocks unless they are angry, the tags remain for those who want passive block breaking
+- Angry mobs no longer break blocks without collision like grass
+- Eryon can dig in any block that has the sand tag
 - Misc stuff
 
 to do:

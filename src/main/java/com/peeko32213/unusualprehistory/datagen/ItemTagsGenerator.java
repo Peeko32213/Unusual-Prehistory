@@ -92,7 +92,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .addTag(UPTags.FOSSILS)
                 .addTag(UPTags.PETRIFIED_WOOD);
 
-
         tag(UPTags.KENTRO_FOOD)
                 .add(UPBlocks.HORSETAIL.get().asItem());
 

@@ -334,7 +334,7 @@ public class EntityBrachiosaurusTeen extends EntityBaseDinosaurAnimal {
                 float brachiTeenMoveSoundVolume= UnusualPrehistoryConfig.BRACHI_TEEN_SOUND_VOLUME.get();
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiTeenShakeRange));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                    if (e instanceof Player) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiTeenShakeAmp, false, false, false));
                         this.playSound(UPSounds.BRACHI_STEP.get(), brachiTeenMoveSoundVolume, 0.40F);
                     }
@@ -703,7 +703,7 @@ public class EntityBrachiosaurusTeen extends EntityBaseDinosaurAnimal {
             if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(15, 8, 15));
                 for (LivingEntity e : list) {
-                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                    if (e instanceof Player) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 1, false, false, false));
                         this.mob.playSound(UPSounds.BRACHI_STEP.get(), 1.9F, 1.9F);
                     }
@@ -711,7 +711,6 @@ public class EntityBrachiosaurusTeen extends EntityBaseDinosaurAnimal {
                 this.mob.shakeCooldown = 10;
             }
         }
-
 
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 0;
