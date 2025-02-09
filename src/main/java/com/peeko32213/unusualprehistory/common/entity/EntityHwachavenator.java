@@ -98,12 +98,12 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
 
     protected void registerGoals() {
         super.registerGoals();
-        if(!this.hasControllingPassenger() && !this.isOrderedToSit() && !this.isInWater()) {
-            this.goalSelector.addGoal(0, new RangedAttackGoal(this, 0D, 1, 16.0F));
+        if(!this.hasControllingPassenger()) {
+            this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0D, 1, 16.0F));
         }
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new CustomRideGoal(this, 3D));
         this.goalSelector.addGoal(4, new BabyPanicGoal(this, 2.0D));
@@ -347,14 +347,14 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
             soundTimer--;
         }
 
-       if (this.isShooting() && shootProgress < 50 && !this.hasControllingPassenger()) {
+       if (this.isShooting() && shootProgress < 50 && !this.hasControllingPassenger() && !this.isInWater() && !this.isSwimming()) {
            this.spit(this.getTarget());
            this.getNavigation().stop();
            shootProgress += 1;
            return;
        }
 
-       if (this.isShooting() && shootProgress < 50 && this.hasControllingPassenger()) {
+       if (this.isShooting() && shootProgress < 50 && this.hasControllingPassenger() && !this.isInWater() && !this.isSwimming()) {
            this.spitNoTarget();
            this.getNavigation().stop();
            shootProgress += 1;
@@ -663,7 +663,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
     }
 
     public void performRangedAttack(LivingEntity p_30762_, float p_30763_) {
-        if(!this.hasControllingPassenger()) {
+        if(!this.hasControllingPassenger() && !this.isInWater() && !this.isSwimming() && !this.isInSittingPose()) {
             this.setIsShooting(true);
         }
     }
@@ -683,7 +683,7 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
                 return PlayState.CONTINUE;
             }
         }
-        if (isShooting() && !this.isInSittingPose()) {
+        if (isShooting() && !this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
             event.setAndContinue(HWACHA_TURRET_FIRE);
             return PlayState.CONTINUE;
         }

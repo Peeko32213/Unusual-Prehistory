@@ -3,7 +3,16 @@
     "#minecraft:leaves",
     "#minecraft:dirt",
     "#minecraft:sand",
+    "#minecraft:planks",
+    "#minecraft:logs",
+    "#minecraft:wooden_stairs",
+    "#minecraft:wooden_slabs",
     "minecraft:snow",
+    "minecraft:grass",
+    "minecraft:tall_grass",
+    "minecraft:dead_bush",
+    "minecraft:snow_block",
+    "minecraft:snow_block",
     "minecraft:snow_block",
     "minecraft:powder_snow"
   ]

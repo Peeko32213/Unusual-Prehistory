@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-08T21:28:50.7131723	unusualprehistory Block Tags
+// 1.20.1	2025-02-09T10:46:09.9138679	unusualprehistory Block Tags
 1bdb6f062024d7ca0d614a46e7f230bf6a9ba463 data/minecraft/tags/blocks/buttons.json
 6830c7f7a234c9fe6a51d401d4b4d74f297c7a35 data/minecraft/tags/blocks/coral_plants.json
 13a3a20a21c195285c271b3970cbd9643e99c466 data/minecraft/tags/blocks/fences.json
@@ -28,7 +28,7 @@ fc2e77c51219a889dc4969c1983614358a8301c7 data/minecraft/tags/blocks/tall_flowers
 5c33505e4006139d172985356b79c88f69f92e0b data/unusualprehistory/tags/blocks/dino_natural_spawnable.json
 c1b2a217bb3fcb7e1d67f5bc45409796720bd171 data/unusualprehistory/tags/blocks/eryon_diggables.json
 a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/unusualprehistory/tags/blocks/megatherium_breakables.json
-60ffe446f854d762d327c8e991ce759d3ab053e1 data/unusualprehistory/tags/blocks/megatherium_mineables.json
+d744c80e92d656276c8012a1ad57e78a3f01fa97 data/unusualprehistory/tags/blocks/megatherium_mineables.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/unusualprehistory/tags/blocks/passive_brachi_breakables.json
 74cce9cd22612b5ff95a8f71b7abde2f853bed21 data/unusualprehistory/tags/blocks/rex_breakables.json
 d151bd3bdf63b9b9019d27f177f7f5c7f9c357b7 data/unusualprehistory/tags/blocks/talpanas_diggables.json

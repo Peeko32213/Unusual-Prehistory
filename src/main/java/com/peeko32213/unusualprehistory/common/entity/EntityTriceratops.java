@@ -62,7 +62,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     private EatBlockGoal eatBlockGoal;
     private int eatAnimationTick;
     public int riderAttackCooldown = 0;
-    public float prevSitProgress;
     public float sitProgress;
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EntityTriceratops.class, EntityDataSerializers.BOOLEAN);
@@ -305,7 +304,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
             sitProgress++;
         }
         if (!this.isOrderedToSit() && sitProgress > 0F) {
-
             sitProgress--;
         }
         if (this.getCommand() == 2 && !this.isVehicle()) {

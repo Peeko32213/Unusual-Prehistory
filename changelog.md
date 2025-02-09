@@ -8,8 +8,7 @@
 - Saddling and shearing saddles now has sounds
 - Taming now has sounds and particles
 - Lowered hwachavenator shooting range while not being controlled so they get stuck shooting less often
-- Hwachas stops shooting things when sitting
-- Lowered hwacha shooting goal priority
+- Hwachas stops shooting things when sitting or in water
 - Mammoth meatball stacks to 16 instead of 8
 - Meaty buffet stacks to 16 instead of 64
 - Triceratops no longer eat a full stack of ginkgo berries at once
@@ -18,6 +17,9 @@
 - Mobs no longer break blocks unless they are angry, the tags remain for those who want passive block breaking
 - Angry mobs no longer break blocks without collision like grass
 - Eryon can dig in any block that has the sand tag
+- Megatherium now digs a 6x6x6 square in front of it instead of trying to dig a cube, it should feel much more responsive now
+- Megatherium can break wood
+- Lowered megatherium dig cooldown
 - Misc stuff
 
 to do:
@@ -35,3 +37,4 @@ to do:
 - change some tame items and such to tags
 - remove a bunch of entities from target tags to make park building easier
 - change meaty buffet bowl drops and some others to give the bowl to the player instead
+- add more adorned staff interactions (pacifying, etc)

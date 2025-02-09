@@ -53,10 +53,11 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.INT);
     private Ingredient temptationItems;
     private int eatingTime;
+    public float sitProgress;
 
     private static final RawAnimation MEGATHERIUM_WALK = RawAnimation.begin().thenLoop("animation.megatherium.move");
     private static final RawAnimation MEGATHERIUM_IDLE = RawAnimation.begin().thenLoop("animation.megatherium.idle");
-    private static final RawAnimation MEGATHERIUM_DIG = RawAnimation.begin().thenPlay("animation.megatherium.digging");
+    private static final RawAnimation MEGATHERIUM_DIG = RawAnimation.begin().thenLoop("animation.megatherium.digging");
     private static final RawAnimation MEGATHERIUM_SIT = RawAnimation.begin().thenLoop("animation.megatherium.sitting");
     private static final RawAnimation MEGATHERIUM_SWIM = RawAnimation.begin().thenLoop("animation.megatherium.swim");
     private static final RawAnimation MEGATHERIUM_EAT = RawAnimation.begin().thenLoop("animation.megatherium.eating");
@@ -65,7 +66,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         super(entityType, level);
     }
     private int attackCooldown;
-    public static final int ATTACK_COOLDOWN = 30;
+    public static final int ATTACK_COOLDOWN = 15;
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
@@ -79,13 +80,13 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(1, new EatLeavesGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 2D));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
@@ -148,6 +149,18 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
                 eatingTime = 0;
             }
         }
+
+        if (this.isOrderedToSit() && sitProgress < 5F) {
+            sitProgress++;
+        }
+        if (!this.isOrderedToSit() && sitProgress > 0F) {
+            sitProgress--;
+        }
+        if (this.getCommand() == 2 && !this.isVehicle()) {
+            this.setOrderedToSit(true);
+        } else {
+            this.setOrderedToSit(false);
+        }
     }
 
 
@@ -156,11 +169,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-        if (!this.isInSittingPose()) {
-            pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
-            return;
-        }
-        pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() - 1.0, this.getZ() - (double) (0.5F * yCos));
+        pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
     }
 
     //TODO add getPassengersRidingOffset to base class so we dont have to do all this again
@@ -174,48 +183,70 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     //TODO add mobinteract to base class so we dont have to do all this again
-    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        if (hand == InteractionHand.MAIN_HAND && !this.level().isClientSide) {
-            if (isTame() && isOwnedBy(player)) {
-                if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                    if (!player.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
+        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
+        if (isFood(itemstack) && !isTame()) {
 
-                    this.heal((float) itemstack.getFoodProperties(this).getNutrition());
-                    this.gameEvent(GameEvent.EAT, this);
-                } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
-                    this.usePlayerItem(player, hand, itemstack);
-                    this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
-                    this.setSaddled(true);
-                } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
-                    this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
-                    this.setSaddled(false);
-                    this.spawnAtLocation(Items.SADDLE);
-                } else {
-                    if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && !this.isInSittingPose()) {
+            this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+            this.level().broadcastEntityEvent(this, (byte) 6);
+
+            if(random.nextBoolean()) {
+                this.tame(player);
+                this.level().broadcastEntityEvent(this, (byte) 7);
+            }
+            itemstack.shrink(1);
+
+            return InteractionResult.SUCCESS;
+        }
+        if (isTame() && isOwnedBy(player)) {
+            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                if(!this.level().isClientSide) {
+                    this.heal(6);
+                }
+                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                this.level().broadcastEntityEvent(this, (byte) 7);
+                this.gameEvent(GameEvent.EAT, this);
+                return InteractionResult.SUCCESS;
+            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
+                this.usePlayerItem(player, hand, itemstack);
+                this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
+                this.setSaddled(true);
+                return InteractionResult.SUCCESS;
+            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+                this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
+                this.setSaddled(false);
+                this.spawnAtLocation(Items.SADDLE);
+                return InteractionResult.SUCCESS;
+            } else {
+                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
+                    if(!this.level().isClientSide) {
                         player.startRiding(this);
-                    } else {
-                        this.setCommand((this.getCommand() + 1) % 3);
+                    }
+                    return InteractionResult.SUCCESS;
+                } else {
+                    this.setCommand((this.getCommand() + 1) % 3);
 
-                        if (this.getCommand() == 3) {
-                            this.setCommand(0);
-                        }
-                        player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
-                        boolean sit = this.getCommand() == 2;
-                        if (sit) {
-                            this.setOrderedToSit(true);
-                        } else {
-                            this.setOrderedToSit(false);
-                        }
+                    if (this.getCommand() == 3) {
+                        this.setCommand(0);
+                    }
+                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
+                    boolean sit = this.getCommand() == 2;
+                    if (sit) {
+                        this.setOrderedToSit(true);
+                        return InteractionResult.SUCCESS;
+                    } else {
+                        this.setOrderedToSit(false);
+                        return InteractionResult.SUCCESS;
                     }
                 }
             }
+
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResult.PASS;
     }
 
     public int getCommand() {
@@ -233,11 +264,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     @Override
     public void performAttack() {
-        float angle = (0.01745329251F * this.yBodyRot);
-        double radius = this.getBbWidth() + 1;
-        double extraX = radius * Mth.sin((float) (Math.PI + angle));
-        double extraZ = radius * Mth.cos(angle);
-        BlockPos targetPos = BlockPos.containing(this.getX() + extraX, this.getY(), this.getZ() + extraZ);
+        BlockPos targetPos = BlockPos.containing(this.getX(), this.getY(), this.getZ());
         if (!this.level().isClientSide) {
             this.setSwinging(true);
             ServerLevel serverLevel = (ServerLevel) this.level();
@@ -275,7 +302,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     @Override
     public float getStepHeight() {
-        return 1.2F;
+        return 1.25F;
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
@@ -419,19 +446,20 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
             event.setAndContinue(MEGATHERIUM_WALK);
             return PlayState.CONTINUE;
         }
-        if (this.isInWater()) {
+        if (this.isInWater() || this.isSwimming()) {
             event.setAndContinue(MEGATHERIUM_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
+        if (this.isInSittingPose()) {
             event.setAndContinue(MEGATHERIUM_SIT);
+            event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
-        } else if (!this.isInWater() && !this.isSwimming()){
-            event.setAndContinue(MEGATHERIUM_IDLE);
         }
-        return PlayState.CONTINUE;
 
+        event.setAndContinue(MEGATHERIUM_IDLE);
+        event.getController().setAnimationSpeed(1.0F);
+        return PlayState.CONTINUE;
     }
 
     protected <E extends EntityMegatherium> PlayState eatController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -444,10 +472,9 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     protected <E extends EntityMegatherium> PlayState digController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.isSwinging() && !event.getController().getAnimationState().equals(AnimationController.State.STOPPED) && !this.isInSittingPose()) {
+        if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationController.State.STOPPED) && !this.isInSittingPose()) {
             event.getController().forceAnimationReset();
             event.setAndContinue(MEGATHERIUM_DIG);
-            return PlayState.STOP;
         }
         return PlayState.CONTINUE;
     }
@@ -456,7 +483,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Eat", 5, this::eatController));
-        controllers.add(new AnimationController<>(this, "Digging", 2, this::digController));
+        controllers.add(new AnimationController<>(this, "Digging", 0, this::digController));
     }
 
     @Override
