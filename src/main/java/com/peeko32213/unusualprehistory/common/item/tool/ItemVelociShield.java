@@ -34,7 +34,6 @@ public class ItemVelociShield extends ShieldItem  implements GeoItem {
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSE_ITEM_BEHAVIOR);
     }
 
-
     public UseAnim getUseAnimation(ItemStack p_77661_1_) {
         return UseAnim.BLOCK;
     }
@@ -64,7 +63,6 @@ public class ItemVelociShield extends ShieldItem  implements GeoItem {
         });
         return super.use(level, livingEntityIn, hand);
     }
-
 
     public boolean isValidRepairItem(ItemStack p_82789_1_, ItemStack p_82789_2_) {
         return UPItems.AMBER_SHARDS.get() == p_82789_2_.getItem() || super.isValidRepairItem(p_82789_1_, p_82789_2_);

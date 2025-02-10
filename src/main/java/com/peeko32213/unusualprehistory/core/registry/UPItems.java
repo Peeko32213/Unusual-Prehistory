@@ -290,7 +290,7 @@ public class UPItems {
             () -> new ItemPrimalMacuahuitl(UPItemTiers.SHELL, 6, -1.8F));
 
     public static final RegistryObject<Item> HANDMADE_SPEAR = ITEMS.register("handmade_spear",
-            () -> new ItemHandmadeSpear(UPItemTiers.HANDMADE, 3, -1.5F));
+            () -> new ItemHandmadeSpear(UPItemTiers.HANDMADE, 0, -2.4F));
 
     public static final RegistryObject<Item> HANDMADE_BATTLEAXE = ITEMS.register("handmade_battleaxe",
             () -> new ItemHandmadeBattleaxe(UPItemTiers.HANDMADE, 5, -1.9F));

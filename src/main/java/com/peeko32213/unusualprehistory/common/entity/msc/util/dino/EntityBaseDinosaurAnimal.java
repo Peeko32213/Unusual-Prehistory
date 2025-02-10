@@ -484,7 +484,6 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
         return spawnGroupData;
     }
 
-
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
@@ -503,7 +502,6 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
             super.makeStuckInBlock(blockstate, vec3);
         }
     }
-
 
     protected PathNavigation createNavigation(Level level) {
         if(hasCustomNavigation()){

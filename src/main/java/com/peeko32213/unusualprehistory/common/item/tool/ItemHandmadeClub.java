@@ -45,21 +45,21 @@ public class ItemHandmadeClub extends SwordItem implements GeoItem {
         );
     }
 
-    @Override
-    public InteractionResult useOn(UseOnContext pContext) {
-        Level pLevel = pContext.getLevel();
-        if(pLevel.isClientSide) return InteractionResult.FAIL;
-        BlockPos pos = pContext.getClickedPos();
-        BlockState state = pLevel.getBlockState(pos);
-        ServerLevel level = (ServerLevel) pLevel;
-        if(state.is(Blocks.BEDROCK) || !state.is(UPTags.CLUB_WHITELIST_BLOCKS)) return InteractionResult.FAIL;
-        ThrowableFallingBlockEntity fallingBlockEntity = ThrowableFallingBlockEntity.fall(level, pos,state);
-        Vec3 vec3 = new Vec3(0,1,0);
-        Vec3 vec31 = vec3.normalize();
-        fallingBlockEntity.setDeltaMovement(vec31);
-        fallingBlockEntity.setHurtsEntities(1, 10);
-        return super.useOn(pContext);
-    }
+//    @Override
+//    public InteractionResult useOn(UseOnContext pContext) {
+//        Level pLevel = pContext.getLevel();
+//        if(pLevel.isClientSide) return InteractionResult.FAIL;
+//        BlockPos pos = pContext.getClickedPos();
+//        BlockState state = pLevel.getBlockState(pos);
+//        ServerLevel level = (ServerLevel) pLevel;
+//        if(state.is(Blocks.BEDROCK) || !state.is(UPTags.CLUB_WHITELIST_BLOCKS)) return InteractionResult.FAIL;
+//        ThrowableFallingBlockEntity fallingBlockEntity = ThrowableFallingBlockEntity.fall(level, pos,state);
+//        Vec3 vec3 = new Vec3(0,1,0);
+//        Vec3 vec31 = vec3.normalize();
+//        fallingBlockEntity.setDeltaMovement(vec31);
+//        fallingBlockEntity.setHurtsEntities(1, 10);
+//        return super.useOn(pContext);
+//    }
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
@@ -94,7 +94,6 @@ public class ItemHandmadeClub extends SwordItem implements GeoItem {
         controllerRegistrar.add(new AnimationController<>(this, "controller", state -> PlayState.CONTINUE)
                 .triggerableAnim("animation.handmade_club.idle", DefaultAnimations.IDLE));
     }
-
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

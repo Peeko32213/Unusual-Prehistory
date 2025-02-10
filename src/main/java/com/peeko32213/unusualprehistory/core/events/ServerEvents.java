@@ -187,6 +187,194 @@ public class ServerEvents {
     }
 
     @SubscribeEvent
+    public static void renderMegalaniaPoisonToolTip(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+        if(!stack.hasTag()) return;
+        CompoundTag tag = stack.getTag();
+        if(tag == null || !tag.contains("megalania_damage")) return;
+        int amount = tag.getInt("megalania_damage");
+        MutableComponent component = Component.translatable("unusualprehistory.megalania_damage", amount).withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.ITALIC);
+        List<Component> toolTip = event.getToolTip();
+        event.getToolTip().add(component);
+    }
+
+    @SubscribeEvent
+    //cant be canceled
+    public void preventClick(LivingDeathEvent event) {
+        if (event.getSource().getEntity() instanceof EntityDunkleosteus dunkleosteus) {
+            dunkleosteus.killed();
+        }
+
+        if (event.getSource().getEntity() instanceof EntityBaseDinosaurAnimal dinosaurAnimal) {
+            dinosaurAnimal.killed();
+        }
+
+        if (event.getSource().getEntity() instanceof EntityTameableBaseDinosaurAnimal dinosaurAnimal) {
+            dinosaurAnimal.killed();
+        }
+
+        if (event.getSource().getEntity() instanceof EntityHwachavenator dinosaurAnimal) {
+            dinosaurAnimal.killed();
+        }
+    }
+
+    @SubscribeEvent
+    //cant be canceled
+    public void axeOneHitWoodDestroy(PlayerInteractEvent.LeftClickBlock event) {
+        if(event.getEntity() != null && !event.getLevel().isClientSide){
+            Player player = event.getEntity();
+            ServerLevel serverLevel = (ServerLevel) event.getLevel();
+            ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
+            if(!itemStack.is(UPItems.HANDMADE_BATTLEAXE.get())) return;
+            BlockPos pos = event.getPos();
+            BlockState state = serverLevel.getBlockState(pos);
+            RandomSource randomSource = serverLevel.random;
+            boolean giveDrops = randomSource.nextInt(100) < 10;
+            if(state.is(BlockTags.MINEABLE_WITH_AXE))
+            {
+                if(!giveDrops){
+                    serverLevel.destroyBlock(pos, false);
+                } else {
+                    serverLevel.destroyBlock(pos, true);
+                }
+
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void clubExtraDamage(LivingDamageEvent event) {
+        if (event.getSource().getEntity() instanceof LivingEntity living) {
+            ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
+            if(!itemStack.is(UPItems.HANDMADE_CLUB.get())) return;
+            float extraDamageMultp = 1 - living.getArmorCoverPercentage();
+            float damage = event.getAmount();
+            damage *= extraDamageMultp;
+            event.setAmount(damage);
+        }
+    }
+
+//    @SubscribeEvent
+//    //cant be canceled
+//    public void spearThrust(LivingDamageEvent event) {
+//        if(event.getSource().getEntity() instanceof LivingEntity living){
+////            Player player = event.getEntity();
+//            ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
+//            if(!itemStack.is(UPItems.HANDMADE_SPEAR.get())) return;
+////            if(living.getCooldowns().isOnCooldown(itemStack.getItem())) return;
+////            Vec3 vec3 = living.getDeltaMovement();
+//            Vec3 vec32 = new Vec3(3,30,3).multiply(living.getDeltaMovement());
+//            living.setDeltaMovement(vec32);
+//            living.hurtMarked = true;
+//            //player.invulnerableTime = 10;
+////            player.getCooldowns().addCooldown(itemStack.getItem(), 60);
+//        }
+//    }
+
+//    @SubscribeEvent
+//    public void spearThrust(LivingEntity attacker, Entity entity, ItemStack itemStack) {
+//        if (!itemStack.is(UPItems.HANDMADE_SPEAR.get())) return;
+//        if(entity instanceof LivingEntity target) {
+//            target.setOnGround(false);
+//            target.push(0, 3, 0);
+//        }
+//    }
+
+//    @SubscribeEvent
+//    public void spearThrust(LivingDamageEvent event) {
+//        if(event.getSource().getEntity() instanceof LivingEntity living) {
+//            ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
+//            if (!itemStack.is(UPItems.HANDMADE_SPEAR.get())) return;
+//            living.setOnGround(false);
+//            living.push(0, 3 * (1.0D - living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)), 0);
+//        }
+//    }
+
+//    @SubscribeEvent
+//    //cant be canceled
+//    public void spearFallDamageAttack(TickEvent.PlayerTickEvent event) {
+//        if(event.phase == TickEvent.Phase.START || event.player.level().isClientSide) return;
+//        if(event.player instanceof ServerPlayer serverPlayer){
+//            ServerLevel serverLevel = (ServerLevel) serverPlayer.level();
+//            ItemStack itemStack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+//            if(!itemStack.is(UPItems.HANDMADE_SPEAR.get()) || (serverPlayer.fallDistance < 4)) return;
+//            if(serverPlayer.getCooldowns().isOnCooldown(itemStack.getItem())) return;
+//            BlockPos blockPos = serverPlayer.getOnPos();
+//            if(!serverLevel.getBlockState(blockPos).isAir()){
+//                RandomSource randomSource = serverLevel.random;
+//                serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 50, randomSource.nextGaussian() * 1, 0.1, randomSource.nextGaussian() * 1, 0.2 );
+//
+//                List<LivingEntity> entities = serverLevel.getEntitiesOfClass(LivingEntity.class, serverPlayer.getBoundingBox().inflate(4), (e) -> !(e.is(serverPlayer)));
+//                for(LivingEntity entity : entities)
+//                {
+//                    entity.hurt(serverPlayer.damageSources().mobAttack(serverPlayer), serverPlayer.fallDistance);
+//                }
+//            }
+//
+//        }
+//    }
+
+    //@SubscribeEvent
+    //public void removeCachedBlock(BlockEvent.BreakEvent event) {
+    //    if(DinosaurLandEgg.cachedPos.containsKey(event.getPos())) {
+    //        DinosaurLandEgg.cachedPos.remove(event.getPos());
+    //    }
+    //}
+
+    @SubscribeEvent
+    //cant be canceled
+    public void preventClick(PlayerInteractEvent.LeftClickEmpty event) {
+        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void preventClick(PlayerInteractEvent.LeftClickBlock event) {
+        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void preventClick(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    //cant be canceled
+    public void preventClick(PlayerInteractEvent.RightClickEmpty event) {
+        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void preventClick(PlayerInteractEvent.RightClickItem event) {
+        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void preventInteract(PlayerInteractEvent.EntityInteract event) {
+        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void preventDamage(AttackEntityEvent event) {
+        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    // Unfinished piss and rabies
+
+    @SubscribeEvent
     //cant be canceled
     public void jarateFacilitatorEvent(LivingEvent.LivingTickEvent event) {
         Entity titty = event.getEntity();
@@ -298,176 +486,6 @@ public class ServerEvents {
             if (arring[i].getGoal() instanceof RabiesHuntGoal) {
                 titty.goalSelector.removeGoal(arring[i].getGoal());
             }
-        }
-    }
-
-    @SubscribeEvent
-    public static void renderMegalaniaPoisonToolTip(ItemTooltipEvent event) {
-        ItemStack stack = event.getItemStack();
-        if(!stack.hasTag()) return;
-        CompoundTag tag = stack.getTag();
-        if(tag == null || !tag.contains("megalania_damage")) return;
-        int amount = tag.getInt("megalania_damage");
-        MutableComponent component = Component.translatable("unusualprehistory.megalania_damage", amount).withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.ITALIC);
-        List<Component> toolTip = event.getToolTip();
-        event.getToolTip().add(component);
-    }
-
-
-    @SubscribeEvent
-    //cant be canceled
-    public void preventClick(LivingDeathEvent event) {
-        if (event.getSource().getEntity() instanceof EntityDunkleosteus dunkleosteus) {
-            dunkleosteus.killed();
-        }
-
-        if (event.getSource().getEntity() instanceof EntityBaseDinosaurAnimal dinosaurAnimal) {
-            dinosaurAnimal.killed();
-        }
-
-        if (event.getSource().getEntity() instanceof EntityTameableBaseDinosaurAnimal dinosaurAnimal) {
-            dinosaurAnimal.killed();
-        }
-
-        if (event.getSource().getEntity() instanceof EntityHwachavenator dinosaurAnimal) {
-            dinosaurAnimal.killed();
-        }
-    }
-
-
-    @SubscribeEvent
-    //cant be canceled
-    public void axeOneHitWoodDestroy(PlayerInteractEvent.LeftClickBlock event) {
-        if(event.getEntity() != null && !event.getLevel().isClientSide){
-            Player player = event.getEntity();
-            ServerLevel serverLevel = (ServerLevel) event.getLevel();
-            ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
-            if(!itemStack.is(UPItems.HANDMADE_BATTLEAXE.get())) return;
-            BlockPos pos = event.getPos();
-            BlockState state = serverLevel.getBlockState(pos);
-            RandomSource randomSource = serverLevel.random;
-            boolean giveDrops = randomSource.nextInt(100) < 10;
-            if(state.is(BlockTags.MINEABLE_WITH_AXE))
-            {
-                if(!giveDrops){
-                    serverLevel.destroyBlock(pos, false);
-                } else {
-                    serverLevel.destroyBlock(pos, true);
-                }
-
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void clubExtraDamage(LivingDamageEvent event) {
-        if (event.getSource().getEntity() instanceof LivingEntity living) {
-            ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
-            if(!itemStack.is(UPItems.HANDMADE_CLUB.get())) return;
-            float extraDamageMultp = 1- living.getArmorCoverPercentage();
-            float damage = event.getAmount();
-            damage *= extraDamageMultp;
-            event.setAmount(damage);
-        }
-    }
-
-
-    @SubscribeEvent
-    //cant be canceled
-    public void spearThrust(PlayerInteractEvent.LeftClickEmpty event) {
-        if(event.getEntity() != null ){
-            Player player = event.getEntity();
-            ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
-            if(!itemStack.is(UPItems.HANDMADE_SPEAR.get()) || player.isFallFlying()) return;
-            if(player.getCooldowns().isOnCooldown(itemStack.getItem())) return;
-            Vec3 vec3 = player.getDeltaMovement();
-            Vec3 vec32 = new Vec3(3,1,3).multiply(player.getLookAngle());
-            player.setDeltaMovement(vec32);
-            player.hurtMarked = true;
-            //player.invulnerableTime = 10;
-            player.getCooldowns().addCooldown(itemStack.getItem(), 60);
-        }
-    }
-
-    @SubscribeEvent
-    //cant be canceled
-    public void spearFallDamageAttack(TickEvent.PlayerTickEvent event) {
-        if(event.phase == TickEvent.Phase.START || event.player.level().isClientSide) return;
-        if(event.player instanceof ServerPlayer serverPlayer){
-            ServerLevel serverLevel = (ServerLevel) serverPlayer.level();
-            ItemStack itemStack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-            if(!itemStack.is(UPItems.HANDMADE_SPEAR.get()) || (serverPlayer.fallDistance < 4)) return;
-            if(serverPlayer.getCooldowns().isOnCooldown(itemStack.getItem())) return;
-            BlockPos blockPos = serverPlayer.getOnPos();
-            if(!serverLevel.getBlockState(blockPos).isAir()){
-                RandomSource randomSource = serverLevel.random;
-                serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 50, randomSource.nextGaussian() * 1, 0.1, randomSource.nextGaussian() * 1, 0.2 );
-
-                List<LivingEntity> entities = serverLevel.getEntitiesOfClass(LivingEntity.class, serverPlayer.getBoundingBox().inflate(4), (e) -> !(e.is(serverPlayer)));
-                for(LivingEntity entity : entities)
-                {
-                    entity.hurt(serverPlayer.damageSources().mobAttack(serverPlayer), serverPlayer.fallDistance);
-                }
-            }
-
-        }
-    }
-
-    //@SubscribeEvent
-    //public void removeCachedBlock(BlockEvent.BreakEvent event) {
-    //    if(DinosaurLandEgg.cachedPos.containsKey(event.getPos())) {
-    //        DinosaurLandEgg.cachedPos.remove(event.getPos());
-    //    }
-    //}
-
-    @SubscribeEvent
-    //cant be canceled
-    public void preventClick(PlayerInteractEvent.LeftClickEmpty event) {
-        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
-            event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public void preventClick(PlayerInteractEvent.LeftClickBlock event) {
-        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
-            event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public void preventClick(PlayerInteractEvent.RightClickBlock event) {
-        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
-            event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    //cant be canceled
-    public void preventClick(PlayerInteractEvent.RightClickEmpty event) {
-        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
-            event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public void preventClick(PlayerInteractEvent.RightClickItem event) {
-        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
-            event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public void preventInteract(PlayerInteractEvent.EntityInteract event) {
-        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
-            event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public void preventDamage(AttackEntityEvent event) {
-        if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
-            event.setCanceled(true);
         }
     }
 }
