@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-07T12:31:29.5023459	Block States: unusualprehistory
+// 1.20.1	2025-02-10T10:03:14.1915993	Block States: unusualprehistory
 6ae8532dae1163e0f56d481e340f7640fd6d9415 assets/unusualprehistory/blockstates/ammon_eggs.json
 9d446eea624fc533845038f5452e7a6168bec1ce assets/unusualprehistory/blockstates/antarcto_eggs.json
 f31c3c3340c8385eb1cf460ca30b93824f40bd31 assets/unusualprehistory/blockstates/anuro_eggs.json
@@ -10,6 +10,7 @@ ccc5a456b963c5315d67add779e40d180efaeeb6 assets/unusualprehistory/blockstates/au
 89d97d428b43ea2496c672a4415d0951e71b1b2e assets/unusualprehistory/blockstates/coty_eggs.json
 21342fc672918af4624bc7d141d045ee9c0f1fef assets/unusualprehistory/blockstates/deepslate_opal_ore.json
 8b4706010ec0d4e10fdfab0ed58ff6a10ce28c24 assets/unusualprehistory/blockstates/deepslate_tar_fossil.json
+218c02b8b09e8164c0e88a67760c5f6f120b4bbf assets/unusualprehistory/blockstates/diplocaulus_eggs.json
 6e2a7c68131b4c1ee7fc69d05d43b57ff8491e98 assets/unusualprehistory/blockstates/dryo_button.json
 61dce08c80cc2b9d9ba3d1b65cb1424e7a03c903 assets/unusualprehistory/blockstates/dryo_door.json
 dc7ef6176314684d494ae7f24d153c6624d139ca assets/unusualprehistory/blockstates/dryo_fence.json
@@ -143,6 +144,7 @@ ef1d1796d3fe5bf17a4da35c6d67b5f859f299c6 assets/unusualprehistory/models/block/e
 78a04355db84c8934497ce2552d4a5c6bad1ebe3 assets/unusualprehistory/models/block/eggs/beelze_eggs.json
 62734dac4ba288941866e198c52334dd025958d5 assets/unusualprehistory/models/block/eggs/brachi_egg.json
 91f26b3ef4e013c0e228047ca54d217c4ac92e7f assets/unusualprehistory/models/block/eggs/coty_eggs.json
+09527430c29a205294838ead4a19694eb7a795ea assets/unusualprehistory/models/block/eggs/diplocaulus_eggs.json
 39a5a6e85957599c2dc7f1b6525008821e1fb8b2 assets/unusualprehistory/models/block/eggs/dunk_eggs.json
 263b9efe1f6f372fa12e613ac88cdf5831747187 assets/unusualprehistory/models/block/eggs/eryon_eggs.json
 92bd905ab08a91329135287cb8214ae794d7f841 assets/unusualprehistory/models/block/eggs/four_antarcto_eggs.json
@@ -449,6 +451,7 @@ bc8eb83bb1c9a5a4b8669a90237184243b0d973e assets/unusualprehistory/models/block/z
 01bec2f9219d84efc444ac336f9fd3ecc0819f28 assets/unusualprehistory/models/item/beelze_eggs.json
 c54460938caecdd58beb79344587f248ac0884aa assets/unusualprehistory/models/item/brachi_egg.json
 28b86ce0b58bfba8e9cf802104a4695e582c5aa3 assets/unusualprehistory/models/item/coty_eggs.json
+78faa904f6ab5abc0faff28841792782bf5f2264 assets/unusualprehistory/models/item/diplocaulus_eggs.json
 5e6668ab946306c6fef2b111cdc113c941144d5a assets/unusualprehistory/models/item/dryo_leaves.json
 088f79e00886480663ef9ff9bd9dc19492ddda50 assets/unusualprehistory/models/item/dryo_log.json
 5d970220f28f14817a3c6855b124221e0c8c665a assets/unusualprehistory/models/item/dryo_planks.json

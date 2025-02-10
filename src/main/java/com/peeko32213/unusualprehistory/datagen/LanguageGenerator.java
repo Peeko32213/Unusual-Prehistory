@@ -150,6 +150,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.BARINA_EGG, "Barinasuchus Egg");
         addBlock(UPBlocks.TALPANAS_EGG, "Talpanas Egg");
         addBlock(UPBlocks.MEGALA_EGG, "Megalania Egg");
+        addBlock(UPBlocks.DIPLOCAULUS_EGGS, "Diplocaulus Eggs");
 
         //SPAWN EGGS
         addItem(UPItems.AMMON_EGG, "Ammonite Spawn Egg");
@@ -184,6 +185,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PALAEOPHIS_EGG, "Palaeolophis Spawn Egg");
         addItem(UPItems.SLUDGE_EGG, "Sludge Spawn Egg");
         addItem(UPItems.KIMMER_EGG, "Kimmeridgebrachypteraeschnidium Spawn Egg");
+        addItem(UPItems.DIPLOCAULUS_EGG, "Diplocaulus Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -253,6 +255,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.FOXXI_FLASK, "Flask of Foxii DNA");
         addItem(UPItems.DRYO_FLASK, "Flask of Dryophyllum DNA");
         addItem(UPItems.KIMMER_FLASK, "Flask of Kimmeridgebrachypteraeschnidium DNA");
+        addItem(UPItems.DIPLO_FLASK, "Flask of Diplocaulus DNA");
 
         //CORALS
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");
@@ -464,6 +467,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.ICEBERG_MAMMOTH, "Frozen Mammoth");
         addEntityType(UPEntities.ICEBERG_SMILODON, "Frozen Smilodon");
         addEntityType(UPEntities.KIMMER, "Kimmeridgebrachypteraeschnidium");
+        addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Beelzebufo croaks");
@@ -484,6 +488,9 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.DUNK_HURT, "Dunkleosteus hurts");
         addSound(UPSounds.DUNK_ATTACK, "Dunkleosteus bites");
         addSound(UPSounds.DUNK_DEATH, "Dunkleosteus dies");
+        addSound(UPSounds.DIPLO_IDLE, "Diplocaulus croaks");
+        addSound(UPSounds.DIPLO_HURT, "Diplocaulus hurts");
+        addSound(UPSounds.DIPLO_DEATH, "Diplocaulus dies");
         addSound(UPSounds.REX_IDLE, "Tyrannosaurus drones");
         addSound(UPSounds.REX_STOMP_ATTACK, "Tyrannosaurus stomps");
         addSound(UPSounds.REX_BITE, "Tyrannosaurus chomps");
@@ -915,7 +922,6 @@ public class LanguageGenerator extends LanguageProvider {
 // Unused 1.6 stuff
 //        addItem(UPItems.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
 //        addBlock(UPBlocks.OPHIDION_EGGS, "Ophiodon Eggs");
-//        addBlock(UPBlocks.DIPLOCAULUS_EGGS, "Diplocaulus Eggs");
 //        addBlock(UPBlocks.HYNERIA_EGGS, "Hyneria Eggs");
 //        addBlock(UPBlocks.TARTUO_EGGS, "Tartuo Eggs");
 //        addBlock(UPBlocks.FURCACAUDA_EGGS, "Furcacauda Eggs");
@@ -927,7 +933,6 @@ public class LanguageGenerator extends LanguageProvider {
 //        addDinoEgg(UPEntities.PSITTACO, "Psittacosaurus");
 //        addDinoEgg(UPEntities.TANY, "Tanystropheus");
 //        addDinoEgg(UPEntities.PSILOPTERUS, "Psilopterus");
-//        addItem(UPItems.DIPLOCAULUS_EGG, "Diplocaulus Spawn Egg");
 //        addDinoEgg(UPEntities.HYNERPETON, "Hynerpeton");
 //        addDinoEgg(UPEntities.BALAUR, "Balaur");
 //        addItem(UPItems.OPHIODON_EGG, "Ophiodon Ozymandias Spawn Egg");
@@ -945,7 +950,6 @@ public class LanguageGenerator extends LanguageProvider {
 //        addItem(UPItems.KAPRO_FLASK, "Kaprosuchus DNA Flask");
 //        addItem(UPItems.PSILO_FLASK, "Psilopterus DNA Flask");
 //        addItem(UPItems.OPHIO_FLASK, "Ophiodon Ozymandias DNA Flask");
-//        addItem(UPItems.DIPLO_FLASK, "Diplocaulus DNA Flask");
 //        addItem(UPItems.HYNERP_FLASK, "Hynerpeton DNA Flask");
 //        addItem(UPItems.BALAUR_FLASK, "Balaur DNA Flask");
 //        addItem(UPItems.PTERY_FLASK, "Pterygotus DNA Flask");
@@ -989,7 +993,6 @@ public class LanguageGenerator extends LanguageProvider {
 //        addEntityType(UPEntities.TANY, "Tanystropheus");
 //        addEntityType(UPEntities.KAPROSUCHUS, "Kaprosuchus");
 //        addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
-//        addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
 //        addEntityType(UPEntities.HYNERPETON, "Hynerpeton");
 //        addEntityType(UPEntities.BALAUR, "Balaur");
 //        addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");

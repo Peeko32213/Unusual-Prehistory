@@ -103,6 +103,14 @@ public class UPBlocks {
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.STETHACANTHUS, false), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
+        public static final Supplier<Block> DIPLOCAULUS_EGGS = create("diplocaulus_eggs",
+            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
+                    UPEntities.DIPLOCAULUS,
+                    false
+            ),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+
+    // Meso eggs
     public static final RegistryObject<Block> ANTARCO_EGG = registerBlock("antarcto_eggs",
             () -> new BlockDinosaurLandEggs(
                     BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
@@ -802,12 +810,6 @@ public class UPBlocks {
 //    public static final Supplier<Block> OPHIDION_EGGS = create("ophiodon_eggs",
 //            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
 //                    UPEntities.OPHIODON,
-//                    false
-//            ),
-//            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-//    public static final Supplier<Block> DIPLOCAULUS_EGGS = create("diplocaulus_eggs",
-//            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
-//                    UPEntities.DIPLOCAULUS,
 //                    false
 //            ),
 //            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));

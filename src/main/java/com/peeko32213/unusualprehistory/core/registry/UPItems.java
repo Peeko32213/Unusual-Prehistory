@@ -127,6 +127,9 @@ public class UPItems {
     public static final RegistryObject<Item> STETHA_FLASK = ITEMS.register("stetha_flask",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> DIPLO_FLASK = ITEMS.register("diplo_flask",
+            () -> new Item(new Item.Properties()));
+
     //Meso flasks
     public static final RegistryObject<Item> ANTARCTO_FLASK = ITEMS.register("antarcto_flask",
             () -> new Item(new Item.Properties()));
@@ -368,6 +371,9 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> COTY_EGG = registerSpawnEggs("coty_spawn_egg",
             UPEntities.COTY , 0x9d5333, 0xd19c8e);
 
+    public static final RegistryObject<ForgeSpawnEggItem> DIPLOCAULUS_EGG = registerSpawnEggs("diplocaulus_spawn_egg",
+            UPEntities.DIPLOCAULUS , 0x1b0e05, 0xf1fa59);
+
     public static final RegistryObject<ForgeSpawnEggItem> DUNK_EGG = registerSpawnEggs("dunk_spawn_egg",
             UPEntities.DUNK , 0x611f0d, 0xb07b42);
 
@@ -602,8 +608,6 @@ public class UPItems {
 //            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> OPHIO_FLASK = ITEMS.register("ophio_flask",
 //            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> DIPLO_FLASK = ITEMS.register("diplo_flask",
-//            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> HYNERP_FLASK = ITEMS.register("hynerp_flask",
 //            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> BALAUR_FLASK = ITEMS.register("balaur_flask",
@@ -661,8 +665,6 @@ public class UPItems {
 //            UPEntities.KAPROSUCHUS , 0x322f2c, 0xf6f050);
 //    public static final RegistryObject<ForgeSpawnEggItem> PSILOPTERUS_EGG = registerSpawnEggs("psilo_spawn_egg",
 //            UPEntities.PSILOPTERUS , 0xc59d7d, 0xc27d28);
-//    public static final RegistryObject<ForgeSpawnEggItem> DIPLOCAULUS_EGG = registerSpawnEggs("diplocaulus_spawn_egg",
-//            UPEntities.DIPLOCAULUS , 0x1b0e05, 0xf1fa59);
 //    public static final RegistryObject<ForgeSpawnEggItem> HYNERPETON_EGG = registerSpawnEggs("hynerpeton_spawn_egg",
 //            UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
 //    public static final RegistryObject<ForgeSpawnEggItem> BALAUR_EGG = registerSpawnEggs("balaur_spawn_egg",

@@ -193,6 +193,7 @@ public class UPTabs {
                     // Paleo DNA
                     entries.accept(UPItems.AMMONITE_FLASK.get());
                     entries.accept(UPItems.COTY_FLASK.get());
+                    entries.accept(UPItems.DIPLO_FLASK.get());
                     entries.accept(UPItems.DUNK_FLASK.get());
                     entries.accept(UPItems.SCAU_FLASK.get());
                     entries.accept(UPItems.STETHA_FLASK.get());
@@ -282,6 +283,7 @@ public class UPTabs {
                     // Paleo eggs
                     entries.accept(UPBlocks.AMON_EGGS.get());
                     entries.accept(UPBlocks.COTY_EGG.get());
+                    entries.accept(UPBlocks.DIPLOCAULUS_EGGS.get());
                     entries.accept(UPBlocks.DUNK_EGGS.get());
                     entries.accept(UPBlocks.SCAU_EGGS.get());
                     entries.accept(UPBlocks.STETHA_EGGS.get());

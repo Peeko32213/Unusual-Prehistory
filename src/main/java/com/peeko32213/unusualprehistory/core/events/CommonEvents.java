@@ -28,7 +28,6 @@ public class CommonEvents {
 //        event.put(UPEntities.TANY.get(), EntityTanystropheus.createAttributes().build()); //70% Done
 //        event.put(UPEntities.KAPROSUCHUS.get(), EntityKaprosuchus.createAttributes().build()); //80% Done
 //        event.put(UPEntities.PSILOPTERUS.get(), EntityPsilopterus.createAttributes().build()); //80% Done
-//        event.put(UPEntities.DIPLOCAULUS.get(), EntityDiplocaulus.createAttributes().build()); //80% Done
 //        event.put(UPEntities.HYNERPETON.get(), EntityHynerpeton.createAttributes().build()); //80% Done
 //        event.put(UPEntities.BALAUR.get(), EntityBalaur.createAttributes().build()); //70% Done
 //        event.put(UPEntities.OPHIODON.get(), EntityOphiodon.createAttributes().build()); //80% Done
@@ -47,6 +46,7 @@ public class CommonEvents {
         event.put(UPEntities.BEELZ.get(), EntityBeelzebufo.createAttributes().build());
         event.put(UPEntities.AMMON.get(), EntityAmmonite.createAttributes().build());
         event.put(UPEntities.DUNK.get(), EntityDunkleosteus.createAttributes().build());
+        event.put(UPEntities.DIPLOCAULUS.get(), EntityDiplocaulus.createAttributes().build());
         event.put(UPEntities.COTY.get(), EntityCotylorhynchus.createAttributes().build());
         event.put(UPEntities.BEELZE_TADPOLE.get(), EntityBeelzebufoTadpole.createAttributes().build());
         event.put(UPEntities.BABY_DUNK.get(), EntityBabyDunk.createAttributes().build());

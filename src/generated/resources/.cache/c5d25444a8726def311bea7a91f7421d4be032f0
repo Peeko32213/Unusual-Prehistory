@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-08T13:15:25.3192402	Item Models: unusualprehistory
+// 1.20.1	2025-02-10T10:03:14.2066014	Item Models: unusualprehistory
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ammon_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/antarcto_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/anuro_spawn_egg.json
@@ -11,6 +11,8 @@ bcc883831dd0f24e95f45adc0e0649c3ec9b5cf0 assets/unusualprehistory/models/item/ba
 e4e90b48b380e9003647555ac1abd96b34eb028d assets/unusualprehistory/models/item/cooked_mammoth.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/coty_spawn_egg.json
 c505ceeb8c2846e6726af59f3c649ca841160c75 assets/unusualprehistory/models/item/dino_pouch.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/diplocaulus_spawn_egg.json
+f9432aa0b21cf618c07924abd3e596cff3d99c90 assets/unusualprehistory/models/item/diplo_flask.json
 42fb3e2af0065dd47285ecc57380fdea700f8779 assets/unusualprehistory/models/item/dryo_flask.json
 46106715c1f2de5e4adca7bf430e7008511e6620 assets/unusualprehistory/models/item/dryo_nuts.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/dunk_spawn_egg.json

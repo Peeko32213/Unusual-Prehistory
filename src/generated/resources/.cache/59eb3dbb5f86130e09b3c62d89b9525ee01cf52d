@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-07T12:31:29.5078502	Loot Tables
+// 1.20.1	2025-02-10T10:03:14.1915993	Loot Tables
 aa0fbbdafff4a7570ffe9721402dbe44bccca34c data/unusualprehistory/loot_tables/blocks/amber_block.json
 7c3df34b96111b893727f05c09f92a8984a5ee13 data/unusualprehistory/loot_tables/blocks/ammon_eggs.json
 5a7e9b5100ec96e57ff7999308636d95f2de6440 data/unusualprehistory/loot_tables/blocks/antarcto_eggs.json
@@ -14,6 +14,7 @@ b2bf99e97edd5785dd5fcf45bcc38a38fee63996 data/unusualprehistory/loot_tables/bloc
 6c66ceef514f37f19da560835a1ef50bf7cca05f data/unusualprehistory/loot_tables/blocks/brachi_fossil.json
 df8301a97e578d156c1e3397fb2138727e6f4842 data/unusualprehistory/loot_tables/blocks/coty_eggs.json
 ce3939a0cd70b9e12da8df562ef896dc83ece12d data/unusualprehistory/loot_tables/blocks/coty_fossil.json
+29e1e9ac3f4d962f71ddc66adae12900a55e2f13 data/unusualprehistory/loot_tables/blocks/diplocaulus_eggs.json
 0ef363d525b37e63ebc8309d5c50815d1ecf64cb data/unusualprehistory/loot_tables/blocks/dryo_button.json
 210c08c261f5201a6c13cf2eed76bd308d40cb50 data/unusualprehistory/loot_tables/blocks/dryo_fence.json
 ea2d1972b31e154725dd1f91f2216f152734ea2c data/unusualprehistory/loot_tables/blocks/dryo_fence_gate.json

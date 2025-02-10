@@ -30,6 +30,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> DUNK_DEATH = createSoundEvent("dunk_death");
     public static final RegistryObject<SoundEvent> DUNK_HURT = createSoundEvent("dunk_hurt");
 
+    public static final RegistryObject<SoundEvent> DIPLO_IDLE = createSoundEvent("diplo_idle");
+    public static final RegistryObject<SoundEvent> DIPLO_HURT = createSoundEvent("diplo_death");
+    public static final RegistryObject<SoundEvent> DIPLO_DEATH = createSoundEvent("diplo_hurt");
+
     public static final RegistryObject<SoundEvent> BEELZE_IDLE = createSoundEvent("beelze_idle");
     public static final RegistryObject<SoundEvent> BEELZE_HURT = createSoundEvent("beelze_hurt");
     public static final RegistryObject<SoundEvent> BEELZE_ATTACK = createSoundEvent("beelze_attack");

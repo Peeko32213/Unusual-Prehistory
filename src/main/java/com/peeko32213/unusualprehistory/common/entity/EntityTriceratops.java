@@ -57,8 +57,6 @@ import java.util.List;
 
 public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implements CustomFollower, IAttackEntity {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
-
-
     private EatBlockGoal eatBlockGoal;
     private int eatAnimationTick;
     public int riderAttackCooldown = 0;
@@ -358,7 +356,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     @Override
     public float getStepHeight() {
-        return 1.2F;
+        return 1.25F;
     }
 
     @Nullable
@@ -462,7 +460,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         this.entityData.set(SADDLED, Boolean.valueOf(saddled));
     }
 
-
     private boolean isWithinYRange(LivingEntity target) {
         if (target == null) {
             return false;
@@ -494,7 +491,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public void setHasTarget(boolean hasTarget) {
         this.entityData.set(HAS_TARGET, hasTarget);
     }
-
 
     static class TrikePrepareChargeGoal extends Goal {
         protected final EntityTriceratops majunga;

@@ -340,6 +340,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.COTY_FLASK.get())
                 .add(UPItems.STETHA_FLASK.get())
                 .add(UPItems.DUNK_FLASK.get())
+                .add(UPItems.DIPLO_FLASK.get())
         ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_PLANT)
@@ -425,7 +426,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 //                .add(UPItems.KAPRO_FLASK.get())
 //                .add(UPItems.PSILO_FLASK.get())
 //                .add(UPItems.OPHIO_FLASK.get())
-//                .add(UPItems.DIPLO_FLASK.get())
 //                .add(UPItems.HYNERP_FLASK.get())
 //                .add(UPItems.BALAUR_FLASK.get())
 //                .add(UPItems.PTERY_FLASK.get())
@@ -458,7 +458,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 //                .add(UPItems.PSILO_FLASK.get());
 //                .add(UPItems.JAWLESS_FISH_FLASK.get())
 //                .add(UPItems.TARTUO_FLASK.get())
-//                .add(UPItems.DIPLO_FLASK.get())
 //                .add(UPItems.HYNERP_FLASK.get())
 //                .add(UPItems.EDAPHO_FLASK.get())
 //                .add(UPItems.ESTEMMENO_FLASK.get())
