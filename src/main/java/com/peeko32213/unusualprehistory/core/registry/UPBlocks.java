@@ -103,9 +103,16 @@ public class UPBlocks {
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.STETHACANTHUS, false), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
-        public static final Supplier<Block> DIPLOCAULUS_EGGS = create("diplocaulus_eggs",
+    public static final Supplier<Block> DIPLOCAULUS_EGGS = create("diplocaulus_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.DIPLOCAULUS,
+                    false
+            ),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+
+    public static final Supplier<Block> HYNERIA_EGGS = create("hyneria_eggs",
+            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
+                    UPEntities.HYNERIA,
                     false
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
@@ -256,6 +263,13 @@ public class UPBlocks {
                     UPEntities.TALPANAS, 1,
                     Block.box(3, 0, 3, 13, 12, 13)
             ));
+
+    public static final Supplier<Block> OPHIDION_EGGS = create("ophiodon_eggs",
+            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
+                    UPEntities.OPHIODON,
+                    false
+            ),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
             () -> new BlockFossilDecoration(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).requiresCorrectToolForDrops(),
@@ -807,18 +821,6 @@ public class UPBlocks {
 }
 
 // Unused 1.6 stuff
-//    public static final Supplier<Block> OPHIDION_EGGS = create("ophiodon_eggs",
-//            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
-//                    UPEntities.OPHIODON,
-//                    false
-//            ),
-//            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-//    public static final Supplier<Block> HYNERIA_EGGS = create("hyneria_eggs",
-//            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
-//                    UPEntities.HYNERIA,
-//                    false
-//            ),
-//            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 //    public static final Supplier<Block> TARTUO_EGGS = create("tartuo_eggs",
 //            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
 //                    UPEntities.TARTUOSTEUS,

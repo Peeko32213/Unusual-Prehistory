@@ -77,7 +77,9 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.FOXXI_FLASK.get())
                 .add(UPItems.GINKGO_FLASK.get())
                 .add(UPItems.DRYO_FLASK.get())
-                .add(UPItems.KIMMER_FLASK.get());
+                .add(UPItems.KIMMER_FLASK.get())
+                .add(UPItems.DIPLO_FLASK.get())
+                .add(UPItems.HYNERIA_FLASK.get());
 
         tag(UPTags.FOSSILS)
                 .add(UPItems.AMBER_FOSSIL.get())
@@ -341,6 +343,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.STETHA_FLASK.get())
                 .add(UPItems.DUNK_FLASK.get())
                 .add(UPItems.DIPLO_FLASK.get())
+                .add(UPItems.HYNERIA_FLASK.get())
         ;
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_PLANT)
@@ -442,7 +445,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 //                .add(UPItems.ESTEMMENO_FLASK.get())
 //                .add(UPItems.SCUTO_FLASK.get())
 //                .add(UPItems.ARTHROPLEURA_FLASK.get())
-//                .add(UPItems.HYNERIA_FLASK.get())
 //                .add(UPItems.PROTOSPHYRAENA_FLASK.get())
 //                .add(UPItems.ENCHODUS_FLASK.get())
 //                .add(UPItems.IGUANODON_FLASK.get())
@@ -463,7 +465,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 //                .add(UPItems.ESTEMMENO_FLASK.get())
 //                .add(UPItems.SCUTO_FLASK.get())
 //                .add(UPItems.ARTHROPLEURA_FLASK.get())
-//                .add(UPItems.HYNERIA_FLASK.get())
 //                .add(UPItems.LONGI_FLASK.get())
 //                .add(UPItems.BALAUR_FLASK.get())
 //                .add(UPItems.OVIRAPTOR_FLASK.get())

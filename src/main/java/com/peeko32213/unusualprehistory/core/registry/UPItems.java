@@ -130,6 +130,9 @@ public class UPItems {
     public static final RegistryObject<Item> DIPLO_FLASK = ITEMS.register("diplo_flask",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> HYNERIA_FLASK = ITEMS.register("hyneria_flask",
+            () -> new Item(new Item.Properties()));
+
     //Meso flasks
     public static final RegistryObject<Item> ANTARCTO_FLASK = ITEMS.register("antarcto_flask",
             () -> new Item(new Item.Properties()));
@@ -167,6 +170,9 @@ public class UPItems {
     public static final RegistryObject<Item> PACHY_FLASK = ITEMS.register("pachy_flask",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> PROTOSPHYRAENA_FLASK = ITEMS.register("protosphyraena_flask",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> TRIKE_FLASK = ITEMS.register("trike_flask",
             () -> new Item(new Item.Properties()));
 
@@ -193,6 +199,9 @@ public class UPItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> MEGATH_FLASK = ITEMS.register("megath_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> OPHIO_FLASK = ITEMS.register("ophio_flask",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> PALAEO_FLASK = ITEMS.register("palaeo_flask",
@@ -377,6 +386,9 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> DUNK_EGG = registerSpawnEggs("dunk_spawn_egg",
             UPEntities.DUNK , 0x611f0d, 0xb07b42);
 
+    public static final RegistryObject<ForgeSpawnEggItem> HYNERIA_EGG =registerSpawnEggs("hyneria_spawn_egg",
+        UPEntities.HYNERIA , 0x1a2121, 0xbd2e2e);
+
     public static final RegistryObject<ForgeSpawnEggItem> SCAU_EGG = registerSpawnEggs("scau_spawn_egg",
             UPEntities.SCAU , 0x909da1, 0x5094c1);
 
@@ -423,6 +435,9 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> PACHY_EGG = registerSpawnEggs("pachy_spawn_egg",
             UPEntities.PACHY , 0x282d3d, 0x5d7170);
 
+    public static final RegistryObject<ForgeSpawnEggItem> PROTOSPHYRAENA_EGG = registerSpawnEggs("protosphyraena_spawn_egg",
+            UPEntities.PROTOSPHYRAENA , 0x283545, 0x462828);
+
     public static final RegistryObject<ForgeSpawnEggItem> TRIKE_EGG =registerSpawnEggs("trike_spawn_egg",
             UPEntities.TRIKE , 0x47302c, 0xffcb23);
 
@@ -450,6 +465,9 @@ public class UPItems {
 
     public static final RegistryObject<ForgeSpawnEggItem> MEGATH_EGG = registerSpawnEggs("megatherium_spawn_egg",
             UPEntities.MEGATHERIUM , 0x65352a, 0x9a7c51);
+
+    public static final RegistryObject<ForgeSpawnEggItem> OPHIODON_EGG = registerSpawnEggs("ophiodon_spawn_egg",
+            UPEntities.OPHIODON , 0x5b8486, 0xe141b34);
 
     public static final RegistryObject<ForgeSpawnEggItem> PALAEOPHIS_EGG =registerSpawnEggs("palaophis_spawn_egg",
             UPEntities.PALAEOPHIS , 0x211d4b, 0xa1b7c1);
@@ -504,6 +522,11 @@ public class UPItems {
 
     public static final RegistryObject<Item> BLUE_FRUIT = ITEMS.register("blue_fruit",
             () -> new Item(new Item.Properties().food(ModFood.BLUE_FRUIT)));
+
+    public static final RegistryObject<Item> RAW_OPHIODON = ITEMS.register("raw_ophiodon",
+            () -> new Item(new Item.Properties().food(ModFood.RAW_OPHIODON)));
+    public static final RegistryObject<Item> COOKED_OPHIODON = ITEMS.register("cooked_ophiodon",
+            () -> new Item(new Item.Properties().food(ModFood.COOKED_OPHIODON)));
 
     public static final RegistryObject<Item> DEFROSTED_FROZEN_FOSSIL = ITEMS.register("defrosted_frozen_fossil",
             () -> new Item(new Item.Properties().food(ModFood.DEFROSTED_FOSSIL)));
@@ -606,8 +629,6 @@ public class UPItems {
 //            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> PSILO_FLASK = ITEMS.register("psilo_flask",
 //            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> OPHIO_FLASK = ITEMS.register("ophio_flask",
-//            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> HYNERP_FLASK = ITEMS.register("hynerp_flask",
 //            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> BALAUR_FLASK = ITEMS.register("balaur_flask",
@@ -638,10 +659,6 @@ public class UPItems {
 //            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> SCUTO_FLASK = ITEMS.register("scuto_flask",
 //            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> HYNERIA_FLASK = ITEMS.register("hyneria_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PROTOSPHYRAENA_FLASK = ITEMS.register("protosphyraena_flask",
-//            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> ENCHODUS_FLASK = ITEMS.register("enchodus_flask",
 //            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> IGUANODON_FLASK = ITEMS.register("iguanodon_flask",
@@ -669,18 +686,12 @@ public class UPItems {
 //            UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
 //    public static final RegistryObject<ForgeSpawnEggItem> BALAUR_EGG = registerSpawnEggs("balaur_spawn_egg",
 //            UPEntities.BALAUR , 0x1f6731, 0xe5cb36);
-//    public static final RegistryObject<ForgeSpawnEggItem> OPHIODON_EGG = registerSpawnEggs("ophiodon_spawn_egg",
-//            UPEntities.OPHIODON , 0x5b8486, 0xe141b34);
-//   public static final RegistryObject<ForgeSpawnEggItem> PROTOSPHYRAENA_EGG = registerSpawnEggs("protosphyraena_spawn_egg",
-//           UPEntities.PROTOSPHYRAENA , 0x283545, 0x462828);
 //    public static final RegistryObject<ForgeSpawnEggItem> ARCHELON_EGG = registerSpawnEggs("archelon_spawn_egg",
 //            UPEntities.ARCHELON , 0x618b89, 0x171923);
 //   public static final RegistryObject<ForgeSpawnEggItem> LEEDS_EGG =registerSpawnEggs("leeds_spawn_egg",
 //           UPEntities.LEEDSICHTHYS , 0x5a6b75, 0xe8eaea);
 //    public static final RegistryObject<ForgeSpawnEggItem> PTERODAUSTRO_EGG =registerSpawnEggs("pterodaustro_spawn_egg",
 //            UPEntities.PTERODAUSTRO , 0xc93660, 0xfff3fd);
-//    public static final RegistryObject<ForgeSpawnEggItem> HYNERIA_EGG =registerSpawnEggs("hyneria_spawn_egg",
-//            UPEntities.HYNERIA , 0x1a2121, 0xbd2e2e);
 //    public static final RegistryObject<Item> T_JARATE =  ITEMS.register("t_jarate", () -> new TyrannosaurineJarateItem((new Item.Properties()).stacksTo(16)));
 //    public static final RegistryObject<Item> RABID_JUICE = ITEMS.register("rabid_juice", () -> new ModItemDrinkable(drinkItem().stacksTo(16).food(ModFood.RABID_SALIVA), true, false));
 //    public static final RegistryObject<Item> INACTIVE_RABIES = ITEMS.register("inactive_rabies", () -> new Item(new Item.Properties()));
@@ -697,10 +708,6 @@ public class UPItems {
 //            () -> new Item(new Item.Properties().food(ModFood.RAW_TARTU)));
 //    public static final RegistryObject<Item> COOKED_TARTU = ITEMS.register("cooked_tartuosteus",
 //            () -> new Item(new Item.Properties().food(ModFood.COOKED_TARTU)));
-//    public static final RegistryObject<Item> RAW_OPHIODON = ITEMS.register("raw_ophiodon",
-//            () -> new Item(new Item.Properties().food(ModFood.RAW_OPHIODON)));
-//    public static final RegistryObject<Item> COOKED_OPHIODON = ITEMS.register("cooked_ophiodon",
-//            () -> new Item(new Item.Properties().food(ModFood.COOKED_OPHIODON)));
 //    public static final RegistryObject<Item> LEEDS_CAVIAR = ITEMS.register("leedsichthys_caviar_bowl",
 //            () -> new ModItemConsumable(new Item.Properties().food(ModFood.LEEDS_CAVIAR).craftRemainder(Items.BOWL)));
 //    public static final RegistryObject<Item> LEEDS_SLICE = ITEMS.register("leedsichthys_slice",

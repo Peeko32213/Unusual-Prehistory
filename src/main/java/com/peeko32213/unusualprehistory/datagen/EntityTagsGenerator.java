@@ -353,22 +353,23 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
 //                .add(UPEntities.SMILODON.get())
 //        ;
 //
-//        tag(UPTags.OPHIODON_TARGETS)
-//                .add(EntityType.TROPICAL_FISH)
-//                .add(EntityType.SALMON)
-//                ;
-//
-//        tag(UPTags.PROTOSPHYRAENA_TARGETS)
-//                .add(EntityType.SQUID)
-//        ;
 
-//        tag(UPTags.HYNERIA_TARGETS)
-//                .add(EntityType.SQUID)
-//                .add(EntityType.TROPICAL_FISH)
-//                .add(EntityType.SALMON)
-//                .add(UPEntities.DIPLOCAULUS.get())
+        tag(UPTags.OPHIODON_TARGETS)
+                .add(EntityType.TROPICAL_FISH)
+                .add(EntityType.SALMON)
+                ;
+
+        tag(UPTags.PROTOSPHYRAENA_TARGETS)
+                .add(EntityType.SQUID)
+        ;
+
+        tag(UPTags.HYNERIA_TARGETS)
+                .add(EntityType.SQUID)
+                .add(EntityType.TROPICAL_FISH)
+                .add(EntityType.SALMON)
+                .add(UPEntities.DIPLOCAULUS.get())
 //                .add(UPEntities.HYNERPETON.get())
-//        ;
+        ;
 
         tag(UPTags.MEGALANIA_TARGETS)
                 .add(EntityType.PIG)

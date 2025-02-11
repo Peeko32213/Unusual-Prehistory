@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-10T10:03:14.1915993	Loot Tables
+// 1.20.1	2025-02-10T22:33:30.5735107	Loot Tables
 aa0fbbdafff4a7570ffe9721402dbe44bccca34c data/unusualprehistory/loot_tables/blocks/amber_block.json
 7c3df34b96111b893727f05c09f92a8984a5ee13 data/unusualprehistory/loot_tables/blocks/ammon_eggs.json
 5a7e9b5100ec96e57ff7999308636d95f2de6440 data/unusualprehistory/loot_tables/blocks/antarcto_eggs.json
@@ -47,6 +47,7 @@ f2a5a53d4b820f4c1ab94d8413ffc7a26faf723f data/unusualprehistory/loot_tables/bloc
 7cc3f8e8c3e9ff1ca2270f217025a401d27d52dc data/unusualprehistory/loot_tables/blocks/ginkgo_sapling.json
 fa84620279974ffe7bca4360b5dafc245f574f66 data/unusualprehistory/loot_tables/blocks/hwacha_eggs.json
 5fad1cb6ec3aa2a73374fbbca15f8656e9535aa7 data/unusualprehistory/loot_tables/blocks/hwacha_fossil.json
+51501e2a8d7d113667629dadcfd53cac198b4a40 data/unusualprehistory/loot_tables/blocks/hyneria_eggs.json
 ecf00031f010925d46707e06e164910c390077aa data/unusualprehistory/loot_tables/blocks/kentro_eggs.json
 76916977e3dc1bb46eec21f4e01e91483fdde8dc data/unusualprehistory/loot_tables/blocks/kentro_fossil.json
 fe854290f98ef9615c7e7d06bf75e4c47d61bf24 data/unusualprehistory/loot_tables/blocks/kimmer_eggs.json
@@ -54,6 +55,7 @@ b8b531f795e9ab55987fc3f06ca9b2586df5f551 data/unusualprehistory/loot_tables/bloc
 f8d5a07793beffe919b0ddc79a92e15f8469c8ce data/unusualprehistory/loot_tables/blocks/majunga_fossil.json
 1153c304409ce0bec99ea89a19a3f8f5d239b97f data/unusualprehistory/loot_tables/blocks/megala_eggs.json
 f939d186a3baed411aa65b1826d1be9f3e711c16 data/unusualprehistory/loot_tables/blocks/opal_block.json
+8a676f02a59343f9219bc027c13e1873970b78c6 data/unusualprehistory/loot_tables/blocks/ophiodon_eggs.json
 e1e4d61feeb88dd6feabfce0198e2a59da4e5cd7 data/unusualprehistory/loot_tables/blocks/pachy_eggs.json
 d06c1ac99195d5d632669b6985dc21875c68001f data/unusualprehistory/loot_tables/blocks/pachy_fossil.json
 809dfccb92677397d75a3384afbd9961445bbbb6 data/unusualprehistory/loot_tables/blocks/permafrost.json

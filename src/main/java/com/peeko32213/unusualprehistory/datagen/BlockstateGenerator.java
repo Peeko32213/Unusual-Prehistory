@@ -78,8 +78,8 @@ public class BlockstateGenerator extends BlockStateProvider {
         createEggDefaultMediumCustom(UPBlocks.MEGALA_EGG.get(), "megalania_eggs");
 
         // Unused 1.6 stuff
-//        createFlatWaterEgg(UPBlocks.OPHIDION_EGGS.get());
-//        createFlatWaterEgg(UPBlocks.HYNERIA_EGGS.get());
+        createFlatWaterEgg(UPBlocks.OPHIDION_EGGS.get());
+        createFlatWaterEgg(UPBlocks.HYNERIA_EGGS.get());
 //        createFlatWaterEgg(UPBlocks.TARTUO_EGGS.get());
 
         createFlatWaterEgg(UPBlocks.DUNK_EGGS.get());

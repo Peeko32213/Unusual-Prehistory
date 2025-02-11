@@ -110,6 +110,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAW_MAMMOTH, "Raw Mammoth");
         addItem(UPItems.COOKED_MAMMOTH, "Cooked Mammoth");
         addItem(UPItems.MAMMOTH_MEATBALL, "Mammoth Meatball");
+        addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon");
+        addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon");
 
         //SCRAPS
         addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
@@ -151,6 +153,8 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.TALPANAS_EGG, "Talpanas Egg");
         addBlock(UPBlocks.MEGALA_EGG, "Megalania Egg");
         addBlock(UPBlocks.DIPLOCAULUS_EGGS, "Diplocaulus Eggs");
+        addBlock(UPBlocks.HYNERIA_EGGS, "Hyneria Eggs");
+        addBlock(UPBlocks.OPHIDION_EGGS, "Ophiodon Eggs");
 
         //SPAWN EGGS
         addItem(UPItems.AMMON_EGG, "Ammonite Spawn Egg");
@@ -186,6 +190,9 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.SLUDGE_EGG, "Sludge Spawn Egg");
         addItem(UPItems.KIMMER_EGG, "Kimmeridgebrachypteraeschnidium Spawn Egg");
         addItem(UPItems.DIPLOCAULUS_EGG, "Diplocaulus Spawn Egg");
+        addItem(UPItems.HYNERIA_EGG, "Hyneria Spawn Egg");
+        addItem(UPItems.OPHIODON_EGG, "Ophiodon Ozymandias Spawn Egg");
+        addItem(UPItems.PROTOSPHYRAENA_EGG, "Protosphyraena Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -256,6 +263,9 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.DRYO_FLASK, "Flask of Dryophyllum DNA");
         addItem(UPItems.KIMMER_FLASK, "Flask of Kimmeridgebrachypteraeschnidium DNA");
         addItem(UPItems.DIPLO_FLASK, "Flask of Diplocaulus DNA");
+        addItem(UPItems.HYNERIA_FLASK, "Flask of Hyneria DNA");
+        addItem(UPItems.OPHIO_FLASK, "Flask of Ophiodon Ozymandias DNA");
+        addItem(UPItems.PROTOSPHYRAENA_FLASK, "Flask of Protosphyraena DNA");
 
         //CORALS
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");
@@ -468,6 +478,10 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.ICEBERG_SMILODON, "Frozen Smilodon");
         addEntityType(UPEntities.KIMMER, "Kimmeridgebrachypteraeschnidium");
         addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
+        addEntityType(UPEntities.HYNERIA, "Hyneria");
+        addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");
+        addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
+//        addDinoEgg(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Beelzebufo croaks");
@@ -921,8 +935,7 @@ public class LanguageGenerator extends LanguageProvider {
 
 // Unused 1.6 stuff
 //        addItem(UPItems.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
-//        addBlock(UPBlocks.OPHIDION_EGGS, "Ophiodon Eggs");
-//        addBlock(UPBlocks.HYNERIA_EGGS, "Hyneria Eggs");
+
 //        addBlock(UPBlocks.TARTUO_EGGS, "Tartuo Eggs");
 //        addBlock(UPBlocks.FURCACAUDA_EGGS, "Furcacauda Eggs");
 //        addDinoEgg(UPEntities.KAPROSUCHUS, "Kaprosuchus");
@@ -935,12 +948,9 @@ public class LanguageGenerator extends LanguageProvider {
 //        addDinoEgg(UPEntities.PSILOPTERUS, "Psilopterus");
 //        addDinoEgg(UPEntities.HYNERPETON, "Hynerpeton");
 //        addDinoEgg(UPEntities.BALAUR, "Balaur");
-//        addItem(UPItems.OPHIODON_EGG, "Ophiodon Ozymandias Spawn Egg");
-//        addDinoEgg(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
 //        addDinoEgg(UPEntities.ARCHELON, "Archelon");
 //        addDinoEgg(UPEntities.LEEDSICHTHYS, "Leedsichthys");
 //        addDinoEgg(UPEntities.PTERODAUSTRO, "Pterodaustro");
-//        addItem(UPItems.HYNERIA_EGG, "Hyneria Spawn Egg");
 //        addItem(UPItems.OTAROCYON_FLASK, "Otarocyon DNA Flask");
 //        addItem(UPItems.LONGI_FLASK, "Longisquama DNA Flask");
 //        addItem(UPItems.JAWLESS_FISH_FLASK, "Furcacauda DNA Flask");
@@ -949,7 +959,6 @@ public class LanguageGenerator extends LanguageProvider {
 //        addItem(UPItems.PSITTACO_FLASK, "Psittacosaurus DNA Flask");
 //        addItem(UPItems.KAPRO_FLASK, "Kaprosuchus DNA Flask");
 //        addItem(UPItems.PSILO_FLASK, "Psilopterus DNA Flask");
-//        addItem(UPItems.OPHIO_FLASK, "Ophiodon Ozymandias DNA Flask");
 //        addItem(UPItems.HYNERP_FLASK, "Hynerpeton DNA Flask");
 //        addItem(UPItems.BALAUR_FLASK, "Balaur DNA Flask");
 //        addItem(UPItems.PTERY_FLASK, "Pterygotus DNA Flask");
@@ -965,8 +974,6 @@ public class LanguageGenerator extends LanguageProvider {
 //        addItem(UPItems.ESTEMMENO_FLASK, "Estemmenosuchus DNA Flask");
 //        addItem(UPItems.ARTHROPLEURA_FLASK, "Arthropleura DNA Flask");
 //        addItem(UPItems.SCUTO_FLASK, "Scutosaurus DNA Flask");
-//        addItem(UPItems.HYNERIA_FLASK, "Hyneria DNA Flask");
-//        addItem(UPItems.PROTOSPHYRAENA_FLASK, "Protosphyraena DNA Flask");
 //        addItem(UPItems.ENCHODUS_FLASK, "Enchodus DNA Flask");
 //        addItem(UPItems.IGUANODON_FLASK, "Iguanodon DNA Flask");
 //        addItem(UPItems.OTAROCYON_EMBRYO, "Otarocyon Embryo");
@@ -979,8 +986,6 @@ public class LanguageGenerator extends LanguageProvider {
 //        addItem(UPItems.COOKED_FURCACAUDA, "Cooked Furcacauda");
 //        addItem(UPItems.RAW_TARTU, "Raw Tartuosteus");
 //        addItem(UPItems.COOKED_TARTU, "Cooked Tartuosteus");
-//        addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon Ozymandias");
-//        addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon Ozymandias");
 //        addItem(UPItems.LEEDS_CAVIAR, "Bowl of Leedsichthys Caviar");
 //        addItem(UPItems.LEEDS_SLICE, "Leedsichthys Sashimi");
 //        addBlock(UPBlocks.ELECTRIC_PILLAR, "Electric Pillar");
@@ -995,9 +1000,6 @@ public class LanguageGenerator extends LanguageProvider {
 //        addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
 //        addEntityType(UPEntities.HYNERPETON, "Hynerpeton");
 //        addEntityType(UPEntities.BALAUR, "Balaur");
-//        addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");
-//        addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
 //        addEntityType(UPEntities.ARCHELON, "Archelon");
 //        addEntityType(UPEntities.LEEDSICHTHYS, "Leedsichthys");
 //        addEntityType(UPEntities.PTERODAUSTRO, "Pterodaustro");
-//        addEntityType(UPEntities.HYNERIA, "Hyneria");

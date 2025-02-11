@@ -32,16 +32,16 @@ public class UPTags {
     public static final TagKey<EntityType<?>> ANTARCTO_TARGETS = registerEntityTag("antarcto_targets");
     public static final TagKey<EntityType<?>> ENCRUSTED_TARGETS = registerEntityTag("encrusted_targets");
     public static final TagKey<EntityType<?>> DUNK_TARGETS = registerEntityTag("dunk_targets");
+    public static final TagKey<EntityType<?>> HYNERIA_TARGETS = registerEntityTag("hyneria_targets");
     public static final TagKey<EntityType<?>> LAND_MOBS = registerEntityTag("land_mobs");
 //    public static final TagKey<EntityType<?>> PSITTACO_TARGETS = registerEntityTag("psittaco_targets");
     public static final TagKey<EntityType<?>> SMILODON_TARGETS = registerEntityTag("smilodon_targets");
-//    public static final TagKey<EntityType<?>> OPHIODON_TARGETS = registerEntityTag("ophiodon_targets");
-//    public static final TagKey<EntityType<?>> PROTOSPHYRAENA_TARGETS = registerEntityTag("protosphyraena_targets");
+    public static final TagKey<EntityType<?>> OPHIODON_TARGETS = registerEntityTag("ophiodon_targets");
+    public static final TagKey<EntityType<?>> PROTOSPHYRAENA_TARGETS = registerEntityTag("protosphyraena_targets");
 
     public static final TagKey<EntityType<?>> HERBIVORES = registerEntityTag("herbivores");
     public static final TagKey<EntityType<?>> CARNIVORES = registerEntityTag("carnivores");
     public static final TagKey<EntityType<?>> OMNIVORES = registerEntityTag("omnivores");
-//    public static final TagKey<EntityType<?>> HYNERIA_TARGETS = registerEntityTag("hyneria_targets");
 
     public static final TagKey<EntityType<?>> PISCIVORE_DIET = registerEntityTag("piscivore_diet");
 
