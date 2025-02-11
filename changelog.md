@@ -1,40 +1,68 @@
+changes:
 - Added Kimmeridgebrachypteraeschnidium
-- Food rebalances
-- Changed lang for better consistency with vanilla mc
+- Added Diplocaulus
+- Changed lang for better consistency with vanilla mc:
+    - DNA Flask -> Flask of DNA
+    - Flask -> Glass Flask
+    - Subtitles show the name of the mob like vanilla
+    - Various name changes, ex. Tyrannosaurus Tooth instead of Rex Tooth
 - Removed spawn eggs creative tab
-- Added spawn eggs to main creative tab
-- Reorganized creative tab
-- Val fixes and other stuff
+- Added spawn eggs to the main creative tab
+- Reorganized the creative tab
 - Saddling and shearing saddles now has sounds
 - Taming now has sounds and particles
 - Lowered hwachavenator shooting range while not being controlled so they get stuck shooting less often
 - Hwachas stops shooting things when sitting or in water
 - Mammoth meatball stacks to 16 instead of 8
 - Meaty buffet stacks to 16 instead of 64
-- Triceratops no longer eat a full stack of ginkgo berries at once
+- Mobs will no longer eat full stacks of items
 - Triceratops can take more than one ginkgo berry to tame
-- Screen shake only gets applied to players
+- Screen shake effect only gets applied to players
 - Mobs no longer break blocks unless they are angry, the tags remain for those who want passive block breaking
 - Angry mobs no longer break blocks without collision like grass
 - Eryon can dig in any block that has the sand tag
 - Megatherium now digs a 6x6x6 square in front of it instead of trying to dig a cube, it should feel much more responsive now
 - Megatherium can break wood
 - Lowered megatherium dig cooldown
-- Misc stuff
+- Added beelzebufo tadpole spawn egg
+- Handmade spear revamp:
+    - No longer has left-click dash
+    - No longer has slam attack
+    - Hitting mobs launches them upwards, scales with knockback resistance
+    - Right-clicking launches you upward a bit, can work as a double jump or be used for keeping things in the air longer
+    - Increased attack speed
+    - Lowered damage
+- Misc fixes and stuff
 
 to do:
-- some spawn egg color tweaks (mostly just smilodon to represent its default color variant)
+- some spawn egg color tweaks (smilodon, beelz tadpole, hwachavenator)
 - fix book stuff
-- clean up datagen stuff
+- datagen stuff
 - tweak some animations(?)
-- reduce volume for some mob sounds (barinasuchus)
+- reduce volume for some mobs sounds (barinasuchus, sludge)
 - fix encrusted sack model
-- more food tweaks
+- rebalance food values
 - hanging signs (?)
 - boats (?)
 - merge baby and adult mobs
-- remove some of the random entities 
+- remove some of the random entities left over from book stuff
 - change some tame items and such to tags
 - remove a bunch of entities from target tags to make park building easier
-- change meaty buffet bowl drops and some others to give the bowl to the player instead
 - add more adorned staff interactions (pacifying, etc)
+- fix megatherium dig animation
+- add the rest of the 1.6 mobs
+- fossil system soft revamp
+- worldgen changes
+- mammoth revamp involving alpha mammoth/make mammoth great again (MMGA)
+- remove paraceratherium ticks
+- halve time it takes for eggs to hatch
+- rework handmade axe and club a bit
+- add new enchants(?)
+- change method of obtaining fossil mounts (stonecutting fossil item/block?)
+    - abandoned fossil research cabin underground
+- breeding config?
+- change how screen shake looks a bit?
+- add goal for mobs to exit water?
+- add hwachavenator melee attack?
+- change crocarina feedback to particles like vanilla tames
+- add fossil ores to vanilla fossil tags

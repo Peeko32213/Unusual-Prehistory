@@ -83,7 +83,7 @@ public class BlockDinosaurLandEggs extends Block {
 
     //This can be called for eggs that have only a single egg and egg shape
     public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg) {
-        this(properties, dinosaur, eggCount, oneEgg, EMPTY_BLOCK_SHAPE,2400,12000);
+        this(properties, dinosaur, eggCount, oneEgg, EMPTY_BLOCK_SHAPE,1200,3600);
     }
 
     //This can be called for eggs that have only a single egg and egg shape
@@ -93,7 +93,7 @@ public class BlockDinosaurLandEggs extends Block {
 
     //This can be called for eggs that have the standard egg shape/ the most common one
     public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount) {
-        this(properties, dinosaur, eggCount, ONE_EGG_SHAPE, MULTI_EGG_SHAPE, 2400,12000);
+        this(properties, dinosaur, eggCount, ONE_EGG_SHAPE, MULTI_EGG_SHAPE, 1200,3600);
     }
 
     //This can be called for eggs that have the standard egg shape/ the most common one
@@ -102,7 +102,7 @@ public class BlockDinosaurLandEggs extends Block {
     }
 
     public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg, VoxelShape multiEgg) {
-        this(properties, dinosaur, eggCount, oneEgg, multiEgg, 2400,12000);
+        this(properties, dinosaur, eggCount, oneEgg, multiEgg, 1200,3600);
     }
 
     public static boolean hasProperHabitat(BlockGetter reader, BlockPos blockReader) {

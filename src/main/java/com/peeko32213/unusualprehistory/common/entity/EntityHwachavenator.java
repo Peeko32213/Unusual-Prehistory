@@ -2,10 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityHwachaSpike;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -109,9 +106,9 @@ public class EntityHwachavenator extends EntityTameableBaseDinosaurAnimal implem
         this.goalSelector.addGoal(4, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.targetSelector.addGoal(7, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(6, (new HurtByTargetGoal(this)));
-        this.targetSelector.addGoal(8, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(5, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(5, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(6, new OwnerHurtTargetGoal(this));
     }
 
     @Override

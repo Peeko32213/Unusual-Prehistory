@@ -22,6 +22,4 @@ public class LivingEntityRenderer<T extends LivingEntity & GeoAnimatable> extend
         return RenderType.entityCutout(getTextureLocation(animatable));
     }
 
-
-
 }

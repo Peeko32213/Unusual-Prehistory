@@ -15,7 +15,6 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class AquaticRenderer<T extends EntityBaseAquaticAnimal> extends GeoEntityRenderer<T> {
 
-
     public AquaticRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
     }

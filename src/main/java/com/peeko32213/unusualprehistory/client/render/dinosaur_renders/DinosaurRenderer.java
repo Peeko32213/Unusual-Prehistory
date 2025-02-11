@@ -46,11 +46,8 @@ public class DinosaurRenderer<T extends EntityBaseDinosaurAnimal> extends GeoEnt
             return;
         }
 
-
-
         if (animatable.isBaby()) {
             stackIn.scale(0.5F, 0.5F, 0.5F);
-            return;
         }
     }
 }

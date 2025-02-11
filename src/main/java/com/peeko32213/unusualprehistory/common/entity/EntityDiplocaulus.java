@@ -8,6 +8,7 @@
  import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
+ import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.core.BlockPos;
@@ -36,9 +37,6 @@
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.object.PlayState;
 
- //TODO LIST
- // - Figure Out Sliding
- // - Figure out Idle Animations for Swimmers
  public class EntityDiplocaulus extends EntityBaseDinosaurAnimal implements SemiAquatic {
      private static final RawAnimation DIPLOCAULUS_IDLE = RawAnimation.begin().thenLoop("animation.diplocaulus.idle");
      private static final RawAnimation DIPLOCAULUS_WALK = RawAnimation.begin().thenLoop("animation.diplocaulus.walk");
@@ -169,6 +167,11 @@
      }
 
      @Override
+     public float getSoundVolume() {
+         return 0.5F;
+     }
+
+     @Override
      protected SoundEvent getAttackSound() {
          return null;
      }
@@ -215,8 +218,8 @@
 
      @Nullable
      @Override
-     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-         return null;
+     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+         return UPEntities.DIPLOCAULUS.get().create(serverLevel);
      }
 
      @Override
@@ -265,7 +268,7 @@
 
          if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isSwimming()) {
              int rand = getRandomAnimationNumber();
-             if (rand < 5) {
+             if (rand < 10) {
                  setAnimationTimer(300);
                  return event.setAndContinue(DIPLOCAULUS_BURROW_HOLD);
              }
@@ -274,7 +277,7 @@
 
          if (isStillEnough() && getRandomAnimationNumber() == 0 && this.isInWater()) {
              int rand = getRandomAnimationNumber();
-             if (rand < 45) {
+             if (rand < 50) {
                  setAnimationTimer(300);
                  return event.setAndContinue(DIPLOCAULUS_SWIM_IDLE);
              }
