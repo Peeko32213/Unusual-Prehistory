@@ -40,6 +40,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.PARACER_EMBRYO);
         singleTex(UPItems.PALAEO_EMBRYO);
 
+        singleTex(UPItems.CAPTURED_KIMMER_FLASK);
         singleTex(UPItems.BARINA_WHISTLE);
         singleTex(UPItems.ZULOAGAE_FLASK);
         singleTex(UPItems.RAIGUENRAYUN_FLASK);
@@ -66,45 +67,45 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.COOKED_OPHIODON);
         singleTex(UPItems.OPHIO_FLASK);
         singleTex(UPItems.PROTOSPHYRAENA_FLASK);
-//        singleTex(UPItems.OTAROCYON_FLASK);
-//        singleTex(UPItems.LONGI_FLASK);
+        singleTex(UPItems.PTERY_FLASK);
+        singleTex(UPItems.EDAPHO_FLASK);
+        singleTex(UPItems.XIPHACT_FLASK);
+        singleTex(UPItems.OVIRAPTOR_FLASK);
+        singleTex(UPItems.GLOBIDENS_FLASK);
+        singleTex(UPItems.ESTEMMENO_FLASK);
+        singleTex(UPItems.OTAROCYON_FLASK);
+        singleTex(UPItems.LONGI_FLASK);
+        singleTex(UPItems.TARTUO_FLASK);
+        singleTex(UPItems.TANY_FLASK);
+        singleTex(UPItems.PSITTACO_FLASK);
+        singleTex(UPItems.KAPRO_FLASK);
+        singleTex(UPItems.PSILO_FLASK);
+        singleTex(UPItems.HYNERP_FLASK);
+        singleTex(UPItems.BALAUR_FLASK);
+        singleTex(UPItems.PTERODAUSTRO_FLASK);
+        singleTex(UPItems.ARCHELON_FLASK);
+        singleTex(UPItems.JAWLESS_FISH_FLASK);
+        singleTex(UPItems.LEEDS_FLASK);
 //        singleTex(UPItems.RAW_FURCACAUDA);
 //        singleTex(UPItems.COOKED_FURCACAUDA);
 //        singleTex(UPItems.RAW_TARTU);
 //        singleTex(UPItems.COOKED_TARTU);
 //        singleTex(UPItems.PSITTACO_QUIL);
-//        singleTex(UPItems.JAWLESS_FISH_FLASK);
-//        singleTex(UPItems.TARTUO_FLASK);
-//        singleTex(UPItems.TANY_FLASK);
-//        singleTex(UPItems.PSITTACO_FLASK);
-//        singleTex(UPItems.KAPRO_FLASK);
-//        singleTex(UPItems.PSILO_FLASK);
-//        singleTex(UPItems.HYNERP_FLASK);
-//        singleTex(UPItems.BALAUR_FLASK);
 //        singleTex(UPItems.PSITTACCO_ARROW);
 //        singleTex(UPItems.AMBER_IDOL);
 //        singleTex(UPItems.LEEDS_CAVIAR);
 //        singleTex(UPItems.LEEDS_SLICE);
-//        singleTex(UPItems.PTERY_FLASK);
-//        singleTex(UPItems.EDAPHO_FLASK);
 //        singleTex(UPItems.PTERYDACTYLUS_FLASK);
 //        singleTex(UPItems.ERETMORPHIS_FLASK);
-//        singleTex(UPItems.LEEDS_FLASK);
-//        singleTex(UPItems.PTERODAUSTRO_FLASK);
-//        singleTex(UPItems.XIPHACT_FLASK);
-//        singleTex(UPItems.OVIRAPTOR_FLASK);
-//        singleTex(UPItems.GLOBIDENS_FLASK);
-//        singleTex(UPItems.ARCHELON_FLASK);
-//        singleTex(UPItems.ESTEMMENO_FLASK);
 //        singleTex(UPItems.ARTHROPLEURA_FLASK);
 //        singleTex(UPItems.SCUTO_FLASK);
 //        singleTex(UPItems.ENCHODUS_FLASK);
 //        singleTex(UPItems.IGUANODON_FLASK);
 //        singleTex(UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD);
 //        toBlockModel(UPBlocks.ELECTRIC_PILLAR, "electric_pillar_bottom");
-        for(RegistryObject<?> object : UPEntities.dinos) {
-                addDinoEgg(object.getId());
-        }
+//        for(RegistryObject<?> object : UPEntities.dinos) {
+//                addDinoEgg(object.getId());
+//        }
 
     }
     private void toBlock(RegistryObject<Block> b) {
@@ -119,14 +120,12 @@ public class ItemModelGenerator extends ItemModelProvider {
         withExistingParent(b.getId().getPath(), model);
     }
 
-
-    public void addDinoEgg(Supplier<? extends EntityType<?>> dino) {
-        generated( dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", prefix("item/" + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "")  + "_egg"));
-    }
-    public void addDinoEgg(ResourceLocation dino) {
-        generated( dino.getPath() + "_entity_egg", prefix("item/" + dino.getPath()  + "_egg"));
-    }
-
+//    public void addDinoEgg(Supplier<? extends EntityType<?>> dino) {
+//        generated( dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", prefix("item/" + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "")  + "_egg"));
+//    }
+//    public void addDinoEgg(ResourceLocation dino) {
+//        generated( dino.getPath() + "_entity_egg", prefix("item/" + dino.getPath()  + "_egg"));
+//    }
 
     private ItemModelBuilder singleTex(RegistryObject<Item> item) {
         return generated(item.getId().getPath(), prefix("item/" + item.getId().getPath()));

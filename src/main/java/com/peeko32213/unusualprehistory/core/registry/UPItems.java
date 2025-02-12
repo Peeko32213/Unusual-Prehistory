@@ -111,6 +111,9 @@ public class UPItems {
     public static final RegistryObject<Item> GROG = ITEMS.register("grog",
             () -> new ModItemDrinkable(drinkItem().food(ModFood.GROG), true, false));
 
+    public static final RegistryObject<Item> CAPTURED_KIMMER_FLASK = ITEMS.register("captured_kimmer_flask",
+            () -> new Item(new Item.Properties()));
+
     //Paleo flasks
     public static final RegistryObject<Item> AMMONITE_FLASK = ITEMS.register("ammonite_flask",
             () -> new Item(new Item.Properties()));
@@ -131,6 +134,24 @@ public class UPItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> HYNERIA_FLASK = ITEMS.register("hyneria_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ESTEMMENO_FLASK = ITEMS.register("estemmeno_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> EDAPHO_FLASK = ITEMS.register("edapho_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PTERY_FLASK = ITEMS.register("ptery_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> JAWLESS_FISH_FLASK = ITEMS.register("jawless_fish_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> TARTUO_FLASK = ITEMS.register("tartuo_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> HYNERP_FLASK = ITEMS.register("hynerp_flask",
             () -> new Item(new Item.Properties()));
 
     //Meso flasks
@@ -185,6 +206,39 @@ public class UPItems {
     public static final RegistryObject<Item> RAPTOR_FLASK = ITEMS.register("raptor_flask",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> OVIRAPTOR_FLASK = ITEMS.register("oviraptor_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> GLOBIDENS_FLASK = ITEMS.register("globidens_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> XIPHACT_FLASK = ITEMS.register("xiphact_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> LONGI_FLASK = ITEMS.register("longisquama_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> KAPRO_FLASK = ITEMS.register("kapro_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> BALAUR_FLASK = ITEMS.register("balaur_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> LEEDS_FLASK = ITEMS.register("leeds_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PTERODAUSTRO_FLASK = ITEMS.register("pterodaustro_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ARCHELON_FLASK = ITEMS.register("archelon_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PSITTACO_FLASK = ITEMS.register("psittaco_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> TANY_FLASK = ITEMS.register("tany_flask",
+            () -> new Item(new Item.Properties()));
+
     //Ceno flasks
     public static final RegistryObject<Item> BARIN_FLASK = ITEMS.register("barin_flask",
             () -> new Item(new Item.Properties()));
@@ -214,6 +268,12 @@ public class UPItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> TALPANAS_FLASK = ITEMS.register("talpanas_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> OTAROCYON_FLASK = ITEMS.register("otarocyon_flask",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PSILO_FLASK = ITEMS.register("psilo_flask",
             () -> new Item(new Item.Properties()));
 
     //Plant flasks
@@ -613,47 +673,9 @@ public class UPItems {
 }
 
 // Unfinished 1.6 stuff
-//        public static final RegistryObject<Item> OTAROCYON_FLASK = ITEMS.register("otarocyon_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> LONGI_FLASK = ITEMS.register("longisquama_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> JAWLESS_FISH_FLASK = ITEMS.register("jawless_fish_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> TARTUO_FLASK = ITEMS.register("tartuo_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> TANY_FLASK = ITEMS.register("tany_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PSITTACO_FLASK = ITEMS.register("psittaco_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> KAPRO_FLASK = ITEMS.register("kapro_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PSILO_FLASK = ITEMS.register("psilo_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> HYNERP_FLASK = ITEMS.register("hynerp_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> BALAUR_FLASK = ITEMS.register("balaur_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PTERY_FLASK = ITEMS.register("ptery_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> EDAPHO_FLASK = ITEMS.register("edapho_flask",
-//            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> PTERYDACTYLUS_FLASK = ITEMS.register("pterydactylus_flask",
 //            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> ERETMORPHIS_FLASK = ITEMS.register("eretmorhipis_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> LEEDS_FLASK = ITEMS.register("leeds_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PTERODAUSTRO_FLASK = ITEMS.register("pterodaustro_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> XIPHACT_FLASK = ITEMS.register("xiphact_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> OVIRAPTOR_FLASK = ITEMS.register("oviraptor_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> GLOBIDENS_FLASK = ITEMS.register("globidens_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> ARCHELON_FLASK = ITEMS.register("archelon_flask",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> ESTEMMENO_FLASK = ITEMS.register("estemmano_flask",
 //            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> ARTHROPLEURA_FLASK = ITEMS.register("arthropleura_flask",
 //            () -> new Item(new Item.Properties()));

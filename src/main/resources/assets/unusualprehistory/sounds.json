@@ -122,7 +122,6 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.diplo_hurt"
   },
-
   "diplo_idle": {
     "sounds": [
       {
@@ -140,7 +139,6 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.diplo_idle"
   },
-
   "diplo_death": {
     "sounds": [
       {
@@ -157,6 +155,50 @@
       }
     ],
     "subtitle": "unusualprehistory.sound.subtitle.diplo_death"
+  },
+
+  "hyneria_hurt": {
+    "sounds": [
+        "unusualprehistory:hyneria/hyneria_hurt_0",
+        "unusualprehistory:hyneria/hyneria_hurt_1",
+        "unusualprehistory:hyneria/hyneria_hurt_2",
+        "unusualprehistory:hyneria/hyneria_hurt_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hyneria_hurt"
+  },
+  "hyneria_attack": {
+    "sounds": [
+      {
+        "name": "unusualprehistory:hyneria/hyneria_attack_0",
+        "pitch": 1.5
+      },
+      {
+        "name": "unusualprehistory:hyneria/hyneria_attack_1",
+        "pitch": 1.5
+      },
+      {
+        "name": "unusualprehistory:hyneria/hyneria_attack_2",
+        "pitch": 1.5
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hyneria_attack"
+  },
+  "hyneria_death": {
+    "sounds": [
+        "unusualprehistory:hyneria/hyneria_death_0",
+        "unusualprehistory:hyneria/hyneria_death_1",
+        "unusualprehistory:hyneria/hyneria_death_2",
+        "unusualprehistory:hyneria/hyneria_death_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hyneria_death"
+  },
+  "hyneria_jump": {
+    "sounds": [
+      "unusualprehistory:hyneria/hyneria_jump_0",
+      "unusualprehistory:hyneria/hyneria_jump_1",
+      "unusualprehistory:hyneria/hyneria_jump_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hyneria_jump"
   },
 
   "beelze_idle": {

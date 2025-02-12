@@ -34,6 +34,11 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> DIPLO_HURT = createSoundEvent("diplo_death");
     public static final RegistryObject<SoundEvent> DIPLO_DEATH = createSoundEvent("diplo_hurt");
 
+    public static final RegistryObject<SoundEvent> HYNERIA_ATTACK = createSoundEvent("hyneria_attack");
+    public static final RegistryObject<SoundEvent> HYNERIA_HURT = createSoundEvent("hyneria_death");
+    public static final RegistryObject<SoundEvent> HYNERIA_DEATH = createSoundEvent("hyneria_hurt");
+    public static final RegistryObject<SoundEvent> HYNERIA_JUMP = createSoundEvent("hyneria_jump");
+
     public static final RegistryObject<SoundEvent> BEELZE_IDLE = createSoundEvent("beelze_idle");
     public static final RegistryObject<SoundEvent> BEELZE_HURT = createSoundEvent("beelze_hurt");
     public static final RegistryObject<SoundEvent> BEELZE_ATTACK = createSoundEvent("beelze_attack");

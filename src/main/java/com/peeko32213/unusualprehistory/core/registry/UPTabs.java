@@ -191,34 +191,52 @@ public class UPTabs {
                     // Misc flasks
                     entries.accept(UPItems.FLASK.get());
                     entries.accept(UPItems.GROG.get());
+                    entries.accept(UPItems.CAPTURED_KIMMER_FLASK.get());
 
                     // Paleo DNA
                     entries.accept(UPItems.AMMONITE_FLASK.get());
                     entries.accept(UPItems.COTY_FLASK.get());
                     entries.accept(UPItems.DIPLO_FLASK.get());
                     entries.accept(UPItems.DUNK_FLASK.get());
+                    entries.accept(UPItems.EDAPHO_FLASK.get());
+                    entries.accept(UPItems.ESTEMMENO_FLASK.get());
                     entries.accept(UPItems.HYNERIA_FLASK.get());
+                    entries.accept(UPItems.HYNERP_FLASK.get());
+                    entries.accept(UPItems.JAWLESS_FISH_FLASK.get());
+                    entries.accept(UPItems.PTERY_FLASK.get());
                     entries.accept(UPItems.SCAU_FLASK.get());
                     entries.accept(UPItems.STETHA_FLASK.get());
+                    entries.accept(UPItems.TARTUO_FLASK.get());
 
                     // Meso DNA
                     entries.accept(UPItems.ANTARCTO_FLASK.get());
                     entries.accept(UPItems.ANURO_FLASK.get());
+                    entries.accept(UPItems.ARCHELON_FLASK.get());
                     entries.accept(UPItems.AUSTRO_FLASK.get());
+                    entries.accept(UPItems.BALAUR_FLASK.get());
                     entries.accept(UPItems.BEELZ_FLASK.get());
                     entries.accept(UPItems.BRACHI_FLASK.get());
                     entries.accept(UPItems.ENCRUSTED_FLASK.get());
                     entries.accept(UPItems.ERYON_FLASK.get());
+                    entries.accept(UPItems.GLOBIDENS_FLASK.get());
                     entries.accept(UPItems.HWACHA_FLASK.get());
+                    entries.accept(UPItems.KAPRO_FLASK.get());
                     entries.accept(UPItems.KENTRO_FLASK.get());
                     entries.accept(UPItems.KIMMER_FLASK.get());
+                    entries.accept(UPItems.LEEDS_FLASK.get());
+                    entries.accept(UPItems.LONGI_FLASK.get());
                     entries.accept(UPItems.MAJUNGA_FLASK.get());
+                    entries.accept(UPItems.OVIRAPTOR_FLASK.get());
                     entries.accept(UPItems.PACHY_FLASK.get());
                     entries.accept(UPItems.PROTOSPHYRAENA_FLASK.get());
+                    entries.accept(UPItems.PSITTACO_FLASK.get());
+                    entries.accept(UPItems.PTERODAUSTRO_FLASK.get());
+                    entries.accept(UPItems.TANY_FLASK.get());
                     entries.accept(UPItems.TRIKE_FLASK.get());
                     entries.accept(UPItems.REX_FLASK.get());
                     entries.accept(UPItems.ULUGH_FLASK.get());
                     entries.accept(UPItems.RAPTOR_FLASK.get());
+                    entries.accept(UPItems.XIPHACT_FLASK.get());
 
                     // Ceno DNA
                     entries.accept(UPItems.BARIN_FLASK.get());
@@ -227,8 +245,10 @@ public class UPTabs {
                     entries.accept(UPItems.MEGALA_FLASK.get());
                     entries.accept(UPItems.MEGATH_FLASK.get());
                     entries.accept(UPItems.OPHIO_FLASK.get());
+                    entries.accept(UPItems.OTAROCYON_FLASK.get());
                     entries.accept(UPItems.PALAEO_FLASK.get());
                     entries.accept(UPItems.PARACER_FLASK.get());
+                    entries.accept(UPItems.PSILO_FLASK.get());
                     entries.accept(UPItems.SMILO_FLASK.get());
                     entries.accept(UPItems.TALPANAS_FLASK.get());
 

@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityHyneria;
-//import com.peeko32213.unusualprehistory.common.entity.EntityProtosphyraena;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -48,6 +47,18 @@ public class HyneriaModel extends GeoModel<EntityHyneria>
 
             backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
             tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+
+//            CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+//            if (animatable.isBaby()) {
+//                head.setScaleX(1.5F);
+//                head.setScaleY(1.5F);
+//                head.setScaleZ(1.5F);
+//            } else {
+//                head.setScaleX(1.0F);
+//                head.setScaleY(1.0F);
+//                head.setScaleZ(1.0F);
+//            }
+
         }
     }
 

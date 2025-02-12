@@ -1,6 +1,7 @@
 changes:
 - Added Kimmeridgebrachypteraeschnidium
 - Added Diplocaulus
+- Added Hyneria
 - Changed lang for better consistency with vanilla mc:
     - DNA Flask -> Flask of DNA
     - Flask -> Glass Flask

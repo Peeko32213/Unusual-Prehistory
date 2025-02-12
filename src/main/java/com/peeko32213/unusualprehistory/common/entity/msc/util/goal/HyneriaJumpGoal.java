@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityHyneria;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -72,7 +73,7 @@ public class HyneriaJumpGoal extends JumpGoal {
     public void start() {
         Direction direction = this.dolphin.getMotionDirection();
         float scale = (float) 1.2;
-        this.dolphin.setDeltaMovement(this.dolphin.getDeltaMovement().add((double)direction.getStepX() * scale, 2.0D, (double)direction.getStepZ() * 0.6D));
+        this.dolphin.setDeltaMovement(this.dolphin.getDeltaMovement().add((double)direction.getStepX() * scale, 1.0D, (double)direction.getStepZ() * 0.6D));
         this.dolphin.getNavigation().stop();
     }
 
@@ -94,7 +95,7 @@ public class HyneriaJumpGoal extends JumpGoal {
         }
 
         if (this.breached && !flag) {
-            this.dolphin.playSound(SoundEvents.DOLPHIN_JUMP, 1.0F, 1.0F);
+            this.dolphin.playSound(UPSounds.HYNERIA_JUMP.get(), 1.0F, 1.0F);
         }
 
         Vec3 vec3 = this.dolphin.getDeltaMovement();

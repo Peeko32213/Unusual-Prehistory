@@ -69,7 +69,6 @@
      private EntityProtosphyraena priorPackMember;
      private EntityProtosphyraena afterPackMember;
 
-
      public EntityProtosphyraena(EntityType<? extends WaterAnimal> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
@@ -108,7 +107,6 @@
          }
      }
 
-
      public void travel(Vec3 travelVector) {
          if (this.isEffectiveAi() && this.isInWater()) {
              this.moveRelative(this.getSpeed(), travelVector);
@@ -121,7 +119,6 @@
              super.travel(travelVector);
          }
      }
-
 
      protected PathNavigation createNavigation(Level p_27480_) {
          return new WaterBoundPathNavigation(this, p_27480_);
@@ -238,8 +235,6 @@
          super.aiStep();
      }
 
-
-
      protected <E extends EntityProtosphyraena> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          int animState = this.getAnimationState();
 
@@ -272,13 +267,10 @@
          return PlayState.STOP;
      }
 
-
      @Override
      public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
          controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
      }
-
-
 
      public boolean requiresCustomPersistence() {
          return super.requiresCustomPersistence() || this.hasCustomName();
@@ -297,8 +289,6 @@
      public double getTick(Object o) {
          return tickCount;
      }
-
-
 
      static class MoveHelperController extends MoveControl {
          private final EntityProtosphyraena dolphin;
@@ -444,14 +434,12 @@
 
          public void tick() {
 
-
              LivingEntity target = this.mob.getTarget();
              double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
              double reach = this.getAttackReachSqr(target);
              int animState = this.mob.getAnimationState();
              Vec3 aim = this.mob.getLookAngle();
              Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
 
              switch (animState) {
                  case 21:
@@ -470,9 +458,7 @@
 
          protected void doMovement (LivingEntity livingentity, Double d0){
 
-
              this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
              if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                  this.pathedTargetX = livingentity.getX();
@@ -504,7 +490,6 @@
 
          }
 
-
          protected void checkForCloseRangeAttack ( double distance, double reach){
              if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                  int r = this.mob.getRandom().nextInt(2048);
@@ -515,7 +500,6 @@
              }
          }
 
-
          protected boolean getRangeCheck () {
 
              return
@@ -523,8 +507,6 @@
                              <=
                              1.8F * this.getAttackReachSqr(this.mob.getTarget());
          }
-
-
 
          protected void tickBiteAttack () {
              animTime++;
@@ -543,16 +525,13 @@
              }
          }
 
-
          protected void preformBiteAttack () {
-
 
              Vec3 pos = mob.position();
              this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
              HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),3.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
          }
-
 
          protected void resetAttackCooldown () {
              this.ticksUntilNextAttack = 0;
@@ -625,8 +604,6 @@
      public void killed() {
          this.heal(15);
      }
-
-
 
      public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends EntityProtosphyraena> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
          int i = pLevel.getSeaLevel();

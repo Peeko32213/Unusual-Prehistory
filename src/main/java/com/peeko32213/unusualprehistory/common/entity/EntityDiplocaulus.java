@@ -77,7 +77,6 @@
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
      }
 
-
      private void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new MoveControl(this);
@@ -286,7 +285,6 @@
 
          return PlayState.CONTINUE;
      }
-
 
      @Override
      public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {

@@ -217,6 +217,7 @@ public class LanguageGenerator extends LanguageProvider {
 
         //FLASKS
         addItem(UPItems.FLASK, "Glass Flask");
+        addItem(UPItems.CAPTURED_KIMMER_FLASK, "Flask of Kimmeridgebrachypteraeschnidium");
         addItem(UPItems.STETHA_FLASK, "Flask of Stethacanthus DNA");
         addItem(UPItems.DUNK_FLASK, "Flask of Dunkleosteus DNA");
         addItem(UPItems.MAJUNGA_FLASK, "Flask of Majungasaurus DNA");
@@ -265,6 +266,25 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.DIPLO_FLASK, "Flask of Diplocaulus DNA");
         addItem(UPItems.HYNERIA_FLASK, "Flask of Hyneria DNA");
         addItem(UPItems.OPHIO_FLASK, "Flask of Ophiodon Ozymandias DNA");
+        addItem(UPItems.ESTEMMENO_FLASK, "Flask of Estemmenosuchus DNA");
+        addItem(UPItems.XIPHACT_FLASK, "Flask of Xiphactinus DNA");
+        addItem(UPItems.PTERY_FLASK, "Flask of Pterygotus DNA");
+        addItem(UPItems.EDAPHO_FLASK, "Flask of Edaphosaurus DNA");
+        addItem(UPItems.OVIRAPTOR_FLASK, "Flask of Oviraptor DNA");
+        addItem(UPItems.GLOBIDENS_FLASK, "Flask of Globidens DNA");
+        addItem(UPItems.OTAROCYON_FLASK, "Flask of Otarocyon DNA");
+        addItem(UPItems.LONGI_FLASK, "Flask of Longisquama DNA");
+        addItem(UPItems.JAWLESS_FISH_FLASK, "Flask of Furcacauda DNA");
+        addItem(UPItems.TARTUO_FLASK, "Flask of Tartuosteus DNA");
+        addItem(UPItems.TANY_FLASK, "Flask of Tanystropheus DNA");
+        addItem(UPItems.PSITTACO_FLASK, "Flask of Psittacosaurus DNA");
+        addItem(UPItems.KAPRO_FLASK, "Flask of Kaprosuchus DNA");
+        addItem(UPItems.PSILO_FLASK, "Flask of Psilopterus DNA");
+        addItem(UPItems.HYNERP_FLASK, "Flask of Hynerpeton DNA");
+        addItem(UPItems.BALAUR_FLASK, "Flask of Balaur DNA");
+        addItem(UPItems.LEEDS_FLASK, "Flask of Leedsichthys DNA");
+        addItem(UPItems.PTERODAUSTRO_FLASK, "Flask of Pterodaustro DNA");
+        addItem(UPItems.ARCHELON_FLASK, "Flask of Archelon DNA");
         addItem(UPItems.PROTOSPHYRAENA_FLASK, "Flask of Protosphyraena DNA");
 
         //CORALS
@@ -499,12 +519,20 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.COTY_IDLE, "Cotylorhynchus groans");
         addSound(UPSounds.COTY_HURT, "Cotylorhynchus hurts");
         addSound(UPSounds.COTY_DEATH, "Cotylorhynchus dies");
+
         addSound(UPSounds.DUNK_HURT, "Dunkleosteus hurts");
         addSound(UPSounds.DUNK_ATTACK, "Dunkleosteus bites");
         addSound(UPSounds.DUNK_DEATH, "Dunkleosteus dies");
+
         addSound(UPSounds.DIPLO_IDLE, "Diplocaulus croaks");
         addSound(UPSounds.DIPLO_HURT, "Diplocaulus hurts");
         addSound(UPSounds.DIPLO_DEATH, "Diplocaulus dies");
+
+        addSound(UPSounds.HYNERIA_ATTACK, "Hyneria bites");
+        addSound(UPSounds.HYNERIA_HURT, "Hyneria hurts");
+        addSound(UPSounds.HYNERIA_DEATH, "Hyneria dies");
+        addSound(UPSounds.HYNERIA_JUMP, "Hyneria jumps");
+
         addSound(UPSounds.REX_IDLE, "Tyrannosaurus drones");
         addSound(UPSounds.REX_STOMP_ATTACK, "Tyrannosaurus stomps");
         addSound(UPSounds.REX_BITE, "Tyrannosaurus chomps");
@@ -935,7 +963,6 @@ public class LanguageGenerator extends LanguageProvider {
 
 // Unused 1.6 stuff
 //        addItem(UPItems.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
-
 //        addBlock(UPBlocks.TARTUO_EGGS, "Tartuo Eggs");
 //        addBlock(UPBlocks.FURCACAUDA_EGGS, "Furcacauda Eggs");
 //        addDinoEgg(UPEntities.KAPROSUCHUS, "Kaprosuchus");
@@ -951,26 +978,13 @@ public class LanguageGenerator extends LanguageProvider {
 //        addDinoEgg(UPEntities.ARCHELON, "Archelon");
 //        addDinoEgg(UPEntities.LEEDSICHTHYS, "Leedsichthys");
 //        addDinoEgg(UPEntities.PTERODAUSTRO, "Pterodaustro");
-//        addItem(UPItems.OTAROCYON_FLASK, "Otarocyon DNA Flask");
-//        addItem(UPItems.LONGI_FLASK, "Longisquama DNA Flask");
-//        addItem(UPItems.JAWLESS_FISH_FLASK, "Furcacauda DNA Flask");
-//        addItem(UPItems.TARTUO_FLASK, "Tartuosteus DNA Flask");
-//        addItem(UPItems.TANY_FLASK, "Tanystropheus DNA Flask");
-//        addItem(UPItems.PSITTACO_FLASK, "Psittacosaurus DNA Flask");
-//        addItem(UPItems.KAPRO_FLASK, "Kaprosuchus DNA Flask");
-//        addItem(UPItems.PSILO_FLASK, "Psilopterus DNA Flask");
-//        addItem(UPItems.HYNERP_FLASK, "Hynerpeton DNA Flask");
-//        addItem(UPItems.BALAUR_FLASK, "Balaur DNA Flask");
 //        addItem(UPItems.PTERY_FLASK, "Pterygotus DNA Flask");
 //        addItem(UPItems.EDAPHO_FLASK, "Edaphosaurus DNA Flask");
 //        addItem(UPItems.PTERYDACTYLUS_FLASK, "Pterydactylus DNA Flask");
 //        addItem(UPItems.ERETMORPHIS_FLASK, "Eretmorphis DNA Flask");
-//        addItem(UPItems.LEEDS_FLASK, "Leedsichthys DNA Flask");
-//        addItem(UPItems.PTERODAUSTRO_FLASK, "Pterodaustro DNA Flask");
 //        addItem(UPItems.XIPHACT_FLASK, "Xiphactinus DNA Flask");
 //        addItem(UPItems.OVIRAPTOR_FLASK, "Oviraptor DNA Flask");
 //        addItem(UPItems.GLOBIDENS_FLASK, "Globidens DNA Flask");
-//        addItem(UPItems.ARCHELON_FLASK, "Archelon DNA Flask");
 //        addItem(UPItems.ESTEMMENO_FLASK, "Estemmenosuchus DNA Flask");
 //        addItem(UPItems.ARTHROPLEURA_FLASK, "Arthropleura DNA Flask");
 //        addItem(UPItems.SCUTO_FLASK, "Scutosaurus DNA Flask");

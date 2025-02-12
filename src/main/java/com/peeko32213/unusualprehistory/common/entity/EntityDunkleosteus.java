@@ -107,7 +107,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
         }
     }
 
-
     public boolean passive = false;
 
     @Override
@@ -157,8 +156,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
     public void travel(Vec3 travelVector) {
         super.travel(travelVector);
     }
-
-
  
     protected PathNavigation createNavigation(Level p_27480_) {
         return new WaterBoundPathNavigation(this, p_27480_);
@@ -211,8 +208,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
         super.aiStep();
     }
 
-
-
     protected <E extends EntityDunkleosteus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
 
@@ -248,8 +243,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
-
-
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.hasCustomName();
     }
@@ -267,8 +260,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
     public double getTick(Object o) {
         return tickCount;
     }
-
-
 
     static class MoveHelperController extends MoveControl {
         private final EntityDunkleosteus dolphin;
@@ -371,8 +362,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
                     }
                 }
             }
-
-
         }
 
         public boolean canContinueToUse() {
@@ -391,8 +380,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
             } else {
                 return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
             }
-
-
         }
 
         public void start() {
@@ -413,7 +400,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
         }
 
         public void tick() {
-
 
             LivingEntity target = this.mob.getTarget();
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
@@ -440,9 +426,7 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
 
         protected void doMovement (LivingEntity livingentity, Double d0){
 
-
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                 this.pathedTargetX = livingentity.getX();
@@ -474,7 +458,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
 
         }
 
-
         protected void checkForCloseRangeAttack ( double distance, double reach){
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                 int r = this.mob.getRandom().nextInt(2048);
@@ -485,7 +468,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
             }
         }
 
-
         protected boolean getRangeCheck () {
 
             return
@@ -493,8 +475,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
                             <=
                             1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
-
-
 
         protected void tickBiteAttack () {
             animTime++;
@@ -513,16 +493,12 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
             }
         }
 
-
         protected void preformBiteAttack () {
-
-
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
         }
-
 
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 0;
@@ -585,7 +561,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
-
     @Override
     public void setFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
@@ -595,7 +570,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
         passiveFor = 2400 + random.nextInt(100, 1200);
         this.heal(15);
     }
-
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {

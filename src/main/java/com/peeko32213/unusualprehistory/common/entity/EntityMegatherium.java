@@ -474,7 +474,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     protected <E extends EntityMegatherium> PlayState digController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationController.State.STOPPED) && !this.isInSittingPose()) {
             event.getController().forceAnimationReset();
-            event.setAndContinue(MEGATHERIUM_DIG);
+            return event.setAndContinue(MEGATHERIUM_DIG);
         }
         return PlayState.CONTINUE;
     }

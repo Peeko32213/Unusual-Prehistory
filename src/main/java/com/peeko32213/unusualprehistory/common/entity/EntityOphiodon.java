@@ -104,7 +104,6 @@
          }
      }
 
-
      public void travel(Vec3 travelVector) {
          super.travel(travelVector);
      }
@@ -156,15 +155,10 @@
          super.aiStep();
      }
 
-
-
      protected <E extends EntityOphiodon> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          int animState = this.getAnimationState();
 
          if(!this.isFromBook()) {
-
-
-
 
              switch (animState) {
 
@@ -211,8 +205,6 @@
      public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
          controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
      }
-
-
 
      public boolean requiresCustomPersistence() {
          return super.requiresCustomPersistence() || this.hasCustomName();
@@ -376,7 +368,6 @@
 
          public void tick() {
 
-
              LivingEntity target = this.mob.getTarget();
              double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
              double reach = this.getAttackReachSqr(target);
@@ -456,8 +447,6 @@
                              1.8F * this.getAttackReachSqr(this.mob.getTarget());
          }
 
-
-
          protected void tickBiteAttack () {
              animTime++;
              if(animTime==4) {
@@ -475,7 +464,6 @@
              }
          }
 
-
          protected void preformBiteAttack () {
 
 
@@ -484,7 +472,6 @@
              HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),3.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
          }
-
 
          protected void resetAttackCooldown () {
              this.ticksUntilNextAttack = 0;
