@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
@@ -136,6 +137,10 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     public boolean isFood(ItemStack stack) {
         return stack.is(UPTags.TRIKE_FOOD);
+    }
+
+    public boolean canBeCollidedWith() {
+        return UnusualPrehistoryConfig.TRIKE_COLLISON.get();
     }
 
     public boolean isAngryAt(LivingEntity p_21675_) {

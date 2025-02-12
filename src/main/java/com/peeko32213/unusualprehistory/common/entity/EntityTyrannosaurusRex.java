@@ -78,7 +78,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
     public EntityTyrannosaurusRex(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1.0F);
+        this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -513,7 +513,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         }
 
-
         protected void checkForCloseRangeAttack ( double distance, double reach){
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                 int r = this.mob.getRandom().nextInt(2048);
@@ -530,7 +529,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             }
         }
 
-
         protected boolean getRangeCheck () {
 
             return
@@ -538,8 +536,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                             <=
                             1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
-
-
 
         protected void tickBiteAttack () {
             animTime++;
@@ -588,7 +584,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         }
 
-
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_BITE.get(), 1.0F, 1.0F);
@@ -620,7 +615,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             mob.shakeCooldown--;
         }
 
-
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 0;
         }
@@ -642,9 +636,9 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         }
     }
 
-//    public boolean canBeCollidedWith() {
-//        return true;
-//    }
+    public boolean canBeCollidedWith() {
+        return UnusualPrehistoryConfig.REX_COLLISON.get();
+    }
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {

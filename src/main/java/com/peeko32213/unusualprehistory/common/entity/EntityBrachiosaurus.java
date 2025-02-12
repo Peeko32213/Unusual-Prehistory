@@ -160,7 +160,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     }
 
     public boolean canBeCollidedWith() {
-        return true;
+        return UnusualPrehistoryConfig.BRACHI_COLLISON.get();
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {

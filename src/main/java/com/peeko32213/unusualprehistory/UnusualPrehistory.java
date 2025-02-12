@@ -57,7 +57,7 @@ public class UnusualPrehistory {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(ClientEvents::init));
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupClient);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.CONFIG_BUILDER);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.COMMON);
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
         UPTabs.TABS.register(modEventBus);

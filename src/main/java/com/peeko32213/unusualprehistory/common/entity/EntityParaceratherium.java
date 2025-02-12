@@ -220,6 +220,10 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
         this.entityData.set(ENTITY_STATE, anim);
     }
 
+    public boolean canBeCollidedWith() {
+        return UnusualPrehistoryConfig.PARACERATHERIUM_COLLISON.get();
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();

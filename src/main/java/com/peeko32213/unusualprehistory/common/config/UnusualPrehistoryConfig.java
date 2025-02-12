@@ -2,16 +2,9 @@ package com.peeko32213.unusualprehistory.common.config;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.common.Mod;
 
 public class UnusualPrehistoryConfig {
-
-    public static final ForgeConfigSpec CONFIG_BUILDER;
-
-    static {
-        ForgeConfigSpec.Builder configBuilder = new ForgeConfigSpec.Builder();
-        setupConfig(configBuilder);
-        CONFIG_BUILDER = configBuilder.build();
-    }
 
     public static ForgeConfigSpec.ConfigValue<Boolean> SCREEN_SHAKE;
     public static ForgeConfigSpec.ConfigValue<Boolean> SCREEN_SHAKE_BRACHI;
@@ -27,25 +20,47 @@ public class UnusualPrehistoryConfig {
     public static ForgeConfigSpec.ConfigValue<Integer> SCREEN_SHAKE_REX_AMPLIFIER;
     public static ForgeConfigSpec.ConfigValue<Boolean> BRACHI_EXPERIMENTAL_FOOTPRINTS;
     public static ForgeConfigSpec.ConfigValue<Boolean> DINO_NATURAL_SPAWNING;
-    private static void setupConfig(ForgeConfigSpec.Builder builder) {
-        builder.comment(UnusualPrehistory.MODID + " Config");
+    public static ForgeConfigSpec.BooleanValue REX_COLLISON;
+    public static ForgeConfigSpec.BooleanValue PARACERATHERIUM_COLLISON;
+    public static ForgeConfigSpec.BooleanValue TRIKE_COLLISON;
+    public static ForgeConfigSpec.BooleanValue MAMMOTH_COLLISON;
+    public static ForgeConfigSpec.BooleanValue BRACHI_COLLISON;
 
-        SCREEN_SHAKE = builder.comment("All screen shakes").define("screen_shake", true);
-        SCREEN_SHAKE_BRACHI = builder.comment("Screen shake brachi").define("screen_shake_brachi", true);
-        SCREEN_SHAKE_BRACHI_RANGE = builder.comment("Screen shake brachi range").define("screen_shake_brachi_range", 10.0D);
-        SCREEN_SHAKE_TEEN_BRACHI_RANGE = builder.comment("Screen shake brachi teen range").define("screen_shake_brachi_teen_range", 5.0D);
-        SCREEN_SHAKE_BRACHI_AMPLIFIER = builder.comment("Screen shake brachi amplifier").define("screen_shake_brachi_amplifier", 1);
-        SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER = builder.comment("Screen shake brachi teen amplifier").define("screen_shake_brachi_teen_amplifier", 0);
-        BRACHI_SOUND_VOLUME = builder.comment("Brachi sound volume").define("brachi_sound_volume", 3.0F);
-        BRACHI_TEEN_SOUND_VOLUME = builder.comment("Brachi teen sound volume").define("brachi_teen_sound_volume", 1.5F);
-        BRACHI_EXPERIMENTAL_FOOTPRINTS = builder.comment("Brachi footprints").define("brachi_experimental_footprints", false);
+    public static final ForgeConfigSpec COMMON;
+    static {
+        ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
+        CONFIG_BUILDER.comment("Unusual Prehistory Configs").push("unusual_prehistory_common");
 
+        CONFIG_BUILDER.comment("Screen shake configs").push("screen_shake_config");
+        SCREEN_SHAKE = CONFIG_BUILDER.comment("All screen shakes").define("screen_shake", true);
+        SCREEN_SHAKE_BRACHI = CONFIG_BUILDER.comment("Screen shake brachi").define("screen_shake_brachi", true);
+        SCREEN_SHAKE_BRACHI_RANGE = CONFIG_BUILDER.comment("Screen shake brachi range").define("screen_shake_brachi_range", 10.0D);
+        SCREEN_SHAKE_TEEN_BRACHI_RANGE = CONFIG_BUILDER.comment("Screen shake brachi teen range").define("screen_shake_brachi_teen_range", 5.0D);
+        SCREEN_SHAKE_BRACHI_AMPLIFIER = CONFIG_BUILDER.comment("Screen shake brachi amplifier").define("screen_shake_brachi_amplifier", 1);
+        SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER = CONFIG_BUILDER.comment("Screen shake brachi teen amplifier").define("screen_shake_brachi_teen_amplifier", 0);
+        SCREEN_SHAKE_REX = CONFIG_BUILDER.comment("Screen shake rex").define("screen_shake_rex", true);
+        SCREEN_SHAKE_REX_RANGE = CONFIG_BUILDER.comment("Screen shake rex range").define("screen_shake_rex_range", 10.0D);
+        SCREEN_SHAKE_REX_AMPLIFIER = CONFIG_BUILDER.comment("Screen shake rex amplifier").define("screen_shake_rex_amplifier", 1);
 
-        SCREEN_SHAKE_REX = builder.comment("Screen shake rex").define("screen_shake_rex", true);
-        SCREEN_SHAKE_REX_RANGE = builder.comment("Screen shake rex range").define("screen_shake_rex_range", 10.0D);
-        SCREEN_SHAKE_REX_AMPLIFIER = builder.comment("Screen shake rex amplifier").define("screen_shake_rex_amplifier", 1);
-        REX_SOUND_VOLUME = builder.comment("Rex sound volume").define("rex_sound_volume", 0.5F);
+        CONFIG_BUILDER.pop();
+        CONFIG_BUILDER.comment("Sound configs").push("sound_config");
+        BRACHI_SOUND_VOLUME = CONFIG_BUILDER.comment("Brachi sound volume").define("brachi_sound_volume", 3.0F);
+        BRACHI_TEEN_SOUND_VOLUME = CONFIG_BUILDER.comment("Brachi teen sound volume").define("brachi_teen_sound_volume", 1.5F);
+        REX_SOUND_VOLUME = CONFIG_BUILDER.comment("Rex sound volume").define("rex_sound_volume", 0.5F);
 
-        DINO_NATURAL_SPAWNING = builder.comment("Turn natural dino spawning on or off").define("dino_natural_spawn", false);
+        CONFIG_BUILDER.pop();
+        CONFIG_BUILDER.comment("Collision configs").push("collision_config");;
+        BRACHI_COLLISON = CONFIG_BUILDER.comment("Brachiosaurus hitbox collison").define("brachi_collison", true);
+        MAMMOTH_COLLISON = CONFIG_BUILDER.comment("Mammoth hitbox collison").define("mammoth_collison", false);
+        PARACERATHERIUM_COLLISON = CONFIG_BUILDER.comment("Paraceratherium hitbox collison").define("paraceratherium_collison", true);
+        REX_COLLISON = CONFIG_BUILDER.comment("Tyrannosaurus hitbox collison").define("rex_collison", false);
+        TRIKE_COLLISON = CONFIG_BUILDER.comment("Triceratops hitbox collison").define("trike_collison", false);
+
+        CONFIG_BUILDER.pop();
+        CONFIG_BUILDER.comment("Misc configs").push("misc_config");
+        DINO_NATURAL_SPAWNING = CONFIG_BUILDER.comment("Turn natural dino spawning on or off").define("dino_natural_spawn", false);
+        BRACHI_EXPERIMENTAL_FOOTPRINTS = CONFIG_BUILDER.comment("Brachiosaurus footprints").define("brachi_experimental_footprints", false);
+
+        COMMON = CONFIG_BUILDER.build();
     }
 }

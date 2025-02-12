@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
+import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.MammothMeleeAttackGoal;
@@ -192,6 +193,10 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
 
     public boolean isTrunking() {
         return this.entityData.get(IS_TRUNKING);
+    }
+
+    public boolean canBeCollidedWith() {
+        return UnusualPrehistoryConfig.MAMMOTH_COLLISON.get();
     }
 
     public void setTrunking(boolean isPecking) {
