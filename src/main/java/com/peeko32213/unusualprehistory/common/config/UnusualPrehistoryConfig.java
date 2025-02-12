@@ -33,20 +33,20 @@ public class UnusualPrehistoryConfig {
 
         CONFIG_BUILDER.comment("Screen shake configs").push("screen_shake_config");
         SCREEN_SHAKE = CONFIG_BUILDER.comment("All screen shakes").define("screen_shake", true);
-        SCREEN_SHAKE_BRACHI = CONFIG_BUILDER.comment("Screen shake brachi").define("screen_shake_brachi", true);
-        SCREEN_SHAKE_BRACHI_RANGE = CONFIG_BUILDER.comment("Screen shake brachi range").define("screen_shake_brachi_range", 10.0D);
-        SCREEN_SHAKE_TEEN_BRACHI_RANGE = CONFIG_BUILDER.comment("Screen shake brachi teen range").define("screen_shake_brachi_teen_range", 5.0D);
-        SCREEN_SHAKE_BRACHI_AMPLIFIER = CONFIG_BUILDER.comment("Screen shake brachi amplifier").define("screen_shake_brachi_amplifier", 1);
-        SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER = CONFIG_BUILDER.comment("Screen shake brachi teen amplifier").define("screen_shake_brachi_teen_amplifier", 0);
-        SCREEN_SHAKE_REX = CONFIG_BUILDER.comment("Screen shake rex").define("screen_shake_rex", true);
-        SCREEN_SHAKE_REX_RANGE = CONFIG_BUILDER.comment("Screen shake rex range").define("screen_shake_rex_range", 10.0D);
-        SCREEN_SHAKE_REX_AMPLIFIER = CONFIG_BUILDER.comment("Screen shake rex amplifier").define("screen_shake_rex_amplifier", 1);
+        SCREEN_SHAKE_BRACHI = CONFIG_BUILDER.comment("Brachiosaurus screen shake").define("screen_shake_brachi", true);
+        SCREEN_SHAKE_BRACHI_RANGE = CONFIG_BUILDER.comment("Brachiosaurus screen shake range").define("screen_shake_brachi_range", 10.0D);
+        SCREEN_SHAKE_TEEN_BRACHI_RANGE = CONFIG_BUILDER.comment("Adolescent Brachiosaurus screen shake range").define("screen_shake_brachi_teen_range", 5.0D);
+        SCREEN_SHAKE_BRACHI_AMPLIFIER = CONFIG_BUILDER.comment("Brachiosaurus screen shake amplifier").define("screen_shake_brachi_amplifier", 1);
+        SCREEN_SHAKE_TEEN_BRACHI_AMPLIFIER = CONFIG_BUILDER.comment("Adolescent Brachiosaurus screen shake amplifier").define("screen_shake_brachi_teen_amplifier", 0);
+        SCREEN_SHAKE_REX = CONFIG_BUILDER.comment("Tyrannosaurus screen shake").define("screen_shake_rex", true);
+        SCREEN_SHAKE_REX_RANGE = CONFIG_BUILDER.comment("Tyrannosaurus screen shake range").define("screen_shake_rex_range", 10.0D);
+        SCREEN_SHAKE_REX_AMPLIFIER = CONFIG_BUILDER.comment("Tyrannosaurus screen shake amplifier").define("screen_shake_rex_amplifier", 1);
 
         CONFIG_BUILDER.pop();
         CONFIG_BUILDER.comment("Sound configs").push("sound_config");
-        BRACHI_SOUND_VOLUME = CONFIG_BUILDER.comment("Brachi sound volume").define("brachi_sound_volume", 3.0F);
-        BRACHI_TEEN_SOUND_VOLUME = CONFIG_BUILDER.comment("Brachi teen sound volume").define("brachi_teen_sound_volume", 1.5F);
-        REX_SOUND_VOLUME = CONFIG_BUILDER.comment("Rex sound volume").define("rex_sound_volume", 0.5F);
+        BRACHI_SOUND_VOLUME = CONFIG_BUILDER.comment("Brachiosaurus sound volume").define("brachi_sound_volume", 3.0F);
+        BRACHI_TEEN_SOUND_VOLUME = CONFIG_BUILDER.comment("Adolescent Brachiosaurus sound volume").define("brachi_teen_sound_volume", 1.5F);
+        REX_SOUND_VOLUME = CONFIG_BUILDER.comment("Tyrannosaurus sound volume").define("rex_sound_volume", 0.5F);
 
         CONFIG_BUILDER.pop();
         CONFIG_BUILDER.comment("Collision configs").push("collision_config");;
@@ -58,7 +58,7 @@ public class UnusualPrehistoryConfig {
 
         CONFIG_BUILDER.pop();
         CONFIG_BUILDER.comment("Misc configs").push("misc_config");
-        DINO_NATURAL_SPAWNING = CONFIG_BUILDER.comment("Turn natural dino spawning on or off").define("dino_natural_spawn", false);
+        DINO_NATURAL_SPAWNING = CONFIG_BUILDER.comment("Prehistoric mob spawning").define("dino_natural_spawn", false);
         BRACHI_EXPERIMENTAL_FOOTPRINTS = CONFIG_BUILDER.comment("Brachiosaurus footprints").define("brachi_experimental_footprints", false);
 
         COMMON = CONFIG_BUILDER.build();
