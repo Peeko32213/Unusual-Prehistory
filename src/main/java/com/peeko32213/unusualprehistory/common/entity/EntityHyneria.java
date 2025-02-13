@@ -261,7 +261,7 @@ public class EntityHyneria extends EntityTameableBaseDinosaurAnimalNoFloat imple
         if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
             event.setAnimation(HYNERIA_SWIM);
             event.getController().setAnimationSpeed(1.0F);
-            if(this.isSprinting()){
+            if(this.getMoveControl().hasWanted()){
                 event.setAnimation(HYNERIA_SWIM_FAST);
                 event.getController().setAnimationSpeed(2.0F);
             }

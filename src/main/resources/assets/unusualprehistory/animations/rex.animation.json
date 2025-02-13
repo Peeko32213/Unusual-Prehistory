@@ -694,10 +694,10 @@
 				}
 			}
 		},
-		"animation.rex.roar_blend": {
+		"animation.rex.roar": {
 			"animation_length": 4,
 			"bones": {
-				"Body_B": {
+				"Body": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/1.33)*20", "math.sin(query.anim_time*180/1)*-5", "math.sin(query.anim_time*180/1)*10"],
 						"1.0": [0, "10-10*math.clamp(query.ground_speed,0,1)", -7.5],
@@ -723,7 +723,7 @@
 						"4.0": [0, 0, 0]
 					}
 				},
-				"Neck_B": {
+				"Neck": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/2)*20", 0, 0],
 						"1.2083": [20, 12.5, -5],
@@ -745,7 +745,7 @@
 						"4.0": [0, 0, 0]
 					}
 				},
-				"Cranium_B": {
+				"Cranium": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"0.6667": [20, 0, 0],
@@ -764,7 +764,7 @@
 						"4.0": [0, 0, 0]
 					}
 				},
-				"Jaw_B": {
+				"Jaw": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"0.6667": ["2.5+math.sin(query.anim_time*1440*3)*-1", 0, 0],
@@ -793,7 +793,7 @@
 						"4.0": [1, 1, 1]
 					}
 				},
-				"Tail_B": {
+				"Tail": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/1.33)*-5", "math.sin(query.anim_time*180/1.33)*5", "math.sin(query.anim_time*180/1.33)*-5"],
 						"1.2083": ["math.sin(query.anim_time*180/4-30)*10", "math.sin(query.anim_time*180/4+60)*-10", "math.sin(query.anim_time*180/4+60)*5"],
@@ -836,7 +836,7 @@
 		"animation.rex.sniff_blend": {
 			"animation_length": 3,
 			"bones": {
-				"Body_B": {
+				"Body": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*5", 0, 0],
 						"0.5": ["math.sin(query.anim_time*180/1-60)*-5", 5, 0],
@@ -845,7 +845,7 @@
 						"3.0": [0, 0, 0]
 					}
 				},
-				"Neck_B": {
+				"Neck": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*10", 0, 0],
 						"0.5": ["math.sin(query.anim_time*180/1-60)*-30", 10, 5],
@@ -860,7 +860,7 @@
 						"3.0": [0, 0, 0]
 					}
 				},
-				"Cranium_B": {
+				"Cranium": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*-10", 0, 0],
 						"0.5": ["math.sin(query.anim_time*180/1+90)*-20", 0, 0],
@@ -878,7 +878,7 @@
 						"3.0": [1, 1, 1]
 					}
 				},
-				"Jaw_B": {
+				"Jaw": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"0.5": [10, 0, 0],
@@ -886,7 +886,7 @@
 						"3.0": [0, 0, 0]
 					}
 				},
-				"Tail_B": {
+				"Tail": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*-5", 0, 0],
 						"0.5": ["math.sin(query.anim_time*180/1-60)*5", -2.5, 0],
@@ -905,7 +905,7 @@
 		"animation.rex.shake_blend": {
 			"animation_length": 4.5,
 			"bones": {
-				"Body_B": {
+				"Body": {
 					"rotation": {
 						"0.0": [0, 0, "math.sin(query.anim_time*180/1)*10"],
 						"1.0": [2.5, 0, "math.sin(query.anim_time*360)*10"],
@@ -913,7 +913,7 @@
 						"4.5": [0, 0, 0]
 					}
 				},
-				"Neck_B": {
+				"Neck": {
 					"rotation": {
 						"0.0": [0, 0, "math.sin(query.anim_time*180/1)*10"],
 						"1.0": [20, 0, "math.sin(query.anim_time*360-60)*10"],
@@ -927,7 +927,7 @@
 						"4.5": [0, 0, 0]
 					}
 				},
-				"Cranium_B": {
+				"Cranium": {
 					"rotation": {
 						"0.0": [0, 0, "math.sin(query.anim_time*180/1)*10"],
 						"1.0": [5, 0, "math.sin(query.anim_time*360-120)*5"],
@@ -935,7 +935,7 @@
 						"4.5": [0, 0, 0]
 					}
 				},
-				"Jaw_B": {
+				"Jaw": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"1.0": [20, 0, 0],
@@ -943,7 +943,7 @@
 						"4.5": [0, 0, 0]
 					}
 				},
-				"Tail_B": {
+				"Tail": {
 					"rotation": {
 						"0.0": [0, "math.sin(query.anim_time*180/1)*5", "math.sin(query.anim_time*180/1)*5"],
 						"1.0": [-2.5, "math.sin(query.anim_time*360+60)*-2.5", "math.sin(query.anim_time*360+60)*-5"],
@@ -2070,10 +2070,10 @@
 				}
 			}
 		},
-		"animation.rex.bite_blend1": {
+		"animation.rex.bite_0": {
 			"animation_length": 2,
 			"bones": {
-				"Body_B": {
+				"Body": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.75)*-10", "math.sin(query.anim_time*180/0.75)*10", "math.sin(query.anim_time*180/0.75)*10"],
 						"0.75": ["math.sin(query.anim_time*180/1-30)*10", "math.sin(query.anim_time*180/1-30)*-5", "math.sin(query.anim_time*180/1-30)*-5"],
@@ -2087,7 +2087,7 @@
 						"2.0": [0, 0, 0]
 					}
 				},
-				"Neck_B": {
+				"Neck": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*10", 0, "math.sin(query.anim_time*180/0.5)*-10"],
 						"0.5": ["math.sin(query.anim_time*180/0.88-30)*-10", 0, "math.sin(query.anim_time*180/0.88-30)*10"],
@@ -2106,7 +2106,7 @@
 						"2.0": [0, 0, 0]
 					}
 				},
-				"Cranium_B": {
+				"Cranium": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*-10", 0, "math.sin(query.anim_time*180/0.5)*-10"],
 						"0.5": ["math.sin(query.anim_time*180/0.88-60)*-10", 0, "math.sin(query.anim_time*180/0.88-60)*10"],
@@ -2123,7 +2123,7 @@
 						"2.0": [0, 0, 0]
 					}
 				},
-				"Jaw_B": {
+				"Jaw": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*-10", 0, 0],
 						"0.5": ["4+math.sin(query.anim_time*180/0.88-30)*50+math.sin(query.anim_time*1440*3)*1-math.clamp(query.ground_speed,0,150)*0.1", 0, 0],
@@ -2149,7 +2149,7 @@
 						"2.0": [1, 1, 1]
 					}
 				},
-				"Tail_B": {
+				"Tail": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.75)*10", "math.sin(query.anim_time*180/0.75)*-5", "math.sin(query.anim_time*180/0.75)*-5"],
 						"0.75": ["math.sin(query.anim_time*180/1+30)*-10", "math.sin(query.anim_time*180/1+30)*10", "math.sin(query.anim_time*180/1+30)*10"],
@@ -2175,10 +2175,10 @@
 				}
 			}
 		},
-		"animation.rex.bite_blend2": {
+		"animation.rex.bite_1": {
 			"animation_length": 2,
 			"bones": {
-				"Body_B": {
+				"Body": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.75)*-10", "math.sin(query.anim_time*180/0.75)*-10", "math.sin(query.anim_time*180/0.75)*-10"],
 						"0.75": ["math.sin(query.anim_time*180/1-30)*10", "math.sin(query.anim_time*180/1-30)*5", "math.sin(query.anim_time*180/1-30)*5"],
@@ -2192,7 +2192,7 @@
 						"2.0": [0, 0, 0]
 					}
 				},
-				"Neck_B": {
+				"Neck": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*10", 0, "math.sin(query.anim_time*180/0.5)*10"],
 						"0.5": ["math.sin(query.anim_time*180/0.88-30)*-10", 0, "math.sin(query.anim_time*180/0.88-30)*-10"],
@@ -2211,7 +2211,7 @@
 						"2.0": [0, 0, 0]
 					}
 				},
-				"Cranium_B": {
+				"Cranium": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*-10", 0, "math.sin(query.anim_time*180/0.5)*10"],
 						"0.5": ["math.sin(query.anim_time*180/0.88-60)*-10", 0, "math.sin(query.anim_time*180/0.88-60)*-10"],
@@ -2228,7 +2228,7 @@
 						"2.0": [0, 0, 0]
 					}
 				},
-				"Jaw_B": {
+				"Jaw": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*-10", 0, 0],
 						"0.5": ["4+math.sin(query.anim_time*180/0.88-30)*50+math.sin(query.anim_time*1440*3)*1-math.clamp(query.ground_speed,0,150)*0.1", 0, 0],
@@ -2254,7 +2254,7 @@
 						"2.0": [1, 1, 1]
 					}
 				},
-				"Tail_B": {
+				"Tail": {
 					"rotation": {
 						"0.0": ["math.sin(query.anim_time*180/0.75)*10", "math.sin(query.anim_time*180/0.75)*5", "math.sin(query.anim_time*180/0.75)*5"],
 						"0.75": ["math.sin(query.anim_time*180/1+30)*-10", "math.sin(query.anim_time*180/1+30)*-10", "math.sin(query.anim_time*180/1+30)*-10"],

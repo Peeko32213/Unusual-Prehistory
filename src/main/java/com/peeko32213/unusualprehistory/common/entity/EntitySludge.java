@@ -31,6 +31,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
+import java.util.Objects;
 
 public class EntitySludge extends Monster implements GeoAnimatable {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -65,9 +66,6 @@ public class EntitySludge extends Monster implements GeoAnimatable {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 
     }
-
-
-
 
     protected SoundEvent getAmbientSound() {
         return UPSounds.SLUDGE_IDLE.get();
@@ -283,7 +281,7 @@ public class EntitySludge extends Monster implements GeoAnimatable {
             animTime++;
 
             if (animTime <= 3) {
-                this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
                 this.mob.yBodyRot = this.mob.yHeadRot;
             }
 

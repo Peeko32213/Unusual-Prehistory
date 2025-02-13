@@ -53,6 +53,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 
 public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
@@ -66,10 +67,13 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     private int shakeCooldown = 0;
 
     private int stunnedTick;
-    private static final RawAnimation REX_BITE = RawAnimation.begin().thenLoop("animation.rex.bite_blend_1");
+    private static final RawAnimation REX_BITE = RawAnimation.begin().thenLoop("animation.rex.bite_0");
+    private static final RawAnimation REX_BITE_1 = RawAnimation.begin().thenLoop("animation.rex.bite_1");
     private static final RawAnimation REX_WHIP = RawAnimation.begin().thenLoop("animation.rex.whip");
     private static final RawAnimation REX_STOMP_L = RawAnimation.begin().thenLoop("animation.rex.stompl");
     private static final RawAnimation REX_STOMP_R = RawAnimation.begin().thenLoop("animation.rex.stompr");
+    private static final RawAnimation REX_TACKLE = RawAnimation.begin().thenLoop("animation.rex.tackle");
+    private static final RawAnimation REX_ROAR = RawAnimation.begin().thenLoop("animation.rex.roar");
     private static final RawAnimation REX_EEPY = RawAnimation.begin().thenLoop("animation.rex.knockout");
     private static final RawAnimation REX_SWIM = RawAnimation.begin().thenLoop("animation.rex.swim");
     private static final RawAnimation REX_CHARGE = RawAnimation.begin().thenLoop("animation.rex.run");
@@ -89,14 +93,14 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10.5D)
                 .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
-                .add(Attributes.FOLLOW_RANGE, 50D);
+                .add(Attributes.FOLLOW_RANGE, 32D);
     }
 
     protected void registerGoals() {
             super.registerGoals();
             this.goalSelector.addGoal(0, new RandomLookAroundGoal(this));
             this.goalSelector.addGoal(0, new FloatGoal(this));
-            this.goalSelector.addGoal(1, new EntityTyrannosaurusRex.RexMeleeAttackGoal(this, 2F, true) {
+            this.goalSelector.addGoal(3, new EntityTyrannosaurusRex.RexMeleeAttackGoal(this, 1.5F, true) {
                 public boolean canUse() {
                     return !isBaby() && passiveFor == 0 && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
                 }
@@ -288,11 +292,14 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(rexShakeRange));
                 for (LivingEntity e : list) {
                     if (e instanceof Player) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 5, rexShakeAmp, false, false, false));
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 6, rexShakeAmp, false, false, false));
                         this.playSound(UPSounds.REX_STEP.get(), rexMoveSoundVolume, 1.0F);
                     }
                 }
-                shakeCooldown = 23;
+                if(!this.isSprinting()) {
+                    shakeCooldown = 23;
+                }
+                else shakeCooldown = 11;
             }
         }
         shakeCooldown--;
@@ -339,7 +346,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         return null;
     }
 
-
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.hasCustomName();
     }
@@ -349,36 +355,28 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     }
 
     public int getAnimationState() {
-
         return this.entityData.get(ANIMATION_STATE);
     }
 
     public void setAnimationState(int anim) {
-
         this.entityData.set(ANIMATION_STATE, anim);
     }
 
     public int getCombatState() {
-
         return this.entityData.get(COMBAT_STATE);
     }
 
     public void setCombatState(int anim) {
-
         this.entityData.set(COMBAT_STATE, anim);
     }
 
     public int getEntityState() {
-
         return this.entityData.get(ENTITY_STATE);
     }
 
     public void setEntityState(int anim) {
-
         this.entityData.set(ENTITY_STATE, anim);
     }
-
-
 
     static class RexMeleeAttackGoal extends Goal {
 
@@ -392,9 +390,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         private int ticksUntilNextPathRecalculation;
         private int ticksUntilNextAttack;
         private long lastCanUseCheck;
-
         private int animTime = 0;
-
 
         public RexMeleeAttackGoal(EntityTyrannosaurusRex p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
@@ -424,8 +420,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                     }
                 }
             }
-
-
         }
 
         public boolean canContinueToUse() {
@@ -444,8 +438,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             } else {
                 return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
             }
-
-
         }
 
         public void start() {
@@ -467,7 +459,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         public void tick() {
 
-
             LivingEntity target = this.mob.getTarget();
 
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
@@ -475,10 +466,11 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             int animState = this.mob.getAnimationState();
 
             switch (animState) {
-                case 21 -> tickBiteAttack();
-                case 22 -> tickWhipAttack();
-                case 23 -> tickStompAttack();
-                case 24 -> tickStompAttack();
+                case 21, 22 -> tickBiteAttack();
+                case 23 -> tickWhipAttack();
+                case 24, 25 -> tickStompAttack();
+                case 26 -> tickChargeAttack();
+                case 27 -> tickRoarAttack();
                 default -> {
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -491,9 +483,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         protected void doMovement (LivingEntity livingentity, Double d0){
 
-
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                 this.pathedTargetX = livingentity.getX();
@@ -510,42 +500,55 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
                     this.ticksUntilNextPathRecalculation += 15;
                 }
             }
-
         }
 
         protected void checkForCloseRangeAttack ( double distance, double reach){
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                 int r = this.mob.getRandom().nextInt(2048);
-                if (r <= 600) {
+                if (r <= 800) {
                     this.mob.setAnimationState(21);
-                } else if (r > 600 && r <= 800) {
-                    this.mob.setAnimationState(22);
-                } else if (r > 800 && r <= 1400) {
+                }
+                else this.mob.setAnimationState(22);
+
+                if (r > 800 && r <= 1300) {
+                    this.mob.setAnimationState(26);
+                }
+                else if (r > 1300 && r <= 1600) {
                     this.mob.setAnimationState(23);
-                } else {
+                }
+                else if(r > 1600 && r <= 1800){
+                    this.mob.setAnimationState(27);
+                }
+                else if (r > 1800 && r <= 2200) {
                     this.mob.setAnimationState(24);
                 }
-
+                else {
+                    this.mob.setAnimationState(25);
+                }
             }
         }
 
         protected boolean getRangeCheck () {
-
             return
-                    this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                            <=
-                            1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
+                <=
+                1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
         protected void tickBiteAttack () {
             animTime++;
-            if(animTime>=6 && animTime < 9) {
-                preformBiteAttack();
 
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
             }
-            if(animTime>=9) {
-                animTime=0;
 
+            if(animTime==11) {
+                preformBiteAttack();
+            }
+
+            if(animTime>=14) {
+                animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
                 this.ticksUntilNextPathRecalculation = 0;
@@ -554,34 +557,82 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
         protected void tickWhipAttack () {
             animTime++;
-            //this.mob.getNavigation().stop();
-            if(animTime>=15 && animTime < 18) {
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==11) {
                 preformWhipAttack();
             }
-            if(animTime>=16) {
-                animTime=0;
 
+            if(animTime>=14) {
+                animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
                 this.ticksUntilNextPathRecalculation = 0;
-
             }
-
         }
 
         protected void tickStompAttack () {
             animTime++;
-            //this.mob.getNavigation().stop();
-            if(animTime>=25 && animTime < 30) {
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==14) {
                 preformStompAttack();
             }
-            if(animTime>=30) {
+
+            if(animTime>=17) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
                 this.ticksUntilNextPathRecalculation = 0;
             }
+        }
 
+        protected void tickChargeAttack () {
+            animTime++;
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==8) {
+                preformChargeAttack();
+            }
+
+            if(animTime>=11) {
+                animTime=0;
+                this.mob.setAnimationState(0);
+                this.resetAttackCooldown();
+                this.ticksUntilNextPathRecalculation = 0;
+            }
+        }
+
+        protected void tickRoarAttack () {
+            animTime++;
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==4) {
+                preformRoarAttack();
+            }
+
+            if(animTime>=33) {
+                animTime=0;
+                this.mob.setAnimationState(0);
+                this.resetAttackCooldown();
+                this.ticksUntilNextPathRecalculation = 0;
+            }
         }
 
         protected void preformBiteAttack () {
@@ -594,19 +645,39 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
         protected void preformWhipAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),10.0f, 2.0f, mob, pos,  8.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),10.0f, 1.0f, mob, pos,  8.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
+        }
+
+        protected void preformChargeAttack () {
+            Vec3 pos = mob.position();
+            this.mob.playSound(UPSounds.REX_BITE.get(), 1.0F, 1.0F);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),12.0f, 1.2f, mob, pos,  6.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+        }
+
+        protected void preformRoarAttack () {
+            Vec3 pos = mob.position();
+            this.mob.playSound(UPSounds.REX_DEATH.get(), 3.0F, 0.75F);
+            if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
+                double range = 50;
+                List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(1.5F));
+                for (LivingEntity e : list) {
+                    if (!(e instanceof EntityTyrannosaurusRex) && e.isAlive()) {
+                        e.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 500, 0, false, true, true));
+                    }
+                }
+            }
         }
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.REX_STOMP_ATTACK.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),25.0f, 2.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            this.mob.playSound(UPSounds.REX_STOMP_ATTACK.get(), 1.9F, 1.9F);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),25.0f, 1.5f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(rexShakeRange));
                 for (LivingEntity e : list) {
-                    if (e instanceof Player) {
+                    if (!(e instanceof EntityTyrannosaurusRex) && e.isAlive()) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, 3, false, false, false));
                     }
                 }
@@ -614,6 +685,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
             }
             mob.shakeCooldown--;
         }
+
 
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 0;
@@ -682,17 +754,31 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
 
                 case 21:
                     event.setAndContinue(REX_BITE);
+                    event.getController().setAnimationSpeed(1.0F);
                     break;
                 case 22:
-                    event.setAndContinue(REX_WHIP);
+                    event.setAndContinue(REX_BITE_1);
+                    event.getController().setAnimationSpeed(1.0F);
                     break;
                 case 23:
-                    event.setAndContinue(REX_STOMP_L);
-                    event.getController().setAnimationSpeed(0.75F);
+                    event.setAndContinue(REX_WHIP);
+                    event.getController().setAnimationSpeed(1.0F);
                     break;
                 case 24:
+                    event.setAndContinue(REX_STOMP_L);
+                    event.getController().setAnimationSpeed(1.35F);
+                    break;
+                case 25:
                     event.setAndContinue(REX_STOMP_R);
-                    event.getController().setAnimationSpeed(0.75F);
+                    event.getController().setAnimationSpeed(1.35F);
+                    break;
+                case 26:
+                    event.setAndContinue(REX_TACKLE);
+                    event.getController().setAnimationSpeed(1.0F);
+                    break;
+                case 27:
+                    event.setAndContinue(REX_ROAR);
+                    event.getController().setAnimationSpeed(1.0F);
                     break;
                 default:
                     if (this.hasEepy()) {
@@ -732,6 +818,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal {
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+//        controllers.add(new AnimationController<>(this, "Blend", 5, this::blendController));
     }
 
     @Override

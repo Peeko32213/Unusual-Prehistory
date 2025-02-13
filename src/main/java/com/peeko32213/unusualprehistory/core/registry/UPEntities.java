@@ -113,7 +113,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_rex").toString()));
 
     public static final RegistryObject<EntityType<EntityTyrannosaurusRex>> REX = ENTITIES.register("rex",
-            () -> EntityType.Builder.of(EntityTyrannosaurusRex::new, MobCategory.CREATURE).sized(3.4F, 5.0F)
+            () -> EntityType.Builder.of(EntityTyrannosaurusRex::new, MobCategory.CREATURE).sized(3.3F, 4.5F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "rex").toString()));
 
     public static final RegistryObject<EntityType<EntityEncrusted>> ENCRUSTED = ENTITIES.register("encrusted",
