@@ -20,6 +20,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -124,7 +125,6 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
             this.noActionTime = 0;
         }
     }
-
 
     @Override
     public boolean canAttack(LivingEntity entity) {
