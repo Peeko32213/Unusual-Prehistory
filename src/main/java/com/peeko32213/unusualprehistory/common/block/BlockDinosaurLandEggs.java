@@ -62,8 +62,7 @@ public class BlockDinosaurLandEggs extends Block {
         this.dinosaur = dinosaur;
         this.ONE_SHAPE = oneEgg;
         this.MULTI_SHAPE = multiEgg;
-        if(hatchTimeMin > hatchTimeMax)
-        {
+        if(hatchTimeMin > hatchTimeMax) {
             try {
                 LOGGER.debug("Min higher than Max, for block with entity {}", dinosaur.get());
                 throw new Exception("Something went wrong setting creating block");
@@ -83,7 +82,7 @@ public class BlockDinosaurLandEggs extends Block {
 
     //This can be called for eggs that have only a single egg and egg shape
     public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg) {
-        this(properties, dinosaur, eggCount, oneEgg, EMPTY_BLOCK_SHAPE,1200,3600);
+        this(properties, dinosaur, eggCount, oneEgg, EMPTY_BLOCK_SHAPE,3,5);
     }
 
     //This can be called for eggs that have only a single egg and egg shape
@@ -93,7 +92,7 @@ public class BlockDinosaurLandEggs extends Block {
 
     //This can be called for eggs that have the standard egg shape/ the most common one
     public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount) {
-        this(properties, dinosaur, eggCount, ONE_EGG_SHAPE, MULTI_EGG_SHAPE, 1200,3600);
+        this(properties, dinosaur, eggCount, ONE_EGG_SHAPE, MULTI_EGG_SHAPE, 3,5);
     }
 
     //This can be called for eggs that have the standard egg shape/ the most common one
@@ -102,7 +101,7 @@ public class BlockDinosaurLandEggs extends Block {
     }
 
     public BlockDinosaurLandEggs(Properties properties, Supplier<? extends EntityType> dinosaur, int eggCount, VoxelShape oneEgg, VoxelShape multiEgg) {
-        this(properties, dinosaur, eggCount, oneEgg, multiEgg, 1200,3600);
+        this(properties, dinosaur, eggCount, oneEgg, multiEgg, 3,5);
     }
 
     public static boolean hasProperHabitat(BlockGetter reader, BlockPos blockReader) {
@@ -116,7 +115,6 @@ public class BlockDinosaurLandEggs extends Block {
     protected boolean mayPlaceOn(BlockState p_56127_, BlockGetter p_56128_, BlockPos p_56129_) {
         return !p_56127_.getCollisionShape(p_56128_, p_56129_).getFaceShape(Direction.UP).isEmpty() || p_56127_.isFaceSturdy(p_56128_, p_56129_, Direction.UP);
     }
-
 
     public boolean canSurvive(BlockState p_56109_, LevelReader p_56110_, BlockPos p_56111_) {
         BlockPos blockpos = p_56111_.below();
@@ -163,7 +161,6 @@ public class BlockDinosaurLandEggs extends Block {
                         hatchableEntity.determineVariant(random.nextInt(100));
                     }
 
-
                     if(dinosaurToSpawn instanceof Animal animal){
                         animal.setAge(-24000);
                     }
@@ -176,7 +173,6 @@ public class BlockDinosaurLandEggs extends Block {
                 }
             }
         }
-
     }
 
     @Override
@@ -236,11 +232,9 @@ public class BlockDinosaurLandEggs extends Block {
         return blockstate.getBlock() == this ? blockstate.setValue(EGGS, Integer.valueOf(Math.min(eggCount, blockstate.getValue(EGGS) + 1))) : super.getStateForPlacement(context);
     }
 
-
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return state.getValue(EGGS) > 1 ? MULTI_SHAPE : ONE_SHAPE;
     }
-
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HATCH, EGGS);

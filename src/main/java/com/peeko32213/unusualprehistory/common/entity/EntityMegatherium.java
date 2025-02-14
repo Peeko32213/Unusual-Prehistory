@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGo
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.EatLeavesGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -434,8 +435,8 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        return null;
+    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+        return UPEntities.MEGATHERIUM.get().create(serverLevel);
     }
 
     protected <E extends EntityMegatherium> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {

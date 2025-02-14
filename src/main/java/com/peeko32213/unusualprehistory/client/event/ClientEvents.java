@@ -172,15 +172,19 @@ public final class ClientEvents {
     }
     private static final ResourceLocation TRICERATOPS_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops_saddle.png");
     private static final ResourceLocation TRICERATOPS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/trike.geo.json");
+
     private static final ResourceLocation ULUGH_JEB_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus_jeb.png");
     private static final ResourceLocation ULUGH_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus_saddled.png");
     private static final ResourceLocation ULUGH_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/ulughbegsaurus.geo.json");
+
     private static final ResourceLocation HWACHA_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/hwachavenator_saddled.png");
     private static final ResourceLocation HWACHA_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/hwachavenator.geo.json");
-    private static final ResourceLocation MEGATHERIUM_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium_saddled.png");
-    private static final ResourceLocation MEGATHERIUM_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium.geo.json");
+
+    private static final ResourceLocation MEGATHERIUM_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium/megatherium_saddled.png");
+    private static final ResourceLocation MEGATHERIUM_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium/megatherium.geo.json");
 
     private static final ResourceLocation BARINASUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus.geo.json");
+
     private static final ResourceLocation BEELZE_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_saddle.png");
     private static final ResourceLocation BEELZE_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/beelzebufo.geo.json");
 
@@ -225,16 +229,21 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.REX.get(), TyrannosaurusRexRenderer::new);
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new DinosaurRenderer<>(e, new MegalaniaModel()));
+        event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e ->
+                UPRenderUtils.createTamableDinosaurRenderer(e, new MegatheriumModel())
+                        .withLayers(MEGATHERIUM_MODEL)
+                        .withSaddleLayer(MEGATHERIUM_SADDLE_OVERLAY)
+                        .build());
 
         event.registerEntityRenderer(UPEntities.AMBER_SHOT.get(), AmberShotRenderer::new);
         event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
 
         event.registerEntityRenderer(UPEntities.BABY_BRACHI.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BRACHI)));
         event.registerEntityRenderer(UPEntities.BABY_REX.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_REX)));
-        event.registerEntityRenderer(UPEntities.BABY_MEGATHERIUM.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_MEGATHERIUM)));
+//        event.registerEntityRenderer(UPEntities.BABY_MEGATHERIUM.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_MEGATHERIUM)));
         event.registerEntityRenderer(UPEntities.BABY_GIGANTO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_GIGAN)));
         event.registerEntityRenderer(UPEntities.BABY_PARACER.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_PARACERATHERIUM)));
-        event.registerEntityRenderer(UPEntities.BABY_MEGALANIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_MEGALANIA)));
+//        event.registerEntityRenderer(UPEntities.BABY_MEGALANIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_MEGALANIA)));
         event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_PALEOLOPHIS)));
         event.registerEntityRenderer(UPEntities.BABY_BARINA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BARINA)));
         event.registerEntityRenderer(UPEntities.BABY_SMILODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_SMILODON)));
@@ -267,11 +276,11 @@ public final class ClientEvents {
                         .build());
 
         event.registerEntityRenderer(UPEntities.PARACERATHERIUM.get(), e -> new DinosaurRenderer<>(e, new DefaultModel<>(ModelLocations.PARACERATHERIUM)));
-        event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new DefaultModel<>(ModelLocations.MEGATHERIUM))
-                        .withLayers(MEGATHERIUM_MODEL)
-                        .withSaddleLayer(MEGATHERIUM_SADDLE_OVERLAY)
-                        .build());
+//        event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e ->
+//                UPRenderUtils.createTamableDinosaurRenderer(e, new DefaultModel<>(ModelLocations.MEGATHERIUM))
+//                        .withLayers(MEGATHERIUM_MODEL)
+//                        .withSaddleLayer(MEGATHERIUM_SADDLE_OVERLAY)
+//                        .build());
 
         event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new DinosaurRenderer<>(e, new VariantModel<>(ModelLocations.SMILODON)));
         event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e ->
@@ -279,7 +288,6 @@ public final class ClientEvents {
                         .withItemHoldingLayer()
                         .build());
 
-//        event.registerEntityRenderer(UPEntities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new  AquaticRenderer(e, new DefaultModel(ModelLocations.PALAEOPHIS_HEAD)));
         event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
         event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.SLUDGE)));

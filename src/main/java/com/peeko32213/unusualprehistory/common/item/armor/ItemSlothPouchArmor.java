@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.item.armor;
 
 import com.peeko32213.unusualprehistory.client.render.armor.SlothPouchArmorRenderer;
+import com.peeko32213.unusualprehistory.common.entity.EntityMegatherium;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyMegatherium;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -66,7 +67,7 @@ public class ItemSlothPouchArmor extends ArmorItem implements GeoItem {
         CompoundTag tag = stack.getTag();
         if (tag.contains("megatherium") && pHand == InteractionHand.MAIN_HAND) {
             if(!pLevel.isClientSide) {
-                EntityBabyMegatherium babyMegatherium = UPEntities.BABY_MEGATHERIUM.get().create(pLevel);
+                EntityMegatherium babyMegatherium = UPEntities.MEGATHERIUM.get().create(pLevel);
                 babyMegatherium.deserializeNBT(tag.getCompound("megatherium"));
                 babyMegatherium.setPos(pPlayer.position());
 

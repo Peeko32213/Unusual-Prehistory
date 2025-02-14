@@ -8,6 +8,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGo
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -50,6 +51,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -165,12 +167,9 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     }
 
-
-
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
-
 
     protected SoundEvent getAmbientSound() {
         return UPSounds.ULUGH_IDLE.get();
@@ -232,13 +231,10 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         return shouldHurt;
     }
 
-
-
     public void performAttack() {
         if (this.level().isClientSide) {
             return;
         }
-
         this.setSwinging(true);
         for (Entity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
             if (!this.hasSwung() && this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
@@ -279,7 +275,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
     public void setAttackCooldown(int cooldown) {
         this.attackCooldown = cooldown;
     }
-
 
     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -834,13 +829,11 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         super.customServerAiStep();
     }
 
-
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return null;
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        return UPEntities.ULUG.get().create(serverLevel);
     }
-
 
     protected <E extends EntityUlughbegsaurus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){

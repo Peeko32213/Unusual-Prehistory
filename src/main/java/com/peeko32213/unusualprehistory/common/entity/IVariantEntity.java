@@ -4,5 +4,4 @@ import net.minecraft.resources.ResourceLocation;
 
 public interface IVariantEntity {
     public ResourceLocation getVariantTexture();
-
 }

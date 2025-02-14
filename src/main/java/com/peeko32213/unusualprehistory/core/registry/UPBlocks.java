@@ -252,7 +252,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> MEGALA_EGG = registerBlock("megala_eggs",
             () -> new BlockDinosaurLandEggs(
                     BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.BABY_MEGALANIA, 2,
+                    UPEntities.MEGALANIA, 2,
                     Block.box(4, 0, 8, 11, 9, 15),
                     Block.box(2, 0, 1, 14, 10, 15)
             ));

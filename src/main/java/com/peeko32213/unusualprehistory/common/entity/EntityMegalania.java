@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandom
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.SleepRandomLookAroundGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -15,7 +16,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -43,6 +43,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -60,6 +61,10 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     private static final ResourceLocation TEXTURE_COLD = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold.png");
     private static final ResourceLocation TEXTURE_HOT = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot.png");
     private static final ResourceLocation TEXTURE_NETHER = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_nether.png");
+    private static final ResourceLocation TEXTURE_TEMPERATE_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_baby.png");
+    private static final ResourceLocation TEXTURE_COLD_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold_baby.png");
+    private static final ResourceLocation TEXTURE_HOT_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot_baby.png");
+    private static final ResourceLocation TEXTURE_NETHER_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_nether_baby.png");
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
@@ -201,21 +206,19 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     }
 
     @Override
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         if(pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if(itemStack.is(Tags.Items.TOOLS)) {
          CompoundTag compoundTag = itemStack.getTag();
-         compoundTag.putInt("megalania_damage", 30);
+            assert compoundTag != null;
+            compoundTag.putInt("megalania_damage", 30);
          itemStack.setTag(compoundTag);
         }
         return super.mobInteract(pPlayer, pHand);
     }
 
     public boolean isHotBiome() {
-        if (this.isNoAi()) {
-            return false;
-        }
         if (this.level().dimension() == Level.NETHER) {
             return true;
         } else {
@@ -224,9 +227,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     }
 
     public boolean isColdBiome() {
-        if (this.isNoAi()) {
-            return false;
-        }
         if (this.level().dimension() == Level.NETHER) {
             return false;
         } else {
@@ -239,8 +239,10 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        return null;
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        EntityMegalania megalania = UPEntities.MEGALANIA.get().create(serverLevel);
+        megalania.setVariant(this.getVariant());
+        return megalania;
     }
 
     @Override
@@ -333,8 +335,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
             sleepProgress = Math.max(sleepProgress - 0.2F, 0.0F);
         }
 
-        if(this.isAsleep())
-        {
+        if(this.isAsleep()) {
             this.getLookControl().setLookAt(this.position().add(2,0,2));
         }
 
@@ -364,16 +365,14 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {
         SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, spawnGroupData, tag);
 
-        if(levelAccessor.getLevel().dimension() == Level.NETHER) {
+        if (levelAccessor.getLevel().dimension() == Level.NETHER) {
             setNetherVariant();
             return data;
-        }
-        if (this.isHotBiome()) {
+        } else if (this.isHotBiome()) {
             setHotVariant();
         } else if (this.isColdBiome()) {
             setColdVariant();
-        }
-        else {
+        } else {
             setNormalVariant();
         }
         return data;
@@ -395,23 +394,34 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
         return UPSounds.MEGALANIA_DEATH.get();
     }
 
+    // Variant textures
     @Override
     public ResourceLocation getVariantTexture() {
         if(getVariant() == 1){
+            if(this.isBaby()) {
+                return TEXTURE_COLD_BABY;
+            }
             return TEXTURE_COLD;
         }
-        if(getVariant() == 2)
-        {
+        else if(getVariant() == 2) {
+            if(this.isBaby()) {
+                return TEXTURE_HOT_BABY;
+            }
             return TEXTURE_HOT;
         }
-        if(getVariant() == 3)
-        {
+        else if(getVariant() == 3) {
+            if(this.isBaby()) {
+                return TEXTURE_NETHER_BABY;
+            }
             return TEXTURE_NETHER;
         }
-
-        return TEXTURE_TEMPERATE;
+        else if(this.isBaby()){
+            return TEXTURE_TEMPERATE_BABY;
+        }
+        else return TEXTURE_TEMPERATE;
     }
 
+    // Melee attack
     static class MegaMeleeAttackGoal extends Goal {
 
         protected final EntityMegalania mob;
@@ -427,7 +437,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
         private int animTime = 0;
 
         Vec3 biteOffSet = new Vec3(2, 0, 0);
-
 
         public MegaMeleeAttackGoal(EntityMegalania p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;

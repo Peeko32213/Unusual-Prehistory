@@ -17,28 +17,49 @@ public class MegalaniaModel extends GeoModel<EntityMegalania>
     private static final ResourceLocation TEXTURE_COLD = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold.png");
     private static final ResourceLocation TEXTURE_HOT = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot.png");
     private static final ResourceLocation TEXTURE_NETHER = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_nether.png");
+    private static final ResourceLocation TEXTURE_TEMPERATE_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_baby.png");
+    private static final ResourceLocation TEXTURE_COLD_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold_baby.png");
+    private static final ResourceLocation TEXTURE_HOT_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot_baby.png");
+    private static final ResourceLocation TEXTURE_NETHER_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_nether_baby.png");
 
     @Override
-    public ResourceLocation getModelResource(EntityMegalania object)
+    public ResourceLocation getModelResource(EntityMegalania megalania)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/megalania.geo.json");
+        if(megalania.isBaby()){
+            return new ResourceLocation(UnusualPrehistory.MODID, "geo/megalania/megalania_baby.geo.json");
+        } else {
+            return new ResourceLocation(UnusualPrehistory.MODID, "geo/megalania/megalania.geo.json");
+        }
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityMegalania object)
+    public ResourceLocation getTextureResource(EntityMegalania megalania)
     {
-        return switch (object.getVariant()) {
-            case 1 -> TEXTURE_COLD;
-            case 2 -> TEXTURE_HOT;
-            case 3 -> TEXTURE_NETHER;
-            default -> TEXTURE_TEMPERATE;
-        };
+        if (megalania.isBaby()) {
+        return switch (megalania.getVariant()) {
+            case 1 -> TEXTURE_COLD_BABY;
+            case 2 -> TEXTURE_HOT_BABY;
+            case 3 -> TEXTURE_NETHER_BABY;
+            default -> TEXTURE_TEMPERATE_BABY;
+            };
+        } else {
+            return switch (megalania.getVariant()) {
+                case 1 -> TEXTURE_COLD;
+                case 2 -> TEXTURE_HOT;
+                case 3 -> TEXTURE_NETHER;
+                default -> TEXTURE_TEMPERATE;
+            };
+        }
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityMegalania object)
+    public ResourceLocation getAnimationResource(EntityMegalania megalania)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/megalania.animation.json");
+        if(megalania.isBaby()){
+            return new ResourceLocation(UnusualPrehistory.MODID, "animations/megalania/megalania_baby.animation.json");
+        } else {
+            return new ResourceLocation(UnusualPrehistory.MODID, "animations/megalania/megalania.animation.json");
+        }
     }
 
     @Override

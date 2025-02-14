@@ -197,10 +197,6 @@ public class UPEntities {
                     .noSummon()
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "palaeophis_part").toString()));
 
-    public static final RegistryObject<EntityType<EntityBabyMegalania>> BABY_MEGALANIA = ENTITIES.register("baby_megalania",
-            () -> EntityType.Builder.of(EntityBabyMegalania::new, MobCategory.CREATURE).sized(0.8f, 0.5f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_megalania").toString()));
-
     public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = ENTITIES.register("megalania",
             () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(3.0F, 2.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()));

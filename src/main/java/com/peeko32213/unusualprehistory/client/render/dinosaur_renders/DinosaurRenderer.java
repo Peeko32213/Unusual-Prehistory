@@ -4,6 +4,7 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.common.entity.EntityAustroraptor;
+import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
 import com.peeko32213.unusualprehistory.common.entity.EntityVelociraptor;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -18,7 +19,6 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import java.util.Locale;
 
 public class DinosaurRenderer<T extends EntityBaseDinosaurAnimal> extends GeoEntityRenderer<T> {
-
 
     public DinosaurRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
@@ -43,6 +43,12 @@ public class DinosaurRenderer<T extends EntityBaseDinosaurAnimal> extends GeoEnt
         if(animatable instanceof EntityAustroraptor austroraptor)
         {
             if(austroraptor.isBaby()) stackIn.scale(0.3F, 0.3F, 0.3F);
+            return;
+        }
+
+        if(animatable instanceof EntityMegalania megalania)
+        {
+            if(megalania.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
             return;
         }
 
