@@ -64,7 +64,6 @@ public class EntitySludge extends Monster implements GeoAnimatable {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(1, new EntitySludge.SludgeMeleeAttackGoal(this, 1.0F, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
-
     }
 
     protected SoundEvent getAmbientSound() {
@@ -77,6 +76,11 @@ public class EntitySludge extends Monster implements GeoAnimatable {
 
     protected SoundEvent getDeathSound() {
         return UPSounds.SLUDGE_DEATH.get();
+    }
+
+    @Override
+    public float getSoundVolume() {
+        return 0.25F;
     }
 
     public int getAnimationState() {
@@ -226,9 +230,7 @@ public class EntitySludge extends Monster implements GeoAnimatable {
 
         protected void doMovement (LivingEntity livingentity, Double d0){
 
-
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                 this.pathedTargetX = livingentity.getX();
@@ -245,9 +247,7 @@ public class EntitySludge extends Monster implements GeoAnimatable {
                     this.ticksUntilNextPathRecalculation += 15;
                 }
             }
-
         }
-
 
         protected void checkForCloseRangeAttack ( double distance, double reach){
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
@@ -261,21 +261,15 @@ public class EntitySludge extends Monster implements GeoAnimatable {
                 } else {
                     this.mob.setAnimationState(24);
                 }
-
             }
         }
 
-
         protected boolean getRangeCheck () {
-
             return
-                    this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                            <=
-                            1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
+                <=
+                1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
-
-
-
 
         protected void tickClapAttack () {
             animTime++;
@@ -297,14 +291,11 @@ public class EntitySludge extends Monster implements GeoAnimatable {
             }
         }
 
-
         protected void preformClapAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
             HitboxHelper.PivotedPolyHitCheck(this.mob, this.rightOffset, 2f, 2f, 2f, (ServerLevel)this.mob.level(), 15f, this.mob.damageSources().mobAttack(mob), 0.5f, false);
-
         }
-
 
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 0;

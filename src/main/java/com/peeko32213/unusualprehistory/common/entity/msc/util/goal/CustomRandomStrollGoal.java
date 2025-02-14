@@ -5,13 +5,13 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDi
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimalNoFloat;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
-public class CustomRandomStrollGoal extends RandomStrollGoal {
+public class CustomRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
     protected final float probability;
     protected final int xzRange;
     protected final int yRange;
@@ -21,31 +21,23 @@ public class CustomRandomStrollGoal extends RandomStrollGoal {
     }
 
     public boolean canUse() {
-        if(this.mob instanceof EntityBaseDinosaurAnimal entityBaseDinosaurAnimal)
-        {
-            if(entityBaseDinosaurAnimal.playingAnimation())
-            {
-                return false;
-        }
-        }
-        if(this.mob instanceof EntityBaseAquaticAnimal entityBaseDinosaurAnimal)
-        {
-            if(entityBaseDinosaurAnimal.playingAnimation())
-            {
+        if(this.mob instanceof EntityBaseDinosaurAnimal entityBaseDinosaurAnimal) {
+            if(entityBaseDinosaurAnimal.playingAnimation()) {
                 return false;
             }
         }
-        if(this.mob instanceof EntityTameableBaseDinosaurAnimal entityBaseDinosaurAnimal)
-        {
-            if(entityBaseDinosaurAnimal.playingAnimation())
-            {
+        if(this.mob instanceof EntityBaseAquaticAnimal entityBaseDinosaurAnimal) {
+            if(entityBaseDinosaurAnimal.playingAnimation()) {
                 return false;
             }
         }
-        if(this.mob instanceof EntityTameableBaseDinosaurAnimalNoFloat entityBaseDinosaurAnimal)
-        {
-            if(entityBaseDinosaurAnimal.playingAnimation())
-            {
+        if(this.mob instanceof EntityTameableBaseDinosaurAnimal entityBaseDinosaurAnimal) {
+            if(entityBaseDinosaurAnimal.playingAnimation()) {
+                return false;
+            }
+        }
+        if(this.mob instanceof EntityTameableBaseDinosaurAnimalNoFloat entityBaseDinosaurAnimal) {
+            if(entityBaseDinosaurAnimal.playingAnimation()) {
                 return false;
             }
         }

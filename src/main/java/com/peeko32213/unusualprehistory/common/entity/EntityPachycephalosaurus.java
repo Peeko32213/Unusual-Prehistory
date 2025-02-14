@@ -388,7 +388,6 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
                     }
                 }
             }
-
         }
 
         public boolean canContinueToUse() {
@@ -406,7 +405,6 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
             } else {
                 return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
             }
-
         }
 
         public void start() {
@@ -416,7 +414,6 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
             this.ticksUntilNextAttack = 0;
             this.animTime = 0;
             this.mob.setAnimationState(0);
-
         }
 
         public void stop() {
@@ -430,14 +427,12 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
 
         public void tick() {
 
-
             LivingEntity target = this.mob.getTarget();
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
             Vec3 aim = this.mob.getLookAngle();
             Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
 
             switch (animState) {
                 case 21 -> tickLightAttack1();
@@ -452,14 +447,11 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
                     this.checkForCloseRangeAttack(distance, reach);
                 }
             }
-
         }
 
             protected void doMovement (LivingEntity livingentity, Double d0){
 
-
                 this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
                 if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                     this.pathedTargetX = livingentity.getX();
@@ -488,14 +480,10 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
                         this.ticksUntilNextPathRecalculation += 15;
                     }
                 }
-
             }
-
 
             protected void checkForCloseRangeAttack ( double distance, double reach){
                 if (distance <= reach && this.ticksUntilNextAttack <= 0) {
-
-
                     int r = this.mob.getRandom().nextInt(2048);
                     if (r <= 800) {
                         this.mob.setAnimationState(21);
@@ -509,18 +497,13 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
 
                 }
             }
-
-
             protected boolean getRangeCheck () {
 
                 return
-                        this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                                <=
-                                1.3F * this.getAttackReachSqr(this.mob.getTarget());
-
+                this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
+                        <=
+                        1.3F * this.getAttackReachSqr(this.mob.getTarget());
             }
-
-
 
         protected void tickLightAttack1 () {
             animTime++;
@@ -553,7 +536,6 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
                 this.ticksUntilNextPathRecalculation = 0;
 
             }
-
         }
 
             protected void tickStrongHeadbuttAttack () {
@@ -567,7 +549,6 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
                     this.resetAttackCooldown();
                     this.ticksUntilNextPathRecalculation = 0;
                 }
-
             }
             protected void tickKickAttack () {
                 animTime++;
@@ -582,10 +563,7 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
                 }
             }
 
-
             protected void performLightAttack () {
-
-
                 Vec3 pos = mob.position();
                 this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 2.0f, 0.2f);
                 HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),8.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
@@ -593,24 +571,18 @@ public class EntityPachycephalosaurus extends EntityBaseDinosaurAnimal {
             }
 
         protected void performStrongAttack () {
-
-
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 0.5F, 0.5F);
             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),12.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
 
         }
 
-
         protected void performAttackKick () {
-
-
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PACHY_KICK.get(), 0.5F, 0.5F);
             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),15.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
 
         }
-
 
             protected void resetAttackCooldown () {
                 this.ticksUntilNextAttack = 0;

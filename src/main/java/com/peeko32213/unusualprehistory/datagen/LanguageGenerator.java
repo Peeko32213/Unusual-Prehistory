@@ -540,6 +540,8 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.REX_HURT, "Tyrannosaurus hurts");
         addSound(UPSounds.REX_STEP, "Forceful footsteps");
         addSound(UPSounds.REX_DEATH, "Tyrannosaurus dies");
+        addSound(UPSounds.REX_PACIFY, "Tyrannosaurus was pacified");
+
         addSound(UPSounds.TRIKE_IDLE, "Triceratops stouts");
         addSound(UPSounds.TRIKE_HURT, "Triceratops hurts");
         addSound(UPSounds.TRIKE_DEATH, "Triceratops dies");
@@ -647,6 +649,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_2", "%s was turned to fine paste");
         add("death.attack.hwacha_3", "%s was shot");
         add("instrument.unusualprehistory.ocarina", "Crocodilian Lullaby");
+        add("rex.pacify.message", "Pacified Tyrannosaurus Rex");
 
         add("unusualprehistory.advancement.root", "Unusual Prehistory");
         add("unusualprehistory.advancement.root.desc", "Begin Your Journey Into the World of Prehistory!");

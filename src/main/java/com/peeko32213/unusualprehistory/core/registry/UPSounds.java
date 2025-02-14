@@ -51,6 +51,7 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> REX_STEP = createSoundEvent("rex_step");
     public static final RegistryObject<SoundEvent> REX_STOMP_ATTACK = createSoundEvent("rex_stomp_attack");
     public static final RegistryObject<SoundEvent> REX_TAIL_SWIPE = createSoundEvent("rex_tail_swipe");
+    public static final RegistryObject<SoundEvent> REX_PACIFY = createSoundEvent("rex_pacify");
 
     public static final RegistryObject<SoundEvent> TRIKE_DEATH = createSoundEvent("trike_death");
     public static final RegistryObject<SoundEvent> TRIKE_HURT = createSoundEvent("trike_hurt");

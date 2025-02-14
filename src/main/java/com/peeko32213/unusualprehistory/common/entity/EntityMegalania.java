@@ -51,14 +51,15 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVariantEntity{
-    private static final ResourceLocation NORMAL_LOCATION = prefix("textures/entity/megalania.png");
-    private static final ResourceLocation HOT_LOCATION = prefix("textures/entity/megalania_hot.png");
-    private static final ResourceLocation COLD_LOCATION = prefix("textures/entity/megalania_cold.png");
-    private static final ResourceLocation NETHER_LOCATION = prefix("textures/entity/megalania_nether.png");
+    private static final ResourceLocation TEXTURE_TEMPERATE = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania.png");
+    private static final ResourceLocation TEXTURE_COLD = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold.png");
+    private static final ResourceLocation TEXTURE_HOT = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot.png");
+    private static final ResourceLocation TEXTURE_NETHER = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_nether.png");
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityMegalania.class, EntityDataSerializers.INT);
@@ -74,8 +75,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     private static final RawAnimation MEGALANIA_SWIM = RawAnimation.begin().thenLoop("animation.megalania.swim");
     private static final RawAnimation MEGALANIA_REST = RawAnimation.begin().thenLoop("animation.megalania.resting");
     private static final RawAnimation MEGALANIA_BITE = RawAnimation.begin().thenLoop("animation.megalania.bite");
-    private static final RawAnimation MEGALANIA_CLAW_SWIPE = RawAnimation.begin().thenLoop("animation.megalania.claw_swipe");
-    private static final RawAnimation MEGALANIA_TAIL_WHIP = RawAnimation.begin().thenLoop("animation.megalania.tail_whip");
 
     public EntityMegalania(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -83,12 +82,12 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 35.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.16D)
-                .add(Attributes.ARMOR, 10.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 5.0D)
-                .add(Attributes.ATTACK_DAMAGE, 15.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
+            .add(Attributes.MAX_HEALTH, 35.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.16D)
+            .add(Attributes.ARMOR, 10.0D)
+            .add(Attributes.ARMOR_TOUGHNESS, 5.0D)
+            .add(Attributes.ATTACK_DAMAGE, 15.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
     }
 
     @Override
@@ -201,7 +200,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
         return UPTags.MEGALANIA_TARGETS;
     }
 
-
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
@@ -224,7 +222,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
             return this.level().getBiome(this.blockPosition()).is(BiomeTags.SNOW_GOLEM_MELTS);
         }
     }
-
 
     public boolean isColdBiome() {
         if (this.isNoAi()) {
@@ -286,54 +283,42 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     }
 
     public int getAnimationState() {
-
         return this.entityData.get(ANIMATION_STATE);
     }
 
     public void setAnimationState(int anim) {
-
         this.entityData.set(ANIMATION_STATE, anim);
     }
 
     public int getCombatState() {
-
         return this.entityData.get(COMBAT_STATE);
     }
 
     public void setCombatState(int anim) {
-
         this.entityData.set(COMBAT_STATE, anim);
     }
 
     public int getEntityState() {
-
         return this.entityData.get(ENTITY_STATE);
     }
 
     public void setEntityState(int anim) {
-
         this.entityData.set(ENTITY_STATE, anim);
     }
 
-
     private void setColdVariant(){
-
         this.setVariant(1);
     }
 
     private void setHotVariant(){
-
         this.setVariant(2);
     }
 
     private void setNetherVariant(){
-
         this.setVariant(3);
     }
 
-
     private void setNormalVariant(){
-
         this.setVariant(0);
     }
 
@@ -352,7 +337,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
         {
             this.getLookControl().setLookAt(this.position().add(2,0,2));
         }
-
 
         if(!this.level().isClientSide){
             if (this.isHotBiome() && !isInWaterRainOrBubble()) {
@@ -380,9 +364,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {
         SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, spawnGroupData, tag);
 
-
-        if(levelAccessor.getLevel().dimension() == Level.NETHER)
-        {
+        if(levelAccessor.getLevel().dimension() == Level.NETHER) {
             setNetherVariant();
             return data;
         }
@@ -394,8 +376,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
         else {
             setNormalVariant();
         }
-
-
         return data;
     }
 
@@ -418,20 +398,19 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     @Override
     public ResourceLocation getVariantTexture() {
         if(getVariant() == 1){
-            return COLD_LOCATION;
+            return TEXTURE_COLD;
         }
         if(getVariant() == 2)
         {
-            return HOT_LOCATION;
+            return TEXTURE_HOT;
         }
         if(getVariant() == 3)
         {
-            return NETHER_LOCATION;
+            return TEXTURE_NETHER;
         }
 
-        return NORMAL_LOCATION;
+        return TEXTURE_TEMPERATE;
     }
-
 
     static class MegaMeleeAttackGoal extends Goal {
 
@@ -445,13 +424,9 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
         private int ticksUntilNextPathRecalculation;
         private int ticksUntilNextAttack;
         private long lastCanUseCheck;
-        private int failedPathFindingPenalty = 0;
-        private boolean canPenalize = false;
         private int animTime = 0;
 
         Vec3 biteOffSet = new Vec3(2, 0, 0);
-        Vec3 clawOffSet = new Vec3(2, 0, 0);
-        Vec3 whipOffSet = new Vec3(0, -0.3, 4);
 
 
         public MegaMeleeAttackGoal(EntityMegalania p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
@@ -482,8 +457,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
                     }
                 }
             }
-
-
         }
 
         public boolean canContinueToUse() {
@@ -502,8 +475,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
             } else {
                 return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
             }
-
-
         }
 
         public void start() {
@@ -525,7 +496,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
 
         public void tick() {
 
-
             LivingEntity target = this.mob.getTarget();
 
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
@@ -534,8 +504,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
 
             switch (animState) {
                 case 21 -> tickBiteAttack();
-                case 22 -> tickClawAttack();
-                case 23 -> tickWhipAttack();
                 default -> {
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -548,9 +516,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
 
         protected void doMovement (LivingEntity livingentity, Double d0){
 
-
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                 this.pathedTargetX = livingentity.getX();
@@ -567,73 +533,36 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
                     this.ticksUntilNextPathRecalculation += 15;
                 }
             }
-
         }
-
 
         protected void checkForCloseRangeAttack ( double distance, double reach){
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
-                int r = this.mob.getRandom().nextInt(2048);
-                if (r <= 600) {
-                    this.mob.setAnimationState(21);
-                } else if (r > 600 && r <= 800) {
-                    this.mob.setAnimationState(22);
-                } else {
-                    this.mob.setAnimationState(23);
-                }
-
+                this.mob.setAnimationState(21);
             }
         }
-
 
         protected boolean getRangeCheck () {
 
             return
-                    this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                            <=
-                            1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
+                    <=
+                    1.05F * this.getAttackReachSqr(this.mob.getTarget());
         }
-
-
 
         protected void tickBiteAttack () {
             animTime++;
-            if(animTime==5) {
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==8) {
                 preformBiteAttack();
             }
-            if(animTime>=9) {
+
+            if(animTime>=11) {
                 animTime=0;
-
-                this.mob.setAnimationState(0);
-                this.resetAttackCooldown();
-                this.ticksUntilNextPathRecalculation = 0;
-            }
-        }
-
-        protected void tickClawAttack () {
-            animTime++;
-            this.mob.getNavigation().stop();
-            if(animTime==5) {
-                preformClawAttack();
-            }
-            if(animTime>=9) {
-                animTime=0;
-
-                this.mob.setAnimationState(0);
-                this.resetAttackCooldown();
-                this.ticksUntilNextPathRecalculation = 0;
-            }
-        }
-
-        protected void tickWhipAttack () {
-            animTime++;
-            this.mob.getNavigation().stop();
-            if(animTime==5) {
-                preformWhipAttack();
-            }
-            if(animTime>=15) {
-                animTime=0;
-
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
                 this.ticksUntilNextPathRecalculation = 0;
@@ -641,9 +570,8 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
         }
 
         protected void preformBiteAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.PALAEO_BITE.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.biteOffSet, 3f, 2f, 2f, (ServerLevel)this.mob.level(), 5f, this.mob.damageSources().mobAttack(mob), 0.5f, false);
+            this.mob.playSound(UPSounds.PALAEO_BITE.get(), 0.75F, 1.0F);
+            HitboxHelper.PivotedPolyHitCheck(this.mob, this.biteOffSet, 3f, 2f, 3.5f, (ServerLevel)this.mob.level(), 5f, this.mob.damageSources().mobAttack(mob), 0.5f, false);
             List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(1));
             for (LivingEntity e : list) {
                 if (!(e instanceof EntityMegalania) && e.isAlive()) {
@@ -651,20 +579,6 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
                 }
             }
         }
-
-        protected void preformClawAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.clawOffSet, 2f, 2f, 2f, (ServerLevel)this.mob.level(), 8f, this.mob.damageSources().mobAttack(mob), 0.5f, true);
-        }
-
-        protected void preformWhipAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.whipOffSet, 5f, 1f, 5f, (ServerLevel)this.mob.level(), 6f,this.mob.damageSources().mobAttack(mob), 1.1f, false);
-        }
-
-
 
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 3;
@@ -683,10 +597,9 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
         }
     }
-
 
     protected <E extends EntityMegalania> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
@@ -698,12 +611,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
 
                 case 21:
                     event.setAndContinue(MEGALANIA_BITE);
-                    break;
-                case 22:
-                    event.setAndContinue(MEGALANIA_CLAW_SWIPE);
-                    break;
-                case 23:
-                    event.setAndContinue(MEGALANIA_TAIL_WHIP);
+                    event.getController().setAnimationSpeed(0.75F);
                     break;
                 default:
                     if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isAsleep()  && !this.isSwimming()) {

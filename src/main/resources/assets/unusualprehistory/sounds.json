@@ -231,55 +231,63 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.beelze_death"
   },
+
   "rex_bite": {
     "sounds": [
-        "unusualprehistory:rex_bite_0",
-        "unusualprehistory:rex_bite_1",
-        "unusualprehistory:rex_bite_2"
+        "unusualprehistory:rex/rex_bite_0",
+        "unusualprehistory:rex/rex_bite_1",
+        "unusualprehistory:rex/rex_bite_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.rex_bite"
   },
   "rex_death": {
     "sounds": [
-        "unusualprehistory:rex_death_0",
-        "unusualprehistory:rex_death_1"
+        "unusualprehistory:rex/rex_death_0",
+        "unusualprehistory:rex/rex_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.rex_death"
   },
   "rex_hurt": {
     "sounds": [
-        "unusualprehistory:rex_hurt_0",
-        "unusualprehistory:rex_hurt_1"
+        "unusualprehistory:rex/rex_hurt_0",
+        "unusualprehistory:rex/rex_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.rex_hurt"
   },
   "rex_idle": {
     "sounds": [
-        "unusualprehistory:rex_idle_0",
-        "unusualprehistory:rex_idle_1",
-        "unusualprehistory:rex_idle_2"
+        "unusualprehistory:rex/rex_idle_0",
+        "unusualprehistory:rex/rex_idle_1",
+        "unusualprehistory:rex/rex_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.rex_idle"
   },
   "rex_step": {
     "sounds": [
-        "unusualprehistory:rex_step"
+        "unusualprehistory:rex/rex_step"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.rex_step"
   },
   "rex_stomp_attack": {
     "sounds": [
-        "unusualprehistory:rex_stomp_attack_0",
-        "unusualprehistory:rex_stomp_attack_1"
+        "unusualprehistory:rex/rex_stomp_attack_0",
+        "unusualprehistory:rex/rex_stomp_attack_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.rex_stomp_attack"
   },
   "rex_tail_swipe": {
     "sounds": [
-        "unusualprehistory:rex_tail_swipe"
+        "unusualprehistory:rex/rex_tail_swipe"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.rex_tail_swipe"
   },
+  "rex_pacify": {
+    "sounds": [
+      "unusualprehistory:rex/rex_pacify"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.rex_pacify"
+  },
+
   "trike_death": {
     "sounds": [
         "unusualprehistory:trike_death_0",

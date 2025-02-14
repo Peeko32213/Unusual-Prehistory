@@ -41,6 +41,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 
 public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
 
@@ -50,8 +51,6 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
     private Ingredient temptationItems;
     private int shakeCooldown = 0;
 
-    private float shakeAnim;
-    private float shakeAnimO;
     private static final RawAnimation PARACER_WALK = RawAnimation.begin().thenLoop("animation.paraceratherium.move");
     private static final RawAnimation PARACER_IDLE = RawAnimation.begin().thenLoop("animation.paraceratherium.idle");
     private static final RawAnimation PARACER_ATTACK = RawAnimation.begin().thenLoop("animation.paraceratherium.attack");
@@ -59,6 +58,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
 
     public EntityParaceratherium(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
+        this.setMaxUpStep(1.75F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -81,11 +81,6 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(1, new EntityParaceratherium.ParacerMeleeAttackGoal(this, 1.8F, true));
-        this.targetSelector.addGoal(2, new NearestTargetAI(this, LivingEntity.class, 110, false, true, null) {
-            public boolean canUse() {
-                return !isBaby() && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
-            }
-        });
     }
 
     private Ingredient getTemptationItems() {
@@ -96,44 +91,22 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
 
         return temptationItems;
     }
-    @Override
-    public boolean isAlliedTo(Entity pEntity) {
-        return pEntity.is(this);
-    }
+
     public void tick() {
         super.tick();
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
-            if (this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
-                double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
-                int brachiShakeAmp = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_AMPLIFIER.get();
-                float brachiMoveSoundVolume = UnusualPrehistoryConfig.BRACHI_SOUND_VOLUME.get();
-                List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
+            if (this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM.get()) {
+                double paraceratheriumShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM_RANGE.get();
+                int paraceratheriumShakeAmp = UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM_AMPLIFIER.get();
+                float paraceratheriumMoveSoundVolume = UnusualPrehistoryConfig.PARACERATHERIUM_SOUND_VOLUME.get();
+                List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(paraceratheriumShakeRange));
                 for (LivingEntity e : list) {
                     if (e instanceof Player) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiShakeAmp, false, false, false));
-                        this.playSound(UPSounds.BRACHI_STEP.get(), brachiMoveSoundVolume, 0.40F);
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 6, paraceratheriumShakeAmp, false, false, false));
+                        this.playSound(UPSounds.BRACHI_STEP.get(), paraceratheriumMoveSoundVolume, 1.0F);
                     }
                 }
                 shakeCooldown = 40;
-            }
-        }
-
-        if (this.isAlive()) {
-            this.shakeAnimO = this.shakeAnim;
-            this.shakeAnim += 0.05F;
-            if (this.shakeAnimO >= 2.0F) {
-                this.shakeAnimO = 0.0F;
-                this.shakeAnim = 0.0F;
-            }
-
-            float f = (float) this.getY();
-            int i = (int) (Mth.sin((this.shakeAnim - 0.4F) * (float) Math.PI) * 7.0F);
-            Vec3 vec3 = this.getDeltaMovement();
-
-            for (int j = 0; j < i; ++j) {
-                float f1 = (this.random.nextFloat() * 2.0F - 1.0F) * this.getBbWidth() * 0.4F;
-                float f2 = (this.random.nextFloat() * 2.0F - 1.0F) * this.getBbWidth() * 0.4F;
-                this.level().addParticle(ParticleTypes.SPLASH, this.getX() + (double) f1, (double) (f + getBbHeight()*0.85), this.getZ() + (double) f2, vec3.x, vec3.y, vec3.z);
             }
         }
     }
@@ -249,7 +222,6 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
         private int animTime = 0;
         Vec3 slamOffSet = new Vec3(1, 0, 0);
 
-
         public ParacerMeleeAttackGoal(EntityParaceratherium p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
             this.speedModifier = p_i1636_2_;
@@ -287,8 +259,6 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
                     }
                 }
             }
-
-
         }
 
         public boolean canContinueToUse() {
@@ -306,8 +276,6 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
             } else {
                 return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
             }
-
-
         }
 
         public void start() {
@@ -329,14 +297,12 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
 
         public void tick() {
 
-
             LivingEntity target = this.mob.getTarget();
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
             Vec3 aim = this.mob.getLookAngle();
             Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
 
             switch (animState) {
                 case 21:
@@ -355,9 +321,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
 
         protected void doMovement(LivingEntity livingentity, Double d0) {
 
-
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                 this.pathedTargetX = livingentity.getX();
@@ -389,7 +353,6 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
 
         }
 
-
         protected void checkForCloseRangeAttack(double distance, double reach) {
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                 int r = this.mob.getRandom().nextInt(2048);
@@ -399,51 +362,51 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
             }
         }
 
-
         protected boolean getRangeCheck() {
 
             return
-                    this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                            <=
-                            1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
+                    <=
+                    1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
 
-        protected void tickStompAttack() {
+        protected void tickStompAttack () {
             animTime++;
-            this.mob.getNavigation().stop();
-            if (animTime == 5) {
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==14) {
                 preformStompAttack();
             }
-            if (animTime >= 9) {
-                animTime = 0;
 
+            if(animTime>=17) {
+                animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
                 this.ticksUntilNextPathRecalculation = 0;
             }
         }
 
-        protected void preformStompAttack() {
+        protected void preformStompAttack () {
             Vec3 pos = mob.position();
-            this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0));
-            //this.mob.willItBreak = true;
-            //HitboxHelper.LargeAttack(DamageSource.mobAttack(mob),5.0f, 1.5f, mob, pos,  80.0F, -Math.PI/6, Math.PI/6, -1.0f, 3.0f);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),25.0f, 1f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-            //THIS METHOD CAN ONLY BE RAN ON THE SERVERSIDE.
-            if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
-                double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
-                List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
+            this.mob.playSound(UPSounds.PARACER_STOMP.get(), 1.0F, 1.0F);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),20.0f, 0.7f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM.get()) {
+                double paraceratheriumShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM_RANGE.get();
+                List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(paraceratheriumShakeRange));
                 for (LivingEntity e : list) {
-                    if (e instanceof Player) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 6, false, false, false));
-                        this.mob.playSound(UPSounds.PARACER_STOMP.get(), 2F, 0.4F);
+                    if (!(e instanceof EntityParaceratherium) && e.isAlive()) {
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, 4, false, false, false));
                     }
                 }
-                this.mob.shakeCooldown = 10;
+                mob.shakeCooldown = 100;
             }
+            mob.shakeCooldown--;
         }
-
 
         protected void resetAttackCooldown() {
             this.ticksUntilNextAttack = 0;
@@ -471,13 +434,11 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
         return null;
     }
 
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return null;
     }
-
 
     protected <E extends EntityParaceratherium> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
@@ -489,6 +450,7 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
 
                 case 21:
                     event.setAndContinue(PARACER_ATTACK);
+                    event.getController().setAnimationSpeed(0.85F);
                     break;
                 default:
                     if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && !this.isSwimming()) {

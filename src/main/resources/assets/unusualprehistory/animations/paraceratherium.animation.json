@@ -6,110 +6,56 @@
 			"animation_length": 2,
 			"bones": {
 				"Body": {
-					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.5) * 180) * 0.5", 0, "Math.sin((query.anim_time - 0.0) * 180) * 0.5"]
-					},
+					"rotation": ["Math.cos((query.anim_time - 0.5) * 180) * 0.5", 0, "Math.sin((query.anim_time - 0.0) * 180) * 0.5"],
 					"position": {
-						"0.0": {
-							"vector": [0, -2, 0]
-						},
-						"0.5": {
-							"vector": [0, 0, 0]
-						},
-						"1.0": {
-							"vector": [0, 0.1, 0]
-						},
-						"1.5": {
-							"vector": [0, 0, 0]
-						},
-						"2.0": {
-							"vector": [0, -2, 0]
-						}
+						"0.0": [0, 0, 0],
+						"0.5": [0, 0, 0],
+						"1.0": [0, 0, 0],
+						"1.5": [0, 0, 0],
+						"2.0": [0, 0, 0]
 					}
 				},
 				"Neck": {
-					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.2) * 180) * 1.1", 0, "Math.sin((query.anim_time - 0.2) * 180) * 1.1"]
-					}
+					"rotation": ["Math.cos((query.anim_time - 0.2) * 180) * 1.1", 0, "Math.sin((query.anim_time - 0.2) * 180) * 1.1"]
 				},
 				"Head": {
-					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.5) * 180) * 1.7", 0, "Math.sin((query.anim_time - 0.5) * 180) * 1.7"]
-					}
+					"rotation": ["Math.cos((query.anim_time - 0.5) * 180) * 1.7", 0, "Math.sin((query.anim_time - 0.5) * 180) * 1.7"]
 				},
 				"Tail": {
-					"rotation": {
-						"vector": ["Math.cos((query.anim_time - 0.2) * 180) * 1.1", 0, "Math.sin((query.anim_time - 0.2) * 180) * 1.1"]
-					}
+					"rotation": ["Math.cos((query.anim_time - 0.2) * 180) * 1.1", 0, "Math.sin((query.anim_time - 0.2) * 180) * 1.1"]
 				},
 				"Leg1": {
-					"rotation": {
-						"vector": ["Math.sin((query.anim_time - 0.0) * 180) * 12", 0, 0]
-					},
+					"rotation": ["Math.sin((query.anim_time - 0.0) * 180) * 12", 0, 0],
 					"position": {
-						"0.5": {
-							"vector": [0, 0, 0]
-						},
-						"1.0": {
-							"vector": [0, 7, 0]
-						},
-						"1.5": {
-							"vector": [0, 0, 0]
-						}
+						"0.5": [0, 0, 0],
+						"1.0": [0, 0, 0],
+						"1.5": [0, 0, 0]
 					}
 				},
 				"Leg2": {
-					"rotation": {
-						"vector": ["Math.sin((query.anim_time - 0.0) * 180) * -12", 0, 0]
-					},
+					"rotation": ["Math.sin((query.anim_time - 0.0) * 180) * -12", 0, 0],
 					"position": {
-						"0.5": {
-							"vector": [0, 7, 0]
-						},
-						"1.0": {
-							"vector": [0, 0, 0]
-						},
-						"1.5": {
-							"vector": [0, 7, 0]
-						}
+						"0.5": [0, 0, 0],
+						"1.0": [0, 0, 0],
+						"1.5": [0, 0, 0]
 					}
 				},
 				"Arm1": {
-					"rotation": {
-						"vector": ["Math.sin((query.anim_time - 0.0) * 180) * -10", 0, 0]
-					},
+					"rotation": ["Math.sin((query.anim_time - 0.0) * 180) * -10", 0, 0],
 					"position": {
-						"0.0": {
-							"vector": [0, 6, 0]
-						},
-						"0.5": {
-							"vector": [0, 0, 0]
-						},
-						"1.0": {
-							"vector": [0, 0, 0]
-						},
-						"1.5": {
-							"vector": [0, 6, 0]
-						}
+						"0.0": [0, 0, 0],
+						"0.5": [0, 0, 0],
+						"1.0": [0, 0, 0],
+						"1.5": [0, 0, 0]
 					}
 				},
 				"Arm2": {
-					"rotation": {
-						"vector": ["Math.sin((query.anim_time - 0.0) * 180) * 10", 0, 0]
-					},
+					"rotation": ["Math.sin((query.anim_time - 0.0) * 180) * 10", 0, 0],
 					"position": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.5": {
-							"vector": [0, 6, 0]
-						},
-						"1.0": {
-							"vector": [0, 6, 0]
-						},
-						"1.5": {
-							"vector": [0, 0, 0]
-						}
+						"0.0": [0, 0, 0],
+						"0.5": [0, 0, 0],
+						"1.0": [0, 0, 0],
+						"1.5": [0, 0, 0]
 					}
 				}
 			}
@@ -142,8 +88,13 @@
 			"bones": {
 				"Body": {
 					"rotation": {
-						"0.0": ["Math.sin((query.anim_time - 0.0) * 180) * -36", 0, "Math.sin((query.anim_time - 0.0) * 360) * 3"],
-						"1.375": [0, 0, 0]
+						"0.0": ["Math.sin((query.anim_time - 0.0) * 180) * -50", 0, 0],
+						"1.125": [
+							"Math.cos((query.anim_time - 0.75) * 180) * 10",
+							"Math.cos((query.anim_time - 0.0) * 360) * -3",
+							"Math.cos((query.anim_time - 0.0) * 360) * 3"
+						],
+						"1.5": [0, 0, 0]
 					}
 				},
 				"Neck": {
@@ -173,29 +124,34 @@
 				"Arm1": {
 					"rotation": {
 						"0.0": [
-							"Math.sin((query.anim_time - 0.0) * 180) * -10",
+							"Math.sin((query.anim_time - 0.0) * 180) * -42",
 							"Math.sin((query.anim_time - 0.0) * 180) * -4",
 							"Math.sin((query.anim_time - 0.0) * 180) * -5"
 						],
-						"1.3125": [0, 0, 0]
+						"0.4375": [
+							"Math.sin((query.anim_time - 0.0) * 180) * -20",
+							"Math.sin((query.anim_time - 0.0) * 180) * -4",
+							"Math.sin((query.anim_time - 0.0) * 180) * -5"
+						],
+						"1.1875": [0, 0, 0]
 					},
 					"position": {
-						"0.0": [0, "Math.sin((query.anim_time - 0.0) * 180) * 40", 0],
-						"1.1875": [0, 0, 0]
+						"0.0": [0, "Math.sin((query.anim_time - 0.0) * 180) * 55", 0],
+						"1.0625": [0, 0, 0]
 					}
 				},
 				"Arm2": {
 					"rotation": {
 						"0.0": [
-							"Math.sin((query.anim_time - 0.0) * 180) * -10",
+							"Math.sin((query.anim_time - 0.0) * 180) * -45",
 							"Math.sin((query.anim_time - 0.0) * 180) * 4",
 							"Math.sin((query.anim_time - 0.0) * 180) * 5"
 						],
 						"1.3125": [0, 0, 0]
 					},
 					"position": {
-						"0.0": [0, "Math.sin((query.anim_time - 0.0) * 180) * 40", 0],
-						"1.1875": [0, 0, 0]
+						"0.0": [0, "Math.sin((query.anim_time - 0.0) * 180) * 55", 0],
+						"1.125": [0, 0, 0]
 					}
 				},
 				"Leg1": {

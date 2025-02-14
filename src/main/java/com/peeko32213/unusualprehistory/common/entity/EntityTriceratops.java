@@ -183,7 +183,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         }
     }
 
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -230,7 +229,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
     public void setHasSwung(boolean swung) {
         this.entityData.set(HAS_SWUNG, Boolean.valueOf(swinging));
     }
-
 
     public int getCommand() {
         return this.entityData.get(COMMAND).intValue();
@@ -350,7 +348,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
-
                 this.setSpeed(0.3F);
                 super.travel(new Vec3((double) f, pos.y, (double) f1));
             } else {
@@ -373,7 +370,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         }
         return null;
     }
-
 
     @Override
     protected void positionRider(Entity pPassenger, MoveFunction pCallback) {

@@ -162,7 +162,6 @@ public final class ClientEvents {
 
        BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
 
-
     }
 
     @SubscribeEvent
@@ -225,8 +224,11 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.VELOCI.get(), e -> new DinosaurRenderer<>(e, new VelociraptorModel()));
         event.registerEntityRenderer(UPEntities.REX.get(), TyrannosaurusRexRenderer::new);
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
+        event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new DinosaurRenderer<>(e, new MegalaniaModel()));
+
         event.registerEntityRenderer(UPEntities.AMBER_SHOT.get(), AmberShotRenderer::new);
         event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
+
         event.registerEntityRenderer(UPEntities.BABY_BRACHI.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BRACHI)));
         event.registerEntityRenderer(UPEntities.BABY_REX.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_REX)));
         event.registerEntityRenderer(UPEntities.BABY_MEGATHERIUM.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_MEGATHERIUM)));
@@ -277,7 +279,7 @@ public final class ClientEvents {
                         .withItemHoldingLayer()
                         .build());
 
-        event.registerEntityRenderer(UPEntities.MEGALANIA.get(), MegalaniaRenderer::new);
+//        event.registerEntityRenderer(UPEntities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new  AquaticRenderer(e, new DefaultModel(ModelLocations.PALAEOPHIS_HEAD)));
         event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
         event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.SLUDGE)));
