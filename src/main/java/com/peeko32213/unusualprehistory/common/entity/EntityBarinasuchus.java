@@ -208,6 +208,11 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         return UPSounds.BARINA_DEATH.get();
     }
 
+    @Override
+    public float getSoundVolume() {
+        return 0.5F;
+    }
+
     public boolean isAngryAt(LivingEntity p_21675_) {
         return this.canAttack(p_21675_);
     }

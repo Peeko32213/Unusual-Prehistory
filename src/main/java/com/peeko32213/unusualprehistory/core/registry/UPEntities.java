@@ -41,7 +41,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "stethacanthus").toString()));
 
     public static final RegistryObject<EntityType<EntityMajungasaurus>> MAJUNGA = ENTITIES.register("majunga",
-            () -> EntityType.Builder.of(EntityMajungasaurus::new, MobCategory.CREATURE).sized(1.95F, 2.2F)
+            () -> EntityType.Builder.of(EntityMajungasaurus::new, MobCategory.CREATURE).sized(1.35F, 1.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "majunga").toString()));
 
     public static final RegistryObject<EntityType<EntityAnurognathus>> ANURO = ENTITIES.register("anuro",
@@ -57,23 +57,23 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "ammon").toString()));
 
     public static final RegistryObject<EntityType<EntityDunkleosteus>> DUNK = ENTITIES.register("dunk",
-            () -> EntityType.Builder.of(EntityDunkleosteus::new, MobCategory.WATER_CREATURE).sized(2.5F, 1.75F)
+            () -> EntityType.Builder.of(EntityDunkleosteus::new, MobCategory.WATER_CREATURE).sized(2.2F, 1.75F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "dunk").toString()));
 
     public static final RegistryObject<EntityType<EntityDiplocaulus>> DIPLOCAULUS = ENTITIES.register("diplocaulus",
-        () -> EntityType.Builder.of(EntityDiplocaulus::new, MobCategory.CREATURE).sized(0.8F, 0.8F)
+        () -> EntityType.Builder.of(EntityDiplocaulus::new, MobCategory.CREATURE).sized(0.8F, 0.65F)
                 .build(new ResourceLocation(UnusualPrehistory.MODID, "diplocaulus").toString()));
 
     public static final RegistryObject<EntityType<EntityHyneria>> HYNERIA = ENTITIES.register("hyneria",
-        () -> EntityType.Builder.of(EntityHyneria::new, MobCategory.WATER_CREATURE).sized(1.5f, 1.0f)
+        () -> EntityType.Builder.of(EntityHyneria::new, MobCategory.WATER_CREATURE).sized(1.45f, 1.0f)
                 .build(new ResourceLocation(UnusualPrehistory.MODID, "hyneria").toString()));
 
     public static final RegistryObject<EntityType<EntityCotylorhynchus>> COTY = ENTITIES.register("coty",
-            () -> EntityType.Builder.of(EntityCotylorhynchus::new, MobCategory.CREATURE).sized(2.3f, 1.8f)
+            () -> EntityType.Builder.of(EntityCotylorhynchus::new, MobCategory.CREATURE).sized(2.0f, 1.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "coty").toString()));
 
     public static final RegistryObject<EntityType<EntityBeelzebufoTadpole>> BEELZE_TADPOLE = ENTITIES.register("beelz_tadpole",
-            () -> EntityType.Builder.of(EntityBeelzebufoTadpole::new, MobCategory.WATER_AMBIENT).sized(1.1f, 0.6f)
+            () -> EntityType.Builder.of(EntityBeelzebufoTadpole::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.4f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "beelz_tadpole").toString()));
 
     public static final RegistryObject<EntityType<EntityBabyDunk>> BABY_DUNK = ENTITIES.register("baby_dunk",
@@ -81,15 +81,15 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_dunk").toString()));
 
     public static final RegistryObject<EntityType<EntityScaumenacia>> SCAU = ENTITIES.register("scau",
-            () -> EntityType.Builder.of(EntityScaumenacia::new, MobCategory.WATER_AMBIENT).sized(1.1f, 0.6f)
+            () -> EntityType.Builder.of(EntityScaumenacia::new, MobCategory.WATER_AMBIENT).sized(0.75f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "scau").toString()));
 
     public static final RegistryObject<EntityType<EntityTriceratops>> TRIKE = ENTITIES.register("trike",
-            () -> EntityType.Builder.of(EntityTriceratops::new, MobCategory.CREATURE).sized(4.4F, 4.4F)
+            () -> EntityType.Builder.of(EntityTriceratops::new, MobCategory.CREATURE).sized(3.1F, 4.4F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "trike").toString()));
 
     public static final RegistryObject<EntityType<EntityPachycephalosaurus>> PACHY = ENTITIES.register("pachy",
-            () -> EntityType.Builder.of(EntityPachycephalosaurus::new, MobCategory.CREATURE).sized(1.8F, 2.1F)
+            () -> EntityType.Builder.of(EntityPachycephalosaurus::new, MobCategory.CREATURE).sized(1.2F, 1.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "pachy").toString()));
 
     public static final RegistryObject<EntityType<EntityBabyBrachi>> BABY_BRACHI = ENTITIES.register("baby_brachi",
@@ -101,7 +101,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi_teen").toString()));
 
     public static final RegistryObject<EntityType<EntityBrachiosaurus>> BRACHI = ENTITIES.register("brachi",
-            () -> EntityType.Builder.of(EntityBrachiosaurus::new, MobCategory.CREATURE).sized(7.2F, 8.4F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
+            () -> EntityType.Builder.of(EntityBrachiosaurus::new, MobCategory.CREATURE).sized(6.25F, 8.0F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi").toString()));
 
     public static final RegistryObject<EntityType<EntityVelociraptor>> VELOCI = ENTITIES.register("veloci",
@@ -117,7 +117,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "rex").toString()));
 
     public static final RegistryObject<EntityType<EntityEncrusted>> ENCRUSTED = ENTITIES.register("encrusted",
-            () -> EntityType.Builder.of(EntityEncrusted::new, MobCategory.MONSTER).sized(2.3F, 1.95F)
+            () -> EntityType.Builder.of(EntityEncrusted::new, MobCategory.MONSTER).sized(1.5F, 1.95F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "encrusted").toString()));
 
     public static final RegistryObject<EntityType<EntityAmberShot>> AMBER_SHOT = ENTITIES.register(
@@ -131,15 +131,15 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hwacha_spike").toString()));
 
     public static final RegistryObject<EntityType<EntityEryon>> ERYON = ENTITIES.register("eryon",
-            () -> EntityType.Builder.of(EntityEryon::new, MobCategory.CREATURE).sized(0.8f, 0.8f)
+            () -> EntityType.Builder.of(EntityEryon::new, MobCategory.CREATURE).sized(0.8f, 0.5f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "eryon").toString()));
 
     public static final RegistryObject<EntityType<EntityAustroraptor>> AUSTRO = ENTITIES.register("austroraptor",
-            () -> EntityType.Builder.of(EntityAustroraptor::new, MobCategory.CREATURE).sized(1.95F, 2.2F)
+            () -> EntityType.Builder.of(EntityAustroraptor::new, MobCategory.CREATURE).sized(1.25F, 2.4F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "austroraptor").toString()));
 
     public static final RegistryObject<EntityType<EntityAntarctopelta>> ANTARCO = ENTITIES.register("antarctopelta",
-            () -> EntityType.Builder.of(EntityAntarctopelta::new, MobCategory.CREATURE).sized(2.2F, 1.9F)
+            () -> EntityType.Builder.of(EntityAntarctopelta::new, MobCategory.CREATURE).sized(2.1F, 1.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "antarctopelta").toString()));
 
     public static final RegistryObject<EntityType<EntityUlughbegsaurus>> ULUG = ENTITIES.register("ulughbegsaurus",
@@ -147,7 +147,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "ulughbegsaurus").toString()));
 
     public static final RegistryObject<EntityType<EntityKentrosaurus>> KENTRO = ENTITIES.register("kentrosaurus",
-            () -> EntityType.Builder.of(EntityKentrosaurus::new, MobCategory.CREATURE).sized(2.2F, 1.9F)
+            () -> EntityType.Builder.of(EntityKentrosaurus::new, MobCategory.CREATURE).sized(1.8F, 1.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "kentrosaurus").toString()));
 
     public static final RegistryObject<EntityType<EntityHwachavenator>> HWACHA = ENTITIES.register("hwachavenator",
@@ -159,19 +159,19 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "talpanas").toString()));
 
     public static final RegistryObject<EntityType<EntityGigantopithicus>> GIGANTOPITHICUS = ENTITIES.register("gigantopithicus",
-            () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(3.0F, 3.0F)
+            () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(2.55F, 3.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "gigantopithicus").toString()));
 
     public static final RegistryObject<EntityType<EntityBabyBarinasuchus>> BABY_BARINA = ENTITIES.register("baby_barina",
-            () -> EntityType.Builder.of(EntityBabyBarinasuchus::new, MobCategory.CREATURE).sized(1.3f, 0.5f)
+            () -> EntityType.Builder.of(EntityBabyBarinasuchus::new, MobCategory.CREATURE).sized(1.0f, 0.5f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_barina").toString()));
 
     public static final RegistryObject<EntityType<EntityBarinasuchus>> BARINASUCHUS = ENTITIES.register("barinasuchus",
-            () -> EntityType.Builder.of(EntityBarinasuchus::new, MobCategory.CREATURE).sized(3.1F, 2.0F)
+            () -> EntityType.Builder.of(EntityBarinasuchus::new, MobCategory.CREATURE).sized(2.4F, 2.2F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "barinasuchus").toString()));
 
     public static final RegistryObject<EntityType<EntityMegatherium>> MEGATHERIUM = ENTITIES.register("megatherium",
-            () -> EntityType.Builder.of(EntityMegatherium::new, MobCategory.CREATURE).sized(2.9F, 3.0F)
+            () -> EntityType.Builder.of(EntityMegatherium::new, MobCategory.CREATURE).sized(2.75F, 3.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megatherium").toString()));
 
     public static final RegistryObject<EntityType<EntitySmilodon>> SMILODON = ENTITIES.register("smilodon",
@@ -179,11 +179,11 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "smilodon").toString()));
 
     public static final RegistryObject<EntityType<EntityParaceratherium>> PARACERATHERIUM = ENTITIES.register("paraceratherium",
-            () -> EntityType.Builder.of(EntityParaceratherium::new, MobCategory.CREATURE).sized(5.0F, 8.0F)
+            () -> EntityType.Builder.of(EntityParaceratherium::new, MobCategory.CREATURE).sized(4.75F, 7.5F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "paraceratherium").toString()));
 
     public static final RegistryObject<EntityType<EntityMammoth>> MAMMOTH = ENTITIES.register("mammoth",
-            () -> EntityType.Builder.of(EntityMammoth::new, MobCategory.CREATURE).sized(5.0F, 5.0F)
+            () -> EntityType.Builder.of(EntityMammoth::new, MobCategory.CREATURE).sized(3.75F, 4.5F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "mammoth").toString()));
 
     public static final RegistryObject<EntityType<EntityPalaeophis>> PALAEOPHIS = ENTITIES.register("palaeophis",
@@ -198,19 +198,19 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "palaeophis_part").toString()));
 
     public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = ENTITIES.register("megalania",
-            () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(3.0F, 2.0F)
+            () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(2.5F, 2.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()));
 
     public static final RegistryObject<EntityType<EntityKimmeridgebrachypteraeschnidium>> KIMMER = ENTITIES.register("kimmer",
-            () -> EntityType.Builder.of(EntityKimmeridgebrachypteraeschnidium::new, MobCategory.CREATURE).sized(0.8f, 0.8f)
+            () -> EntityType.Builder.of(EntityKimmeridgebrachypteraeschnidium::new, MobCategory.CREATURE).sized(0.65f, 0.65f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "kimmer").toString()));
 
     public static final RegistryObject<EntityType<EntityOphiodon>> OPHIODON = ENTITIES.register("ophiodon",
-            () -> EntityType.Builder.of(EntityOphiodon::new, MobCategory.WATER_CREATURE).sized(1.6f, 0.8f)
+            () -> EntityType.Builder.of(EntityOphiodon::new, MobCategory.WATER_CREATURE).sized(1.4f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "ophiodon").toString()));
 
     public static final RegistryObject<EntityType<EntityProtosphyraena>> PROTOSPHYRAENA = ENTITIES.register("protosphyraena",
-            () -> EntityType.Builder.of(EntityProtosphyraena::new, MobCategory.WATER_CREATURE).sized(1.6f, 0.8f)
+            () -> EntityType.Builder.of(EntityProtosphyraena::new, MobCategory.WATER_CREATURE).sized(1.35f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "protosphyraena").toString()));
 
     public static final RegistryObject<EntityType<EntityBabyMegatherium>> BABY_MEGATHERIUM = ENTITIES.register("baby_megatherium",
@@ -238,7 +238,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_smilodon").toString()));
 
     public static final RegistryObject<EntityType<EntitySludge>> SLUDGE = ENTITIES.register("sludge",
-            () -> EntityType.Builder.of(EntitySludge::new, MobCategory.MONSTER).sized(3.0f, 3.0f)
+            () -> EntityType.Builder.of(EntitySludge::new, MobCategory.MONSTER).sized(2.0f, 2.0f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "sludge").toString()));
 
     public static final RegistryObject<EntityType<IcebergMammoth>> ICEBERG_MAMMOTH = ENTITIES.register("iceberg_mammoth",

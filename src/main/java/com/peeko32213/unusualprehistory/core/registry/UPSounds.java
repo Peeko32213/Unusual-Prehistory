@@ -62,6 +62,7 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> BRACHI_IDLE = createSoundEvent("brachi_idle");
     public static final RegistryObject<SoundEvent> BRACHI_STEP = createSoundEvent("brachi_step");
     public static final RegistryObject<SoundEvent> BRACHI_TOSS = createSoundEvent("brachi_toss");
+    public static final RegistryObject<SoundEvent> BRACHI_STOMP = createSoundEvent("brachi_stomp");
 
     public static final RegistryObject<SoundEvent> ENCRUSTED_DEATH = createSoundEvent("encrusted_death");
     public static final RegistryObject<SoundEvent> ENCRUSTED_HURT = createSoundEvent("encrusted_hurt");

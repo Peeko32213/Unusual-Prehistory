@@ -57,6 +57,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
@@ -90,7 +91,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         this.theEntireNeck = new EntityBrachiosaurusPart[]{this.neck};
         this.allParts = new EntityBrachiosaurusPart[]{this.neck};
     }
-
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
@@ -147,7 +147,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         return null;
     }
 
-
     @Override
     protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));
@@ -201,7 +200,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
-
     }
 
     public void addAdditionalSaveData(CompoundTag p_31808_) {
@@ -219,9 +217,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     public void setLaunching(boolean charging) {
         this.entityData.set(LAUNCHING, Boolean.valueOf(charging));
     }
-
-
-
 
     protected void dropEquipment() {
         super.dropEquipment();
@@ -241,7 +236,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         return 50;
     }
 
-
     protected SoundEvent getAmbientSound() {
         return UPSounds.BRACHI_IDLE.get();
     }
@@ -254,8 +248,9 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         return UPSounds.BRACHI_DEATH.get();
     }
 
-    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.BRACHI_STEP.get(), 0.15F, 1.0F);
+    @Override
+    public float getSoundVolume() {
+        return 1.25F;
     }
 
     @Override
@@ -411,11 +406,11 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
                     if ((e instanceof Player)) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, brachiShakeAmp, false, false, false));
-                        this.playSound(UPSounds.BRACHI_STEP.get(), brachiMoveSoundVolume, 0.40F);
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 8, brachiShakeAmp, false, false, false));
+                        this.playSound(UPSounds.BRACHI_STEP.get(), brachiMoveSoundVolume, 0.75F);
                     }
                 }
-                shakeCooldown = 40;
+                shakeCooldown = 15;
             }
 
 //            if(this.footPrintCooldown <= 0) {
@@ -508,8 +503,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         part.setPos(this.getX() + offsetX * part.scale, this.getY() + offsetY * part.scale, this.getZ() + offsetZ * part.scale);
     }
 
-
-
     @Override
     public boolean isMultipartEntity() {
         return true;
@@ -566,14 +559,11 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         }
     }
 
-
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return null;
     }
-
 
     public int getAnimationState() {
 
@@ -659,8 +649,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                     }
                 }
             }
-
-
         }
 
         public boolean canContinueToUse() {
@@ -679,8 +667,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
             } else {
                 return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
             }
-
-
         }
 
         public void start() {
@@ -697,7 +683,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 this.mob.setTarget((LivingEntity) null);
             }
             this.mob.setAnimationState(0);
-
         }
 
         public void tick() {
@@ -722,15 +707,12 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                     this.doMovement(target, distance);
                     this.checkForCloseRangeAttack(distance, reach);
                     break;
-
             }
         }
 
         protected void doMovement (LivingEntity livingentity, Double d0){
 
-
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                 this.pathedTargetX = livingentity.getX();
@@ -754,14 +736,12 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 } else if (d0 > 256.0D) {
                     this.ticksUntilNextPathRecalculation += 5;
                 }
-
                 if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
                     this.ticksUntilNextPathRecalculation += 15;
                 }
             }
 
         }
-
 
         protected void checkForCloseRangeAttack ( double distance, double reach){
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
@@ -772,26 +752,27 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
             }
         }
 
-
         protected boolean getRangeCheck () {
-
             return
-                    this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                            <=
-                            1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
+                    <=
+                    1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
-
-
 
         protected void tickStompAttack () {
             animTime++;
-            this.mob.getNavigation().stop();
-            if(animTime==5) {
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==16) {
                 preformStompAttack();
             }
-            if(animTime>=9) {
-                animTime=0;
 
+            if(animTime>=19) {
+                animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
                 this.ticksUntilNextPathRecalculation = 0;
@@ -800,20 +781,20 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),25.0f, 1f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-            if (this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
+            this.mob.playSound(UPSounds.BRACHI_STOMP.get(), 2.5F, 0.65F);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),36.0f, 1.4f, mob, pos,  8.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
-                    if (e instanceof Player) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 50, 6, false, false, false));
-                        this.mob.playSound(UPSounds.BRACHI_STEP.get(), 2F, 0.4F);
+                    if (!(e instanceof EntityBrachiosaurus) && e.isAlive()) {
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 15, 8, false, false, false));
                     }
                 }
-                this.mob.shakeCooldown = 10;
+                mob.shakeCooldown = 100;
             }
+            mob.shakeCooldown--;
         }
-
 
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 0;
@@ -844,6 +825,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
             switch (animState) {
 
                 case 21:
+                    event.getController().setAnimationSpeed(1.25F);
                     return event.setAndContinue(BRACHI_ATTACK);
 
                 default:

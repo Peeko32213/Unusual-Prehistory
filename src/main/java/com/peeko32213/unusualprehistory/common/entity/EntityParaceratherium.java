@@ -315,7 +315,6 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
                     this.doMovement(target, distance);
                     this.checkForCloseRangeAttack(distance, reach);
                     break;
-
             }
         }
 
@@ -345,7 +344,6 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
                 } else if (d0 > 256.0D) {
                     this.ticksUntilNextPathRecalculation += 5;
                 }
-
                 if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
                     this.ticksUntilNextPathRecalculation += 15;
                 }
@@ -366,8 +364,8 @@ public class EntityParaceratherium extends EntityBaseDinosaurAnimal {
 
             return
             this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                    <=
-                    1.8F * this.getAttackReachSqr(this.mob.getTarget());
+                <=
+                1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
 

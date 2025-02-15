@@ -164,7 +164,6 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
-
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
@@ -181,6 +180,11 @@ public class EntityUlughbegsaurus extends EntityTameableBaseDinosaurAnimal imple
 
     protected SoundEvent getDeathSound() {
         return UPSounds.ULUGH_DEATH.get();
+    }
+
+    @Override
+    public float getSoundVolume() {
+        return 0.75F;
     }
 
     public boolean isYellowFood(ItemStack stack) {

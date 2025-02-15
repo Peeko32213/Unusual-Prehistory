@@ -310,41 +310,49 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.trike_idle"
   },
+
   "brachi_death": {
     "sounds": [
-        "unusualprehistory:brachi_death_0",
-        "unusualprehistory:brachi_death_1"
+        "unusualprehistory:brachi/brachi_death_0",
+        "unusualprehistory:brachi/brachi_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.brachi_death"
   },
   "brachi_hurt": {
     "sounds": [
-        "unusualprehistory:brachi_hurt_0",
-        "unusualprehistory:brachi_hurt_1"
+        "unusualprehistory:brachi/brachi_hurt_0"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.brachi_hurt"
   },
   "brachi_idle": {
     "sounds": [
-        "unusualprehistory:brachi_idle_0",
-        "unusualprehistory:brachi_idle_1",
-        "unusualprehistory:brachi_idle_2"
+        "unusualprehistory:brachi/brachi_idle_0",
+        "unusualprehistory:brachi/brachi_idle_1",
+        "unusualprehistory:brachi/brachi_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.brachi_idle"
   },
   "brachi_step": {
     "sounds": [
-        "unusualprehistory:brachi_step_0",
-        "unusualprehistory:brachi_step_1"
+        "unusualprehistory:brachi/brachi_step_0",
+        "unusualprehistory:brachi/brachi_step_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.brachi_step"
   },
   "brachi_toss": {
     "sounds": [
-        "unusualprehistory:brachi_toss"
+        "unusualprehistory:brachi/brachi_toss"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.brachi_toss"
   },
+  "brachi_stomp": {
+    "sounds": [
+      "unusualprehistory:brachi/brachi_stomp_0",
+      "unusualprehistory:brachi/brachi_stomp_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.brachi_stomp"
+  },
+
   "encrusted_death": {
     "sounds": [
         "unusualprehistory:encrusted_death_0",
@@ -569,44 +577,46 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tail_swipe"
   },
+
   "ulugh_bite": {
     "sounds": [
-        "unusualprehistory:ulugh_bite_0",
-        "unusualprehistory:ulugh_bite_1"
+        "unusualprehistory:ulugh/ulugh_bite_0",
+        "unusualprehistory:ulugh/ulugh_bite_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_bite"
   },
   "ulugh_death": {
     "sounds": [
-        "unusualprehistory:ulugh_death_0",
-        "unusualprehistory:ulugh_death_1"
+        "unusualprehistory:ulugh/ulugh_death_0",
+        "unusualprehistory:ulugh/ulugh_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_death"
   },
   "ulugh_hurt": {
     "sounds": [
-        "unusualprehistory:ulugh_hurt_0",
-        "unusualprehistory:ulugh_hurt_1"
+        "unusualprehistory:ulugh/ulugh_hurt_0",
+        "unusualprehistory:ulugh/ulugh_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_hurt"
   },
   "ulugh_idle": {
     "sounds": [
-        "unusualprehistory:ulugh_idle_0",
-        "unusualprehistory:ulugh_idle_1",
-        "unusualprehistory:ulugh_idle_2"
+        "unusualprehistory:ulugh/ulugh_idle_0",
+        "unusualprehistory:ulugh/ulugh_idle_1",
+        "unusualprehistory:ulugh/ulugh_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_idle"
   },
   "ulugh_step": {
     "sounds": [
-        "unusualprehistory:ulugh_step_0",
-        "unusualprehistory:ulugh_step_1",
-        "unusualprehistory:ulugh_step_2",
-        "unusualprehistory:ulugh_step_3"
+        "unusualprehistory:ulugh/ulugh_step_0",
+        "unusualprehistory:ulugh/ulugh_step_1",
+        "unusualprehistory:ulugh/ulugh_step_2",
+        "unusualprehistory:ulugh/ulugh_step_3"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_step"
   },
+
   "antarcto_death": {
     "sounds": [
         "unusualprehistory:antarcto_death_0",
@@ -743,38 +753,41 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.talpanas_idle"
   },
+
   "crocarina": {
     "sounds": [
-        "unusualprehistory:crocarina_0",
-        "unusualprehistory:crocarina_1",
-        "unusualprehistory:crocarina_2",
-        "unusualprehistory:crocarina_3",
-        "unusualprehistory:crocarina_4",
-        "unusualprehistory:crocarina_5"
+        "unusualprehistory:crocarina/crocarina_0",
+        "unusualprehistory:crocarina/crocarina_1",
+        "unusualprehistory:crocarina/crocarina_2",
+        "unusualprehistory:crocarina/crocarina_3",
+        "unusualprehistory:crocarina/crocarina_4",
+        "unusualprehistory:crocarina/crocarina_5"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.crocarina"
   },
+
   "barina_death": {
     "sounds": [
-        "unusualprehistory:barina_death_0",
-        "unusualprehistory:barina_death_1"
+        "unusualprehistory:barina/barina_death_0",
+        "unusualprehistory:barina/barina_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.barina_death"
   },
   "barina_hurt": {
     "sounds": [
-        "unusualprehistory:barina_hurt_0",
-        "unusualprehistory:barina_hurt_1"
+        "unusualprehistory:barina/barina_hurt_0",
+        "unusualprehistory:barina/barina_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.barina_hurt"
   },
   "barina_idle": {
     "sounds": [
-        "unusualprehistory:barina_idle_0",
-        "unusualprehistory:barina_idle_1"
+        "unusualprehistory:barina/barina_idle_0",
+        "unusualprehistory:barina/barina_idle_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.barina_idle"
   },
+
   "megather_death": {
     "sounds": [
         "unusualprehistory:megather_death_0",
@@ -898,42 +911,44 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megalania_idle"
   },
+
   "sludge_death": {
     "sounds": [
-        "unusualprehistory:sludge_death_0",
-        "unusualprehistory:sludge_death_1"
+        "unusualprehistory:sludge/sludge_death_0",
+        "unusualprehistory:sludge/sludge_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_death"
   },
   "sludge_hurt": {
     "sounds": [
-        "unusualprehistory:sludge_hurt_0",
-        "unusualprehistory:sludge_hurt_1"
+        "unusualprehistory:sludge/sludge_hurt_0",
+        "unusualprehistory:sludge/sludge_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_hurt"
   },
   "sludge_idle": {
     "sounds": [
-        "unusualprehistory:sludge_idle_0",
-        "unusualprehistory:sludge_idle_1",
-        "unusualprehistory:sludge_idle_2"
+        "unusualprehistory:sludge/sludge_idle_0",
+        "unusualprehistory:sludge/sludge_idle_1",
+        "unusualprehistory:sludge/sludge_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_idle"
   },
   "sludge_slam": {
     "sounds": [
-        "unusualprehistory:sludge_slam_0",
-        "unusualprehistory:sludge_slam_1"
+        "unusualprehistory:sludge/sludge_slam_0",
+        "unusualprehistory:sludge/sludge_slam_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_slam"
   },
   "sludge_slap": {
     "sounds": [
-        "unusualprehistory:sludge_slap_0",
-        "unusualprehistory:sludge_slap_1"
+        "unusualprehistory:sludge/sludge_slap_0",
+        "unusualprehistory:sludge/sludge_slap_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_slap"
   },
+
   "jarate_explode": {
     "sounds": [
         "unusualprehistory:jarate_explode"

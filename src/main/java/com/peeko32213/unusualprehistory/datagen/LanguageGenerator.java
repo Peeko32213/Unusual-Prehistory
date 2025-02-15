@@ -549,6 +549,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.BRACHI_TOSS, "Brachiosaurus tosses");
         addSound(UPSounds.BRACHI_STEP, "Massive footsteps");
         addSound(UPSounds.BRACHI_DEATH, "Brachiosaurus dies");
+        addSound(UPSounds.BRACHI_STOMP, "Brachiosaurus stomps");
         addSound(UPSounds.ENCRUSTED_IDLE, "Encrusted bzzzzzzzzs");
         addSound(UPSounds.ENCRUSTED_HURT, "Encrusted hurts");
         addSound(UPSounds.ENCRUSTED_MELEE, "Encrusted zzzts");
