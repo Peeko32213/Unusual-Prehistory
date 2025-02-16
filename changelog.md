@@ -10,22 +10,34 @@ changes:
 - Removed spawn eggs creative tab
 - Added spawn eggs to the main creative tab
 - Reorganized the creative tab
+- Removed tall horsetail dna
+
+- Tweaked Tyrannosaurus Rex
+    - Sprints slower than before
+    - Does less damage
+    - New animations by Indom
+    - Misc stuff
+- Tweaked Megatherium
+    - Megatherium now digs a 6x6x6 square in front of it instead of trying to dig a cube, it should feel much more responsive now
+    - Megatherium can break wood
+    - Lowered Megatherium dig cooldown
+- Tweaked Hwachavenator
+    - Lowered hwachavenator shooting range while not being controlled so they get stuck shooting less often
+    - Hwachas stops shooting things when sitting or in water
 - Saddling and shearing saddles now has sounds
 - Taming now has sounds and particles
-- Lowered hwachavenator shooting range while not being controlled so they get stuck shooting less often
-- Hwachas stops shooting things when sitting or in water
-- Mammoth meatball stacks to 16 instead of 8
-- Meaty buffet stacks to 16 instead of 64
 - Mobs will no longer eat full stacks of items
 - Triceratops can take more than one ginkgo berry to tame
-- Screen shake effect only gets applied to players
 - Mobs no longer break blocks unless they are angry, the tags remain for those who want passive block breaking
 - Angry mobs no longer break blocks without collision like grass
 - Eryon can dig in any block that has the sand tag
-- Megatherium now digs a 6x6x6 square in front of it instead of trying to dig a cube, it should feel much more responsive now
-- Megatherium can break wood
-- Lowered megatherium dig cooldown
 - Added beelzebufo tadpole spawn egg
+- Screen shake effect only gets applied to players
+- Changed a bunch of sounds to mono that were stereo
+- Lowered the volume of many mobs
+  
+- Mammoth meatball stacks to 16 instead of 8
+- Meaty buffet stacks to 16 instead of 64
 - Handmade spear revamp:
     - No longer has left-click dash
     - No longer has slam attack
@@ -33,6 +45,7 @@ changes:
     - Right-clicking launches you upward a bit, can work as a double jump or be used for keeping things in the air longer
     - Increased attack speed
     - Lowered damage
+
 - Misc fixes and stuff
 
 to do:
