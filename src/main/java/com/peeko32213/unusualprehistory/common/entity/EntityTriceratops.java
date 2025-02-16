@@ -108,16 +108,14 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         this.goalSelector.addGoal(1, new EntityTriceratops.TrikeMeleeAttackGoal(this, 1.5D, false));
         this.goalSelector.addGoal(2, new EntityTriceratops.TrikePrepareChargeGoal(this));
         this.goalSelector.addGoal(3, new EntityTriceratops.TrikeChargeGoal(this, 2.5F));
-        this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
+//        this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
+//        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this) {
-
             public boolean canUse() {
                 return !isTame();
             }
-
         }));
         this.targetSelector.addGoal(2, new TrikeNearestAttackablePlayerTargetGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
@@ -133,7 +131,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         this.level().broadcastEntityEvent(this, (byte) 4);
         return super.doHurtTarget(entityIn);
     }
-
 
     public boolean isFood(ItemStack stack) {
         return stack.is(UPTags.TRIKE_FOOD);

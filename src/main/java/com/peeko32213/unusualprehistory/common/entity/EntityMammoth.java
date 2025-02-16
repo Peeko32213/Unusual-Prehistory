@@ -363,7 +363,7 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
         return UPSounds.MAMMOTH_IDLE.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.MAMMOTH_HURT.get();
     }
 
@@ -371,13 +371,13 @@ public class EntityMammoth extends EntityBaseDinosaurAnimal implements Shearable
         return UPSounds.MAMMOTH_DEATH.get();
     }
 
-    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+    protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return UPEntities.MAMMOTH.get().create(serverLevel);
     }
 

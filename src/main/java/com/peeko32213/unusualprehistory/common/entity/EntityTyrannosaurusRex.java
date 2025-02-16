@@ -4,10 +4,7 @@ import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.core.registry.UPEffects;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -42,6 +39,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -49,7 +48,6 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
@@ -67,15 +65,24 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
 
     private int stunnedTick;
     private static final RawAnimation REX_BITE = RawAnimation.begin().thenPlay("animation.rex.bite_0");
-    private static final RawAnimation REX_WHIP = RawAnimation.begin().thenLoop("animation.rex.whip");
-    private static final RawAnimation REX_STOMP_L = RawAnimation.begin().thenLoop("animation.rex.stompl");
-    private static final RawAnimation REX_STOMP_R = RawAnimation.begin().thenLoop("animation.rex.stompr");
-    private static final RawAnimation REX_TACKLE = RawAnimation.begin().thenLoop("animation.rex.tackle");
+    private static final RawAnimation REX_BITE_1 = RawAnimation.begin().thenPlay("animation.rex.bite_1");
+    private static final RawAnimation REX_WHIP = RawAnimation.begin().thenPlay("animation.rex.whip");
+    private static final RawAnimation REX_STOMP_L = RawAnimation.begin().thenPlay("animation.rex.stompl");
+    private static final RawAnimation REX_STOMP_R = RawAnimation.begin().thenPlay("animation.rex.stompr");
+    private static final RawAnimation REX_TACKLE = RawAnimation.begin().thenPlay("animation.rex.tackle");
     private static final RawAnimation REX_EEPY = RawAnimation.begin().thenLoop("animation.rex.knockout");
     private static final RawAnimation REX_SWIM = RawAnimation.begin().thenLoop("animation.rex.swim");
     private static final RawAnimation REX_CHARGE = RawAnimation.begin().thenLoop("animation.rex.run");
     private static final RawAnimation REX_WALK = RawAnimation.begin().thenLoop("animation.rex.walk");
     private static final RawAnimation REX_IDLE = RawAnimation.begin().thenLoop("animation.rex.idle");
+    private static final RawAnimation REX_SIT = RawAnimation.begin().thenLoop("animation.rex.sit");
+    private static final RawAnimation REX_SLEEP = RawAnimation.begin().thenLoop("animation.rex.sleep");
+    private static final RawAnimation REX_SHAKE = RawAnimation.begin().thenPlay("animation.rex.shake_blend");
+    private static final RawAnimation REX_SNIFF = RawAnimation.begin().thenPlay("animation.rex.sniff_blend");
+
+    private static final RawAnimation REX_BABY_WALK = RawAnimation.begin().thenLoop("animation.babyrex.walk");
+    private static final RawAnimation REX_BABY_IDLE = RawAnimation.begin().thenLoop("animation.babyrex.idle");
+    private static final RawAnimation REX_BABY_SWIM = RawAnimation.begin().thenLoop("animation.babyrex.swim");
 
     public EntityTyrannosaurusRex(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -84,13 +91,13 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 300.0D)
-                .add(Attributes.ARMOR, 15.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 10.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 8.0D)
-                .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
-                .add(Attributes.FOLLOW_RANGE, 48D);
+            .add(Attributes.MAX_HEALTH, 300.0D)
+            .add(Attributes.ARMOR, 15.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.2D)
+            .add(Attributes.ATTACK_DAMAGE, 10.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 8.0D)
+            .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
+            .add(Attributes.FOLLOW_RANGE, 48D);
     }
 
     protected void registerGoals() {
@@ -98,26 +105,26 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
         this.goalSelector.addGoal(0, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new EntityTyrannosaurusRex.RexMeleeAttackGoal(this, 1.5F, true) {
-            public boolean canUse() {
-                return !isBaby() && passiveFor == 0 && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
-            }
-        });
+                public boolean canUse() {
+                    return !isBaby() && passiveFor == 0 && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
+                }
+            });
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
-        this.targetSelector.addGoal(2, (new HurtByTargetGoal(this) {
-            public boolean canUse() {
-                return !hasEepy() && passiveFor == 0 && super.canUse();
-            }
-        }));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.REX_TARGETS)) {
-            public boolean canUse() {
-                return !hasEepy() && passiveFor == 0 && super.canUse();
-            }
-        });
+//        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 15, 1.0D, 100, 34));
+        this.targetSelector.addGoal(9, (new HurtByTargetGoal(this) {
+                public boolean canUse() {
+                    return !hasEepy() && passiveFor == 0 && !isBaby() && super.canUse();
+                }
+            }));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.REX_TARGETS)) {
+                public boolean canUse() {
+                    return !hasEepy() && !isBaby() && passiveFor == 0 && super.canUse();
+                }
+            });
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
     }
 
-    public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
@@ -145,13 +152,18 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
     }
 
     @Override
+    public boolean isPushable() {
+        return this.isBaby();
+    }
+
+    @Override
     public boolean isNoAi() {
         return this.hasEepy() || super.isNoAi();
     }
 
     @Override
-    public boolean canBeLeashed(Player p_21418_) {
-        return this.hasEepy();
+    public boolean canBeLeashed(@NotNull Player p_21418_) {
+        return this.isBaby();
     }
 
     @Override
@@ -203,25 +215,25 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
         return false;
     }
-    //This one has custom goal so just return null since we wont be using goal in super class
+
     @Override
     protected TagKey<EntityType<?>> getTargetTag() {
         return null;
     }
 
     public void setEepy(boolean eepy) {
-        this.entityData.set(EEPY, Boolean.valueOf(eepy));
+        this.entityData.set(EEPY, eepy);
     }
 
     public boolean hasEepy() {
-        return this.entityData.get(EEPY).booleanValue();
+        return this.entityData.get(EEPY);
     }
 
     public boolean shouldBeEepy() {
         return this.getHealth() <= this.getMaxHealth() / 12.0F;
     }
 
-    public void travel(Vec3 vec3d) {
+    public void travel(@NotNull Vec3 vec3d) {
         if (this.shouldBeEepy()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
@@ -249,7 +261,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
         if (compound.contains("SpitTime")) {
             this.timeUntilDrops = compound.getInt("DropTime");
         }
-
     }
 
     @Override
@@ -283,7 +294,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
             this.spawnAtLocation(UPItems.REX_SCALE.get(), 9);
             this.timeUntilDrops = this.random.nextInt(12000) + 24000;
         }
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy()) {
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy() && !this.isBaby()) {
             if(this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_REX_RANGE.get();
                 int rexShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_REX_AMPLIFIER.get();
@@ -306,7 +317,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
 
     @Override
     public void customServerAiStep() {
-        if (this.getMoveControl().hasWanted()) {
+        if (this.getMoveControl().hasWanted() && !this.isBaby()) {
             this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.5D);
         } else {
             this.setSprinting(false);
@@ -326,7 +337,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
             this.setTarget(null);
         }
 
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isSprinting()) {
+        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isSprinting() && !this.isBaby()) {
             boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
@@ -336,13 +347,12 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
                 }
             }
         }
-
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        return UPEntities.REX.get().create(serverLevel);
     }
 
     public boolean requiresCustomPersistence() {
@@ -450,7 +460,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
                 this.mob.setAnimationState(0);
-                this.mob.setTarget((LivingEntity) null);
+                this.mob.setTarget(null);
             }
             this.mob.setAnimationState(0);
         }
@@ -464,10 +474,9 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
             int animState = this.mob.getAnimationState();
 
             switch (animState) {
-                case 1 -> tickBiteAttack();
-                case 2 -> tickChargeAttack();
-                case 3 -> tickWhipAttack();
-                case 4, 5 -> tickStompAttack();
+                case 1, 2, 3 -> tickBiteAttack();
+                case 4 -> tickWhipAttack();
+                case 5, 6 -> tickStompAttack();
                 default -> {
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -480,9 +489,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
 
         protected void doMovement (LivingEntity livingentity, Double d0){
 
-
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                 this.pathedTargetX = livingentity.getX();
@@ -499,38 +506,39 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
                     this.ticksUntilNextPathRecalculation += 15;
                 }
             }
-
         }
 
         protected void checkForCloseRangeAttack ( double distance, double reach){
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                 int r = this.mob.getRandom().nextInt(2048);
-                if (r <= 800) {
+                if (r <= 400) {
                     this.mob.setAnimationState(1);
                 }
-                else if (r <= 1300) {
+                else if (r <= 800) {
                     this.mob.setAnimationState(2);
                 }
-                else if (r <= 1600) {
+                else if (r <= 1200) {
                     this.mob.setAnimationState(3);
                 }
-                else if (r <= 1800) {
+                else if (r <= 1400) {
                     this.mob.setAnimationState(4);
                 }
-                else {
+                else if (r <= 1600) {
                     this.mob.setAnimationState(5);
+                }
+                else {
+                    this.mob.setAnimationState(6);
                 }
             }
         }
 
         protected boolean getRangeCheck () {
             return
-                    this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                            <=
-                            1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
         protected void tickBiteAttack () {
+            this.mob.getNavigation().stop();
             animTime++;
 
             if (animTime <= 3) {
@@ -538,11 +546,11 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
                 this.mob.yBodyRot = this.mob.yHeadRot;
             }
 
-            if(animTime==11) {
+            if(animTime==9) {
                 preformBiteAttack();
             }
 
-            if(animTime>=14) {
+            if(animTime>=12) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -551,6 +559,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
         }
 
         protected void tickWhipAttack () {
+            this.mob.getNavigation().stop();
             animTime++;
 
             if (animTime <= 3) {
@@ -571,6 +580,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
         }
 
         protected void tickStompAttack () {
+            this.mob.getNavigation().stop();
             animTime++;
 
             if (animTime <= 3) {
@@ -590,30 +600,10 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
             }
         }
 
-        protected void tickChargeAttack () {
-            animTime++;
-
-            if (animTime <= 3) {
-                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
-                this.mob.yBodyRot = this.mob.yHeadRot;
-            }
-
-            if(animTime==8) {
-                preformChargeAttack();
-            }
-
-            if(animTime>=11) {
-                animTime=0;
-                this.mob.setAnimationState(0);
-                this.resetAttackCooldown();
-                this.ticksUntilNextPathRecalculation = 0;
-            }
-        }
-
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_BITE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),12.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),12.0f, 0.4f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
         protected void preformWhipAttack () {
@@ -621,12 +611,6 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
             this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),10.0f, 1.0f, mob, pos,  6.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
 
-        }
-
-        protected void preformChargeAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.REX_BITE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),8.0f, 1.0f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
         protected void preformStompAttack () {
@@ -663,7 +647,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
         }
     }
 
@@ -703,6 +687,21 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
         return UPSounds.REX_DEATH.get();
     }
 
+    @Override
+    public float getSoundVolume() {
+        if(this.isBaby()){
+            return 0.25F;
+        }
+        else{
+            return 1.0F;
+        }
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
+
     protected <E extends EntityTyrannosaurusRex> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return PlayState.CONTINUE;
@@ -711,80 +710,89 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
         {
             switch (animState) {
 
-                case 1:
-                    if(!this.hasEepy()) {
-                        event.setAnimation(REX_BITE);
-                        event.getController().setAnimationSpeed(1.0F);
-                        break;
-                    }
-                case 2:
-                    if(!this.hasEepy()) {
-                        event.setAndContinue(REX_TACKLE);
-                        event.getController().setAnimationSpeed(1.0F);
-                        break;
-                    }
-                case 3:
-                    if(!this.hasEepy()) {
-                        event.setAndContinue(REX_WHIP);
-                        event.getController().setAnimationSpeed(1.0F);
-                        break;
-                    }
-                case 4:
-                    if(!this.hasEepy()) {
-                        event.setAndContinue(REX_STOMP_L);
-                        event.getController().setAnimationSpeed(1.35F);
-                        break;
-                    }
-                case 5:
-                    if(!this.hasEepy()) {
-                        event.setAndContinue(REX_STOMP_R);
-                        event.getController().setAnimationSpeed(1.35F);
-                        break;
-                    }
+            case 1:
+                if(!this.hasEepy()) {
+                    event.setAndContinue(REX_BITE);
+                    break;
+                }
+            case 2:
+                if(!this.hasEepy()) {
+                    event.setAndContinue(REX_BITE_1);
+                    break;
+                }
+            case 3:
+                if(!this.hasEepy()) {
+                    event.setAndContinue(REX_TACKLE);
+                    event.getController().setAnimationSpeed(0.85F);
+                    break;
+                }
+            case 4:
+                if(!this.hasEepy()) {
+                    event.setAndContinue(REX_WHIP);
+                    break;
+                }
+            case 5:
+                if(!this.hasEepy()) {
+                    event.setAndContinue(REX_STOMP_L);
+                    event.getController().setAnimationSpeed(1.35F);
+                    break;
+                }
+            case 6:
+                if(!this.hasEepy()) {
+                    event.setAndContinue(REX_STOMP_R);
+                    event.getController().setAnimationSpeed(1.35F);
+                    break;
+                }
 
-
-                default:
-                    if (this.hasEepy()) {
-                        event.setAndContinue(REX_EEPY);
+            default:
+                if (this.hasEepy()) {
+                    event.setAndContinue(REX_EEPY);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                }
+                if (this.isInWater() && !this.hasEepy() && this.isBaby()) {
+                    event.setAndContinue(REX_BABY_SWIM);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                } else if (this.isInWater() && !this.hasEepy()) {
+                    event.setAndContinue(REX_SWIM);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                }
+                else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy()){
+                    if(this.isSprinting() && !this.isBaby()) {
+                        event.setAndContinue(REX_CHARGE);
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    } else if(this.isBaby()) {
+                        event.setAndContinue(REX_BABY_WALK);
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    } else {
+                        event.setAndContinue(REX_WALK);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
-                    if (this.isInWater() && !this.hasEepy()) {
-                        event.setAndContinue(REX_SWIM);
+                }
+                else{
+                    if(!this.isInWater() && !this.hasEepy() && this.isBaby()) {
+                        event.setAndContinue(REX_BABY_IDLE);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
-                    else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy()){
-                        if(this.isSprinting()) {
-                            event.setAndContinue(REX_CHARGE);
-                            event.getController().setAnimationSpeed(1.0F);
-                            return PlayState.CONTINUE;
-                        } else {
-                            event.setAndContinue(REX_WALK);
-                            event.getController().setAnimationSpeed(1.0F);
-                            return PlayState.CONTINUE;
-                        }
-                    }else{
-                        if(!this.isInWater() && !this.hasEepy()) {
-                            event.setAndContinue(REX_IDLE);
-                            event.getController().setAnimationSpeed(1.0F);
-                            return PlayState.CONTINUE;
-                        }
+                    else if(!this.isInWater() && !this.hasEepy()) {
+                        event.setAndContinue(REX_IDLE);
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
                     }
-
+                }
             }
         }
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
-    @Override
     public double getTick(Object o) {
         return tickCount;
     }
-
 }

@@ -155,6 +155,11 @@
          super.aiStep();
      }
 
+     @Override
+     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+     }
+
      protected <E extends EntityOphiodon> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          int animState = this.getAnimationState();
 
@@ -199,11 +204,6 @@
              }
          }
          return PlayState.CONTINUE;
-     }
-
-     @Override
-     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
      }
 
      public boolean requiresCustomPersistence() {
@@ -289,7 +289,6 @@
          private boolean canPenalize = false;
          private int animTime = 0;
 
-
          public OphiodonMeleeAttackGoal(EntityOphiodon p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
              this.mob = p_i1636_1_;
              this.speedModifier = p_i1636_2_;
@@ -325,8 +324,6 @@
                      }
                  }
              }
-
-
          }
 
          public boolean canContinueToUse() {
@@ -335,8 +332,7 @@
 
              if (livingentity == null) {
                  return false;
-             }
-             else if (!livingentity.isAlive()) {
+             } else if (!livingentity.isAlive()) {
                  return false;
              } else if (!this.followingTargetEvenIfNotSeen) {
                  return !this.mob.getNavigation().isDone();
@@ -345,8 +341,6 @@
              } else {
                  return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
              }
-
-
          }
 
          public void start() {
@@ -363,7 +357,6 @@
                  this.mob.setTarget((LivingEntity) null);
              }
              this.mob.setAnimationState(0);
-
          }
 
          public void tick() {
@@ -374,7 +367,6 @@
              int animState = this.mob.getAnimationState();
              Vec3 aim = this.mob.getLookAngle();
              Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
 
              switch (animState) {
                  case 21:
@@ -387,15 +379,12 @@
                      this.doMovement(target, distance);
                      this.checkForCloseRangeAttack(distance, reach);
                      break;
-
              }
          }
 
          protected void doMovement (LivingEntity livingentity, Double d0){
 
-
              this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
              if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                  this.pathedTargetX = livingentity.getX();
@@ -424,9 +413,7 @@
                      this.ticksUntilNextPathRecalculation += 15;
                  }
              }
-
          }
-
 
          protected void checkForCloseRangeAttack ( double distance, double reach){
              if (distance <= reach && this.ticksUntilNextAttack <= 0) {
@@ -434,17 +421,14 @@
                  if (r <= 600) {
                      this.mob.setAnimationState(21);
                  }
-
              }
          }
 
-
          protected boolean getRangeCheck () {
-
              return
-                     this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                             <=
-                             1.8F * this.getAttackReachSqr(this.mob.getTarget());
+             this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
+                     <=
+                     1.8F * this.getAttackReachSqr(this.mob.getTarget());
          }
 
          protected void tickBiteAttack () {
@@ -465,12 +449,9 @@
          }
 
          protected void preformBiteAttack () {
-
-
              Vec3 pos = mob.position();
              this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
              HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),3.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-
          }
 
          protected void resetAttackCooldown () {

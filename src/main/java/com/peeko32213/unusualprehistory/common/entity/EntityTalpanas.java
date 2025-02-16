@@ -382,7 +382,6 @@ public class EntityTalpanas extends EntityBaseDinosaurAnimal {
         private boolean isDigBlock(Level world, BlockPos.MutableBlockPos pos) {
             return world.getBlockState(pos).is(UPTags.TALPANAS_DIGGABLES);
         }
-
     }
 
     @Override

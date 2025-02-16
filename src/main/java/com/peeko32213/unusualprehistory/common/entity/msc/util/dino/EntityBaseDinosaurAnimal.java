@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
 import com.peeko32213.unusualprehistory.common.entity.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -22,11 +23,14 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -83,6 +87,17 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
             );
         }
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+
+        // Baby goals
+        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D) { public boolean canUse() {
+            return isBaby() && super.canUse();
+        }});
+        this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D) { public boolean canUse() {
+            return isBaby() && super.canUse();
+        }});
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1) { public boolean canUse() {
+            return isBaby() && super.canUse();
+        }});
     }
 
     @Override
@@ -97,9 +112,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
         if(playingAnimation()) {
             setAnimationTimer(getAnimationTimer() - 1);
         }
-
     }
-
 
     public void tickHunger(){
         if(!canGetHungry()) {
@@ -430,7 +443,6 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
     public void setVariant(int variant) {
         this.entityData.set(VARIANT, variant);
     }
-
 
     public void determineVariant(int variantChange) {
     }

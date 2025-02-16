@@ -241,6 +241,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         EntityMegalania megalania = UPEntities.MEGALANIA.get().create(serverLevel);
+        assert megalania != null;
         megalania.setVariant(this.getVariant());
         return megalania;
     }

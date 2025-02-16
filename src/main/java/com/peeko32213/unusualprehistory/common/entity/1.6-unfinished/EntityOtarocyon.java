@@ -329,7 +329,6 @@
 //             return PlayState.CONTINUE;
 //         }
 
-
 //         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) {
 //             if (this.isSprinting()) {
 //                 event.setAndContinue(OTAROCYON_RUN);
@@ -363,7 +362,6 @@
 //             return event.setAndContinue(OTAROCYON_LEAP_HOLD);
 //         }
 
-
 //         if(playingAnimation()) {
 //             return PlayState.CONTINUE;
 //         }
@@ -382,7 +380,6 @@
 //                 setAnimationTimer(300);
 //                 return event.setAndContinue(OTAROCYON_YAWN);
 //             }
-
 //         }
 //         return event.setAndContinue(OTAROCYON_IDLE);
 //     }

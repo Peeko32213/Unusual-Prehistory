@@ -35,7 +35,6 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.BRACHI.get())
                 .add(UPEntities.VELOCI.get())
                 .add(UPEntities.REX.get())
-                .add(UPEntities.BABY_REX.get())
                 .add(UPEntities.BABY_BRACHI.get())
                 //TODO the rest of up mobs need to be added!!
                 .add(EntityType.CAT)
@@ -476,7 +475,6 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.BABY_DUNK.get())
                 .add(UPEntities.BABY_BARINA.get())
                 .add(UPEntities.BABY_SMILODON.get())
-                .add(UPEntities.BABY_REX.get())
                 .add(UPEntities.REX.get())
                 .add(UPEntities.HWACHA.get())
                 .add(UPEntities.SMILODON.get())

@@ -217,6 +217,8 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DiplocaulusModel()));
         event.registerEntityRenderer(UPEntities.HYNERIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new HyneriaModel()));
 
+        event.registerEntityRenderer(UPEntities.REX.get(), e -> new DinosaurRenderer<>(e, new TyrannosaurusRexModel()));
+
         event.registerEntityRenderer(UPEntities.TRIKE.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new TriceratopsModel())
                         .withLayers(TRICERATOPS_MODEL)
@@ -226,9 +228,9 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BRACHI.get(), BrachiosaurusRenderer::new);
         event.registerEntityRenderer(UPEntities.BRACHI_TEEN.get(), BrachiosaurusTeenRenderer::new);
         event.registerEntityRenderer(UPEntities.VELOCI.get(), e -> new DinosaurRenderer<>(e, new VelociraptorModel()));
-        event.registerEntityRenderer(UPEntities.REX.get(), TyrannosaurusRexRenderer::new);
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new DinosaurRenderer<>(e, new MegalaniaModel()));
+
         event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new MegatheriumModel())
                         .withLayers(MEGATHERIUM_MODEL)
@@ -239,11 +241,9 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
 
         event.registerEntityRenderer(UPEntities.BABY_BRACHI.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BRACHI)));
-        event.registerEntityRenderer(UPEntities.BABY_REX.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_REX)));
 //        event.registerEntityRenderer(UPEntities.BABY_MEGATHERIUM.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_MEGATHERIUM)));
         event.registerEntityRenderer(UPEntities.BABY_GIGANTO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_GIGAN)));
         event.registerEntityRenderer(UPEntities.BABY_PARACER.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_PARACERATHERIUM)));
-//        event.registerEntityRenderer(UPEntities.BABY_MEGALANIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_MEGALANIA)));
         event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_PALEOLOPHIS)));
         event.registerEntityRenderer(UPEntities.BABY_BARINA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BARINA)));
         event.registerEntityRenderer(UPEntities.BABY_SMILODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_SMILODON)));

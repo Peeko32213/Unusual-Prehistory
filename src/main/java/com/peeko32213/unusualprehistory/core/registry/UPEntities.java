@@ -108,10 +108,6 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityVelociraptor::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "veloci").toString()));
 
-    public static final RegistryObject<EntityType<EntityBabyRex>> BABY_REX = ENTITIES.register("baby_rex",
-            () -> EntityType.Builder.of(EntityBabyRex::new, MobCategory.CREATURE).sized(1.1f, 0.6f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_rex").toString()));
-
     public static final RegistryObject<EntityType<EntityTyrannosaurusRex>> REX = ENTITIES.register("rex",
             () -> EntityType.Builder.of(EntityTyrannosaurusRex::new, MobCategory.CREATURE).sized(3.3F, 4.5F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "rex").toString()));

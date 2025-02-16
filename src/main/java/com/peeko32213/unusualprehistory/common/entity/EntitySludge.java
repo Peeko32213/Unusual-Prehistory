@@ -166,8 +166,6 @@ public class EntitySludge extends Monster implements GeoAnimatable {
                     }
                 }
             }
-
-
         }
 
         public boolean canContinueToUse() {
@@ -186,8 +184,6 @@ public class EntitySludge extends Monster implements GeoAnimatable {
             } else {
                 return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
             }
-
-
         }
 
         public void start() {
@@ -208,7 +204,6 @@ public class EntitySludge extends Monster implements GeoAnimatable {
         }
 
         public void tick() {
-
 
             LivingEntity target = this.mob.getTarget();
 
