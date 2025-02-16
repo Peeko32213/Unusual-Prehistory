@@ -889,27 +889,35 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tar_ambient"
   },
+
   "megalania_death": {
     "sounds": [
-        "unusualprehistory:megalania_death_0",
-        "unusualprehistory:megalania_death_1"
+        "unusualprehistory:megalania/megalania_death_0",
+        "unusualprehistory:megalania/megalania_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megalania_death"
   },
   "megalania_hurt": {
     "sounds": [
-        "unusualprehistory:megalania_hurt_0",
-        "unusualprehistory:megalania_hurt_1"
+        "unusualprehistory:megalania/megalania_hurt_0",
+        "unusualprehistory:megalania/megalania_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megalania_hurt"
   },
   "megalania_idle": {
     "sounds": [
-        "unusualprehistory:megalania_idle_0",
-        "unusualprehistory:megalania_idle_1",
-        "unusualprehistory:megalania_idle_2"
+        "unusualprehistory:megalania/megalania_idle_0",
+        "unusualprehistory:megalania/megalania_idle_1",
+        "unusualprehistory:megalania/megalania_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megalania_idle"
+  },
+  "megalania_bite": {
+    "sounds": [
+      "unusualprehistory:megalania/megalania_bite_0",
+      "unusualprehistory:megalania/megalania_bite_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.megalania_bite"
   },
 
   "sludge_death": {

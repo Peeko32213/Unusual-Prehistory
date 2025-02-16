@@ -81,6 +81,10 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     private static final RawAnimation MEGALANIA_REST = RawAnimation.begin().thenLoop("animation.megalania.resting");
     private static final RawAnimation MEGALANIA_BITE = RawAnimation.begin().thenLoop("animation.megalania.bite");
 
+    private static final RawAnimation MEGALANIA_BABY_WALK = RawAnimation.begin().thenLoop("animation.baby_megalania.walk");
+    private static final RawAnimation MEGALANIA_BABY_IDLE = RawAnimation.begin().thenLoop("animation.baby_megalania.idle");
+    private static final RawAnimation MEGALANIA_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_megalania.swim");
+
     public EntityMegalania(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
@@ -380,12 +384,12 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.15F, 1.0F);
+        if(!this.isBaby()) {
+            this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.15F, 1.0F);
+        }
     }
 
-    protected SoundEvent getAmbientSound() {
-        return UPSounds.MEGALANIA_IDLE.get();
-    }
+    protected SoundEvent getAmbientSound() { return UPSounds.MEGALANIA_IDLE.get(); }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return UPSounds.MEGALANIA_HURT.get();
@@ -393,6 +397,16 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
 
     protected SoundEvent getDeathSound() {
         return UPSounds.MEGALANIA_DEATH.get();
+    }
+
+    @Override
+    public float getSoundVolume() {
+        if(this.isBaby()){
+            return 0.5F;
+        }
+        else{
+            return 1.0F;
+        }
     }
 
     // Variant textures
@@ -499,7 +513,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
                 this.mob.setAnimationState(0);
-                this.mob.setTarget((LivingEntity) null);
+                this.mob.setTarget(null);
             }
             this.mob.setAnimationState(0);
         }
@@ -552,11 +566,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
         }
 
         protected boolean getRangeCheck () {
-
-            return
-            this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                    <=
-                    1.05F * this.getAttackReachSqr(this.mob.getTarget());
+            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.05F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
         protected void tickBiteAttack () {
@@ -580,7 +590,7 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
         }
 
         protected void preformBiteAttack () {
-            this.mob.playSound(UPSounds.PALAEO_BITE.get(), 0.75F, 1.0F);
+            this.mob.playSound(UPSounds.MEGALANIA_BITE.get(), 0.75F, 1.0F);
             HitboxHelper.PivotedPolyHitCheck(this.mob, this.biteOffSet, 3f, 2f, 3.5f, (ServerLevel)this.mob.level(), 5f, this.mob.damageSources().mobAttack(mob), 0.5f, false);
             List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(1));
             for (LivingEntity e : list) {
@@ -625,25 +635,42 @@ public class EntityMegalania extends EntityBaseDinosaurAnimal implements IVarian
                     break;
                 default:
                     if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isAsleep()  && !this.isSwimming()) {
-                        if (this.isSprinting() || !this.getPassengers().isEmpty() && !this.isSwimming()) {
+                        if (this.isSprinting() || !this.getPassengers().isEmpty() && !this.isSwimming() && !this.isBaby()) {
                             event.setAndContinue(MEGALANIA_SPRINT);
                             return PlayState.CONTINUE;
                         } else if (event.isMoving() && !this.isAsleep() && !this.isSwimming()) {
-                            event.setAndContinue(MEGALANIA_WALK);
+                            if (this.isBaby()) {
+                                event.setAndContinue(MEGALANIA_BABY_WALK);
+                            }
+                            else{
+                                event.setAndContinue(MEGALANIA_WALK);
+                            }
                             return PlayState.CONTINUE;
                         }
                     }
                     if (this.isInWater()) {
-                        event.setAndContinue(MEGALANIA_SWIM);
+                        if (this.isBaby()) {
+                            event.setAndContinue(MEGALANIA_BABY_SWIM);
+                        }
+                        else{
+                            event.setAndContinue(MEGALANIA_SWIM);
+                        }
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
+
                     if (isAsleep() && !this.isSwimming()) {
                         event.setAndContinue(MEGALANIA_REST);
                         return PlayState.CONTINUE;
                     }
-                    event.setAndContinue(MEGALANIA_IDLE);
-                    return PlayState.CONTINUE;
+
+                    if (this.isBaby()) {
+                        event.setAndContinue(MEGALANIA_BABY_IDLE);
+                    }
+                    else {
+                        event.setAndContinue(MEGALANIA_IDLE);
+                    }
+                return PlayState.CONTINUE;
             }
         }
         return PlayState.CONTINUE;

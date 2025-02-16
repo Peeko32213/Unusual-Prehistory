@@ -329,7 +329,7 @@ public class UPItems {
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.MAMMOTH_EMBRYO_ATTACH_TO, UPEntities.MAMMOTH, 1000));
 
     public static final RegistryObject<Item> MEGATH_EMBRYO = ITEMS.register("megath_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.MEGATH_EMBRYO_ATTACH_TO, UPEntities.BABY_MEGATHERIUM, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.MEGATH_EMBRYO_ATTACH_TO, UPEntities.MEGATHERIUM, 1000));
 
     public static final RegistryObject<Item> PALAEO_EMBRYO = ITEMS.register("palaeo_embryo",
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.PALAEO_EMBRYO_ATTACH_TO, UPEntities.BABY_PALAEO, 1000));

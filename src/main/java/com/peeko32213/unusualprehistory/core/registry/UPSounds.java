@@ -162,6 +162,7 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> MEGALANIA_DEATH = createSoundEvent("megalania_death");
     public static final RegistryObject<SoundEvent> MEGALANIA_HURT = createSoundEvent("megalania_hurt");
     public static final RegistryObject<SoundEvent> MEGALANIA_IDLE = createSoundEvent("megalania_idle");
+    public static final RegistryObject<SoundEvent> MEGALANIA_BITE = createSoundEvent("megalania_bite");
 
     public static final RegistryObject<SoundEvent> SLUDGE_DEATH = createSoundEvent("sludge_death");
     public static final RegistryObject<SoundEvent> SLUDGE_HURT = createSoundEvent("sludge_hurt");

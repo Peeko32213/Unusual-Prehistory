@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.ChatFormatting;
@@ -109,8 +108,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
                     return !isBaby() && passiveFor == 0 && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
                 }
             });
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-//        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 15, 1.0D, 100, 34));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 20));
         this.targetSelector.addGoal(9, (new HurtByTargetGoal(this) {
                 public boolean canUse() {
                     return !hasEepy() && passiveFor == 0 && !isBaby() && super.canUse();
@@ -690,7 +688,7 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
     @Override
     public float getSoundVolume() {
         if(this.isBaby()){
-            return 0.25F;
+            return 0.5F;
         }
         else{
             return 1.0F;

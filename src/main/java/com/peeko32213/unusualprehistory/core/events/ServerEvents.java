@@ -69,7 +69,6 @@ public class ServerEvents {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @SubscribeEvent
@@ -93,8 +92,7 @@ public class ServerEvents {
            UPMessages.sendToPlayer(new EncyclopediaRootPageS2C(rootPage), player);
        }
 
-
-       if(playerList != null && !playerList.isEmpty()){
+       if(!playerList.isEmpty()){
            for(ServerPlayer player1 : playerList){
                ServerLevel serverLevel = (ServerLevel) player1.level();
                if(AnalyzerRecipeJsonManager.getRecipes().isEmpty()){
@@ -116,7 +114,6 @@ public class ServerEvents {
         event.addListener(new LootFruitJsonManager());
         event.addListener(new EncyclopediaJsonManager());
     }
-
 
     @SubscribeEvent
     public void onLootLevelEvent(LootingLevelEvent event) {
@@ -159,8 +156,8 @@ public class ServerEvents {
                 }
 
                 if (entity.hasEffect(UPEffects.PISSED_UPON.get())) {
-                    //urine doubles damage
-                    event.setAmount(event.getAmount() * 2);
+                    //urine increases damage
+                    event.setAmount(event.getAmount() * 1.15F);
                 }
 
                 ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
@@ -230,14 +227,12 @@ public class ServerEvents {
             BlockState state = serverLevel.getBlockState(pos);
             RandomSource randomSource = serverLevel.random;
             boolean giveDrops = randomSource.nextInt(100) < 10;
-            if(state.is(BlockTags.MINEABLE_WITH_AXE))
-            {
+            if(state.is(BlockTags.MINEABLE_WITH_AXE)) {
                 if(!giveDrops){
                     serverLevel.destroyBlock(pos, false);
                 } else {
                     serverLevel.destroyBlock(pos, true);
                 }
-
             }
         }
     }
@@ -253,66 +248,6 @@ public class ServerEvents {
             event.setAmount(damage);
         }
     }
-
-//    @SubscribeEvent
-//    //cant be canceled
-//    public void spearThrust(LivingDamageEvent event) {
-//        if(event.getSource().getEntity() instanceof LivingEntity living){
-////            Player player = event.getEntity();
-//            ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
-//            if(!itemStack.is(UPItems.HANDMADE_SPEAR.get())) return;
-////            if(living.getCooldowns().isOnCooldown(itemStack.getItem())) return;
-////            Vec3 vec3 = living.getDeltaMovement();
-//            Vec3 vec32 = new Vec3(3,30,3).multiply(living.getDeltaMovement());
-//            living.setDeltaMovement(vec32);
-//            living.hurtMarked = true;
-//            //player.invulnerableTime = 10;
-////            player.getCooldowns().addCooldown(itemStack.getItem(), 60);
-//        }
-//    }
-
-//    @SubscribeEvent
-//    public void spearThrust(LivingEntity attacker, Entity entity, ItemStack itemStack) {
-//        if (!itemStack.is(UPItems.HANDMADE_SPEAR.get())) return;
-//        if(entity instanceof LivingEntity target) {
-//            target.setOnGround(false);
-//            target.push(0, 3, 0);
-//        }
-//    }
-
-//    @SubscribeEvent
-//    public void spearThrust(LivingDamageEvent event) {
-//        if(event.getSource().getEntity() instanceof LivingEntity living) {
-//            ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
-//            if (!itemStack.is(UPItems.HANDMADE_SPEAR.get())) return;
-//            living.setOnGround(false);
-//            living.push(0, 3 * (1.0D - living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)), 0);
-//        }
-//    }
-
-//    @SubscribeEvent
-//    //cant be canceled
-//    public void spearFallDamageAttack(TickEvent.PlayerTickEvent event) {
-//        if(event.phase == TickEvent.Phase.START || event.player.level().isClientSide) return;
-//        if(event.player instanceof ServerPlayer serverPlayer){
-//            ServerLevel serverLevel = (ServerLevel) serverPlayer.level();
-//            ItemStack itemStack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-//            if(!itemStack.is(UPItems.HANDMADE_SPEAR.get()) || (serverPlayer.fallDistance < 4)) return;
-//            if(serverPlayer.getCooldowns().isOnCooldown(itemStack.getItem())) return;
-//            BlockPos blockPos = serverPlayer.getOnPos();
-//            if(!serverLevel.getBlockState(blockPos).isAir()){
-//                RandomSource randomSource = serverLevel.random;
-//                serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 50, randomSource.nextGaussian() * 1, 0.1, randomSource.nextGaussian() * 1, 0.2 );
-//
-//                List<LivingEntity> entities = serverLevel.getEntitiesOfClass(LivingEntity.class, serverPlayer.getBoundingBox().inflate(4), (e) -> !(e.is(serverPlayer)));
-//                for(LivingEntity entity : entities)
-//                {
-//                    entity.hurt(serverPlayer.damageSources().mobAttack(serverPlayer), serverPlayer.fallDistance);
-//                }
-//            }
-//
-//        }
-//    }
 
     //@SubscribeEvent
     //public void removeCachedBlock(BlockEvent.BreakEvent event) {

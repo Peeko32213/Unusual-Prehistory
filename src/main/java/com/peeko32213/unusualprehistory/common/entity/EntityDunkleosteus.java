@@ -469,11 +469,7 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
         }
 
         protected boolean getRangeCheck () {
-
-            return
-                    this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                            <=
-                            1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
         protected void tickBiteAttack () {
@@ -497,7 +493,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-
         }
 
         protected void resetAttackCooldown () {
@@ -517,7 +512,7 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
         }
     }
 

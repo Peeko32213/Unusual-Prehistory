@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.EatLeavesGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
@@ -42,6 +41,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -49,11 +49,11 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implements CustomFollower, IAttackEntity {
-    private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.BOOLEAN);
+//    private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.INT);
     private Ingredient temptationItems;
-    private int eatingTime;
+//    private int eatingTime;
     public float sitProgress;
 
     private static final RawAnimation MEGATHERIUM_WALK = RawAnimation.begin().thenLoop("animation.megatherium.move");
@@ -63,6 +63,10 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     private static final RawAnimation MEGATHERIUM_SWIM = RawAnimation.begin().thenLoop("animation.megatherium.swim");
     private static final RawAnimation MEGATHERIUM_EAT = RawAnimation.begin().thenLoop("animation.megatherium.eating");
 
+    private static final RawAnimation MEGATHERIUM_BABY_WALK = RawAnimation.begin().thenLoop("animation.baby_megatherium.walk");
+    private static final RawAnimation MEGATHERIUM_BABY_IDLE = RawAnimation.begin().thenLoop("animation.baby_megatherium.idle");
+    private static final RawAnimation MEGATHERIUM_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_megatherium.swim");
+
     public EntityMegatherium(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
@@ -71,11 +75,11 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 35.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.16D)
-                .add(Attributes.ARMOR, 3.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 3.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
+            .add(Attributes.MAX_HEALTH, 35.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.16D)
+            .add(Attributes.ARMOR, 3.0D)
+            .add(Attributes.ARMOR_TOUGHNESS, 3.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
     }
 
     @Override
@@ -83,7 +87,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(1, new EatLeavesGoal(this));
+//        this.goalSelector.addGoal(1, new EatLeavesGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 2D));
@@ -92,7 +96,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 10));
     }
 
     private Ingredient getTemptationItems() {
@@ -107,18 +111,18 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(EATING, Boolean.valueOf(false));
-        this.entityData.define(SADDLED, Boolean.valueOf(false));
+//        this.entityData.define(EATING, Boolean.FALSE);
+        this.entityData.define(SADDLED, Boolean.FALSE);
         this.entityData.define(COMMAND, 0);
     }
 
-    public boolean isEating() {
-        return this.entityData.get(EATING).booleanValue();
-    }
+//    public boolean isEating() {
+//        return this.entityData.get(EATING);
+//    }
 
-    public void setEating(boolean eating) {
-        this.entityData.set(EATING, Boolean.valueOf(eating));
-    }
+//    public void setEating(boolean eating) {
+//        this.entityData.set(EATING, eating);
+//    }
 
     public void tick() {
         super.tick();
@@ -127,29 +131,29 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
             attackCooldown--;
         }
 
-        if (!this.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
-            this.setEating(true);
-        }
+//        if (!this.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
+//            this.setEating(true);
+//        }
 
-        if (isEating()) {
-            eatingTime++;
-            if (!this.getMainHandItem().is(ItemTags.LEAVES)) {
-                for (int i = 0; i < 3; i++) {
-                    double d2 = this.random.nextGaussian() * 0.02D;
-                    double d0 = this.random.nextGaussian() * 0.02D;
-                    double d1 = this.random.nextGaussian() * 0.02D;
-                    this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, this.getItemInHand(InteractionHand.MAIN_HAND)), this.getX() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, this.getY() + this.getBbHeight() * 0.5F + (double) (this.random.nextFloat() * this.getBbHeight() * 0.5F), this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, d0, d1, d2);
-                }
-            }
-            if (eatingTime % 5 == 0) {
-                this.gameEvent(GameEvent.EAT);
-                this.playSound(SoundEvents.PANDA_EAT, this.getSoundVolume(), this.getVoicePitch());
-            }
-            if (eatingTime > 100) {
-                this.setEating(false);
-                eatingTime = 0;
-            }
-        }
+//        if (isEating()) {
+//            eatingTime++;
+//            if (!this.getMainHandItem().is(ItemTags.LEAVES)) {
+//                for (int i = 0; i < 3; i++) {
+//                    double d2 = this.random.nextGaussian() * 0.02D;
+//                    double d0 = this.random.nextGaussian() * 0.02D;
+//                    double d1 = this.random.nextGaussian() * 0.02D;
+//                    this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, this.getItemInHand(InteractionHand.MAIN_HAND)), this.getX() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, this.getY() + this.getBbHeight() * 0.5F + (double) (this.random.nextFloat() * this.getBbHeight() * 0.5F), this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, d0, d1, d2);
+//                }
+//            }
+//            if (eatingTime % 5 == 0) {
+//                this.gameEvent(GameEvent.EAT);
+//                this.playSound(SoundEvents.PANDA_EAT, this.getSoundVolume(), this.getVoicePitch());
+//            }
+//            if (eatingTime > 100) {
+//                this.setEating(false);
+//                eatingTime = 0;
+//            }
+//        }
 
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
@@ -167,7 +171,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
 
     //TODO add positionRider to base class so we dont have to do all this again we can just use a method to fetch the offset
     @Override
-    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
+    protected void positionRider(Entity pPassenger, @NotNull MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
         pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
@@ -184,7 +188,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     }
 
     //TODO add mobinteract to base class so we dont have to do all this again
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isFood(itemstack) && !isTame()) {
@@ -245,7 +249,6 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
                     }
                 }
             }
-
         }
         return InteractionResult.PASS;
     }
@@ -330,7 +333,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     @Override
     public void travel(Vec3 pos) {
         if (this.isAlive()) {
-            LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
+            LivingEntity livingentity = this.getControllingPassenger();
 
             if (this.isVehicle() && livingentity != null) {
                 double d0 = 0.08D;
@@ -345,9 +348,8 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
-
                 this.setSpeed(0.1F);
-                super.travel(new Vec3((double) f, pos.y, (double) f1));
+                super.travel(new Vec3(f, pos.y, f1));
 
             } else {
                 super.travel(pos);
@@ -387,6 +389,15 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
         return UPSounds.MEGATHER_DEATH.get();
     }
 
+    @Override
+    public float getSoundVolume() {
+        if(this.isBaby()){
+            return 0.5F;
+        }
+        else{
+            return 1.0F;
+        }
+    }
 
     @Override
     protected SoundEvent getAttackSound() {
@@ -444,27 +455,48 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isInSittingPose() && !this.isSwimming()) {
-            event.setAndContinue(MEGATHERIUM_WALK);
-            return PlayState.CONTINUE;
+            if(this.isBaby()){
+                event.getController().setAnimationSpeed(1.0F);
+                event.setAndContinue(MEGATHERIUM_BABY_WALK);
+                return PlayState.CONTINUE;
+            }
+            else {
+                event.getController().setAnimationSpeed(1.0F);
+                event.setAndContinue(MEGATHERIUM_WALK);
+                return PlayState.CONTINUE;
+            }
         }
         if (this.isInWater() || this.isSwimming()) {
-            event.setAndContinue(MEGATHERIUM_SWIM);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
+            if(this.isBaby()){
+                event.getController().setAnimationSpeed(1.0F);
+                event.setAndContinue(MEGATHERIUM_BABY_SWIM);
+                return PlayState.CONTINUE;
+            }
+            else {
+                event.getController().setAnimationSpeed(1.0F);
+                event.setAndContinue(MEGATHERIUM_SWIM);
+                return PlayState.CONTINUE;
+            }
         }
-        if (this.isInSittingPose()) {
-            event.setAndContinue(MEGATHERIUM_SIT);
+
+        if (this.isInSittingPose() && !this.isBaby()) {
             event.getController().setAnimationSpeed(1.0F);
+            event.setAndContinue(MEGATHERIUM_SIT);
             return PlayState.CONTINUE;
         }
 
-        event.setAndContinue(MEGATHERIUM_IDLE);
+        if(this.isBaby()){
+            event.setAndContinue(MEGATHERIUM_BABY_IDLE);
+        }
+        else {
+            event.setAndContinue(MEGATHERIUM_IDLE);
+        }
         event.getController().setAnimationSpeed(1.0F);
         return PlayState.CONTINUE;
     }
 
     protected <E extends EntityMegatherium> PlayState eatController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.isEating() && !this.isInSittingPose() && !this.isSwimming()) {
+        if (!this.isInSittingPose() && !this.isSwimming()) {
             event.setAndContinue(MEGATHERIUM_EAT);
             return PlayState.CONTINUE;
         }
@@ -483,7 +515,7 @@ public class EntityMegatherium extends EntityTameableBaseDinosaurAnimal implemen
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        controllers.add(new AnimationController<>(this, "Eat", 5, this::eatController));
+//        controllers.add(new AnimationController<>(this, "Eat", 5, this::eatController));
         controllers.add(new AnimationController<>(this, "Digging", 0, this::digController));
     }
 

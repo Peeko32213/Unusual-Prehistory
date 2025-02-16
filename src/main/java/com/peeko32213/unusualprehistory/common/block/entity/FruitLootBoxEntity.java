@@ -40,7 +40,6 @@ public class FruitLootBoxEntity extends BlockEntity {
         this.color = color;
     }
 
-
     public void setTradeItem(Item tradeItem) {
         this.tradeItem = tradeItem;
     }
@@ -48,7 +47,6 @@ public class FruitLootBoxEntity extends BlockEntity {
     public Item getTradeItem() {
         return tradeItem;
     }
-
 
     public void setLootFruits(List<LootFruitCodec> lootFruits) {
         this.lootFruits = lootFruits;
@@ -84,7 +82,6 @@ public class FruitLootBoxEntity extends BlockEntity {
             pTag.putString("translationKey", getTranslationKey());
         }
     }
-
 
     @Override
     public void load(CompoundTag pTag) {

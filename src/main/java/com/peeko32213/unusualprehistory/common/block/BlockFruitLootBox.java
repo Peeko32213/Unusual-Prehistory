@@ -30,6 +30,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -91,13 +92,13 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
     }
 
     @Override
-    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+    public void onPlace(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pOldState, boolean pIsMoving) {
         pLevel.sendBlockUpdated(pPos, pState, pState,Block.UPDATE_IMMEDIATE);
         super.onPlace(pState, pLevel, pPos, pOldState, pIsMoving);
     }
 
     @Override
-    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
+    public void setPlacedBy(Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState, @Nullable LivingEntity pPlacer, @NotNull ItemStack pStack) {
         if(pLevel.isClientSide) return;
         FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity)pLevel.getBlockEntity(pPos));
         CompoundTag tag = pStack.getTag();
@@ -126,28 +127,6 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
         return 0F;
     }
 
-   //@Override
-   //public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-   //    if(!pLevel.isClientSide) {
-   //        FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity) pLevel.getBlockEntity(pPos));
-   //        ItemStack itemStack = pPlayer.getItemInHand(pHand);
-   //        try {
-   //            int size = fruitLootBox.getLootFruits().size();
-   //            if (!fruitLootBox.getLootFruits().isEmpty() && !pLevel.isClientSide) {
-   //                int randomNr = pLevel.random.nextInt(size);
-   //                fruitLootBox.getLootFruits().get(randomNr).getItems().forEach(rollableItemCodec -> {
-   //                    rollableItemCodec.dropItem(pLevel, pPos, rollableItemCodec);
-   //                });
-   //            }
-   //            //pLevel.destroyBlock(pPos, false, pPlayer);
-   //            return InteractionResult.SUCCESS;
-   //        } catch (Exception e) {
-   //            LOGGER.info("failed due to ", e);
-   //        }
-   //    }
-   //    return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
-   //}
-
     private static final LootFruitCodec LOOT_FRUIT = new LootFruitCodec(2, "unusualprehistory.loot_fruit_box.default", Items.BAMBOO, Collections.emptyList(), TextColor.fromRgb(12345), 2);
     private static final List<LootFruitCodec> LOOT_FRUIT_LIST = new ArrayList<>() {{
         add(LOOT_FRUIT);
@@ -174,9 +153,8 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
         pBuilder.add(LOOT_BOX);
     }
 
-
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
         if(pStack.hasTag()){
             CompoundTag tag = pStack.getTag();
             String translationKey = tag.getString("translationKey");
@@ -184,24 +162,30 @@ public class BlockFruitLootBox extends BaseEntityBlock implements SimpleWaterlog
             int modelData = tag.getInt("CustomModelData");
             MutableComponent component = Component.translatable("unusualprehistory.fruit_loot_box.loot_box");
             if(modelData == 1){
-                pStack.setHoverName(Component.translatable(translationKey).withStyle(ChatFormatting.RESET));
+                pStack.setHoverName(Component.translatable(translationKey)
+                        .withStyle(ChatFormatting.RESET)
+                        .withStyle(ChatFormatting.WHITE));
             }
             if(modelData == 2){
-                pStack.setHoverName(Component.translatable(translationKey).withStyle(ChatFormatting.RESET));
+                pStack.setHoverName(Component.translatable(translationKey)
+                        .withStyle(ChatFormatting.RESET)
+                        .withStyle(ChatFormatting.WHITE));
             }
             if(modelData == 3){
-                pStack.setHoverName(Component.translatable(translationKey).withStyle(ChatFormatting.YELLOW));
+                pStack.setHoverName(Component.translatable(translationKey)
+                        .withStyle(ChatFormatting.RESET)
+                        .withStyle(ChatFormatting.YELLOW));
             }
             if(modelData == 4){
-                pStack.setHoverName(Component.translatable(translationKey).withStyle(ChatFormatting.AQUA));
+                pStack.setHoverName(Component.translatable(translationKey)
+                        .withStyle(ChatFormatting.RESET)
+                        .withStyle(ChatFormatting.AQUA));
             }
             if(modelData == 5){
-                pStack.setHoverName(Component.translatable(translationKey).withStyle(ChatFormatting.LIGHT_PURPLE));
+                pStack.setHoverName(Component.translatable(translationKey)
+                        .withStyle(ChatFormatting.RESET)
+                        .withStyle(ChatFormatting.LIGHT_PURPLE));
             }
-
-
         }
-
-
     }
 }

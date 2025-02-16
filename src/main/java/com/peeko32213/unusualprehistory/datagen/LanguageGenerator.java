@@ -481,7 +481,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.MAMMOTH, "Mammoth");
         addEntityType(UPEntities.MEGALANIA, "Megalania");
         addEntityType(UPEntities.PALAEOPHIS, "Palaeolophis");
-        addEntityType(UPEntities.BABY_MEGATHERIUM, "Baby Megatherium");
         addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
         addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
         addEntityType(UPEntities.BABY_GIGANTO, "Baby Gigantopithecus");
@@ -489,7 +488,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BABY_PALAEO, "Baby Palaeolophis");
         addEntityType(UPEntities.BABY_BARINA, "Baby Barinasuchus");
         addEntityType(UPEntities.BABY_SMILODON, "Baby Smilodon");
-//        addEntityType(UPEntities.BABY_MAMMOTH, "Baby Mammoth");
         addEntityType(UPEntities.PALAEOPHIS_PART, "Palaeophis Body");
         addEntityType(UPEntities.SLUDGE, "Sludge");
         addEntityType(UPEntities.ICEBERG_MAMMOTH, "Frozen Mammoth");
@@ -616,15 +614,20 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.SMILODON_DEATH, "Smilodon dies");
         addSound(UPSounds.SMILODON_HURT, "Smilodon hurts");
         addSound(UPSounds.SMILODON_IDLE, "Smilodon snarls");
+
         addSound(UPSounds.PALAEO_HURT, "Palaeophis hurts");
         addSound(UPSounds.PALAEO_DEATH, "Palaeophis dies");
         addSound(UPSounds.PALAEO_IDLE, "Palaeophis hisses");
         addSound(UPSounds.PALAEO_BITE, "Palaeophis snaps");
+
         addSound(UPSounds.TAR_POP, "Tar pops");
         addSound(UPSounds.TAR_AMBIENT, "Tar settles");
+
         addSound(UPSounds.MEGALANIA_DEATH, "Megalania dies");
         addSound(UPSounds.MEGALANIA_HURT, "Megalania hurts");
         addSound(UPSounds.MEGALANIA_IDLE, "Megalania hisses");
+        addSound(UPSounds.MEGALANIA_BITE, "Megalania bites");
+
         addSound(UPSounds.SLUDGE_DEATH, "Sludge dies");
         addSound(UPSounds.SLUDGE_HURT, "Sludge hurts");
         addSound(UPSounds.SLUDGE_IDLE, "Sludge gurgles");

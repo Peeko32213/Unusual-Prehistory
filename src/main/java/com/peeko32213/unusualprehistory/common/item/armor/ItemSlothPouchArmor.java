@@ -106,7 +106,7 @@ public class ItemSlothPouchArmor extends ArmorItem implements GeoItem {
 
     public ItemStack addTag(ItemStack stack, Level level){
         CompoundTag tag = stack.getTag();
-        EntityBabyMegatherium entityBabyMegatherium = UPEntities.BABY_MEGATHERIUM.get().create(level);
+        EntityMegatherium entityBabyMegatherium = UPEntities.MEGATHERIUM.get().create(level);
         tag.put("megatherium", entityBabyMegatherium.serializeNBT());
         tag.putBoolean("tamed", entityBabyMegatherium.isTame());
         long currentTime = level.getGameTime();
@@ -128,12 +128,7 @@ public class ItemSlothPouchArmor extends ArmorItem implements GeoItem {
             if (tag.getBoolean("tamed")) {
                 MutableComponent component = Component.translatable("unusualprehistory.megatherium_baby.tame_tooltip", tag.getBoolean("tamed")).withStyle(ChatFormatting.GRAY);
                 pTooltipComponents.add(component);
-            }
-            else if (minutesLeft == 1 && !tag.getBoolean("tamed")) {
-                MutableComponent component = Component.translatable("unusualprehistory.megatherium_baby.minute_tooltip", minutesLeft).withStyle(ChatFormatting.GRAY);
-                pTooltipComponents.add(component);
-            }
-            else if (!tag.getBoolean("tamed")) {
+            } else {
                 MutableComponent component = Component.translatable("unusualprehistory.megatherium_baby.minutes_tooltip", minutesLeft).withStyle(ChatFormatting.GRAY);
                 pTooltipComponents.add(component);
             }
