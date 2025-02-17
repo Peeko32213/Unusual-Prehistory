@@ -38,9 +38,15 @@ public final class ClientForgeEvents {
         BlockState blockState = level.getBlockState(BlockPos.containing(vec3.x, vec3.y, vec3.z));
         boolean isSpectator = player.isSpectator();
         boolean isCreative = player.isCreative();
-        if(blockState.is(UPBlocks.TAR.get()) && (event.getMode().equals(FogRenderer.FogMode.FOG_TERRAIN) || event.getMode().equals(FogRenderer.FogMode.FOG_SKY)) && !isSpectator && !isCreative) {
-            event.setFarPlaneDistance(1.3F);
-            event.setNearPlaneDistance(0.5F);
+        if(blockState.is(UPBlocks.TAR.get()) && (event.getMode().equals(FogRenderer.FogMode.FOG_TERRAIN) || event.getMode().equals(FogRenderer.FogMode.FOG_SKY)) && !isSpectator) {
+            if(isCreative) {
+                event.setFarPlaneDistance(3.0F);
+                event.setNearPlaneDistance(2.0F);
+            }
+            else {
+                event.setFarPlaneDistance(1.45F);
+                event.setNearPlaneDistance(0.6F);
+            }
             event.setFogShape(FogShape.SPHERE);
             event.setCanceled(true);
         }

@@ -84,11 +84,9 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new GroomGoal(this, 1.5){
-        public boolean canUse() {
-                return !isBaby() && super.canUse();
-            }
-        });
+        if(!this.isBaby()) {
+            this.goalSelector.addGoal(1, new GroomGoal(this, 1.5));
+        }
         this.goalSelector.addGoal(2, new SmilodonAttackGoal(this){
             public boolean canUse() {
                 return !isBaby() && super.canUse();
@@ -142,7 +140,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
     @Override
     public float getSoundVolume() {
         if(this.isBaby()){
-            return 0.45F;
+            return 0.4F;
         }
         else{
             return 0.8F;
@@ -260,13 +258,16 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
     }
 
     public boolean canGroom(EntitySmilodon pOtherAnimal) {
-        if (pOtherAnimal == this) {
-            return false;
-        } else if (pOtherAnimal.getClass() != this.getClass()) {
-            return false;
-        } else {
-            return this.canGroom() && pOtherAnimal.canGroom();
+        if(!this.isBaby()) {
+            if (pOtherAnimal == this) {
+                return false;
+            } else if (pOtherAnimal.getClass() != this.getClass()) {
+                return false;
+            } else {
+                return this.canGroom() && pOtherAnimal.canGroom();
+            }
         }
+        return false;
     }
 
     public void customServerAiStep() {
@@ -286,18 +287,20 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
             this.setPose(Pose.STANDING);
             this.setSprinting(false);
         }
-
     }
 
-    public static ResourceLocation OCELOT_SMILO = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon_ocelot.png");;
-    public static ResourceLocation NORMAL = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon.png");
+    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon.png");
+    private static final ResourceLocation TEXTURE_OCELOT = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot.png");
+
+    private static final ResourceLocation TEXTURE_NORMAL_BABY = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_baby.png");
+    private static final ResourceLocation TEXTURE_OCELOT_BABY = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot_baby.png");
 
     @Override
     public ResourceLocation getVariantTexture() {
         if(getVariant() == 1){
-            return OCELOT_SMILO;
+            return TEXTURE_OCELOT;
         }
-        return NORMAL;
+        return TEXTURE_NORMAL;
     }
 
     static class SmilodonStalkGoal extends Goal {

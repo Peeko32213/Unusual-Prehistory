@@ -17,6 +17,7 @@ public class MegalaniaModel extends GeoModel<EntityMegalania>
     private static final ResourceLocation TEXTURE_COLD = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold.png");
     private static final ResourceLocation TEXTURE_HOT = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot.png");
     private static final ResourceLocation TEXTURE_NETHER = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_nether.png");
+
     private static final ResourceLocation TEXTURE_TEMPERATE_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_baby.png");
     private static final ResourceLocation TEXTURE_COLD_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold_baby.png");
     private static final ResourceLocation TEXTURE_HOT_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot_baby.png");

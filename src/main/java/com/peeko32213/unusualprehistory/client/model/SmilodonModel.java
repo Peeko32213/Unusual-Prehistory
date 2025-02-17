@@ -12,6 +12,12 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class SmilodonModel extends GeoModel<EntitySmilodon> {
 
+    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon.png");
+    private static final ResourceLocation TEXTURE_OCELOT = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot.png");
+
+    private static final ResourceLocation TEXTURE_NORMAL_BABY = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_baby.png");
+    private static final ResourceLocation TEXTURE_OCELOT_BABY = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot_baby.png");
+
     @Override
     public ResourceLocation getModelResource(EntitySmilodon smilodon) {
         if(smilodon.isBaby()){
@@ -22,18 +28,18 @@ public class SmilodonModel extends GeoModel<EntitySmilodon> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntitySmilodon smilodon) {
-        if(smilodon.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon/smilodon_baby.png");
-        }
-        else if(smilodon.isBaby() && smilodon.getVariant() == 1) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon/smilodon_ocelot_baby.png");
-        }
-        else if(smilodon.getVariant() == 1){
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon/smilodon_ocelot.png");
-        }
-        else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon/smilodon.png");
+    public ResourceLocation getTextureResource(EntitySmilodon smilodon)
+    {
+        if (smilodon.isBaby()) {
+            return switch (smilodon.getVariant()) {
+                case 1 -> TEXTURE_OCELOT_BABY;
+                default -> TEXTURE_NORMAL_BABY;
+            };
+        } else {
+            return switch (smilodon.getVariant()) {
+                case 1 -> TEXTURE_OCELOT;
+                default -> TEXTURE_NORMAL;
+            };
         }
     }
 
