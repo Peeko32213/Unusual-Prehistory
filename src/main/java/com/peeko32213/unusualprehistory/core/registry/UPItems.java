@@ -474,9 +474,6 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> BRACHI_EGG =registerSpawnEggs("brachi_spawn_egg",
             UPEntities.BRACHI , 0x5e6f9a, 0xc7e1e4);
 
-    public static final RegistryObject<ForgeSpawnEggItem> ENCRUSTED_EGG = registerSpawnEggs("encrusted_spawn_egg",
-            UPEntities.ENCRUSTED , 0x482300, 0xffc656);
-
     public static final RegistryObject<ForgeSpawnEggItem> ERYON_EGG = registerSpawnEggs("eryon_spawn_egg",
             UPEntities.ERYON , 0x1d2110, 0xe4b423);
 
@@ -541,8 +538,12 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> TALPANAS_EGG = registerSpawnEggs("talpanas_spawn_egg",
             UPEntities.TALPANAS , 0x1d1311, 0x3c4849);
 
+    // Misc spawn eggs
     public static final RegistryObject<ForgeSpawnEggItem> SLUDGE_EGG = registerSpawnEggs("sludge_spawn_egg",
             UPEntities.SLUDGE , 0x0a090a, 0x282627);
+
+    public static final RegistryObject<ForgeSpawnEggItem> ENCRUSTED_EGG = registerSpawnEggs("encrusted_spawn_egg",
+            UPEntities.ENCRUSTED , 0x482300, 0xffc656);
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,

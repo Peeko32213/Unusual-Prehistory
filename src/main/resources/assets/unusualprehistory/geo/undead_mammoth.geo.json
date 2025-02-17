@@ -1,0 +1,169 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.mammoth",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 10,
+				"visible_bounds_height": 6.5,
+				"visible_bounds_offset": [0, 2.75, 0]
+			},
+			"bones": [
+				{
+					"name": "Mammoth",
+					"pivot": [0, 46, -3]
+				},
+				{
+					"name": "Body",
+					"parent": "Mammoth",
+					"pivot": [0, 50, -2],
+					"cubes": [
+						{"origin": [22.5, 18, -30], "size": [0, 6, 59], "uv": [0, 40]},
+						{"origin": [-22.5, 18, -30], "size": [0, 6, 59], "uv": [0, 40], "mirror": true},
+						{"origin": [-22.5, 18, -30], "size": [45, 6, 0], "uv": [0, 105]},
+						{"origin": [-22.5, 18, 29], "size": [45, 6, 0], "uv": [0, 105]},
+						{"origin": [-22.5, 64, -30], "size": [45, 5, 29], "uv": [89, 99]}
+					]
+				},
+				{
+					"name": "Fur",
+					"parent": "Body",
+					"pivot": [0, 50, -2],
+					"cubes": [
+						{"origin": [-22.5, 24, -30], "size": [45, 40, 59], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Tail",
+					"parent": "Body",
+					"pivot": [0, 63, 29],
+					"cubes": [
+						{"origin": [-4, 52, 29], "size": [9, 11, 3], "uv": [149, 0]}
+					]
+				},
+				{
+					"name": "Head",
+					"parent": "Body",
+					"pivot": [0, 59, -29],
+					"cubes": [
+						{"origin": [-16, 67, -49], "size": [32, 9, 33], "uv": [0, 133]},
+						{"origin": [-14, 42, -43], "size": [0, 5, 13], "uv": [33, 29], "mirror": true},
+						{"origin": [14, 42, -43], "size": [0, 5, 13], "uv": [33, 29]},
+						{"origin": [-14, 42, -43], "size": [28, 5, 0], "uv": [0, 37]},
+						{"origin": [-14, 47, -43], "size": [28, 20, 13], "uv": [97, 133]}
+					]
+				},
+				{
+					"name": "Trunk",
+					"parent": "Head",
+					"pivot": [0, 51, -43],
+					"cubes": [
+						{"origin": [-5, 49, -52], "size": [11, 11, 9], "uv": [121, 166]}
+					]
+				},
+				{
+					"name": "TrunkPart1",
+					"parent": "Trunk",
+					"pivot": [0, 49, -49],
+					"cubes": [
+						{"origin": [-5, 38, -52], "size": [11, 11, 9], "uv": [40, 111]}
+					]
+				},
+				{
+					"name": "TrunkPart2",
+					"parent": "TrunkPart1",
+					"pivot": [0, 38, -49],
+					"cubes": [
+						{"origin": [-5, 27, -52], "size": [11, 11, 9], "uv": [0, 111]}
+					]
+				},
+				{
+					"name": "TrunkPart3",
+					"parent": "TrunkPart2",
+					"pivot": [0, 27, -49],
+					"cubes": [
+						{"origin": [-5, 13, -52], "size": [11, 14, 9], "uv": [149, 33]}
+					]
+				},
+				{
+					"name": "Ear1",
+					"parent": "Head",
+					"pivot": [14, 66, -32],
+					"cubes": [
+						{"origin": [14, 60, -33], "size": [1, 6, 3], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Ear2",
+					"parent": "Head",
+					"pivot": [-14, 66, -32],
+					"cubes": [
+						{"origin": [-15, 60, -33], "size": [1, 6, 3], "uv": [0, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "Tusk1",
+					"parent": "Head",
+					"pivot": [14, 57, -39],
+					"cubes": [
+						{"origin": [12, 35, -68], "size": [6, 12, 6], "uv": [84, 105]},
+						{"origin": [12, 29, -68], "size": [6, 6, 27], "uv": [149, 0]},
+						{"origin": [12, 29, -41], "size": [6, 28, 6], "uv": [0, 131]}
+					]
+				},
+				{
+					"name": "Tusk2",
+					"parent": "Head",
+					"pivot": [-14, 57, -39],
+					"cubes": [
+						{"origin": [-18, 35, -68], "size": [6, 12, 6], "uv": [84, 105], "mirror": true},
+						{"origin": [-18, 29, -68], "size": [6, 6, 27], "uv": [149, 0], "mirror": true},
+						{"origin": [-18, 29, -41], "size": [6, 28, 6], "uv": [0, 131], "mirror": true}
+					]
+				},
+				{
+					"name": "Jaw",
+					"parent": "Head",
+					"pivot": [-0.5, 47, -30],
+					"cubes": [
+						{"origin": [-5.5, 42, -41], "size": [11, 5, 11], "uv": [0, 42]}
+					]
+				},
+				{
+					"name": "Arm1",
+					"parent": "Mammoth",
+					"pivot": [11, 24, -23],
+					"cubes": [
+						{"origin": [7, 0, -29], "size": [13, 24, 13], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Arm2",
+					"parent": "Mammoth",
+					"pivot": [-11, 24, -23],
+					"cubes": [
+						{"origin": [-20, 0, -29], "size": [13, 24, 13], "uv": [0, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "Leg1",
+					"parent": "Mammoth",
+					"pivot": [11, 24, 19],
+					"cubes": [
+						{"origin": [7, 0, 13], "size": [13, 24, 13], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Leg2",
+					"parent": "Mammoth",
+					"pivot": [-11, 24, 19],
+					"cubes": [
+						{"origin": [-20, 0, 13], "size": [13, 24, 13], "uv": [0, 0], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

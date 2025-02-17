@@ -221,12 +221,14 @@ public final class ClientEvents {
                         .withSaddleLayer(TRICERATOPS_SADDLE_OVERLAY).build());
 
         event.registerEntityRenderer(UPEntities.PACHY.get(), e -> new DinosaurRenderer<>(e, new PachycephalosaurusModel()));
-        event.registerEntityRenderer(UPEntities.BRACHI.get(), BrachiosaurusRenderer::new);
+//        event.registerEntityRenderer(UPEntities.BRACHI.get(), BrachiosaurusRenderer::new);
         event.registerEntityRenderer(UPEntities.BRACHI_TEEN.get(), BrachiosaurusTeenRenderer::new);
         event.registerEntityRenderer(UPEntities.VELOCI.get(), e -> new DinosaurRenderer<>(e, new VelociraptorModel()));
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new DinosaurRenderer<>(e, new MegalaniaModel()));
         event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new DinosaurRenderer<>(e, new SmilodonModel()));
+
+        event.registerEntityRenderer(UPEntities.BRACHI.get(), e -> new DinosaurRenderer<>(e, new BrachiModel()));
 
         event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new MegatheriumModel())

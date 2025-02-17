@@ -101,7 +101,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi_teen").toString()));
 
     public static final RegistryObject<EntityType<EntityBrachiosaurus>> BRACHI = ENTITIES.register("brachi",
-            () -> EntityType.Builder.of(EntityBrachiosaurus::new, MobCategory.CREATURE).sized(6.25F, 8.0F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
+            () -> EntityType.Builder.of(EntityBrachiosaurus::new, MobCategory.CREATURE).sized(5.75F, 8.0F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi").toString()));
 
     public static final RegistryObject<EntityType<EntityVelociraptor>> VELOCI = ENTITIES.register("veloci",

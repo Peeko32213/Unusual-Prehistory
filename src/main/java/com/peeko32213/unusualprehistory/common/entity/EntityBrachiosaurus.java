@@ -8,6 +8,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandom
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -119,7 +120,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, Ingredient.of(Items.MELON), false));
-        this.goalSelector.addGoal(4, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
@@ -297,7 +298,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
         return !(blockState.getBlock() == Blocks.BAMBOO) || blockState.is(BlockTags.LEAVES);
     }
-
 
     public void tick() {
         super.tick();
@@ -559,10 +559,10 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         }
     }
 
-    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
+        return UPEntities.BRACHI.get().create(serverLevel);
     }
 
     public int getAnimationState() {
