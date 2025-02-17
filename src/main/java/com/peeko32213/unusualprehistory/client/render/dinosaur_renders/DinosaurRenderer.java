@@ -2,10 +2,7 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.common.entity.EntityAustroraptor;
-import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
-import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
-import com.peeko32213.unusualprehistory.common.entity.EntityVelociraptor;
+import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -52,6 +49,11 @@ public class DinosaurRenderer<T extends EntityBaseDinosaurAnimal> extends GeoEnt
 
         if(animatable instanceof EntityTyrannosaurusRex rex) {
             if(rex.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
+            return;
+        }
+
+        if(animatable instanceof EntitySmilodon smilodon) {
+            if(smilodon.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
             return;
         }
 

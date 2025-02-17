@@ -486,7 +486,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BABY_GIGANTO, "Baby Gigantopithecus");
         addEntityType(UPEntities.BABY_PARACER, "Baby Paraceratherium");
         addEntityType(UPEntities.BABY_PALAEO, "Baby Palaeolophis");
-        addEntityType(UPEntities.BABY_SMILODON, "Baby Smilodon");
         addEntityType(UPEntities.PALAEOPHIS_PART, "Palaeophis Body");
         addEntityType(UPEntities.SLUDGE, "Sludge");
         addEntityType(UPEntities.ICEBERG_MAMMOTH, "Frozen Mammoth");
@@ -894,8 +893,13 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.root.2", "Plants of Prehistory");
         add("unusualprehistory.root.3", "Animals of Prehistory");
         add("unusualprehistory.root.4", "Fossils");
-        add( "unusualprehistory.encyclopedia.tutorial", "Intro to Revival");
-        add( "unusualprehistory.encyclopedia.fossils", "Fossils");
+        add("unusualprehistory.encyclopedia.tutorial", "Intro to Revival");
+        add("unusualprehistory.encyclopedia.fossils", "Fossils");
+
+        add("death.attack.tar_0", "%s suffocated in tar");
+        add("death.attack.tar_1", "%s was preserved in tar");
+        add("death.attack.tar_0.entity", "%s suffocated in tar");
+        add("death.attack.tar_1.entity", "%s was preserved in tar");
 
         //EFFECTS
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");

@@ -1,9 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block;
 
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPParticles;
-import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -11,6 +8,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,6 +28,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -38,7 +37,7 @@ public class BlockTar extends Block implements BucketPickup {
     private static final float IN_BLOCK_HORIZONTAL_SPEED_MULTIPLIER = 0.9F;
     private static final float IN_BLOCK_VERTICAL_SPEED_MULTIPLIER = 1.5F;
     private static final float NUM_BLOCKS_TO_FALL_INTO_BLOCK = 2.5F;
-    private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box(0.0D, 0.0D, 0.0D, 1.0D, (double)0.9F, 1.0D);
+    private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box(0.0D, 0.0D, 0.0D, 1.0D, 0.9F, 1.0D);
     private static final double MINIMUM_FALL_DISTANCE_FOR_SOUND = 4.0D;
     private static final double MINIMUM_FALL_DISTANCE_FOR_BIG_SOUND = 7.0D;
 
@@ -46,41 +45,40 @@ public class BlockTar extends Block implements BucketPickup {
         super(pProperties);
     }
 
-    public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pDirection) {
-        return pAdjacentBlockState.is(this) ? true : super.skipRendering(pState, pAdjacentBlockState, pDirection);
+    public boolean skipRendering(@NotNull BlockState pState, BlockState pAdjacentBlockState, @NotNull Direction pDirection) {
+        return pAdjacentBlockState.is(this) || super.skipRendering(pState, pAdjacentBlockState, pDirection);
     }
 
-    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    public @NotNull VoxelShape getOcclusionShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos) {
         return Shapes.empty();
     }
 
-    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
+    public void entityInside(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Entity pEntity) {
 
         if (!(pEntity instanceof LivingEntity) || pEntity.getFeetBlockState().is(this)) {
+            DamageSource damageSource = UPDamageTypes.causeTarDamage(pEntity.level().registryAccess());
             if(!pEntity.getType().is(UPTags.TAR_WALKABLE_THROUGH_MOBS)) {
-                pEntity.makeStuckInBlock(pState, new Vec3((double) 0.2F, 1.5D, (double) 0.2F));
-                pEntity.hurt(pEntity.damageSources().inWall(),1);
+                pEntity.makeStuckInBlock(pState, new Vec3(0.15F, 0.3D, 0.15F));
+                pEntity.hurt(damageSource,1);
             }
             if (pLevel.isClientSide) {
                 RandomSource randomsource = pLevel.getRandom();
                 boolean flag = pEntity.xOld != pEntity.getX() || pEntity.zOld != pEntity.getZ();
                 if (flag && randomsource.nextBoolean()) {
-                    pLevel.addParticle(UPParticles.TAR_BUBBLE.get(), pEntity.getX(), (double)(pPos.getY() + 1), pEntity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
+                    pLevel.addParticle(UPParticles.TAR_BUBBLE.get(), pEntity.getX(), pPos.getY() + 1, pEntity.getZ(), Mth.randomBetween(randomsource, 0.0F, 1.0F) * 0.083333336F, 0.05F, Mth.randomBetween(randomsource, 0.0F, 1.0F) * 0.083333336F);
                 }
             }
         }
     }
 
-
-    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
+    public void fallOn(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockPos pPos, @NotNull Entity pEntity, float pFallDistance) {
         if (!((double)pFallDistance < 4.0D) && pEntity instanceof LivingEntity livingentity) {
             LivingEntity.Fallsounds $$7 = livingentity.getFallSounds();
             SoundEvent soundevent = (double)pFallDistance < 7.0D ? $$7.small() : $$7.big();
             pEntity.playSound(soundevent, 1.0F, 1.0F);
         }
     }
-
-    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public VoxelShape getCollisionShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         if (pContext instanceof EntityCollisionContext entitycollisioncontext) {
             Entity entity = entitycollisioncontext.getEntity();
             if (entity != null) {
@@ -94,11 +92,10 @@ public class BlockTar extends Block implements BucketPickup {
                 }
             }
         }
-
         return Shapes.empty();
     }
 
-    public VoxelShape getVisualShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public VoxelShape getVisualShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         return Shapes.empty();
     }
 
@@ -106,29 +103,28 @@ public class BlockTar extends Block implements BucketPickup {
         if (pEntity.getType().is(UPTags.TAR_WALKABLE_ON_MOBS)) {
             return true;
         } else {
-            return pEntity instanceof LivingEntity ? ((LivingEntity)pEntity).getItemBySlot(EquipmentSlot.FEET).canWalkOnPowderedSnow((LivingEntity)pEntity) : false;
+            return pEntity instanceof LivingEntity && ((LivingEntity) pEntity).getItemBySlot(EquipmentSlot.FEET).canWalkOnPowderedSnow((LivingEntity) pEntity);
         }
     }
 
-    public ItemStack pickupBlock(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
+    public @NotNull ItemStack pickupBlock(LevelAccessor pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState) {
         pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), 11);
         if (!pLevel.isClientSide()) {
             pLevel.levelEvent(2001, pPos, Block.getId(pState));
         }
-
         return new ItemStack(UPItems.TAR_BUCKET.get());
     }
 
-    public Optional<SoundEvent> getPickupSound() {
+    public @NotNull Optional<SoundEvent> getPickupSound() {
         return Optional.of(SoundEvents.BUCKET_FILL_LAVA);
     }
 
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+    public boolean isPathfindable(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull PathComputationType pType) {
         return true;
     }
 
     @Override
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+    public void animateTick(@NotNull BlockState pState, Level pLevel, BlockPos pPos, @NotNull RandomSource pRandom) {
         BlockPos blockpos = pPos.above();
         if (pLevel.getBlockState(blockpos).isAir() && !pLevel.getBlockState(blockpos).isSolidRender(pLevel, blockpos)) {
             if (pRandom.nextInt(100) == 0) {
@@ -140,10 +136,8 @@ public class BlockTar extends Block implements BucketPickup {
             }
 
             if (pRandom.nextInt(200) == 0) {
-                pLevel.playLocalSound((double)pPos.getX(), (double)pPos.getY(), (double)pPos.getZ(), UPSounds.TAR_AMBIENT.get(), SoundSource.BLOCKS, 0.2F + pRandom.nextFloat() * 0.2F, 0.9F + pRandom.nextFloat() * 0.15F, false);
+                pLevel.playLocalSound(pPos.getX(), pPos.getY(), pPos.getZ(), UPSounds.TAR_AMBIENT.get(), SoundSource.BLOCKS, 0.2F + pRandom.nextFloat() * 0.2F, 0.9F + pRandom.nextFloat() * 0.15F, false);
             }
         }
     }
-
-
 }

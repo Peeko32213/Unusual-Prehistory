@@ -6,7 +6,6 @@ import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergMammothModel
 import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergSmilodonModel;
 import com.peeko32213.unusualprehistory.client.model.plant.PlantModel;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
-import com.peeko32213.unusualprehistory.client.overlay.TarOverlay;
 import com.peeko32213.unusualprehistory.client.particles.ElectricAttackParticle;
 import com.peeko32213.unusualprehistory.client.particles.ElectricOrbitParticle;
 import com.peeko32213.unusualprehistory.client.particles.TarBubbleParticle;
@@ -227,6 +226,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.VELOCI.get(), e -> new DinosaurRenderer<>(e, new VelociraptorModel()));
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new DinosaurRenderer<>(e, new MegalaniaModel()));
+        event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new DinosaurRenderer<>(e, new SmilodonModel()));
 
         event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new MegatheriumModel())
@@ -241,7 +241,6 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BABY_GIGANTO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_GIGAN)));
         event.registerEntityRenderer(UPEntities.BABY_PARACER.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_PARACERATHERIUM)));
         event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_PALEOLOPHIS)));
-        event.registerEntityRenderer(UPEntities.BABY_SMILODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_SMILODON)));
 
         event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BarinasuchusModel()));
 
@@ -277,7 +276,6 @@ public final class ClientEvents {
 //                        .withSaddleLayer(MEGATHERIUM_SADDLE_OVERLAY)
 //                        .build());
 
-        event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new DinosaurRenderer<>(e, new VariantModel<>(ModelLocations.SMILODON)));
         event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e ->
                 UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.MAMMOTH))
                         .withItemHoldingLayer()
@@ -380,14 +378,11 @@ public final class ClientEvents {
     public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
         event.register((pStack, pTintIndex) -> pStack.getOrCreateTag().getInt("color"), UPBlocks.FRUIT_LOOT_BOX.get());
     }
-
-
+    
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll("amber_protection", AmberProtectionOverlay.HUD_AMBER_PROTECTION);
-        event.registerAboveAll("tar_overlay", TarOverlay.TAR_OVERLAY);
     }
-
 
     public static KeyMapping roarKey;
 

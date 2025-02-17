@@ -76,7 +76,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 35.0D)
+            .add(Attributes.MAX_HEALTH, 40.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.185D)
             .add(Attributes.ARMOR, 10.0D)
             .add(Attributes.ARMOR_TOUGHNESS, 5.0D)
@@ -231,13 +231,18 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
     }
 
     @Override
+    public int getMaxHeadYRot() {
+        return 8;
+    }
+
+    @Override
     protected SoundEvent getAttackSound() {
         return null;
     }
 
     @Override
     protected int getKillHealAmount() {
-        return 5;
+        return 40;
     }
 
     @Override

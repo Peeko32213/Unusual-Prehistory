@@ -338,7 +338,7 @@ public class UPItems {
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.PARACER_EMBRYO_ATTACH_TO, UPEntities.BABY_PARACER, 1000));
 
     public static final RegistryObject<Item> SMILODON_EMBRYO = ITEMS.register("smilodon_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.BABY_SMILODON, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.SMILODON, 1000));
 
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze",
             () -> new Item(new Item.Properties()));
@@ -535,14 +535,14 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> PARACER_EGG = registerSpawnEggs("paraceratherium_spawn_egg",
             UPEntities.PARACERATHERIUM , 0x564642, 0x9a9490);
 
-    public static final RegistryObject<ForgeSpawnEggItem> SLUDGE_EGG = registerSpawnEggs("sludge_spawn_egg",
-            UPEntities.SLUDGE , 0x0a090a, 0x282627);
-
     public static final RegistryObject<ForgeSpawnEggItem> SMILO_EGG = registerSpawnEggs("smilodon_spawn_egg",
-            UPEntities.SMILODON , 0x64311a, 0x9b6f46);
+            UPEntities.SMILODON , 0xd5ced4, 0x605a69);
 
     public static final RegistryObject<ForgeSpawnEggItem> TALPANAS_EGG = registerSpawnEggs("talpanas_spawn_egg",
             UPEntities.TALPANAS , 0x1d1311, 0x3c4849);
+
+    public static final RegistryObject<ForgeSpawnEggItem> SLUDGE_EGG = registerSpawnEggs("sludge_spawn_egg",
+            UPEntities.SLUDGE , 0x0a090a, 0x282627);
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
             () -> new ItemMajungaHelmet(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,

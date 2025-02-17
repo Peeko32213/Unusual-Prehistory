@@ -64,7 +64,7 @@ public class SmilodonAttackGoal extends Goal {
         double d1 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
         double d2 = 0.8D;
         if (d1 > d0 && d1 < 32.0D || this.mob.getLastHurtByMobTimestamp() < 100) {
-            d2 = 2.5D;
+            d2 = 2.0D;
         } else if (d1 < 225.0D) {
             d2 = 0.8D;
         }

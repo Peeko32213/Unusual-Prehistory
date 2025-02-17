@@ -86,7 +86,7 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
 
     public EntityTriceratops(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1.2F);
+        this.setMaxUpStep(1.25F);
     }
 
 

@@ -217,10 +217,6 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityBabyPalaeolophis::new, MobCategory.WATER_AMBIENT).sized(1f, 0.3f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_palaophis").toString()));
 
-    public static final RegistryObject<EntityType<EntityBabySmilodon>> BABY_SMILODON = ENTITIES.register("baby_smilodon",
-            () -> EntityType.Builder.of(EntityBabySmilodon::new, MobCategory.CREATURE).sized(0.8f, 1f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_smilodon").toString()));
-
     public static final RegistryObject<EntityType<EntitySludge>> SLUDGE = ENTITIES.register("sludge",
             () -> EntityType.Builder.of(EntitySludge::new, MobCategory.MONSTER).sized(2.0f, 2.0f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "sludge").toString()));

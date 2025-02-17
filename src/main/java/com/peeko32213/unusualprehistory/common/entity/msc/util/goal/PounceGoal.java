@@ -52,7 +52,7 @@ public class PounceGoal extends Goal {
 
     public void pounce(){
 
-        Vec3 diff = new Vec3(this.target.getX() - this.entity.getX(), (this.target.getY() - this.entity.getY()) + 1, this.target.getZ() -this.entity.getZ());
+        Vec3 diff = new Vec3(this.target.getX() - this.entity.getX(), (this.target.getY() - this.entity.getY()) + 1.5, this.target.getZ() -this.entity.getZ());
         Vec3 vel = diff.multiply(0.5D,0.4D, 0.5D).add(0,0.3,0).normalize();
         this.entity.setDeltaMovement(vel);
         this.entity.getNavigation().stop();

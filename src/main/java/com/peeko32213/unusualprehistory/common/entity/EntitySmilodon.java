@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDi
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.GroomGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.PounceGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.SmilodonAttackGoal;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -17,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -34,6 +36,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -60,34 +63,48 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
     private static final RawAnimation SMILO_IDLE = RawAnimation.begin().thenLoop("animation.smilodon.idle");
     private static final RawAnimation SMILO_BITE = RawAnimation.begin().thenLoop("animation.smilodon.bite");
 
+    private static final RawAnimation SMILO_BABY_IDLE = RawAnimation.begin().thenLoop("animation.baby_smilodon.idle");
+    private static final RawAnimation SMILO_BABY_WALK = RawAnimation.begin().thenLoop("animation.baby_smilodon.move");
+    private static final RawAnimation SMILO_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_smilodon.swim");
+
     public EntitySmilodon(EntityType<? extends EntityBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
-        //maxUpStep = 2.0F;
+        this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.15D)
-                .add(Attributes.ARMOR, 10.0D)
-                .add(Attributes.ATTACK_DAMAGE, 10.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
+            .add(Attributes.MAX_HEALTH, 15.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.15D)
+            .add(Attributes.ARMOR, 10.0D)
+            .add(Attributes.ATTACK_DAMAGE, 10.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 0.1D);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new GroomGoal(this, 1.5));
-        this.goalSelector.addGoal(2, new SmilodonAttackGoal(this));
-        this.goalSelector.addGoal(1, new PounceGoal(this, 5));
+        this.goalSelector.addGoal(1, new GroomGoal(this, 1.5){
+        public boolean canUse() {
+                return !isBaby() && super.canUse();
+            }
+        });
+        this.goalSelector.addGoal(2, new SmilodonAttackGoal(this){
+            public boolean canUse() {
+                return !isBaby() && super.canUse();
+            }
+        });
+        this.goalSelector.addGoal(1, new PounceGoal(this, 5){
+            public boolean canUse() {
+                return !isBaby() && super.canUse();
+            }
+        });
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 25.0F));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.SMILODON_TARGETS)));
-
     }
-
 
     public int groomTimer;
 
@@ -99,8 +116,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
             groomTimer = 6000;
             setCanGroom(true);
         }
-
-
     }
 
     @Override
@@ -112,7 +127,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
         return UPSounds.SMILODON_IDLE.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.SMILODON_HURT.get();
     }
 
@@ -120,8 +135,18 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
         return UPSounds.SMILODON_DEATH.get();
     }
 
-    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+    protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
         this.playSound(SoundEvents.WOLF_STEP, 0.15F, 0.5F);
+    }
+
+    @Override
+    public float getSoundVolume() {
+        if(this.isBaby()){
+            return 0.45F;
+        }
+        else{
+            return 0.8F;
+        }
     }
 
     @Override
@@ -171,8 +196,11 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        return null;
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        EntitySmilodon smilodon = UPEntities.SMILODON.get().create(serverLevel);
+        assert smilodon != null;
+        smilodon.setVariant(this.getVariant());
+        return smilodon;
     }
 
     @Override
@@ -199,48 +227,35 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
         setGroom2(compound.getBoolean("groom2"));
     }
 
-    @Override
-    public float getStepHeight() {
-        return 2F;
-    }
-
     public int getAnimationState() {
-
         return this.entityData.get(ANIMATION_STATE);
     }
 
     public void setAnimationState(int anim) {
-
         this.entityData.set(ANIMATION_STATE, anim);
     }
 
     public boolean canGroom() {
-
         return this.entityData.get(CAN_GROOM);
     }
 
     public void setCanGroom(boolean canGroom) {
-
         this.entityData.set(CAN_GROOM, canGroom);
     }
 
     public boolean groom1() {
-
         return this.entityData.get(GROOM_1);
     }
 
     public void setGroom1(boolean groom1) {
-
         this.entityData.set(GROOM_1, groom1);
     }
 
     public boolean groom2() {
-
         return this.entityData.get(GROOM_1);
     }
 
     public void setGroom2(boolean groom2) {
-
         this.entityData.set(GROOM_2, groom2);
     }
 
@@ -260,7 +275,7 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
             if (d0 == 0.8D) {
                 this.setPose(Pose.CROUCHING);
                 this.setSprinting(false);
-            } else if (d0 == 2.5D) {
+            } else if (d0 == 2.0D) {
                 this.setPose(Pose.STANDING);
                 this.setSprinting(true);
             } else {
@@ -277,14 +292,11 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
     public static ResourceLocation OCELOT_SMILO = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon_ocelot.png");;
     public static ResourceLocation NORMAL = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/smilodon.png");
 
-
-
     @Override
     public ResourceLocation getVariantTexture() {
         if(getVariant() == 1){
             return OCELOT_SMILO;
         }
-
         return NORMAL;
     }
 
@@ -344,7 +356,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
             this.speedModifier = this.mob.distanceTo(target) > 12 ? 0.5D : 1.7D;
             this.mob.getNavigation().moveTo(this.path, this.speedModifier);
             this.mob.setAggressive(true);
-            //this.mob.setSprinting(true);
             this.ticksUntilNextPathRecalculation = 0;
             this.ticksUntilNextAttack = 0;
         }
@@ -376,7 +387,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
             double d = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
             if (this.mob.getSensing().hasLineOfSight(target) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0 || target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0 || this.mob.getRandom().nextFloat() < 0.05f)) {
-                //this.mob.setSprinting(true);
                 this.pathedTargetX = target.getX();
                 this.pathedTargetY = target.getY();
                 this.pathedTargetZ = target.getZ();
@@ -431,7 +441,6 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
         return source.is(DamageTypes.FALL);
     }
 
-
     protected <E extends EntitySmilodon> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return PlayState.CONTINUE;
@@ -449,26 +458,42 @@ public class EntitySmilodon extends EntityBaseDinosaurAnimal implements IVariant
         }
 
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
-            if (this.isSprinting() && !this.isSwimming()) {
+            if (this.isSprinting() && !this.isBaby()) {
                 event.setAndContinue(SMILO_SPRINT);
                 event.getController().setAnimationSpeed(2.5F);
                 return PlayState.CONTINUE;
-            } else if (this.isCrouching() && !this.isSwimming()) {
+            }
+            else if (this.isCrouching() && !this.isBaby()) {
                 event.setAndContinue(SMILO_SNEAK);
                 event.getController().setAnimationSpeed(0.8F);
                 return PlayState.CONTINUE;
             }
-            event.setAndContinue(SMILO_MOVE);
+            else if(this.isBaby()){
+                event.setAndContinue(SMILO_BABY_WALK);
+            }
+            else {
+                event.setAndContinue(SMILO_MOVE);
+            }
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (this.isInWater()) {
-            event.setAndContinue(SMILO_SWIM);
+            if(this.isBaby()){
+                event.setAndContinue(SMILO_BABY_SWIM);
+            }
+            else {
+                event.setAndContinue(SMILO_SWIM);
+            }
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
 
-        event.setAndContinue(SMILO_IDLE);
+        if(this.isBaby()){
+            event.setAndContinue(SMILO_BABY_IDLE);
+        }
+        else {
+            event.setAndContinue(SMILO_IDLE);
+        }
         event.getController().setAnimationSpeed(1.0F);
 
         return PlayState.CONTINUE;

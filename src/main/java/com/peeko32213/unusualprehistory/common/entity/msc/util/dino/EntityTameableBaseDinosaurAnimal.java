@@ -189,9 +189,6 @@ public abstract class EntityTameableBaseDinosaurAnimal extends TamableAnimal imp
     }
 
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
-        if (pFallDistance > 3.0F) {
-            this.playSound(SoundEvents.HORSE_LAND, 0.4F, 1.0F);
-        }
 
         int i = this.calculateFallDamage(pFallDistance, pMultiplier);
         if (i <= 0) {

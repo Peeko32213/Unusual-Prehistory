@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
 import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabySmilodon;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
@@ -197,7 +196,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
 
             if(livingEntity instanceof EntitySmilodon smilodon){
                 smilodon.determineVariant(0);
-            } else if(livingEntity instanceof EntityBabySmilodon smilodon){
+            } else if(livingEntity instanceof EntitySmilodon smilodon){
                 smilodon.determineVariant(0);
             }
 

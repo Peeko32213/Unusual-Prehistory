@@ -89,7 +89,7 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
 
         // Baby goals
-        this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D) { public boolean canUse() {
+        this.goalSelector.addGoal(4, new BabyPanicGoal(this, 2.0D) { public boolean canUse() {
             return isBaby() && super.canUse();
         }});
         this.goalSelector.addGoal(1, new FollowParentGoal(this, 1.1) { public boolean canUse() {
@@ -155,9 +155,6 @@ public abstract class EntityBaseDinosaurAnimal extends Animal implements GeoAnim
     }
 
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
-        if (pFallDistance > 3.0F) {
-            this.playSound(SoundEvents.HORSE_LAND, 0.4F, 1.0F);
-        }
 
         int i = this.calculateFallDamage(pFallDistance, pMultiplier);
         if (i <= 0) {
