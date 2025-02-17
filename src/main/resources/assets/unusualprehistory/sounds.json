@@ -817,28 +817,30 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megather_idle"
   },
+
   "smilodon_death": {
     "sounds": [
-        "unusualprehistory:smilodon_death_0",
-        "unusualprehistory:smilodon_death_1"
+        "unusualprehistory:smilodon/smilodon_death_0",
+        "unusualprehistory:smilodon/smilodon_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.smilodon_death"
   },
   "smilodon_hurt": {
     "sounds": [
-        "unusualprehistory:smilodon_hurt_0",
-        "unusualprehistory:smilodon_hurt_1"
+        "unusualprehistory:smilodon/smilodon_hurt_0",
+        "unusualprehistory:smilodon/smilodon_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.smilodon_hurt"
   },
   "smilodon_idle": {
     "sounds": [
-        "unusualprehistory:smilodon_idle_0",
-        "unusualprehistory:smilodon_idle_1",
-        "unusualprehistory:smilodon_idle_2"
+        "unusualprehistory:smilodon/smilodon_idle_0",
+        "unusualprehistory:smilodon/smilodon_idle_1",
+        "unusualprehistory:smilodon/smilodon_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.smilodon_idle"
   },
+
   "zulogae_disc": {
     "sounds": [
       {

@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.item;
 
 import com.peeko32213.unusualprehistory.common.entity.EntityMegatherium;
-import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyMegatherium;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;

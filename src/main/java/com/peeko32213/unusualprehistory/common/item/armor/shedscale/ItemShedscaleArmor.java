@@ -72,9 +72,6 @@ public class ItemShedscaleArmor extends ArmorItem implements GeoItem {
         if (this.knockbackResistance > 0) {
             attributeBuilder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", (double)this.knockbackResistance, AttributeModifier.Operation.ADDITION));
         }
-
-
-
         this.defaultModifiers = attributeBuilder.build();
     }
 
