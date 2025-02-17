@@ -108,8 +108,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         this.goalSelector.addGoal(1, new EntityTriceratops.TrikeMeleeAttackGoal(this, 1.5D, false));
         this.goalSelector.addGoal(2, new EntityTriceratops.TrikePrepareChargeGoal(this));
         this.goalSelector.addGoal(3, new EntityTriceratops.TrikeChargeGoal(this, 2.5F));
-//        this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-//        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this) {
@@ -208,7 +206,6 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
         this.setCommand(compound.getInt("TrikeCommand"));
         this.setSwinging(compound.getBoolean("IsSwinging"));
         this.setHasSwung(compound.getBoolean("HasSwung"));
-
     }
 
     public boolean isSwinging() {
@@ -411,16 +408,19 @@ public class EntityTriceratops extends EntityTameableBaseDinosaurAnimal implemen
                 this.level().broadcastEntityEvent(this, (byte) 7);
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
+
             } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                 this.usePlayerItem(player, hand, itemstack);
                 this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
                 this.setSaddled(true);
                 return InteractionResult.SUCCESS;
+
             } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
                 this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
                 this.setSaddled(false);
                 this.spawnAtLocation(Items.SADDLE);
                 return InteractionResult.SUCCESS;
+
             } else {
                 if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
                     if(!this.level().isClientSide) {

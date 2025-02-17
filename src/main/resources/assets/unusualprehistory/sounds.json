@@ -787,6 +787,13 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.barina_idle"
   },
+  "barina_bite": {
+    "sounds": [
+      "unusualprehistory:barina/barina_bite_0",
+      "unusualprehistory:barina/barina_bite_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.barina_bite"
+  },
 
   "megather_death": {
     "sounds": [

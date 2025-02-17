@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.common.entity.EntityAustroraptor;

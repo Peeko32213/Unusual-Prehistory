@@ -41,7 +41,6 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.PALAEO_EMBRYO);
 
         singleTex(UPItems.CAPTURED_KIMMER_FLASK);
-        singleTex(UPItems.BARINA_WHISTLE);
         singleTex(UPItems.ZULOAGAE_FLASK);
         singleTex(UPItems.RAIGUENRAYUN_FLASK);
         singleTex(UPItems.FOXXI_FLASK);

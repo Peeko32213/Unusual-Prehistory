@@ -67,7 +67,6 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.DIPLOCAULUS_EGGS.get(), RenderType.cutout());
 //        ItemBlockRenderTypes.setRenderLayer(UPBlocks.FURCACAUDA_EGGS.get(), RenderType.cutout());
 
-
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_DOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_TRAPDOOR.get(), RenderType.cutout());
@@ -183,8 +182,6 @@ public final class ClientEvents {
     private static final ResourceLocation MEGATHERIUM_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium/megatherium_saddled.png");
     private static final ResourceLocation MEGATHERIUM_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium/megatherium.geo.json");
 
-    private static final ResourceLocation BARINASUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus.geo.json");
-
     private static final ResourceLocation BEELZE_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_saddle.png");
     private static final ResourceLocation BEELZE_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/beelzebufo.geo.json");
 
@@ -244,33 +241,33 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BABY_GIGANTO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_GIGAN)));
         event.registerEntityRenderer(UPEntities.BABY_PARACER.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_PARACERATHERIUM)));
         event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_PALEOLOPHIS)));
-        event.registerEntityRenderer(UPEntities.BABY_BARINA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BARINA)));
         event.registerEntityRenderer(UPEntities.BABY_SMILODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_SMILODON)));
+
+        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BarinasuchusModel()));
 
         event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
         event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.AUSTRORAPTOR)));
         event.registerEntityRenderer(UPEntities.ANTARCO.get(), e -> new DinosaurRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.ANTARCTOPELTA)));
+
         event.registerEntityRenderer(UPEntities.ULUG.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new UlughbegsaurusModel())
                         .withLayers(ULUGH_MODEL)
                         .withSaddleLayer(ULUGH_SADDLE_OVERLAY)
                         .withJebLayer(ULUGH_JEB_OVERLAY)
                         .build());
+
         event.registerEntityRenderer(UPEntities.KENTRO.get(), e -> new DinosaurRenderer<>(e, new KentrosaurusModel()));
+
         event.registerEntityRenderer(UPEntities.HWACHA.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new HwachavenatorModel())
                         .withLayers(HWACHA_MODEL)
                         .withSaddleLayer(HWACHA_SADDLE_OVERLAY)
                         .build());
+
         event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new DinosaurRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
         event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e ->
                 UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.GIGANTOPITHICUS))
                         .withItemHoldingLayer()
-                        .build());
-
-        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new DefaultModel<>(ModelLocations.BARINASUCHUS))
-                        .withLayers(BARINASUCHUS_MODEL)
                         .build());
 
         event.registerEntityRenderer(UPEntities.PARACERATHERIUM.get(), e -> new DinosaurRenderer<>(e, new DefaultModel<>(ModelLocations.PARACERATHERIUM)));

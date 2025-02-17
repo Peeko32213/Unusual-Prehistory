@@ -486,7 +486,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BABY_GIGANTO, "Baby Gigantopithecus");
         addEntityType(UPEntities.BABY_PARACER, "Baby Paraceratherium");
         addEntityType(UPEntities.BABY_PALAEO, "Baby Palaeolophis");
-        addEntityType(UPEntities.BABY_BARINA, "Baby Barinasuchus");
         addEntityType(UPEntities.BABY_SMILODON, "Baby Smilodon");
         addEntityType(UPEntities.PALAEOPHIS_PART, "Palaeophis Body");
         addEntityType(UPEntities.SLUDGE, "Sludge");
@@ -602,10 +601,14 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.TALPANAS_HURT, "Talpanas hurts");
         addSound(UPSounds.TALPANAS_IDLE, "Talpanas quacks");
         addSound(UPSounds.TALPANAS_PANIC, "Talpanas panics");
+
         addSound(UPSounds.CROCARINA, "Crocarina plays");
+
         addSound(UPSounds.BARINA_DEATH, "Barinasuchus dies");
         addSound(UPSounds.BARINA_HURT, "Barinasuchus hurts");
         addSound(UPSounds.BARINA_IDLE, "Barinasuchus growls");
+        addSound(UPSounds.BARINA_BITE, "Barinasuchus chomps");
+
         addSound(UPSounds.ZULOGAE_DISC, "Music Disc");
         addSound(UPSounds.ENCASED_DISC, "Music Disc");
         addSound(UPSounds.MEGATHER_DEATH, "Megatherium dies");
@@ -873,10 +876,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.attacher.animal_has_embryo", "%s already has an embryo");
         add("unusualprehistory.attacher.animal_not_correct", "%s cannot be inserted into %s");
         add("unusualprehistory.beelzebufo.meat_stick", "Hold coty on a stick to control");
-        add("unusualprehistory.musical_tame.tame", "%s is impressed by your musical prowess, it wants to be with you");
-        add("unusualprehistory.musical_tame.too_early", "You haven't played enough of the song yet");
-        add("unusualprehistory.musical_tame.fail_tame", "%s was not impressed and doesn't want to be with you");
-        add("unusualprehistory.musical_tame.no_entity_found", "Nobody Can Hear You!");
+        add("unusualprehistory.musical_tame.tame", "Tamed %s");
         add("unusualprehistory.attacher.embryo_attached", "Successfully attached embryo to %s!");
         add("unusualprehistory.megatherium_baby.tame_tooltip", "Tamed Megatherium");
         add("unusualprehistory.megatherium_baby.minutes_tooltip", "%s minutes left until Megatherium is tamed!");

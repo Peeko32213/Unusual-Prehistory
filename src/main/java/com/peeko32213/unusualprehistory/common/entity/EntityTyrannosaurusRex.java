@@ -347,6 +347,11 @@ public class EntityTyrannosaurusRex extends EntityBaseDinosaurAnimal implements 
         }
     }
 
+    @Override
+    public int getMaxHeadYRot() {
+        return 6;
+    }
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {

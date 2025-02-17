@@ -27,14 +27,13 @@ public class DinosaurWhistle extends Item {
 
     private Supplier<? extends EntityType> toWhistle;
 
-    private final int MAX_DISTANCE = 64;
+    private final int MAX_DISTANCE = 32;
 
     public DinosaurWhistle(Properties pProperties,  Supplier<? extends EntityType> toWhistle) {
         super(pProperties);
 
         this.toWhistle = toWhistle;
     }
-
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {

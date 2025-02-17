@@ -158,10 +158,6 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityGigantopithicus::new, MobCategory.CREATURE).sized(2.55F, 3.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "gigantopithicus").toString()));
 
-    public static final RegistryObject<EntityType<EntityBabyBarinasuchus>> BABY_BARINA = ENTITIES.register("baby_barina",
-            () -> EntityType.Builder.of(EntityBabyBarinasuchus::new, MobCategory.CREATURE).sized(1.0f, 0.5f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_barina").toString()));
-
     public static final RegistryObject<EntityType<EntityBarinasuchus>> BARINASUCHUS = ENTITIES.register("barinasuchus",
             () -> EntityType.Builder.of(EntityBarinasuchus::new, MobCategory.CREATURE).sized(2.4F, 2.2F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "barinasuchus").toString()));

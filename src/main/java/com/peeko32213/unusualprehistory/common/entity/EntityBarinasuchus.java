@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandom
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -38,7 +39,9 @@ import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -46,8 +49,9 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
+import java.util.Objects;
 
-public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal implements CustomFollower {
+public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal implements CustomFollower, GeoEntity {
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityBarinasuchus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityBarinasuchus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityBarinasuchus.class, EntityDataSerializers.INT);
@@ -61,25 +65,30 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
     private static final RawAnimation BARINA_SIT = RawAnimation.begin().thenPlay("animation.barinasuchus.sitting");
     private static final RawAnimation BARINA_SWIM = RawAnimation.begin().thenLoop("animation.barinasuchus.swim");
     private static final RawAnimation BARINA_IDLE = RawAnimation.begin().thenPlay("animation.barinasuchus.idle");
+
+    private static final RawAnimation BARINA_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_barinasuchus.swim");
+    private static final RawAnimation BARINA_BABY_IDLE = RawAnimation.begin().thenPlay("animation.baby_barinasuchus.idle");
+    private static final RawAnimation BARINA_BABY_WALK = RawAnimation.begin().thenPlay("animation.baby_barinasuchus.walk");
+
     public EntityBarinasuchus(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 35.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.16D)
-                .add(Attributes.ARMOR, 10.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 5.0D)
-                .add(Attributes.ATTACK_DAMAGE, 15.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
+            .add(Attributes.MAX_HEALTH, 35.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.185D)
+            .add(Attributes.ARMOR, 10.0D)
+            .add(Attributes.ARMOR_TOUGHNESS, 5.0D)
+            .add(Attributes.ATTACK_DAMAGE, 14.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new EntityBarinasuchus.BarinMeleeAttackGoal(this,  2.0F, true));
+        this.goalSelector.addGoal(1, new EntityBarinasuchus.BarinMeleeAttackGoal(this,  1.5F, true));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34) {
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 25) {
                     @Override
                     public boolean canUse() {
                         if (this.mob.isVehicle()) {
@@ -113,13 +122,13 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
                         }
                     }
                 }
-
-        );        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        );
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::canAttack));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(6, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(7, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(9, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
@@ -144,7 +153,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         }
     }
 
-    public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
@@ -192,7 +201,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         super.customServerAiStep();
     }
 
-    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+    protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
@@ -200,7 +209,7 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         return UPSounds.BARINA_IDLE.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.BARINA_HURT.get();
     }
 
@@ -210,7 +219,11 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
 
     @Override
     public float getSoundVolume() {
-        return 0.5F;
+        if(this.isBaby()) {
+            return 0.25F;
+        } else {
+            return 0.5F;
+        }
     }
 
     public boolean isAngryAt(LivingEntity p_21675_) {
@@ -264,8 +277,8 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        return null;
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        return UPEntities.BARINASUCHUS.get().create(serverLevel);
     }
 
     @Override
@@ -420,8 +433,6 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
                     }
                 }
             }
-
-
         }
 
         public boolean canContinueToUse() {
@@ -440,8 +451,6 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
             } else {
                 return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
             }
-
-
         }
 
         public void start() {
@@ -455,35 +464,25 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         public void stop() {
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget((LivingEntity) null);
+                this.mob.setTarget(null);
             }
             this.mob.setAnimationState(0);
-
         }
 
         public void tick() {
-
-
             LivingEntity target = this.mob.getTarget();
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
-            Vec3 aim = this.mob.getLookAngle();
-            Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-           // this.mob.getNavigation().moveTo(target, this.speedModifier);
             this.mob.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), this.speedModifier);
             this.mob.getLookControl().setLookAt(target, 30.0F, this.mob.getMaxHeadXRot());
-            switch (animState) {
-                case 21:
-                    tickStompAttack();
-                    break;
-                default:
-                    this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.mob.getLookControl().setLookAt(target, 30.0F, this.mob.getMaxHeadXRot());
-                    this.checkForCloseRangeAttack(distance, reach);
-                    break;
-
+            if (animState == 21) {
+                tickBiteAttack();
+            } else {
+                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.mob.getLookControl().setLookAt(target, 30.0F, this.mob.getMaxHeadXRot());
+                this.checkForCloseRangeAttack(distance, reach);
             }
         }
 
@@ -516,37 +515,35 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
                     this.ticksUntilNextPathRecalculation += 15;
                 }
             }
-
         }
-
 
         protected void checkForCloseRangeAttack ( double distance, double reach){
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
-                int r = this.mob.getRandom().nextInt(2048);
-                if (r <= 600) {
-                    this.mob.setAnimationState(21);
-                }
+                this.mob.setAnimationState(21);
             } else {
-                this.mob.getNavigation().moveTo(this.mob.getTarget().getX(), this.mob.getTarget().getY() + 10, this.mob.getTarget().getZ(), this.speedModifier);
+                this.mob.getNavigation().moveTo(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY() + 10, this.mob.getTarget().getZ(), this.speedModifier);
             }
         }
-
 
         protected boolean getRangeCheck () {
-            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.4F * this.getAttackReachSqr(this.mob.getTarget());
+            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.45F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
-
-
-        protected void tickStompAttack () {
-            animTime++;
+        protected void tickBiteAttack () {
             this.mob.getNavigation().stop();
-            if(animTime==5) {
+            animTime++;
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==6) {
                 preformBiteAttack();
             }
+
             if(animTime>=9) {
                 animTime=0;
-
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
                 this.ticksUntilNextPathRecalculation = 0;
@@ -555,9 +552,9 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
 
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),15.0f, 2.5f, mob, pos,  4.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            this.mob.playSound(UPSounds.BARINA_BITE.get(), 1.0F, 1.0F);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),14.0f, 0.35f, mob, pos,  4.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
-
 
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 3;
@@ -580,8 +577,6 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         }
     }
 
-
-
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
@@ -591,35 +586,54 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
         int animState = this.getAnimationState();
 
         if(!this.isFromBook()) {
-            switch (animState) {
+            if (animState == 21) {
+                return event.setAndContinue(BARINA_BITE);
+            }
 
-                case 21:
-                    return event.setAndContinue(BARINA_BITE);
+            if (this.isInSittingPose() && !this.isBaby()) {
+                event.setAndContinue(BARINA_SIT);
+                event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
+            }
 
-                default:
-                    if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isSwimming()){
-                        event.setAndContinue(BARINA_MOVE);
-                        return PlayState.CONTINUE;
-                    } if (this.isSprinting() && !this.isInSittingPose() && !this.isSwimming()) {
+            if (this.isInWater() && this.isBaby()) {
+                event.setAndContinue(BARINA_BABY_SWIM);
+                event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
+            } else if (this.isInWater()) {
+                event.setAndContinue(BARINA_SWIM);
+                event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
+            } else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
+                if(this.isSprinting() && !this.isBaby()) {
                     event.setAndContinue(BARINA_SPRINT);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                } else if(this.isBaby()) {
+                    event.setAndContinue(BARINA_BABY_WALK);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                } else {
+                    event.setAndContinue(BARINA_MOVE);
+                    event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
                 }
-                    if (this.isInSittingPose() && !this.isSwimming()) {
-                        event.setAndContinue(BARINA_SIT);
-                        return PlayState.CONTINUE;
-                    }
-                    if (this.isInWater()) {
-                        event.setAndContinue(BARINA_SWIM);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-                    event.setAndContinue(BARINA_IDLE);
+            } else {
+                if(!this.isInWater() && this.isBaby()) {
+                    event.setAndContinue(BARINA_BABY_IDLE);
+                    event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
+                }
+                else if(!this.isInWater()) {
+                    event.setAndContinue(BARINA_IDLE);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                }
             }
+            return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
     }
-
 
     @Override
     public double getTick(Object o) {

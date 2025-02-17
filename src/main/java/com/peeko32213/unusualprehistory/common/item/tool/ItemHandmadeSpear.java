@@ -46,7 +46,7 @@ public class ItemHandmadeSpear extends SwordItem implements GeoItem {
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = ImmutableMultimap.builder();
         attributeBuilder.putAll(super.getDefaultAttributeModifiers(slot));
         attributeBuilder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(RANGE, "Range modifier", 1.5, AttributeModifier.Operation.ADDITION));
@@ -66,7 +66,7 @@ public class ItemHandmadeSpear extends SwordItem implements GeoItem {
     }
 
     @Override
-    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
+    public boolean canPerformAction(@NotNull ItemStack stack, net.minecraftforge.common.@NotNull ToolAction toolAction) {
         return ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
     }
 
