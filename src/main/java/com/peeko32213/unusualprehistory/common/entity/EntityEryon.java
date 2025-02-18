@@ -113,9 +113,7 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEnt
         } else {
             super.travel(travelVector);
         }
-
     }
-
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
@@ -225,7 +223,7 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEnt
         return p_28137_;
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return null;
@@ -302,8 +300,6 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEnt
         }
         return InteractionResult.FAIL;
     }
-
-
 
     public void tick() {
         super.tick();
@@ -432,8 +428,6 @@ public class EntityEryon extends EntityBaseDinosaurAnimal implements IVariantEnt
                     crab.entityData.set(FEEDING_POS, Optional.empty());
                 }
             }
-
-
         }
 
         public void stop() {

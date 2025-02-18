@@ -3,10 +3,11 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityBrachiosaurusPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -29,8 +30,10 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -48,6 +51,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -61,12 +65,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
+public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal implements SemiAquatic {
     private static final EntityDataAccessor<Boolean> LAUNCHING = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Float> HEAD_HEIGHT = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.INT);
+//    private static final EntityDataAccessor<Boolean> TEEN = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.BOOLEAN);
 
     public float prevHeadHeight = 0F;
     private int headPeakCooldown = 0;
@@ -77,8 +82,12 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     private int entityToLaunchId = -1;
 
     private int shakeCooldown = 0;
-    private int footPrintCooldown = 0;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    public float prevSwimProgress;
+    public float swimProgress;
+    private int swimTimer = -1000;
+    private boolean isLandNavigator;
 
     private static final RawAnimation BRACHI_LAUNCH = RawAnimation.begin().thenLoop("animation.brachiosaurus.launch");
     private static final RawAnimation BRACHI_WALK = RawAnimation.begin().thenLoop("animation.brachiosaurus.walk");
@@ -86,25 +95,30 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     private static final RawAnimation BRACHI_ATTACK = RawAnimation.begin().thenPlay("animation.brachiosaurus.attack");
     private static final RawAnimation BRACHI_IDLE = RawAnimation.begin().thenPlay("animation.brachiosaurus.idle");
 
+    private static final RawAnimation BRACHI_BABY_WALK = RawAnimation.begin().thenLoop("animation.babybrachy.walk");
+    private static final RawAnimation BRACHI_BABY_IDLE = RawAnimation.begin().thenPlay("animation.babybrachy.idle");
+    private static final RawAnimation BRACHI_BABY_SWIM = RawAnimation.begin().thenPlay("animation.babybrachy.swim");
+
     public EntityBrachiosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.neck = new EntityBrachiosaurusPart(this, 3,9.3F);
+        this.neck = new EntityBrachiosaurusPart(this, 2,9);
         this.theEntireNeck = new EntityBrachiosaurusPart[]{this.neck};
         this.allParts = new EntityBrachiosaurusPart[]{this.neck};
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 400.0D)
-                .add(Attributes.ARMOR, 15.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 20.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 10.5D)
-                .add(Attributes.ATTACK_KNOCKBACK, 2.0D);
+            .add(Attributes.MAX_HEALTH, 400.0D)
+            .add(Attributes.ARMOR, 15.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.2D)
+            .add(Attributes.ATTACK_DAMAGE, 20.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 10.0D)
+            .add(Attributes.ATTACK_KNOCKBACK, 2.0D);
     }
 
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new EntityBrachiosaurus.BrachiMeleeAttackGoal(this,  1.3F, true));
         this.goalSelector.addGoal(3, new CustomRideGoal(this, 1.2D, false) {
             @Override
@@ -117,24 +131,76 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 return false;
             }
         });
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, Ingredient.of(Items.MELON), false));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+
+        this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
+        this.goalSelector.addGoal(7, new FindWaterGoal(this));
+        this.goalSelector.addGoal(9, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
+
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(7, (new HurtByTargetGoal(this)));
+    }
+
+    private void switchNavigator(boolean onLand) {
+        if (onLand) {
+            this.moveControl = new MoveControl(this);
+            this.navigation = new GroundPathNavigation(this, level());
+            this.isLandNavigator = true;
+        } else {
+            this.moveControl = new WaterMoveController(this, 0.25F);
+            this.navigation = new SemiAquaticPathNavigation(this, level());
+            this.isLandNavigator = false;
+        }
     }
 
     @Override
     protected float getWaterSlowDown() {
-        return 0.98F;
+        return 0.4F;
     }
 
+    @Override
+    public double getFluidJumpThreshold() {
+        if (this.isBaby()) {
+            return 1;
+        } else {
+            return 14;
+        }
+    }
+
+    @Override
     public boolean canBreatheUnderwater() {
         return true;
     }
 
+    @Override
+    public float getStepHeight() {
+        if (this.isBaby()) {
+            return 1.25F;
+        }
+        else {
+            return 2.5F;
+        }
+    }
+
+    @Override
+    public boolean isPushable() {
+        return this.isBaby();
+    }
+
+    public void travel(Vec3 travelVector) {
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(this.getSpeed(), travelVector);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
+            if (this.getTarget() == null) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
+            }
+        }
+        else {
+            super.travel(travelVector);
+        }
+    }
 
     @Nullable
     public LivingEntity getControllingPassenger() {
@@ -160,7 +226,12 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     }
 
     public boolean canBeCollidedWith() {
-        return UnusualPrehistoryConfig.BRACHI_COLLISON.get();
+        if (this.isBaby()) {
+            return false;
+        }
+        else {
+            return UnusualPrehistoryConfig.BRACHI_COLLISON.get();
+        }
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -190,33 +261,51 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         }
         return InteractionResult.PASS;
     }
+
     public boolean notClientSide(){
         return !this.level().isClientSide;
     }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(HEAD_HEIGHT, 0F);
-        this.entityData.define(LAUNCHING, Boolean.valueOf(false));
+        this.entityData.define(LAUNCHING, Boolean.FALSE);
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
+//        this.entityData.define(TEEN, false);
     }
+
+//    public void getTeen(boolean teen) {
+//        this.entityData.set(TEEN, teen);
+//    }
+//
+//    public boolean isTeen() {
+//        return this.entityData.get(TEEN);
+//    }
+//
+//    // gets teen, doesn't work
+//    public boolean shouldBeTeen() {
+//        return this.getAge() < 0 && this.getAge() > -12000 && this.isBaby();
+//    }
 
     public void addAdditionalSaveData(CompoundTag p_31808_) {
         super.addAdditionalSaveData(p_31808_);
+//        p_31808_.putBoolean("Teen", this.isTeen());
     }
 
     public void readAdditionalSaveData(CompoundTag p_31795_) {
         super.readAdditionalSaveData(p_31795_);
+//        this.getTeen(p_31795_.getBoolean("Teen"));
     }
 
     public boolean isLaunching() {
-        return this.entityData.get(LAUNCHING).booleanValue();
+        return this.entityData.get(LAUNCHING);
     }
 
     public void setLaunching(boolean charging) {
-        this.entityData.set(LAUNCHING, Boolean.valueOf(charging));
+        this.entityData.set(LAUNCHING, charging);
     }
 
     protected void dropEquipment() {
@@ -229,12 +318,8 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         this.setSaddled(false);
     }
 
-    public int getMaxHeadXRot() {
-        return 50;
-    }
-
     public int getMaxHeadYRot() {
-        return 50;
+        return 45;
     }
 
     protected SoundEvent getAmbientSound() {
@@ -251,7 +336,12 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
 
     @Override
     public float getSoundVolume() {
-        return 1.25F;
+        if (this.isBaby()) {
+            return 0.5F;
+        }
+        else {
+            return 1.25F;
+        }
     }
 
     @Override
@@ -262,7 +352,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
 
     @Override
     protected int getKillHealAmount() {
-        return 0;
+        return 5;
     }
 
     @Override
@@ -294,6 +384,7 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     protected boolean hasMakeStuckInBlock() {
         return true;
     }
+
     @Override
     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
         return !(blockState.getBlock() == Blocks.BAMBOO) || blockState.is(BlockTags.LEAVES);
@@ -301,9 +392,38 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
 
     public void tick() {
         super.tick();
+
+        this.prevSwimProgress = swimProgress;
+
+        final boolean ground = !this.isInWaterOrBubble();
+
+        if (!ground && this.isLandNavigator) {
+            switchNavigator(false);
+        }
+        if (ground && !this.isLandNavigator) {
+            switchNavigator(true);
+        }
+        if (ground && swimProgress > 0) {
+            swimProgress--;
+        }
+        if (!ground && swimProgress < 5F) {
+            swimProgress++;
+        }
+        if (!this.level().isClientSide) {
+            if (isInWater()) {
+                swimTimer++;
+            } else {
+                swimTimer--;
+            }
+        }
+
+//        if (this.shouldBeTeen()) {
+//            this.isTeen();
+//        }
+
         prevHeadHeight = this.getHeadHeight();
         float neckBase = 5.5F;
-        if (!this.isNoAi()) {
+        if (!this.isNoAi() && !this.isBaby()) {
             Vec3[] avector3d = new Vec3[this.allParts.length];
             for (int j = 0; j < this.allParts.length; ++j) {
                 this.allParts[j].collideWithNearbyEntities();
@@ -398,11 +518,11 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 headPeakCooldown = 5;
             }
         }
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()){
-            if(this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.isBaby()) {
+            if (this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
-                int brachiShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_AMPLIFIER.get();
-                float brachiMoveSoundVolume= UnusualPrehistoryConfig.BRACHI_SOUND_VOLUME.get();
+                int brachiShakeAmp = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_AMPLIFIER.get();
+                float brachiMoveSoundVolume = UnusualPrehistoryConfig.BRACHI_SOUND_VOLUME.get();
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
                     if ((e instanceof Player)) {
@@ -412,26 +532,9 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
                 }
                 shakeCooldown = 15;
             }
-
-//            if(this.footPrintCooldown <= 0) {
-//                float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
-//                float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-//                EntityTrail entityTrail = new EntityTrail(this, this.position().add(1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x, 1.0F);
-//                EntityTrail entityTrail2 = new EntityTrail(this, this.position().add(1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
-//                EntityTrail entityTrail3 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,-1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
-//                EntityTrail entityTrail4 = new EntityTrail(this, this.position().add(-1.5*ySin,0.01,1.5*yCos), this.level, 50, (float) this.getLookAngle().x,1.0F);
-//                this.level.addFreshEntity(entityTrail);
-//                this.level.addFreshEntity(entityTrail2);
-//                this.level.addFreshEntity(entityTrail3);
-//                this.level.addFreshEntity(entityTrail4);
-//                footPrintCooldown = 100;
-//            }
         }
         shakeCooldown--;
-//        footPrintCooldown--;
     }
-
-
 
     private float getLaunchStrength() {
         return 5.0F;
@@ -500,12 +603,14 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
     }
 
     private void setPartPosition(EntityBrachiosaurusPart part, double offsetX, double offsetY, double offsetZ) {
-        part.setPos(this.getX() + offsetX * part.scale, this.getY() + offsetY * part.scale, this.getZ() + offsetZ * part.scale);
+        if(!this.isBaby()){
+            part.setPos(this.getX() + offsetX * part.scale, this.getY() + offsetY * part.scale, this.getZ() + offsetZ * part.scale);
+        }
     }
 
     @Override
     public boolean isMultipartEntity() {
-        return true;
+        return !this.isBaby();
     }
 
     @Override
@@ -559,40 +664,57 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         }
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return UPEntities.BRACHI.get().create(serverLevel);
     }
 
     public int getAnimationState() {
-
         return this.entityData.get(ANIMATION_STATE);
     }
 
     public void setAnimationState(int anim) {
-
         this.entityData.set(ANIMATION_STATE, anim);
     }
 
     public int getCombatState() {
-
         return this.entityData.get(COMBAT_STATE);
     }
 
     public void setCombatState(int anim) {
-
         this.entityData.set(COMBAT_STATE, anim);
     }
 
     public int getEntityState() {
-
         return this.entityData.get(ENTITY_STATE);
     }
 
     public void setEntityState(int anim) {
-
         this.entityData.set(ENTITY_STATE, anim);
+    }
+
+    @Override
+    public boolean shouldEnterWater() {
+        return !shouldLeaveWater() && swimTimer <= -1000;
+    }
+
+    public boolean shouldLeaveWater() {
+        LivingEntity target = this.getTarget();
+        if (target != null && !target.isInWater()) {
+            return true;
+        }
+        return swimTimer > 600;
+    }
+
+    @Override
+    public int getWaterSearchRange() {
+        return 12;
+    }
+
+    @Override
+    public boolean shouldStopMoving() {
+        return false;
     }
 
     static class BrachiMeleeAttackGoal extends Goal {
@@ -610,7 +732,6 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         private int failedPathFindingPenalty = 0;
         private boolean canPenalize = false;
         private int animTime = 0;
-
 
         public BrachiMeleeAttackGoal(EntityBrachiosaurus p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
@@ -687,14 +808,12 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
 
         public void tick() {
 
-
             LivingEntity target = this.mob.getTarget();
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
             Vec3 aim = this.mob.getLookAngle();
             Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
 
             switch (animState) {
                 case 21:
@@ -817,40 +936,47 @@ public class EntityBrachiosaurus extends EntityBaseDinosaurAnimal {
         }
     }
 
-
     protected <E extends EntityBrachiosaurus> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
 
         if(!this.isFromBook()) {
-            switch (animState) {
-
-                case 21:
-                    event.getController().setAnimationSpeed(1.25F);
-                    return event.setAndContinue(BRACHI_ATTACK);
-
-                default:
-
-                    if (this.isLaunching()) {
-                        event.setAndContinue(BRACHI_LAUNCH);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-                    if (this.isInWater()) {
-                        event.setAndContinue(BRACHI_SWIM);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-                    else if(event.isMoving() && !this.isInWater()){
-                        event.setAndContinue(BRACHI_WALK);
-                        event.getController().setAnimationSpeed(1.5D);
-                        return PlayState.CONTINUE;
-                    }else if(!this.isInWater()) {
-
-                        event.setAndContinue(BRACHI_IDLE);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
+            if (animState == 21) {
+                event.getController().setAnimationSpeed(1.25F);
+                return event.setAndContinue(BRACHI_ATTACK);
             }
+
+            if (this.isLaunching()) {
+                event.setAndContinue(BRACHI_LAUNCH);
+                event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
+            }
+
+            if (this.isInWater()) {
+                if (this.isBaby()) {
+                    event.setAndContinue(BRACHI_BABY_SWIM);
+                    return PlayState.CONTINUE;
+                }
+                event.setAndContinue(BRACHI_SWIM);
+                event.getController().setAnimationSpeed(1.5D);
+            }
+
+            if (event.isMoving() && !this.isInWater()) {
+                if (this.isBaby()) {
+                    event.setAndContinue(BRACHI_BABY_WALK);
+                    return PlayState.CONTINUE;
+                }
+                event.setAndContinue(BRACHI_WALK);
+                event.getController().setAnimationSpeed(1.5D);
+            }
+
+            else if (!this.isInWater()) {
+                if (this.isBaby()) {
+                    event.setAndContinue(BRACHI_BABY_IDLE);
+                }
+                event.setAndContinue(BRACHI_IDLE);
+                event.getController().setAnimationSpeed(1.0F);
+            }
+            return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
     }

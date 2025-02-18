@@ -51,12 +51,10 @@ public class CommonEvents {
         event.put(UPEntities.SCAU.get(), EntityScaumenacia.createAttributes().build());
         event.put(UPEntities.TRIKE.get(), EntityTriceratops.createAttributes().build());
         event.put(UPEntities.PACHY.get(), EntityPachycephalosaurus.createAttributes().build());
-        event.put(UPEntities.BRACHI_TEEN.get(), EntityBrachiosaurusTeen.createAttributes().build());
         event.put(UPEntities.BRACHI.get(), EntityBrachiosaurus.createAttributes().build());
         event.put(UPEntities.VELOCI.get(), EntityVelociraptor.createAttributes().build());
         event.put(UPEntities.REX.get(), EntityTyrannosaurusRex.createAttributes().build());
         event.put(UPEntities.ENCRUSTED.get(), EntityEncrusted.createAttributes().build());
-        event.put(UPEntities.BABY_BRACHI.get(), EntityBabyBrachi.createAttributes().build());
         event.put(UPEntities.ERYON.get(), EntityEryon.createAttributes().build());
         event.put(UPEntities.AUSTRO.get(), EntityAustroraptor.createAttributes().build());
         event.put(UPEntities.ANTARCO.get(), EntityAntarctopelta.createAttributes().build());

@@ -458,8 +458,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.TRIKE, "Triceratops");
         addEntityType(UPEntities.PACHY, "Pachycephalosaurus");
         addEntityType(UPEntities.BRACHI, "Brachiosaurus");
-        addEntityType(UPEntities.BRACHI_TEEN, "Adolescent Brachiosaurus");
-        addEntityType(UPEntities.BABY_BRACHI, "Baby Brachiosaurus");
         addEntityType(UPEntities.VELOCI, "Velociraptor");
         addEntityType(UPEntities.REX, "Tyrannosaurus Rex");
         addEntityType(UPEntities.ERYON, "Eryon");

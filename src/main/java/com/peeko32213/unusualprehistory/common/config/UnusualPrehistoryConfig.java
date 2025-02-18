@@ -27,7 +27,6 @@ public class UnusualPrehistoryConfig {
     public static ForgeConfigSpec.BooleanValue TRIKE_COLLISON;
     public static ForgeConfigSpec.BooleanValue MAMMOTH_COLLISON;
     public static ForgeConfigSpec.BooleanValue BRACHI_COLLISON;
-    public static ForgeConfigSpec.ConfigValue<Boolean> BRACHI_EXPERIMENTAL_FOOTPRINTS;
     public static ForgeConfigSpec.ConfigValue<Boolean> DINO_NATURAL_SPAWNING;
 
     public static final ForgeConfigSpec COMMON;
@@ -67,7 +66,6 @@ public class UnusualPrehistoryConfig {
         CONFIG_BUILDER.pop();
         CONFIG_BUILDER.comment("Misc configs").push("misc_config");
         DINO_NATURAL_SPAWNING = CONFIG_BUILDER.comment("Prehistoric mob spawning").define("dino_natural_spawn", false);
-        BRACHI_EXPERIMENTAL_FOOTPRINTS = CONFIG_BUILDER.comment("Brachiosaurus footprints").define("brachi_experimental_footprints", false);
 
         COMMON = CONFIG_BUILDER.build();
     }

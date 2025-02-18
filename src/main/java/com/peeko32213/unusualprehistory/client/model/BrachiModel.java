@@ -14,16 +14,12 @@ public class BrachiModel extends GeoModel<EntityBrachiosaurus> {
 
     @Override
     public ResourceLocation getModelResource(EntityBrachiosaurus brachiosaurus) {
-        if(brachiosaurus.getAge() < -12000 && brachiosaurus.isBaby()) {
+        if(brachiosaurus.isBaby()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "geo/brachiosaurus/brachiosaurus_baby.geo.json");
         }
-        if(brachiosaurus.getAge() < 0 && brachiosaurus.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/brachiosaurus/brachiosaurus_teen.geo.json");
-        }
-
-        else if(!brachiosaurus.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/brachiosaurus/brachiosaurus.geo.json");
-        }
+//        if(brachiosaurus.shouldBeTeen()) {
+//            return new ResourceLocation(UnusualPrehistory.MODID, "geo/brachiosaurus/brachiosaurus_teen.geo.json");
+//        }
         else {
             return new ResourceLocation(UnusualPrehistory.MODID, "geo/brachiosaurus/brachiosaurus.geo.json");
         }
@@ -31,15 +27,14 @@ public class BrachiModel extends GeoModel<EntityBrachiosaurus> {
 
     @Override
     public ResourceLocation getTextureResource(EntityBrachiosaurus brachiosaurus){
-        if(brachiosaurus.getAge() < -12000 && brachiosaurus.isBaby()) {
+        if (brachiosaurus.isBaby()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus/brachiosaurus_baby.png");
         }
-        if(brachiosaurus.getAge() < 0 && brachiosaurus.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus/brachiosaurus_teen.png");
-        }
-
-        else if(!brachiosaurus.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus/brachiosaurus.png");
+//        if(brachiosaurus.shouldBeTeen()) {
+//            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus/brachiosaurus_teen.png");
+//        }
+        if (brachiosaurus.isSaddled() && !brachiosaurus.isBaby()) {
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus/brachiosaurus_saddled.png");
         }
         else {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus/brachiosaurus.png");
@@ -48,16 +43,12 @@ public class BrachiModel extends GeoModel<EntityBrachiosaurus> {
 
     @Override
     public ResourceLocation getAnimationResource(EntityBrachiosaurus brachiosaurus) {
-        if(brachiosaurus.getAge() < -12000 && brachiosaurus.isBaby()) {
+        if(brachiosaurus.isBaby()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "animations/brachiosaurus/brachiosaurus_baby.animation.json");
         }
-        if(brachiosaurus.getAge() < 0 && brachiosaurus.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/brachiosaurus/brachiosaurus_teen.animation.json");
-        }
-
-        else if(!brachiosaurus.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/brachiosaurus/brachiosaurus.animation.json");
-        }
+//        if(brachiosaurus.shouldBeTeen()) {
+//            return new ResourceLocation(UnusualPrehistory.MODID, "animations/brachiosaurus/brachiosaurus_teen.animation.json");
+//        }
         else {
             return new ResourceLocation(UnusualPrehistory.MODID, "animations/brachiosaurus/brachiosaurus.animation.json");
         }

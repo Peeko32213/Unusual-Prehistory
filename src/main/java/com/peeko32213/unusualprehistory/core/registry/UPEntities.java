@@ -92,16 +92,8 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityPachycephalosaurus::new, MobCategory.CREATURE).sized(1.2F, 1.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "pachy").toString()));
 
-    public static final RegistryObject<EntityType<EntityBabyBrachi>> BABY_BRACHI = ENTITIES.register("baby_brachi",
-            () -> EntityType.Builder.of(EntityBabyBrachi::new, MobCategory.CREATURE).sized(1.3f, 2.1f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_brachi").toString()));
-
-    public static final RegistryObject<EntityType<EntityBrachiosaurusTeen>> BRACHI_TEEN = ENTITIES.register("brachi_teen",
-            () -> EntityType.Builder.of(EntityBrachiosaurusTeen::new, MobCategory.CREATURE).sized(5.2F, 5.4F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi_teen").toString()));
-
     public static final RegistryObject<EntityType<EntityBrachiosaurus>> BRACHI = ENTITIES.register("brachi",
-            () -> EntityType.Builder.of(EntityBrachiosaurus::new, MobCategory.CREATURE).sized(5.75F, 8.0F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
+            () -> EntityType.Builder.of(EntityBrachiosaurus::new, MobCategory.CREATURE).sized(5.25F, 8.0F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi").toString()));
 
     public static final RegistryObject<EntityType<EntityVelociraptor>> VELOCI = ENTITIES.register("veloci",
