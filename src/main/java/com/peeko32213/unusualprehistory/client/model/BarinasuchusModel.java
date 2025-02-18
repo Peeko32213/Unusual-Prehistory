@@ -13,32 +13,18 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class BarinasuchusModel extends GeoModel<EntityBarinasuchus> {
 
     @Override
-    public ResourceLocation getModelResource(EntityBarinasuchus barinasuchus)
-    {
-        if(barinasuchus.isBaby()){
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus/barinasuchus_baby.geo.json");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus/barinasuchus.geo.json");
-        }
+    public ResourceLocation getModelResource(EntityBarinasuchus barinasuchus) {
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus/barinasuchus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityBarinasuchus barinasuchus)
-    {
-        if(barinasuchus.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/barinasuchus/barinasuchus_baby.png");
-        } else{
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/barinasuchus/barinasuchus.png");
-        }
+    public ResourceLocation getTextureResource(EntityBarinasuchus barinasuchus) {
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/barinasuchus/barinasuchus.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(EntityBarinasuchus barinasuchus) {
-        if(barinasuchus.isBaby()){
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/barinasuchus/barinasuchus_baby.animation.json");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/barinasuchus/barinasuchus.animation.json");
-        }
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/barinasuchus/barinasuchus.animation.json");
     }
 
     @Override
@@ -47,7 +33,18 @@ public class BarinasuchusModel extends GeoModel<EntityBarinasuchus> {
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
         CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
-        head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
+        if (animatable.isBaby()) {
+            head.setScaleX(1.35F);
+            head.setScaleY(1.35F);
+            head.setScaleZ(1.35F);
+        } else {
+            head.setScaleX(1.0F);
+            head.setScaleY(1.0F);
+            head.setScaleZ(1.0F);
+        }
+        if (!animatable.isSprinting()) {
+            head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
+        }
     }
 }
 

@@ -4,7 +4,6 @@ import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartIndex;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -35,7 +34,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
@@ -50,7 +48,6 @@ import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -67,7 +64,7 @@ import java.util.UUID;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class EntityPalaeophis extends EntityBaseDinosaurAnimal implements GeoAnimatable {
+public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnimatable {
     private ResourceLocation DEEP_ONE_SHED = prefix("textures/entity/palaeophis_deep_head_shed.png");
     private ResourceLocation DEEP_ONE = prefix("textures/entity/palaeophis_deep_head.png");
     private ResourceLocation NORMAL = prefix("textures/entity/palaeophis_head.png");
@@ -93,7 +90,7 @@ public class EntityPalaeophis extends EntityBaseDinosaurAnimal implements GeoAni
     private static final RawAnimation PALAEO_IDLE_TOUNGE = RawAnimation.begin().thenLoop("animation.palaophis_head.idle_tounge");
 
 
-    public EntityPalaeophis(EntityType<? extends EntityBaseDinosaurAnimal> entityType, Level level) {
+    public EntityPalaeophis(EntityType<? extends EntityBaseAquaticAnimal> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -237,64 +234,64 @@ public class EntityPalaeophis extends EntityBaseDinosaurAnimal implements GeoAni
         }
         this.ringBuffer[this.ringBufferIndex] = this.getYRot();
         if(!this.level().isClientSide){
-        final int segments = 15;
-        final Entity child = getChild();
-        if (child == null) {
-            LivingEntity partParent = this;
-            parts = new EntityPalaeophisPart[segments];
+            final int segments = 15;
+            final Entity child = getChild();
+            if (child == null) {
+                LivingEntity partParent = this;
+                parts = new EntityPalaeophisPart[segments];
+                PalaeophisPartIndex partIndex = PalaeophisPartIndex.HEAD;
+                Vec3 prevPos = this.position();
+                for (int i = 0; i < segments; i++) {
+                    final float prevReqRot = calcPartRotation(i) + getYawForPart(i);
+                    final float reqRot = calcPartRotation(i + 1) + getYawForPart(i);
+                    EntityPalaeophisPart part = new EntityPalaeophisPart(UPEntities.PALAEOPHIS_PART.get(), this);
+                    part.setParent(partParent);
+                    part.copyDataFrom(this);
+                    part.setBodyIndex(i);
+                    part.setPartType(PalaeophisPartIndex.sizeAt(1 + i));
+                    if (partParent == this) {
+                        this.setChildId(part.getUUID());
+                        this.entityData.set(CHILD_ID, part.getId());
+                    }
+                    if (partParent instanceof EntityPalaeophisPart) {
+                        ((EntityPalaeophisPart) partParent).setChildId(part.getUUID());
+                    }
+                    part.setPos(part.tickMultipartPosition(this.getId(), partIndex, prevPos, this.getXRot(), prevReqRot, reqRot, true));
+                    partParent = part;
+                    level().addFreshEntity(part);
+                    parts[i] = part;
+                    partIndex = part.getPartType();
+                    prevPos = part.position();
+                }
+            }
+            if (shouldReplaceParts() && this.getChild() instanceof EntityPalaeophisPart) {
+                parts = new EntityPalaeophisPart[segments];
+                parts[0] = (EntityPalaeophisPart) this.getChild();
+                this.entityData.set(CHILD_ID, parts[0].getId());
+                int i = 1;
+                while (i < parts.length && parts[i - 1].getChild() instanceof EntityPalaeophisPart) {
+                    parts[i] = (EntityPalaeophisPart) parts[i - 1].getChild();
+                    i++;
+                }
+            }
             PalaeophisPartIndex partIndex = PalaeophisPartIndex.HEAD;
-            Vec3 prevPos = this.position();
+            Vec3 prev = this.position();
+            float xRot = this.getXRot();
             for (int i = 0; i < segments; i++) {
-                final float prevReqRot = calcPartRotation(i) + getYawForPart(i);
-                final float reqRot = calcPartRotation(i + 1) + getYawForPart(i);
-                EntityPalaeophisPart part = new EntityPalaeophisPart(UPEntities.PALAEOPHIS_PART.get(), this);
-                part.setParent(partParent);
-                part.copyDataFrom(this);
-                part.setBodyIndex(i);
-                part.setPartType(PalaeophisPartIndex.sizeAt(1 + i));
-                if (partParent == this) {
-                    this.setChildId(part.getUUID());
-                    this.entityData.set(CHILD_ID, part.getId());
+                if (this.parts[i] != null) {
+                    final float prevReqRot = calcPartRotation(i) + getYawForPart(i);
+                    final float reqRot = calcPartRotation(i + 1) + getYawForPart(i);
+                    parts[i].setStrangleProgress(this.strangleProgress);
+                    parts[i].copyDataFrom(this);
+                    prev = parts[i].tickMultipartPosition(this.getId(), partIndex, prev, xRot, prevReqRot, reqRot, true);
+                    partIndex = parts[i].getPartType();
+                    xRot = parts[i].getXRot();
                 }
-                if (partParent instanceof EntityPalaeophisPart) {
-                    ((EntityPalaeophisPart) partParent).setChildId(part.getUUID());
-                }
-                part.setPos(part.tickMultipartPosition(this.getId(), partIndex, prevPos, this.getXRot(), prevReqRot, reqRot, true));
-                partParent = part;
-                level().addFreshEntity(part);
-                parts[i] = part;
-                partIndex = part.getPartType();
-                prevPos = part.position();
             }
-        }
-        if (shouldReplaceParts() && this.getChild() instanceof EntityPalaeophisPart) {
-            parts = new EntityPalaeophisPart[segments];
-            parts[0] = (EntityPalaeophisPart) this.getChild();
-            this.entityData.set(CHILD_ID, parts[0].getId());
-            int i = 1;
-            while (i < parts.length && parts[i - 1].getChild() instanceof EntityPalaeophisPart) {
-                parts[i] = (EntityPalaeophisPart) parts[i - 1].getChild();
-                i++;
-            }
-        }
-        PalaeophisPartIndex partIndex = PalaeophisPartIndex.HEAD;
-        Vec3 prev = this.position();
-        float xRot = this.getXRot();
-        for (int i = 0; i < segments; i++) {
-            if (this.parts[i] != null) {
-                final float prevReqRot = calcPartRotation(i) + getYawForPart(i);
-                final float reqRot = calcPartRotation(i + 1) + getYawForPart(i);
-                parts[i].setStrangleProgress(this.strangleProgress);
-                parts[i].copyDataFrom(this);
-                prev = parts[i].tickMultipartPosition(this.getId(), partIndex, prev, xRot, prevReqRot, reqRot, true);
-                partIndex = parts[i].getPartType();
-                xRot = parts[i].getXRot();
-            }
-        }
 
-        if (isInWater()) swimTimer = Math.max(swimTimer + 1, 0);
-        else swimTimer = Math.min(swimTimer - 1, 0);
-    }
+            if (isInWater()) swimTimer = Math.max(swimTimer + 1, 0);
+            else swimTimer = Math.min(swimTimer - 1, 0);
+        }
         if (sheddingCooldown >= 0) {
             sheddingCooldown--;
         }
@@ -604,6 +601,8 @@ public class EntityPalaeophis extends EntityBaseDinosaurAnimal implements GeoAni
                     }
                 }
             }
+
+
         }
 
         public boolean canContinueToUse() {
@@ -744,10 +743,14 @@ public class EntityPalaeophis extends EntityBaseDinosaurAnimal implements GeoAni
 
 
         protected void preformBiteAttack() {
+
+
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PALAEO_BITE.get(), 0.1F, 1.0F);
             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), 10.0f, 0.2f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+
         }
+
 
         protected void resetAttackCooldown() {
             this.ticksUntilNextAttack = 0;
@@ -802,12 +805,6 @@ public class EntityPalaeophis extends EntityBaseDinosaurAnimal implements GeoAni
     public void setEntityState(int anim) {
 
         this.entityData.set(ENTITY_STATE, anim);
-    }
-
-    @Override
-    @Nullable
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UPEntities.PALAEOPHIS.get().create(serverLevel);
     }
 
     public void killed() {

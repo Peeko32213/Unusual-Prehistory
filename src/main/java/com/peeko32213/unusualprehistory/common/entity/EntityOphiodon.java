@@ -108,7 +108,6 @@
          super.travel(travelVector);
      }
 
-
      protected PathNavigation createNavigation(Level p_27480_) {
          return new WaterBoundPathNavigation(this, p_27480_);
      }

@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.EntityBeelzebufo;
+import com.peeko32213.unusualprehistory.common.entity.EntityOphiodon;
 import com.peeko32213.unusualprehistory.common.entity.EntityPalaeophis;
 import com.peeko32213.unusualprehistory.common.entity.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
@@ -17,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -27,6 +29,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
@@ -39,6 +42,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -50,22 +56,33 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 
 public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements GeoAnimatable, Bucketable, IVariantEntity {
+
     private static final ResourceLocation DEEP = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_deep_palaeophis.png");
     private static final ResourceLocation NORMAL = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_palaeophis.png");
+
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityBabyPalaeolophis.class, EntityDataSerializers.BOOLEAN);
+
     public static final int MAX_TADPOLE_AGE = Math.abs(-30000);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private static final RawAnimation BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_palaeophis.swim");
+
+    private static final RawAnimation BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_palaeophis.move");
+
     private int age;
     public EntityBabyPalaeolophis(EntityType<? extends EntityBaseAquaticAnimal> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 45, 10, 0.02F, 0.1F, true);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.moveControl = new EntityBabyPalaeolophis.MoveHelperController(this);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 12.0D);
+                .add(Attributes.MAX_HEALTH, 12.0D)
+                .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                .add(Attributes.ARMOR, 0.0)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
+                .add(Attributes.MOVEMENT_SPEED, 1.0)
+                .add(Attributes.FOLLOW_RANGE, 6.0D);
     }
 
     protected void registerGoals() {
@@ -87,19 +104,21 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements G
         });
     }
 
-
     @Override
     public void aiStep() {
         super.aiStep();
         if (!this.level().isClientSide) this.setAge(this.age + 1);
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((double) ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), (double) 0.4F, (double) ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
             this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }
-
         super.aiStep();
+    }
+
+    public void tick() {
+        super.tick();
     }
 
     @Override
@@ -176,7 +195,6 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements G
             }
 
             frog.setPersistenceRequired();
-            this.playSound(SoundEvents.PLAYER_LEVELUP, 0.15F, 1.0F);
             server.addFreshEntityWithPassengers(frog);
             this.discard();
         }
@@ -187,12 +205,59 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements G
         if(this.position().y() < 0 &&!this.fromBucket()){
             this.setVariant(1);
         }
-
-
     }
 
     private int getTicksUntilGrowth() {
         return Math.max(0, MAX_TADPOLE_AGE - this.age);
+    }
+
+    static class MoveHelperController extends MoveControl {
+        private final EntityBabyPalaeolophis dolphin;
+
+        public MoveHelperController(EntityBabyPalaeolophis dolphinIn) {
+            super(dolphinIn);
+            this.dolphin = dolphinIn;
+        }
+
+        public void tick() {
+            if (this.dolphin.isInWater()) {
+                this.dolphin.setDeltaMovement(this.dolphin.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
+            }
+
+            if (this.operation == Operation.MOVE_TO && !this.dolphin.getNavigation().isDone()) {
+                double d0 = this.wantedX - this.dolphin.getX();
+                double d1 = this.wantedY - this.dolphin.getY();
+                double d2 = this.wantedZ - this.dolphin.getZ();
+                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+                if (d3 < (double) 2.5000003E-7F) {
+                    this.mob.setZza(0.0F);
+                } else {
+                    float f = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+                    this.dolphin.setYRot(this.rotlerp(this.dolphin.getYRot(), f, 10.0F));
+                    this.dolphin.yBodyRot = this.dolphin.getYRot();
+                    this.dolphin.yHeadRot = this.dolphin.getYRot();
+                    float f1 = (float) (this.speedModifier * this.dolphin.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    if (this.dolphin.isInWater()) {
+                        this.dolphin.setSpeed(f1 * 0.02F);
+                        float f2 = -((float) (Mth.atan2(d1, Mth.sqrt((float) (d0 * d0 + d2 * d2))) * (double) (180F / (float) Math.PI)));
+                        f2 = Mth.clamp(Mth.wrapDegrees(f2), -85.0F, 85.0F);
+                        this.dolphin.setXRot(this.rotlerp(this.dolphin.getXRot(), f2, 5.0F));
+                        float f3 = Mth.cos(this.dolphin.getXRot() * ((float) Math.PI / 180F));
+                        float f4 = Mth.sin(this.dolphin.getXRot() * ((float) Math.PI / 180F));
+                        this.dolphin.zza = f3 * f1;
+                        this.dolphin.yya = -f4 * f1;
+                    } else {
+                        this.dolphin.setSpeed(f1 * 0.1F);
+                    }
+
+                }
+            } else {
+                this.dolphin.setSpeed(0.0F);
+                this.dolphin.setXxa(0.0F);
+                this.dolphin.setYya(0.0F);
+                this.dolphin.setZza(0.0F);
+            }
+        }
     }
 
     @Override
@@ -215,7 +280,6 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements G
     public void setFromBucket(boolean p_203706_1_) {
         this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
-
 
     @Override
     public SoundEvent getPickupSound() {
@@ -243,11 +307,12 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements G
         this.setFromBucket(compound.getBoolean("Bucketed"));
     }
 
+    public void travel(@NotNull Vec3 travelVector) {
+        super.travel(travelVector);
+    }
 
-
-    @Override
-    protected PathNavigation createNavigation(Level level) {
-        return new WaterBoundPathNavigation(this, level);
+    protected @NotNull PathNavigation createNavigation(@NotNull Level p_27480_) {
+        return new WaterBoundPathNavigation(this, p_27480_);
     }
 
     protected SoundEvent getFlopSound() {
@@ -255,12 +320,9 @@ public class EntityBabyPalaeolophis extends EntityBaseAquaticAnimal implements G
     }
 
     protected <E extends EntityBabyPalaeolophis> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (event.isMoving()) {
             event.setAndContinue(BABY_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
-        }
-        return PlayState.CONTINUE;
     }
 
     @Override

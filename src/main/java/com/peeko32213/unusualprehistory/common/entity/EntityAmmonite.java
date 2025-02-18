@@ -63,8 +63,6 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
                 .add(Attributes.ARMOR, 5.0);
     }
 
-    
-
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));

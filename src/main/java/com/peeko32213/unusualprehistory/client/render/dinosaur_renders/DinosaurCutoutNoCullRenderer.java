@@ -19,11 +19,9 @@ import java.util.Locale;
 
 public class DinosaurCutoutNoCullRenderer<T extends EntityBaseDinosaurAnimal> extends GeoEntityRenderer<T> {
 
-
     public DinosaurCutoutNoCullRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
     }
-
 
     @Override
     public RenderType getRenderType(T animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
@@ -46,8 +44,6 @@ public class DinosaurCutoutNoCullRenderer<T extends EntityBaseDinosaurAnimal> ex
             if(austroraptor.isBaby()) stackIn.scale(0.3F, 0.3F, 0.3F);
             return;
         }
-
-
 
         if (animatable.isBaby()) {
             stackIn.scale(0.5F, 0.5F, 0.5F);

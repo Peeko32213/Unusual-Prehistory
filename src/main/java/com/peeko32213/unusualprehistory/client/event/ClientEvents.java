@@ -240,11 +240,11 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.AMBER_SHOT.get(), AmberShotRenderer::new);
         event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
 
-        event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_PALEOLOPHIS)));
-
         event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BarinasuchusModel()));
 
+        event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BabyPalaeophisModel()));
         event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PalaeophisModel()));
+        event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
 
         event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
         event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.AUSTRORAPTOR)));
@@ -267,8 +267,6 @@ public final class ClientEvents {
 
         event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new DinosaurRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
 
-//        event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.PALAEOPHIS_HEAD)));
-        event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
         event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.SLUDGE)));
 
         event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));

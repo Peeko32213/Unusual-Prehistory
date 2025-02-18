@@ -173,7 +173,6 @@ public class EntityDunkleosteus extends WaterAnimal implements GeoAnimatable, IB
         return UPSounds.DUNK_DEATH.get();
     }
 
-
     protected SoundEvent getFlopSound() {
         return SoundEvents.COD_FLOP;
     }

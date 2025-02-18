@@ -46,7 +46,6 @@ import java.util.function.Predicate;
 public class EntityPalaeophisPart extends LivingEntity implements IHurtableMultipart, GeoAnimatable {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-
     private static final EntityDataAccessor<Integer> BODYINDEX = SynchedEntityData.defineId(EntityPalaeophisPart.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> BODY_TYPE = SynchedEntityData.defineId(EntityPalaeophisPart.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> TARGET_YAW = SynchedEntityData.defineId(EntityPalaeophisPart.class, EntityDataSerializers.FLOAT);

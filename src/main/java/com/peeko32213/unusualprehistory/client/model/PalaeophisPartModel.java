@@ -54,9 +54,6 @@ public class PalaeophisPartModel extends GeoModel<EntityPalaeophisPart> {
             return getTextureForTypeDeep(object.getPartType());
         }
 
-
-
-
         if(object.isShedding()){
             return getTextureForShedType(object.getPartType());
         }
@@ -69,59 +66,58 @@ public class PalaeophisPartModel extends GeoModel<EntityPalaeophisPart> {
     }
 
     private ResourceLocation getModelForType(PalaeophisPartIndex partType) {
-        switch (partType){
-            case BODY: return bodyModel;
-            case NECK: return neckModel;
-            case TAIL: return tailModel;
-            case FIN:return finModel;
-            case BODY_FIN:return bodyFinModel;
-        }
-        return bodyModel;
+        return switch (partType) {
+            case BODY -> bodyModel;
+            case NECK -> neckModel;
+            case TAIL -> tailModel;
+            case FIN -> finModel;
+            case BODY_FIN -> bodyFinModel;
+            default -> bodyModel;
+        };
     }
 
     private ResourceLocation getTextureForType(PalaeophisPartIndex partType) {
-        switch (partType){
-            case BODY: return bodyTexture;
-            case NECK: return neckTexture;
-            case TAIL: return tailTexture;
-            case FIN:return finTexture;
-            case BODY_FIN:return bodyFinTexture;
-        }
-        return bodyTexture;
+        return switch (partType) {
+            case BODY -> bodyTexture;
+            case NECK -> neckTexture;
+            case TAIL -> tailTexture;
+            case FIN -> finTexture;
+            case BODY_FIN -> bodyFinTexture;
+            default -> bodyTexture;
+        };
     }
 
     private ResourceLocation getTextureForShedType(PalaeophisPartIndex partType) {
-        switch (partType){
-            case BODY: return bodyTextureShed;
-            case NECK: return neckTextureShed;
-            case TAIL: return tailTextureShed;
-            case FIN:return finTextureShed;
-            case BODY_FIN:return bodyFinTextureShed;
-        }
-        return bodyTextureShed;
+        return switch (partType) {
+            case BODY -> bodyTextureShed;
+            case NECK -> neckTextureShed;
+            case TAIL -> tailTextureShed;
+            case FIN -> finTextureShed;
+            case BODY_FIN -> bodyFinTextureShed;
+            default -> bodyTextureShed;
+        };
     }
 
     private ResourceLocation getTextureForTypeDeep(PalaeophisPartIndex partType) {
-        switch (partType){
-            case BODY: return bodyTextureDeep;
-            case NECK: return neckTextureDeep;
-            case TAIL: return tailTextureDeep;
-            case FIN:return finTextureDeep;
-            case BODY_FIN:return bodyFinTextureDeep;
-        }
-        return bodyTextureDeep;
+        return switch (partType) {
+            case BODY -> bodyTextureDeep;
+            case NECK -> neckTextureDeep;
+            case TAIL -> tailTextureDeep;
+            case FIN -> finTextureDeep;
+            case BODY_FIN -> bodyFinTextureDeep;
+            default -> bodyTextureDeep;
+        };
     }
 
 
     private ResourceLocation getTextureForShedTypeDeep(PalaeophisPartIndex partType) {
-        switch (partType){
-            case BODY: return bodyTextureShedDeep;
-            case NECK: return neckTextureShedDeep;
-            case TAIL: return tailTextureShedDeep;
-            case FIN:return finTextureShedDeep;
-            case BODY_FIN:return bodyFinTextureShedDeep;
-        }
-        return bodyTextureShedDeep;
+        return switch (partType) {
+            case BODY -> bodyTextureShedDeep;
+            case NECK -> neckTextureShedDeep;
+            case TAIL -> tailTextureShedDeep;
+            case FIN -> finTextureShedDeep;
+            case BODY_FIN -> bodyFinTextureShedDeep;
+            default -> bodyTextureShedDeep;
+        };
     }
-
 }

@@ -181,6 +181,10 @@ public class UPEntities {
                     .noSummon()
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "palaeophis_part").toString()));
 
+    public static final RegistryObject<EntityType<EntityBabyPalaeolophis>> BABY_PALAEO = ENTITIES.register("baby_palaophis",
+            () -> EntityType.Builder.of(EntityBabyPalaeolophis::new, MobCategory.WATER_AMBIENT).sized(0.75f, 0.3f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_palaophis").toString()));
+
     public static final RegistryObject<EntityType<EntityMegalania>> MEGALANIA = ENTITIES.register("megalania",
             () -> EntityType.Builder.of(EntityMegalania::new, MobCategory.CREATURE).sized(2.5F, 2.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megalania").toString()));
@@ -196,10 +200,6 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityProtosphyraena>> PROTOSPHYRAENA = ENTITIES.register("protosphyraena",
             () -> EntityType.Builder.of(EntityProtosphyraena::new, MobCategory.WATER_CREATURE).sized(1.35f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "protosphyraena").toString()));
-
-    public static final RegistryObject<EntityType<EntityBabyPalaeolophis>> BABY_PALAEO = ENTITIES.register("baby_palaophis",
-            () -> EntityType.Builder.of(EntityBabyPalaeolophis::new, MobCategory.WATER_AMBIENT).sized(1f, 0.3f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_palaophis").toString()));
 
     public static final RegistryObject<EntityType<EntitySludge>> SLUDGE = ENTITIES.register("sludge",
             () -> EntityType.Builder.of(EntitySludge::new, MobCategory.MONSTER).sized(2.0f, 2.0f)

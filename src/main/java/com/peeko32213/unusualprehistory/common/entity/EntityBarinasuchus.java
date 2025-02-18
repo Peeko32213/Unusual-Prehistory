@@ -66,10 +66,6 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
     private static final RawAnimation BARINA_SWIM = RawAnimation.begin().thenLoop("animation.barinasuchus.swim");
     private static final RawAnimation BARINA_IDLE = RawAnimation.begin().thenPlay("animation.barinasuchus.idle");
 
-    private static final RawAnimation BARINA_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_barinasuchus.swim");
-    private static final RawAnimation BARINA_BABY_IDLE = RawAnimation.begin().thenPlay("animation.baby_barinasuchus.idle");
-    private static final RawAnimation BARINA_BABY_WALK = RawAnimation.begin().thenPlay("animation.baby_barinasuchus.walk");
-
     public EntityBarinasuchus(EntityType<? extends EntityTameableBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
     }
@@ -601,35 +597,20 @@ public class EntityBarinasuchus extends EntityTameableBaseDinosaurAnimal impleme
                 return PlayState.CONTINUE;
             }
 
-            if (this.isInWater() && this.isBaby()) {
-                event.setAndContinue(BARINA_BABY_SWIM);
-                event.getController().setAnimationSpeed(1.0F);
-                return PlayState.CONTINUE;
-            } else if (this.isInWater()) {
+            if (this.isInWater()) {
                 event.setAndContinue(BARINA_SWIM);
                 event.getController().setAnimationSpeed(1.0F);
                 return PlayState.CONTINUE;
             } else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
                 if(this.isSprinting() && !this.isBaby()) {
                     event.setAndContinue(BARINA_SPRINT);
-                    event.getController().setAnimationSpeed(1.0F);
-                    return PlayState.CONTINUE;
-                } else if(this.isBaby()) {
-                    event.setAndContinue(BARINA_BABY_WALK);
-                    event.getController().setAnimationSpeed(1.0F);
-                    return PlayState.CONTINUE;
                 } else {
                     event.setAndContinue(BARINA_MOVE);
-                    event.getController().setAnimationSpeed(1.0F);
-                    return PlayState.CONTINUE;
                 }
+                event.getController().setAnimationSpeed(1.0F);
+                return PlayState.CONTINUE;
             } else {
-                if(!this.isInWater() && this.isBaby()) {
-                    event.setAndContinue(BARINA_BABY_IDLE);
-                    event.getController().setAnimationSpeed(1.0F);
-                    return PlayState.CONTINUE;
-                }
-                else if(!this.isInWater()) {
+                if(!this.isInWater()) {
                     event.setAndContinue(BARINA_IDLE);
                     event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;

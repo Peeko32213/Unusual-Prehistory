@@ -51,7 +51,6 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
     private static final RawAnimation SCAU_SWIM = RawAnimation.begin().thenLoop("animation.scaumenacia.move");
     private static final RawAnimation SCAU_FLOP = RawAnimation.begin().thenLoop("animation.scaumenacia.flop");
 
-
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public EntityScaumenacia(EntityType<? extends AbstractFish> entityType, Level level) {
@@ -83,7 +82,6 @@ public class EntityScaumenacia extends AbstractFish implements Bucketable, GeoAn
         String s = ChatFormatting.stripFormatting(this.getName().getString());
         return s != null && (s.toLowerCase().contains("sengoku"));
     }
-
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.COD_AMBIENT;

@@ -125,7 +125,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.STETHA_BUCKET, "Bucket of Stethacanthus");
         addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
         addItem(UPItems.DUNK_BUCKET, "Bucket of Baby Dunkleosteus");
-        addItem(UPItems.PALAEO_BUCKET, "Bucket of Baby Palaeolophis");
+        addItem(UPItems.PALAEO_BUCKET, "Bucket of Palaeolophis Hatchling");
 
         //EGGS
         addBlock(UPBlocks.STETHA_EGGS, "Stethacanthus Eggs");
@@ -187,6 +187,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.MAMMOTH_EGG, "Mammoth Spawn Egg");
         addItem(UPItems.MEGALANIA_EGG, "Megalania Spawn Egg");
         addItem(UPItems.PALAEOPHIS_EGG, "Palaeolophis Spawn Egg");
+        addItem(UPItems.PALAEOPHIS_BABY_EGG, "Palaeolophis Hatchling Spawn Egg");
         addItem(UPItems.SLUDGE_EGG, "Sludge Spawn Egg");
         addItem(UPItems.KIMMER_EGG, "Kimmeridgebrachypteraeschnidium Spawn Egg");
         addItem(UPItems.DIPLOCAULUS_EGG, "Diplocaulus Spawn Egg");
@@ -481,7 +482,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.PALAEOPHIS, "Palaeolophis");
         addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
         addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-        addEntityType(UPEntities.BABY_PALAEO, "Baby Palaeolophis");
+        addEntityType(UPEntities.BABY_PALAEO, "Palaeolophis Hatchling");
         addEntityType(UPEntities.PALAEOPHIS_PART, "Palaeophis Body");
         addEntityType(UPEntities.SLUDGE, "Sludge");
         addEntityType(UPEntities.ICEBERG_MAMMOTH, "Frozen Mammoth");

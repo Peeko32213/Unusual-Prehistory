@@ -126,17 +126,14 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
         return 7;
     }
 
-
     public void killed(ServerLevel world, LivingEntity entity) {
         this.heal(5);
     }
-
 
     protected PathNavigation createNavigation(Level p_27480_) {
         return new WaterBoundPathNavigation(this, p_27480_);
     }
     //Squid Games
-
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.COD_AMBIENT;
@@ -159,7 +156,6 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
         super.defineSynchedData();
         this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(FROM_BOOK, false);
-
     }
 
     @Override
@@ -225,7 +221,6 @@ public class EntityStethacanthus extends AbstractSchoolingFish implements Bucket
         this.setFromBucket(compound.getBoolean("Bucketed"));
         this.readPersistentAngerSaveData(this.level(), compound);
     }
-
 
     public void setRemainingPersistentAngerTime(int p_34448_) {
         this.remainingPersistentAngerTime = p_34448_;
