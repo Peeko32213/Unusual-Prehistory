@@ -323,7 +323,7 @@ public class UPItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> GIGANTO_EMBRYO = ITEMS.register("giganto_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.GIGANTO_EMBRYO_ATTACH_TO, UPEntities.BABY_GIGANTO, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.GIGANTO_EMBRYO_ATTACH_TO, UPEntities.GIGANTOPITHICUS, 1000));
 
     public static final RegistryObject<Item> MAMMOTH_EMBRYO = ITEMS.register("mammoth_embryo",
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.MAMMOTH_EMBRYO_ATTACH_TO, UPEntities.MAMMOTH, 1000));
@@ -335,7 +335,7 @@ public class UPItems {
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.PALAEO_EMBRYO_ATTACH_TO, UPEntities.BABY_PALAEO, 1000));
 
     public static final RegistryObject<Item> PARACER_EMBRYO = ITEMS.register("paracer_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.PARACER_EMBRYO_ATTACH_TO, UPEntities.BABY_PARACER, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.PARACER_EMBRYO_ATTACH_TO, UPEntities.PARACERATHERIUM, 1000));
 
     public static final RegistryObject<Item> SMILODON_EMBRYO = ITEMS.register("smilodon_embryo",
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(16), UPTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.SMILODON, 1000));

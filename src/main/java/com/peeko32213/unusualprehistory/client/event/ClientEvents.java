@@ -225,6 +225,9 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new DinosaurRenderer<>(e, new MegalaniaModel()));
         event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new DinosaurRenderer<>(e, new SmilodonModel()));
+        event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e -> new DinosaurRenderer<>(e, new MammothModel()));
+        event.registerEntityRenderer(UPEntities.PARACERATHERIUM.get(), e -> new DinosaurRenderer<>(e, new ParaceratheriumModel()));
+        event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e -> new DinosaurRenderer<>(e, new GigantopithicusModel()));
 
         event.registerEntityRenderer(UPEntities.BRACHI.get(), e -> new DinosaurRenderer<>(e, new BrachiModel()));
 
@@ -237,11 +240,11 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.AMBER_SHOT.get(), AmberShotRenderer::new);
         event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
 
-        event.registerEntityRenderer(UPEntities.BABY_GIGANTO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_GIGAN)));
-        event.registerEntityRenderer(UPEntities.BABY_PARACER.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_PARACERATHERIUM)));
         event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_PALEOLOPHIS)));
 
         event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BarinasuchusModel()));
+
+        event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PalaeophisModel()));
 
         event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
         event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.AUSTRORAPTOR)));
@@ -263,27 +266,10 @@ public final class ClientEvents {
                         .build());
 
         event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new DinosaurRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
-        event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e ->
-                UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.GIGANTOPITHICUS))
-                        .withItemHoldingLayer()
-                        .build());
 
-        event.registerEntityRenderer(UPEntities.PARACERATHERIUM.get(), e -> new DinosaurRenderer<>(e, new DefaultModel<>(ModelLocations.PARACERATHERIUM)));
-//        event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e ->
-//                UPRenderUtils.createTamableDinosaurRenderer(e, new DefaultModel<>(ModelLocations.MEGATHERIUM))
-//                        .withLayers(MEGATHERIUM_MODEL)
-//                        .withSaddleLayer(MEGATHERIUM_SADDLE_OVERLAY)
-//                        .build());
-
-        event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e ->
-                UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.MAMMOTH))
-                        .withItemHoldingLayer()
-                        .build());
-
-        event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new  AquaticRenderer(e, new DefaultModel(ModelLocations.PALAEOPHIS_HEAD)));
+//        event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.PALAEOPHIS_HEAD)));
         event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
         event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.SLUDGE)));
-
 
         event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));
         event.registerEntityRenderer(UPEntities.ICEBERG_SMILODON.get(), e -> new LivingEntityRenderer<>(e, new IcebergSmilodonModel()));

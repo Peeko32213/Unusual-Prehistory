@@ -197,14 +197,6 @@ public class UPEntities {
             () -> EntityType.Builder.of(EntityProtosphyraena::new, MobCategory.WATER_CREATURE).sized(1.35f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "protosphyraena").toString()));
 
-    public static final RegistryObject<EntityType<EntityBabyGigantopithicus>> BABY_GIGANTO = ENTITIES.register("baby_giganto",
-            () -> EntityType.Builder.of(EntityBabyGigantopithicus::new, MobCategory.CREATURE).sized(0.8f, 1.0f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_giganto").toString()));
-
-    public static final RegistryObject<EntityType<EntityBabyParaceratherium>> BABY_PARACER = ENTITIES.register("baby_paracer",
-            () -> EntityType.Builder.of(EntityBabyParaceratherium::new, MobCategory.CREATURE).sized(1.3f, 1.8f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_paracer").toString()));
-
     public static final RegistryObject<EntityType<EntityBabyPalaeolophis>> BABY_PALAEO = ENTITIES.register("baby_palaophis",
             () -> EntityType.Builder.of(EntityBabyPalaeolophis::new, MobCategory.WATER_AMBIENT).sized(1f, 0.3f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_palaophis").toString()));

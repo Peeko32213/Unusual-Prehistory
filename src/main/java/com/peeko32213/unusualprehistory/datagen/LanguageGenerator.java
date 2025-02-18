@@ -481,8 +481,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.PALAEOPHIS, "Palaeolophis");
         addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
         addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-        addEntityType(UPEntities.BABY_GIGANTO, "Baby Gigantopithecus");
-        addEntityType(UPEntities.BABY_PARACER, "Baby Paraceratherium");
         addEntityType(UPEntities.BABY_PALAEO, "Baby Palaeolophis");
         addEntityType(UPEntities.PALAEOPHIS_PART, "Palaeophis Body");
         addEntityType(UPEntities.SLUDGE, "Sludge");

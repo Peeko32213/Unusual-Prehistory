@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartIndex;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -34,6 +35,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
@@ -48,6 +50,7 @@ import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -64,7 +67,7 @@ import java.util.UUID;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnimatable {
+public class EntityPalaeophis extends EntityBaseDinosaurAnimal implements GeoAnimatable {
     private ResourceLocation DEEP_ONE_SHED = prefix("textures/entity/palaeophis_deep_head_shed.png");
     private ResourceLocation DEEP_ONE = prefix("textures/entity/palaeophis_deep_head.png");
     private ResourceLocation NORMAL = prefix("textures/entity/palaeophis_head.png");
@@ -90,7 +93,7 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
     private static final RawAnimation PALAEO_IDLE_TOUNGE = RawAnimation.begin().thenLoop("animation.palaophis_head.idle_tounge");
 
 
-    public EntityPalaeophis(EntityType<? extends EntityBaseAquaticAnimal> entityType, Level level) {
+    public EntityPalaeophis(EntityType<? extends EntityBaseDinosaurAnimal> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -601,8 +604,6 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
                     }
                 }
             }
-
-
         }
 
         public boolean canContinueToUse() {
@@ -743,14 +744,10 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
 
 
         protected void preformBiteAttack() {
-
-
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PALAEO_BITE.get(), 0.1F, 1.0F);
             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), 10.0f, 0.2f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
-
         }
-
 
         protected void resetAttackCooldown() {
             this.ticksUntilNextAttack = 0;
@@ -805,6 +802,12 @@ public class EntityPalaeophis extends EntityBaseAquaticAnimal implements GeoAnim
     public void setEntityState(int anim) {
 
         this.entityData.set(ENTITY_STATE, anim);
+    }
+
+    @Override
+    @Nullable
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        return UPEntities.PALAEOPHIS.get().create(serverLevel);
     }
 
     public void killed() {
