@@ -34,6 +34,7 @@ public class DataGenerators {
         CompletableFuture<HolderLookup.Provider> provider = evt.getLookupProvider();
         CompletableFuture<HolderLookup.Provider> lookupProvider = evt.getLookupProvider();
         generator.addProvider(true,new EntityTagsGenerator(packOutput, lookupProvider, helper));
+        generator.addProvider(true,new PaintingTagsProvider(packOutput, lookupProvider, helper));
         generator.addProvider(true,new RecipeGenerator(packOutput));
         generator.addProvider(true,new BlockstateGenerator(packOutput, helper));
         generator.addProvider(true,new ItemModelGenerator(packOutput, helper));

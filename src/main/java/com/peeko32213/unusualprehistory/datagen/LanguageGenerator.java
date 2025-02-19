@@ -4,11 +4,13 @@ import com.mojang.logging.LogUtils;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -920,6 +922,9 @@ public class LanguageGenerator extends LanguageProvider {
         addBETranslatable("dna_fridge", "DNA Fridge");
         addBETranslatable("cultivator", "Cultivator");
         addBETranslatable("cultivator_jei", "Cultivator");
+
+        // Paintings
+        add(UPPaintings.PERISCOPE, "Periscope", "ChipsTheCat");
     }
 
     @Override
@@ -949,6 +954,12 @@ public class LanguageGenerator extends LanguageProvider {
         add(UnusualPrehistory.MODID + ".sound.subtitle." + key.get().getLocation().getPath(), name);
     }
 
+    private void add(RegistryObject<PaintingVariant> variant, String title, String author) {
+        ResourceLocation name = variant.getId();
+        String key = "painting." + name.getNamespace() + "." + name.getPath() + ".";
+        this.add(key + "title", title);
+        this.add(key + "author", author);
+    }
 
     public void addTabName(CreativeModeTab key, String name){
         add(key.getDisplayName().getString(), name);
