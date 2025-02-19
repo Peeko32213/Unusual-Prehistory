@@ -189,7 +189,7 @@ public class UPBlocks {
     public static final Supplier<Block> KIMMER_EGGS = create("kimmer_eggs",
             () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.KIMMER,
-                    false
+                    true
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
@@ -816,7 +816,7 @@ public class UPBlocks {
     }
 
     private static Boolean never(BlockState p_50779_, BlockGetter p_50780_, BlockPos p_50781_, EntityType<?> p_50782_) {
-        return (boolean)false;
+        return false;
     }
 }
 

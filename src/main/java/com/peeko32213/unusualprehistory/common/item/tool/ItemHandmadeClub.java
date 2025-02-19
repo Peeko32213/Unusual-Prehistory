@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.peeko32213.unusualprehistory.client.model.tool.HandmadeClubModel;
 import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
-import com.peeko32213.unusualprehistory.common.entity.msc.projectile.ThrowableFallingBlockEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
@@ -44,22 +43,6 @@ public class ItemHandmadeClub extends SwordItem implements GeoItem {
                 .defaultDurability(tier.getUses() * 3)
         );
     }
-
-//    @Override
-//    public InteractionResult useOn(UseOnContext pContext) {
-//        Level pLevel = pContext.getLevel();
-//        if(pLevel.isClientSide) return InteractionResult.FAIL;
-//        BlockPos pos = pContext.getClickedPos();
-//        BlockState state = pLevel.getBlockState(pos);
-//        ServerLevel level = (ServerLevel) pLevel;
-//        if(state.is(Blocks.BEDROCK) || !state.is(UPTags.CLUB_WHITELIST_BLOCKS)) return InteractionResult.FAIL;
-//        ThrowableFallingBlockEntity fallingBlockEntity = ThrowableFallingBlockEntity.fall(level, pos,state);
-//        Vec3 vec3 = new Vec3(0,1,0);
-//        Vec3 vec31 = vec3.normalize();
-//        fallingBlockEntity.setDeltaMovement(vec31);
-//        fallingBlockEntity.setHurtsEntities(1, 10);
-//        return super.useOn(pContext);
-//    }
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {

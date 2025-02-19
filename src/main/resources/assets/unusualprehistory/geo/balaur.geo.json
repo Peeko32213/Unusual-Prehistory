@@ -12,12 +12,12 @@
 			},
 			"bones": [
 				{
-					"name": "root",
+					"name": "Balaur",
 					"pivot": [0, 0, 0]
 				},
 				{
 					"name": "Body",
-					"parent": "root",
+					"parent": "Balaur",
 					"pivot": [0, 9, 0]
 				},
 				{
@@ -198,7 +198,7 @@
 				},
 				{
 					"name": "LegControl",
-					"parent": "root",
+					"parent": "Balaur",
 					"pivot": [0, 9, 0]
 				},
 				{
@@ -242,7 +242,15 @@
 					"parent": "Foot1",
 					"pivot": [5, 0, 6],
 					"cubes": [
-						{"origin": [2.5, 0.05, 3], "size": [6, 0, 4], "uv": [0, 33]}
+						{"origin": [2.5, 0.15, 2], "size": [5, 0, 5], "uv": [0, 50]}
+					]
+				},
+				{
+					"name": "Claw1",
+					"parent": "Foot1_B",
+					"pivot": [2.5, 0.1, 4.5],
+					"cubes": [
+						{"origin": [2.5, 0.1, 3], "size": [0, 2, 2], "uv": [2, 53]}
 					]
 				},
 				{
@@ -281,7 +289,15 @@
 					"parent": "Foot2",
 					"pivot": [-5, 0, 6],
 					"cubes": [
-						{"origin": [-8.5, 0.05, 3], "size": [6, 0, 4], "uv": [0, 33], "mirror": true}
+						{"origin": [-7.5, 0.15, 2], "size": [5, 0, 5], "uv": [0, 50], "mirror": true}
+					]
+				},
+				{
+					"name": "Claw2",
+					"parent": "Foot2_B",
+					"pivot": [-2.5, 0.1, 4.5],
+					"cubes": [
+						{"origin": [-2.5, 0.1, 3], "size": [0, 2, 2], "uv": [2, 53], "mirror": true}
 					]
 				}
 			]

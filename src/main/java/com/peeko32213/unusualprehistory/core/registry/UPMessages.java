@@ -88,10 +88,10 @@ public class UPMessages {
                 EncyclopediaRootPageS2C::decode,
                 EncyclopediaRootPageS2C::onPacketReceived);
 
-//        net.registerMessage(id(), BalaurMountMessage.class,
-//                BalaurMountMessage::write,
-//                BalaurMountMessage::read,
-//                BalaurMountMessage.Handler::handle);
+        net.registerMessage(id(), BalaurMountMessage.class,
+                BalaurMountMessage::write,
+                BalaurMountMessage::read,
+                BalaurMountMessage.Handler::handle);
 
         net.messageBuilder(ParticleSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(ParticleSyncS2CPacket::new)

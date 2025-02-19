@@ -9,6 +9,7 @@ import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -438,10 +439,12 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
         tag(UPTags.PALAEO_EMBRYO_ATTACH_TO)
                 .add(UPEntities.PALAEOPHIS.get())
                 .add(UPEntities.PALAEOPHIS_PART.get());
-//        tag(UPTags.OTAROCYON_EMBRYO_ATTACH_TO)
-//                .add(EntityType.OCELOT)
-//                .add(EntityType.FOX)
-//                .add(UPEntities.OTAROCYON.get());
+
+        tag(UPTags.OTAROCYON_EMBRYO_ATTACH_TO)
+                .add(EntityType.OCELOT)
+                .add(EntityType.FOX)
+                .add(UPEntities.OTAROCYON.get());
+
         tag(UPTags.TAR_WALKABLE_ON_MOBS)
                 .add(EntityType.RABBIT)
                 .add(UPEntities.SLUDGE.get());
@@ -473,7 +476,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.VELOCI.get())
                 .add(UPEntities.MAJUNGA.get())
                 .add(UPEntities.SLUDGE.get())
-//                .add(UPEntities.OTAROCYON.get())
+                .add(UPEntities.OTAROCYON.get())
 //                .add(UPEntities.LONGISQUAMA.get())
         ;
 
@@ -485,7 +488,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return UnusualPrehistory.MODID + " Entity type tags provider";
     }
 }

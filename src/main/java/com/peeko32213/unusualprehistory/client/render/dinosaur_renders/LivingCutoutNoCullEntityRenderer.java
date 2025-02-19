@@ -41,5 +41,9 @@ public class LivingCutoutNoCullEntityRenderer<T extends LivingEntity & GeoAnimat
             if(barinasuchus.isBaby()) stackIn.scale(0.55F, 0.55F, 0.55F);
         }
 
+        if(animatable instanceof EntityOtarocyon otarocyon) {
+            if(otarocyon.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
+        }
+
     }
 }

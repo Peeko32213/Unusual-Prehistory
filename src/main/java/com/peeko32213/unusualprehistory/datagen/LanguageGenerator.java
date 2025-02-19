@@ -67,6 +67,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.GIGANTO_EMBRYO, "Gigantopithecus Embryo");
         addItem(UPItems.PARACER_EMBRYO, "Paraceratherium Embryo");
         addItem(UPItems.PALAEO_EMBRYO, "Palaeolophis Embryo");
+        addItem(UPItems.OTAROCYON_EMBRYO, "Otarocyon Embryo");
 
         //DINO DROPS
         addItem(UPItems.REX_SCALE, "Tyrannosaurus Scale");
@@ -112,6 +113,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.MAMMOTH_MEATBALL, "Mammoth Meatball");
         addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon");
         addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon");
+        addItem(UPItems.LEEDS_SLICE, "Slice of Leedsichthys Flesh");
+        addItem(UPItems.LEEDS_CAVIAR, "Leedsichthys Caviar");
 
         //SCRAPS
         addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
@@ -194,6 +197,9 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.HYNERIA_EGG, "Hyneria Spawn Egg");
         addItem(UPItems.OPHIODON_EGG, "Ophiodon Ozymandias Spawn Egg");
         addItem(UPItems.PROTOSPHYRAENA_EGG, "Protosphyraena Spawn Egg");
+        addItem(UPItems.BALAUR_EGG, "Balaur Spawn Egg");
+        addItem(UPItems.OTAROCYON_EGG, "Otarocyon Spawn Egg");
+        addItem(UPItems.LEEDS_EGG, "Leedsichthys Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -492,7 +498,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.HYNERIA, "Hyneria");
         addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");
         addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
-//        addDinoEgg(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
+        addEntityType(UPEntities.BALAUR, "Balaur");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Beelzebufo croaks");
@@ -1019,7 +1025,6 @@ public class LanguageGenerator extends LanguageProvider {
 //        addEntityType(UPEntities.KAPROSUCHUS, "Kaprosuchus");
 //        addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
 //        addEntityType(UPEntities.HYNERPETON, "Hynerpeton");
-//        addEntityType(UPEntities.BALAUR, "Balaur");
 //        addEntityType(UPEntities.ARCHELON, "Archelon");
 //        addEntityType(UPEntities.LEEDSICHTHYS, "Leedsichthys");
 //        addEntityType(UPEntities.PTERODAUSTRO, "Pterodaustro");

@@ -121,6 +121,8 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         //oreSmelting();
 
+
+
         // Zuloagae
         makePlanks(UPBlocks.ZULOAGAE_PLANKS, UPTags.ZULOAGAE).save(consumer);
 
@@ -140,7 +142,10 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         makePressurePlate(UPBlocks.ZULOAGAE_PRESSURE_PLATE, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
 
+        // cultivating
         cultivating(consumer, UPItems.KIMMER_FLASK.get(), UPBlocks.KIMMER_EGGS.get().asItem());
+
+        cultivating(consumer, UPItems.BALAUR_FLASK.get(), UPEntities.BALAUR.get());
     }
 
 
@@ -207,7 +212,6 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 //        cultivating(consumer, UPItems.DIPLO_FLASK.get(), UPBlocks.DIPLOCAULUS_EGGS.get().asItem());
 //        cultivating(consumer, UPItems.HYNERIA_FLASK.get(), UPBlocks.HYNERIA_EGGS.get().asItem());
 //        cultivating(consumer, UPItems.HYNERP_FLASK.get(), UPEntities.HYNERPETON.get());
-//        cultivating(consumer, UPItems.BALAUR_FLASK.get(), UPEntities.BALAUR.get());
 //        cultivating(consumer, UPItems.LEEDS_FLASK.get(), UPEntities.LEEDSICHTHYS.get());
 //        cultivating(consumer, UPItems.PTERODAUSTRO_FLASK.get(), UPEntities.PTERODAUSTRO.get());
 //        cultivating(consumer, UPItems.ARCHELON_FLASK.get(), UPEntities.ARCHELON.get());

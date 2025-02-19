@@ -49,14 +49,53 @@ public class HyneriaModel extends GeoModel<EntityHyneria>
             tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
 
 //            CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+//
+//            CoreGeoBone jawtop = this.getAnimationProcessor().getBone("TopJaw");
+//            CoreGeoBone jawlower = this.getAnimationProcessor().getBone("LowerJaw");
+//
+//            CoreGeoBone jawtopb = this.getAnimationProcessor().getBone("TopJaw_B");
+//            CoreGeoBone jawlowerb = this.getAnimationProcessor().getBone("LowerJaw_B");
+//
 //            if (animatable.isBaby()) {
 //                head.setScaleX(1.5F);
 //                head.setScaleY(1.5F);
 //                head.setScaleZ(1.5F);
+//
+//                jawtop.setScaleX(1.5F);
+//                jawtop.setScaleY(1.5F);
+//                jawtop.setScaleZ(1.5F);
+//
+//                jawlower.setScaleX(1.5F);
+//                jawlower.setScaleY(1.5F);
+//                jawlower.setScaleZ(1.5F);
+//
+//                jawtopb.setScaleX(1.5F);
+//                jawtopb.setScaleY(1.5F);
+//                jawtopb.setScaleZ(1.5F);
+//
+//                jawlowerb.setScaleX(1.5F);
+//                jawlowerb.setScaleY(1.5F);
+//                jawlowerb.setScaleZ(1.5F);
 //            } else {
 //                head.setScaleX(1.0F);
 //                head.setScaleY(1.0F);
 //                head.setScaleZ(1.0F);
+//
+//                jawtop.setScaleX(1.0F);
+//                jawtop.setScaleY(1.0F);
+//                jawtop.setScaleZ(1.0F);
+//
+//                jawlower.setScaleX(1.0F);
+//                jawlower.setScaleY(1.0F);
+//                jawlower.setScaleZ(1.0F);
+//
+//                jawtopb.setScaleX(1.0F);
+//                jawtopb.setScaleY(1.0F);
+//                jawtopb.setScaleZ(1.0F);
+//
+//                jawlowerb.setScaleX(1.0F);
+//                jawlowerb.setScaleY(1.0F);
+//                jawlowerb.setScaleZ(1.0F);
 //            }
 
         }

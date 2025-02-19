@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -43,12 +44,26 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable, GeoAnimatable, IBookEntity {
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+
+public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable, GeoAnimatable, IBookEntity, IVariantEntity {
+
+    private static final ResourceLocation AMMONITE = prefix("textures/entity/ammonite/ammonite.png");
+    private static final ResourceLocation AMMONITE_PINACOCERAS = prefix("textures/entity/ammonite/ammonite_pinacoceras.png");
+
+    private static final ResourceLocation AMMONITE_MODEL = prefix("geo/ammonite/ammonite.geo.json");
+    private static final ResourceLocation AMMONITE_PINACOCERAS_MODEL = prefix("geo/ammonite/ammonite_pinacoceras.geo.json");
+
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SHOULD_DROP = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.INT);
+
     private static final RawAnimation AMMONITE_SWIM = RawAnimation.begin().thenLoop("animation.ammonite.swim");
     private static final RawAnimation AMMONITE_FLOP = RawAnimation.begin().thenLoop("animation.ammonite.flop");
+
+    private static final RawAnimation AMMONITE_PINACOCERAS_SWIM = RawAnimation.begin().thenLoop("animation.pinacoceras.swim");
+    private static final RawAnimation AMMONITE_PINACOCERAS_FLOP = RawAnimation.begin().thenLoop("animation.pinacoceras.flop");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private boolean isSchool = true;
@@ -114,6 +129,7 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(VARIANT, 0);
         this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(SHOULD_DROP, true);
         this.entityData.define(FROM_BOOK, false);
@@ -133,6 +149,9 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
     @Override
     public void loadFromBucketTag(CompoundTag compound) {
         Bucketable.loadDefaultDataFromBucketTag(this, compound);
+        if (compound.contains("BucketVariantTag", 3)) {
+            this.setVariant(compound.getInt("BucketVariantTag"));
+        }
     }
 
     @Override
@@ -140,6 +159,7 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
         CompoundTag compoundnbt = bucket.getOrCreateTag();
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
         compoundnbt.putFloat("Health", this.getHealth());
+        compoundnbt.putInt("BucketVariantTag", this.getVariant());
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
         }
@@ -182,29 +202,39 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
-
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.isFromBucket());
         compound.putBoolean("Bucketed", this.fromBucket());
+        compound.putInt("Variant", this.getVariant());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setFromBucket(compound.getBoolean("FromBucket"));
         this.setFromBucket(compound.getBoolean("Bucketed"));
+        this.setVariant(compound.getInt("Variant"));
     }
-
 
     protected <E extends EntityAmmonite> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
         if(!this.isFromBook()) {
             if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                event.setAndContinue(AMMONITE_SWIM);
+                if(this.getVariant() == 1){
+                    event.setAndContinue(AMMONITE_PINACOCERAS_SWIM);
+                }
+                else {
+                    event.setAndContinue(AMMONITE_SWIM);
+                }
                 return PlayState.CONTINUE;
             }
             if (!this.isInWater()) {
-                event.setAndContinue(AMMONITE_FLOP);
+                if(this.getVariant() == 1){
+                    event.setAndContinue(AMMONITE_PINACOCERAS_FLOP);
+                }
+                else {
+                    event.setAndContinue(AMMONITE_FLOP);
+                }
                 event.getController().setAnimationSpeed(2.0F);
                 return PlayState.CONTINUE;
             }
@@ -227,21 +257,33 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
         return tickCount;
     }
 
+//    @Nullable
+//    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType spawnType, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
+//        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, spawnType, p_28137_, p_28138_);
+//
+//        //if(spawnType == MobSpawnType.NATURAL){
+//        //    setShouldDrop(false);
+//        //}
+//
+//        Level level = p_28134_.getLevel();
+//        if (level instanceof ServerLevel && spawnType != MobSpawnType.NATURAL) {
+//            {
+//                this.setPersistenceRequired();
+//            }
+//        }
+//        return p_28137_;
+//    }
+
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType spawnType, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, spawnType, p_28137_, p_28138_);
-
-        //if(spawnType == MobSpawnType.NATURAL){
-        //    setShouldDrop(false);
-        //}
-
-        Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel && spawnType != MobSpawnType.NATURAL) {
-            {
-                this.setPersistenceRequired();
-            }
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        float variantChange = this.getRandom().nextFloat();
+        if (variantChange <= 0.75F) {
+            this.setVariant(1);
         }
-        return p_28137_;
+        else{
+            this.setVariant(0);
+        }
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     //@Override
@@ -258,5 +300,28 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
     @Override
     public void setFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
+    }
+
+    @Override
+    public ResourceLocation getVariantTexture() {
+        if(getVariant() == 1){
+            return AMMONITE_PINACOCERAS;
+        }
+        return AMMONITE;
+    }
+
+    public ResourceLocation getVariantModel() {
+        if(getVariant() == 1){
+            return AMMONITE_PINACOCERAS_MODEL;
+        }
+        return AMMONITE_MODEL;
+    }
+
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, Integer.valueOf(variant));
     }
 }

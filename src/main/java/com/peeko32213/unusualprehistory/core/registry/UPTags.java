@@ -52,7 +52,7 @@ public class UPTags {
     public static final TagKey<EntityType<?>> PARACER_EMBRYO_ATTACH_TO= registerEntityTag("paracer_embryo_attach_to");
     public static final TagKey<EntityType<?>> PALAEO_EMBRYO_ATTACH_TO= registerEntityTag("palaeo_embryo_attach_to");
 
-//    public static final TagKey<EntityType<?>> OTAROCYON_EMBRYO_ATTACH_TO= registerEntityTag("otarocyon_embryo_attach_to");
+    public static final TagKey<EntityType<?>> OTAROCYON_EMBRYO_ATTACH_TO= registerEntityTag("otarocyon_embryo_attach_to");
     public static final TagKey<EntityType<?>> TAR_WALKABLE_ON_MOBS= registerEntityTag("tar_walkable_on_mobs");
     public static final TagKey<EntityType<?>> TAR_WALKABLE_THROUGH_MOBS= registerEntityTag("tar_walkable_through_mobs");
 

@@ -112,6 +112,8 @@ public class UPTabs {
                     entries.accept(UPItems.GOLDEN_SCAU.get());
                     entries.accept(UPItems.RAW_STETHA.get());
                     entries.accept(UPItems.COOKED_STETHA.get());
+                    entries.accept(UPItems.LEEDS_SLICE.get());
+                    entries.accept(UPItems.LEEDS_CAVIAR.get());
                     entries.accept(UPItems.RAW_OPHIODON.get());
                     entries.accept(UPItems.COOKED_OPHIODON.get());
                     entries.accept(UPItems.RAW_AUSTRO.get());
@@ -303,6 +305,7 @@ public class UPTabs {
                     entries.accept(UPBlocks.MEGALA_EGG.get());
                     entries.accept(UPItems.MEGATH_EMBRYO.get());
                     entries.accept(UPBlocks.OPHIDION_EGGS.get());
+                    entries.accept(UPItems.OTAROCYON_EMBRYO.get());
                     entries.accept(UPItems.PALAEO_EMBRYO.get());
                     entries.accept(UPItems.PARACER_EMBRYO.get());
                     entries.accept(UPItems.SMILODON_EMBRYO.get());

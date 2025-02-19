@@ -85,6 +85,9 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.ARCHELON_FLASK);
         singleTex(UPItems.JAWLESS_FISH_FLASK);
         singleTex(UPItems.LEEDS_FLASK);
+        singleTex(UPItems.OTAROCYON_EMBRYO);
+        singleTex(UPItems.LEEDS_CAVIAR);
+        singleTex(UPItems.LEEDS_SLICE);
 //        singleTex(UPItems.RAW_FURCACAUDA);
 //        singleTex(UPItems.COOKED_FURCACAUDA);
 //        singleTex(UPItems.RAW_TARTU);
@@ -92,8 +95,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 //        singleTex(UPItems.PSITTACO_QUIL);
 //        singleTex(UPItems.PSITTACCO_ARROW);
 //        singleTex(UPItems.AMBER_IDOL);
-//        singleTex(UPItems.LEEDS_CAVIAR);
-//        singleTex(UPItems.LEEDS_SLICE);
+
 //        singleTex(UPItems.PTERYDACTYLUS_FLASK);
 //        singleTex(UPItems.ERETMORPHIS_FLASK);
 //        singleTex(UPItems.ARTHROPLEURA_FLASK);
