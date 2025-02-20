@@ -39,10 +39,10 @@ public class UPConfiguredFeatures {
 
     public static final DeferredRegister<ConfiguredFeature<?,?>> CONFIGURED_FEATURES = DeferredRegister.create(Registries.CONFIGURED_FEATURE, UnusualPrehistory.MODID);
 
-    private static final String PETRIFIED_WOOD_FOREST_FEATURE_NAME = "petrified_wood_forest_feature_name";
+    private static final String PETRIFIED_WOOD_FOREST_FEATURE_NAME = "petrified_wood_forest";
 
-    private static final String TAR_PIT_FEATURE_NAME = "tar_pit_feature_name";
-    private static final String ICE_FOSSIL_ICEBERG_FEATURE_NAME = "ice_fossil_iceberg_feature_name";
+    private static final String TAR_PIT_FEATURE_NAME = "tar_pit";
+    private static final String ICE_FOSSIL_ICEBERG_FEATURE_NAME = "fossil_iceberg";
     public static final RegistryObject<ConfiguredFeature<?, ?>> STONE_FOSSIL_ORE = registerConfiguredFeature("stone_fossil_ore", () -> new ConfiguredFeature<>( Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.STONE_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.STONE_FOSSIL.get().defaultBlockState())), 9)));
     public static final RegistryObject<ConfiguredFeature<?, ?>> AMBER_FOSSIL_ORE = registerConfiguredFeature("amber_fossil_ore",  () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.STONE_AMBER_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.STONE_AMBER_FOSSIL.get().defaultBlockState())), 5)));
     //public static final RegistryObject<ConfiguredFeature<?, ?>> DEEPSLATE_AMBER_FOSSIL_ORE = registerConfiguredFeature("deepslate_amber_fossil_ore", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_AMBER_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_AMBER_FOSSIL.get().defaultBlockState())), 4)));

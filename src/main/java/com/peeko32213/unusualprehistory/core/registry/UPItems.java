@@ -1,6 +1,8 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
+import com.mojang.datafixers.util.Pair;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
 import com.peeko32213.unusualprehistory.common.item.*;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemAustroBoots;
 import com.peeko32213.unusualprehistory.common.item.armor.ItemMajungaHelmet;
@@ -464,6 +466,9 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> ANURO_EGG = registerSpawnEggs("anuro_spawn_egg",
             UPEntities.ANURO , 0x7d7968, 0xf4dd48);
 
+    public static final RegistryObject<ForgeSpawnEggItem> ARCHELON_EGG = registerSpawnEggs("archelon_spawn_egg",
+            UPEntities.ARCHELON , 0x618b89, 0x171923);
+
     public static final RegistryObject<ForgeSpawnEggItem> AUSTRO_EGG = registerSpawnEggs("austroraptor_spawn_egg",
             UPEntities.AUSTRO , 0xfff9f7, 0xc72727);
 
@@ -606,8 +611,8 @@ public class UPItems {
     public static final RegistryObject<Item> DEFROSTED_FROZEN_FOSSIL = ITEMS.register("defrosted_frozen_fossil",
             () -> new Item(new Item.Properties().food(ModFood.DEFROSTED_FOSSIL)));
 
-    public static final RegistryObject<Item> GINKGO_SIGN = ITEMS.register("ginkgo_sign",
-            () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.GINKGO_SIGN.get(), UPBlocks.GINKGO_WALL_SIGN.get()));
+    public static final RegistryObject<Item> GINKGO_SIGN = ITEMS.register("ginkgo_sign", () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.GINKGO_SIGN.get(), UPBlocks.GINKGO_WALL_SIGN.get()));
+    public static final RegistryObject<Item> GINKGO_HANGING_SIGN = ITEMS.register("ginkgo_hanging_sign", () -> new HangingSignItem(UPBlocks.GINKGO_HANGING_SIGN.get(), UPBlocks.GINKGO_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 
     public static final RegistryObject<Item> PETRIFIED_WOOD_SIGN = ITEMS.register("petrified_wood_sign",
             () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.PETRIFIED_WOOD_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get()));
@@ -615,8 +620,16 @@ public class UPItems {
     public static final RegistryObject<Item> FOXXI_WOOD_SIGN = ITEMS.register("foxxi_sign",
             () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.FOXXI_SIGN.get(), UPBlocks.FOXXI_WALL_SIGN.get()));
 
-    public static final RegistryObject<Item> DRYO_WOOD_SIGN = ITEMS.register("dryo_sign",
-           () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.DRYO_SIGN.get(), UPBlocks.DRYO_WALL_SIGN.get()));
+    public static final RegistryObject<Item> DRYO_SIGN = ITEMS.register("dryo_sign", () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.DRYO_SIGN.get(), UPBlocks.DRYO_WALL_SIGN.get()));
+    public static final RegistryObject<Item> DRYO_HANGING_SIGN = ITEMS.register("dryo_hanging_sign", () -> new HangingSignItem(UPBlocks.DRYO_HANGING_SIGN.get(), UPBlocks.DRYO_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+
+    public static final RegistryObject<Item> DRYO_BOAT = ITEMS.register("dryophyllum_boat", () -> new UPBoatItem(false, UPBoatEntity.BoatType.DRYO, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> FOXXI_BOAT = ITEMS.register("foxii_boat", () -> new UPBoatItem(false, UPBoatEntity.BoatType.FOXXI, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> GINKGO_BOAT = ITEMS.register("ginkgo_boat", () -> new UPBoatItem(false, UPBoatEntity.BoatType.GINKGO, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> DRYO_CHEST_BOAT = ITEMS.register("dryophyllum_chest_boat", () -> new UPBoatItem(true, UPBoatEntity.BoatType.DRYO, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> FOXXI_CHEST_BOAT = ITEMS.register("foxii_chest_boat", () -> new UPBoatItem(true, UPBoatEntity.BoatType.FOXXI, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> GINKGO_CHEST_BOAT = ITEMS.register("ginkgo_chest_boat", () -> new UPBoatItem(true, UPBoatEntity.BoatType.GINKGO, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> BARINA_WHISTLE = ITEMS.register("barina_whistle",
             () -> new MusicalTameItem(new Item.Properties().stacksTo(1), UPEntities.BARINASUCHUS, UPTags.OCARINA_WHISTLE));
@@ -726,8 +739,7 @@ public class UPItems {
 //            UPEntities.PSILOPTERUS , 0xc59d7d, 0xc27d28);
 //    public static final RegistryObject<ForgeSpawnEggItem> HYNERPETON_EGG = registerSpawnEggs("hynerpeton_spawn_egg",
 //            UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
-//    public static final RegistryObject<ForgeSpawnEggItem> ARCHELON_EGG = registerSpawnEggs("archelon_spawn_egg",
-//            UPEntities.ARCHELON , 0x618b89, 0x171923);
+
 //    public static final RegistryObject<ForgeSpawnEggItem> PTERODAUSTRO_EGG =registerSpawnEggs("pterodaustro_spawn_egg",
 //            UPEntities.PTERODAUSTRO , 0xc93660, 0xfff3fd);
 //    public static final RegistryObject<Item> T_JARATE =  ITEMS.register("t_jarate", () -> new TyrannosaurineJarateItem((new Item.Properties()).stacksTo(16)));

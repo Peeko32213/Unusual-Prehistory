@@ -57,23 +57,23 @@ public class UPPlacedFeatures {
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
 
     public static final RegistryObject<PlacedFeature> PETRIFIED_WOOD_FOREST_PLACED = registerPlacedFeature(PETRIFIED_WOOD_FOREST_FEATURE_NAME_PLACED, () -> new PlacedFeature(UPConfiguredFeatures.CONFIGURED_PETRIFIED_WOOD_FOREST.getHolder().orElseThrow(), ImmutableList.of(
-            RarityFilter.onAverageOnceEvery(10),
-            //InSquarePlacement.spread(),
+            RarityFilter.onAverageOnceEvery(25),
+            InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP_TOP_SOLID,
-            //CountPlacement.of(80),
+            CountPlacement.of(1),
             BiomeFilter.biome())));
 
 
     public static final RegistryObject<PlacedFeature> TAR_PIT_PLACED = registerPlacedFeature(TAR_PIT_FEATIRE_PLACED, () -> new PlacedFeature(UPConfiguredFeatures.CONFIGURED_TAR_PIT.getHolder().orElseThrow(), ImmutableList.of(
             RarityFilter.onAverageOnceEvery(600),
-            //InSquarePlacement.spread(),
+            InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP_TOP_SOLID,
             //CountPlacement.of(80),
             BiomeFilter.biome())));
 
     public static final RegistryObject<PlacedFeature> ICE_FOSSIL_ICEBERG_PLACED = registerPlacedFeature(ICE_FOSSIL_ICEBERG_FEATURE_PLACED, () -> new PlacedFeature(UPConfiguredFeatures.CONFIGURED_ICE_FOSSIL_ICEBERG.getHolder().orElseThrow(), ImmutableList.of(
             RarityFilter.onAverageOnceEvery(600),
-            //InSquarePlacement.spread(),
+//            InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
             //CountPlacement.of(80),
             BiomeFilter.biome())));

@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.block.BlockUPHangingSignBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.BlockUPSignBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -42,9 +43,14 @@ public class UPBlockEntities {
                    UPBlocks.FOXXI_SIGN.get(),
                    UPBlocks.FOXXI_WALL_SIGN.get(),
                    UPBlocks.DRYO_SIGN.get(),
-                    UPBlocks.DRYO_WALL_SIGN.get()
+                   UPBlocks.DRYO_WALL_SIGN.get()
            ).build(null));
 
+    public static final RegistryObject<BlockEntityType<BlockUPHangingSignBlockEntity>> UP_HANGING_SIGN = BLOCK_ENTITIES.register("hanging_sign", () ->
+            BlockEntityType.Builder.of(BlockUPHangingSignBlockEntity::new,
+                    UPBlocks.DRYO_HANGING_SIGN.get(),
+                    UPBlocks.DRYO_WALL_HANGING_SIGN.get()
+            ).build(null));
 
     public static final RegistryObject<BlockEntityType<FruitLootBoxEntity>> FRUIT_LOOT_BOX_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("fruit_loot_box_block_entity", () ->

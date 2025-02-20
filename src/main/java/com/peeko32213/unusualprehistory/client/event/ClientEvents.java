@@ -14,16 +14,18 @@ import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntit
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
 import com.peeko32213.unusualprehistory.client.render.tool.FlatMovingThrownItemRenderer;
+import com.peeko32213.unusualprehistory.client.render.tool.UPBoatRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
-import com.peeko32213.unusualprehistory.common.entity.EntityScaumenacia;
-import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
+import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
@@ -41,6 +43,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 import static com.peeko32213.unusualprehistory.core.registry.UPWoodTypes.*;
 
@@ -186,9 +189,9 @@ public final class ClientEvents {
     // Unfinished 1.6 stuff
 //    private static final ResourceLocation OTAROCYCON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/otarocyon.geo.json");
 //    private static final ResourceLocation KAPROSUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kaprosuchus.geo.json");
-//    private static final ResourceLocation ARCHELON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/archelon.geo.json");
-//    private static final ResourceLocation ARCHELON_SADDLE_EMPTY_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/archelon_saddle_empty.png");
-//    private static final ResourceLocation ARCHELON_SADDLE_HEART_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/archelon_saddle_heart.png");
+    private static final ResourceLocation ARCHELON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/archelon.geo.json");
+    private static final ResourceLocation ARCHELON_SADDLE_EMPTY_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/archelon_saddle_empty.png");
+    private static final ResourceLocation ARCHELON_SADDLE_HEART_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/archelon_saddle_heart.png");
 
     //private static final ResourceLocation BRACHI_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus_saddle.png");
     //private static final ResourceLocation BRACHI_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/brachi.geo.json");
@@ -284,6 +287,9 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
         event.registerEntityRenderer(UPEntities.LEEDS_PART.get(), LeedsichthysPartRender::new);
 
+        event.registerEntityRenderer(UPEntities.BOAT.get(), ctx -> new UPBoatRenderer(ctx, false));
+        event.registerEntityRenderer(UPEntities.CHEST_BOAT.get(), ctx -> new UPBoatRenderer(ctx, true));
+
         // Unused 1.6 stuff
 //        event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new JawlessFishModel()));
 //        event.registerEntityRenderer(UPEntities.OTAROCYON.get(), e ->
@@ -302,11 +308,11 @@ public final class ClientEvents {
 //        event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
 //        event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new NoOverlayRenderer<>(e, new DefaultModel<>(ModelLocations.HYPERNETON)));
 
-//        event.registerEntityRenderer(UPEntities.ARCHELON.get(), e ->
-//                UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel())
-//                        .withLayers(ARCHELON_MODEL)
-//                        .withSaddleLayer(ARCHELON_SADDLE_EMPTY_OVERLAY)
-//                        .build());
+        event.registerEntityRenderer(UPEntities.ARCHELON.get(), e ->
+                UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel())
+                        .withLayers(ARCHELON_MODEL)
+                        .withSaddleLayer(ARCHELON_SADDLE_EMPTY_OVERLAY)
+                        .build());
 
 //        event.registerEntityRenderer(UPEntities.PTERODAUSTRO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<EntityPterodaustro>(ModelLocations.PTERODAUSTRO)));
 
@@ -377,6 +383,14 @@ public final class ClientEvents {
 
     private static KeyMapping create(String name, int key) {
         return new KeyMapping("key." + UnusualPrehistory.MODID + "." + name, key, "key.category." + UnusualPrehistory.MODID);
+    }
+
+    @SubscribeEvent
+    public static void registerEntityModelLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        Arrays.stream(UPBoatEntity.BoatType.values()).forEach(type -> {
+            event.registerLayerDefinition(UPModelLayers.createBoat(type), BoatModel::createBodyModel);
+            event.registerLayerDefinition(UPModelLayers.createChestBoat(type), ChestBoatModel::createBodyModel);
+        });
     }
 
 }

@@ -29,7 +29,7 @@ public class CommonEvents {
 //        event.put(UPEntities.KAPROSUCHUS.get(), EntityKaprosuchus.createAttributes().build()); //80% Done
 //        event.put(UPEntities.PSILOPTERUS.get(), EntityPsilopterus.createAttributes().build()); //80% Done
 //        event.put(UPEntities.HYNERPETON.get(), EntityHynerpeton.createAttributes().build()); //80% Done
-//        event.put(UPEntities.ARCHELON.get(), EntityArchelon.createAttributes().build());
+
 
 //        event.put(UPEntities.PTERODAUSTRO.get(), EntityPterodaustro.createAttributes().build());
 //        event.put(UPEntities.JAWLESS_FISH.get(), EntityJawlessFish.createAttributes().build()); //50% Done
@@ -48,6 +48,7 @@ public class CommonEvents {
         // Meso mobs
         event.put(UPEntities.ANTARCO.get(), EntityAntarctopelta.createAttributes().build());
         event.put(UPEntities.ANURO.get(), EntityAnurognathus.createAttributes().build());
+        event.put(UPEntities.ARCHELON.get(), EntityArchelon.createAttributes().build());
         event.put(UPEntities.AUSTRO.get(), EntityAustroraptor.createAttributes().build());
         event.put(UPEntities.BALAUR.get(), EntityBalaur.createAttributes().build());
         event.put(UPEntities.BEELZ.get(), EntityBeelzebufo.createAttributes().build());

@@ -202,6 +202,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.BALAUR_EGG, "Balaur Spawn Egg");
         addItem(UPItems.OTAROCYON_EGG, "Otarocyon Spawn Egg");
         addItem(UPItems.LEEDS_EGG, "Leedsichthys Spawn Egg");
+        addItem(UPItems.ARCHELON_EGG, "Archelon Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -223,6 +224,15 @@ public class LanguageGenerator extends LanguageProvider {
         //SHIELDS
         addItem(UPItems.VELOCI_SHIELD, "Veloci-Shield");
         addItem(UPItems.TRIKE_SHIELD, "Trike Shield");
+
+        // Boats
+        addItem(UPItems.DRYO_BOAT, "Dryophyllum Boat");
+        addItem(UPItems.FOXXI_BOAT, "Foxii Boat");
+        addItem(UPItems.GINKGO_BOAT, "Ginkgo Boat");
+
+        addItem(UPItems.DRYO_CHEST_BOAT, "Dryophyllum Boat with Chest");
+        addItem(UPItems.FOXXI_CHEST_BOAT, "Foxii Boat with Chest");
+        addItem(UPItems.GINKGO_CHEST_BOAT, "Ginkgo Boat with Chest");
 
         //FLASKS
         addItem(UPItems.FLASK, "Glass Flask");
@@ -366,6 +376,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.GINKGO_BUTTON, "Ginkgo Button");
         addBlock(UPBlocks.GINKGO_PRESSURE_PLATE, "Ginkgo Pressure Plate");
         addItem(UPItems.GINKGO_SIGN, "Ginkgo Sign");
+        addItem(UPItems.GINKGO_HANGING_SIGN, "Ginkgo Hanging Sign");
         addBlock(UPBlocks.AMBER_BUTTON, "Amber Button");
 
         //FOXXI
@@ -402,7 +413,8 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.DRYO_DOOR, "Dryophyllum Door");
         addBlock(UPBlocks.DRYO_TRAPDOOR, "Dryophyllum Trapdoor");
         addBlock(UPBlocks.DRYO_SAPLING, "Dryophyllum Sapling");
-        addItem(UPItems.DRYO_WOOD_SIGN, "Dryophyllum Sign");
+        addItem(UPItems.DRYO_SIGN, "Dryophyllum Sign");
+        addItem(UPItems.DRYO_HANGING_SIGN, "Dryophyllum Hanging Sign");
 
         //PETRIFIED
         addBlock(UPBlocks.PETRIFIED_WOOD_PLANKS, "Petrified Planks");
@@ -501,6 +513,11 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");
         addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
         addEntityType(UPEntities.BALAUR, "Balaur");
+        addEntityType(UPEntities.ARCHELON, "Archelon");
+
+        // Boats
+        addEntityType(UPEntities.BOAT, "Boat");
+        addEntityType(UPEntities.CHEST_BOAT, "Boat with Chest");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Beelzebufo croaks");
@@ -515,9 +532,14 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ANURO_IDLE, "Anurognathus squaks");
         addSound(UPSounds.ANURO_HURT, "Anurognathus hurts");
         addSound(UPSounds.ANURO_DEATH, "Anurognathus dies");
+
         addSound(UPSounds.COTY_IDLE, "Cotylorhynchus groans");
         addSound(UPSounds.COTY_HURT, "Cotylorhynchus hurts");
         addSound(UPSounds.COTY_DEATH, "Cotylorhynchus dies");
+
+        addSound(UPSounds.AMMONITE_HURT, "Ammonite hurts");
+        addSound(UPSounds.AMMONITE_DEATH, "Ammonite dies");
+        addSound(UPSounds.AMMONITE_FLOP, "Ammonite flops");
 
         addSound(UPSounds.DUNK_HURT, "Dunkleosteus hurts");
         addSound(UPSounds.DUNK_ATTACK, "Dunkleosteus bites");
@@ -998,7 +1020,6 @@ public class LanguageGenerator extends LanguageProvider {
 //        addDinoEgg(UPEntities.PSILOPTERUS, "Psilopterus");
 //        addDinoEgg(UPEntities.HYNERPETON, "Hynerpeton");
 //        addDinoEgg(UPEntities.BALAUR, "Balaur");
-//        addDinoEgg(UPEntities.ARCHELON, "Archelon");
 //        addDinoEgg(UPEntities.LEEDSICHTHYS, "Leedsichthys");
 //        addDinoEgg(UPEntities.PTERODAUSTRO, "Pterodaustro");
 //        addItem(UPItems.PTERY_FLASK, "Pterygotus DNA Flask");
@@ -1036,6 +1057,6 @@ public class LanguageGenerator extends LanguageProvider {
 //        addEntityType(UPEntities.KAPROSUCHUS, "Kaprosuchus");
 //        addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
 //        addEntityType(UPEntities.HYNERPETON, "Hynerpeton");
-//        addEntityType(UPEntities.ARCHELON, "Archelon");
+
 //        addEntityType(UPEntities.LEEDSICHTHYS, "Leedsichthys");
 //        addEntityType(UPEntities.PTERODAUSTRO, "Pterodaustro");

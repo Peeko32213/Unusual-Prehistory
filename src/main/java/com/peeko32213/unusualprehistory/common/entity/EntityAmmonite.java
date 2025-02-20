@@ -2,13 +2,13 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
@@ -21,6 +21,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -47,12 +49,6 @@ import javax.annotation.Nullable;
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable, GeoAnimatable, IBookEntity, IVariantEntity {
-
-    private static final ResourceLocation AMMONITE = prefix("textures/entity/ammonite/ammonite.png");
-    private static final ResourceLocation AMMONITE_PINACOCERAS = prefix("textures/entity/ammonite/ammonite_pinacoceras.png");
-
-    private static final ResourceLocation AMMONITE_MODEL = prefix("geo/ammonite/ammonite.geo.json");
-    private static final ResourceLocation AMMONITE_PINACOCERAS_MODEL = prefix("geo/ammonite/ammonite_pinacoceras.geo.json");
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SHOULD_DROP = SynchedEntityData.defineId(EntityAmmonite.class, EntityDataSerializers.BOOLEAN);
@@ -70,12 +66,15 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
 
     public EntityAmmonite(EntityType<? extends AbstractSchoolingFish> entityType, Level level) {
         super(entityType, level);
+        if(this.isInWater()) {
+            this.lookControl = new SmoothSwimmingLookControl(this, 5);
+        }
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 5.0D)
-                .add(Attributes.ARMOR, 5.0);
+            .add(Attributes.MAX_HEALTH, 5.0D)
+            .add(Attributes.ARMOR, 5.0);
     }
 
     protected void registerGoals() {
@@ -110,21 +109,22 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
         return 7;
     }
 
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.COD_AMBIENT;
-    }
-
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SHULKER_HURT_CLOSED;
+        return UPSounds.AMMONITE_DEATH.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.SHULKER_HURT_CLOSED;
-    }
-    protected SoundEvent getFlopSound() {
-        return SoundEvents.COD_FLOP;
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return UPSounds.AMMONITE_HURT.get();
     }
 
+    protected @NotNull SoundEvent getFlopSound() {
+        return UPSounds.AMMONITE_FLOP.get();
+    }
+
+    @Override
+    public float getSoundVolume() {
+        return 0.8F;
+    }
 
     @Override
     protected void defineSynchedData() {
@@ -147,7 +147,7 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
         this.entityData.set(FROM_BUCKET, drop);
     }
     @Override
-    public void loadFromBucketTag(CompoundTag compound) {
+    public void loadFromBucketTag(@NotNull CompoundTag compound) {
         Bucketable.loadDefaultDataFromBucketTag(this, compound);
         if (compound.contains("BucketVariantTag", 3)) {
             this.setVariant(compound.getInt("BucketVariantTag"));
@@ -182,34 +182,34 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
     }
 
     @Override
-    public SoundEvent getPickupSound() {
+    public @NotNull SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_EMPTY_FISH;
     }
 
-    protected InteractionResult mobInteract(Player p_27477_, InteractionHand p_27478_) {
+    protected @NotNull InteractionResult mobInteract(@NotNull Player p_27477_, @NotNull InteractionHand p_27478_) {
         return Bucketable.bucketMobPickup(p_27477_, p_27478_, this).orElse(super.mobInteract(p_27477_, p_27478_));
     }
 
     @Override
-    public ItemStack getBucketItemStack() {
+    public @NotNull ItemStack getBucketItemStack() {
         return new ItemStack(UPItems.AMMON_BUCKET.get());
     }
 
     public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
+        return this.entityData.get(FROM_BOOK);
     }
     public void setIsFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.isFromBucket());
         compound.putBoolean("Bucketed", this.fromBucket());
         compound.putInt("Variant", this.getVariant());
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setFromBucket(compound.getBoolean("FromBucket"));
         this.setFromBucket(compound.getBoolean("Bucketed"));
@@ -257,27 +257,10 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
         return tickCount;
     }
 
-//    @Nullable
-//    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType spawnType, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-//        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, spawnType, p_28137_, p_28138_);
-//
-//        //if(spawnType == MobSpawnType.NATURAL){
-//        //    setShouldDrop(false);
-//        //}
-//
-//        Level level = p_28134_.getLevel();
-//        if (level instanceof ServerLevel && spawnType != MobSpawnType.NATURAL) {
-//            {
-//                this.setPersistenceRequired();
-//            }
-//        }
-//        return p_28137_;
-//    }
-
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if (variantChange <= 0.75F) {
+        if (variantChange <= 0.5F) {
             this.setVariant(1);
         }
         else{
@@ -285,11 +268,6 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
-
-    //@Override
-    //protected boolean shouldDropLoot() {
-    //    return this.getKillCredit() instanceof EntityDunkleosteus && shouldDrop() || super.shouldDropLoot() && !(this.getKillCredit() instanceof EntityDunkleosteus);
-    //}
 
     public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends EntityAmmonite> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
         int i = pLevel.getSeaLevel();
@@ -304,17 +282,7 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
 
     @Override
     public ResourceLocation getVariantTexture() {
-        if(getVariant() == 1){
-            return AMMONITE_PINACOCERAS;
-        }
-        return AMMONITE;
-    }
-
-    public ResourceLocation getVariantModel() {
-        if(getVariant() == 1){
-            return AMMONITE_PINACOCERAS_MODEL;
-        }
-        return AMMONITE_MODEL;
+        return null;
     }
 
     public int getVariant() {
@@ -322,6 +290,6 @@ public class EntityAmmonite extends AbstractSchoolingFish implements Bucketable,
     }
 
     public void setVariant(int variant) {
-        this.entityData.set(VARIANT, Integer.valueOf(variant));
+        this.entityData.set(VARIANT, variant);
     }
 }

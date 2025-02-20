@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -130,7 +131,7 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
         return prev;
     }
 
-    public boolean doHurtTarget(Entity entityIn) {
+    public boolean doHurtTarget(@NotNull Entity entityIn) {
         if (super.doHurtTarget(entityIn) && getAttackSound() != null) {
             this.playSound(getAttackSound() , 0.1F, 1.0F);
             return true;
@@ -139,7 +140,7 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
         }
     }
 
-    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+    public boolean causeFallDamage(float pFallDistance, float pMultiplier, @NotNull DamageSource pSource) {
 
         int i = this.calculateFallDamage(pFallDistance, pMultiplier);
         if (i <= 0) {
@@ -215,11 +216,11 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
     }
 
     public boolean isSaddled() {
-        return this.entityData.get(SADDLED).booleanValue();
+        return this.entityData.get(SADDLED);
     }
 
     public void setSaddled(boolean saddled) {
-        this.entityData.set(SADDLED, Boolean.valueOf(saddled));
+        this.entityData.set(SADDLED, saddled);
     }
 
     public int getPassiveTicks() {
@@ -227,7 +228,7 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
     }
 
     public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
+        return this.entityData.get(FROM_BOOK);
     }
 
     public void setIsFromBook(boolean fromBook) {
@@ -264,7 +265,6 @@ public abstract class EntityBaseAquaticAnimal extends WaterAnimal implements Geo
      */
     public void determineVariant(int variantChange) {
     }
-
 
     public int getRandomAnimationNumber(int nr) {
         setRandomNumber(random.nextInt(nr));

@@ -105,9 +105,6 @@ public class UnusualPrehistory {
             }
     }
 
-
-
-
     private void commonSetup(final FMLCommonSetupEvent event) {
 
         event.enqueueWork(() -> {
@@ -144,12 +141,8 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
             addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
             addToComposter(UPBlocks.ZULOAGAE.get().asItem(), 0.2f);
-//            for(RegistryObject<Item> object : UPItems.ITEMS.getEntries()) {
-//                if(object.get() instanceof DinosaurLandEggItem item) {
-//                        DinoBlockItem.registerReplacementItem(item.getDinosaur(), item.getDefaultInstance());
-//                }
-//            }
         });
+
         event.enqueueWork(UPDispenserRegistry::registerDispenserBehaviour);
         UPMessages.register();
     }

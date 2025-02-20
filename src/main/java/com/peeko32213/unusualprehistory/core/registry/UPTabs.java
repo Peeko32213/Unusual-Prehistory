@@ -366,11 +366,14 @@ public class UPTabs {
                     entries.accept(UPBlocks.DRYO_SLAB.get());
                     entries.accept(UPBlocks.DRYO_FENCE.get());
                     entries.accept(UPBlocks.DRYO_FENCE_GATE.get());
-                    entries.accept(UPBlocks.DRYO_PRESSURE_PLATE.get());
-                    entries.accept(UPBlocks.DRYO_BUTTON.get());
                     entries.accept(UPBlocks.DRYO_DOOR.get());
                     entries.accept(UPBlocks.DRYO_TRAPDOOR.get());
+                    entries.accept(UPBlocks.DRYO_PRESSURE_PLATE.get());
+                    entries.accept(UPBlocks.DRYO_BUTTON.get());
                     entries.accept(UPBlocks.DRYO_SIGN.get());
+                    entries.accept(UPBlocks.DRYO_HANGING_SIGN.get());
+                    entries.accept(UPItems.DRYO_BOAT.get());
+                    entries.accept(UPItems.DRYO_CHEST_BOAT.get());
                     entries.accept(UPBlocks.DRYO_LEAVES.get());
 
                     // Foxii wood
@@ -383,11 +386,13 @@ public class UPTabs {
                     entries.accept(UPBlocks.FOXXI_SLAB.get());
                     entries.accept(UPBlocks.FOXXI_FENCE.get());
                     entries.accept(UPBlocks.FOXXI_FENCE_GATE.get());
-                    entries.accept(UPBlocks.FOXXI_PRESSURE_PLATE.get());
-                    entries.accept(UPBlocks.FOXXI_BUTTON.get());
                     entries.accept(UPBlocks.FOXXI_DOOR.get());
                     entries.accept(UPBlocks.FOXXI_TRAPDOOR.get());
+                    entries.accept(UPBlocks.FOXXI_PRESSURE_PLATE.get());
+                    entries.accept(UPBlocks.FOXXI_BUTTON.get());
                     entries.accept(UPBlocks.FOXXI_SIGN.get());
+                    entries.accept(UPItems.FOXXI_BOAT.get());
+                    entries.accept(UPItems.FOXXI_CHEST_BOAT.get());
                     entries.accept(UPBlocks.FOXXI_LEAVES.get());
 
                     // Ginkgo wood
@@ -400,11 +405,14 @@ public class UPTabs {
                     entries.accept(UPBlocks.GINKGO_SLAB.get());
                     entries.accept(UPBlocks.GINKGO_FENCE.get());
                     entries.accept(UPBlocks.GINKGO_FENCE_GATE.get());
-                    entries.accept(UPBlocks.GINKGO_PRESSURE_PLATE.get());
-                    entries.accept(UPBlocks.GINKGO_BUTTON.get());
                     entries.accept(UPBlocks.GINKGO_DOOR.get());
                     entries.accept(UPBlocks.GINKGO_TRAPDOOR.get());
+                    entries.accept(UPBlocks.GINKGO_PRESSURE_PLATE.get());
+                    entries.accept(UPBlocks.GINKGO_BUTTON.get());
                     entries.accept(UPBlocks.GINKGO_SIGN.get());
+                    entries.accept(UPBlocks.GINKGO_HANGING_SIGN.get());
+                    entries.accept(UPItems.GINKGO_BOAT.get());
+                    entries.accept(UPItems.GINKGO_CHEST_BOAT.get());
                     entries.accept(UPBlocks.GINKGO_LEAVES.get());
 
                     // Zuloagae wood

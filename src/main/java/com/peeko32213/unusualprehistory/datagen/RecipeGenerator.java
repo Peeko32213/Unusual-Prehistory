@@ -16,11 +16,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.SignBlock;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static com.peeko32213.unusualprehistory.datagen.ItemModelGenerator.prefix;
 
@@ -117,11 +119,9 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.OPALESCENT_PEARL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.OPAL_BLOCK.get().asItem());
 
-        makeSign(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS).save(consumer);
+//        makeSign(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS).save(consumer);
 
         //oreSmelting();
-
-
 
         // Zuloagae
         makePlanks(UPBlocks.ZULOAGAE_PLANKS, UPTags.ZULOAGAE).save(consumer);

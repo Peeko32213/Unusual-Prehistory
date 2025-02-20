@@ -113,7 +113,6 @@ public class UPMessages {
         INSTANCE.send(PacketDistributor.ALL.noArg(), message);
     }
 
-
     public static <MSG> void sendMSGToAll(MSG message) {
         for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
             sendNonLocal(message, player);

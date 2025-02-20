@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-18T21:04:52.0003341	Recipes
+// 1.20.1	2025-02-19T21:32:46.3619046	Recipes
 f5d6e647dea88ad02658a94412970a9b856a4d88 data/minecraft/advancements/recipes/building_blocks/opal_block.json
 fa09756118e625ca7d02294c6e8fa56ed86a188f data/minecraft/advancements/recipes/misc/opalescent_pearl.json
 d98dc19d4d6e101a90a57017d61cd27e05bc6b4b data/minecraft/recipes/opalescent_pearl.json
@@ -9,7 +9,6 @@ c82bb869127fa849bdb2e8886cce134a8e830735 data/unusualprehistory/advancements/rec
 2f8e5d653856169b823630452df3d21971f98097 data/unusualprehistory/advancements/recipes/building_blocks/dryo_fence_gate.json
 c483ddc21c161b89fd762409d49745c6d7ab9df2 data/unusualprehistory/advancements/recipes/building_blocks/dryo_planks.json
 90bfd5efc80e6f341994effefe22a296ac2cbc78 data/unusualprehistory/advancements/recipes/building_blocks/dryo_pressure_plate.json
-2208e3c1ea61cbb35fdf8f135bc455b65aefd4d0 data/unusualprehistory/advancements/recipes/building_blocks/dryo_sign.json
 9308f723f50ef2b4ceb356184215d1fbe501a2d6 data/unusualprehistory/advancements/recipes/building_blocks/dryo_slab.json
 f0cb69d66f36ac298f900fc0ea632d201cb5b636 data/unusualprehistory/advancements/recipes/building_blocks/dryo_stairs.json
 dfc6221a0e3cc5e0c79738042511df1a25517837 data/unusualprehistory/advancements/recipes/building_blocks/dryo_trapdoor.json
@@ -60,7 +59,6 @@ b34d30044f3d6f039bd47aa19924ed662e13c915 data/unusualprehistory/recipes/dryo_but
 bada359e632ff433bad1a4bc57dd08020add908d data/unusualprehistory/recipes/dryo_fence_gate.json
 2d84665eb39a13ff44f07117e2d6f4e07482344b data/unusualprehistory/recipes/dryo_planks.json
 43dd6eb5cee8606287d929a5fad653682e4a6f33 data/unusualprehistory/recipes/dryo_pressure_plate.json
-deaf86f8785727ede794bc7fea735aa6fa865824 data/unusualprehistory/recipes/dryo_sign.json
 a3e8812a383c176bf520d54aee508784150595be data/unusualprehistory/recipes/dryo_slab.json
 1a544829988263ff1956efb1a17356500228048b data/unusualprehistory/recipes/dryo_stairs.json
 7de68c551005e96f03e7e34c19962f98afebe050 data/unusualprehistory/recipes/dryo_trapdoor.json

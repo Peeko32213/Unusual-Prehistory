@@ -19,19 +19,23 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.block.CeilingHangingSignBlock;
+import net.minecraft.world.level.block.StandingSignBlock;
+import net.minecraft.world.level.block.WallHangingSignBlock;
+import net.minecraft.world.level.block.WallSignBlock;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class UPBlocks {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
-            UnusualPrehistory.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, UnusualPrehistory.MODID);
 
     public static final RegistryObject<Block> STONE_FOSSIL = registerBlock("stone_fossil",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
@@ -326,7 +330,7 @@ public class UPBlocks {
             () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), UPWoodTypes.FOXXI));
 
     public static final RegistryObject<ButtonBlock> FOXXI_BUTTON = registerBlock("foxxi_button",
-            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.FOXXI, 1,true));
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.FOXXI, 30,true));
 
     public static final RegistryObject<PressurePlateBlock> FOXXI_PRESSURE_PLATE = registerBlock("foxxi_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), UPBlockSetType.FOXXI));
@@ -391,10 +395,10 @@ public class UPBlocks {
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion(), UPBlockSetType.GINKGO));
 
     public static final RegistryObject<ButtonBlock> GINKGO_BUTTON = registerBlock("ginkgo_button",
-            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.GINKGO, 1 ,true));
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.GINKGO, 30 ,true));
 
     public static final RegistryObject<ButtonBlock> AMBER_BUTTON = registerBlock("amber_button",
-            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.GINKGO, 1, true));
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.GINKGO, 5, true));
 
     public static final RegistryObject<PressurePlateBlock> GINKGO_PRESSURE_PLATE = registerBlock("ginkgo_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), UPBlockSetType.GINKGO));
@@ -427,7 +431,7 @@ public class UPBlocks {
             () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), UPWoodTypes.DRYO));
 
     public static final RegistryObject<ButtonBlock> DRYO_BUTTON = registerBlock("dryo_button",
-            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.DRYO, 1, true));
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), UPBlockSetType.DRYO, 30, true));
 
     public static final RegistryObject<PressurePlateBlock> DRYO_PRESSURE_PLATE = registerBlock("dryo_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), UPBlockSetType.DRYO));
@@ -438,11 +442,11 @@ public class UPBlocks {
     public static final RegistryObject<TrapDoorBlock> DRYO_TRAPDOOR = registerBlock("dryo_trapdoor",
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion(), UPBlockSetType.DRYO));
 
-    public static final RegistryObject<StandingSignBlock> DRYO_SIGN = BLOCKS.register("dryo_sign", ()
-            -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.DRYO));
+    public static final RegistryObject<Block> DRYO_HANGING_SIGN = BLOCKS.register("dryo_hanging_sign", () -> new BlockUPHangingSign(BlockBehaviour.Properties.of().mapColor(DRYO_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0f).ignitedByLava(), UPWoodTypes.DRYO));
+    public static final RegistryObject<Block> DRYO_WALL_HANGING_SIGN = BLOCKS.register("dryo_wall_hanging_sign", () -> new BlockUPWallHangingSign(BlockBehaviour.Properties.of().mapColor(DRYO_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0f).ignitedByLava().dropsLike(DRYO_HANGING_SIGN.get()), UPWoodTypes.DRYO));
 
-    public static final RegistryObject<WallSignBlock> DRYO_WALL_SIGN = BLOCKS.register("dryo_wall_sign", ()
-            -> new BlockUPWallSign(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(DRYO_SIGN.get()), UPWoodTypes.DRYO));
+    public static final RegistryObject<StandingSignBlock> DRYO_SIGN = BLOCKS.register("dryo_sign", () -> new BlockUPStandingSign(BlockBehaviour.Properties.of().mapColor(DRYO_LOG.get().defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.DRYO));
+    public static final RegistryObject<WallSignBlock> DRYO_WALL_SIGN = BLOCKS.register("dryo_wall_sign", () -> new BlockUPWallSign(BlockBehaviour.Properties.of().mapColor(DRYO_LOG.get().defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(DRYO_SIGN.get()), UPWoodTypes.DRYO));
 
     public static final RegistryObject<Block> DRYO_LEAVES = registerBlock("dryo_leaves",
             () -> new BlockBigLeavesArea(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(UPBlocks::never).isSuffocating(UPBlocks::never).isViewBlocking(UPBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(UPBlocks::never), 7, 60, 30, true));
@@ -636,11 +640,10 @@ public class UPBlocks {
     public static final RegistryObject<Block> ZULOAGAE_SAPLING = registerBlockWithoutBlockItem("zuloagae_sapling",
             () -> new BlockZuloagaeSapling(BlockBehaviour.Properties.copy(Blocks.BAMBOO_SAPLING).randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ)));
 
-    public static final RegistryObject<Block> GINKGO_SIGN = BLOCKS.register("ginkgo_sign", ()
-          -> new BlockUPStandingSign(BlockBehaviour.Properties.copy(GINKGO_PLANKS.get()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.GINKGO));
-
-    public static final RegistryObject<Block> GINKGO_WALL_SIGN = BLOCKS.register("ginkgo_wall_sign", ()
-           -> new BlockUPWallSign(BlockBehaviour.Properties.copy(GINKGO_PLANKS.get()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPWoodTypes.GINKGO));
+    public static final RegistryObject<Block> GINKGO_HANGING_SIGN = BLOCKS.register("ginkgo_hanging_sign", () -> new BlockUPHangingSign(BlockBehaviour.Properties.of().mapColor(GINKGO_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0f).ignitedByLava(), UPWoodTypes.GINKGO));
+    public static final RegistryObject<Block> GINKGO_WALL_HANGING_SIGN = BLOCKS.register("ginkgo_wall_hanging_sign", () -> new BlockUPWallHangingSign(BlockBehaviour.Properties.of().mapColor(GINKGO_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0f).ignitedByLava().dropsLike(GINKGO_HANGING_SIGN.get()), UPWoodTypes.GINKGO));
+    public static final RegistryObject<StandingSignBlock> GINKGO_SIGN = BLOCKS.register("ginkgo_sign", () -> new BlockUPStandingSign(BlockBehaviour.Properties.of().mapColor(GINKGO_LOG.get().defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), UPWoodTypes.GINKGO));
+    public static final RegistryObject<WallSignBlock> GINKGO_WALL_SIGN = BLOCKS.register("ginkgo_wall_sign", () -> new BlockUPWallSign(BlockBehaviour.Properties.of().mapColor(GINKGO_LOG.get().defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(GINKGO_SIGN.get()), UPWoodTypes.GINKGO));
 
     public static final RegistryObject<Block> PETRIFIED_WOOD_PLANKS = registerBlock("petrified_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
@@ -676,7 +679,7 @@ public class UPBlocks {
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).noOcclusion(), UPBlockSetType.PETRIFIED));
 
     public static final RegistryObject<ButtonBlock> PETRIFIED_WOOD_BUTTON = registerBlock("petrified_wood_button",
-            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON), UPBlockSetType.PETRIFIED,1,true));
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON), UPBlockSetType.PETRIFIED,30,true));
 
     public static final RegistryObject<PressurePlateBlock> PETRIFIED_WOOD_PRESSURE_PLATE = registerBlock("petrified_wood_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.STONE_PRESSURE_PLATE), UPBlockSetType.PETRIFIED));
@@ -769,7 +772,7 @@ public class UPBlocks {
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_TRAPDOOR).noOcclusion(), UPBlockSetType.ZULOAGAE));
 
     public static final RegistryObject<ButtonBlock> ZULOAGAE_BUTTON = registerBlock("zuloagae_button",
-            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_BUTTON), UPBlockSetType.ZULOAGAE,1,true));
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_BUTTON), UPBlockSetType.ZULOAGAE,30,true));
 
     public static final RegistryObject<PressurePlateBlock> ZULOAGAE_PRESSURE_PLATE = registerBlock("zuloagae_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.BAMBOO_PRESSURE_PLATE), UPBlockSetType.ZULOAGAE));

@@ -34,8 +34,11 @@ import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UPEntities {
     public static final List<RegistryObject<?>> dinos = new ArrayList<>();
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES,
-            UnusualPrehistory.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, UnusualPrehistory.MODID);
+
+    // Boat.
+    public static final RegistryObject<EntityType<UPBoatEntity>> BOAT = ENTITIES.register("boat", () -> EntityType.Builder.<UPBoatEntity>of(UPBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10).build(new ResourceLocation(UnusualPrehistory.MODID, "boat").toString()));
+    public static final RegistryObject<EntityType<UPChestBoatEntity>> CHEST_BOAT = ENTITIES.register("chest_boat", () -> EntityType.Builder.<UPChestBoatEntity>of(UPChestBoatEntity::new, MobCategory.MISC).sized(1.375f, 0.5625f).clientTrackingRange(10).build(new ResourceLocation(UnusualPrehistory.MODID, "chest_boat").toString()));
 
     // Paleo mobs
     public static final RegistryObject<EntityType<EntityAmmonite>> AMMON = ENTITIES.register("ammon",
@@ -78,6 +81,10 @@ public class UPEntities {
     public static final RegistryObject<EntityType<EntityAnurognathus>> ANURO = ENTITIES.register("anuro",
             () -> EntityType.Builder.of(EntityAnurognathus::new, MobCategory.CREATURE).sized(0.8f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "anuro").toString()));
+
+    public static final RegistryObject<EntityType<EntityArchelon>> ARCHELON = ENTITIES.register("archelon",
+            () -> EntityType.Builder.of(EntityArchelon::new, MobCategory.WATER_CREATURE).sized(3.5f, 1.1f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "archelon").toString()));
 
     public static final RegistryObject<EntityType<EntityAustroraptor>> AUSTRO = ENTITIES.register("austroraptor",
             () -> EntityType.Builder.of(EntityAustroraptor::new, MobCategory.CREATURE).sized(1.25F, 2.4F)
@@ -420,10 +427,7 @@ public class UPEntities {
 //                    .build(new ResourceLocation(UnusualPrehistory.MODID, "hynerpteon").toString()),
 //            EggSize.SMALL, 1200, 0x1c1614, 0xb6a339);
 
-//    public static final RegistryObject<EntityType<EntityArchelon>> ARCHELON = registerLandDinoWithEggs("archelon",
-//            () -> EntityType.Builder.of(EntityArchelon::new, MobCategory.WATER_CREATURE).sized(4.0f, 1.2f)
-//                    .build(new ResourceLocation(UnusualPrehistory.MODID, "archelon").toString()),
-//            EggSize.MEDIUM, 1200, 0x618b89, 0x171923);
+
 //    public static final RegistryObject<EntityType<EntityPterodaustro>> PTERODAUSTRO = registerLandDinoWithEggs("pterodaustro",
 //            () -> EntityType.Builder.of(EntityPterodaustro::new, MobCategory.CREATURE).sized(0.8f, 0.8f)
 //                    .build(new ResourceLocation(UnusualPrehistory.MODID, "pterodaustro").toString()),

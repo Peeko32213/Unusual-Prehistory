@@ -26,6 +26,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> COTY_HURT = createSoundEvent("coty_hurt");
     public static final RegistryObject<SoundEvent> COTY_DEATH = createSoundEvent("coty_death");
 
+    public static final RegistryObject<SoundEvent> AMMONITE_HURT = createSoundEvent("ammonite_hurt");
+    public static final RegistryObject<SoundEvent> AMMONITE_DEATH = createSoundEvent("ammonite_death");
+    public static final RegistryObject<SoundEvent> AMMONITE_FLOP = createSoundEvent("ammonite_flop");
+
     public static final RegistryObject<SoundEvent> DUNK_ATTACK = createSoundEvent("dunk_attack");
     public static final RegistryObject<SoundEvent> DUNK_DEATH = createSoundEvent("dunk_death");
     public static final RegistryObject<SoundEvent> DUNK_HURT = createSoundEvent("dunk_hurt");
@@ -35,8 +39,8 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> DIPLO_DEATH = createSoundEvent("diplo_hurt");
 
     public static final RegistryObject<SoundEvent> HYNERIA_ATTACK = createSoundEvent("hyneria_attack");
-    public static final RegistryObject<SoundEvent> HYNERIA_HURT = createSoundEvent("hyneria_death");
-    public static final RegistryObject<SoundEvent> HYNERIA_DEATH = createSoundEvent("hyneria_hurt");
+    public static final RegistryObject<SoundEvent> HYNERIA_HURT = createSoundEvent("hyneria_hurt");
+    public static final RegistryObject<SoundEvent> HYNERIA_DEATH = createSoundEvent("hyneria_death");
     public static final RegistryObject<SoundEvent> HYNERIA_JUMP = createSoundEvent("hyneria_jump");
 
     public static final RegistryObject<SoundEvent> BEELZE_IDLE = createSoundEvent("beelze_idle");
