@@ -20,20 +20,6 @@ public class CommonEvents {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
 
-        // Unfinished 1.6 stuff
-//        event.put(UPEntities.LONGISQUAMA.get(), EntityLongisquama.createAttributes().build()); //80% Done
-//        event.put(UPEntities.TARTUOSTEUS.get(), EntityTartuosteus.createAttributes().build()); //80% Done
-//        event.put(UPEntities.PSITTACO.get(), EntityPsittacosaurus.createAttributes().build()); //70% Done
-//        event.put(UPEntities.TANY.get(), EntityTanystropheus.createAttributes().build()); //70% Done
-//        event.put(UPEntities.KAPROSUCHUS.get(), EntityKaprosuchus.createAttributes().build()); //80% Done
-//        event.put(UPEntities.PSILOPTERUS.get(), EntityPsilopterus.createAttributes().build()); //80% Done
-//        event.put(UPEntities.HYNERPETON.get(), EntityHynerpeton.createAttributes().build()); //80% Done
-
-
-//        event.put(UPEntities.PTERODAUSTRO.get(), EntityPterodaustro.createAttributes().build());
-//        event.put(UPEntities.JAWLESS_FISH.get(), EntityJawlessFish.createAttributes().build()); //50% Done
-//        event.put(UPEntities.DINO_LAND_EGG.get(), LivingEntity.createLivingAttributes().build());
-
         // Paleo mobs
         event.put(UPEntities.AMMON.get(), AmmoniteEntity.createAttributes().build());
         event.put(UPEntities.COTY.get(), CotylorhynchusEntity.createAttributes().build());
@@ -41,8 +27,11 @@ public class CommonEvents {
         event.put(UPEntities.BABY_DUNK.get(), EntityBabyDunk.createAttributes().build());
         event.put(UPEntities.DIPLOCAULUS.get(), DiplocaulusEntity.createAttributes().build());
         event.put(UPEntities.HYNERIA.get(), HyneriaEntity.createAttributes().build());
+        event.put(UPEntities.HYNERPETON.get(), HynerpetonEntity.createAttributes().build());
+        event.put(UPEntities.JAWLESS_FISH.get(), JawlessFishEntity.createAttributes().build());
         event.put(UPEntities.SCAU.get(), ScaumenaciaEntity.createAttributes().build());
         event.put(UPEntities.STETHACANTHUS.get(), StethacanthusEntity.createAttributes().build());
+        event.put(UPEntities.TARTUOSTEUS.get(), TartuosteusEntity.createAttributes().build());
 
         // Meso mobs
         event.put(UPEntities.ANTARCO.get(), AntarctopeltaEntity.createAttributes().build());
@@ -55,13 +44,18 @@ public class CommonEvents {
         event.put(UPEntities.BRACHI.get(), BrachiosaurusEntity.createAttributes().build());
         event.put(UPEntities.ERYON.get(), EryonEntity.createAttributes().build());
         event.put(UPEntities.HWACHA.get(), HwachavenatorEntity.createAttributes().build());
+        event.put(UPEntities.KAPROSUCHUS.get(), KaprosuchusEntity.createAttributes().build());
         event.put(UPEntities.KENTRO.get(), KentrosaurusEntity.createAttributes().build());
         event.put(UPEntities.KIMMER.get(), KimmeridgebrachypteraeschnidiumEntity.createAttributes().build());
         event.put(UPEntities.LEEDSICHTHYS.get(), LeedsichthysEntity.createAttributes().build());
         event.put(UPEntities.LEEDS_PART.get(), LeedsichthysPartEntity.createAttributes().build());
+        event.put(UPEntities.LONGISQUAMA.get(), LongisquamaEntity.createAttributes().build());
         event.put(UPEntities.MAJUNGA.get(), MajungasaurusEntity.createAttributes().build());
         event.put(UPEntities.PACHY.get(), PachycephalosaurusEntity.createAttributes().build());
         event.put(UPEntities.PROTOSPHYRAENA.get(), ProtosphyraenaEntity.createAttributes().build());
+        event.put(UPEntities.PSITTACO.get(), PsittacosaurusEntity.createAttributes().build());
+        event.put(UPEntities.PTERODAUSTRO.get(), PterodaustroEntity.createAttributes().build());
+        event.put(UPEntities.TANY.get(), TanystropheusEntity.createAttributes().build());
         event.put(UPEntities.TRIKE.get(), TriceratopsEntity.createAttributes().build());
         event.put(UPEntities.REX.get(), TyrannosaurusEntity.createAttributes().build());
         event.put(UPEntities.ULUG.get(), UlughbegsaurusEntity.createAttributes().build());
@@ -79,6 +73,7 @@ public class CommonEvents {
         event.put(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartEntity.bakeAttributes().build());
         event.put(UPEntities.BABY_PALAEO.get(), PalaeolophisHatchlingEntity.createAttributes().build());
         event.put(UPEntities.PARACERATHERIUM.get(), ParaceratheriumEntity.createAttributes().build());
+        event.put(UPEntities.PSILOPTERUS.get(), PsilopterusEntity.createAttributes().build());
         event.put(UPEntities.SMILODON.get(), SmilodonEntity.createAttributes().build());
         event.put(UPEntities.TALPANAS.get(), TalpanasEntity.createAttributes().build());
 

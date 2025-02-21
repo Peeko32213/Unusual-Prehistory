@@ -80,7 +80,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         // Unused 1.6 stuff
         createFlatWaterEgg(UPBlocks.OPHIDION_EGGS.get());
         createFlatWaterEgg(UPBlocks.HYNERIA_EGGS.get());
-//        createFlatWaterEgg(UPBlocks.TARTUO_EGGS.get());
+        createFlatWaterEgg(UPBlocks.TARTUO_EGGS.get());
 
         createFlatWaterEgg(UPBlocks.DUNK_EGGS.get());
         createFlatWaterEgg(UPBlocks.STETHA_EGGS.get());

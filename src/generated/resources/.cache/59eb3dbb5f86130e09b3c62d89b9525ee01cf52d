@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-20T17:48:03.9810723	Loot Tables
+// 1.20.1	2025-02-20T20:41:23.0779943	Loot Tables
 aa0fbbdafff4a7570ffe9721402dbe44bccca34c data/unusualprehistory/loot_tables/blocks/amber_block.json
 7c3df34b96111b893727f05c09f92a8984a5ee13 data/unusualprehistory/loot_tables/blocks/ammon_eggs.json
 5a7e9b5100ec96e57ff7999308636d95f2de6440 data/unusualprehistory/loot_tables/blocks/antarcto_eggs.json
@@ -97,6 +97,7 @@ b6d42d15106db2f1e79039c5d4e481675cd07906 data/unusualprehistory/loot_tables/bloc
 11bfc5d2ea16141bc628d4ef608e9a37ec9a351b data/unusualprehistory/loot_tables/blocks/stripped_petrified_wood_log.json
 2920b8856f8befa9ce43d87137c4a60b926f3705 data/unusualprehistory/loot_tables/blocks/stripped_zuloagae_block.json
 4616e49859153b72f659ef08641322afa8060d0c data/unusualprehistory/loot_tables/blocks/talpanas_egg.json
+de897d797e8e7c2a2104890259229a8fb4798910 data/unusualprehistory/loot_tables/blocks/tartuo_eggs.json
 b2e5f3fac87e74ca19fcc7e64fa528a22032e773 data/unusualprehistory/loot_tables/blocks/trike_eggs.json
 a14ec669d40d18ac6fe5a2a3dd1537c94b6c52ba data/unusualprehistory/loot_tables/blocks/ulugh_eggs.json
 a103426d1b073cf03cd6971591856064228c850a data/unusualprehistory/loot_tables/blocks/ulugh_fossil.json

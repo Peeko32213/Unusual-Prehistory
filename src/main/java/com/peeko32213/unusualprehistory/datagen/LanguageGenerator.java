@@ -160,6 +160,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.DIPLOCAULUS_EGGS, "Diplocaulus Eggs");
         addBlock(UPBlocks.HYNERIA_EGGS, "Hyneria Eggs");
         addBlock(UPBlocks.OPHIDION_EGGS, "Ophiodon Eggs");
+        addBlock(UPBlocks.TARTUO_EGGS, "Tartuosteus Eggs");
 
         //SPAWN EGGS
         addItem(UPItems.AMMON_EGG, "Ammonite Spawn Egg");
@@ -203,6 +204,15 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.OTAROCYON_EGG, "Otarocyon Spawn Egg");
         addItem(UPItems.LEEDS_EGG, "Leedsichthys Spawn Egg");
         addItem(UPItems.ARCHELON_EGG, "Archelon Spawn Egg");
+        addItem(UPItems.TARTUOSTEUS_EGG, "Tartuosteus Spawn Egg");
+        addItem(UPItems.HYNERPETON_EGG, "Hynerpeton Spawn Egg");
+        addItem(UPItems.JAWLESS_FISH_EGG, "Jawless Fish Spawn Egg");
+        addItem(UPItems.PSITTACO_EGG, "Psittacosaurus Spawn Egg");
+        addItem(UPItems.KAPROSUCUHS_EGG, "Kaprosuchus Spawn Egg");
+        addItem(UPItems.LONGISQUAMA_EGG, "Longisquama Spawn Egg");
+        addItem(UPItems.PTERODAUSTRO_EGG, "Pteradaustro Spawn Egg");
+        addItem(UPItems.TANY_EGG, "Tanystropheus Spawn Egg");
+        addItem(UPItems.PSILOPTERUS_EGG, "Psilopterus Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -487,54 +497,66 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ANTARCTO_FOSSIL, "Antarctopelta Fossil");
         addBlock(UPBlocks.HWACHA_FOSSIL, "Hwachavenator Fossil");
 
-        //ENTITIES
+        // Entities
+
+        // Paleo mobs
         addEntityType(UPEntities.AMMON, "Ammonite");
-        addEntityType(UPEntities.STETHACANTHUS, "Stethacanthus");
-        addEntityType(UPEntities.MAJUNGA, "Majungasaurus");
-        addEntityType(UPEntities.ANURO, "Anurognathus");
-        addEntityType(UPEntities.BEELZ, "Beelzebufo");
-        addEntityType(UPEntities.BEELZE_TADPOLE, "Beelzebufo Tadpole");
+        addEntityType(UPEntities.COTY, "Cotylorhynchus");
+        addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
         addEntityType(UPEntities.DUNK, "Dunkleosteus");
         addEntityType(UPEntities.BABY_DUNK, "Baby Dunkleosteus");
-        addEntityType(UPEntities.COTY, "Cotylorhynchus");
-        addEntityType(UPEntities.TRIKE, "Triceratops");
-        addEntityType(UPEntities.PACHY, "Pachycephalosaurus");
-        addEntityType(UPEntities.BRACHI, "Brachiosaurus");
-        addEntityType(UPEntities.VELOCI, "Velociraptor");
-        addEntityType(UPEntities.REX, "Tyrannosaurus Rex");
-        addEntityType(UPEntities.ERYON, "Eryon");
-        addEntityType(UPEntities.ENCRUSTED, "Encrusted");
+        addEntityType(UPEntities.HYNERIA, "Hyneria");
+        addEntityType(UPEntities.HYNERPETON, "Hynerpeton");
         addEntityType(UPEntities.SCAU, "Scaumenacia");
-        addEntityType(UPEntities.AMBER_SHOT, "Amber Shot");
-        addEntityType(UPEntities.HWACHA_SPIKE, "Hwachavenator Pin");
-        addEntityType(UPEntities.AUSTRO, "Austroraptor");
+        addEntityType(UPEntities.STETHACANTHUS, "Stethacanthus");
+        addEntityType(UPEntities.TARTUOSTEUS, "Tartuosteus");
+
+        // Meso mobs
         addEntityType(UPEntities.ANTARCO, "Antarctopelta");
-        addEntityType(UPEntities.ULUG, "Ulughbegsaurus");
-        addEntityType(UPEntities.KENTRO, "Kentrosaurus");
+        addEntityType(UPEntities.ANURO, "Anurognathus");
+        addEntityType(UPEntities.ARCHELON, "Archelon");
+        addEntityType(UPEntities.AUSTRO, "Austroraptor");
+        addEntityType(UPEntities.BALAUR, "Balaur");
+        addEntityType(UPEntities.BEELZ, "Beelzebufo");
+        addEntityType(UPEntities.BEELZE_TADPOLE, "Beelzebufo Tadpole");
+        addEntityType(UPEntities.BRACHI, "Brachiosaurus");
+        addEntityType(UPEntities.ERYON, "Eryon");
         addEntityType(UPEntities.HWACHA, "Hwachavenator");
-        addEntityType(UPEntities.TALPANAS, "Talpanas");
-        addEntityType(UPEntities.GIGANTOPITHICUS, "Gigantopithecus");
-        addEntityType(UPEntities.SMILODON, "Smilodon");
+        addEntityType(UPEntities.KENTRO, "Kentrosaurus");
+        addEntityType(UPEntities.KIMMER, "Kimmeridgebrachypteraeschnidium");
+        addEntityType(UPEntities.MAJUNGA, "Majungasaurus");
+        addEntityType(UPEntities.PACHY, "Pachycephalosaurus");
+        addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
+        addEntityType(UPEntities.TRIKE, "Triceratops");
+        addEntityType(UPEntities.REX, "Tyrannosaurus Rex");
+        addEntityType(UPEntities.ULUG, "Ulughbegsaurus");
+        addEntityType(UPEntities.VELOCI, "Velociraptor");
+
+        // Ceno mobs
         addEntityType(UPEntities.BARINASUCHUS, "Barinasuchus");
-        addEntityType(UPEntities.PARACERATHERIUM, "Paraceratherium");
-        addEntityType(UPEntities.MEGATHERIUM, "Megatherium");
+        addEntityType(UPEntities.GIGANTOPITHICUS, "Gigantopithecus");
         addEntityType(UPEntities.MAMMOTH, "Mammoth");
         addEntityType(UPEntities.MEGALANIA, "Megalania");
+        addEntityType(UPEntities.MEGATHERIUM, "Megatherium");
+        addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");
         addEntityType(UPEntities.PALAEOPHIS, "Palaeolophis");
-        addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
-        addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-        addEntityType(UPEntities.BABY_PALAEO, "Palaeolophis Hatchling");
         addEntityType(UPEntities.PALAEOPHIS_PART, "Palaeophis Body");
+        addEntityType(UPEntities.BABY_PALAEO, "Palaeolophis Hatchling");
+        addEntityType(UPEntities.PARACERATHERIUM, "Paraceratherium");
+        addEntityType(UPEntities.SMILODON, "Smilodon");
+        addEntityType(UPEntities.TALPANAS, "Talpanas");
+
+        // Misc mobs
+        addEntityType(UPEntities.ENCRUSTED, "Encrusted");
         addEntityType(UPEntities.SLUDGE, "Sludge");
+
+        // Non-living mobs
+        addEntityType(UPEntities.AMBER_SHOT, "Amber Shot");
+        addEntityType(UPEntities.HWACHA_SPIKE, "Hwachavenator Pin");
         addEntityType(UPEntities.ICEBERG_MAMMOTH, "Frozen Mammoth");
         addEntityType(UPEntities.ICEBERG_SMILODON, "Frozen Smilodon");
-        addEntityType(UPEntities.KIMMER, "Kimmeridgebrachypteraeschnidium");
-        addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
-        addEntityType(UPEntities.HYNERIA, "Hyneria");
-        addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");
-        addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
-        addEntityType(UPEntities.BALAUR, "Balaur");
-        addEntityType(UPEntities.ARCHELON, "Archelon");
+        addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
+        addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
 
         // Boats
         addEntityType(UPEntities.BOAT, "Boat");
@@ -956,7 +978,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");
         addEffect(UPEffects.HEALTH_REDUCTION, "Draining Venom");
         addEffect(UPEffects.PISSED_UPON, "Soaked in Jarate");
-        addEffect(UPEffects.RABIES, "Yi Xian Rampage");
+        addEffect(UPEffects.YIXIAN_RAMPAGE, "Yixian Rampage");
         addEffect(UPEffects.RABIES_VACCINE, "M-Lyssavirus Vaccine");
 
         //BLOCK ENTITY TRANSLATABLE
@@ -1072,12 +1094,12 @@ public class LanguageGenerator extends LanguageProvider {
 //        addEntityType(UPEntities.OTAROCYON, "Otarocyon");
 //        addEntityType(UPEntities.LONGISQUAMA, "Longisquama");
 //        addEntityType(UPEntities.JAWLESS_FISH, "Furcacauda");
-//        addEntityType(UPEntities.TARTUOSTEUS, "Tartuosteus");
+
 //        addEntityType(UPEntities.PSITTACO, "Psittacosaurus");
 //        addEntityType(UPEntities.TANY, "Tanystropheus");
 //        addEntityType(UPEntities.KAPROSUCHUS, "Kaprosuchus");
 //        addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
-//        addEntityType(UPEntities.HYNERPETON, "Hynerpeton");
+
 
 //        addEntityType(UPEntities.LEEDSICHTHYS, "Leedsichthys");
 //        addEntityType(UPEntities.PTERODAUSTRO, "Pterodaustro");

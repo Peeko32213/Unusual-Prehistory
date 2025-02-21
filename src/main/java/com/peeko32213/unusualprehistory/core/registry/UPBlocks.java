@@ -118,6 +118,13 @@ public class UPBlocks {
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
+    public static final Supplier<Block> TARTUO_EGGS = create("tartuo_eggs",
+            () -> new DinosaurWaterEggBlock(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
+                    UPEntities.TARTUOSTEUS,
+                    false
+            ),
+            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+
     // Meso eggs
     public static final RegistryObject<Block> ANTARCO_EGG = registerBlock("antarcto_eggs",
             () -> new DinosaurLandEggBlock(
@@ -665,7 +672,7 @@ public class UPBlocks {
     }
 
     private static Boolean ocelotOrParrot(BlockState p_50822_, BlockGetter p_50823_, BlockPos p_50824_, EntityType<?> p_50825_) {
-        return (boolean)(p_50825_ == EntityType.OCELOT || p_50825_ == EntityType.PARROT);
+        return p_50825_ == EntityType.OCELOT || p_50825_ == EntityType.PARROT;
     }
 
     private static Boolean never(BlockState p_50779_, BlockGetter p_50780_, BlockPos p_50781_, EntityType<?> p_50782_) {
@@ -674,12 +681,7 @@ public class UPBlocks {
 }
 
 // Unused 1.6 stuff
-//    public static final Supplier<Block> TARTUO_EGGS = create("tartuo_eggs",
-//            () -> new BlockDinosaurWaterEggs(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
-//                    UPEntities.TARTUOSTEUS,
-//                    false
-//            ),
-//            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+
 //    public static final RegistryObject<Block> ELECTRIC_PILLAR = registerBlock("electric_pillar",
 //            () -> new BlockElectricPillar(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(1.5F).lightLevel((state -> 9)).emissiveRendering((state, level, pos) -> true).noOcclusion()));
 //    public static <B extends Block> RegistryObject<B> registerDino(String name, Supplier<? extends B> supplier) {

@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.item;
 
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -51,6 +52,7 @@ public class UPFood {
             .saturationMod(0.1F)
             .build();
 
+    public static final FoodProperties YIXIAN_SALIVA = (new FoodProperties.Builder()).nutrition(0).saturationMod(0).effect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), -1), 1).build();
 
     //Grogs
     public static final FoodProperties GROG = (new FoodProperties.Builder())
@@ -69,4 +71,3 @@ public class UPFood {
 
 //    public static final FoodProperties COOKED_FURCA = (new FoodProperties.Builder()).nutrition(2).saturationMod(1.4F).meat().fast().build();
 //    public static final FoodProperties COOKED_TARTU = (new FoodProperties.Builder()).nutrition(6).saturationMod(1.5F).meat().build();
-//    public static final FoodProperties RABID_SALIVA = (new FoodProperties.Builder()).nutrition(0).saturationMod(0).effect(new MobEffectInstance(UPEffects.RABIES.get(), -1), 1).build();

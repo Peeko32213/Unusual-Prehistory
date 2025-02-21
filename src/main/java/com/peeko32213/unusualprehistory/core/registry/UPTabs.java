@@ -279,6 +279,7 @@ public class UPTabs {
                     entries.accept(UPBlocks.HYNERIA_EGGS.get());
                     entries.accept(UPBlocks.SCAU_EGGS.get());
                     entries.accept(UPBlocks.STETHA_EGGS.get());
+                    entries.accept(UPBlocks.TARTUO_EGGS.get());
 
                     // Meso eggs
                     entries.accept(UPBlocks.ANTARCO_EGG.get());

@@ -24,8 +24,8 @@ public class RampageRemedyEffect extends MobEffect {
         if (!pLivingEntity.level().isClientSide && pLivingEntity instanceof ServerPlayer serverPlayer) {
 
             serverPlayer.getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(capability -> {
-                if (capability.playerVaccinationTime >= 100 && pLivingEntity.hasEffect(UPEffects.RABIES.get())) {
-                    pLivingEntity.removeEffect(UPEffects.RABIES.get());
+                if (capability.playerVaccinationTime >= 100 && pLivingEntity.hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
+                    pLivingEntity.removeEffect(UPEffects.YIXIAN_RAMPAGE.get());
                     capability.playersRabiesHadTime = 0;
                 }//remove rabies after sufficent time has passed, and SET RABIES TIMER TO ZERO
 
@@ -35,8 +35,8 @@ public class RampageRemedyEffect extends MobEffect {
 
         } else {
             pLivingEntity.getCapability(UPCapabilities.ANIMAL_CAPABILITY).ifPresent(capability -> {
-                if (capability.entityVaccinationTime >= 100 && pLivingEntity.hasEffect(UPEffects.RABIES.get())) {
-                    pLivingEntity.removeEffect(UPEffects.RABIES.get());
+                if (capability.entityVaccinationTime >= 100 && pLivingEntity.hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
+                    pLivingEntity.removeEffect(UPEffects.YIXIAN_RAMPAGE.get());
                     capability.entityRabiesHadTime = 0;
                 }//remove rabies after sufficent time has passed, and SET RABIES TIMER TO ZERO
 

@@ -75,6 +75,6 @@ public class RampageEffect extends MobEffect {
     }
 
     public String getDescriptionId() {
-        return "unusualprehistory.potion.rabies";
+        return "unusualprehistory.potion.rampage";
     }
 }

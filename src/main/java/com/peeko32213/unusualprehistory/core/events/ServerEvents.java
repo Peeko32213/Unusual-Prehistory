@@ -143,9 +143,9 @@ public class ServerEvents {
                 LivingEntity entity = event.getEntity();
                 Entity offender = event.getSource().getEntity();
 
-                if (offender instanceof LivingEntity && ((LivingEntity) offender).hasEffect(UPEffects.RABIES.get())) {
+                if (offender instanceof LivingEntity && ((LivingEntity) offender).hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
                     //rabies spread
-                    entity.addEffect(new MobEffectInstance(UPEffects.RABIES.get(), -1));
+                    entity.addEffect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), -1));
                     event.setAmount(event.getAmount()/4);
                     //rabid animals only deal quarter damage to each other
                 }
@@ -325,13 +325,13 @@ public class ServerEvents {
     public void rabiesFacilitatorEvent(LivingEvent.LivingTickEvent event) {
         Entity titty = event.getEntity();
 
-        if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.RABIES.get()) && !checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+        if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && !checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
             //has effect but has no piss(add)
             ((PathfinderMob) titty).goalSelector.addGoal(-1, new RabiesHuntGoal(((PathfinderMob) titty)));
             //TODO: Make rabies only manifest after a certain number of ticks
         }
 
-        if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.RABIES.get()) && checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+        if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
             //has no effect but has piss(remove)
             cutRabies(((PathfinderMob) titty));
         }
