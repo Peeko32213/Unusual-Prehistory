@@ -109,13 +109,14 @@ public class ItemModelGenerator extends ItemModelProvider {
 
         singleTex(UPItems.ZULOAGAE_SIGN);
         singleTex(UPItems.ZULOAGAE_HANGING_SIGN);
-//        singleTex(UPItems.RAW_FURCACAUDA);
-//        singleTex(UPItems.COOKED_FURCACAUDA);
-//        singleTex(UPItems.RAW_TARTU);
-//        singleTex(UPItems.COOKED_TARTU);
-//        singleTex(UPItems.PSITTACO_QUIL);
-//        singleTex(UPItems.PSITTACCO_ARROW);
-//        singleTex(UPItems.AMBER_IDOL);
+        singleTex(UPItems.RAW_FURCACAUDA);
+        singleTex(UPItems.COOKED_FURCACAUDA);
+        singleTex(UPItems.RAW_TARTU);
+        singleTex(UPItems.COOKED_TARTU);
+        singleTex(UPItems.PSITTACOSAURUS_QUILL);
+        singleTex(UPItems.PSITTACCO_ARROW);
+        singleTex(UPItems.AMBER_IDOL);
+        singleTex(UPItems.JARATE);
 
 //        singleTex(UPItems.PTERYDACTYLUS_FLASK);
 //        singleTex(UPItems.ERETMORPHIS_FLASK);
@@ -123,11 +124,6 @@ public class ItemModelGenerator extends ItemModelProvider {
 //        singleTex(UPItems.SCUTO_FLASK);
 //        singleTex(UPItems.ENCHODUS_FLASK);
 //        singleTex(UPItems.IGUANODON_FLASK);
-//        singleTex(UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD);
-//        toBlockModel(UPBlocks.ELECTRIC_PILLAR, "electric_pillar_bottom");
-//        for(RegistryObject<?> object : UPEntities.dinos) {
-//                addDinoEgg(object.getId());
-//        }
 
     }
     private void toBlock(RegistryObject<Block> b) {

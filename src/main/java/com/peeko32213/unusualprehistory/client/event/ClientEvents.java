@@ -14,6 +14,7 @@ import com.peeko32213.unusualprehistory.client.render.UPRenderUtils;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
+import com.peeko32213.unusualprehistory.client.render.projectile.*;
 import com.peeko32213.unusualprehistory.client.render.tool.FlatMovingThrownItemRenderer;
 import com.peeko32213.unusualprehistory.client.render.tool.UPBoatRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
@@ -34,6 +35,7 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -353,11 +355,8 @@ public final class ClientEvents {
 
         event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), FlatMovingThrownItemRenderer::new);
-//        event.registerEntityRenderer(UPEntities.T_JARATE.get(), TyrannosaurineJarateRenderer::new);
-
-
-//        EntityRenderers.register(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
-//        event.registerEntityRenderer(UPEntities.DINO_LAND_EGG.get(), DinosaurLandEggRenderer::new);
+        event.registerEntityRenderer(UPEntities.JARATE.get(), JarateRenderer::new);
+        event.registerEntityRenderer(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
 
         try {
             ItemProperties.register(UPItems.TRIKE_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);

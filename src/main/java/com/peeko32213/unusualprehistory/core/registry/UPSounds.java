@@ -74,11 +74,11 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> ENCRUSTED_MELEE = createSoundEvent("encrusted_step");
     public static final RegistryObject<SoundEvent> ENCRUSTED_SPIT = createSoundEvent("encrusted_spit");
 
-    public static final RegistryObject<SoundEvent> RAPTOR_ATTACK = createSoundEvent("raptor_attack");
-    public static final RegistryObject<SoundEvent> RAPTOR_DEATH = createSoundEvent("raptor_death");
-    public static final RegistryObject<SoundEvent> RAPTOR_HURT = createSoundEvent("raptor_hurt");
-    public static final RegistryObject<SoundEvent> RAPTOR_IDLE = createSoundEvent("raptor_idle");
-    public static final RegistryObject<SoundEvent> RAPTOR_SEARCH = createSoundEvent("raptor_search");
+    public static final RegistryObject<SoundEvent> RAPTOR_ATTACK = createSoundEvent("velociraptor_attack");
+    public static final RegistryObject<SoundEvent> RAPTOR_DEATH = createSoundEvent("velociraptor_death");
+    public static final RegistryObject<SoundEvent> RAPTOR_HURT = createSoundEvent("velociraptor_hurt");
+    public static final RegistryObject<SoundEvent> RAPTOR_IDLE = createSoundEvent("velociraptor_idle");
+    public static final RegistryObject<SoundEvent> RAPTOR_SEARCH = createSoundEvent("velociraptor_search");
 
     public static final RegistryObject<SoundEvent> PACHY_DEATH = createSoundEvent("pachy_death");
     public static final RegistryObject<SoundEvent> PACHY_HEADBUTT = createSoundEvent("pachy_headbutt");

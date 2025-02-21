@@ -638,12 +638,32 @@ public class UPItems {
             () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().stacksTo(1)));
 
+    public static final RegistryObject<Item> JARATE =  ITEMS.register("jarate", () -> new JarateItem((new Item.Properties()).stacksTo(16)));
+
+    public static final RegistryObject<Item> QUILL_VACCINE = ITEMS.register("quill_vaccine", () -> new RampageRemedyItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_FURCACAUDA = ITEMS.register("raw_furcacauda",
+            () -> new Item(new Item.Properties().food(UPFood.RAW_FURCA)));
+
+    public static final RegistryObject<Item> COOKED_FURCACAUDA = ITEMS.register("cooked_furcacauda",
+            () -> new Item(new Item.Properties().food(UPFood.COOKED_FURCA)));
+
+    public static final RegistryObject<Item> RAW_TARTU = ITEMS.register("raw_tartuosteus",
+            () -> new Item(new Item.Properties().food(UPFood.RAW_TARTU)));
+
+    public static final RegistryObject<Item> COOKED_TARTU = ITEMS.register("cooked_tartuosteus",
+            () -> new Item(new Item.Properties().food(UPFood.COOKED_TARTU)));
+
+    public static final RegistryObject<Item> AMBER_IDOL = ITEMS.register("amber_idol",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PSITTACCO_ARROW = ITEMS.register("psittaco_arrow", () -> new PsittaccoArrow(new Item.Properties().rarity(Rarity.RARE)));
+
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties()));
     }
 }
 
-// Unfinished 1.6 stuff
 //    public static final RegistryObject<Item> PTERYDACTYLUS_FLASK = ITEMS.register("pterydactylus_flask",
 //            () -> new Item(new Item.Properties()));
 //    public static final RegistryObject<Item> ERETMORPHIS_FLASK = ITEMS.register("eretmorhipis_flask",
@@ -659,30 +679,7 @@ public class UPItems {
 
 
 
-//    public static final RegistryObject<Item> T_JARATE =  ITEMS.register("t_jarate", () -> new TyrannosaurineJarateItem((new Item.Properties()).stacksTo(16)));
 
 
-//    public static final RegistryObject<Item> QUILL_VACCINE = ITEMS.register("quill_vaccine", () -> new QuillVaccineRabiesItem(new Item.Properties()));
-//    public static final RegistryObject<Item> RAW_FURCACAUDA = ITEMS.register("raw_furcacauda",
-//            () -> new Item(new Item.Properties().food(ModFood.RAW_FURCA)));
-//    public static final RegistryObject<Item> COOKED_FURCACAUDA = ITEMS.register("cooked_furcacauda",
-//            () -> new Item(new Item.Properties().food(ModFood.COOKED_FURCA)));
-//    public static final RegistryObject<Item> RAW_TARTU = ITEMS.register("raw_tartuosteus",
-//            () -> new Item(new Item.Properties().food(ModFood.RAW_TARTU)));
-//    public static final RegistryObject<Item> COOKED_TARTU = ITEMS.register("cooked_tartuosteus",
-//            () -> new Item(new Item.Properties().food(ModFood.COOKED_TARTU)));
 
-//    public static final RegistryObject<Item> AMBER_IDOL = ITEMS.register("amber_idol",
-//            () -> new Item(new Item.Properties()));
-//    public static final RegistryObject<Item> PSITTACCO_ARROW = ITEMS.register("psittaco_arrow", () -> new PsittaccoArrow(new Item.Properties().rarity(Rarity.RARE)));
-//    private static final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
-//    private static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
-//    private static final Component TRIKE_SHIELD_UPGRADE_APPLIES_TO = Component.translatable(Util.makeDescriptionId("item", prefix("smithing_template.trike_shield.applies_to"))).withStyle(DESCRIPTION_FORMAT);
-//    private static final Component TRIKE_SHIELD_UPGRADE_INGREDIENTS = Component.translatable(Util.makeDescriptionId("item", prefix("smithing_template.trike_shield.ingredients"))).withStyle(DESCRIPTION_FORMAT);
-//    private static final Component TRIKE_SHIELD_UPGRADE = Component.translatable(Util.makeDescriptionId("upgrade", prefix("trike_shield_upgrade"))).withStyle(TITLE_FORMAT);
-//    private static final Component TRIKE_SHIELD_UPGRADE_BASE_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", prefix("smithing_template.trike_shield.base_slot_description")));
-//    private static final Component TRIKE_SHIELD_UPGRADE_ADDITIONS_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", prefix("smithing_template.trike_shield.additions_slot_description")));
-//    private static final ResourceLocation EMPTY_SLOT_SHIELD = prefix("item/empty_armor_slot_shield");
-//    private static final ResourceLocation EMPTY_SLOT_HORN = prefix("item/empty_slot_horn");
-//    public static final RegistryObject<Item> SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD = ITEMS.register("trike_shield_upgrade_smithing_template",
-//            () -> new SmithingTemplateItem(TRIKE_SHIELD_UPGRADE_APPLIES_TO, TRIKE_SHIELD_UPGRADE_INGREDIENTS, TRIKE_SHIELD_UPGRADE, TRIKE_SHIELD_UPGRADE_BASE_SLOT_DESCRIPTION, TRIKE_SHIELD_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, List.of(EMPTY_SLOT_SHIELD), List.of(EMPTY_SLOT_HORN)));
+
