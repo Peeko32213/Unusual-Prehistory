@@ -1,7 +1,27 @@
 changes:
-- Added Kimmeridgebrachypteraeschnidium
+- Added Archelon
+- Added Balaur
 - Added Diplocaulus
+- Added Edaphosaurus
+- Added Estemmenosuchus
+- Added Globidens
 - Added Hyneria
+- Added Hynerpeton
+- Added Kaprosuchus
+- Added Kimmeridgebrachypteraeschnidium
+- Added Leedsichthys
+- Added Longisquama
+- Added Ophiodon Ozymandias
+- Added Otarocyon
+- Added Oviraptor
+- Added Xiphactinus
+- Added Protosphyraena
+- Added Psittacosaurus
+- Added Pterodaustro
+- Added Pterygotus
+- Added Tanystropheus
+- Added Telecrex
+
 - Changed lang for better consistency with vanilla mc:
     - DNA Flask -> Flask of DNA
     - Flask -> Glass Flask
@@ -35,7 +55,6 @@ changes:
 - Screen shake effect only gets applied to players
 - Changed a bunch of sounds to mono that were stereo
 - Lowered the volume of many mobs
-  
 - Mammoth meatball stacks to 16 instead of 8
 - Meaty buffet stacks to 16 instead of 64
 - Handmade spear revamp:
@@ -45,7 +64,8 @@ changes:
     - Right-clicking launches you upward a bit, can work as a double jump or be used for keeping things in the air longer
     - Increased attack speed
     - Lowered damage
-
+- Added hanging signs and boats for all wood types
+- Added amber glass pane
 - Misc fixes and stuff
 
 to do:
