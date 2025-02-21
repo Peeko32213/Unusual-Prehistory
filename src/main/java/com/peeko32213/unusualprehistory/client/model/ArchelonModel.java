@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityArchelon;
+import com.peeko32213.unusualprehistory.common.entity.ArchelonEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,28 +12,28 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class ArchelonModel extends GeoModel<EntityArchelon>
+public class ArchelonModel extends GeoModel<ArchelonEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityArchelon object)
+    public ResourceLocation getModelResource(ArchelonEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/archelon.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityArchelon object)
+    public ResourceLocation getTextureResource(ArchelonEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/archelon.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityArchelon object)
+    public ResourceLocation getAnimationResource(ArchelonEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/archelon.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityArchelon animatable, long instanceId, AnimationState<EntityArchelon> animationState) {
+    public void setCustomAnimations(ArchelonEntity animatable, long instanceId, AnimationState<ArchelonEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         CoreGeoBone root = this.getAnimationProcessor().getBone("Body");

@@ -1,13 +1,13 @@
 package com.peeko32213.unusualprehistory.client.model;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartIndex;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class PalaeophisPartModel extends GeoModel<EntityPalaeophisPart> {
+public class PalaeophisPartModel extends GeoModel<PalaeophisPartEntity> {
     private ResourceLocation neckModel = prefix("geo/palaeophis/palaeophis_neck.geo.json");
     private ResourceLocation bodyModel = prefix("geo/palaeophis/palaeophis_body.geo.json");
     private ResourceLocation bodyFinModel = prefix("geo/palaeophis/palaeophis_body_fin.geo.json");
@@ -39,12 +39,12 @@ public class PalaeophisPartModel extends GeoModel<EntityPalaeophisPart> {
     private ResourceLocation finTextureShedDeep = prefix("textures/entity/palaeophis/palaeophis_deep_fin_shed.png");
 
     @Override
-    public ResourceLocation getModelResource(EntityPalaeophisPart object) {
+    public ResourceLocation getModelResource(PalaeophisPartEntity object) {
         return getModelForType(object.getPartType());
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityPalaeophisPart object) {
+    public ResourceLocation getTextureResource(PalaeophisPartEntity object) {
         if(object.getVariant() == 1){
 
             if(object.isShedding()){
@@ -61,7 +61,7 @@ public class PalaeophisPartModel extends GeoModel<EntityPalaeophisPart> {
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityPalaeophisPart animatable) {
+    public ResourceLocation getAnimationResource(PalaeophisPartEntity animatable) {
         return null;
     }
 

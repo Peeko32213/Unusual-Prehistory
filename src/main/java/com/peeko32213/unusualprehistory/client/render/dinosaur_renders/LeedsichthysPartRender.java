@@ -3,20 +3,20 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.peeko32213.unusualprehistory.client.model.LeedsichthysPartModel;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityLeedsichthysPart;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.LeedsichthysPartEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class LeedsichthysPartRender extends GeoEntityRenderer<EntityLeedsichthysPart> {
+public class LeedsichthysPartRender extends GeoEntityRenderer<LeedsichthysPartEntity> {
     public LeedsichthysPartRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new LeedsichthysPartModel());
     }
 
     @Override
-    protected void applyRotations(EntityLeedsichthysPart entity, PoseStack stack, float ageInTicks, float rotationYaw, float partialTickTime) {
+    protected void applyRotations(LeedsichthysPartEntity entity, PoseStack stack, float ageInTicks, float rotationYaw, float partialTickTime) {
         float newYaw = entity.yHeadRot;
         //if (this.isShaking(entity)) {
         //    newYaw += (float)(Math.cos((double)entity.tickCount * 3.25D) * Math.PI * (double)0.4F);
@@ -46,7 +46,7 @@ public class LeedsichthysPartRender extends GeoEntityRenderer<EntityLeedsichthys
         }
     }
 
-    public boolean shouldShowName(EntityLeedsichthysPart entity) {
+    public boolean shouldShowName(LeedsichthysPartEntity entity) {
         return super.shouldShowName(entity) && (entity.shouldShowName() || entity.hasCustomName() && entity == this.entityRenderDispatcher.crosshairPickEntity);
     }
 }

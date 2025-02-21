@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityUlughbegsaurus;
+import com.peeko32213.unusualprehistory.common.entity.UlughbegsaurusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -11,7 +11,7 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class UlughbegsaurusModel extends GeoModel<EntityUlughbegsaurus>
+public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
 {
     private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus.png");
     private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_yellow.png");
@@ -20,13 +20,13 @@ public class UlughbegsaurusModel extends GeoModel<EntityUlughbegsaurus>
     private static final ResourceLocation TEXTURE_BROWN = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_brown.png");
 
     @Override
-    public ResourceLocation getModelResource(EntityUlughbegsaurus object)
+    public ResourceLocation getModelResource(UlughbegsaurusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/ulughbegsaurus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityUlughbegsaurus object)
+    public ResourceLocation getTextureResource(UlughbegsaurusEntity object)
     {
         return switch (object.getVariant()) {
             case 1 -> TEXTURE_WHITE;
@@ -38,13 +38,13 @@ public class UlughbegsaurusModel extends GeoModel<EntityUlughbegsaurus>
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityUlughbegsaurus object)
+    public ResourceLocation getAnimationResource(UlughbegsaurusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/ulughbegsaurus.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityUlughbegsaurus animatable, long instanceId, AnimationState<EntityUlughbegsaurus> animationState) {
+    public void setCustomAnimations(UlughbegsaurusEntity animatable, long instanceId, AnimationState<UlughbegsaurusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

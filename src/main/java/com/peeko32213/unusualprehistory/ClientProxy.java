@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.screen.util.BookScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,6 +18,13 @@ public class ClientProxy extends CommonProxy  {
     }
     public void openBookGUI(ResourceLocation resourceLocation) {
         Minecraft.getInstance().setScreen(new BookScreen(resourceLocation, 0));
+    }
+
+    @SuppressWarnings({ "deprecation" })
+    public static void setupBlockRenders() {
+        RenderType cutoutRenderType = RenderType.cutout();
+        RenderType cutoutMippedRenderType = RenderType.cutoutMipped();
+        RenderType translucentRenderType = RenderType.translucent();
     }
 }
 

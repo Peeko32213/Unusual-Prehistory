@@ -252,7 +252,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get())
                 .add(UPBlocks.DRYO_PLANKS.get())
                 .add(UPBlocks.GINKGO_WALL_SIGN.get())
-                .add(UPBlocks.FOXXI_WALL_SIGN.get())
+                .add(UPBlocks.FOXII_WALL_SIGN.get())
                 .add(UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get())
                 .add(UPBlocks.DRYO_WALL_SIGN.get())
                 .add(UPBlocks.GINKGO_DOOR.get())
@@ -367,7 +367,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
         tag(BlockTags.STANDING_SIGNS)
                 .add(UPBlocks.GINKGO_SIGN.get())
                 .add(UPBlocks.PETRIFIED_WOOD_SIGN.get())
-                .add(UPBlocks.FOXXI_SIGN.get())
+                .add(UPBlocks.FOXII_SIGN.get())
                 .add(UPBlocks.DRYO_SIGN.get());
 
         tag(BlockTags.TALL_FLOWERS)

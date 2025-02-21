@@ -1,11 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityHyneria;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
+import com.peeko32213.unusualprehistory.common.entity.HyneriaEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.goal.JumpGoal;
@@ -14,11 +12,11 @@ import net.minecraft.world.phys.Vec3;
 
 public class HyneriaJumpGoal extends JumpGoal {
     private static final int[] STEPS_TO_CHECK = new int[]{0, 1, 4, 5, 6, 7};
-    private final EntityHyneria dolphin;
+    private final HyneriaEntity dolphin;
     private final int interval;
     public boolean breached;
 
-    public HyneriaJumpGoal(EntityHyneria pDolphin, int pInterval) {
+    public HyneriaJumpGoal(HyneriaEntity pDolphin, int pInterval) {
         this.dolphin = pDolphin;
         this.interval = reducedTickDelay(pInterval);
     }

@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityTyrannosaurusRex;
+import com.peeko32213.unusualprehistory.common.entity.TyrannosaurusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -10,10 +10,10 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class TyrannosaurusRexModel extends GeoModel<EntityTyrannosaurusRex> {
+public class TyrannosaurusRexModel extends GeoModel<TyrannosaurusEntity> {
 
     @Override
-    public ResourceLocation getModelResource(EntityTyrannosaurusRex rex) {
+    public ResourceLocation getModelResource(TyrannosaurusEntity rex) {
         if(rex.isBaby()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus_rex/tyrannosaurus_rex_baby.geo.json");
         } else {
@@ -22,7 +22,7 @@ public class TyrannosaurusRexModel extends GeoModel<EntityTyrannosaurusRex> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityTyrannosaurusRex rex) {
+    public ResourceLocation getTextureResource(TyrannosaurusEntity rex) {
         if(rex.isBaby()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus_rex/tyrannosaurus_rex_baby.png");
         } else if(rex.hasEepy() && !rex.isBaby()) {
@@ -33,7 +33,7 @@ public class TyrannosaurusRexModel extends GeoModel<EntityTyrannosaurusRex> {
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityTyrannosaurusRex rex) {
+    public ResourceLocation getAnimationResource(TyrannosaurusEntity rex) {
         if(rex.isBaby()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus_rex/tyrannosaurus_rex_baby.animation.json");
         } else {
@@ -42,7 +42,7 @@ public class TyrannosaurusRexModel extends GeoModel<EntityTyrannosaurusRex> {
     }
 
     @Override
-    public void setCustomAnimations(EntityTyrannosaurusRex animatable, long instanceId, AnimationState<EntityTyrannosaurusRex> animationState) {
+    public void setCustomAnimations(TyrannosaurusEntity animatable, long instanceId, AnimationState<TyrannosaurusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

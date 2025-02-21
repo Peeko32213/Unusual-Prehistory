@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
+import com.peeko32213.unusualprehistory.common.entity.AnurognathusEntity;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -17,11 +17,11 @@ import net.minecraft.world.phys.Vec3;
 
 public class AnuroPolinateGoal extends MoveToBlockGoal {
 
-    private EntityAnurognathus anuro;
+    private AnurognathusEntity anuro;
     private int idleAtFlowerTime = 0;
     private boolean isAboveDestination;
 
-    public AnuroPolinateGoal(EntityAnurognathus anuro) {
+    public AnuroPolinateGoal(AnurognathusEntity anuro) {
         super(anuro, 1D, 32, 8);
         this.anuro = anuro;
     }

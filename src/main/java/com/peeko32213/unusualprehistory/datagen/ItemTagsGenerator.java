@@ -232,7 +232,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(ItemTags.SIGNS)
                .add(UPBlocks.GINKGO_SIGN.get().asItem())
-               .add(UPBlocks.FOXXI_SIGN.get().asItem())
+               .add(UPBlocks.FOXII_SIGN.get().asItem())
                .add(UPBlocks.DRYO_SIGN.get().asItem())
                .add(UPBlocks.PETRIFIED_WOOD_SIGN.get().asItem());
 

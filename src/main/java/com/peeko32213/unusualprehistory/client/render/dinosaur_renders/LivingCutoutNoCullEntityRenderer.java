@@ -29,19 +29,19 @@ public class LivingCutoutNoCullEntityRenderer<T extends LivingEntity & GeoAnimat
     public void preRender(PoseStack stackIn, T animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.preRender(stackIn, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
 
-        if(animatable instanceof EntityDiplocaulus diplocaulus) {
+        if(animatable instanceof DiplocaulusEntity diplocaulus) {
             if(diplocaulus.isBaby()) stackIn.scale(0.7F, 0.7F, 0.7F);
         }
 
-        if(animatable instanceof EntityHyneria hyneria) {
+        if(animatable instanceof HyneriaEntity hyneria) {
             if(hyneria.isBaby()) stackIn.scale(0.65F, 0.65F, 0.65F);
         }
 
-        if(animatable instanceof EntityBarinasuchus barinasuchus) {
+        if(animatable instanceof BarinasuchusEntity barinasuchus) {
             if(barinasuchus.isBaby()) stackIn.scale(0.55F, 0.55F, 0.55F);
         }
 
-        if(animatable instanceof EntityOtarocyon otarocyon) {
+        if(animatable instanceof OtarocyonEntity otarocyon) {
             if(otarocyon.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
         }
 

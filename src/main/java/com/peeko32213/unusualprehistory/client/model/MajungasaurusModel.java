@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityMajungasaurus;
+import com.peeko32213.unusualprehistory.common.entity.MajungasaurusEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -13,33 +13,33 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class MajungasaurusModel extends GeoModel<EntityMajungasaurus>
+public class MajungasaurusModel extends GeoModel<MajungasaurusEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityMajungasaurus object)
+    public ResourceLocation getModelResource(MajungasaurusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/majungasaurus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityMajungasaurus object)
+    public ResourceLocation getTextureResource(MajungasaurusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/majungasaurus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityMajungasaurus object)
+    public ResourceLocation getAnimationResource(MajungasaurusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/majungasaurus.animation.json");
     }
 
-    public RenderType getRenderType(EntityMajungasaurus animatable, ResourceLocation texture) {
+    public RenderType getRenderType(MajungasaurusEntity animatable, ResourceLocation texture) {
         return RenderType.entityTranslucent(getTextureResource(animatable));
     }
 
 
     @Override
-    public void setCustomAnimations(EntityMajungasaurus animatable, long instanceId, AnimationState<EntityMajungasaurus> animationState) {
+    public void setCustomAnimations(MajungasaurusEntity animatable, long instanceId, AnimationState<MajungasaurusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

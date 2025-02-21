@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.item;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityBarinasuchus;
+import com.peeko32213.unusualprehistory.common.entity.BarinasuchusEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPAdvancementTriggerRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -97,7 +97,7 @@ public class MusicalTameItem extends Item {
                 MutableComponent mutableComponentTame = Component.translatable(toTame.getType().getDescriptionId()).withStyle(ChatFormatting.GREEN);
 
                 if (toTameList.get(0).isTame()) {
-                    if(toTameList.get(0) instanceof EntityBarinasuchus) {
+                    if(toTameList.get(0) instanceof BarinasuchusEntity) {
                         UPAdvancementTriggerRegistry.BARINA_TRIGGER.trigger(player, player.blockPosition(), this.getDefaultInstance());
                     }
                     player.displayClientMessage(Component.translatable("unusualprehistory.musical_tame.tame", mutableComponentTame).withStyle(ChatFormatting.GREEN), true);

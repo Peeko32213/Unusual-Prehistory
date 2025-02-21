@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.common.entity.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -15,7 +15,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 import java.util.Locale;
 
-public class DinosaurRenderer<T extends EntityBaseDinosaurAnimal> extends GeoEntityRenderer<T> {
+public class DinosaurRenderer<T extends BaseDinosaurAnimalEntity> extends GeoEntityRenderer<T> {
 
     public DinosaurRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
@@ -30,49 +30,49 @@ public class DinosaurRenderer<T extends EntityBaseDinosaurAnimal> extends GeoEnt
     public void preRender(PoseStack stackIn, T animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.preRender(stackIn, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
 
-        if (animatable instanceof EntityVelociraptor velociraptor) {
+        if (animatable instanceof VelociraptorEntity velociraptor) {
 
             if (velociraptor.hasCustomName() && "gigantoraptor".equals(velociraptor.getName().getString().toLowerCase(Locale.ROOT)) && !velociraptor.isBaby()) {
                 stackIn.scale(2F, 2F, 2F);
                 return;
             }
         }
-        if(animatable instanceof EntityAustroraptor austroraptor) {
+        if(animatable instanceof AustroraptorEntity austroraptor) {
             if(austroraptor.isBaby()) stackIn.scale(0.3F, 0.3F, 0.3F);
             return;
         }
 
-        if(animatable instanceof EntityMegalania megalania) {
+        if(animatable instanceof MegalaniaEntity megalania) {
             if(megalania.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
             return;
         }
 
-        if(animatable instanceof EntityTyrannosaurusRex rex) {
+        if(animatable instanceof TyrannosaurusEntity rex) {
             if(rex.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
             return;
         }
 
-        if(animatable instanceof EntitySmilodon smilodon) {
+        if(animatable instanceof SmilodonEntity smilodon) {
             if(smilodon.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
             return;
         }
 
-        if(animatable instanceof EntityBrachiosaurus brachiosaurus) {
+        if(animatable instanceof BrachiosaurusEntity brachiosaurus) {
             if(brachiosaurus.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
             return;
         }
 
-        if(animatable instanceof EntityMammoth mammoth) {
+        if(animatable instanceof MammothEntity mammoth) {
             if(mammoth.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
             return;
         }
 
-        if(animatable instanceof EntityParaceratherium paraceratherium) {
+        if(animatable instanceof ParaceratheriumEntity paraceratherium) {
             if(paraceratherium.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
             return;
         }
 
-        if(animatable instanceof EntityGigantopithicus gigantopithicus) {
+        if(animatable instanceof GigantopithicusEntity gigantopithicus) {
             if(gigantopithicus.isBaby()) stackIn.scale(0.35F, 0.35F, 0.35F);
             return;
         }

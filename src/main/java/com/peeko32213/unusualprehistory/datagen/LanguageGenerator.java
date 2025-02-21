@@ -326,6 +326,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.CULTIVATOR, "Cultivator");
         addBlock(UPBlocks.DNA_FRIDGE, "DNA Fridge");
         addBlock(UPBlocks.AMBER_GLASS, "Amber Glass");
+        addBlock(UPBlocks.AMBER_GLASS_PANE, "Amber Glass Pane");
         addBlock(UPBlocks.REX_HEAD, "Tyrannosaurus Head Mount");
         addBlock(UPBlocks.AMMONITE_SHELL, "Ammonite Shell");
         addBlock(UPBlocks.REX_BOOMBOX, "Rex Boombox");
@@ -395,7 +396,12 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.FOXXI_DOOR, "Foxii Door");
         addBlock(UPBlocks.FOXXI_TRAPDOOR, "Foxii Trapdoor");
         addBlock(UPBlocks.FOXII_SAPLING, "Foxii Sapling");
-        addItem(UPItems.FOXXI_WOOD_SIGN, "Foxii Sign");
+//        addBlock(UPBlocks.FOXII_SIGN, "Foxii Sign");
+//        addBlock(UPBlocks.FOXII_WALL_SIGN, "Foxii Wall Sign");
+//        addBlock(UPBlocks.FOXII_HANGING_SIGN, "Foxii Hanging Sign");
+//        addBlock(UPBlocks.FOXII_WALL_HANGING_SIGN, "Foxii Wall Hanging Sign");
+        addItem(UPItems.FOXII_SIGN, "Foxii Sign");
+        addItem(UPItems.FOXII_HANGING_SIGN, "Foxii Hanging Sign");
 
         //DRYO
         addBlock(UPBlocks.DRYO_PLANKS, "Dryophyllum Planks");
@@ -413,6 +419,10 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.DRYO_DOOR, "Dryophyllum Door");
         addBlock(UPBlocks.DRYO_TRAPDOOR, "Dryophyllum Trapdoor");
         addBlock(UPBlocks.DRYO_SAPLING, "Dryophyllum Sapling");
+//        addBlock(UPBlocks.DRYO_SIGN, "Dryophyllum Sign");
+//        addBlock(UPBlocks.DRYO_WALL_SIGN, "Dryophyllum Wall Sign");
+//        addBlock(UPBlocks.DRYO_HANGING_SIGN, "Dryophyllum Hanging Sign");
+//        addBlock(UPBlocks.DRYO_WALL_HANGING_SIGN, "Dryophyllum Wall Hanging Sign");
         addItem(UPItems.DRYO_SIGN, "Dryophyllum Sign");
         addItem(UPItems.DRYO_HANGING_SIGN, "Dryophyllum Hanging Sign");
 
@@ -430,10 +440,15 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.PETRIFIED_WOOD_TRAPDOOR, "Petrified Trapdoor");
         addBlock(UPBlocks.PETRIFIED_WOOD_BUTTON, "Petrified Button");
         addBlock(UPBlocks.PETRIFIED_WOOD_PRESSURE_PLATE, "Petrified Pressure Plate");
-        addItem(UPItems.PETRIFIED_WOOD_SIGN, "Petrified Sign");
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD, "Polished Petrified Wood");
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS, "Polished Petrified Wood Stairs");
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB, "Polished Petrified Wood Slab");
+//        addBlock(UPBlocks.PETRIFIED_WOOD_SIGN, "Petrified Sign");
+//        addBlock(UPBlocks.PETRIFIED_WOOD_WALL_SIGN, "Petrified Wall Sign");
+//        addBlock(UPBlocks.PETRIFIED_WOOD_HANGING_SIGN, "Petrified Hanging Sign");
+//        addBlock(UPBlocks.PETRIFIED_WOOD_WALL_HANGING_SIGN, "Petrified Wall Hanging Sign");
+        addItem(UPItems.PETRIFIED_WOOD_SIGN, "Petrified Sign");
+        addItem(UPItems.PETRIFIED_WOOD_HANGING_SIGN, "Petrified Hanging Sign");
 
         //FOXXI
         addBlock(UPBlocks.ZULOAGAE_BLOCK, "Zuloagae Block");
@@ -447,6 +462,12 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ZULOAGAE_PRESSURE_PLATE, "Zuloagae Pressure Plate");
         addBlock(UPBlocks.ZULOAGAE_DOOR, "Zuloagae Door");
         addBlock(UPBlocks.ZULOAGAE_TRAPDOOR, "Zuloagae Trapdoor");
+//        addBlock(UPBlocks.ZULOAGAE_SIGN, "Zuloagae Sign");
+//        addBlock(UPBlocks.ZULOAGAE_WALL_SIGN, "Zuloagae Wall Sign");
+//        addBlock(UPBlocks.ZULOAGAE_HANGING_SIGN, "Zuloagae Hanging Sign");
+//        addBlock(UPBlocks.ZULOAGAE_WALL_HANGING_SIGN, "Zuloagae Wall Hanging Sign");
+        addItem(UPItems.ZULOAGAE_SIGN, "Zuloagae Sign");
+        addItem(UPItems.ZULOAGAE_HANGING_SIGN, "Zuloagae Hanging Sign");
 
         //FOSSILS
         addBlock(UPBlocks.COTY_FOSSIL, "Cotylorhynchus Fossil");

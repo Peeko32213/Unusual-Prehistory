@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
+import com.peeko32213.unusualprehistory.common.entity.SmilodonEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -10,7 +10,7 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class SmilodonModel extends GeoModel<EntitySmilodon> {
+public class SmilodonModel extends GeoModel<SmilodonEntity> {
 
     private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon.png");
     private static final ResourceLocation TEXTURE_OCELOT = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot.png");
@@ -19,7 +19,7 @@ public class SmilodonModel extends GeoModel<EntitySmilodon> {
     private static final ResourceLocation TEXTURE_OCELOT_BABY = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot_baby.png");
 
     @Override
-    public ResourceLocation getModelResource(EntitySmilodon smilodon) {
+    public ResourceLocation getModelResource(SmilodonEntity smilodon) {
         if(smilodon.isBaby()){
             return new ResourceLocation(UnusualPrehistory.MODID, "geo/smilodon/smilodon_baby.geo.json");
         } else {
@@ -28,7 +28,7 @@ public class SmilodonModel extends GeoModel<EntitySmilodon> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntitySmilodon smilodon)
+    public ResourceLocation getTextureResource(SmilodonEntity smilodon)
     {
         if (smilodon.isBaby()) {
             return switch (smilodon.getVariant()) {
@@ -44,7 +44,7 @@ public class SmilodonModel extends GeoModel<EntitySmilodon> {
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntitySmilodon smilodon) {
+    public ResourceLocation getAnimationResource(SmilodonEntity smilodon) {
         if(smilodon.isBaby()){
             return new ResourceLocation(UnusualPrehistory.MODID, "animations/smilodon/smilodon_baby.animation.json");
         } else {
@@ -53,7 +53,7 @@ public class SmilodonModel extends GeoModel<EntitySmilodon> {
     }
 
     @Override
-    public void setCustomAnimations(EntitySmilodon animatable, long instanceId, AnimationState<EntitySmilodon> animationState) {
+    public void setCustomAnimations(SmilodonEntity animatable, long instanceId, AnimationState<SmilodonEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

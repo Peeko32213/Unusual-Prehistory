@@ -1,29 +1,29 @@
 package com.peeko32213.unusualprehistory.client.model;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityLeedsichthysPart;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.LeedsichthysPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.LeedsichthysPartIndex;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class LeedsichthysPartModel extends GeoModel<EntityLeedsichthysPart> {
+public class LeedsichthysPartModel extends GeoModel<LeedsichthysPartEntity> {
 
     private ResourceLocation tailModel = prefix("geo/leedsichthys.geo.json");
     private ResourceLocation tailTexture = prefix("textures/entity/leedsichthys_invis.png");
 
     @Override
-    public ResourceLocation getModelResource(EntityLeedsichthysPart object) {
+    public ResourceLocation getModelResource(LeedsichthysPartEntity object) {
         return getModelForType(object.getPartType());
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityLeedsichthysPart object) {
+    public ResourceLocation getTextureResource(LeedsichthysPartEntity object) {
         return getTextureForType(object.getPartType());
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityLeedsichthysPart animatable) {
+    public ResourceLocation getAnimationResource(LeedsichthysPartEntity animatable) {
         return null;
     }
 

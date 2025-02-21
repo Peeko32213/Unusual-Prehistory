@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
+import com.peeko32213.unusualprehistory.common.entity.DunkleosteusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,28 +12,28 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class DunkleosteusModel extends GeoModel<EntityDunkleosteus>
+public class DunkleosteusModel extends GeoModel<DunkleosteusEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityDunkleosteus object)
+    public ResourceLocation getModelResource(DunkleosteusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/dunk.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityDunkleosteus object)
+    public ResourceLocation getTextureResource(DunkleosteusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/dunkleosteus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityDunkleosteus object)
+    public ResourceLocation getAnimationResource(DunkleosteusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/dunk.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityDunkleosteus animatable, long instanceId, AnimationState<EntityDunkleosteus> animationState) {
+    public void setCustomAnimations(DunkleosteusEntity animatable, long instanceId, AnimationState<DunkleosteusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         if(animatable.isFromBook()) return;

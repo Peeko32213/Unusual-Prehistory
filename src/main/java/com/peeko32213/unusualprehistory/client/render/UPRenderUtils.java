@@ -6,8 +6,8 @@ import com.peeko32213.unusualprehistory.client.render.layer.BaseDinosaurSaddleLa
 import com.peeko32213.unusualprehistory.client.render.layer.ItemHoldingLayer;
 import com.peeko32213.unusualprehistory.client.render.layer.JebLayer;
 import com.peeko32213.unusualprehistory.client.render.layer.TamableDinosaurSaddleLayer;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
@@ -17,16 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UPRenderUtils {
-    public static <T extends EntityTameableBaseDinosaurAnimal> TamableDinosaurRendererBuilder<T> createTamableDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
+    public static <T extends TameableBaseDinosaurAnimalEntity> TamableDinosaurRendererBuilder<T> createTamableDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
         return new TamableDinosaurRendererBuilder<>(context, model);
 
     }
 
-    public static <T extends EntityBaseDinosaurAnimal> DinosaurRendererBuilder<T> createDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
+    public static <T extends BaseDinosaurAnimalEntity> DinosaurRendererBuilder<T> createDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
         return new DinosaurRendererBuilder<>(context, model);
     }
 
-    public static class TamableDinosaurRendererBuilder<T extends EntityTameableBaseDinosaurAnimal> {
+    public static class TamableDinosaurRendererBuilder<T extends TameableBaseDinosaurAnimalEntity> {
         private final EntityRendererProvider.Context context;
         private final GeoModel<T> model;
         private final TameableDinosaurRenderer<T> dinoRenderer;
@@ -73,7 +73,7 @@ public class UPRenderUtils {
         }
     }
 
-    public static class DinosaurRendererBuilder<T extends EntityBaseDinosaurAnimal> {
+    public static class DinosaurRendererBuilder<T extends BaseDinosaurAnimalEntity> {
         private final EntityRendererProvider.Context context;
         private final GeoModel<T> model;
         private final DinosaurRenderer<T> dinoRenderer;

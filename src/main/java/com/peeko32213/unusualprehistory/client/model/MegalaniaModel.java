@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
+import com.peeko32213.unusualprehistory.common.entity.MegalaniaEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -11,7 +11,7 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class MegalaniaModel extends GeoModel<EntityMegalania>
+public class MegalaniaModel extends GeoModel<MegalaniaEntity>
 {
     private static final ResourceLocation TEXTURE_TEMPERATE = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania.png");
     private static final ResourceLocation TEXTURE_COLD = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold.png");
@@ -24,7 +24,7 @@ public class MegalaniaModel extends GeoModel<EntityMegalania>
     private static final ResourceLocation TEXTURE_NETHER_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_nether_baby.png");
 
     @Override
-    public ResourceLocation getModelResource(EntityMegalania megalania)
+    public ResourceLocation getModelResource(MegalaniaEntity megalania)
     {
         if(megalania.isBaby()){
             return new ResourceLocation(UnusualPrehistory.MODID, "geo/megalania/megalania_baby.geo.json");
@@ -34,7 +34,7 @@ public class MegalaniaModel extends GeoModel<EntityMegalania>
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityMegalania megalania)
+    public ResourceLocation getTextureResource(MegalaniaEntity megalania)
     {
         if (megalania.isBaby()) {
         return switch (megalania.getVariant()) {
@@ -54,7 +54,7 @@ public class MegalaniaModel extends GeoModel<EntityMegalania>
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityMegalania megalania)
+    public ResourceLocation getAnimationResource(MegalaniaEntity megalania)
     {
         if(megalania.isBaby()){
             return new ResourceLocation(UnusualPrehistory.MODID, "animations/megalania/megalania_baby.animation.json");
@@ -64,7 +64,7 @@ public class MegalaniaModel extends GeoModel<EntityMegalania>
     }
 
     @Override
-    public void setCustomAnimations(EntityMegalania animatable, long instanceId, AnimationState<EntityMegalania> animationState) {
+    public void setCustomAnimations(MegalaniaEntity animatable, long instanceId, AnimationState<MegalaniaEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-11T08:49:51.3803226	unusualprehistory Item Tags
+// 1.20.1	2025-02-20T17:48:03.9805663	unusualprehistory Item Tags
 5c5d8ce6ffd4b0079c585611f9169a81f8bd2c51 data/minecraft/tags/items/buttons.json
 9edb75fd2a2fc58fad5cb177d8cd36a6b449e37d data/minecraft/tags/items/fishes.json
 c058532b8dc116a7ddd6535c6021e5b16efff81c data/minecraft/tags/items/leaves.json
@@ -6,7 +6,7 @@ d66add5dc322977638e5637ad4264555e160b3cd data/minecraft/tags/items/logs_that_bur
 69a3b0d382500cfa2a5649efc7286a3465f005ab data/minecraft/tags/items/music_discs.json
 c6327f07f01a52c8691d0b76d3ef7e3494c75d15 data/minecraft/tags/items/planks.json
 70ff7d509b708740c357ca323ed7ca01bfd1e17e data/minecraft/tags/items/saplings.json
-72072264274801a574349184ea25ed9abfde4b84 data/minecraft/tags/items/signs.json
+cc3296ac376307c88d382a254e092e2c9b4441a6 data/minecraft/tags/items/signs.json
 9dd9118904a8c66e123e5253da58d147edadaa65 data/minecraft/tags/items/small_flowers.json
 fc2e77c51219a889dc4969c1983614358a8301c7 data/minecraft/tags/items/tall_flowers.json
 45cb7eec2c864ed5343259f2f9a0fd10583c382a data/minecraft/tags/items/wooden_buttons.json

@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
-import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
+import com.peeko32213.unusualprehistory.common.entity.SmilodonEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IHatchableEntity;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
@@ -48,8 +48,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.peeko32213.unusualprehistory.common.block.BlockIncubator.CRACKED;
-import static com.peeko32213.unusualprehistory.common.block.BlockIncubator.FACING;
+import static com.peeko32213.unusualprehistory.common.block.custom.IncubatorBlock.CRACKED;
+import static com.peeko32213.unusualprehistory.common.block.custom.IncubatorBlock.FACING;
 
 public class IncubatorBlockEntity extends BlockEntity implements ContainerListener {
     private BlockState blockstate;
@@ -194,9 +194,9 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
         if(livingEntity instanceof Animal animal){
             animal.setAge(-24000);
 
-            if(livingEntity instanceof EntitySmilodon smilodon){
+            if(livingEntity instanceof SmilodonEntity smilodon){
                 smilodon.determineVariant(0);
-            } else if(livingEntity instanceof EntitySmilodon smilodon){
+            } else if(livingEntity instanceof SmilodonEntity smilodon){
                 smilodon.determineVariant(0);
             }
 

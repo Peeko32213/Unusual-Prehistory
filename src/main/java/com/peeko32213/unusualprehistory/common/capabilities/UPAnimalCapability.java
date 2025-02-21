@@ -1,21 +1,18 @@
 package com.peeko32213.unusualprehistory.common.capabilities;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.core.registry.UPEffects;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseAquaticAnimalEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -74,16 +71,16 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
                 livingEntity.setPos(event.getEntity().position());
                 livingEntity.setUUID(UUID.randomUUID());
-                if(livingEntity instanceof EntityTameableBaseDinosaurAnimal animal){
+                if(livingEntity instanceof TameableBaseDinosaurAnimalEntity animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
 
-                if(livingEntity instanceof EntityBaseDinosaurAnimal animal){
+                if(livingEntity instanceof BaseDinosaurAnimalEntity animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
-                if(livingEntity instanceof EntityBaseAquaticAnimal animal){
+                if(livingEntity instanceof BaseAquaticAnimalEntity animal){
                     animal.determineVariant(1);
                 }
 
@@ -119,16 +116,16 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
                 livingEntity.setPos(event.getEntity().position());
                 livingEntity.setUUID(UUID.randomUUID());
-                if(livingEntity instanceof EntityTameableBaseDinosaurAnimal animal){
+                if(livingEntity instanceof TameableBaseDinosaurAnimalEntity animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
 
-                if(livingEntity instanceof EntityBaseDinosaurAnimal animal){
+                if(livingEntity instanceof BaseDinosaurAnimalEntity animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
-                if(livingEntity instanceof EntityBaseAquaticAnimal animal){
+                if(livingEntity instanceof BaseAquaticAnimalEntity animal){
                     animal.determineVariant(1);
                 }
 

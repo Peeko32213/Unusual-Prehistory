@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityDiplocaulus;
+import com.peeko32213.unusualprehistory.common.entity.DiplocaulusEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
@@ -9,28 +9,28 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class DiplocaulusModel extends GeoModel<EntityDiplocaulus>
+public class DiplocaulusModel extends GeoModel<DiplocaulusEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityDiplocaulus object)
+    public ResourceLocation getModelResource(DiplocaulusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/diplocaulus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityDiplocaulus object)
+    public ResourceLocation getTextureResource(DiplocaulusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/diplocaulus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityDiplocaulus object)
+    public ResourceLocation getAnimationResource(DiplocaulusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/diplocaulus.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityDiplocaulus animatable, long instanceId, AnimationState<EntityDiplocaulus> animationState) {
+    public void setCustomAnimations(DiplocaulusEntity animatable, long instanceId, AnimationState<DiplocaulusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

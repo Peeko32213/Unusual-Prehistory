@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityPachycephalosaurus;
+import com.peeko32213.unusualprehistory.common.entity.PachycephalosaurusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,16 +12,16 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class PachycephalosaurusModel extends GeoModel<EntityPachycephalosaurus>
+public class PachycephalosaurusModel extends GeoModel<PachycephalosaurusEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityPachycephalosaurus object)
+    public ResourceLocation getModelResource(PachycephalosaurusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/pachy.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityPachycephalosaurus object)
+    public ResourceLocation getTextureResource(PachycephalosaurusEntity object)
     {
         if (object.isUlti()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/pachycephalosaurus_ulti.png");
@@ -30,13 +30,13 @@ public class PachycephalosaurusModel extends GeoModel<EntityPachycephalosaurus>
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityPachycephalosaurus object)
+    public ResourceLocation getAnimationResource(PachycephalosaurusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/pachy.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityPachycephalosaurus animatable, long instanceId, AnimationState<EntityPachycephalosaurus> animationState) {
+    public void setCustomAnimations(PachycephalosaurusEntity animatable, long instanceId, AnimationState<PachycephalosaurusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

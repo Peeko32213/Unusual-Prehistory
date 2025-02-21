@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.block.BlockDinosaurLandEggs;
 import com.peeko32213.unusualprehistory.common.data.ItemWeightedPairCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
@@ -70,6 +69,7 @@ public class UPTabs {
                     entries.accept(UPBlocks.QUARTZ_ENGRAVED_ASPHALT.get());
                     entries.accept(UPBlocks.AMBER_BLOCK.get());
                     entries.accept(UPBlocks.AMBER_GLASS.get());
+                    entries.accept(UPBlocks.AMBER_GLASS_PANE.get());
                     entries.accept(UPBlocks.AMBER_BUTTON.get());
                     entries.accept(UPItems.ADORNED_STAFF.get());
                     entries.accept(UPItems.AMBER_GUMMY.get());
@@ -351,6 +351,7 @@ public class UPTabs {
                     entries.accept(UPBlocks.PETRIFIED_WOOD_DOOR.get());
                     entries.accept(UPBlocks.PETRIFIED_WOOD_TRAPDOOR.get());
                     entries.accept(UPBlocks.PETRIFIED_WOOD_SIGN.get());
+                    entries.accept(UPBlocks.PETRIFIED_WOOD_HANGING_SIGN.get());
                     entries.accept(UPBlocks.POLISHED_PETRIFIED_WOOD.get());
                     entries.accept(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
                     entries.accept(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
@@ -390,7 +391,8 @@ public class UPTabs {
                     entries.accept(UPBlocks.FOXXI_TRAPDOOR.get());
                     entries.accept(UPBlocks.FOXXI_PRESSURE_PLATE.get());
                     entries.accept(UPBlocks.FOXXI_BUTTON.get());
-                    entries.accept(UPBlocks.FOXXI_SIGN.get());
+                    entries.accept(UPBlocks.FOXII_SIGN.get());
+                    entries.accept(UPBlocks.FOXII_HANGING_SIGN.get());
                     entries.accept(UPItems.FOXXI_BOAT.get());
                     entries.accept(UPItems.FOXXI_CHEST_BOAT.get());
                     entries.accept(UPBlocks.FOXXI_LEAVES.get());
@@ -427,6 +429,8 @@ public class UPTabs {
                     entries.accept(UPBlocks.ZULOAGAE_TRAPDOOR.get());
                     entries.accept(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get());
                     entries.accept(UPBlocks.ZULOAGAE_BUTTON.get());
+                    entries.accept(UPBlocks.ZULOAGAE_SIGN.get());
+                    entries.accept(UPBlocks.ZULOAGAE_HANGING_SIGN.get());
 
                     // Spawn eggs
                     UPItems.ITEMS.getEntries().forEach(spawnEgg ->{

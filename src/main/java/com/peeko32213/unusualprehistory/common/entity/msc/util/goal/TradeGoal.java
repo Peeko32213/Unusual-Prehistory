@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
 import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.nbt.CompoundTag;
@@ -24,13 +24,13 @@ import java.util.List;
 public class TradeGoal extends Goal {
     private static final TargetingConditions TRADE_TARGETING = TargetingConditions.forNonCombat().range(10.0D).ignoreLineOfSight();
     private final TargetingConditions targetingConditions;
-    protected final EntityBaseDinosaurAnimal mob;
+    protected final BaseDinosaurAnimalEntity mob;
     private final Ingredient items;
     @Nullable
     protected Player player;
 
 
-    public TradeGoal(EntityBaseDinosaurAnimal pMob, Ingredient pItems) {
+    public TradeGoal(BaseDinosaurAnimalEntity pMob, Ingredient pItems) {
         this.mob = pMob;
         this.items = pItems;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));

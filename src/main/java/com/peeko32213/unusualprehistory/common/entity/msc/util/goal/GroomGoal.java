@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
+import com.peeko32213.unusualprehistory.common.entity.SmilodonEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -13,21 +13,21 @@ import java.util.List;
 public class GroomGoal extends Goal {
 
     private static final TargetingConditions PARTNER_TARGETING = TargetingConditions.forNonCombat().range(8.0D).ignoreLineOfSight();
-    protected final EntitySmilodon smilodon;
-    private final Class<? extends EntitySmilodon> partnerClass;
+    protected final SmilodonEntity smilodon;
+    private final Class<? extends SmilodonEntity> partnerClass;
     protected final Level level;
     @Nullable
-    protected EntitySmilodon partner;
+    protected SmilodonEntity partner;
     private int groomTime;
     private final double speedModifier;
     private boolean groom = false;
     private boolean groom2 = false;
 
-    public GroomGoal(EntitySmilodon pAnimal, double pSpeedModifier) {
+    public GroomGoal(SmilodonEntity pAnimal, double pSpeedModifier) {
         this(pAnimal, pSpeedModifier, pAnimal.getClass());
     }
 
-    public GroomGoal(EntitySmilodon pAnimal, double pSpeedModifier, Class<? extends EntitySmilodon> pPartnerClass) {
+    public GroomGoal(SmilodonEntity pAnimal, double pSpeedModifier, Class<? extends SmilodonEntity> pPartnerClass) {
         this.smilodon = pAnimal;
         this.level = pAnimal.level();
         this.partnerClass = pPartnerClass;
@@ -101,12 +101,12 @@ public class GroomGoal extends Goal {
      * valid groomer found.
      */
     @Nullable
-    private EntitySmilodon getFreePartner() {
-        List<? extends EntitySmilodon> list = this.level.getNearbyEntities(this.partnerClass, PARTNER_TARGETING, this.smilodon, this.smilodon.getBoundingBox().inflate(8.0D));
+    private SmilodonEntity getFreePartner() {
+        List<? extends SmilodonEntity> list = this.level.getNearbyEntities(this.partnerClass, PARTNER_TARGETING, this.smilodon, this.smilodon.getBoundingBox().inflate(8.0D));
         double d0 = 13D;
-        EntitySmilodon animal = null;
+        SmilodonEntity animal = null;
 
-        for (EntitySmilodon animal1 : list) {
+        for (SmilodonEntity animal1 : list) {
             double d1 = this.smilodon.distanceToSqr(animal1);
             if (this.smilodon.canGroom(animal1) && d1 < d0) {
                 animal = animal1;

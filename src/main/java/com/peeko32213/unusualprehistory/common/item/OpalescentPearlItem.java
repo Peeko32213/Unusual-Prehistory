@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.item;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.projectile.EntityOpalescentPearl;
+import com.peeko32213.unusualprehistory.common.entity.msc.projectile.OpalescentPearlEntity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -25,7 +25,7 @@ public class OpalescentPearlItem extends Item {
         pLevel.playSound((Player)null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.ENDER_PEARL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
         pPlayer.getCooldowns().addCooldown(this, 20);
         if (!pLevel.isClientSide) {
-            EntityOpalescentPearl thrownOpalescentPearl = new EntityOpalescentPearl(pLevel, pPlayer);
+            OpalescentPearlEntity thrownOpalescentPearl = new OpalescentPearlEntity(pLevel, pPlayer);
             thrownOpalescentPearl.setItem(itemstack);
             thrownOpalescentPearl.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 1.5F, 1.0F);
             pLevel.addFreshEntity(thrownOpalescentPearl);

@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.render.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -11,7 +11,7 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
-public class TamableDinosaurSaddleLayer<T extends EntityTameableBaseDinosaurAnimal> extends GeoRenderLayer<T> {
+public class TamableDinosaurSaddleLayer<T extends TameableBaseDinosaurAnimalEntity> extends GeoRenderLayer<T> {
     private final ResourceLocation overlayLocation;
     private final ResourceLocation modelLocation;
     //private final GeoModel model;

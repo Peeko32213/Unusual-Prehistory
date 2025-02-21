@@ -29,8 +29,7 @@ public final class ClientForgeEvents {
     final static Minecraft minecraft = Minecraft.getInstance();
 
     @SubscribeEvent
-    public static void renderFog(ViewportEvent.RenderFog event)
-    {
+    public static void renderFog(ViewportEvent.RenderFog event) {
         if(minecraft == null) return;
         Player player = minecraft.player;
         Level level = player.level();

@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityLeedsichthys;
+import com.peeko32213.unusualprehistory.common.entity.LeedsichthysEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,24 +12,24 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class LeedsichthysModel extends GeoModel<EntityLeedsichthys> {
+public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
     @Override
-    public ResourceLocation getModelResource(EntityLeedsichthys object) {
+    public ResourceLocation getModelResource(LeedsichthysEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/leedsichthys.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityLeedsichthys object) {
+    public ResourceLocation getTextureResource(LeedsichthysEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/leedsichthys.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityLeedsichthys object) {
+    public ResourceLocation getAnimationResource(LeedsichthysEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/leedsichthys.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityLeedsichthys animatable, long instanceId, AnimationState<EntityLeedsichthys> animationState) {
+    public void setCustomAnimations(LeedsichthysEntity animatable, long instanceId, AnimationState<LeedsichthysEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
 

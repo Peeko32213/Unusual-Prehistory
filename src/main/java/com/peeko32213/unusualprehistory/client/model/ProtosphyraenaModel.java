@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityProtosphyraena;
+import com.peeko32213.unusualprehistory.common.entity.ProtosphyraenaEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,28 +12,28 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class ProtosphyraenaModel extends GeoModel<EntityProtosphyraena>
+public class ProtosphyraenaModel extends GeoModel<ProtosphyraenaEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityProtosphyraena object)
+    public ResourceLocation getModelResource(ProtosphyraenaEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/protosphyraena.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityProtosphyraena object)
+    public ResourceLocation getTextureResource(ProtosphyraenaEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/protosphyraena.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityProtosphyraena object)
+    public ResourceLocation getAnimationResource(ProtosphyraenaEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/protosphyraena.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityProtosphyraena animatable, long instanceId, AnimationState<EntityProtosphyraena> animationState) {
+    public void setCustomAnimations(ProtosphyraenaEntity animatable, long instanceId, AnimationState<ProtosphyraenaEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
 

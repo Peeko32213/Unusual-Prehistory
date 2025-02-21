@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityOphiodon;
+import com.peeko32213.unusualprehistory.common.entity.OphiodonEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,28 +12,28 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class OphiodonModel extends GeoModel<EntityOphiodon>
+public class OphiodonModel extends GeoModel<OphiodonEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityOphiodon object)
+    public ResourceLocation getModelResource(OphiodonEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/ophiodon.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityOphiodon object)
+    public ResourceLocation getTextureResource(OphiodonEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ophiodon.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityOphiodon object)
+    public ResourceLocation getAnimationResource(OphiodonEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/ophiodon.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityOphiodon animatable, long instanceId, AnimationState<EntityOphiodon> animationState) {
+    public void setCustomAnimations(OphiodonEntity animatable, long instanceId, AnimationState<OphiodonEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         if(animatable.isFromBook()) return;

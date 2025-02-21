@@ -2,8 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityScaumenacia;
-import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
+import com.peeko32213.unusualprehistory.common.entity.StethacanthusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,28 +11,28 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class StethacanthusModel extends GeoModel<EntityStethacanthus>
+public class StethacanthusModel extends GeoModel<StethacanthusEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityStethacanthus object)
+    public ResourceLocation getModelResource(StethacanthusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/stethacanthus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityStethacanthus object)
+    public ResourceLocation getTextureResource(StethacanthusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/stethacanthus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityStethacanthus object)
+    public ResourceLocation getAnimationResource(StethacanthusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/stethacanthus.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityStethacanthus animatable, long instanceId, AnimationState<EntityStethacanthus> animationState) {
+    public void setCustomAnimations(StethacanthusEntity animatable, long instanceId, AnimationState<StethacanthusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         if (animatable.isFromBook()) return;

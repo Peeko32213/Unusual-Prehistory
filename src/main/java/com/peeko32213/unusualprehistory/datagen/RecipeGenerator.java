@@ -94,7 +94,7 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         makePressurePlate(UPBlocks.FOXXI_PRESSURE_PLATE, UPBlocks.FOXXI_PLANKS).save(consumer);
 
-        makeSign(UPBlocks.FOXXI_SIGN, UPBlocks.FOXXI_PLANKS).save(consumer);
+        makeSign(UPBlocks.FOXII_SIGN, UPBlocks.FOXXI_PLANKS).save(consumer);
 
         // Dryo
         makePlanks(UPBlocks.DRYO_PLANKS, UPTags.DRYO).save(consumer);

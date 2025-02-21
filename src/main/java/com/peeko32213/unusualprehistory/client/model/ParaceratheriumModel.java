@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityParaceratherium;
+import com.peeko32213.unusualprehistory.common.entity.ParaceratheriumEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -13,32 +13,32 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class ParaceratheriumModel extends GeoModel<EntityParaceratherium>
+public class ParaceratheriumModel extends GeoModel<ParaceratheriumEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityParaceratherium paraceratherium)
+    public ResourceLocation getModelResource(ParaceratheriumEntity paraceratherium)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/paraceratherium/paraceratherium.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityParaceratherium paraceratherium)
+    public ResourceLocation getTextureResource(ParaceratheriumEntity paraceratherium)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/paraceratherium/paraceratherium.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityParaceratherium paraceratherium)
+    public ResourceLocation getAnimationResource(ParaceratheriumEntity paraceratherium)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/paraceratherium/paraceratherium.animation.json");
     }
 
-    public RenderType getRenderType(EntityParaceratherium animatable, ResourceLocation texture) {
+    public RenderType getRenderType(ParaceratheriumEntity animatable, ResourceLocation texture) {
         return RenderType.entityTranslucent(getTextureResource(animatable));
     }
 
     @Override
-    public void setCustomAnimations(EntityParaceratherium animatable, long instanceId, AnimationState<EntityParaceratherium> animationState) {
+    public void setCustomAnimations(ParaceratheriumEntity animatable, long instanceId, AnimationState<ParaceratheriumEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

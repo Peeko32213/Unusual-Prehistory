@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.client.event;
 
+import com.peeko32213.unusualprehistory.ClientProxy;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.*;
 import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergMammothModel;
@@ -19,7 +20,7 @@ import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
-import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
+import com.peeko32213.unusualprehistory.common.entity.AnurognathusEntity;
 import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
@@ -31,7 +32,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -45,16 +46,23 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
-import static com.peeko32213.unusualprehistory.core.registry.UPWoodTypes.*;
-
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class ClientEvents {
 
-
-    public static void init(FMLClientSetupEvent event) {
+    @SubscribeEvent
+    public static void init(final FMLClientSetupEvent event) {
         UPItemProperties.addItemProperties();
+        BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
+        BlockEntityRenderers.register(UPBlockEntities.UP_HANGING_SIGN.get(), HangingSignRenderer::new);
+        event.enqueueWork(() -> {
+            Sheets.addWoodType(UPBlockSetType.DRYO);
+            Sheets.addWoodType(UPBlockSetType.FOXII);
+            Sheets.addWoodType(UPBlockSetType.GINKGO);
+            Sheets.addWoodType(UPBlockSetType.PETRIFIED);
+            Sheets.addWoodType(UPBlockSetType.ZULOAGAE);
+        });
+        ClientProxy.setupBlockRenders();
     }
-
 
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {
@@ -128,6 +136,7 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.POTTED_PETRIFIED_BUSH.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.AMBER_GLASS.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.AMBER_GLASS_PANE.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.DRYO_SAPLING.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.FOXII_SAPLING.get(), RenderType.cutout());
@@ -149,19 +158,25 @@ public final class ClientEvents {
         MenuScreens.register(UPMenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
         MenuScreens.register(UPMenuTypes.DNA_FRIDGE_MENU.get(), DNAFridgeScreen::new);
 
+        WoodType.register(UPBlockSetType.DRYO);
+        WoodType.register(UPBlockSetType.FOXII);
+        WoodType.register(UPBlockSetType.GINKGO);
+        WoodType.register(UPBlockSetType.PETRIFIED);
+        WoodType.register(UPBlockSetType.ZULOAGAE);
 
-        WoodType.register(UPWoodTypes.GINKGO);
-        WoodType.register(UPWoodTypes.PETRIFIED);
-        WoodType.register(UPWoodTypes.FOXXI);
-        WoodType.register(UPWoodTypes.DRYO);
+        Sheets.addWoodType(UPBlockSetType.DRYO);
+        Sheets.addWoodType(UPBlockSetType.FOXII);
+        Sheets.addWoodType(UPBlockSetType.GINKGO);
+        Sheets.addWoodType(UPBlockSetType.PETRIFIED);
+        Sheets.addWoodType(UPBlockSetType.ZULOAGAE);
+    }
 
-        Sheets.addWoodType(GINKGO);
-        Sheets.addWoodType(DRYO);
-        Sheets.addWoodType(FOXXI);
-        Sheets.addWoodType(PETRIFIED);
-
-       BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
-
+    @SubscribeEvent
+    public static void registerBER(EntityRenderersEvent.RegisterRenderers event){
+        BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
+        BlockEntityRenderers.register(UPBlockEntities.UP_HANGING_SIGN.get(), HangingSignRenderer::new);
+        BlockEntityRenderers.register(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
+        BlockEntityRenderers.register(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);
     }
 
     @SubscribeEvent
@@ -199,7 +214,7 @@ public final class ClientEvents {
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(UPEntities.STETHACANTHUS.get(), e -> new LivingEntityFishRenderer<>(e, new StethacanthusModel()));
         event.registerEntityRenderer(UPEntities.MAJUNGA.get(), e -> new DinosaurRenderer<>(e, new MajungasaurusModel()));
-        event.registerEntityRenderer(UPEntities.ANURO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<EntityAnurognathus>(ModelLocations.ANURO)));
+        event.registerEntityRenderer(UPEntities.ANURO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<AnurognathusEntity>(ModelLocations.ANURO)));
         event.registerEntityRenderer(UPEntities.BEELZ.get(), e ->
                 UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.BEELZEBUFO))
                         .withLayers(BEELZE_MODEL)
@@ -337,8 +352,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), FlatMovingThrownItemRenderer::new);
 //        event.registerEntityRenderer(UPEntities.T_JARATE.get(), TyrannosaurineJarateRenderer::new);
 
-        event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
-        event.registerBlockEntityRenderer(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);
+
 //        EntityRenderers.register(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
 //        event.registerEntityRenderer(UPEntities.DINO_LAND_EGG.get(), DinosaurLandEggRenderer::new);
 

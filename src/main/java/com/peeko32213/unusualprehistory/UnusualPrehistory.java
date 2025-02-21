@@ -1,10 +1,6 @@
 package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
-import com.peeko32213.unusualprehistory.common.block.BlockDinosaurLandEggs;
-import com.peeko32213.unusualprehistory.common.capabilities.UPAnimalCapability;
-import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
-import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
 import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
@@ -13,9 +9,6 @@ import net.minecraft.ReportedException;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -58,6 +51,8 @@ public class UnusualPrehistory {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupClient);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.COMMON);
+
+        // Register stuff
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
         UPTabs.TABS.register(modEventBus);
@@ -76,6 +71,7 @@ public class UnusualPrehistory {
         UPFeatureModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
         UPSounds.DEF_REG.register(modEventBus);
         UPEffects.EFFECT_DEF_REG.register(modEventBus);
+
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         PROXY.init();
 //       If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that

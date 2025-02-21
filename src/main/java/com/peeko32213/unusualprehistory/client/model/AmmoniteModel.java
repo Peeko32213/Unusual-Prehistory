@@ -2,19 +2,15 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityAmmonite;
+import com.peeko32213.unusualprehistory.common.entity.AmmoniteEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 
-public class AmmoniteModel extends GeoModel<EntityAmmonite> {
+public class AmmoniteModel extends GeoModel<AmmoniteEntity> {
 
     @Override
-    public ResourceLocation getModelResource(EntityAmmonite ammonite) {
+    public ResourceLocation getModelResource(AmmoniteEntity ammonite) {
         if(ammonite.getVariant() == 1) {
             return new ResourceLocation(UnusualPrehistory.MODID, "geo/ammonite/ammonite_pinacoceras.geo.json");
         } else {
@@ -23,7 +19,7 @@ public class AmmoniteModel extends GeoModel<EntityAmmonite> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityAmmonite ammonite) {
+    public ResourceLocation getTextureResource(AmmoniteEntity ammonite) {
         if(ammonite.getVariant() == 1) {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ammonite/ammonite_pinacoceras.png");
         } else {
@@ -32,7 +28,7 @@ public class AmmoniteModel extends GeoModel<EntityAmmonite> {
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityAmmonite ammonite) {
+    public ResourceLocation getAnimationResource(AmmoniteEntity ammonite) {
         if(ammonite.getVariant() == 1) {
             return new ResourceLocation(UnusualPrehistory.MODID, "animations/ammonite/ammonite_pinacoceras.animation.json");
         } else {
@@ -41,7 +37,7 @@ public class AmmoniteModel extends GeoModel<EntityAmmonite> {
     }
 
     @Override
-    public void setCustomAnimations(EntityAmmonite animatable, long instanceId, AnimationState<EntityAmmonite> animationState) {
+    public void setCustomAnimations(AmmoniteEntity animatable, long instanceId, AnimationState<AmmoniteEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         if (animatable.isFromBook()) return;

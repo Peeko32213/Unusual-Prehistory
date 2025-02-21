@@ -1,15 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal.boids;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBoidFish;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BoidFishEntity;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class LimitSpeedAndLookInVelocityDirectionGoal extends Goal {
-    private final EntityBoidFish mob;
+    private final BoidFishEntity mob;
     private final float minSpeed;
     private final float maxSpeed;
 
-    public LimitSpeedAndLookInVelocityDirectionGoal(EntityBoidFish mob, float minSpeed, float maxSpeed) {
+    public LimitSpeedAndLookInVelocityDirectionGoal(BoidFishEntity mob, float minSpeed, float maxSpeed) {
         this.mob = mob;
         this.minSpeed = minSpeed;
         this.maxSpeed = maxSpeed;

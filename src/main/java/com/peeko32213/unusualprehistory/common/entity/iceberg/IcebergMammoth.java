@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.iceberg;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.WorldSpawnableEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -11,7 +11,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class IcebergMammoth extends EntityWorldSpawnable {
+public class IcebergMammoth extends WorldSpawnableEntity {
     public static final ResourceLocation MAMMOTH_LOOT = prefix("entities/iceberg/mammoth");
     public IcebergMammoth(EntityType<? extends LivingEntity> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);

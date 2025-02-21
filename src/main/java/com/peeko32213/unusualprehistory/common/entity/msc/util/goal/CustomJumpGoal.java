@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseAquaticAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseAquaticAnimalEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -12,11 +12,11 @@ import net.minecraft.world.phys.Vec3;
 
 public class CustomJumpGoal extends JumpGoal {
     private static final int[] STEPS_TO_CHECK = new int[]{0, 1, 4, 5, 6, 7};
-    private final EntityBaseAquaticAnimal dolphin;
+    private final BaseAquaticAnimalEntity dolphin;
     private final int interval;
     private boolean breached;
 
-    public CustomJumpGoal(EntityBaseAquaticAnimal pDolphin, int pInterval) {
+    public CustomJumpGoal(BaseAquaticAnimalEntity pDolphin, int pInterval) {
         this.dolphin = pDolphin;
         this.interval = reducedTickDelay(pInterval);
     }

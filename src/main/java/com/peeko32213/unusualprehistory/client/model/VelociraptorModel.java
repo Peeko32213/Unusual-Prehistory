@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityVelociraptor;
+import com.peeko32213.unusualprehistory.common.entity.VelociraptorEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -11,28 +11,28 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class VelociraptorModel extends GeoModel<EntityVelociraptor>
+public class VelociraptorModel extends GeoModel<VelociraptorEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityVelociraptor object)
+    public ResourceLocation getModelResource(VelociraptorEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/velociraptor.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityVelociraptor object)
+    public ResourceLocation getTextureResource(VelociraptorEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/velociraptor.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityVelociraptor object)
+    public ResourceLocation getAnimationResource(VelociraptorEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/velociraptor.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityVelociraptor animatable, long instanceId, AnimationState<EntityVelociraptor> animationState) {
+    public void setCustomAnimations(VelociraptorEntity animatable, long instanceId, AnimationState<VelociraptorEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

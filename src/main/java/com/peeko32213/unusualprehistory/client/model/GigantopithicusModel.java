@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityGigantopithicus;
+import com.peeko32213.unusualprehistory.common.entity.GigantopithicusEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -13,29 +13,29 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class GigantopithicusModel extends GeoModel<EntityGigantopithicus> {
+public class GigantopithicusModel extends GeoModel<GigantopithicusEntity> {
 
     @Override
-    public ResourceLocation getModelResource(EntityGigantopithicus gigantopithicus) {
+    public ResourceLocation getModelResource(GigantopithicusEntity gigantopithicus) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/gigantopithicus/gigantopithicus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityGigantopithicus gigantopithicus) {
+    public ResourceLocation getTextureResource(GigantopithicusEntity gigantopithicus) {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/gigantopithicus/gigantopithicus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityGigantopithicus gigantopithicus) {
+    public ResourceLocation getAnimationResource(GigantopithicusEntity gigantopithicus) {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/gigantopithicus/gigantopithicus.animation.json");
     }
 
-    public RenderType getRenderType(EntityGigantopithicus animatable, ResourceLocation texture) {
+    public RenderType getRenderType(GigantopithicusEntity animatable, ResourceLocation texture) {
         return RenderType.entityTranslucent(getTextureResource(animatable));
     }
 
     @Override
-    public void setCustomAnimations(EntityGigantopithicus animatable, long instanceId, AnimationState<EntityGigantopithicus> animationState) {
+    public void setCustomAnimations(GigantopithicusEntity animatable, long instanceId, AnimationState<GigantopithicusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

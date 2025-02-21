@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-19T21:44:46.5812775	Item Models: unusualprehistory
+// 1.20.1	2025-02-20T18:17:45.2509439	Item Models: unusualprehistory
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ammon_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/antarcto_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/anuro_spawn_egg.json
@@ -32,6 +32,8 @@ d192d8a51fe94a30efdd5eee3805d4f0bedd6533 assets/unusualprehistory/models/item/en
 eeb11a32c9ed4d2aad1f5bf7805f2e74a40d6f3b assets/unusualprehistory/models/item/estemmeno_flask.json
 a9ea645a94344464239d27ee9f2abd0d982b9f6e assets/unusualprehistory/models/item/foxii_boat.json
 ffdd02b36973381291da31421d23d30d2358fd79 assets/unusualprehistory/models/item/foxii_chest_boat.json
+8c4e3337994f13cdd8722a2b700b897ae1bad49b assets/unusualprehistory/models/item/foxii_hanging_sign.json
+0e2d590f3009a2481ef8222edf1cef47a41cac7e assets/unusualprehistory/models/item/foxii_sign.json
 390dd49871b4fbeb1cb9499a102a73dfb660f899 assets/unusualprehistory/models/item/foxxi_flask.json
 6c2efd5e41cc5d4f31aa70c2001bad7fa1140574 assets/unusualprehistory/models/item/giganto_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/giganto_spawn_egg.json
@@ -79,6 +81,8 @@ b311adfedcf2ed2928c1fe905a882a3382d68f70 assets/unusualprehistory/models/item/pa
 8d548726b07bdf5df1ac32639e969a980f768576 assets/unusualprehistory/models/item/paracer_embryo.json
 c73f6e797f3256a8c51acf381690c0e54b97fe94 assets/unusualprehistory/models/item/permafrost.json
 3c8bb78ac9964f51f87f1b9689134cbafba8fc4a assets/unusualprehistory/models/item/permafrost_fossil.json
+77c08edb1319bb6326678d02537d0ac727e59f31 assets/unusualprehistory/models/item/petrified_hanging_sign.json
+f3fbd60640f30c694dc3b64badf4e89132b6b1b5 assets/unusualprehistory/models/item/petrified_sign.json
 fde8d183fbfc7e7d2273d219d7236a09e54bd2bd assets/unusualprehistory/models/item/protosphyraena_flask.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/protosphyraena_spawn_egg.json
 cf98c3c192a25ad998ccea70a7685475a267fd31 assets/unusualprehistory/models/item/psilo_flask.json
@@ -103,4 +107,6 @@ a5f52e0be671200b0a63e95b7814e095087957ec assets/unusualprehistory/models/item/sm
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/veloci_spawn_egg.json
 6e06cecc381bc0b7bd72721cc08d1c3f9fdde098 assets/unusualprehistory/models/item/xiphact_flask.json
 3e9497bc6e5e1a1fa96dc2cf047bc0cf647d7555 assets/unusualprehistory/models/item/zuloagae_flask.json
+b4c0d305aac40645fdf6b69b8dc2084709d924d2 assets/unusualprehistory/models/item/zuloagae_hanging_sign.json
+23d04e26dc6e05153c2df83c09683b4016adbfae assets/unusualprehistory/models/item/zuloagae_sign.json
 b7ef845be253f44ca214abe4166fa95054a26c85 assets/unusualprehistory/models/item/zulogae_disc.json

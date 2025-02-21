@@ -2,21 +2,18 @@ package com.peeko32213.unusualprehistory.client.render.dinosaur_renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-import java.util.List;
-
-public class NoOverlayRenderer<T extends EntityBaseDinosaurAnimal> extends GeoEntityRenderer<T> {
+public class NoOverlayRenderer<T extends BaseDinosaurAnimalEntity> extends GeoEntityRenderer<T> {
 
 
     public NoOverlayRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> model) {

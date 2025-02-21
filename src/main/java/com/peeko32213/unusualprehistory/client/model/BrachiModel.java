@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityBrachiosaurus;
+import com.peeko32213.unusualprehistory.common.entity.BrachiosaurusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -10,10 +10,10 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class BrachiModel extends GeoModel<EntityBrachiosaurus> {
+public class BrachiModel extends GeoModel<BrachiosaurusEntity> {
 
     @Override
-    public ResourceLocation getModelResource(EntityBrachiosaurus brachiosaurus) {
+    public ResourceLocation getModelResource(BrachiosaurusEntity brachiosaurus) {
         if(brachiosaurus.isBaby()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "geo/brachiosaurus/brachiosaurus_baby.geo.json");
         }
@@ -26,7 +26,7 @@ public class BrachiModel extends GeoModel<EntityBrachiosaurus> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityBrachiosaurus brachiosaurus){
+    public ResourceLocation getTextureResource(BrachiosaurusEntity brachiosaurus){
         if (brachiosaurus.isBaby()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus/brachiosaurus_baby.png");
         }
@@ -42,7 +42,7 @@ public class BrachiModel extends GeoModel<EntityBrachiosaurus> {
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityBrachiosaurus brachiosaurus) {
+    public ResourceLocation getAnimationResource(BrachiosaurusEntity brachiosaurus) {
         if(brachiosaurus.isBaby()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "animations/brachiosaurus/brachiosaurus_baby.animation.json");
         }
@@ -55,7 +55,7 @@ public class BrachiModel extends GeoModel<EntityBrachiosaurus> {
     }
 
     @Override
-    public void setCustomAnimations(EntityBrachiosaurus animatable, long instanceId, AnimationState<EntityBrachiosaurus> animationState) {
+    public void setCustomAnimations(BrachiosaurusEntity animatable, long instanceId, AnimationState<BrachiosaurusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

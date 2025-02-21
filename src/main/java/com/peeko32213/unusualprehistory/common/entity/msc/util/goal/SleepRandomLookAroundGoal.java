@@ -1,17 +1,17 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityMegalania;
+import com.peeko32213.unusualprehistory.common.entity.MegalaniaEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
 public class SleepRandomLookAroundGoal extends Goal{
-    private final EntityMegalania mob;
+    private final MegalaniaEntity mob;
     private double relX;
     private double relZ;
     private int lookTime;
 
-    public SleepRandomLookAroundGoal(EntityMegalania pMob) {
+    public SleepRandomLookAroundGoal(MegalaniaEntity pMob) {
         this.mob = pMob;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }

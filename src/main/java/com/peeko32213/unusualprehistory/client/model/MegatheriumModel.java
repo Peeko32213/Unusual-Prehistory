@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityMegatherium;
+import com.peeko32213.unusualprehistory.common.entity.MegatheriumEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -11,10 +11,10 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class MegatheriumModel extends GeoModel<EntityMegatherium> {
+public class MegatheriumModel extends GeoModel<MegatheriumEntity> {
 
     @Override
-    public ResourceLocation getModelResource(EntityMegatherium megatherium)
+    public ResourceLocation getModelResource(MegatheriumEntity megatherium)
     {
         if(megatherium.isBaby()){
             return new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium/megatherium_baby.geo.json");
@@ -24,7 +24,7 @@ public class MegatheriumModel extends GeoModel<EntityMegatherium> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityMegatherium megatherium)
+    public ResourceLocation getTextureResource(MegatheriumEntity megatherium)
     {
         if(megatherium.isBaby()) {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium/megatherium_baby.png");
@@ -34,7 +34,7 @@ public class MegatheriumModel extends GeoModel<EntityMegatherium> {
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityMegatherium megatherium) {
+    public ResourceLocation getAnimationResource(MegatheriumEntity megatherium) {
         if(megatherium.isBaby()){
             return new ResourceLocation(UnusualPrehistory.MODID, "animations/megatherium/megatherium_baby.animation.json");
         } else {
@@ -43,7 +43,7 @@ public class MegatheriumModel extends GeoModel<EntityMegatherium> {
     }
 
     @Override
-    public void setCustomAnimations(EntityMegatherium animatable, long instanceId, AnimationState<EntityMegatherium> animationState) {
+    public void setCustomAnimations(MegatheriumEntity animatable, long instanceId, AnimationState<MegatheriumEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

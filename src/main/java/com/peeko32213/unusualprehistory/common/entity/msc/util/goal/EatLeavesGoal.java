@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityMegatherium;
+import com.peeko32213.unusualprehistory.common.entity.MegatheriumEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
@@ -14,11 +14,11 @@ import net.minecraft.world.phys.Vec3;
 
 public class EatLeavesGoal extends MoveToBlockGoal {
 
-    private EntityMegatherium sloth;
+    private MegatheriumEntity sloth;
     private int idleAtLeavesTime = 0;
     private boolean isAboveDestinationBear;
 
-    public EatLeavesGoal(EntityMegatherium sloth) {
+    public EatLeavesGoal(MegatheriumEntity sloth) {
         super(sloth, 1D, 32, 3);
         this.sloth = sloth;
     }

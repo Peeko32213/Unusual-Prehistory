@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.world.feature;
 
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.common.entity.EntitySludge;
+import com.peeko32213.unusualprehistory.common.entity.SludgeEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;
@@ -167,7 +167,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     private static void spawnTarMonster(WorldGenLevel worldgenlevel, BlockPos origin){
-        EntitySludge sludge = UPEntities.SLUDGE.get().create(worldgenlevel.getLevel());
+        SludgeEntity sludge = UPEntities.SLUDGE.get().create(worldgenlevel.getLevel());
         sludge.requiresCustomPersistence();
         sludge.setPersistenceRequired();
         sludge.setPos(Vec3.atCenterOf(origin));

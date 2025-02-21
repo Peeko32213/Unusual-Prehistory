@@ -112,7 +112,8 @@ public class BlockstateGenerator extends BlockStateProvider {
         buttonBlock(UPBlocks.PETRIFIED_WOOD_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
         fenceBlock(UPBlocks.PETRIFIED_WOOD_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
         fenceGateBlock(UPBlocks.PETRIFIED_WOOD_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
-        signBlock((StandingSignBlock) UPBlocks.PETRIFIED_WOOD_SIGN.get(), (WallSignBlock) UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_wood_sign"));
+        signBlock(UPBlocks.PETRIFIED_WOOD_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_wood_sign"));
+        hangingSignBlock(UPBlocks.PETRIFIED_WOOD_HANGING_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_HANGING_SIGN.get(), blockTexture(UPBlocks.PETRIFIED_WOOD_PLANKS.get()));
 
         //Foxxi
 
@@ -140,7 +141,8 @@ public class BlockstateGenerator extends BlockStateProvider {
         buttonBlock(UPBlocks.FOXXI_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
         fenceBlock(UPBlocks.FOXXI_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
         fenceGateBlock(UPBlocks.FOXXI_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
-        signBlock((StandingSignBlock) UPBlocks.FOXXI_SIGN.get(), (WallSignBlock) UPBlocks.FOXXI_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_sign"));
+        signBlock(UPBlocks.FOXII_SIGN.get(), UPBlocks.FOXII_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_sign"));
+        hangingSignBlock(UPBlocks.FOXII_HANGING_SIGN.get(), UPBlocks.FOXII_WALL_HANGING_SIGN.get(), blockTexture(UPBlocks.FOXXI_PLANKS.get()));
 
         //Dryophyllum
 
@@ -169,6 +171,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         fenceBlock(UPBlocks.DRYO_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
         fenceGateBlock(UPBlocks.DRYO_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
         signBlock(UPBlocks.DRYO_SIGN.get(), UPBlocks.DRYO_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_sign"));
+        hangingSignBlock(UPBlocks.DRYO_HANGING_SIGN.get(), UPBlocks.DRYO_WALL_HANGING_SIGN.get(), blockTexture(UPBlocks.DRYO_PLANKS.get()));
 
         //Asphalt
 
@@ -202,6 +205,10 @@ public class BlockstateGenerator extends BlockStateProvider {
         buttonBlock(UPBlocks.ZULOAGAE_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
         fenceBlock(UPBlocks.ZULOAGAE_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
         fenceGateBlock(UPBlocks.ZULOAGAE_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
+
+        signBlock(UPBlocks.ZULOAGAE_SIGN.get(), UPBlocks.ZULOAGAE_WALL_SIGN.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_sign"));
+        hangingSignBlock(UPBlocks.ZULOAGAE_HANGING_SIGN.get(), UPBlocks.ZULOAGAE_WALL_HANGING_SIGN.get(), blockTexture(UPBlocks.ZULOAGAE_PLANKS.get()));
+
         createPottedPlant(UPBlocks.ARCHAEOSIGILARIA, UPBlocks.POTTED_ARCHAEOSIGILARIA,"cutout");
         createPottedPlant(UPBlocks.BENNETTITALES, UPBlocks.POTTED_BENNETTITALES,"cutout");
         createPottedPlant(UPBlocks.HORSETAIL, UPBlocks.POTTED_HORSETAIL,"cutout");
@@ -212,6 +219,16 @@ public class BlockstateGenerator extends BlockStateProvider {
         createPottedPlant(UPBlocks.DRYO_SAPLING, UPBlocks.POTTED_DRYO,"cutout");
         createPottedPlant(UPBlocks.ZULOAGAE_SAPLING, UPBlocks.POTTED_ZULOGAE,"cutout");
         //createPottedPlant(UPBlocks.FOXII_SAPLING, UPBlocks.POTTED_FOXXI,"cutout");
+    }
+
+    public void hangingSignBlock(Block signBlock, Block wallSignBlock, ResourceLocation texture) {
+        ModelFile sign = models().sign(name(signBlock), texture);
+        hangingSignBlock(signBlock, wallSignBlock, sign);
+    }
+
+    public void hangingSignBlock(Block signBlock, Block wallSignBlock, ModelFile sign) {
+        simpleBlock(signBlock, sign);
+        simpleBlock(wallSignBlock, sign);
     }
 
 

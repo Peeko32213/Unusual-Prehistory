@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
@@ -9,12 +9,12 @@ import java.util.EnumSet;
 
 public class PounceGoal extends Goal {
 
-    protected EntityBaseDinosaurAnimal entity;
+    protected BaseDinosaurAnimalEntity entity;
     protected LivingEntity target;
     protected int ticks;
     private int chargeTime;
     protected int timer;
-    public PounceGoal(EntityBaseDinosaurAnimal entity, int chargeTime) {
+    public PounceGoal(BaseDinosaurAnimalEntity entity, int chargeTime) {
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         this.entity = entity;
         this.chargeTime = chargeTime;

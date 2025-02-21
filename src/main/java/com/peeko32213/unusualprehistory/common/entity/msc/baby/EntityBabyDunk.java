@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.baby;
 
-import com.peeko32213.unusualprehistory.common.entity.EntityBeelzebufo;
-import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
+import com.peeko32213.unusualprehistory.common.entity.BeelzebufoEntity;
+import com.peeko32213.unusualprehistory.common.entity.DunkleosteusEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.particles.ParticleTypes;
@@ -126,7 +126,7 @@ public class EntityBabyDunk extends AbstractFish implements GeoAnimatable {
     }
 
     private boolean isFood(ItemStack stack) {
-        return EntityBeelzebufo.FOOD_ITEMS.test(stack);
+        return BeelzebufoEntity.FOOD_ITEMS.test(stack);
     }
 
     private void eatFood(Player player, ItemStack stack) {
@@ -156,7 +156,7 @@ public class EntityBabyDunk extends AbstractFish implements GeoAnimatable {
 
     private void growUp() {
         if (this.level() instanceof ServerLevel server) {
-            EntityDunkleosteus frog = UPEntities.DUNK.get().create(this.level());
+            DunkleosteusEntity frog = UPEntities.DUNK.get().create(this.level());
             if (frog == null) return;
 
             frog.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());

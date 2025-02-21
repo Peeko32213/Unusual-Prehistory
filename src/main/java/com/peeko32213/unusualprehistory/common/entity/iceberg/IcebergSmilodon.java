@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.iceberg;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.WorldSpawnableEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -11,7 +11,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class IcebergSmilodon extends EntityWorldSpawnable {
+public class IcebergSmilodon extends WorldSpawnableEntity {
     public static final ResourceLocation SMILODON_LOOT = prefix("entities/iceberg/smilodon");
     protected static final RawAnimation FROZEN = RawAnimation.begin().thenPlay("animation.smilodon.frozen");
 

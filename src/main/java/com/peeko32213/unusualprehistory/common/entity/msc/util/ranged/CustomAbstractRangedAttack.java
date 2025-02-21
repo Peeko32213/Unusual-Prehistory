@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.ranged;
 
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IRangedAttack;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;

@@ -2,8 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityOphiodon;
-import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabyPalaeolophis;
+import com.peeko32213.unusualprehistory.common.entity.msc.baby.PalaeolophisHatchlingEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,25 +11,25 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class BabyPalaeophisModel extends GeoModel<EntityBabyPalaeolophis> {
+public class BabyPalaeophisModel extends GeoModel<PalaeolophisHatchlingEntity> {
 
     @Override
-    public ResourceLocation getModelResource(EntityBabyPalaeolophis object) {
+    public ResourceLocation getModelResource(PalaeolophisHatchlingEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/palaeophis/palaeophis_baby.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityBabyPalaeolophis object) {
+    public ResourceLocation getTextureResource(PalaeolophisHatchlingEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/palaeophis/palaeophis_baby.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityBabyPalaeolophis object) {
+    public ResourceLocation getAnimationResource(PalaeolophisHatchlingEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/palaeophis/palaeophis_baby.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityBabyPalaeolophis animatable, long instanceId, AnimationState<EntityBabyPalaeolophis> animationState) {
+    public void setCustomAnimations(PalaeolophisHatchlingEntity animatable, long instanceId, AnimationState<PalaeolophisHatchlingEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         if(animatable.isFromBook()) return;

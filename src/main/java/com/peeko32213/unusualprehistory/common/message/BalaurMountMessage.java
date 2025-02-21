@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.message;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityBalaur;
+import com.peeko32213.unusualprehistory.common.entity.BalaurEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -46,7 +46,7 @@ public class BalaurMountMessage {
                 if (player.level() != null) {
                     Entity entity = player.level().getEntity(message.rider);
                     Entity mountEntity = player.level().getEntity(message.mount);
-                    if ((entity instanceof EntityBalaur) && mountEntity instanceof Player && entity.distanceTo(mountEntity) < 16D) {
+                    if ((entity instanceof BalaurEntity) && mountEntity instanceof Player && entity.distanceTo(mountEntity) < 16D) {
                         entity.startRiding(mountEntity, true);
                     }
                 }

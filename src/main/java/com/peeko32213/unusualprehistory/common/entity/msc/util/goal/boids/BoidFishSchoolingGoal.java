@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal.boids;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBoidFish;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BoidFishEntity;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
@@ -11,9 +11,9 @@ public class BoidFishSchoolingGoal extends Goal {
     public final float separationRange;
     public final float alignmentInfluence;
     public final float cohesionInfluence;
-    private final EntityBoidFish mob;
+    private final BoidFishEntity mob;
 
-    public BoidFishSchoolingGoal(EntityBoidFish mob, float separationInfluence, float separationRange, float alignmentInfluence, float cohesionInfluence) {
+    public BoidFishSchoolingGoal(BoidFishEntity mob, float separationInfluence, float separationRange, float alignmentInfluence, float cohesionInfluence) {
         this.mob = mob;
         this.separationInfluence = separationInfluence;
         this.separationRange = separationRange;
@@ -55,13 +55,13 @@ public class BoidFishSchoolingGoal extends Goal {
     public Vec3 separation() {
         var c = Vec3.ZERO;
 
-        for (EntityBoidFish nearbyMob : mob.ownSchool) {
+        for (BoidFishEntity nearbyMob : mob.ownSchool) {
             if ((nearbyMob.position().subtract(mob.position()).length()) < separationRange && !nearbyMob.isDeadOrDying()) {
                 c = c.subtract(nearbyMob.position().subtract(mob.position()));
             }
         }
         if (mob.isFollower()) {
-            for (EntityBoidFish nearbyMob : mob.leader.ownSchool) {
+            for (BoidFishEntity nearbyMob : mob.leader.ownSchool) {
                 if ((nearbyMob.position().subtract(mob.position()).length()) < separationRange && !nearbyMob.isDeadOrDying()) {
                     c = c.subtract(nearbyMob.position().subtract(mob.position()));
                 }
@@ -74,13 +74,13 @@ public class BoidFishSchoolingGoal extends Goal {
     public Vec3 alignment() {
         var c = Vec3.ZERO;
 
-        for (EntityBoidFish nearbyMob : mob.ownSchool) {
+        for (BoidFishEntity nearbyMob : mob.ownSchool) {
             if (!nearbyMob.isDeadOrDying())
                 c = c.add(nearbyMob.getDeltaMovement());
             c = c.scale(1f / mob.ownSchool.size());
         }
         if (mob.isFollower()) {
-            for (EntityBoidFish nearbyMob : mob.leader.ownSchool) {
+            for (BoidFishEntity nearbyMob : mob.leader.ownSchool) {
                 if (!nearbyMob.isDeadOrDying())
                     c = c.add(nearbyMob.getDeltaMovement());
             }
@@ -94,13 +94,13 @@ public class BoidFishSchoolingGoal extends Goal {
     public Vec3 cohesion() {
         var c = Vec3.ZERO;
 
-        for (EntityBoidFish nearbyMob : mob.ownSchool) {
+        for (BoidFishEntity nearbyMob : mob.ownSchool) {
             if (!nearbyMob.isDeadOrDying())
                 c = c.add(nearbyMob.position());
             c = c.scale(1f / mob.ownSchool.size());
         }
         if (mob.isFollower()) {
-            for (EntityBoidFish nearbyMob : mob.leader.ownSchool) {
+            for (BoidFishEntity nearbyMob : mob.leader.ownSchool) {
                 if (!nearbyMob.isDeadOrDying())
                     c = c.add(nearbyMob.position());
             }

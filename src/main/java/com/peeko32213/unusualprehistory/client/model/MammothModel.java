@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityMammoth;
+import com.peeko32213.unusualprehistory.common.entity.MammothEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,24 +12,24 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class MammothModel extends GeoModel<EntityMammoth> {
+public class MammothModel extends GeoModel<MammothEntity> {
     @Override
-    public ResourceLocation getModelResource(EntityMammoth object) {
+    public ResourceLocation getModelResource(MammothEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/mammoth/mammoth.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityMammoth object) {
+    public ResourceLocation getTextureResource(MammothEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/mammoth/mammoth.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityMammoth object) {
+    public ResourceLocation getAnimationResource(MammothEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/mammoth/mammoth.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityMammoth animatable, long instanceId, AnimationState<EntityMammoth> animationState) {
+    public void setCustomAnimations(MammothEntity animatable, long instanceId, AnimationState<MammothEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
 

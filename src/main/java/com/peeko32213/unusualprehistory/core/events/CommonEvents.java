@@ -3,13 +3,12 @@ package com.peeko32213.unusualprehistory.core.events;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityLeedsichthysPart;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.EntityPalaeophisPart;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBookSnake;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.LeedsichthysPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BookPalaeophisEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.WorldSpawnableEntity;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -36,61 +35,61 @@ public class CommonEvents {
 //        event.put(UPEntities.DINO_LAND_EGG.get(), LivingEntity.createLivingAttributes().build());
 
         // Paleo mobs
-        event.put(UPEntities.AMMON.get(), EntityAmmonite.createAttributes().build());
-        event.put(UPEntities.COTY.get(), EntityCotylorhynchus.createAttributes().build());
-        event.put(UPEntities.DUNK.get(), EntityDunkleosteus.createAttributes().build());
+        event.put(UPEntities.AMMON.get(), AmmoniteEntity.createAttributes().build());
+        event.put(UPEntities.COTY.get(), CotylorhynchusEntity.createAttributes().build());
+        event.put(UPEntities.DUNK.get(), DunkleosteusEntity.createAttributes().build());
         event.put(UPEntities.BABY_DUNK.get(), EntityBabyDunk.createAttributes().build());
-        event.put(UPEntities.DIPLOCAULUS.get(), EntityDiplocaulus.createAttributes().build());
-        event.put(UPEntities.HYNERIA.get(), EntityHyneria.createAttributes().build());
-        event.put(UPEntities.SCAU.get(), EntityScaumenacia.createAttributes().build());
-        event.put(UPEntities.STETHACANTHUS.get(), EntityStethacanthus.createAttributes().build());
+        event.put(UPEntities.DIPLOCAULUS.get(), DiplocaulusEntity.createAttributes().build());
+        event.put(UPEntities.HYNERIA.get(), HyneriaEntity.createAttributes().build());
+        event.put(UPEntities.SCAU.get(), ScaumenaciaEntity.createAttributes().build());
+        event.put(UPEntities.STETHACANTHUS.get(), StethacanthusEntity.createAttributes().build());
 
         // Meso mobs
-        event.put(UPEntities.ANTARCO.get(), EntityAntarctopelta.createAttributes().build());
-        event.put(UPEntities.ANURO.get(), EntityAnurognathus.createAttributes().build());
-        event.put(UPEntities.ARCHELON.get(), EntityArchelon.createAttributes().build());
-        event.put(UPEntities.AUSTRO.get(), EntityAustroraptor.createAttributes().build());
-        event.put(UPEntities.BALAUR.get(), EntityBalaur.createAttributes().build());
-        event.put(UPEntities.BEELZ.get(), EntityBeelzebufo.createAttributes().build());
-        event.put(UPEntities.BEELZE_TADPOLE.get(), EntityBeelzebufoTadpole.createAttributes().build());
-        event.put(UPEntities.BRACHI.get(), EntityBrachiosaurus.createAttributes().build());
-        event.put(UPEntities.ERYON.get(), EntityEryon.createAttributes().build());
-        event.put(UPEntities.HWACHA.get(), EntityHwachavenator.createAttributes().build());
-        event.put(UPEntities.KENTRO.get(), EntityKentrosaurus.createAttributes().build());
-        event.put(UPEntities.KIMMER.get(), EntityKimmeridgebrachypteraeschnidium.createAttributes().build());
-        event.put(UPEntities.LEEDSICHTHYS.get(), EntityLeedsichthys.createAttributes().build());
-        event.put(UPEntities.LEEDS_PART.get(), EntityLeedsichthysPart.createAttributes().build());
-        event.put(UPEntities.MAJUNGA.get(), EntityMajungasaurus.createAttributes().build());
-        event.put(UPEntities.PACHY.get(), EntityPachycephalosaurus.createAttributes().build());
-        event.put(UPEntities.PROTOSPHYRAENA.get(), EntityProtosphyraena.createAttributes().build());
-        event.put(UPEntities.TRIKE.get(), EntityTriceratops.createAttributes().build());
-        event.put(UPEntities.REX.get(), EntityTyrannosaurusRex.createAttributes().build());
-        event.put(UPEntities.ULUG.get(), EntityUlughbegsaurus.createAttributes().build());
-        event.put(UPEntities.VELOCI.get(), EntityVelociraptor.createAttributes().build());
+        event.put(UPEntities.ANTARCO.get(), AntarctopeltaEntity.createAttributes().build());
+        event.put(UPEntities.ANURO.get(), AnurognathusEntity.createAttributes().build());
+        event.put(UPEntities.ARCHELON.get(), ArchelonEntity.createAttributes().build());
+        event.put(UPEntities.AUSTRO.get(), AustroraptorEntity.createAttributes().build());
+        event.put(UPEntities.BALAUR.get(), BalaurEntity.createAttributes().build());
+        event.put(UPEntities.BEELZ.get(), BeelzebufoEntity.createAttributes().build());
+        event.put(UPEntities.BEELZE_TADPOLE.get(), BeelzebufoTadpoleEntity.createAttributes().build());
+        event.put(UPEntities.BRACHI.get(), BrachiosaurusEntity.createAttributes().build());
+        event.put(UPEntities.ERYON.get(), EryonEntity.createAttributes().build());
+        event.put(UPEntities.HWACHA.get(), HwachavenatorEntity.createAttributes().build());
+        event.put(UPEntities.KENTRO.get(), KentrosaurusEntity.createAttributes().build());
+        event.put(UPEntities.KIMMER.get(), KimmeridgebrachypteraeschnidiumEntity.createAttributes().build());
+        event.put(UPEntities.LEEDSICHTHYS.get(), LeedsichthysEntity.createAttributes().build());
+        event.put(UPEntities.LEEDS_PART.get(), LeedsichthysPartEntity.createAttributes().build());
+        event.put(UPEntities.MAJUNGA.get(), MajungasaurusEntity.createAttributes().build());
+        event.put(UPEntities.PACHY.get(), PachycephalosaurusEntity.createAttributes().build());
+        event.put(UPEntities.PROTOSPHYRAENA.get(), ProtosphyraenaEntity.createAttributes().build());
+        event.put(UPEntities.TRIKE.get(), TriceratopsEntity.createAttributes().build());
+        event.put(UPEntities.REX.get(), TyrannosaurusEntity.createAttributes().build());
+        event.put(UPEntities.ULUG.get(), UlughbegsaurusEntity.createAttributes().build());
+        event.put(UPEntities.VELOCI.get(), VelociraptorEntity.createAttributes().build());
 
         // Ceno mobs
-        event.put(UPEntities.BARINASUCHUS.get(), EntityBarinasuchus.createAttributes().build());
-        event.put(UPEntities.GIGANTOPITHICUS.get(), EntityGigantopithicus.createAttributes().build());
-        event.put(UPEntities.MAMMOTH.get(), EntityMammoth.createAttributes().build());
-        event.put(UPEntities.MEGALANIA.get(), EntityMegalania.createAttributes().build());
-        event.put(UPEntities.MEGATHERIUM.get(), EntityMegatherium.createAttributes().build());
-        event.put(UPEntities.OPHIODON.get(), EntityOphiodon.createAttributes().build());
-        event.put(UPEntities.OTAROCYON.get(), EntityOtarocyon.createAttributes().build());
-        event.put(UPEntities.PALAEOPHIS.get(), EntityPalaeophis.createAttributes().build());
-        event.put(UPEntities.PALAEOPHIS_PART.get(), EntityPalaeophisPart.bakeAttributes().build());
-        event.put(UPEntities.BABY_PALAEO.get(), EntityBabyPalaeolophis.createAttributes().build());
-        event.put(UPEntities.PARACERATHERIUM.get(), EntityParaceratherium.createAttributes().build());
-        event.put(UPEntities.SMILODON.get(), EntitySmilodon.createAttributes().build());
-        event.put(UPEntities.TALPANAS.get(), EntityTalpanas.createAttributes().build());
+        event.put(UPEntities.BARINASUCHUS.get(), BarinasuchusEntity.createAttributes().build());
+        event.put(UPEntities.GIGANTOPITHICUS.get(), GigantopithicusEntity.createAttributes().build());
+        event.put(UPEntities.MAMMOTH.get(), MammothEntity.createAttributes().build());
+        event.put(UPEntities.MEGALANIA.get(), MegalaniaEntity.createAttributes().build());
+        event.put(UPEntities.MEGATHERIUM.get(), MegatheriumEntity.createAttributes().build());
+        event.put(UPEntities.OPHIODON.get(), OphiodonEntity.createAttributes().build());
+        event.put(UPEntities.OTAROCYON.get(), OtarocyonEntity.createAttributes().build());
+        event.put(UPEntities.PALAEOPHIS.get(), PalaeophisEntity.createAttributes().build());
+        event.put(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartEntity.bakeAttributes().build());
+        event.put(UPEntities.BABY_PALAEO.get(), PalaeolophisHatchlingEntity.createAttributes().build());
+        event.put(UPEntities.PARACERATHERIUM.get(), ParaceratheriumEntity.createAttributes().build());
+        event.put(UPEntities.SMILODON.get(), SmilodonEntity.createAttributes().build());
+        event.put(UPEntities.TALPANAS.get(), TalpanasEntity.createAttributes().build());
 
         // Misc mobs
-        event.put(UPEntities.ENCRUSTED.get(), EntityEncrusted.createAttributes().build());
-        event.put(UPEntities.SLUDGE.get(), EntitySludge.createAttributes().build());
+        event.put(UPEntities.ENCRUSTED.get(), EncrustedEntity.createAttributes().build());
+        event.put(UPEntities.SLUDGE.get(), SludgeEntity.createAttributes().build());
 
         // Non-living mobs
-        event.put(UPEntities.BOOK_PALAEO.get(), EntityBookSnake.createAttributes().build());
-        event.put(UPEntities.ICEBERG_SMILODON.get(), EntityWorldSpawnable.bakeAttributes().build());
-        event.put(UPEntities.ICEBERG_MAMMOTH.get(), EntityWorldSpawnable.bakeAttributes().build());
+        event.put(UPEntities.BOOK_PALAEO.get(), BookPalaeophisEntity.createAttributes().build());
+        event.put(UPEntities.ICEBERG_SMILODON.get(), WorldSpawnableEntity.bakeAttributes().build());
+        event.put(UPEntities.ICEBERG_MAMMOTH.get(), WorldSpawnableEntity.bakeAttributes().build());
 
         //Plants
         event.put(UPEntities.FOXXI_SAPLING.get(), EntityPlant.bakeAttributes().build());

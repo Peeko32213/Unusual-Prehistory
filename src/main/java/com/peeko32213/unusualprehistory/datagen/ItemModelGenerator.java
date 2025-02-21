@@ -89,19 +89,26 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.LEEDS_CAVIAR);
         singleTex(UPItems.LEEDS_SLICE);
 
+        singleTex(UPItems.DRYO_SIGN);
+        singleTex(UPItems.DRYO_HANGING_SIGN);
         singleTex(UPItems.DRYO_BOAT);
         singleTex(UPItems.DRYO_CHEST_BOAT);
-        singleTex(UPItems.FOXXI_BOAT);
-        singleTex(UPItems.FOXXI_CHEST_BOAT);
+
+        singleTex(UPItems.GINKGO_SIGN);
+        singleTex(UPItems.GINKGO_HANGING_SIGN);
         singleTex(UPItems.GINKGO_BOAT);
         singleTex(UPItems.GINKGO_CHEST_BOAT);
 
-        singleTex(UPItems.DRYO_SIGN);
-        singleTex(UPItems.DRYO_HANGING_SIGN);
         singleTex(UPItems.FOXXI_BOAT);
         singleTex(UPItems.FOXXI_CHEST_BOAT);
-        singleTex(UPItems.GINKGO_SIGN);
-        singleTex(UPItems.GINKGO_HANGING_SIGN);
+        singleTex(UPItems.FOXII_SIGN);
+        singleTex(UPItems.FOXII_HANGING_SIGN);
+
+        singleTex(UPItems.PETRIFIED_WOOD_SIGN);
+        singleTex(UPItems.PETRIFIED_WOOD_HANGING_SIGN);
+
+        singleTex(UPItems.ZULOAGAE_SIGN);
+        singleTex(UPItems.ZULOAGAE_HANGING_SIGN);
 //        singleTex(UPItems.RAW_FURCACAUDA);
 //        singleTex(UPItems.COOKED_FURCACAUDA);
 //        singleTex(UPItems.RAW_TARTU);

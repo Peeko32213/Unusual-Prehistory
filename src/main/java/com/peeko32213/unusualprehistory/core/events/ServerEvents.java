@@ -3,13 +3,12 @@ package com.peeko32213.unusualprehistory.core.events;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
 import com.peeko32213.unusualprehistory.common.data.*;
-import com.peeko32213.unusualprehistory.common.effect.EffectPissed;
-import com.peeko32213.unusualprehistory.common.effect.EffectRabies;
-import com.peeko32213.unusualprehistory.common.effect.EffectVaccineRabies;
-import com.peeko32213.unusualprehistory.common.entity.EntityDunkleosteus;
-import com.peeko32213.unusualprehistory.common.entity.EntityHwachavenator;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.effect.RampageEffect;
+import com.peeko32213.unusualprehistory.common.effect.RampageRemedyEffect;
+import com.peeko32213.unusualprehistory.common.entity.DunkleosteusEntity;
+import com.peeko32213.unusualprehistory.common.entity.HwachavenatorEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.JarateFindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.common.message.*;
@@ -18,7 +17,6 @@ import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -40,16 +38,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -119,7 +114,7 @@ public class ServerEvents {
     public void onLootLevelEvent(LootingLevelEvent event) {
         DamageSource src = event.getDamageSource();
         if (src != null) {
-            if (src.getEntity() instanceof EntityDunkleosteus) {
+            if (src.getEntity() instanceof DunkleosteusEntity) {
                 event.setLootingLevel(event.getLootingLevel() + 3);
             }
         }
@@ -198,19 +193,19 @@ public class ServerEvents {
     @SubscribeEvent
     //cant be canceled
     public void preventClick(LivingDeathEvent event) {
-        if (event.getSource().getEntity() instanceof EntityDunkleosteus dunkleosteus) {
+        if (event.getSource().getEntity() instanceof DunkleosteusEntity dunkleosteus) {
             dunkleosteus.killed();
         }
 
-        if (event.getSource().getEntity() instanceof EntityBaseDinosaurAnimal dinosaurAnimal) {
+        if (event.getSource().getEntity() instanceof BaseDinosaurAnimalEntity dinosaurAnimal) {
             dinosaurAnimal.killed();
         }
 
-        if (event.getSource().getEntity() instanceof EntityTameableBaseDinosaurAnimal dinosaurAnimal) {
+        if (event.getSource().getEntity() instanceof TameableBaseDinosaurAnimalEntity dinosaurAnimal) {
             dinosaurAnimal.killed();
         }
 
-        if (event.getSource().getEntity() instanceof EntityHwachavenator dinosaurAnimal) {
+        if (event.getSource().getEntity() instanceof HwachavenatorEntity dinosaurAnimal) {
             dinosaurAnimal.killed();
         }
     }
@@ -344,12 +339,12 @@ public class ServerEvents {
 
     @SubscribeEvent
     public void thingsThatCannotBeMilkedEvent(MobEffectEvent.Remove event) {
-        if (event.getEffect() instanceof EffectRabies && !event.getEntity().hasEffect(UPEffects.RABIES_VACCINE.get())) {
+        if (event.getEffect() instanceof RampageEffect && !event.getEntity().hasEffect(UPEffects.RABIES_VACCINE.get())) {
             //rabies can't be milked away unless you are vaccinated
             event.setCanceled(true);
         }
 
-        if (event.getEffect() instanceof EffectVaccineRabies) {
+        if (event.getEffect() instanceof RampageRemedyEffect) {
 
             if(event.getEntity() instanceof ServerPlayer serverPlayer){
                 serverPlayer.getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(capability -> {

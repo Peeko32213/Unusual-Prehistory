@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityHyneria;
+import com.peeko32213.unusualprehistory.common.entity.HyneriaEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,28 +12,28 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 
-public class HyneriaModel extends GeoModel<EntityHyneria>
+public class HyneriaModel extends GeoModel<HyneriaEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityHyneria object)
+    public ResourceLocation getModelResource(HyneriaEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/hyneria.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityHyneria object)
+    public ResourceLocation getTextureResource(HyneriaEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/hyneria.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityHyneria object)
+    public ResourceLocation getAnimationResource(HyneriaEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/hyneria.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityHyneria animatable, long instanceId, AnimationState<EntityHyneria> animationState) {
+    public void setCustomAnimations(HyneriaEntity animatable, long instanceId, AnimationState<HyneriaEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         if (animatable.isInWaterOrBubble()) {

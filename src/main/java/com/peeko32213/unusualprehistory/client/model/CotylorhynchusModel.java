@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.EntityCotylorhynchus;
+import com.peeko32213.unusualprehistory.common.entity.CotylorhynchusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -11,28 +11,28 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class CotylorhynchusModel extends GeoModel<EntityCotylorhynchus>
+public class CotylorhynchusModel extends GeoModel<CotylorhynchusEntity>
 {
     @Override
-    public ResourceLocation getModelResource(EntityCotylorhynchus object)
+    public ResourceLocation getModelResource(CotylorhynchusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/cotylorhynchus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(EntityCotylorhynchus object)
+    public ResourceLocation getTextureResource(CotylorhynchusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/cotylorhynchus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(EntityCotylorhynchus object)
+    public ResourceLocation getAnimationResource(CotylorhynchusEntity object)
     {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/coty.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(EntityCotylorhynchus animatable, long instanceId, AnimationState<EntityCotylorhynchus> animationState) {
+    public void setCustomAnimations(CotylorhynchusEntity animatable, long instanceId, AnimationState<CotylorhynchusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
