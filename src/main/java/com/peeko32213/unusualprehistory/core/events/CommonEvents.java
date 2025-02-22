@@ -60,6 +60,7 @@ public class CommonEvents {
         event.put(UPEntities.REX.get(), TyrannosaurusEntity.createAttributes().build());
         event.put(UPEntities.ULUG.get(), UlughbegsaurusEntity.createAttributes().build());
         event.put(UPEntities.VELOCI.get(), VelociraptorEntity.createAttributes().build());
+        event.put(UPEntities.XIPH.get(), XiphactinusEntity.createAttributes().build());
 
         // Ceno mobs
         event.put(UPEntities.BARINASUCHUS.get(), BarinasuchusEntity.createAttributes().build());

@@ -224,6 +224,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PTERODAUSTRO_EGG, "Pteradaustro Spawn Egg");
         addItem(UPItems.TANY_EGG, "Tanystropheus Spawn Egg");
         addItem(UPItems.PSILOPTERUS_EGG, "Psilopterus Spawn Egg");
+        addItem(UPItems.XIPH_EGG, "Xiphactinus Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -537,6 +538,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.REX, "Tyrannosaurus Rex");
         addEntityType(UPEntities.ULUG, "Ulughbegsaurus");
         addEntityType(UPEntities.VELOCI, "Velociraptor");
+        addEntityType(UPEntities.XIPH, "Xiphactinus");
 
         // Ceno mobs
         addEntityType(UPEntities.BARINASUCHUS, "Barinasuchus");

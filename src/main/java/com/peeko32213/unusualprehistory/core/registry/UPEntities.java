@@ -186,6 +186,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(VelociraptorEntity::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "veloci").toString()));
 
+    public static final RegistryObject<EntityType<XiphactinusEntity>> XIPH = ENTITIES.register("xiphactinus",
+            () -> EntityType.Builder.of(XiphactinusEntity::new, MobCategory.WATER_CREATURE).sized(2.6F, 1.2F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "xiphactinus").toString()));
+
     // Ceno mobs
     public static final RegistryObject<EntityType<BarinasuchusEntity>> BARINASUCHUS = ENTITIES.register("barinasuchus",
             () -> EntityType.Builder.of(BarinasuchusEntity::new, MobCategory.CREATURE).sized(2.4F, 2.2F)

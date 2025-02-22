@@ -24,6 +24,7 @@ import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import com.peeko32213.unusualprehistory.common.entity.AnurognathusEntity;
 import com.peeko32213.unusualprehistory.common.entity.PterodaustroEntity;
 import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
+import com.peeko32213.unusualprehistory.common.entity.XiphactinusEntity;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -230,6 +231,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DiplocaulusModel()));
         event.registerEntityRenderer(UPEntities.HYNERIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new HyneriaModel()));
         event.registerEntityRenderer(UPEntities.AMMON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new AmmoniteModel()));
+        event.registerEntityRenderer(UPEntities.XIPH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new XiphactinusModel()));
 
         event.registerEntityRenderer(UPEntities.REX.get(), e -> new DinosaurRenderer<>(e, new TyrannosaurusRexModel()));
 

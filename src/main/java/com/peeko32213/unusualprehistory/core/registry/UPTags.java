@@ -38,6 +38,7 @@ public class UPTags {
     public static final TagKey<EntityType<?>> SMILODON_TARGETS = registerEntityTag("smilodon_targets");
     public static final TagKey<EntityType<?>> OPHIODON_TARGETS = registerEntityTag("ophiodon_targets");
     public static final TagKey<EntityType<?>> PROTOSPHYRAENA_TARGETS = registerEntityTag("protosphyraena_targets");
+    public static final TagKey<EntityType<?>> XIPH_TARGETS = registerEntityTag("xiphactinus_targets");
 
     public static final TagKey<EntityType<?>> HERBIVORES = registerEntityTag("herbivores");
     public static final TagKey<EntityType<?>> CARNIVORES = registerEntityTag("carnivores");

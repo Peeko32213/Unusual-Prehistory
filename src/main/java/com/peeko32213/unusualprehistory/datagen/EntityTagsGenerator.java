@@ -177,6 +177,29 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .addOptional(new ResourceLocation("naturalist:tortoise"))
         ;
 
+        tag(UPTags.XIPH_TARGETS)
+
+                .add(EntityType.SQUID)
+                .add(EntityType.PIG)
+                .add(EntityType.COW)
+                .add(EntityType.SHEEP)
+                .add(EntityType.HORSE)
+                .add(EntityType.CHICKEN)
+                .add(EntityType.RABBIT)
+                .add(EntityType.LLAMA)
+
+                .add(EntityType.GLOW_SQUID)
+                .add(EntityType.AXOLOTL)
+                .add(EntityType.DOLPHIN)
+
+                .add(EntityType.COD)
+                .add(EntityType.SALMON)
+                .add(EntityType.TROPICAL_FISH)
+                .add(EntityType.PUFFERFISH)
+                .add(EntityType.DROWNED)
+                .add(EntityType.GUARDIAN)
+        ;
+
         tag(UPTags.ENCRUSTED_TARGETS)
                 .addTag(UPTags.LAND_MOBS);
 
@@ -477,7 +500,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.MAJUNGA.get())
                 .add(UPEntities.SLUDGE.get())
                 .add(UPEntities.OTAROCYON.get())
-//                .add(UPEntities.LONGISQUAMA.get())
+                .add(UPEntities.LONGISQUAMA.get())
         ;
 
         tag(UPTags.PISCIVORE_DIET)

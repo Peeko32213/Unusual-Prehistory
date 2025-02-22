@@ -42,6 +42,7 @@
  import net.minecraft.world.level.pathfinder.Path;
  import net.minecraft.world.phys.Vec2;
  import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
  import software.bernie.geckolib.core.animatable.GeoAnimatable;
  import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -108,7 +109,7 @@
          }
      }
 
-     public void travel(Vec3 travelVector) {
+     public void travel(@NotNull Vec3 travelVector) {
          if (this.isEffectiveAi() && this.isInWater()) {
              this.moveRelative(this.getSpeed(), travelVector);
              this.move(MoverType.SELF, this.getDeltaMovement());
@@ -551,7 +552,7 @@
          }
 
          protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-             return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+             return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
          }
      }
 
