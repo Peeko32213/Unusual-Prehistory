@@ -41,7 +41,6 @@ public class UPTabs {
                     entries.accept(UPItems.PALEO_FOSSIL.get());
                     entries.accept(UPItems.MEZO_FOSSIL.get());
                     entries.accept(UPItems.PLANT_FOSSIL.get());
-                    entries.accept(UPItems.TAR_FOSSIL.get());
                     entries.accept(UPItems.FROZEN_FOSSIL.get());
                     entries.accept(UPItems.DEFROSTED_FROZEN_FOSSIL.get());
                     entries.accept(UPItems.AMBER_SHARDS.get());
@@ -50,10 +49,6 @@ public class UPTabs {
                     entries.accept(UPItems.OPAL_FOSSIL.get());
                     entries.accept(UPBlocks.STONE_FOSSIL.get());
                     entries.accept(UPBlocks.DEEPSLATE_FOSSIL.get());
-                    entries.accept(UPBlocks.PLANT_FOSSIL.get());
-                    entries.accept(UPBlocks.DEEPSLATE_PLANT_FOSSIL.get());
-                    entries.accept(UPBlocks.STONE_TAR_FOSSIL.get());
-                    entries.accept(UPBlocks.DEEPSLATE_TAR_FOSSIL.get());
                     entries.accept(UPBlocks.PERMAFROST_FOSSIL.get());
                     entries.accept(UPBlocks.PERMAFROST.get());
                     entries.accept(UPBlocks.STONE_AMBER_FOSSIL.get());
@@ -73,6 +68,7 @@ public class UPTabs {
                     entries.accept(UPBlocks.AMBER_BUTTON.get());
                     entries.accept(UPItems.ADORNED_STAFF.get());
                     entries.accept(UPItems.AMBER_GUMMY.get());
+                    entries.accept(UPItems.AMBER_IDOL.get());
                     entries.accept(UPBlocks.OPAL_BLOCK.get());
                     entries.accept(UPItems.OPALESCENT_PEARL.get());
                     entries.accept(UPItems.OPALESCENT_SHURIKEN.get());
@@ -96,6 +92,9 @@ public class UPTabs {
                     entries.accept(UPItems.RAPTOR_FEATHERS.get());
                     entries.accept(UPItems.ANTARCTO_PLATE.get());
                     entries.accept(UPItems.MAJUNGA_SCUTE.get());
+                    entries.accept(UPItems.PSITTACOSAURUS_QUILL.get());
+                    entries.accept(UPItems.QUILL_REMEDY.get());
+                    entries.accept(UPItems.PSITTACCO_ARROW.get());
                     entries.accept(UPItems.TRIKE_HORN.get());
                     entries.accept(UPItems.REX_SCALE.get());
                     entries.accept(UPItems.REX_TOOTH.get());
@@ -107,11 +106,17 @@ public class UPTabs {
                     // Foods
                     entries.accept(UPItems.RAW_COTY.get());
                     entries.accept(UPItems.COOKED_COTY.get());
+                    entries.accept(UPItems.RAW_DUNK.get());
+                    entries.accept(UPItems.COOKED_DUNK.get());
+                    entries.accept(UPItems.RAW_JAWLESS_FISH.get());
+                    entries.accept(UPItems.COOKED_JAWLESS_FISH.get());
                     entries.accept(UPItems.RAW_SCAU.get());
                     entries.accept(UPItems.COOKED_SCAU.get());
                     entries.accept(UPItems.GOLDEN_SCAU.get());
                     entries.accept(UPItems.RAW_STETHA.get());
                     entries.accept(UPItems.COOKED_STETHA.get());
+                    entries.accept(UPItems.RAW_TARTU.get());
+                    entries.accept(UPItems.COOKED_TARTU.get());
                     entries.accept(UPItems.LEEDS_SLICE.get());
                     entries.accept(UPItems.LEEDS_CAVIAR.get());
                     entries.accept(UPItems.RAW_OPHIODON.get());
@@ -165,6 +170,7 @@ public class UPTabs {
                     // Buckets
                     entries.accept(UPItems.AMMON_BUCKET.get());
                     entries.accept(UPItems.DUNK_BUCKET.get());
+                    entries.accept(UPItems.JAWLESS_FISH_BUCKET.get());
                     entries.accept(UPItems.SCAU_BUCKET.get());
                     entries.accept(UPItems.STETHA_BUCKET.get());
                     entries.accept(UPItems.BEELZE_BUCKET.get());
@@ -194,6 +200,9 @@ public class UPTabs {
                     entries.accept(UPItems.FLASK.get());
                     entries.accept(UPItems.GROG.get());
                     entries.accept(UPItems.CAPTURED_KIMMER_FLASK.get());
+                    entries.accept(UPItems.JARATE.get());
+                    entries.accept(UPItems.DORMANT_RAMPAGE.get());
+                    entries.accept(UPItems.YIXIAN_RAMPAGE_FLASK.get());
 
                     // Paleo DNA
                     entries.accept(UPItems.AMMONITE_FLASK.get());

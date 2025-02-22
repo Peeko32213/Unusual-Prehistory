@@ -219,6 +219,11 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         super.setCustomName(pName);
     }
 
+    @Override
+    protected float getJumpPower() {
+        return 1.25F;
+    }
+
     private void attack(LivingEntity entity) {
         entity.hurt(this.damageSources().mobAttack(this), 5.0F);
     }

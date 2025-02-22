@@ -40,7 +40,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .addCriterion("plant_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.PLANT_FOSSIL.get()))
                 .addCriterion("amber_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.AMBER_FOSSIL.get()))
                 .addCriterion("frozen_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.FROZEN_FOSSIL.get()))
-                .addCriterion("tar_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.TAR_FOSSIL.get()))
+//                .addCriterion("tar_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.TAR_FOSSIL.get()))
                 .requirements(RequirementsStrategy.OR).save(consumer, prefixS("main/fossil"));
 
         Advancement analyzer = getAdvancement(fossil, (ItemLike) UPBlocks.ANALYZER.get(), "craft_analyzer", FrameType.TASK, true, true, false)
@@ -483,19 +483,19 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .requirements(RequirementsStrategy.OR)
                 .save(consumer, prefixS("main/amber_gummy"));
 
-        Advancement encrusted = getAdvancement(amberFossil, (ItemLike)UPItems.ENCRUSTED_FLASK.get(), "interact_encrusted", FrameType.TASK, true, true, true)
+        Advancement encrusted = getAdvancement(amberFossil, UPItems.ENCRUSTED_FLASK.get(), "interact_encrusted", FrameType.TASK, true, true, true)
                 .addCriterion("damage_encrusted", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get())))))
                 .addCriterion("interact_encrusted", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get()).build())))
                 .addCriterion("killed_encrusted", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get())))
                 .requirements(RequirementsStrategy.OR)
                 .save(consumer, prefixS("main/encrusted"));
 
-        Advancement sludge = getAdvancement(fossil, (ItemLike)UPItems.TAR_FOSSIL.get(), "interact_sludge", FrameType.TASK, true, true, true)
-                .addCriterion("damage_sludge", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get())))))
-                .addCriterion("interact_sludge", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get()).build())))
-                .addCriterion("killed_sludge", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get())))
-                .requirements(RequirementsStrategy.OR)
-                .save(consumer, prefixS("main/sludge"));
+//        Advancement sludge = getAdvancement(fossil, UPItems.TAR_FOSSIL.get(), "interact_sludge", FrameType.TASK, true, true, true)
+//                .addCriterion("damage_sludge", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get())))))
+//                .addCriterion("interact_sludge", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get()).build())))
+//                .addCriterion("killed_sludge", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.SLUDGE.get())))
+//                .requirements(RequirementsStrategy.OR)
+//                .save(consumer, prefixS("main/sludge"));
 
 
     }

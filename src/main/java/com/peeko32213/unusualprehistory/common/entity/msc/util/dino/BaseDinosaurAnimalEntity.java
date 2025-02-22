@@ -82,14 +82,6 @@ public abstract class BaseDinosaurAnimalEntity extends Animal implements GeoAnim
             );
         }
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-
-        // Baby goals
-        this.goalSelector.addGoal(4, new BabyPanicGoal(this, 2.0D) { public boolean canUse() {
-            return isBaby() && super.canUse();
-        }});
-        this.goalSelector.addGoal(1, new FollowParentGoal(this, 1.1) { public boolean canUse() {
-            return isBaby() && super.canUse();
-        }});
     }
 
     @Override

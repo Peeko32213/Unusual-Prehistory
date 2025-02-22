@@ -44,6 +44,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 
 public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
 
@@ -54,7 +55,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
     private boolean canBePushed = true;
     private static final RawAnimation MAJUNGA_WALK = RawAnimation.begin().thenLoop("animation.majungasaurus.walk");
     private static final RawAnimation MAJUNGA_IDLE = RawAnimation.begin().thenLoop("animation.majungasaurus.idle");
-    private static final RawAnimation MAJUNGA_RUN = RawAnimation.begin().thenLoop("animation.majungasaurus.run");
+    private static final RawAnimation MAJUNGA_RUN = RawAnimation.begin().thenLoop("animation.majungasaurus.charge");
     private static final RawAnimation MAJUNGA_CHARGE_PREP = RawAnimation.begin().thenLoop("animation.majungasaurus.prep");
     private static final RawAnimation MAJUNGA_STUNNED = RawAnimation.begin().thenLoop("animation.majungasaurus.stunned");
     private static final RawAnimation MAJUNGA_SWIM = RawAnimation.begin().thenLoop("animation.majungasaurus.swim");
@@ -71,7 +72,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
                 .add(Attributes.ARMOR, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D);
     }
 
     @Override
@@ -79,11 +80,13 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MajungaMeleeAttackGoal(this, 1.5D, false));
         this.goalSelector.addGoal(2, new MajungaPrepareChargeGoal(this));
-        this.goalSelector.addGoal(3, new MajungaChargeGoal(this, 2.5F));
-        this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(3, new MajungaChargeGoal(this, 2.0F));
+        this.goalSelector.addGoal(4, new BabyPanicGoal(this, 2.0D));
+        if(this.isBaby()) {
+            this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, MajungasaurusEntity.class, 12.0F, 2.0D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        }
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34) {
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30) {
                     @Override
                     public boolean canUse() {
                         if (this.mob.isVehicle()) {
@@ -208,7 +211,6 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         return super.mobInteract(player, hand);
     }
 
-
     protected SoundEvent getAmbientSound() {
         return UPSounds.MAJUNGA_IDLE.get();
     }
@@ -271,7 +273,6 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         return false;
     }
 
-
     public void setChargeCooldownTicks(int ticks) {
         this.entityData.set(CHARGE_COOLDOWN_TICKS, ticks);
     }
@@ -302,16 +303,13 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         if (!this.isAlive()) {
             return;
         }
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.isImmobile() ? 0.0 : 0.2);
+        Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(this.isImmobile() ? 0.0 : 0.2);
         if (this.stunnedTick > 0) {
             --this.stunnedTick;
             this.stunEffect();
-            if (random.nextInt(0, 100) <= 30) {
-                this.spawnAtLocation(UPItems.MAJUNGA_SCUTE.get());
-            }
+            this.spawnAtLocation(UPItems.MAJUNGA_SCUTE.get());
         }
     }
-
 
     private void stunEffect() {
         if (this.random.nextInt(6) == 0) {
@@ -337,7 +335,6 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         defender.push(this);
         defender.hurtMarked = true;
     }
-
 
     @Override
     public void handleEntityEvent(byte id) {
@@ -527,7 +524,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double) (this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.9F + p_25556_.getBbWidth());
+            return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.9F + p_25556_.getBbWidth();
         }
 
     }
@@ -554,7 +551,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         } else if (event.isMoving()) {
             if (this.isSprinting() && !this.isInWater()) {
                 event.setAndContinue(MAJUNGA_RUN);
-                event.getController().setAnimationSpeed(3.0F);
+                event.getController().setAnimationSpeed(1.0F);
                 return PlayState.CONTINUE;
             } else {
                 event.setAndContinue(MAJUNGA_WALK);

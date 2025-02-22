@@ -11,24 +11,20 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
+public class DunkleosteusModel extends GeoModel<DunkleosteusEntity> {
 
-public class DunkleosteusModel extends GeoModel<DunkleosteusEntity>
-{
     @Override
-    public ResourceLocation getModelResource(DunkleosteusEntity object)
-    {
+    public ResourceLocation getModelResource(DunkleosteusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/dunk.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(DunkleosteusEntity object)
-    {
+    public ResourceLocation getTextureResource(DunkleosteusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/dunkleosteus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(DunkleosteusEntity object)
-    {
+    public ResourceLocation getAnimationResource(DunkleosteusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/dunk.animation.json");
     }
 

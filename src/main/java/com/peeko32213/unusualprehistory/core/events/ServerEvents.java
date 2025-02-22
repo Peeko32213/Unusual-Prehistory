@@ -244,13 +244,6 @@ public class ServerEvents {
         }
     }
 
-    //@SubscribeEvent
-    //public void removeCachedBlock(BlockEvent.BreakEvent event) {
-    //    if(DinosaurLandEgg.cachedPos.containsKey(event.getPos())) {
-    //        DinosaurLandEgg.cachedPos.remove(event.getPos());
-    //    }
-    //}
-
     @SubscribeEvent
     //cant be canceled
     public void preventClick(PlayerInteractEvent.LeftClickEmpty event) {

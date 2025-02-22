@@ -60,18 +60,6 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
-    },
-    "tar_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusualprehistory:tar_fossil_item"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -95,8 +83,7 @@
       "paleo_fossil",
       "plant_fossil",
       "amber_fossil",
-      "frozen_fossil",
-      "tar_fossil"
+      "frozen_fossil"
     ]
   ],
   "sends_telemetry_event": true

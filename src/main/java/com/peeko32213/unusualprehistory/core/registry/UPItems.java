@@ -51,8 +51,8 @@ public class UPItems {
     public static final RegistryObject<Item> PLANT_FOSSIL = ITEMS.register("plant_fossil_item",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> TAR_FOSSIL = ITEMS.register("tar_fossil_item",
-            () -> new Item(new Item.Properties()));
+//    public static final RegistryObject<Item> TAR_FOSSIL = ITEMS.register("tar_fossil_item",
+//            () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> FROZEN_FOSSIL = ITEMS.register("frozen_fossil_item",
             () -> new Item(new Item.Properties()));
@@ -632,20 +632,20 @@ public class UPItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> YIXIAN_RAMPAGE_FLASK = ITEMS.register("yixian_rampage_flask", () -> new ModItemDrinkable(drinkItem().stacksTo(16).food(UPFood.YIXIAN_SALIVA), true, false));
-    public static final RegistryObject<Item> INACTIVE_RABIES = ITEMS.register("inactive_rabies", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DORMANT_RAMPAGE = ITEMS.register("dormant_rampage", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("furca_bucket",
+    public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("jawless_fish_bucket",
             () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> JARATE =  ITEMS.register("jarate", () -> new JarateItem((new Item.Properties()).stacksTo(16)));
 
-    public static final RegistryObject<Item> QUILL_VACCINE = ITEMS.register("quill_vaccine", () -> new RampageRemedyItem(new Item.Properties()));
+    public static final RegistryObject<Item> QUILL_REMEDY = ITEMS.register("quill_remedy", () -> new RampageRemedyItem(new Item.Properties()));
 
-    public static final RegistryObject<Item> RAW_FURCACAUDA = ITEMS.register("raw_furcacauda",
-            () -> new Item(new Item.Properties().food(UPFood.RAW_FURCA)));
+    public static final RegistryObject<Item> RAW_JAWLESS_FISH = ITEMS.register("raw_jawless_fish",
+            () -> new Item(new Item.Properties().food(UPFood.RAW_JAWLESS_FISH)));
 
-    public static final RegistryObject<Item> COOKED_FURCACAUDA = ITEMS.register("cooked_furcacauda",
+    public static final RegistryObject<Item> COOKED_JAWLESS_FISH = ITEMS.register("cooked_jawless_fish",
             () -> new Item(new Item.Properties().food(UPFood.COOKED_FURCA)));
 
     public static final RegistryObject<Item> RAW_TARTU = ITEMS.register("raw_tartuosteus",
@@ -654,10 +654,16 @@ public class UPItems {
     public static final RegistryObject<Item> COOKED_TARTU = ITEMS.register("cooked_tartuosteus",
             () -> new Item(new Item.Properties().food(UPFood.COOKED_TARTU)));
 
+    public static final RegistryObject<Item> RAW_DUNK = ITEMS.register("raw_dunkleosteus",
+            () -> new Item(new Item.Properties().food(UPFood.RAW_DUNK)));
+
+    public static final RegistryObject<Item> COOKED_DUNK = ITEMS.register("cooked_dunkleosteus",
+            () -> new Item(new Item.Properties().food(UPFood.COOKED_DUNK)));
+
     public static final RegistryObject<Item> AMBER_IDOL = ITEMS.register("amber_idol",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> PSITTACCO_ARROW = ITEMS.register("psittaco_arrow", () -> new PsittaccoArrow(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> PSITTACCO_ARROW = ITEMS.register("psittaco_arrow", () -> new PsittaccoArrow(new Item.Properties()));
 
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(type, backgroundColor, highlightColor,new Item.Properties()));

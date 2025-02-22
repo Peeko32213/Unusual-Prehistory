@@ -2,6 +2,6 @@
   "parent" : "item/generated",
   "textures" : {
     "layer0" : "unusualprehistory:item/lower_bucket",
-    "layer1" : "unusualprehistory:item/bucket_content/furca"
+    "layer1" : "unusualprehistory:item/bucket_content/jawless_fish"
   }
 }

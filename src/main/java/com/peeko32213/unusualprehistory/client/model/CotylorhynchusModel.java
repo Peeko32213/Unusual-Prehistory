@@ -11,23 +11,20 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class CotylorhynchusModel extends GeoModel<CotylorhynchusEntity>
-{
+public class CotylorhynchusModel extends GeoModel<CotylorhynchusEntity> {
+
     @Override
-    public ResourceLocation getModelResource(CotylorhynchusEntity object)
-    {
+    public ResourceLocation getModelResource(CotylorhynchusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/cotylorhynchus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(CotylorhynchusEntity object)
-    {
+    public ResourceLocation getTextureResource(CotylorhynchusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/cotylorhynchus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(CotylorhynchusEntity object)
-    {
+    public ResourceLocation getAnimationResource(CotylorhynchusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/coty.animation.json");
     }
 

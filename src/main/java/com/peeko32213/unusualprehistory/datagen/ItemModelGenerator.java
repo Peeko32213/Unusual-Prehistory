@@ -109,14 +109,19 @@ public class ItemModelGenerator extends ItemModelProvider {
 
         singleTex(UPItems.ZULOAGAE_SIGN);
         singleTex(UPItems.ZULOAGAE_HANGING_SIGN);
-        singleTex(UPItems.RAW_FURCACAUDA);
-        singleTex(UPItems.COOKED_FURCACAUDA);
+        singleTex(UPItems.RAW_JAWLESS_FISH);
+        singleTex(UPItems.COOKED_JAWLESS_FISH);
         singleTex(UPItems.RAW_TARTU);
         singleTex(UPItems.COOKED_TARTU);
         singleTex(UPItems.PSITTACOSAURUS_QUILL);
         singleTex(UPItems.PSITTACCO_ARROW);
         singleTex(UPItems.AMBER_IDOL);
         singleTex(UPItems.JARATE);
+        singleTex(UPItems.DORMANT_RAMPAGE);
+        singleTex(UPItems.YIXIAN_RAMPAGE_FLASK);
+        singleTex(UPItems.QUILL_REMEDY);
+        singleTex(UPItems.RAW_DUNK);
+        singleTex(UPItems.COOKED_DUNK);
 
 //        singleTex(UPItems.PTERYDACTYLUS_FLASK);
 //        singleTex(UPItems.ERETMORPHIS_FLASK);

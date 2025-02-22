@@ -89,17 +89,6 @@ public abstract class TameableBaseDinosaurAnimalEntity extends TamableAnimal imp
             );
         }
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-
-        // Baby goals
-        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D) { public boolean canUse() {
-            return isBaby() && super.canUse();
-        }});
-        this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D) { public boolean canUse() {
-            return isBaby() && super.canUse();
-        }});
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1) { public boolean canUse() {
-            return isBaby() && super.canUse();
-        }});
     }
     private static final int ATTACK_COOLDOWN = 30;
     @Override

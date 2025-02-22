@@ -35,40 +35,35 @@ public class UPBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, UnusualPrehistory.MODID);
 
-    public static final RegistryObject<Block> STONE_FOSSIL = registerBlock("stone_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    // Fossil ores
+    public static final RegistryObject<Block> STONE_FOSSIL = registerBlock("stone_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
-    public static final RegistryObject<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+    public static final RegistryObject<Block> STONE_AMBER_FOSSIL = registerBlock("stone_amber_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> DEEPSLATE_AMBER_FOSSIL = registerBlock("deepslate_amber_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
-    public static final RegistryObject<Block> DEEPSLATE_PLANT_FOSSIL = registerBlock("deepslate_plant_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+    public static final RegistryObject<Block> STONE_OPAL_FOSSIL = registerBlock("stone_opal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> DEEPSLATE_OPAL_FOSSIL = registerBlock("deepslate_opal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
-    public static final RegistryObject<Block> PLANT_FOSSIL = registerBlock("plant_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> PERMAFROST_FOSSIL = registerBlock("permafrost_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.FROSTED_ICE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().strength(0.5F).sound(SoundType.GLASS)));
+    public static final RegistryObject<Block> PERMAFROST = registerBlock("permafrost", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ICE).strength(0.5F).requiresCorrectToolForDrops().friction(0.98F).strength(0.5F).sound(SoundType.GLASS)));
 
-    public static final RegistryObject<Block> STONE_AMBER_FOSSIL = registerBlock("stone_amber_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+//    public static final RegistryObject<Block> STONE_TAR_FOSSIL = registerBlock("stone_tar_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+//    public static final RegistryObject<Block> DEEPSLATE_TAR_FOSSIL = registerBlock("deepslate_tar_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+//
+//    public static final RegistryObject<Block> DEEPSLATE_PLANT_FOSSIL = registerBlock("deepslate_plant_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+//    public static final RegistryObject<Block> PLANT_FOSSIL = registerBlock("plant_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<Block> DEEPSLATE_AMBER_FOSSIL = registerBlock("deepslate_amber_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+    // Science doodads
+    public static final RegistryObject<Block> ANALYZER = registerBlock("analyzer", () -> new AnalyzerBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> CULTIVATOR = registerBlock("cultivator", () -> new CultivatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> DNA_FRIDGE = registerBlock("dna_fridge", () -> new DNAFridgeBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<Block> ANALYZER = registerBlock("analyzer",
-            () -> new AnalyzerBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
+    // Fruit
+    public static final RegistryObject<Block> FRUIT_LOOT_BOX = registerBlock("fruit_loot_box", () -> new FruitLootBoxBlock(BlockBehaviour.Properties.copy(Blocks.PUMPKIN).noOcclusion().strength(0.1F)));
 
-    public static final RegistryObject<Block> CULTIVATOR = registerBlock("cultivator",
-            () -> new CultivatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
-
-    public static final RegistryObject<Block> DNA_FRIDGE = registerBlock("dna_fridge",
-            () -> new DNAFridgeBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
-
-    public static final RegistryObject<Block> FRUIT_LOOT_BOX = registerBlock("fruit_loot_box",
-            () -> new FruitLootBoxBlock(BlockBehaviour.Properties.copy(Blocks.PUMPKIN).noOcclusion().strength(0.1F)));
-
-
-
+    // Rex blocks
     public static final RegistryObject<Block> REX_HEAD = registerBlock("rex_head", RexHeadBlock::new);
-
     public static final RegistryObject<Block> REX_BOOMBOX = registerBlock("rex_boombox", RexBoomboxBlock::new);
 
     public static final Supplier<Block> AMON_EGGS = create("ammon_eggs",
@@ -279,36 +274,12 @@ public class UPBlocks {
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
+    // Fossil mounts
     public static final RegistryObject<Block> AMMONITE_SHELL = registerBlock("ammonite_shell",
             () -> new FossilDecorationBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).requiresCorrectToolForDrops(),
                     Block.box(5, 0, 2, 11, 12, 14),
                     Block.box(2, 0, 5, 14, 12, 11)
             ));
-
-    public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutBlockItem("potted_horsetail",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.HORSETAIL, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-
-    public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutBlockItem("potted_leefructus",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.LEEFRUCTUS, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-
-    public static final RegistryObject<Block> POTTED_BENNETTITALES = registerBlockWithoutBlockItem("potted_bennett",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.BENNETTITALES, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-
-    public static final RegistryObject<Block> POTTED_ARCHAEOSIGILARIA = registerBlockWithoutBlockItem("potted_archaeos",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.ARCHAEOSIGILARIA, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-
-    public static final RegistryObject<Block> POTTED_SARACENIA = registerBlockWithoutBlockItem("potted_sarracenia",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.SARACENIA, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-
-    public static final RegistryObject<Block> POTTED_GINKGO_SAPLING = registerBlockWithoutBlockItem("potted_ginkgo_sapling",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.GINKGO_SAPLING, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-
-    public static final RegistryObject<Block> OPAL_BLOCK = registerBlock("opal_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(0.5F).sound(SoundType.AMETHYST)));
-
-    public static final RegistryObject<Block> INCUBATOR = registerBlock("incubator",
-            () -> new IncubatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(0.5F).speedFactor(0.4F).sound(SoundType.METAL).noOcclusion()));
-
 
     public static final RegistryObject<Block> COTY_FOSSIL = registerBlock("coty_fossil",
             () ->  new FossilDecorationBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.5F).requiresCorrectToolForDrops(),
@@ -406,73 +377,45 @@ public class UPBlocks {
                     Block.box(2, 5, -1, 17, 21, 17)
             ));
 
-    public static final RegistryObject<Block> ANOSTYLOSTROMA_BLOCK = registerBlock("anostylostroma_block", () ->
-            new Block(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.GRASS)));
+    // Prehistoric plants
+    public static final RegistryObject<Block> ARCHAEFRUCTUS = registerBlock("archaefructus", () -> new ArchaefructusBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> ARCHAEOSIGILARIA = registerBlock("archaeos", () -> new FlowerBlock(MobEffects.CONFUSION, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> BENNETTITALES = registerBlock("bennett", () -> new FlowerBlock(MobEffects.DIG_SPEED, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail", () -> new HorsetailBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
+    public static final RegistryObject<Block> TALL_HORSETAIL = registerBlock("tall_horsetail", () -> new UPTallPlantBlock(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
+    public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new FlowerBlock(MobEffects.ABSORPTION, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
+    public static final Supplier<Block> NELUMBITES = create("nelumbites", () -> new WaterlilyBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).instabreak().noOcclusion().sound(SoundType.WET_GRASS)), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+    public static final RegistryObject<Block> QUEREUXIA = registerBlock("quereuxia", () -> new DoubleHeadBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().noOcclusion().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> QUEREUXIA_PLANT = registerBlockWithoutBlockItem("quereuxia_plant", () -> new DoubleHeadPlantBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
+    public static final Supplier<Block> QUEREUXIA_TOP = create("quereuxia_top", () -> new WaterLilyUpdate(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).instabreak().noOcclusion().noCollission().sound(SoundType.WET_GRASS)), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+    public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new UPTallPlantBlock(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
+    public static final RegistryObject<Block> SARACENIA = registerBlock("sarracenia", () -> new SaraceniaBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
+    public static final RegistryObject<Block> TALL_SARACENIA = registerBlock("tall_sarracenia", () -> new UPTallPlantBlock(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
 
-    public static final RegistryObject<Block> ARCHAEFRUCTUS = registerBlock("archaefructus", () ->
-            new ArchaefructusBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+    // Prehistoric corals
+    public static final RegistryObject<Block> ANOSTYLOSTROMA_BLOCK = registerBlock("anostylostroma_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.GRASS)));
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_BLOCK = registerBlock("dead_clathrodictyon_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON = registerBlock("dead_clathrodictyon", () -> new BaseCoralPlantBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().noCollission().instabreak()));
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_FAN = BLOCKS.register("dead_clathrodictyon_fan", () -> new BaseCoralFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_FAN).requiresCorrectToolForDrops().noCollission().instabreak()));
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_WALL_FAN = BLOCKS.register("dead_clathrodictyon_wall_fan", () -> new BaseCoralWallFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_WALL_FAN).requiresCorrectToolForDrops().noCollission().instabreak().dropsLike(DEAD_CLATHRODICTYON_FAN.get())));
+    public static final RegistryObject<Block> CLATHRODICTYON_BLOCK = registerBlock("clathrodictyon_block", () -> new CoralBlock(DEAD_CLATHRODICTYON_BLOCK.get(), BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+    public static final RegistryObject<Block> CLATHRODICTYON = registerBlock("clathrodictyon", () -> new CoralPlantBlock(DEAD_CLATHRODICTYON.get(), BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> CLATHRODICTYON_FAN = BLOCKS.register("clathrodictyon_fan", () -> new CoralFanBlock(DEAD_CLATHRODICTYON_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> CLATHRODICTYON_WALL_FAN = BLOCKS.register("clathrodictyon_wall_fan", () -> new CoralWallFanBlock(DEAD_CLATHRODICTYON_WALL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_WALL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS).dropsLike(CLATHRODICTYON_FAN.get())));
 
-    public static final RegistryObject<Block> ARCHAEOSIGILARIA = registerBlock("archaeos",
-            () -> new FlowerBlock(MobEffects.CONFUSION, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
-
-    public static final RegistryObject<Block> BENNETTITALES = registerBlock("bennett",
-            () -> new FlowerBlock(MobEffects.DIG_SPEED, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
-
-    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_BLOCK = registerBlock("dead_clathrodictyon_block", () ->
-            new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
-
-    public static final RegistryObject<Block> DEAD_CLATHRODICTYON = registerBlock("dead_clathrodictyon", () ->
-            new BaseCoralPlantBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().noCollission().instabreak()));
-
-    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_FAN = BLOCKS.register("dead_clathrodictyon_fan", () ->
-            new BaseCoralFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_FAN).requiresCorrectToolForDrops().noCollission().instabreak()));
-
-    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_WALL_FAN = BLOCKS.register("dead_clathrodictyon_wall_fan", () ->
-            new BaseCoralWallFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_WALL_FAN).requiresCorrectToolForDrops().noCollission().instabreak().dropsLike(DEAD_CLATHRODICTYON_FAN.get())));
-
-    public static final RegistryObject<Block> CLATHRODICTYON_BLOCK = registerBlock("clathrodictyon_block", () ->
-            new CoralBlock(DEAD_CLATHRODICTYON_BLOCK.get(), BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
-
-    public static final RegistryObject<Block> CLATHRODICTYON = registerBlock("clathrodictyon", () ->
-            new CoralPlantBlock(DEAD_CLATHRODICTYON.get(), BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
-
-    public static final RegistryObject<Block> CLATHRODICTYON_FAN = BLOCKS.register("clathrodictyon_fan", () ->
-            new CoralFanBlock(DEAD_CLATHRODICTYON_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
-
-    public static final RegistryObject<Block> CLATHRODICTYON_WALL_FAN = BLOCKS.register("clathrodictyon_wall_fan", () ->
-            new CoralWallFanBlock(DEAD_CLATHRODICTYON_WALL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_WALL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS).dropsLike(CLATHRODICTYON_FAN.get())));
-
-    public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail",
-            () -> new HorsetailBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
-
-    public static final RegistryObject<Block> TALL_HORSETAIL = registerBlock("tall_horsetail",
-            () -> new UPTallPlantBlock(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
-
-    public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus",
-            () -> new FlowerBlock(MobEffects.ABSORPTION, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
-
-    public static final Supplier<Block> NELUMBITES = create("nelumbites",
-            () -> new WaterlilyBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).instabreak().noOcclusion().sound(SoundType.WET_GRASS)),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-
-    public static final RegistryObject<Block> QUEREUXIA = registerBlock("quereuxia",
-            () -> new DoubleHeadBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().noOcclusion().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
-
-    public static final RegistryObject<Block> QUEREUXIA_PLANT = registerBlockWithoutBlockItem("quereuxia_plant",
-            () -> new DoubleHeadPlantBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.WET_GRASS)));
-
-    public static final Supplier<Block> QUEREUXIA_TOP = create("quereuxia_top",
-            () -> new WaterLilyUpdate(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).instabreak().noOcclusion().noCollission().sound(SoundType.WET_GRASS)),
-            entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-
-    public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun",
-            () -> new UPTallPlantBlock(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
-
-    public static final RegistryObject<Block> SARACENIA = registerBlock("sarracenia",
-            () -> new SaraceniaBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
-
-    public static final RegistryObject<Block> TALL_SARACENIA = registerBlock("tall_sarracenia",
-            () -> new UPTallPlantBlock(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
+    // Potted plants
+    public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutBlockItem("potted_horsetail", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.HORSETAIL, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutBlockItem("potted_leefructus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.LEEFRUCTUS, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> POTTED_BENNETTITALES = registerBlockWithoutBlockItem("potted_bennett", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.BENNETTITALES, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> POTTED_ARCHAEOSIGILARIA = registerBlockWithoutBlockItem("potted_archaeos", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.ARCHAEOSIGILARIA, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> POTTED_SARACENIA = registerBlockWithoutBlockItem("potted_sarracenia", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.SARACENIA, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> POTTED_GINKGO_SAPLING = registerBlockWithoutBlockItem("potted_ginkgo_sapling", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.GINKGO_SAPLING, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> OPAL_BLOCK = registerBlock("opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(0.5F).sound(SoundType.AMETHYST)));
+    public static final RegistryObject<Block> INCUBATOR = registerBlock("incubator", () -> new IncubatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(0.5F).speedFactor(0.4F).sound(SoundType.METAL).noOcclusion()));
+    public static final RegistryObject<Block> POTTED_PETRIFIED_BUSH = registerBlockWithoutBlockItem("potted_petrified_bush", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.PETRIFIED_BUSH, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> POTTED_ZULOGAE = registerBlockWithoutBlockItem("potted_zulogae", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.ZULOAGAE_SAPLING, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> POTTED_DRYO = registerBlockWithoutBlockItem("potted_dryo", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.DRYO_SAPLING, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    //public static final RegistryObject<Block> POTTED_FOXXI = registerBlockWithoutBlockItem("potted_foxxi", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.FOXII_SAPLING, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
 
     // Amber blocks
     public static final RegistryObject<Block> AMBER_BLOCK = registerBlock("amber_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
@@ -598,50 +541,12 @@ public class UPBlocks {
     public static final RegistryObject<Block> ZULOAGAE = registerBlock("zuloagae", () -> new ZuloagaeBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO).randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ)));
     public static final RegistryObject<Block> ZULOAGAE_SAPLING = registerBlockWithoutBlockItem("zuloagae_sapling", () -> new ZuloagaeSaplingBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_SAPLING).randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ)));
 
-    public static final RegistryObject<Block> ASPHALT = registerBlock("asphalt", () ->
-            new AsphaltBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE)));
-
-    public static final RegistryObject<Block> GOLD_ENGRAVED_ASPHALT = registerBlock("gold_engraved_asphalt", () ->
-            new AsphaltBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE)));
-
-    public static final RegistryObject<Block> QUARTZ_ENGRAVED_ASPHALT = registerBlock("quartz_engraved_asphalt", () ->
-            new AsphaltBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE)));
-
-    public static final RegistryObject<Block> POTTED_PETRIFIED_BUSH = registerBlockWithoutBlockItem("potted_petrified_bush",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.PETRIFIED_BUSH, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-
-    public static final RegistryObject<Block> TAR = registerBlockWithoutBlockItem("tar",
-            () -> new TarBlock(BlockBehaviour.Properties.copy(Blocks.POWDER_SNOW).strength(0.25F).sound(SoundType.MUD).dynamicShape().noOcclusion()));
-
-    public static final RegistryObject<Block> SPLATTERED_TAR = registerBlock("splattered_tar",
-            () -> new SplatteredTarBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().strength(0.2F).sound(SoundType.HONEY_BLOCK)));
-
-    public static final RegistryObject<Block> STONE_OPAL_FOSSIL = registerBlock("stone_opal_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
-
-    public static final RegistryObject<Block> DEEPSLATE_OPAL_FOSSIL = registerBlock("deepslate_opal_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
-
-    public static final RegistryObject<Block> STONE_TAR_FOSSIL = registerBlock("stone_tar_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
-
-    public static final RegistryObject<Block> DEEPSLATE_TAR_FOSSIL = registerBlock("deepslate_tar_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
-
-    public static final RegistryObject<Block> PERMAFROST_FOSSIL = registerBlock("permafrost_fossil",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.FROSTED_ICE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().strength(0.5F).sound(SoundType.GLASS)));
-
-    public static final RegistryObject<Block> PERMAFROST = registerBlock("permafrost",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.ICE).strength(0.5F).requiresCorrectToolForDrops().friction(0.98F).strength(0.5F).sound(SoundType.GLASS)));
-
-    public static final RegistryObject<Block> POTTED_ZULOGAE = registerBlockWithoutBlockItem("potted_zulogae",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.ZULOAGAE_SAPLING, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-
-    public static final RegistryObject<Block> POTTED_DRYO = registerBlockWithoutBlockItem("potted_dryo",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.DRYO_SAPLING, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-
-    //public static final RegistryObject<Block> POTTED_FOXXI = registerBlockWithoutBlockItem("potted_foxxi",
-    //        () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.FOXII_SAPLING, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    // Tar stuffs
+    public static final RegistryObject<Block> TAR = registerBlockWithoutBlockItem("tar", () -> new TarBlock(BlockBehaviour.Properties.copy(Blocks.POWDER_SNOW).strength(0.25F).sound(SoundType.MUD).dynamicShape().noOcclusion()));
+    public static final RegistryObject<Block> SPLATTERED_TAR = registerBlock("splattered_tar", () -> new SplatteredTarBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().strength(0.2F).sound(SoundType.HONEY_BLOCK)));
+    public static final RegistryObject<Block> ASPHALT = registerBlock("asphalt", () -> new AsphaltBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE)));
+    public static final RegistryObject<Block> GOLD_ENGRAVED_ASPHALT = registerBlock("gold_engraved_asphalt", () -> new AsphaltBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE)));
+    public static final RegistryObject<Block> QUARTZ_ENGRAVED_ASPHALT = registerBlock("quartz_engraved_asphalt", () -> new AsphaltBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE)));
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
@@ -679,8 +584,6 @@ public class UPBlocks {
         return false;
     }
 }
-
-// Unused 1.6 stuff
 
 //    public static final RegistryObject<Block> ELECTRIC_PILLAR = registerBlock("electric_pillar",
 //            () -> new BlockElectricPillar(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(1.5F).lightLevel((state -> 9)).emissiveRendering((state, level, pos) -> true).noOcclusion()));

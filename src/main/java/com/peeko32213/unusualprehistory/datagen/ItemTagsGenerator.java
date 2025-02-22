@@ -109,8 +109,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.MEZO_FOSSIL.get())
                 .add(UPItems.PALEO_FOSSIL.get())
                 .add(UPItems.FROZEN_FOSSIL.get())
-                .add(UPItems.OPAL_FOSSIL.get())
-                .add(UPItems.TAR_FOSSIL.get());
+                .add(UPItems.OPAL_FOSSIL.get());
+//                .add(UPItems.TAR_FOSSIL.get());
 
         tag(UPTags.ANALYZER_ITEMS_INPUT)
                 .addTag(UPTags.FOSSILS)

@@ -72,9 +72,7 @@ public class AntarctopeltaEntity extends BaseDinosaurAnimalEntity implements ICu
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (p_28879_) -> {
-            return p_28879_ instanceof Enemy && !(p_28879_ instanceof Creeper);
-        }));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (p_28879_) -> p_28879_ instanceof Enemy && !(p_28879_ instanceof Creeper)));
     }
     
     @Override

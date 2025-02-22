@@ -37,7 +37,6 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -109,7 +108,6 @@ public class JarateEntity extends ThrowableItemProjectile implements GeoAnimatab
 
         super.onHit(hitResult);
     }
-
 
     protected void onHitEntity(EntityHitResult hitResult) {
         //smacks the entity too just in case for compat n shit

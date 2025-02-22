@@ -205,7 +205,6 @@ public final class ClientEvents {
     private static final ResourceLocation BEELZE_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/beelzebufo.geo.json");
 
     // Unfinished 1.6 stuff
-//    private static final ResourceLocation OTAROCYCON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/otarocyon.geo.json");
     private static final ResourceLocation KAPROSUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kaprosuchus.geo.json");
     private static final ResourceLocation ARCHELON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/archelon.geo.json");
     private static final ResourceLocation ARCHELON_SADDLE_EMPTY_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/archelon_saddle_empty.png");

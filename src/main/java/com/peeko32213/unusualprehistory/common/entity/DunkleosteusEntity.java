@@ -54,6 +54,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.Objects;
+
 public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IBookEntity {
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
@@ -62,8 +64,9 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final RawAnimation DUNK_SWIM = RawAnimation.begin().thenLoop("animation.dunk.swim");
+    private static final RawAnimation DUNK_SWIM_SPRINT = RawAnimation.begin().thenLoop("animation.dunk.swim_sprint");
     private static final RawAnimation DUNK_IDLE = RawAnimation.begin().thenLoop("animation.dunk.idle");
-    private static final RawAnimation DUNK_ATTACK = RawAnimation.begin().thenLoop("animation.dunk.bite");
+    private static final RawAnimation DUNK_ATTACK = RawAnimation.begin().thenLoop("animation.dunk.attack");
     private static final RawAnimation DUNK_BEACHED = RawAnimation.begin().thenLoop("animation.dunk.flop");
 
     private int passiveFor = 0;
@@ -211,27 +214,27 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         int animState = this.getAnimationState();
 
         if(!this.isFromBook()) {
-            switch (animState) {
-
-                case 21:
-                    return event.setAndContinue(DUNK_ATTACK);
-
-                default:
-
-
-                    if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+            if (animState == 21) {
+                return event.setAndContinue(DUNK_ATTACK);
+            } else {
+                if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+                    if(this.isSprinting()){
+                        event.setAndContinue(DUNK_SWIM_SPRINT);
+                        event.getController().setAnimationSpeed(1.0F);
+                    } else {
                         event.setAndContinue(DUNK_SWIM);
-                        return PlayState.CONTINUE;
+                        event.getController().setAnimationSpeed(1.0F);
                     }
-                    if (!this.isInWater()) {
-                        event.setAndContinue(DUNK_BEACHED);
-                        event.getController().setAnimationSpeed(2.0F);
-                        return PlayState.CONTINUE;
-                    }
-                    else if (this.isInWater()){
-                        event.setAndContinue(DUNK_IDLE);
-                        return PlayState.CONTINUE;
-                    }
+                    return PlayState.CONTINUE;
+                }
+                if (!this.isInWater()) {
+                    event.setAndContinue(DUNK_BEACHED);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                } else if (this.isInWater()) {
+                    event.setAndContinue(DUNK_IDLE);
+                    return PlayState.CONTINUE;
+                }
             }
         }
         return PlayState.CONTINUE;
@@ -258,6 +261,16 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
     @Override
     public double getTick(Object o) {
         return tickCount;
+    }
+
+    @Override
+    public void customServerAiStep() {
+        if (this.getMoveControl().hasWanted() && !this.isBaby()) {
+            this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.25D);
+        } else {
+            this.setSprinting(false);
+        }
+        super.customServerAiStep();
     }
 
     static class MoveHelperController extends MoveControl {
@@ -325,7 +338,6 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         private boolean canPenalize = false;
         private int animTime = 0;
 
-
         public DunkMeleeAttackGoal(DunkleosteusEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
             this.speedModifier = p_i1636_2_;
@@ -392,7 +404,7 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         public void stop() {
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget((LivingEntity) null);
+                this.mob.setTarget(null);
             }
             this.mob.setAnimationState(0);
 
@@ -419,7 +431,6 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
                     this.doMovement(target, distance);
                     this.checkForCloseRangeAttack(distance, reach);
                     break;
-
             }
         }
 
@@ -468,23 +479,26 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         }
 
         protected boolean getRangeCheck () {
-            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.2F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
         protected void tickBiteAttack () {
             animTime++;
-            if(animTime==4) {
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==6) {
                 preformBiteAttack();
             }
-            if(animTime>=8) {
+
+            if(animTime>=9) {
                 animTime=0;
-                if (this.getRangeCheck()) {
-                    this.mob.setAnimationState(22);
-                }else {
-                    this.mob.setAnimationState(0);
-                    this.resetAttackCooldown();
-                    this.ticksUntilNextPathRecalculation = 0;
-                }
+                this.mob.setAnimationState(0);
+                this.resetAttackCooldown();
+                this.ticksUntilNextPathRecalculation = 0;
             }
         }
 
