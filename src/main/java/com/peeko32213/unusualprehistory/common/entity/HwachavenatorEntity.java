@@ -145,8 +145,6 @@ public class HwachavenatorEntity extends TameableBaseDinosaurAnimalEntity implem
         return null;
     }
 
-
-
     @Override
     protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
@@ -196,8 +194,6 @@ public class HwachavenatorEntity extends TameableBaseDinosaurAnimalEntity implem
 
         return entityIn.is(this);
     }
-
-
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if(this.level().isClientSide) return InteractionResult.PASS;
@@ -668,7 +664,7 @@ public class HwachavenatorEntity extends TameableBaseDinosaurAnimalEntity implem
 
     protected <E extends HwachavenatorEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
-            return PlayState.CONTINUE;
+            return event.setAndContinue(HWACHA_IDLE);
         }
         if (event.isMoving() && !isShooting() && !this.isInSittingPose() && !this.isInWater()) {
             if (this.isSprinting() || !this.getPassengers().isEmpty() ) {

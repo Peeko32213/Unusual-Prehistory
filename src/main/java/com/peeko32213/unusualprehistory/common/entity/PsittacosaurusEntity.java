@@ -516,7 +516,7 @@
 
      protected <E extends PsittacosaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          if(this.isFromBook()){
-             return PlayState.CONTINUE;
+             return event.setAndContinue(PSITTACO_IDLE_1);
          }
          int animState = this.getAnimationState();
          {

@@ -707,7 +707,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
 
     protected <E extends TyrannosaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
-            return PlayState.CONTINUE;
+            return event.setAndContinue(REX_IDLE);
         }
         int animState = this.getAnimationState();
         {

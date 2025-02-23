@@ -1,5 +1,5 @@
 {
-  "parent": "root.json",
+  "parent": "fossil.json",
   "text": "meso_fossil.txt",
   "title": "item.unusualprehistory.mezo_fossil",
   "page_to_go": "unusualprehistory:fossils",

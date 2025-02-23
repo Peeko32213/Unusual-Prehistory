@@ -537,7 +537,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
 
     protected <E extends MajungasaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            return event.setAndContinue(MAJUNGA_CHARGE_PREP);
         }
         if (this.isInWater()) {
             event.setAndContinue(MAJUNGA_SWIM);

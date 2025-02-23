@@ -42,7 +42,6 @@ public class EncyclopediaItem extends Item {
             String id = target.getEncodeId().split(":")[1];
             ResourceLocation resourceLocation = prefix("dinosaurs/"+id);
 
-
             UnusualPrehistory.PROXY.openBookGUI(resourceLocation);
         }
         return InteractionResult.PASS;

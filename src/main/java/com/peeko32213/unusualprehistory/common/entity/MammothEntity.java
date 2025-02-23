@@ -383,7 +383,7 @@ public class MammothEntity extends BaseDinosaurAnimalEntity implements Shearable
 
     protected <E extends MammothEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            return event.setAndContinue(MAMMOTH_IDLE);
         }
         if (this.isInWater()) {
             event.setAndContinue(MAMMOTH_SWIM);

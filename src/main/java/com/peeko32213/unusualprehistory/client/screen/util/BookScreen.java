@@ -228,7 +228,6 @@ public class BookScreen extends Screen {
         addLinkButtons();
     }
 
-
     public ResourceLocation getBookWidgetTexture() {
         return BOOK_WIDGET_TEXTURE;
     }
@@ -241,7 +240,6 @@ public class BookScreen extends Screen {
         return getBindingColor();
     }
 
-
     protected int getTextColor() {
         return 0X303030;
     }
@@ -250,11 +248,9 @@ public class BookScreen extends Screen {
         return 0XBAAC98;
     }
 
-
     public String getTextFileDirectory() {
         return "unusualprehistory:encyclopedia/";
     }
-
 
     /**
      * Adds a picture to the book page.
@@ -266,6 +262,7 @@ public class BookScreen extends Screen {
      * @param sizeY The height of the picture.
      * @param resourceLocation The resource location of the picture.
      */
+
     public void addPicture(GuiGraphics graphics, int offsetX, int offsetY, int sizeX, int sizeY, ResourceLocation resourceLocation) {
         int i = (this.width - this.xSize) / 2;
         int p = (this.height - this.ySize + 128) / 2;
@@ -283,6 +280,7 @@ public class BookScreen extends Screen {
      * @param widthToSkipEnd The ending width to skip.
      * @return Whether the coordinates are within the specified offsets.
      */
+
     public boolean checkOffsets(int currentHeight, int currentWidth, int heightToSkipStart, int heightToSkipEnd, int widthToSkipStart, int widthToSkipEnd) {
         int i = (this.width - this.xSize) / 2;
         int p = (this.height - this.ySize + 128) / 2;
@@ -667,8 +665,6 @@ public class BookScreen extends Screen {
 
         }
 
-
-
         if (this.currentResourceLocation.equals(prefix("plants"))) {
             int rowCount = 0;
             int columnCount = 0;
@@ -739,7 +735,6 @@ public class BookScreen extends Screen {
             }
         }
     }
-
 
     private Recipe getRecipeByName(ResourceLocation registryName) {
         try {
@@ -844,7 +839,6 @@ public class BookScreen extends Screen {
             yIndexesToSkip.add(new Whitespace(0, 20, 5, 70, 15));
         }
     }
-
 
     /**
      * Reads and processes page text from a specified resource location.

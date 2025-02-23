@@ -530,7 +530,7 @@ public class TalpanasEntity extends BaseDinosaurAnimalEntity {
     protected <E extends TalpanasEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            return event.setAndContinue(TALPANAS_IDLE);
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isPassenger()&& !this.isSwimming()) {
             event.setAndContinue(TALPANAS_WALK);

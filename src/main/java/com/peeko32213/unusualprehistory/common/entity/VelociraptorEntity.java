@@ -405,7 +405,7 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
 
     protected <E extends VelociraptorEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            return event.setAndContinue(VELOCI_IDLE);
         }
         if (this.isInWater()) {
             event.setAndContinue(VELOCI_SWIM);

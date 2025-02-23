@@ -68,7 +68,6 @@
      private static final RawAnimation OPHIODON_PATROL = RawAnimation.begin().thenLoop("animation.ophiodon.patrol");
      private static final RawAnimation OPHIODON_SIEVE = RawAnimation.begin().thenLoop("animation.ophiodon.sieve");
 
-
      public OphiodonEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
@@ -162,6 +161,10 @@
 
      protected <E extends OphiodonEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          int animState = this.getAnimationState();
+
+         if (this.isFromBook()) {
+             event.setAndContinue(OPHIODON_IDLE);
+         }
 
          if(!this.isFromBook()) {
 

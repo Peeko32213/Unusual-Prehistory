@@ -843,7 +843,7 @@ public class UlughbegsaurusEntity extends TameableBaseDinosaurAnimalEntity imple
 
     protected <E extends UlughbegsaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
-            return PlayState.CONTINUE;
+            return event.setAndContinue(ULUGH_IDLE);
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) {
             if (this.isSprinting() || !this.getPassengers().isEmpty()) {

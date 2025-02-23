@@ -691,6 +691,7 @@ public class LanguageGenerator extends LanguageProvider {
 
         addSound(UPSounds.ZULOGAE_DISC, "Music Disc");
         addSound(UPSounds.ENCASED_DISC, "Music Disc");
+
         addSound(UPSounds.MEGATHER_DEATH, "Megatherium dies");
         addSound(UPSounds.MEGATHER_HURT, "Megatherium hurts");
         addSound(UPSounds.MEGATHER_IDLE, "Megatherium groans");
@@ -716,6 +717,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.SLUDGE_IDLE, "Sludge gurgles");
         addSound(UPSounds.SLUDGE_SLAM, "Sludge slams");
         addSound(UPSounds.SLUDGE_SLAP, "Sludge slaps");
+
         addSound(UPSounds.JARATE_EXPLODE, "Jarate impacts");
         addSound(UPSounds.JARATE_SNIPER, "Jarate!");
 
@@ -734,7 +736,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_2", "%s was turned to fine paste");
         add("death.attack.hwacha_3", "%s was shot");
         add("instrument.unusualprehistory.ocarina", "Crocodilian Lullaby");
-        add("rex.pacify.message", "Pacified Tyrannosaurus Rex");
+        add("rex.pacify.message", "Pacified %s");
 
         add("unusualprehistory.advancement.root", "Unusual Prehistory");
         add("unusualprehistory.advancement.root.desc", "Begin Your Journey Into the World of Prehistory!");
@@ -970,7 +972,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.encyclopedia.plants","Plants of Prehistory");
         add("unusualprehistory.root", "Encyclopedia of Prehistory");
         add("unusualprehistory.encyclopedia.root", "Unusual Prehistory");
-        add("unusualprehistory.root.1", "How to Revive Mobs");
+        add("unusualprehistory.root.1", "Basics of Revival");
         add("unusualprehistory.root.2", "Plants of Prehistory");
         add("unusualprehistory.root.3", "Animals of Prehistory");
         add("unusualprehistory.root.4", "Fossils");

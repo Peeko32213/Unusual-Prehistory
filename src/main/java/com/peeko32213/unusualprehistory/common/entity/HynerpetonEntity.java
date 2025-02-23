@@ -318,7 +318,7 @@
 
      protected <E extends HynerpetonEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          if (this.isFromBook()) {
-             return PlayState.CONTINUE;
+             return event.setAndContinue(HYNERPETON_SWIM_IDLE);
          }
 
          if(this.isFed() && (this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())){

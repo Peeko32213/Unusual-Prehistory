@@ -64,7 +64,6 @@ public class PachycephalosaurusEntity extends BaseDinosaurAnimalEntity {
         this.setMaxUpStep(1.0F);
     }
 
-
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 25.0D)
@@ -287,7 +286,7 @@ public class PachycephalosaurusEntity extends BaseDinosaurAnimalEntity {
 
     protected <E extends PachycephalosaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
-            return PlayState.CONTINUE;
+            return event.setAndContinue(PACHY_IDLE);
         }
         int animState = this.getAnimationState();
         {

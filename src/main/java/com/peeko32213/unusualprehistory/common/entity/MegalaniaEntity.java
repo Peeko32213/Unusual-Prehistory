@@ -623,7 +623,7 @@ public class MegalaniaEntity extends BaseDinosaurAnimalEntity implements IVarian
     protected <E extends MegalaniaEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
         if(this.isFromBook()){
-            return PlayState.CONTINUE;
+            return event.setAndContinue(MEGALANIA_IDLE);
         }
         {
             switch (animState) {

@@ -241,7 +241,7 @@
          int animState = this.getAnimationState();
 
          if(this.isFromBook()) {
-             return PlayState.STOP;
+             event.setAnimation(PROTOSPHYRAENA_WATER_IDLE);
          }
              switch (animState) {
 

@@ -936,6 +936,10 @@ public class BrachiosaurusEntity extends BaseDinosaurAnimalEntity implements Sem
     }
 
     protected <E extends BrachiosaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if(this.isFromBook()){
+            return event.setAndContinue(BRACHI_IDLE);
+        }
+
         int animState = this.getAnimationState();
 
         if(!this.isFromBook()) {

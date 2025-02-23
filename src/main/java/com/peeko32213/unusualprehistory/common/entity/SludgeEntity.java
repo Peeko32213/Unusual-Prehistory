@@ -314,6 +314,7 @@ public class SludgeEntity extends Monster implements GeoAnimatable {
     }
 
     protected <E extends SludgeEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
         int animState = this.getAnimationState();
         switch (animState) {
 

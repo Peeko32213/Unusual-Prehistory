@@ -177,6 +177,11 @@ public class XiphactinusEntity extends SchoolingWaterAnimal implements GeoAnimat
     }
 
     protected <E extends XiphactinusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if (this.isFromBook()) {
+            return event.setAndContinue(XIPH_IDLE);
+        }
+
         int animState = this.getAnimationState();
 
         if(!this.isFromBook()) {

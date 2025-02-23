@@ -361,7 +361,7 @@ public class AnurognathusEntity extends AgeableMob implements GeoEntity, Neutral
 
     protected <E extends AnurognathusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
-            return PlayState.CONTINUE;
+            return event.setAndContinue(ANURO_FLY);
         }
         if (event.isMoving() && this.onGround() && this.onGround()) {
             return event.setAndContinue(ANURO_WALK);

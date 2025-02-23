@@ -345,7 +345,7 @@ public class AustroraptorEntity extends BaseDinosaurAnimalEntity implements ICus
 
     protected <E extends AustroraptorEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
-            return PlayState.CONTINUE;
+            event.setAndContinue(AUSTRO_IDLE);
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming()) {
             event.setAndContinue(AUSTRO_WALK);

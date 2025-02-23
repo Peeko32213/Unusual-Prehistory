@@ -438,7 +438,7 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
 
     protected <E extends ParaceratheriumEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            return event.setAndContinue(PARACER_IDLE);
         }
         int animState = this.getAnimationState();
         {

@@ -365,7 +365,7 @@
 
      protected <E extends PterodaustroEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          if (this.isFromBook()) {
-             return PlayState.CONTINUE;
+             return event.setAndContinue(PTERODAUSTRO_IDLE);
          }
          if (this.isFlying()) {
              return event.setAndContinue(PTERODAUSTRO_FLY);

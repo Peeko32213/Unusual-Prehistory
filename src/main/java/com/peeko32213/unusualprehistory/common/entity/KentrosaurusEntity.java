@@ -592,7 +592,7 @@ public class KentrosaurusEntity extends BaseDinosaurAnimalEntity {
 
     protected <E extends KentrosaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            event.setAndContinue(KENTRO_IDLE);
         }
         int animState = this.getAnimationState();
         {

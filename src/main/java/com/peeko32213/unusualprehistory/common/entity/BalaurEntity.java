@@ -813,7 +813,7 @@
 
      protected <E extends BalaurEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          if (this.isFromBook()) {
-             return PlayState.CONTINUE;
+             event.setAndContinue(BALAUR_IDLE_1);
          }
 
          int animState = this.getAnimationState();

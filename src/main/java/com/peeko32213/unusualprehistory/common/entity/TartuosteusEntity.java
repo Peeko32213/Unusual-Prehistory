@@ -178,7 +178,7 @@
      protected <E extends TartuosteusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
          if (this.isFromBook()) {
-             return PlayState.CONTINUE;
+             return event.setAndContinue(TARTUO_IDLE);
          }
 
          if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {

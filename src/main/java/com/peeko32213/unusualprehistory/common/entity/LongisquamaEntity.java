@@ -422,7 +422,7 @@
      protected <E extends LongisquamaEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
          if (this.isFromBook()) {
-             return PlayState.CONTINUE;
+             return event.setAndContinue(LONGISQUAMA_IDLE);
          }
 
          if ((this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) || this.isClimbing()) {

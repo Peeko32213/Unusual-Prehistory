@@ -248,7 +248,7 @@ public class HyneriaEntity extends TameableBaseDinosaurAnimalNoFloatEntity imple
 
     protected <E extends HyneriaEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            return event.setAndContinue(HYNERIA_SWIM_IDLE);
         }
 
         if (event.isMoving() && !this.isInWater() && !this.isSwimming()) {

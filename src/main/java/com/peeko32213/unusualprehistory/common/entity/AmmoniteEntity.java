@@ -218,6 +218,10 @@ public class AmmoniteEntity extends AbstractSchoolingFish implements Bucketable,
 
     protected <E extends AmmoniteEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
+        if(this.isFromBook() && this.getVariant() == 0){
+            event.setAndContinue(AMMONITE_SWIM);
+        }
+
         if(!this.isFromBook()) {
             if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
                 if(this.getVariant() == 1){

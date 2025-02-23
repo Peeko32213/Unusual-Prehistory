@@ -234,6 +234,10 @@ public class JawlessFishEntity extends BoidFishEntity implements Bucketable, Geo
 
 
     protected <E extends JawlessFishEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.isFromBook()) {
+            return event.setAndContinue(JAWLESS_FISH_SWIM);
+        }
+
         if(!this.isFromBook()) {
             if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
                 event.setAndContinue(JAWLESS_FISH_SWIM);

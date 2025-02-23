@@ -302,6 +302,10 @@
 
 
      protected <E extends LeedsichthysEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+         if(this.isFromBook()){
+             return event.setAndContinue(LEEDS_IDLE);
+         }
+
          int animState = this.getAnimationState();
 
          if(!this.isFromBook()) {

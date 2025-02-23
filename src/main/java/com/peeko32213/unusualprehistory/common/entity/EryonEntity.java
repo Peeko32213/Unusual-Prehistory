@@ -487,7 +487,7 @@ public class EryonEntity extends BaseDinosaurAnimalEntity implements IVariantEnt
 
     protected <E extends EryonEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            return event.setAndContinue(ERYON_IDLE);
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
              {

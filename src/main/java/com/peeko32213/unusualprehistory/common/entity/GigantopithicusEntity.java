@@ -79,7 +79,6 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
 
     @Override
     protected void registerGoals() {
-
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new TradeGoal(this, Ingredient.of(LootFruitJsonManager.getTrades().keySet().stream().map(e -> new ItemStack(e)))));
         this.goalSelector.addGoal(1, new GigantopithicusEntity.ApeMeleeAttackGoal(this, 1.3F, true));
@@ -96,10 +95,8 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
             temptationItems = Ingredient.merge(Lists.newArrayList(
                     Ingredient.of(ItemTags.LEAVES)
             ));
-
         return temptationItems;
     }
-
 
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
@@ -108,7 +105,6 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
         if (LootFruitJsonManager.getTrades().containsKey(itemInHand.getItem()) && this.isTrading() && !this.level().isClientSide) {
             setTradingAndGottenItem(true);
         }
-
         return super.mobInteract(pPlayer, pHand);
     }
 
@@ -173,36 +169,29 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
-
     }
 
     public int getAnimationState() {
-
         return this.entityData.get(ANIMATION_STATE);
     }
 
     public void setAnimationState(int anim) {
-
         this.entityData.set(ANIMATION_STATE, anim);
     }
 
     public int getCombatState() {
-
         return this.entityData.get(COMBAT_STATE);
     }
 
     public void setCombatState(int anim) {
-
         this.entityData.set(COMBAT_STATE, anim);
     }
 
     public int getEntityState() {
-
         return this.entityData.get(ENTITY_STATE);
     }
 
     public void setEntityState(int anim) {
-
         this.entityData.set(ENTITY_STATE, anim);
     }
 
@@ -213,9 +202,6 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
 
     @Override
     public ResourceLocation getVariantTexture() {
-
-
-
         if (hasCustomName()) {
             if(getCustomName().getString().equalsIgnoreCase("braypithicus")){
                 return TEXTURE_VARIANT;
@@ -279,8 +265,6 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
                     }
                 }
             }
-
-
         }
 
         public boolean canContinueToUse() {
@@ -313,10 +297,9 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
         public void stop() {
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget((LivingEntity) null);
+                this.mob.setTarget(null);
             }
             this.mob.setAnimationState(0);
-
         }
 
         public void tick() {
@@ -340,15 +323,12 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
                     this.doMovement(target, distance);
                     this.checkForCloseRangeAttack(distance, reach);
                     break;
-
             }
         }
 
         protected void doMovement(LivingEntity livingentity, Double d0) {
 
-
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
 
             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
                 this.pathedTargetX = livingentity.getX();
@@ -392,11 +372,7 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
 
 
         protected boolean getRangeCheck() {
-
-            return
-                    this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                            <=
-                            1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
 
@@ -419,7 +395,6 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
             Vec3 pos = mob.position();
             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 2.5f, mob, pos, 9.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
         }
-
 
         protected void resetAttackCooldown() {
             this.ticksUntilNextAttack = 3;
@@ -456,6 +431,9 @@ public class GigantopithicusEntity extends BaseDinosaurAnimalEntity implements I
 
 
     protected <E extends GigantopithicusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.isFromBook()) {
+            event.setAndContinue(GIGANTO_IDLE);
+        }
         int animState = this.getAnimationState();
         {
             switch (animState) {

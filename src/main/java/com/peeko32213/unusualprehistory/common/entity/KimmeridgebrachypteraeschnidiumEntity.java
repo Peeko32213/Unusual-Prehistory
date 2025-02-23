@@ -288,11 +288,10 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements
 
     protected <E extends KimmeridgebrachypteraeschnidiumEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
-            return PlayState.CONTINUE;
+            return event.setAndContinue(KIMMER_HOVER);
         }
         if (event.isMoving() && this.onGround() && this.onGround()) {
             return event.setAndContinue(KIMMER_HOVER);
-
         }
         if (!event.isMoving() && this.onGround() && this.onGround()) {
             return event.setAndContinue(KIMMER_IDLE_1);

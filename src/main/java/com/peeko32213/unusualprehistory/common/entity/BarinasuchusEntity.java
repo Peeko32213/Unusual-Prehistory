@@ -582,6 +582,10 @@ public class BarinasuchusEntity extends TameableBaseDinosaurAnimalEntity impleme
     }
 
     protected <E extends BarinasuchusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if(this.isFromBook()){
+            return event.setAndContinue(BARINA_IDLE);
+        }
+
         int animState = this.getAnimationState();
 
         if(!this.isFromBook()) {

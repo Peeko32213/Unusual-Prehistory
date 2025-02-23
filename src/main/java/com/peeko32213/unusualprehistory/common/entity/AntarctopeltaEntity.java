@@ -416,6 +416,10 @@ public class AntarctopeltaEntity extends BaseDinosaurAnimalEntity implements ICu
     }
 
     protected <E extends AntarctopeltaEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if(this.isFromBook()){
+            return event.setAndContinue(ANTARCTO_IDLE);
+        }
+
         int animState = this.getAnimationState();
 
         if(!this.isFromBook()) {

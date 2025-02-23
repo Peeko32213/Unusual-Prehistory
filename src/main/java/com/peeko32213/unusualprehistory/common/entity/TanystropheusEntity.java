@@ -344,7 +344,7 @@
 
      protected <E extends TanystropheusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          if (this.isFromBook()) {
-             return PlayState.CONTINUE;
+             return event.setAndContinue(TANY_IDLE);
          }
 
          if (this.isBasking() && !this.isInWater()) {

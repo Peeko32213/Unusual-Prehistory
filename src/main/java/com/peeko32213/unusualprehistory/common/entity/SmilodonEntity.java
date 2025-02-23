@@ -445,7 +445,7 @@ public class SmilodonEntity extends BaseDinosaurAnimalEntity implements IVariant
 
     protected <E extends SmilodonEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            return event.setAndContinue(SMILO_IDLE);
         }
 
         if (groom1() && !this.isSwimming()) {

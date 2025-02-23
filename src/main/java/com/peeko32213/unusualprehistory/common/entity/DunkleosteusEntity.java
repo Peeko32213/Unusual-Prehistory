@@ -211,6 +211,10 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
     }
 
     protected <E extends DunkleosteusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.isFromBook()) {
+            return event.setAndContinue(DUNK_IDLE);
+        }
+
         int animState = this.getAnimationState();
 
         if(!this.isFromBook()) {

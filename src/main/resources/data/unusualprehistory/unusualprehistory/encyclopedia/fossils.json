@@ -1,23 +1,59 @@
 {
   "title": "unusualprehistory.encyclopedia.fossils",
   "text": "root_fossil.txt",
-  "pictures": [
+  "linked_page_buttons": [],
+  "item_renders": [
     {
-      "page": 0,
-      "picture_location": "unusualprehistory:textures/item/mezo_fossil.png",
+      "item" : "unusualprehistory:deepslate_fossil",
+      "x": 40,
+      "y": 25,
+      "page" : 0,
+      "scale": 1.1
+    },
+    {
+      "item" : "unusualprehistory:stone_fossil",
       "x": 70,
-      "y": 28,
-      "xSize": 44,
-      "ySize": 44
+      "y": 25,
+      "page" : 0,
+      "scale": 1.2
+    },
+    {
+      "item" : "unusualprehistory:permafrost_fossil",
+      "x": 100,
+      "y": 25,
+      "page" : 0,
+      "scale": 1.2
+    },
+    {
+      "item" : "unusualprehistory:stone_amber_ore",
+      "x": 25,
+      "y": 45,
+      "page" : 0,
+      "scale": 1.2
+    },
+    {
+      "item" : "unusualprehistory:deepslate_amber_ore",
+      "x": 55,
+      "y": 45,
+      "page" : 0,
+      "scale": 1.2
+    },
+    {
+      "item" : "unusualprehistory:stone_opal_ore",
+      "x": 85,
+      "y": 45,
+      "page" : 0,
+      "scale": 1.2
+    },
+    {
+      "item" : "unusualprehistory:deepslate_opal_ore",
+      "x": 115,
+      "y": 45,
+      "page" : 0,
+      "scale": 1.2
     }
   ],
-  "fossil_index": [
-    {
-      "page": 0,
-      "xLocation": 210,
-      "yLocation": 0,
-      "columns": 5,
-      "rows": 5
-    }
-  ]
+  "recipes": [],
+  "tabula_renders": [],
+  "entity_renders": []
 }

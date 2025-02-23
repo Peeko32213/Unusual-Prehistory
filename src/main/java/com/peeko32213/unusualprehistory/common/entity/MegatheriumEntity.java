@@ -450,7 +450,7 @@ public class MegatheriumEntity extends TameableBaseDinosaurAnimalEntity implemen
 
     protected <E extends MegatheriumEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            return event.setAndContinue(MEGATHERIUM_IDLE);
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isInSittingPose() && !this.isSwimming()) {
             if(this.isBaby()){

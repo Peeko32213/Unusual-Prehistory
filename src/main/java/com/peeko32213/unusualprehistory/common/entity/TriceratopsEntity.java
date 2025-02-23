@@ -743,7 +743,7 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
     protected <E extends TriceratopsEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
         if (this.isFromBook()) {
-            return PlayState.CONTINUE;
+            return event.setAndContinue(TRIKE_IDLE);
         }
 
         if (this.isInWater() || this.isSwimming()) {
