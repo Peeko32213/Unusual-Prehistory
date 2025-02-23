@@ -5,7 +5,7 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:dunk",
-      "x": 90,
+      "x": 95,
       "y": 90,
       "page" : 0,
       "scale": 0.6,
@@ -22,9 +22,9 @@
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.25,
-      "offset_x": 10,
-      "offset_y": -26,
+      "entity_scale": 0.5,
+      "offset_x": -9,
+      "offset_y": -15,
       "hover_text": "entity.unusualprehistory.dunk"
     }
   ]

@@ -5,10 +5,10 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:coty",
-      "x": 90,
+      "x": 95,
       "y": 90,
       "page" : 0,
-      "scale": 1.05,
+      "scale": 0.8,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
@@ -22,9 +22,9 @@
       "y": 80,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.28,
-      "offset_x": 11,
-      "offset_y": -20,
+      "entity_scale": 0.6,
+      "offset_x": -5,
+      "offset_y": -4,
       "hover_text": "entity.unusualprehistory.coty"
     }
   ]

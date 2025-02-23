@@ -268,11 +268,11 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PalaeophisModel()));
         event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
 
-        event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
-        event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.AUSTRORAPTOR)));
+        event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new DinosaurRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
+        event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new DinosaurRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.AUSTRORAPTOR)));
         event.registerEntityRenderer(UPEntities.ANTARCO.get(), e -> new DinosaurRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.ANTARCTOPELTA)));
 
-        event.registerEntityRenderer(UPEntities.BALAUR.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BalaurModel()));
+        event.registerEntityRenderer(UPEntities.BALAUR.get(), e -> new TameableDinosaurRenderer<>(e, new BalaurModel()));
 
         event.registerEntityRenderer(UPEntities.ULUG.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new UlughbegsaurusModel())

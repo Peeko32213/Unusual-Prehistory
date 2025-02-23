@@ -23,12 +23,25 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:ammon",
-      "x": 90,
-      "y": 100,
+      "entity_data": "{Variant:0}",
+      "x": 55,
+      "y": 80,
       "page" : 0,
-      "scale": 1.5,
+      "scale": 1.3,
       "rot_x": 30,
-      "rot_y": 225,
+      "rot_y": 215,
+      "rot_z": 0,
+      "follow_cursor": false
+    },
+    {
+      "entity": "unusualprehistory:ammon",
+      "entity_data": "{Variant:1}",
+      "x": 135,
+      "y": 82,
+      "page" : 0,
+      "scale": 1.3,
+      "rot_x": 30,
+      "rot_y": 215,
       "rot_z": 0,
       "follow_cursor": false
     }

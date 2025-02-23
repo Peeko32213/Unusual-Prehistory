@@ -22,9 +22,9 @@
       "y": 120,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.08,
-      "offset_x": 15,
-      "offset_y": -35,
+      "entity_scale": 0.4,
+      "offset_x": -32,
+      "offset_y": 111,
       "hover_text": "entity.unusualprehistory.brachi"
     }
   ]

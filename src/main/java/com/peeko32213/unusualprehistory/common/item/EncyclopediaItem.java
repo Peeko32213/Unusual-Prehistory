@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.item;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -66,6 +67,6 @@ public class EncyclopediaItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("item.unusualprehistory.encyclopedia.desc"));
+        tooltip.add(Component.translatable("item.unusualprehistory.encyclopedia.desc").withStyle(ChatFormatting.GRAY));
     }
 }

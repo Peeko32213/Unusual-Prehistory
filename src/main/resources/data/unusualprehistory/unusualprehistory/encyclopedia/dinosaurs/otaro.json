@@ -9,9 +9,9 @@
       "y": 60,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.47,
-      "offset_x": 9,
-      "offset_y": -10,
+      "entity_scale": 0.8,
+      "offset_x": -3.5,
+      "offset_y": -5,
       "hover_text": "entity.unusualprehistory.otarocyon"
     }
   ],
@@ -20,10 +20,10 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:otarocyon",
-      "x": 90,
+      "x": 95,
       "y": 100,
       "page" : 0,
-      "scale": 1,
+      "scale": 1.2,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,

@@ -45,5 +45,9 @@ public class LivingCutoutNoCullEntityRenderer<T extends LivingEntity & GeoAnimat
             if(otarocyon.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
         }
 
+        if(animatable instanceof BalaurEntity balaur) {
+            if(balaur.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
+        }
+
     }
 }

@@ -392,6 +392,7 @@ public class UPEntities {
 
     public static final RegistryObject<EntityType<EntityPlant>> ARCHAEFRUCTUS = ENTITIES.register("archaefructus",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
+                    .noSummon()
                     .fireImmune()
                     .sized(1, 1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "archaefructus").toString()));

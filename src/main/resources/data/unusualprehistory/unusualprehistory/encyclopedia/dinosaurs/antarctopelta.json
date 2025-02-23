@@ -15,8 +15,8 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:antarctopelta",
-      "x": 90,
-      "y": 100,
+      "x": 100,
+      "y": 95,
       "page" : 0,
       "scale": 0.7,
       "rot_x": 30,
@@ -32,9 +32,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.2,
-      "offset_x": 15,
-      "offset_y": -20,
+      "entity_scale": 0.75,
+      "offset_x": -13,
+      "offset_y": -8,
       "hover_text": "entity.unusualprehistory.antarctopelta"
     }
   ]

@@ -972,10 +972,6 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.encyclopedia.plants","Plants of Prehistory");
         add("unusualprehistory.root", "Encyclopedia of Prehistory");
         add("unusualprehistory.encyclopedia.root", "Unusual Prehistory");
-        add("unusualprehistory.root.1", "Basics of Revival");
-        add("unusualprehistory.root.2", "Plants of Prehistory");
-        add("unusualprehistory.root.3", "Animals of Prehistory");
-        add("unusualprehistory.root.4", "Fossils");
         add("unusualprehistory.encyclopedia.tutorial", "Intro to Revival");
         add("unusualprehistory.encyclopedia.fossils", "Fossils");
 

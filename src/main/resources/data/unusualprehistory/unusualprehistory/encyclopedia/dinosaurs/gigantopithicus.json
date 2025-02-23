@@ -5,7 +5,7 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:gigantopithicus",
-      "x": 90,
+      "x": 95,
       "y": 100,
       "page" : 0,
       "scale": 0.7,
@@ -22,9 +22,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.28,
-      "offset_x": 5,
-      "offset_y": -22,
+      "entity_scale": 0.5,
+      "offset_x": -5,
+      "offset_y": 0,
       "hover_text": "entity.unusualprehistory.gigantopithicus"
     }
   ]

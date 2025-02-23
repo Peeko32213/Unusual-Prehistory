@@ -7,8 +7,8 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:kaprosuchus",
-      "x": 90,
-      "y": 100,
+      "x": 95,
+      "y": 90,
       "page" : 0,
       "scale": 1,
       "rot_x": 30,
@@ -24,8 +24,8 @@
       "y": 120,
       "page" : 1,
       "scale": 1.2,
-      "entity_scale": 0.47,
-      "offset_x": 7,
+      "entity_scale": 0.75,
+      "offset_x": -7,
       "offset_y": -10,
       "hover_text": "entity.unusualprehistory.kaprosuchus"
     }

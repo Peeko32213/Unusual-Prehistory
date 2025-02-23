@@ -1,10 +1,7 @@
 <NEWLINE>
-Revival of ancient beasts is a fairly straightforward process. The first step in this process is finding fossils.
-Fossils can be found in all layers in the world however depth affects age of them. There are 7 types of fossils:
-Paleozoic Fossils, Mesozoic Fossils, Plant Fossils, Amber Fossils, Petrified Wood, Tar Fossils, and Opal Fossils.
+Revival of ancient beasts is a fairly straightforward process.
 <NEWLINE>
-<NEWLINE>
-To actually extract DNA however one must craft an Analyzer. Analyzers are a strange contraption
+Firstly, one must craft an Analyzer. Analyzers are a strange contraption
 that allows for the extraction of DNA from fossils. To actually use this machine you have to use
 flasks to hold the DNA in a stable place. This machine will then search for any traces
 of DNA in the fossil.
@@ -18,4 +15,4 @@ that allows for the revival process.
 The process for reviving cenozoic and live birth creatures differs slightly, as after the cultivation process
 an embryo is obtained. If a modern relative is available, then this can be used as a surrogate mother. However,
 as of now there is only 1 known live-birth relative that still exists today for one animal. To get around this
-one must construct a birthing pod, which allows for 1 live birth to happen before breaking.
+one must construct an Incubator, which simulates live birth, but it can take longer than natural means.

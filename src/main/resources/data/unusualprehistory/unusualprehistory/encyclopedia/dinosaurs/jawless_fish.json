@@ -7,12 +7,49 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:jawless_fish",
+      "entity_data": "{Variant:0}",
       "x": 90,
-      "y": 100,
+      "y": 60,
       "page" : 0,
       "scale": 1.5,
       "rot_x": 30,
       "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    },
+    {
+      "entity": "unusualprehistory:jawless_fish",
+      "entity_data": "{Variant:1}",
+      "x": 95,
+      "y": 100,
+      "page" : 0,
+      "scale": 1.5,
+      "rot_x": 30,
+      "rot_y": 220,
+      "rot_z": 0,
+      "follow_cursor": false
+    },
+    {
+      "entity": "unusualprehistory:jawless_fish",
+      "entity_data": "{Variant:2}",
+      "x": 45,
+      "y": 80,
+      "page" : 0,
+      "scale": 1.5,
+      "rot_x": 30,
+      "rot_y": 235,
+      "rot_z": 0,
+      "follow_cursor": false
+    },
+    {
+      "entity": "unusualprehistory:jawless_fish",
+      "entity_data": "{Variant:3}",
+      "x": 135,
+      "y": 85,
+      "page" : 0,
+      "scale": 1.5,
+      "rot_x": 30,
+      "rot_y": 230,
       "rot_z": 0,
       "follow_cursor": false
     }
@@ -24,7 +61,7 @@
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 1,
+      "entity_scale": 1.25,
       "offset_x": 1,
       "offset_y": -6,
       "hover_text": "entity.unusualprehistory.jawless_fish"
