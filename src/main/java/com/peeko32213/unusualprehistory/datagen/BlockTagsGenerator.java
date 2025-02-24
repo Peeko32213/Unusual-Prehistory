@@ -219,8 +219,8 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.PETRIFIED_WOOD_DOOR.get())
                 .add(UPBlocks.STONE_OPAL_FOSSIL.get())
                 .add(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get())
-//                .add(UPBlocks.STONE_TAR_FOSSIL.get())
-//                .add(UPBlocks.DEEPSLATE_TAR_FOSSIL.get())
+                .add(UPBlocks.STONE_TAR_FOSSIL.get())
+                .add(UPBlocks.DEEPSLATE_TAR_FOSSIL.get())
                 .add(UPBlocks.PERMAFROST_FOSSIL.get())
                 .add(UPBlocks.PERMAFROST.get())
                 .add(UPBlocks.OPAL_BLOCK.get())
@@ -305,13 +305,11 @@ public class BlockTagsGenerator extends BlockTagsProvider {
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(UPBlocks.DEEPSLATE_FOSSIL.get())
-//                .add(UPBlocks.DEEPSLATE_PLANT_FOSSIL.get())
                 .add(UPBlocks.STONE_FOSSIL.get())
                 .add(UPBlocks.ANALYZER.get())
                 .add(UPBlocks.CULTIVATOR.get())
                 .add(UPBlocks.INCUBATOR.get())
                 .add(UPBlocks.AMMONITE_SHELL.get())
-//                .add(UPBlocks.PLANT_FOSSIL.get())
                 .add(UPBlocks.DNA_FRIDGE.get())
                 .add(UPBlocks.PETRIFIED_WOOD_LOG.get())
                 .add(UPBlocks.PETRIFIED_WOOD.get())
@@ -346,8 +344,8 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.PETRIFIED_WOOD_SIGN.get())
                 .add(UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get())
                 .add(UPBlocks.REX_BOOMBOX.get())
-//                .add(UPBlocks.STONE_TAR_FOSSIL.get())
-//                .add(UPBlocks.DEEPSLATE_TAR_FOSSIL.get())
+                .add(UPBlocks.STONE_TAR_FOSSIL.get())
+                .add(UPBlocks.DEEPSLATE_TAR_FOSSIL.get())
                 .add(UPBlocks.PERMAFROST_FOSSIL.get())
                 .add(UPBlocks.PERMAFROST.get())
                 .add(UPBlocks.AMBER_BLOCK.get())
@@ -355,8 +353,6 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.ZULOAGAE_DOOR.get())
 
         ;
-
-
 
         tag(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(UPBlocks.STONE_AMBER_FOSSIL.get())

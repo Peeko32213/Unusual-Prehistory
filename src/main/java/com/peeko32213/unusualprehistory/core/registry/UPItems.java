@@ -43,13 +43,12 @@ public class UPItems {
 
     public static final RegistryObject<Item> SHELL_SHARD = ITEMS.register("shell_shard", () -> new Item(new Item.Properties()));
 
+    // Fossils
     public static final RegistryObject<Item> PALEO_FOSSIL = ITEMS.register("paleo_fossil", () -> new Item(new Item.Properties()));
-
     public static final RegistryObject<Item> MEZO_FOSSIL = ITEMS.register("mezo_fossil", () -> new Item(new Item.Properties()));
-
     public static final RegistryObject<Item> PLANT_FOSSIL = ITEMS.register("plant_fossil_item", () -> new Item(new Item.Properties()));
-
     public static final RegistryObject<Item> FROZEN_FOSSIL = ITEMS.register("frozen_fossil_item", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TAR_FOSSIL = ITEMS.register("tar_fossil_item", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> AMBER_SHARDS = ITEMS.register("amber_shard", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> AMBER_FOSSIL = ITEMS.register("amber_fossil", () -> new Item(new Item.Properties()));

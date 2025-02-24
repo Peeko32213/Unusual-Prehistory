@@ -41,6 +41,7 @@ public class UPTabs {
                     entries.accept(UPItems.PALEO_FOSSIL.get());
                     entries.accept(UPItems.MEZO_FOSSIL.get());
                     entries.accept(UPItems.PLANT_FOSSIL.get());
+                    entries.accept(UPItems.TAR_FOSSIL.get());
                     entries.accept(UPItems.FROZEN_FOSSIL.get());
                     entries.accept(UPItems.DEFROSTED_FROZEN_FOSSIL.get());
                     entries.accept(UPItems.AMBER_SHARDS.get());
@@ -49,8 +50,10 @@ public class UPTabs {
                     entries.accept(UPItems.OPAL_FOSSIL.get());
                     entries.accept(UPBlocks.STONE_FOSSIL.get());
                     entries.accept(UPBlocks.DEEPSLATE_FOSSIL.get());
-                    entries.accept(UPBlocks.PERMAFROST_FOSSIL.get());
+                    entries.accept(UPBlocks.STONE_TAR_FOSSIL.get());
+                    entries.accept(UPBlocks.DEEPSLATE_TAR_FOSSIL.get());
                     entries.accept(UPBlocks.PERMAFROST.get());
+                    entries.accept(UPBlocks.PERMAFROST_FOSSIL.get());
                     entries.accept(UPBlocks.STONE_AMBER_FOSSIL.get());
                     entries.accept(UPBlocks.DEEPSLATE_AMBER_FOSSIL.get());
                     entries.accept(UPBlocks.STONE_OPAL_FOSSIL.get());

@@ -51,7 +51,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
         BlockState block2 = UPBlocks.TAR.get().defaultBlockState();
         BlockState block3 = Blocks.MUD.defaultBlockState();
         BlockState block4 = UPBlocks.SPLATTERED_TAR.get().defaultBlockState().setValue(getFaceProperty(Direction.DOWN), Boolean.valueOf(true));
-//        BlockState block5 = UPBlocks.STONE_TAR_FOSSIL.get().defaultBlockState();
+        BlockState block5 = UPBlocks.STONE_TAR_FOSSIL.get().defaultBlockState();
         BlockState block6 = Blocks.STONE.defaultBlockState();
         int heightLower = 0;
 
@@ -81,7 +81,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
                         } else if(f < 0) {
                             if(pos.getY() < origin.getY()) {
                                 if ((f >= -0.6 && f < -0.55) || (f >= -0.85 && f < -0.8)) {
-                                    worldgenlevel.setBlock(pos, block, 3);
+                                    worldgenlevel.setBlock(pos, block5, 3);
                                 } else if (pos.getY() < (origin.getY() - 4)) {
                                     worldgenlevel.setBlock(pos, block, 3);
                                 } else {
@@ -96,15 +96,15 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
                                 worldgenlevel.setBlock(pos, block4, 3);
                             }
                         }// else{
-                         //   worldgenlevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                        //   worldgenlevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                         //}//
                     }
 
-                    }
-
                 }
+
             }
         }
+    }
 
     private static void preProcessTarFeature(WorldGenLevel worldgenlevel, BlockPos origin, RandomSource random, int radius, int height, FastNoiseLite noise, FastNoiseLite noise2, boolean finalSection) {
         // Define additional block states for the iceberg section
@@ -112,7 +112,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
         BlockState block2 = UPBlocks.TAR.get().defaultBlockState();
         BlockState block3 = Blocks.MUD.defaultBlockState();
         BlockState block4 = UPBlocks.SPLATTERED_TAR.get().defaultBlockState().setValue(getFaceProperty(Direction.DOWN), Boolean.valueOf(true));
-//        BlockState block5 = UPBlocks.STONE_TAR_FOSSIL.get().defaultBlockState();
+        BlockState block5 = UPBlocks.STONE_TAR_FOSSIL.get().defaultBlockState();
         BlockState block6 = Blocks.STONE.defaultBlockState();
         int heightLower = 0;
 

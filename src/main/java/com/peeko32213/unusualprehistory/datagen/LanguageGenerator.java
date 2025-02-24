@@ -62,7 +62,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PLANT_FOSSIL, "Plant Fossil");
         addItem(UPItems.AMBER_FOSSIL, "Amber Fossil");
         addItem(UPItems.AMBER_SHARDS, "Amber Chunk");
-        addItem(UPItems.FROZEN_FOSSIL, "Frozen Fossil");
+        addItem(UPItems.FROZEN_FOSSIL, "Frozen Meat");
+        addItem(UPItems.TAR_FOSSIL, "Tar Fossil");
         addItem(UPItems.OPAL_CHUNK, "Opal Chunk");
         addItem(UPItems.OPAL_FOSSIL, "Opal Fossil");
 
@@ -344,8 +345,14 @@ public class LanguageGenerator extends LanguageProvider {
         //BLOCKS
         addBlock(UPBlocks.STONE_FOSSIL, "Stone Fossil");
         addBlock(UPBlocks.DEEPSLATE_FOSSIL, "Deepslate Fossil");
-        addBlock(UPBlocks.STONE_AMBER_FOSSIL, "Stone Amber Fossil");
-        addBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL, "Deepslate Amber Fossil");
+        addBlock(UPBlocks.STONE_TAR_FOSSIL, "Stone Tar Fossil");
+        addBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL, "Deepslate Tar Fossil");
+        addBlock(UPBlocks.STONE_AMBER_FOSSIL, "Amber Ore");
+        addBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL, "Deepslate Amber Ore");
+        addBlock(UPBlocks.STONE_OPAL_FOSSIL, "Opal Ore");
+        addBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL, "Deepslate Opal Ore");
+        addBlock(UPBlocks.PERMAFROST_FOSSIL, "Permafrost Fossil");
+        addBlock(UPBlocks.PERMAFROST, "Permafrost");
         addBlock(UPBlocks.ANALYZER, "Analyzer");
         addBlock(UPBlocks.CULTIVATOR, "Cultivator");
         addBlock(UPBlocks.DNA_FRIDGE, "DNA Fridge");
@@ -360,10 +367,6 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ASPHALT, "Asphalt");
         addBlock(UPBlocks.GOLD_ENGRAVED_ASPHALT, "Gold Engraved Asphalt");
         addBlock(UPBlocks.QUARTZ_ENGRAVED_ASPHALT, "Quartz Engraved Asphalt");
-        addBlock(UPBlocks.STONE_OPAL_FOSSIL, "Stone Opal Fossil");
-        addBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL, "Deepslate Opal Fossil");
-        addBlock(UPBlocks.PERMAFROST_FOSSIL, "Permafrost Fossil");
-        addBlock(UPBlocks.PERMAFROST, "Permafrost");
 
         //PLANTS
         addBlock(UPBlocks.HORSETAIL, "Horsetail");

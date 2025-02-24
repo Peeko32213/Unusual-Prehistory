@@ -40,7 +40,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .addCriterion("plant_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.PLANT_FOSSIL.get()))
                 .addCriterion("amber_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.AMBER_FOSSIL.get()))
                 .addCriterion("frozen_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.FROZEN_FOSSIL.get()))
-//                .addCriterion("tar_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.TAR_FOSSIL.get()))
+                .addCriterion("tar_fossil", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.TAR_FOSSIL.get()))
                 .requirements(RequirementsStrategy.OR).save(consumer, prefixS("main/fossil"));
 
         Advancement analyzer = getAdvancement(fossil, (ItemLike) UPBlocks.ANALYZER.get(), "craft_analyzer", FrameType.TASK, true, true, false)
