@@ -38,8 +38,7 @@ public class IncubatorBlock extends BaseEntityBlock {
 
     /* BLOCK ENTITY */
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos,
-                                 Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         if (!pLevel.isClientSide()) {
             IncubatorBlockEntity entity = (IncubatorBlockEntity)pLevel.getBlockEntity(pPos);
@@ -97,7 +96,6 @@ public class IncubatorBlock extends BaseEntityBlock {
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
-
 
     public BlockState rotate(BlockState p_52716_, Rotation p_52717_) {
         return p_52716_.setValue(FACING, p_52717_.rotate(p_52716_.getValue(FACING)));

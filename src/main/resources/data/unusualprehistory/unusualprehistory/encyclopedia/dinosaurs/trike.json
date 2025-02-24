@@ -5,10 +5,10 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:trike",
-      "x": 90,
-      "y": 100,
+      "x": 95,
+      "y": 97,
       "page" : 0,
-      "scale": 0.5,
+      "scale": 0.45,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
@@ -22,9 +22,9 @@
       "y": 20,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.18,
-      "offset_x": 3,
-      "offset_y": -26,
+      "entity_scale": 0.4,
+      "offset_x": -20,
+      "offset_y": -11,
       "hover_text": "entity.unusualprehistory.trike"
     }
   ]

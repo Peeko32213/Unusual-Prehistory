@@ -60,12 +60,15 @@
      private static final RawAnimation PSILO_ATTACK_1 = RawAnimation.begin().thenLoop("animation.psilopterus.attack1");
      private static final RawAnimation PSILO_ATTACK_2 = RawAnimation.begin().thenLoop("animation.psilopterus.attack2");
      private static final RawAnimation PSILO_KICK = RawAnimation.begin().thenLoop("animation.psilopterus.kick");
+
+     private static final RawAnimation PSILO_IDLE_BOOK = RawAnimation.begin().thenLoop("animation.psilopterus.idle_book");
+
      private boolean hasDominateAttributes = false;
      private PsilopterusEntity priorPackMember;
      private PsilopterusEntity afterPackMember;
      public PsilopterusEntity(EntityType<? extends Animal> entityType, Level level) {
          super(entityType, level);
-         this.setMaxUpStep(1.0F);
+         this.setMaxUpStep(1.25F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -97,8 +100,6 @@
      public void travel(Vec3 pTravelVector) {
 
          if(playingAnimation()){
-
-
              super.travel(Vec3.ZERO);
          }
          super.travel(pTravelVector);
@@ -519,7 +520,7 @@
 
      @Override
      protected int getKillHealAmount() {
-         return 0;
+         return 4;
      }
 
      @Override
@@ -569,7 +570,7 @@
 
      protected <E extends PsilopterusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          if(this.isFromBook()){
-             return event.setAndContinue(PSILO_IDLE);
+             return event.setAndContinue(PSILO_IDLE_BOOK);
          }
 
          int animState = this.getAnimationState();

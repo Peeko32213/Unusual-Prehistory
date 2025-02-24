@@ -129,6 +129,9 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
         if(item == UPItems.ADORNED_STAFF.get() && this.hasEepy()) {
             itemstack.hurtAndBreak(1, player, (p_29822_) -> {
                 p_29822_.broadcastBreakEvent(hand);
+                if(this.level().isClientSide){
+                    this.playSound(UPSounds.REX_PACIFY.get(), 1.0F, 1.0F);
+                }
             });
             if(!this.level().isClientSide) {
                 this.heal(300);
@@ -137,7 +140,6 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
                 this.passiveFor = 1000000000 + random.nextInt(1000000000);
                 this.level().broadcastEntityEvent(this, (byte) 45);
                 player.displayClientMessage(Component.translatable("rex.pacify.message").withStyle(ChatFormatting.GOLD), true);
-                this.playSound(UPSounds.REX_PACIFY.get(), 1.0F, 1.0F);
             }
             return InteractionResult.SUCCESS;
         }

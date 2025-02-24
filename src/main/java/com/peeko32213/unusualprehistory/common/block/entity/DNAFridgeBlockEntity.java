@@ -79,7 +79,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity imple
 
     @Override
     public int getContainerSize() {
-        return 54;
+        return 63;
     }
 
     @Override

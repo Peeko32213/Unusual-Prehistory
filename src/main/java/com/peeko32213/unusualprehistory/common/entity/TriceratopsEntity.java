@@ -70,7 +70,6 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
     private static final EntityDataAccessor<Boolean> SWINGING = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
 
-
     public static final Logger LOGGER = LogManager.getLogger();
     private int stunnedTick;
     private boolean canBePushed = true;

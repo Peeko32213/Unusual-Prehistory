@@ -54,7 +54,7 @@ public class DNAFridgeBlock extends BaseEntityBlock {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tileEntity = level.getBlockEntity(pos);
             if (tileEntity instanceof Container) {
-                Containers.dropContents(level, pos, (Container) tileEntity);
+//                Containers.dropContents(level, pos, (Container) tileEntity);
                 level.updateNeighbourForOutputSignal(pos, this);
             }
             super.onRemove(state, level, pos, newState, isMoving);

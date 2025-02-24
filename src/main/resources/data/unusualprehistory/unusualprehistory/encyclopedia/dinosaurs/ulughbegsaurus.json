@@ -5,10 +5,10 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:ulughbegsaurus",
-      "x": 90,
-      "y": 100,
+      "x": 97,
+      "y": 107,
       "page" : 0,
-      "scale": 0.5,
+      "scale": 0.6,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
@@ -22,9 +22,9 @@
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.23,
-      "offset_x": 13,
-      "offset_y": -18,
+      "entity_scale": 0.5,
+      "offset_x": -10,
+      "offset_y": 5,
       "hover_text": "entity.unusualprehistory.ulughbegsaurus"
     }
   ]

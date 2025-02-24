@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.loot.modifier;
+package com.peeko32213.unusualprehistory.common.loot;
 
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;

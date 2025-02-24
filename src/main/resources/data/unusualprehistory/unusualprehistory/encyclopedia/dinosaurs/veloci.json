@@ -9,9 +9,9 @@
       "y": 60,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.47,
-      "offset_x": 9,
-      "offset_y": -10,
+      "entity_scale": 0.75,
+      "offset_x": 2.5,
+      "offset_y": -6.25,
       "hover_text": "entity.unusualprehistory.veloci"
     }
   ],
@@ -28,10 +28,10 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:veloci",
-      "x": 90,
-      "y": 100,
+      "x": 107,
+      "y": 95,
       "page" : 0,
-      "scale": 1,
+      "scale": 1.1,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,

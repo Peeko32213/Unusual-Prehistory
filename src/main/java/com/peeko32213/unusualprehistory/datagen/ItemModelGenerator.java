@@ -123,6 +123,9 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.RAW_DUNK);
         singleTex(UPItems.COOKED_DUNK);
 
+        singleTex(UPItems.ANIMAL_DNA_FLASKS);
+        singleTex(UPItems.PLANT_DNA_FLASKS);
+
 //        singleTex(UPItems.PTERYDACTYLUS_FLASK);
 //        singleTex(UPItems.ERETMORPHIS_FLASK);
 //        singleTex(UPItems.ARTHROPLEURA_FLASK);

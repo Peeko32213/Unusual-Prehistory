@@ -1,6 +1,6 @@
 {
   "title": "unusualprehistory.encyclopedia.root",
-  "text": "root.txt",
+  "text": "root/root_main.txt",
   "item_renders": [
     {
       "item" : "unusualprehistory:ammonite_shell",
@@ -22,28 +22,28 @@
   "linked_page_buttons": [
     {
       "linked_page": "unusualprehistory:fossils",
-      "text": "Fossils",
+      "text": "unusualprehistory.root.1",
       "x": 295,
       "y": 35,
       "page": 0
     },
     {
       "linked_page": "unusualprehistory:tutorial",
-      "text": "Basics of Revival",
+      "text": "unusualprehistory.root.2",
       "x": 295,
       "y": 65,
       "page": 0
     },
     {
       "linked_page": "unusualprehistory:plants",
-      "text": "Prehistoric Plants",
+      "text": "unusualprehistory.root.3",
       "x": 295,
       "y": 95,
       "page": 0
     },
     {
       "linked_page": "unusualprehistory:dinosaurs",
-      "text": "Prehistoric Animals",
+      "text": "unusualprehistory.root.4",
       "x": 295,
       "y": 125,
       "page": 0

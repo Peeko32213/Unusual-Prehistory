@@ -42,6 +42,11 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ZULOGAE_DISC, "Music Disc");
         addItem(UPItems.ENCASED_DISC, "Music Disc");
 
+        addItem(UPItems.ANIMAL_DNA_FLASKS, "Flask of Prehistoric Animal DNA");
+        addItem(UPItems.PLANT_DNA_FLASKS, "Flask of Prehistoric Plant DNA");
+
+        addBlock(UPBlocks.FOSSIL_ORES, "Fossils");
+
         //TOOLS
         addItem(UPItems.WARPICK, "War Pick");
         addItem(UPItems.PRIMAL_MACUAHUITL, "Primal Macuahuitl");
@@ -57,7 +62,6 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PLANT_FOSSIL, "Plant Fossil");
         addItem(UPItems.AMBER_FOSSIL, "Amber Fossil");
         addItem(UPItems.AMBER_SHARDS, "Amber Chunk");
-//        addItem(UPItems.TAR_FOSSIL, "Tar Fossil");
         addItem(UPItems.FROZEN_FOSSIL, "Frozen Fossil");
         addItem(UPItems.OPAL_CHUNK, "Opal Chunk");
         addItem(UPItems.OPAL_FOSSIL, "Opal Fossil");
@@ -972,6 +976,10 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.encyclopedia.plants","Plants of Prehistory");
         add("unusualprehistory.root", "Encyclopedia of Prehistory");
         add("unusualprehistory.encyclopedia.root", "Unusual Prehistory");
+        add("unusualprehistory.root.1", "Fossils");
+        add("unusualprehistory.root.2", "Basics of Revival");
+        add("unusualprehistory.root.3", "Plants of Prehistory");
+        add("unusualprehistory.root.4", "Animals of Prehistory");
         add("unusualprehistory.encyclopedia.tutorial", "Intro to Revival");
         add("unusualprehistory.encyclopedia.fossils", "Fossils");
 

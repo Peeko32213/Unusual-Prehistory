@@ -5,8 +5,8 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:smilodon",
-      "x": 90,
-      "y": 100,
+      "x": 93,
+      "y": 97,
       "page" : 0,
       "scale": 1.1,
       "rot_x": 30,
@@ -32,9 +32,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.47,
-      "offset_x": 1,
-      "offset_y": -12,
+      "entity_scale": 0.7,
+      "offset_x": -5.5,
+      "offset_y": -6,
       "hover_text": "entity.unusualprehistory.smilodon"
     }
   ]

@@ -49,7 +49,6 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
         this.entityRabiesHadTime = nbt.getInt("entityRabiesHadTime");
     }
 
-
     public static void tickAnimal(LivingEvent.LivingTickEvent event) {
         if (!(event.getEntity() instanceof Animal) || event.getEntity().level().isClientSide) return;
 

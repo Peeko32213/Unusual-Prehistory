@@ -450,7 +450,7 @@ public class UPTabs {
                     });
 
                     // Unsorted stuff
-                    if(!(item.get() instanceof ForgeSpawnEggItem) && !item.get().getDefaultInstance().is(UPItems.BARINA_WHISTLE.get()) && !item.get().getDefaultInstance().is(UPBlocks.FRUIT_LOOT_BOX.get().asItem())) {
+                    if(!(item.get() instanceof ForgeSpawnEggItem) && !item.get().getDefaultInstance().is(UPItems.BARINA_WHISTLE.get()) && !item.get().getDefaultInstance().is(UPBlocks.FRUIT_LOOT_BOX.get().asItem()) && !item.get().getDefaultInstance().is(UPItems.ANIMAL_DNA_FLASKS.get()) && !item.get().getDefaultInstance().is(UPItems.PLANT_DNA_FLASKS.get()) && !item.get().getDefaultInstance().is(UPBlocks.FOSSIL_ORES.get().asItem())) {
                         entries.accept(item.get());
                     }
                 }

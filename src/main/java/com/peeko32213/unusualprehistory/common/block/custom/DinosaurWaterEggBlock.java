@@ -39,7 +39,7 @@ public class DinosaurWaterEggBlock extends Block {
     private static int hatchTimeMax;
     private static int hatchTimeMin;
     public DinosaurWaterEggBlock(Properties properties, Supplier<?extends EntityType> dinosaur, boolean placableOnLand) {
-        this(properties, dinosaur, placableOnLand, 20 , 40);
+        this(properties, dinosaur, placableOnLand, 1200 , 3600);
     }
 
     public DinosaurWaterEggBlock(Properties properties, Supplier<?extends EntityType> dinosaur, boolean placableOnLand, int hatchTimeMin, int hatchTimeMax) {

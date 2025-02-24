@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.loot.modifier;
+package com.peeko32213.unusualprehistory.common.loot;
 
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
@@ -12,45 +12,38 @@ import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
-public class AddItemModifier extends LootModifier
-{
+public class AddItemModifier extends LootModifier {
 	public static final Supplier<Codec<AddItemModifier>> CODEC = Suppliers.memoize(() ->
 			RecordCodecBuilder.create(inst -> codecStart(inst).and(
 					inst.group(
-						ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter((m) -> m.addedItem),
-						Codec.INT.optionalFieldOf("count", 1).forGetter((m) -> m.count)
+							ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter((m) -> m.item),
+							Codec.INT.optionalFieldOf("count", 1).forGetter((m) -> m.count)
 					)
-			)
-			.apply(inst, AddItemModifier::new)));
+			).apply(inst, AddItemModifier::new)));
 
-	private final Item addedItem;
+	private final Item item;
 	private final int count;
 
-	/**
-	 * This loot modifier adds an item to the loot table, given the conditions specified.
-	 */
-	protected AddItemModifier(LootItemCondition[] conditionsIn, Item addedItemIn, int count) {
+	protected AddItemModifier(LootItemCondition[] conditionsIn, Item item, int count) {
 		super(conditionsIn);
-		this.addedItem = addedItemIn;
+		this.item = item;
 		this.count = count;
 	}
 
-	@Nonnull
 	@Override
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-		ItemStack addedStack = new ItemStack(addedItem, count);
+		ItemStack stack = new ItemStack(item, count);
 
-		if (addedStack.getCount() < addedStack.getMaxStackSize()) {
-			generatedLoot.add(addedStack);
+		if (stack.getCount() < stack.getMaxStackSize()) {
+			generatedLoot.add(stack);
 		} else {
-			int i = addedStack.getCount();
+			int i = stack.getCount();
 
 			while (i > 0) {
-				ItemStack subStack = addedStack.copy();
-				subStack.setCount(Math.min(addedStack.getMaxStackSize(), i));
+				ItemStack subStack = stack.copy();
+				subStack.setCount(Math.min(stack.getMaxStackSize(), i));
 				i -= subStack.getCount();
 				generatedLoot.add(subStack);
 			}

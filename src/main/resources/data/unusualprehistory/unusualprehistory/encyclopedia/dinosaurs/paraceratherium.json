@@ -5,10 +5,10 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:paraceratherium",
-      "x": 90,
-      "y": 105,
+      "x": 95,
+      "y": 98,
       "page" : 0,
-      "scale": 0.36,
+      "scale": 0.3,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
@@ -22,9 +22,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.1,
-      "offset_x": 5,
-      "offset_y": -35,
+      "entity_scale": 0.4,
+      "offset_x": -48,
+      "offset_y": 33,
       "hover_text": "entity.unusualprehistory.paraceratherium"
     }
   ]

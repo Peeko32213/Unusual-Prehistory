@@ -13,7 +13,7 @@ public class ModelLocations {
     public static ModelData BARINASUCHUS = new ModelData("barinasuchus");
     public static ModelData BEELZEBUFO = new ModelData("beelzebufo");
     public static ModelData BABY_BEELZEBUFO = new ModelData("beelze_baby");
-    public static ModelData BOOK_SNAKE = new ModelData("palaeophis");
+    public static ModelData BOOK_SNAKE = new ModelData("palaeophis/palaeophis");
     public static ModelData ENCRUSTED = new ModelData("encrusted");
     public static ModelData FURACACAUDA = new ModelData("furacacauda");
     public static ModelData HWACHA_SPIKE = new ModelData("pin");

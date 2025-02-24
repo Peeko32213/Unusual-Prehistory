@@ -1,56 +1,14 @@
 {
   "title": "unusualprehistory.encyclopedia.fossils",
-  "text": "root_fossil.txt",
+  "text": "root/root_fossil.txt",
   "linked_page_buttons": [],
   "item_renders": [
     {
-      "item" : "unusualprehistory:deepslate_fossil",
-      "x": 40,
-      "y": 25,
+      "item" : "unusualprehistory:fossil_ores",
+      "x": 30,
+      "y": 15,
       "page" : 0,
-      "scale": 1.2
-    },
-    {
-      "item" : "unusualprehistory:stone_fossil",
-      "x": 70,
-      "y": 25,
-      "page" : 0,
-      "scale": 1.2
-    },
-    {
-      "item" : "unusualprehistory:permafrost_fossil",
-      "x": 100,
-      "y": 25,
-      "page" : 0,
-      "scale": 1.2
-    },
-    {
-      "item" : "unusualprehistory:stone_amber_ore",
-      "x": 25,
-      "y": 45,
-      "page" : 0,
-      "scale": 1.2
-    },
-    {
-      "item" : "unusualprehistory:deepslate_amber_ore",
-      "x": 55,
-      "y": 45,
-      "page" : 0,
-      "scale": 1.2
-    },
-    {
-      "item" : "unusualprehistory:stone_opal_ore",
-      "x": 85,
-      "y": 45,
-      "page" : 0,
-      "scale": 1.2
-    },
-    {
-      "item" : "unusualprehistory:deepslate_opal_ore",
-      "x": 115,
-      "y": 45,
-      "page" : 0,
-      "scale": 1.2
+      "scale": 2.5
     }
   ],
   "recipes": [],

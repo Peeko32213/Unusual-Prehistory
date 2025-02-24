@@ -1,6 +1,6 @@
 {
   "parent": "root.json",
-  "text": "tutorial.txt",
+  "text": "root/root_science.txt",
   "title": "unusualprehistory.encyclopedia.tutorial",
   "linked_page_buttons": [
   ],
@@ -15,6 +15,14 @@
       "scale": 1.2
     },
     {
+      "recipe": "unusualprehistory:flask",
+      "shapeless": false,
+      "x": 210,
+      "y": 25,
+      "page": 0,
+      "scale": 1.2
+    },
+    {
       "recipe": "unusualprehistory:cultivator",
       "shapeless": false,
       "x": 25,
@@ -25,8 +33,8 @@
     {
       "recipe": "unusualprehistory:incubator",
       "shapeless": false,
-      "x": 210,
-      "y": 108,
+      "x": 20,
+      "y": 95,
       "page": 2,
       "scale": 1.2
     }
