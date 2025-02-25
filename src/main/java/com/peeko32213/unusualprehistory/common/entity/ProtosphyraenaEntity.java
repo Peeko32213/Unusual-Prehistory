@@ -1,6 +1,6 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+ import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.JoinPackGoal;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.ShoalHunterGoal;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;

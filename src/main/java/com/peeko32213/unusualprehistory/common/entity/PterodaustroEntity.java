@@ -1,12 +1,9 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.AnuroPolinateGoal;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.FlyingMoveController;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
- import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,9 +13,6 @@
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.tags.TagKey;
  import net.minecraft.util.Mth;
- import net.minecraft.util.RandomSource;
- import net.minecraft.util.TimeUtil;
- import net.minecraft.util.valueproviders.UniformInt;
  import net.minecraft.world.Difficulty;
  import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.damagesource.DamageSource;
@@ -28,14 +22,11 @@
  import net.minecraft.world.entity.ai.attributes.Attributes;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.goal.*;
- import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
  import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
  import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
  import net.minecraft.world.entity.monster.Monster;
- import net.minecraft.world.item.enchantment.EnchantmentHelper;
  import net.minecraft.world.level.ClipContext;
  import net.minecraft.world.level.Level;
- import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.Blocks;
  import net.minecraft.world.level.block.state.BlockState;
@@ -51,7 +42,6 @@
 
  import javax.annotation.Nullable;
  import java.util.EnumSet;
- import java.util.UUID;
 
  public class PterodaustroEntity extends BaseDinosaurAnimalEntity implements GeoEntity, IBookEntity {
      private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);

@@ -1,10 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.dino;
 
-import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.TyrannosaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IHatchableEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

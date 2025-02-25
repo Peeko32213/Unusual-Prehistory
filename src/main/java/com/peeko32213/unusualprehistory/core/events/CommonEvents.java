@@ -16,6 +16,16 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonEvents {
 
+//    @SubscribeEvent
+//    public static void addPackFinders(AddPackFindersEvent event) {
+//        event.addRepositorySource(consumer -> {
+//            String path = UnusualPrehistory.prefix(UPTextDefinitions.NATURAL_GEN_PACK_NAME).toString();
+//            IModFile file = ModList.get().getModFileById(UnusualPrehistory.MODID).getFile();
+//            try (PathPackResources packResources = new PathPackResources(path, file.findResource("builtin/" + UPTextDefinitions.NATURAL_GEN_PACK_NAME), true )) {
+//                consumer.accept(Pack.readMetaAndCreate(path, UPTextDefinitions.NATURAL_GEN_PACK_DISPLAY_NAME, false, (id) -> packResources, PackType.SERVER_DATA, Pack.Position.TOP, PackSource.BUILT_IN));
+//            }
+//        });
+//    }
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
@@ -103,6 +113,7 @@ public class CommonEvents {
         event.put(UPEntities.NELUMBITES.get(), EntityPlant.bakeAttributes().build());
         event.put(UPEntities.QUEREUXIA.get(), EntityPlant.bakeAttributes().build());
         event.put(UPEntities.RAIGUENRAYUN.get(), EntityPlant.bakeAttributes().build());
+
 
     }
 }

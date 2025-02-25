@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.AnuroPolinateGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.FlyingMoveController;

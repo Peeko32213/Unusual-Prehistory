@@ -1,6 +1,6 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
+ import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseAquaticAnimalEntity;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
  import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;

@@ -1011,6 +1011,10 @@ public class LanguageGenerator extends LanguageProvider {
 
         // Paintings
         add(UPPaintings.PERISCOPE, "Periscope", "ChipsTheCat");
+
+        // Built in datapacks
+        add("pack.unusualprehistory.natural_prehistoric_generation.title", "Natural Prehistoric Generation");
+        add("pack.unusualprehistory.natural_prehistoric_generation.description", "Naturally generating prehistoric plants and things");
     }
 
     @Override
