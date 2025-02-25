@@ -200,6 +200,11 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(EntityType.GUARDIAN)
         ;
 
+        tag(UPTags.HYNERPETON_TARGETS)
+                .add(EntityType.SQUID)
+                .add(EntityType.GLOW_SQUID)
+        ;
+
         tag(UPTags.ENCRUSTED_TARGETS)
                 .addTag(UPTags.LAND_MOBS);
 

@@ -129,9 +129,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
         if(item == UPItems.ADORNED_STAFF.get() && this.hasEepy()) {
             itemstack.hurtAndBreak(1, player, (p_29822_) -> {
                 p_29822_.broadcastBreakEvent(hand);
-                if(this.level().isClientSide){
-                    this.playSound(UPSounds.REX_PACIFY.get(), 1.0F, 1.0F);
-                }
+                this.playSound(UPSounds.REX_PACIFY.get(), 1.0F, 1.0F);
             });
             if(!this.level().isClientSide) {
                 this.heal(300);

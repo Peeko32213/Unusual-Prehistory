@@ -327,7 +327,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
 
         event.registerEntityRenderer(UPEntities.TARTUOSTEUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.TARTUOSTEUS)));
-        event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new NoOverlayRenderer<>(e, new DefaultModel<>(ModelLocations.HYPERNETON)));
+        event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new DinosaurRenderer<>(e, new HynerpetonModel()));
 
         event.registerEntityRenderer(UPEntities.ARCHELON.get(), e ->
                 UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel())

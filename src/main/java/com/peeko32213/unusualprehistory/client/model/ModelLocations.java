@@ -17,7 +17,6 @@ public class ModelLocations {
     public static ModelData ENCRUSTED = new ModelData("encrusted");
     public static ModelData FURACACAUDA = new ModelData("furacacauda");
     public static ModelData HWACHA_SPIKE = new ModelData("pin");
-    public static ModelData HYPERNETON = new ModelData("hynerpeton");
     public static ModelData KIMMER = new ModelData("kimmeridgebrachypteraeschnidium", "kimmer/kimmeridgebrachypteraeschnidium_pattern_a");
     public static ModelData SLUDGE = new ModelData("sludge");
     public static ModelData TALPANAS = new ModelData("talpanas");

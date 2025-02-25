@@ -173,6 +173,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get().asItem())
         ;
 
+        tag(UPTags.HYNERPETON_IGNITERS)
+                .add(Items.FLINT_AND_STEEL)
+                .add(Items.FIRE_CHARGE)
+        ;
+
         tag(ItemTags.PLANKS)
                 .add(UPBlocks.GINKGO_PLANKS.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get().asItem())

@@ -48,6 +48,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -209,27 +210,27 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
     }
 
     public boolean isSwinging() {
-        return this.entityData.get(SWINGING).booleanValue();
+        return this.entityData.get(SWINGING);
     }
 
     public void setSwinging(boolean swinging) {
-        this.entityData.set(SWINGING, Boolean.valueOf(swinging));
+        this.entityData.set(SWINGING, swinging);
     }
 
     public boolean hasSwung() {
-        return this.entityData.get(HAS_SWUNG).booleanValue();
+        return this.entityData.get(HAS_SWUNG);
     }
 
     public void setHasSwung(boolean swung) {
-        this.entityData.set(HAS_SWUNG, Boolean.valueOf(swinging));
+        this.entityData.set(HAS_SWUNG, swinging);
     }
 
     public int getCommand() {
-        return this.entityData.get(COMMAND).intValue();
+        return this.entityData.get(COMMAND);
     }
 
     public void setCommand(int command) {
-        this.entityData.set(COMMAND, Integer.valueOf(command));
+        this.entityData.set(COMMAND, command);
     }
 
     @Override
@@ -308,7 +309,7 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
         }
     }
 
-    public boolean isAlliedTo(Entity entityIn) {
+    public boolean isAlliedTo(@NotNull Entity entityIn) {
         if (this.isTame()) {
             LivingEntity livingentity = this.getOwner();
             if (entityIn == livingentity) {
@@ -326,9 +327,9 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
     }
 
     @Override
-    public void travel(Vec3 pos) {
+    public void travel(@NotNull Vec3 pos) {
         if (this.isAlive()) {
-            LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
+            LivingEntity livingentity = this.getControllingPassenger();
             if (this.isVehicle() && livingentity != null) {
 
                 this.setYRot(livingentity.getYRot());
@@ -343,7 +344,7 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
                     f1 *= 0.25F;
                 }
                 this.setSpeed(0.3F);
-                super.travel(new Vec3((double) f, pos.y, (double) f1));
+                super.travel(new Vec3(f, pos.y, f1));
             } else {
                 super.travel(pos);
             }
@@ -366,7 +367,7 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
     }
 
     @Override
-    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
+    protected void positionRider(Entity pPassenger, @NotNull MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
         pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
@@ -380,7 +381,7 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
         }
     }
 
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isFood(itemstack) && !isTame()) {
@@ -451,11 +452,11 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
 
 
     public boolean isSaddled() {
-        return this.entityData.get(SADDLED).booleanValue();
+        return this.entityData.get(SADDLED);
     }
 
     public void setSaddled(boolean saddled) {
-        this.entityData.set(SADDLED, Boolean.valueOf(saddled));
+        this.entityData.set(SADDLED, saddled);
     }
 
     private boolean isWithinYRange(LivingEntity target) {
