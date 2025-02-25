@@ -25,6 +25,7 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,7 +39,7 @@ public class BlockLootTables extends BlockLootSubProvider {
     }
 
     @Override
-    protected void add(Block pBlock, LootTable.Builder pBuilder) {
+    protected void add(@NotNull Block pBlock, LootTable.@NotNull Builder pBuilder) {
         super.add(pBlock, pBuilder);
         knownBlocks.add(pBlock);
     }
@@ -194,7 +195,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 
 
     @Override
-    protected Iterable<Block> getKnownBlocks() {
+    protected @NotNull Iterable<Block> getKnownBlocks() {
         return knownBlocks;
     }
 }

@@ -8,7 +8,7 @@ import com.peeko32213.unusualprehistory.common.item.armor.MajungasaurusHelmetIte
 import com.peeko32213.unusualprehistory.common.item.armor.SlothPouchItem;
 import com.peeko32213.unusualprehistory.common.item.armor.TyrantsCrownItem;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
-import com.peeko32213.unusualprehistory.common.item.armor.shedscale.ShedscaleArmorItem;
+import com.peeko32213.unusualprehistory.common.item.armor.ShedscaleArmorItem;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -325,14 +325,12 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> SMILO_EGG = registerSpawnEggs("smilodon_spawn_egg", UPEntities.SMILODON , 0xd5ced4, 0x605a69);
     public static final RegistryObject<ForgeSpawnEggItem> TALPANAS_EGG = registerSpawnEggs("talpanas_spawn_egg", UPEntities.TALPANAS , 0x1d1311, 0x3c4849);
 
-
     // Misc spawn eggs
     public static final RegistryObject<ForgeSpawnEggItem> ENCRUSTED_EGG = registerSpawnEggs("encrusted_spawn_egg", UPEntities.ENCRUSTED , 0x482300, 0xffc656);
     public static final RegistryObject<ForgeSpawnEggItem> SLUDGE_EGG = registerSpawnEggs("sludge_spawn_egg", UPEntities.SLUDGE , 0x0a090a, 0x282627);
 
-    public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet",
-            () -> new MajungasaurusHelmetItem(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,
-                    new Item.Properties()));
+    public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet", () -> new MajungasaurusHelmetItem(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,
+            new Item.Properties(), 3.0));
 
     public static final RegistryObject<Item> AUSTRO_BOOTS = ITEMS.register("austro_boots",
             () -> new AustroraptorBootsItem(UPArmorMaterial.AUSTRO, ArmorItem.Type.BOOTS,
@@ -403,54 +401,41 @@ public class UPItems {
     public static final RegistryObject<Item> BARINA_WHISTLE = ITEMS.register("barina_whistle",
             () -> new MusicalTameItem(new Item.Properties().stacksTo(1), UPEntities.BARINASUCHUS, UPTags.OCARINA_WHISTLE));
 
-    public static final RegistryObject<Item> SHEDSCALE_HELMET = ITEMS.register("shedscale_helmet",
-            () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.HELMET,
-                    new Item.Properties(), 0.4D));
+    public static final RegistryObject<Item> SHEDSCALE_HELMET = ITEMS.register("shedscale_helmet", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.HELMET,
+                    new Item.Properties(), 0.2));
 
-    public static final RegistryObject<Item> SHEDSCALE_CHESTPLATE = ITEMS.register("shedscale_chestplate",
-            () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.CHESTPLATE,
-                    new Item.Properties(), 1D));
+    public static final RegistryObject<Item> SHEDSCALE_CHESTPLATE = ITEMS.register("shedscale_chestplate", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.CHESTPLATE,
+                    new Item.Properties(), 0.2));
 
-    public static final RegistryObject<Item> SHEDSCALE_LEGGINGS = ITEMS.register("shedscale_leggings",
-            () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.LEGGINGS,
-                    new Item.Properties(),  0.6D));
+    public static final RegistryObject<Item> SHEDSCALE_LEGGINGS = ITEMS.register("shedscale_leggings", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties(),  0.2));
 
-    public static final RegistryObject<Item> SHEDSCALE_BOOTS = ITEMS.register("shedscale_boots",
-            () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.BOOTS,
-                    new Item.Properties(), 0.4D));
+    public static final RegistryObject<Item> SHEDSCALE_BOOTS = ITEMS.register("shedscale_boots", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.BOOTS,
+                    new Item.Properties(), 0.2));
 
-    public static final RegistryObject<Item> TYRANTS_CROWN = ITEMS.register("tyrants_crown",
-            () -> new TyrantsCrownItem(UPArmorMaterial.TYRANTS, ArmorItem.Type.HELMET,
+    public static final RegistryObject<Item> TYRANTS_CROWN = ITEMS.register("tyrants_crown", () -> new TyrantsCrownItem(UPArmorMaterial.TYRANTS, ArmorItem.Type.HELMET,
+            new Item.Properties(), 4.0));
+
+    public static final RegistryObject<Item> SLOTH_POUCH_ARMOR = ITEMS.register("sloth_pouch_armor", () -> new SlothPouchItem(UPArmorMaterial.SLOTH_POUCH, ArmorItem.Type.CHESTPLATE, 6000,
                     new Item.Properties()));
 
-    public static final RegistryObject<Item> SLOTH_POUCH_ARMOR = ITEMS.register("sloth_pouch_armor",
-            () -> new SlothPouchItem(UPArmorMaterial.SLOTH_POUCH, ArmorItem.Type.CHESTPLATE, 6000,
-                    new Item.Properties()));
+    public static final RegistryObject<Item> DINO_POUCH = ITEMS.register("dino_pouch", () -> new DinoPouchItem(new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> DINO_POUCH = ITEMS.register("dino_pouch",
-            () -> new DinoPouchItem(new Item.Properties().stacksTo(1)));
-
-    public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket",
-            () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).craftRemainder(Items.BUCKET)));
+    public static final RegistryObject<Item> TAR_BUCKET =  ITEMS.register("tar_bucket", () -> new SolidBucketItem(UPBlocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).craftRemainder(Items.BUCKET)));
 
     public static final RegistryObject<Item> OPALESCENT_PEARL =  ITEMS.register("opalescent_pearl", () -> new OpalescentPearlItem((new Item.Properties()).stacksTo(16)));
 
     public static final RegistryObject<Item> OPALESCENT_SHURIKEN =  ITEMS.register("opalescent_shuriken", () -> new OpalescentShurikenItem((new Item.Properties()).stacksTo(16)));
 
-    public static final RegistryObject<Item> SMILO_FUR = ITEMS.register("smilo_fur",
-            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SMILO_FUR = ITEMS.register("smilo_fur", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> PALAEO_SKIN = ITEMS.register("palaeo_skin",
-            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PALAEO_SKIN = ITEMS.register("palaeo_skin", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> INSULATOR = ITEMS.register("insulator",
-            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> INSULATOR = ITEMS.register("insulator", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> DRYO_NUTS = ITEMS.register("dryo_nuts",
-            () -> new IncreaseAgeItem(new Item.Properties().food(UPFood.DRYO_NUTS), UPTags.HERBIVORES,10));
+    public static final RegistryObject<Item> DRYO_NUTS = ITEMS.register("dryo_nuts", () -> new IncreaseAgeItem(new Item.Properties().food(UPFood.DRYO_NUTS), UPTags.HERBIVORES,10));
 
-    public static final RegistryObject<Item> RAW_MAMMOTH = ITEMS.register("raw_mammoth",
-            () -> new Item(new Item.Properties().food(UPFood.RAW_MAMMOTH)));
+    public static final RegistryObject<Item> RAW_MAMMOTH = ITEMS.register("raw_mammoth", () -> new Item(new Item.Properties().food(UPFood.RAW_MAMMOTH)));
 
     public static final RegistryObject<Item> COOKED_MAMMOTH = ITEMS.register("cooked_mammoth",
             () -> new Item(new Item.Properties().food(UPFood.COOKED_MAMMOTH)));

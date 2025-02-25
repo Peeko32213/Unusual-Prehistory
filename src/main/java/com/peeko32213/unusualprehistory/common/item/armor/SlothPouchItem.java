@@ -61,7 +61,7 @@ public class SlothPouchItem extends ArmorItem implements GeoItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pHand) {
         ItemStack stack = pPlayer.getItemInHand(pHand);
         CompoundTag tag = stack.getTag();
         if (tag.contains("megatherium") && pHand == InteractionHand.MAIN_HAND) {
@@ -88,7 +88,7 @@ public class SlothPouchItem extends ArmorItem implements GeoItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
+    public void inventoryTick(@NotNull ItemStack pStack, Level pLevel, @NotNull Entity pEntity, int pSlotId, boolean pIsSelected) {
         if (pLevel.isClientSide || pSlotId != EquipmentSlot.CHEST.getIndex()) return;
         if (!pStack.hasTag() || pStack.getTag() == null || !pStack.getTag().contains("megatherium") || !pStack.getTag().contains("gameTime")) addTag(pStack, pLevel);
         CompoundTag tag = pStack.getTag();
@@ -115,7 +115,7 @@ public class SlothPouchItem extends ArmorItem implements GeoItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         CompoundTag tag = pStack.getTag();
         if (tag.contains("gameTime") && tag.contains("megatherium")) {
             long currentTime = pLevel.getGameTime();
@@ -132,8 +132,6 @@ public class SlothPouchItem extends ArmorItem implements GeoItem {
                 pTooltipComponents.add(component);
             }
         }
-
-
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 

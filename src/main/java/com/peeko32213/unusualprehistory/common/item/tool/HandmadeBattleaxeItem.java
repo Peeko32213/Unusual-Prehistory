@@ -19,6 +19,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolActions;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.constant.DefaultAnimations;
@@ -46,12 +47,9 @@ public class HandmadeBattleaxeItem extends SwordItem implements GeoItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        //pTooltipComponents.clear();
-        MutableComponent mutableComponent = Component.translatable("unusualprehistory.battle_axe").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC);
-        MutableComponent mutableComponent2 = Component.literal("");
+    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
+        MutableComponent mutableComponent = Component.translatable("unusualprehistory.battle_axe").withStyle(ChatFormatting.GRAY);
         pTooltipComponents.add(mutableComponent);
-        pTooltipComponents.add(mutableComponent2);
     }
 
     @Override

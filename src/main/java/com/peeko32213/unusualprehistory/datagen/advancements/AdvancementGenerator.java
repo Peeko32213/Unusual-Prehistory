@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.datagen;
+package com.peeko32213.unusualprehistory.datagen.advancements;
 
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;

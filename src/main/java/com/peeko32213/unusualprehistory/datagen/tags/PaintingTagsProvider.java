@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.datagen;
+package com.peeko32213.unusualprehistory.datagen.tags;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPPaintings;
@@ -9,6 +9,7 @@ import net.minecraft.tags.PaintingVariantTags;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,7 +20,7 @@ public class PaintingTagsProvider extends PaintingVariantTagsProvider {
     }
 
     @Override
-    protected void addTags(Provider provider) {
+    protected void addTags(@NotNull Provider provider) {
         TagAppender<PaintingVariant> appender = this.tag(PaintingVariantTags.PLACEABLE);
         for (RegistryObject<PaintingVariant> variant : UPPaintings.PAINTING_VARIANTS.getEntries()) {
             appender.add(variant.getKey());

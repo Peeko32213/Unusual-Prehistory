@@ -1,6 +1,5 @@
-package com.peeko32213.unusualprehistory.datagen;
+package com.peeko32213.unusualprehistory.datagen.loot;
 
-import com.peeko32213.unusualprehistory.datagen.loot.BlockLootTables;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;

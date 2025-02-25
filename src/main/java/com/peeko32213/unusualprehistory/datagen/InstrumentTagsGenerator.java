@@ -9,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.world.item.Instrument;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -22,7 +23,7 @@ public class InstrumentTagsGenerator extends TagsProvider<Instrument> {
 
 
     @Override
-    protected void addTags(HolderLookup.Provider pProvider) {
+    protected void addTags(HolderLookup.@NotNull Provider pProvider) {
         tag(UPTags.OCARINA_WHISTLE)
                 .add(UPInstruments.OCARINA_WHISTLE_RK);
     }

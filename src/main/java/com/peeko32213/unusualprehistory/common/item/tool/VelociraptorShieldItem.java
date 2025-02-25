@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -28,35 +29,34 @@ import java.util.function.Consumer;
 public class VelociraptorShieldItem extends ShieldItem  implements GeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-
     public VelociraptorShieldItem(Properties group) {
         super(group);
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSE_ITEM_BEHAVIOR);
     }
 
-    public UseAnim getUseAnimation(ItemStack p_77661_1_) {
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack p_77661_1_) {
         return UseAnim.BLOCK;
     }
 
 
     @Override
     public int getEnchantmentValue() {
-        return 1;
+        return 12;
     }
 
 
     @Override
-    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
+    public boolean canPerformAction(@NotNull ItemStack stack, net.minecraftforge.common.@NotNull ToolAction toolAction) {
         return net.minecraftforge.common.ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player livingEntityIn, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player livingEntityIn, @NotNull InteractionHand hand) {
         ItemStack itemstack = livingEntityIn.getItemInHand(hand);
         Vec3 view = livingEntityIn.getViewVector(1.0F);
 
-        livingEntityIn.setDeltaMovement(view.multiply(2.0D, 1.0D, 2.0D));
-        livingEntityIn.getCooldowns().addCooldown(this, 50);
+        livingEntityIn.setDeltaMovement(view.multiply(1.5D, 1.0D, 1.5D));
+        livingEntityIn.getCooldowns().addCooldown(this, 60);
 
         itemstack.hurtAndBreak(1, livingEntityIn, (player) -> {
             player.broadcastBreakEvent(livingEntityIn.getUsedItemHand());
@@ -72,7 +72,7 @@ public class VelociraptorShieldItem extends ShieldItem  implements GeoItem {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private final ToolRenderer renderer = new ToolRenderer<>(new VelociShieldModel());
+            private final ToolRenderer<VelociraptorShieldItem> renderer = new ToolRenderer<>(new VelociShieldModel());
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
@@ -81,12 +81,9 @@ public class VelociraptorShieldItem extends ShieldItem  implements GeoItem {
         });
     }
 
-
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "idle", state -> PlayState.CONTINUE)
-                .triggerableAnim("idle", DefaultAnimations.IDLE));
+        controllerRegistrar.add(new AnimationController<>(this, "idle", state -> PlayState.CONTINUE).triggerableAnim("idle", DefaultAnimations.IDLE));
     }
 
     @Override

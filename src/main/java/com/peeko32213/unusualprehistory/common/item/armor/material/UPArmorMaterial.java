@@ -9,22 +9,22 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public enum UPArmorMaterial implements ArmorMaterial {
 
-    AUSTRO("austro", 28, new int[]{1, 3, 4, 1}, 19, SoundEvents.ARMOR_EQUIP_LEATHER,
-            2.0F, 0.0F, () -> Ingredient.of(UPItems.AUSTRO_FEATHER.get())),
-    MAJUNGA("majunga", 28, new int[]{2, 5, 8, 3}, 19, SoundEvents.ARMOR_EQUIP_GOLD,
-            2.0F, 0.0F, () -> Ingredient.of(UPItems.MAJUNGA_SCUTE.get())),
-    TYRANTS("tyrants", 28, new int[]{5, 1, 1, 1}, 19, SoundEvents.ARMOR_EQUIP_GOLD,
-            2.0F, 0.0F, () -> Ingredient.of(UPItems.REX_SCALE.get())),
-    SHEDSCALE("shedscale", 28, new int[]{2, 5, 5, 2}, 19, SoundEvents.ARMOR_EQUIP_LEATHER,
-            2.0F, 0.0F, () -> Ingredient.of(UPItems.RAW_STETHA.get())),
+    AUSTRO("austro", 28, new int[]{1, 4, 5, 2}, 19, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(UPItems.AUSTRO_FEATHER.get())),
 
-    SLOTH_POUCH("sloth_pouch", 28, new int[]{1, 1, 1, 1}, 19, SoundEvents.ARMOR_EQUIP_LEATHER,
-            2.0F, 0.0F, () -> Ingredient.of(Items.RABBIT_HIDE));
+    MAJUNGA("majunga", 28, new int[]{1, 4, 5, 2}, 19, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(UPItems.MAJUNGA_SCUTE.get())),
+
+    TYRANTS("tyrants", 28, new int[]{1, 1, 1, 3}, 19, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0F, 0.0F, () -> Ingredient.of(UPItems.REX_SCALE.get())),
+
+    SHEDSCALE("shedscale", 28, new int[]{1, 4, 5, 2}, 19, SoundEvents.ARMOR_EQUIP_LEATHER, 2.0F, 0.0F, () -> Ingredient.of(UPItems.PALAEO_SKIN.get())),
+
+    SLOTH_POUCH("sloth_pouch", 28, new int[]{0, 0, 1, 0}, 19, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
+
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
     private final String name;
     private final int durabilityMultiplier;
@@ -61,15 +61,15 @@ public enum UPArmorMaterial implements ArmorMaterial {
         return this.enchantmentValue;
     }
 
-    public SoundEvent getEquipSound() {
+    public @NotNull SoundEvent getEquipSound() {
         return this.sound;
     }
 
-    public Ingredient getRepairIngredient() {
+    public @NotNull Ingredient getRepairIngredient() {
         return this.repairIngredient.get();
     }
 
-    public String getName() {
+    public @NotNull String getName() {
         return UnusualPrehistory.MODID + ":" + this.name;
     }
 

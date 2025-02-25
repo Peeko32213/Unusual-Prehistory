@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.SignBlock;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -34,7 +35,7 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
     public static final int NORMAL_COOKING = 200;	// 10 seconds
     public static final int SLOW_COOKING = 300;		// 15 seconds
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
 
 
         makePlanks(UPBlocks.PETRIFIED_WOOD_PLANKS, UPTags.PETRIFIED_WOOD).save(consumer);
@@ -200,7 +201,6 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
     }
 }
 
-// Unused 1.6 stuff
 //        incubating(consumer, UPItems.OTAROCYON_EMBRYO.get().getDefaultInstance(), UPEntities.OTAROCYON.get());
 //        cultivating(consumer, UPItems.LONGI_FLASK.get(), UPEntities.LONGISQUAMA.get());
 //        cultivating(consumer, UPItems.TARTUO_FLASK.get(), UPBlocks.TARTUO_EGGS.get().asItem());

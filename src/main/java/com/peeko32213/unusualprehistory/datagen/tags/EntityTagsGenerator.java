@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.datagen;
+package com.peeko32213.unusualprehistory.datagen.tags;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -21,7 +21,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
         super(p_256095_, p_256572_, UnusualPrehistory.MODID, existingFileHelper);
     }
 
-    protected void addTags(HolderLookup.Provider pProvider) {
+    protected void addTags(HolderLookup.@NotNull Provider pProvider) {
 
         /**Example**/
         //tag(UPTags.ANURO_TARGETS).add(UPEntities.BABY_BRACHI.get());

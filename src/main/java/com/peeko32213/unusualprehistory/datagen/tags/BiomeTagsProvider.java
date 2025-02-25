@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.datagen;
+package com.peeko32213.unusualprehistory.datagen.tags;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;

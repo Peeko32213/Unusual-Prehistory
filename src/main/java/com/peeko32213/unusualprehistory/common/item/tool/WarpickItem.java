@@ -11,6 +11,7 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
@@ -30,32 +31,22 @@ public class WarpickItem extends SwordItem {
         if (slot == EquipmentSlot.MAINHAND) {
             return ImmutableMultimap.of(
                     Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", super.getDamage(), AttributeModifier.Operation.ADDITION),
-                    Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", -3.4F, AttributeModifier.Operation.ADDITION)
+                    Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.8F, AttributeModifier.Operation.ADDITION)
             );
         }
         else return super.getAttributeModifiers(slot, stack);
     }
 
-
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return enchantment.category.canEnchant(stack.getItem())
-                && enchantment != Enchantments.KNOCKBACK
-                && enchantment != Enchantments.BANE_OF_ARTHROPODS
-                && enchantment != Enchantments.BLOCK_EFFICIENCY
-                && enchantment != Enchantments.BLOCK_FORTUNE
-                && enchantment != Enchantments.FIRE_ASPECT
-                && enchantment != Enchantments.SHARPNESS
-
-                && enchantment != Enchantments.BINDING_CURSE;
-
+                && enchantment != Enchantments.BINDING_CURSE
+                && enchantment != Enchantments.SWEEPING_EDGE;
     }
 
     @Override
-    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
+    public boolean canPerformAction(@NotNull ItemStack stack, net.minecraftforge.common.@NotNull ToolAction toolAction) {
         return net.minecraftforge.common.ToolActions.DEFAULT_PICKAXE_ACTIONS.contains(toolAction);
     }
-
-
 
 }

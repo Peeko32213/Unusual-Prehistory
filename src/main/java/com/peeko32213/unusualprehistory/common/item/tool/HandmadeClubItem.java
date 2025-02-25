@@ -14,6 +14,7 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolActions;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -49,7 +50,7 @@ public class HandmadeClubItem extends SwordItem implements GeoItem {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private final ToolRenderer renderer = new ToolRenderer<>(new HandmadeClubModel());
+            private final ToolRenderer<HandmadeClubItem> renderer = new ToolRenderer<>(new HandmadeClubModel());
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
@@ -59,7 +60,7 @@ public class HandmadeClubItem extends SwordItem implements GeoItem {
     }
 
     @Override
-    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
+    public boolean canPerformAction(@NotNull ItemStack stack, net.minecraftforge.common.@NotNull ToolAction toolAction) {
         return ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
     }
 

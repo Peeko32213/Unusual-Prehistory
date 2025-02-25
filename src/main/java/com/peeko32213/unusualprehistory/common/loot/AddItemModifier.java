@@ -11,6 +11,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
@@ -26,14 +27,14 @@ public class AddItemModifier extends LootModifier {
 	private final Item item;
 	private final int count;
 
-	protected AddItemModifier(LootItemCondition[] conditionsIn, Item item, int count) {
+	public AddItemModifier(LootItemCondition[] conditionsIn, Item item, int count) {
 		super(conditionsIn);
 		this.item = item;
 		this.count = count;
 	}
 
 	@Override
-	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+	protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
 		ItemStack stack = new ItemStack(item, count);
 
 		if (stack.getCount() < stack.getMaxStackSize()) {

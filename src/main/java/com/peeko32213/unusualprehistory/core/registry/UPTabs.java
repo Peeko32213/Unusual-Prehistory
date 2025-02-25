@@ -11,7 +11,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -136,7 +135,7 @@ public class UPTabs {
                     entries.accept(UPItems.MAMMOTH_MEATBALL.get());
 
                     // Gambling fruit
-                    addTagToLootFruit(entries, UPBlocks.FRUIT_LOOT_BOX.get().asItem(),CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    addTagToLootFruit(entries, UPBlocks.FRUIT_LOOT_BOX.get().asItem());
                     entries.accept(UPItems.RED_FRUIT_SCRAPS.get());
                     entries.accept(UPItems.RED_FRUIT.get());
                     entries.accept(UPItems.WHITE_FRUIT_SCRAPS.get());
@@ -148,7 +147,7 @@ public class UPTabs {
 
                     // Crocarina
                     d.holders().lookup(Registries.INSTRUMENT).ifPresent((p_270036_) -> {
-                        generateInstrumentTypes(entries, p_270036_, UPItems.BARINA_WHISTLE.get(), UPTags.OCARINA_WHISTLE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                        generateInstrumentTypes(entries, p_270036_, UPItems.BARINA_WHISTLE.get());
                     });
 
                     // Tools and armor
@@ -463,12 +462,12 @@ public class UPTabs {
     public static final RegistryObject<CreativeModeTab> UP_TAB = TABS.register("unusual_prehistory", () -> UP);
 
 
-    private static void generateInstrumentTypes(CreativeModeTab.Output pOutput, HolderLookup<Instrument> pInstruments, Item pItem, TagKey<Instrument> pInstrument, CreativeModeTab.TabVisibility pTabVisibility) {
-        pInstruments.get(pInstrument).ifPresent((p_270021_) -> {
+    private static void generateInstrumentTypes(CreativeModeTab.Output pOutput, HolderLookup<Instrument> pInstruments, Item pItem) {
+        pInstruments.get(UPTags.OCARINA_WHISTLE).ifPresent((p_270021_) -> {
             p_270021_.stream().map((p_269995_) -> {
                 return MusicalTameItem.create(pItem, p_269995_);
             }).forEach((p_270011_) -> {
-                pOutput.accept(p_270011_, pTabVisibility);
+                pOutput.accept(p_270011_, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             });
         });
     }
@@ -492,7 +491,7 @@ public class UPTabs {
         add(LOOT_FRUIT);
     }};
 
-    private static void addTagToLootFruit(CreativeModeTab.Output output, Item item, CreativeModeTab.TabVisibility tabVisibility) {
+    private static void addTagToLootFruit(CreativeModeTab.Output output, Item item) {
         boolean isEmpty = LootFruitJsonManager.getTierTrades().isEmpty();
         if(!isEmpty) {
             Map<Integer, List<LootFruitCodec>> lootFruitItem= LootFruitJsonManager.getTierTrades();
@@ -507,7 +506,7 @@ public class UPTabs {
                     lootFruitTag.put("tradeItem", lootFruitCodec.getTradeItem().getDefaultInstance().serializeNBT());
                     lootFruitTag.putInt("CustomModelData", lootFruitCodec.getCustomModelData());
                     istack.setTag(lootFruitTag);
-                    output.accept(istack, tabVisibility);
+                    output.accept(istack, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                 }
             }
 
@@ -527,7 +526,7 @@ public class UPTabs {
             lootFruitTag.putInt("CustomModelData", lootFruitCodec.getCustomModelData());
             lootFruitTag.put("tradeItem", lootFruitCodec.getTradeItem().getDefaultInstance().serializeNBT());
             istack.setTag(lootFruitTag);
-            output.accept(istack, tabVisibility);
+            output.accept(istack, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.datagen;
+package com.peeko32213.unusualprehistory.datagen.advancements;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -13,7 +13,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
 
 
     public AdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper existingFileHelper) {
-        super(output, registries, existingFileHelper, List.of(new com.peeko32213.unusualprehistory.datagen.AdvancementGenerator()));
+        super(output, registries, existingFileHelper, List.of(new com.peeko32213.unusualprehistory.datagen.advancements.AdvancementGenerator()));
     }
 
 }

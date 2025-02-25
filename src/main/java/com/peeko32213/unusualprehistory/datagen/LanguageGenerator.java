@@ -250,7 +250,7 @@ public class LanguageGenerator extends LanguageProvider {
 
         //SHIELDS
         addItem(UPItems.VELOCI_SHIELD, "Veloci-Shield");
-        addItem(UPItems.TRIKE_SHIELD, "Trike Shield");
+        addItem(UPItems.TRIKE_SHIELD, "Triceratops Shield");
 
         // Boats
         addItem(UPItems.DRYO_BOAT, "Dryophyllum Boat");
@@ -957,6 +957,7 @@ public class LanguageGenerator extends LanguageProvider {
 
         add("unusualprehistory.megalania_damage", " %s Venomous Coating");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");
+        add("unusualprehistory.shedscale_bonus", "Inverts some effects while wearing full set");
         add("unusualprehistory.fruit_loot_box.salubrious", "§rSalubrious Fruit Block");
         add("unusualprehistory.fruit_loot_box.luxurious", "§rLuxurious Fruit Block");
         add("unusualprehistory.fruit_loot_box.redolent", "§rRedolent Fruit Block");
