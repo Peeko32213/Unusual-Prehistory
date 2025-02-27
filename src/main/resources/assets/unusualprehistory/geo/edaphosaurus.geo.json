@@ -1,0 +1,136 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.edaphosaurus",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 6,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Body",
+					"parent": "root",
+					"pivot": [0, 10, 0],
+					"cubes": [
+						{"origin": [-6.5, 3, -10], "size": [13, 11, 20], "uv": [70, 0]}
+					]
+				},
+				{
+					"name": "Fan",
+					"parent": "Body",
+					"pivot": [0, 14, -3],
+					"cubes": [
+						{"origin": [-1, 8, -12], "size": [2, 27, 34], "uv": [42, 36]},
+						{"origin": [0, 5, -14], "size": [0, 32, 38], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Neck",
+					"parent": "Body",
+					"pivot": [0, 12, -10],
+					"cubes": [
+						{"origin": [-3, 6, -14], "size": [6, 7, 4], "uv": [0, 11]}
+					]
+				},
+				{
+					"name": "Head",
+					"parent": "Neck",
+					"pivot": [0, 13, -11],
+					"cubes": [
+						{"origin": [-3.5, 10.1, -18], "size": [7, 4, 7], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Tail",
+					"parent": "Body",
+					"pivot": [0, 5, 9],
+					"cubes": [
+						{"origin": [-2.5, 0, 6], "size": [5, 5, 30], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "ArmControl",
+					"parent": "root",
+					"pivot": [0, 6, -7]
+				},
+				{
+					"name": "Arm1",
+					"parent": "ArmControl",
+					"pivot": [6.5, 6, -7],
+					"cubes": [
+						{"origin": [5.5, 0, -9], "size": [4, 7, 4], "uv": [40, 0]}
+					]
+				},
+				{
+					"name": "Hand1",
+					"parent": "Arm1",
+					"pivot": [7.5, 0, -8],
+					"cubes": [
+						{"origin": [5.5, 0, -13], "size": [7, 0, 5], "uv": [0, 22]}
+					]
+				},
+				{
+					"name": "Arm2",
+					"parent": "ArmControl",
+					"pivot": [-6.5, 6, -7],
+					"cubes": [
+						{"origin": [-9.5, 0, -9], "size": [4, 7, 4], "uv": [40, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "Hand2",
+					"parent": "Arm2",
+					"pivot": [-7.5, 0, -8],
+					"cubes": [
+						{"origin": [-12.5, 0, -13], "size": [7, 0, 5], "uv": [0, 22], "mirror": true}
+					]
+				},
+				{
+					"name": "LegControl",
+					"parent": "root",
+					"pivot": [6.5, 6, 6]
+				},
+				{
+					"name": "Leg1",
+					"parent": "LegControl",
+					"pivot": [6.5, 6, 6],
+					"cubes": [
+						{"origin": [5.5, 0, 4], "size": [4, 7, 4], "uv": [40, 0]}
+					]
+				},
+				{
+					"name": "Foot1",
+					"parent": "Leg1",
+					"pivot": [7.5, 0, 5],
+					"cubes": [
+						{"origin": [5.5, 0, 0], "size": [7, 0, 5], "uv": [0, 22]}
+					]
+				},
+				{
+					"name": "Leg2",
+					"parent": "LegControl",
+					"pivot": [-6.5, 6, 6],
+					"cubes": [
+						{"origin": [-9.5, 0, 4], "size": [4, 7, 4], "uv": [40, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "Foot2",
+					"parent": "Leg2",
+					"pivot": [-7.5, 0, 5],
+					"cubes": [
+						{"origin": [-12.5, 0, 0], "size": [7, 0, 5], "uv": [0, 22], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

@@ -174,7 +174,6 @@ public class BlockstateGenerator extends BlockStateProvider {
         hangingSignBlock(UPBlocks.DRYO_HANGING_SIGN.get(), UPBlocks.DRYO_WALL_HANGING_SIGN.get(), blockTexture(UPBlocks.DRYO_PLANKS.get()));
 
         //Asphalt
-
         simpleBlock(UPBlocks.ASPHALT.get());
 
         //Fossils Ores
@@ -186,7 +185,6 @@ public class BlockstateGenerator extends BlockStateProvider {
         simpleBlock(UPBlocks.PERMAFROST_FOSSIL.get());
 
         //Zuloagae
-
         logBlock(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get());
         simpleBlockItem(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get(), existingModel((getName(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get()))));
         logBlock(UPBlocks.ZULOAGAE_BLOCK.get());

@@ -41,10 +41,6 @@ public class UPPlacedFeatures {
             HeightRangePlacement.uniform(VerticalAnchor.absolute(11), VerticalAnchor.absolute(256)))));
     public static final RegistryObject<PlacedFeature> DEEPSLATE_FOSSIL_ORE = registerPlacedFeature("deepslate_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_FOSSIL_ORE.getHolder().orElseThrow(), commonOrePlacement(17, // VeinsPerChunk
             HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
-//    public static final RegistryObject<PlacedFeature> PLANT_FOSSIL_ORE = registerPlacedFeature("plant_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.PLANT_FOSSIL_ORE.getHolder().orElseThrow(), commonOrePlacement(10,
-//            HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)))));
-//    public static final RegistryObject<PlacedFeature> DEEPSLATE_PLANT_FOSSIL_ORE = registerPlacedFeature("deepslate_plant_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.DEEPSLATE_PLANT_FOSSIL_ORE.getHolder().orElseThrow(), commonOrePlacement(17, // VeinsPerChunk
-//            HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(1)))));
 
     public static final RegistryObject<PlacedFeature> OPAL_FOSSIL_ORE = registerPlacedFeature("opal_fossil_ore_placed", () -> new PlacedFeature(UPConfiguredFeatures.STONE_OPAL_ORE.getHolder().orElseThrow(), commonOrePlacement(4,
             HeightRangePlacement.triangle(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(58)))));

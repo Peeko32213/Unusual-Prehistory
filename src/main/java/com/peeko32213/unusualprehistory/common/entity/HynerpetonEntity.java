@@ -198,6 +198,7 @@ public class HynerpetonEntity extends BaseDinosaurAnimalEntity implements SemiAq
             ++this.deathTime;
             if (this.deathTime >= 20) {
                 explodeHyperneton();
+                this.level().broadcastEntityEvent(this, (byte)60);
                 this.remove(Entity.RemovalReason.KILLED);
             }
         }

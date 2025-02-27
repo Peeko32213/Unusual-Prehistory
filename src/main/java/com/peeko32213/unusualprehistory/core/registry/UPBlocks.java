@@ -69,6 +69,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> REX_HEAD = registerBlock("rex_head", RexHeadBlock::new);
     public static final RegistryObject<Block> REX_BOOMBOX = registerBlock("rex_boombox", RexBoomboxBlock::new);
 
+    // Paleo eggs
     public static final Supplier<Block> AMON_EGGS = create("ammon_eggs",
             () -> new DinosaurWaterEggBlock(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
                     UPEntities.AMMON,

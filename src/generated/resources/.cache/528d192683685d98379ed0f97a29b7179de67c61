@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-22T12:51:09.768347	unusualprehistory Entity type tags provider
+// 1.20.1	2025-02-25T17:18:25.6183115	unusualprehistory Entity type tags provider
 a51f099fd7a79cf8ac8b705aeda14e1d56307ad6 data/unusualprehistory/tags/entity_types/antarcto_targets.json
 f6aaf288203062a671f170c0381ed4a60f1d18e4 data/unusualprehistory/tags/entity_types/anuro_targets.json
 bafd33c9a94592349029324bc465d05788b591b1 data/unusualprehistory/tags/entity_types/beelze_targets.json
@@ -8,6 +8,7 @@ bf2513ad40dac6f20673cce9cf3e0d5ec517340d data/unusualprehistory/tags/entity_type
 ad899b95647a5f6e16c619f0dafa977014b9bb8d data/unusualprehistory/tags/entity_types/giganto_embryo_attach_to.json
 370f77ee17425f190d8016070fe9e159d5eaca75 data/unusualprehistory/tags/entity_types/herbivores.json
 1ce5858c8d184c18654b305dd02146d5298eb9b9 data/unusualprehistory/tags/entity_types/hyneria_targets.json
+a3a9d720d750c535ce708114ef25bc65fda0168d data/unusualprehistory/tags/entity_types/hynerpeton_targets.json
 636a6ded1c1282285cf7ed70a26ebe09f97890df data/unusualprehistory/tags/entity_types/land_mobs.json
 741649ada0668cf20a178d00176173c0dfc9e620 data/unusualprehistory/tags/entity_types/majunga_targets.json
 4ebfdaf867e9d57d517244b251751612b26bbe28 data/unusualprehistory/tags/entity_types/mammoth_embryo_attach_to.json

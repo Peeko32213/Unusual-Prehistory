@@ -13,11 +13,11 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
 {
-    private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus.png");
-    private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_yellow.png");
-    private static final ResourceLocation TEXTURE_ORANGE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_orange.png");
-    private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_white.png");
-    private static final ResourceLocation TEXTURE_BROWN = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_brown.png");
+    private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus.png");
+    private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_yellow.png");
+    private static final ResourceLocation TEXTURE_ORANGE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_orange.png");
+    private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_white.png");
+    private static final ResourceLocation TEXTURE_BROWN = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_brown.png");
 
     @Override
     public ResourceLocation getModelResource(UlughbegsaurusEntity object)

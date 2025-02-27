@@ -27,6 +27,7 @@
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
@@ -193,7 +194,7 @@
          }
      }
 
-     public void travel(Vec3 travelVector) {
+     public void travel(@NotNull Vec3 travelVector) {
           if (this.isEffectiveAi() && this.isInWater() && !this.isBasking()) {
              this.moveRelative(this.getSpeed(), travelVector);
              this.move(MoverType.SELF, this.getDeltaMovement());
@@ -216,7 +217,7 @@
          }
      }
 
-     public boolean hurt(DamageSource source, float amount) {
+     public boolean hurt(@NotNull DamageSource source, float amount) {
          boolean prev = super.hurt(source, amount);
          if (prev) {
              double range = 15;
@@ -319,7 +320,7 @@
 
      @Nullable
      @Override
-     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel pLevel, @NotNull AgeableMob pOtherParent) {
          return null;
      }
 
@@ -340,7 +341,6 @@
      public int getWaterSearchRange() {
          return 12;
      }
-
 
      protected <E extends TanystropheusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          if (this.isFromBook()) {

@@ -230,6 +230,12 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.TANY_EGG, "Tanystropheus Spawn Egg");
         addItem(UPItems.PSILOPTERUS_EGG, "Psilopterus Spawn Egg");
         addItem(UPItems.XIPH_EGG, "Xiphactinus Spawn Egg");
+        addItem(UPItems.OVIRAPTOR_EGG, "Oviraptor Spawn Egg");
+        addItem(UPItems.ESTEMMENOSUCHUS_EGG, "Estemmenosuchus Spawn Egg");
+        addItem(UPItems.PTERYGOTUS_EGG, "Pterygotus Spawn Egg");
+        addItem(UPItems.GLOBIDENS_EGG, "Globidens Spawn Egg");
+        addItem(UPItems.EDAPHOSAURUS_EGG, "Edaphosaurus Spawn Egg");
+        addItem(UPItems.TELECREX_EGG, "Telecrex Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -460,10 +466,6 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD, "Polished Petrified Wood");
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS, "Polished Petrified Wood Stairs");
         addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB, "Polished Petrified Wood Slab");
-//        addBlock(UPBlocks.PETRIFIED_WOOD_SIGN, "Petrified Sign");
-//        addBlock(UPBlocks.PETRIFIED_WOOD_WALL_SIGN, "Petrified Wall Sign");
-//        addBlock(UPBlocks.PETRIFIED_WOOD_HANGING_SIGN, "Petrified Hanging Sign");
-//        addBlock(UPBlocks.PETRIFIED_WOOD_WALL_HANGING_SIGN, "Petrified Wall Hanging Sign");
         addItem(UPItems.PETRIFIED_WOOD_SIGN, "Petrified Sign");
         addItem(UPItems.PETRIFIED_WOOD_HANGING_SIGN, "Petrified Hanging Sign");
 
@@ -512,9 +514,12 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
         addEntityType(UPEntities.DUNK, "Dunkleosteus");
         addEntityType(UPEntities.BABY_DUNK, "Baby Dunkleosteus");
+        addEntityType(UPEntities.EDAPHOSAURUS, "Edaphosaurus");
+        addEntityType(UPEntities.ESTEMMENOSUCHUS, "Estemmenosuchus");
         addEntityType(UPEntities.HYNERIA, "Hyneria");
         addEntityType(UPEntities.HYNERPETON, "Hynerpeton");
         addEntityType(UPEntities.JAWLESS_FISH, "Jawless Fish");
+        addEntityType(UPEntities.PTERYGOTUS, "Pterygotus");
         addEntityType(UPEntities.SCAU, "Scaumenacia");
         addEntityType(UPEntities.STETHACANTHUS, "Stethacanthus");
         addEntityType(UPEntities.TARTUOSTEUS, "Tartuosteus");
@@ -536,6 +541,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.LEEDSICHTHYS, "Leedsichthys");
         addEntityType(UPEntities.LONGISQUAMA, "Longisquama");
         addEntityType(UPEntities.MAJUNGA, "Majungasaurus");
+        addEntityType(UPEntities.OVIRAPTOR, "Oviraptor");
         addEntityType(UPEntities.PACHY, "Pachycephalosaurus");
         addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
         addEntityType(UPEntities.PSITTACO, "Psittacosaurus");
@@ -562,6 +568,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
         addEntityType(UPEntities.SMILODON, "Smilodon");
         addEntityType(UPEntities.TALPANAS, "Talpanas");
+        addEntityType(UPEntities.TELECREX, "Telecrex");
 
         // Misc mobs
         addEntityType(UPEntities.ENCRUSTED, "Encrusted");
@@ -957,7 +964,7 @@ public class LanguageGenerator extends LanguageProvider {
 
         add("unusualprehistory.megalania_damage", " %s Venomous Coating");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");
-        add("unusualprehistory.shedscale_bonus", "Inverts some effects while wearing full set");
+        add("unusualprehistory.shedscale_bonus", "Inverts some negative effects while wearing full set");
         add("unusualprehistory.fruit_loot_box.salubrious", "§rSalubrious Fruit Block");
         add("unusualprehistory.fruit_loot_box.luxurious", "§rLuxurious Fruit Block");
         add("unusualprehistory.fruit_loot_box.redolent", "§rRedolent Fruit Block");

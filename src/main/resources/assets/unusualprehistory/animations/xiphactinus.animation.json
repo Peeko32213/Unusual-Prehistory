@@ -159,72 +159,72 @@
 				"Body": {
 					"rotation": [0, 0, 0],
 					"position": [
-						"math.sin(query.anim_time*360+90)*-2*query.is_on_ground+math.sin(query.anim_time*180+90)*2*query.is_on_ground+math.sin(query.anim_time*90+90)*-2*query.is_on_ground",
-						"15-14*query.is_on_ground+math.sin(query.anim_time*360)*(1+2*query.is_on_ground)",
+						"math.sin(query.anim_time*360+90)*-2+math.sin(query.anim_time*180+90)*2+math.sin(query.anim_time*90+90)*-2",
+						"15-14+math.sin(query.anim_time*360)*(1+2)",
 						0
 					]
 				},
 				"Head": {
 					"rotation": [
-						"30-30*query.is_on_ground+math.sin(query.anim_time*360+60)*3*query.is_on_ground+math.sin(query.anim_time*180+60)*-3*query.is_on_ground+math.sin(query.anim_time*90+60)*3*query.is_on_ground",
-						"math.sin(query.anim_time*360)*10*query.is_on_ground",
-						"90*query.is_on_ground+math.sin(query.anim_time*1440)*(2.5-2.5*query.is_on_ground)"
+						"30-30+math.sin(query.anim_time*360+60)*3+math.sin(query.anim_time*180+60)*-3+math.sin(query.anim_time*90+60)*3",
+						"math.sin(query.anim_time*360)*10",
+						"90+math.sin(query.anim_time*1440)*(2.5-2.5)"
 					]
 				},
 				"BodyFront": {
 					"rotation": [
-						"-15+15*query.is_on_ground",
-						"math.sin(query.anim_time*360+60)*-10*query.is_on_ground",
-						"math.sin(query.anim_time*1440+60)*(-2.5+2.5*query.is_on_ground)"
+						"-15+15",
+						"math.sin(query.anim_time*360+60)*-10",
+						"math.sin(query.anim_time*1440+60)*(-2.5+2.5)"
 					],
 					"position": [0, 0, -1]
 				},
 				"FrontFin1": {
 					"rotation": [
-						"30-30*query.is_on_ground",
-						"-15*query.is_on_ground+math.sin(query.anim_time*1440)*(2.5-2.5*query.is_on_ground)+math.sin(query.anim_time*360-120)*-15*query.is_on_ground",
+						"30-30",
+						"-15+math.sin(query.anim_time*1440)*(2.5-2.5)+math.sin(query.anim_time*360-120)*-15",
 						0
 					]
 				},
 				"FrontFin2": {
 					"rotation": [
-						"30-15*query.is_on_ground",
-						"math.sin(query.anim_time*1440)*(2.5-2.5*query.is_on_ground)+math.sin(query.anim_time*360-60)*-15*query.is_on_ground",
+						"30-15",
+						"math.sin(query.anim_time*1440)*(2.5-2.5)+math.sin(query.anim_time*360-60)*-15",
 						0
 					]
 				},
 				"BodyBack": {
 					"rotation": [
-						"-20+20*query.is_on_ground",
-						"-10*query.is_on_ground+math.sin(query.anim_time*360+30)*-10*query.is_on_ground",
-						"math.sin(query.anim_time*1440)*(-2.5+2.5*query.is_on_ground)"
+						"-20+20",
+						"-10+math.sin(query.anim_time*360+30)*-10",
+						"math.sin(query.anim_time*1440)*(-2.5+2.5)"
 					],
 					"position": [0, 0, -3]
 				},
 				"TailBody": {
 					"rotation": [
-						"-20+20*query.is_on_ground",
-						"-10*query.is_on_ground+math.sin(query.anim_time*360)*-15*query.is_on_ground",
-						"math.sin(query.anim_time*1440-60)*(-2.5+2.5*query.is_on_ground)"
+						"-20+20",
+						"-10+math.sin(query.anim_time*360)*-15",
+						"math.sin(query.anim_time*1440-60)*(-2.5+2.5)"
 					]
 				},
 				"TopTailFin": {
-					"rotation": [-30, 0, "math.sin(query.anim_time*360-15)*-20*query.is_on_ground"]
+					"rotation": [-30, 0, "math.sin(query.anim_time*360-15)*-20"]
 				},
 				"BottomTailFin": {
-					"rotation": [30, 0, "math.sin(query.anim_time*360-15)*20*query.is_on_ground"]
+					"rotation": [30, 0, "math.sin(query.anim_time*360-15)*20"]
 				},
 				"BottomFin1": {
-					"rotation": [30, "math.sin(query.anim_time*1440)*2.5", "30*query.is_on_ground+math.sin(query.anim_time*360-120)*15*query.is_on_ground"]
+					"rotation": [30, "math.sin(query.anim_time*1440)*2.5", "30+math.sin(query.anim_time*360-120)*15"]
 				},
 				"BottomFin2": {
-					"rotation": [30, "math.sin(query.anim_time*1440)*2.5", "math.sin(query.anim_time*360-60)*-15*query.is_on_ground"]
+					"rotation": [30, "math.sin(query.anim_time*1440)*2.5", "math.sin(query.anim_time*360-60)*-15"]
 				},
 				"TopFin": {
-					"rotation": [-30, "math.sin(query.anim_time*1440)*2.5", "math.sin(query.anim_time*360-60)*-15*query.is_on_ground"]
+					"rotation": [-30, "math.sin(query.anim_time*1440)*2.5", "math.sin(query.anim_time*360-60)*-15"]
 				},
 				"LowerFin": {
-					"rotation": [30, "math.sin(query.anim_time*1440)*2.5", "math.sin(query.anim_time*360-60)*15*query.is_on_ground"]
+					"rotation": [30, "math.sin(query.anim_time*1440)*2.5", "math.sin(query.anim_time*360-60)*15"]
 				}
 			}
 		},
