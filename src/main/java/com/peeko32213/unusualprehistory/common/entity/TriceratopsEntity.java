@@ -147,7 +147,7 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
         return UPSounds.TRIKE_IDLE.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.TRIKE_HURT.get();
     }
 
@@ -162,11 +162,11 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return UPEntities.TRIKE.get().create(serverLevel);
     }
 
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurt(@NotNull DamageSource source, float amount) {
         if (this.isInvulnerableTo(source)) {
             return false;
         } else {
@@ -188,7 +188,6 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
         this.entityData.define(SADDLED, Boolean.valueOf(false));
         this.entityData.define(SWINGING, false);
         this.entityData.define(HAS_SWUNG, false);
-
     }
 
     @Override
@@ -354,16 +353,6 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
     @Override
     public float getStepHeight() {
         return 1.25F;
-    }
-
-    @Nullable
-    public LivingEntity getControllingPassenger() {
-        for (Entity passenger : this.getPassengers()) {
-            if (passenger instanceof Player) {
-                return (Player) passenger;
-            }
-        }
-        return null;
     }
 
     @Override

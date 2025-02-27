@@ -57,6 +57,9 @@ public class UPTags {
     public static final TagKey<EntityType<?>> TAR_WALKABLE_ON_MOBS= registerEntityTag("tar_walkable_on_mobs");
     public static final TagKey<EntityType<?>> TAR_WALKABLE_THROUGH_MOBS= registerEntityTag("tar_walkable_through_mobs");
 
+    // Food tags
+    public static final TagKey<Item> EDAPHO_FOOD_ITEMS = registerItemTag("edaphosaurus_food_items");
+
     //Misc Tags
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");
     public static final TagKey<Item> ANALYZER_ITEMS_INPUT = registerItemTag("analyzer_items");

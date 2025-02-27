@@ -456,8 +456,14 @@
 					"rotation": [
 						"60+math.cos(query.anim_time*(180+180*math.clamp(query.ground_speed,0,1))-120)*30",
 						0,
-						"math.cos(query.anim_time**(180+180*math.clamp(query.ground_speed,0,1))+30)*10"
+						"math.cos(query.anim_time*(180+180*math.clamp(query.ground_speed,0,1))+30)*10"
 					]
+				},
+				"root": {
+					"position": {
+						"0.0": [0, 2, 0],
+						"3.5417": [0, 3, 0]
+					}
 				}
 			}
 		},

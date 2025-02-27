@@ -12,6 +12,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
@@ -23,9 +24,9 @@ public class ItemTagsGenerator extends ItemTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider pProvider) {
-        /**Example**/
-        //tag(UPTags.ALLOWED_FRIDGE_ITEMS).add(UPItems.AMBER_FOSSIL.get());
+    protected void addTags(HolderLookup.@NotNull Provider pProvider) {
+
+
         tag(UPTags.ALLOWED_FRIDGE_ITEMS)
                 .addTag(UPTags.DNA_FLASKS);
 
@@ -124,12 +125,16 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(UPTags.ORANGE_ULUGH_FOOD)
                 .add(UPItems.RAW_COTY.get());
+
         tag(UPTags.YELLOW_ULUGH_FOOD)
                 .add(UPItems.GOLDEN_SCAU.get());
+
         tag(UPTags.WHITE_ULUGH_FOOD)
                 .add(UPItems.RAW_AUSTRO.get());
+
         tag(UPTags.BLUE_ULUGH_FOOD)
                 .add(UPItems.RAW_SCAU.get());
+
         tag(UPTags.BROWN_ULUGH_FOOD)
                 .add(UPItems.RAW_STETHA.get());
 
@@ -141,6 +146,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(UPTags.PACHY_FOOD)
                 .add(UPItems.RAW_GINKGO_SEEDS.get());
+
+        tag(UPTags.EDAPHO_FOOD_ITEMS)
+                .add(UPItems.RAW_GINKGO_SEEDS.get())
+                .add(UPItems.GINKGO_FRUIT.get())
+                .add(Items.CARROT);
 
         tag(UPTags.ORGANIC_OOZE)
                 .add(UPItems.ORGANIC_OOZE.get());

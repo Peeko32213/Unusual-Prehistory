@@ -26,6 +26,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> COTY_HURT = createSoundEvent("coty_hurt");
     public static final RegistryObject<SoundEvent> COTY_DEATH = createSoundEvent("coty_death");
 
+    public static final RegistryObject<SoundEvent> EDAPHO_IDLE = createSoundEvent("edaphosaurus_idle");
+    public static final RegistryObject<SoundEvent> EDAPHO_HURT = createSoundEvent("edaphosaurus_hurt");
+    public static final RegistryObject<SoundEvent> EDAPHO_DEATH = createSoundEvent("edaphosaurus_death");
+
     public static final RegistryObject<SoundEvent> AMMONITE_HURT = createSoundEvent("ammonite_hurt");
     public static final RegistryObject<SoundEvent> AMMONITE_DEATH = createSoundEvent("ammonite_death");
     public static final RegistryObject<SoundEvent> AMMONITE_FLOP = createSoundEvent("ammonite_flop");

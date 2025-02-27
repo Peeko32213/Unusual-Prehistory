@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.state;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.entity.Entity;
 
@@ -22,7 +23,7 @@ public interface IStateAction {
         if(getStates().containsKey(name)) {
             return getStates().get(name);
         } else {
-//            Hole.LOGGER.error("Could not get state {} for {}", name, entity.getEncodeId());
+            UnusualPrehistory.LOGGER.error("Could not get state {} for {}", name, entity.getEncodeId());
             return null;
         }
     }

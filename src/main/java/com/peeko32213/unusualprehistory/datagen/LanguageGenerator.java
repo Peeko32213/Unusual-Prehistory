@@ -592,11 +592,13 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.BEELZE_ATTACK, "Beelzebufo chomps");
         addSound(UPSounds.BEELZE_HURT, "Beelzebufo hurts");
         addSound(UPSounds.BEELZE_DEATH, "Beelzebufo dies");
+
         addSound(UPSounds.MAJUNGA_IDLE, "Majungasaurus growls");
         addSound(UPSounds.MAJUNGA_ATTACK, "Majungasaurus bites");
         addSound(UPSounds.MAJUNGA_HURT, "Majungasaurus hurts");
         addSound(UPSounds.MAJUNGA_DEATH, "Majungasaurus dies");
         addSound(UPSounds.MAJUNGA_STEP, "Heavy footsteps");
+
         addSound(UPSounds.ANURO_IDLE, "Anurognathus squaks");
         addSound(UPSounds.ANURO_HURT, "Anurognathus hurts");
         addSound(UPSounds.ANURO_DEATH, "Anurognathus dies");
@@ -604,6 +606,10 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.COTY_IDLE, "Cotylorhynchus groans");
         addSound(UPSounds.COTY_HURT, "Cotylorhynchus hurts");
         addSound(UPSounds.COTY_DEATH, "Cotylorhynchus dies");
+
+        addSound(UPSounds.EDAPHO_IDLE, "Edaphosaurus groans");
+        addSound(UPSounds.EDAPHO_HURT, "Edaphosaurus hurts");
+        addSound(UPSounds.EDAPHO_DEATH, "Edaphosaurus dies");
 
         addSound(UPSounds.AMMONITE_HURT, "Ammonite hurts");
         addSound(UPSounds.AMMONITE_DEATH, "Ammonite dies");
@@ -634,22 +640,26 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.TRIKE_IDLE, "Triceratops stouts");
         addSound(UPSounds.TRIKE_HURT, "Triceratops hurts");
         addSound(UPSounds.TRIKE_DEATH, "Triceratops dies");
+
         addSound(UPSounds.BRACHI_IDLE, "Brachiosaurus bellows");
         addSound(UPSounds.BRACHI_HURT, "Brachiosaurus hurts");
         addSound(UPSounds.BRACHI_TOSS, "Brachiosaurus tosses");
         addSound(UPSounds.BRACHI_STEP, "Massive footsteps");
         addSound(UPSounds.BRACHI_DEATH, "Brachiosaurus dies");
         addSound(UPSounds.BRACHI_STOMP, "Brachiosaurus stomps");
+
         addSound(UPSounds.ENCRUSTED_IDLE, "Encrusted bzzzzzzzzs");
         addSound(UPSounds.ENCRUSTED_HURT, "Encrusted hurts");
         addSound(UPSounds.ENCRUSTED_MELEE, "Encrusted zzzts");
         addSound(UPSounds.ENCRUSTED_SPIT, "Encrusted pzzts");
         addSound(UPSounds.ENCRUSTED_DEATH, "Encrusted dies");
+
         addSound(UPSounds.RAPTOR_IDLE, "Velociraptor coos");
         addSound(UPSounds.RAPTOR_HURT, "Velociraptor hurts");
         addSound(UPSounds.RAPTOR_ATTACK, "Velociraptor veloci-slashes");
         addSound(UPSounds.RAPTOR_SEARCH, "Velociraptor coos curiously");
         addSound(UPSounds.RAPTOR_DEATH, "Velociraptor dies");
+
         addSound(UPSounds.PACHY_IDLE, "Pachycephalosaurus grunts");
         addSound(UPSounds.PACHY_HURT, "Pachycephalosaurus hurts");
         addSound(UPSounds.PACHY_HEADBUTT, "Pachycephalosaurus bonks");
@@ -658,11 +668,13 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ERYON_IDLE, "Eryon noises");
         addSound(UPSounds.ERYON_HURT, "Eryon hurts");
         addSound(UPSounds.ERYON_DEATH, "Eryon dies");
+
         addSound(UPSounds.AUSTRO_BITE, "Austroraptor nips");
         addSound(UPSounds.AUSTRO_DEATH, "Austroraptor dies");
         addSound(UPSounds.AUSTRO_HURT, "Austroraptor hurts");
         addSound(UPSounds.AUSTRO_IDLE, "Austroraptor coos");
         addSound(UPSounds.AUSTRO_PREEN, "Austroraptor preens");
+
         addSound(UPSounds.HWACHA_DEATH, "Hwachavenator dies");
         addSound(UPSounds.HWACHA_HURT, "Hwachavenator hurts");
         addSound(UPSounds.HWACHA_IDLE, "Hwachavenator hums");
@@ -1081,23 +1093,6 @@ public class LanguageGenerator extends LanguageProvider {
     }
 }
 
-// Unused 1.6 stuff
-//        addItem(UPItems.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
-//        addBlock(UPBlocks.TARTUO_EGGS, "Tartuo Eggs");
-//        addBlock(UPBlocks.FURCACAUDA_EGGS, "Furcacauda Eggs");
-
-
-//        addItem(UPItems.JAWLESS_FISH_EGG, "Jawless Fish Spawn Egg");
-//        addItem(UPItems.TARTUOSTEUS_EGG, "Tartuosteus Spawn Egg");
-
-//        addItem(UPItems.PTERY_FLASK, "Pterygotus DNA Flask");
-//        addItem(UPItems.EDAPHO_FLASK, "Edaphosaurus DNA Flask");
-//        addItem(UPItems.PTERYDACTYLUS_FLASK, "Pterydactylus DNA Flask");
-//        addItem(UPItems.ERETMORPHIS_FLASK, "Eretmorphis DNA Flask");
-//        addItem(UPItems.XIPHACT_FLASK, "Xiphactinus DNA Flask");
-//        addItem(UPItems.OVIRAPTOR_FLASK, "Oviraptor DNA Flask");
-//        addItem(UPItems.GLOBIDENS_FLASK, "Globidens DNA Flask");
-//        addItem(UPItems.ESTEMMENO_FLASK, "Estemmenosuchus DNA Flask");
 //        addItem(UPItems.ARTHROPLEURA_FLASK, "Arthropleura DNA Flask");
 //        addItem(UPItems.SCUTO_FLASK, "Scutosaurus DNA Flask");
 //        addItem(UPItems.ENCHODUS_FLASK, "Enchodus DNA Flask");

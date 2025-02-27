@@ -80,6 +80,28 @@
     "subtitle": "unusualprehistory.sound.subtitle.coty_death"
   },
 
+  "edaphosaurus_idle": {
+    "sounds": [
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_0",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.edaphosaurus_idle"
+  },
+  "edaphosaurus_hurt": {
+    "sounds": [
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_hurt_0",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_hurt_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.edaphosaurus_hurt"
+  },
+  "edaphosaurus_death": {
+    "sounds": [
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_death_0",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_death_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.edaphosaurus_death"
+  },
+
   "dunk_attack": {
     "sounds": [
         "unusualprehistory:entity/dunk/dunk_attack_0",
@@ -428,20 +450,20 @@
         "unusualprehistory:entity/velociraptor/velociraptor_attack_0",
         "unusualprehistory:entity/velociraptor/velociraptor_attack_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.raptor_attack"
+    "subtitle": "unusualprehistory.sound.subtitle.velociraptor_attack"
   },
   "velociraptor_death": {
     "sounds": [
         "unusualprehistory:entity/velociraptor/velociraptor_death_0"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.raptor_death"
+    "subtitle": "unusualprehistory.sound.subtitle.velociraptor_death"
   },
   "velociraptor_hurt": {
     "sounds": [
         "unusualprehistory:entity/velociraptor/velociraptor_hurt_0",
         "unusualprehistory:entity/velociraptor/velociraptor_hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.raptor_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.velociraptor_hurt"
   },
   "velociraptor_idle": {
     "sounds": [
@@ -449,13 +471,13 @@
         "unusualprehistory:entity/velociraptor/velociraptor_idle_1",
         "unusualprehistory:entity/velociraptor/velociraptor_idle_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.raptor_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.velociraptor_idle"
   },
   "velociraptor_search": {
     "sounds": [
         "unusualprehistory:entity/velociraptor/velociraptor_search"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.raptor_search"
+    "subtitle": "unusualprehistory.sound.subtitle.velociraptor_search"
   },
 
   "pachy_death": {

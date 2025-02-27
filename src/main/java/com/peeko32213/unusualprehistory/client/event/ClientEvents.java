@@ -215,7 +215,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DiplocaulusModel()));
         event.registerEntityRenderer(UPEntities.DUNK.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DunkleosteusModel()));
         event.registerEntityRenderer(UPEntities.BABY_DUNK.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_DUNK)));
-        event.registerEntityRenderer(UPEntities.EDAPHOSAURUS.get(), e -> new DinosaurRenderer<>(e, new EdaphosaurusModel()));
+        event.registerEntityRenderer(UPEntities.EDAPHOSAURUS.get(), e -> new StatedDinosaurRenderer<>(e, new EdaphosaurusModel()));
         event.registerEntityRenderer(UPEntities.ESTEMMENOSUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new EstemmenosuchusModel()));
         event.registerEntityRenderer(UPEntities.HYNERIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new HyneriaModel()));
         event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new DinosaurRenderer<>(e, new HynerpetonModel()));

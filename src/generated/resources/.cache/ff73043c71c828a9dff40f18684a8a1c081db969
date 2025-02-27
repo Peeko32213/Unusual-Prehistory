@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-25T11:38:07.5841117	unusualprehistory Item Tags
+// 1.20.1	2025-02-26T20:10:17.9704064	unusualprehistory Item Tags
 5c5d8ce6ffd4b0079c585611f9169a81f8bd2c51 data/minecraft/tags/items/buttons.json
 9edb75fd2a2fc58fad5cb177d8cd36a6b449e37d data/minecraft/tags/items/fishes.json
 c058532b8dc116a7ddd6535c6021e5b16efff81c data/minecraft/tags/items/leaves.json
@@ -36,6 +36,7 @@ a1bde0b759e1556ddcca3f534588404d57b9c4e3 data/unusualprehistory/tags/items/analy
 edfbea327e9b9dfda94be452430f8b7269236ed4 data/unusualprehistory/tags/items/brown_ulugh_food.json
 cbfe70a78636e08bfe98910fe604b4739db2efd3 data/unusualprehistory/tags/items/dna_flasks.json
 e7979fa1ee3401c63e5b609e5c51d79f07e44332 data/unusualprehistory/tags/items/dryo.json
+43dc21695a2682dc57899bf633f57ae451049a47 data/unusualprehistory/tags/items/edaphosaurus_food_items.json
 291718131b430f202c603d9f307f34ade8dc2264 data/unusualprehistory/tags/items/filled_flasks.json
 678b5f4dc6ccd09e6f0ab7a1397e054e4160ef3e data/unusualprehistory/tags/items/fossils.json
 00abf03d0837119246c91f18ba93d00885396ca4 data/unusualprehistory/tags/items/foxxi.json
