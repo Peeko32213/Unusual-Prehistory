@@ -36,8 +36,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
@@ -123,25 +125,22 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         );
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 100, true, false, this::isAngryAt));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 100, true, false, this::isAngryAt));
     }
 
 
     @Override
     public boolean doHurtTarget(Entity target) {
-        boolean shouldHurt;
+        boolean shouldHurt = false;
         float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float knockback = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        if (shouldHurt = target.hurt(this.damageSources().mobAttack(this), damage)) {
+        if (shouldHurt == target.hurt(this.damageSources().mobAttack(this), damage)) {
             if (knockback > 0.0f && target instanceof LivingEntity) {
                 ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
             }
             this.doEnchantDamageEffects(this, target);
             this.setLastHurtMob(target);
-        }
-        if (shouldHurt && target instanceof LivingEntity livingEntity) {
-            this.playSound(UPSounds.MAJUNGA_ATTACK.get(), 0.1F, 1.0F);
         }
         return shouldHurt;
     }
@@ -163,7 +162,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return UPEntities.MAJUNGA.get().create(serverLevel);
     }
 
@@ -196,7 +195,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         entity.hurt(this.damageSources().mobAttack(this), 8.0F);
     }
 
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if (hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
@@ -215,7 +214,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         return UPSounds.MAJUNGA_IDLE.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.MAJUNGA_HURT.get();
     }
 
@@ -223,7 +222,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         return UPSounds.MAJUNGA_DEATH.get();
     }
 
-    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+    protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
@@ -376,7 +375,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
 
         public MajungaPrepareChargeGoal(MajungasaurusEntity majunga) {
             this.majunga = majunga;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
@@ -426,7 +425,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         public MajungaChargeGoal(MajungasaurusEntity pathfinderMob, double speedModifier) {
             this.mob = pathfinderMob;
             this.speedModifier = speedModifier;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
             this.chargeDirection = Vec3.ZERO;
         }
 
@@ -513,7 +512,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         }
 
         @Override
-        protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
+        protected void checkAndPerformAttack(@NotNull LivingEntity enemy, double distToEnemySqr) {
             double d0 = this.getAttackReachSqr(enemy);
             if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
                 this.resetAttackCooldown();
@@ -535,7 +534,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         controllers.add(new AnimationController<>(this, "Attack", 5, this::attackController));
     }
 
-    protected <E extends MajungasaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    protected <E extends MajungasaurusEntity> PlayState Controller(final AnimationState<E> event) {
         if (this.isFromBook()) {
             return event.setAndContinue(MAJUNGA_CHARGE_PREP);
         }
@@ -569,7 +568,7 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         return PlayState.CONTINUE;
     }
 
-    protected <E extends MajungasaurusEntity> PlayState attackController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    protected <E extends MajungasaurusEntity> PlayState attackController(final AnimationState<E> event) {
         if (this.swinging && event.getController().getAnimationState().equals(AnimationController.State.PAUSED)) {
             event.getController().forceAnimationReset();
             event.setAndContinue(MAJUNGA_BITE);
@@ -577,10 +576,4 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         }
         return PlayState.CONTINUE;
     }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
-    }
-
 }

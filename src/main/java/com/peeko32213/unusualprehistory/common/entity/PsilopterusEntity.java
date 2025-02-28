@@ -328,7 +328,7 @@
          public void stop() {
              LivingEntity livingentity = this.mob.getTarget();
              if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                 this.mob.setTarget((LivingEntity) null);
+                 this.mob.setTarget(null);
              }
              this.mob.setAnimationState(0);
              this.mob.setAggressive(false);

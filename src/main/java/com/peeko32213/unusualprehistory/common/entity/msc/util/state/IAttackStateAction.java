@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.state;
 
 import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +39,7 @@ public interface IAttackStateAction {
         if(getAttackStates().containsKey(name)) {
             return getAttackStates().get(name);
         } else {
-//            Hole.LOGGER.error("Could not get state {} for {}", name, entity.getEncodeId());
+            UnusualPrehistory.LOGGER.error("Could not get state {} for {}", name, entity.getEncodeId());
             return null;
         }
     }
@@ -47,7 +48,7 @@ public interface IAttackStateAction {
         if(getSpecialAttack().containsKey(name)) {
             return getSpecialAttack().get(name);
         } else {
-//            Hole.LOGGER.error("Could not get state {} for {}", name, entity.getEncodeId());
+            UnusualPrehistory.LOGGER.error("Could not get state {} for {}", name, entity.getEncodeId());
             return null;
         }
     }

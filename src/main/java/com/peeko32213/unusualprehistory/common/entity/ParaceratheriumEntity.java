@@ -61,12 +61,12 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 150.0D)
-                .add(Attributes.ATTACK_DAMAGE, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.13D)
-                .add(Attributes.ARMOR, 6.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 6.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 10.5D);
+            .add(Attributes.MAX_HEALTH, 150.0D)
+            .add(Attributes.ATTACK_DAMAGE, 20.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.13D)
+            .add(Attributes.ARMOR, 6.0D)
+            .add(Attributes.ARMOR_TOUGHNESS, 6.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 10.5D);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
         return UPSounds.PARACER_IDLE.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.PARACER_HURT.get();
     }
 
@@ -218,7 +218,6 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
         private int failedPathFindingPenalty = 0;
         private boolean canPenalize = false;
         private int animTime = 0;
-        Vec3 slamOffSet = new Vec3(1, 0, 0);
 
         public ParacerMeleeAttackGoal(ParaceratheriumEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
@@ -287,7 +286,7 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
         public void stop() {
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget((LivingEntity) null);
+                this.mob.setTarget(null);
             }
             this.mob.setAnimationState(0);
 
@@ -296,23 +295,21 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
         public void tick() {
 
             LivingEntity target = this.mob.getTarget();
+            assert target != null;
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
             Vec3 aim = this.mob.getLookAngle();
             Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
 
-            switch (animState) {
-                case 21:
-                    tickStompAttack();
-                    break;
-                default:
-                    this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                    this.doMovement(target, distance);
-                    this.checkForCloseRangeAttack(distance, reach);
-                    break;
+            if (animState == 21) {
+                tickStompAttack();
+            } else {
+                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                this.doMovement(target, distance);
+                this.checkForCloseRangeAttack(distance, reach);
             }
         }
 
@@ -351,19 +348,12 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
 
         protected void checkForCloseRangeAttack(double distance, double reach) {
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
-                int r = this.mob.getRandom().nextInt(2048);
-                if (r <= 600) {
                     this.mob.setAnimationState(21);
-                }
             }
         }
 
         protected boolean getRangeCheck() {
-
-            return
-            this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                <=
-                1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
 
@@ -421,7 +411,7 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double) (this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
         }
     }
 
@@ -442,28 +432,24 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
         }
         int animState = this.getAnimationState();
         {
-            switch (animState) {
-
-                case 21:
-                    event.setAndContinue(PARACER_ATTACK);
-                    event.getController().setAnimationSpeed(0.85F);
-                    break;
-                default:
-                    if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && !this.isSwimming()) {
-                        event.setAndContinue(PARACER_WALK);
-                        event.getController().setAnimationSpeed(1.5D);
-                        return PlayState.CONTINUE;
-                    }
-                    if (this.isInWater()) {
-                        event.setAndContinue(PARACER_SWIM);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-                    else if (!this.isInWater() && !this.isSwimming()) {
-                        event.setAndContinue(PARACER_IDLE);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
+            if (animState == 21) {
+                event.setAndContinue(PARACER_ATTACK);
+                event.getController().setAnimationSpeed(0.85F);
+            } else {
+                if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && !this.isSwimming()) {
+                    event.setAndContinue(PARACER_WALK);
+                    event.getController().setAnimationSpeed(1.5D);
+                    return PlayState.CONTINUE;
+                }
+                if (this.isInWater()) {
+                    event.setAndContinue(PARACER_SWIM);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                } else if (!this.isInWater() && !this.isSwimming()) {
+                    event.setAndContinue(PARACER_IDLE);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                }
             }
         }
         return PlayState.CONTINUE;
@@ -473,10 +459,4 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
-    }
-
 }
