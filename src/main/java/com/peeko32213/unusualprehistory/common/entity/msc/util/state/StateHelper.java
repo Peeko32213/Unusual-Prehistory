@@ -59,7 +59,6 @@ public class StateHelper {
         this.name = name;
     }
 
-
     public EntityDataAccessor<Boolean> getState() {
         return state;
     }

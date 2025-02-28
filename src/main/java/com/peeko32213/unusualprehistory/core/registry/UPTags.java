@@ -59,6 +59,7 @@ public class UPTags {
 
     // Food tags
     public static final TagKey<Item> EDAPHO_FOOD_ITEMS = registerItemTag("edaphosaurus_food_items");
+    public static final TagKey<Item> ESTEMME_FOOD_ITEMS = registerItemTag("estemmenosuchus_food_items");
 
     //Misc Tags
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = registerItemTag("allowed_fridge_items");

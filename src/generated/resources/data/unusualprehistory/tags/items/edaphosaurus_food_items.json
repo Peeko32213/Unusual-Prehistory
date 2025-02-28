@@ -2,6 +2,9 @@
   "values": [
     "unusualprehistory:raw_ginkgo_seeds",
     "unusualprehistory:ginkgo_fruit",
-    "minecraft:carrot"
+    "unusualprehistory:horsetail",
+    "unusualprehistory:tall_horsetail",
+    "minecraft:carrot",
+    "minecraft:potato"
   ]
 }

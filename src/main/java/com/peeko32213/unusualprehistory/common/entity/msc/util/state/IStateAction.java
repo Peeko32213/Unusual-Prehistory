@@ -27,5 +27,4 @@ public interface IStateAction {
             return null;
         }
     }
-
 }

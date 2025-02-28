@@ -26,7 +26,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.@NotNull Provider pProvider) {
 
-
         tag(UPTags.ALLOWED_FRIDGE_ITEMS)
                 .addTag(UPTags.DNA_FLASKS);
 
@@ -118,7 +117,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .addTag(UPTags.PETRIFIED_WOOD);
 
         tag(UPTags.KENTRO_FOOD)
-                .add(UPBlocks.HORSETAIL.get().asItem());
+                .add(UPBlocks.HORSETAIL.get().asItem())
+                .add(UPBlocks.TALL_HORSETAIL.get().asItem());
 
         tag(UPTags.MAJUNGA_FOOD)
                 .add(UPItems.RAW_COTY.get());
@@ -150,7 +150,28 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(UPTags.EDAPHO_FOOD_ITEMS)
                 .add(UPItems.RAW_GINKGO_SEEDS.get())
                 .add(UPItems.GINKGO_FRUIT.get())
-                .add(Items.CARROT);
+                .add(UPBlocks.HORSETAIL.get().asItem())
+                .add(UPBlocks.TALL_HORSETAIL.get().asItem())
+                .add(Items.CARROT)
+                .add(Items.POTATO)
+        ;
+
+        tag(UPTags.ESTEMME_FOOD_ITEMS)
+                .add(UPItems.RAW_COTY.get())
+                .add(UPItems.RAW_AUSTRO.get())
+                .add(UPItems.GINKGO_FRUIT.get())
+                .add(UPBlocks.HORSETAIL.get().asItem())
+                .add(UPBlocks.TALL_HORSETAIL.get().asItem())
+                .add(Items.MELON_SLICE)
+                .add(Items.APPLE)
+                .add(Items.SWEET_BERRIES)
+                .add(Items.GLOW_BERRIES)
+                .add(Items.BEEF)
+                .add(Items.PORKCHOP)
+                .add(Items.CHICKEN)
+                .add(Items.RABBIT)
+                .add(Items.MUTTON)
+        ;
 
         tag(UPTags.ORGANIC_OOZE)
                 .add(UPItems.ORGANIC_OOZE.get());
@@ -158,25 +179,29 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(ItemTags.LEAVES)
                 .add(UPBlocks.FOXXI_LEAVES.get().asItem())
                 .add(UPBlocks.DRYO_LEAVES.get().asItem())
-                .add(UPBlocks.GINKGO_LEAVES.get().asItem());
+                .add(UPBlocks.GINKGO_LEAVES.get().asItem())
+        ;
 
         tag(UPTags.PETRIFIED_WOOD)
                 .add(UPBlocks.PETRIFIED_WOOD_LOG.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD.get().asItem())
                 .add(UPBlocks.STRIPPED_PETRIFIED_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get().asItem());
+                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get().asItem())
+        ;
 
         tag(UPTags.FOXXI)
                 .add(UPBlocks.FOXXI_LOG.get().asItem())
                 .add(UPBlocks.FOXXI_WOOD.get().asItem())
                 .add(UPBlocks.STRIPPED_FOXXI_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_FOXXI_LOG.get().asItem());
+                .add(UPBlocks.STRIPPED_FOXXI_LOG.get().asItem())
+        ;
 
         tag(UPTags.DRYO)
                 .add(UPBlocks.DRYO_LOG.get().asItem())
                 .add(UPBlocks.DRYO_WOOD.get().asItem())
                 .add(UPBlocks.STRIPPED_DRYO_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_DRYO_LOG.get().asItem());
+                .add(UPBlocks.STRIPPED_DRYO_LOG.get().asItem())
+        ;
 
         tag(UPTags.ZULOAGAE)
                 .add(UPBlocks.ZULOAGAE_BLOCK.get().asItem())
@@ -237,7 +262,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(Items.NETHERITE_BOOTS.asItem())
         ;
 
-
         tag(ItemTags.SAPLINGS)
                 .add(UPBlocks.GINKGO_SAPLING.get().asItem())
                 .add(UPBlocks.FOXII_SAPLING.get().asItem())
@@ -254,14 +278,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(ItemTags.SMALL_FLOWERS)
                 .add(UPBlocks.LEEFRUCTUS.get().asItem())
                 .add(UPBlocks.SARACENIA.get().asItem())
-                .add(UPBlocks.HORSETAIL.get().asItem())
                 .add(UPBlocks.BENNETTITALES.get().asItem())
-                .add(UPBlocks.ARCHAEOSIGILARIA.get().asItem())
-                .add(UPBlocks.PETRIFIED_BUSH.get().asItem());
+                .add(UPBlocks.ARCHAEOSIGILARIA.get().asItem());
 
         tag(ItemTags.TALL_FLOWERS)
                 .add(UPBlocks.TALL_SARACENIA.get().asItem())
-                .add(UPBlocks.TALL_HORSETAIL.get().asItem())
                 .add(UPBlocks.RAIGUENRAYUN.get().asItem());
 
         tag(ItemTags.WOODEN_FENCES)
@@ -270,7 +291,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.DRYO_FENCE.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD_FENCE.get().asItem())
                 .add(UPBlocks.ZULOAGAE_FENCE.get().asItem());
-
 
         tag(ItemTags.WOODEN_DOORS)
                 .add(UPBlocks.GINKGO_DOOR.get().asItem())
@@ -430,6 +450,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_RAW_SCAU)
                 .add(UPItems.SCAU_FLASK.get());
+
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_RAW_STETHA)
                 .add(UPItems.STETHA_FLASK.get());
 
@@ -448,54 +469,13 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.ENCASED_DISC.get())
         ;
 
+        tag(ItemTags.ARROWS)
+                .add(UPItems.PSITTACCO_ARROW.get())
+        ;
+
     }
 
-
-
     @Override
-    public String getName() { return UnusualPrehistory.MODID + " Item Tags";}
-}
+    public @NotNull String getName() { return UnusualPrehistory.MODID + " Item Tags";}
 
-    // Unfinished 1.6 stuff
-//                .add(UPItems.PTERYDACTYLUS_FLASK.get())
-//                .add(UPItems.ERETMORPHIS_FLASK.get())
-//                .add(UPItems.SCUTO_FLASK.get())
-//                .add(UPItems.ARTHROPLEURA_FLASK.get())
-//                .add(UPItems.PROTOSPHYRAENA_FLASK.get())
-//                .add(UPItems.ENCHODUS_FLASK.get())
-//                .add(UPItems.IGUANODON_FLASK.get())
-//                .add(UPItems.OPHIO_FLASK.get())
-//                .add(UPItems.LEEDS_FLASK.get())
-//                .add(UPItems.XIPHACT_FLASK.get())
-//                .add(UPItems.GLOBIDENS_FLASK.get())
-//                .add(UPItems.ARCHELON_FLASK.get())
-//                .add(UPItems.OTAROCYON_FLASK.get())
-//                .add(UPItems.PSILO_FLASK.get())
-//                .add(UPItems.OTAROCYON_FLASK.get())
-//                .add(UPItems.OPHIO_FLASK.get())
-//                .add(UPItems.PSILO_FLASK.get());
-//                .add(UPItems.JAWLESS_FISH_FLASK.get())
-//                .add(UPItems.TARTUO_FLASK.get())
-//                .add(UPItems.HYNERP_FLASK.get())
-//                .add(UPItems.EDAPHO_FLASK.get())
-//                .add(UPItems.ESTEMMENO_FLASK.get())
-//                .add(UPItems.SCUTO_FLASK.get())
-//                .add(UPItems.ARTHROPLEURA_FLASK.get())
-//                .add(UPItems.IGUANODON_FLASK.get())
-//                .add(UPItems.RAW_FURCACAUDA.get())
-//                .add(UPItems.COOKED_FURCACAUDA.get())
-//                .add(UPItems.RAW_TARTU.get())
-//                .add(UPItems.COOKED_TARTU.get())
-//                .add(UPItems.RAW_OPHIODON.get())
-//                .add(UPItems.COOKED_OPHIODON.get())
-//                .add(UPItems.LEEDS_CAVIAR.get())
-//                .add(UPItems.LEEDS_SLICE.get())
-//                .add(UPItems.TANY_FLASK.get())
-//                .add(UPItems.PSITTACO_FLASK.get())
-//                .add(UPItems.KAPRO_FLASK.get())
-//                .add(UPItems.PTERODAUSTRO_FLASK.get())
-//                .add(UPItems.PTERYDACTYLUS_FLASK.get())
-//                .add(UPItems.ERETMORPHIS_FLASK.get())
-//                .add(UPItems.PROTOSPHYRAENA_FLASK.get())
-//                .add(UPItems.ENCHODUS_FLASK.get())
-//        tag(ItemTags.ARROWS).add(UPItems.PSITTACCO_ARROW.get());
+}

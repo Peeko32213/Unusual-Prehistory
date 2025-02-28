@@ -49,6 +49,8 @@ import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -58,7 +60,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implements CustomFollower, IAttackEntity {
+public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implements CustomFollower, IAttackEntity, GeoEntity, GeoAnimatable {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
     private EatBlockGoal eatBlockGoal;
     private int eatAnimationTick;
@@ -76,6 +78,7 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
     private boolean canBePushed = true;
     private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
+
     private static final RawAnimation TRIKE_SWIM = RawAnimation.begin().thenLoop("animation.trike.swimming");
     private static final RawAnimation TRIKE_MOVE = RawAnimation.begin().thenLoop("animation.trike.move");
     private static final RawAnimation TRIKE_PREP = RawAnimation.begin().thenLoop("animation.trike.prep");
@@ -89,7 +92,6 @@ public class TriceratopsEntity extends TameableBaseDinosaurAnimalEntity implemen
         super(entityType, level);
         this.setMaxUpStep(1.25F);
     }
-
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()

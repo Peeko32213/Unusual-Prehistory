@@ -611,6 +611,10 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.EDAPHO_HURT, "Edaphosaurus hurts");
         addSound(UPSounds.EDAPHO_DEATH, "Edaphosaurus dies");
 
+        addSound(UPSounds.ESTEMME_IDLE, "Estemmenosuchus groans");
+        addSound(UPSounds.ESTEMME_HURT, "Estemmenosuchus hurts");
+        addSound(UPSounds.ESTEMME_DEATH, "Estemmenosuchus dies");
+
         addSound(UPSounds.AMMONITE_HURT, "Ammonite hurts");
         addSound(UPSounds.AMMONITE_DEATH, "Ammonite dies");
         addSound(UPSounds.AMMONITE_FLOP, "Ammonite flops");

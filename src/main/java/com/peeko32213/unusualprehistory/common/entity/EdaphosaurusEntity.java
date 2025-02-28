@@ -70,60 +70,61 @@ public class EdaphosaurusEntity extends BaseStatedDinosaurAnimalEntity implement
     private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(EdaphosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_5_AC = SynchedEntityData.defineId(EdaphosaurusEntity.class, EntityDataSerializers.BOOLEAN);
 
+    // Idle actions
     private static final EntityAction EDAPHO_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
 
     private static final StateHelper EDAPHO_IDLE_1_STATE =
             StateHelper.Builder.state(IDLE_1_AC, "edaphosaurus_sneeze")
-                    .playTime(40)
-                    .stopTime(60)
-                    .affectsAI(true)
-                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(EDAPHO_IDLE_1_ACTION)
-                    .build();
+                .playTime(40)
+                .stopTime(60)
+                .affectsAI(true)
+                .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                .entityAction(EDAPHO_IDLE_1_ACTION)
+                .build();
 
     private static final EntityAction EDAPHO_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
 
     private static final StateHelper EDAPHO_IDLE_2_STATE =
             StateHelper.Builder.state(IDLE_2_AC, "edaphosaurus_graze")
-                    .playTime(80)
-                    .stopTime(100)
-                    .affectsAI(true)
-                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(EDAPHO_IDLE_2_ACTION)
-                    .build();
+                .playTime(80)
+                .stopTime(100)
+                .affectsAI(true)
+                .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                .entityAction(EDAPHO_IDLE_2_ACTION)
+                .build();
 
     private static final EntityAction EDAPHO_IDLE_3_ACTION = new EntityAction(0, (e) -> {}, 1);
 
     private static final StateHelper EDAPHO_IDLE_3_STATE =
             StateHelper.Builder.state(IDLE_3_AC, "edaphosaurus_stretch")
-                    .playTime(60)
-                    .stopTime(80)
-                    .affectsAI(true)
-                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(EDAPHO_IDLE_3_ACTION)
-                    .build();
+                .playTime(60)
+                .stopTime(80)
+                .affectsAI(true)
+                .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                .entityAction(EDAPHO_IDLE_3_ACTION)
+                .build();
 
     private static final EntityAction EDAPHO_IDLE_4_ACTION = new EntityAction(0, (e) -> {}, 1);
 
     private static final StateHelper EDAPHO_IDLE_4_STATE =
             StateHelper.Builder.state(IDLE_4_AC, "edaphosaurus_sit")
-                    .playTime(160)
-                    .stopTime(180)
-                    .affectsAI(true)
-                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(EDAPHO_IDLE_4_ACTION)
-                    .build();
+                .playTime(160)
+                .stopTime(180)
+                .affectsAI(true)
+                .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                .entityAction(EDAPHO_IDLE_4_ACTION)
+                .build();
 
     private static final EntityAction EDAPHO_IDLE_5_ACTION = new EntityAction(0, (e) -> {}, 1);
 
     private static final StateHelper EDAPHO_IDLE_5_STATE =
             StateHelper.Builder.state(IDLE_5_AC, "edaphosaurus_sleep")
-                    .playTime(320)
-                    .stopTime(340)
-                    .affectsAI(true)
-                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(EDAPHO_IDLE_5_ACTION)
-                    .build();
+                .playTime(320)
+                .stopTime(340)
+                .affectsAI(true)
+                .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                .entityAction(EDAPHO_IDLE_5_ACTION)
+                .build();
 
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
@@ -131,8 +132,8 @@ public class EdaphosaurusEntity extends BaseStatedDinosaurAnimalEntity implement
                 EDAPHO_IDLE_1_STATE.getName(), EDAPHO_IDLE_1_STATE,
                 EDAPHO_IDLE_2_STATE.getName(), EDAPHO_IDLE_2_STATE,
                 EDAPHO_IDLE_3_STATE.getName(), EDAPHO_IDLE_3_STATE,
-                EDAPHO_IDLE_3_STATE.getName(), EDAPHO_IDLE_4_STATE,
-                EDAPHO_IDLE_3_STATE.getName(), EDAPHO_IDLE_5_STATE
+                EDAPHO_IDLE_4_STATE.getName(), EDAPHO_IDLE_4_STATE,
+                EDAPHO_IDLE_5_STATE.getName(), EDAPHO_IDLE_5_STATE
         );
     }
 
@@ -168,7 +169,7 @@ public class EdaphosaurusEntity extends BaseStatedDinosaurAnimalEntity implement
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(3, new RandomStateGoal<>(this));
+        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(6, new PanicGoal(this, 1.35D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, FOOD_ITEMS, false));
@@ -262,6 +263,7 @@ public class EdaphosaurusEntity extends BaseStatedDinosaurAnimalEntity implement
         return stack.is(UPTags.EDAPHO_FOOD_ITEMS);
     }
 
+    // Heal mob
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
@@ -308,7 +310,7 @@ public class EdaphosaurusEntity extends BaseStatedDinosaurAnimalEntity implement
 
         if (this.isInWater() && !getBooleanState(IDLE_1_AC) && !getBooleanState(IDLE_2_AC) && !getBooleanState(IDLE_3_AC) && !getBooleanState(IDLE_4_AC) && !getBooleanState(IDLE_5_AC)) {
             event.setAndContinue(EDAPHO_SWIM);
-            event.getController().setAnimationSpeed(0.5F);
+            event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
 
@@ -357,7 +359,7 @@ public class EdaphosaurusEntity extends BaseStatedDinosaurAnimalEntity implement
 
     @Override
     public int getAmbientSoundInterval() {
-        return 150;
+        return 125;
     }
 
     @Override

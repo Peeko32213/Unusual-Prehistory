@@ -102,6 +102,28 @@
     "subtitle": "unusualprehistory.sound.subtitle.edaphosaurus_death"
   },
 
+  "estemmenosuchus_idle": {
+    "sounds": [
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_idle_0",
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_idle_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_idle"
+  },
+  "estemmenosuchus_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_hurt_0",
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_hurt_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_hurt"
+  },
+  "estemmenosuchus_death": {
+    "sounds": [
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_death_0",
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_death_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_death"
+  },
+
   "dunk_attack": {
     "sounds": [
         "unusualprehistory:entity/dunk/dunk_attack_0",
