@@ -193,7 +193,7 @@ public class EstemmenosuchusEntity extends BaseStatedDinosaurAnimalEntity implem
         this.goalSelector.addGoal(3, new EstemmenosuchusEntity.EstemmeMeleeAttackGoal(this, 1.25F, false));
 //        this.goalSelector.addGoal(1, new EstemmenosuchusEntity.EstemmePrepareChargeGoal(this));
 //        this.goalSelector.addGoal(2, new EstemmenosuchusEntity.EstemmeChargeGoal(this, 2.0F));
-        this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
     }
 
     @Override

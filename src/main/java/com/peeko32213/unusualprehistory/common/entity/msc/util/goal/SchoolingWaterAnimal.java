@@ -1,22 +1,33 @@
 package com.peeko32213.unusualprehistory.common.entity.msc.util.goal;
 
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IHatchableEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.IStateAction;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.WeightedState;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class SchoolingWaterAnimal extends WaterAnimal {
+public abstract class SchoolingWaterAnimal extends AbstractSchoolingFish implements IStateAction {
     @Nullable
     private SchoolingWaterAnimal leader;
     private int schoolSize = 1;
+
+    protected abstract int getKillHealAmount();
 
     public SchoolingWaterAnimal(EntityType<? extends SchoolingWaterAnimal> p_27523_, Level p_27524_) {
         super(p_27523_, p_27524_);
@@ -50,6 +61,7 @@ public class SchoolingWaterAnimal extends WaterAnimal {
     }
 
     public void stopFollowing() {
+        assert this.leader != null;
         this.leader.removeFollower();
         this.leader = null;
     }
@@ -74,7 +86,6 @@ public class SchoolingWaterAnimal extends WaterAnimal {
                 this.schoolSize = 1;
             }
         }
-
     }
 
     public boolean hasFollowers() {
@@ -82,22 +93,19 @@ public class SchoolingWaterAnimal extends WaterAnimal {
     }
 
     public boolean inRangeOfLeader() {
+        assert this.leader != null;
         return this.distanceToSqr(this.leader) <= 121.0D;
     }
 
     public void pathToLeader() {
         if (this.isFollower()) {
+            assert this.leader != null;
             this.getNavigation().moveTo(this.leader, 1.0D);
         }
-
     }
 
-    public void addFollowers(Stream<? extends SchoolingWaterAnimal> p_27534_) {
-        p_27534_.limit((long)(this.getMaxSchoolSize() - this.schoolSize)).filter((p_27538_) -> {
-            return p_27538_ != this;
-        }).forEach((p_27536_) -> {
-            p_27536_.startFollowing(this);
-        });
+    public void killed() {
+        this.heal(getKillHealAmount());
     }
 
     @Nullable
@@ -110,6 +118,30 @@ public class SchoolingWaterAnimal extends WaterAnimal {
         }
 
         return p_27531_;
+    }
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
+
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {
+
+    }
+
+    public boolean getBooleanState(EntityDataAccessor<Boolean> pKey) {
+        return this.entityData.get(pKey);
     }
 
     public static class SchoolSpawnGroupData implements SpawnGroupData {

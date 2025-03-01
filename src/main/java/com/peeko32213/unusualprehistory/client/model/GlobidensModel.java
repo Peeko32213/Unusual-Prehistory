@@ -46,7 +46,18 @@ public class GlobidensModel extends GeoModel<GlobidensEntity>
         if (!animatable.isSprinting()) {
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
-    }
 
+        if (animatable.isInWaterOrBubble()) {
+            CoreGeoBone backBody = this.getAnimationProcessor().getBone("MidBody");
+            CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tail");
+
+            CoreGeoBone root = this.getAnimationProcessor().getBone("root");
+            root.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 7));
+            root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(animatable.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
+
+            backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+            tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+        }
+    }
 }
 

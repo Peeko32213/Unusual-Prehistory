@@ -124,7 +124,7 @@ public abstract class BaseStatedDinosaurAnimalEntity extends Animal implements G
     }
 
     @Override
-    public boolean canAttack(LivingEntity entity) {
+    public boolean canAttack(@NotNull LivingEntity entity) {
         boolean prev = super.canAttack(entity);
         if(prev && isBaby()){
             return false;
@@ -132,7 +132,7 @@ public abstract class BaseStatedDinosaurAnimalEntity extends Animal implements G
         return prev;
     }
 
-    public boolean doHurtTarget(Entity entityIn) {
+    public boolean doHurtTarget(@NotNull Entity entityIn) {
         if (super.doHurtTarget(entityIn) && getAttackSound() != null) {
             this.playSound(getAttackSound() , 0.1F, 1.0F);
             return true;
@@ -141,7 +141,7 @@ public abstract class BaseStatedDinosaurAnimalEntity extends Animal implements G
         }
     }
 
-    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+    public boolean causeFallDamage(float pFallDistance, float pMultiplier, @NotNull DamageSource pSource) {
 
         int i = this.calculateFallDamage(pFallDistance, pMultiplier);
         if (i <= 0) {

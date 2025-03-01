@@ -45,6 +45,7 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -57,18 +58,28 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Objects;
 
-public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, IBookEntity {
+public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEntity, IBookEntity {
+
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    // Movement animations
     private static final RawAnimation GLO_SWIM = RawAnimation.begin().thenLoop("animation.globidens.swim");
     private static final RawAnimation GLO_SWIM_SPRINT = RawAnimation.begin().thenLoop("animation.globidens.swim_fast");
-    private static final RawAnimation GLO_IDLE = RawAnimation.begin().thenLoop("animation.globidens.idle");
-    private static final RawAnimation GLO_ATTACK = RawAnimation.begin().thenLoop("animation.globidens.tailsmack");
     private static final RawAnimation GLO_FLOP = RawAnimation.begin().thenLoop("animation.globidens.beached");
+
+    // Idle animations
+    private static final RawAnimation GLO_IDLE = RawAnimation.begin().thenLoop("animation.globidens.idle");
+
+    // Attack animations
+    private static final RawAnimation GLO_BITE_1 = RawAnimation.begin().thenLoop("animation.globidens.attack_blend1");
+    private static final RawAnimation GLO_BITE_2 = RawAnimation.begin().thenLoop("animation.globidens.attack_blend2");
+    private static final RawAnimation GLO_SLAP = RawAnimation.begin().thenLoop("animation.globidens.tailsmack");
+
 
     private int passiveFor = 0;
 
@@ -161,45 +172,6 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, IBook
 
     public void aiStep() {
         super.aiStep();
-    }
-
-    protected <E extends GlobidensEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.isFromBook()) {
-            return event.setAndContinue(GLO_IDLE);
-        }
-
-        int animState = this.getAnimationState();
-
-        if(!this.isFromBook()) {
-            if (animState == 21) {
-                return event.setAndContinue(GLO_ATTACK);
-            } else {
-                if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                    if(this.isSprinting()){
-                        event.setAndContinue(GLO_SWIM_SPRINT);
-                        event.getController().setAnimationSpeed(1.0F);
-                    } else {
-                        event.setAndContinue(GLO_SWIM);
-                        event.getController().setAnimationSpeed(1.0F);
-                    }
-                    return PlayState.CONTINUE;
-                }
-                if (!this.isInWater()) {
-                    event.setAndContinue(GLO_FLOP);
-                    event.getController().setAnimationSpeed(1.0F);
-                    return PlayState.CONTINUE;
-                } else if (this.isInWater()) {
-                    event.setAndContinue(GLO_IDLE);
-                    return PlayState.CONTINUE;
-                }
-            }
-        }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     public boolean requiresCustomPersistence() {
@@ -364,30 +336,33 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, IBook
                 this.mob.setTarget(null);
             }
             this.mob.setAnimationState(0);
-
         }
 
         public void tick() {
 
             LivingEntity target = this.mob.getTarget();
+            assert target != null;
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
             Vec3 aim = this.mob.getLookAngle();
             Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
 
-
-            switch (animState) {
-                case 21:
-                    tickBiteAttack();
-                    break;
-                default:
-                    this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                    this.doMovement(target, distance);
-                    this.checkForCloseRangeAttack(distance, reach);
-                    break;
+            if (animState == 1) {
+                tickBiteAttack();
+            }
+            if (animState == 2) {
+                tickBiteAttack();
+            }
+            if (animState == 3) {
+                tickSlapAttack();
+            }
+            else {
+                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                this.doMovement(target, distance);
+                this.checkForCloseRangeAttack(distance, reach);
             }
         }
 
@@ -429,14 +404,39 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, IBook
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                 int r = this.mob.getRandom().nextInt(2048);
                 if (r <= 600) {
-                    this.mob.setAnimationState(21);
+                    this.mob.setAnimationState(1);
                 }
-
+                if (r <= 1200) {
+                    this.mob.setAnimationState(2);
+                }
+                if (r <= 1600) {
+                    this.mob.setAnimationState(3);
+                }
             }
         }
 
         protected boolean getRangeCheck () {
-            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.2F * this.getAttackReachSqr(this.mob.getTarget());
+            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.35F * this.getAttackReachSqr(this.mob.getTarget());
+        }
+
+        protected void tickSlapAttack () {
+            animTime++;
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==10) {
+                preformSlapAttack();
+            }
+
+            if(animTime>=40) {
+                animTime=0;
+                this.mob.setAnimationState(0);
+                this.resetAttackCooldown();
+                this.ticksUntilNextPathRecalculation = 0;
+            }
         }
 
         protected void tickBiteAttack () {
@@ -447,11 +447,11 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, IBook
                 this.mob.yBodyRot = this.mob.yHeadRot;
             }
 
-            if(animTime==6) {
+            if(animTime==10) {
                 preformBiteAttack();
             }
 
-            if(animTime>=9) {
+            if(animTime>=20) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -459,11 +459,18 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, IBook
             }
         }
 
+        protected void preformSlapAttack () {
+            Vec3 pos = mob.position();
+            this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.3F, 1.0F);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() + 2, 0.45f, mob, pos,  6.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+        }
+
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.15F, 1.0F);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
+
 
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 0;
@@ -486,8 +493,60 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, IBook
         }
     }
 
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "blend", 5, this::Controller)
+                .triggerableAnim("bite_1", GLO_BITE_1)
+                .triggerableAnim("bite_2", GLO_BITE_2));
+    }
+
+    protected <E extends GlobidensEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if (this.isFromBook()) {
+            return event.setAndContinue(GLO_IDLE);
+        }
+
+        int animState = this.getAnimationState();
+
+        if(!this.isFromBook()) {
+            if (animState == 1) {
+                triggerAnim("blend", "bite_1");
+                return PlayState.CONTINUE;
+            }
+            if (animState == 2) {
+                triggerAnim("blend", "bite_2");
+                return PlayState.CONTINUE;
+            }
+            if (animState == 3) {
+                return event.setAndContinue(GLO_SLAP);
+            }
+            else {
+                if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+                    if(this.isSprinting()){
+                        event.setAndContinue(GLO_SWIM_SPRINT);
+                        event.getController().setAnimationSpeed(1.0F);
+                    } else {
+                        event.setAndContinue(GLO_SWIM);
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
+                    return PlayState.CONTINUE;
+                }
+                if (!this.isInWater()) {
+                    event.setAndContinue(GLO_FLOP);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                } else if (this.isInWater()) {
+                    event.setAndContinue(GLO_IDLE);
+                    return PlayState.CONTINUE;
+                }
+            }
+        }
+        return PlayState.CONTINUE;
+    }
+
     public boolean canDisableShield() {
-        return true;
+        return false;
     }
 
     public int getAnimationState() {

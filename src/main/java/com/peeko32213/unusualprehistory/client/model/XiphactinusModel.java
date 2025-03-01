@@ -34,17 +34,17 @@ public class XiphactinusModel extends GeoModel<XiphactinusEntity> {
         if (animationState == null) return;
         if(animatable.isFromBook()) return;
 
-        CoreGeoBone frontBody = this.getAnimationProcessor().getBone("BodyFront");
-        CoreGeoBone backBody = this.getAnimationProcessor().getBone("BodyBack");
-        CoreGeoBone tail = this.getAnimationProcessor().getBone("TailBody");
-        EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+        if (animatable.isInWaterOrBubble()) {
+            CoreGeoBone body = this.getAnimationProcessor().getBone("Body");
+            CoreGeoBone tail = this.getAnimationProcessor().getBone("TailBody");
+            EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-        CoreGeoBone root = this.getAnimationProcessor().getBone("root");
-        root.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 2));
+            CoreGeoBone root = this.getAnimationProcessor().getBone("root");
+            root.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 2));
 
-        frontBody.setRotZ(frontBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
-//          backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / -90F));
-        tail.setRotY(tail.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+            body.setRotZ(body.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+            tail.setRotY(tail.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+        }
     }
 }
 

@@ -172,41 +172,21 @@
 					]
 				},
 				"BodyFront": {
-					"rotation": [
-						"-15+15",
-						"math.sin(query.anim_time*360+60)*-10",
-						"math.sin(query.anim_time*1440+60)*(-2.5+2.5)"
-					],
+					"rotation": ["-15+15", "math.sin(query.anim_time*360+60)*-10", "math.sin(query.anim_time*1440+60)*(-2.5+2.5)"],
 					"position": [0, 0, -1]
 				},
 				"FrontFin1": {
-					"rotation": [
-						"30-30",
-						"-15+math.sin(query.anim_time*1440)*(2.5-2.5)+math.sin(query.anim_time*360-120)*-15",
-						0
-					]
+					"rotation": ["30-30", "-15+math.sin(query.anim_time*1440)*(2.5-2.5)+math.sin(query.anim_time*360-120)*-15", 0]
 				},
 				"FrontFin2": {
-					"rotation": [
-						"30-15",
-						"math.sin(query.anim_time*1440)*(2.5-2.5)+math.sin(query.anim_time*360-60)*-15",
-						0
-					]
+					"rotation": ["30-15", "math.sin(query.anim_time*1440)*(2.5-2.5)+math.sin(query.anim_time*360-60)*-15", 0]
 				},
 				"BodyBack": {
-					"rotation": [
-						"-20+20",
-						"-10+math.sin(query.anim_time*360+30)*-10",
-						"math.sin(query.anim_time*1440)*(-2.5+2.5)"
-					],
+					"rotation": ["-20+20", "-10+math.sin(query.anim_time*360+30)*-10", "math.sin(query.anim_time*1440)*(-2.5+2.5)"],
 					"position": [0, 0, -3]
 				},
 				"TailBody": {
-					"rotation": [
-						"-20+20",
-						"-10+math.sin(query.anim_time*360)*-15",
-						"math.sin(query.anim_time*1440-60)*(-2.5+2.5)"
-					]
+					"rotation": ["-20+20", "-10+math.sin(query.anim_time*360)*-15", "math.sin(query.anim_time*1440-60)*(-2.5+2.5)"]
 				},
 				"TopTailFin": {
 					"rotation": [-30, 0, "math.sin(query.anim_time*360-15)*-20"]
@@ -483,7 +463,7 @@
 						"0.0": [0, 0, 0],
 						"0.1667": ["60+math.sin(query.anim_time*1440)*5", 0, 0],
 						"0.25": [-80, 0, 0],
-						"0.5": ["+math.sin(query.anim_time*90)*-10+math.sin(query.anim_time*180)*-10+math.sin(query.anim_time*360)*-10", 0, 0]
+						"0.5": ["math.sin(query.anim_time*90)*-10+math.sin(query.anim_time*180)*-10+math.sin(query.anim_time*360)*-10", 0, 0]
 					},
 					"position": {
 						"0.0": [0, 0, 0],
@@ -505,7 +485,7 @@
 			"animation_length": 8,
 			"bones": {
 				"Jaw_B": {
-					"rotation": ["+math.sin(query.anim_time*90)*-10+math.sin(query.anim_time*180)*-10+math.sin(query.anim_time*360)*-10", 0, 0],
+					"rotation": ["math.sin(query.anim_time*90)*-10+math.sin(query.anim_time*180)*-10+math.sin(query.anim_time*360)*-10", 0, 0],
 					"position": [0, 0, -1],
 					"scale": [1, 1, 1.2]
 				}
