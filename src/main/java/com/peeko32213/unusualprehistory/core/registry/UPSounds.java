@@ -40,6 +40,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> AMMONITE_DEATH = createSoundEvent("ammonite_death");
     public static final RegistryObject<SoundEvent> AMMONITE_FLOP = createSoundEvent("ammonite_flop");
 
+    public static final RegistryObject<SoundEvent> GLOBIDENS_HURT = createSoundEvent("globidens_hurt");
+    public static final RegistryObject<SoundEvent> GLOBIDENS_DEATH = createSoundEvent("globidens_death");
+    public static final RegistryObject<SoundEvent> GLOBIDENS_IDLE = createSoundEvent("globidens_idle");
+
     public static final RegistryObject<SoundEvent> DUNK_ATTACK = createSoundEvent("dunk_attack");
     public static final RegistryObject<SoundEvent> DUNK_DEATH = createSoundEvent("dunk_death");
     public static final RegistryObject<SoundEvent> DUNK_HURT = createSoundEvent("dunk_hurt");

@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.BeelzebufoTadpoleEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseStatedDinosaurAnimalEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 
@@ -21,7 +22,7 @@ public class UPEntityPlacement {
         SpawnPlacements.register(UPEntities.PALAEOPHIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PalaeophisEntity::checkSurfaceWaterDinoSpawnRules);
         SpawnPlacements.register(UPEntities.COTY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.SCAU.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScaumenaciaEntity::checkSurfaceWaterDinoSpawnRules);
-        SpawnPlacements.register(UPEntities.TRIKE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TameableBaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
+        SpawnPlacements.register(UPEntities.TRIKE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TameableBaseStatedDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.PACHY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.BRACHI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.VELOCI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);

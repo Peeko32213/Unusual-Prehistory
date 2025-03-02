@@ -29,6 +29,10 @@ public class LivingCutoutNoCullEntityRenderer<T extends LivingEntity & GeoAnimat
     public void preRender(PoseStack stackIn, T animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.preRender(stackIn, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
 
+        if (animatable.isBaby()) {
+            stackIn.scale(0.5F, 0.5F, 0.5F);
+        }
+
         if(animatable instanceof DiplocaulusEntity diplocaulus) {
             if(diplocaulus.isBaby()) stackIn.scale(0.7F, 0.7F, 0.7F);
         }
@@ -41,13 +45,17 @@ public class LivingCutoutNoCullEntityRenderer<T extends LivingEntity & GeoAnimat
             if(barinasuchus.isBaby()) stackIn.scale(0.55F, 0.55F, 0.55F);
         }
 
-        if(animatable instanceof OtarocyonEntity otarocyon) {
-            if(otarocyon.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
-        }
-
-        if(animatable instanceof BalaurEntity balaur) {
-            if(balaur.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
-        }
+//        if(animatable instanceof OtarocyonEntity otarocyon) {
+//            if(otarocyon.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
+//        }
+//
+//        if(animatable instanceof BalaurEntity balaur) {
+//            if(balaur.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
+//        }
+//
+//        if(animatable instanceof EstemmenosuchusEntity estemmenosuchus) {
+//            if(estemmenosuchus.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
+//        }
 
     }
 }

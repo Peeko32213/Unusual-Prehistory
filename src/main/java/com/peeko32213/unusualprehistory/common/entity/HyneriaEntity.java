@@ -31,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -88,11 +89,11 @@ public class HyneriaEntity extends TameableBaseDinosaurAnimalNoFloatEntity imple
         return true;
     }
 
-    public void travel(Vec3 travelVector) {
+    public void travel(@NotNull Vec3 travelVector) {
         super.travel(travelVector);
     }
 
-    protected PathNavigation createNavigation(Level p_27480_) {
+    protected @NotNull PathNavigation createNavigation(Level p_27480_) {
         return new WaterBoundPathNavigation(this, p_27480_);
     }
 
@@ -114,7 +115,7 @@ public class HyneriaEntity extends TameableBaseDinosaurAnimalNoFloatEntity imple
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return UPEntities.HYNERIA.get().create(serverLevel);
     }
 

@@ -86,7 +86,6 @@ public class AmmoniteEntity extends AbstractSchoolingFish implements Bucketable,
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
-
     }
 
     public void checkDespawn() {

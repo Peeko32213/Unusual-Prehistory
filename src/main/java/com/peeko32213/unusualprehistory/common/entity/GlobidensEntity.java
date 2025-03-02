@@ -1,9 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseStatedDinosaurAnimalEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.NearestTargetAI;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.WeightedState;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -16,6 +22,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -29,6 +36,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -39,6 +47,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
@@ -56,9 +65,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Objects;
 
-public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEntity, IBookEntity {
+public class GlobidensEntity extends BaseStatedDinosaurAnimalEntity implements GeoAnimatable, GeoEntity, IBookEntity {
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.INT);
@@ -74,16 +84,66 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
 
     // Idle animations
     private static final RawAnimation GLO_IDLE = RawAnimation.begin().thenLoop("animation.globidens.idle");
+    private static final RawAnimation GLO_LOOP = RawAnimation.begin().thenLoop("animation.globidens.loop");
+    private static final RawAnimation GLO_YAWN = RawAnimation.begin().thenLoop("animation.globidens.yawn");
 
     // Attack animations
     private static final RawAnimation GLO_BITE_1 = RawAnimation.begin().thenLoop("animation.globidens.attack_blend1");
     private static final RawAnimation GLO_BITE_2 = RawAnimation.begin().thenLoop("animation.globidens.attack_blend2");
     private static final RawAnimation GLO_SLAP = RawAnimation.begin().thenLoop("animation.globidens.tailsmack");
 
+    // Idle accessors
+    private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Idle actions
+    private static final EntityAction GLO_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper GLO_IDLE_1_STATE =
+            StateHelper.Builder.state(IDLE_1_AC, "glo_loop")
+                    .playTime(160)
+                    .stopTime(200)
+                    .affectsAI(true)
+                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                    .entityAction(GLO_IDLE_1_ACTION)
+                    .build();
+
+    private static final EntityAction GLO_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper GLO_IDLE_2_STATE =
+            StateHelper.Builder.state(IDLE_2_AC, "glo_yawn")
+                    .playTime(40)
+                    .stopTime(80)
+                    .entityAction(GLO_IDLE_2_ACTION)
+                    .build();
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return ImmutableMap.of(
+                GLO_IDLE_1_STATE.getName(), GLO_IDLE_1_STATE,
+                GLO_IDLE_2_STATE.getName(), GLO_IDLE_2_STATE
+        );
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return ImmutableList.of(
+                WeightedState.of(GLO_IDLE_1_STATE, 200),
+                WeightedState.of(GLO_IDLE_2_STATE, 18)
+        );
+    }
+
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {}
 
     private int passiveFor = 0;
 
-    public GlobidensEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
+    public GlobidensEntity(EntityType<? extends BaseStatedDinosaurAnimalEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -95,7 +155,7 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
             .add(Attributes.MAX_HEALTH, 60.0D)
             .add(Attributes.ATTACK_DAMAGE, 10.0D)
             .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D)
-            .add(Attributes.FOLLOW_RANGE, 20.0D);
+            .add(Attributes.FOLLOW_RANGE, 16.0D);
     }
 
     protected void registerGoals() {
@@ -103,18 +163,13 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
         this.goalSelector.addGoal(1, new GlobidensEntity.GloMeleeAttackGoal(this, 2F, true));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
-        this.targetSelector.addGoal(2, new NearestTargetAI<>(this, LivingEntity.class, 110, false, true, null));
+        this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.DUNK_TARGETS)));
     }
 
-    public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 
     @Override
@@ -126,6 +181,51 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
         return prev;
     }
 
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
+    }
+
     public void travel(@NotNull Vec3 travelVector) {
         super.travel(travelVector);
     }
@@ -135,23 +235,31 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.COD_AMBIENT;
+        return UPSounds.GLOBIDENS_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UPSounds.DUNK_HURT.get();
+        return UPSounds.GLOBIDENS_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.DUNK_DEATH.get();
+        return UPSounds.GLOBIDENS_DEATH.get();
     }
 
-    protected SoundEvent getFlopSound() {
-        return SoundEvents.COD_FLOP;
+    @Override
+    public float getSoundVolume() {
+        return 0.75F;
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 200;
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(IDLE_1_AC, false);
+        this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
@@ -471,7 +579,6 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
-
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 0;
         }
@@ -497,6 +604,8 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "blend", 5, this::Controller)
+                .triggerableAnim("yawn", GLO_YAWN));
+        controllers.add(new AnimationController<>(this, "attack", 5, this::Controller)
                 .triggerableAnim("bite_1", GLO_BITE_1)
                 .triggerableAnim("bite_2", GLO_BITE_2));
     }
@@ -511,12 +620,10 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
 
         if(!this.isFromBook()) {
             if (animState == 1) {
-                triggerAnim("blend", "bite_1");
-                return PlayState.CONTINUE;
+                return event.setAndContinue(GLO_BITE_1);
             }
             if (animState == 2) {
-                triggerAnim("blend", "bite_2");
-                return PlayState.CONTINUE;
+                return event.setAndContinue(GLO_BITE_2);
             }
             if (animState == 3) {
                 return event.setAndContinue(GLO_SLAP);
@@ -534,10 +641,21 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
                 }
                 if (!this.isInWater()) {
                     event.setAndContinue(GLO_FLOP);
-                    event.getController().setAnimationSpeed(1.0F);
+                    event.getController().setAnimationSpeed(2.0F);
                     return PlayState.CONTINUE;
-                } else if (this.isInWater()) {
-                    event.setAndContinue(GLO_IDLE);
+                }
+                else if (this.isInWater()) {
+                    if (getBooleanState(IDLE_1_AC)) {
+                        event.setControllerSpeed(1.0F);
+                        return event.setAndContinue(GLO_LOOP);
+                    }
+                    if (getBooleanState(IDLE_2_AC)) {
+                        triggerAnim("blend", "yawn");
+                        return PlayState.CONTINUE;
+                    }
+                    else {
+                        event.setAndContinue(GLO_IDLE);
+                    }
                     return PlayState.CONTINUE;
                 }
             }
@@ -550,34 +668,29 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
     }
 
     public int getAnimationState() {
-
         return this.entityData.get(ANIMATION_STATE);
     }
 
     public void setAnimationState(int anim) {
-
         this.entityData.set(ANIMATION_STATE, anim);
     }
 
     public int getCombatState() {
-
         return this.entityData.get(COMBAT_STATE);
     }
 
     public void setCombatState(int anim) {
-
         this.entityData.set(COMBAT_STATE, anim);
     }
 
     public int getEntityState() {
-
         return this.entityData.get(ENTITY_STATE);
     }
 
     public void setEntityState(int anim) {
-
         this.entityData.set(ENTITY_STATE, anim);
     }
+
     public boolean isFromBook() {
         return this.entityData.get(FROM_BOOK);
     }
@@ -608,6 +721,12 @@ public class GlobidensEntity extends WaterAnimal implements GeoAnimatable, GeoEn
         }
         return p_28137_;
     }
+
+    @Override
+    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel pLevel, @NotNull AgeableMob pOtherParent) {
+        return null;
+    }
+
     public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends GlobidensEntity> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
         int i = pLevel.getSeaLevel();
         int j = i - 13;

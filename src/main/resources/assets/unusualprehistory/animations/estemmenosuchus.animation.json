@@ -686,6 +686,12 @@
 				},
 				"LegControl": {
 					"position": [0, "-35+math.sin(query.anim_time*360-60)*-1", "math.sin(query.anim_time*90)*3"]
+				},
+				"root": {
+					"position": {
+						"0.0": [0, 16, 0],
+						"1.2083": [0, 19, 0]
+					}
 				}
 			}
 		},

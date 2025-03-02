@@ -250,7 +250,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PSITTACO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsittacosaurusModel()));
         event.registerEntityRenderer(UPEntities.PTERODAUSTRO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.PTERODAUSTRO)));
         event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));
-        event.registerEntityRenderer(UPEntities.TRIKE.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new TriceratopsModel()).withLayers(TRICERATOPS_MODEL).withSaddleLayer(TRICERATOPS_SADDLE_OVERLAY).build());
+        event.registerEntityRenderer(UPEntities.TRIKE.get(), e -> new TameableStatedDinosaurRenderer<>(e, new TriceratopsModel()));
         event.registerEntityRenderer(UPEntities.REX.get(), e -> new DinosaurRenderer<>(e, new TyrannosaurusRexModel()));
         event.registerEntityRenderer(UPEntities.ULUG.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new UlughbegsaurusModel()).withLayers(ULUGH_MODEL).withSaddleLayer(ULUGH_SADDLE_OVERLAY).withJebLayer(ULUGH_JEB_OVERLAY).build());
         event.registerEntityRenderer(UPEntities.VELOCI.get(), e -> new DinosaurRenderer<>(e, new VelociraptorModel()));

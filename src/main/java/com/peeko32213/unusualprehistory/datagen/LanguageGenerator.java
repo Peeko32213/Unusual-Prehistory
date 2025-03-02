@@ -683,30 +683,40 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.HWACHA_HURT, "Hwachavenator hurts");
         addSound(UPSounds.HWACHA_IDLE, "Hwachavenator hums");
         addSound(UPSounds.HWACHA_SHOOT, "Hwachavenator shoots");
+
         addSound(UPSounds.KENTRO_DEATH, "Kentrosaurus dies");
         addSound(UPSounds.KENTRO_HURT, "Kentrosaurus hurts");
         addSound(UPSounds.KENTRO_IDLE, "Kentrosaurus growls");
+
         addSound(UPSounds.TAIL_SWIPE, "Tail swipes");
+
         addSound(UPSounds.ULUGH_BITE, "Ulughbegsaurus gnaws");
         addSound(UPSounds.ULUGH_DEATH, "Ulughbegsaurus dies");
         addSound(UPSounds.ULUGH_HURT, "Ulughbegsaurus hurts");
         addSound(UPSounds.ULUGH_IDLE, "Ulughbegsaurus groans");
+
         addSound(UPSounds.ULUGH_STEP, "Heavy footsteps");
+
         addSound(UPSounds.ANTARCTO_DEATH, "Antarctopelta dies");
         addSound(UPSounds.ANTARCTO_HURT, "Antarctopelta hurts");
         addSound(UPSounds.ANTARCTO_IDLE, "Antarctopelta gruffs");
+
         addSound(UPSounds.REX_BOOMBOX, "Rex Boombox plays");
+
         addSound(UPSounds.GIGANTO_IDLE, "Gigantopithicus Ooo OO Ah Ahs");
         addSound(UPSounds.GIGANTO_DEATH, "Gigantopithicus dies");
         addSound(UPSounds.GIGANTO_HURT, "Gigantopithicus hurts");
         addSound(UPSounds.GIGANTO_TRADE, "Gigantopithicus OOOoooooOOs");
+
         addSound(UPSounds.MAMMOTH_DEATH, "Mammoth dies");
         addSound(UPSounds.MAMMOTH_HURT, "Mammoth hurts");
         addSound(UPSounds.MAMMOTH_IDLE, "Mammoth pawoos");
+
         addSound(UPSounds.PARACER_DEATH, "Paraceratherium dies");
         addSound(UPSounds.PARACER_HURT, "Paraceratherium hurts");
         addSound(UPSounds.PARACER_IDLE, "Paraceratherium grunts");
         addSound(UPSounds.PARACER_STOMP, "Paraceratherium stomps");
+
         addSound(UPSounds.TALPANAS_DEATH, "Talpanas dies");
         addSound(UPSounds.TALPANAS_HURT, "Talpanas hurts");
         addSound(UPSounds.TALPANAS_IDLE, "Talpanas quacks");
@@ -741,6 +751,10 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.MEGALANIA_HURT, "Megalania hurts");
         addSound(UPSounds.MEGALANIA_IDLE, "Megalania hisses");
         addSound(UPSounds.MEGALANIA_BITE, "Megalania bites");
+
+        addSound(UPSounds.GLOBIDENS_DEATH, "Globidens dies");
+        addSound(UPSounds.GLOBIDENS_HURT, "Globidens hurts");
+        addSound(UPSounds.GLOBIDENS_IDLE, "Globidens growls");
 
         addSound(UPSounds.SLUDGE_DEATH, "Sludge dies");
         addSound(UPSounds.SLUDGE_HURT, "Sludge hurts");

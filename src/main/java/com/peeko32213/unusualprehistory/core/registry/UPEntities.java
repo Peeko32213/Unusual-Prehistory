@@ -191,7 +191,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "tany").toString()));
 
     public static final RegistryObject<EntityType<TriceratopsEntity>> TRIKE = ENTITIES.register("trike",
-            () -> EntityType.Builder.of(TriceratopsEntity::new, MobCategory.CREATURE).sized(3.1F, 4.4F)
+            () -> EntityType.Builder.of(TriceratopsEntity::new, MobCategory.CREATURE).sized(2.85F, 3.75F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "trike").toString()));
 
     public static final RegistryObject<EntityType<TyrannosaurusEntity>> REX = ENTITIES.register("rex",
@@ -207,7 +207,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "veloci").toString()));
 
     public static final RegistryObject<EntityType<XiphactinusEntity>> XIPH = ENTITIES.register("xiphactinus",
-            () -> EntityType.Builder.of(XiphactinusEntity::new, MobCategory.WATER_CREATURE).sized(2.6F, 1.2F)
+            () -> EntityType.Builder.of(XiphactinusEntity::new, MobCategory.WATER_CREATURE).sized(2.5F, 1.25F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "xiphactinus").toString()));
 
     // Ceno mobs
