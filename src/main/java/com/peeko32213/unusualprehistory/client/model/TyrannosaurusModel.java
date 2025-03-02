@@ -13,21 +13,25 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
 
     @Override
-    public ResourceLocation getModelResource(TyrannosaurusEntity rex) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_rex.geo.json");
+    public ResourceLocation getModelResource(TyrannosaurusEntity tyranno) {
+        if(tyranno.getVariant() == 1) {
+            return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_mcraeensis.geo.json");
+        } else {
+            return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_rex.geo.json");
+        }
     }
 
     @Override
-    public ResourceLocation getTextureResource(TyrannosaurusEntity rex) {
-        if(rex.hasEepy()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex_eepy.png");
+    public ResourceLocation getTextureResource(TyrannosaurusEntity tyranno) {
+        if(tyranno.getVariant() == 1) {
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png");
         } else{
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex.png");
         }
     }
 
     @Override
-    public ResourceLocation getAnimationResource(TyrannosaurusEntity rex) {
+    public ResourceLocation getAnimationResource(TyrannosaurusEntity tyranno) {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus.animation.json");
     }
 
@@ -37,23 +41,16 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-        CoreGeoBone tyrannosaurus = this.getAnimationProcessor().getBone("root");
         CoreGeoBone head = this.getAnimationProcessor().getBone("Rex_Head");
 
         if (animatable.isBaby()) {
             head.setScaleX(1.5F);
             head.setScaleY(1.5F);
             head.setScaleZ(1.5F);
-            tyrannosaurus.setScaleX(0.5F);
-            tyrannosaurus.setScaleY(0.5F);
-            tyrannosaurus.setScaleZ(0.5F);
         } else {
             head.setScaleX(1.0F);
             head.setScaleY(1.0F);
             head.setScaleZ(1.0F);
-            tyrannosaurus.setScaleX(1.15F);
-            tyrannosaurus.setScaleY(1.15F);
-            tyrannosaurus.setScaleZ(1.15F);
         }
 
         if (!animatable.isSprinting()) {

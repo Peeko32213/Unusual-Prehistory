@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animatable.model.CoreGeoModel;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
@@ -15,7 +14,11 @@ public class TriceratopsModel extends GeoModel<TriceratopsEntity> {
 
     @Override
     public ResourceLocation getModelResource(TriceratopsEntity trike) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops.geo.json");
+        if(trike.getVariant() == 1){
+            return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops/triceratops_horridus.geo.json");
+        } else {
+            return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops/triceratops_prorsus.geo.json");
+        }
     }
 
     @Override

@@ -71,7 +71,6 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
 
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
 
-    private int eatAnimationTick;
     public int riderAttackCooldown = 0;
     public float sitProgress;
 
@@ -85,7 +84,6 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
     private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
 
     public static final Logger LOGGER = LogManager.getLogger();
-    private int stunnedTick;
     private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
 
@@ -567,7 +565,7 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double) (this.mob.getBbWidth() * 1.8F * this.mob.getBbWidth() * 1.1F + p_179512_1_.getBbWidth());
+            return this.mob.getBbWidth() * 1.8F * this.mob.getBbWidth() * 1.1F + p_179512_1_.getBbWidth();
         }
     }
 
@@ -736,11 +734,6 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         return PlayState.CONTINUE;
     }
 
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
-    }
-
     static class TrikeNearestAttackablePlayerTargetGoal extends NearestAttackableTargetGoal<Player> {
         private final TriceratopsEntity trike;
 
@@ -773,14 +766,9 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
         Level level = p_28134_.getLevel();
         if (level instanceof ServerLevel) {
-            {
-                this.setPersistenceRequired();
-            }
+            this.setPersistenceRequired();
         }
-
-        float variantChange = this.getRandom().nextFloat();
-
-        if (variantChange <= 0.5F) {
+        if (random.nextBoolean()) {
             this.setVariant(1);
         }
         else {

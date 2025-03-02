@@ -699,9 +699,9 @@ public class UlughbegsaurusEntity extends TameableBaseDinosaurAnimalEntity imple
         }
     }
 
-    @javax.annotation.Nullable
+    @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         int variantChange = this.random.nextInt(0, 100);
         this.determineVariant(variantChange);
@@ -794,7 +794,7 @@ public class UlughbegsaurusEntity extends TameableBaseDinosaurAnimalEntity imple
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double) (this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
+            return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth();
         }
 
         @Override
@@ -894,11 +894,6 @@ public class UlughbegsaurusEntity extends TameableBaseDinosaurAnimalEntity imple
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
         controllers.add(new AnimationController<>(this, "Eating", 5, this::eatController));
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
     }
 
 }

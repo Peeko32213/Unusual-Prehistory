@@ -1,8 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseStatedDinosaurAnimalEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.RandomStateGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.WeightedState;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -11,11 +18,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -33,14 +42,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -51,18 +61,16 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements GeoEntity {
+public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
+
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
-    public int timeUntilDrops = this.random.nextInt(12000) + 24000;
 
-    private int passiveFor = 0;
+    private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
+
     private int shakeCooldown = 0;
-
-    private int stunnedTick;
 
     // Movement animations
     private static final RawAnimation TYRANNO_SWIM = RawAnimation.begin().thenLoop("animation.tyrannosaurus.swim");
@@ -86,6 +94,55 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
     private static final RawAnimation TYRANNO_SNIFF = RawAnimation.begin().thenPlay("animation.tyrannosaurus.sniff");
     private static final RawAnimation TYRANNO_EEPY = RawAnimation.begin().thenLoop("animation.tyrannosaurus.knockout");
 
+    // Idle accessors
+    private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
+//    private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
+//    private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Idle actions
+    private static final EntityAction TYRANNO_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper TYRANNO_IDLE_1_STATE =
+            StateHelper.Builder.state(IDLE_1_AC, "tyrannosaurus_shake")
+                    .playTime(90)
+                    .stopTime(120)
+                    .entityAction(TYRANNO_IDLE_1_ACTION)
+                    .build();
+
+    private static final EntityAction TYRANNO_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper TYRANNO_IDLE_2_STATE =
+            StateHelper.Builder.state(IDLE_2_AC, "tyrannosaurus_sniff")
+                    .playTime(60)
+                    .stopTime(130)
+                    .entityAction(TYRANNO_IDLE_2_ACTION)
+                    .build();
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return ImmutableMap.of(
+                TYRANNO_IDLE_1_STATE.getName(), TYRANNO_IDLE_1_STATE,
+                TYRANNO_IDLE_2_STATE.getName(), TYRANNO_IDLE_2_STATE
+        );
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return ImmutableList.of(
+                WeightedState.of(TYRANNO_IDLE_1_STATE, 12),
+                WeightedState.of(TYRANNO_IDLE_2_STATE, 10)
+        );
+    }
+
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {}
+
     public TyrannosaurusEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
@@ -104,22 +161,23 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
 
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new TyrannosaurusEntity.RexMeleeAttackGoal(this, 1.5F, true) {
+        this.goalSelector.addGoal(3, new TyrannosaurusEntity.TyrannosaurusMeleeAttackGoal(this, 1.5F, true) {
                 public boolean canUse() {
-                    return !isBaby() && passiveFor == 0 && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
+                    return !isBaby() && !isPassive() && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
                 }
             });
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 20));
         this.targetSelector.addGoal(9, (new HurtByTargetGoal(this) {
                 public boolean canUse() {
-                    return !hasEepy() && passiveFor == 0 && !isBaby() && super.canUse();
+                    return !hasEepy() && !isPassive() && !isBaby() && super.canUse();
                 }
             }));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.REX_TARGETS)) {
                 public boolean canUse() {
-                    return !hasEepy() && !isBaby() && passiveFor == 0 && super.canUse();
+                    return !hasEepy() && !isBaby() && !isPassive() && super.canUse();
                 }
             });
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
@@ -138,23 +196,13 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
                 this.heal(300);
                 this.setTarget(null);
                 this.setEepy(false);
-                this.passiveFor = 1000000000 + random.nextInt(1000000000);
+                this.setPassive(true);
                 this.level().broadcastEntityEvent(this, (byte) 45);
                 player.displayClientMessage(Component.translatable("rex.pacify.message").withStyle(ChatFormatting.GOLD), true);
             }
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.FAIL;
-    }
-
-    @Override
-    protected float getWaterSlowDown() {
-        return 0.3F;
-    }
-
-    @Override
-    public boolean isPushable() {
-        return this.isBaby();
     }
 
     @Override
@@ -168,23 +216,13 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
     }
 
     @Override
-    public boolean canAttack(LivingEntity entity) {
-        boolean prev = super.canAttack(entity);
-        if(hasEepy()){
-            return false;
-        }
-        return prev;
-    }
-
-    @Override
     protected SoundEvent getAttackSound() {
-        //Rex has custom so null
         return null;
     }
 
     @Override
     protected int getKillHealAmount() {
-        return 50;
+        return 20;
     }
 
     @Override
@@ -234,53 +272,43 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
         return this.getHealth() <= this.getMaxHealth() / 12.0F;
     }
 
+    public void setPassive(boolean passive) {
+        this.entityData.set(PASSIVE, passive);
+    }
+
+    public boolean isPassive() {
+        return this.entityData.get(PASSIVE);
+    }
+
     public void travel(@NotNull Vec3 vec3d) {
-        if (this.shouldBeEepy()) {
-            if (this.getNavigation().getPath() != null) {
-                this.getNavigation().stop();
-            }
-            vec3d = Vec3.ZERO;
-        }
         super.travel(vec3d);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("StunTick", this.stunnedTick);
+        this.setVariant(compound.getInt("Variant"));
         compound.putBoolean("Eepy", this.hasEepy());
-        compound.putInt("PassiveFor", passiveFor);
-        compound.putInt("DropTime", this.timeUntilDrops);
+        compound.putBoolean("Passive", this.isPassive());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.stunnedTick = compound.getInt("StunTick");
+        compound.putInt("Variant", this.getVariant());
         this.setEepy(compound.getBoolean("Eepy"));
-        passiveFor = compound.getInt("PassiveFor");
-        if (compound.contains("SpitTime")) {
-            this.timeUntilDrops = compound.getInt("DropTime");
-        }
+        this.setPassive(compound.getBoolean("Passive"));
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(IDLE_1_AC, false);
+        this.entityData.define(IDLE_2_AC, false);
+        this.entityData.define(VARIANT, 0);
         this.entityData.define(ANIMATION_STATE, 0);
-        this.entityData.define(COMBAT_STATE, 0);
-        this.entityData.define(ENTITY_STATE, 0);
         this.entityData.define(EEPY, false);
-    }
-
-    @Override
-    public void handleEntityEvent(byte pId) {
-        if (pId == 39) {
-            this.stunnedTick = 60;
-        }
-        else {
-            super.handleEntityEvent(pId);
-        }
+        this.entityData.define(PASSIVE, false);
     }
 
     public void tick() {
@@ -290,21 +318,18 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
             this.setEepy(true);
         }
 
-        if (!this.level().isClientSide && this.isAlive() && this.passiveFor > 0 && --this.timeUntilDrops <= 0) {
-            this.spawnAtLocation(UPItems.REX_TOOTH.get(), 4);
-            this.spawnAtLocation(UPItems.REX_SCALE.get(), 9);
-            this.timeUntilDrops = this.random.nextInt(12000) + 24000;
-        }
         if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy() && !this.isBaby() && this.onGround()) {
+
             if(this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
+
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_REX_RANGE.get();
                 int rexShakeAmp= UnusualPrehistoryConfig.SCREEN_SHAKE_REX_AMPLIFIER.get();
-                float rexMoveSoundVolume= UnusualPrehistoryConfig.REX_SOUND_VOLUME.get();
+
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(rexShakeRange));
                 for (LivingEntity e : list) {
                     if (e instanceof Player) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 6, rexShakeAmp, false, false, false));
-                        this.playSound(UPSounds.REX_STEP.get(), rexMoveSoundVolume, 1.0F);
+                        this.playSound(UPSounds.REX_STEP.get(), 1.0F, 1.0F);
                     }
                 }
                 if(!this.isSprinting()) {
@@ -331,8 +356,6 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
         super.aiStep();
 
         if (this.shouldBeEepy()) {
-            this.stunnedTick = 60;
-            this.level().broadcastEntityEvent(this, (byte)39);
             this.setEepy(true);
             this.setAggressive(false);
             this.setTarget(null);
@@ -343,7 +366,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
                 BlockState blockstate = this.level().getBlockState(blockpos);
-                if (blockstate.is(UPTags.TRIKE_BREAKABLES)) {
+                if (blockstate.is(UPTags.TYRANNO_BREAKABLES)) {
                     flag = this.level().destroyBlock(blockpos, true, this) || flag;
                 }
             }
@@ -352,13 +375,16 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
 
     @Override
     public int getMaxHeadYRot() {
-        return 6;
+        return 15;
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UPEntities.TYRANNOSAURUS.get().create(serverLevel);
+        TyrannosaurusEntity tyrannosaurus = UPEntities.TYRANNOSAURUS.get().create(serverLevel);
+        assert tyrannosaurus != null;
+        tyrannosaurus.setVariant(this.getVariant());
+        return tyrannosaurus;
     }
 
     public boolean requiresCustomPersistence() {
@@ -377,23 +403,20 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
         this.entityData.set(ANIMATION_STATE, anim);
     }
 
-    public int getCombatState() {
-        return this.entityData.get(COMBAT_STATE);
+    @Override
+    public ResourceLocation getVariantTexture() {
+        return null;
     }
 
-    public void setCombatState(int anim) {
-        this.entityData.set(COMBAT_STATE, anim);
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
     }
 
-    public int getEntityState() {
-        return this.entityData.get(ENTITY_STATE);
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
     }
 
-    public void setEntityState(int anim) {
-        this.entityData.set(ENTITY_STATE, anim);
-    }
-
-    static class RexMeleeAttackGoal extends Goal {
+    static class TyrannosaurusMeleeAttackGoal extends Goal {
 
         protected final TyrannosaurusEntity mob;
         private final double speedModifier;
@@ -407,7 +430,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
         private long lastCanUseCheck;
         private int animTime = 0;
 
-        public RexMeleeAttackGoal(TyrannosaurusEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
+        public TyrannosaurusMeleeAttackGoal(TyrannosaurusEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
             this.mob = p_i1636_1_;
             this.speedModifier = p_i1636_2_;
             this.followingTargetEvenIfNotSeen = p_i1636_4_;
@@ -443,13 +466,17 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
 
             if (livingentity == null) {
                 return false;
-            } else if (!livingentity.isAlive()) {
+            }
+            else if (!livingentity.isAlive()) {
                 return false;
-            } else if (!this.followingTargetEvenIfNotSeen) {
+            }
+            else if (!this.followingTargetEvenIfNotSeen) {
                 return !this.mob.getNavigation().isDone();
-            } else if (!this.mob.isWithinRestriction(livingentity.blockPosition())) {
+            }
+            else if (!this.mob.isWithinRestriction(livingentity.blockPosition())) {
                 return false;
-            } else {
+            }
+            else {
                 return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
             }
         }
@@ -475,6 +502,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
 
             LivingEntity target = this.mob.getTarget();
 
+            assert target != null;
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
@@ -662,22 +690,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source.is(DamageTypes.FALL) ||source.is(DamageTypes.MAGIC) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FALLING_BLOCK) || source.is(DamageTypes.CACTUS) || source.is(DamageTypes.MOB_PROJECTILE) || super.isInvulnerableTo(source);
-    }
-
-    @Override
-    public void kill() {
-        this.remove(RemovalReason.KILLED);
-        this.gameEvent(GameEvent.ENTITY_DIE);
-    }
-
-    public boolean canBeAffected(MobEffectInstance p_33809_) {
-        if (p_33809_.getEffect() == MobEffects.WEAKNESS) {
-            net.minecraftforge.event.entity.living.MobEffectEvent.Applicable event = new net.minecraftforge.event.entity.living.MobEffectEvent.Applicable(this, p_33809_);
-            net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
-            return event.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW;
-        }
-        return super.canBeAffected(p_33809_);
+        return source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.CACTUS) || super.isInvulnerableTo(source);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -705,6 +718,9 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        controllers.add(new AnimationController<>(this, "blend", 5, this::Controller)
+                .triggerableAnim("shake", TYRANNO_SHAKE)
+                .triggerableAnim("sniff", TYRANNO_SNIFF));
     }
 
     protected <E extends TyrannosaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -772,10 +788,16 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
                     }
                 }
                 else{
-                    if(!this.isInWater() && !this.hasEepy()) {
-                        event.setAndContinue(TYRANNO_IDLE);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
+                    if (!this.isInWater() && !this.hasEepy()) {
+                        if (getBooleanState(IDLE_1_AC)) {
+                            triggerAnim("blend", "shake");
+                            return PlayState.CONTINUE;
+                        }
+                        if (getBooleanState(IDLE_2_AC)) {
+                            triggerAnim("blend", "sniff");
+                            return PlayState.CONTINUE;
+                        }
+                        return event.setAndContinue(TYRANNO_IDLE);
                     }
                 }
             }
@@ -783,8 +805,19 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
         return PlayState.CONTINUE;
     }
 
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
+        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
+        Level level = p_28134_.getLevel();
+        if (level instanceof ServerLevel) {
+            this.setPersistenceRequired();
+        }
+        if (random.nextBoolean()) {
+            this.setVariant(1);
+        }
+        else {
+            this.setVariant(0);
+        }
+        return p_28137_;
     }
 }

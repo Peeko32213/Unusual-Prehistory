@@ -1,0 +1,13 @@
+{
+  "values": [
+    "#minecraft:leaves",
+    "#minecraft:planks",
+    "#minecraft:logs",
+    "#minecraft:wooden_stairs",
+    "#minecraft:wooden_slabs",
+    "#minecraft:wool",
+    "minecraft:lily_pad",
+    "minecraft:cactus",
+    "minecraft:bamboo"
+  ]
+}

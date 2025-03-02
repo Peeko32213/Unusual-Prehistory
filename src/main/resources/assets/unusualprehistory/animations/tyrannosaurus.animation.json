@@ -1,52 +1,6 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"rex_pose": {
-			"loop": true,
-			"bones": {
-				"Rex_Leg_Left": {
-					"rotation": [-22.03435, -8.82892, -1.78391],
-					"position": [0, 1, 0]
-				},
-				"Rex_Upper_Body": {
-					"rotation": [11.81435, 9.08375, -8.61907]
-				},
-				"Rex_Foot_Left": {
-					"rotation": [22.48072, -0.95645, 2.30991]
-				},
-				"Rex_Tail": {
-					"rotation": [8.63633, -3.74704, -8.03892]
-				},
-				"Rex_Tail_Base": {
-					"rotation": [16.01692, -16.4517, -9.04099]
-				},
-				"Rex_Arm_Left": {
-					"rotation": [25.33666, 48.07025, -39.57059]
-				},
-				"Rex_Neck": {
-					"rotation": [17.43745, 1.50179, -4.76968]
-				},
-				"Rex_Head": {
-					"rotation": [-38.31993, 15.53929, -5.68147]
-				},
-				"Rex_Jaw": {
-					"rotation": [45, 0, 0]
-				},
-				"Rex_Leg_Right": {
-					"rotation": [15.10615, 8.36718, 7.42487],
-					"position": [0, -3, 0]
-				},
-				"Rex_Foot_Right": {
-					"rotation": [-15.59721, 17.37478, -12.5266]
-				},
-				"Rex_Arm_Right": {
-					"rotation": [57.65821, -62.19837, -1.30974]
-				},
-				"Rex_Masseter": {
-					"rotation": [-10, 0, 0]
-				}
-			}
-		},
 		"animation.tyrannosaurus.idle": {
 			"loop": true,
 			"animation_length": 8,
@@ -1064,7 +1018,6 @@
 			}
 		},
 		"animation.tyrannosaurus.sniff": {
-			"loop": true,
 			"animation_length": 3,
 			"bones": {
 				"Rex_Upper_Body": {
@@ -1143,7 +1096,6 @@
 			}
 		},
 		"animation.tyrannosaurus.shake": {
-			"loop": true,
 			"animation_length": 4.5,
 			"bones": {
 				"Rex_Upper_Body": {

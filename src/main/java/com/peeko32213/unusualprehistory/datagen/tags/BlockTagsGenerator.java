@@ -77,6 +77,17 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(Blocks.CACTUS)
                 .add(Blocks.BAMBOO);
 
+        tag(UPTags.TYRANNO_BREAKABLES)
+                .addTag(BlockTags.LEAVES)
+                .addTag(BlockTags.PLANKS)
+                .addTag(BlockTags.LOGS)
+                .addTag(BlockTags.WOODEN_STAIRS)
+                .addTag(BlockTags.WOODEN_SLABS)
+                .addTag(BlockTags.WOOL)
+                .add(Blocks.LILY_PAD)
+                .add(Blocks.CACTUS)
+                .add(Blocks.BAMBOO);
+
         tag(UPTags.MEGATHERIUM_EATABLES)
                 .addTag(BlockTags.LEAVES);
 

@@ -1,0 +1,171 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 512,
+				"texture_height": 512,
+				"visible_bounds_width": 9,
+				"visible_bounds_height": 6,
+				"visible_bounds_offset": [0, 2, 0]
+			},
+			"bones": [
+				{
+					"name": "Triceratops",
+					"pivot": [0, 36, 1]
+				},
+				{
+					"name": "Trike_Upper_Body",
+					"parent": "Triceratops",
+					"pivot": [0, 28, 13],
+					"cubes": [
+						{"origin": [-17.5, 17, -26], "size": [35, 38, 57], "uv": [0, 0]},
+						{"origin": [11.5, 43, 18], "size": [0, 19, 16], "pivot": [11.5, 55, 30], "rotation": [0, 0, 20], "uv": [32, 249], "mirror": true},
+						{"origin": [0, 43, 18], "size": [0, 19, 16], "uv": [32, 249]},
+						{"origin": [-11.5, 43, 18], "size": [0, 19, 16], "pivot": [-11.5, 55, 30], "rotation": [0, 0, -20], "uv": [32, 249]}
+					]
+				},
+				{
+					"name": "Trike_Saddle",
+					"parent": "Trike_Upper_Body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-17.5, 17, -26], "size": [35, 38, 57], "inflate": 0.2, "uv": [0, 95]},
+						{"origin": [-5.5, 55.22, -10.1], "size": [11, 5, 0], "uv": [187, 262]}
+					]
+				},
+				{
+					"name": "Trike_Neck",
+					"parent": "Trike_Upper_Body",
+					"pivot": [-0.5, 27, -27],
+					"cubes": [
+						{"origin": [-6.5, 10, -47], "size": [13, 11, 31], "uv": [184, 51]},
+						{"origin": [-6.5, 21, -36], "size": [13, 17, 20], "uv": [150, 191]}
+					]
+				},
+				{
+					"name": "Trike_Head",
+					"parent": "Trike_Neck",
+					"pivot": [0.5, 24, -40],
+					"cubes": [
+						{"origin": [-19.5, 19, -36.99], "size": [39, 45, 6], "uv": [184, 0]},
+						{"origin": [-8.5, 16, -49], "size": [17, 17, 18], "uv": [80, 190]},
+						{"origin": [-5.5, 21, -62], "size": [11, 12, 13], "uv": [238, 248]},
+						{"origin": [-5.5, 12, -66], "size": [11, 21, 4], "uv": [262, 151]},
+						{"origin": [-1.5, 33, -66], "size": [3, 7, 4], "uv": [64, 260]},
+						{"origin": [-1.5, 33, -66], "size": [3, 4, 6], "uv": [156, 288]},
+						{"origin": [8.5, 21, -47], "size": [4, 4, 8], "uv": [162, 262]},
+						{"origin": [-12.5, 21, -47], "size": [4, 4, 8], "uv": [162, 262], "mirror": true}
+					]
+				},
+				{
+					"name": "Trike_Browhorn_Left",
+					"parent": "Trike_Head",
+					"pivot": [6.5, 33, -41],
+					"rotation": [0, 0, 15],
+					"cubes": [
+						{"origin": [5.51, 32, -43], "size": [3, 4, 4], "uv": [215, 262]},
+						{"origin": [5.51, 36, -55], "size": [3, 4, 16], "uv": [263, 111]},
+						{"origin": [5.51, 40, -55], "size": [3, 11, 4], "uv": [61, 230]}
+					]
+				},
+				{
+					"name": "Trike_Browhorn_Right",
+					"parent": "Trike_Head",
+					"pivot": [-6.5, 33, -41],
+					"rotation": [0, 0, -15],
+					"cubes": [
+						{"origin": [-8.51, 32, -43], "size": [3, 4, 4], "uv": [215, 262], "mirror": true},
+						{"origin": [-8.51, 36, -55], "size": [3, 4, 16], "uv": [263, 111], "mirror": true},
+						{"origin": [-8.51, 40, -55], "size": [3, 11, 4], "uv": [61, 230], "mirror": true}
+					]
+				},
+				{
+					"name": "Trike_Jaw",
+					"parent": "Trike_Head",
+					"pivot": [0.5, 21, -49],
+					"cubes": [
+						{"origin": [-4.5, 16, -62], "size": [9, 5, 13], "uv": [262, 93]}
+					]
+				},
+				{
+					"name": "Trike_Arm_Left",
+					"parent": "Trike_Upper_Body",
+					"pivot": [15.5, 19, -14.5],
+					"cubes": [
+						{"origin": [10.5, 0, -22], "size": [10, 23, 15], "uv": [216, 191]},
+						{"origin": [10.5, 0, -24], "size": [2, 2, 2], "uv": [266, 203]},
+						{"origin": [18.5, 0, -24], "size": [2, 2, 2], "uv": [266, 203]},
+						{"origin": [14.5, 0, -24], "size": [2, 2, 2], "uv": [266, 203]},
+						{"origin": [8.5, 0, -18], "size": [2, 2, 2], "uv": [266, 203]},
+						{"origin": [20.5, 0, -18], "size": [2, 2, 2], "uv": [266, 203]}
+					]
+				},
+				{
+					"name": "Trike_Arm_Right",
+					"parent": "Trike_Upper_Body",
+					"pivot": [-15.5, 19, -14.5],
+					"cubes": [
+						{"origin": [-20.5, 0, -22], "size": [10, 23, 15], "uv": [216, 191], "mirror": true},
+						{"origin": [-20.5, 0, -24], "size": [2, 2, 2], "uv": [266, 203], "mirror": true},
+						{"origin": [-16.5, 0, -24], "size": [2, 2, 2], "uv": [266, 203], "mirror": true},
+						{"origin": [-12.5, 0, -24], "size": [2, 2, 2], "uv": [266, 203], "mirror": true},
+						{"origin": [-10.5, 0, -18], "size": [2, 2, 2], "uv": [266, 203], "mirror": true},
+						{"origin": [-22.5, 0, -18], "size": [2, 2, 2], "uv": [266, 203], "mirror": true}
+					]
+				},
+				{
+					"name": "Trike_Tail",
+					"parent": "Trike_Upper_Body",
+					"pivot": [0, 22.5, 31],
+					"cubes": [
+						{"origin": [-5.5, 17.01, 28], "size": [11, 11, 29], "uv": [0, 190]}
+					]
+				},
+				{
+					"name": "Trike_Leg_Left",
+					"parent": "Triceratops",
+					"pivot": [15, 28, 13],
+					"cubes": [
+						{"origin": [7.5, 14, 1], "size": [16, 26, 23], "uv": [184, 93]},
+						{"origin": [9.5, 3, 13], "size": [12, 18, 15], "uv": [130, 228]}
+					]
+				},
+				{
+					"name": "Trike_Foot_Left",
+					"parent": "Trike_Leg_Left",
+					"pivot": [15.5, 3, 20.5],
+					"cubes": [
+						{"origin": [8.5, 0, 12], "size": [14, 3, 16], "uv": [0, 230]},
+						{"origin": [8.5, 0, 10], "size": [2, 3, 2], "uv": [110, 263]},
+						{"origin": [12.5, 0, 10], "size": [2, 3, 2], "uv": [110, 263]},
+						{"origin": [16.5, 0, 10], "size": [2, 3, 2], "uv": [110, 263]},
+						{"origin": [20.5, 0, 10], "size": [2, 3, 2], "uv": [110, 263]}
+					]
+				},
+				{
+					"name": "Trike_Leg_Right",
+					"parent": "Triceratops",
+					"pivot": [-15, 28, 13],
+					"cubes": [
+						{"origin": [-23.5, 14, 1], "size": [16, 26, 23], "uv": [184, 93], "mirror": true},
+						{"origin": [-21.5, 3, 13], "size": [12, 18, 15], "uv": [130, 228], "mirror": true}
+					]
+				},
+				{
+					"name": "Trike_Foot_Right",
+					"parent": "Trike_Leg_Right",
+					"pivot": [-15.5, 3, 20.5],
+					"cubes": [
+						{"origin": [-22.5, 0, 12], "size": [14, 3, 16], "uv": [0, 230], "mirror": true},
+						{"origin": [-22.5, 0, 10], "size": [2, 3, 2], "uv": [110, 263], "mirror": true},
+						{"origin": [-18.5, 0, 10], "size": [2, 3, 2], "uv": [110, 263], "mirror": true},
+						{"origin": [-14.5, 0, 10], "size": [2, 3, 2], "uv": [110, 263], "mirror": true},
+						{"origin": [-10.5, 0, 10], "size": [2, 3, 2], "uv": [110, 263], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

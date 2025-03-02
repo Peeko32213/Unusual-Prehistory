@@ -114,6 +114,7 @@ public class UPTags {
 
 
     //Breakables Tags
+
     public static final TagKey<Block> CLUB_WHITELIST_BLOCKS = registerBlockTag("club_whitelist_blocks");
     public static final TagKey<Block> ZULOAGAE_PLANTABLE_ON = registerBlockTag("zuloagae_plantable_on");
     public static final TagKey<Block> TRIKE_BREAKABLES = registerBlockTag("trike_breakables");
@@ -123,6 +124,7 @@ public class UPTags {
     public static final TagKey<Block> ANGRY_BRACHI_BREAKABLES = registerBlockTag("angry_brachi_breakables");
     public static final TagKey<Block> ERYON_DIGGABLES = registerBlockTag("eryon_diggables");
     public static final TagKey<Block> TALPANAS_DIGGABLES = registerBlockTag("talpanas_diggables");
+    public static final TagKey<Block> TYRANNO_BREAKABLES = registerBlockTag("tyrannosaurus_breakables");
 
     public static final TagKey<Block> DINO_HATCHABLE_BLOCKS = registerBlockTag("dino_hatchable_blocks");
 

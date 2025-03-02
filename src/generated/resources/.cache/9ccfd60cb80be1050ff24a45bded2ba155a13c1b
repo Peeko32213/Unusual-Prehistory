@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-24T08:11:16.2331321	unusualprehistory Block Tags
+// 1.20.1	2025-03-02T11:01:27.1349466	unusualprehistory Block Tags
 1bdb6f062024d7ca0d614a46e7f230bf6a9ba463 data/minecraft/tags/blocks/buttons.json
 6830c7f7a234c9fe6a51d401d4b4d74f297c7a35 data/minecraft/tags/blocks/coral_plants.json
 13a3a20a21c195285c271b3970cbd9643e99c466 data/minecraft/tags/blocks/fences.json
@@ -34,4 +34,5 @@ d744c80e92d656276c8012a1ad57e78a3f01fa97 data/unusualprehistory/tags/blocks/mega
 d151bd3bdf63b9b9019d27f177f7f5c7f9c357b7 data/unusualprehistory/tags/blocks/talpanas_diggables.json
 d6bc79380a108eef6352d3b6645c893ea765bd72 data/unusualprehistory/tags/blocks/tar_pit_replaceable.json
 74cce9cd22612b5ff95a8f71b7abde2f853bed21 data/unusualprehistory/tags/blocks/trike_breakables.json
+74cce9cd22612b5ff95a8f71b7abde2f853bed21 data/unusualprehistory/tags/blocks/tyrannosaurus_breakables.json
 fc2eb97be66abb58cc2cb6052d2be99bc818ccd3 data/unusualprehistory/tags/blocks/zuloagae_plantable_on.json

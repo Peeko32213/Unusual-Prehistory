@@ -34,5 +34,9 @@ public class StatedDinosaurRenderer<T extends BaseStatedDinosaurAnimalEntity> ex
             stackIn.scale(0.5F, 0.5F, 0.5F);
         }
 
+        if (!animatable.isBaby() && animatable instanceof TyrannosaurusEntity) {
+            stackIn.scale(1.15F, 1.15F, 1.15F);
+        }
+
     }
 }

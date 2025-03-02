@@ -47,11 +47,6 @@ public class DinosaurRenderer<T extends BaseDinosaurAnimalEntity> extends GeoEnt
             return;
         }
 
-        if(animatable instanceof TyrannosaurusEntity rex) {
-            if(rex.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
-            return;
-        }
-
         if(animatable instanceof SmilodonEntity smilodon) {
             if(smilodon.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
             return;
