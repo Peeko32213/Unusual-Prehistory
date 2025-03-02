@@ -63,40 +63,43 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
     private int shakeCooldown = 0;
 
     private int stunnedTick;
-    private static final RawAnimation REX_BITE = RawAnimation.begin().thenPlay("animation.rex.bite_0");
-    private static final RawAnimation REX_BITE_1 = RawAnimation.begin().thenPlay("animation.rex.bite_1");
-    private static final RawAnimation REX_WHIP = RawAnimation.begin().thenPlay("animation.rex.whip");
-    private static final RawAnimation REX_STOMP_L = RawAnimation.begin().thenPlay("animation.rex.stompl");
-    private static final RawAnimation REX_STOMP_R = RawAnimation.begin().thenPlay("animation.rex.stompr");
-    private static final RawAnimation REX_TACKLE = RawAnimation.begin().thenPlay("animation.rex.tackle");
-    private static final RawAnimation REX_EEPY = RawAnimation.begin().thenLoop("animation.rex.knockout");
-    private static final RawAnimation REX_SWIM = RawAnimation.begin().thenLoop("animation.rex.swim");
-    private static final RawAnimation REX_CHARGE = RawAnimation.begin().thenLoop("animation.rex.run");
-    private static final RawAnimation REX_WALK = RawAnimation.begin().thenLoop("animation.rex.walk");
-    private static final RawAnimation REX_IDLE = RawAnimation.begin().thenLoop("animation.rex.idle");
-    private static final RawAnimation REX_SIT = RawAnimation.begin().thenLoop("animation.rex.sit");
-    private static final RawAnimation REX_SLEEP = RawAnimation.begin().thenLoop("animation.rex.sleep");
-    private static final RawAnimation REX_SHAKE = RawAnimation.begin().thenPlay("animation.rex.shake_blend");
-    private static final RawAnimation REX_SNIFF = RawAnimation.begin().thenPlay("animation.rex.sniff_blend");
 
-    private static final RawAnimation REX_BABY_WALK = RawAnimation.begin().thenLoop("animation.babyrex.walk");
-    private static final RawAnimation REX_BABY_IDLE = RawAnimation.begin().thenLoop("animation.babyrex.idle");
-    private static final RawAnimation REX_BABY_SWIM = RawAnimation.begin().thenLoop("animation.babyrex.swim");
+    // Movement animations
+    private static final RawAnimation TYRANNO_SWIM = RawAnimation.begin().thenLoop("animation.tyrannosaurus.swim");
+    private static final RawAnimation TYRANNO_CHARGE = RawAnimation.begin().thenLoop("animation.tyrannosaurus.charge");
+    private static final RawAnimation TYRANNO_WALK = RawAnimation.begin().thenLoop("animation.tyrannosaurus.walk");
+
+    // Attack animations
+    private static final RawAnimation TYRANNO_BITE = RawAnimation.begin().thenPlay("animation.tyrannosaurus.bite_0");
+    private static final RawAnimation TYRANNO_BITE_1 = RawAnimation.begin().thenPlay("animation.tyrannosaurus.bite_1");
+    private static final RawAnimation TYRANNO_WHIP = RawAnimation.begin().thenPlay("animation.tyrannosaurus.whip");
+    private static final RawAnimation TYRANNO_STOMP_L = RawAnimation.begin().thenPlay("animation.tyrannosaurus.stompl");
+    private static final RawAnimation TYRANNO_STOMP_R = RawAnimation.begin().thenPlay("animation.tyrannosaurus.stompr");
+    private static final RawAnimation TYRANNO_TACKLE = RawAnimation.begin().thenPlay("animation.tyrannosaurus.tackle");
+    private static final RawAnimation TYRANNO_ROAR = RawAnimation.begin().thenPlay("animation.tyrannosaurus.roar");
+
+    // Idle animations
+    private static final RawAnimation TYRANNO_IDLE = RawAnimation.begin().thenLoop("animation.tyrannosaurus.idle");
+    private static final RawAnimation TYRANNO_SIT = RawAnimation.begin().thenLoop("animation.tyrannosaurus.sit");
+    private static final RawAnimation TYRANNO_SLEEP = RawAnimation.begin().thenLoop("animation.tyrannosaurus.sleep");
+    private static final RawAnimation TYRANNO_SHAKE = RawAnimation.begin().thenPlay("animation.tyrannosaurus.shake");
+    private static final RawAnimation TYRANNO_SNIFF = RawAnimation.begin().thenPlay("animation.tyrannosaurus.sniff");
+    private static final RawAnimation TYRANNO_EEPY = RawAnimation.begin().thenLoop("animation.tyrannosaurus.knockout");
 
     public TyrannosaurusEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1.5F);
+        this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 300.0D)
-            .add(Attributes.ARMOR, 15.0D)
+            .add(Attributes.ARMOR, 8.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.2D)
-            .add(Attributes.ATTACK_DAMAGE, 10.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 8.0D)
+            .add(Attributes.ATTACK_DAMAGE, 15.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
             .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
-            .add(Attributes.FOLLOW_RANGE, 48D);
+            .add(Attributes.FOLLOW_RANGE, 32D);
     }
 
     protected void registerGoals() {
@@ -146,7 +149,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
 
     @Override
     protected float getWaterSlowDown() {
-        return 0.4F;
+        return 0.3F;
     }
 
     @Override
@@ -355,7 +358,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UPEntities.REX.get().create(serverLevel);
+        return UPEntities.TYRANNOSAURUS.get().create(serverLevel);
     }
 
     public boolean requiresCustomPersistence() {
@@ -537,7 +540,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
 
         protected boolean getRangeCheck () {
             return
-            this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
+            this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
         protected void tickBiteAttack () {
@@ -606,26 +609,25 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_BITE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),12.0f, 0.4f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.25f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
         protected void preformWhipAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_TAIL_SWIPE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),10.0f, 1.0f, mob, pos,  6.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - 5, 1.0f, mob, pos,  6.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.REX_STOMP_ATTACK.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),14.0f, 0.6f, mob, pos,  6.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - 1, 0.5f, mob, pos,  6.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(rexShakeRange));
                 for (LivingEntity e : list) {
                     if (!(e instanceof TyrannosaurusEntity) && e.isAlive()) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, 3, false, false, false));
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, 4, false, false, false));
                     }
                 }
                 mob.shakeCooldown = 100;
@@ -682,7 +684,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
         return UPSounds.REX_IDLE.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.REX_HURT.get();
     }
 
@@ -693,10 +695,10 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
     @Override
     public float getSoundVolume() {
         if(this.isBaby()){
-            return 0.5F;
+            return 0.75F;
         }
         else{
-            return 1.0F;
+            return 1.25F;
         }
     }
 
@@ -707,7 +709,7 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
 
     protected <E extends TyrannosaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
-            return event.setAndContinue(REX_IDLE);
+            return event.setAndContinue(TYRANNO_IDLE);
         }
         int animState = this.getAnimationState();
         {
@@ -715,76 +717,63 @@ public class TyrannosaurusEntity extends BaseDinosaurAnimalEntity implements Geo
 
             case 1:
                 if(!this.hasEepy()) {
-                    event.setAndContinue(REX_BITE);
+                    event.setAndContinue(TYRANNO_BITE);
                     break;
                 }
             case 2:
                 if(!this.hasEepy()) {
-                    event.setAndContinue(REX_BITE_1);
+                    event.setAndContinue(TYRANNO_BITE_1);
                     break;
                 }
             case 3:
                 if(!this.hasEepy()) {
-                    event.setAndContinue(REX_TACKLE);
+                    event.setAndContinue(TYRANNO_TACKLE);
                     event.getController().setAnimationSpeed(0.85F);
                     break;
                 }
             case 4:
                 if(!this.hasEepy()) {
-                    event.setAndContinue(REX_WHIP);
+                    event.setAndContinue(TYRANNO_WHIP);
                     break;
                 }
             case 5:
                 if(!this.hasEepy()) {
-                    event.setAndContinue(REX_STOMP_L);
+                    event.setAndContinue(TYRANNO_STOMP_L);
                     event.getController().setAnimationSpeed(1.35F);
                     break;
                 }
             case 6:
                 if(!this.hasEepy()) {
-                    event.setAndContinue(REX_STOMP_R);
+                    event.setAndContinue(TYRANNO_STOMP_R);
                     event.getController().setAnimationSpeed(1.35F);
                     break;
                 }
 
             default:
                 if (this.hasEepy()) {
-                    event.setAndContinue(REX_EEPY);
+                    event.setAndContinue(TYRANNO_EEPY);
                     event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
                 }
-                if (this.isInWater() && !this.hasEepy() && this.isBaby()) {
-                    event.setAndContinue(REX_BABY_SWIM);
-                    event.getController().setAnimationSpeed(1.0F);
-                    return PlayState.CONTINUE;
-                } else if (this.isInWater() && !this.hasEepy()) {
-                    event.setAndContinue(REX_SWIM);
+                else if (this.isInWater() && !this.hasEepy()) {
+                    event.setAndContinue(TYRANNO_SWIM);
                     event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
                 }
                 else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy()){
                     if(this.isSprinting() && !this.isBaby()) {
-                        event.setAndContinue(REX_CHARGE);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    } else if(this.isBaby()) {
-                        event.setAndContinue(REX_BABY_WALK);
+                        event.setAndContinue(TYRANNO_CHARGE);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     } else {
-                        event.setAndContinue(REX_WALK);
+                        event.setAndContinue(TYRANNO_WALK);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
                 }
                 else{
-                    if(!this.isInWater() && !this.hasEepy() && this.isBaby()) {
-                        event.setAndContinue(REX_BABY_IDLE);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-                    else if(!this.isInWater() && !this.hasEepy()) {
-                        event.setAndContinue(REX_IDLE);
+                    if(!this.isInWater() && !this.hasEepy()) {
+                        event.setAndContinue(TYRANNO_IDLE);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }

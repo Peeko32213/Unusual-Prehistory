@@ -8,7 +8,6 @@ import com.peeko32213.unusualprehistory.common.world.feature.DryoTreeGrower;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiTreeGrower;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoTreeGrower;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
@@ -219,7 +218,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> TRIKE_EGG = registerBlock("trike_eggs",
             () -> new DinosaurLandEggBlock(
                     BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.TRIKE, 2,
+                    UPEntities.TRICERATOPS, 2,
                     Block.box(4, 0, 8, 11, 9, 15),
                     Block.box(2, 0, 1, 14, 10, 15)
             ));
@@ -227,7 +226,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> REX_EGG = registerBlock("rex_eggs",
             () -> new DinosaurLandEggBlock(
                     BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.REX, 2,
+                    UPEntities.TYRANNOSAURUS, 2,
                     Block.box(4, 0, 8, 11, 9, 15),
                     Block.box(2, 0, 1, 14, 10, 15)
             ));

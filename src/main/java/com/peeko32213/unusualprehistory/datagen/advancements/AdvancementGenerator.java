@@ -275,9 +275,9 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .save(consumer, prefixS("main/anuro"));
 
         Advancement trike = getAdvancement(eggs, (ItemLike)UPItems.TRIKE_FLASK.get(), "interact_trike", FrameType.TASK, true, true, true)
-                .addCriterion("damage_trike", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TRIKE.get())))))
-                .addCriterion("interact_trike", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TRIKE.get()).build())))
-                .addCriterion("killed_trike", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TRIKE.get())))
+                .addCriterion("damage_trike", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TRICERATOPS.get())))))
+                .addCriterion("interact_trike", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TRICERATOPS.get()).build())))
+                .addCriterion("killed_trike", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TRICERATOPS.get())))
                 .requirements(RequirementsStrategy.OR)
 
                 .save(consumer, prefixS("main/trike"));
@@ -299,15 +299,15 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .save(consumer, prefixS("main/grog"));
 
         Advancement rex = getAdvancement(eggs, (ItemLike)UPItems.REX_FLASK.get(), "interact_rex", FrameType.TASK, true, true, true)
-                .addCriterion("damage_rex", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.REX.get())))))
-                .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.REX.get()).build())))
-                .addCriterion("killed_rex", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.REX.get())))
+                .addCriterion("damage_rex", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get())))))
+                .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get()).build())))
+                .addCriterion("killed_rex", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get())))
                 .requirements(RequirementsStrategy.OR)
 
                 .save(consumer, prefixS("main/rex"));
 
         Advancement rex_defeat = getAdvancement(rex, (ItemLike)UPItems.REX_TOOTH.get(), "rex_passify", FrameType.CHALLENGE, true, true, true)
-                .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.REX.get()).build())))
+                .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get()).build())))
                 .save(consumer, prefixS("main/rex_passify"));
 
         Advancement smilodon = getAdvancement(cultivator, (ItemLike)UPItems.SMILO_FLASK.get(), "interact_smilo", FrameType.TASK, true, true, false)

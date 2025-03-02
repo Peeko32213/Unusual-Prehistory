@@ -323,14 +323,13 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> TANY_EGG = registerSpawnEggs("tanystropheus_spawn_egg", UPEntities.TANY , 0x08090d, 0xf2f6f8);
     public static final RegistryObject<ForgeSpawnEggItem> TARTUOSTEUS_EGG = registerSpawnEggs("tartuosteus_spawn_egg", UPEntities.TARTUOSTEUS , 0x12352f, 0x73a658);
     public static final RegistryObject<ForgeSpawnEggItem> TELECREX_EGG = registerSpawnEggs("telecrex_spawn_egg", UPEntities.TELECREX , 0x5a4730, 0x953810);
-    public static final RegistryObject<ForgeSpawnEggItem> TRIKE_EGG =registerSpawnEggs("trike_spawn_egg", UPEntities.TRIKE , 0x404029, 0x8e2b2b);
-    public static final RegistryObject<ForgeSpawnEggItem> REX_EGG = registerSpawnEggs("rex_spawn_egg", UPEntities.REX , 0x31171c, 0xb96a53);
+    public static final RegistryObject<ForgeSpawnEggItem> TRICERATOPS_EGG =registerSpawnEggs("triceratops_spawn_egg", UPEntities.TRICERATOPS, 0x45452a, 0x9c2f2f);
+    public static final RegistryObject<ForgeSpawnEggItem> TYRANNOSAURUS_EGG = registerSpawnEggs("tyrannosaurus_spawn_egg", UPEntities.TYRANNOSAURUS, 0x3e2025, 0xa23a47);
     public static final RegistryObject<ForgeSpawnEggItem> ULUG_EGG = registerSpawnEggs("ulugh_spawn_egg", UPEntities.ULUG , 0x3a2424, 0xdbd8ce);
     public static final RegistryObject<ForgeSpawnEggItem> VELOCI_EGG = registerSpawnEggs("veloci_spawn_egg", UPEntities.VELOCI , 0x774228, 0xcb09464);
     public static final RegistryObject<ForgeSpawnEggItem> XIPH_EGG = registerSpawnEggs("xiphactinus_spawn_egg", UPEntities.XIPH , 0x9eacbe, 0x21262a);
 
-    public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet", () -> new MajungasaurusHelmetItem(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET,
-            new Item.Properties(), 3.0));
+    public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet", () -> new MajungasaurusHelmetItem(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET, new Item.Properties(), 3.0));
 
     public static final RegistryObject<Item> AUSTRO_BOOTS = ITEMS.register("austro_boots",
             () -> new AustroraptorBootsItem(UPArmorMaterial.AUSTRO, ArmorItem.Type.BOOTS,

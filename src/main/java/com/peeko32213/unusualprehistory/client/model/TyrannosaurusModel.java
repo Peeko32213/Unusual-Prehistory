@@ -10,35 +10,25 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class TyrannosaurusRexModel extends GeoModel<TyrannosaurusEntity> {
+public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
 
     @Override
     public ResourceLocation getModelResource(TyrannosaurusEntity rex) {
-        if(rex.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus_rex/tyrannosaurus_rex_baby.geo.json");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus_rex/tyrannosaurus_rex.geo.json");
-        }
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_rex.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(TyrannosaurusEntity rex) {
-        if(rex.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus_rex/tyrannosaurus_rex_baby.png");
-        } else if(rex.hasEepy() && !rex.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus_rex/tyrannosaurus_rex_eepy.png");
+        if(rex.hasEepy()) {
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex_eepy.png");
         } else{
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus_rex/tyrannosaurus_rex.png");
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex.png");
         }
     }
 
     @Override
     public ResourceLocation getAnimationResource(TyrannosaurusEntity rex) {
-        if(rex.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus_rex/tyrannosaurus_rex_baby.animation.json");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus_rex/tyrannosaurus_rex.animation.json");
-        }
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus.animation.json");
     }
 
     @Override
@@ -46,7 +36,25 @@ public class TyrannosaurusRexModel extends GeoModel<TyrannosaurusEntity> {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+
+        CoreGeoBone tyrannosaurus = this.getAnimationProcessor().getBone("root");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("Rex_Head");
+
+        if (animatable.isBaby()) {
+            head.setScaleX(1.5F);
+            head.setScaleY(1.5F);
+            head.setScaleZ(1.5F);
+            tyrannosaurus.setScaleX(0.5F);
+            tyrannosaurus.setScaleY(0.5F);
+            tyrannosaurus.setScaleZ(0.5F);
+        } else {
+            head.setScaleX(1.0F);
+            head.setScaleY(1.0F);
+            head.setScaleZ(1.0F);
+            tyrannosaurus.setScaleX(1.15F);
+            tyrannosaurus.setScaleY(1.15F);
+            tyrannosaurus.setScaleZ(1.15F);
+        }
 
         if (!animatable.isSprinting()) {
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);

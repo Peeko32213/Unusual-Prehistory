@@ -6,9 +6,6 @@ import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
@@ -159,7 +156,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.MAJUNGA_EGG, "Majungasaurus Egg");
         addBlock(UPBlocks.COTY_EGG, "Cotylorhynchus Egg");
         addBlock(UPBlocks.BRACHI_EGG, "Brachiosaurus Egg");
-        addBlock(UPBlocks.REX_EGG, "Tyrannosaurus Rex Egg");
+        addBlock(UPBlocks.REX_EGG, "Tyrannosaurus Egg");
         addBlock(UPBlocks.TRIKE_EGG, "Triceratops Egg");
         addBlock(UPBlocks.RAPTOR_EGG, "Velociraptor Egg");
         addBlock(UPBlocks.PACHY_EGG, "Pachycephalosaurus Egg");
@@ -189,9 +186,9 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.COTY_EGG, "Cotylorhynchus Spawn Egg");
         addItem(UPItems.SCAU_EGG, "Scaumenacia Spawn Egg");
         addItem(UPItems.BRACHI_EGG, "Brachiosaurus Spawn Egg");
-        addItem(UPItems.REX_EGG, "Tyrannosaurus Rex Spawn Egg");
+        addItem(UPItems.TYRANNOSAURUS_EGG, "Tyrannosaurus Spawn Egg");
         addItem(UPItems.VELOCI_EGG, "Velociraptor Spawn Egg");
-        addItem(UPItems.TRIKE_EGG, "Triceratops Spawn Egg");
+        addItem(UPItems.TRICERATOPS_EGG, "Triceratops Spawn Egg");
         addItem(UPItems.PACHY_EGG, "Pachycephalosaurus Spawn Egg");
         addItem(UPItems.ENCRUSTED_EGG, "Encrusted Spawn Egg");
         addItem(UPItems.ERYON_EGG, "Eryon Spawn Egg");
@@ -279,7 +276,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.COTY_FLASK, "Flask of Cotylorhynchus DNA");
         addItem(UPItems.SCAU_FLASK, "Flask of Scaumenacia DNA");
         addItem(UPItems.BRACHI_FLASK, "Flask of Brachiosaurus DNA");
-        addItem(UPItems.REX_FLASK, "Flask of Tyrannosaurus Rex DNA");
+        addItem(UPItems.REX_FLASK, "Flask of Tyrannosaurus DNA");
         addItem(UPItems.RAPTOR_FLASK, "Flask of Velociraptor DNA");
         addItem(UPItems.TRIKE_FLASK, "Flask of Triceratops DNA");
         addItem(UPItems.PACHY_FLASK, "Flask of Pachycephalosaurus DNA");
@@ -366,7 +363,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.AMBER_GLASS_PANE, "Amber Glass Pane");
         addBlock(UPBlocks.REX_HEAD, "Tyrannosaurus Head Mount");
         addBlock(UPBlocks.AMMONITE_SHELL, "Ammonite Shell");
-        addBlock(UPBlocks.REX_BOOMBOX, "Rex Boombox");
+        addBlock(UPBlocks.REX_BOOMBOX, "Tyrannosaurus Boombox");
         addBlock(UPBlocks.AMBER_BLOCK, "Amber Block");
         addBlock(UPBlocks.OPAL_BLOCK, "Opal Block");
         addBlock(UPBlocks.INCUBATOR, "Incubator");
@@ -547,8 +544,8 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.PSITTACO, "Psittacosaurus");
         addEntityType(UPEntities.PTERODAUSTRO, "Pterodaustro");
         addEntityType(UPEntities.TANY, "Tanystropheus");
-        addEntityType(UPEntities.TRIKE, "Triceratops");
-        addEntityType(UPEntities.REX, "Tyrannosaurus Rex");
+        addEntityType(UPEntities.TRICERATOPS, "Triceratops");
+        addEntityType(UPEntities.TYRANNOSAURUS, "Tyrannosaurus");
         addEntityType(UPEntities.ULUG, "Ulughbegsaurus");
         addEntityType(UPEntities.VELOCI, "Velociraptor");
         addEntityType(UPEntities.XIPH, "Xiphactinus");
@@ -637,9 +634,10 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.REX_BITE, "Tyrannosaurus chomps");
         addSound(UPSounds.REX_TAIL_SWIPE, "Tyrannosaurus swipes");
         addSound(UPSounds.REX_HURT, "Tyrannosaurus hurts");
-        addSound(UPSounds.REX_STEP, "Forceful footsteps");
         addSound(UPSounds.REX_DEATH, "Tyrannosaurus dies");
         addSound(UPSounds.REX_PACIFY, "Tyrannosaurus was pacified");
+
+        addSound(UPSounds.REX_STEP, "Forceful footsteps");
 
         addSound(UPSounds.TRIKE_IDLE, "Triceratops stouts");
         addSound(UPSounds.TRIKE_HURT, "Triceratops hurts");
@@ -701,7 +699,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ANTARCTO_HURT, "Antarctopelta hurts");
         addSound(UPSounds.ANTARCTO_IDLE, "Antarctopelta gruffs");
 
-        addSound(UPSounds.REX_BOOMBOX, "Rex Boombox plays");
+        addSound(UPSounds.REX_BOOMBOX, "Tyrannosaurus Boombox plays");
 
         addSound(UPSounds.GIGANTO_IDLE, "Gigantopithicus Ooo OO Ah Ahs");
         addSound(UPSounds.GIGANTO_DEATH, "Gigantopithicus dies");
@@ -894,10 +892,10 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.advancement.obtain_grog.desc", "Gather some Grog!");
 
         add("unusualprehistory.advancement.interact_rex", "King of the Terrible Lizards");
-        add("unusualprehistory.advancement.interact_rex.desc", "Revive a Tyrannosaurus Rex");
+        add("unusualprehistory.advancement.interact_rex.desc", "Revive a Tyrannosaurus");
 
         add("unusualprehistory.advancement.rex_passify", "Down With the King!");
-        add("unusualprehistory.advancement.rex_passify.desc", "Beat a Tyrannosaurus Rex to its last breath and spare it");
+        add("unusualprehistory.advancement.rex_passify.desc", "Beat a Tyrannosaurus to its last breath and spare it");
 
         add("unusualprehistory.advancement.interact_smilo", "Humanities Greatest Foe");
         add("unusualprehistory.advancement.interact_smilo.desc", "Revive a Smilodon");

@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-25T20:28:31.9551461	Item Models: unusualprehistory
+// 1.20.1	2025-03-01T21:28:22.6112094	Item Models: unusualprehistory
 b2ddf74df63b61d13d834643f401749b7f334d89 assets/unusualprehistory/models/item/amber_idol.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ammon_spawn_egg.json
 a3f96000ba529707cd708c504b5f004b1bdcc07d assets/unusualprehistory/models/item/animal_dna_flasks.json
@@ -118,7 +118,6 @@ b41996b94fc673b709af255f762380a366301189 assets/unusualprehistory/models/item/ra
 11499971d7e0e3559086a700ba6df0a83e9ce9ad assets/unusualprehistory/models/item/raw_mammoth.json
 4c8a9b0b06cec7016844f858e6023cb949b2faa7 assets/unusualprehistory/models/item/raw_ophiodon.json
 5268e7fc33ce93f5dcd5af62744077acdf536ab3 assets/unusualprehistory/models/item/raw_tartuosteus.json
-63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/rex_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/scau_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/sludge_spawn_egg.json
 a5f52e0be671200b0a63e95b7814e095087957ec assets/unusualprehistory/models/item/smilodon_embryo.json
@@ -131,7 +130,8 @@ a5f52e0be671200b0a63e95b7814e095087957ec assets/unusualprehistory/models/item/sm
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/tartuosteus_spawn_egg.json
 96797e2b0dc4f3bcde9ce8472a98b5c586da6d52 assets/unusualprehistory/models/item/tartuo_flask.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/telecrex_spawn_egg.json
-63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/trike_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/triceratops_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/tyrannosaurus_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ulugh_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/veloci_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/xiphactinus_spawn_egg.json

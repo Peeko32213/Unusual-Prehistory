@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.model.OviraptorModel;
 import com.peeko32213.unusualprehistory.common.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.part.LeedsichthysPartEntity;
@@ -61,8 +60,8 @@ public class CommonEvents {
         event.put(UPEntities.PSITTACO.get(), PsittacosaurusEntity.createAttributes().build());
         event.put(UPEntities.PTERODAUSTRO.get(), PterodaustroEntity.createAttributes().build());
         event.put(UPEntities.TANY.get(), TanystropheusEntity.createAttributes().build());
-        event.put(UPEntities.TRIKE.get(), TriceratopsEntity.createAttributes().build());
-        event.put(UPEntities.REX.get(), TyrannosaurusEntity.createAttributes().build());
+        event.put(UPEntities.TRICERATOPS.get(), TriceratopsEntity.createAttributes().build());
+        event.put(UPEntities.TYRANNOSAURUS.get(), TyrannosaurusEntity.createAttributes().build());
         event.put(UPEntities.ULUG.get(), UlughbegsaurusEntity.createAttributes().build());
         event.put(UPEntities.VELOCI.get(), VelociraptorEntity.createAttributes().build());
         event.put(UPEntities.XIPH.get(), XiphactinusEntity.createAttributes().build());
