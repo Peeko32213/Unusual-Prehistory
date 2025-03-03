@@ -86,7 +86,6 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
     private static final RawAnimation TYRANNO_STOMP_L = RawAnimation.begin().thenPlay("animation.tyrannosaurus.stompl");
     private static final RawAnimation TYRANNO_STOMP_R = RawAnimation.begin().thenPlay("animation.tyrannosaurus.stompr");
     private static final RawAnimation TYRANNO_TACKLE = RawAnimation.begin().thenPlay("animation.tyrannosaurus.tackle");
-    private static final RawAnimation TYRANNO_ROAR = RawAnimation.begin().thenPlay("animation.tyrannosaurus.roar");
 
     // Idle animations
     private static final RawAnimation TYRANNO_IDLE = RawAnimation.begin().thenLoop("animation.tyrannosaurus.idle");
@@ -94,12 +93,13 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
     private static final RawAnimation TYRANNO_SLEEP = RawAnimation.begin().thenLoop("animation.tyrannosaurus.sleep");
     private static final RawAnimation TYRANNO_SHAKE = RawAnimation.begin().thenPlay("animation.tyrannosaurus.shake");
     private static final RawAnimation TYRANNO_SNIFF = RawAnimation.begin().thenPlay("animation.tyrannosaurus.sniff");
+    private static final RawAnimation TYRANNO_ROAR = RawAnimation.begin().thenPlay("animation.tyrannosaurus.roar");
     private static final RawAnimation TYRANNO_EEPY = RawAnimation.begin().thenLoop("animation.tyrannosaurus.knockout");
 
     // Idle accessors
     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
-//    private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
 //    private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
 
     // Idle actions
@@ -121,11 +121,21 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                     .entityAction(TYRANNO_IDLE_2_ACTION)
                     .build();
 
+    private static final EntityAction TYRANNO_IDLE_3_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper TYRANNO_IDLE_3_STATE =
+            StateHelper.Builder.state(IDLE_3_AC, "tyrannosaurus_roar")
+                    .playTime(80)
+                    .stopTime(180)
+                    .entityAction(TYRANNO_IDLE_3_ACTION)
+                    .build();
+
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
                 TYRANNO_IDLE_1_STATE.getName(), TYRANNO_IDLE_1_STATE,
-                TYRANNO_IDLE_2_STATE.getName(), TYRANNO_IDLE_2_STATE
+                TYRANNO_IDLE_2_STATE.getName(), TYRANNO_IDLE_2_STATE,
+                TYRANNO_IDLE_3_STATE.getName(), TYRANNO_IDLE_3_STATE
         );
     }
 
@@ -133,7 +143,8 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
         return ImmutableList.of(
                 WeightedState.of(TYRANNO_IDLE_1_STATE, 9),
-                WeightedState.of(TYRANNO_IDLE_2_STATE, 11)
+                WeightedState.of(TYRANNO_IDLE_2_STATE, 11),
+                WeightedState.of(TYRANNO_IDLE_3_STATE, 6)
         );
     }
 
@@ -156,7 +167,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             .add(Attributes.ARMOR, 8.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.2D)
             .add(Attributes.ATTACK_DAMAGE, 15.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 2.0D)
             .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
             .add(Attributes.FOLLOW_RANGE, 32D);
     }
@@ -311,6 +322,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         super.defineSynchedData();
         this.entityData.define(IDLE_1_AC, false);
         this.entityData.define(IDLE_2_AC, false);
+        this.entityData.define(IDLE_3_AC, false);
         this.entityData.define(VARIANT, 0);
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(EEPY, false);
@@ -514,10 +526,9 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             int animState = this.mob.getAnimationState();
 
             switch (animState) {
-                case 1, 2, 3 -> tickBiteAttack();
-                case 4 -> tickWhipAttack();
-                case 5, 6 -> tickStompAttack();
-                case 7 -> tickRoarAttack();
+                case 1 -> tickChargeAttack();
+                case 2 -> tickWhipAttack();
+                case 3, 4 -> tickStompAttack();
                 default -> {
                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                     this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -552,29 +563,17 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         protected void checkForCloseRangeAttack ( double distance, double reach){
             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
                 int r = this.mob.getRandom().nextInt(2048);
-                if (r <= 400) {
+                if (r <= 800) {
                     this.mob.setAnimationState(1);
                 }
-                else if (r <= 800) {
+                else if (r <= 1200) {
                     this.mob.setAnimationState(2);
                 }
-                else if (r <= 1200) {
+                else if (r <= 1700) {
                     this.mob.setAnimationState(3);
                 }
-                else if (r <= 1400) {
-                    this.mob.setAnimationState(4);
-                }
-                else if (r <= 1600) {
-                    this.mob.setAnimationState(5);
-                }
-                else if (r <= 1800) {
-                    this.mob.setAnimationState(6);
-                }
-                else if (r <= 2048) {
-                    this.mob.setAnimationState(7);
-                }
                 else {
-                    this.mob.setAnimationState(0);
+                    this.mob.setAnimationState(4);
                 }
             }
         }
@@ -583,7 +582,29 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
-        protected void tickBiteAttack () {
+        // TODO: rex fight revamp
+//        protected void tickBiteAttack () {
+//            this.mob.getNavigation().stop();
+//            animTime++;
+//
+//            if (animTime <= 3) {
+//                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+//                this.mob.yBodyRot = this.mob.yHeadRot;
+//            }
+//
+//            if(animTime==9) {
+//                preformBiteAttack();
+//            }
+//
+//            if(animTime>=12) {
+//                animTime=0;
+//                this.mob.setAnimationState(0);
+//                this.resetAttackCooldown();
+//                this.ticksUntilNextPathRecalculation = 0;
+//            }
+//        }
+
+        protected void tickChargeAttack () {
             this.mob.getNavigation().stop();
             animTime++;
 
@@ -593,7 +614,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             }
 
             if(animTime==9) {
-                preformBiteAttack();
+                preformChargeAttack();
             }
 
             if(animTime>=12) {
@@ -646,31 +667,37 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             }
         }
 
-        protected void tickRoarAttack () {
-            this.mob.getNavigation().stop();
-            animTime++;
+//        protected void tickRoarAttack () {
+//            this.mob.getNavigation().stop();
+//            animTime++;
+//
+//            if (animTime <= 3) {
+//                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+//                this.mob.yBodyRot = this.mob.yHeadRot;
+//            }
+//
+//            if(animTime==16) {
+//                preformRoarAttack();
+//            }
+//
+//            if(animTime>=19) {
+//                animTime=0;
+//                this.mob.setAnimationState(0);
+//                this.resetAttackCooldown();
+//                this.ticksUntilNextPathRecalculation = 0;
+//            }
+//        }
 
-            if (animTime <= 3) {
-                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
-                this.mob.yBodyRot = this.mob.yHeadRot;
-            }
+//        protected void preformBiteAttack () {
+//            Vec3 pos = mob.position();
+//            this.mob.playSound(UPSounds.TYRANNO_BITE.get(), 1.0F, 1.0F);
+//            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.25f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+//        }
 
-            if(animTime==16) {
-                preformRoarAttack();
-            }
-
-            if(animTime>=19) {
-                animTime=0;
-                this.mob.setAnimationState(0);
-                this.resetAttackCooldown();
-                this.ticksUntilNextPathRecalculation = 0;
-            }
-        }
-
-        protected void preformBiteAttack () {
+        protected void preformChargeAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.TYRANNO_BITE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.25f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.5f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
         protected void preformWhipAttack () {
@@ -696,12 +723,12 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             mob.shakeCooldown--;
         }
 
-        protected void preformRoarAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.TYRANNO_ROAR.get(), 2.0F, 1.0F);
-            ((ServerLevel) this.mob.level()).sendParticles(ParticleTypes.POOF, this.mob.getX(), this.mob.getY() + 2, this.mob.getZ(), 25, this.mob.getBbWidth() / 4.0F, 0, this.mob.getBbWidth() / 4.0F, 0.25D);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() / 12, 4.0f, mob, pos,  9.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-        }
+//        protected void preformRoarAttack () {
+//            Vec3 pos = mob.position();
+//            this.mob.playSound(UPSounds.TYRANNO_ROAR.get(), 2.0F, 1.0F);
+//            ((ServerLevel) this.mob.level()).sendParticles(ParticleTypes.POOF, this.mob.getX(), this.mob.getY() + 2, this.mob.getZ(), 25, this.mob.getBbWidth() / 4.0F, 0, this.mob.getBbWidth() / 4.0F, 0.25D);
+//            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() / 12, 4.0f, mob, pos,  9.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+//        }
 
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 0;
@@ -751,7 +778,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             return 0.75F;
         }
         else{
-            return 1.25F;
+            return 1.45F;
         }
     }
 
@@ -760,6 +787,9 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         if (tyrannosaurus.level().isClientSide) {
             if (event.getKeyframeData().getSound().equals("tyrannosaurus_sniff")) {
                 tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_SNIFF.get(), tyrannosaurus.getSoundSource(), 1.0F, tyrannosaurus.getVoicePitch(), false);
+            }
+            if (event.getKeyframeData().getSound().equals("tyrannosaurus_roar_1")) {
+                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_ROAR.get(), tyrannosaurus.getSoundSource(), 2.0F, tyrannosaurus.getVoicePitch(), false);
             }
         }
     }
@@ -770,7 +800,8 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             controllers.add(controller);
         AnimationController<TyrannosaurusEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
                 .triggerableAnim("shake", TYRANNO_SHAKE)
-                .triggerableAnim("sniff", TYRANNO_SNIFF);
+                .triggerableAnim("sniff", TYRANNO_SNIFF)
+                .triggerableAnim("roar", TYRANNO_ROAR);
                 blend.setSoundKeyframeHandler(this::soundListener);
             controllers.add(blend);
     }
@@ -791,41 +822,26 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
 
             case 1:
                 if(!this.hasEepy()) {
-                    event.setAndContinue(TYRANNO_BITE_0);
-                    break;
-                }
-            case 2:
-                if(!this.hasEepy()) {
-                    event.setAndContinue(TYRANNO_BITE_1);
-                    break;
-                }
-            case 3:
-                if(!this.hasEepy()) {
                     event.setAndContinue(TYRANNO_TACKLE);
                     event.getController().setAnimationSpeed(0.85F);
                     break;
                 }
-            case 4:
+            case 2:
                 if(!this.hasEepy()) {
                     event.setAndContinue(TYRANNO_WHIP);
+                    event.getController().setAnimationSpeed(1.0F);
                     break;
                 }
-            case 5:
+            case 3:
                 if(!this.hasEepy()) {
                     event.setAndContinue(TYRANNO_STOMP_L);
                     event.getController().setAnimationSpeed(1.35F);
                     break;
                 }
-            case 6:
+            case 4:
                 if(!this.hasEepy()) {
                     event.setAndContinue(TYRANNO_STOMP_R);
                     event.getController().setAnimationSpeed(1.35F);
-                    break;
-                }
-            case 7:
-                if(!this.hasEepy()) {
-                    event.setAndContinue(TYRANNO_ROAR);
-                    event.getController().setAnimationSpeed(1.0F);
                     break;
                 }
 
@@ -876,6 +892,19 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                             }
                             else {
                                 triggerAnim("blend", "sniff");
+                                return PlayState.CONTINUE;
+                            }
+                        }
+                        if (getBooleanState(IDLE_3_AC)) {
+                            if(this.isStillEnough()) {
+                                triggerAnim("blend", "roar");
+                                return event.setAndContinue(TYRANNO_IDLE);
+                            }
+                            if(this.hasEepy()){
+                                event.setAndContinue(TYRANNO_EEPY);
+                            }
+                            else {
+                                triggerAnim("blend", "roar");
                                 return PlayState.CONTINUE;
                             }
                         }

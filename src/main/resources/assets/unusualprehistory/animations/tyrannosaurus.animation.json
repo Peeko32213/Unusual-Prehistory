@@ -265,6 +265,11 @@
 						"4.0": [0, 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"1.0": {
+					"effect": "tyrannosaurus_roar_1"
+				}
 			}
 		},
 		"animation.tyrannosaurus.tackle": {
