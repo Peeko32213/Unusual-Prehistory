@@ -6,11 +6,10 @@ import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseStatedDinosaurAnimalEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.NearestTargetAI;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.state.WeightedState;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -20,15 +19,11 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -40,9 +35,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -94,42 +87,28 @@ public class GlobidensEntity extends BaseStatedDinosaurAnimalEntity implements G
 
     // Idle accessors
     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.BOOLEAN);
 
     // Idle actions
     private static final EntityAction GLO_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
 
     private static final StateHelper GLO_IDLE_1_STATE =
-            StateHelper.Builder.state(IDLE_1_AC, "glo_loop")
-                    .playTime(160)
-                    .stopTime(200)
-                    .affectsAI(true)
-                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(GLO_IDLE_1_ACTION)
-                    .build();
-
-    private static final EntityAction GLO_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private static final StateHelper GLO_IDLE_2_STATE =
-            StateHelper.Builder.state(IDLE_2_AC, "glo_yawn")
+            StateHelper.Builder.state(IDLE_1_AC, "glo_yawn")
                     .playTime(40)
-                    .stopTime(80)
-                    .entityAction(GLO_IDLE_2_ACTION)
+                    .stopTime(120)
+                    .entityAction(GLO_IDLE_1_ACTION)
                     .build();
 
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
-                GLO_IDLE_1_STATE.getName(), GLO_IDLE_1_STATE,
-                GLO_IDLE_2_STATE.getName(), GLO_IDLE_2_STATE
+                GLO_IDLE_1_STATE.getName(), GLO_IDLE_1_STATE
         );
     }
 
     @Override
     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
         return ImmutableList.of(
-                WeightedState.of(GLO_IDLE_1_STATE, 200),
-                WeightedState.of(GLO_IDLE_2_STATE, 18)
+                WeightedState.of(GLO_IDLE_1_STATE, 12)
         );
     }
 
@@ -154,18 +133,19 @@ public class GlobidensEntity extends BaseStatedDinosaurAnimalEntity implements G
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 60.0D)
             .add(Attributes.ATTACK_DAMAGE, 10.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
             .add(Attributes.FOLLOW_RANGE, 16.0D);
     }
 
     protected void registerGoals() {
+        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(1, new GlobidensEntity.GloMeleeAttackGoal(this, 2F, true));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
         this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.DUNK_TARGETS)));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.GLO_TARGETS)));
     }
 
     public boolean canBreatheUnderwater() {
@@ -188,7 +168,7 @@ public class GlobidensEntity extends BaseStatedDinosaurAnimalEntity implements G
 
     @Override
     protected int getKillHealAmount() {
-        return 0;
+        return 6;
     }
 
     @Override
@@ -253,13 +233,12 @@ public class GlobidensEntity extends BaseStatedDinosaurAnimalEntity implements G
 
     @Override
     public int getAmbientSoundInterval() {
-        return 200;
+        return 150;
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(IDLE_1_AC, false);
-        this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
@@ -646,10 +625,6 @@ public class GlobidensEntity extends BaseStatedDinosaurAnimalEntity implements G
                 }
                 else if (this.isInWater()) {
                     if (getBooleanState(IDLE_1_AC)) {
-                        event.setControllerSpeed(1.0F);
-                        return event.setAndContinue(GLO_LOOP);
-                    }
-                    if (getBooleanState(IDLE_2_AC)) {
                         triggerAnim("blend", "yawn");
                         return PlayState.CONTINUE;
                     }

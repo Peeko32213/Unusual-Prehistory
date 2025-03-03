@@ -348,6 +348,8 @@ public class LanguageGenerator extends LanguageProvider {
         //BLOCKS
         addBlock(UPBlocks.STONE_FOSSIL, "Stone Fossil");
         addBlock(UPBlocks.DEEPSLATE_FOSSIL, "Deepslate Fossil");
+        addBlock(UPBlocks.PLANT_FOSSIL, "Stone Plant Fossil");
+        addBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL, "Deepslate Plant Fossil");
         addBlock(UPBlocks.STONE_TAR_FOSSIL, "Stone Tar Fossil");
         addBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL, "Deepslate Tar Fossil");
         addBlock(UPBlocks.STONE_AMBER_FOSSIL, "Amber Ore");

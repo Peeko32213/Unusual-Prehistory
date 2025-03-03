@@ -9,6 +9,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -19,7 +20,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider pProvider) {
+    protected void addTags(HolderLookup.@NotNull Provider pProvider) {
         /**Example**/
         //tag(BlockTags.MINEABLE_WITH_HOE)
         //        .add(UPBlocks.AMBER_BLOCK.get());
@@ -184,14 +185,14 @@ public class BlockTagsGenerator extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(UPBlocks.DEEPSLATE_FOSSIL.get())
                 .add(UPBlocks.DEEPSLATE_AMBER_FOSSIL.get())
-//                .add(UPBlocks.DEEPSLATE_PLANT_FOSSIL.get())
+                .add(UPBlocks.DEEPSLATE_PLANT_FOSSIL.get())
                 .add(UPBlocks.STONE_FOSSIL.get())
                 .add(UPBlocks.STONE_AMBER_FOSSIL.get())
                 .add(UPBlocks.ANALYZER.get())
                 .add(UPBlocks.CULTIVATOR.get())
                 .add(UPBlocks.INCUBATOR.get())
                 .add(UPBlocks.AMMONITE_SHELL.get())
-//                .add(UPBlocks.PLANT_FOSSIL.get())
+                .add(UPBlocks.PLANT_FOSSIL.get())
                 .add(UPBlocks.DNA_FRIDGE.get())
                 .add(UPBlocks.CLATHRODICTYON_BLOCK.get())
                 .add(UPBlocks.ANOSTYLOSTROMA_BLOCK.get())

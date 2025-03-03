@@ -49,6 +49,8 @@ public class UPTabs {
                     entries.accept(UPItems.OPAL_FOSSIL.get());
                     entries.accept(UPBlocks.STONE_FOSSIL.get());
                     entries.accept(UPBlocks.DEEPSLATE_FOSSIL.get());
+                    entries.accept(UPBlocks.PLANT_FOSSIL.get());
+                    entries.accept(UPBlocks.DEEPSLATE_PLANT_FOSSIL.get());
                     entries.accept(UPBlocks.STONE_TAR_FOSSIL.get());
                     entries.accept(UPBlocks.DEEPSLATE_TAR_FOSSIL.get());
                     entries.accept(UPBlocks.PERMAFROST.get());

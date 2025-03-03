@@ -165,9 +165,8 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 300.0D)
-            .add(Attributes.ARMOR, 8.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.2D)
-            .add(Attributes.ATTACK_DAMAGE, 15.0D)
+            .add(Attributes.ATTACK_DAMAGE, 16.0D)
             .add(Attributes.KNOCKBACK_RESISTANCE, 3.0D)
             .add(Attributes.FOLLOW_RANGE, 32D);
     }
@@ -240,7 +239,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
 
     @Override
     protected int getKillHealAmount() {
-        return 20;
+        return 30;
     }
 
     @Override

@@ -150,11 +150,7 @@
 			"animation_length": 8,
 			"bones": {
 				"Body": {
-					"rotation": [
-						"7.5-5+math.sin(query.anim_time*180)*(-2.5+3.5)",
-						"math.sin(query.anim_time*1440+90)*(1-1)",
-						"math.sin(query.anim_time*1440+60)*(2.5-2.5)"
-					],
+					"rotation": ["7.5-5+math.sin(query.anim_time*180)*(-2.5+3.5)", "math.sin(query.anim_time*1440+90)*(1-1)", "math.sin(query.anim_time*1440+60)*(2.5-2.5)"],
 					"position": [0, "10-12+math.sin(query.anim_time*180+60)*(-1+0.75)", 0]
 				},
 				"MidBody": {
@@ -188,111 +184,27 @@
 				},
 				"Neck": {
 					"rotation": {
-						"0.0": [
-							"10+math.sin(query.anim_time*180+60)*-1",
-							"-2.5+math.sin(query.anim_time*1440)*1",
-							"-52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"0.3333": [
-							"10+math.sin(query.anim_time*180+60)*-1",
-							"-2.5+math.sin(query.anim_time*1440)*(1-1)",
-							"-52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"2.0": [
-							"10+math.sin(query.anim_time*180+60)*-1",
-							"-2.5+math.sin(query.anim_time*1440)*(1-1)",
-							"-52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"2.1667": [
-							"10-2",
-							"-2+math.sin(query.anim_time*1440)*(1-1)",
-							"-47.75+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"2.3333": [
-							"10-6",
-							"-1.5+math.sin(query.anim_time*1440)*(1-1)",
-							"-33+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"2.6667": [
-							"10-23.1",
-							"2.17+math.sin(query.anim_time*1440)*(1-1)",
-							"7+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"3.0": [
-							"10-30.6",
-							"6+math.sin(query.anim_time*1440)*(1-1)",
-							"29+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"3.3333": [
-							"10-27",
-							"7.1+math.sin(query.anim_time*1440)*(1-1)",
-							"40+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"3.6667": [
-							"10-15.5",
-							"3.97+math.sin(query.anim_time*1440)*(1-1)",
-							"49+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"3.8333": [
-							"10-5.35",
-							"3.23+math.sin(query.anim_time*1440)*(1-1)",
-							"50.75+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"4.0": [
-							"10+math.sin(query.anim_time*180+60)*-1",
-							"2.5+math.sin(query.anim_time*1440)*1",
-							"52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"4.3333": [
-							"10+math.sin(query.anim_time*180+60)*-1",
-							"2.5+math.sin(query.anim_time*1440)*(1-1)",
-							"52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"6.0": [
-							"10+math.sin(query.anim_time*180+60)*-1",
-							"2.5+math.sin(query.anim_time*1440)*(1-1)",
-							"52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"6.1667": [
-							"10-2",
-							"2+math.sin(query.anim_time*1440)*(1-1)",
-							"47.75+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"6.3333": [
-							"10-6",
-							"1.5+math.sin(query.anim_time*1440)*(1-1)",
-							"33+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"6.6667": [
-							"10-23.1",
-							"-2.17+math.sin(query.anim_time*1440)*(1-1)",
-							"-7+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"7.0": [
-							"10-30.6",
-							"-6+math.sin(query.anim_time*1440)*(1-1)",
-							"-29+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"7.3333": [
-							"10-27",
-							"-7.1+math.sin(query.anim_time*1440)*(1-1)",
-							"-40+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"7.6667": [
-							"10-15.5",
-							"-3.97+math.sin(query.anim_time*1440)*(1-1)",
-							"-49+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"7.8333": [
-							"10-5.35",
-							"-3.23+math.sin(query.anim_time*1440)*(1-1)",
-							"-50.75+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"8.0": [
-							"10+math.sin(query.anim_time*180+60)*-1",
-							"-2.5+math.sin(query.anim_time*1440)*1",
-							"-52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						]
+						"0.0": ["10+math.sin(query.anim_time*180+60)*-1", "-2.5+math.sin(query.anim_time*1440)*1", "-52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"0.3333": ["10+math.sin(query.anim_time*180+60)*-1", "-2.5+math.sin(query.anim_time*1440)*(1-1)", "-52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"2.0": ["10+math.sin(query.anim_time*180+60)*-1", "-2.5+math.sin(query.anim_time*1440)*(1-1)", "-52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"2.1667": ["10-2", "-2+math.sin(query.anim_time*1440)*(1-1)", "-47.75+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"2.3333": ["10-6", "-1.5+math.sin(query.anim_time*1440)*(1-1)", "-33+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"2.6667": ["10-23.1", "2.17+math.sin(query.anim_time*1440)*(1-1)", "7+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"3.0": ["10-30.6", "6+math.sin(query.anim_time*1440)*(1-1)", "29+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"3.3333": ["10-27", "7.1+math.sin(query.anim_time*1440)*(1-1)", "40+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"3.6667": ["10-15.5", "3.97+math.sin(query.anim_time*1440)*(1-1)", "49+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"3.8333": ["10-5.35", "3.23+math.sin(query.anim_time*1440)*(1-1)", "50.75+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"4.0": ["10+math.sin(query.anim_time*180+60)*-1", "2.5+math.sin(query.anim_time*1440)*1", "52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"4.3333": ["10+math.sin(query.anim_time*180+60)*-1", "2.5+math.sin(query.anim_time*1440)*(1-1)", "52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"6.0": ["10+math.sin(query.anim_time*180+60)*-1", "2.5+math.sin(query.anim_time*1440)*(1-1)", "52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"6.1667": ["10-2", "2+math.sin(query.anim_time*1440)*(1-1)", "47.75+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"6.3333": ["10-6", "1.5+math.sin(query.anim_time*1440)*(1-1)", "33+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"6.6667": ["10-23.1", "-2.17+math.sin(query.anim_time*1440)*(1-1)", "-7+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"7.0": ["10-30.6", "-6+math.sin(query.anim_time*1440)*(1-1)", "-29+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"7.3333": ["10-27", "-7.1+math.sin(query.anim_time*1440)*(1-1)", "-40+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"7.6667": ["10-15.5", "-3.97+math.sin(query.anim_time*1440)*(1-1)", "-49+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"7.8333": ["10-5.35", "-3.23+math.sin(query.anim_time*1440)*(1-1)", "-50.75+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"8.0": ["10+math.sin(query.anim_time*180+60)*-1", "-2.5+math.sin(query.anim_time*1440)*1", "-52.5+math.sin(query.anim_time*1440)*(2.5-2.5)"]
 					},
 					"position": {
 						"0.0": [0, "-1+math.sin(query.anim_time*180+60)*0.25", 0],
@@ -304,91 +216,23 @@
 				},
 				"Head": {
 					"rotation": {
-						"0.0": [
-							"10+5",
-							"-9+math.sin(query.anim_time*1440-90)*1",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"0.3333": [
-							"10+5",
-							"-10+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"2.0": [
-							"10+5",
-							"-10+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"2.3333": [
-							10,
-							"-9.67+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"2.6667": [
-							"10-14.8",
-							"-7.34+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"3.0": [
-							"10-17",
-							"-2+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"3.375": [
-							"10-15.9",
-							"8.33+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"3.6667": [
-							"10-1.61",
-							"10.44+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"4.0": [
-							"10+5",
-							"9+math.sin(query.anim_time*1440-90)*1",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"4.3333": [
-							"10+5",
-							"10+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"6.0": [
-							"10+5",
-							"10+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"6.3333": [
-							10,
-							"9.67+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"6.6667": [
-							"10-14.8",
-							"7.34+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"7.0": [
-							"10-17",
-							"2+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"7.375": [
-							"10-15.9",
-							"-8.33+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"7.6667": [
-							"10-1.61",
-							"-10.44+math.sin(query.anim_time*1440-90)*(1-1)",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						],
-						"8.0": [
-							"10+5",
-							"-9+math.sin(query.anim_time*1440-90)*1",
-							"math.sin(query.anim_time*1440-60)*(2.5-2.5)"
-						]
+						"0.0": ["10+5", "-9+math.sin(query.anim_time*1440-90)*1", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"0.3333": ["10+5", "-10+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"2.0": ["10+5", "-10+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"2.3333": [10, "-9.67+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"2.6667": ["10-14.8", "-7.34+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"3.0": ["10-17", "-2+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"3.375": ["10-15.9", "8.33+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"3.6667": ["10-1.61", "10.44+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"4.0": ["10+5", "9+math.sin(query.anim_time*1440-90)*1", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"4.3333": ["10+5", "10+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"6.0": ["10+5", "10+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"6.3333": [10, "9.67+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"6.6667": ["10-14.8", "7.34+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"7.0": ["10-17", "2+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"7.375": ["10-15.9", "-8.33+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"7.6667": ["10-1.61", "-10.44+math.sin(query.anim_time*1440-90)*(1-1)", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"],
+						"8.0": ["10+5", "-9+math.sin(query.anim_time*1440-90)*1", "math.sin(query.anim_time*1440-60)*(2.5-2.5)"]
 					}
 				},
 				"Jaw": {
@@ -409,96 +253,28 @@
 				},
 				"FrontFin1": {
 					"rotation": {
-						"0.0": [
-							"math.sin(query.anim_time*180)*1",
-							"-20+40",
-							"50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"0.1667": [
-							"math.sin(query.anim_time*180)*1",
-							"-20+40",
-							"50-60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"0.8333": [
-							"math.sin(query.anim_time*180)*1",
-							"-20+40",
-							"50-60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"1.0": [
-							"math.sin(query.anim_time*180)*1",
-							"-20+40",
-							"50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"3.0": [
-							"math.sin(query.anim_time*180)*1",
-							"-20+40",
-							"50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"3.1667": [
-							"math.sin(query.anim_time*180)*1",
-							"-20+40",
-							"50-60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"4.8333": [
-							"math.sin(query.anim_time*180)*1",
-							"-20+40",
-							"50-60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"5.0": [
-							"math.sin(query.anim_time*180)*1",
-							"-20+40",
-							"50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						]
+						"0.0": ["math.sin(query.anim_time*180)*1", "-20+40", "50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"0.1667": ["math.sin(query.anim_time*180)*1", "-20+40", "50-60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"0.8333": ["math.sin(query.anim_time*180)*1", "-20+40", "50-60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"1.0": ["math.sin(query.anim_time*180)*1", "-20+40", "50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"3.0": ["math.sin(query.anim_time*180)*1", "-20+40", "50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"3.1667": ["math.sin(query.anim_time*180)*1", "-20+40", "50-60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"4.8333": ["math.sin(query.anim_time*180)*1", "-20+40", "50-60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"5.0": ["math.sin(query.anim_time*180)*1", "-20+40", "50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"]
 					},
 					"position": [0, "2+math.sin(query.anim_time*180+60)*0.25", 0]
 				},
 				"FrontFin2": {
 					"rotation": {
-						"0.0": [
-							"math.sin(query.anim_time*180)*1",
-							"20-40",
-							"-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"2.0": [
-							"math.sin(query.anim_time*180)*1",
-							"20-40",
-							"-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"2.1667": [
-							"math.sin(query.anim_time*180)*1",
-							"20-40",
-							"-50+60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"2.8333": [
-							"math.sin(query.anim_time*180)*1",
-							"20-40",
-							"-50+60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"3.0": [
-							"math.sin(query.anim_time*180)*1",
-							"20-40",
-							"-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"5.0": [
-							"math.sin(query.anim_time*180)*1",
-							"20-40",
-							"-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"5.1667": [
-							"math.sin(query.anim_time*180)*1",
-							"20-40",
-							"-50+60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"6.8333": [
-							"math.sin(query.anim_time*180)*1",
-							"20-40",
-							"-50+60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"7.0": [
-							"math.sin(query.anim_time*180)*1",
-							"20-40",
-							"-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						]
+						"0.0": ["math.sin(query.anim_time*180)*1", "20-40", "-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"2.0": ["math.sin(query.anim_time*180)*1", "20-40", "-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"2.1667": ["math.sin(query.anim_time*180)*1", "20-40", "-50+60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"2.8333": ["math.sin(query.anim_time*180)*1", "20-40", "-50+60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"3.0": ["math.sin(query.anim_time*180)*1", "20-40", "-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"5.0": ["math.sin(query.anim_time*180)*1", "20-40", "-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"5.1667": ["math.sin(query.anim_time*180)*1", "20-40", "-50+60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"6.8333": ["math.sin(query.anim_time*180)*1", "20-40", "-50+60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"7.0": ["math.sin(query.anim_time*180)*1", "20-40", "-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"]
 					},
 					"position": [0, "2+math.sin(query.anim_time*180+60)*0.25", 0]
 				},
@@ -506,28 +282,12 @@
 					"rotation": {
 						"0.0": [0, "-30+15", "50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
 						"2.0": [0, "-30+15", "50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
-						"2.1667": [
-							0,
-							"-30+15",
-							"50-60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"3.8333": [
-							0,
-							"-30+15",
-							"50-60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
+						"2.1667": [0, "-30+15", "50-60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"3.8333": [0, "-30+15", "50-60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
 						"4.0": [0, "-30+15", "50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
 						"6.0": [0, "-30+15", "50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
-						"6.1667": [
-							0,
-							"-30+15",
-							"50-60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"6.8333": [
-							0,
-							"-30+15",
-							"50-60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
+						"6.1667": [0, "-30+15", "50-60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"6.8333": [0, "-30+15", "50-60+math.sin(query.anim_time*360)*-10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
 						"7.0": [0, "-30+15", "50-50+math.sin(query.anim_time*1440)*(2.5-2.5)"]
 					},
 					"position": [0, "1+math.sin(query.anim_time*180+60)*0.25", 0]
@@ -535,28 +295,12 @@
 				"BackFin2": {
 					"rotation": {
 						"0.0": [0, "30-15", "-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
-						"0.1667": [
-							0,
-							"30-15",
-							"-50+60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"1.8333": [
-							0,
-							"30-15",
-							"-50+60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
+						"0.1667": [0, "30-15", "-50+60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"1.8333": [0, "30-15", "-50+60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
 						"2.0": [0, "30-15", "-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
 						"4.0": [0, "30-15", "-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"],
-						"4.1667": [
-							0,
-							"30-15",
-							"-50+60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
-						"4.8333": [
-							0,
-							"30-15",
-							"-50+60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"
-						],
+						"4.1667": [0, "30-15", "-50+60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
+						"4.8333": [0, "30-15", "-50+60+math.sin(query.anim_time*360)*10+math.sin(query.anim_time*1440)*(2.5-2.5)"],
 						"5.0": [0, "30-15", "-50+50+math.sin(query.anim_time*1440)*(2.5-2.5)"]
 					},
 					"position": [0, "1+math.sin(query.anim_time*180+60)*0.25", 0]
@@ -982,7 +726,10 @@
 						"0.25": [10, "math.sin(query.anim_time*180/0.75)*5+math.sin(query.anim_time*1440-60)*-10", 10],
 						"0.75": ["math.sin(query.anim_time*180/2-30)*-20", "math.sin(query.anim_time*180/4)*-360", -10],
 						"1.9583": [-10, -360, 0],
-						"2.0": {"pre": [-10, -360, 0], "post": [-10, 0, 0]}
+						"2.0": {
+							"pre": [-10, -360, 0],
+							"post": [-10, 0, 0]
+						}
 					},
 					"position": {
 						"0.0": ["math.sin(query.anim_time*180/0.5)*-2.5", 5, "math.sin(query.anim_time*180/0.5)*2.5"],

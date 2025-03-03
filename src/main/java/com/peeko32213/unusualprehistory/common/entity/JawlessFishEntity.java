@@ -27,6 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -68,7 +69,7 @@ public class JawlessFishEntity extends BoidFishEntity implements Bucketable, Geo
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 2.0);
     }
 
@@ -77,12 +78,12 @@ public class JawlessFishEntity extends BoidFishEntity implements Bucketable, Geo
         return 15;
     }
 
-    protected InteractionResult mobInteract(Player p_27477_, InteractionHand p_27478_) {
+    protected @NotNull InteractionResult mobInteract(@NotNull Player p_27477_, @NotNull InteractionHand p_27478_) {
         return Bucketable.bucketMobPickup(p_27477_, p_27478_, this).orElse(super.mobInteract(p_27477_, p_27478_));
     }
 
     @Override
-    public ItemStack getBucketItemStack() {
+    public @NotNull ItemStack getBucketItemStack() {
         ItemStack stack = new ItemStack(UPItems.JAWLESS_FISH_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
@@ -106,7 +107,7 @@ public class JawlessFishEntity extends BoidFishEntity implements Bucketable, Geo
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return SoundEvents.COD_HURT;
     }
 
@@ -152,16 +153,16 @@ public class JawlessFishEntity extends BoidFishEntity implements Bucketable, Geo
     }
 
     public void setVariant(int variant) {
-        this.entityData.set(VARIANT, Integer.valueOf(variant));
+        this.entityData.set(VARIANT, variant);
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putBoolean("FromBucket", this.fromBucket());
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setVariant(compound.getInt("Variant"));
         this.setFromBucket(compound.getBoolean("FromBucket"));
@@ -178,7 +179,7 @@ public class JawlessFishEntity extends BoidFishEntity implements Bucketable, Geo
     }
 
     public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
+        return this.entityData.get(FROM_BOOK);
     }
 
     public void setIsFromBook(boolean fromBook) {

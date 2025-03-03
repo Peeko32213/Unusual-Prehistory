@@ -43,10 +43,15 @@ public class UPConfiguredFeatures {
 
     private static final String TAR_PIT_FEATURE_NAME = "tar_pit";
     private static final String ICE_FOSSIL_ICEBERG_FEATURE_NAME = "fossil_iceberg";
+
     public static final RegistryObject<ConfiguredFeature<?, ?>> STONE_FOSSIL_ORE = registerConfiguredFeature("stone_fossil_ore", () -> new ConfiguredFeature<>( Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.STONE_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.STONE_FOSSIL.get().defaultBlockState())), 9)));
+    public static final RegistryObject<ConfiguredFeature<?, ?>> DEEPSLATE_FOSSIL_ORE = registerConfiguredFeature("deepslate_fossil_ore", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_FOSSIL.get().defaultBlockState())), 4)));
+
     public static final RegistryObject<ConfiguredFeature<?, ?>> AMBER_FOSSIL_ORE = registerConfiguredFeature("amber_fossil_ore",  () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.STONE_AMBER_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.STONE_AMBER_FOSSIL.get().defaultBlockState())), 5)));
 
-    public static final RegistryObject<ConfiguredFeature<?, ?>> DEEPSLATE_FOSSIL_ORE = registerConfiguredFeature("deepslate_fossil_ore", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_FOSSIL.get().defaultBlockState())), 4)));
+    public static final RegistryObject<ConfiguredFeature<?, ?>> PLANT_FOSSIL_ORE = registerConfiguredFeature("plant_fossil_ore",() -> new ConfiguredFeature<>( Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.PLANT_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), UPBlocks.PLANT_FOSSIL.get().defaultBlockState())), 11)));
+    public static final RegistryObject<ConfiguredFeature<?, ?>> DEEPSLATE_PLANT_FOSSIL_ORE = registerConfiguredFeature("deepslate_plant_fossil_ore", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_PLANT_FOSSIL.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_PLANT_FOSSIL.get().defaultBlockState())), 4)));
+
     public static final RegistryObject<ConfiguredFeature<?, ?>> GINKGO_TREE =
             registerConfiguredFeature("ginkgo", () -> new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                     BlockStateProvider.simple(UPBlocks.GINKGO_LOG.get()),
