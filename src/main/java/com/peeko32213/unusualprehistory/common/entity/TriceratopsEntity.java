@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseStatedDinosaurAnimalEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IAttackEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IVariantEntity;
@@ -50,6 +51,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.Node;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
@@ -82,6 +85,7 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SWINGING = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
 
     public static final Logger LOGGER = LogManager.getLogger();
     private int attackCooldown;
@@ -99,7 +103,7 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
     private static final RawAnimation TRIKE_SIT = RawAnimation.begin().thenLoop("animation.triceratops.sit");
 
     // Attack animations
-    private static final RawAnimation TRIKE_ATTACK = RawAnimation.begin().thenLoop("animation.triceratops.attack");
+    private static final RawAnimation TRIKE_ATTACK = RawAnimation.begin().thenPlay("animation.triceratops.attack");
     private static final RawAnimation TRIKE_CHARGE_START = RawAnimation.begin().thenLoop("animation.triceratops.charge_start");
     private static final RawAnimation TRIKE_CHARGE = RawAnimation.begin().thenLoop("animation.triceratops.charge");
 
@@ -184,7 +188,7 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         super.registerGoals();
         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new TriceratopsEntity.TrikeMeleeAttackGoal(this, 1.25D, false));
+        this.goalSelector.addGoal(1, new TriceratopsEntity.TrikeMeleeAttackGoal(this, 1.75D, false));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 28));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this) {
@@ -276,6 +280,7 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         this.entityData.define(SADDLED, Boolean.FALSE);
         this.entityData.define(SWINGING, false);
         this.entityData.define(HAS_SWUNG, false);
+        this.entityData.define(ANIMATION_STATE, 0);
     }
 
     @Override
@@ -454,11 +459,7 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
     }
 
     public double getPassengersRidingOffset() {
-        if (this.isInWater()) {
-            return 2.85;
-        } else {
-            return 2.85;
-        }
+        return 2.85;
     }
 
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
@@ -558,13 +559,231 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         this.entityData.set(VARIANT, variant);
     }
 
-    static class TrikeMeleeAttackGoal extends MeleeAttackGoal {
-        public TrikeMeleeAttackGoal(PathfinderMob pathfinderMob, double speedMultiplier, boolean followingTargetEvenIfNotSeen) {
-            super(pathfinderMob, speedMultiplier, followingTargetEvenIfNotSeen);
+    public int getAnimationState() {
+        return this.entityData.get(ANIMATION_STATE);
+    }
+
+    public void setAnimationState(int anim) {
+        this.entityData.set(ANIMATION_STATE, anim);
+    }
+
+    @Override
+    public void customServerAiStep() {
+        if (this.getMoveControl().hasWanted() && !this.isBaby()) {
+            this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.25D);
+        } else {
+            this.setSprinting(false);
+        }
+        super.customServerAiStep();
+    }
+
+    class TrikeMeleeAttackGoal extends Goal {
+
+        protected final TriceratopsEntity mob;
+        private final double speedModifier;
+        private final boolean followingTargetEvenIfNotSeen;
+        private Path path;
+        private double pathedTargetX;
+        private double pathedTargetY;
+        private double pathedTargetZ;
+        private int ticksUntilNextPathRecalculation;
+        private int ticksUntilNextAttack;
+        private long lastCanUseCheck;
+        private int failedPathFindingPenalty = 0;
+        private boolean canPenalize = false;
+        private int animTime = 0;
+
+        public TrikeMeleeAttackGoal(TriceratopsEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
+            this.mob = p_i1636_1_;
+            this.speedModifier = p_i1636_2_;
+            this.followingTargetEvenIfNotSeen = p_i1636_4_;
+//            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            long i = this.mob.level().getGameTime();
+
+            if (i - this.lastCanUseCheck < 20L) {
+                return false;
+            } else {
+                this.lastCanUseCheck = i;
+                LivingEntity livingentity = this.mob.getTarget();
+                if (livingentity == null) {
+                    return false;
+                } else if (!livingentity.isAlive()) {
+                    return false;
+                } else {
+                    if (canPenalize) {
+                        if (--this.ticksUntilNextPathRecalculation <= 0) {
+                            this.path = this.mob.getNavigation().createPath(livingentity, 0);
+                            this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
+                            return this.path != null;
+                        } else {
+                            return true;
+                        }
+                    }
+                    this.path = this.mob.getNavigation().createPath(livingentity, 0);
+                    if (this.path != null) {
+                        return true;
+                    } else {
+                        return this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
+                    }
+                }
+            }
+        }
+
+        public boolean canContinueToUse() {
+
+            LivingEntity livingentity = this.mob.getTarget();
+
+            if (livingentity == null) {
+                return false;
+            }
+            else if (!livingentity.isAlive()) {
+                return false;
+            }
+            else if (!this.followingTargetEvenIfNotSeen) {
+                return !this.mob.getNavigation().isDone();
+            }
+            else if (!this.mob.isWithinRestriction(livingentity.blockPosition())) {
+                return false;
+            }
+            else {
+                return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
+            }
+        }
+
+        public void start() {
+            this.mob.getNavigation().moveTo(this.path, this.speedModifier);
+            this.mob.setAggressive(true);
+            this.ticksUntilNextPathRecalculation = 0;
+            this.ticksUntilNextAttack = 0;
+            this.animTime = 0;
+            this.mob.setAnimationState(0);
+        }
+
+        public void stop() {
+            LivingEntity livingentity = this.mob.getTarget();
+            if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
+                this.mob.setTarget(null);
+            }
+            this.mob.setAggressive(false);
+            this.mob.getNavigation().stop();
+            this.mob.setAnimationState(0);
+        }
+
+        public void tick() {
+
+            LivingEntity target = this.mob.getTarget();
+            assert target != null;
+            double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
+            double reach = this.getAttackReachSqr(target);
+            int animState = this.mob.getAnimationState();
+
+            if (animState == 1) {
+                tickSlashAttack();
+            }
+
+            else {
+                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                this.doMovement(target, distance);
+                this.checkForCloseRangeAttack(distance, reach);
+            }
+        }
+
+        protected void doMovement(LivingEntity livingentity, Double d0) {
+
+            this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+
+            if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
+                this.pathedTargetX = livingentity.getX();
+                this.pathedTargetY = livingentity.getY();
+                this.pathedTargetZ = livingentity.getZ();
+                this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
+                if (this.canPenalize) {
+                    this.ticksUntilNextPathRecalculation += failedPathFindingPenalty;
+                    if (this.mob.getNavigation().getPath() != null) {
+                        Node finalPathPoint = this.mob.getNavigation().getPath().getEndNode();
+                        if (finalPathPoint != null && livingentity.distanceToSqr(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
+                            failedPathFindingPenalty = 0;
+                        else
+                            failedPathFindingPenalty += 10;
+                    } else {
+                        failedPathFindingPenalty += 10;
+                    }
+                }
+                if (d0 > 1024.0D) {
+                    this.ticksUntilNextPathRecalculation += 10;
+                } else if (d0 > 256.0D) {
+                    this.ticksUntilNextPathRecalculation += 5;
+                }
+                if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
+                    this.ticksUntilNextPathRecalculation += 15;
+                }
+            }
+
+        }
+
+        protected void checkForCloseRangeAttack(double distance, double reach) {
+            if (distance <= reach && this.ticksUntilNextAttack <= 0) {
+                this.mob.setAnimationState(1);
+            }
+        }
+
+        protected boolean getRangeCheck() {
+            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 2.0F * this.getAttackReachSqr(this.mob.getTarget());
+        }
+
+        protected void tickSlashAttack () {
+
+            triggerAnim("blend", "attack");
+
+            animTime++;
+
+            if (animTime <= 3) {
+                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.yBodyRot = this.mob.yHeadRot;
+            }
+
+            if(animTime==5) {
+                preformSlashAttack();
+            }
+
+            if(animTime>=8) {
+                animTime=0;
+                this.mob.setAnimationState(0);
+                this.resetAttackCooldown();
+                this.ticksUntilNextPathRecalculation = 0;
+            }
+        }
+
+        protected void preformSlashAttack () {
+            Vec3 pos = mob.position();
+            this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 1.0F, 1.0F);
+            this.mob.swing(InteractionHand.MAIN_HAND);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.5f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+        }
+
+        protected void resetAttackCooldown () {
+            this.ticksUntilNextAttack = 0;
+        }
+
+        protected boolean isTimeToAttack () {
+            return this.ticksUntilNextAttack <= 0;
+        }
+
+        protected int getTicksUntilNextAttack () {
+            return this.ticksUntilNextAttack;
+        }
+
+        protected int getAttackInterval () {
+            return 5;
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return this.mob.getBbWidth() * 1.8F * this.mob.getBbWidth() * 1.1F + p_179512_1_.getBbWidth();
+            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.0F + p_179512_1_.getBbWidth();
         }
     }
 
@@ -598,11 +817,6 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
             }
         }
         this.setSaddled(false);
-    }
-
-
-    public boolean hasTarget() {
-        return this.entityData.get(HAS_TARGET);
     }
 
     @Override
@@ -674,7 +888,8 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         controllers.add(new AnimationController<>(this, "controller", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "blend", 5, this::Controller)
                 .triggerableAnim("shake", TRIKE_HEAD_SHAKE)
-                .triggerableAnim("chatter", TRIKE_CHATTER));
+                .triggerableAnim("chatter", TRIKE_CHATTER)
+                .triggerableAnim("attack", TRIKE_ATTACK));
     }
 
     protected <E extends TriceratopsEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -688,23 +903,14 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater() && !this.isSprinting()) {
-            event.setAndContinue(TRIKE_WALK);
-            event.getController().setAnimationSpeed(1.0D);
-            return PlayState.CONTINUE;
-        }
-
-
-//        if (this.hasChargeCooldown() && this.hasTarget() && !this.isInSittingPose()) {
-//            event.setAndContinue(TRIKE_CHARGE_START);
-//            event.getController().setAnimationSpeed(1.0F);
-//            return PlayState.CONTINUE;
-//        }
-//
-        if ((this.isSprinting() || !this.getPassengers().isEmpty()) && !this.isInWater() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0e-2) {
-            event.setAndContinue(TRIKE_CHARGE);
-            event.getController().setAnimationSpeed(1.4D);
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()){
+            if(this.isSprinting() && !this.isBaby()) {
+                event.setAndContinue(TRIKE_CHARGE);
+                event.getController().setAnimationSpeed(1.75F);
+            } else {
+                event.setAndContinue(TRIKE_WALK);
+                event.getController().setAnimationSpeed(1.0F);
+            }
             return PlayState.CONTINUE;
         }
 

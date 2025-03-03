@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.PounceGoal;
+import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -10,10 +11,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -24,9 +28,13 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -34,8 +42,11 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
+import java.util.Objects;
 
-public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
+public class VelociraptorEntity extends BaseDinosaurAnimalEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
+
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.INT);
 
@@ -44,6 +55,7 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
     private static final RawAnimation VELOCI_IDLE = RawAnimation.begin().thenLoop("animation.velociraptor.idle");
     private static final RawAnimation VELOCI_ATTACK = RawAnimation.begin().thenLoop("animation.velociraptor.attack");
     private static final RawAnimation VELOCI_SWIM = RawAnimation.begin().thenLoop("animation.velociraptor.swim");
+
     public VelociraptorEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
@@ -51,14 +63,11 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         this.refreshDimensions();
     }
 
-
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.ARMOR, 0.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
+            .add(Attributes.MAX_HEALTH, 15.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.2D)
+            .add(Attributes.ATTACK_DAMAGE, 5.0D);
     }
 
     protected void registerGoals() {
@@ -70,40 +79,39 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30) {
-                    @Override
-                    public boolean canUse() {
-                        if (this.mob.isVehicle()) {
-                            return false;
-                        } else {
-                            if (!this.forceTrigger) {
-                                if (this.mob.getNoActionTime() >= 100) {
+                @Override
+                public boolean canUse() {
+                    if (this.mob.isVehicle()) {
+                        return false;
+                    } else {
+                        if (!this.forceTrigger) {
+                            if (this.mob.getNoActionTime() >= 100) {
+                                return false;
+                            }
+                            if (((VelociraptorEntity) this.mob).isHungry()) {
+                                if (this.mob.getRandom().nextInt(60) != 0) {
                                     return false;
                                 }
-                                if (((VelociraptorEntity) this.mob).isHungry()) {
-                                    if (this.mob.getRandom().nextInt(60) != 0) {
-                                        return false;
-                                    }
-                                } else {
-                                    if (this.mob.getRandom().nextInt(30) != 0) {
-                                        return false;
-                                    }
+                            } else {
+                                if (this.mob.getRandom().nextInt(30) != 0) {
+                                    return false;
                                 }
                             }
+                        }
 
-                            Vec3 vec3d = this.getPosition();
-                            if (vec3d == null) {
-                                return false;
-                            } else {
-                                this.wantedX = vec3d.x;
-                                this.wantedY = vec3d.y;
-                                this.wantedZ = vec3d.z;
-                                this.forceTrigger = false;
-                                return true;
-                            }
+                        Vec3 vec3d = this.getPosition();
+                        if (vec3d == null) {
+                            return false;
+                        } else {
+                            this.wantedX = vec3d.x;
+                            this.wantedY = vec3d.y;
+                            this.wantedZ = vec3d.z;
+                            this.forceTrigger = false;
+                            return true;
                         }
                     }
                 }
-
+            }
         );
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
@@ -133,11 +141,10 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
     public void tick() {
         super.tick();
 
-        //if(this.level.isClientSide) return;
         if (!this.hasCustomName()) {
             this.setScale(0);
         } else {
-            if(!this.getCustomName().getString().toLowerCase().equals("gigantoraptor")){
+            if(!Objects.requireNonNull(this.getCustomName()).getString().equalsIgnoreCase("gigantoraptor")){
                 this.setScale(0);
             } else {
                 if("gigantoraptor".equals(this.getName().getString().toLowerCase(Locale.ROOT)) && !this.isBaby()){
@@ -145,7 +152,6 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
                 }
             }
         }
-
     }
 
     @Override
@@ -157,7 +163,7 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         return UPSounds.RAPTOR_IDLE.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.RAPTOR_HURT.get();
     }
 
@@ -165,9 +171,9 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         return UPSounds.RAPTOR_DEATH.get();
     }
 
-//    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-//        this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
-//    }
+    protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
+        this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
+    }
 
     @Override
     protected SoundEvent getAttackSound() {
@@ -215,7 +221,7 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
     }
 
     @Override
-    public void setCustomName(@org.jetbrains.annotations.Nullable Component pName) {
+    public void setCustomName(@Nullable Component pName) {
         super.setCustomName(pName);
     }
 
@@ -228,6 +234,11 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         entity.hurt(this.damageSources().mobAttack(this), 5.0F);
     }
 
+    @Override
+    public ResourceLocation getVariantTexture() {
+        return null;
+    }
+
     class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {
             super(VelociraptorEntity.this, 1.6D, true);
@@ -238,7 +249,7 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         }
 
         @Override
-        protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
+        protected void checkAndPerformAttack(@NotNull LivingEntity enemy, double distToEnemySqr) {
             double d0 = this.getAttackReachSqr(enemy);
             if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
                 this.resetAttackCooldown();
@@ -247,7 +258,6 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
                 ((VelociraptorEntity) this.mob).setTimeTillHungry(mob.getRandom().nextInt(300) + 300);
             }
         }
-
     }
 
     @Override
@@ -255,6 +265,7 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Press", this.hasPressed());
         compound.putInt("scale", this.getModelScale());
+        compound.putInt("Variant", this.getVariant());
     }
 
     @Override
@@ -262,6 +273,7 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         super.readAdditionalSaveData(compound);
         this.setPress(compound.getBoolean("Press"));
         this.setScale(Math.min(compound.getInt("scale"), 0));
+        this.setVariant(compound.getInt("Variant"));
     }
 
     @Override
@@ -269,10 +281,10 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         super.defineSynchedData();
         this.entityData.define(PRESS, false);
         this.entityData.define(SCALE, 0);
-
+        this.entityData.define(VARIANT, 0);
     }
 
-    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> pKey) {
         if (SCALE.equals(pKey)) {
             this.refreshDimensions();
         }
@@ -280,17 +292,15 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         super.onSyncedDataUpdated(pKey);
     }
 
-    public EntityDimensions getDimensions(Pose pPose) {
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose pPose) {
         return super.getDimensions(pPose).scale(getScale(this.getModelScale()));
     }
 
     private static float getScale(int scale) {
-        switch (scale) {
-            case 1:
-                return 1.8F;
-            default:
-                return 0.9F;
+        if (scale == 1) {
+            return 1.8F;
         }
+        return 0.9F;
     }
 
     public int getModelScale() {
@@ -302,11 +312,11 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
     }
 
     public void setPress(boolean eepy) {
-        this.entityData.set(PRESS, Boolean.valueOf(eepy));
+        this.entityData.set(PRESS, eepy);
     }
 
     public boolean hasPressed() {
-        return this.entityData.get(PRESS).booleanValue();
+        return this.entityData.get(PRESS);
     }
 
     private static class PushButtonsGoal extends MoveToBlockGoal {
@@ -371,12 +381,12 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         }
 
         @Override
-        protected BlockPos getMoveToTarget() {
+        protected @NotNull BlockPos getMoveToTarget() {
             return this.blockPos;
         }
 
         @Override
-        protected boolean isValidTarget(LevelReader world, BlockPos pos) {
+        protected boolean isValidTarget(LevelReader world, @NotNull BlockPos pos) {
             BlockState blockState = world.getBlockState(pos);
             return (blockState.is(UPBlocks.AMBER_BUTTON.get()));
         }
@@ -386,22 +396,22 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
             this.nextStartTick = this.nextStartTick(this.mob);
             BlockState state = this.mob.level().getBlockState(this.blockPos);
             ((ButtonBlock) state.getBlock()).use(state, this.mob.level(), this.blockPos, null, null, null);
-
         }
 
         public void start() {
             this.ticksWaited = 0;
             super.start();
         }
-
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return UPEntities.VELOCI.get().create(serverLevel);
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        VelociraptorEntity velociraptor = UPEntities.VELOCIRAPTOR.get().create(serverLevel);
+        assert velociraptor != null;
+        velociraptor.setVariant(this.getVariant());
+        return velociraptor;
     }
-
 
     protected <E extends VelociraptorEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
@@ -439,9 +449,21 @@ public class VelociraptorEntity extends BaseDinosaurAnimalEntity {
         controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
     }
 
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        float variantChange = this.getRandom().nextFloat();
+
+        if(variantChange <= 0.50F){
+            this.setVariant(2);
+        }
+        else if(variantChange <= 0.75F){
+            this.setVariant(1);
+        }
+        else{
+            this.setVariant(0);
+        }
+
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
 }

@@ -26,7 +26,7 @@ public class UPEntityPlacement {
         SpawnPlacements.register(UPEntities.TRICERATOPS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TameableBaseStatedDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.PACHY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.BRACHI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
-        SpawnPlacements.register(UPEntities.VELOCI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
+        SpawnPlacements.register(UPEntities.VELOCIRAPTOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.TYRANNOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BaseStatedDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.PARACERATHERIUM.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.BARINASUCHUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TameableBaseDinosaurAnimalEntity::checkSurfaceDinoSpawnRules);

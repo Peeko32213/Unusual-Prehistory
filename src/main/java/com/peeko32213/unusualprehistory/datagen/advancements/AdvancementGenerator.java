@@ -247,9 +247,9 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .save(consumer, prefixS("main/majunga_helmet"));
 
         Advancement veloci = getAdvancement(eggs, (ItemLike)UPItems.RAPTOR_FLASK.get(), "interact_veloci", FrameType.TASK, true, true, true)
-                .addCriterion("damage_veloci", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.VELOCI.get())))))
-                .addCriterion("interact_veloci", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.VELOCI.get()).build())))
-                .addCriterion("killed_veloci", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.VELOCI.get())))
+                .addCriterion("damage_veloci", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.VELOCIRAPTOR.get())))))
+                .addCriterion("interact_veloci", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.VELOCIRAPTOR.get()).build())))
+                .addCriterion("killed_veloci", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.VELOCIRAPTOR.get())))
                 .requirements(RequirementsStrategy.OR)
 
                 .save(consumer, prefixS("main/veloci"));

@@ -13,7 +13,6 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.state.WeightedSta
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -38,12 +37,14 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -126,7 +127,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
     private static final StateHelper TYRANNO_IDLE_3_STATE =
             StateHelper.Builder.state(IDLE_3_AC, "tyrannosaurus_roar")
                     .playTime(80)
-                    .stopTime(180)
+                    .stopTime(220)
                     .entityAction(TYRANNO_IDLE_3_ACTION)
                     .build();
 
@@ -143,8 +144,8 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
         return ImmutableList.of(
                 WeightedState.of(TYRANNO_IDLE_1_STATE, 9),
-                WeightedState.of(TYRANNO_IDLE_2_STATE, 11),
-                WeightedState.of(TYRANNO_IDLE_3_STATE, 6)
+                WeightedState.of(TYRANNO_IDLE_2_STATE, 10),
+                WeightedState.of(TYRANNO_IDLE_3_STATE, 8)
         );
     }
 
@@ -167,8 +168,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             .add(Attributes.ARMOR, 8.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.2D)
             .add(Attributes.ATTACK_DAMAGE, 15.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 2.0D)
-            .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 3.0D)
             .add(Attributes.FOLLOW_RANGE, 32D);
     }
 
@@ -197,6 +197,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                 }
             });
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Chicken.class, 12.0F, 3.6D, 3.6D, EntitySelector.NO_SPECTATORS::test));
     }
 
     public @NotNull InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -446,6 +447,8 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         private int ticksUntilNextPathRecalculation;
         private int ticksUntilNextAttack;
         private long lastCanUseCheck;
+        private int failedPathFindingPenalty = 0;
+        private boolean canPenalize = false;
         private int animTime = 0;
 
         public TyrannosaurusMeleeAttackGoal(TyrannosaurusEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
@@ -468,6 +471,15 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                 } else if (!livingentity.isAlive()) {
                     return false;
                 } else {
+                    if (canPenalize) {
+                        if (--this.ticksUntilNextPathRecalculation <= 0) {
+                            this.path = this.mob.getNavigation().createPath(livingentity, 0);
+                            this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
+                            return this.path != null;
+                        } else {
+                            return true;
+                        }
+                    }
                     this.path = this.mob.getNavigation().createPath(livingentity, 0);
                     if (this.path != null) {
                         return true;
@@ -501,6 +513,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
 
         public void start() {
             this.mob.getNavigation().moveTo(this.path, this.speedModifier);
+            this.mob.setAggressive(true);
             this.ticksUntilNextPathRecalculation = 0;
             this.ticksUntilNextAttack = 0;
             this.animTime = 0;
@@ -510,16 +523,16 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         public void stop() {
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setAnimationState(0);
                 this.mob.setTarget(null);
             }
+            this.mob.setAggressive(false);
+            this.mob.getNavigation().stop();
             this.mob.setAnimationState(0);
         }
 
         public void tick() {
 
             LivingEntity target = this.mob.getTarget();
-
             assert target != null;
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
@@ -539,7 +552,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             }
         }
 
-        protected void doMovement (LivingEntity livingentity, Double d0){
+        protected void doMovement(LivingEntity livingentity, Double d0) {
 
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
 
@@ -548,16 +561,28 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                 this.pathedTargetY = livingentity.getY();
                 this.pathedTargetZ = livingentity.getZ();
                 this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
+                if (this.canPenalize) {
+                    this.ticksUntilNextPathRecalculation += failedPathFindingPenalty;
+                    if (this.mob.getNavigation().getPath() != null) {
+                        Node finalPathPoint = this.mob.getNavigation().getPath().getEndNode();
+                        if (finalPathPoint != null && livingentity.distanceToSqr(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
+                            failedPathFindingPenalty = 0;
+                        else
+                            failedPathFindingPenalty += 10;
+                    } else {
+                        failedPathFindingPenalty += 10;
+                    }
+                }
                 if (d0 > 1024.0D) {
                     this.ticksUntilNextPathRecalculation += 10;
                 } else if (d0 > 256.0D) {
                     this.ticksUntilNextPathRecalculation += 5;
                 }
-
                 if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
                     this.ticksUntilNextPathRecalculation += 15;
                 }
             }
+
         }
 
         protected void checkForCloseRangeAttack ( double distance, double reach){
@@ -578,34 +603,12 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             }
         }
 
-        protected boolean getRangeCheck () {
-            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
+        protected boolean getRangeCheck() {
+            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 2.0F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
-        // TODO: rex fight revamp
-//        protected void tickBiteAttack () {
-//            this.mob.getNavigation().stop();
-//            animTime++;
-//
-//            if (animTime <= 3) {
-//                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
-//                this.mob.yBodyRot = this.mob.yHeadRot;
-//            }
-//
-//            if(animTime==9) {
-//                preformBiteAttack();
-//            }
-//
-//            if(animTime>=12) {
-//                animTime=0;
-//                this.mob.setAnimationState(0);
-//                this.resetAttackCooldown();
-//                this.ticksUntilNextPathRecalculation = 0;
-//            }
-//        }
-
         protected void tickChargeAttack () {
-            this.mob.getNavigation().stop();
+
             animTime++;
 
             if (animTime <= 3) {
@@ -613,11 +616,11 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                 this.mob.yBodyRot = this.mob.yHeadRot;
             }
 
-            if(animTime==9) {
+            if(animTime==8) {
                 preformChargeAttack();
             }
 
-            if(animTime>=12) {
+            if(animTime>=11) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -634,11 +637,11 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                 this.mob.yBodyRot = this.mob.yHeadRot;
             }
 
-            if(animTime==11) {
+            if(animTime==10) {
                 preformWhipAttack();
             }
 
-            if(animTime>=14) {
+            if(animTime>=13) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -655,11 +658,11 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                 this.mob.yBodyRot = this.mob.yHeadRot;
             }
 
-            if(animTime==14) {
+            if(animTime==13) {
                 preformStompAttack();
             }
 
-            if(animTime>=17) {
+            if(animTime>=16) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -667,49 +670,23 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             }
         }
 
-//        protected void tickRoarAttack () {
-//            this.mob.getNavigation().stop();
-//            animTime++;
-//
-//            if (animTime <= 3) {
-//                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
-//                this.mob.yBodyRot = this.mob.yHeadRot;
-//            }
-//
-//            if(animTime==16) {
-//                preformRoarAttack();
-//            }
-//
-//            if(animTime>=19) {
-//                animTime=0;
-//                this.mob.setAnimationState(0);
-//                this.resetAttackCooldown();
-//                this.ticksUntilNextPathRecalculation = 0;
-//            }
-//        }
-
-//        protected void preformBiteAttack () {
-//            Vec3 pos = mob.position();
-//            this.mob.playSound(UPSounds.TYRANNO_BITE.get(), 1.0F, 1.0F);
-//            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.25f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-//        }
-
         protected void preformChargeAttack () {
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.TYRANNO_BITE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.5f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            this.mob.playSound(UPSounds.TYRANNO_TAIL_SWIPE.get(), 1.0F, 1.0F);
+            this.mob.swing(InteractionHand.MAIN_HAND);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.5f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
         protected void preformWhipAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.TYRANNO_TAIL_SWIPE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - 5, 1.0f, mob, pos,  6.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - 5, 2.0f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
         }
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.TYRANNO_STOMP_ATTACK.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - 1, 0.5f, mob, pos,  6.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - 1, 1.75f, mob, pos,  6.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
             if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(rexShakeRange));
@@ -722,13 +699,6 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             }
             mob.shakeCooldown--;
         }
-
-//        protected void preformRoarAttack () {
-//            Vec3 pos = mob.position();
-//            this.mob.playSound(UPSounds.TYRANNO_ROAR.get(), 2.0F, 1.0F);
-//            ((ServerLevel) this.mob.level()).sendParticles(ParticleTypes.POOF, this.mob.getX(), this.mob.getY() + 2, this.mob.getZ(), 25, this.mob.getBbWidth() / 4.0F, 0, this.mob.getBbWidth() / 4.0F, 0.25D);
-//            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() / 12, 4.0f, mob, pos,  9.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-//        }
 
         protected void resetAttackCooldown () {
             this.ticksUntilNextAttack = 0;
@@ -747,7 +717,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
+            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.0F + p_179512_1_.getBbWidth();
         }
     }
 
@@ -778,7 +748,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             return 0.75F;
         }
         else{
-            return 1.45F;
+            return 1.25F;
         }
     }
 
@@ -789,7 +759,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                 tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_SNIFF.get(), tyrannosaurus.getSoundSource(), 1.0F, tyrannosaurus.getVoicePitch(), false);
             }
             if (event.getKeyframeData().getSound().equals("tyrannosaurus_roar_1")) {
-                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_ROAR.get(), tyrannosaurus.getSoundSource(), 2.0F, tyrannosaurus.getVoicePitch(), false);
+                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_ROAR.get(), tyrannosaurus.getSoundSource(), 2.5F, tyrannosaurus.getVoicePitch(), false);
             }
         }
     }

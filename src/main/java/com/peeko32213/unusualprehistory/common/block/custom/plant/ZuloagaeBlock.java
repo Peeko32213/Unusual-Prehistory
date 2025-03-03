@@ -46,37 +46,39 @@ public class ZuloagaeBlock extends Block implements BonemealableBlock, net.minec
     public static final int AGE_THIN_BAMBOO = 0;
     public static final int AGE_THICK_BAMBOO = 1;
 
-
-
     public ZuloagaeBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, Integer.valueOf(0)).setValue(LEAVES, BambooLeaves.NONE).setValue(STAGE, Integer.valueOf(0)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(LEAVES, BambooLeaves.NONE).setValue(STAGE, 0));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(AGE, LEAVES, STAGE);
     }
 
-    public boolean propagatesSkylightDown(BlockState pState, BlockGetter pReader, BlockPos pPos) {
+    public boolean propagatesSkylightDown(@NotNull BlockState pState, @NotNull BlockGetter pReader, @NotNull BlockPos pPos) {
         return true;
     }
 
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    @SuppressWarnings({ "deprecation" })
+    public @NotNull VoxelShape getShape(BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         VoxelShape voxelshape = pState.getValue(LEAVES) == BambooLeaves.LARGE ? LARGE_SHAPE : SMALL_SHAPE;
         Vec3 vec3 = pState.getOffset(pLevel, pPos);
         return voxelshape.move(vec3.x, vec3.y, vec3.z);
     }
 
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+    @SuppressWarnings({ "deprecation" })
+    public boolean isPathfindable(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull PathComputationType pType) {
         return false;
     }
 
-    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    @SuppressWarnings({ "deprecation" })
+    public @NotNull VoxelShape getCollisionShape(BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         Vec3 vec3 = pState.getOffset(pLevel, pPos);
         return COLLISION_SHAPE.move(vec3.x, vec3.y, vec3.z);
     }
 
-    public boolean isCollisionShapeFullBlock(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    @SuppressWarnings({ "deprecation" })
+    public boolean isCollisionShapeFullBlock(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos) {
         return false;
     }
 
@@ -89,10 +91,10 @@ public class ZuloagaeBlock extends Block implements BonemealableBlock, net.minec
             BlockState blockstate = pContext.getLevel().getBlockState(pContext.getClickedPos().below());
             if (blockstate.is(UPTags.ZULOAGAE_PLANTABLE_ON)) {
                 if (blockstate.is(UPBlocks.ZULOAGAE_SAPLING.get())) {
-                    return this.defaultBlockState().setValue(AGE, Integer.valueOf(0));
+                    return this.defaultBlockState().setValue(AGE, 0);
                 } else if (blockstate.is(UPBlocks.ZULOAGAE.get())) {
                     int i = blockstate.getValue(AGE) > 0 ? 1 : 0;
-                    return this.defaultBlockState().setValue(AGE, Integer.valueOf(i));
+                    return this.defaultBlockState().setValue(AGE, i);
                 } else {
                     BlockState blockstate1 = pContext.getLevel().getBlockState(pContext.getClickedPos().above());
                     return blockstate1.is(UPBlocks.ZULOAGAE.get()) ? this.defaultBlockState().setValue(AGE, blockstate1.getValue(AGE)) : UPBlocks.ZULOAGAE_SAPLING.get().defaultBlockState();
@@ -103,7 +105,8 @@ public class ZuloagaeBlock extends Block implements BonemealableBlock, net.minec
         }
     }
 
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+    @SuppressWarnings({ "deprecation" })
+    public void tick(BlockState pState, @NotNull ServerLevel pLevel, @NotNull BlockPos pPos, @NotNull RandomSource pRandom) {
         if (!pState.canSurvive(pLevel, pPos)) {
             pLevel.destroyBlock(pPos, true);
         }
@@ -120,7 +123,8 @@ public class ZuloagaeBlock extends Block implements BonemealableBlock, net.minec
     /**
      * Performs a random tick on a block.
      */
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+    @SuppressWarnings({ "deprecation" })
+    public void randomTick(BlockState pState, @NotNull ServerLevel pLevel, @NotNull BlockPos pPos, @NotNull RandomSource pRandom) {
         if (pState.getValue(STAGE) == 0) {
             if (pLevel.isEmptyBlock(pPos.above()) && pLevel.getRawBrightness(pPos.above(), 0) >= 9) {
                 int i = this.getHeightBelowUpToMax(pLevel, pPos) + 1;
@@ -133,6 +137,7 @@ public class ZuloagaeBlock extends Block implements BonemealableBlock, net.minec
         }
     }
 
+    @SuppressWarnings({ "deprecation" })
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         return pLevel.getBlockState(pPos.below()).is(UPTags.ZULOAGAE_PLANTABLE_ON);
     }
@@ -143,7 +148,8 @@ public class ZuloagaeBlock extends Block implements BonemealableBlock, net.minec
      * returns its solidified counterpart.
      * Note that this method should ideally consider only the specific direction passed in.
      */
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+    @SuppressWarnings({ "deprecation" })
+    public @NotNull BlockState updateShape(BlockState pState, @NotNull Direction pFacing, @NotNull BlockState pFacingState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, BlockPos pFacingPos) {
         if (!pState.canSurvive(pLevel, pCurrentPos)) {
             pLevel.scheduleTick(pCurrentPos, this, 1);
         }
@@ -158,17 +164,17 @@ public class ZuloagaeBlock extends Block implements BonemealableBlock, net.minec
     /**
      * @return whether bonemeal can be used on this block
      */
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader pLevel, @NotNull BlockPos pPos, BlockState pState, boolean pIsClient) {
         int i = this.getHeightAboveUpToMax(pLevel, pPos);
         int j = this.getHeightBelowUpToMax(pLevel, pPos);
         return i + j + 1 < 16 && pLevel.getBlockState(pPos.above(i)).getValue(STAGE) != 1;
     }
 
-    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+    public boolean isBonemealSuccess(@NotNull Level pLevel, @NotNull RandomSource pRandom, @NotNull BlockPos pPos, @NotNull BlockState pState) {
         return true;
     }
 
-    public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+    public void performBonemeal(@NotNull ServerLevel pLevel, RandomSource pRandom, @NotNull BlockPos pPos, @NotNull BlockState pState) {
         int i = this.getHeightAboveUpToMax(pLevel, pPos);
         int j = this.getHeightBelowUpToMax(pLevel, pPos);
         int k = i + j + 1;
@@ -220,7 +226,7 @@ public class ZuloagaeBlock extends Block implements BonemealableBlock, net.minec
 
         int i = pState.getValue(AGE) != 1 && !blockstate1.is(UPBlocks.ZULOAGAE.get()) ? 0 : 1;
         int j = (pMaxTotalSize < 11 || !(pRandom.nextFloat() < 0.25F)) && pMaxTotalSize != 15 ? 0 : 1;
-        pLevel.setBlock(pPos.above(), this.defaultBlockState().setValue(AGE, Integer.valueOf(i)).setValue(LEAVES, bambooleaves).setValue(STAGE, Integer.valueOf(j)), 3);
+        pLevel.setBlock(pPos.above(), this.defaultBlockState().setValue(AGE, i).setValue(LEAVES, bambooleaves).setValue(STAGE, j), 3);
     }
 
     /**

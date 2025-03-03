@@ -34,7 +34,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.BEELZ.get())
                 .add(UPEntities.TRICERATOPS.get())
                 .add(UPEntities.BRACHI.get())
-                .add(UPEntities.VELOCI.get())
+                .add(UPEntities.VELOCIRAPTOR.get())
                 .add(UPEntities.TYRANNOSAURUS.get())
                 //TODO the rest of up mobs need to be added!!
                 .add(EntityType.CAT)
@@ -368,7 +368,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
 
 //        tag(UPTags.PSITTACO_TARGETS)
 //                .add(UPEntities.BEELZ.get())
-//                .add(UPEntities.VELOCI.get())
+//                .add(UPEntities.VELOCIRAPTOR.get())
 //                .add(UPEntities.MAJUNGA.get())
 //                .add(UPEntities.SMILODON.get())
 //        ;
@@ -494,7 +494,7 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.HWACHA.get())
                 .add(UPEntities.SMILODON.get())
                 .add(UPEntities.ULUG.get())
-                .add(UPEntities.VELOCI.get())
+                .add(UPEntities.VELOCIRAPTOR.get())
                 .add(UPEntities.MAJUNGA.get())
                 .add(UPEntities.SLUDGE.get())
                 .add(UPEntities.OTAROCYON.get())

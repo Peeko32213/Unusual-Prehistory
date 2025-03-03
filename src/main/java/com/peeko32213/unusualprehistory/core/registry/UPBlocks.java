@@ -242,7 +242,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> RAPTOR_EGG = registerBlock("raptor_eggs",
             () -> new DinosaurLandEggBlock(
                     BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.VELOCI, 4,
+                    UPEntities.VELOCIRAPTOR, 4,
                     Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
                     Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
             ));

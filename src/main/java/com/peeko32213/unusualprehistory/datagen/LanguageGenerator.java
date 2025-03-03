@@ -187,7 +187,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.SCAU_EGG, "Scaumenacia Spawn Egg");
         addItem(UPItems.BRACHI_EGG, "Brachiosaurus Spawn Egg");
         addItem(UPItems.TYRANNOSAURUS_EGG, "Tyrannosaurus Spawn Egg");
-        addItem(UPItems.VELOCI_EGG, "Velociraptor Spawn Egg");
+        addItem(UPItems.VELOCIRAPTOR_EGG, "Velociraptor Spawn Egg");
         addItem(UPItems.TRICERATOPS_EGG, "Triceratops Spawn Egg");
         addItem(UPItems.PACHY_EGG, "Pachycephalosaurus Spawn Egg");
         addItem(UPItems.ENCRUSTED_EGG, "Encrusted Spawn Egg");
@@ -547,7 +547,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.TRICERATOPS, "Triceratops");
         addEntityType(UPEntities.TYRANNOSAURUS, "Tyrannosaurus");
         addEntityType(UPEntities.ULUG, "Ulughbegsaurus");
-        addEntityType(UPEntities.VELOCI, "Velociraptor");
+        addEntityType(UPEntities.VELOCIRAPTOR, "Velociraptor");
         addEntityType(UPEntities.XIPH, "Xiphactinus");
 
         // Ceno mobs

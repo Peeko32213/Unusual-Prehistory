@@ -40,6 +40,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -53,8 +54,10 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 public class AnurognathusEntity extends AgeableMob implements GeoEntity, NeutralMob, IBookEntity {
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    @javax.annotation.Nullable
+
+    @Nullable
     private UUID persistentAngerTarget;
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(AnurognathusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> CROPS_POLLINATED = SynchedEntityData.defineId(AnurognathusEntity.class, EntityDataSerializers.INT);
@@ -83,9 +86,9 @@ public class AnurognathusEntity extends AgeableMob implements GeoEntity, Neutral
         switchNavigator(true);
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel p_146743_, @NotNull AgeableMob p_146744_) {
         return null;
     }
 

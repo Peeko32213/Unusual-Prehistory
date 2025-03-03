@@ -195,14 +195,14 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "trike").toString()));
 
     public static final RegistryObject<EntityType<TyrannosaurusEntity>> TYRANNOSAURUS = ENTITIES.register("rex",
-            () -> EntityType.Builder.of(TyrannosaurusEntity::new, MobCategory.CREATURE).sized(3.15F, 4.15F)
+            () -> EntityType.Builder.of(TyrannosaurusEntity::new, MobCategory.CREATURE).sized(3.25F, 4.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "rex").toString()));
 
     public static final RegistryObject<EntityType<UlughbegsaurusEntity>> ULUG = ENTITIES.register("ulughbegsaurus",
             () -> EntityType.Builder.of(UlughbegsaurusEntity::new, MobCategory.CREATURE).sized(1.95F, 2.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "ulughbegsaurus").toString()));
 
-    public static final RegistryObject<EntityType<VelociraptorEntity>> VELOCI = ENTITIES.register("veloci",
+    public static final RegistryObject<EntityType<VelociraptorEntity>> VELOCIRAPTOR = ENTITIES.register("veloci",
             () -> EntityType.Builder.of(VelociraptorEntity::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "veloci").toString()));
 

@@ -488,7 +488,7 @@ public class EstemmenosuchusEntity extends BaseStatedDinosaurAnimalEntity implem
         }
 
         protected boolean getRangeCheck() {
-            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.42F * this.getAttackReachSqr(this.mob.getTarget());
+            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 2.0F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
         protected void tickBiteAttack () {
@@ -538,7 +538,7 @@ public class EstemmenosuchusEntity extends BaseStatedDinosaurAnimalEntity implem
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
+            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.0F + p_179512_1_.getBbWidth();
         }
     }
 

@@ -326,7 +326,7 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> TRICERATOPS_EGG =registerSpawnEggs("triceratops_spawn_egg", UPEntities.TRICERATOPS, 0x45452a, 0x9c2f2f);
     public static final RegistryObject<ForgeSpawnEggItem> TYRANNOSAURUS_EGG = registerSpawnEggs("tyrannosaurus_spawn_egg", UPEntities.TYRANNOSAURUS, 0x3e2025, 0xa23a47);
     public static final RegistryObject<ForgeSpawnEggItem> ULUG_EGG = registerSpawnEggs("ulugh_spawn_egg", UPEntities.ULUG , 0x3a2424, 0xdbd8ce);
-    public static final RegistryObject<ForgeSpawnEggItem> VELOCI_EGG = registerSpawnEggs("veloci_spawn_egg", UPEntities.VELOCI , 0x774228, 0xcb09464);
+    public static final RegistryObject<ForgeSpawnEggItem> VELOCIRAPTOR_EGG = registerSpawnEggs("velociraptor_spawn_egg", UPEntities.VELOCIRAPTOR, 0xdfd9c7, 0x4a4242);
     public static final RegistryObject<ForgeSpawnEggItem> XIPH_EGG = registerSpawnEggs("xiphactinus_spawn_egg", UPEntities.XIPH , 0x9eacbe, 0x21262a);
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majunga_helmet", () -> new MajungasaurusHelmetItem(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET, new Item.Properties(), 3.0));
