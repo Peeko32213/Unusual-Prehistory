@@ -17,9 +17,6 @@ public class UnusualPrehistoryConfig {
     public static ConfigValue<Boolean> SCREEN_SHAKE_REX;
     public static ConfigValue<Double> SCREEN_SHAKE_REX_RANGE;
     public static ConfigValue<Integer> SCREEN_SHAKE_REX_AMPLIFIER;
-    public static ConfigValue<Float> BRACHI_SOUND_VOLUME;
-    public static ConfigValue<Float> BRACHI_TEEN_SOUND_VOLUME;
-    public static ConfigValue<Float> PARACERATHERIUM_SOUND_VOLUME;
     public static ConfigValue<Boolean> REX_COLLISON;
     public static ConfigValue<Boolean> PARACERATHERIUM_COLLISON;
     public static ConfigValue<Boolean> TRIKE_COLLISON;
@@ -47,12 +44,6 @@ public class UnusualPrehistoryConfig {
             SCREEN_SHAKE_REX = CONFIG_BUILDER.comment("Tyrannosaurus screen shake").define("screen_shake_rex", true);
             SCREEN_SHAKE_REX_RANGE = CONFIG_BUILDER.comment("Tyrannosaurus screen shake range").define("screen_shake_rex_range", 8.0D);
             SCREEN_SHAKE_REX_AMPLIFIER = CONFIG_BUILDER.comment("Tyrannosaurus screen shake amplifier").define("screen_shake_rex_amplifier", 1);
-
-            CONFIG_BUILDER.pop();
-            CONFIG_BUILDER.comment("Sound configs").push("sound_config");
-            BRACHI_SOUND_VOLUME = CONFIG_BUILDER.comment("Brachiosaurus sound volume").define("brachi_sound_volume", 1.5F);
-            BRACHI_TEEN_SOUND_VOLUME = CONFIG_BUILDER.comment("Adolescent Brachiosaurus sound volume").define("brachi_teen_sound_volume", 1.0F);
-            PARACERATHERIUM_SOUND_VOLUME = CONFIG_BUILDER.comment("Paraceratherium sound volume").define("paraceratherium_sound_volume", 1.0F);
 
             CONFIG_BUILDER.pop();
             CONFIG_BUILDER.comment("Collision configs").push("collision_config");;

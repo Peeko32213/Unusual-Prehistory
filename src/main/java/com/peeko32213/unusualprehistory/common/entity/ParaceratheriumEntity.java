@@ -96,12 +96,11 @@ public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
             if (this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM.get()) {
                 double paraceratheriumShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM_RANGE.get();
                 int paraceratheriumShakeAmp = UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM_AMPLIFIER.get();
-                float paraceratheriumMoveSoundVolume = UnusualPrehistoryConfig.PARACERATHERIUM_SOUND_VOLUME.get();
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(paraceratheriumShakeRange));
                 for (LivingEntity e : list) {
                     if (e instanceof Player) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 6, paraceratheriumShakeAmp, false, false, false));
-                        this.playSound(UPSounds.BRACHI_STEP.get(), paraceratheriumMoveSoundVolume, 1.0F);
+                        this.playSound(UPSounds.BRACHI_STEP.get(), 1.25F, 1.0F);
                     }
                 }
                 shakeCooldown = 40;

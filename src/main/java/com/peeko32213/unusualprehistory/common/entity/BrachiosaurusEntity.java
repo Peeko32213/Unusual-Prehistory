@@ -521,12 +521,11 @@ public class BrachiosaurusEntity extends BaseDinosaurAnimalEntity implements Sem
             if (this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 int brachiShakeAmp = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_AMPLIFIER.get();
-                float brachiMoveSoundVolume = UnusualPrehistoryConfig.BRACHI_SOUND_VOLUME.get();
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
                     if ((e instanceof Player)) {
                         e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 8, brachiShakeAmp, false, false, false));
-                        this.playSound(UPSounds.BRACHI_STEP.get(), brachiMoveSoundVolume, 0.75F);
+                        this.playSound(UPSounds.BRACHI_STEP.get(), 1.25F, 0.75F);
                     }
                 }
                 shakeCooldown = 15;
