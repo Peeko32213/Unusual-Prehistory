@@ -180,7 +180,7 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
             .add(Attributes.ARMOR, 10.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.145D)
             .add(Attributes.ATTACK_DAMAGE, 12.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
+            .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
     }
 
     @Override
