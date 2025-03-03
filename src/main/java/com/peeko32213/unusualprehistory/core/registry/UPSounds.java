@@ -62,14 +62,16 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> BEELZE_ATTACK = createSoundEvent("beelze_attack");
     public static final RegistryObject<SoundEvent> BEELZE_DEATH = createSoundEvent("beelze_death");
 
-    public static final RegistryObject<SoundEvent> REX_BITE = createSoundEvent("rex_bite");
-    public static final RegistryObject<SoundEvent> REX_DEATH = createSoundEvent("rex_death");
-    public static final RegistryObject<SoundEvent> REX_HURT = createSoundEvent("rex_hurt");
-    public static final RegistryObject<SoundEvent> REX_IDLE = createSoundEvent("rex_idle");
-    public static final RegistryObject<SoundEvent> REX_STEP = createSoundEvent("rex_step");
-    public static final RegistryObject<SoundEvent> REX_STOMP_ATTACK = createSoundEvent("rex_stomp_attack");
-    public static final RegistryObject<SoundEvent> REX_TAIL_SWIPE = createSoundEvent("rex_tail_swipe");
-    public static final RegistryObject<SoundEvent> REX_PACIFY = createSoundEvent("rex_pacify");
+    public static final RegistryObject<SoundEvent> TYRANNO_BITE = createSoundEvent("tyrannosaurus_bite");
+    public static final RegistryObject<SoundEvent> TYRANNO_DEATH = createSoundEvent("tyrannosaurus_death");
+    public static final RegistryObject<SoundEvent> TYRANNO_HURT = createSoundEvent("tyrannosaurus_hurt");
+    public static final RegistryObject<SoundEvent> TYRANNO_IDLE = createSoundEvent("tyrannosaurus_idle");
+    public static final RegistryObject<SoundEvent> TYRANNO_STEP = createSoundEvent("tyrannosaurus_step");
+    public static final RegistryObject<SoundEvent> TYRANNO_STOMP_ATTACK = createSoundEvent("tyrannosaurus_stomp_attack");
+    public static final RegistryObject<SoundEvent> TYRANNO_TAIL_SWIPE = createSoundEvent("tyrannosaurus_tail_swipe");
+    public static final RegistryObject<SoundEvent> TYRANNO_PACIFY = createSoundEvent("tyrannosaurus_pacify");
+    public static final RegistryObject<SoundEvent> TYRANNO_ROAR = createSoundEvent("tyrannosaurus_roar");
+    public static final RegistryObject<SoundEvent> TYRANNO_SNIFF = createSoundEvent("tyrannosaurus_sniff");
 
     public static final RegistryObject<SoundEvent> TRIKE_DEATH = createSoundEvent("trike_death");
     public static final RegistryObject<SoundEvent> TRIKE_HURT = createSoundEvent("trike_hurt");

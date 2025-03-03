@@ -156,7 +156,6 @@
 			}
 		},
 		"animation.tyrannosaurus.roar": {
-			"loop": true,
 			"animation_length": 4,
 			"bones": {
 				"Rex_Upper_Body": {
@@ -269,7 +268,6 @@
 			}
 		},
 		"animation.tyrannosaurus.tackle": {
-			"loop": true,
 			"animation_length": 3,
 			"bones": {
 				"Rex_Upper_Body": {
@@ -1093,6 +1091,11 @@
 						"3.0": [1, 1, 1]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "tyrannosaurus_sniff"
+				}
 			}
 		},
 		"animation.tyrannosaurus.shake": {
@@ -1147,7 +1150,6 @@
 			}
 		},
 		"animation.tyrannosaurus.bite_0": {
-			"loop": true,
 			"animation_length": 2,
 			"bones": {
 				"Rex_Upper_Body": {
@@ -1231,7 +1233,6 @@
 			}
 		},
 		"animation.tyrannosaurus.bite_1": {
-			"loop": true,
 			"animation_length": 2,
 			"bones": {
 				"Rex_Upper_Body": {
@@ -1315,7 +1316,6 @@
 			}
 		},
 		"animation.tyrannosaurus.stompr": {
-			"loop": true,
 			"animation_length": 3,
 			"bones": {
 				"Rex_Upper_Body": {
@@ -1537,7 +1537,6 @@
 			}
 		},
 		"animation.tyrannosaurus.stompl": {
-			"loop": true,
 			"animation_length": 3,
 			"bones": {
 				"Rex_Upper_Body": {
@@ -1759,7 +1758,6 @@
 			}
 		},
 		"animation.tyrannosaurus.whip": {
-			"loop": true,
 			"animation_length": 3,
 			"bones": {
 				"Rex_Upper_Body": {

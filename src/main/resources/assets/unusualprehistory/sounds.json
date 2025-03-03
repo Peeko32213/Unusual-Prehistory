@@ -308,60 +308,74 @@
     "subtitle": "unusualprehistory.sound.subtitle.beelze_death"
   },
 
-  "rex_bite": {
+  "tyrannosaurus_bite": {
     "sounds": [
-        "unusualprehistory:entity/rex/rex_bite_0",
-        "unusualprehistory:entity/rex/rex_bite_1",
-        "unusualprehistory:entity/rex/rex_bite_2"
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_bite_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_bite_1",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_bite_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_bite"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_bite"
   },
-  "rex_death": {
+  "tyrannosaurus_death": {
     "sounds": [
-        "unusualprehistory:entity/rex/rex_death_0",
-        "unusualprehistory:entity/rex/rex_death_1"
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_death_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_death_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_death"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_death"
   },
-  "rex_hurt": {
+  "tyrannosaurus_hurt": {
     "sounds": [
-        "unusualprehistory:entity/rex/rex_hurt_0",
-        "unusualprehistory:entity/rex/rex_hurt_1"
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_hurt_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_hurt"
   },
-  "rex_idle": {
+  "tyrannosaurus_idle": {
     "sounds": [
-        "unusualprehistory:entity/rex/rex_idle_0",
-        "unusualprehistory:entity/rex/rex_idle_1",
-        "unusualprehistory:entity/rex/rex_idle_2"
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_idle_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_idle_1",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_idle_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_idle"
   },
-  "rex_step": {
+  "tyrannosaurus_step": {
     "sounds": [
-        "unusualprehistory:entity/rex/rex_step"
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_step_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_step_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_step"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_step"
   },
-  "rex_stomp_attack": {
+  "tyrannosaurus_stomp_attack": {
     "sounds": [
-        "unusualprehistory:entity/rex/rex_stomp_attack_0",
-        "unusualprehistory:entity/rex/rex_stomp_attack_1"
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_stomp_attack_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_stomp_attack_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_stomp_attack"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_stomp_attack"
   },
-  "rex_tail_swipe": {
+  "tyrannosaurus_tail_swipe": {
     "sounds": [
-        "unusualprehistory:entity/rex/rex_tail_swipe"
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_tail_swipe"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_tail_swipe"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_tail_swipe"
   },
-  "rex_pacify": {
+  "tyrannosaurus_roar": {
     "sounds": [
-      "unusualprehistory:entity/rex/rex_pacify"
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_0",
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_pacify"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_roar"
+  },
+  "tyrannosaurus_sniff": {
+    "sounds": [
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_sniff"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_sniff"
+  },
+  "tyrannosaurus_pacify": {
+    "sounds": [
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_pacify"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_pacify"
   },
 
   "trike_death": {

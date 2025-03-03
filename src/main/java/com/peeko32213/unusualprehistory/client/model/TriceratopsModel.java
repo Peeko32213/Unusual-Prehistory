@@ -14,7 +14,7 @@ public class TriceratopsModel extends GeoModel<TriceratopsEntity> {
 
     @Override
     public ResourceLocation getModelResource(TriceratopsEntity trike) {
-        if(trike.getVariant() == 1){
+        if(trike.getVariant() == 1) {
             return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops/triceratops_horridus.geo.json");
         } else {
             return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops/triceratops_prorsus.geo.json");
@@ -24,9 +24,9 @@ public class TriceratopsModel extends GeoModel<TriceratopsEntity> {
     @Override
     public ResourceLocation getTextureResource(TriceratopsEntity trike) {
         if(trike.getVariant() == 1) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops/triceratops_prorsus.png");
-        } else {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops/triceratops_horridus.png");
+        } else {
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops/triceratops_prorsus.png");
         }
     }
 

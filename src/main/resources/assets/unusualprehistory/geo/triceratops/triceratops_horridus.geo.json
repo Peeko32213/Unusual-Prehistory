@@ -20,7 +20,10 @@
 					"parent": "Triceratops",
 					"pivot": [0, 28, 13],
 					"cubes": [
-						{"origin": [-17.5, 17, -26], "size": [35, 38, 57], "uv": [0, 0]}
+						{"origin": [-17.5, 17, -26], "size": [35, 38, 57], "uv": [0, 0]},
+						{"origin": [11.5, 43, 18], "size": [0, 19, 16], "pivot": [11.5, 55, 30], "rotation": [0, 0, 20], "uv": [32, 249], "mirror": true},
+						{"origin": [0, 43, 18], "size": [0, 19, 16], "uv": [32, 249]},
+						{"origin": [-11.5, 43, 18], "size": [0, 19, 16], "pivot": [-11.5, 55, 30], "rotation": [0, 0, -20], "uv": [32, 249]}
 					]
 				},
 				{
@@ -120,8 +123,13 @@
 					]
 				},
 				{
-					"name": "Trike_Leg_Left",
+					"name": "Leg_control",
 					"parent": "Triceratops",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Trike_Leg_Left",
+					"parent": "Leg_control",
 					"pivot": [15, 28, 13],
 					"cubes": [
 						{"origin": [7.5, 14, 1], "size": [16, 26, 23], "uv": [184, 93]},
@@ -142,7 +150,7 @@
 				},
 				{
 					"name": "Trike_Leg_Right",
-					"parent": "Triceratops",
+					"parent": "Leg_control",
 					"pivot": [-15, 28, 13],
 					"cubes": [
 						{"origin": [-23.5, 14, 1], "size": [16, 26, 23], "uv": [184, 93], "mirror": true},

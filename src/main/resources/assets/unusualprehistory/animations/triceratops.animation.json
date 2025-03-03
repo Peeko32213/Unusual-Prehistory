@@ -374,6 +374,60 @@
 					"position": [0, "1.25+math.sin(query.anim_time*180-60)*-1.25", "math.sin(query.anim_time*180)*-2.5"]
 				}
 			}
+		},
+		"animation.triceratops.swim": {
+			"loop": true,
+			"animation_length": 4,
+			"bones": {
+				"Leg_control": {
+					"rotation": [0, "math.sin(query.anim_time*180)*-5", 0],
+					"position": [0, -35, "math.sin(query.anim_time*90)*2"]
+				},
+				"Arm_control": {
+					"rotation": [0, "math.sin(query.anim_time*180)*5", 0],
+					"position": [0, "-25+math.sin(query.anim_time*90)*2", 0]
+				},
+				"Triceratops": {
+					"position": {
+						"0.0": [0, 19, 0],
+						"2.9583": [0, 16, 0]
+					}
+				},
+				"Trike_Upper_Body": {
+					"rotation": ["-10+math.sin(query.anim_time*360)*2.5", "math.sin(query.anim_time*180+90)*5", "math.sin(query.anim_time*180)*5"],
+					"position": ["math.sin(query.anim_time*180-90)*-2", "-30+math.sin(query.anim_time*360-90)*-1", "math.sin(query.anim_time*90)*2"]
+				},
+				"Trike_Neck": {
+					"rotation": ["-10+math.sin(query.anim_time*360-60)*-2.5", "math.sin(query.anim_time*180+90)*-5", "math.sin(query.anim_time*180)*-5"]
+				},
+				"Trike_Head": {
+					"rotation": ["math.sin(query.anim_time*360+30)*-2.5", 0, 0]
+				},
+				"Trike_Jaw": {
+					"rotation": ["2.5+math.sin(query.anim_time*360-90)*2.5", 0, 0]
+				},
+				"Trike_Arm_Left": {
+					"rotation": ["-20+math.sin(query.anim_time*180)*-20", 0, 0]
+				},
+				"Trike_Arm_Right": {
+					"rotation": ["-22.5+math.sin(query.anim_time*180)*20", 0, 0]
+				},
+				"Trike_Tail": {
+					"rotation": ["15+math.sin(query.anim_time*360+60)*-2.5", "math.sin(query.anim_time*180+150)*-7.5", "math.sin(query.anim_time*180+60)*-5"]
+				},
+				"Trike_Leg_Left": {
+					"rotation": ["-22.5+math.sin(query.anim_time*180)*20", 0, 0]
+				},
+				"Trike_Foot_Left": {
+					"rotation": ["30+math.sin(query.anim_time*180-60)*-15", 0, 0]
+				},
+				"Trike_Leg_Right": {
+					"rotation": ["-20+math.sin(query.anim_time*180)*-20", 0, 0]
+				},
+				"Trike_Foot_Right": {
+					"rotation": ["30+math.sin(query.anim_time*180-60)*15", 0, 0]
+				}
+			}
 		}
 	}
 }

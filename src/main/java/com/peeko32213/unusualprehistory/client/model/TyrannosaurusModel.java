@@ -25,7 +25,7 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
     public ResourceLocation getTextureResource(TyrannosaurusEntity tyranno) {
         if(tyranno.getVariant() == 1) {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png");
-        } else{
+        } else {
             return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex.png");
         }
     }

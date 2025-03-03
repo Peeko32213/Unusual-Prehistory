@@ -629,15 +629,17 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.HYNERIA_DEATH, "Hyneria dies");
         addSound(UPSounds.HYNERIA_JUMP, "Hyneria jumps");
 
-        addSound(UPSounds.REX_IDLE, "Tyrannosaurus drones");
-        addSound(UPSounds.REX_STOMP_ATTACK, "Tyrannosaurus stomps");
-        addSound(UPSounds.REX_BITE, "Tyrannosaurus chomps");
-        addSound(UPSounds.REX_TAIL_SWIPE, "Tyrannosaurus swipes");
-        addSound(UPSounds.REX_HURT, "Tyrannosaurus hurts");
-        addSound(UPSounds.REX_DEATH, "Tyrannosaurus dies");
-        addSound(UPSounds.REX_PACIFY, "Tyrannosaurus was pacified");
+        addSound(UPSounds.TYRANNO_IDLE, "Tyrannosaurus drones");
+        addSound(UPSounds.TYRANNO_STOMP_ATTACK, "Tyrannosaurus stomps");
+        addSound(UPSounds.TYRANNO_BITE, "Tyrannosaurus chomps");
+        addSound(UPSounds.TYRANNO_TAIL_SWIPE, "Tyrannosaurus swipes");
+        addSound(UPSounds.TYRANNO_HURT, "Tyrannosaurus hurts");
+        addSound(UPSounds.TYRANNO_DEATH, "Tyrannosaurus dies");
+        addSound(UPSounds.TYRANNO_ROAR, "Tyrannosaurus roars");
+        addSound(UPSounds.TYRANNO_SNIFF, "Tyrannosaurus sniffs");
+        addSound(UPSounds.TYRANNO_PACIFY, "Tyrannosaurus was pacified");
 
-        addSound(UPSounds.REX_STEP, "Forceful footsteps");
+        addSound(UPSounds.TYRANNO_STEP, "Forceful footsteps");
 
         addSound(UPSounds.TRIKE_IDLE, "Triceratops stouts");
         addSound(UPSounds.TRIKE_HURT, "Triceratops hurts");

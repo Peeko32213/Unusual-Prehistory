@@ -7,8 +7,8 @@
 				"texture_width": 256,
 				"texture_height": 256,
 				"visible_bounds_width": 16,
-				"visible_bounds_height": 5.5,
-				"visible_bounds_offset": [0, 2.25, 0]
+				"visible_bounds_height": 6,
+				"visible_bounds_offset": [0, 2, 0]
 			},
 			"bones": [
 				{
@@ -48,7 +48,6 @@
 						{"origin": [-9.5, 46, -49], "size": [19, 15, 3], "uv": [170, 205]},
 						{"origin": [-9.5, 61, -49], "size": [19, 2, 5], "uv": [62, 245]},
 						{"origin": [-6.5, 46, -68], "size": [13, 11, 19], "uv": [1, 215]},
-						{"origin": [-7.5, 46, -65], "size": [15, 11, 16], "inflate": 0.001, "uv": [150, 0]},
 						{"origin": [-5.5, 43, -67], "size": [11, 3, 21], "uv": [192, 173]}
 					]
 				},
@@ -60,8 +59,6 @@
 						{"origin": [-9.5, 41, -46], "size": [19, 11, 12], "inflate": 0.01, "uv": [150, 27]},
 						{"origin": [-6.5, 41, -68], "size": [13, 5, 19], "uv": [174, 227]},
 						{"origin": [-6.5, 41, -49], "size": [13, 5, 3], "uv": [3, 101]},
-						{"origin": [-7.5, 41, -49], "size": [15, 5, 3], "uv": [152, 71]},
-						{"origin": [-6.5, 46, -64], "size": [13, 3, 18], "uv": [150, 184]},
 						{"origin": [-5.5, 46, -67], "size": [11, 3, 21], "uv": [192, 107]},
 						{"origin": [-1.5, 26, -53], "size": [3, 15, 18], "uv": [77, 87]}
 					]
@@ -113,7 +110,7 @@
 				{
 					"name": "Leg_control",
 					"parent": "Tyrannosaurus",
-					"pivot": [0, 36, 0]
+					"pivot": [0, 0, 0]
 				},
 				{
 					"name": "Rex_Leg_Left",

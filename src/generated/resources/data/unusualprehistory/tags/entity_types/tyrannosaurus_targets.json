@@ -4,14 +4,11 @@
     "minecraft:cow",
     "minecraft:sheep",
     "minecraft:horse",
-    "minecraft:chicken",
-    "minecraft:rabbit",
     "minecraft:llama",
     "minecraft:turtle",
     "minecraft:goat",
     "unusualprehistory:coty",
     "unusualprehistory:pachy",
-    "#unusualprehistory:herbivores",
     {
       "id": "alexsmobs:rocky_roller",
       "required": false
@@ -22,10 +19,6 @@
     },
     {
       "id": "alexsmobs:bunfungus",
-      "required": false
-    },
-    {
-      "id": "alexsmobs:platypus",
       "required": false
     },
     {
@@ -77,10 +70,6 @@
       "required": false
     },
     {
-      "id": "alexsmobs:rattlesnake",
-      "required": false
-    },
-    {
       "id": "alexsmobs:moose",
       "required": false
     },
@@ -102,14 +91,6 @@
     },
     {
       "id": "naturalist:bear",
-      "required": false
-    },
-    {
-      "id": "naturalist:snake",
-      "required": false
-    },
-    {
-      "id": "naturalist:rattlesnake",
       "required": false
     },
     {

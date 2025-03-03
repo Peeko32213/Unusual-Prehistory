@@ -88,8 +88,7 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
     public static final int ATTACK_COOLDOWN = 30;
 
     // Movement animations
-    // TODO: add swim animation
-    private static final RawAnimation TRIKE_SWIM = RawAnimation.begin().thenLoop("animation.triceratops.walk");
+    private static final RawAnimation TRIKE_SWIM = RawAnimation.begin().thenLoop("animation.triceratops.swim");
     private static final RawAnimation TRIKE_WALK = RawAnimation.begin().thenLoop("animation.triceratops.walk");
 
     // Idle animations
