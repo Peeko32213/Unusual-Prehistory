@@ -1,42 +1,66 @@
-changes:
-- Added Archelon
-- Added Balaur
-- Added Diplocaulus
-- Added Edaphosaurus
-- Added Estemmenosuchus
-- Added Globidens
-- Added Hyneria
-- Added Hynerpeton
-- Added Kaprosuchus
-- Added Kimmeridgebrachypteraeschnidium
-- Added Leedsichthys
-- Added Longisquama
-- Added Ophiodon Ozymandias
-- Added Otarocyon
-- Added Oviraptor
-- Added Xiphactinus
-- Added Protosphyraena
-- Added Psittacosaurus
-- Added Pterodaustro
-- Added Pterygotus
-- Added Tanystropheus
-- Added Telecrex
+Additions:
 
-- Changed lang for better consistency with vanilla mc:
-    - DNA Flask -> Flask of DNA
-    - Flask -> Glass Flask
-    - Subtitles show the name of the mob like vanilla
-    - Various name changes, ex. Tyrannosaurus Tooth instead of Rex Tooth
+- Added Archelon, a giant mesozoic turtle
+- Added Balaur, a colorful raptor
+- Added Diplocaulus, a boomerang headed amphibian 
+- Added Edaphosaurus, a sailed synapsid
+- Added Estemmenosuchus, a giant horned therapsid
+- Added Globidens, a shell crushing mosasaur
+- Added Hyneria, a large lobe-finned fish
+- Added Hynerpeton, a devonian tetrapod
+- Added Kaprosuchus, a boar faced crocodillian
+- Added Kimmeridgebrachypteraeschnidium, a colorful dragonfly
+- Added Leedsichthys, one of the largest fish to ever live
+- Added Longisquama, a small plumed reptile
+- Added Ophiodon Ozymandias, an extinct lingcod
+- Added Otarocyon, a nocturnal canid
+- Added Oviraptor, a feathery beaked raptor
+- Added Xiphactinus, a giant hyperaggressive fish
+- Added Protosphyraena, a swordfish-like fish
+- Added Psittacosaurus, a tiny feral ceratopsian
+- Added Pterodaustro, a bristle toothed pterosaur
+- Added Pterygotus, an enormous eurypterid
+- Added Tanystropheus, a long necked triassic reptile
+- Added Telecrex, an extinct guineafowl
+
+Changes:
+
+Tyrannosaurus:
+- New model
+- New textures
+- New animations
+- New Mcraeensis variant
+- Modified stats
+- Damage is now dependent on its attack damage attribute
+
+Triceratops:
+- New model
+- New textures
+- New animations
+- New Horridus variant
+- Modified stats
+- Now has an animated attack and charges when aggro
+
+Velociraptor:
+- New model
+- New textures
+- New animations
+- New variants, striped and spotted
+- Modified stats
+- Now has an animated attack and sprints when aggro
+  
+Changed lang for better consistency with vanilla mc:
+- DNA Flask -> Flask of DNA
+- Flask -> Glass Flask
+- Subtitles show the name of the mob like vanilla
+- Various name changes, ex. Tyrannosaurus Tooth instead of Rex Tooth
+
+Creative tabs:
 - Removed spawn eggs creative tab
 - Added spawn eggs to the main creative tab
 - Reorganized the creative tab
-- Removed tall horsetail dna
 
-- Tweaked Tyrannosaurus Rex
-    - Sprints slower than before
-    - Does less damage
-    - New animations by Indom
-    - Misc stuff
+- Removed tall horsetail dna
 - Tweaked Megatherium
     - Megatherium now digs a 6x6x6 square in front of it instead of trying to dig a cube, it should feel much more responsive now
     - Megatherium can break wood
@@ -72,31 +96,17 @@ to do:
 - some spawn egg color tweaks (smilodon, beelz tadpole, hwachavenator)
 - fix book stuff
 - datagen stuff
-- tweak some animations(?)
-- reduce volume for some mobs sounds (barinasuchus, sludge)
-- fix encrusted sack model
 - rebalance food values
-- hanging signs (?)
-- boats (?)
-- merge baby and adult mobs
-- remove some of the random entities left over from book stuff
 - change some tame items and such to tags
 - remove a bunch of entities from target tags to make park building easier
 - add more adorned staff interactions (pacifying, etc)
 - fix megatherium dig animation
-- add the rest of the 1.6 mobs
-- fossil system soft revamp
 - worldgen changes
 - mammoth revamp involving alpha mammoth/make mammoth great again (MMGA)
-- remove paraceratherium ticks
 - halve time it takes for eggs to hatch
 - rework handmade axe and club a bit
 - add new enchants(?)
 - change method of obtaining fossil mounts (stonecutting fossil item/block?)
     - abandoned fossil research cabin underground
-- breeding config?
-- change how screen shake looks a bit?
-- add goal for mobs to exit water?
 - add hwachavenator melee attack?
-- change crocarina feedback to particles like vanilla tames
 - add fossil ores to vanilla fossil tags
