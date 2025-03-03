@@ -23,30 +23,46 @@ Additions:
 - Added Tanystropheus, a long necked triassic reptile
 - Added Telecrex, an extinct guineafowl
 
+- Added Hanging Signs and Boats for all wood types
+- Added Amber Glass Pane
+
 Changes:
 
 Tyrannosaurus:
+- No longer uses Rex suffix
 - New model
 - New textures
 - New animations
 - New Mcraeensis variant
-- Modified stats
+- Modified stats:
+  - 300 Max Health
+  - 0.2 Movement Speed
+  - 16 Attack Damage
+  - 3 Knockback Resistance
+  - 32 Follow Range
 - Damage is now dependent on its attack damage attribute
+- Misc changes
 
 Triceratops:
 - New model
 - New textures
 - New animations
 - New Horridus variant
-- Modified stats
+- Modified stats:
+  - 90 Max health
+  - 10 Armor
+  - 0.145 Movement Speed
+  - 12 Attack Damage
+  - 3.5 Knockback Resistance
 - Now has an animated attack and charges when aggro
+- Taming requires multiple ginkgo berries
+- Misc changes
 
 Velociraptor:
 - New model
 - New textures
 - New animations
 - New variants, striped and spotted
-- Modified stats
 - Now has an animated attack and sprints when aggro
   
 Changed lang for better consistency with vanilla mc:
@@ -59,6 +75,20 @@ Creative tabs:
 - Removed spawn eggs creative tab
 - Added spawn eggs to the main creative tab
 - Reorganized the creative tab
+
+Blocks:
+- Asphalt:
+  - No longer pushes things along
+  - Increases speed when walked on
+
+Items:
+- Handmade Spear:
+  - No longer has left-click dash
+  - No longer has slam attack
+  - Hitting mobs launches them upwards, scales with knockback resistance
+  - Right-clicking launches you upward a bit, can work as a double jump or be used for keeping things in the air longer
+  - 1.6 Attack Speed
+  - 5 Damage
 
 - Removed tall horsetail dna
 - Tweaked Megatherium
@@ -81,15 +111,8 @@ Creative tabs:
 - Lowered the volume of many mobs
 - Mammoth meatball stacks to 16 instead of 8
 - Meaty buffet stacks to 16 instead of 64
-- Handmade spear revamp:
-    - No longer has left-click dash
-    - No longer has slam attack
-    - Hitting mobs launches them upwards, scales with knockback resistance
-    - Right-clicking launches you upward a bit, can work as a double jump or be used for keeping things in the air longer
-    - Increased attack speed
-    - Lowered damage
-- Added hanging signs and boats for all wood types
-- Added amber glass pane
+
+
 - Misc fixes and stuff
 
 to do:
