@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.NearestTargetAI;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.NearestTargetAI;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;

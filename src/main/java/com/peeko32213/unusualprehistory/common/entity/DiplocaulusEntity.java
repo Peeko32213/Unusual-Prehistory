@@ -1,13 +1,13 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.FindWaterGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.LeaveWaterGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.SemiAquaticSwimmingGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
+ import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.FindWaterGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.LeaveWaterGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.SemiAquaticSwimmingGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -37,7 +37,7 @@
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.object.PlayState;
 
- public class DiplocaulusEntity extends BaseDinosaurAnimalEntity implements SemiAquatic {
+ public class DiplocaulusEntity extends PrehistoricEntity implements ISemiAquatic {
      private static final RawAnimation DIPLOCAULUS_IDLE = RawAnimation.begin().thenLoop("animation.diplocaulus.idle");
      private static final RawAnimation DIPLOCAULUS_WALK = RawAnimation.begin().thenLoop("animation.diplocaulus.walk");
      private static final RawAnimation DIPLOCAULUS_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.diplocaulus.swim_idle");

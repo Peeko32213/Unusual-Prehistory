@@ -13,17 +13,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.SignBlock;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static com.peeko32213.unusualprehistory.datagen.ItemModelGenerator.prefix;
 
@@ -154,13 +150,13 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
     protected static void incubating(Consumer<FinishedRecipe> finishedRecipeConsumer, ItemStack ingredients, EntityType<?> result){
         Ingredient ingredient = Ingredient.of(ingredients);
         NonNullList<Ingredient> ingredients1 = NonNullList.of(Ingredient.EMPTY, ingredient);
-        DinoSpawnerRecipeBuilder.incubating(ingredients1, result).save(finishedRecipeConsumer, prefix("incubating/" + getEntityName(result) + "_from_incubating"));
+        PrehistoricSpawnerRecipeBuilder.incubating(ingredients1, result).save(finishedRecipeConsumer, prefix("incubating/" + getEntityName(result) + "_from_incubating"));
     }
 
     protected static void cultivating(Consumer<FinishedRecipe> finishedRecipeConsumer, Item ingredients, Item result){
         Ingredient ingredient = Ingredient.of(ingredients);
         NonNullList<Ingredient> ingredients1 = NonNullList.of(Ingredient.EMPTY, ingredient);
-        DinoSpawnerRecipeBuilder.cultivating(ingredients1, result).save(finishedRecipeConsumer, prefix("cultivating/" + getItemName(result) + "_from_cultivating"));
+        PrehistoricSpawnerRecipeBuilder.cultivating(ingredients1, result).save(finishedRecipeConsumer, prefix("cultivating/" + getItemName(result) + "_from_cultivating"));
     }
 
     protected static void cultivating(Consumer<FinishedRecipe> finishedRecipeConsumer, Item ingredients, EntityType<?> result){
@@ -168,7 +164,7 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
         NonNullList<Ingredient> ingredients1 = NonNullList.of(Ingredient.EMPTY, ingredient);
         String name = BuiltInRegistries.ENTITY_TYPE.getKey(result).toString();
         Item item = BuiltInRegistries.ITEM.get(new ResourceLocation(name + "_entity_egg"));
-        DinoSpawnerRecipeBuilder.cultivating(ingredients1, item).save(finishedRecipeConsumer, prefix("cultivating/" + getItemName(item) + "_from_cultivating"));
+        PrehistoricSpawnerRecipeBuilder.cultivating(ingredients1, item).save(finishedRecipeConsumer, prefix("cultivating/" + getItemName(item) + "_from_cultivating"));
     }
 
     //Wrappers for conditionals

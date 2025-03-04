@@ -1,13 +1,13 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
 
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
+ import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.*;
+ import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -50,7 +50,7 @@
  import java.util.EnumSet;
  import java.util.Objects;
 
- public class KaprosuchusEntity extends TameableBaseDinosaurAnimalEntity implements CustomFollower, SemiAquatic {
+ public class KaprosuchusEntity extends TamablePrehistoricEntity implements ICustomFollower, ISemiAquatic {
 
      private static final RawAnimation KAPROSUCHUS_WALK = RawAnimation.begin().thenLoop("animation.kaprosuchus.walking");
      private static final RawAnimation KAPROSUCHUS_RUN = RawAnimation.begin().thenLoop("animation.kaprosuchus.run");
@@ -73,7 +73,7 @@
      public float swimProgress;
      private int swimTimer = -1000;
      private boolean isLandNavigator;
-     public KaprosuchusEntity(EntityType<? extends TameableBaseDinosaurAnimalEntity> entityType, Level level) {
+     public KaprosuchusEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);

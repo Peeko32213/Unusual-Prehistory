@@ -1,11 +1,12 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
  import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
- import com.peeko32213.unusualprehistory.common.entity.msc.part.LeedsichthysPartEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseAquaticAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomJumpGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
+ import com.peeko32213.unusualprehistory.common.entity.part.LeedsichthysPartEntity;
+ import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricAquaticEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomJumpGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+ import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import net.minecraft.core.BlockPos;
@@ -34,6 +35,7 @@
  import net.minecraft.world.entity.ai.goal.*;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+ import net.minecraft.world.entity.animal.Animal;
  import net.minecraft.world.entity.animal.WaterAnimal;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
@@ -51,6 +53,7 @@
  import net.minecraft.world.phys.Vec2;
  import net.minecraft.world.phys.Vec3;
  import net.minecraftforge.common.Tags;
+ import org.jetbrains.annotations.NotNull;
  import software.bernie.geckolib.core.animatable.GeoAnimatable;
  import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -66,7 +69,8 @@
  import java.util.Optional;
  import java.util.UUID;
 
- public class LeedsichthysEntity extends BaseAquaticAnimalEntity implements GeoAnimatable, IBookEntity, Shearable, net.minecraftforge.common.IForgeShearable {
+ public class LeedsichthysEntity extends PrehistoricAquaticEntity implements GeoAnimatable, IBookEntity, Shearable, net.minecraftforge.common.IForgeShearable {
+
      private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.INT);
@@ -94,7 +98,7 @@
      public int ringBufferIndex = -1;
      private int shearCooldown = 0;
 
-     public LeedsichthysEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
+     public LeedsichthysEntity(EntityType<? extends Animal> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -103,16 +107,12 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 1000.0D)
+                 .add(Attributes.MAX_HEALTH, 500.0D)
                  .add(Attributes.ATTACK_DAMAGE, 20.0D)
-                 .add(Attributes.ARMOR, 50.0)
-                 .add(Attributes.KNOCKBACK_RESISTANCE, 50.0D)
+                 .add(Attributes.KNOCKBACK_RESISTANCE, 4.0D)
                  .add(Attributes.MOVEMENT_SPEED, 2.3D)
                  .add(Attributes.FOLLOW_RANGE, 12.0D);
-
      }
-
-
 
      protected void registerGoals() {
          this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
@@ -130,13 +130,13 @@
          }
      }
 
-     protected void doPush(Entity pEntity) {
+     protected void doPush(@NotNull Entity pEntity) {
          super.doPush(pEntity);
      }
 
      @Override
      @Nonnull
-     protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
+     public InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
          ItemStack itemstack = player.getItemInHand(hand);
          if (itemstack.is(Items.BOWL) && !this.isBaby()) {
              ItemStack itemstack1 = ItemUtils.createFilledResult(itemstack, player, UPItems.LEEDS_CAVIAR.get().getDefaultInstance());
@@ -149,8 +149,8 @@
          }
          return super.mobInteract(player, hand);
      }
-     private ItemStack giveRandomCount(ItemStack stack, RandomSource randomSource, int min, int max) {
-         int nr = randomSource.nextInt(min, max);
+     private ItemStack giveRandomCount(ItemStack stack, RandomSource randomSource) {
+         int nr = randomSource.nextInt(10, 16);
          stack.setCount(nr);
          return stack;
      }
@@ -161,7 +161,7 @@
          entities.stream().filter(entity -> !(entity instanceof LeedsichthysPartEntity) && entity.isPushable()).forEach(entity -> entity.push(this));
      }
 
-     public void travel(Vec3 travelVector) {
+     public void travel(@NotNull Vec3 travelVector) {
          super.travel(travelVector);
      }
 
@@ -283,7 +283,14 @@
          return null;
      }
 
+     @Override
      public void aiStep() {
+         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+             this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
+             this.setOnGround(false);
+             this.hasImpulse = true;
+             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
+         }
          super.aiStep();
      }
 
@@ -347,8 +354,6 @@
          controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
      }
 
-
-
      public boolean requiresCustomPersistence() {
          return super.requiresCustomPersistence() || this.hasCustomName();
      }
@@ -367,16 +372,15 @@
          return tickCount;
      }
 
-     public void shear(SoundSource pCategory) {
+     public void shear(@NotNull SoundSource pCategory) {
          this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, pCategory, 1.0F, 1.0F);
          this.gameEvent(GameEvent.ENTITY_INTERACT);
          if (!this.level().isClientSide() && this.getShearTime() < 0 && shearCooldown < 0) {
              ItemStack stack = UPItems.LEEDS_SLICE.get().getDefaultInstance();
-             ItemStack stack1 = giveRandomCount(stack, this.getRandom(), 10 ,16);
+             ItemStack stack1 = giveRandomCount(stack, this.getRandom());
              this.spawnAtLocation(stack1);
          }
      }
-
 
      public boolean readyForShearing() {
          return this.isAlive() && !this.isBaby() && this.getShearTime() < 0 && shearCooldown < 0;
@@ -630,17 +634,12 @@
                  }
              }
          }
-
-
+         
          protected void preformBiteAttack () {
-
-
              Vec3 pos = mob.position();
              this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
              HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
-
          }
-
 
          protected void resetAttackCooldown () {
              this.ticksUntilNextAttack = 0;
@@ -659,7 +658,7 @@
          }
 
          protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-             return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+             return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
          }
      }
 
@@ -668,47 +667,41 @@
      }
 
      public int getAnimationState() {
-
          return this.entityData.get(ANIMATION_STATE);
      }
 
      public void setAnimationState(int anim) {
-
          this.entityData.set(ANIMATION_STATE, anim);
      }
 
      public int getCombatState() {
-
          return this.entityData.get(COMBAT_STATE);
      }
 
      public void setCombatState(int anim) {
-
          this.entityData.set(COMBAT_STATE, anim);
      }
 
      public int getEntityState() {
-
          return this.entityData.get(ENTITY_STATE);
      }
 
      public void setEntityState(int anim) {
-
          this.entityData.set(ENTITY_STATE, anim);
      }
+
      public boolean isFromBook() {
-         return this.entityData.get(FROM_BOOK).booleanValue();
+         return this.entityData.get(FROM_BOOK);
      }
+
      public void setIsFromBook(boolean fromBook) {
          this.entityData.set(FROM_BOOK, fromBook);
      }
-
 
      @Override
      public void setFromBook(boolean fromBook) {
          this.entityData.set(FROM_BOOK, fromBook);
      }
-
 
      @Nullable
      public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
@@ -724,6 +717,12 @@
          return p_28137_;
      }
 
+     @Nullable
+     @Override
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+         return UPEntities.LEEDSICHTHYS.get().create(serverLevel);
+     }
+
      @Override
      protected SoundEvent getAttackSound() {
          return null;
@@ -731,7 +730,7 @@
 
      @Override
      protected int getKillHealAmount() {
-         return 0;
+         return 10;
      }
 
      @Override

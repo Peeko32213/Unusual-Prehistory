@@ -2,8 +2,8 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -41,7 +41,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class ParaceratheriumEntity extends BaseDinosaurAnimalEntity {
+public class ParaceratheriumEntity extends PrehistoricEntity {
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(ParaceratheriumEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(ParaceratheriumEntity.class, EntityDataSerializers.INT);

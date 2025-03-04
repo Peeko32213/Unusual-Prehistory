@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
+import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -49,7 +49,7 @@ import javax.annotation.Nonnull;
 import java.util.EnumSet;
 import java.util.Objects;
 
-public class BarinasuchusEntity extends TameableBaseDinosaurAnimalEntity implements CustomFollower, GeoEntity {
+public class BarinasuchusEntity extends TamablePrehistoricEntity implements ICustomFollower, GeoEntity {
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.INT);
@@ -64,7 +64,7 @@ public class BarinasuchusEntity extends TameableBaseDinosaurAnimalEntity impleme
     private static final RawAnimation BARINA_SWIM = RawAnimation.begin().thenLoop("animation.barinasuchus.swim");
     private static final RawAnimation BARINA_IDLE = RawAnimation.begin().thenPlay("animation.barinasuchus.idle");
 
-    public BarinasuchusEntity(EntityType<? extends TameableBaseDinosaurAnimalEntity> entityType, Level level) {
+    public BarinasuchusEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
         super(entityType, level);
     }
 

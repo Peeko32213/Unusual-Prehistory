@@ -1,15 +1,17 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseAquaticAnimalEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+ import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricAquaticEntity;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
+ import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.tags.TagKey;
  import net.minecraft.util.Mth;
+ import net.minecraft.world.entity.AgeableMob;
  import net.minecraft.world.entity.EntityType;
  import net.minecraft.world.entity.Mob;
  import net.minecraft.world.entity.MoverType;
@@ -23,12 +25,14 @@
  import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
- import net.minecraft.world.entity.animal.WaterAnimal;
+ import net.minecraft.world.entity.animal.Animal;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.core.animatable.GeoAnimatable;
  import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -41,8 +45,10 @@
  // - Burrowing At Night
  // - Electric Goop + Electric Fence, though waiting on crydigo to make textures
 
- public class TartuosteusEntity extends BaseAquaticAnimalEntity implements GeoAnimatable, IBookEntity {
+ public class TartuosteusEntity extends PrehistoricAquaticEntity implements GeoAnimatable, IBookEntity {
+
      private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(TartuosteusEntity.class, EntityDataSerializers.BOOLEAN);
+
      private static final RawAnimation TARTUO_SWIM = RawAnimation.begin().thenLoop("animation.tartuosteus.swim");
      private static final RawAnimation TARTUO_IDLE = RawAnimation.begin().thenLoop("animation.tartuosteus.idle");
      private static final RawAnimation TARTUO_REST = RawAnimation.begin().thenLoop("animation.tartuosteus.rest");
@@ -52,7 +58,7 @@
      private static final RawAnimation TARTUO_FLOP = RawAnimation.begin().thenLoop("animation.tartuosteus.flop");
      private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-     public TartuosteusEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+     public TartuosteusEntity(EntityType<? extends PrehistoricAquaticEntity> pEntityType, Level pLevel) {
          super(pEntityType, pLevel);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -61,9 +67,9 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 20.0D)
-                 .add(Attributes.ARMOR, 20.0)
-                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.15D);
+             .add(Attributes.MAX_HEALTH, 20.0D)
+             .add(Attributes.ARMOR, 20.0)
+             .add(Attributes.KNOCKBACK_RESISTANCE, 0.15D);
      }
 
      protected void registerGoals() {
@@ -73,26 +79,21 @@
          this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 0.7D, 10));
      }
 
-     public void travel(Vec3 travelVector) {
-         if (this.isEffectiveAi() && this.isInWater()) {
-             this.moveRelative(this.getSpeed(), travelVector);
-             this.move(MoverType.SELF, this.getDeltaMovement());
-             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-             if (this.getTarget() == null) {
-                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-             }
-         } else {
-             super.travel(travelVector);
-         }
-
+     public void travel(@NotNull Vec3 travelVector) {
+         super.travel(travelVector);
      }
 
-     protected PathNavigation createNavigation(Level p_27480_) {
+     protected @NotNull PathNavigation createNavigation(@NotNull Level p_27480_) {
          return new WaterBoundPathNavigation(this, p_27480_);
      }
 
      protected SoundEvent getAmbientSound() {
          return SoundEvents.COD_AMBIENT;
+     }
+
+     @Override
+     public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel pLevel, @NotNull AgeableMob pOtherParent) {
+         return null;
      }
 
      protected void defineSynchedData() {
@@ -114,7 +115,7 @@
      }
 
      public boolean isFromBook() {
-         return this.entityData.get(FROM_BOOK).booleanValue();
+         return this.entityData.get(FROM_BOOK);
      }
      public void setIsFromBook(boolean fromBook) {
          this.entityData.set(FROM_BOOK, fromBook);
@@ -128,6 +129,11 @@
 
      @Override
      protected SoundEvent getAttackSound() {
+         return null;
+     }
+
+     @Override
+     protected SoundEvent getFlopSound() {
          return null;
      }
 

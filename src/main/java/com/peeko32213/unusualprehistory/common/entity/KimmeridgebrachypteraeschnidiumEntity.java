@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.FlyingMoveController;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

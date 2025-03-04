@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.common.entity.SmilodonEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IHatchableEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;

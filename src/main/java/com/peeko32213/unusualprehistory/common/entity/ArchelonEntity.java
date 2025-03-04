@@ -1,9 +1,9 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.entity.msc.anim_goal.AnimationHelper;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
+ import com.peeko32213.unusualprehistory.common.entity.animation.AnimationHelper;
+ import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.chat.Component;
@@ -57,7 +57,7 @@
  import javax.annotation.Nonnull;
  import java.util.List;
 
- public class ArchelonEntity extends TameableBaseDinosaurAnimalEntity implements CustomFollower, GeoEntity {
+ public class ArchelonEntity extends TamablePrehistoricEntity implements ICustomFollower, GeoEntity {
      private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(ArchelonEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(ArchelonEntity.class, EntityDataSerializers.BOOLEAN);
      private static final EntityDataAccessor<Integer> CHILL_TIME = SynchedEntityData.defineId(ArchelonEntity.class, EntityDataSerializers.INT);
@@ -84,7 +84,7 @@
 
      public float sitProgress;
 
-     public ArchelonEntity(EntityType<? extends TameableBaseDinosaurAnimalEntity> entityType, Level level) {
+     public ArchelonEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);

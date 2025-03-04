@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.world.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.WorldSpawnableEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.WorldSpawnableEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;

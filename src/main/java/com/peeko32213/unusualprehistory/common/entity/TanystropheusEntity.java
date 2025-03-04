@@ -1,10 +1,10 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
+ import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.*;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -36,7 +36,7 @@
 
  import java.util.List;
 
- public class TanystropheusEntity extends BaseDinosaurAnimalEntity implements SemiAquatic {
+ public class TanystropheusEntity extends PrehistoricEntity implements ISemiAquatic {
      private static final EntityDataAccessor<Boolean> BASKING = SynchedEntityData.defineId(TanystropheusEntity.class, EntityDataSerializers.BOOLEAN);
      private static final RawAnimation TANY_IDLE = RawAnimation.begin().thenLoop("animation.tanystropheus.idle");
      private static final RawAnimation TANY_BASK = RawAnimation.begin().thenLoop("animation.tanystropheus.bask");

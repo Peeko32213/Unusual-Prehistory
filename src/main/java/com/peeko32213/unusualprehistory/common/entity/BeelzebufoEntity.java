@@ -1,9 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.baby.BeelzebufoTadpoleEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGoal;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -54,7 +53,7 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 
-public class BeelzebufoEntity extends BaseDinosaurAnimalEntity implements PlayerRideableJumping {
+public class BeelzebufoEntity extends PrehistoricEntity implements PlayerRideableJumping {
     private static final EntityDataAccessor<Byte> DATA_FLAG = SynchedEntityData.defineId(BeelzebufoEntity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> IS_SWALLOWING = SynchedEntityData.defineId(BeelzebufoEntity.class, EntityDataSerializers.BOOLEAN);
 

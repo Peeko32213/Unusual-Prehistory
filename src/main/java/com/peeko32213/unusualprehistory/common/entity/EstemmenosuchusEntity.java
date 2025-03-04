@@ -2,12 +2,12 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseStatedDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.EntityAction;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.RandomStateGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.StateHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.base.StatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -19,7 +19,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -29,10 +28,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -58,7 +54,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class EstemmenosuchusEntity extends BaseStatedDinosaurAnimalEntity implements GeoEntity, GeoAnimatable {
+public class EstemmenosuchusEntity extends StatedPrehistoricEntity implements GeoEntity, GeoAnimatable {
 
     private static final Ingredient FOOD_ITEMS = Ingredient.of(UPTags.ESTEMME_FOOD_ITEMS);
 

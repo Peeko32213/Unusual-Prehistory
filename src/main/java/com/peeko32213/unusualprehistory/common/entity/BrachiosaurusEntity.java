@@ -1,13 +1,13 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.BrachiosaurusPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
+import com.peeko32213.unusualprehistory.common.entity.part.BrachiosaurusPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.*;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -64,7 +64,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class BrachiosaurusEntity extends BaseDinosaurAnimalEntity implements SemiAquatic {
+public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquatic {
     private static final EntityDataAccessor<Boolean> LAUNCHING = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Float> HEAD_HEIGHT = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.INT);

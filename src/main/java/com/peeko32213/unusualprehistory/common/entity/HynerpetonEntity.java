@@ -1,14 +1,14 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.anim_goal.AnimationHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.FindWaterGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.LeaveWaterGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.SemiAquaticSwimmingGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
+import com.peeko32213.unusualprehistory.common.entity.animation.AnimationHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.FindWaterGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.LeaveWaterGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.SemiAquaticSwimmingGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -50,7 +50,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.Collection;
 
-public class HynerpetonEntity extends BaseDinosaurAnimalEntity implements SemiAquatic, GeoEntity {
+public class HynerpetonEntity extends PrehistoricEntity implements ISemiAquatic, GeoEntity {
     private static final RawAnimation HYNERPETON_IDLE = RawAnimation.begin().thenLoop("animation.hynerpeton.idle");
     private static final RawAnimation HYNERPETON_BASK_1 = RawAnimation.begin().thenLoop("animation.hynerpeton.bask1");
     private static final RawAnimation HYNERPETON_BASK_2 = RawAnimation.begin().thenLoop("animation.hynerpeton.bask2");

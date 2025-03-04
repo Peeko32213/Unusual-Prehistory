@@ -7,10 +7,10 @@ import com.peeko32213.unusualprehistory.common.effect.RampageEffect;
 import com.peeko32213.unusualprehistory.common.effect.RampageRemedyEffect;
 import com.peeko32213.unusualprehistory.common.entity.DunkleosteusEntity;
 import com.peeko32213.unusualprehistory.common.entity.HwachavenatorEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.JarateFindWaterGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.RabiesHuntGoal;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.JarateFindWaterGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.common.message.*;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -197,11 +197,11 @@ public class ServerEvents {
             dunkleosteus.killed();
         }
 
-        if (event.getSource().getEntity() instanceof BaseDinosaurAnimalEntity dinosaurAnimal) {
+        if (event.getSource().getEntity() instanceof PrehistoricEntity dinosaurAnimal) {
             dinosaurAnimal.killed();
         }
 
-        if (event.getSource().getEntity() instanceof TameableBaseDinosaurAnimalEntity dinosaurAnimal) {
+        if (event.getSource().getEntity() instanceof TamablePrehistoricEntity dinosaurAnimal) {
             dinosaurAnimal.killed();
         }
 

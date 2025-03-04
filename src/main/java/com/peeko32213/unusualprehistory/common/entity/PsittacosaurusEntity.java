@@ -1,9 +1,9 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
+ import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
  import com.peeko32213.unusualprehistory.core.registry.UPEffects;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -38,6 +38,7 @@
  import net.minecraft.world.level.pathfinder.Path;
  import net.minecraft.world.phys.Vec2;
  import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
@@ -50,7 +51,7 @@
  // - Quils need their arrow capabilities, however we are still unsure on what the arrows should do to make them uniquely different
  // - Rabies has been highly suggested by the dev team, however we have to figure out how to actually implement and make it unique.
 
- public class PsittacosaurusEntity extends BaseDinosaurAnimalEntity {
+ public class PsittacosaurusEntity extends PrehistoricEntity {
      private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(PsittacosaurusEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(PsittacosaurusEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(PsittacosaurusEntity.class, EntityDataSerializers.INT);
@@ -506,7 +507,7 @@
 
      @Nullable
      @Override
-     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel pLevel, @NotNull AgeableMob pOtherParent) {
          return null;
      }
 

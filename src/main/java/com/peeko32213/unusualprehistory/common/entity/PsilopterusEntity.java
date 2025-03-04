@@ -1,12 +1,11 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.JoinPackGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.PackHunterGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.PackHunter;
+ import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.JoinPackGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.PackHunterGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IPackHunter;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -39,7 +38,7 @@
 
  import java.util.EnumSet;
 
- public class PsilopterusEntity extends BaseDinosaurAnimalEntity implements PackHunter {
+ public class PsilopterusEntity extends PrehistoricEntity implements IPackHunter {
 
      private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.INT);
@@ -111,7 +110,7 @@
          LivingEntity target = this.getTarget();
          if (target != null && target.isAlive() && !(target instanceof Player player && player.isCreative())) {
              if (this.isDominate()) {
-                 PackHunter leader = this;
+                 IPackHunter leader = this;
                  while (leader.getAfterPackMember() != null) {
                      leader = leader.getAfterPackMember();
                      if(!((PsilopterusEntity) leader).isAlliedTo(target)){
@@ -208,22 +207,22 @@
      }
 
      @Override
-     public PackHunter getPriorPackMember() {
+     public IPackHunter getPriorPackMember() {
          return this.priorPackMember;
      }
 
      @Override
-     public PackHunter getAfterPackMember() {
+     public IPackHunter getAfterPackMember() {
          return afterPackMember;
      }
 
      @Override
-     public void setPriorPackMember(PackHunter animal) {
+     public void setPriorPackMember(IPackHunter animal) {
          this.priorPackMember = (PsilopterusEntity) animal;
      }
 
      @Override
-     public void setAfterPackMember(PackHunter animal) {
+     public void setAfterPackMember(IPackHunter animal) {
          this.afterPackMember = (PsilopterusEntity) animal;
      }
 

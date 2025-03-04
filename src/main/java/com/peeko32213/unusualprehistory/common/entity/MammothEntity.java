@@ -2,9 +2,9 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.MammothMeleeAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.MammothMeleeAttackGoal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -51,7 +51,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import java.util.Collections;
 import java.util.List;
 
-public class MammothEntity extends BaseDinosaurAnimalEntity implements Shearable, net.minecraftforge.common.IForgeShearable, ContainerListener {
+public class MammothEntity extends PrehistoricEntity implements Shearable, net.minecraftforge.common.IForgeShearable, ContainerListener {
     public static final ResourceLocation MAMMOTH_LOOT = new ResourceLocation("unusualprehistory", "gameplay/mammoth_loot");
     private static final EntityDataAccessor<Boolean> IS_TRUNKING = SynchedEntityData.defineId(MammothEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<ItemStack> HOLD_ITEM = SynchedEntityData.defineId(MammothEntity.class, EntityDataSerializers.ITEM_STACK);

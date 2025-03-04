@@ -1,11 +1,11 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
  import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.JoinPackGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.ShoalHunterGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.PackHunter;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.JoinPackGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.ShoalHunterGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IPackHunter;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.core.BlockPos;
@@ -55,7 +55,7 @@
  //TODO LIST
  // - Add In Taming Method + Sword Form
  // - Add in Flask + Eggs
- public class ProtosphyraenaEntity extends WaterAnimal implements GeoAnimatable, IBookEntity, PackHunter {
+ public class ProtosphyraenaEntity extends WaterAnimal implements GeoAnimatable, IBookEntity, IPackHunter {
      private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(ProtosphyraenaEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(ProtosphyraenaEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(ProtosphyraenaEntity.class, EntityDataSerializers.INT);
@@ -173,22 +173,22 @@
      }
 
      @Override
-     public PackHunter getPriorPackMember() {
+     public IPackHunter getPriorPackMember() {
          return this.priorPackMember;
      }
 
      @Override
-     public PackHunter getAfterPackMember() {
+     public IPackHunter getAfterPackMember() {
          return afterPackMember;
      }
 
      @Override
-     public void setPriorPackMember(PackHunter animal) {
+     public void setPriorPackMember(IPackHunter animal) {
          this.priorPackMember = (ProtosphyraenaEntity) animal;
      }
 
      @Override
-     public void setAfterPackMember(PackHunter animal) {
+     public void setAfterPackMember(IPackHunter animal) {
          this.afterPackMember = (ProtosphyraenaEntity) animal;
      }
 
@@ -198,7 +198,7 @@
          LivingEntity target = this.getTarget();
          if (target != null && target.isAlive() && !(target instanceof Player player && player.isCreative())) {
              if (this.isDominate()) {
-                 PackHunter leader = this;
+                 IPackHunter leader = this;
                  while (leader.getAfterPackMember() != null) {
                      leader = leader.getAfterPackMember();
                      if(!((ProtosphyraenaEntity) leader).isAlliedTo(target)){

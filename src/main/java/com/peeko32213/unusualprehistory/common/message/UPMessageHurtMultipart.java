@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.message;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IHurtableMultipart;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHurtableMultipart;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;

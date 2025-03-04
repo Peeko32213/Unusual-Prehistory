@@ -1,10 +1,10 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableClimbingAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
+ import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.base.TamableClimbingPrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
  import net.minecraft.core.BlockPos;
@@ -56,7 +56,7 @@
  // - Chances in DNA loot pool need to be added (Added to Amber as amber needs more stuff in it)
  // - While ordered to sit it sometimes goes into the animation but still slides around, though it usually fixes itself after commanding it again
  // - Walking animation sometimes play while idling
- public class LongisquamaEntity extends TameableClimbingAnimalEntity implements CustomFollower {
+ public class LongisquamaEntity extends TamableClimbingPrehistoricEntity implements ICustomFollower {
      private static final RawAnimation LONGISQUAMA_IDLE = RawAnimation.begin().thenLoop("animation.longisquama.ground_idle");
      private static final RawAnimation LONGISQUAMA_WALK = RawAnimation.begin().thenLoop("animation.longisquama.ground_walk");
      private static final RawAnimation LONGISQUAMA_SHAKING = RawAnimation.begin().thenLoop("animation.longisquama.shaking");
@@ -82,7 +82,7 @@
      public float sitProgress;
      private int rideCooldown = 0;
 
-     public LongisquamaEntity(EntityType<? extends TameableBaseDinosaurAnimalEntity> entityType, Level level) {
+     public LongisquamaEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
          super(entityType, level);
      }
 

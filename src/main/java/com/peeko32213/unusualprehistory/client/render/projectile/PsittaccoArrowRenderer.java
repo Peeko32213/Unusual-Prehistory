@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.client.render.projectile;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.projectile.PsittaccoArrow;
+import com.peeko32213.unusualprehistory.common.entity.projectile.PsittaccoArrow;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;

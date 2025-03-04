@@ -2,14 +2,12 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.projectile.PsittaccoArrow;
+import com.peeko32213.unusualprehistory.common.entity.projectile.*;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
-import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.LeedsichthysPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.projectile.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BookPalaeophisEntity;
+import com.peeko32213.unusualprehistory.common.entity.part.LeedsichthysPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.part.PalaeophisPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.PalaeophisBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -327,8 +325,8 @@ public class UPEntities {
                 .updateInterval(10)
                 .build(prefix("jarate").toString()));
 
-    public static final RegistryObject<EntityType<BookPalaeophisEntity>> BOOK_PALAEO = ENTITIES.register("palaeo_book_palaeo",
-            () -> EntityType.Builder.<BookPalaeophisEntity>of(BookPalaeophisEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<PalaeophisBookEntity>> BOOK_PALAEO = ENTITIES.register("palaeo_book_palaeo",
+            () -> EntityType.Builder.<PalaeophisBookEntity>of(PalaeophisBookEntity::new, MobCategory.MISC)
                     .noSummon()
                     .fireImmune()
                     .sized(2, 2)

@@ -3,15 +3,17 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseStatedDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IVariantEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.EntityAction;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.RandomStateGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.StateHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.base.TamableStatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableStatedFollowOwner;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableTempt;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -69,7 +71,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity implements CustomFollower, GeoEntity, GeoAnimatable, IVariantEntity {
+public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements ICustomFollower, GeoEntity, GeoAnimatable, IVariantEntity {
 
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.TRICERATOPS_FOOD);
 
@@ -163,7 +165,7 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
     public void setAction(boolean action) {}
 
 
-    public TriceratopsEntity(EntityType<? extends TameableBaseStatedDinosaurAnimalEntity> entityType, Level level) {
+    public TriceratopsEntity(EntityType<? extends TamableStatedPrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
     }

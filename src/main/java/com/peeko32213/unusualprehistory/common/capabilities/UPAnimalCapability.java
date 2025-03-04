@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.capabilities;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseAquaticAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricAquaticEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -70,16 +70,16 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
                 livingEntity.setPos(event.getEntity().position());
                 livingEntity.setUUID(UUID.randomUUID());
-                if(livingEntity instanceof TameableBaseDinosaurAnimalEntity animal){
+                if(livingEntity instanceof TamablePrehistoricEntity animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
 
-                if(livingEntity instanceof BaseDinosaurAnimalEntity animal){
+                if(livingEntity instanceof PrehistoricEntity animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
-                if(livingEntity instanceof BaseAquaticAnimalEntity animal){
+                if(livingEntity instanceof PrehistoricAquaticEntity animal){
                     animal.determineVariant(1);
                 }
 
@@ -115,16 +115,16 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
                 livingEntity.setPos(event.getEntity().position());
                 livingEntity.setUUID(UUID.randomUUID());
-                if(livingEntity instanceof TameableBaseDinosaurAnimalEntity animal){
+                if(livingEntity instanceof TamablePrehistoricEntity animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
 
-                if(livingEntity instanceof BaseDinosaurAnimalEntity animal){
+                if(livingEntity instanceof PrehistoricEntity animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
-                if(livingEntity instanceof BaseAquaticAnimalEntity animal){
+                if(livingEntity instanceof PrehistoricAquaticEntity animal){
                     animal.determineVariant(1);
                 }
 

@@ -1,8 +1,8 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.FlyingMoveController;
+ import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
@@ -43,7 +43,7 @@
  import javax.annotation.Nullable;
  import java.util.EnumSet;
 
- public class PterodaustroEntity extends BaseDinosaurAnimalEntity implements GeoEntity, IBookEntity {
+ public class PterodaustroEntity extends PrehistoricEntity implements GeoEntity, IBookEntity {
      private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
      @Nullable
      private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(PterodaustroEntity.class, EntityDataSerializers.BOOLEAN);
@@ -68,7 +68,7 @@
      private static final RawAnimation PTERODAUSTRO_NESTING = RawAnimation.begin().thenPlay("animation.pterodaustro.nesting");
 
 
-     public PterodaustroEntity(EntityType<? extends BaseDinosaurAnimalEntity> entityType, Level level) {
+     public PterodaustroEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
          super(entityType, level);
          switchNavigator(true);
      }

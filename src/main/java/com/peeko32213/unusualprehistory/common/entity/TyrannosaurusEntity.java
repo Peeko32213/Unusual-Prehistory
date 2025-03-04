@@ -3,13 +3,14 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseStatedDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IVariantEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.EntityAction;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.RandomStateGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.StateHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.base.StatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.StatedSleepingGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -41,6 +42,7 @@ import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,7 +65,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
+public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.INT);
 
@@ -100,7 +102,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
-//    private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
 
     // Idle actions
     private static final EntityAction TYRANNO_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
@@ -130,12 +132,24 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                     .entityAction(TYRANNO_IDLE_3_ACTION)
                     .build();
 
+    private static final EntityAction TYRANNO_IDLE_4_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper TYRANNO_IDLE_4_STATE =
+            StateHelper.Builder.state(IDLE_4_AC, "tyrannosaurus_sit")
+                .playTime(240)
+                .stopTime(300)
+                .affectsAI(true)
+                .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                .entityAction(TYRANNO_IDLE_4_ACTION)
+                .build();
+
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
                 TYRANNO_IDLE_1_STATE.getName(), TYRANNO_IDLE_1_STATE,
                 TYRANNO_IDLE_2_STATE.getName(), TYRANNO_IDLE_2_STATE,
-                TYRANNO_IDLE_3_STATE.getName(), TYRANNO_IDLE_3_STATE
+                TYRANNO_IDLE_3_STATE.getName(), TYRANNO_IDLE_3_STATE,
+                TYRANNO_IDLE_4_STATE.getName(), TYRANNO_IDLE_4_STATE
         );
     }
 
@@ -144,7 +158,8 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         return ImmutableList.of(
                 WeightedState.of(TYRANNO_IDLE_1_STATE, 11),
                 WeightedState.of(TYRANNO_IDLE_2_STATE, 12),
-                WeightedState.of(TYRANNO_IDLE_3_STATE, 9)
+                WeightedState.of(TYRANNO_IDLE_3_STATE, 9),
+                WeightedState.of(TYRANNO_IDLE_4_STATE, 5)
         );
     }
 
@@ -173,15 +188,15 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new RandomStateGoal<>(this) {
-            public boolean canUse() {
-                return (getTarget() == null);
-        }});
+        this.goalSelector.addGoal(1, new StatedSleepingGoal(this));
+        if(!this.isAsleep() && !this.hasEepy() && !this.hasTargets()) {
+            this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
+        }
         this.goalSelector.addGoal(0, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new TyrannosaurusEntity.TyrannosaurusMeleeAttackGoal(this, 1.5F, true) {
                 public boolean canUse() {
-                    return !isBaby() && level().getDifficulty()  != Difficulty.PEACEFUL && !hasEepy() && !isPassive() && super.canUse();
+                    return !isBaby() && level().getDifficulty() != Difficulty.PEACEFUL && !hasEepy() && !isPassive() && super.canUse();
                 }
             });
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 20));
@@ -192,7 +207,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             }));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.TYRANNOSAURUS_TARGETS)) {
                 public boolean canUse() {
-                    return !hasEepy() && !isBaby() && !isPassive() && !hasEepy() && super.canUse();
+                    return !hasEepy() && !isBaby() && !isPassive() && !hasEepy() && !isSleeping() && super.canUse();
                 }
             });
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
@@ -331,6 +346,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         this.entityData.define(IDLE_1_AC, false);
         this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(IDLE_3_AC, false);
+        this.entityData.define(IDLE_4_AC, false);
         this.entityData.define(VARIANT, 0);
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(EEPY, false);
@@ -375,6 +391,11 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         } else {
             this.setSprinting(false);
         }
+
+        if (this.isAsleep()) {
+            this.navigation.stop();
+            this.navigation.setSpeedModifier(0);
+        }
         super.customServerAiStep();
     }
 
@@ -398,6 +419,11 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                 }
             }
         }
+
+        if (this.isAsleep()) {
+            this.navigation.stop();
+            this.navigation.setSpeedModifier(0);
+        }
     }
 
     @Override
@@ -412,6 +438,13 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         assert tyrannosaurus != null;
         tyrannosaurus.setVariant(this.getVariant());
         return tyrannosaurus;
+    }
+
+    protected void ageBoundaryReached() {
+        super.ageBoundaryReached();
+        if (!this.isBaby() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+            this.spawnAtLocation(UPItems.REX_SCALE.get(), 1);
+        }
     }
 
     public boolean requiresCustomPersistence() {
@@ -786,13 +819,14 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                 .triggerableAnim("shake", TYRANNO_SHAKE)
                 .triggerableAnim("sniff", TYRANNO_SNIFF)
                 .triggerableAnim("roar", TYRANNO_ROAR)
-                .triggerableAnim("bite", TYRANNO_BITE_0);
+                .triggerableAnim("bite_0", TYRANNO_BITE_0)
+                .triggerableAnim("bite_1", TYRANNO_BITE_1);
                 blend.setSoundKeyframeHandler(this::soundListener);
             controllers.add(blend);
     }
 
     private boolean isStillEnough() {
-        return this.getDeltaMovement().horizontalDistance() < 0.0005;
+        return this.getDeltaMovement().horizontalDistance() < 0.05;
     }
 
     protected <E extends TyrannosaurusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -806,25 +840,25 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         switch (animState) {
 
             case 1:
-                if (!this.hasEepy()) {
+                if (!this.hasEepy() && !this.isAsleep()) {
                     event.setAndContinue(TYRANNO_TACKLE);
                     event.getController().setAnimationSpeed(0.85F);
                     break;
                 }
             case 2:
-                if (!this.hasEepy()) {
+                if (!this.hasEepy() && !this.isAsleep()) {
                     event.setAndContinue(TYRANNO_WHIP);
                     event.getController().setAnimationSpeed(1.0F);
                     break;
                 }
             case 3:
-                if (!this.hasEepy()) {
+                if (!this.hasEepy() && !this.isAsleep()) {
                     event.setAndContinue(TYRANNO_STOMP_L);
                     event.getController().setAnimationSpeed(1.35F);
                     break;
                 }
             case 4:
-                if (!this.hasEepy()) {
+                if (!this.hasEepy() && !this.isAsleep()) {
                     event.setAndContinue(TYRANNO_STOMP_R);
                     event.getController().setAnimationSpeed(1.35F);
                     break;
@@ -832,64 +866,69 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
 
             default:
 
-                if (this.hasEepy()) {
+                if (this.hasEepy() && !this.isAsleep()) {
                     event.setAndContinue(TYRANNO_EEPY);
                     event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
-                } else if (this.isInWater() && !this.hasEepy()) {
+                }
+
+                if (this.isInWater() && !this.hasEepy()  ) {
                     event.setAndContinue(TYRANNO_SWIM);
                     event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
-                } else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy()) {
+                }
+
+                else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy() && !this.isAsleep()) {
                     if (this.isSprinting() && !this.isBaby()) {
                         event.setAndContinue(TYRANNO_CHARGE);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
                     } else {
                         event.setAndContinue(TYRANNO_WALK);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
                     }
-                } else {
-                    if (!this.isInWater() && !this.hasEepy()) {
-                        if (getBooleanState(IDLE_1_AC)) {
-                            if (this.isStillEnough()) {
-                                triggerAnim("blend", "shake");
-                                return event.setAndContinue(TYRANNO_IDLE);
-                            }
-                            if (this.hasEepy()) {
-                                event.setAndContinue(TYRANNO_EEPY);
-                            } else {
-                                triggerAnim("blend", "shake");
-                                return PlayState.CONTINUE;
-                            }
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                }
+
+                if (!this.isInWater() && !this.hasEepy() && !this.hasTargets() && this.isAsleep() && !getBooleanState(IDLE_1_AC) && !getBooleanState(IDLE_2_AC) && !getBooleanState(IDLE_3_AC) && !getBooleanState(IDLE_4_AC)) {
+                    event.setAndContinue(TYRANNO_SLEEP);
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                }
+
+                if (!this.isInWater() && !this.hasEepy() && !this.isAsleep()) {
+                    if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+                        if (this.isStillEnough()) {
+                            triggerAnim("blend", "shake");
+                            return event.setAndContinue(TYRANNO_IDLE);
                         }
-                        if (getBooleanState(IDLE_2_AC)) {
-                            if (this.isStillEnough()) {
-                                triggerAnim("blend", "sniff");
-                                return event.setAndContinue(TYRANNO_IDLE);
-                            }
-                            if (this.hasEepy()) {
-                                event.setAndContinue(TYRANNO_EEPY);
-                            } else {
-                                triggerAnim("blend", "sniff");
-                                return PlayState.CONTINUE;
-                            }
+                        else {
+                            triggerAnim("blend", "shake");
+                            return PlayState.CONTINUE;
                         }
-                        if (getBooleanState(IDLE_3_AC)) {
-                            if (this.isStillEnough()) {
-                                triggerAnim("blend", "roar");
-                                return event.setAndContinue(TYRANNO_IDLE);
-                            }
-                            if (this.hasEepy()) {
-                                event.setAndContinue(TYRANNO_EEPY);
-                            } else {
-                                triggerAnim("blend", "roar");
-                                return PlayState.CONTINUE;
-                            }
-                        }
-                        return event.setAndContinue(TYRANNO_IDLE);
                     }
+                    if (getBooleanState(IDLE_2_AC) && !this.isAsleep()) {
+                        if (this.isStillEnough()) {
+                            triggerAnim("blend", "sniff");
+                            return event.setAndContinue(TYRANNO_IDLE);
+                        }
+                        else {
+                            triggerAnim("blend", "sniff");
+                            return PlayState.CONTINUE;
+                        }
+                    }
+                    if (getBooleanState(IDLE_3_AC) && !this.isAsleep()) {
+                        if (this.isStillEnough()) {
+                            triggerAnim("blend", "roar");
+                            return event.setAndContinue(TYRANNO_IDLE);
+                        }
+                        else {
+                            triggerAnim("blend", "roar");
+                            return PlayState.CONTINUE;
+                        }
+                    }
+                    if (getBooleanState(IDLE_4_AC) && !this.isAsleep()) {
+                        return event.setAndContinue(TYRANNO_SIT);
+                    }
+                    return event.setAndContinue(TYRANNO_IDLE);
                 }
             }
         }

@@ -1,14 +1,14 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Maps;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IAttackEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -65,7 +65,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class UlughbegsaurusEntity extends TameableBaseDinosaurAnimalEntity implements CustomFollower, IAttackEntity, IVariantEntity {
+public class UlughbegsaurusEntity extends TamablePrehistoricEntity implements ICustomFollower, IAttackEntity, IVariantEntity {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> BLUE = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> YELLOW = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -103,7 +103,7 @@ public class UlughbegsaurusEntity extends TameableBaseDinosaurAnimalEntity imple
     private static final RawAnimation ULUGH_IDLE = RawAnimation.begin().thenLoop("animation.ulugh.idle");
     private static final RawAnimation ULUGH_EATING = RawAnimation.begin().thenLoop("animation.ulugh.eating");
     private static final RawAnimation ULUGH_BITE = RawAnimation.begin().thenLoop("animation.ulugh.bite");
-    public UlughbegsaurusEntity(EntityType<? extends TameableBaseDinosaurAnimalEntity> entityType, Level level) {
+    public UlughbegsaurusEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.2F);
     }

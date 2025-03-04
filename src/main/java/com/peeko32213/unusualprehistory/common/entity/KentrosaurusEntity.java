@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -48,7 +48,7 @@ import javax.annotation.Nonnull;
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
-public class KentrosaurusEntity extends BaseDinosaurAnimalEntity {
+public class KentrosaurusEntity extends PrehistoricEntity {
     public static final double FLEE_SPEED_MOD = 1.5D;
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(KentrosaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(KentrosaurusEntity.class, EntityDataSerializers.INT);

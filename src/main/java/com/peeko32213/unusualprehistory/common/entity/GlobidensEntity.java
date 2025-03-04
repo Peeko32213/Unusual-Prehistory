@@ -3,13 +3,13 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseStatedDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.EntityAction;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.RandomStateGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.StateHelper;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.base.StatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -61,7 +61,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class GlobidensEntity extends BaseStatedDinosaurAnimalEntity implements GeoAnimatable, GeoEntity, IBookEntity {
+public class GlobidensEntity extends StatedPrehistoricEntity implements GeoAnimatable, GeoEntity, IBookEntity {
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.INT);
@@ -122,7 +122,7 @@ public class GlobidensEntity extends BaseStatedDinosaurAnimalEntity implements G
 
     private int passiveFor = 0;
 
-    public GlobidensEntity(EntityType<? extends BaseStatedDinosaurAnimalEntity> entityType, Level level) {
+    public GlobidensEntity(EntityType<? extends StatedPrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);

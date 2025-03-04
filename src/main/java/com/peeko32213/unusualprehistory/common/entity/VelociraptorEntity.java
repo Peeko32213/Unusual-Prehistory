@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.PounceGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Objects;
 
-public class VelociraptorEntity extends BaseDinosaurAnimalEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
+public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);

@@ -428,10 +428,10 @@ public class UPBlocks {
     public static final RegistryObject<ButtonBlock> AMBER_BUTTON = registerBlock("amber_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON), UPBlockSetType.GINKGO_TYPE, 2, true));
 
     // Foxii wood
-    public static final RegistryObject<RotatedPillarBlock> FOXXI_LOG = registerBlock("foxxi_log", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(5f)));
-    public static final RegistryObject<RotatedPillarBlock> FOXXI_WOOD = registerBlock("foxxi_wood", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
-    public static final RegistryObject<RotatedPillarBlock> STRIPPED_FOXXI_LOG = registerBlock("stripped_foxxi_log", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
-    public static final RegistryObject<RotatedPillarBlock> STRIPPED_FOXXI_WOOD = registerBlock("stripped_foxxi_wood", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> FOXXI_LOG = registerBlock("foxxi_log", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(5f)));
+    public static final RegistryObject<RotatedPillarBlock> FOXXI_WOOD = registerBlock("foxxi_wood", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_FOXXI_LOG = registerBlock("stripped_foxxi_log", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_FOXXI_WOOD = registerBlock("stripped_foxxi_wood", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     public static final RegistryObject<Block> FOXXI_PLANKS = registerBlock("foxxi_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
     public static final RegistryObject<StairBlock> FOXXI_STAIRS = registerBlock("foxxi_stairs", () -> new StairBlock(() -> FOXXI_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(FOXXI_PLANKS.get())));
     public static final RegistryObject<SlabBlock> FOXXI_SLAB = registerBlock("foxxi_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(FOXXI_PLANKS.get())));
@@ -452,10 +452,10 @@ public class UPBlocks {
     public static final RegistryObject<Block> FOXII_SAPLING = registerBlock("foxii_sapling", () -> new DoubleSaplingBlock(new FoxiiTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
     // Dryophyllum wood
-    public static final RegistryObject<RotatedPillarBlock> DRYO_LOG = registerBlock("dryo_log", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
-    public static final RegistryObject<RotatedPillarBlock> DRYO_WOOD = registerBlock("dryo_wood", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
-    public static final RegistryObject<RotatedPillarBlock> STRIPPED_DRYO_LOG = registerBlock("stripped_dryo_log", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
-    public static final RegistryObject<RotatedPillarBlock> STRIPPED_DRYO_WOOD = registerBlock("stripped_dryo_wood", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> DRYO_LOG = registerBlock("dryo_log", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> DRYO_WOOD = registerBlock("dryo_wood", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_DRYO_LOG = registerBlock("stripped_dryo_log", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_DRYO_WOOD = registerBlock("stripped_dryo_wood", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     public static final RegistryObject<Block> DRYO_PLANKS = registerBlock("dryo_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
     public static final RegistryObject<StairBlock> DRYO_STAIRS = registerBlock("dryo_stairs", () -> new StairBlock(() -> FOXXI_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(FOXXI_PLANKS.get())));
     public static final RegistryObject<SlabBlock> DRYO_SLAB = registerBlock("dryo_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(FOXXI_PLANKS.get())));
@@ -476,10 +476,10 @@ public class UPBlocks {
     public static final RegistryObject<Block> DRYO_SAPLING = registerBlock("dryo_sapling", () -> new SaplingBlock(new DryoTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
     // Ginkgo wood
-    public static final RegistryObject<RotatedPillarBlock> GINKGO_LOG = registerBlock("ginkgo_log", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
-    public static final RegistryObject<RotatedPillarBlock> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
-    public static final RegistryObject<RotatedPillarBlock> STRIPPED_GINKGO_LOG = registerBlock("stripped_ginkgo_log", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
-    public static final RegistryObject<RotatedPillarBlock> STRIPPED_GINKGO_WOOD = registerBlock("stripped_ginkgo_wood", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> GINKGO_LOG = registerBlock("ginkgo_log", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_GINKGO_LOG = registerBlock("stripped_ginkgo_log", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_GINKGO_WOOD = registerBlock("stripped_ginkgo_wood", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     public static final RegistryObject<Block> GINKGO_PLANKS = registerBlock("ginkgo_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
     public static final RegistryObject<StairBlock> GINKGO_STAIRS = registerBlock("ginkgo_stairs", () -> new StairBlock(() -> GINKGO_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(GINKGO_PLANKS.get())));
     public static final RegistryObject<SlabBlock> GINKGO_SLAB = registerBlock("ginkgo_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(GINKGO_PLANKS.get())));
@@ -500,10 +500,10 @@ public class UPBlocks {
     public static final RegistryObject<Block> GINKGO_SAPLING = registerBlock("ginkgo_sapling", () -> new SaplingBlock(new GinkgoTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
     // Petrified wood
-    public static final RegistryObject<RotatedPillarBlock> PETRIFIED_WOOD_LOG = registerBlock("petrified_wood_log", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
-    public static final Supplier<Block> PETRIFIED_WOOD = registerBlock("petrified_wood", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
-    public static final RegistryObject<RotatedPillarBlock> STRIPPED_PETRIFIED_WOOD_LOG = registerBlock("stripped_petrified_wood_log", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
-    public static final RegistryObject<RotatedPillarBlock> STRIPPED_PETRIFIED_WOOD = registerBlock("stripped_petrified_wood", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
+    public static final RegistryObject<RotatedPillarBlock> PETRIFIED_WOOD_LOG = registerBlock("petrified_wood_log", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
+    public static final Supplier<Block> PETRIFIED_WOOD = registerBlock("petrified_wood", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_PETRIFIED_WOOD_LOG = registerBlock("stripped_petrified_wood_log", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_PETRIFIED_WOOD = registerBlock("stripped_petrified_wood", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> PETRIFIED_WOOD_PLANKS = registerBlock("petrified_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
     public static final RegistryObject<StairBlock> PETRIFIED_WOOD_STAIRS = registerBlock("petrified_wood_stairs", () -> new StairBlock(() -> PETRIFIED_WOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(PETRIFIED_WOOD_PLANKS.get())));
     public static final RegistryObject<SlabBlock> PETRIFIED_WOOD_SLAB = registerBlock("petrified_wood_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(PETRIFIED_WOOD_PLANKS.get())));
@@ -525,8 +525,8 @@ public class UPBlocks {
     public static final RegistryObject<Block> PETRIFIED_BUSH = registerBlock("petrified_bush", () -> new DeadBushBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noCollission().instabreak().sound(SoundType.GRASS)));
 
     // Zuloagae wood
-    public static final RegistryObject<RotatedPillarBlock> ZULOAGAE_BLOCK = registerBlock("zuloagae_block", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_BLOCK).strength(5f)));
-    public static final RegistryObject<RotatedPillarBlock> STRIPPED_ZULOAGAE_BLOCK = registerBlock("stripped_zuloagae_block", () -> new GinkgoWoodBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_BLOCK)));
+    public static final RegistryObject<RotatedPillarBlock> ZULOAGAE_BLOCK = registerBlock("zuloagae_block", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.BAMBOO_BLOCK).strength(5f)));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_ZULOAGAE_BLOCK = registerBlock("stripped_zuloagae_block", () -> new UPWoodBlocks(BlockBehaviour.Properties.copy(Blocks.BAMBOO_BLOCK)));
     public static final RegistryObject<Block> ZULOAGAE_PLANKS = registerBlock("zuloagae_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS)));
     public static final RegistryObject<StairBlock> ZULOAGAE_STAIRS = registerBlock("zuloagae_stairs", () -> new StairBlock(() -> ZULOAGAE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(ZULOAGAE_PLANKS.get())));
     public static final RegistryObject<SlabBlock> ZULOAGAE_SLAB = registerBlock("zuloagae_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(ZULOAGAE_PLANKS.get())));

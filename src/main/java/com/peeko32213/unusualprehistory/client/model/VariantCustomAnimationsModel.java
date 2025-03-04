@@ -1,14 +1,14 @@
 package com.peeko32213.unusualprehistory.client.model;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.ICustomAnimationsEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomAnimationsEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
-public class VariantCustomAnimationsModel<T extends BaseDinosaurAnimalEntity & GeoAnimatable & IVariantEntity & ICustomAnimationsEntity> extends GeoModel<T>{
+public class VariantCustomAnimationsModel<T extends PrehistoricEntity & GeoAnimatable & IVariantEntity & ICustomAnimationsEntity> extends GeoModel<T>{
     private ResourceLocation model;
     private ResourceLocation texture;
     private ResourceLocation animation;

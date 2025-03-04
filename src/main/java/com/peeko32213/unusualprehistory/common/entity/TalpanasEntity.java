@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -45,6 +45,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -55,7 +56,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class TalpanasEntity extends BaseDinosaurAnimalEntity {
+public class TalpanasEntity extends PrehistoricEntity {
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(TalpanasEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(TalpanasEntity.class, EntityDataSerializers.INT);
     public static final ResourceLocation TALPANAS_REWARD = new ResourceLocation("unusualprehistory", "gameplay/talpanas_reward");
@@ -166,7 +167,7 @@ public class TalpanasEntity extends BaseDinosaurAnimalEntity {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel pLevel, @NotNull AgeableMob pOtherParent) {
         return null;
     }
 

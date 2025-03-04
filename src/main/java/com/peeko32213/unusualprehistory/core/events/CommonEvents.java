@@ -2,11 +2,10 @@ package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.baby.*;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.LeedsichthysPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BookPalaeophisEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.WorldSpawnableEntity;
+import com.peeko32213.unusualprehistory.common.entity.part.LeedsichthysPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.part.PalaeophisPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.PalaeophisBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.WorldSpawnableEntity;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -88,7 +87,7 @@ public class CommonEvents {
         event.put(UPEntities.SLUDGE.get(), SludgeEntity.createAttributes().build());
 
         // Non-living mobs
-        event.put(UPEntities.BOOK_PALAEO.get(), BookPalaeophisEntity.createAttributes().build());
+        event.put(UPEntities.BOOK_PALAEO.get(), PalaeophisBookEntity.createAttributes().build());
         event.put(UPEntities.ICEBERG_SMILODON.get(), WorldSpawnableEntity.bakeAttributes().build());
         event.put(UPEntities.ICEBERG_MAMMOTH.get(), WorldSpawnableEntity.bakeAttributes().build());
 

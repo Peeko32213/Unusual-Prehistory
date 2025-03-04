@@ -1,10 +1,10 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.GroomGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.PounceGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.SmilodonAttackGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.GroomGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.SmilodonAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -44,7 +44,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
 
-public class SmilodonEntity extends BaseDinosaurAnimalEntity implements IVariantEntity {
+public class SmilodonEntity extends PrehistoricEntity implements IVariantEntity {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SmilodonEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(SmilodonEntity.class, EntityDataSerializers.INT);
@@ -66,7 +66,7 @@ public class SmilodonEntity extends BaseDinosaurAnimalEntity implements IVariant
     private static final RawAnimation SMILO_BABY_WALK = RawAnimation.begin().thenLoop("animation.baby_smilodon.move");
     private static final RawAnimation SMILO_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_smilodon.swim");
 
-    public SmilodonEntity(EntityType<? extends BaseDinosaurAnimalEntity> entityType, Level level) {
+    public SmilodonEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
     }

@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.AnuroPolinateGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.FlyingMoveController;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.AnuroPolinateGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;

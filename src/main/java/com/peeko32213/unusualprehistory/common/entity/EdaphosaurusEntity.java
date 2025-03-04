@@ -2,8 +2,11 @@ package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseStatedDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.state.*;
+import com.peeko32213.unusualprehistory.common.entity.base.StatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -45,7 +48,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.EnumSet;
 import java.util.List;
 
-public class EdaphosaurusEntity extends BaseStatedDinosaurAnimalEntity implements GeoEntity, GeoAnimatable {
+public class EdaphosaurusEntity extends StatedPrehistoricEntity implements GeoEntity, GeoAnimatable {
 
     private static final Ingredient FOOD_ITEMS = Ingredient.of(UPTags.EDAPHO_FOOD_ITEMS);
 
@@ -156,7 +159,7 @@ public class EdaphosaurusEntity extends BaseStatedDinosaurAnimalEntity implement
     @Override
     public void setAction(boolean action) {}
 
-    public EdaphosaurusEntity(EntityType<? extends BaseStatedDinosaurAnimalEntity> entityType, Level level) {
+    public EdaphosaurusEntity(EntityType<? extends StatedPrehistoricEntity> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -332,7 +335,6 @@ public class EdaphosaurusEntity extends BaseStatedDinosaurAnimalEntity implement
             }
             return event.setAndContinue(EDAPHO_IDLE);
         }
-
         return PlayState.CONTINUE;
     }
 

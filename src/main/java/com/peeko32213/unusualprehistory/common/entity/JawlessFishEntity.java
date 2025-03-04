@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BoidFishEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.BoidFishPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -43,7 +43,7 @@ import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 //TODO LIST
 // - Basically Done, nothing else really needed other than chances in the DNA loot pool
-public class JawlessFishEntity extends BoidFishEntity implements Bucketable, GeoAnimatable, IBookEntity {
+public class JawlessFishEntity extends BoidFishPrehistoricEntity implements Bucketable, GeoAnimatable, IBookEntity {
 
     private static final ResourceLocation TEXTURE_CEPHALAPIS = prefix("textures/entity/cephalaspis.png");
     private static final ResourceLocation TEXTURE_DORYASPIS = prefix("textures/entity/doryaspis.png");
@@ -63,7 +63,7 @@ public class JawlessFishEntity extends BoidFishEntity implements Bucketable, Geo
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
 
-    public JawlessFishEntity(EntityType<? extends BoidFishEntity> entityType, Level level) {
+    public JawlessFishEntity(EntityType<? extends BoidFishPrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02f, 0.1f, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);

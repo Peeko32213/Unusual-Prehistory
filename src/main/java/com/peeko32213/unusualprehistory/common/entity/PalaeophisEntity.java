@@ -1,10 +1,10 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.part.PalaeophisPartIndex;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseAquaticAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.part.PalaeophisPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.part.PalaeophisPartIndex;
+import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricAquaticEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -48,6 +48,7 @@ import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -64,7 +65,8 @@ import java.util.UUID;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-public class PalaeophisEntity extends BaseAquaticAnimalEntity implements GeoAnimatable {
+public class PalaeophisEntity extends PrehistoricAquaticEntity implements GeoAnimatable {
+
     private ResourceLocation DEEP_ONE_SHED = prefix("textures/entity/palaeophis_deep_head_shed.png");
     private ResourceLocation DEEP_ONE = prefix("textures/entity/palaeophis_deep_head.png");
     private ResourceLocation NORMAL = prefix("textures/entity/palaeophis_head.png");
@@ -90,7 +92,7 @@ public class PalaeophisEntity extends BaseAquaticAnimalEntity implements GeoAnim
     private static final RawAnimation PALAEO_IDLE_TOUNGE = RawAnimation.begin().thenLoop("animation.palaophis_head.idle_tounge");
 
 
-    public PalaeophisEntity(EntityType<? extends BaseAquaticAnimalEntity> entityType, Level level) {
+    public PalaeophisEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -142,17 +144,7 @@ public class PalaeophisEntity extends BaseAquaticAnimalEntity implements GeoAnim
     }
 
     public void travel(Vec3 travelVector) {
-        if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.getTarget() == null) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-            }
-        } else {
-            super.travel(travelVector);
-        }
-
+        super.travel(travelVector);
     }
 
     protected PathNavigation createNavigation(Level p_27480_) {
@@ -351,7 +343,7 @@ public class PalaeophisEntity extends BaseAquaticAnimalEntity implements GeoAnim
 
 
     @Override
-    public boolean canCollideWith(Entity pEntity) {
+    public boolean canCollideWith(@NotNull Entity pEntity) {
         return true;
     }
 
@@ -635,7 +627,7 @@ public class PalaeophisEntity extends BaseAquaticAnimalEntity implements GeoAnim
         public void stop() {
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget((LivingEntity) null);
+                this.mob.setTarget(null);
             }
             this.mob.setAnimationState(0);
 
@@ -824,6 +816,15 @@ public class PalaeophisEntity extends BaseAquaticAnimalEntity implements GeoAnim
             }
         }
         return p_28137_;
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        PalaeophisEntity palaeophis = UPEntities.PALAEOPHIS.get().create(serverLevel);
+        assert palaeophis != null;
+        palaeophis.setVariant(this.getVariant());
+        return palaeophis;
     }
 
     public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends WaterAnimal> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {

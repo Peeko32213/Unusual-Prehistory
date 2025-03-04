@@ -1,13 +1,13 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRandomStrollGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.FindWaterGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.LeaveWaterGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.SemiAquaticSwimmingGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.SemiAquatic;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.SemiAquaticPathNavigation;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.navigator.WaterMoveController;
+ import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.FindWaterGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.LeaveWaterGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.SemiAquaticSwimmingGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -34,13 +34,12 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.animatable.GeoEntity;
- import software.bernie.geckolib.core.animatable.GeoAnimatable;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.object.PlayState;
 
- public class PterygotusEntity extends BaseDinosaurAnimalEntity implements SemiAquatic, GeoEntity {
+ public class PterygotusEntity extends PrehistoricEntity implements ISemiAquatic, GeoEntity {
 
      private static final RawAnimation PTERY_IDLE = RawAnimation.begin().thenLoop("animation.pterygotus.idle");
      private static final RawAnimation PTERY_WALK = RawAnimation.begin().thenLoop("animation.pterygotus.walk");

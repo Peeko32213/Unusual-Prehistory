@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.iceberg;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.WorldSpawnableEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.WorldSpawnableEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;

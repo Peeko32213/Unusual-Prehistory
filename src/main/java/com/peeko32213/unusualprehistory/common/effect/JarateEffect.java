@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.effect;
 
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.JarateFindWaterGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.JarateFindWaterGoal;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;

@@ -72,6 +72,14 @@
 					]
 				},
 				{
+					"name": "Sleepy",
+					"parent": "Rex_Head",
+					"pivot": [0.25, 62, -37],
+					"cubes": [
+						{"origin": [-9.5, 56, -49], "size": [19, 1, 2], "inflate": 0.01, "uv": [202, 159]}
+					]
+				},
+				{
 					"name": "Rex_Arm_Left",
 					"parent": "Rex_Upper_Body",
 					"pivot": [14.5, 26, -21.5],

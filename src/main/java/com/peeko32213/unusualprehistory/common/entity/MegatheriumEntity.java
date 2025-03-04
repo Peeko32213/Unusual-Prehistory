@@ -1,11 +1,11 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
 import com.google.common.collect.Lists;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.CustomRideGoal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IAttackEntity;
+import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -46,7 +46,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-public class MegatheriumEntity extends TameableBaseDinosaurAnimalEntity implements CustomFollower, IAttackEntity {
+public class MegatheriumEntity extends TamablePrehistoricEntity implements ICustomFollower, IAttackEntity {
 //    private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(MegatheriumEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(MegatheriumEntity.class, EntityDataSerializers.INT);
@@ -65,7 +65,7 @@ public class MegatheriumEntity extends TameableBaseDinosaurAnimalEntity implemen
     private static final RawAnimation MEGATHERIUM_BABY_IDLE = RawAnimation.begin().thenLoop("animation.baby_megatherium.idle");
     private static final RawAnimation MEGATHERIUM_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_megatherium.swim");
 
-    public MegatheriumEntity(EntityType<? extends TameableBaseDinosaurAnimalEntity> entityType, Level level) {
+    public MegatheriumEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
         super(entityType, level);
     }
     private int attackCooldown;

@@ -1,9 +1,9 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBaseDinosaurAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.NocturnalSleepingGoal;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.TameableFollowOwner;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
+ import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.NocturnalSleepingGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
  import net.minecraft.core.BlockPos;
@@ -54,7 +54,7 @@
  // - Leaping does not work, along with the animations (Leaps like fox and has the animations for it)
  // - Walking animation sometimes play while idling
  //      - Scouters Fix, while working, caused none of the other idles to play
- public class OtarocyonEntity extends TameableBaseDinosaurAnimalEntity implements CustomFollower {
+ public class OtarocyonEntity extends TamablePrehistoricEntity implements ICustomFollower {
 
      private static final RawAnimation OTAROCYON_IDLE = RawAnimation.begin().thenLoop("animation.otarocyon.idle");
      private static final RawAnimation OTAROCYON_SIT = RawAnimation.begin().thenLoop("animation.otarocyon.sit");
@@ -88,7 +88,7 @@
                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
      }
 
-     public OtarocyonEntity(EntityType<? extends TameableBaseDinosaurAnimalEntity> entityType, Level level) {
+     public OtarocyonEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
          super(entityType, level);
      }
 
@@ -173,11 +173,7 @@
          if (!this.isOrderedToSit() && sitProgress > 0F) {
              sitProgress--;
          }
-         if (this.getCommand() == 2 && !this.isVehicle()) {
-             this.setOrderedToSit(true);
-         } else {
-             this.setOrderedToSit(false);
-         }
+         this.setOrderedToSit(this.getCommand() == 2 && !this.isVehicle());
          this.crouchAmountO = this.crouchAmount;
          if (this.isCrouching()) {
              this.crouchAmount += 0.2F;
@@ -219,11 +215,11 @@
      }
 
      public int getCommand() {
-         return this.entityData.get(COMMAND).intValue();
+         return this.entityData.get(COMMAND);
      }
 
      public void setCommand(int command) {
-         this.entityData.set(COMMAND, Integer.valueOf(command));
+         this.entityData.set(COMMAND, command);
      }
 
      public void addAdditionalSaveData(CompoundTag compound) {
@@ -306,6 +302,7 @@
                  return true;
              }
              if (entityIn instanceof TamableAnimal) {
+                 assert livingentity != null;
                  return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
              }
              if (livingentity != null) {

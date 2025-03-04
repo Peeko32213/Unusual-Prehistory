@@ -1,9 +1,10 @@
  package com.peeko32213.unusualprehistory.common.entity;
 
  import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.BaseAquaticAnimalEntity;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
- import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IBookEntity;
+ import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricAquaticEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+ import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.core.BlockPos;
@@ -42,6 +43,7 @@
  import net.minecraft.world.level.pathfinder.Path;
  import net.minecraft.world.phys.Vec2;
  import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
  import software.bernie.geckolib.core.animatable.GeoAnimatable;
  import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -53,7 +55,7 @@
  import javax.annotation.Nullable;
  import java.util.EnumSet;
 
- public class OphiodonEntity extends BaseAquaticAnimalEntity implements GeoAnimatable, IBookEntity {
+ public class OphiodonEntity extends PrehistoricAquaticEntity implements GeoAnimatable, IBookEntity {
      private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(OphiodonEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(OphiodonEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(OphiodonEntity.class, EntityDataSerializers.INT);
@@ -68,7 +70,7 @@
      private static final RawAnimation OPHIODON_PATROL = RawAnimation.begin().thenLoop("animation.ophiodon.patrol");
      private static final RawAnimation OPHIODON_SIEVE = RawAnimation.begin().thenLoop("animation.ophiodon.sieve");
 
-     public OphiodonEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
+     public OphiodonEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -77,13 +79,11 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 20.0D)
+                 .add(Attributes.MAX_HEALTH, 12.0D)
                  .add(Attributes.ATTACK_DAMAGE, 3.0D)
                  .add(Attributes.ARMOR, 0.0)
-                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.3D)
                  .add(Attributes.MOVEMENT_SPEED, 1.4)
                  .add(Attributes.FOLLOW_RANGE, 6.0D);
-
      }
 
      protected void registerGoals() {
@@ -104,11 +104,11 @@
          }
      }
 
-     public void travel(Vec3 travelVector) {
+     public void travel(@NotNull Vec3 travelVector) {
          super.travel(travelVector);
      }
 
-     protected PathNavigation createNavigation(Level p_27480_) {
+     protected PathNavigation createNavigation(@NotNull Level p_27480_) {
          return new WaterBoundPathNavigation(this, p_27480_);
      }
 
@@ -116,14 +116,13 @@
          return SoundEvents.COD_AMBIENT;
      }
 
-     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
          return UPSounds.DUNK_HURT.get();
      }
 
      protected SoundEvent getDeathSound() {
          return UPSounds.DUNK_DEATH.get();
      }
-
 
      protected SoundEvent getFlopSound() {
          return SoundEvents.COD_FLOP;
@@ -139,7 +138,6 @@
 
      public void addAdditionalSaveData(CompoundTag compound) {
          super.addAdditionalSaveData(compound);
-
      }
 
      public void readAdditionalSaveData(CompoundTag compound) {
@@ -357,7 +355,7 @@
          public void stop() {
              LivingEntity livingentity = this.mob.getTarget();
              if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                 this.mob.setTarget((LivingEntity) null);
+                 this.mob.setTarget(null);
              }
              this.mob.setAnimationState(0);
          }
@@ -474,7 +472,7 @@
          }
 
          protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-             return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+             return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
          }
      }
 
@@ -483,36 +481,30 @@
      }
 
      public int getAnimationState() {
-
          return this.entityData.get(ANIMATION_STATE);
      }
 
      public void setAnimationState(int anim) {
-
          this.entityData.set(ANIMATION_STATE, anim);
      }
 
      public int getCombatState() {
-
          return this.entityData.get(COMBAT_STATE);
      }
 
      public void setCombatState(int anim) {
-
          this.entityData.set(COMBAT_STATE, anim);
      }
 
      public int getEntityState() {
-
          return this.entityData.get(ENTITY_STATE);
      }
 
      public void setEntityState(int anim) {
-
          this.entityData.set(ENTITY_STATE, anim);
      }
      public boolean isFromBook() {
-         return this.entityData.get(FROM_BOOK).booleanValue();
+         return this.entityData.get(FROM_BOOK);
      }
 
      public void setIsFromBook(boolean fromBook) {
@@ -529,19 +521,21 @@
          this.heal(15);
      }
 
-
      @Nullable
      public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
          p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
 
-
          Level level = p_28134_.getLevel();
          if (level instanceof ServerLevel) {
-             {
-                 this.setPersistenceRequired();
-             }
+             this.setPersistenceRequired();
          }
          return p_28137_;
+     }
+
+     @Nullable
+     @Override
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+         return UPEntities.OPHIODON.get().create(serverLevel);
      }
 
      @Override
@@ -551,7 +545,7 @@
 
      @Override
      protected int getKillHealAmount() {
-         return 0;
+         return 4;
      }
 
      @Override
