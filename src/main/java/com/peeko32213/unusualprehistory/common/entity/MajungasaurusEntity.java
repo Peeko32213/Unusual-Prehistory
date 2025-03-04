@@ -306,7 +306,6 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
         if (this.stunnedTick > 0) {
             --this.stunnedTick;
             this.stunEffect();
-            this.spawnAtLocation(UPItems.MAJUNGA_SCUTE.get());
         }
     }
 
@@ -325,12 +324,15 @@ public class MajungasaurusEntity extends BaseDinosaurAnimalEntity {
     }
 
     @Override
-    protected void blockedByShield(LivingEntity defender) {
+    protected void blockedByShield(@NotNull LivingEntity defender) {
         this.stunnedTick = 60;
         this.resetChargeCooldownTicks();
         this.getNavigation().stop();
         this.playSound(SoundEvents.RAVAGER_STUNNED, 1.0f, 1.0f);
         this.level().broadcastEntityEvent(this, (byte) 39);
+        if(random.nextBoolean()) {
+            this.spawnAtLocation(new ItemStack(UPItems.MAJUNGA_SCUTE.get(), random.nextInt(2)));
+        }
         defender.push(this);
         defender.hurtMarked = true;
     }

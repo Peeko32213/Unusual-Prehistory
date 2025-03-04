@@ -371,11 +371,11 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_sniff"
   },
-  "tyrannosaurus_pacify": {
+  "tyrannosaurus_revive": {
     "sounds": [
-      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_pacify"
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_revive"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_pacify"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_revive"
   },
 
   "trike_death": {

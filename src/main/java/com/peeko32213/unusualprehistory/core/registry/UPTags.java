@@ -102,7 +102,9 @@ public class UPTags {
     public static final TagKey<Item> WHITE_ULUGH_FOOD = registerItemTag("white_ulugh_food");
     public static final TagKey<Item> BROWN_ULUGH_FOOD = registerItemTag("brown_ulugh_food");
 
-    public static final TagKey<Item> TRIKE_FOOD = registerItemTag("trike_food");
+    public static final TagKey<Item> TRICERATOPS_FOOD = registerItemTag("triceratops_food");
+    public static final TagKey<Item> TRICERATOPS_TAMES = registerItemTag("triceratops_tames");
+
     public static final TagKey<Item> HWACHA_FOOD = registerItemTag("hwacha_food");
 
     public static final TagKey<Item> PACHY_FOOD = registerItemTag("pachy_food");

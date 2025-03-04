@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-03T09:10:54.4738321	unusualprehistory Entity type tags provider
+// 1.20.1	2025-03-03T16:17:33.1453147	unusualprehistory Entity type tags provider
 a51f099fd7a79cf8ac8b705aeda14e1d56307ad6 data/unusualprehistory/tags/entity_types/antarcto_targets.json
 f6aaf288203062a671f170c0381ed4a60f1d18e4 data/unusualprehistory/tags/entity_types/anuro_targets.json
 27675cddedaf7939ef02e87c609430d71a440055 data/unusualprehistory/tags/entity_types/beelze_targets.json
@@ -26,5 +26,5 @@ ec37878cff30b80bbb786b0bb951975b572e0a56 data/unusualprehistory/tags/entity_type
 171729ba224fc9bcff3ce077e3902ae85ad28f16 data/unusualprehistory/tags/entity_types/smilodon_targets.json
 266c2e73c781e6ce2cafa8924f3998c593ee7079 data/unusualprehistory/tags/entity_types/tar_walkable_on_mobs.json
 ba55b9047ed4c049a3b6ee7000e9f44648a23339 data/unusualprehistory/tags/entity_types/tar_walkable_through_mobs.json
-522e4a6ee188f57a2e275bd42d6250679f9c9ae4 data/unusualprehistory/tags/entity_types/tyrannosaurus_targets.json
+9984ba6462a987add8946e033dba27b4ebe7b5dc data/unusualprehistory/tags/entity_types/tyrannosaurus_targets.json
 c391a86a0b2302edc3105d82b7bf52bbee188115 data/unusualprehistory/tags/entity_types/xiphactinus_targets.json

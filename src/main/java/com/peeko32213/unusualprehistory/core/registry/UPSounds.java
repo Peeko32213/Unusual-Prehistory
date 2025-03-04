@@ -69,7 +69,7 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> TYRANNO_STEP = createSoundEvent("tyrannosaurus_step");
     public static final RegistryObject<SoundEvent> TYRANNO_STOMP_ATTACK = createSoundEvent("tyrannosaurus_stomp_attack");
     public static final RegistryObject<SoundEvent> TYRANNO_TAIL_SWIPE = createSoundEvent("tyrannosaurus_tail_swipe");
-    public static final RegistryObject<SoundEvent> TYRANNO_PACIFY = createSoundEvent("tyrannosaurus_pacify");
+    public static final RegistryObject<SoundEvent> TYRANNO_REVIVE = createSoundEvent("tyrannosaurus_revive");
     public static final RegistryObject<SoundEvent> TYRANNO_ROAR = createSoundEvent("tyrannosaurus_roar");
     public static final RegistryObject<SoundEvent> TYRANNO_SNIFF = createSoundEvent("tyrannosaurus_sniff");
 

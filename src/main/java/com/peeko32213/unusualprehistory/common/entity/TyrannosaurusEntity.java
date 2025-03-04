@@ -62,7 +62,6 @@ import javax.annotation.Nonnull;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
 
@@ -143,9 +142,9 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
     @Override
     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
         return ImmutableList.of(
-                WeightedState.of(TYRANNO_IDLE_1_STATE, 9),
-                WeightedState.of(TYRANNO_IDLE_2_STATE, 10),
-                WeightedState.of(TYRANNO_IDLE_3_STATE, 8)
+                WeightedState.of(TYRANNO_IDLE_1_STATE, 11),
+                WeightedState.of(TYRANNO_IDLE_2_STATE, 12),
+                WeightedState.of(TYRANNO_IDLE_3_STATE, 9)
         );
     }
 
@@ -155,7 +154,8 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
     }
 
     @Override
-    public void setAction(boolean action) {}
+    public void setAction(boolean action) {
+    }
 
     public TyrannosaurusEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -167,7 +167,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             .add(Attributes.MAX_HEALTH, 300.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.2D)
             .add(Attributes.ATTACK_DAMAGE, 16.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 3.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
             .add(Attributes.FOLLOW_RANGE, 32D);
     }
 
@@ -181,22 +181,22 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new TyrannosaurusEntity.TyrannosaurusMeleeAttackGoal(this, 1.5F, true) {
                 public boolean canUse() {
-                    return !isBaby() && !isPassive() && level().getDifficulty() != Difficulty.PEACEFUL && super.canUse();
+                    return !isBaby() && level().getDifficulty()  != Difficulty.PEACEFUL && !hasEepy() && !isPassive() && super.canUse();
                 }
             });
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 20));
         this.targetSelector.addGoal(9, (new HurtByTargetGoal(this) {
                 public boolean canUse() {
-                    return !hasEepy() && !isPassive() && !isBaby() && super.canUse();
+                    return !hasEepy() && !isBaby() && !hasEepy() && !isPassive() && super.canUse();
                 }
             }));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.TYRANNOSAURUS_TARGETS)) {
                 public boolean canUse() {
-                    return !hasEepy() && !isBaby() && !isPassive() && super.canUse();
+                    return !hasEepy() && !isBaby() && !isPassive() && !hasEepy() && super.canUse();
                 }
             });
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Chicken.class, 12.0F, 3.6D, 3.6D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Chicken.class, 12.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
     }
 
     public @NotNull InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -206,16 +206,19 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         if(item == UPItems.ADORNED_STAFF.get() && this.hasEepy()) {
             itemstack.hurtAndBreak(1, player, (p_29822_) -> {
                 p_29822_.broadcastBreakEvent(hand);
-
             });
             if(!this.level().isClientSide) {
+                if(!this.isPassive()) {
+                    this.spawnAtLocation(new ItemStack(UPItems.REX_SCALE.get(), random.nextInt(10)), 2);
+                    this.spawnAtLocation(new ItemStack(UPItems.REX_TOOTH.get(), random.nextInt(5)), 2);
+                }
                 this.heal(300);
+                this.level().broadcastEntityEvent(this, (byte) 18);
+                this.playSound(UPSounds.TYRANNO_REVIVE.get(), 1.0F, 1.0F);
                 this.setTarget(null);
                 this.setEepy(false);
                 this.setPassive(true);
-                this.level().broadcastEntityEvent(this, (byte) 45);
-                this.playSound(UPSounds.TYRANNO_PACIFY.get(), 1.0F, 1.0F);
-                player.displayClientMessage(Component.translatable("rex.pacify.message" + this.getName()).withStyle(ChatFormatting.GOLD), true);
+                player.displayClientMessage(Component.translatable("entity.tyrannosaurus.revive.message" + this.getName()).withStyle(ChatFormatting.GOLD), true);
             }
             return InteractionResult.SUCCESS;
         }
@@ -286,7 +289,12 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
     }
 
     public boolean shouldBeEepy() {
-        return this.getHealth() <= this.getMaxHealth() / 12.0F;
+        if(!this.isBaby() && !this.isPassive()) {
+            return this.getHealth() <= this.getMaxHealth() / 12.0F;
+        }
+        else {
+            return false;
+        }
     }
 
     public void setPassive(boolean passive) {
@@ -334,6 +342,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
 
         if (this.shouldBeEepy()) {
             this.setEepy(true);
+            this.setTarget(null);
         }
 
         if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy() && !this.isBaby() && this.onGround()) {
@@ -434,6 +443,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         this.entityData.set(VARIANT, variant);
     }
 
+    // TODO: fight revamp with better attack ai / new attack ai for most things in the mod
     static class TyrannosaurusMeleeAttackGoal extends Goal {
 
         protected final TyrannosaurusEntity mob;
@@ -454,7 +464,7 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
             this.mob = p_i1636_1_;
             this.speedModifier = p_i1636_2_;
             this.followingTargetEvenIfNotSeen = p_i1636_4_;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 
         public boolean canUse() {
@@ -751,6 +761,11 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         }
     }
 
+    @Override
+    public float getVoicePitch() {
+        return (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f;
+    }
+
     private void soundListener(SoundKeyframeEvent<TyrannosaurusEntity> event) {
         TyrannosaurusEntity tyrannosaurus = event.getAnimatable();
         if (tyrannosaurus.level().isClientSide) {
@@ -770,7 +785,8 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         AnimationController<TyrannosaurusEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
                 .triggerableAnim("shake", TYRANNO_SHAKE)
                 .triggerableAnim("sniff", TYRANNO_SNIFF)
-                .triggerableAnim("roar", TYRANNO_ROAR);
+                .triggerableAnim("roar", TYRANNO_ROAR)
+                .triggerableAnim("bite", TYRANNO_BITE_0);
                 blend.setSoundKeyframeHandler(this::soundListener);
             controllers.add(blend);
     }
@@ -790,43 +806,42 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
         switch (animState) {
 
             case 1:
-                if(!this.hasEepy()) {
+                if (!this.hasEepy()) {
                     event.setAndContinue(TYRANNO_TACKLE);
                     event.getController().setAnimationSpeed(0.85F);
                     break;
                 }
             case 2:
-                if(!this.hasEepy()) {
+                if (!this.hasEepy()) {
                     event.setAndContinue(TYRANNO_WHIP);
                     event.getController().setAnimationSpeed(1.0F);
                     break;
                 }
             case 3:
-                if(!this.hasEepy()) {
+                if (!this.hasEepy()) {
                     event.setAndContinue(TYRANNO_STOMP_L);
                     event.getController().setAnimationSpeed(1.35F);
                     break;
                 }
             case 4:
-                if(!this.hasEepy()) {
+                if (!this.hasEepy()) {
                     event.setAndContinue(TYRANNO_STOMP_R);
                     event.getController().setAnimationSpeed(1.35F);
                     break;
                 }
 
             default:
+
                 if (this.hasEepy()) {
                     event.setAndContinue(TYRANNO_EEPY);
                     event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
-                }
-                else if (this.isInWater() && !this.hasEepy()) {
+                } else if (this.isInWater() && !this.hasEepy()) {
                     event.setAndContinue(TYRANNO_SWIM);
                     event.getController().setAnimationSpeed(1.0F);
                     return PlayState.CONTINUE;
-                }
-                else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy()){
-                    if(this.isSprinting() && !this.isBaby()) {
+                } else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy()) {
+                    if (this.isSprinting() && !this.isBaby()) {
                         event.setAndContinue(TYRANNO_CHARGE);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
@@ -835,44 +850,40 @@ public class TyrannosaurusEntity extends BaseStatedDinosaurAnimalEntity implemen
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
-                }
-                else{
+                } else {
                     if (!this.isInWater() && !this.hasEepy()) {
                         if (getBooleanState(IDLE_1_AC)) {
-                            if(this.isStillEnough()) {
+                            if (this.isStillEnough()) {
                                 triggerAnim("blend", "shake");
                                 return event.setAndContinue(TYRANNO_IDLE);
                             }
-                            if(this.hasEepy()){
+                            if (this.hasEepy()) {
                                 event.setAndContinue(TYRANNO_EEPY);
-                            }
-                            else {
+                            } else {
                                 triggerAnim("blend", "shake");
                                 return PlayState.CONTINUE;
                             }
                         }
                         if (getBooleanState(IDLE_2_AC)) {
-                            if(this.isStillEnough()) {
+                            if (this.isStillEnough()) {
                                 triggerAnim("blend", "sniff");
                                 return event.setAndContinue(TYRANNO_IDLE);
                             }
-                            if(this.hasEepy()){
+                            if (this.hasEepy()) {
                                 event.setAndContinue(TYRANNO_EEPY);
-                            }
-                            else {
+                            } else {
                                 triggerAnim("blend", "sniff");
                                 return PlayState.CONTINUE;
                             }
                         }
                         if (getBooleanState(IDLE_3_AC)) {
-                            if(this.isStillEnough()) {
+                            if (this.isStillEnough()) {
                                 triggerAnim("blend", "roar");
                                 return event.setAndContinue(TYRANNO_IDLE);
                             }
-                            if(this.hasEepy()){
+                            if (this.hasEepy()) {
                                 event.setAndContinue(TYRANNO_EEPY);
-                            }
-                            else {
+                            } else {
                                 triggerAnim("blend", "roar");
                                 return PlayState.CONTINUE;
                             }

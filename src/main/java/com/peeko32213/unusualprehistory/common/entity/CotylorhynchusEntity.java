@@ -6,7 +6,6 @@ import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -34,6 +33,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -148,20 +148,20 @@ public class CotylorhynchusEntity extends BaseDinosaurAnimalEntity {
     }
 
     public void setFermented(boolean fermented) {
-        this.entityData.set(FERMENTED, Boolean.valueOf(fermented));
+        this.entityData.set(FERMENTED, fermented);
     }
 
     public boolean isFermented() {
-        return this.entityData.get(FERMENTED).booleanValue();
+        return this.entityData.get(FERMENTED);
     }
 
 
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (item == Items.SWEET_BERRIES && !this.isFermented()) {
-            int size = itemstack.getCount();
+
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
@@ -177,7 +177,9 @@ public class CotylorhynchusEntity extends BaseDinosaurAnimalEntity {
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
-            this.spawnAtLocation(UPItems.GROG.get());
+            if(!player.addItem(new ItemStack(UPItems.GROG.get()))){
+                player.spawnAtLocation(UPItems.GROG.get());
+            }
             this.setFermented(false);
             this.playSound(this.getBurpSound(itemstack), 1.0F, 1.0F);
             return InteractionResult.SUCCESS;
@@ -185,15 +187,15 @@ public class CotylorhynchusEntity extends BaseDinosaurAnimalEntity {
             return InteractionResult.FAIL;
         }
     }
-    private void spawnFluidParticle(Level pLevel, double pStartX, double pEndX, double pStartZ, double pEndZ, double pPosY, ParticleOptions pParticleOption) {
-        pLevel.addParticle(pParticleOption, Mth.lerp(pLevel.random.nextDouble(), pStartX, pEndX), pPosY, Mth.lerp(pLevel.random.nextDouble(), pStartZ, pEndZ), 0.0D, 0.0D, 0.0D);
+    private void spawnFluidParticle(Level pLevel, double pStartX, double pEndX, double pStartZ, double pEndZ, double pPosY) {
+        pLevel.addParticle(ParticleTypes.DRIPPING_HONEY, Mth.lerp(pLevel.random.nextDouble(), pStartX, pEndX), pPosY, Mth.lerp(pLevel.random.nextDouble(), pStartZ, pEndZ), 0.0D, 0.0D, 0.0D);
     }
 
     public void tick() {
         super.tick();
         if (this.isFermented() && this.random.nextFloat() < 0.05F) {
             for(int i = 0; i < this.random.nextInt(2) + 1; ++i) {
-                this.spawnFluidParticle(this.level(), this.getX() - (double)1.6F, this.getX() + (double)1.6F, this.getZ() - (double)1.6F, this.getZ() + (double)1.6F, this.getY(0.8D), ParticleTypes.DRIPPING_HONEY);
+                this.spawnFluidParticle(this.level(), this.getX() - (double)1.6F, this.getX() + (double)1.6F, this.getZ() - (double)1.6F, this.getZ() + (double)1.6F, this.getY(0.8D));
             }
         }
     }

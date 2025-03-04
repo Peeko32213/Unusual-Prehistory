@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBase
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IAttackEntity;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.ChatFormatting;
@@ -50,6 +51,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -58,6 +60,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class HwachavenatorEntity extends TameableBaseDinosaurAnimalEntity implements RangedAttackMob, CustomFollower, IAttackEntity {
@@ -195,10 +198,10 @@ public class HwachavenatorEntity extends TameableBaseDinosaurAnimalEntity implem
         return entityIn.is(this);
     }
 
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         if(this.level().isClientSide) return InteractionResult.PASS;
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
+
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isFood(itemstack) && !isTame()) {
 
@@ -212,7 +215,9 @@ public class HwachavenatorEntity extends TameableBaseDinosaurAnimalEntity implem
 
             itemstack.shrink(1);
             if(!player.isCreative()) {
-                player.addItem(new ItemStack(Items.BOWL));
+                if(!player.addItem(new ItemStack(Items.BOWL))){
+                    player.spawnAtLocation(Items.BOWL);
+                }
             }
             return InteractionResult.SUCCESS;
         }
@@ -222,7 +227,7 @@ public class HwachavenatorEntity extends TameableBaseDinosaurAnimalEntity implem
                     itemstack.shrink(1);
                 }
                 if(!this.level().isClientSide) {
-                    this.heal((float) itemstack.getFoodProperties(this).getNutrition());
+                    this.heal((float) Objects.requireNonNull(itemstack.getFoodProperties(this)).getNutrition());
                 }
                 if(!player.isCreative()) {
                     player.addItem(new ItemStack(Items.BOWL));

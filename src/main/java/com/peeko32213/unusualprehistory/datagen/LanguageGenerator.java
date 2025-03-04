@@ -639,7 +639,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.TYRANNO_DEATH, "Tyrannosaurus dies");
         addSound(UPSounds.TYRANNO_ROAR, "Tyrannosaurus roars");
         addSound(UPSounds.TYRANNO_SNIFF, "Tyrannosaurus sniffs");
-        addSound(UPSounds.TYRANNO_PACIFY, "Tyrannosaurus was pacified");
+        addSound(UPSounds.TYRANNO_REVIVE, "Tyrannosaurus was pacified");
 
         addSound(UPSounds.TYRANNO_STEP, "Forceful footsteps");
 
@@ -782,7 +782,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_2", "%s was turned to fine paste");
         add("death.attack.hwacha_3", "%s was shot");
         add("instrument.unusualprehistory.ocarina", "Crocodilian Lullaby");
-        add("rex.pacify.message", "Pacified %s");
+        add("entity.tyrannosaurus.revive.message", "Revived %s");
 
         add("unusualprehistory.advancement.root", "Unusual Prehistory");
         add("unusualprehistory.advancement.root.desc", "Begin Your Journey Into the World of Prehistory!");

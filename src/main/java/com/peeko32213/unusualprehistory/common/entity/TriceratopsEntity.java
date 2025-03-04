@@ -7,7 +7,6 @@ import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.TameableBase
 import com.peeko32213.unusualprehistory.common.entity.msc.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.CustomFollower;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IAttackEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.msc.util.state.RandomStateGoal;
@@ -70,11 +69,10 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity implements CustomFollower, IAttackEntity, GeoEntity, GeoAnimatable, IVariantEntity {
+public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity implements CustomFollower, GeoEntity, GeoAnimatable, IVariantEntity {
 
-    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItems.GINKGO_FRUIT.get());
+    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.TRICERATOPS_FOOD);
 
-    public int riderAttackCooldown = 0;
     public float sitProgress;
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
@@ -83,13 +81,9 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> SWINGING = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
 
     public static final Logger LOGGER = LogManager.getLogger();
-    private int attackCooldown;
-    public static final int ATTACK_COOLDOWN = 30;
 
     // Movement animations
     private static final RawAnimation TRIKE_SWIM = RawAnimation.begin().thenLoop("animation.triceratops.swim");
@@ -176,11 +170,11 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 90.0D)
-            .add(Attributes.ARMOR, 10.0D)
+            .add(Attributes.MAX_HEALTH, 130.0D)
+            .add(Attributes.ARMOR, 16.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.145D)
             .add(Attributes.ATTACK_DAMAGE, 12.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
+            .add(Attributes.KNOCKBACK_RESISTANCE, 2.0D);
     }
 
     @Override
@@ -191,11 +185,7 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         this.goalSelector.addGoal(1, new TriceratopsEntity.TrikeMeleeAttackGoal(this, 1.75D, false));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 28));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this) {
-            public boolean canUse() {
-                return !isTame();
-            }
-        }));
+        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(2, new TrikeNearestAttackablePlayerTargetGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
@@ -216,16 +206,8 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         return super.doHurtTarget(entityIn);
     }
 
-    public boolean isFood(ItemStack stack) {
-        return stack.is(UPTags.TRIKE_FOOD);
-    }
-
     public boolean canBeCollidedWith() {
         return UnusualPrehistoryConfig.TRIKE_COLLISON.get();
-    }
-
-    public boolean isAngryAt(LivingEntity p_21675_) {
-        return this.canAttack(p_21675_);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -278,8 +260,6 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         this.entityData.define(HAS_TARGET, false);
         this.entityData.define(COMMAND, 0);
         this.entityData.define(SADDLED, Boolean.FALSE);
-        this.entityData.define(SWINGING, false);
-        this.entityData.define(HAS_SWUNG, false);
         this.entityData.define(ANIMATION_STATE, 0);
     }
 
@@ -289,8 +269,6 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         compound.putInt("Variant", this.getVariant());
         compound.putBoolean("Saddle", this.isSaddled());
         compound.putInt("TrikeCommand", this.getCommand());
-        compound.putBoolean("IsSwinging", this.isSwinging());
-        compound.putBoolean("HasSwung", this.hasSwung());
     }
 
     @Override
@@ -299,24 +277,6 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         this.setVariant(compound.getInt("Variant"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setCommand(compound.getInt("TrikeCommand"));
-        this.setSwinging(compound.getBoolean("IsSwinging"));
-        this.setHasSwung(compound.getBoolean("HasSwung"));
-    }
-
-    public boolean isSwinging() {
-        return this.entityData.get(SWINGING);
-    }
-
-    public void setSwinging(boolean swinging) {
-        this.entityData.set(SWINGING, swinging);
-    }
-
-    public boolean hasSwung() {
-        return this.entityData.get(HAS_SWUNG);
-    }
-
-    public void setHasSwung(boolean swung) {
-        this.entityData.set(HAS_SWUNG, swinging);
     }
 
     public int getCommand() {
@@ -374,34 +334,18 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
 
     public void tick() {
         super.tick();
-        if(attackCooldown > 0) {
-            attackCooldown--;
-        }
-        //if (riderAttackCool down > 0) {
-        //    riderAttackCooldown--;
-        //}
-        //if(this.getControllingPassenger() != null && this.getControllingPassenger() instanceof Player){
-        //    Player rider = (Player)this.getControllingPassenger();
-        //    if(rider.getLastHurtMob() != null && this.distanceTo(rider.getLastHurtMob()) < this.getBbWidth() + 3F && !this.isAlliedTo(rider.getLastHurtMob())){
-        //        UUID preyUUID = rider.getLastHurtMob().getUUID();
-        //        if (!this.getUUID().equals(preyUUID) && riderAttackCooldown == 0) {
-        //            doHurtTarget(rider.getLastHurtMob());
-        //            riderAttackCooldown = 20;
-        //        }
-        //    }
-        //}
+
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
         }
         if (!this.isOrderedToSit() && sitProgress > 0F) {
             sitProgress--;
         }
-        if (this.getCommand() == 2 && !this.isVehicle()) {
-            this.setOrderedToSit(true);
-        } else {
-            this.setOrderedToSit(false);
-        }
+        this.setOrderedToSit(this.getCommand() == 2 && !this.isVehicle());
     }
+
+    @Override
+    protected void performAttack() {}
 
     public boolean isAlliedTo(@NotNull Entity entityIn) {
         if (this.isTame()) {
@@ -426,24 +370,31 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         if (this.isAlive()) {
             LivingEntity livingentity = this.getControllingPassenger();
             if (this.isVehicle() && livingentity != null) {
-
                 this.setYRot(livingentity.getYRot());
                 this.yRotO = this.getYRot();
                 this.setXRot(livingentity.getXRot() * 0.5F);
                 this.setRot(this.getYRot(), this.getXRot());
                 this.yBodyRot = this.getYRot();
                 this.yHeadRot = this.yBodyRot;
-                float f = livingentity.xxa * 0.5F;
+                float f = livingentity.xxa;
                 float f1 = livingentity.zza;
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
-                this.setSpeed(0.25F);
+                if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()) {
+                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.5F));
+                } else {
+                    this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                }
                 super.travel(new Vec3(f, pos.y, f1));
             } else {
                 super.travel(pos);
             }
         }
+    }
+
+    public boolean canSprint() {
+        return true;
     }
 
     @Override
@@ -462,71 +413,82 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         return 2.85;
     }
 
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UPTags.TRICERATOPS_FOOD);
+    }
+
+    public boolean isTameFood(ItemStack stack) {
+        return stack.is(UPTags.TRICERATOPS_TAMES);
+    }
+
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+
         ItemStack itemstack = player.getItemInHand(hand);
+
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if (isFood(itemstack) && !isTame()) {
 
-            this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-            this.level().broadcastEntityEvent(this, (byte) 6);
+        if (isTameFood(itemstack) && !this.isTame()) {
 
-            if(random.nextBoolean()) {
+            if(random.nextBoolean() && !this.isTame()) {
                 this.tame(player);
                 this.level().broadcastEntityEvent(this, (byte) 7);
+                this.setCommand(2);
             }
+            else {
+                this.level().broadcastEntityEvent(this, (byte) 6);
+            }
+
             itemstack.shrink(1);
+            this.gameEvent(GameEvent.EAT, this);
+            this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
 
             return InteractionResult.SUCCESS;
-        }
-        if (isTame() && isOwnedBy(player)) {
+        } else if (this.isTame() && this.isOwnedBy(player)) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+
                 if (!player.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
                 if(!this.level().isClientSide) {
                     this.heal(6);
                 }
+
                 this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
                 this.level().broadcastEntityEvent(this, (byte) 7);
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
 
-            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
+            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled() && this.isTame() && this.isOwnedBy(player)) {
+
                 this.usePlayerItem(player, hand, itemstack);
                 this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
                 this.setSaddled(true);
-                return InteractionResult.SUCCESS;
 
-            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+                return InteractionResult.SUCCESS;
+            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled() && this.isTame() && this.isOwnedBy(player)) {
+
                 this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
                 this.setSaddled(false);
                 this.spawnAtLocation(Items.SADDLE);
-                return InteractionResult.SUCCESS;
 
-            } else {
-                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
+                return InteractionResult.SUCCESS;
+            } else if(this.isTame() && this.isOwnedBy(player)) {
+                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && this.isTame() && this.isOwnedBy(player)) {
                     if(!this.level().isClientSide) {
                         player.startRiding(this);
                     }
-                    return InteractionResult.SUCCESS;
-                } else {
+                } else if(this.isTame() && this.isOwnedBy(player)){
                     this.setCommand((this.getCommand() + 1) % 3);
+                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
+                    boolean sit = this.getCommand() == 2;
+                    this.setOrderedToSit(sit);
 
                     if (this.getCommand() == 3) {
                         this.setCommand(0);
                     }
-                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
-                    boolean sit = this.getCommand() == 2;
-                    if (sit) {
-                        this.setOrderedToSit(true);
-                        return InteractionResult.SUCCESS;
-                    } else {
-                        this.setOrderedToSit(false);
-                        return InteractionResult.SUCCESS;
-                    }
                 }
+                return InteractionResult.SUCCESS;
             }
-
         }
         return InteractionResult.PASS;
     }
@@ -597,7 +559,6 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
             this.mob = p_i1636_1_;
             this.speedModifier = p_i1636_2_;
             this.followingTargetEvenIfNotSeen = p_i1636_4_;
-//            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
         public boolean canUse() {
@@ -840,42 +801,6 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
         super.handleEntityEvent(pId);
     }
 
-    public void performAttack() {
-        if (!this.level().isClientSide) {
-            this.goalSelector.getRunningGoals().forEach(WrappedGoal::stop);
-            this.setSwinging(true);
-            for (Entity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D))) {
-                if (!(entity instanceof TriceratopsEntity) && !(entity instanceof Player)) {
-                    if (this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
-                        entity.hurt(this.damageSources().mobAttack(this), 10.0F);
-                    }
-                }
-            }
-            Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.23F);
-        }
-    }
-
-    @Override
-    public void afterAttack() {
-        this.level().broadcastEntityEvent(this, (byte)5);
-        this.setSwinging(false);
-    }
-
-    @Override
-    public int getMaxAttackCooldown() {
-        return ATTACK_COOLDOWN;
-    }
-
-    @Override
-    public int getAttackCooldown() {
-        return attackCooldown;
-    }
-
-    @Override
-    public void setAttackCooldown(int cooldown) {
-        this.attackCooldown = cooldown;
-    }
-
     @Override
     public void ate() {
         if (this.isBaby()) {
@@ -903,7 +828,8 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()){
+
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasControllingPassenger()){
             if(this.isSprinting() && !this.isBaby()) {
                 event.setAndContinue(TRIKE_CHARGE);
                 event.getController().setAnimationSpeed(1.75F);
@@ -911,6 +837,20 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
                 event.setAndContinue(TRIKE_WALK);
                 event.getController().setAnimationSpeed(1.0F);
             }
+            return PlayState.CONTINUE;
+        }
+
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && this.hasControllingPassenger()){
+
+            if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()){
+                event.setAndContinue(TRIKE_CHARGE);
+                event.getController().setAnimationSpeed(1.8F);
+            }
+            else {
+                event.setAndContinue(TRIKE_WALK);
+                event.getController().setAnimationSpeed(1.5F);
+            }
+
             return PlayState.CONTINUE;
         }
 
@@ -986,6 +926,4 @@ public class TriceratopsEntity extends TameableBaseStatedDinosaurAnimalEntity im
     public boolean shouldFollow() {
         return this.getCommand() == 1;
     }
-
-
 }
