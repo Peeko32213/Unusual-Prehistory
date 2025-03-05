@@ -1,4 +1,4 @@
-Unusual Prehistory is a minecraft mod that adds a way to revive a variety of prehistoric creatures and plants and various ways to use them! 
+Unusual Prehistory is a minecraft mod that adds the ability to revive a variety of prehistoric creatures and plants and various ways to use them! 
 
 You can find and download the mod here:
 
