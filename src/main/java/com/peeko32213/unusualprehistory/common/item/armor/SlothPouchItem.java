@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.item.armor;
 
 import com.peeko32213.unusualprehistory.client.render.armor.SlothPouchArmorRenderer;
-import com.peeko32213.unusualprehistory.common.entity.MegatheriumEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MegatheriumEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.ChatFormatting;

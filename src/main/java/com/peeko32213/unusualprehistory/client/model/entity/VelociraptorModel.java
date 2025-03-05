@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.VelociraptorEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;

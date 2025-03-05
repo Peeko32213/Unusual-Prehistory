@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/globidens_flask"
+    "layer0": "unusualprehistory:item/flasks/globidens_flask"
   }
 }

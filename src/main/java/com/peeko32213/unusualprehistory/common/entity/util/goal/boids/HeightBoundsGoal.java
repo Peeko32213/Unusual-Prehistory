@@ -5,7 +5,7 @@ package com.peeko32213.unusualprehistory.common.entity.util.goal.boids;
 // but if you are the author or someone that knows the author reading this
 // and you are not ok with me using it, please put me in contact with the author directly and I will act accordingly by removing it
 
-import com.peeko32213.unusualprehistory.common.entity.base.BoidFishPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.BoidFishPrehistoricEntity;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.block.Blocks;

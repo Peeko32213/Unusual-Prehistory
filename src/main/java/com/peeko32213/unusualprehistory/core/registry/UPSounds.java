@@ -84,6 +84,11 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> BRACHI_TOSS = createSoundEvent("brachi_toss");
     public static final RegistryObject<SoundEvent> BRACHI_STOMP = createSoundEvent("brachi_stomp");
 
+    public static final RegistryObject<SoundEvent> LEEDS_HURT = createSoundEvent("leedsichthys_hurt");
+    public static final RegistryObject<SoundEvent> LEEDS_IDLE = createSoundEvent("leedsichthys_idle");
+    public static final RegistryObject<SoundEvent> LEEDS_FLOP = createSoundEvent("leedsichthys_flop");
+    public static final RegistryObject<SoundEvent> LEEDS_DEATH = createSoundEvent("leedsichthys_death");
+
     public static final RegistryObject<SoundEvent> ENCRUSTED_DEATH = createSoundEvent("encrusted_death");
     public static final RegistryObject<SoundEvent> ENCRUSTED_HURT = createSoundEvent("encrusted_hurt");
     public static final RegistryObject<SoundEvent> ENCRUSTED_IDLE = createSoundEvent("encrusted_idle");

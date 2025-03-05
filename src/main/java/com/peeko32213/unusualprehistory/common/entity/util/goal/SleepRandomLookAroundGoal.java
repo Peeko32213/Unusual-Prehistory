@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.MegalaniaEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MegalaniaEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;

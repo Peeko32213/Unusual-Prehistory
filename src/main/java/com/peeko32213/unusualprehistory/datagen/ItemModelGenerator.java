@@ -40,11 +40,6 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.PARACER_EMBRYO);
         singleTex(UPItems.PALAEO_EMBRYO);
 
-        singleTex(UPItems.CAPTURED_KIMMER_FLASK);
-        singleTex(UPItems.ZULOAGAE_FLASK);
-        singleTex(UPItems.RAIGUENRAYUN_FLASK);
-        singleTex(UPItems.FOXXI_FLASK);
-        singleTex(UPItems.DRYO_FLASK);
         singleTex(UPItems.SMILO_FUR);
         singleTex(UPItems.PALAEO_SKIN);
         singleTex(UPItems.DINO_POUCH);
@@ -52,42 +47,53 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.OPALESCENT_SHURIKEN);
         toBlock(UPBlocks.PERMAFROST);
         toBlock(UPBlocks.PERMAFROST_FOSSIL);
-        singleTex(UPItems.INSULATOR);
         singleTex(UPItems.DRYO_NUTS);
         singleTex(UPItems.ZULOGAE_DISC);
         singleTex(UPItems.ENCASED_DISC);
         singleTex(UPItems.RAW_MAMMOTH);
         singleTex(UPItems.MAMMOTH_MEATBALL);
         singleTex(UPItems.COOKED_MAMMOTH);
-        singleTex(UPItems.DIPLO_FLASK);
-        singleTex(UPItems.KIMMER_FLASK);
-        singleTex(UPItems.HYNERIA_FLASK);
         singleTex(UPItems.RAW_OPHIODON);
         singleTex(UPItems.COOKED_OPHIODON);
-        singleTex(UPItems.OPHIO_FLASK);
-        singleTex(UPItems.PROTOSPHYRAENA_FLASK);
-        singleTex(UPItems.PTERY_FLASK);
-        singleTex(UPItems.EDAPHO_FLASK);
-        singleTex(UPItems.XIPHACT_FLASK);
-        singleTex(UPItems.OVIRAPTOR_FLASK);
-        singleTex(UPItems.GLOBIDENS_FLASK);
-        singleTex(UPItems.ESTEMMENO_FLASK);
-        singleTex(UPItems.OTAROCYON_FLASK);
-        singleTex(UPItems.LONGI_FLASK);
-        singleTex(UPItems.TARTUO_FLASK);
-        singleTex(UPItems.TANY_FLASK);
-        singleTex(UPItems.PSITTACO_FLASK);
-        singleTex(UPItems.KAPRO_FLASK);
-        singleTex(UPItems.PSILO_FLASK);
-        singleTex(UPItems.HYNERP_FLASK);
-        singleTex(UPItems.BALAUR_FLASK);
-        singleTex(UPItems.PTERODAUSTRO_FLASK);
-        singleTex(UPItems.ARCHELON_FLASK);
-        singleTex(UPItems.JAWLESS_FISH_FLASK);
-        singleTex(UPItems.LEEDS_FLASK);
+
+        flaskTex(UPItems.ZULOAGAE_FLASK);
+        flaskTex(UPItems.RAIGUENRAYUN_FLASK);
+        flaskTex(UPItems.FOXXI_FLASK);
+        flaskTex(UPItems.DRYO_FLASK);
+        flaskTex(UPItems.DIPLO_FLASK);
+        flaskTex(UPItems.KIMMER_FLASK);
+        flaskTex(UPItems.HYNERIA_FLASK);
+        flaskTex(UPItems.OPHIO_FLASK);
+        flaskTex(UPItems.PROTOSPHYRAENA_FLASK);
+        flaskTex(UPItems.PTERY_FLASK);
+        flaskTex(UPItems.EDAPHO_FLASK);
+        flaskTex(UPItems.XIPHACT_FLASK);
+        flaskTex(UPItems.OVIRAPTOR_FLASK);
+        flaskTex(UPItems.GLOBIDENS_FLASK);
+        flaskTex(UPItems.ESTEMMENO_FLASK);
+        flaskTex(UPItems.OTAROCYON_FLASK);
+        flaskTex(UPItems.LONGI_FLASK);
+        flaskTex(UPItems.TARTUO_FLASK);
+        flaskTex(UPItems.TANY_FLASK);
+        flaskTex(UPItems.PSITTACO_FLASK);
+        flaskTex(UPItems.KAPRO_FLASK);
+        flaskTex(UPItems.PSILO_FLASK);
+        flaskTex(UPItems.HYNERP_FLASK);
+        flaskTex(UPItems.BALAUR_FLASK);
+        flaskTex(UPItems.PTERODAUSTRO_FLASK);
+        flaskTex(UPItems.ARCHELON_FLASK);
+        flaskTex(UPItems.JAWLESS_FISH_FLASK);
+        flaskTex(UPItems.LEEDS_FLASK);
+
+        flaskTex(UPItems.CAPTURED_KIMMER_FLASK);
+        flaskTex(UPItems.DORMANT_RAMPAGE_FLASK);
+        flaskTex(UPItems.YIXIAN_RAMPAGE_FLASK);
+
+        flaskTex(UPItems.ANIMAL_DNA_FLASKS);
+        flaskTex(UPItems.PLANT_DNA_FLASKS);
+
         singleTex(UPItems.OTAROCYON_EMBRYO);
         singleTex(UPItems.LEEDS_CAVIAR);
-        singleTex(UPItems.LEEDS_SLICE);
 
         singleTex(UPItems.DRYO_SIGN);
         singleTex(UPItems.DRYO_HANGING_SIGN);
@@ -117,22 +123,9 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.PSITTACCO_ARROW);
         singleTex(UPItems.AMBER_IDOL);
         singleTex(UPItems.JARATE);
-        singleTex(UPItems.DORMANT_RAMPAGE);
-        singleTex(UPItems.YIXIAN_RAMPAGE_FLASK);
         singleTex(UPItems.QUILL_REMEDY);
         singleTex(UPItems.RAW_DUNK);
         singleTex(UPItems.COOKED_DUNK);
-
-        singleTex(UPItems.ANIMAL_DNA_FLASKS);
-        singleTex(UPItems.PLANT_DNA_FLASKS);
-
-//        singleTex(UPItems.PTERYDACTYLUS_FLASK);
-//        singleTex(UPItems.ERETMORPHIS_FLASK);
-//        singleTex(UPItems.ARTHROPLEURA_FLASK);
-//        singleTex(UPItems.SCUTO_FLASK);
-//        singleTex(UPItems.ENCHODUS_FLASK);
-//        singleTex(UPItems.IGUANODON_FLASK);
-
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());
@@ -155,6 +148,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     private ItemModelBuilder singleTex(RegistryObject<Item> item) {
         return generated(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder flaskTex(RegistryObject<Item> item) {
+        return generated(item.getId().getPath(), prefix("item/flasks/" + item.getId().getPath()));
     }
 
     private ItemModelBuilder generated(String name, ResourceLocation... layers) {

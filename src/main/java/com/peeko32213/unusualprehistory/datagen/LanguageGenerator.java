@@ -85,12 +85,11 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.ANTARCTO_PLATE, "Antarctopelta Plate");
         addItem(UPItems.SMILO_FUR, "Smilodon Fur");
         addItem(UPItems.PALAEO_SKIN, "Discarded Palaeolophis Skin");
-        addItem(UPItems.INSULATOR, "Insulator");
         addItem(UPItems.PSITTACOSAURUS_QUILL, "Psittacosaurus Quill");
         addItem(UPItems.AMBER_IDOL, "Amber Idol");
         addItem(UPItems.JARATE, "Flask of Jarate");
         addItem(UPItems.YIXIAN_RAMPAGE_FLASK, "Flask of Yixian Rampage");
-        addItem(UPItems.DORMANT_RAMPAGE, "Flask of Dormant Yixian Rampage");
+        addItem(UPItems.DORMANT_RAMPAGE_FLASK, "Flask of Dormant Yixian Rampage");
         addItem(UPItems.QUILL_REMEDY, "Rampage Remedy Quill");
         addItem(UPItems.PSITTACCO_ARROW, "Psittacosaurus Arrow");
 
@@ -122,7 +121,6 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.MAMMOTH_MEATBALL, "Mammoth Meatball");
         addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon");
         addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon");
-        addItem(UPItems.LEEDS_SLICE, "Slice of Leedsichthys Flesh");
         addItem(UPItems.LEEDS_CAVIAR, "Leedsichthys Caviar");
         addItem(UPItems.RAW_JAWLESS_FISH, "Raw Jawless Fish");
         addItem(UPItems.COOKED_JAWLESS_FISH, "Cooked Jawless Fish");
@@ -763,6 +761,11 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.SLUDGE_IDLE, "Sludge gurgles");
         addSound(UPSounds.SLUDGE_SLAM, "Sludge slams");
         addSound(UPSounds.SLUDGE_SLAP, "Sludge slaps");
+
+        addSound(UPSounds.LEEDS_IDLE, "Leedsichthys bellows");
+        addSound(UPSounds.LEEDS_FLOP, "Leedsichthys flops");
+        addSound(UPSounds.LEEDS_HURT, "Leedsichthys hurts");
+        addSound(UPSounds.LEEDS_DEATH, "Leedsichthys dies");
 
         addSound(UPSounds.JARATE_EXPLODE, "Jarate impacts");
         addSound(UPSounds.JARATE_SNIPER, "Jarate!");

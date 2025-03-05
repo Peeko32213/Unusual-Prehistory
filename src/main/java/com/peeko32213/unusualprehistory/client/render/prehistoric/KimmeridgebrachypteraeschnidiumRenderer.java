@@ -7,7 +7,7 @@ import com.peeko32213.unusualprehistory.client.model.ModelLocations;
 import com.peeko32213.unusualprehistory.client.render.layer.KimmeridgebrachypteraeschnidiumBaseLayer;
 import com.peeko32213.unusualprehistory.client.render.layer.KimmeridgebrachypteraeschnidiumPatternLayer;
 import com.peeko32213.unusualprehistory.client.render.layer.KimmeridgebrachypteraeschnidiumWingLayer;
-import com.peeko32213.unusualprehistory.common.entity.KimmeridgebrachypteraeschnidiumEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.KimmeridgebrachypteraeschnidiumEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;

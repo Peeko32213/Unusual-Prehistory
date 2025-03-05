@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.render.prehistoric;
 
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

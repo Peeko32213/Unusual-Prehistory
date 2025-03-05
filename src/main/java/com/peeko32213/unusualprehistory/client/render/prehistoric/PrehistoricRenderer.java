@@ -2,8 +2,9 @@ package com.peeko32213.unusualprehistory.client.render.prehistoric;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.common.entity.*;
-import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.*;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.BrachiosaurusEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

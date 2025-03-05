@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.HyneriaEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.HyneriaEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

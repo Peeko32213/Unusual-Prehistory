@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.capabilities;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricAquaticEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -79,7 +79,7 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
-                if(livingEntity instanceof PrehistoricAquaticEntity animal){
+                if(livingEntity instanceof PrehistoricAquaticEntityOld animal){
                     animal.determineVariant(1);
                 }
 
@@ -124,7 +124,7 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
-                if(livingEntity instanceof PrehistoricAquaticEntity animal){
+                if(livingEntity instanceof PrehistoricAquaticEntityOld animal){
                     animal.determineVariant(1);
                 }
 

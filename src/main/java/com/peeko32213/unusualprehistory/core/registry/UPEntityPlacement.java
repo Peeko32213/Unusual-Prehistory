@@ -1,11 +1,12 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
-import com.peeko32213.unusualprehistory.common.entity.*;
-import com.peeko32213.unusualprehistory.common.entity.base.StatedPrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.TamableStatedPrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.BeelzebufoTadpoleEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.StatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamableStatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.EncrustedEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.*;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.AnurognathusEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 

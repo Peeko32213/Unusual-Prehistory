@@ -2,12 +2,20 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.*;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.SludgeEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.*;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.EncrustedEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.*;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.AnurognathusEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.KimmeridgebrachypteraeschnidiumEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.PterodaustroEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.*;
 import com.peeko32213.unusualprehistory.common.entity.projectile.*;
-import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergMammoth;
-import com.peeko32213.unusualprehistory.common.entity.iceberg.IcebergSmilodon;
-import com.peeko32213.unusualprehistory.common.entity.part.LeedsichthysPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.part.PalaeophisPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.PalaeophisBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergMammoth;
+import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergSmilodon;
+import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PalaeophisBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -146,7 +154,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "kimmer").toString()));
 
     public static final RegistryObject<EntityType<LeedsichthysEntity>> LEEDSICHTHYS = ENTITIES.register("leedsichthys",
-            () -> EntityType.Builder.of(LeedsichthysEntity::new, MobCategory.WATER_CREATURE).sized(8.0F, 5.0F)
+            () -> EntityType.Builder.of(LeedsichthysEntity::new, MobCategory.WATER_CREATURE).sized(7.75F, 5.25F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "leedsichthys").toString()));
 
     public static final RegistryObject<EntityType<LeedsichthysPartEntity>> LEEDS_PART = ENTITIES.register("leeds_part",

@@ -9,6 +9,14 @@ import com.peeko32213.unusualprehistory.common.item.armor.SlothPouchItem;
 import com.peeko32213.unusualprehistory.common.item.armor.TyrantsCrownItem;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
 import com.peeko32213.unusualprehistory.common.item.armor.ShedscaleArmorItem;
+import com.peeko32213.unusualprehistory.common.item.AmberGummyItem;
+import com.peeko32213.unusualprehistory.common.item.UPConsumableItem;
+import com.peeko32213.unusualprehistory.common.item.UPDrinkItem;
+import com.peeko32213.unusualprehistory.common.item.UPFood;
+import com.peeko32213.unusualprehistory.common.item.projectile.JarateItem;
+import com.peeko32213.unusualprehistory.common.item.projectile.OpalescentPearlItem;
+import com.peeko32213.unusualprehistory.common.item.projectile.OpalescentShurikenItem;
+import com.peeko32213.unusualprehistory.common.item.projectile.PsittaccoArrow;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -67,7 +75,7 @@ public class UPItems {
     public static final RegistryObject<Item> VELOCI_SHIELD = ITEMS.register("veloci_shield", () -> new VelociraptorShieldItem(new Item.Properties().durability(800).rarity(Rarity.UNCOMMON)));
 
     public static final RegistryObject<Item> MEATY_BUFFET = ITEMS.register("meaty_buffet",
-            () -> new ModItemConsumable(new Item.Properties().food(UPFood.MEATY_BUFFET).stacksTo(16).craftRemainder(Items.BOWL)));
+            () -> new UPConsumableItem(new Item.Properties().food(UPFood.MEATY_BUFFET).stacksTo(16).craftRemainder(Items.BOWL)));
 
     public static final RegistryObject<Item> MAJUNGA_SCUTE = ITEMS.register("majunga_scute", () -> new Item(new Item.Properties()));
 
@@ -77,7 +85,7 @@ public class UPItems {
 
     public static final RegistryObject<Item> FLASK = ITEMS.register("flask", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> GROG = ITEMS.register("grog", () -> new ModItemDrinkable(drinkItem().food(UPFood.GROG), true, false));
+    public static final RegistryObject<Item> GROG = ITEMS.register("grog", () -> new UPDrinkItem(drinkItem().food(UPFood.GROG), true, false));
 
     public static final RegistryObject<Item> CAPTURED_KIMMER_FLASK = ITEMS.register("captured_kimmer_flask", () -> new Item(new Item.Properties()));
 
@@ -397,26 +405,16 @@ public class UPItems {
     public static final RegistryObject<Item> FOXXI_CHEST_BOAT = ITEMS.register("foxii_chest_boat", () -> new UPBoatItem(true, UPBoatEntity.BoatType.FOXXI, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> GINKGO_CHEST_BOAT = ITEMS.register("ginkgo_chest_boat", () -> new UPBoatItem(true, UPBoatEntity.BoatType.GINKGO, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> BARINA_WHISTLE = ITEMS.register("barina_whistle",
-            () -> new MusicalTameItem(new Item.Properties().stacksTo(1), UPEntities.BARINASUCHUS, UPTags.OCARINA_WHISTLE));
+    public static final RegistryObject<Item> BARINA_WHISTLE = ITEMS.register("barina_whistle", () -> new MusicalTameItem(new Item.Properties().stacksTo(1), UPEntities.BARINASUCHUS, UPTags.OCARINA_WHISTLE));
 
-    public static final RegistryObject<Item> SHEDSCALE_HELMET = ITEMS.register("shedscale_helmet", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.HELMET,
-                    new Item.Properties(), 0.2));
+    public static final RegistryObject<Item> SHEDSCALE_HELMET = ITEMS.register("shedscale_helmet", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.HELMET, new Item.Properties(), 0.2));
+    public static final RegistryObject<Item> SHEDSCALE_CHESTPLATE = ITEMS.register("shedscale_chestplate", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.CHESTPLATE, new Item.Properties(), 0.2));
+    public static final RegistryObject<Item> SHEDSCALE_LEGGINGS = ITEMS.register("shedscale_leggings", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.LEGGINGS, new Item.Properties(),  0.2));
+    public static final RegistryObject<Item> SHEDSCALE_BOOTS = ITEMS.register("shedscale_boots", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.BOOTS, new Item.Properties(), 0.2));
 
-    public static final RegistryObject<Item> SHEDSCALE_CHESTPLATE = ITEMS.register("shedscale_chestplate", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.CHESTPLATE,
-                    new Item.Properties(), 0.2));
+    public static final RegistryObject<Item> TYRANTS_CROWN = ITEMS.register("tyrants_crown", () -> new TyrantsCrownItem(UPArmorMaterial.TYRANTS, ArmorItem.Type.HELMET, new Item.Properties(), 4.0));
 
-    public static final RegistryObject<Item> SHEDSCALE_LEGGINGS = ITEMS.register("shedscale_leggings", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.LEGGINGS,
-                    new Item.Properties(),  0.2));
-
-    public static final RegistryObject<Item> SHEDSCALE_BOOTS = ITEMS.register("shedscale_boots", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.BOOTS,
-                    new Item.Properties(), 0.2));
-
-    public static final RegistryObject<Item> TYRANTS_CROWN = ITEMS.register("tyrants_crown", () -> new TyrantsCrownItem(UPArmorMaterial.TYRANTS, ArmorItem.Type.HELMET,
-            new Item.Properties(), 4.0));
-
-    public static final RegistryObject<Item> SLOTH_POUCH_ARMOR = ITEMS.register("sloth_pouch_armor", () -> new SlothPouchItem(UPArmorMaterial.SLOTH_POUCH, ArmorItem.Type.CHESTPLATE, 6000,
-                    new Item.Properties()));
+    public static final RegistryObject<Item> SLOTH_POUCH_ARMOR = ITEMS.register("sloth_pouch_armor", () -> new SlothPouchItem(UPArmorMaterial.SLOTH_POUCH, ArmorItem.Type.CHESTPLATE, 6000, new Item.Properties()));
 
     public static final RegistryObject<Item> DINO_POUCH = ITEMS.register("dino_pouch", () -> new DinoPouchItem(new Item.Properties().stacksTo(1)));
 
@@ -430,64 +428,41 @@ public class UPItems {
 
     public static final RegistryObject<Item> PALAEO_SKIN = ITEMS.register("palaeo_skin", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> INSULATOR = ITEMS.register("insulator", () -> new Item(new Item.Properties()));
-
     public static final RegistryObject<Item> DRYO_NUTS = ITEMS.register("dryo_nuts", () -> new IncreaseAgeItem(new Item.Properties().food(UPFood.DRYO_NUTS), UPTags.HERBIVORES,10));
 
     public static final RegistryObject<Item> RAW_MAMMOTH = ITEMS.register("raw_mammoth", () -> new Item(new Item.Properties().food(UPFood.RAW_MAMMOTH)));
+    public static final RegistryObject<Item> COOKED_MAMMOTH = ITEMS.register("cooked_mammoth", () -> new Item(new Item.Properties().food(UPFood.COOKED_MAMMOTH)));
+    public static final RegistryObject<Item> MAMMOTH_MEATBALL = ITEMS.register("mammoth_meatball", () -> new UPDrinkItem(soupItem().food(UPFood.MAMMOTH_MEATBALL).stacksTo(16), true, false));
 
-    public static final RegistryObject<Item> COOKED_MAMMOTH = ITEMS.register("cooked_mammoth",
-            () -> new Item(new Item.Properties().food(UPFood.COOKED_MAMMOTH)));
+    public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc", () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 157 * 20));
 
-    public static final RegistryObject<Item> MAMMOTH_MEATBALL = ITEMS.register("mammoth_meatball",
-            () -> new ModItemDrinkable(soupItem().food(UPFood.MAMMOTH_MEATBALL).stacksTo(16), true, false));
+    public static final RegistryObject<Item> ENCASED_DISC = ITEMS.register("encased_disc", () -> new RecordItem(15, UPSounds.ENCASED_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 157 * 20));
 
-    public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc",
-            () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 157 * 20));
+    public static final RegistryObject<Item> LEEDS_CAVIAR = ITEMS.register("leedsichthys_caviar", () -> new UPConsumableItem(new Item.Properties().food(UPFood.LEEDS_CAVIAR).craftRemainder(Items.BOWL).stacksTo(16)));
 
-    public static final RegistryObject<Item> ENCASED_DISC = ITEMS.register("encased_disc",
-            () -> new RecordItem(15, UPSounds.ENCASED_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 157 * 20));
+    public static final RegistryObject<Item> LEEDS_SASHIMI = ITEMS.register("leedsichthys_sashimi", () -> new Item(new Item.Properties().food(UPFood.LEEDS_SASHIMI)));
 
-    public static final RegistryObject<Item> LEEDS_CAVIAR = ITEMS.register("leedsichthys_caviar",
-            () -> new ModItemConsumable(new Item.Properties().food(UPFood.LEEDS_CAVIAR).craftRemainder(Items.BOWL).stacksTo(16)));
+    public static final RegistryObject<Item> PSITTACOSAURUS_QUILL = ITEMS.register("psittacosaurus_quill", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> LEEDS_SLICE = ITEMS.register("leedsichthys_slice",
-            () -> new Item(new Item.Properties().food(UPFood.LEEDS_SLICE)));
+    public static final RegistryObject<Item> YIXIAN_RAMPAGE_FLASK = ITEMS.register("yixian_rampage_flask", () -> new UPDrinkItem(drinkItem().stacksTo(16).food(UPFood.YIXIAN_SALIVA), true, false));
+    public static final RegistryObject<Item> DORMANT_RAMPAGE_FLASK = ITEMS.register("dormant_rampage_flask", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> PSITTACOSAURUS_QUILL = ITEMS.register("psittacosaurus_quill",
-            () -> new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> YIXIAN_RAMPAGE_FLASK = ITEMS.register("yixian_rampage_flask", () -> new ModItemDrinkable(drinkItem().stacksTo(16).food(UPFood.YIXIAN_SALIVA), true, false));
-    public static final RegistryObject<Item> DORMANT_RAMPAGE = ITEMS.register("dormant_rampage", () -> new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("jawless_fish_bucket",
-            () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false,
-                    new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("jawless_fish_bucket", () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> JARATE =  ITEMS.register("jarate", () -> new JarateItem((new Item.Properties()).stacksTo(16)));
 
     public static final RegistryObject<Item> QUILL_REMEDY = ITEMS.register("quill_remedy", () -> new RampageRemedyItem(new Item.Properties()));
 
-    public static final RegistryObject<Item> RAW_JAWLESS_FISH = ITEMS.register("raw_jawless_fish",
-            () -> new Item(new Item.Properties().food(UPFood.RAW_JAWLESS_FISH)));
+    public static final RegistryObject<Item> RAW_JAWLESS_FISH = ITEMS.register("raw_jawless_fish", () -> new Item(new Item.Properties().food(UPFood.RAW_JAWLESS_FISH)));
+    public static final RegistryObject<Item> COOKED_JAWLESS_FISH = ITEMS.register("cooked_jawless_fish", () -> new Item(new Item.Properties().food(UPFood.COOKED_FURCA)));
 
-    public static final RegistryObject<Item> COOKED_JAWLESS_FISH = ITEMS.register("cooked_jawless_fish",
-            () -> new Item(new Item.Properties().food(UPFood.COOKED_FURCA)));
+    public static final RegistryObject<Item> RAW_TARTU = ITEMS.register("raw_tartuosteus", () -> new Item(new Item.Properties().food(UPFood.RAW_TARTU)));
+    public static final RegistryObject<Item> COOKED_TARTU = ITEMS.register("cooked_tartuosteus", () -> new Item(new Item.Properties().food(UPFood.COOKED_TARTU)));
 
-    public static final RegistryObject<Item> RAW_TARTU = ITEMS.register("raw_tartuosteus",
-            () -> new Item(new Item.Properties().food(UPFood.RAW_TARTU)));
+    public static final RegistryObject<Item> RAW_DUNK = ITEMS.register("raw_dunkleosteus", () -> new Item(new Item.Properties().food(UPFood.RAW_DUNK)));
+    public static final RegistryObject<Item> COOKED_DUNK = ITEMS.register("cooked_dunkleosteus", () -> new Item(new Item.Properties().food(UPFood.COOKED_DUNK)));
 
-    public static final RegistryObject<Item> COOKED_TARTU = ITEMS.register("cooked_tartuosteus",
-            () -> new Item(new Item.Properties().food(UPFood.COOKED_TARTU)));
-
-    public static final RegistryObject<Item> RAW_DUNK = ITEMS.register("raw_dunkleosteus",
-            () -> new Item(new Item.Properties().food(UPFood.RAW_DUNK)));
-
-    public static final RegistryObject<Item> COOKED_DUNK = ITEMS.register("cooked_dunkleosteus",
-            () -> new Item(new Item.Properties().food(UPFood.COOKED_DUNK)));
-
-    public static final RegistryObject<Item> AMBER_IDOL = ITEMS.register("amber_idol",
-            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> AMBER_IDOL = ITEMS.register("amber_idol", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> PSITTACCO_ARROW = ITEMS.register("psittaco_arrow", () -> new PsittaccoArrow(new Item.Properties()));
 

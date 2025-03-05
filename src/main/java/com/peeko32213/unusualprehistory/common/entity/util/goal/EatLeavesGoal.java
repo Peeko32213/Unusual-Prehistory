@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.MegatheriumEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MegatheriumEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 

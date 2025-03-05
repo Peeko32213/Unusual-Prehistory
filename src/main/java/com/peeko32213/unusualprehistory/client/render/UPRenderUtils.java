@@ -6,8 +6,8 @@ import com.peeko32213.unusualprehistory.client.render.layer.PrehistoricSaddleLay
 import com.peeko32213.unusualprehistory.client.render.layer.ItemHoldingLayer;
 import com.peeko32213.unusualprehistory.client.render.layer.JebLayer;
 import com.peeko32213.unusualprehistory.client.render.layer.TamablePrehistoricSaddleLayer;
-import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;

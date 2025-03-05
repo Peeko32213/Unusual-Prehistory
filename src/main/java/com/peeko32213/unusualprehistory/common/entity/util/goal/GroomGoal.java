@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.SmilodonEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.SmilodonEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;

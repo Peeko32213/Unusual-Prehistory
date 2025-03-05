@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.base.TamableStatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamableStatedPrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/animal_dna_flasks"
+    "layer0": "unusualprehistory:item/flasks/animal_dna_flasks"
   }
 }

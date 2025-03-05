@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.TanystropheusEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.TanystropheusEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

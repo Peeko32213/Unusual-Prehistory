@@ -1,11 +1,18 @@
 package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.*;
-import com.peeko32213.unusualprehistory.common.entity.part.LeedsichthysPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.part.PalaeophisPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.PalaeophisBookEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.WorldSpawnableEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.SludgeEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.*;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.EncrustedEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PalaeophisBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.WorldSpawnableEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.*;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.AnurognathusEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.KimmeridgebrachypteraeschnidiumEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.PterodaustroEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.*;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;

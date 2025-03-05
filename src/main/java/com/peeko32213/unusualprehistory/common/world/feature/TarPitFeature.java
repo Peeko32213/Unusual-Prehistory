@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.world.feature;
 
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.common.entity.SludgeEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.SludgeEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;

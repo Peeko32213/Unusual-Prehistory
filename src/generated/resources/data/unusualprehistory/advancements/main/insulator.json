@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "unusualprehistory:insulator"
+              "unusualprehistory:leedsichthys_caviar"
             ]
           }
         ]
@@ -22,7 +22,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusualprehistory:insulator"
+      "item": "unusualprehistory:leedsichthys_caviar"
     },
     "show_toast": true,
     "title": {

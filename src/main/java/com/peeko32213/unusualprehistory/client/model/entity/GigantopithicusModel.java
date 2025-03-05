@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model.entity;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.GigantopithicusEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.GigantopithicusEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;

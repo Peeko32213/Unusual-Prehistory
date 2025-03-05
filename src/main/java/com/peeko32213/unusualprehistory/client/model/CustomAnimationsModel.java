@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.client.model;
 
-import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomAnimationsEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;

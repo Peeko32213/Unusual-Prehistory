@@ -310,7 +310,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get()).build())))
                 .save(consumer, prefixS("main/rex_passify"));
 
-        Advancement smilodon = getAdvancement(cultivator, (ItemLike)UPItems.SMILO_FLASK.get(), "interact_smilo", FrameType.TASK, true, true, false)
+        Advancement smilodon = getAdvancement(cultivator, UPItems.SMILO_FLASK.get(), "interact_smilo", FrameType.TASK, true, true, false)
                 .addCriterion("damage_smilodon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get())))))
                 .addCriterion("interact_smilodon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get()).build())))
                 .addCriterion("killed_smilodon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get())))
@@ -318,15 +318,15 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
 
                 .save(consumer, prefixS("main/smilodon"));
 
-        Advancement insulator = getAdvancement(smilodon, (ItemLike)UPItems.INSULATOR.get(), "obtain_insulator", FrameType.TASK, true, true, false)
-                .addCriterion("insulator", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.INSULATOR.get()))
+        Advancement insulator = getAdvancement(smilodon, UPItems.LEEDS_CAVIAR.get(), "obtain_insulator", FrameType.TASK, true, true, false)
+                .addCriterion("insulator", InventoryChangeTrigger.TriggerInstance.hasItems(UPItems.LEEDS_CAVIAR.get()))
                 .save(consumer, prefixS("main/insulator"));
 
-        Advancement birthingPod = getAdvancement(insulator, (ItemLike)UPBlocks.INCUBATOR.get(), "craft_incubator", FrameType.TASK, true, true, false)
+        Advancement birthingPod = getAdvancement(insulator, UPBlocks.INCUBATOR.get(), "craft_incubator", FrameType.TASK, true, true, false)
                 .addCriterion("incubator", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.INCUBATOR.get()))
                 .save(consumer, prefixS("main/incubator"));
 
-        Advancement palaeo = getAdvancement(birthingPod, (ItemLike)UPItems.PALAEO_FLASK.get(), "interact_palaeo", FrameType.TASK, true, true, true)
+        Advancement palaeo = getAdvancement(birthingPod, UPItems.PALAEO_FLASK.get(), "interact_palaeo", FrameType.TASK, true, true, true)
                 .addCriterion("damage_palaeo", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get())))))
                 .addCriterion("interact_palaeo", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get()).build())))
                 .addCriterion("killed_palaeo", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get())))

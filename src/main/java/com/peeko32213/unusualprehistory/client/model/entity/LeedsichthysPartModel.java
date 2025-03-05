@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.part.LeedsichthysPartEntity;
-import com.peeko32213.unusualprehistory.common.entity.part.LeedsichthysPartIndex;
+import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartIndex;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 

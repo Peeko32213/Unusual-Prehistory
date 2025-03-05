@@ -83,21 +83,25 @@
   "edaphosaurus_idle": {
     "sounds": [
         "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_0",
-        "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_1"
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_1",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_2",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_3"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.edaphosaurus_idle"
   },
   "edaphosaurus_hurt": {
     "sounds": [
         "unusualprehistory:entity/edaphosaurus/edaphosaurus_hurt_0",
-        "unusualprehistory:entity/edaphosaurus/edaphosaurus_hurt_1"
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_hurt_1",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_hurt_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.edaphosaurus_hurt"
   },
   "edaphosaurus_death": {
     "sounds": [
         "unusualprehistory:entity/edaphosaurus/edaphosaurus_death_0",
-        "unusualprehistory:entity/edaphosaurus/edaphosaurus_death_1"
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_death_1",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_death_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.edaphosaurus_death"
   },
@@ -1095,6 +1099,43 @@
         "unusualprehistory:entity/sludge/sludge_slap_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_slap"
+  },
+
+  "leedsichthys_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/leedsichthys/leedsichthys_hurt_0",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_hurt_1",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_hurt_2",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_hurt_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.leedsichthys_hurt"
+  },
+  "leedsichthys_idle": {
+    "sounds": [
+      "unusualprehistory:entity/leedsichthys/leedsichthys_idle_0",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_idle_1",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_idle_2",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_idle_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.leedsichthys_idle"
+  },
+  "leedsichthys_flop": {
+    "sounds": [
+      "unusualprehistory:entity/leedsichthys/leedsichthys_flop_0",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_flop_1",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_flop_2",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_flop_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.leedsichthys_flop"
+  },
+  "leedsichthys_death": {
+    "sounds": [
+      "unusualprehistory:entity/leedsichthys/leedsichthys_death_0",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_death_1",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_death_2",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_death_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.leedsichthys_death"
   },
 
   "jarate_explode": {

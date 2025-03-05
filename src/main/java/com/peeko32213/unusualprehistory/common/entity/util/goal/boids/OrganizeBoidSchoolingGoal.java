@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal.boids;
 
 import com.mojang.datafixers.DataFixUtils;
-import com.peeko32213.unusualprehistory.common.entity.base.BoidFishPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.BoidFishPrehistoricEntity;
 import net.minecraft.world.entity.ai.goal.FollowFlockLeaderGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 

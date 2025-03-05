@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model.entity;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.ArchelonEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.ArchelonEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;

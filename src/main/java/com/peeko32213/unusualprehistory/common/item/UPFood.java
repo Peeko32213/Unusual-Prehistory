@@ -19,7 +19,7 @@ public class UPFood {
     public static final FoodProperties RAW_MAMMOTH = (new FoodProperties.Builder()).nutrition(5).saturationMod(0.3F).meat().build();
     public static final FoodProperties RAW_OPHIODON = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.3F).meat().build();
     public static final FoodProperties LEEDS_CAVIAR = (new FoodProperties.Builder()).nutrition(1).saturationMod(8F).meat().build();
-    public static final FoodProperties LEEDS_SLICE = (new FoodProperties.Builder()).nutrition(4).saturationMod(8F).meat().build();
+    public static final FoodProperties LEEDS_SASHIMI = (new FoodProperties.Builder()).nutrition(4).saturationMod(8F).meat().build();
     public static final FoodProperties RAW_JAWLESS_FISH = (new FoodProperties.Builder()).nutrition(1).saturationMod(0.1F).meat().build();
     public static final FoodProperties RAW_TARTU = (new FoodProperties.Builder()).nutrition(3).saturationMod(0.3F).meat().build();
     public static final FoodProperties RAW_DUNK = (new FoodProperties.Builder()).nutrition(3).saturationMod(0.3F).meat().build();

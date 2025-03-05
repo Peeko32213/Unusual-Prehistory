@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricAquaticEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.TamablePrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.base.TameablePrehistoricNoFloatEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TameablePrehistoricNoFloatEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
@@ -26,7 +26,7 @@ public class CustomRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
                 return false;
             }
         }
-        if(this.mob instanceof PrehistoricAquaticEntity entityBaseDinosaurAnimal) {
+        if(this.mob instanceof PrehistoricAquaticEntityOld entityBaseDinosaurAnimal) {
             if(entityBaseDinosaurAnimal.playingAnimation()) {
                 return false;
             }

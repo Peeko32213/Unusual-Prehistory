@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/leeds_flask"
+    "layer0": "unusualprehistory:item/flasks/leeds_flask"
   }
 }

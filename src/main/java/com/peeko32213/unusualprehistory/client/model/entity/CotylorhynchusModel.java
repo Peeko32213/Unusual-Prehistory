@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.model.entity;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.CotylorhynchusEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.CotylorhynchusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;

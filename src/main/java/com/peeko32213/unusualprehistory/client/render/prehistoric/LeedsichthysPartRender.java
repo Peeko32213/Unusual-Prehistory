@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.client.render.prehistoric;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.peeko32213.unusualprehistory.client.model.entity.LeedsichthysPartModel;
-import com.peeko32213.unusualprehistory.common.entity.part.LeedsichthysPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;

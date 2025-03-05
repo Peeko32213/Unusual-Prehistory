@@ -105,7 +105,6 @@ public class UPTabs {
                     entries.accept(UPItems.ENCRUSTED_ORGAN.get());
                     entries.accept(UPItems.PALAEO_SKIN.get());
                     entries.accept(UPItems.SMILO_FUR.get());
-                    entries.accept(UPItems.INSULATOR.get());
 
                     // Foods
                     entries.accept(UPItems.RAW_COTY.get());
@@ -121,7 +120,6 @@ public class UPTabs {
                     entries.accept(UPItems.COOKED_STETHA.get());
                     entries.accept(UPItems.RAW_TARTU.get());
                     entries.accept(UPItems.COOKED_TARTU.get());
-                    entries.accept(UPItems.LEEDS_SLICE.get());
                     entries.accept(UPItems.LEEDS_CAVIAR.get());
                     entries.accept(UPItems.RAW_OPHIODON.get());
                     entries.accept(UPItems.COOKED_OPHIODON.get());
@@ -205,7 +203,7 @@ public class UPTabs {
                     entries.accept(UPItems.GROG.get());
                     entries.accept(UPItems.CAPTURED_KIMMER_FLASK.get());
                     entries.accept(UPItems.JARATE.get());
-                    entries.accept(UPItems.DORMANT_RAMPAGE.get());
+                    entries.accept(UPItems.DORMANT_RAMPAGE_FLASK.get());
                     entries.accept(UPItems.YIXIAN_RAMPAGE_FLASK.get());
 
                     // Paleo DNA

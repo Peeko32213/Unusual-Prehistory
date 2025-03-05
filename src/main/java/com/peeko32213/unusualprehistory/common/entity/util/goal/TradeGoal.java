@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
 import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
-import com.peeko32213.unusualprehistory.common.entity.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.nbt.CompoundTag;
