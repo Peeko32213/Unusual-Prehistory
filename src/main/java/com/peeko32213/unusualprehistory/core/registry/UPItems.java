@@ -439,9 +439,7 @@ public class UPItems {
     public static final RegistryObject<Item> ENCASED_DISC = ITEMS.register("encased_disc", () -> new RecordItem(15, UPSounds.ENCASED_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 157 * 20));
 
     public static final RegistryObject<Item> LEEDS_CAVIAR = ITEMS.register("leedsichthys_caviar", () -> new UPConsumableItem(new Item.Properties().food(UPFood.LEEDS_CAVIAR).craftRemainder(Items.BOWL).stacksTo(16)));
-
-    public static final RegistryObject<Item> LEEDS_SASHIMI = ITEMS.register("leedsichthys_sashimi", () -> new Item(new Item.Properties().food(UPFood.LEEDS_SASHIMI)));
-
+    
     public static final RegistryObject<Item> PSITTACOSAURUS_QUILL = ITEMS.register("psittacosaurus_quill", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> YIXIAN_RAMPAGE_FLASK = ITEMS.register("yixian_rampage_flask", () -> new UPDrinkItem(drinkItem().stacksTo(16).food(UPFood.YIXIAN_SALIVA), true, false));
