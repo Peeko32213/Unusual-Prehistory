@@ -4,4 +4,6 @@ You can find and download the mod here:
 
 https://www.curseforge.com/minecraft/mc-mods/unusual-prehistory-forge
 
+https://legacy.curseforge.com/minecraft/mc-mods/unusual-prehistory-forge
+
 https://modrinth.com/mod/unusual-prehistory-forge
