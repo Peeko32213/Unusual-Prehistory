@@ -31,6 +31,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -44,7 +45,6 @@ import java.util.function.Predicate;
 
 public class LeedsichthysPartEntity extends LivingEntity implements IHurtableMultipart, GeoAnimatable {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-
 
     private static final EntityDataAccessor<Integer> BODYINDEX = SynchedEntityData.defineId(LeedsichthysPartEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> BODY_TYPE = SynchedEntityData.defineId(LeedsichthysPartEntity.class, EntityDataSerializers.INT);
@@ -66,7 +66,7 @@ public class LeedsichthysPartEntity extends LivingEntity implements IHurtableMul
     }
 
     @Override
-    public InteractionResult interact(Player p_19978_, InteractionHand p_19979_) {
+    public @NotNull InteractionResult interact(@NotNull Player p_19978_, @NotNull InteractionHand p_19979_) {
         return this.getParent() == null ? super.interact(p_19978_, p_19979_) : this.getParent().interact(p_19978_, p_19979_);
     }
 

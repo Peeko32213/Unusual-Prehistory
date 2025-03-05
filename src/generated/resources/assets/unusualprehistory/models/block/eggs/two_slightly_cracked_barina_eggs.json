@@ -1,6 +1,0 @@
-{
-  "parent": "unusualprehistory:block/template_eggs/template_two_small_eggs",
-  "textures": {
-    "texture": "unusualprehistory:block/eggs/barina_eggs_slightly_cracked"
-  }
-}

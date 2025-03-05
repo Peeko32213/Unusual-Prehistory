@@ -33,13 +33,6 @@ public class ItemModelGenerator extends ItemModelProvider {
             }
         }
 
-        singleTex(UPItems.SMILODON_EMBRYO);
-        singleTex(UPItems.MAMMOTH_EMBRYO);
-        singleTex(UPItems.MEGATH_EMBRYO);
-        singleTex(UPItems.GIGANTO_EMBRYO);
-        singleTex(UPItems.PARACER_EMBRYO);
-        singleTex(UPItems.PALAEO_EMBRYO);
-
         singleTex(UPItems.SMILO_FUR);
         singleTex(UPItems.PALAEO_SKIN);
         singleTex(UPItems.DINO_POUCH);
@@ -53,8 +46,6 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.RAW_MAMMOTH);
         singleTex(UPItems.MAMMOTH_MEATBALL);
         singleTex(UPItems.COOKED_MAMMOTH);
-        singleTex(UPItems.RAW_OPHIODON);
-        singleTex(UPItems.COOKED_OPHIODON);
 
         flaskTex(UPItems.ZULOAGAE_FLASK);
         flaskTex(UPItems.RAIGUENRAYUN_FLASK);
@@ -84,15 +75,64 @@ public class ItemModelGenerator extends ItemModelProvider {
         flaskTex(UPItems.ARCHELON_FLASK);
         flaskTex(UPItems.JAWLESS_FISH_FLASK);
         flaskTex(UPItems.LEEDS_FLASK);
+        flaskTex(UPItems.AMMONITE_FLASK);
+        flaskTex(UPItems.COTY_FLASK);
+        flaskTex(UPItems.DUNK_FLASK);
+        flaskTex(UPItems.SCAU_FLASK);
+        flaskTex(UPItems.STETHA_FLASK);
+        flaskTex(UPItems.ANTARCTO_FLASK);
+        flaskTex(UPItems.ANURO_FLASK);
+        flaskTex(UPItems.AUSTRO_FLASK);
+        flaskTex(UPItems.BEELZ_FLASK);
+        flaskTex(UPItems.BRACHI_FLASK);
+        flaskTex(UPItems.ENCRUSTED_FLASK);
+        flaskTex(UPItems.ERYON_FLASK);
+        flaskTex(UPItems.HWACHA_FLASK);
+        flaskTex(UPItems.KENTRO_FLASK);
+        flaskTex(UPItems.MAJUNGA_FLASK);
+        flaskTex(UPItems.PACHY_FLASK);
+        flaskTex(UPItems.TRIKE_FLASK);
+        flaskTex(UPItems.TYRANNO_FLASK);
+        flaskTex(UPItems.ULUGH_FLASK);
+        flaskTex(UPItems.VELOCI_FLASK);
+        flaskTex(UPItems.BARINA_FLASK);
+        flaskTex(UPItems.GIGANTO_FLASK);
+        flaskTex(UPItems.MAMMOTH_FLASK);
+        flaskTex(UPItems.MEGALANIA_FLASK);
+        flaskTex(UPItems.MEGATHERIUM_FLASK);
+        flaskTex(UPItems.PALAEO_FLASK);
+        flaskTex(UPItems.PARACER_FLASK);
+        flaskTex(UPItems.SMILODON_FLASK);
+        flaskTex(UPItems.TALPANAS_FLASK);
+        flaskTex(UPItems.ANOSTYLOSTRAMA_FLASK);
+        flaskTex(UPItems.ARCHAEFRUCTUS_FLASK);
+        flaskTex(UPItems.ARCHAO_FLASK);
+        flaskTex(UPItems.BENNET_FLASK);
+        flaskTex(UPItems.CLATHRODICTYON_FLASK);
+        flaskTex(UPItems.GINKGO_FLASK);
+        flaskTex(UPItems.HORSETAIL_FLASK);
+        flaskTex(UPItems.LEEFRUCTUS_FLASK);
+        flaskTex(UPItems.NELUMBITES_FLASK);
+        flaskTex(UPItems.QUEREUXIA_FLASK);
+        flaskTex(UPItems.SARR_FLASK);
 
+        flaskTex(UPItems.FLASK);
         flaskTex(UPItems.CAPTURED_KIMMER_FLASK);
         flaskTex(UPItems.DORMANT_RAMPAGE_FLASK);
         flaskTex(UPItems.YIXIAN_RAMPAGE_FLASK);
+        flaskTex(UPItems.JARATE);
 
         flaskTex(UPItems.ANIMAL_DNA_FLASKS);
         flaskTex(UPItems.PLANT_DNA_FLASKS);
 
-        singleTex(UPItems.OTAROCYON_EMBRYO);
+        embryoTex(UPItems.SMILODON_EMBRYO);
+        embryoTex(UPItems.MAMMOTH_EMBRYO);
+        embryoTex(UPItems.MEGATH_EMBRYO);
+        embryoTex(UPItems.GIGANTO_EMBRYO);
+        embryoTex(UPItems.PARACER_EMBRYO);
+        embryoTex(UPItems.PALAEO_EMBRYO);
+        embryoTex(UPItems.OTAROCYON_EMBRYO);
+
         singleTex(UPItems.LEEDS_CAVIAR);
 
         singleTex(UPItems.DRYO_SIGN);
@@ -115,17 +155,14 @@ public class ItemModelGenerator extends ItemModelProvider {
 
         singleTex(UPItems.ZULOAGAE_SIGN);
         singleTex(UPItems.ZULOAGAE_HANGING_SIGN);
-        singleTex(UPItems.RAW_JAWLESS_FISH);
-        singleTex(UPItems.COOKED_JAWLESS_FISH);
-        singleTex(UPItems.RAW_TARTU);
-        singleTex(UPItems.COOKED_TARTU);
         singleTex(UPItems.PSITTACOSAURUS_QUILL);
         singleTex(UPItems.PSITTACCO_ARROW);
         singleTex(UPItems.AMBER_IDOL);
-        singleTex(UPItems.JARATE);
         singleTex(UPItems.QUILL_REMEDY);
-        singleTex(UPItems.RAW_DUNK);
-        singleTex(UPItems.COOKED_DUNK);
+
+        for(RegistryObject<?> object : UPEntities.dinos) {
+            addPrehistoricEgg(object.getId());
+        }
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());
@@ -139,12 +176,12 @@ public class ItemModelGenerator extends ItemModelProvider {
         withExistingParent(b.getId().getPath(), model);
     }
 
-//    public void addDinoEgg(Supplier<? extends EntityType<?>> dino) {
-//        generated( dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", prefix("item/" + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "")  + "_egg"));
-//    }
-//    public void addDinoEgg(ResourceLocation dino) {
-//        generated( dino.getPath() + "_entity_egg", prefix("item/" + dino.getPath()  + "_egg"));
-//    }
+    public void addPrehistoricEgg(Supplier<? extends EntityType<?>> dino) {
+        generated( dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", prefix("item/" + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "")  + "_egg"));
+    }
+    public void addPrehistoricEgg(ResourceLocation dino) {
+        generated( dino.getPath() + "_egg", prefix("item/eggs/" + dino.getPath()  + "_egg"));
+    }
 
     private ItemModelBuilder singleTex(RegistryObject<Item> item) {
         return generated(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
@@ -152,6 +189,14 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     private ItemModelBuilder flaskTex(RegistryObject<Item> item) {
         return generated(item.getId().getPath(), prefix("item/flasks/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder eggTex(RegistryObject<Item> item) {
+        return generated(item.getId().getPath(), prefix("item/eggs/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder embryoTex(RegistryObject<Item> item) {
+        return generated(item.getId().getPath(), prefix("item/embryos/" + item.getId().getPath()));
     }
 
     private ItemModelBuilder generated(String name, ResourceLocation... layers) {

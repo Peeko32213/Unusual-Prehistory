@@ -246,7 +246,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .addCriterion("majunga_helmet", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.MAJUNGA_HELMET.get()))
                 .save(consumer, prefixS("main/majunga_helmet"));
 
-        Advancement veloci = getAdvancement(eggs, (ItemLike)UPItems.RAPTOR_FLASK.get(), "interact_veloci", FrameType.TASK, true, true, true)
+        Advancement veloci = getAdvancement(eggs, (ItemLike)UPItems.VELOCI_FLASK.get(), "interact_veloci", FrameType.TASK, true, true, true)
                 .addCriterion("damage_veloci", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.VELOCIRAPTOR.get())))))
                 .addCriterion("interact_veloci", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.VELOCIRAPTOR.get()).build())))
                 .addCriterion("killed_veloci", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.VELOCIRAPTOR.get())))
@@ -298,7 +298,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .addCriterion("grog", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.GROG.get()))
                 .save(consumer, prefixS("main/grog"));
 
-        Advancement rex = getAdvancement(eggs, (ItemLike)UPItems.REX_FLASK.get(), "interact_rex", FrameType.TASK, true, true, true)
+        Advancement rex = getAdvancement(eggs, (ItemLike)UPItems.TYRANNO_FLASK.get(), "interact_rex", FrameType.TASK, true, true, true)
                 .addCriterion("damage_rex", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get())))))
                 .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get()).build())))
                 .addCriterion("killed_rex", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get())))
@@ -310,7 +310,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get()).build())))
                 .save(consumer, prefixS("main/rex_passify"));
 
-        Advancement smilodon = getAdvancement(cultivator, UPItems.SMILO_FLASK.get(), "interact_smilo", FrameType.TASK, true, true, false)
+        Advancement smilodon = getAdvancement(cultivator, UPItems.SMILODON_FLASK.get(), "interact_smilo", FrameType.TASK, true, true, false)
                 .addCriterion("damage_smilodon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get())))))
                 .addCriterion("interact_smilodon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get()).build())))
                 .addCriterion("killed_smilodon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get())))
@@ -379,7 +379,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
 
                 .save(consumer, prefixS("main/mammoth"));
 
-        Advancement barina = getAdvancement(eggs, (ItemLike)UPItems.BARIN_FLASK.get(), "interact_barina", FrameType.TASK, true, true, true)
+        Advancement barina = getAdvancement(eggs, (ItemLike)UPItems.BARINA_FLASK.get(), "interact_barina", FrameType.TASK, true, true, true)
                 .addCriterion("damage_barina", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get())))))
                 .addCriterion("interact_barina", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get()).build())))
                 .addCriterion("killed_barina", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get())))
@@ -399,7 +399,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
 
                 .save(consumer, prefixS("main/paraceratherium"));
 
-        Advancement megalania = getAdvancement(eggs, (ItemLike)UPItems.MEGALA_FLASK.get(), "interact_megala", FrameType.TASK, true, true, true)
+        Advancement megalania = getAdvancement(eggs, (ItemLike)UPItems.MEGALANIA_FLASK.get(), "interact_megala", FrameType.TASK, true, true, true)
                 .addCriterion("damage_megala", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))))
                 .addCriterion("interact_megala", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get()).build())))
                 .addCriterion("killed_megala", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))

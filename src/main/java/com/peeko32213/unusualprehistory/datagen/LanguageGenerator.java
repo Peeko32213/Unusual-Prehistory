@@ -119,15 +119,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAW_MAMMOTH, "Raw Mammoth");
         addItem(UPItems.COOKED_MAMMOTH, "Cooked Mammoth");
         addItem(UPItems.MAMMOTH_MEATBALL, "Mammoth Meatball");
-        addItem(UPItems.RAW_OPHIODON, "Raw Ophiodon");
-        addItem(UPItems.COOKED_OPHIODON, "Cooked Ophiodon");
         addItem(UPItems.LEEDS_CAVIAR, "Leedsichthys Caviar");
-        addItem(UPItems.RAW_JAWLESS_FISH, "Raw Jawless Fish");
-        addItem(UPItems.COOKED_JAWLESS_FISH, "Cooked Jawless Fish");
-        addItem(UPItems.RAW_TARTU, "Raw Tartuosteus");
-        addItem(UPItems.COOKED_TARTU, "Cooked Tartuosteus");
-        addItem(UPItems.RAW_DUNK, "Raw Dunkleosteus");
-        addItem(UPItems.COOKED_DUNK, "Cooked Dunkleosteus");
 
         //SCRAPS
         addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
@@ -274,8 +266,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.COTY_FLASK, "Flask of Cotylorhynchus DNA");
         addItem(UPItems.SCAU_FLASK, "Flask of Scaumenacia DNA");
         addItem(UPItems.BRACHI_FLASK, "Flask of Brachiosaurus DNA");
-        addItem(UPItems.REX_FLASK, "Flask of Tyrannosaurus DNA");
-        addItem(UPItems.RAPTOR_FLASK, "Flask of Velociraptor DNA");
+        addItem(UPItems.TYRANNO_FLASK, "Flask of Tyrannosaurus DNA");
+        addItem(UPItems.VELOCI_FLASK, "Flask of Velociraptor DNA");
         addItem(UPItems.TRIKE_FLASK, "Flask of Triceratops DNA");
         addItem(UPItems.PACHY_FLASK, "Flask of Pachycephalosaurus DNA");
         addItem(UPItems.ENCRUSTED_FLASK, "Flask of Encrusted DNA");
@@ -297,13 +289,13 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.KENTRO_FLASK, "Flask of Kentrosaurus DNA");
         addItem(UPItems.ULUGH_FLASK, "Flask of Ulughbegsaurus DNA");
         addItem(UPItems.GIGANTO_FLASK, "Flask of Gigantopithecus DNA");
-        addItem(UPItems.SMILO_FLASK, "Flask of Smilodon DNA");
-        addItem(UPItems.MEGATH_FLASK, "Flask of Megatherium DNA");
+        addItem(UPItems.SMILODON_FLASK, "Flask of Smilodon DNA");
+        addItem(UPItems.MEGATHERIUM_FLASK, "Flask of Megatherium DNA");
         addItem(UPItems.PARACER_FLASK, "Flask of Paraceratherium DNA");
         addItem(UPItems.MAMMOTH_FLASK, "Flask of Mammoth DNA");
-        addItem(UPItems.BARIN_FLASK, "Flask of Barinasuchus DNA");
+        addItem(UPItems.BARINA_FLASK, "Flask of Barinasuchus DNA");
         addItem(UPItems.PALAEO_FLASK, "Flask of Palaeolophis DNA");
-        addItem(UPItems.MEGALA_FLASK, "Flask of Megalania DNA");
+        addItem(UPItems.MEGALANIA_FLASK, "Flask of Megalania DNA");
         addItem(UPItems.TALPANAS_FLASK, "Flask of Talpanas DNA");
         addItem(UPItems.ZULOAGAE_FLASK, "Flask of Zuloagae DNA");
         addItem(UPItems.RAIGUENRAYUN_FLASK, "Flask of Raiguenrayun DNA");
@@ -583,6 +575,9 @@ public class LanguageGenerator extends LanguageProvider {
         // Boats
         addEntityType(UPEntities.BOAT, "Boat");
         addEntityType(UPEntities.CHEST_BOAT, "Boat with Chest");
+
+        // Eggs
+        addPrehistoricEgg(UPEntities.BALAUR, "Balaur Egg");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Beelzebufo croaks");
@@ -1068,14 +1063,8 @@ public class LanguageGenerator extends LanguageProvider {
         add(UnusualPrehistory.MODID + ".blockentity." + beName, name);
     }
 
-    public void addDinoEgg(Supplier<? extends EntityType<?>> dino, String name) {
-        addDinoEgg(dino, name, true);
-    }
-    public void addDinoEgg(Supplier<? extends EntityType<?>> dino, String name, boolean addSpawnEgg) {
-        add("item.unusualprehistory." + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", name + " Egg");
-        if(addSpawnEgg) {
-            addDinoSpawnEgg(dino, name);
-        }
+    public void addPrehistoricEgg(Supplier<? extends EntityType<?>> dino, String name) {
+        add("item.unusualprehistory." + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_egg", name);
     }
 
     public void addDinoSpawnEgg(Supplier<? extends EntityType<?>> dino, String name) {

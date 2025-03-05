@@ -54,30 +54,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        /**Example**/
-        //simpleBlock(UPBlocks.STRIPPED_GINKGO_LOG.get());
-        //logBlock(UPBlocks.GINKGO_LOG.get());
-        //This one makes a json file with model as template_+egg name as parent
 
-        createEgg(UPBlocks.COTY_EGG.get());
-        createEgg(UPBlocks.MAJUNGA_EGG.get());
-        createSingleEgg(UPBlocks.BRACHI_EGG.get());
-        createEgg(UPBlocks.ANURO_EGG.get());
-        //This one makes a json file with default models as template_medium_eggs, etc as parent
-        createEggDefaultMedium(UPBlocks.TRIKE_EGG.get());
-        createEggDefaultMedium(UPBlocks.REX_EGG.get());
-        createCustomEggCustom(UPBlocks.ULUGH_EGG.get(), "majunga", "ulughbegsaurus_egg");
-        createCustomEggCustom(UPBlocks.ANTARCO_EGG.get(), "majunga", "antarctopelta_eggs");
-        createCustomEggCustom(UPBlocks.KENTRO_EGG.get(), "majunga", "kentrosaurus_egg");
-        createCustomEggCustom(UPBlocks.HWACHA_EGG.get(), "majunga", "hwachavenator_egg");
-        createCustomEggCustom(UPBlocks.AUSTRO_EGG.get(), "majunga", "austroraptor_eggs");
-        createEggDefaultSmallCustom(UPBlocks.RAPTOR_EGG.get(), "veloci_eggs");
-        createEggDefaultSmall(UPBlocks.PACHY_EGG.get());
-        createSingleEgg(UPBlocks.TALPANAS_EGG.get());
-        createEggDefaultSmallCustom(UPBlocks.BARINA_EGG.get(), "barinasuchus_eggs");
-        createEggDefaultMediumCustom(UPBlocks.MEGALA_EGG.get(), "megalania_eggs");
-
-        // Unused 1.6 stuff
         createFlatWaterEgg(UPBlocks.OPHIDION_EGGS.get());
         createFlatWaterEgg(UPBlocks.HYNERIA_EGGS.get());
         createFlatWaterEgg(UPBlocks.TARTUO_EGGS.get());
@@ -505,7 +482,7 @@ public class BlockstateGenerator extends BlockStateProvider {
     }
 
     private BlockModelBuilder singleTexWaterEgg(Block block) {
-        return generated(getName(block), new ResourceLocation(UnusualPrehistory.MODID,"item/" + getName(block)));
+        return generated(getName(block), new ResourceLocation(UnusualPrehistory.MODID,"item/eggs/" + getName(block)));
     }
 
     private BlockModelBuilder generated(String name, ResourceLocation... layers) {

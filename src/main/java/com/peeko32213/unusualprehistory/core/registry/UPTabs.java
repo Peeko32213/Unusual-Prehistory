@@ -33,6 +33,7 @@ public class UPTabs {
             .displayItems((d, entries) ->{
 
                 for(RegistryObject<Item> item : UPItems.ITEMS.getEntries()){
+
                     // Peeko's treacherous time travel logbook
                     entries.accept(UPItems.ENCYLOPEDIA.get());
 
@@ -109,20 +110,12 @@ public class UPTabs {
                     // Foods
                     entries.accept(UPItems.RAW_COTY.get());
                     entries.accept(UPItems.COOKED_COTY.get());
-                    entries.accept(UPItems.RAW_DUNK.get());
-                    entries.accept(UPItems.COOKED_DUNK.get());
-                    entries.accept(UPItems.RAW_JAWLESS_FISH.get());
-                    entries.accept(UPItems.COOKED_JAWLESS_FISH.get());
                     entries.accept(UPItems.RAW_SCAU.get());
                     entries.accept(UPItems.COOKED_SCAU.get());
                     entries.accept(UPItems.GOLDEN_SCAU.get());
                     entries.accept(UPItems.RAW_STETHA.get());
                     entries.accept(UPItems.COOKED_STETHA.get());
-                    entries.accept(UPItems.RAW_TARTU.get());
-                    entries.accept(UPItems.COOKED_TARTU.get());
                     entries.accept(UPItems.LEEDS_CAVIAR.get());
-                    entries.accept(UPItems.RAW_OPHIODON.get());
-                    entries.accept(UPItems.COOKED_OPHIODON.get());
                     entries.accept(UPItems.RAW_AUSTRO.get());
                     entries.accept(UPItems.COOKED_AUSTRO.get());
                     entries.accept(UPItems.MEATY_BUFFET.get());
@@ -246,23 +239,23 @@ public class UPTabs {
                     entries.accept(UPItems.PTERODAUSTRO_FLASK.get());
                     entries.accept(UPItems.TANY_FLASK.get());
                     entries.accept(UPItems.TRIKE_FLASK.get());
-                    entries.accept(UPItems.REX_FLASK.get());
+                    entries.accept(UPItems.TYRANNO_FLASK.get());
                     entries.accept(UPItems.ULUGH_FLASK.get());
-                    entries.accept(UPItems.RAPTOR_FLASK.get());
+                    entries.accept(UPItems.VELOCI_FLASK.get());
                     entries.accept(UPItems.XIPHACT_FLASK.get());
 
                     // Ceno DNA
-                    entries.accept(UPItems.BARIN_FLASK.get());
+                    entries.accept(UPItems.BARINA_FLASK.get());
                     entries.accept(UPItems.GIGANTO_FLASK.get());
                     entries.accept(UPItems.MAMMOTH_FLASK.get());
-                    entries.accept(UPItems.MEGALA_FLASK.get());
-                    entries.accept(UPItems.MEGATH_FLASK.get());
+                    entries.accept(UPItems.MEGALANIA_FLASK.get());
+                    entries.accept(UPItems.MEGATHERIUM_FLASK.get());
                     entries.accept(UPItems.OPHIO_FLASK.get());
                     entries.accept(UPItems.OTAROCYON_FLASK.get());
                     entries.accept(UPItems.PALAEO_FLASK.get());
                     entries.accept(UPItems.PARACER_FLASK.get());
                     entries.accept(UPItems.PSILO_FLASK.get());
-                    entries.accept(UPItems.SMILO_FLASK.get());
+                    entries.accept(UPItems.SMILODON_FLASK.get());
                     entries.accept(UPItems.TALPANAS_FLASK.get());
 
                     // Plant DNA

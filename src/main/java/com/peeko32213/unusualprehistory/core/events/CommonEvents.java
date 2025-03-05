@@ -15,6 +15,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.*;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -98,7 +99,10 @@ public class CommonEvents {
         event.put(UPEntities.ICEBERG_SMILODON.get(), WorldSpawnableEntity.bakeAttributes().build());
         event.put(UPEntities.ICEBERG_MAMMOTH.get(), WorldSpawnableEntity.bakeAttributes().build());
 
-        //Plants
+        // Eggs
+        event.put(UPEntities.PREHISTORIC_EGG.get(), LivingEntity.createLivingAttributes().build());
+
+        // Plants
         event.put(UPEntities.FOXXI_SAPLING.get(), EntityPlant.bakeAttributes().build());
         event.put(UPEntities.HORSETAIL.get(), EntityPlant.bakeAttributes().build());
         event.put(UPEntities.TALL_HORSETAIL.get(), EntityPlant.bakeAttributes().build());

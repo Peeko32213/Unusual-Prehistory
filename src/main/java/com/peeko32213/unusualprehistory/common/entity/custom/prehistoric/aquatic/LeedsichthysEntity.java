@@ -19,7 +19,6 @@
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
- import net.minecraft.sounds.SoundEvents;
  import net.minecraft.tags.FluidTags;
  import net.minecraft.tags.TagKey;
  import net.minecraft.util.Mth;
@@ -71,7 +70,6 @@
      private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
      private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.OPTIONAL_UUID);
      private static final EntityDataAccessor<Integer> CHILD_ID = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.INT);
-     private static final EntityDataAccessor<Integer> SHEAR_TIME = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.INT);
 
      private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -165,7 +163,6 @@
      private LeedsichthysPartEntity[] parts;
      public final float[] ringBuffer = new float[64];
      public int ringBufferIndex = -1;
-     private int shearCooldown = 0;
 
      public LeedsichthysEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
          super(entityType, level);
@@ -262,7 +259,6 @@
          this.entityData.define(CHILD_UUID, Optional.empty());
          this.entityData.define(FROM_BOOK, false);
          this.entityData.define(CHILD_ID, -1);
-         this.entityData.define(SHEAR_TIME, 0);
      }
 
      public void addAdditionalSaveData(CompoundTag compound) {
@@ -270,7 +266,6 @@
          if (this.getChildId() != null) {
              compound.putUUID("ChildUUID", this.getChildId());
          }
-         compound.putInt("shearCooldown", shearCooldown);
      }
 
      public void readAdditionalSaveData(CompoundTag compound) {
@@ -278,17 +273,7 @@
          if (compound.hasUUID("ChildUUID")) {
              this.setChildId(compound.getUUID("ChildUUID"));
          }
-         shearCooldown = compound.getInt("SheddingCooldown");
      }
-
-     public int getShearTime() {
-         return this.entityData.get(SHEAR_TIME);
-     }
-
-     public void setShearTime(int shedtime) {
-         this.entityData.set(SHEAR_TIME, shedtime);
-     }
-
 
      @Nullable
      public UUID getChildId() {
@@ -301,21 +286,6 @@
 
      public void tick() {
          super.tick();
-         if (shearCooldown >= 0) {
-             shearCooldown--;
-         }
-
-         if (this.getShearTime() >= 0) {
-             int shedTime = getShearTime();
-             setShearTime(shedTime - 1);
-
-             if (shedTime == 0) {
-                 // The snake was in "shed mode," and the shedding time has expired.
-                 // Reset sheddingCooldown for the next shedding event.
-                 shearCooldown = this.getRandom().nextInt(1000) + 500;
-             }
-             return;
-         }
      }
 
      private float getYawForPart(int i) {
@@ -336,7 +306,6 @@
      }
 
      private float calcPartRotation(int i) {
-         //change this value to increase the sway of the snake
          float snakeSway = 25;
 
          return (float) (snakeSway * -Math.sin(this.walkDist * 3 - (i))) * 0.2F * i;

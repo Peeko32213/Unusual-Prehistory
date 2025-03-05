@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/megath_embryo"
+    "layer0": "unusualprehistory:item/embryos/megath_embryo"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/palaeo_embryo"
+    "layer0": "unusualprehistory:item/embryos/palaeo_embryo"
   }
 }

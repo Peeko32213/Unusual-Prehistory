@@ -8,7 +8,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -48,8 +47,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.ERYON_FLASK.get())
                 .add(UPItems.PACHY_FLASK.get())
                 .add(UPItems.TRIKE_FLASK.get())
-                .add(UPItems.RAPTOR_FLASK.get())
-                .add(UPItems.REX_FLASK.get())
+                .add(UPItems.VELOCI_FLASK.get())
+                .add(UPItems.TYRANNO_FLASK.get())
                 .add(UPItems.BRACHI_FLASK.get())
                 .add(UPItems.SCAU_FLASK.get())
                 .add(UPItems.COTY_FLASK.get())
@@ -65,13 +64,13 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.ANTARCTO_FLASK.get())
                 .add(UPItems.ENCRUSTED_FLASK.get())
                 .add(UPItems.GIGANTO_FLASK.get())
-                .add(UPItems.SMILO_FLASK.get())
-                .add(UPItems.MEGATH_FLASK.get())
+                .add(UPItems.SMILODON_FLASK.get())
+                .add(UPItems.MEGATHERIUM_FLASK.get())
                 .add(UPItems.PARACER_FLASK.get())
                 .add(UPItems.MAMMOTH_FLASK.get())
-                .add(UPItems.BARIN_FLASK.get())
+                .add(UPItems.BARINA_FLASK.get())
                 .add(UPItems.PALAEO_FLASK.get())
-                .add(UPItems.MEGALA_FLASK.get())
+                .add(UPItems.MEGALANIA_FLASK.get())
                 .add(UPItems.TALPANAS_FLASK.get())
                 .add(UPItems.ZULOAGAE_FLASK.get())
                 .add(UPItems.RAIGUENRAYUN_FLASK.get())
@@ -373,7 +372,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.MAJUNGA_FLASK.get())
                 .add(UPItems.ANTARCTO_FLASK.get())
                 .add(UPItems.AUSTRO_FLASK.get())
-                .add(UPItems.RAPTOR_FLASK.get())
+                .add(UPItems.VELOCI_FLASK.get())
                 .add(UPItems.PACHY_FLASK.get())
                 .add(UPItems.ERYON_FLASK.get())
                 .add(UPItems.ULUGH_FLASK.get())
@@ -382,7 +381,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_AMBER)
                 .add(UPItems.BRACHI_FLASK.get())
-                .add(UPItems.REX_FLASK.get())
+                .add(UPItems.TYRANNO_FLASK.get())
                 .add(UPItems.TRIKE_FLASK.get())
                 .add(UPItems.HWACHA_FLASK.get())
                 .add(UPItems.ENCRUSTED_FLASK.get())
@@ -439,13 +438,13 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_FROZEN)
                 .add(Items.ICE)
                 .add(UPItems.MAMMOTH_FLASK.get())
-                .add(UPItems.MEGATH_FLASK.get())
-                .add(UPItems.SMILO_FLASK.get());
+                .add(UPItems.MEGATHERIUM_FLASK.get())
+                .add(UPItems.SMILODON_FLASK.get());
 
         tag(UPTags.ANALYZER_ITEMS_OUTPUT_TAR)
                 .add(Items.COAL)
-                .add(UPItems.MEGALA_FLASK.get())
-                .add(UPItems.BARIN_FLASK.get())
+                .add(UPItems.MEGALANIA_FLASK.get())
+                .add(UPItems.BARINA_FLASK.get())
                 .add(UPItems.PARACER_FLASK.get())
                 .add(UPItems.GIGANTO_FLASK.get())
                 .add(UPItems.TALPANAS_FLASK.get())
