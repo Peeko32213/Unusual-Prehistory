@@ -4,6 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class RandomStateGoal<T extends LivingEntity & IStateAction> extends Goal {
+
     private final T entity;
     private final StateHelper helper;
     private int playTicks;
@@ -42,10 +43,9 @@ public class RandomStateGoal<T extends LivingEntity & IStateAction> extends Goal
         super.tick();
         this.playTicks++;
         if(this.timesActionPerformed < this.helper.getEntityAction().getTimesToPerform() &&
-                this.playTicks >= this.helper.getEntityAction().getTimeToPerformAction()) {
-            this.helper.getEntityAction().getAction().accept(entity);
-            this.timesActionPerformed++;
-
+            this.playTicks >= this.helper.getEntityAction().getTimeToPerformAction()) {
+                this.helper.getEntityAction().getAction().accept(entity);
+                this.timesActionPerformed++;
         }
     }
 

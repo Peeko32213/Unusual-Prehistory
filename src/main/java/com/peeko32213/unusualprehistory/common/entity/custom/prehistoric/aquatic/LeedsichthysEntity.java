@@ -7,7 +7,6 @@
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
- import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.AquaticJumpGoal;
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -21,7 +20,6 @@
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.tags.FluidTags;
  import net.minecraft.tags.TagKey;
- import net.minecraft.util.Mth;
  import net.minecraft.util.RandomSource;
  import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.InteractionHand;
@@ -30,7 +28,6 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
  import net.minecraft.world.entity.ai.goal.*;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -160,15 +157,11 @@
      @Override
      public void setAction(boolean action) {}
 
-     private LeedsichthysPartEntity[] parts;
-     public final float[] ringBuffer = new float[64];
-     public int ringBufferIndex = -1;
-
      public LeedsichthysEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.lookControl = new SmoothSwimmingLookControl(this, 10);
-         this.moveControl = new LeedsichthysEntity.MoveHelperController(this);
+         this.moveControl = new MoveHelperController(this);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -189,10 +182,6 @@
          this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1.8D, 10));
      }
 
-     protected void doPush(@NotNull Entity pEntity) {
-         super.doPush(pEntity);
-     }
-
      @Override
      @Nonnull
      public InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
@@ -203,11 +192,6 @@
              return InteractionResult.sidedSuccess(this.level().isClientSide);
          }
          return super.mobInteract(player, hand);
-     }
-
-     public void pushEntities() {
-         final List<Entity> entities = this.level().getEntities(this, this.getBoundingBox().expandTowards(0.2D, 0.0D, 0.2D));
-         entities.stream().filter(entity -> !(entity instanceof LeedsichthysPartEntity) && entity.isPushable()).forEach(entity -> entity.push(this));
      }
 
      public void travel(@NotNull Vec3 travelVector) {
@@ -256,67 +240,19 @@
          this.entityData.define(IDLE_3_AC, false);
          this.entityData.define(IDLE_4_AC, false);
          this.entityData.define(ANIMATION_STATE, 0);
-         this.entityData.define(CHILD_UUID, Optional.empty());
          this.entityData.define(FROM_BOOK, false);
-         this.entityData.define(CHILD_ID, -1);
      }
 
      public void addAdditionalSaveData(CompoundTag compound) {
          super.addAdditionalSaveData(compound);
-         if (this.getChildId() != null) {
-             compound.putUUID("ChildUUID", this.getChildId());
-         }
      }
 
      public void readAdditionalSaveData(CompoundTag compound) {
          super.readAdditionalSaveData(compound);
-         if (compound.hasUUID("ChildUUID")) {
-             this.setChildId(compound.getUUID("ChildUUID"));
-         }
-     }
-
-     @Nullable
-     public UUID getChildId() {
-         return this.entityData.get(CHILD_UUID).orElse(null);
-     }
-
-     public void setChildId(@Nullable UUID uniqueId) {
-         this.entityData.set(CHILD_UUID, Optional.ofNullable(uniqueId));
      }
 
      public void tick() {
          super.tick();
-     }
-
-     private float getYawForPart(int i) {
-         return this.getRingBuffer(4 + i * 2, 1.0F);
-     }
-
-     public float getRingBuffer(int bufferOffset, float partialTicks) {
-         if (this.isDeadOrDying()) {
-             partialTicks = 0.0F;
-         }
-
-         partialTicks = 1.0F - partialTicks;
-         final int i = this.ringBufferIndex - bufferOffset & 63;
-         final int j = this.ringBufferIndex - bufferOffset - 1 & 63;
-         final float d0 = this.ringBuffer[i];
-         final float d1 = this.ringBuffer[j] - d0;
-         return Mth.wrapDegrees(d0 + d1 * partialTicks);
-     }
-
-     private float calcPartRotation(int i) {
-         float snakeSway = 25;
-
-         return (float) (snakeSway * -Math.sin(this.walkDist * 3 - (i))) * 0.2F * i;
-     }
-
-     public Entity getChild() {
-         UUID id = getChildId();
-         if (id != null && !level().isClientSide) {
-             return ((ServerLevel) level()).getEntity(id);
-         }
-         return null;
      }
 
      @Override
@@ -328,18 +264,6 @@
              this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
          }
          super.aiStep();
-     }
-
-     private boolean shouldReplaceParts() {
-         if (parts == null || parts[0] == null)
-             return true;
-
-         for (int i = 0; i < 2; i++) {
-             if (parts[i] == null) {
-                 return true;
-             }
-         }
-         return false;
      }
 
      private void soundListener(SoundKeyframeEvent<LeedsichthysEntity> event) {
@@ -415,10 +339,6 @@
          return super.requiresCustomPersistence() || this.hasCustomName();
      }
 
-     public boolean removeWhenFarAway(double d) {
-         return !this.hasCustomName();
-     }
-
      @Override
      public AnimatableInstanceCache getAnimatableInstanceCache() {
          return this.cache;
@@ -427,59 +347,6 @@
      @Override
      public double getTick(Object o) {
          return tickCount;
-     }
-
-     static class MoveHelperController extends MoveControl {
-         private final LeedsichthysEntity dolphin;
-
-         public MoveHelperController(LeedsichthysEntity dolphinIn) {
-             super(dolphinIn);
-             this.dolphin = dolphinIn;
-         }
-
-         public void tick() {
-             if (this.dolphin.isInWater()) {
-                 this.dolphin.setDeltaMovement(this.dolphin.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
-             }
-
-             if (this.operation == MoveControl.Operation.MOVE_TO && !this.dolphin.getNavigation().isDone()) {
-                 double d0 = this.wantedX - this.dolphin.getX();
-                 double d1 = this.wantedY - this.dolphin.getY();
-                 double d2 = this.wantedZ - this.dolphin.getZ();
-                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                 if (d3 < (double) 2.5000003E-7F) {
-                     this.mob.setZza(0.0F);
-                 } else {
-                     float f = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
-                     this.dolphin.setYRot(this.rotlerp(this.dolphin.getYRot(), f, 10.0F));
-                     this.dolphin.yBodyRot = this.dolphin.getYRot();
-                     this.dolphin.yHeadRot = this.dolphin.getYRot();
-                     float f1 = (float) (this.speedModifier * this.dolphin.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                     if (this.dolphin.isInWater()) {
-                         this.dolphin.setSpeed(f1 * 0.02F);
-                         float f2 = -((float) (Mth.atan2(d1, Mth.sqrt((float) (d0 * d0 + d2 * d2))) * (double) (180F / (float) Math.PI)));
-                         f2 = Mth.clamp(Mth.wrapDegrees(f2), -85.0F, 85.0F);
-                         this.dolphin.setXRot(this.rotlerp(this.dolphin.getXRot(), f2, 5.0F));
-                         float f3 = Mth.cos(this.dolphin.getXRot() * ((float) Math.PI / 180F));
-                         float f4 = Mth.sin(this.dolphin.getXRot() * ((float) Math.PI / 180F));
-                         this.dolphin.zza = f3 * f1;
-                         this.dolphin.yya = -f4 * f1;
-                     } else {
-                         this.dolphin.setSpeed(f1 * 0.1F);
-                     }
-
-                 }
-             } else {
-                 this.dolphin.setSpeed(0.0F);
-                 this.dolphin.setXxa(0.0F);
-                 this.dolphin.setYya(0.0F);
-                 this.dolphin.setZza(0.0F);
-             }
-         }
-     }
-
-     public boolean canDisableShield() {
-         return true;
      }
 
      public int getAnimationState() {

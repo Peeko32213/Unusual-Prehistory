@@ -286,22 +286,10 @@ public class UPTabs {
                     entries.accept(UPBlocks.TARTUO_EGGS.get());
 
                     // Meso eggs
-                    entries.accept(UPBlocks.ANTARCO_EGG.get());
-                    entries.accept(UPBlocks.ANURO_EGG.get());
-                    entries.accept(UPBlocks.AUSTRO_EGG.get());
                     entries.accept(UPBlocks.BEELZE_EGGS.get());
-                    entries.accept(UPBlocks.BRACHI_EGG.get());
                     entries.accept(UPBlocks.ENCRUSTED_SACK.get());
                     entries.accept(UPBlocks.ERYON_EGGS.get());
-                    entries.accept(UPBlocks.HWACHA_EGG.get());
-                    entries.accept(UPBlocks.KENTRO_EGG.get());
                     entries.accept(UPBlocks.KIMMER_EGGS.get());
-                    entries.accept(UPBlocks.MAJUNGA_EGG.get());
-                    entries.accept(UPBlocks.PACHY_EGG.get());
-                    entries.accept(UPBlocks.TRIKE_EGG.get());
-                    entries.accept(UPBlocks.REX_EGG.get());
-                    entries.accept(UPBlocks.ULUGH_EGG.get());
-                    entries.accept(UPBlocks.RAPTOR_EGG.get());
 
                     // Ceno eggs & embryos
                     entries.accept(UPBlocks.BARINA_EGG.get());

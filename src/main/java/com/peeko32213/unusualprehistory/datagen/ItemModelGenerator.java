@@ -17,6 +17,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class ItemModelGenerator extends ItemModelProvider {
@@ -27,8 +28,8 @@ public class ItemModelGenerator extends ItemModelProvider {
     @Override
     protected void registerModels(){
         for (Item i : BuiltInRegistries.ITEM) {
-            if (i instanceof SpawnEggItem && ForgeRegistries.ITEMS.getKey(i).getNamespace().equals(UnusualPrehistory.MODID)) {
-                getBuilder(ForgeRegistries.ITEMS.getKey(i).getPath())
+            if (i instanceof SpawnEggItem && Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getNamespace().equals(UnusualPrehistory.MODID)) {
+                getBuilder(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getPath())
                         .parent(getExistingFile(new ResourceLocation("item/template_spawn_egg")));
             }
         }

@@ -184,7 +184,7 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
         super.registerGoals();
         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new TriceratopsEntity.TrikeMeleeAttackGoal(this, 1.75D, false));
+        this.goalSelector.addGoal(1, new TrikeMeleeAttackGoal(this, 1.75D, false));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 28));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));

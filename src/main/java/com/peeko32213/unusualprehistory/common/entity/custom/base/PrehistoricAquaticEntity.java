@@ -62,7 +62,7 @@ public abstract class PrehistoricAquaticEntity extends Animal implements GeoAnim
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
-        this.moveControl = new PrehistoricAquaticEntity.MoveHelperController(this);
+        this.moveControl = new MoveHelperController(this);
     }
 
     @Override
@@ -385,7 +385,7 @@ public abstract class PrehistoricAquaticEntity extends Animal implements GeoAnim
 
     protected abstract TagKey<EntityType<?>> getTargetTag();
 
-    static class MoveHelperController extends MoveControl {
+    protected static class MoveHelperController extends MoveControl {
 
         private final PrehistoricAquaticEntity entity;
 

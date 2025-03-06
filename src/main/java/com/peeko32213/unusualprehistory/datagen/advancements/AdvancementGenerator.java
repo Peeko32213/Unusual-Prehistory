@@ -60,27 +60,7 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
                 .save(consumer, prefixS("main/cultivator"));
 
         Advancement eggs = getAdvancement(cultivator, (ItemLike) UPBlocks.COTY_EGG.get(), "obtain_egg", FrameType.TASK, true, true, true)
-                .addCriterion("austro_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.AUSTRO_EGG.get()))
-                .addCriterion("coty_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.COTY_EGG.get()))
-                .addCriterion("hwacha_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.HWACHA_EGG.get()))
-                .addCriterion("kentro_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.KENTRO_EGG.get()))
-                .addCriterion("antarcto_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.ANTARCO_EGG.get()))
-                .addCriterion("anuro_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.ANURO_EGG.get()))
-                .addCriterion("brachi_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.BRACHI_EGG.get()))
-                .addCriterion("majunga_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.MAJUNGA_EGG.get()))
-                .addCriterion("pachy_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.PACHY_EGG.get()))
-                .addCriterion("raptor_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.RAPTOR_EGG.get()))
-                .addCriterion("rex_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.REX_EGG.get()))
-                .addCriterion("barina_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.BARINA_EGG.get()))
-                .addCriterion("talapanas_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.TALPANAS_EGG.get()))
-                .addCriterion("trike_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.TRIKE_EGG.get()))
-                .addCriterion("ulugh_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.ULUGH_EGG.get()))
-                .addCriterion("eryon_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.ERYON_EGGS.get()))
-                .addCriterion("scau_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.SCAU_EGGS.get()))
-                .addCriterion("ammon_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.AMON_EGGS.get()))
-                .addCriterion("beelze_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.BEELZE_EGGS.get()))
-                .addCriterion("stetha_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.STETHA_EGGS.get()))
-                .addCriterion("dunk_egg", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.DUNK_EGGS.get()))
+
                 .requirements(RequirementsStrategy.OR)
                 .save(consumer, prefixS("main/egg"));
 

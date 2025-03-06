@@ -127,29 +127,29 @@ public class UPBlocks {
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
     // Meso eggs
-    public static final RegistryObject<Block> ANTARCO_EGG = registerBlock("antarcto_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.ANTARCO, 3,
-                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
-                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
-            ));
-
-    public static final RegistryObject<Block> ANURO_EGG = registerBlock("anuro_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.ANURO, 4,
-                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
-                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
-            ));
-
-    public static final RegistryObject<Block> AUSTRO_EGG = registerBlock("austro_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.AUSTRO, 3,
-                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
-                    Block.box(3.0D, 0.0D, 3.0D, 15.0D, 7.0D, 15.0D)
-            ));
+//    public static final RegistryObject<Block> ANTARCO_EGG = registerBlock("antarcto_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.ANTARCO, 3,
+//                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+//                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+//            ));
+//
+//    public static final RegistryObject<Block> ANURO_EGG = registerBlock("anuro_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.ANURO, 4,
+//                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+//                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+//            ));
+//
+//    public static final RegistryObject<Block> AUSTRO_EGG = registerBlock("austro_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.AUSTRO, 3,
+//                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+//                    Block.box(3.0D, 0.0D, 3.0D, 15.0D, 7.0D, 15.0D)
+//            ));
 
     public static final Supplier<Block> BEELZE_EGGS = create("beelze_eggs",
             () -> new DinosaurWaterEggBlock(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
@@ -158,12 +158,12 @@ public class UPBlocks {
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
-    public static final RegistryObject<Block> BRACHI_EGG = registerBlock("brachi_egg",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.BRACHI, 1,
-                    Block.box(3, 0, 3, 13, 12, 13)
-            ));
+//    public static final RegistryObject<Block> BRACHI_EGG = registerBlock("brachi_egg",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.BRACHI, 1,
+//                    Block.box(3, 0, 3, 13, 12, 13)
+//            ));
 
     public static final RegistryObject<Block> ENCRUSTED_SACK = registerBlock("encrusted_sack",
             () -> new DinosaurLandEggBlock(
@@ -179,21 +179,21 @@ public class UPBlocks {
                     Block.box(0, 0, 0, 16, 1.5, 16)
             ));
 
-    public static final RegistryObject<Block> HWACHA_EGG = registerBlock("hwacha_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.HWACHA, 3,
-                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
-                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
-            ));
-
-    public static final RegistryObject<Block> KENTRO_EGG = registerBlock("kentro_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.KENTRO, 3,
-                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
-                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
-            ));
+//    public static final RegistryObject<Block> HWACHA_EGG = registerBlock("hwacha_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.HWACHA, 3,
+//                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+//                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+//            ));
+//
+//    public static final RegistryObject<Block> KENTRO_EGG = registerBlock("kentro_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.KENTRO, 3,
+//                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+//                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+//            ));
 
     public static final Supplier<Block> KIMMER_EGGS = create("kimmer_eggs",
             () -> new DinosaurWaterEggBlock(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN).instabreak().noOcclusion().noCollission().randomTicks(),
@@ -202,53 +202,53 @@ public class UPBlocks {
             ),
             entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
-    public static final RegistryObject<Block> MAJUNGA_EGG = registerBlock("majunga_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.MAJUNGA, 3,
-                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
-                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
-            ));
+//    public static final RegistryObject<Block> MAJUNGA_EGG = registerBlock("majunga_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.MAJUNGA, 3,
+//                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+//                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+//            ));
+//
+//    public static final RegistryObject<Block> PACHY_EGG = registerBlock("pachy_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.PACHY, 4,
+//                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+//                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+//            ));
 
-    public static final RegistryObject<Block> PACHY_EGG = registerBlock("pachy_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.PACHY, 4,
-                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
-                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
-            ));
+//    public static final RegistryObject<Block> TRIKE_EGG = registerBlock("trike_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.TRICERATOPS, 2,
+//                    Block.box(4, 0, 8, 11, 9, 15),
+//                    Block.box(2, 0, 1, 14, 10, 15)
+//            ));
+//
+//    public static final RegistryObject<Block> REX_EGG = registerBlock("rex_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.TYRANNOSAURUS, 2,
+//                    Block.box(4, 0, 8, 11, 9, 15),
+//                    Block.box(2, 0, 1, 14, 10, 15)
+//            ));
 
-    public static final RegistryObject<Block> TRIKE_EGG = registerBlock("trike_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.TRICERATOPS, 2,
-                    Block.box(4, 0, 8, 11, 9, 15),
-                    Block.box(2, 0, 1, 14, 10, 15)
-            ));
-
-    public static final RegistryObject<Block> REX_EGG = registerBlock("rex_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.TYRANNOSAURUS, 2,
-                    Block.box(4, 0, 8, 11, 9, 15),
-                    Block.box(2, 0, 1, 14, 10, 15)
-            ));
-
-    public static final RegistryObject<Block> ULUGH_EGG = registerBlock("ulugh_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.ULUG, 3,
-                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
-                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
-            ));
-
-    public static final RegistryObject<Block> RAPTOR_EGG = registerBlock("raptor_eggs",
-            () -> new DinosaurLandEggBlock(
-                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
-                    UPEntities.VELOCIRAPTOR, 4,
-                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
-                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
-            ));
+//    public static final RegistryObject<Block> ULUGH_EGG = registerBlock("ulugh_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.ULUG, 3,
+//                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+//                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+//            ));
+//
+//    public static final RegistryObject<Block> RAPTOR_EGG = registerBlock("raptor_eggs",
+//            () -> new DinosaurLandEggBlock(
+//                    BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG).strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion(),
+//                    UPEntities.VELOCIRAPTOR, 4,
+//                    Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D),
+//                    Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D)
+//            ));
 
     public static final RegistryObject<Block> BARINA_EGG = registerBlock("barina_eggs",
             () -> new DinosaurLandEggBlock(

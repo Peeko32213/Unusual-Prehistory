@@ -18,6 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HitboxHelper {
 
@@ -71,16 +72,6 @@ public class HitboxHelper {
                             }
                         }
                     }
-					/*
-				   if(worldIn instanceof ServerLevel) {
-
-
-						((ServerLevel) worldIn).sendParticles( ParticleTypes.CRIT, x, y, z, 1,  0, 0, 0, 0.4);
-
-
-					}
-					*/
-
                 }
             }
         }
@@ -88,24 +79,19 @@ public class HitboxHelper {
     }
 
 
-    public static void LargeAttackWithTargetCheck(DamageSource source, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double angleFirst, double angleLast, double hInf, double hSup){
+    public static void LargeAttackWithTargetCheck(DamageSource source, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double angleFirst, double angleLast, double hInf, double hSup) {
 
         Vec2 knockVec = MathHelpers.OrizontalAimVector(
                 MathHelpers.AimVector(new Vec3(-entityIn.position().x, -entityIn.position().y, -entityIn.position().z),
-                        new Vec3(-entityIn.getTarget().position().x, -entityIn.getTarget().position().y, -entityIn.getTarget().position().z)
+                        new Vec3(-Objects.requireNonNull(entityIn.getTarget()).position().x, -entityIn.getTarget().position().y, -entityIn.getTarget().position().z)
                 ));
 
         Vec2 aim = MathHelpers.OrizontalAimVector(entityIn.getLookAngle());
         Level worldIn = entityIn.level();
 
-
         for(int i = 0; i<=radius/d; ++i) {
 
-
             //double angleVar = Math.asin(1-(1/(2*(i^2)+0.0001)));
-
-
-
 
             for(int j = 0; j<=(angleLast-angleFirst)/angleVar; ++j) {
 
@@ -122,30 +108,15 @@ public class HitboxHelper {
                     //if(!entityIn.level.isClientSide) hitboxOutline(scanAbove, (ServerLevel) entityIn.level);
 
                     if(!entities.isEmpty()) {
-                        for(int n = 0; n < entities.size(); n++) {
+                        for (LivingEntity target : entities) {
 
-                            LivingEntity target = entities.get(n);
-
-                            if(target == entityIn.getTarget()) {
-                                //entityIn.doHurtTarget(target);
+                            if (target == entityIn.getTarget()) {
                                 target.hurt(source, damage);
                                 target.setLastHurtByMob(entityIn);
-
                                 target.knockback(knockback, knockVec.x, knockVec.y);
-
                             }
                         }
                     }
-					/*
-				   if(worldIn instanceof ServerLevel) {
-
-
-						((ServerLevel) worldIn).sendParticles( ParticleTypes.CRIT, x, y, z, 1,  0, 0, 0, 0.4);
-
-
-					}
-					*/
-
                 }
             }
         }

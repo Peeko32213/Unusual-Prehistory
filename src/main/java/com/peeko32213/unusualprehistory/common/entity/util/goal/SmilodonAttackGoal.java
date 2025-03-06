@@ -60,7 +60,7 @@ public class SmilodonAttackGoal extends Goal {
      */
     public void tick() {
         this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
-        double d0 = (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F);
+        double d0 = this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F;
         double d1 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
         double d2 = 0.8D;
         if (d1 > d0 && d1 < 32.0D || this.mob.getLastHurtByMobTimestamp() < 100) {

@@ -142,21 +142,9 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.DUNK_EGGS, "Dunkleosteus Eggs");
         addBlock(UPBlocks.SCAU_EGGS, "Scaumenacia Eggs");
         addBlock(UPBlocks.KIMMER_EGGS, "Kimmeridgebrachypteraeschnidium Eggs");
-        addBlock(UPBlocks.ANURO_EGG, "Anurognathus Egg");
-        addBlock(UPBlocks.MAJUNGA_EGG, "Majungasaurus Egg");
         addBlock(UPBlocks.COTY_EGG, "Cotylorhynchus Egg");
-        addBlock(UPBlocks.BRACHI_EGG, "Brachiosaurus Egg");
-        addBlock(UPBlocks.REX_EGG, "Tyrannosaurus Egg");
-        addBlock(UPBlocks.TRIKE_EGG, "Triceratops Egg");
-        addBlock(UPBlocks.RAPTOR_EGG, "Velociraptor Egg");
-        addBlock(UPBlocks.PACHY_EGG, "Pachycephalosaurus Egg");
         addBlock(UPBlocks.ENCRUSTED_SACK, "Encrusted Sack");
         addBlock(UPBlocks.ERYON_EGGS, "Eryon Eggs");
-        addBlock(UPBlocks.AUSTRO_EGG, "Austroraptor Egg");
-        addBlock(UPBlocks.KENTRO_EGG, "Kentrosaurus Egg");
-        addBlock(UPBlocks.ULUGH_EGG, "Ulughbegsaurus Egg");
-        addBlock(UPBlocks.ANTARCO_EGG, "Antarctopelta Egg");
-        addBlock(UPBlocks.HWACHA_EGG, "Hwachavenator Egg");
         addBlock(UPBlocks.BARINA_EGG, "Barinasuchus Egg");
         addBlock(UPBlocks.TALPANAS_EGG, "Talpanas Egg");
         addBlock(UPBlocks.MEGALA_EGG, "Megalania Egg");
@@ -577,6 +565,10 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.CHEST_BOAT, "Boat with Chest");
 
         // Eggs
+        addPrehistoricEgg(UPEntities.ANTARCO, "Antarctopelta Egg");
+        addPrehistoricEgg(UPEntities.ANURO, "Anurognathus Egg");
+        addPrehistoricEgg(UPEntities.ARCHELON, "Archelon Egg");
+        addPrehistoricEgg(UPEntities.AUSTRO, "Austroraptor Egg");
         addPrehistoricEgg(UPEntities.BALAUR, "Balaur Egg");
 
         //SOUNDS
