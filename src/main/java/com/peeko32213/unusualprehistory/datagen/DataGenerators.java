@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.datagen;
 
 import com.google.common.collect.Sets;
-import com.peeko32213.unusualprehistory.datagen.advancements.AdvancementProvider;
+//import com.peeko32213.unusualprehistory.datagen.advancements.AdvancementProvider;
 import com.peeko32213.unusualprehistory.datagen.loot.GlobalLootModifiersGenerator;
 import com.peeko32213.unusualprehistory.datagen.loot.LootGenerator;
 import com.peeko32213.unusualprehistory.datagen.tags.*;
@@ -56,7 +56,7 @@ public class DataGenerators {
 
         generator.addProvider(true,new InstrumentTagsGenerator(packOutput, lookupProvider,helper));
 
-        generator.addProvider(true,new AdvancementProvider(packOutput, provider, helper));
+//        generator.addProvider(true,new AdvancementProvider(packOutput, provider, helper));
 
         generator.addProvider(evt.includeServer(), new GlobalLootModifiersGenerator(packOutput));
 

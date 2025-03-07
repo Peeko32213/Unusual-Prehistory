@@ -142,16 +142,46 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.DUNK_EGGS, "Dunkleosteus Eggs");
         addBlock(UPBlocks.SCAU_EGGS, "Scaumenacia Eggs");
         addBlock(UPBlocks.KIMMER_EGGS, "Kimmeridgebrachypteraeschnidium Eggs");
-        addBlock(UPBlocks.COTY_EGG, "Cotylorhynchus Egg");
-        addBlock(UPBlocks.ENCRUSTED_SACK, "Encrusted Sack");
         addBlock(UPBlocks.ERYON_EGGS, "Eryon Eggs");
-        addBlock(UPBlocks.BARINA_EGG, "Barinasuchus Egg");
-        addBlock(UPBlocks.TALPANAS_EGG, "Talpanas Egg");
-        addBlock(UPBlocks.MEGALA_EGG, "Megalania Egg");
         addBlock(UPBlocks.DIPLOCAULUS_EGGS, "Diplocaulus Eggs");
         addBlock(UPBlocks.HYNERIA_EGGS, "Hyneria Eggs");
         addBlock(UPBlocks.OPHIDION_EGGS, "Ophiodon Eggs");
         addBlock(UPBlocks.TARTUO_EGGS, "Tartuosteus Eggs");
+
+        // Entity Eggs
+        addPrehistoricEgg(UPEntities.COTY, "Cotylorhynchus Egg");
+        addPrehistoricEgg(UPEntities.EDAPHOSAURUS, "Edaphosaurus Egg");
+        addPrehistoricEgg(UPEntities.ESTEMMENOSUCHUS, "Estemmenosuchus Egg");
+        addPrehistoricEgg(UPEntities.HYNERPETON, "Hynerpeton Egg");
+
+        addPrehistoricEgg(UPEntities.ANTARCO, "Antarctopelta Egg");
+        addPrehistoricEgg(UPEntities.ANURO, "Anurognathus Egg");
+        addPrehistoricEgg(UPEntities.ARCHELON, "Archelon Egg");
+        addPrehistoricEgg(UPEntities.AUSTRO, "Austroraptor Egg");
+        addPrehistoricEgg(UPEntities.BALAUR, "Balaur Egg");
+        addPrehistoricEgg(UPEntities.BRACHI, "Brachiosauurs Egg");
+        addPrehistoricEgg(UPEntities.ENCRUSTED, "Encrusted Sack");
+        addPrehistoricEgg(UPEntities.GLOBIDENS, "Globidens Egg");
+        addPrehistoricEgg(UPEntities.HWACHA, "Hwachavenator Egg");
+        addPrehistoricEgg(UPEntities.KAPROSUCHUS, "Kaprosuchus Egg");
+        addPrehistoricEgg(UPEntities.KENTRO, "Kentrosaurus Egg");
+        addPrehistoricEgg(UPEntities.LONGISQUAMA, "Longisquama Egg");
+        addPrehistoricEgg(UPEntities.MAJUNGA, "Majungasaurus Egg");
+        addPrehistoricEgg(UPEntities.OVIRAPTOR, "Oviraptor Egg");
+        addPrehistoricEgg(UPEntities.PACHY, "Pachycephalosaurus Egg");
+        addPrehistoricEgg(UPEntities.PSITTACO, "Psittacosaurus Egg");
+        addPrehistoricEgg(UPEntities.PTERODAUSTRO, "Pterodaustro Egg");
+        addPrehistoricEgg(UPEntities.TANY, "Tanystropheus Egg");
+        addPrehistoricEgg(UPEntities.TRICERATOPS, "Triceratops Egg");
+        addPrehistoricEgg(UPEntities.TYRANNOSAURUS, "Tyrannosaurus Egg");
+        addPrehistoricEgg(UPEntities.ULUG, "Ulughbegsaurus Egg");
+        addPrehistoricEgg(UPEntities.VELOCIRAPTOR, "Velociraptor Egg");
+
+        addPrehistoricEgg(UPEntities.BARINASUCHUS, "Barinasuchus Egg");
+        addPrehistoricEgg(UPEntities.MEGALANIA, "Megalania Egg");
+        addPrehistoricEgg(UPEntities.PSILOPTERUS, "Psilopterus Egg");
+        addPrehistoricEgg(UPEntities.TALPANAS, "Talpanas Egg");
+        addPrehistoricEgg(UPEntities.TELECREX, "Telecrex Egg");
 
         //SPAWN EGGS
         addItem(UPItems.AMMON_EGG, "Ammonite Spawn Egg");
@@ -458,10 +488,6 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ZULOAGAE_PRESSURE_PLATE, "Zuloagae Pressure Plate");
         addBlock(UPBlocks.ZULOAGAE_DOOR, "Zuloagae Door");
         addBlock(UPBlocks.ZULOAGAE_TRAPDOOR, "Zuloagae Trapdoor");
-//        addBlock(UPBlocks.ZULOAGAE_SIGN, "Zuloagae Sign");
-//        addBlock(UPBlocks.ZULOAGAE_WALL_SIGN, "Zuloagae Wall Sign");
-//        addBlock(UPBlocks.ZULOAGAE_HANGING_SIGN, "Zuloagae Hanging Sign");
-//        addBlock(UPBlocks.ZULOAGAE_WALL_HANGING_SIGN, "Zuloagae Wall Hanging Sign");
         addItem(UPItems.ZULOAGAE_SIGN, "Zuloagae Sign");
         addItem(UPItems.ZULOAGAE_HANGING_SIGN, "Zuloagae Hanging Sign");
 
@@ -563,13 +589,6 @@ public class LanguageGenerator extends LanguageProvider {
         // Boats
         addEntityType(UPEntities.BOAT, "Boat");
         addEntityType(UPEntities.CHEST_BOAT, "Boat with Chest");
-
-        // Eggs
-        addPrehistoricEgg(UPEntities.ANTARCO, "Antarctopelta Egg");
-        addPrehistoricEgg(UPEntities.ANURO, "Anurognathus Egg");
-        addPrehistoricEgg(UPEntities.ARCHELON, "Archelon Egg");
-        addPrehistoricEgg(UPEntities.AUSTRO, "Austroraptor Egg");
-        addPrehistoricEgg(UPEntities.BALAUR, "Balaur Egg");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Beelzebufo croaks");

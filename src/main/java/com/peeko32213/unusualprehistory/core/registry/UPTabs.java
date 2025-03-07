@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -277,7 +278,6 @@ public class UPTabs {
 
                     // Paleo eggs
                     entries.accept(UPBlocks.AMON_EGGS.get());
-                    entries.accept(UPBlocks.COTY_EGG.get());
                     entries.accept(UPBlocks.DIPLOCAULUS_EGGS.get());
                     entries.accept(UPBlocks.DUNK_EGGS.get());
                     entries.accept(UPBlocks.HYNERIA_EGGS.get());
@@ -287,22 +287,18 @@ public class UPTabs {
 
                     // Meso eggs
                     entries.accept(UPBlocks.BEELZE_EGGS.get());
-                    entries.accept(UPBlocks.ENCRUSTED_SACK.get());
                     entries.accept(UPBlocks.ERYON_EGGS.get());
                     entries.accept(UPBlocks.KIMMER_EGGS.get());
 
                     // Ceno eggs & embryos
-                    entries.accept(UPBlocks.BARINA_EGG.get());
                     entries.accept(UPItems.GIGANTO_EMBRYO.get());
                     entries.accept(UPItems.MAMMOTH_EMBRYO.get());
-                    entries.accept(UPBlocks.MEGALA_EGG.get());
                     entries.accept(UPItems.MEGATH_EMBRYO.get());
                     entries.accept(UPBlocks.OPHIDION_EGGS.get());
                     entries.accept(UPItems.OTAROCYON_EMBRYO.get());
                     entries.accept(UPItems.PALAEO_EMBRYO.get());
                     entries.accept(UPItems.PARACER_EMBRYO.get());
                     entries.accept(UPItems.SMILODON_EMBRYO.get());
-                    entries.accept(UPBlocks.TALPANAS_EGG.get());
 
                     // Plants
                     entries.accept(UPBlocks.ANOSTYLOSTROMA_BLOCK.get());
