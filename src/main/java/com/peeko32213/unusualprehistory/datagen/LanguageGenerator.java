@@ -95,9 +95,7 @@ public class LanguageGenerator extends LanguageProvider {
 
         //FOODS
         addItem(UPItems.GROG, "Flask of Grog");
-        addItem(UPItems.MEAT_ON_A_STICK, "Coty Chop on a Stick");
-        addItem(UPItems.RAW_STETHA, "Raw Stethacanthus");
-        addItem(UPItems.COOKED_STETHA, "Cooked Stethacanthus");
+        addItem(UPItems.MEAT_ON_A_STICK, "Meat on a Stick");
         addItem(UPItems.RAW_COTY, "Raw Cotylorhynchus");
         addItem(UPItems.COOKED_COTY, "Cooked Cotylorhynchus");
         addItem(UPItems.RAW_SCAU, "Raw Scaumenacia");
@@ -107,9 +105,6 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAW_GINKGO_SEEDS, "Raw Ginkgo Seeds");
         addItem(UPItems.COOKED_GINKGO_SEEDS, "Cooked Ginkgo Seeds");
         addItem(UPItems.AMBER_GUMMY, "Amber Gummy");
-        addItem(UPItems.RAW_AUSTRO, "Raw Austroraptor");
-        addItem(UPItems.COOKED_AUSTRO, "Cooked Austroraptor");
-        addItem(UPItems.MEATY_BUFFET, "Meaty Buffet");
         addItem(UPItems.RED_FRUIT, "Exotic Fruit");
         addItem(UPItems.WHITE_FRUIT, "Luxurious Fruit");
         addItem(UPItems.YELLOW_FRUIT, "Redolent Fruit");

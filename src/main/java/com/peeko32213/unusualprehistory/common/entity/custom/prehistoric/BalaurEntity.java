@@ -169,7 +169,7 @@
                          player.getItemBySlot(EquipmentSlot.FEET).is(UPTags.IS_SHINY_BOOTS)
 
          ) {
-             if (itemstack.is(UPItems.RAW_AUSTRO.get())) {
+             if (itemstack.is(UPItems.RAW_COTY.get())) {
                  if (!isTame()) {
                      this.usePlayerItem(player, hand, itemstack);
                      if (getRandom().nextInt(3) == 0) {

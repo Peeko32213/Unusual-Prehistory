@@ -31,12 +31,12 @@ public class JebLayer<T extends TamablePrehistoricEntity> extends GeoRenderLayer
         float f1;
         float f2;
         if (entityLivingBaseIn.hasCustomName() && "jeb_".equals(entityLivingBaseIn.getName().getString().toLowerCase(Locale.ROOT))) {
-            int i1 = 25;
-            int i = entityLivingBaseIn.tickCount / 25 + entityLivingBaseIn.getId();
+            int i1 = 10;
+            int i = entityLivingBaseIn.tickCount / 10 + entityLivingBaseIn.getId();
             int j = DyeColor.values().length;
             int k = i % j;
             int l = (i + 1) % j;
-            float f3 = ((float) (entityLivingBaseIn.tickCount % 25) + partialTick) / 25.0F;
+            float f3 = ((float) (entityLivingBaseIn.tickCount % 10) + partialTick) / 10.0F;
             float[] afloat1 = UlughbegsaurusEntity.getColorArray(DyeColor.byId(k));
             float[] afloat2 = UlughbegsaurusEntity.getColorArray(DyeColor.byId(l));
             f = afloat1[0] * (1.0F - f3) + afloat2[0] * f3;

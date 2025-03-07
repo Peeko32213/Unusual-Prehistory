@@ -1,0 +1,115 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.barinasuchus",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 10,
+				"visible_bounds_height": 4.5,
+				"visible_bounds_offset": [0, 1.75, 0]
+			},
+			"bones": [
+				{
+					"name": "Barinasuchus",
+					"pivot": [0, 15, 0]
+				},
+				{
+					"name": "Body",
+					"parent": "Barinasuchus",
+					"pivot": [0, 23, 1],
+					"cubes": [
+						{"origin": [-9.5, 15, -15], "size": [19, 19, 35], "uv": [0, 59]}
+					]
+				},
+				{
+					"name": "Head",
+					"parent": "Body",
+					"pivot": [0, 22, -17],
+					"cubes": [
+						{"origin": [-5, 19, -35], "size": [10, 6, 20], "uv": [58, 0]},
+						{"origin": [-5, 16, -34.95], "size": [10, 3, 20], "uv": [73, 63]}
+					]
+				},
+				{
+					"name": "JawLow",
+					"parent": "Head",
+					"pivot": [0, 21, -17],
+					"cubes": [
+						{"origin": [-5.5, 19, -35], "size": [11, 4, 13], "inflate": 0.01, "uv": [0, 30]},
+						{"origin": [-5.5, 15, -35], "size": [11, 4, 13], "uv": [58, 26]},
+						{"origin": [-7.5, 15, -22], "size": [15, 7, 7], "uv": [98, 0]}
+					]
+				},
+				{
+					"name": "Tail",
+					"parent": "Body",
+					"pivot": [-0.5, 33, 19],
+					"cubes": [
+						{"origin": [-0.5, 35, 18], "size": [0, 8, 47], "uv": [0, 66]},
+						{"origin": [-3, 24, 18], "size": [5, 11, 48], "uv": [0, 0]},
+						{"origin": [0.5, 35, 18], "size": [0, 4, 47], "uv": [73, 12]},
+						{"origin": [-1.5, 35, 18], "size": [0, 4, 47], "uv": [73, 12], "mirror": true}
+					]
+				},
+				{
+					"name": "Arm1",
+					"parent": "Barinasuchus",
+					"pivot": [6, 17, -6],
+					"cubes": [
+						{"origin": [5, 0, -13], "size": [9, 4, 9], "uv": [99, 104]},
+						{"origin": [6, 0, -10], "size": [7, 21, 8], "uv": [0, 59]},
+						{"origin": [13, 5, -2], "size": [0, 16, 3], "uv": [42, 0]}
+					]
+				},
+				{
+					"name": "Arm2",
+					"parent": "Barinasuchus",
+					"pivot": [-6, 17, -6],
+					"cubes": [
+						{"origin": [-14, 0, -13], "size": [9, 4, 9], "uv": [99, 104], "mirror": true},
+						{"origin": [-13, 0, -10], "size": [7, 21, 8], "uv": [0, 59], "mirror": true},
+						{"origin": [-13, 5, -2], "size": [0, 16, 3], "uv": [42, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "Leg1",
+					"parent": "Barinasuchus",
+					"pivot": [6, 15, 14],
+					"cubes": [
+						{"origin": [6, 8, 4], "size": [7, 16, 14], "uv": [0, 0]},
+						{"origin": [13, 8, 18], "size": [0, 16, 5], "uv": [73, 58]}
+					]
+				},
+				{
+					"name": "Foot1",
+					"parent": "Leg1",
+					"pivot": [9, 10, 15.5],
+					"cubes": [
+						{"origin": [5, 0, 8.5], "size": [9, 4, 10], "inflate": -0.01, "uv": [96, 33]},
+						{"origin": [6, 0, 11.5], "size": [7, 10, 7], "inflate": -0.01, "uv": [108, 86]}
+					]
+				},
+				{
+					"name": "Leg2",
+					"parent": "Barinasuchus",
+					"pivot": [-6, 15, 14],
+					"cubes": [
+						{"origin": [-13, 8, 4], "size": [7, 16, 14], "uv": [0, 0], "mirror": true},
+						{"origin": [-13, 8, 18], "size": [0, 16, 5], "uv": [73, 58], "mirror": true}
+					]
+				},
+				{
+					"name": "Foot2",
+					"parent": "Leg2",
+					"pivot": [-9, 10, 15.5],
+					"cubes": [
+						{"origin": [-14, 0, 8.5], "size": [9, 4, 10], "inflate": -0.01, "uv": [96, 33], "mirror": true},
+						{"origin": [-13, 0, 11.5], "size": [7, 10, 7], "inflate": -0.01, "uv": [108, 86], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

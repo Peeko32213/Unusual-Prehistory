@@ -161,7 +161,7 @@
          if (itemstack.is(UPItems.ENCYLOPEDIA.get())) {
              InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
          }
-         if (itemstack.is(UPItems.RAW_AUSTRO.get())) {
+         if (itemstack.is(UPItems.RAW_COTY.get())) {
              if (!isTame()) {
                  this.usePlayerItem(player, hand, itemstack);
                  if (getRandom().nextInt(3) == 0) {

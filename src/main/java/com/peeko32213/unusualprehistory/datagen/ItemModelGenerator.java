@@ -161,7 +161,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.AMBER_IDOL);
         singleTex(UPItems.QUILL_REMEDY);
 
-        for(RegistryObject<?> object : UPEntities.dinos) {
+        for(RegistryObject<?> object : UPEntities.prehistorics) {
             addPrehistoricEgg(object.getId());
         }
     }

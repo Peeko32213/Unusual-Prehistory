@@ -14,17 +14,17 @@ public class BarinasuchusModel extends GeoModel<BarinasuchusEntity> {
 
     @Override
     public ResourceLocation getModelResource(BarinasuchusEntity barinasuchus) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus/barinasuchus.geo.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(BarinasuchusEntity barinasuchus) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/barinasuchus/barinasuchus.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/barinasuchus.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(BarinasuchusEntity barinasuchus) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/barinasuchus/barinasuchus.animation.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/barinasuchus.animation.json");
     }
 
     @Override

@@ -189,11 +189,8 @@ public final class ClientEvents {
         event.registerSpecial(UPParticles.ELECTRIC_ATTACK.get(), new ElectricAttackParticle.ElectricAttackFactory());
     }
 
-    private static final ResourceLocation TRICERATOPS_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops_saddle.png");
-    private static final ResourceLocation TRICERATOPS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/trike.geo.json");
-
-    private static final ResourceLocation ULUGH_JEB_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus_jeb.png");
-    private static final ResourceLocation ULUGH_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus_saddled.png");
+    private static final ResourceLocation ULUGH_JEB_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus/ulughbegsaurus_jeb_overlay.png");
+    private static final ResourceLocation ULUGH_JEB = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus/ulughbegsaurus_jeb.png");
     private static final ResourceLocation ULUGH_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/ulughbegsaurus.geo.json");
 
     private static final ResourceLocation HWACHA_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/hwachavenator_saddled.png");
@@ -256,7 +253,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));
         event.registerEntityRenderer(UPEntities.TRICERATOPS.get(), e -> new TameableStatedPrehistoricRenderer<>(e, new TriceratopsModel()));
         event.registerEntityRenderer(UPEntities.TYRANNOSAURUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TyrannosaurusModel()));
-        event.registerEntityRenderer(UPEntities.ULUG.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new UlughbegsaurusModel()).withLayers(ULUGH_MODEL).withSaddleLayer(ULUGH_SADDLE_OVERLAY).withJebLayer(ULUGH_JEB_OVERLAY).build());
+        event.registerEntityRenderer(UPEntities.ULUG.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new UlughbegsaurusModel()).withLayers(ULUGH_MODEL).withJebLayer(ULUGH_JEB_OVERLAY).build());
         event.registerEntityRenderer(UPEntities.VELOCIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new VelociraptorModel()));
         event.registerEntityRenderer(UPEntities.XIPH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new XiphactinusModel()));
 

@@ -78,24 +78,25 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
 
     // Movement animations
     private static final RawAnimation TYRANNO_SWIM = RawAnimation.begin().thenLoop("animation.tyrannosaurus.swim");
-    private static final RawAnimation TYRANNO_CHARGE = RawAnimation.begin().thenLoop("animation.tyrannosaurus.charge");
+    private static final RawAnimation TYRANNO_CHARGE = RawAnimation.begin().thenLoop("animation.tyrannosaurus.run");
     private static final RawAnimation TYRANNO_WALK = RawAnimation.begin().thenLoop("animation.tyrannosaurus.walk");
 
     // Attack animations
-    private static final RawAnimation TYRANNO_BITE_0 = RawAnimation.begin().thenPlay("animation.tyrannosaurus.bite_0");
-    private static final RawAnimation TYRANNO_BITE_1 = RawAnimation.begin().thenPlay("animation.tyrannosaurus.bite_1");
+    private static final RawAnimation TYRANNO_AGGRO = RawAnimation.begin().thenPlay("animation.tyrannosaurus.aggro_blend");
+    private static final RawAnimation TYRANNO_BITE_0 = RawAnimation.begin().thenPlay("animation.tyrannosaurus.bite_blend1");
+    private static final RawAnimation TYRANNO_BITE_1 = RawAnimation.begin().thenPlay("animation.tyrannosaurus.bite_blend2");
     private static final RawAnimation TYRANNO_WHIP = RawAnimation.begin().thenPlay("animation.tyrannosaurus.whip");
-    private static final RawAnimation TYRANNO_STOMP_L = RawAnimation.begin().thenPlay("animation.tyrannosaurus.stompl");
-    private static final RawAnimation TYRANNO_STOMP_R = RawAnimation.begin().thenPlay("animation.tyrannosaurus.stompr");
+    private static final RawAnimation TYRANNO_STOMP_L = RawAnimation.begin().thenPlay("animation.tyrannosaurus.stomp_left");
+    private static final RawAnimation TYRANNO_STOMP_R = RawAnimation.begin().thenPlay("animation.tyrannosaurus.stomp_right");
     private static final RawAnimation TYRANNO_TACKLE = RawAnimation.begin().thenPlay("animation.tyrannosaurus.tackle");
 
     // Idle animations
     private static final RawAnimation TYRANNO_IDLE = RawAnimation.begin().thenLoop("animation.tyrannosaurus.idle");
     private static final RawAnimation TYRANNO_SIT = RawAnimation.begin().thenLoop("animation.tyrannosaurus.sit");
     private static final RawAnimation TYRANNO_SLEEP = RawAnimation.begin().thenLoop("animation.tyrannosaurus.sleep");
-    private static final RawAnimation TYRANNO_SHAKE = RawAnimation.begin().thenPlay("animation.tyrannosaurus.shake");
-    private static final RawAnimation TYRANNO_SNIFF = RawAnimation.begin().thenPlay("animation.tyrannosaurus.sniff");
-    private static final RawAnimation TYRANNO_ROAR = RawAnimation.begin().thenPlay("animation.tyrannosaurus.roar");
+    private static final RawAnimation TYRANNO_SHAKE = RawAnimation.begin().thenPlay("animation.tyrannosaurus.shake_blend");
+    private static final RawAnimation TYRANNO_SNIFF = RawAnimation.begin().thenPlay("animation.tyrannosaurus.sniff_blend");
+    private static final RawAnimation TYRANNO_ROAR = RawAnimation.begin().thenPlay("animation.tyrannosaurus.roar_blend");
     private static final RawAnimation TYRANNO_EEPY = RawAnimation.begin().thenLoop("animation.tyrannosaurus.knockout");
 
     // Idle accessors
@@ -188,13 +189,13 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new StatedSleepingGoal(this));
+//        this.goalSelector.addGoal(1, new StatedSleepingGoal(this));
         if(!this.isAsleep() && !this.hasEepy() && !this.hasTargets()) {
             this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         }
         this.goalSelector.addGoal(0, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new TyrannosaurusEntity.TyrannosaurusMeleeAttackGoal(this, 1.5F, true) {
+        this.goalSelector.addGoal(3, new TyrannosaurusEntity.TyrannosaurusMeleeAttackGoal(this, 1.75F, true) {
                 public boolean canUse() {
                     return !isBaby() && level().getDifficulty() != Difficulty.PEACEFUL && !hasEepy() && !isPassive() && super.canUse();
                 }
@@ -378,7 +379,7 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
                 if(!this.isSprinting()) {
                     shakeCooldown = 23;
                 }
-                else shakeCooldown = 11;
+                else shakeCooldown = 9;
             }
         }
         shakeCooldown--;
@@ -805,8 +806,8 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
             if (event.getKeyframeData().getSound().equals("tyrannosaurus_sniff")) {
                 tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_SNIFF.get(), tyrannosaurus.getSoundSource(), 1.0F, tyrannosaurus.getVoicePitch(), false);
             }
-            if (event.getKeyframeData().getSound().equals("tyrannosaurus_roar_1")) {
-                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_ROAR.get(), tyrannosaurus.getSoundSource(), 2.5F, tyrannosaurus.getVoicePitch(), false);
+            if (event.getKeyframeData().getSound().equals("tyrannosaurus_roar")) {
+                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_ROAR.get(), tyrannosaurus.getSoundSource(), 2.25F, tyrannosaurus.getVoicePitch(), false);
             }
         }
     }

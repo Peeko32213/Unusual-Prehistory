@@ -130,13 +130,13 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.GOLDEN_SCAU.get());
 
         tag(UPTags.WHITE_ULUGH_FOOD)
-                .add(UPItems.RAW_AUSTRO.get());
+                ;
 
         tag(UPTags.BLUE_ULUGH_FOOD)
                 .add(UPItems.RAW_SCAU.get());
 
         tag(UPTags.BROWN_ULUGH_FOOD)
-                .add(UPItems.RAW_STETHA.get());
+                ;
 
         tag(UPTags.TRICERATOPS_FOOD)
                 .add(UPItems.GINKGO_FRUIT.get())
@@ -150,7 +150,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         ;
 
         tag(UPTags.HWACHA_FOOD)
-                .add(UPItems.MEATY_BUFFET.get())
         ;
 
         tag(UPTags.PACHY_FOOD)
@@ -167,7 +166,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(UPTags.ESTEMME_FOOD_ITEMS)
                 .add(UPItems.RAW_COTY.get())
-                .add(UPItems.RAW_AUSTRO.get())
                 .add(UPItems.GINKGO_FRUIT.get())
                 .add(UPBlocks.HORSETAIL.get().asItem())
                 .add(UPBlocks.TALL_HORSETAIL.get().asItem())
@@ -337,8 +335,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         ;
 
         tag(ItemTags.FISHES)
-                .add(UPItems.RAW_STETHA.get())
-                .add(UPItems.COOKED_STETHA.get())
                 .add(UPItems.RAW_SCAU.get())
                 .add(UPItems.COOKED_SCAU.get())
                 .add(UPItems.GOLDEN_SCAU.get())

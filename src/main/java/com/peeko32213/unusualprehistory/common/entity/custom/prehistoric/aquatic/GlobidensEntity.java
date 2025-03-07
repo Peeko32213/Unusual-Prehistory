@@ -77,8 +77,8 @@ public class GlobidensEntity extends StatedPrehistoricEntity implements GeoAnima
 
     // Idle animations
     private static final RawAnimation GLO_IDLE = RawAnimation.begin().thenLoop("animation.globidens.idle");
-    private static final RawAnimation GLO_LOOP = RawAnimation.begin().thenLoop("animation.globidens.loop");
-    private static final RawAnimation GLO_YAWN = RawAnimation.begin().thenLoop("animation.globidens.yawn_blend");
+    private static final RawAnimation GLO_LOOP = RawAnimation.begin().thenPlay("animation.globidens.loop");
+    private static final RawAnimation GLO_YAWN = RawAnimation.begin().thenPlay("animation.globidens.yawn_blend");
 
     // Attack animations
     private static final RawAnimation GLO_BITE_1 = RawAnimation.begin().thenLoop("animation.globidens.attack_blend1");

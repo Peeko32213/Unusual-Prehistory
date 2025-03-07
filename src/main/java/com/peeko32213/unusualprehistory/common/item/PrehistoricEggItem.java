@@ -68,7 +68,7 @@ public class PrehistoricEggItem extends Item {
                 if (level instanceof ServerLevel serverlevel) {
                     float f = (float) Mth.floor((Mth.wrapDegrees(pContext.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     serverlevel.addFreshEntityWithPassengers(egg);
-                    level.playSound(null, egg.getX(), egg.getY(), egg.getZ(), SoundEvents.ARMOR_STAND_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
+                    level.playSound(null, egg.getX(), egg.getY(), egg.getZ(), SoundEvents.METAL_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
                     egg.gameEvent(GameEvent.ENTITY_PLACE, pContext.getPlayer());
                 }
 

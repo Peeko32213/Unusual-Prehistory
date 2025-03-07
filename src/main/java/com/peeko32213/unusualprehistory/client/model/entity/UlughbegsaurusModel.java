@@ -13,33 +13,34 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
 {
-    private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus.png");
+    private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_blue.png");
     private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_yellow.png");
     private static final ResourceLocation TEXTURE_ORANGE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_orange.png");
-    private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_white.png");
-    private static final ResourceLocation TEXTURE_BROWN = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_brown.png");
+    private static final ResourceLocation TEXTURE_CYAN = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_cyan.png");
+    private static final ResourceLocation TEXTURE_GREEN = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_green.png");
+    private static final ResourceLocation TEXTURE_PINK = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_pink.png");
+    private static final ResourceLocation TEXTURE_JEB = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_jeb.png");
 
     @Override
-    public ResourceLocation getModelResource(UlughbegsaurusEntity object)
-    {
+    public ResourceLocation getModelResource(UlughbegsaurusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/ulughbegsaurus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(UlughbegsaurusEntity object)
-    {
+    public ResourceLocation getTextureResource(UlughbegsaurusEntity object) {
         return switch (object.getVariant()) {
-            case 1 -> TEXTURE_WHITE;
+            case 1 -> TEXTURE_CYAN;
             case 2 -> TEXTURE_YELLOW;
             case 3 -> TEXTURE_ORANGE;
-            case 4 -> TEXTURE_BROWN;
+            case 4 -> TEXTURE_GREEN;
+            case 5 -> TEXTURE_PINK;
+            case 6 -> TEXTURE_JEB;
             default -> TEXTURE_BLUE;
         };
     }
 
     @Override
-    public ResourceLocation getAnimationResource(UlughbegsaurusEntity object)
-    {
+    public ResourceLocation getAnimationResource(UlughbegsaurusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/ulughbegsaurus.animation.json");
     }
 
@@ -48,7 +49,12 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+
+        CoreGeoBone head = this.getAnimationProcessor().getBone("Ulugh_Neck");
+
+        CoreGeoBone saddle = this.getAnimationProcessor().getBone("Ulugh_Saddle");
+
+        saddle.setHidden(!animatable.isSaddled());
 
         if (!animatable.isSprinting()) {
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);

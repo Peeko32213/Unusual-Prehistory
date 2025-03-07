@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.data.RollableItemCodec;
 import com.peeko32213.unusualprehistory.common.item.MusicalTameItem;
+import com.peeko32213.unusualprehistory.common.item.PrehistoricEggItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -13,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -114,12 +114,7 @@ public class UPTabs {
                     entries.accept(UPItems.RAW_SCAU.get());
                     entries.accept(UPItems.COOKED_SCAU.get());
                     entries.accept(UPItems.GOLDEN_SCAU.get());
-                    entries.accept(UPItems.RAW_STETHA.get());
-                    entries.accept(UPItems.COOKED_STETHA.get());
                     entries.accept(UPItems.LEEDS_CAVIAR.get());
-                    entries.accept(UPItems.RAW_AUSTRO.get());
-                    entries.accept(UPItems.COOKED_AUSTRO.get());
-                    entries.accept(UPItems.MEATY_BUFFET.get());
                     entries.accept(UPItems.RAW_GINKGO_SEEDS.get());
                     entries.accept(UPItems.COOKED_GINKGO_SEEDS.get());
                     entries.accept(UPItems.GINKGO_FRUIT.get());
@@ -276,7 +271,7 @@ public class UPTabs {
                     entries.accept(UPItems.SARR_FLASK.get());
                     entries.accept(UPItems.ZULOAGAE_FLASK.get());
 
-                    // Paleo eggs
+                    // Water eggs
                     entries.accept(UPBlocks.AMON_EGGS.get());
                     entries.accept(UPBlocks.DIPLOCAULUS_EGGS.get());
                     entries.accept(UPBlocks.DUNK_EGGS.get());
@@ -284,17 +279,22 @@ public class UPTabs {
                     entries.accept(UPBlocks.SCAU_EGGS.get());
                     entries.accept(UPBlocks.STETHA_EGGS.get());
                     entries.accept(UPBlocks.TARTUO_EGGS.get());
-
-                    // Meso eggs
                     entries.accept(UPBlocks.BEELZE_EGGS.get());
                     entries.accept(UPBlocks.ERYON_EGGS.get());
                     entries.accept(UPBlocks.KIMMER_EGGS.get());
+                    entries.accept(UPBlocks.OPHIDION_EGGS.get());
 
-                    // Ceno eggs & embryos
+                    // Entity eggs
+                    UPItems.ITEMS.getEntries().forEach(eggItem ->{
+                        if((eggItem.get() instanceof PrehistoricEggItem)) {
+                            entries.accept(eggItem.get());
+                        }
+                    });
+
+                    // Embryos
                     entries.accept(UPItems.GIGANTO_EMBRYO.get());
                     entries.accept(UPItems.MAMMOTH_EMBRYO.get());
                     entries.accept(UPItems.MEGATH_EMBRYO.get());
-                    entries.accept(UPBlocks.OPHIDION_EGGS.get());
                     entries.accept(UPItems.OTAROCYON_EMBRYO.get());
                     entries.accept(UPItems.PALAEO_EMBRYO.get());
                     entries.accept(UPItems.PARACER_EMBRYO.get());
@@ -429,7 +429,7 @@ public class UPTabs {
                     });
 
                     // Unsorted stuff
-                    if(!(item.get() instanceof ForgeSpawnEggItem) && !item.get().getDefaultInstance().is(UPItems.BARINA_WHISTLE.get()) && !item.get().getDefaultInstance().is(UPBlocks.FRUIT_LOOT_BOX.get().asItem()) && !item.get().getDefaultInstance().is(UPItems.ANIMAL_DNA_FLASKS.get()) && !item.get().getDefaultInstance().is(UPItems.PLANT_DNA_FLASKS.get()) && !item.get().getDefaultInstance().is(UPBlocks.FOSSIL_ORES.get().asItem())) {
+                    if(!(item.get() instanceof ForgeSpawnEggItem) && !item.get().getDefaultInstance().is(UPItems.BARINA_WHISTLE.get()) && !item.get().getDefaultInstance().is(UPBlocks.FRUIT_LOOT_BOX.get().asItem()) && !item.get().getDefaultInstance().is(UPItems.ANIMAL_DNA_FLASKS.get()) && !item.get().getDefaultInstance().is(UPItems.PLANT_DNA_FLASKS.get()) && !item.get().getDefaultInstance().is(UPBlocks.FOSSIL_ORES.get().asItem()) && !(item.get() instanceof PrehistoricEggItem)) {
                         entries.accept(item.get());
                     }
                 }
@@ -437,7 +437,6 @@ public class UPTabs {
             .build();
 
     public static final RegistryObject<CreativeModeTab> UP_TAB = TABS.register("unusual_prehistory", () -> UP);
-
 
     private static void generateInstrumentTypes(CreativeModeTab.Output pOutput, HolderLookup<Instrument> pInstruments, Item pItem) {
         pInstruments.get(UPTags.OCARINA_WHISTLE).ifPresent((p_270021_) -> {

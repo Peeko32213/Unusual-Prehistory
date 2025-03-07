@@ -13,6 +13,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -66,6 +67,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UlughbegsaurusEntity extends TamablePrehistoricEntity implements ICustomFollower, IAttackEntity, IVariantEntity {
+
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> BLUE = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> YELLOW = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -75,11 +77,6 @@ public class UlughbegsaurusEntity extends TamablePrehistoricEntity implements IC
 
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus.png");
-    private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_yellow.png");
-    private static final ResourceLocation TEXTURE_ORANGE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_orange.png");
-    private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_white.png");
-    private static final ResourceLocation TEXTURE_BROWN = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus_brown.png");
 
     private static final EntityDataAccessor<Integer> EATING_TIME = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
     public static final Logger LOGGER = LogManager.getLogger();
@@ -689,11 +686,13 @@ public class UlughbegsaurusEntity extends TamablePrehistoricEntity implements IC
         } else if (variantChange <= 60 && variantChange > 40) {
             this.setOrange(true);
             this.setVariant(3);
-
-        }else if (variantChange <= 80 && variantChange > 60) {
+        } else if (variantChange <= 80 && variantChange > 60) {
             this.setBrown(true);
             this.setVariant(4);
-        }else {
+        } else if (variantChange <= 100 && variantChange > 80) {
+            this.setBrown(true);
+            this.setVariant(5);
+        } else {
             this.setBlue(true);
             this.setVariant(0);
         }
@@ -778,15 +777,8 @@ public class UlughbegsaurusEntity extends TamablePrehistoricEntity implements IC
 
     @Override
     public ResourceLocation getVariantTexture() {
-        return switch (getVariant()) {
-            case 1 -> TEXTURE_WHITE;
-            case 2 -> TEXTURE_YELLOW;
-            case 3 -> TEXTURE_ORANGE;
-            case 4 -> TEXTURE_BROWN;
-            default -> TEXTURE_BLUE;
-        };
+        return null;
     }
-
 
     class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {

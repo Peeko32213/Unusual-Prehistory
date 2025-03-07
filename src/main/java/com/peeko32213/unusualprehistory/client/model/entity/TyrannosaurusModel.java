@@ -41,9 +41,9 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Rex_Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
 
-        CoreGeoBone eyes = this.getAnimationProcessor().getBone("Sleepy");
+        CoreGeoBone eyes = this.getAnimationProcessor().getBone("eepy");
 
         eyes.setHidden(!animatable.hasEepy());
         eyes.setHidden(!animatable.isAsleep());
