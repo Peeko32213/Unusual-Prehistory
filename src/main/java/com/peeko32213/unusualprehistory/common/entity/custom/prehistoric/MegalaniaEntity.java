@@ -209,13 +209,13 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+    public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         if(pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if(itemStack.is(Tags.Items.TOOLS)) {
          CompoundTag compoundTag = itemStack.getTag();
             assert compoundTag != null;
-            compoundTag.putInt("megalania_damage", 30);
+            compoundTag.putInt("megalania_venom", 30);
          itemStack.setTag(compoundTag);
         }
         return super.mobInteract(pPlayer, pHand);
@@ -390,7 +390,7 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
 
     protected SoundEvent getAmbientSound() { return UPSounds.MEGALANIA_IDLE.get(); }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.MEGALANIA_HURT.get();
     }
 

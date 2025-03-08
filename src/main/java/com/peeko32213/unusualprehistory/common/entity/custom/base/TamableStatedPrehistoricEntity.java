@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TriceratopsEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
@@ -63,6 +64,8 @@ public abstract class TamableStatedPrehistoricEntity extends TamableAnimal imple
     private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(TamableStatedPrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(TamableStatedPrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(TamableStatedPrehistoricEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(TamableStatedPrehistoricEntity.class, EntityDataSerializers.INT);
 
     public static final Logger LOGGER = LogManager.getLogger();
     private boolean orderedToSit;
@@ -223,6 +226,7 @@ public abstract class TamableStatedPrehistoricEntity extends TamableAnimal imple
         this.entityData.define(RANDOM_BOOL, false);
         this.entityData.define(RANDOM_NUMBER,0);
         this.entityData.define(ANIM_TIMER, 0);
+        this.entityData.define(ANIMATION_STATE, 0);
     }
 
     @Override
@@ -364,7 +368,7 @@ public abstract class TamableStatedPrehistoricEntity extends TamableAnimal imple
      * @return true if the entity is from a book, otherwise false.
      */
     public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
+        return this.entityData.get(FROM_BOOK);
     }
 
     /**
@@ -463,6 +467,14 @@ public abstract class TamableStatedPrehistoricEntity extends TamableAnimal imple
     public boolean getRandomAnimationBool() {
         setRandomBool(random.nextBoolean());
         return getRandomBool();
+    }
+
+    public int getAnimationState() {
+        return this.entityData.get(ANIMATION_STATE);
+    }
+
+    public void setAnimationState(int anim) {
+        this.entityData.set(ANIMATION_STATE, anim);
     }
 
     public boolean getRandomBool() {

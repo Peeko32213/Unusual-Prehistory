@@ -11,6 +11,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityActi
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -37,6 +38,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
@@ -176,6 +178,11 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
     public TyrannosaurusEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -477,6 +484,7 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
         this.entityData.set(VARIANT, variant);
     }
 
+
     // TODO: fight revamp with better attack ai / new attack ai for most things in the mod
     static class TyrannosaurusMeleeAttackGoal extends Goal {
 
@@ -646,10 +654,6 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
             }
         }
 
-        protected boolean getRangeCheck() {
-            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 2.0F * this.getAttackReachSqr(this.mob.getTarget());
-        }
-
         protected void tickChargeAttack () {
 
             animTime++;
@@ -743,24 +747,24 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
             mob.shakeCooldown--;
         }
 
-        protected void resetAttackCooldown () {
-            this.ticksUntilNextAttack = 0;
+        protected void resetAttackCooldown() {
+            this.ticksUntilNextAttack = this.adjustedTickDelay(20);
         }
 
-        protected boolean isTimeToAttack () {
+        protected boolean isTimeToAttack() {
             return this.ticksUntilNextAttack <= 0;
         }
 
-        protected int getTicksUntilNextAttack () {
+        protected int getTicksUntilNextAttack() {
             return this.ticksUntilNextAttack;
         }
 
-        protected int getAttackInterval () {
-            return 5;
+        protected int getAttackInterval() {
+            return this.adjustedTickDelay(20);
         }
 
-        protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.0F + p_179512_1_.getBbWidth();
+        protected double getAttackReachSqr(LivingEntity pAttackTarget) {
+            return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + pAttackTarget.getBbWidth();
         }
     }
 
@@ -802,7 +806,7 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
                 tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_SNIFF.get(), tyrannosaurus.getSoundSource(), 1.0F, tyrannosaurus.getVoicePitch(), false);
             }
             if (event.getKeyframeData().getSound().equals("tyrannosaurus_roar")) {
-                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_ROAR.get(), tyrannosaurus.getSoundSource(), 2.25F, tyrannosaurus.getVoicePitch(), false);
+                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_ROAR.get(), tyrannosaurus.getSoundSource(), 2.5F, tyrannosaurus.getVoicePitch(), false);
             }
         }
     }

@@ -120,7 +120,6 @@ public class HitboxHelper {
                 }
             }
         }
-
     }
 
     public static void PivotedPolyHitCheck(LivingEntity source, Vec3 boxOffset, double attackWidth, double attackHeight, double attackLength, ServerLevel world, float damage, DamageSource damageSource, float knockback, boolean disableShield) {
@@ -145,7 +144,7 @@ public class HitboxHelper {
 
             if (victim != source) {
                 //entityIn.doHurtTarget(target);
-                if (victim instanceof Player && disableShield == true) {
+                if (victim instanceof Player && disableShield) {
                     disableShield((Player)victim, victim.getMainHandItem(), victim.getOffhandItem(), source);
                 }
 
@@ -154,10 +153,8 @@ public class HitboxHelper {
                                 new Vec3(-victim.position().x, -victim.position().y, -victim.position().z)
                         ));
 
-
                 victim.hurt(damageSource, damage);
                 victim.setLastHurtByMob(source);
-
                 victim.knockback(knockback, knockVec.x, knockVec.y);
 
             }

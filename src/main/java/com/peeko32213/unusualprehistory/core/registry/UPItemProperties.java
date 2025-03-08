@@ -13,5 +13,4 @@ public class UPItemProperties {
     private static void makeFruitLootBox(Item item) {
         ItemProperties.register(item, new ResourceLocation("loot_box"), (itemStack, clientLevel, livingEntity, nr) -> FruitLootBoxBlock.getCustomModelData(itemStack.getOrCreateTag()));
     }
-
 }

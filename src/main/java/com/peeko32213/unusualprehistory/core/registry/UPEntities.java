@@ -492,6 +492,13 @@ public class UPEntities {
                     .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).setCustomClientFactory(PsittaccoArrow::new)
                     .build(prefix("psittacco_arrow").toString()));
 
+    public static final RegistryObject<EntityType<ThrowableFallingBlockEntity>> THROWABLE_FALLING_BLOCK = ENTITIES.register("throwable_falling_block",
+            () -> EntityType.Builder.of(ThrowableFallingBlockEntity::new, MobCategory.MISC)
+                    .sized(0.98F, 0.98F)
+                    .clientTrackingRange(10)
+                    .updateInterval(20)
+                    .build(prefix("throwable_falling_block").toString()));
+
     public static final RegistryObject<EntityType<PrehistoricEggEntity>> PREHISTORIC_EGG = ENTITIES.register("prehistoric_egg",
             () -> EntityType.Builder.<PrehistoricEggEntity>of(PrehistoricEggEntity::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F)

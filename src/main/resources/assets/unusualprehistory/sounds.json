@@ -365,13 +365,16 @@
   "tyrannosaurus_roar": {
     "sounds": [
       "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_0",
-      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_1"
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_1",
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_roar"
   },
   "tyrannosaurus_sniff": {
     "sounds": [
-      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_sniff"
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_sniff_0",
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_sniff_1",
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_sniff_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_sniff"
   },

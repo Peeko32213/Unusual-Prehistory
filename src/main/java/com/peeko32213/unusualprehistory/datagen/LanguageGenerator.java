@@ -1001,11 +1001,11 @@ public class LanguageGenerator extends LanguageProvider {
         add("unusualprehistory.megalania_damage", " %s Venomous Coating");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");
         add("unusualprehistory.shedscale_bonus", "Inverts some negative effects while wearing full set");
-        add("unusualprehistory.fruit_loot_box.salubrious", "§rSalubrious Fruit Block");
-        add("unusualprehistory.fruit_loot_box.luxurious", "§rLuxurious Fruit Block");
-        add("unusualprehistory.fruit_loot_box.redolent", "§rRedolent Fruit Block");
-        add("unusualprehistory.fruit_loot_box.exotic", "§rExotic Fruit Block");
-        add("unusualprehistory.fruit_loot_box.default", "§rFruit Block");
+        add("unusualprehistory.fruit_loot_box.salubrious", "Salubrious Fruit Block");
+        add("unusualprehistory.fruit_loot_box.luxurious", "Luxurious Fruit Block");
+        add("unusualprehistory.fruit_loot_box.redolent", "Redolent Fruit Block");
+        add("unusualprehistory.fruit_loot_box.exotic", "Exotic Fruit Block");
+        add("unusualprehistory.fruit_loot_box.default", "Fruit Block");
         add("unusualprehistory.attacher.animal_has_embryo", "%s already has an embryo");
         add("unusualprehistory.attacher.animal_not_correct", "%s cannot be inserted into %s");
         add("unusualprehistory.beelzebufo.meat_stick", "Hold coty on a stick to control");

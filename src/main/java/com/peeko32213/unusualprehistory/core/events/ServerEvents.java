@@ -233,18 +233,6 @@ public class ServerEvents {
     }
 
     @SubscribeEvent
-    public void clubExtraDamage(LivingDamageEvent event) {
-        if (event.getSource().getEntity() instanceof LivingEntity living) {
-            ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
-            if(!itemStack.is(UPItems.HANDMADE_CLUB.get())) return;
-            float extraDamageMultp = 1 - living.getArmorCoverPercentage();
-            float damage = event.getAmount();
-            damage *= extraDamageMultp;
-            event.setAmount(damage);
-        }
-    }
-
-    @SubscribeEvent
     //cant be canceled
     public void preventClick(PlayerInteractEvent.LeftClickEmpty event) {
         if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {

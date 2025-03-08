@@ -75,8 +75,7 @@ public class HandmadeSpearItem extends SwordItem implements GeoItem {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "idle", state -> PlayState.CONTINUE)
-                .triggerableAnim("animation.handmade_spear.idle", DefaultAnimations.IDLE));
+        controllerRegistrar.add(new AnimationController<>(this, "idle", state -> PlayState.CONTINUE).triggerableAnim("animation.handmade_spear.idle", DefaultAnimations.IDLE));
     }
 
     @Override
@@ -118,7 +117,8 @@ public class HandmadeSpearItem extends SwordItem implements GeoItem {
                 && enchantment != Enchantments.BANE_OF_ARTHROPODS
                 && enchantment != Enchantments.SMITE
                 && enchantment != Enchantments.FIRE_ASPECT
-                && enchantment != Enchantments.SWEEPING_EDGE;
+                && enchantment != Enchantments.SWEEPING_EDGE
+        ;
     }
 
     @Override

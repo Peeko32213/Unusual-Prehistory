@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -46,7 +47,8 @@ public class FruitLootBoxBlock extends BaseEntityBlock implements SimpleWaterlog
         super(pProperties);
     }
 
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+    @NotNull
+    public BlockState updateShape(@NotNull BlockState pState, @NotNull Direction pFacing, @NotNull BlockState pFacingState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, @NotNull BlockPos pFacingPos) {
         return pFacing == Direction.DOWN && !this.canSurvive(pState, pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
 
@@ -58,6 +60,7 @@ public class FruitLootBoxBlock extends BaseEntityBlock implements SimpleWaterlog
             CompoundTag tag = new CompoundTag();
             FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity) level.getBlockEntity(pos));
 
+            assert fruitLootBox != null;
             String translationKey = fruitLootBox.getTranslationKey();
             int color = fruitLootBox.getColor();
             Item tradeItem = fruitLootBox.getTradeItem();
@@ -72,11 +75,12 @@ public class FruitLootBoxBlock extends BaseEntityBlock implements SimpleWaterlog
     }
 
     @Override
-    public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
+    public void playerWillDestroy(Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState, @NotNull Player pPlayer) {
 
-        if(!pLevel.isClientSide) {
+        if(!pLevel.isClientSide && !pPlayer.isCreative()) {
             FruitLootBoxEntity fruitLootBox = ((FruitLootBoxEntity) pLevel.getBlockEntity(pPos));
             try {
+                assert fruitLootBox != null;
                 int size = fruitLootBox.getLootFruits().size();
                 if (!fruitLootBox.getLootFruits().isEmpty() && !pLevel.isClientSide) {
                     int randomNr = pLevel.random.nextInt(size);
@@ -157,33 +161,29 @@ public class FruitLootBoxBlock extends BaseEntityBlock implements SimpleWaterlog
     public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
         if(pStack.hasTag()){
             CompoundTag tag = pStack.getTag();
+            assert tag != null;
             String translationKey = tag.getString("translationKey");
             ItemStack tradeItem = ItemStack.of(tag.getCompound("tradeItem"));
             int modelData = tag.getInt("CustomModelData");
             MutableComponent component = Component.translatable("unusualprehistory.fruit_loot_box.loot_box");
             if(modelData == 1){
                 pStack.setHoverName(Component.translatable(translationKey)
-                        .withStyle(ChatFormatting.RESET)
                         .withStyle(ChatFormatting.WHITE));
             }
             if(modelData == 2){
                 pStack.setHoverName(Component.translatable(translationKey)
-                        .withStyle(ChatFormatting.RESET)
                         .withStyle(ChatFormatting.WHITE));
             }
             if(modelData == 3){
                 pStack.setHoverName(Component.translatable(translationKey)
-                        .withStyle(ChatFormatting.RESET)
                         .withStyle(ChatFormatting.YELLOW));
             }
             if(modelData == 4){
                 pStack.setHoverName(Component.translatable(translationKey)
-                        .withStyle(ChatFormatting.RESET)
                         .withStyle(ChatFormatting.AQUA));
             }
             if(modelData == 5){
                 pStack.setHoverName(Component.translatable(translationKey)
-                        .withStyle(ChatFormatting.RESET)
                         .withStyle(ChatFormatting.LIGHT_PURPLE));
             }
         }

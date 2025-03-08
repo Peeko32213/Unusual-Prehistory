@@ -108,7 +108,7 @@
          super.travel(travelVector);
      }
 
-     protected PathNavigation createNavigation(@NotNull Level p_27480_) {
+     protected @NotNull PathNavigation createNavigation(@NotNull Level p_27480_) {
          return new WaterBoundPathNavigation(this, p_27480_);
      }
 
