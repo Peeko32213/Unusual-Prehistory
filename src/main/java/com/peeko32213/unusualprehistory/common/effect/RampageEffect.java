@@ -7,6 +7,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
@@ -33,7 +34,7 @@ public class RampageEffect extends MobEffect {
                 int dmg = (int) (5*Math.random());
 
                 if (hitRand < probability) {
-                    ((Player) pLivingEntity).swing(InteractionHand.MAIN_HAND);
+                    pLivingEntity.swing(InteractionHand.MAIN_HAND);
                     //players randomly attacks
                 }
                 if (dmgRand < probability) {
@@ -41,7 +42,7 @@ public class RampageEffect extends MobEffect {
                     //deals a random amount of damage between 0 and 10 to player
                 }
                 if (headRand < probability) {
-                    pLivingEntity.setYRot((pLivingEntity).yHeadRotO += (15*Math.random()));
+                    pLivingEntity.setYRot((pLivingEntity).yHeadRotO += (float) (15*Math.random()));
                     //player's head randomly twitches
                 }
 
@@ -74,7 +75,7 @@ public class RampageEffect extends MobEffect {
         //effect will never expire
     }
 
-    public String getDescriptionId() {
+    public @NotNull String getDescriptionId() {
         return "unusualprehistory.potion.rampage";
     }
 }
