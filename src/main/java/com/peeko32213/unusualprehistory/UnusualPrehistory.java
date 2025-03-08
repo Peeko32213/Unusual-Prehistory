@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
+import com.peeko32213.unusualprehistory.common.data.PrehistoricEgg;
 import com.peeko32213.unusualprehistory.core.registry.util.UPLootModifiers;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
@@ -34,6 +35,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DataPackRegistryEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -87,6 +89,12 @@ public class UnusualPrehistory {
 
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         PROXY.init();
+
+        modEventBus.addListener((DataPackRegistryEvent.NewRegistry event) -> {
+            event.dataPackRegistry(UPRegistry.Keys.PREHISTORIC_EGG, PrehistoricEgg.CODEC);
+        });
+
+
 //       If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that
 //       triggers the capability class otherwise it also wont hotswap
 //       UPCapabilities.setupCapabilities();

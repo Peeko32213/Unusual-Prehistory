@@ -1,5 +1,11 @@
 Additions:
 
+Dino Eggs:
+ - Turned dino eggs into datapack registry
+ - Added datagen for eggs
+ - Added PrehistoricEgg class
+
+
 - Added Archelon, a giant mesozoic turtle
 - Added Balaur, a colorful raptor
 - Added Diplocaulus, a boomerang headed amphibian 
