@@ -38,7 +38,7 @@ Tyrannosaurus:
   - 300 Max Health
   - 0.2 Movement Speed
   - 16 Attack Damage
-  - 3 Knockback Resistance
+  - 1.5 Knockback Resistance
   - 32 Follow Range
 - Damage is now dependent on its attack damage attribute
 - Misc changes
@@ -49,11 +49,11 @@ Triceratops:
 - New animations
 - New Horridus variant
 - Modified stats:
-  - 90 Max health
+  - 120 Max health
   - 10 Armor
   - 0.145 Movement Speed
   - 12 Attack Damage
-  - 3.5 Knockback Resistance
+  - 1.5 Knockback Resistance
 - Now has an animated attack and charges when aggro
 - Taming requires multiple ginkgo berries
 - Misc changes
@@ -89,6 +89,52 @@ Items:
   - Right-clicking launches you upward a bit, can work as a double jump or be used for keeping things in the air longer
   - 1.6 Attack Speed
   - 5 Damage
+
+Worldgen:
+- Paleontologist:
+  - Added paleontologist village houses
+  - Added paleontologist dig sites
+
+- Fossils:
+  - Giant Fossils:
+    - Removed vanilla fossils
+    - Added new fossils that can spawn with fossil ores and use fossilized bone blocks instead of normal bone blocks
+    - Giant fossils generate more frequently
+  - Fossil Iceberg:
+    - Changed iceberg feature to a structure to blend in better with other icebergs
+    - Fossil icebergs can rarely house a paleontologist villager observing the frozen mobs
+  - Petrified Wood:
+    - Petrified wood patches are much rarer
+    - Removed coarse dirt from petrified wood patches
+  - Tar Fossils:
+    - Tar pits are much rarer
+    - Tar pits contain far more tar fossils
+    - Smaller tar pools without Sludges present can spawn rarely underground
+  - Frozen Fossils:
+    - Permafrost fossil patches can be found rarely underground
+    - Permafrost fossil patches are more common in cold biomes
+  - Amber Fossils:
+    - Amber ore drops amber fossils less frequently
+    - Amber ore generates more frequently
+  - Opal Fossils:
+    - Opal ore can spawn anywhere in the world very rarely
+    - Opal ore in ocean biomes generates less frequently
+    - Opal ore drops opal fossils less frequently
+  - Stone Fossils:
+    - Stone fossils can very rarely generate in large patches
+    - Stone fossils are slightly rarer
+    - Stone fossil patches are slightly smaller
+  - Deepslate Fossils:
+    - Deepslate fossils can very rarely generate in large patches
+    - Deepslate fossil patches are slightly larger
+
+- Archaeology:
+ 
+
+
+
+
+
 
 - Removed tall horsetail dna
 - Tweaked Megatherium
