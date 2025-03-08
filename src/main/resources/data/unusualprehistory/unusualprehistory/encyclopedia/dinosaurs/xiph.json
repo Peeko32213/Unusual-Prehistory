@@ -1,0 +1,31 @@
+{
+  "text": "xiph.txt",
+  "title": "entity.unusualprehistory.xiph",
+  "page_to_go": "unusualprehistory:dinosaurs",
+  "entity_button":[
+    {
+      "entity": "unusualprehistory:xiphactinus",
+      "x": 290,
+      "y": 60,
+      "page" : 0,
+      "scale": 1.2,
+      "entity_scale": 0.5,
+      "offset_x": -11,
+      "offset_y": -20,
+      "hover_text": "entity.unusualprehistory.xiphactinus"
+    }
+  ],
+  "entity_renders": [
+    {
+      "entity": "unusualprehistory:xiphactinus",
+      "x": 105,
+      "y": 85,
+      "page" : 0,
+      "scale": 0.6,
+      "rot_x": 30,
+      "rot_y": 225,
+      "rot_z": 0,
+      "follow_cursor": false
+    }
+  ]
+}

@@ -51,6 +51,7 @@ public class AnimalAttacherItem extends Item {
                         if (!pPlayer.isCreative()) {
                             pStack.shrink(1);
                         }
+                        // TODO make this particles instead of a chat message + play eating sound or something
                         MutableComponent animalComponent = Component.translatable(pInteractionTarget.getType().getDescriptionId()).withStyle(ChatFormatting.GOLD);
                         pPlayer.sendSystemMessage(Component.translatable("unusualprehistory.attacher.embryo_attached", animalComponent).withStyle(ChatFormatting.GREEN));
 

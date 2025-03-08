@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_ocean",
+  "features": "unusualprehistory:ores/ocean_stone_opal_fossil_ore_placed",
+  "step": "underground_ores"
+}

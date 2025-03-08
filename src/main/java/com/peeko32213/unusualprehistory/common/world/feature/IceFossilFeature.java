@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.world.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityWorldSpawnable;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.WorldSpawnableEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;
@@ -158,7 +158,7 @@ public class IceFossilFeature extends Feature<NoneFeatureConfiguration> {
 
 
     public static void addFossil(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise){
-        EntityWorldSpawnable entityWorldSpawnable = UPEntities.ICEBERG_SMILODON.get().create(worldgenlevel.getLevel());
+        WorldSpawnableEntity entityWorldSpawnable = UPEntities.ICEBERG_SMILODON.get().create(worldgenlevel.getLevel());
 
         if(rand.nextBoolean())
         {

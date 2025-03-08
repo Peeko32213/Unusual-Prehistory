@@ -1,24 +1,23 @@
 package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
-import com.peeko32213.unusualprehistory.common.block.BlockDinosaurLandEggs;
-import com.peeko32213.unusualprehistory.common.block.DinoBlockItem;
-import com.peeko32213.unusualprehistory.common.capabilities.UPAnimalCapability;
-import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
-import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
-import com.peeko32213.unusualprehistory.common.config.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.eggs.DinosaurLandEgg;
-import com.peeko32213.unusualprehistory.common.item.DinosaurLandEggItem;
+import com.peeko32213.unusualprehistory.common.data.PrehistoricEgg;
+import com.peeko32213.unusualprehistory.core.registry.util.UPLootModifiers;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
+import net.minecraft.ChatFormatting;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
+import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.PathPackResources;
+import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -26,6 +25,7 @@ import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -35,14 +35,18 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DataPackRegistryEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(UnusualPrehistory.MODID)
@@ -60,7 +64,10 @@ public class UnusualPrehistory {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(ClientEvents::init));
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupClient);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.CONFIG_BUILDER);
+        modEventBus.addListener(this::packSetup);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.COMMON);
+
+        // Register stuff
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
         UPTabs.TABS.register(modEventBus);
@@ -69,6 +76,7 @@ public class UnusualPrehistory {
         UPAdvancementTriggerRegistry.init();
         UPTrunkPlacerType.TRUNK_PLACER_TYPES.register(modEventBus);
         UPInstruments.INSTRUMENT.register(modEventBus);
+        UPPaintings.PAINTING_VARIANTS.register(modEventBus);
         UPBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         UPMenuTypes.MENUS.register(modEventBus);
         UPRecipes.SERIALIZERS.register(modEventBus);
@@ -78,20 +86,26 @@ public class UnusualPrehistory {
         UPFeatureModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
         UPSounds.DEF_REG.register(modEventBus);
         UPEffects.EFFECT_DEF_REG.register(modEventBus);
+
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         PROXY.init();
-        //If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that
-        // triggers the capability class otherwise it also wont hotswap
-       //UPCapabilities.setupCapabilities();
-       //eventBus.addListener(UPPlayerCapability::onPlayerCloned);
-       //eventBus.addListener(UPPlayerCapability::onLivingDamage);
-       //eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
-       //eventBus.addListener(UPAnimalCapability::tickAnimal);
-       //eventBus.addListener(UPAnimalCapability::tickWaterAnimal);
+
+        modEventBus.addListener((DataPackRegistryEvent.NewRegistry event) -> {
+            event.dataPackRegistry(UPRegistry.Keys.PREHISTORIC_EGG, PrehistoricEgg.CODEC);
+        });
+
+
+//       If you want to debug comment these out otherwise it wont hotswap and also dont do anything with stuff that
+//       triggers the capability class otherwise it also wont hotswap
+//       UPCapabilities.setupCapabilities();
+//       eventBus.addListener(UPPlayerCapability::onPlayerCloned);
+//       eventBus.addListener(UPPlayerCapability::onLivingDamage);
+//       eventBus.addListener(UPPlayerCapability::onPlayerJoinWorld);
+//       eventBus.addListener(UPAnimalCapability::tickAnimal);
+//       eventBus.addListener(UPAnimalCapability::tickWaterAnimal);
     }
 
-    //Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib
-    // isnt added
+//    Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib isnt added
     public static void checkForGeckoLib(){
             if(ModList.get().isLoaded("geckolib")){
                 LOGGER.debug("Geckolib loaded correctly!");
@@ -107,9 +121,6 @@ public class UnusualPrehistory {
                 }
             }
     }
-
-
-
 
     private void commonSetup(final FMLCommonSetupEvent event) {
 
@@ -147,12 +158,8 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
             addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
             addToComposter(UPBlocks.ZULOAGAE.get().asItem(), 0.2f);
-            for(RegistryObject<Item> object : UPItems.ITEMS.getEntries()) {
-                if(object.get() instanceof DinosaurLandEggItem item) {
-                        DinoBlockItem.registerReplacementItem(item.getDinosaur(), item.getDefaultInstance());
-                }
-            }
         });
+
         event.enqueueWork(UPDispenserRegistry::registerDispenserBehaviour);
         UPMessages.register();
     }
@@ -180,6 +187,51 @@ public class UnusualPrehistory {
         PROXY.clientInit();
     }
 
+    public void packSetup(AddPackFindersEvent event) {
 
+        // Data Packs
+        this.setupNaturalGenPack(event);
+
+    }
+
+    // Shoutout Aether
+
+    private void setupNaturalGenPack(AddPackFindersEvent event) {
+        if (event.getPackType() == PackType.SERVER_DATA) {
+            Path resourcePath = ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().findResource("packs/natural_prehistoric_generation");
+            PathPackResources pack = new PathPackResources(ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().getFileName() + ":" + resourcePath, resourcePath, true);
+            PackMetadataSection metadata = new PackMetadataSection(Component.translatable("pack.unusualprehistory.natural_prehistoric_generation.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.SERVER_DATA));
+            event.addRepositorySource((source) ->
+                source.accept(Pack.create(
+                    "builtin/natural_prehistoric_generation",
+                    Component.translatable("pack.unusualprehistory.natural_prehistoric_generation.title"),
+                    false,
+                    (string) -> pack,
+                    new Pack.Info(metadata.getDescription(), metadata.getPackFormat(PackType.SERVER_DATA), metadata.getPackFormat(PackType.CLIENT_RESOURCES), FeatureFlagSet.of(), pack.isHidden()),
+                    PackType.SERVER_DATA,
+                    Pack.Position.TOP,
+                    false,
+                    create(decorateWithSource(), UnusualPrehistoryConfig.NATURAL_PREHISTORIC_GENERATION.get()))
+                )
+            );
+        }
+    }
+
+    static PackSource create(final UnaryOperator<Component> decorator, final boolean shouldAddAutomatically) {
+        return new PackSource() {
+            public @NotNull Component decorate(@NotNull Component component) {
+                return decorator.apply(component);
+            }
+
+            public boolean shouldAddAutomatically() {
+                return shouldAddAutomatically;
+            }
+        };
+    }
+
+    private static UnaryOperator<Component> decorateWithSource() {
+        Component component = Component.translatable("pack.source.builtin");
+        return (name) -> Component.translatable("pack.nameAndSource", name, component).withStyle(ChatFormatting.GRAY);
+    }
 
 }

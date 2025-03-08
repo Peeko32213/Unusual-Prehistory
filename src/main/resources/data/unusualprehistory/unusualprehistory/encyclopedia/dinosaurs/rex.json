@@ -9,16 +9,16 @@
       "y": 120,
       "page" : 1,
       "scale": 1.2,
-      "entity_scale": 0.18,
-      "offset_x": 3,
-      "offset_y": -26,
+      "entity_scale": 0.4,
+      "offset_x": -26,
+      "offset_y": 6,
       "hover_text": "entity.unusualprehistory.rex"
     }
   ],
   "entity_renders": [
     {
       "entity": "unusualprehistory:rex",
-      "x": 90,
+      "x": 98,
       "y": 100,
       "page" : 0,
       "scale": 0.4,

@@ -17,6 +17,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class ItemModelGenerator extends ItemModelProvider {
@@ -27,85 +28,148 @@ public class ItemModelGenerator extends ItemModelProvider {
     @Override
     protected void registerModels(){
         for (Item i : BuiltInRegistries.ITEM) {
-            if (i instanceof SpawnEggItem && ForgeRegistries.ITEMS.getKey(i).getNamespace().equals(UnusualPrehistory.MODID)) {
-                getBuilder(ForgeRegistries.ITEMS.getKey(i).getPath())
+            if (i instanceof SpawnEggItem && Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getNamespace().equals(UnusualPrehistory.MODID)) {
+                getBuilder(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getPath())
                         .parent(getExistingFile(new ResourceLocation("item/template_spawn_egg")));
             }
         }
 
-        singleTex(UPItems.SMILODON_EMBRYO);
-        singleTex(UPItems.MAMMOTH_EMBRYO);
-        singleTex(UPItems.MEGATH_EMBRYO);
-        singleTex(UPItems.GIGANTO_EMBRYO);
-        singleTex(UPItems.PARACER_EMBRYO);
-        singleTex(UPItems.PALAEO_EMBRYO);
+        flaskTex(UPItems.ZULOAGAE_FLASK);
+        flaskTex(UPItems.RAIGUENRAYUN_FLASK);
+        flaskTex(UPItems.FOXXI_FLASK);
+        flaskTex(UPItems.DRYO_FLASK);
+        flaskTex(UPItems.DIPLO_FLASK);
+        flaskTex(UPItems.KIMMER_FLASK);
+        flaskTex(UPItems.HYNERIA_FLASK);
+        flaskTex(UPItems.OPHIO_FLASK);
+        flaskTex(UPItems.PROTOSPHYRAENA_FLASK);
+        flaskTex(UPItems.PTERY_FLASK);
+        flaskTex(UPItems.EDAPHO_FLASK);
+        flaskTex(UPItems.XIPHACT_FLASK);
+        flaskTex(UPItems.OVIRAPTOR_FLASK);
+        flaskTex(UPItems.GLOBIDENS_FLASK);
+        flaskTex(UPItems.ESTEMMENO_FLASK);
+        flaskTex(UPItems.OTAROCYON_FLASK);
+        flaskTex(UPItems.LONGI_FLASK);
+        flaskTex(UPItems.TARTUO_FLASK);
+        flaskTex(UPItems.TANY_FLASK);
+        flaskTex(UPItems.PSITTACO_FLASK);
+        flaskTex(UPItems.KAPRO_FLASK);
+        flaskTex(UPItems.PSILO_FLASK);
+        flaskTex(UPItems.HYNERP_FLASK);
+        flaskTex(UPItems.BALAUR_FLASK);
+        flaskTex(UPItems.PTERODAUSTRO_FLASK);
+        flaskTex(UPItems.ARCHELON_FLASK);
+        flaskTex(UPItems.JAWLESS_FISH_FLASK);
+        flaskTex(UPItems.LEEDS_FLASK);
+        flaskTex(UPItems.AMMONITE_FLASK);
+        flaskTex(UPItems.COTY_FLASK);
+        flaskTex(UPItems.DUNK_FLASK);
+        flaskTex(UPItems.SCAU_FLASK);
+        flaskTex(UPItems.STETHA_FLASK);
+        flaskTex(UPItems.ANTARCTO_FLASK);
+        flaskTex(UPItems.ANURO_FLASK);
+        flaskTex(UPItems.AUSTRO_FLASK);
+        flaskTex(UPItems.BEELZ_FLASK);
+        flaskTex(UPItems.BRACHI_FLASK);
+        flaskTex(UPItems.ENCRUSTED_FLASK);
+        flaskTex(UPItems.ERYON_FLASK);
+        flaskTex(UPItems.HWACHA_FLASK);
+        flaskTex(UPItems.KENTRO_FLASK);
+        flaskTex(UPItems.MAJUNGA_FLASK);
+        flaskTex(UPItems.PACHY_FLASK);
+        flaskTex(UPItems.TRIKE_FLASK);
+        flaskTex(UPItems.TYRANNO_FLASK);
+        flaskTex(UPItems.ULUGH_FLASK);
+        flaskTex(UPItems.VELOCI_FLASK);
+        flaskTex(UPItems.BARINA_FLASK);
+        flaskTex(UPItems.GIGANTO_FLASK);
+        flaskTex(UPItems.MAMMOTH_FLASK);
+        flaskTex(UPItems.MEGALANIA_FLASK);
+        flaskTex(UPItems.MEGATHERIUM_FLASK);
+        flaskTex(UPItems.PALAEO_FLASK);
+        flaskTex(UPItems.PARACER_FLASK);
+        flaskTex(UPItems.SMILODON_FLASK);
+        flaskTex(UPItems.TALPANAS_FLASK);
+        flaskTex(UPItems.ANOSTYLOSTRAMA_FLASK);
+        flaskTex(UPItems.ARCHAEFRUCTUS_FLASK);
+        flaskTex(UPItems.ARCHAO_FLASK);
+        flaskTex(UPItems.BENNET_FLASK);
+        flaskTex(UPItems.CLATHRODICTYON_FLASK);
+        flaskTex(UPItems.GINKGO_FLASK);
+        flaskTex(UPItems.HORSETAIL_FLASK);
+        flaskTex(UPItems.LEEFRUCTUS_FLASK);
+        flaskTex(UPItems.NELUMBITES_FLASK);
+        flaskTex(UPItems.QUEREUXIA_FLASK);
+        flaskTex(UPItems.SARR_FLASK);
 
-        singleTex(UPItems.BARINA_WHISTLE);
-        singleTex(UPItems.ZULOAGAE_FLASK);
-        singleTex(UPItems.RAIGUENRAYUN_FLASK);
-        singleTex(UPItems.FOXXI_FLASK);
-        singleTex(UPItems.DRYO_FLASK);
+        flaskTex(UPItems.FLASK);
+        flaskTex(UPItems.CAPTURED_KIMMER_FLASK);
+        flaskTex(UPItems.DORMANT_RAMPAGE_FLASK);
+        flaskTex(UPItems.YIXIAN_RAMPAGE_FLASK);
+        flaskTex(UPItems.JARATE);
+
+        flaskTex(UPItems.ANIMAL_DNA_FLASKS);
+        flaskTex(UPItems.PLANT_DNA_FLASKS);
+
+        embryoTex(UPItems.SMILODON_EMBRYO);
+        embryoTex(UPItems.MAMMOTH_EMBRYO);
+        embryoTex(UPItems.MEGATH_EMBRYO);
+        embryoTex(UPItems.GIGANTO_EMBRYO);
+        embryoTex(UPItems.PARACER_EMBRYO);
+        embryoTex(UPItems.PALAEO_EMBRYO);
+        embryoTex(UPItems.OTAROCYON_EMBRYO);
+
+        for(RegistryObject<?> object : UPEntities.prehistorics) {
+            addPrehistoricEgg(object.getId());
+        }
+
         singleTex(UPItems.SMILO_FUR);
         singleTex(UPItems.PALAEO_SKIN);
         singleTex(UPItems.DINO_POUCH);
         singleTex(UPItems.OPALESCENT_PEARL);
         singleTex(UPItems.OPALESCENT_SHURIKEN);
-        toBlock(UPBlocks.PERMAFROST);
-        toBlock(UPBlocks.PERMAFROST_FOSSIL);
-        singleTex(UPItems.INSULATOR);
         singleTex(UPItems.DRYO_NUTS);
         singleTex(UPItems.ZULOGAE_DISC);
         singleTex(UPItems.ENCASED_DISC);
         singleTex(UPItems.RAW_MAMMOTH);
         singleTex(UPItems.MAMMOTH_MEATBALL);
         singleTex(UPItems.COOKED_MAMMOTH);
-        singleTex(UPItems.OTAROCYON_FLASK);
-        singleTex(UPItems.LONGI_FLASK);
-        singleTex(UPItems.RAW_FURCACAUDA);
-        singleTex(UPItems.COOKED_FURCACAUDA);
-        singleTex(UPItems.RAW_TARTU);
-        singleTex(UPItems.COOKED_TARTU);
-        singleTex(UPItems.RAW_OPHIODON);
-        singleTex(UPItems.COOKED_OPHIODON);
-        singleTex(UPItems.PSITTACO_QUIL);
-        singleTex(UPItems.JAWLESS_FISH_FLASK);
-        singleTex(UPItems.TARTUO_FLASK);
-        singleTex(UPItems.TANY_FLASK);
-        singleTex(UPItems.PSITTACO_FLASK);
-        singleTex(UPItems.KAPRO_FLASK);
-        singleTex(UPItems.PSILO_FLASK);
-        singleTex(UPItems.OPHIO_FLASK);
-        singleTex(UPItems.DIPLO_FLASK);
-        singleTex(UPItems.HYNERP_FLASK);
-        singleTex(UPItems.BALAUR_FLASK);
+        singleTex(UPItems.LEEDS_CAVIAR);
+
+        singleTex(UPItems.DRYO_SIGN);
+        singleTex(UPItems.DRYO_HANGING_SIGN);
+        singleTex(UPItems.DRYO_BOAT);
+        singleTex(UPItems.DRYO_CHEST_BOAT);
+
+        singleTex(UPItems.GINKGO_SIGN);
+        singleTex(UPItems.GINKGO_HANGING_SIGN);
+        singleTex(UPItems.GINKGO_BOAT);
+        singleTex(UPItems.GINKGO_CHEST_BOAT);
+
+        singleTex(UPItems.FOXXI_BOAT);
+        singleTex(UPItems.FOXXI_CHEST_BOAT);
+        singleTex(UPItems.FOXII_SIGN);
+        singleTex(UPItems.FOXII_HANGING_SIGN);
+
+        singleTex(UPItems.PETRIFIED_WOOD_SIGN);
+        singleTex(UPItems.PETRIFIED_WOOD_HANGING_SIGN);
+
+        singleTex(UPItems.ZULOAGAE_SIGN);
+        singleTex(UPItems.ZULOAGAE_HANGING_SIGN);
+        singleTex(UPItems.PSITTACOSAURUS_QUILL);
         singleTex(UPItems.PSITTACCO_ARROW);
         singleTex(UPItems.AMBER_IDOL);
-        singleTex(UPItems.LEEDS_CAVIAR);
-        singleTex(UPItems.LEEDS_SLICE);
-        //singleTex(UPItems.PTERY_FLASK);
-        //singleTex(UPItems.EDAPHO_FLASK);
-        //singleTex(UPItems.PTERYDACTYLUS_FLASK);
-        //singleTex(UPItems.ERETMORPHIS_FLASK);
-        singleTex(UPItems.LEEDS_FLASK);
-        singleTex(UPItems.PTERODAUSTRO_FLASK);
-        //singleTex(UPItems.XIPHACT_FLASK);
-        //singleTex(UPItems.OVIRAPTOR_FLASK);
-        //singleTex(UPItems.GLOBIDENS_FLASK);
-        singleTex(UPItems.ARCHELON_FLASK);
-        //singleTex(UPItems.ESTEMMENO_FLASK);
-        //singleTex(UPItems.ARTHROPLEURA_FLASK);
-        //singleTex(UPItems.SCUTO_FLASK);
-        singleTex(UPItems.HYNERIA_FLASK);
-        singleTex(UPItems.PROTOSPHYRAENA_FLASK);
-        singleTex(UPItems.KIMMER_FLASK);
-        //singleTex(UPItems.ENCHODUS_FLASK);
-        //singleTex(UPItems.IGUANODON_FLASK);
-        singleTex(UPItems.SMITHING_TEMPLATE_UPGRADE_TRIKE_SHIELD);
-        toBlockModel(UPBlocks.ELECTRIC_PILLAR, "electric_pillar_bottom");
-        for(RegistryObject<?> object : UPEntities.dinos) {
-                addDinoEgg(object.getId());
-        }
+        singleTex(UPItems.QUILL_REMEDY);
 
+        toBlock(UPBlocks.STONE_FOSSIL);
+        toBlock(UPBlocks.DEEPSLATE_FOSSIL);
+        toBlock(UPBlocks.PLANT_FOSSIL);
+        toBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL);
+        toBlock(UPBlocks.STONE_TAR_FOSSIL);
+        toBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL);
+        toBlock(UPBlocks.PERMAFROST);
+        toBlock(UPBlocks.PERMAFROST_FOSSIL);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());
@@ -119,17 +183,27 @@ public class ItemModelGenerator extends ItemModelProvider {
         withExistingParent(b.getId().getPath(), model);
     }
 
-
-    public void addDinoEgg(Supplier<? extends EntityType<?>> dino) {
+    public void addPrehistoricEgg(Supplier<? extends EntityType<?>> dino) {
         generated( dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_entity_egg", prefix("item/" + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "")  + "_egg"));
     }
-    public void addDinoEgg(ResourceLocation dino) {
-        generated( dino.getPath() + "_entity_egg", prefix("item/" + dino.getPath()  + "_egg"));
+    public void addPrehistoricEgg(ResourceLocation dino) {
+        generated( dino.getPath() + "_egg", prefix("item/eggs/" + dino.getPath()  + "_egg"));
     }
-
 
     private ItemModelBuilder singleTex(RegistryObject<Item> item) {
         return generated(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder flaskTex(RegistryObject<Item> item) {
+        return generated(item.getId().getPath(), prefix("item/flasks/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder eggTex(RegistryObject<Item> item) {
+        return generated(item.getId().getPath(), prefix("item/eggs/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder embryoTex(RegistryObject<Item> item) {
+        return generated(item.getId().getPath(), prefix("item/embryos/" + item.getId().getPath()));
     }
 
     private ItemModelBuilder generated(String name, ResourceLocation... layers) {

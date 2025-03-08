@@ -13,141 +13,192 @@ public class UPSounds {
     public static final DeferredRegister<SoundEvent> DEF_REG = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, UnusualPrehistory.MODID);
 
     public static final RegistryObject<SoundEvent> MAJUNGA_IDLE = createSoundEvent("majunga_idle");
-
     public static final RegistryObject<SoundEvent> MAJUNGA_HURT = createSoundEvent("majunga_hurt");
-
     public static final RegistryObject<SoundEvent> MAJUNGA_ATTACK = createSoundEvent("majunga_attack");
-
     public static final RegistryObject<SoundEvent> MAJUNGA_DEATH = createSoundEvent("majunga_death");
-
     public static final RegistryObject<SoundEvent> MAJUNGA_STEP = createSoundEvent("majunga_step");
 
     public static final RegistryObject<SoundEvent> ANURO_IDLE = createSoundEvent("anuro_idle");
-
     public static final RegistryObject<SoundEvent> ANURO_HURT = createSoundEvent("anuro_hurt");
-
     public static final RegistryObject<SoundEvent> ANURO_DEATH = createSoundEvent("anuro_death");
 
     public static final RegistryObject<SoundEvent> COTY_IDLE = createSoundEvent("coty_idle");
-
     public static final RegistryObject<SoundEvent> COTY_HURT = createSoundEvent("coty_hurt");
-
     public static final RegistryObject<SoundEvent> COTY_DEATH = createSoundEvent("coty_death");
+
+    // TODO: needs sneeze sound and stretch sound
+    public static final RegistryObject<SoundEvent> EDAPHO_IDLE = createSoundEvent("edaphosaurus_idle");
+    public static final RegistryObject<SoundEvent> EDAPHO_HURT = createSoundEvent("edaphosaurus_hurt");
+    public static final RegistryObject<SoundEvent> EDAPHO_DEATH = createSoundEvent("edaphosaurus_death");
+
+    // TODO: needs bellow sound and yawn sound
+    public static final RegistryObject<SoundEvent> ESTEMME_IDLE = createSoundEvent("estemmenosuchus_idle");
+    public static final RegistryObject<SoundEvent> ESTEMME_HURT = createSoundEvent("estemmenosuchus_hurt");
+    public static final RegistryObject<SoundEvent> ESTEMME_DEATH = createSoundEvent("estemmenosuchus_death");
+
+    public static final RegistryObject<SoundEvent> AMMONITE_HURT = createSoundEvent("ammonite_hurt");
+    public static final RegistryObject<SoundEvent> AMMONITE_DEATH = createSoundEvent("ammonite_death");
+    public static final RegistryObject<SoundEvent> AMMONITE_FLOP = createSoundEvent("ammonite_flop");
+
+    public static final RegistryObject<SoundEvent> GLOBIDENS_HURT = createSoundEvent("globidens_hurt");
+    public static final RegistryObject<SoundEvent> GLOBIDENS_DEATH = createSoundEvent("globidens_death");
+    public static final RegistryObject<SoundEvent> GLOBIDENS_IDLE = createSoundEvent("globidens_idle");
 
     public static final RegistryObject<SoundEvent> DUNK_ATTACK = createSoundEvent("dunk_attack");
     public static final RegistryObject<SoundEvent> DUNK_DEATH = createSoundEvent("dunk_death");
     public static final RegistryObject<SoundEvent> DUNK_HURT = createSoundEvent("dunk_hurt");
 
+    public static final RegistryObject<SoundEvent> DIPLO_IDLE = createSoundEvent("diplo_idle");
+    public static final RegistryObject<SoundEvent> DIPLO_HURT = createSoundEvent("diplo_death");
+    public static final RegistryObject<SoundEvent> DIPLO_DEATH = createSoundEvent("diplo_hurt");
+
+    public static final RegistryObject<SoundEvent> HYNERIA_ATTACK = createSoundEvent("hyneria_attack");
+    public static final RegistryObject<SoundEvent> HYNERIA_HURT = createSoundEvent("hyneria_hurt");
+    public static final RegistryObject<SoundEvent> HYNERIA_DEATH = createSoundEvent("hyneria_death");
+    public static final RegistryObject<SoundEvent> HYNERIA_JUMP = createSoundEvent("hyneria_jump");
+
     public static final RegistryObject<SoundEvent> BEELZE_IDLE = createSoundEvent("beelze_idle");
-
     public static final RegistryObject<SoundEvent> BEELZE_HURT = createSoundEvent("beelze_hurt");
-
     public static final RegistryObject<SoundEvent> BEELZE_ATTACK = createSoundEvent("beelze_attack");
-
     public static final RegistryObject<SoundEvent> BEELZE_DEATH = createSoundEvent("beelze_death");
 
-    public static final RegistryObject<SoundEvent> REX_BITE = createSoundEvent("rex_bite");
-    public static final RegistryObject<SoundEvent> REX_DEATH = createSoundEvent("rex_death");
-    public static final RegistryObject<SoundEvent> REX_HURT = createSoundEvent("rex_hurt");
-    public static final RegistryObject<SoundEvent> REX_IDLE = createSoundEvent("rex_idle");
-    public static final RegistryObject<SoundEvent> REX_STEP = createSoundEvent("rex_step");
-    public static final RegistryObject<SoundEvent> REX_STOMP_ATTACK = createSoundEvent("rex_stomp_attack");
-    public static final RegistryObject<SoundEvent> REX_TAIL_SWIPE = createSoundEvent("rex_tail_swipe");
+    public static final RegistryObject<SoundEvent> TYRANNO_BITE = createSoundEvent("tyrannosaurus_bite");
+    public static final RegistryObject<SoundEvent> TYRANNO_DEATH = createSoundEvent("tyrannosaurus_death");
+    public static final RegistryObject<SoundEvent> TYRANNO_HURT = createSoundEvent("tyrannosaurus_hurt");
+    public static final RegistryObject<SoundEvent> TYRANNO_IDLE = createSoundEvent("tyrannosaurus_idle");
+    public static final RegistryObject<SoundEvent> TYRANNO_STEP = createSoundEvent("tyrannosaurus_step");
+    public static final RegistryObject<SoundEvent> TYRANNO_STOMP_ATTACK = createSoundEvent("tyrannosaurus_stomp_attack");
+    public static final RegistryObject<SoundEvent> TYRANNO_TAIL_SWIPE = createSoundEvent("tyrannosaurus_tail_swipe");
+    public static final RegistryObject<SoundEvent> TYRANNO_REVIVE = createSoundEvent("tyrannosaurus_revive");
+    public static final RegistryObject<SoundEvent> TYRANNO_ROAR = createSoundEvent("tyrannosaurus_roar");
+    public static final RegistryObject<SoundEvent> TYRANNO_SNIFF = createSoundEvent("tyrannosaurus_sniff");
+
     public static final RegistryObject<SoundEvent> TRIKE_DEATH = createSoundEvent("trike_death");
     public static final RegistryObject<SoundEvent> TRIKE_HURT = createSoundEvent("trike_hurt");
     public static final RegistryObject<SoundEvent> TRIKE_IDLE = createSoundEvent("trike_idle");
+
     public static final RegistryObject<SoundEvent> BRACHI_DEATH = createSoundEvent("brachi_death");
     public static final RegistryObject<SoundEvent> BRACHI_HURT = createSoundEvent("brachi_hurt");
     public static final RegistryObject<SoundEvent> BRACHI_IDLE = createSoundEvent("brachi_idle");
     public static final RegistryObject<SoundEvent> BRACHI_STEP = createSoundEvent("brachi_step");
     public static final RegistryObject<SoundEvent> BRACHI_TOSS = createSoundEvent("brachi_toss");
+    public static final RegistryObject<SoundEvent> BRACHI_STOMP = createSoundEvent("brachi_stomp");
+
+    public static final RegistryObject<SoundEvent> LEEDS_HURT = createSoundEvent("leedsichthys_hurt");
+    public static final RegistryObject<SoundEvent> LEEDS_IDLE = createSoundEvent("leedsichthys_idle");
+    public static final RegistryObject<SoundEvent> LEEDS_FLOP = createSoundEvent("leedsichthys_flop");
+    public static final RegistryObject<SoundEvent> LEEDS_DEATH = createSoundEvent("leedsichthys_death");
+
     public static final RegistryObject<SoundEvent> ENCRUSTED_DEATH = createSoundEvent("encrusted_death");
     public static final RegistryObject<SoundEvent> ENCRUSTED_HURT = createSoundEvent("encrusted_hurt");
     public static final RegistryObject<SoundEvent> ENCRUSTED_IDLE = createSoundEvent("encrusted_idle");
     public static final RegistryObject<SoundEvent> ENCRUSTED_MELEE = createSoundEvent("encrusted_step");
     public static final RegistryObject<SoundEvent> ENCRUSTED_SPIT = createSoundEvent("encrusted_spit");
-    public static final RegistryObject<SoundEvent> RAPTOR_ATTACK = createSoundEvent("raptor_attack");
-    public static final RegistryObject<SoundEvent> RAPTOR_DEATH = createSoundEvent("raptor_death");
-    public static final RegistryObject<SoundEvent> RAPTOR_HURT = createSoundEvent("raptor_hurt");
-    public static final RegistryObject<SoundEvent> RAPTOR_IDLE = createSoundEvent("raptor_idle");
-    public static final RegistryObject<SoundEvent> RAPTOR_SEARCH = createSoundEvent("raptor_search");
+
+    public static final RegistryObject<SoundEvent> RAPTOR_ATTACK = createSoundEvent("velociraptor_attack");
+    public static final RegistryObject<SoundEvent> RAPTOR_DEATH = createSoundEvent("velociraptor_death");
+    public static final RegistryObject<SoundEvent> RAPTOR_HURT = createSoundEvent("velociraptor_hurt");
+    public static final RegistryObject<SoundEvent> RAPTOR_IDLE = createSoundEvent("velociraptor_idle");
+    public static final RegistryObject<SoundEvent> RAPTOR_SEARCH = createSoundEvent("velociraptor_search");
+
     public static final RegistryObject<SoundEvent> PACHY_DEATH = createSoundEvent("pachy_death");
     public static final RegistryObject<SoundEvent> PACHY_HEADBUTT = createSoundEvent("pachy_headbutt");
-    public static final RegistryObject<SoundEvent>PACHY_HURT = createSoundEvent("pachy_hurt");
+    public static final RegistryObject<SoundEvent> PACHY_HURT = createSoundEvent("pachy_hurt");
     public static final RegistryObject<SoundEvent> PACHY_IDLE = createSoundEvent("pachy_idle");
     public static final RegistryObject<SoundEvent> PACHY_KICK = createSoundEvent("pachy_kick");
+
     public static final RegistryObject<SoundEvent> ERYON_DEATH = createSoundEvent("eryon_death");
     public static final RegistryObject<SoundEvent> ERYON_HURT = createSoundEvent("eryon_hurt");
     public static final RegistryObject<SoundEvent> ERYON_IDLE = createSoundEvent("eryon_idle");
+
     public static final RegistryObject<SoundEvent> AUSTRO_BITE = createSoundEvent("austro_bite");
     public static final RegistryObject<SoundEvent> AUSTRO_DEATH = createSoundEvent("austro_death");
     public static final RegistryObject<SoundEvent> AUSTRO_HURT = createSoundEvent("austro_hurt");
     public static final RegistryObject<SoundEvent> AUSTRO_IDLE = createSoundEvent("austro_idle");
     public static final RegistryObject<SoundEvent> AUSTRO_PREEN = createSoundEvent("austro_preen");
+
     public static final RegistryObject<SoundEvent> HWACHA_DEATH = createSoundEvent("hwacha_death");
     public static final RegistryObject<SoundEvent> HWACHA_HURT = createSoundEvent("hwacha_hurt");
     public static final RegistryObject<SoundEvent> HWACHA_IDLE = createSoundEvent("hwacha_idle");
     public static final RegistryObject<SoundEvent> HWACHA_SHOOT = createSoundEvent("hwacha_shoot");
+
     public static final RegistryObject<SoundEvent> KENTRO_DEATH = createSoundEvent("kentro_death");
     public static final RegistryObject<SoundEvent> KENTRO_HURT = createSoundEvent("kentro_hurt");
     public static final RegistryObject<SoundEvent> KENTRO_IDLE = createSoundEvent("kentro_idle");
     public static final RegistryObject<SoundEvent> TAIL_SWIPE = createSoundEvent("tail_swipe");
+
     public static final RegistryObject<SoundEvent> ULUGH_BITE = createSoundEvent("ulugh_bite");
     public static final RegistryObject<SoundEvent> ULUGH_DEATH = createSoundEvent("ulugh_death");
     public static final RegistryObject<SoundEvent> ULUGH_HURT = createSoundEvent("ulugh_hurt");
     public static final RegistryObject<SoundEvent> ULUGH_IDLE = createSoundEvent("ulugh_idle");
     public static final RegistryObject<SoundEvent> ULUGH_STEP = createSoundEvent("ulugh_step");
+
     public static final RegistryObject<SoundEvent> ANTARCTO_DEATH = createSoundEvent("antarcto_death");
     public static final RegistryObject<SoundEvent> ANTARCTO_HURT = createSoundEvent("antarcto_hurt");
     public static final RegistryObject<SoundEvent> ANTARCTO_IDLE = createSoundEvent("antarcto_idle");
+
     public static final RegistryObject<SoundEvent> REX_BOOMBOX = createSoundEvent("rex_boombox");
+
     public static final RegistryObject<SoundEvent> GIGANTO_DEATH = createSoundEvent("giganto_death");
     public static final RegistryObject<SoundEvent> GIGANTO_HURT = createSoundEvent("giganto_hurt");
     public static final RegistryObject<SoundEvent> GIGANTO_IDLE = createSoundEvent("giganto_idle");
     public static final RegistryObject<SoundEvent> GIGANTO_TRADE = createSoundEvent("giganto_trade");
+
     public static final RegistryObject<SoundEvent> MAMMOTH_DEATH = createSoundEvent("mammoth_death");
     public static final RegistryObject<SoundEvent> MAMMOTH_HURT = createSoundEvent("mammoth_hurt");
     public static final RegistryObject<SoundEvent> MAMMOTH_IDLE = createSoundEvent("mammoth_idle");
+
     public static final RegistryObject<SoundEvent> PARACER_DEATH = createSoundEvent("paracer_death");
     public static final RegistryObject<SoundEvent> PARACER_HURT = createSoundEvent("paracer_hurt");
     public static final RegistryObject<SoundEvent> PARACER_IDLE = createSoundEvent("paracer_idle");
     public static final RegistryObject<SoundEvent> PARACER_STOMP = createSoundEvent("paracer_stomp");
+
     public static final RegistryObject<SoundEvent> TALPANAS_DEATH = createSoundEvent("talpanas_death");
     public static final RegistryObject<SoundEvent> TALPANAS_HURT = createSoundEvent("talpanas_hurt");
     public static final RegistryObject<SoundEvent> TALPANAS_IDLE = createSoundEvent("talpanas_idle");
     public static final RegistryObject<SoundEvent> TALPANAS_PANIC = createSoundEvent("talpanas_panic");
+
     public static final RegistryObject<SoundEvent> CROCARINA = createSoundEvent("crocarina");
+
     public static final RegistryObject<SoundEvent> BARINA_DEATH = createSoundEvent("barina_death");
     public static final RegistryObject<SoundEvent> BARINA_HURT = createSoundEvent("barina_hurt");
     public static final RegistryObject<SoundEvent> BARINA_IDLE = createSoundEvent("barina_idle");
+    public static final RegistryObject<SoundEvent> BARINA_BITE = createSoundEvent("barina_bite");
 
     public static final RegistryObject<SoundEvent> MEGATHER_DEATH = createSoundEvent("megather_death");
     public static final RegistryObject<SoundEvent> MEGATHER_HURT = createSoundEvent("megather_hurt");
     public static final RegistryObject<SoundEvent> MEGATHER_IDLE = createSoundEvent("megather_idle");
+
     public static final RegistryObject<SoundEvent> SMILODON_DEATH = createSoundEvent("smilodon_death");
     public static final RegistryObject<SoundEvent> SMILODON_HURT = createSoundEvent("smilodon_hurt");
     public static final RegistryObject<SoundEvent> SMILODON_IDLE = createSoundEvent("smilodon_idle");
+
     public static final RegistryObject<SoundEvent> ZULOGAE_DISC = createSoundEvent("zulogae_disc");
+
     public static final RegistryObject<SoundEvent> ENCASED_DISC = createSoundEvent("encased_disc");
 
     public static final RegistryObject<SoundEvent> PALAEO_DEATH = createSoundEvent("palaeo_death");
     public static final RegistryObject<SoundEvent> PALAEO_BITE = createSoundEvent("palaeo_bite");
     public static final RegistryObject<SoundEvent> PALAEO_HURT = createSoundEvent("palaeo_hurt");
     public static final RegistryObject<SoundEvent> PALAEO_IDLE = createSoundEvent("palaeo_idle");
+
     public static final RegistryObject<SoundEvent> TAR_POP = createSoundEvent("tar_pop");
     public static final RegistryObject<SoundEvent> TAR_AMBIENT = createSoundEvent("tar_ambient");
 
     public static final RegistryObject<SoundEvent> MEGALANIA_DEATH = createSoundEvent("megalania_death");
     public static final RegistryObject<SoundEvent> MEGALANIA_HURT = createSoundEvent("megalania_hurt");
     public static final RegistryObject<SoundEvent> MEGALANIA_IDLE = createSoundEvent("megalania_idle");
+    public static final RegistryObject<SoundEvent> MEGALANIA_BITE = createSoundEvent("megalania_bite");
 
     public static final RegistryObject<SoundEvent> SLUDGE_DEATH = createSoundEvent("sludge_death");
     public static final RegistryObject<SoundEvent> SLUDGE_HURT = createSoundEvent("sludge_hurt");
     public static final RegistryObject<SoundEvent> SLUDGE_IDLE = createSoundEvent("sludge_idle");
     public static final RegistryObject<SoundEvent> SLUDGE_SLAM = createSoundEvent("sludge_slam");
     public static final RegistryObject<SoundEvent> SLUDGE_SLAP = createSoundEvent("sludge_slap");
+
     public static final RegistryObject<SoundEvent> JARATE_EXPLODE = createSoundEvent("jarate_explode");
     public static final RegistryObject<SoundEvent> JARATE_SNIPER = createSoundEvent("jarate_sniper");
+
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));
     }

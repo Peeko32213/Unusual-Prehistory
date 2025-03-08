@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.world.feature;
 
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.common.entity.EntitySludge;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.SludgeEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;
@@ -96,15 +96,15 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
                                 worldgenlevel.setBlock(pos, block4, 3);
                             }
                         }// else{
-                         //   worldgenlevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                        //   worldgenlevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                         //}//
                     }
 
-                    }
-
                 }
+
             }
         }
+    }
 
     private static void preProcessTarFeature(WorldGenLevel worldgenlevel, BlockPos origin, RandomSource random, int radius, int height, FastNoiseLite noise, FastNoiseLite noise2, boolean finalSection) {
         // Define additional block states for the iceberg section
@@ -167,7 +167,7 @@ public class TarPitFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     private static void spawnTarMonster(WorldGenLevel worldgenlevel, BlockPos origin){
-        EntitySludge sludge = UPEntities.SLUDGE.get().create(worldgenlevel.getLevel());
+        SludgeEntity sludge = UPEntities.SLUDGE.get().create(worldgenlevel.getLevel());
         sludge.requiresCustomPersistence();
         sludge.setPersistenceRequired();
         sludge.setPos(Vec3.atCenterOf(origin));

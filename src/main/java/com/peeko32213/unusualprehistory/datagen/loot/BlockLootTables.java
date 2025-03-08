@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.datagen.loot;
 
-import com.peeko32213.unusualprehistory.common.block.BlockDinosaurLandEggs;
-import com.peeko32213.unusualprehistory.common.block.BlockDinosaurWaterEggs;
+import com.peeko32213.unusualprehistory.common.block.custom.DinosaurLandEggBlock;
+import com.peeko32213.unusualprehistory.common.block.custom.DinosaurWaterEggBlock;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -25,6 +25,7 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,7 +39,7 @@ public class BlockLootTables extends BlockLootSubProvider {
     }
 
     @Override
-    protected void add(Block pBlock, LootTable.Builder pBuilder) {
+    protected void add(@NotNull Block pBlock, LootTable.@NotNull Builder pBuilder) {
         super.add(pBlock, pBuilder);
         knownBlocks.add(pBlock);
     }
@@ -75,9 +76,8 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.FOXXI_PLANKS.get());
         dropSelf(UPBlocks.FOXXI_STAIRS.get());
         dropSelf(UPBlocks.FOXXI_TRAPDOOR.get());
-        dropSelf(UPBlocks.FOXXI_SIGN.get());
-        dropSelf(UPBlocks.FOXXI_WALL_SIGN.get());
-        dropSelf(UPBlocks.FOXII_SAPLING.get());
+        dropSelf(UPBlocks.FOXII_SIGN.get());
+        dropSelf(UPBlocks.FOXII_WALL_SIGN.get());
 
         dropSelf(UPBlocks.OPAL_BLOCK.get());
         dropSelf(UPBlocks.DRYO_WOOD.get());
@@ -130,7 +130,6 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.ZULOAGAE_PLANKS.get());
         dropSelf(UPBlocks.ZULOAGAE_STAIRS.get());
         dropSelf(UPBlocks.ZULOAGAE_TRAPDOOR.get());
-        dropSelf(UPBlocks.ZULOAGAE_DOOR.get());
         dropSelf(UPBlocks.AMBER_BLOCK.get());
         dropSelf(UPBlocks.OPAL_BLOCK.get());
         createPotFlowerItemTable(UPBlocks.POTTED_ARCHAEOSIGILARIA.get(),UPBlocks.ARCHAEOSIGILARIA.get());
@@ -145,7 +144,7 @@ public class BlockLootTables extends BlockLootSubProvider {
         createPotFlowerItemTable(UPBlocks.POTTED_DRYO.get(),UPBlocks.DRYO_SAPLING.get());
 
         for(RegistryObject<Block> blockRegistryObject : UPBlocks.BLOCKS.getEntries()) {
-            if(blockRegistryObject.get() instanceof BlockDinosaurLandEggs || blockRegistryObject.get() instanceof BlockDinosaurWaterEggs) {
+            if(blockRegistryObject.get() instanceof DinosaurLandEggBlock || blockRegistryObject.get() instanceof DinosaurWaterEggBlock) {
                 createSingleItemTableSilkTouch(blockRegistryObject.get(), Items.AIR);
             }
         }
@@ -194,7 +193,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 
 
     @Override
-    protected Iterable<Block> getKnownBlocks() {
+    protected @NotNull Iterable<Block> getKnownBlocks() {
         return knownBlocks;
     }
 }

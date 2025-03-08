@@ -1,40 +1,42 @@
 package com.peeko32213.unusualprehistory.client.event;
 
+import com.peeko32213.unusualprehistory.ClientProxy;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.*;
+import com.peeko32213.unusualprehistory.client.model.entity.*;
+import com.peeko32213.unusualprehistory.client.model.entity.egg.PrehistoricEggModel;
 import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergMammothModel;
 import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergSmilodonModel;
 import com.peeko32213.unusualprehistory.client.model.plant.PlantModel;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
-import com.peeko32213.unusualprehistory.client.overlay.TarOverlay;
 import com.peeko32213.unusualprehistory.client.particles.ElectricAttackParticle;
 import com.peeko32213.unusualprehistory.client.particles.ElectricOrbitParticle;
 import com.peeko32213.unusualprehistory.client.particles.TarBubbleParticle;
 import com.peeko32213.unusualprehistory.client.render.UPRenderUtils;
-import com.peeko32213.unusualprehistory.client.render.arrow.PsittaccoArrowRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
-import com.peeko32213.unusualprehistory.client.render.block.ThrowableFallingBlockRenderer;
-import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.*;
-import com.peeko32213.unusualprehistory.client.render.egg.DinosaurLandEggRenderer;
+import com.peeko32213.unusualprehistory.client.render.block.PlantEntityRenderer;
+import com.peeko32213.unusualprehistory.client.render.egg.PrehistoricEggRenderer;
+import com.peeko32213.unusualprehistory.client.render.prehistoric.*;
+import com.peeko32213.unusualprehistory.client.render.projectile.*;
 import com.peeko32213.unusualprehistory.client.render.tool.FlatMovingThrownItemRenderer;
+import com.peeko32213.unusualprehistory.client.render.tool.UPBoatRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
-import com.peeko32213.unusualprehistory.common.entity.EntityAnurognathus;
-import com.peeko32213.unusualprehistory.common.entity.EntityPterodaustro;
-import com.peeko32213.unusualprehistory.common.entity.EntityScaumenacia;
-import com.peeko32213.unusualprehistory.common.entity.EntityStethacanthus;
+import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -46,17 +48,26 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.awt.event.KeyEvent;
-
-import static com.peeko32213.unusualprehistory.core.registry.UPWoodTypes.*;
+import java.util.Arrays;
+import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class ClientEvents {
 
-
-    public static void init(FMLClientSetupEvent event) {
+    @SubscribeEvent
+    public static void init(final FMLClientSetupEvent event) {
         UPItemProperties.addItemProperties();
+        BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
+        BlockEntityRenderers.register(UPBlockEntities.UP_HANGING_SIGN.get(), HangingSignRenderer::new);
+        event.enqueueWork(() -> {
+            Sheets.addWoodType(UPBlockSetType.DRYO);
+            Sheets.addWoodType(UPBlockSetType.FOXII);
+            Sheets.addWoodType(UPBlockSetType.GINKGO);
+            Sheets.addWoodType(UPBlockSetType.PETRIFIED);
+            Sheets.addWoodType(UPBlockSetType.ZULOAGAE);
+        });
+        ClientProxy.setupBlockRenders();
     }
-
 
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {
@@ -66,12 +77,9 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.AMON_EGGS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.DUNK_EGGS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.SCAU_EGGS.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(UPBlocks.FURCACAUDA_EGGS.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(UPBlocks.OPHIDION_EGGS.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(UPBlocks.DIPLOCAULUS_EGGS.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(UPBlocks.HYNERIA_EGGS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.KIMMER_EGGS.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(UPBlocks.TARTUO_EGGS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.DIPLOCAULUS_EGGS.get(), RenderType.cutout());
+//        ItemBlockRenderTypes.setRenderLayer(UPBlocks.FURCACAUDA_EGGS.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.GINKGO_DOOR.get(), RenderType.cutout());
@@ -133,6 +141,7 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.POTTED_PETRIFIED_BUSH.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.AMBER_GLASS.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(UPBlocks.AMBER_GLASS_PANE.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.CULTIVATOR.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.DRYO_SAPLING.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.FOXII_SAPLING.get(), RenderType.cutout());
@@ -142,26 +151,35 @@ public final class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.RAIGUENRAYUN.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(UPBlocks.SPLATTERED_TAR.get(), RenderType.translucent());
 
-        ItemBlockRenderTypes.setRenderLayer(UPBlocks.FURCACAUDA_EGGS.get(), RenderType.cutout());
+//        ItemBlockRenderTypes.setRenderLayer(UPBlocks.FURCACAUDA_EGGS.get(), RenderType.cutout());
+
+//        ItemBlockRenderTypes.setRenderLayer(UPBlocks.OPHIDION_EGGS.get(), RenderType.cutout());
+//        ItemBlockRenderTypes.setRenderLayer(UPBlocks.HYNERIA_EGGS.get(), RenderType.cutout());
+//        ItemBlockRenderTypes.setRenderLayer(UPBlocks.TARTUO_EGGS.get(), RenderType.cutout());
 
         MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
         MenuScreens.register(UPMenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
         MenuScreens.register(UPMenuTypes.DNA_FRIDGE_MENU.get(), DNAFridgeScreen::new);
 
+        WoodType.register(UPBlockSetType.DRYO);
+        WoodType.register(UPBlockSetType.FOXII);
+        WoodType.register(UPBlockSetType.GINKGO);
+        WoodType.register(UPBlockSetType.PETRIFIED);
+        WoodType.register(UPBlockSetType.ZULOAGAE);
 
-        WoodType.register(UPWoodTypes.GINKGO);
-        WoodType.register(UPWoodTypes.PETRIFIED);
-        WoodType.register(UPWoodTypes.FOXXI);
-        WoodType.register(UPWoodTypes.DRYO);
+        Sheets.addWoodType(UPBlockSetType.DRYO);
+        Sheets.addWoodType(UPBlockSetType.FOXII);
+        Sheets.addWoodType(UPBlockSetType.GINKGO);
+        Sheets.addWoodType(UPBlockSetType.PETRIFIED);
+        Sheets.addWoodType(UPBlockSetType.ZULOAGAE);
+    }
 
-        Sheets.addWoodType(GINKGO);
-        Sheets.addWoodType(DRYO);
-        Sheets.addWoodType(FOXXI);
-        Sheets.addWoodType(PETRIFIED);
-
-       BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
-
-
+    @SubscribeEvent
+    public static void registerBER(EntityRenderersEvent.RegisterRenderers event){
+        BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
+        BlockEntityRenderers.register(UPBlockEntities.UP_HANGING_SIGN.get(), HangingSignRenderer::new);
+        BlockEntityRenderers.register(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
+        BlockEntityRenderers.register(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);
     }
 
     @SubscribeEvent
@@ -170,158 +188,115 @@ public final class ClientEvents {
         event.registerSpecial(UPParticles.ELECTRIC_ORBIT.get(), new ElectricOrbitParticle.PillarFactory());
         event.registerSpecial(UPParticles.ELECTRIC_ATTACK.get(), new ElectricAttackParticle.ElectricAttackFactory());
     }
-    private static final ResourceLocation TRICERATOPS_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops_saddle.png");
-    private static final ResourceLocation TRICERATOPS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/trike.geo.json");
-    private static final ResourceLocation ULUGH_JEB_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus_jeb.png");
-    private static final ResourceLocation ULUGH_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus_saddled.png");
+
+    private static final ResourceLocation ULUGH_JEB_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus/ulughbegsaurus_jeb_overlay.png");
+    private static final ResourceLocation ULUGH_JEB = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus/ulughbegsaurus_jeb.png");
     private static final ResourceLocation ULUGH_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/ulughbegsaurus.geo.json");
+
     private static final ResourceLocation HWACHA_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/hwachavenator_saddled.png");
     private static final ResourceLocation HWACHA_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/hwachavenator.geo.json");
-    private static final ResourceLocation MEGATHERIUM_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium_saddled.png");
-    private static final ResourceLocation MEGATHERIUM_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium.geo.json");
-    private static final ResourceLocation OTAROCYCON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/otarocyon.geo.json");
-    private static final ResourceLocation KAPROSUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kaprosuchus.geo.json");
 
-    private static final ResourceLocation BALAUR_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/balaur.geo.json");
+    private static final ResourceLocation MEGATHERIUM_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium/megatherium_saddled.png");
+    private static final ResourceLocation MEGATHERIUM_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium/megatherium.geo.json");
 
-    private static final ResourceLocation BARINASUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/barinasuchus.geo.json");
     private static final ResourceLocation BEELZE_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_saddle.png");
     private static final ResourceLocation BEELZE_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/beelzebufo.geo.json");
+
+    private static final ResourceLocation KAPROSUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kaprosuchus.geo.json");
     private static final ResourceLocation ARCHELON_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/archelon.geo.json");
     private static final ResourceLocation ARCHELON_SADDLE_EMPTY_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/archelon_saddle_empty.png");
     private static final ResourceLocation ARCHELON_SADDLE_HEART_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/archelon_saddle_heart.png");
 
-
-    //private static final ResourceLocation BRACHI_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/brachiosaurus_saddle.png");
-    //private static final ResourceLocation BRACHI_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/brachi.geo.json");
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(UPEntities.STETHACANTHUS.get(), e -> new LivingEntityFishRenderer<>(e, new StethacanthusModel()));
-        event.registerEntityRenderer(UPEntities.MAJUNGA.get(), e -> new DinosaurRenderer<>(e, new MajungasaurusModel()));
-        event.registerEntityRenderer(UPEntities.ANURO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<EntityAnurognathus>(ModelLocations.ANURO)));
-        event.registerEntityRenderer(UPEntities.BEELZ.get(), e ->
-                UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.BEELZEBUFO))
-                        .withLayers(BEELZE_MODEL)
-                        .withSaddleLayer(BEELZE_SADDLE_OVERLAY).build());
 
-        event.registerEntityRenderer(UPEntities.AMMON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.AMMONITE)));
+        // Paleo mobs
+        event.registerEntityRenderer(UPEntities.AMMON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new AmmoniteModel()));
+        event.registerEntityRenderer(UPEntities.COTY.get(), e -> new PrehistoricRenderer<>(e, new CotylorhynchusModel()));
+        event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DiplocaulusModel()));
         event.registerEntityRenderer(UPEntities.DUNK.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DunkleosteusModel()));
-        event.registerEntityRenderer(UPEntities.COTY.get(), e -> new DinosaurRenderer<>(e, new CotylorhynchusModel()));
-        event.registerEntityRenderer(UPEntities.BEELZE_TADPOLE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BEELZEBUFO)));
         event.registerEntityRenderer(UPEntities.BABY_DUNK.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_DUNK)));
+        event.registerEntityRenderer(UPEntities.EDAPHOSAURUS.get(), e -> new StatedPrehistoricRenderer<>(e, new EdaphosaurusModel()));
+        event.registerEntityRenderer(UPEntities.ESTEMMENOSUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new EstemmenosuchusModel()));
+        event.registerEntityRenderer(UPEntities.HYNERIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new HyneriaModel()));
+        event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new PrehistoricRenderer<>(e, new HynerpetonModel()));
+        event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new JawlessFishModel()));
+        event.registerEntityRenderer(UPEntities.PTERYGOTUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PterygotusModel()));
         event.registerEntityRenderer(UPEntities.SCAU.get(), e -> new LivingEntityFishRenderer<>(e, new ScaumenaciaModel()));
-
-        event.registerEntityRenderer(UPEntities.TRIKE.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new TriceratopsModel())
-                        .withLayers(TRICERATOPS_MODEL)
-                        .withSaddleLayer(TRICERATOPS_SADDLE_OVERLAY).build());
-
-        event.registerEntityRenderer(UPEntities.PACHY.get(), e -> new DinosaurRenderer<>(e, new PachycephalosaurusModel()));
-        event.registerEntityRenderer(UPEntities.BRACHI.get(), BrachiosaurusRenderer::new);
-        event.registerEntityRenderer(UPEntities.BRACHI_TEEN.get(), BrachiosaurusTeenRenderer::new);
-        event.registerEntityRenderer(UPEntities.VELOCI.get(), e -> new DinosaurRenderer<>(e, new VelociraptorModel()));
-        event.registerEntityRenderer(UPEntities.REX.get(), TyrannosaurusRexRenderer::new);
-        event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
-        event.registerEntityRenderer(UPEntities.AMBER_SHOT.get(), AmberShotRenderer::new);
-        event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
-        event.registerEntityRenderer(UPEntities.BABY_BRACHI.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BRACHI)));
-        event.registerEntityRenderer(UPEntities.BABY_REX.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_REX)));
-        event.registerEntityRenderer(UPEntities.BABY_MEGATHERIUM.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_MEGATHERIUM)));
-        event.registerEntityRenderer(UPEntities.BABY_GIGANTO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_GIGAN)));
-        event.registerEntityRenderer(UPEntities.BABY_PARACER.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_PARACERATHERIUM)));
-        event.registerEntityRenderer(UPEntities.BABY_MEGALANIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_MEGALANIA)));
-        event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_PALEOLOPHIS)));
-        event.registerEntityRenderer(UPEntities.BABY_BARINA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BARINA)));
-        event.registerEntityRenderer(UPEntities.BABY_SMILODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new VariantModel<>(ModelLocations.BABY_SMILODON)));
-        event.registerEntityRenderer(UPEntities.BABY_MAMMOTH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e,  new DefaultModel<>(ModelLocations.BABY_MAMMOTH)));
-
-        event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
-        event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new DinosaurCutoutNoCullRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.AUSTRORAPTOR)));
-        event.registerEntityRenderer(UPEntities.ANTARCO.get(), e -> new DinosaurRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.ANTARCTOPELTA)));
-        event.registerEntityRenderer(UPEntities.ULUG.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new UlughbegsaurusModel())
-                        .withLayers(ULUGH_MODEL)
-                        .withSaddleLayer(ULUGH_SADDLE_OVERLAY)
-                        .withJebLayer(ULUGH_JEB_OVERLAY)
-                        .build());
-        event.registerEntityRenderer(UPEntities.KENTRO.get(), e -> new DinosaurRenderer<>(e, new KentrosaurusModel()));
-        event.registerEntityRenderer(UPEntities.HWACHA.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new HwachavenatorModel())
-                        .withLayers(HWACHA_MODEL)
-                        .withSaddleLayer(HWACHA_SADDLE_OVERLAY)
-                        .build());
-        event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new DinosaurRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
-        event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e ->
-                UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.GIGANTOPITHICUS))
-                        .withItemHoldingLayer()
-                        .build());
-
-        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new DefaultModel<>(ModelLocations.BARINASUCHUS))
-                        .withLayers(BARINASUCHUS_MODEL)
-                        .build());
-
-        event.registerEntityRenderer(UPEntities.PARACERATHERIUM.get(), e -> new DinosaurRenderer<>(e, new DefaultModel<>(ModelLocations.PARACERATHERIUM)));
-        event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new DefaultModel<>(ModelLocations.MEGATHERIUM))
-                        .withLayers(MEGATHERIUM_MODEL)
-                        .withSaddleLayer(MEGATHERIUM_SADDLE_OVERLAY)
-                        .build());
-
-        event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new DinosaurRenderer<>(e, new VariantModel<>(ModelLocations.SMILODON)));
-        event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e ->
-                UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.MAMMOTH))
-                        .withItemHoldingLayer()
-                        .build());
-
-        event.registerEntityRenderer(UPEntities.MEGALANIA.get(), MegalaniaRenderer::new);
-        event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new  AquaticRenderer(e, new DefaultModel(ModelLocations.PALAEOPHIS_HEAD)));
-        event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
-        event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.SLUDGE)));
-
-
-        event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));
-        event.registerEntityRenderer(UPEntities.ICEBERG_SMILODON.get(), e -> new LivingEntityRenderer<>(e, new IcebergSmilodonModel()));
-
-        event.registerEntityRenderer(UPEntities.OTAROCYON.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new OtarocyonModel())
-                        .withLayers(OTAROCYCON_MODEL)
-                        .build());
-
-        event.registerEntityRenderer(UPEntities.LONGISQUAMA.get(),
-                e -> new TameableDinosaurCutoutNoCullRenderer<>(e, new LongisquamaModel()));
+        event.registerEntityRenderer(UPEntities.STETHACANTHUS.get(), e -> new LivingEntityFishRenderer<>(e, new StethacanthusModel()));
         event.registerEntityRenderer(UPEntities.TARTUOSTEUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.TARTUOSTEUS)));
-        event.registerEntityRenderer(UPEntities.PSITTACO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsittacosaurusModel()));
-        event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));
-        event.registerEntityRenderer(UPEntities.KAPROSUCHUS.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new KaprosuchusModel())
-                        .withLayers(KAPROSUCHUS_MODEL)
-                        .build());
-        event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
-        event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.DIPLOCAULUS)));
-        event.registerEntityRenderer(UPEntities.BOOK_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BOOK_SNAKE)));
-        event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new NoOverlayRenderer<>(e, new DefaultModel<>(ModelLocations.HYPERNETON)));
-        event.registerEntityRenderer(UPEntities.BALAUR.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new BalaurModel())
-                        .withLayers(BALAUR_MODEL)
-                        .build());
-        event.registerEntityRenderer(UPEntities.OPHIODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OphiodonModel()));
-        event.registerEntityRenderer(UPEntities.PROTOSPHYRAENA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new ProtosphyraenaModel()));
-        event.registerEntityRenderer(UPEntities.ARCHELON.get(), e ->
-                UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel())
-                        .withLayers(ARCHELON_MODEL)
-                        .withSaddleLayer(ARCHELON_SADDLE_EMPTY_OVERLAY)
-                        .build());
 
+        // Meso mobs
+        event.registerEntityRenderer(UPEntities.ANTARCO.get(), e -> new PrehistoricRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.ANTARCTOPELTA)));
+        event.registerEntityRenderer(UPEntities.ANURO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.ANURO)));
+        event.registerEntityRenderer(UPEntities.ARCHELON.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel()).withLayers(ARCHELON_MODEL).withSaddleLayer(ARCHELON_SADDLE_EMPTY_OVERLAY).build());
+        event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new PrehistoricRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.AUSTRORAPTOR)));
+        event.registerEntityRenderer(UPEntities.BALAUR.get(), e -> new TameableDinosaurRenderer<>(e, new BalaurModel()));
+        event.registerEntityRenderer(UPEntities.BEELZ.get(), e -> UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.BEELZEBUFO)).withLayers(BEELZE_MODEL).withSaddleLayer(BEELZE_SADDLE_OVERLAY).build());
+        event.registerEntityRenderer(UPEntities.BEELZE_TADPOLE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BEELZEBUFO)));
+        event.registerEntityRenderer(UPEntities.BRACHI.get(), e -> new PrehistoricRenderer<>(e, new BrachiModel()));
+        event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new PrehistoricRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
+        event.registerEntityRenderer(UPEntities.GLOBIDENS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new GlobidensModel()));
+        event.registerEntityRenderer(UPEntities.HWACHA.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new HwachavenatorModel()).withLayers(HWACHA_MODEL).withSaddleLayer(HWACHA_SADDLE_OVERLAY).build());
+        event.registerEntityRenderer(UPEntities.KAPROSUCHUS.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new KaprosuchusModel()).withLayers(KAPROSUCHUS_MODEL).build());
+        event.registerEntityRenderer(UPEntities.KENTRO.get(), e -> new PrehistoricRenderer<>(e, new KentrosaurusModel()));
+        event.registerEntityRenderer(UPEntities.KIMMER.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
         event.registerEntityRenderer(UPEntities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
         event.registerEntityRenderer(UPEntities.LEEDS_PART.get(), LeedsichthysPartRender::new);
-        event.registerEntityRenderer(UPEntities.KIMMER.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
+        event.registerEntityRenderer(UPEntities.LONGISQUAMA.get(), e -> new TamableCutoutNoCullPrehistoricRenderer<>(e, new LongisquamaModel()));
+        event.registerEntityRenderer(UPEntities.MAJUNGA.get(), e -> new PrehistoricRenderer<>(e, new MajungasaurusModel()));
+        event.registerEntityRenderer(UPEntities.OVIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new OviraptorModel()));
+        event.registerEntityRenderer(UPEntities.PACHY.get(), e -> new PrehistoricRenderer<>(e, new PachycephalosaurusModel()));
+        event.registerEntityRenderer(UPEntities.PROTOSPHYRAENA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new ProtosphyraenaModel()));
+        event.registerEntityRenderer(UPEntities.PSITTACO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsittacosaurusModel()));
+        event.registerEntityRenderer(UPEntities.PTERODAUSTRO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.PTERODAUSTRO)));
+        event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));
+        event.registerEntityRenderer(UPEntities.TRICERATOPS.get(), e -> new TameableStatedPrehistoricRenderer<>(e, new TriceratopsModel()));
+        event.registerEntityRenderer(UPEntities.TYRANNOSAURUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TyrannosaurusModel()));
+        event.registerEntityRenderer(UPEntities.ULUG.get(), e -> UPRenderUtils.createTamableStatedDinosaurRenderer(e, new UlughbegsaurusModel()).withLayers(ULUGH_MODEL).withJebLayer(ULUGH_JEB_OVERLAY).build());
+        event.registerEntityRenderer(UPEntities.VELOCIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new VelociraptorModel()));
+        event.registerEntityRenderer(UPEntities.XIPH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new XiphactinusModel()));
 
-        event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new JawlessFishModel()));
-        event.registerEntityRenderer(UPEntities.PTERODAUSTRO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<EntityPterodaustro>(ModelLocations.PTERODAUSTRO)));
-        event.registerEntityRenderer(UPEntities.HYNERIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new HyneriaModel()));
+        // Ceno mobs
+        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BarinasuchusModel()));
+        event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e -> new PrehistoricRenderer<>(e, new GigantopithicusModel()));
+        event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e -> new PrehistoricRenderer<>(e, new MammothModel()));
+        event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new PrehistoricRenderer<>(e, new MegalaniaModel()));
+        event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new MegatheriumModel()).withLayers(MEGATHERIUM_MODEL).withSaddleLayer(MEGATHERIUM_SADDLE_OVERLAY).build());
+        event.registerEntityRenderer(UPEntities.OPHIODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OphiodonModel()));
+        event.registerEntityRenderer(UPEntities.OTAROCYON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OtarocyonModel()));
+        event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PalaeophisModel()));
+        event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);
+        event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BabyPalaeophisModel()));
+        event.registerEntityRenderer(UPEntities.PARACERATHERIUM.get(), e -> new PrehistoricRenderer<>(e, new ParaceratheriumModel()));
+        event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
+        event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new PrehistoricRenderer<>(e, new SmilodonModel()));
+        event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new PrehistoricRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
+        event.registerEntityRenderer(UPEntities.TELECREX.get(), e -> new PrehistoricRenderer<>(e, new TelecrexModel()));
 
-        //Plants
+        // Misc mobs
+        event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
+        event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.SLUDGE)));
+
+        // Non-living mobs
+        event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));
+        event.registerEntityRenderer(UPEntities.ICEBERG_SMILODON.get(), e -> new LivingEntityRenderer<>(e, new IcebergSmilodonModel()));
+        event.registerEntityRenderer(UPEntities.BOOK_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BOOK_SNAKE)));
+
+        // Misc entities
+        event.registerEntityRenderer(UPEntities.AMBER_SHOT.get(), AmberShotRenderer::new);
+        event.registerEntityRenderer(UPEntities.BOAT.get(), ctx -> new UPBoatRenderer(ctx, false));
+        event.registerEntityRenderer(UPEntities.CHEST_BOAT.get(), ctx -> new UPBoatRenderer(ctx, true));
+        event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
+        event.registerEntityRenderer(UPEntities.JARATE.get(), JarateRenderer::new);
+        event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), FlatMovingThrownItemRenderer::new);
+        event.registerEntityRenderer(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
+
+        // Eggs
+        event.registerEntityRenderer(UPEntities.PREHISTORIC_EGG.get(), e -> new PrehistoricEggRenderer(e, new PrehistoricEggModel()));
+
+        // Plants
         event.registerEntityRenderer(UPEntities.FOXXI_SAPLING.get(), e -> new PlantEntityRenderer<>(e, new PlantModel("tall_plant", "plants/foxxi_sapling.png"), 1));
         event.registerEntityRenderer(UPEntities.HORSETAIL.get(), e -> new PlantEntityRenderer<>(e, new PlantModel("plant", "plants/horsetail.png"), 1));
         event.registerEntityRenderer(UPEntities.TALL_HORSETAIL.get(), e -> new PlantEntityRenderer<>(e, new PlantModel("tall_plant", "plants/tall_horsetail.png"), 1));
@@ -338,19 +313,6 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.QUEREUXIA.get(), e -> new PlantEntityRenderer<>(e, new PlantModel("quereuxia", "plants/quereuxia.png"), 0.3F));
         event.registerEntityRenderer(UPEntities.RAIGUENRAYUN.get(), e -> new PlantEntityRenderer<>(e, new PlantModel("tall_plant", "plants/raiguenrayun.png"), 0.8F));
 
-
-        event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
-        event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), FlatMovingThrownItemRenderer::new);
-        event.registerEntityRenderer(UPEntities.T_JARATE.get(), TyrannosaurineJarateRenderer::new);
-        event.registerEntityRenderer(UPEntities.THROWABLE_FALLING_BLOCK.get(), ThrowableFallingBlockRenderer::new);
-
-        event.registerBlockEntityRenderer(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
-        event.registerBlockEntityRenderer(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);
-        EntityRenderers.register(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
-
-        event.registerEntityRenderer(UPEntities.DINO_LAND_EGG.get(), DinosaurLandEggRenderer::new);
-
-
         try {
             ItemProperties.register(UPItems.TRIKE_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
             ItemProperties.register(UPItems.VELOCI_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
@@ -364,8 +326,8 @@ public final class ClientEvents {
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         event.register((pState, pLevel, pPos, pTintIndex) -> {
             if (pLevel != null && pPos != null) {
-                if (((FruitLootBoxEntity) pLevel.getBlockEntity(pPos)) != null) {
-                    return ((FruitLootBoxEntity) pLevel.getBlockEntity(pPos)).getColor();
+                if (pLevel.getBlockEntity(pPos) != null) {
+                    return ((FruitLootBoxEntity) Objects.requireNonNull(pLevel.getBlockEntity(pPos))).getColor();
                 }
             }
             return 111111;
@@ -376,25 +338,31 @@ public final class ClientEvents {
     public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
         event.register((pStack, pTintIndex) -> pStack.getOrCreateTag().getInt("color"), UPBlocks.FRUIT_LOOT_BOX.get());
     }
-
-
+    
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll("amber_protection", AmberProtectionOverlay.HUD_AMBER_PROTECTION);
-        event.registerAboveAll("tar_overlay", TarOverlay.TAR_OVERLAY);
     }
-
 
     public static KeyMapping roarKey;
 
     @SubscribeEvent
     public static void register(final RegisterKeyMappingsEvent event) {
-        roarKey = create("attack_key", KeyEvent.VK_G);
+        roarKey = create();
         event.register(roarKey);
     }
 
-    private static KeyMapping create(String name, int key) {
-        return new KeyMapping("key." + UnusualPrehistory.MODID + "." + name, key, "key.category." + UnusualPrehistory.MODID);
+    private static KeyMapping create() {
+        return new KeyMapping("key." + UnusualPrehistory.MODID + "." + "attack_key", KeyEvent.VK_G, "key.category." + UnusualPrehistory.MODID);
+    }
+
+    @SubscribeEvent
+    public static void registerEntityModelLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        Arrays.stream(UPBoatEntity.BoatType.values()).forEach(type -> {
+            event.registerLayerDefinition(UPModelLayers.createBoat(type), BoatModel::createBodyModel);
+            event.registerLayerDefinition(UPModelLayers.createChestBoat(type), ChestBoatModel::createBodyModel);
+        });
     }
 
 }
+

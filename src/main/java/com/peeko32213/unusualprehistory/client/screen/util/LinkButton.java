@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.screen.util;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.peeko32213.unusualprehistory.common.entity.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;

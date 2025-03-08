@@ -3,146 +3,200 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.ulughbegsaurus",
+				"identifier": "geometry.unknown",
 				"texture_width": 256,
 				"texture_height": 256,
 				"visible_bounds_width": 10,
-				"visible_bounds_height": 5.5,
-				"visible_bounds_offset": [0, 2.25, 0]
+				"visible_bounds_height": 4.5,
+				"visible_bounds_offset": [0, 1.75, 0]
 			},
 			"bones": [
 				{
 					"name": "Ulughbegsaurus",
-					"pivot": [0, 41, 0]
+					"pivot": [0, 29, -3]
 				},
 				{
-					"name": "OuterBody",
+					"name": "Ulugh_Upper_Body",
 					"parent": "Ulughbegsaurus",
-					"pivot": [0, 34, -4]
-				},
-				{
-					"name": "Arm1",
-					"parent": "OuterBody",
-					"pivot": [9, 31, -9],
+					"pivot": [0, 26, 3],
 					"cubes": [
-						{"origin": [9, 13, -12], "size": [2, 4, 7], "uv": [31, 0]},
-						{"origin": [6, 17, -12], "size": [5, 16, 7], "uv": [0, 64]}
+						{"origin": [-8.5, 19, -19], "size": [17, 19, 32], "uv": [0, 0]}
 					]
 				},
 				{
-					"name": "Arm2",
-					"parent": "OuterBody",
-					"pivot": [-9, 31, -9],
+					"name": "Ulugh_Arm_Left",
+					"parent": "Ulugh_Upper_Body",
+					"pivot": [9.5, 22, -13],
 					"cubes": [
-						{"origin": [-11, 13, -12], "size": [2, 4, 7], "uv": [31, 0], "mirror": true},
-						{"origin": [-11, 17, -12], "size": [5, 16, 7], "uv": [0, 64], "mirror": true}
+						{"origin": [5.5, 11, -17], "size": [5, 14, 8], "uv": [0, 10]},
+						{"origin": [7.5, 9, -11], "size": [3, 2, 2], "uv": [0, 95]},
+						{"origin": [7.5, 9, -14], "size": [3, 2, 2], "uv": [0, 95]},
+						{"origin": [7.5, 9, -17], "size": [3, 2, 2], "uv": [0, 95]}
 					]
 				},
 				{
-					"name": "Body",
-					"parent": "OuterBody",
-					"pivot": [1, 34, -3]
-				},
-				{
-					"name": "Body2",
-					"parent": "Body",
-					"pivot": [1, 34, -3],
+					"name": "Ulugh_Arm_Right",
+					"parent": "Ulugh_Upper_Body",
+					"pivot": [-9.5, 22, -13],
 					"cubes": [
-						{"origin": [-8.5, 25, -17], "size": [17, 19, 32], "uv": [0, 64]},
-						{"origin": [-8.5, 25, -17], "size": [17, 19, 32], "inflate": 0.1, "uv": [133, 65]},
-						{"origin": [-6.5, 44, -5], "size": [13, 4, 13], "inflate": 0.1, "uv": [148, 48]},
-						{"origin": [-6.5, 48, -5], "size": [13, 4, 0], "inflate": 0.1, "uv": [161, 44]}
+						{"origin": [-10.5, 11, -17], "size": [5, 14, 8], "uv": [0, 10], "mirror": true},
+						{"origin": [-10.5, 9, -17], "size": [3, 2, 2], "uv": [0, 95], "mirror": true},
+						{"origin": [-10.5, 9, -11], "size": [3, 2, 2], "uv": [0, 95], "mirror": true},
+						{"origin": [-10.5, 9, -14], "size": [3, 2, 2], "uv": [0, 95], "mirror": true}
 					]
 				},
 				{
-					"name": "Neck",
-					"parent": "Body2",
-					"pivot": [1, 38, -13]
-				},
-				{
-					"name": "Neck2",
-					"parent": "Neck",
-					"pivot": [1, 38, -13],
+					"name": "Ulugh_Tail",
+					"parent": "Ulugh_Upper_Body",
+					"pivot": [0.5, 32.5, 13],
 					"cubes": [
-						{"origin": [-7, 33, -23], "size": [14, 23, 14], "uv": [71, 0]}
+						{"origin": [-4.5, 27, 13], "size": [9, 11, 22], "uv": [56, 88]}
 					]
 				},
 				{
-					"name": "Head",
-					"parent": "Neck2",
-					"pivot": [1, 45, -23]
-				},
-				{
-					"name": "Head2",
-					"parent": "Head",
-					"pivot": [1, 45, -23],
+					"name": "Ulugh_Tailtip",
+					"parent": "Ulugh_Tail",
+					"pivot": [0.5, 34.5, 35],
 					"cubes": [
-						{"origin": [-5, 49, -30], "size": [10, 6, 7], "uv": [98, 90]},
-						{"origin": [-3, 47, -42], "size": [6, 8, 12], "uv": [66, 64]},
-						{"origin": [2, 53, -33], "size": [2, 4, 10], "uv": [98, 103]},
-						{"origin": [-4, 53, -33], "size": [2, 4, 10], "uv": [98, 103], "mirror": true}
+						{"origin": [-2.5, 31, 35], "size": [5, 7, 31], "uv": [15, 90]}
 					]
 				},
 				{
-					"name": "Jaw",
-					"parent": "Head2",
-					"pivot": [1, 49, -23]
-				},
-				{
-					"name": "Jaw2",
-					"parent": "Jaw",
-					"pivot": [1, 49, -23],
+					"name": "Ulugh_Neck",
+					"parent": "Ulugh_Upper_Body",
+					"pivot": [-0.5, 31.1, -17],
 					"cubes": [
-						{"origin": [-5, 43, -30], "size": [10, 6, 7], "uv": [95, 77]},
-						{"origin": [-3, 43, -42], "size": [6, 4, 12], "uv": [71, 37]},
-						{"origin": [3.8, 49, -27], "size": [1, 5, 4], "uv": [124, 0]},
-						{"origin": [-4.8, 49, -27], "size": [1, 5, 4], "uv": [124, 0], "mirror": true}
+						{"origin": [-3.5, 24, -25], "size": [7, 28, 16], "uv": [0, 51]}
 					]
 				},
 				{
-					"name": "Reins1",
-					"parent": "Head2",
-					"pivot": [6, 45, -23],
-					"rotation": [0, 0, -20],
+					"name": "Ulugh_Head",
+					"parent": "Ulugh_Neck",
+					"pivot": [0.5, 46.5, -18]
+				},
+				{
+					"name": "Ulugh_Top_Jaw",
+					"parent": "Ulugh_Head",
+					"pivot": [0.5, 42, -18],
 					"cubes": [
-						{"origin": [5, 30, -30], "size": [0, 14, 24], "uv": [161, 6]}
+						{
+							"origin": [-4.5, 42, -29],
+							"size": [9, 10, 11],
+							"uv": {
+								"north": {"uv": [101, 66], "uv_size": [9, 9.9]},
+								"east": {"uv": [90, 66], "uv_size": [11, 9.9]},
+								"south": {"uv": [121, 66], "uv_size": [9, 9.9]},
+								"west": {"uv": [110, 66], "uv_size": [11, 9.9]},
+								"up": {"uv": [101, 55], "uv_size": [9, 11]},
+								"down": {"uv": [110, 66], "uv_size": [9, -11]}
+							}
+						},
+						{"origin": [-3.5, 42, -37], "size": [7, 10, 8], "uv": [96, 2]}
 					]
 				},
 				{
-					"name": "Reins2",
-					"parent": "Head2",
-					"pivot": [-6, 45, -23],
-					"rotation": [0, 0, 20],
+					"name": "crestdetail",
+					"parent": "Ulugh_Top_Jaw",
+					"pivot": [-0.5, 50, -18],
 					"cubes": [
-						{"origin": [-5, 30, -30], "size": [0, 14, 24], "uv": [161, 6], "mirror": true}
+						{"origin": [-6.5, 48, -25], "size": [13, 2, 8], "uv": [85, 77]},
+						{"origin": [-6.5, 50, -25], "size": [13, 1, 8], "uv": [4, 110]}
 					]
 				},
 				{
-					"name": "Tail",
-					"parent": "Body2",
-					"pivot": [0, 44, 15],
+					"name": "Ulugh_Bottom_Jaw",
+					"parent": "Ulugh_Head",
+					"pivot": [0.5, 42, -18],
 					"cubes": [
-						{"origin": [-4.5, 33, 15], "size": [9, 11, 53], "uv": [0, 0]}
+						{"origin": [-4.5, 40, -29], "size": [9, 2, 11], "uv": [90, 41]},
+						{"origin": [-3.5, 40, -37], "size": [7, 2, 8], "uv": [96, 22]}
 					]
 				},
 				{
-					"name": "Leg1",
+					"name": "Ulugh_Saddle",
+					"parent": "Ulugh_Upper_Body",
+					"pivot": [0, 26, 3],
+					"cubes": [
+						{"origin": [-8.5, 19, -19], "size": [17, 19, 32], "inflate": 0.1, "uv": [119, 0]},
+						{"origin": [-6.5, 37, -6], "size": [13, 4, 0], "uv": [99, 88]},
+						{"origin": [-6.5, 38, -6], "size": [13, 4, 13], "uv": [97, 93]}
+					]
+				},
+				{
+					"name": "Ulugh_Reins_Right",
+					"parent": "Ulugh_Saddle",
+					"pivot": [-4.5, 42, -23],
+					"rotation": [0, 0, 25],
+					"cubes": [
+						{"origin": [-4.5, 28, -25], "size": [0, 14, 19], "uv": [127, 58]}
+					]
+				},
+				{
+					"name": "Ulugh_Reins_Left",
+					"parent": "Ulugh_Saddle",
+					"pivot": [4.5, 42, -23],
+					"rotation": [0, 0, -25],
+					"cubes": [
+						{"origin": [4.5, 28, -25], "size": [0, 14, 19], "uv": [127, 58]}
+					]
+				},
+				{
+					"name": "Leg_control",
 					"parent": "Ulughbegsaurus",
-					"pivot": [8, 30, 12],
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Ulugh_Leg_Left",
+					"parent": "Leg_control",
+					"pivot": [8.5, 26, 3],
 					"cubes": [
-						{"origin": [3, 18, 4], "size": [9, 13, 13], "uv": [0, 0]},
-						{"origin": [3.5, 0, 9], "size": [8, 18, 8], "uv": [0, 26]},
-						{"origin": [3.5, 0, 4], "size": [8, 2, 5], "uv": [24, 26]}
+						{"origin": [4.5, 15, -3], "size": [8, 16, 12], "uv": [46, 51]}
 					]
 				},
 				{
-					"name": "Leg2",
-					"parent": "Ulughbegsaurus",
-					"pivot": [-8, 30, 12],
+					"name": "Ulugh_Knee_Left",
+					"parent": "Ulugh_Leg_Left",
+					"pivot": [8.5, 18, 9],
 					"cubes": [
-						{"origin": [-12, 18, 4], "size": [9, 13, 13], "uv": [0, 0], "mirror": true},
-						{"origin": [-11.5, 0, 9], "size": [8, 18, 8], "uv": [0, 26], "mirror": true},
-						{"origin": [-11.5, 0, 4], "size": [8, 2, 5], "uv": [24, 26], "mirror": true}
+						{"origin": [5.5, 3, 6], "size": [6, 18, 6], "uv": [66, 8]}
+					]
+				},
+				{
+					"name": "Ulugh_Foot_Left",
+					"parent": "Ulugh_Knee_Left",
+					"pivot": [8.5, 3, 9],
+					"cubes": [
+						{"origin": [4.5, 0, 2], "size": [8, 3, 12], "uv": [6, 95]},
+						{"origin": [10.5, 0, -1], "size": [2, 3, 3], "uv": [39, 54]},
+						{"origin": [7.5, 0, -1], "size": [2, 3, 3], "uv": [39, 54]},
+						{"origin": [4.5, 0, -1], "size": [2, 3, 3], "uv": [39, 54]}
+					]
+				},
+				{
+					"name": "Ulugh_Leg_Right",
+					"parent": "Leg_control",
+					"pivot": [-8.5, 26, 3],
+					"cubes": [
+						{"origin": [-12.5, 15, -3], "size": [8, 16, 12], "uv": [46, 51], "mirror": true}
+					]
+				},
+				{
+					"name": "Ulugh_Knee_Right",
+					"parent": "Ulugh_Leg_Right",
+					"pivot": [-8.5, 18, 9],
+					"cubes": [
+						{"origin": [-11.5, 3, 6], "size": [6, 18, 6], "uv": [66, 8], "mirror": true}
+					]
+				},
+				{
+					"name": "Ulugh_Foot_Right",
+					"parent": "Ulugh_Knee_Right",
+					"pivot": [-8.5, 3, 9],
+					"cubes": [
+						{"origin": [-12.5, 0, 2], "size": [8, 3, 12], "uv": [6, 95], "mirror": true},
+						{"origin": [-6.5, 0, -1], "size": [2, 3, 3], "uv": [39, 54], "mirror": true},
+						{"origin": [-12.5, 0, -1], "size": [2, 3, 3], "uv": [39, 54], "mirror": true},
+						{"origin": [-9.5, 0, -1], "size": [2, 3, 3], "uv": [39, 54], "mirror": true}
 					]
 				}
 			]

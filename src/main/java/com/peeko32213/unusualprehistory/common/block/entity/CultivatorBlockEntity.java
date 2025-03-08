@@ -37,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
-import static com.peeko32213.unusualprehistory.common.block.BlockCultivator.HALF;
+import static com.peeko32213.unusualprehistory.common.block.custom.CultivatorBlock.HALF;
 
 public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     private BlockState blockstate;

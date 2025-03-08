@@ -1,23 +1,17 @@
 {
   "title": "unusualprehistory.encyclopedia.fossils",
-  "text": "root_fossil.txt",
-  "pictures": [
+  "text": "root/root_fossil.txt",
+  "linked_page_buttons": [],
+  "item_renders": [
     {
-      "page": 0,
-      "picture_location": "unusualprehistory:textures/item/mezo_fossil.png",
-      "x": 70,
-      "y": 28,
-      "xSize": 44,
-      "ySize": 44
+      "item" : "unusualprehistory:fossil_ores",
+      "x": 30,
+      "y": 15,
+      "page" : 0,
+      "scale": 2.5
     }
   ],
-  "fossil_index": [
-    {
-      "page": 0,
-      "xLocation": 210,
-      "yLocation": 0,
-      "columns": 5,
-      "rows": 5
-    }
-  ]
+  "recipes": [],
+  "tabula_renders": [],
+  "entity_renders": []
 }

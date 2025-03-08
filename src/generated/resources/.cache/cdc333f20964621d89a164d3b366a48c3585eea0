@@ -1,4 +1,4 @@
-// 1.20.1	2023-11-13T16:09:07.8941922	Tags for minecraft:worldgen/biome mod id unusualprehistory
+// 1.20.1	2025-03-07T18:43:23.2997774	Tags for minecraft:worldgen/biome mod id unusualprehistory
 afd9da16b8e57511d3b12c69ccd4555d71ebb29f data/unusualprehistory/tags/worldgen/biome/is_ammon_biome.json
 b0df3b2f6141dce35a16bb95148a6ff4821c7a48 data/unusualprehistory/tags/worldgen/biome/is_antarcto_biome.json
 589afa42d505a96240cc0dd94313f013f1d171fd data/unusualprehistory/tags/worldgen/biome/is_anuro_biome.json
@@ -10,6 +10,7 @@ b0df3b2f6141dce35a16bb95148a6ff4821c7a48 data/unusualprehistory/tags/worldgen/bi
 4e2349a9acdd444a39b16cb1ed573045190a4b8b data/unusualprehistory/tags/worldgen/biome/is_dunk_biome.json
 06d846b5e910c1373b52152765403847fc50079f data/unusualprehistory/tags/worldgen/biome/is_encrusted_biome.json
 a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/unusualprehistory/tags/worldgen/biome/is_eryon_biome.json
+727fc9531951aecdcc487f15f39a6571cdf64687 data/unusualprehistory/tags/worldgen/biome/is_fossil_structures_biome.json
 db75635a9bc36e736cf56101b9c81b3e37b69aac data/unusualprehistory/tags/worldgen/biome/is_giganto_biome.json
 2baf25447b6e6be292fa28c96583cdcde3854de8 data/unusualprehistory/tags/worldgen/biome/is_hwacha_biome.json
 53dbe78ab565df7a9761759c48acd6b62653602b data/unusualprehistory/tags/worldgen/biome/is_ice_fossil_iceberg_biome.json
@@ -21,7 +22,7 @@ bf8f305d2f00f6c6091e15ccc9502f2d90031b7c data/unusualprehistory/tags/worldgen/bi
 07ecd21cae8acc4735861c19ee51bbd8457289ae data/unusualprehistory/tags/worldgen/biome/is_pachy_biome.json
 6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/unusualprehistory/tags/worldgen/biome/is_palaeo_biome.json
 6d2fe067a4e43feb66712b684ce4628e2252ee38 data/unusualprehistory/tags/worldgen/biome/is_paracer_biome.json
-0da1fc1d958d31c04499dcddbbf9310b79524b30 data/unusualprehistory/tags/worldgen/biome/is_petrified_wood_forest_biome.json
+4c2f928f4897c968da43c5ef426fd4d0a9980a93 data/unusualprehistory/tags/worldgen/biome/is_petrified_wood_forest_biome.json
 07ecd21cae8acc4735861c19ee51bbd8457289ae data/unusualprehistory/tags/worldgen/biome/is_rex_biome.json
 4e2349a9acdd444a39b16cb1ed573045190a4b8b data/unusualprehistory/tags/worldgen/biome/is_scau_biome.json
 77ad1e63ea5e7851452f1cba29f2a74be3a0df80 data/unusualprehistory/tags/worldgen/biome/is_smilodon_biome.json

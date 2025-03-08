@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "IGI",
-    "CZC",
+    "CGC",
+    "GZG",
     "ROR"
   ],
   "key": {
     "G": {
-      "item": "minecraft:lime_stained_glass"
+      "tag": "forge:glass"
     },
     "Z": {
       "item": "unusualprehistory:organic_ooze"
@@ -17,9 +17,6 @@
     },
     "O": {
       "item": "unusualprehistory:encrusted_organ"
-    },
-    "I": {
-      "item": "unusualprehistory:insulator"
     },
     "C": {
       "item": "minecraft:copper_ingot"

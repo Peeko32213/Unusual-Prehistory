@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/stetha_eggs"
+    "layer0": "unusualprehistory:item/eggs/stetha_eggs"
   }
 }

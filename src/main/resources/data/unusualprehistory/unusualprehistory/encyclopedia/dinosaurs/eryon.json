@@ -5,8 +5,8 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:eryon",
-      "x": 90,
-      "y": 85,
+      "x": 95,
+      "y": 80,
       "page" : 0,
       "scale": 2.2,
       "rot_x": 30,
@@ -22,9 +22,9 @@
       "y": 120,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.8,
+      "entity_scale": 0.85,
       "offset_x": 1,
-      "offset_y": -9,
+      "offset_y": -10,
       "hover_text": "entity.unusualprehistory.eryon"
     }
   ]

@@ -1,0 +1,23 @@
+package com.peeko32213.unusualprehistory.common.entity.util.goal;
+
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IPackHunter;
+import net.minecraft.world.entity.animal.WaterAnimal;
+
+public class ShoalHunterGoal extends ShoalHunterTargetingGoal {
+
+    public IPackHunter packAnimal;
+    public int packSizeMandatory;
+
+    public ShoalHunterGoal(WaterAnimal mob, Class aClass, int chance, boolean sight, int packSizeMandatory) {
+        super(mob, aClass, chance, sight, false, null);
+        packAnimal = (IPackHunter) mob;
+        this.packSizeMandatory = packSizeMandatory;
+    }
+
+    public boolean canUse() {
+        if (super.canUse()) {
+            return packAnimal.getPackSize() >= packSizeMandatory;
+        }
+        return false;
+    }
+}

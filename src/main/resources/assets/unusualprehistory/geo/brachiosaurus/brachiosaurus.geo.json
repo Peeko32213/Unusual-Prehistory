@@ -1,0 +1,133 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 512,
+				"texture_height": 512,
+				"visible_bounds_width": 22,
+				"visible_bounds_height": 17.5,
+				"visible_bounds_offset": [0, 8.25, 0]
+			},
+			"bones": [
+				{
+					"name": "Brachi",
+					"pivot": [0, 102, 0]
+				},
+				{
+					"name": "NeckBase",
+					"parent": "Brachi",
+					"pivot": [-1, 89, -31],
+					"cubes": [
+						{"origin": [-17, 61, -58], "size": [35, 97, 47], "uv": [142, 170]}
+					]
+				},
+				{
+					"name": "NeckMiddle",
+					"parent": "NeckBase",
+					"pivot": [-0.5, 157, -19],
+					"cubes": [
+						{"origin": [-11.5, 158, -58], "size": [24, 87, 41], "uv": [265, 274]}
+					]
+				},
+				{
+					"name": "Saddle",
+					"parent": "NeckMiddle",
+					"pivot": [-0.5, 157, -19],
+					"cubes": [
+						{"origin": [-5.5, 245, -36], "size": [12, 2, 12], "uv": [95, 170]},
+						{"origin": [-11.5, 120, -58], "size": [24, 125, 41], "inflate": 0.1, "uv": [0, 170]}
+					]
+				},
+				{
+					"name": "Head",
+					"parent": "NeckMiddle",
+					"pivot": [-0.5, 223, -46],
+					"cubes": [
+						{"origin": [-7, 222, -82], "size": [15, 9, 14], "uv": [40, 81]},
+						{"origin": [-1, 231, -75], "size": [3, 23, 24], "uv": [0, 48]},
+						{"origin": [-12, 222, -68], "size": [25, 24, 24], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Reins1",
+					"parent": "Head",
+					"pivot": [13.5, 224, -58],
+					"rotation": [0, 0, -2.5],
+					"cubes": [
+						{"origin": [13, 199, -68], "size": [0, 24, 24], "uv": [30, 24]}
+					]
+				},
+				{
+					"name": "Reins2",
+					"parent": "Head",
+					"pivot": [-13.5, 224, -58],
+					"rotation": [0, 0, 2.5],
+					"cubes": [
+						{"origin": [-13, 199, -68], "size": [0, 24, 24], "uv": [30, 24], "mirror": true}
+					]
+				},
+				{
+					"name": "Body",
+					"parent": "Brachi",
+					"pivot": [0, 71, -19],
+					"rotation": [-12.5, 0, 0],
+					"cubes": [
+						{"origin": [-28, 54, -43], "size": [55, 66, 104], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Tail",
+					"parent": "Body",
+					"pivot": [-0.5, 103, 61],
+					"rotation": [-20, 0, 0],
+					"cubes": [
+						{"origin": [-9.5, 77, 61], "size": [19, 26, 51], "uv": [214, 0]}
+					]
+				},
+				{
+					"name": "TailBase",
+					"parent": "Tail",
+					"pivot": [-0.5, 82, 112],
+					"rotation": [12.5, 0, 0],
+					"cubes": [
+						{"origin": [-8.5, 77, 112], "size": [17, 19, 48], "uv": [306, 29]}
+					]
+				},
+				{
+					"name": "Arm1",
+					"parent": "Brachi",
+					"pivot": [14, 82, -31],
+					"cubes": [
+						{"origin": [8, 0, -51], "size": [27, 82, 31], "uv": [306, 139]}
+					]
+				},
+				{
+					"name": "Arm2",
+					"parent": "Brachi",
+					"pivot": [-14, 82, -31],
+					"cubes": [
+						{"origin": [-35, 0, -51], "size": [27, 82, 31], "uv": [306, 139], "mirror": true}
+					]
+				},
+				{
+					"name": "Leg1",
+					"parent": "Brachi",
+					"pivot": [14, 65, 53],
+					"cubes": [
+						{"origin": [5, 0, 36], "size": [27, 64, 31], "uv": [111, 314]}
+					]
+				},
+				{
+					"name": "Leg2",
+					"parent": "Brachi",
+					"pivot": [-14, 65, 53],
+					"cubes": [
+						{"origin": [-32, 0, 36], "size": [27, 64, 31], "uv": [111, 314], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

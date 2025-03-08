@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.block.BlockDNAFridge;
+import com.peeko32213.unusualprehistory.common.block.custom.DNAFridgeBlock;
 import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.IntStream;
 
-import static com.peeko32213.unusualprehistory.common.block.BlockDNAFridge.OPEN;
+import static com.peeko32213.unusualprehistory.common.block.custom.DNAFridgeBlock.OPEN;
 
 public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     private NonNullList<ItemStack> contents = NonNullList.withSize(54, ItemStack.EMPTY);
@@ -79,7 +79,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity imple
 
     @Override
     public int getContainerSize() {
-        return 54;
+        return 63;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity imple
     private void playSound(BlockState state, SoundEvent sound) {
         if (level == null) return;
 
-        Vec3i cabinetFacingVector = state.getValue(BlockDNAFridge.FACING).getNormal();
+        Vec3i cabinetFacingVector = state.getValue(DNAFridgeBlock.FACING).getNormal();
         double x = (double) worldPosition.getX() + 0.5D + (double) cabinetFacingVector.getX() / 2.0D;
         double y = (double) worldPosition.getY() + 0.5D + (double) cabinetFacingVector.getY() / 2.0D;
         double z = (double) worldPosition.getZ() + 0.5D + (double) cabinetFacingVector.getZ() / 2.0D;

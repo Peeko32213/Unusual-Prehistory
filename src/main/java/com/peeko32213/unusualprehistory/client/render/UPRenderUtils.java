@@ -1,13 +1,12 @@
 package com.peeko32213.unusualprehistory.client.render;
 
-import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.DinosaurRenderer;
-import com.peeko32213.unusualprehistory.client.render.dinosaur_renders.TameableDinosaurRenderer;
-import com.peeko32213.unusualprehistory.client.render.layer.BaseDinosaurSaddleLayer;
-import com.peeko32213.unusualprehistory.client.render.layer.ItemHoldingLayer;
-import com.peeko32213.unusualprehistory.client.render.layer.JebLayer;
-import com.peeko32213.unusualprehistory.client.render.layer.TamableDinosaurSaddleLayer;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityTameableBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.client.render.layer.*;
+import com.peeko32213.unusualprehistory.client.render.prehistoric.PrehistoricRenderer;
+import com.peeko32213.unusualprehistory.client.render.prehistoric.TameableDinosaurRenderer;
+import com.peeko32213.unusualprehistory.client.render.prehistoric.TameableStatedPrehistoricRenderer;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamableStatedPrehistoricEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
@@ -17,16 +16,61 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UPRenderUtils {
-    public static <T extends EntityTameableBaseDinosaurAnimal> TamableDinosaurRendererBuilder<T> createTamableDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
+
+    public static <T extends TamablePrehistoricEntity> TamableDinosaurRendererBuilder<T> createTamableDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
         return new TamableDinosaurRendererBuilder<>(context, model);
 
     }
 
-    public static <T extends EntityBaseDinosaurAnimal> DinosaurRendererBuilder<T> createDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
+    public static <T extends TamableStatedPrehistoricEntity> TamableStatedDinosaurRendererBuilder<T> createTamableStatedDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
+        return new TamableStatedDinosaurRendererBuilder<>(context, model);
+
+    }
+
+    public static class TamableStatedDinosaurRendererBuilder<T extends TamableStatedPrehistoricEntity> {
+        private final EntityRendererProvider.Context context;
+        private final GeoModel<T> model;
+        private final TameableStatedPrehistoricRenderer<T> dinoRenderer;
+        private final List<GeoRenderLayer<T>> layerFactories = new ArrayList<>();
+        private ResourceLocation modelLocation;
+
+        private TamableStatedDinosaurRendererBuilder(EntityRendererProvider.Context context, GeoModel<T> model) {
+            this.context = context;
+            this.model = model;
+            this.dinoRenderer = new TameableStatedPrehistoricRenderer<>(context, model);
+        }
+
+        public TamableStatedDinosaurRendererBuilder<T> withLayers(ResourceLocation modelLocation) {
+            this.modelLocation = modelLocation;
+            return this;
+        }
+
+        public TamableStatedDinosaurRendererBuilder<T> withJebLayer(ResourceLocation jebOverlay) {
+            checkLayers();
+            layerFactories.add(new JebLayer<>(dinoRenderer, jebOverlay, modelLocation));
+            return this;
+        }
+
+        public TameableStatedPrehistoricRenderer<T> build() {
+            checkLayers();
+            for (GeoRenderLayer<T> factory : layerFactories) {
+                dinoRenderer.addRenderLayer(factory);
+            }
+            return dinoRenderer;
+        }
+
+        private void checkLayers() {
+            if (modelLocation == null) {
+                throw new IllegalStateException("withLayers() must be called before adding other layers.");
+            }
+        }
+    }
+
+    public static <T extends PrehistoricEntity> DinosaurRendererBuilder<T> createDinosaurRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
         return new DinosaurRendererBuilder<>(context, model);
     }
 
-    public static class TamableDinosaurRendererBuilder<T extends EntityTameableBaseDinosaurAnimal> {
+    public static class TamableDinosaurRendererBuilder<T extends TamablePrehistoricEntity> {
         private final EntityRendererProvider.Context context;
         private final GeoModel<T> model;
         private final TameableDinosaurRenderer<T> dinoRenderer;
@@ -46,17 +90,9 @@ public class UPRenderUtils {
 
         public TamableDinosaurRendererBuilder<T> withSaddleLayer(ResourceLocation saddleOverlay) {
             checkLayers();
-            layerFactories.add(new TamableDinosaurSaddleLayer<>(dinoRenderer, saddleOverlay, modelLocation));
+            layerFactories.add(new TamablePrehistoricSaddleLayer<>(dinoRenderer, saddleOverlay, modelLocation));
             return this;
         }
-
-        public TamableDinosaurRendererBuilder<T> withJebLayer(ResourceLocation jebOverlay) {
-            checkLayers();
-            layerFactories.add(new JebLayer<>(dinoRenderer, jebOverlay, modelLocation));
-            return this;
-        }
-
-        // Add more layer methods here if needed
 
         public TameableDinosaurRenderer<T> build() {
             checkLayers();
@@ -73,22 +109,22 @@ public class UPRenderUtils {
         }
     }
 
-    public static class DinosaurRendererBuilder<T extends EntityBaseDinosaurAnimal> {
+    public static class DinosaurRendererBuilder<T extends PrehistoricEntity> {
         private final EntityRendererProvider.Context context;
         private final GeoModel<T> model;
-        private final DinosaurRenderer<T> dinoRenderer;
+        private final PrehistoricRenderer<T> dinoRenderer;
         private final List<GeoRenderLayer<T>> layerFactories = new ArrayList<>();
         private ResourceLocation modelLocation;
 
         public DinosaurRendererBuilder(EntityRendererProvider.Context context, GeoModel<T> model) {
             this.context = context;
             this.model = model;
-            this.dinoRenderer = new DinosaurRenderer<>(context, model);
+            this.dinoRenderer = new PrehistoricRenderer<>(context, model);
         }
 
         public DinosaurRendererBuilder<T> withSaddleLayer(ResourceLocation saddleOverlay) {
             checkLayers();
-            layerFactories.add(new BaseDinosaurSaddleLayer<>(dinoRenderer, saddleOverlay, modelLocation));
+            layerFactories.add(new PrehistoricSaddleLayer<>(dinoRenderer, saddleOverlay, modelLocation));
             return this;
         }
 
@@ -109,7 +145,7 @@ public class UPRenderUtils {
 
         // Add more layer methods here if needed
 
-        public DinosaurRenderer<T> build() {
+        public PrehistoricRenderer<T> build() {
             for (GeoRenderLayer<T> factory : layerFactories) {
                 dinoRenderer.addRenderLayer(factory);
             }

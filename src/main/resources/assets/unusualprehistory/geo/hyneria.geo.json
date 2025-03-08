@@ -34,13 +34,8 @@
 					"pivot": [0, 6, -17]
 				},
 				{
-					"name": "Head_B",
-					"parent": "Head",
-					"pivot": [0, 6, -17]
-				},
-				{
 					"name": "TopJaw",
-					"parent": "Head_B",
+					"parent": "Head",
 					"pivot": [0, 6, -17]
 				},
 				{
@@ -53,7 +48,7 @@
 				},
 				{
 					"name": "LowerJaw",
-					"parent": "Head_B",
+					"parent": "Head",
 					"pivot": [0, 6, -17]
 				},
 				{
@@ -184,6 +179,11 @@
 					"cubes": [
 						{"origin": [0, 0, 25], "size": [0, 12, 10], "uv": [0, 12]}
 					]
+				},
+				{
+					"name": "Head_B",
+					"parent": "root",
+					"pivot": [0, 6, -17]
 				}
 			]
 		}

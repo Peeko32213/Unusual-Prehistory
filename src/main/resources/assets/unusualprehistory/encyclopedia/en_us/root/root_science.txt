@@ -1,0 +1,18 @@
+<NEWLINE>
+Revival of ancient beasts is a fairly straightforward process.
+<NEWLINE>
+Firstly, one must craft an Analyzer. Analyzers are a strange contraption
+that allows for the extraction of DNA from fossils. To actually use this machine you have to use
+flasks to hold the DNA in a stable place. This machine will then search for any traces
+of DNA in the fossil.
+<NEWLINE>
+<NEWLINE>
+Any DNA found will then have to be placed into a Cultivator. Cultivators are a curious machine that
+turns DNA into actual creatures or plants. All one needs is DNA and some organic ooze, a curious slush of organic material
+that allows for the revival process.
+<NEWLINE>
+<NEWLINE>
+The process for reviving cenozoic and live birth creatures differs slightly, as after the cultivation process
+an embryo is obtained. If a modern relative is available, then this can be used as a surrogate mother. However,
+as of now there is only 1 known live-birth relative that still exists today for one animal. To get around this
+one must construct an Incubator, which simulates live birth, but it can take longer than natural means.

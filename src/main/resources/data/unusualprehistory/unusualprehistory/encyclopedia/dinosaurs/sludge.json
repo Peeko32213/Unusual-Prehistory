@@ -5,8 +5,8 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:sludge",
-      "x": 90,
-      "y": 90,
+      "x": 95,
+      "y": 86,
       "page" : 0,
       "scale": 0.8,
       "rot_x": 30,
@@ -22,9 +22,9 @@
       "y": 80,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.33,
-      "offset_x": 9,
-      "offset_y": -18,
+      "entity_scale": 0.5,
+      "offset_x": -6,
+      "offset_y": -9.5,
       "hover_text": "entity.unusualprehistory.sludge"
     }
   ]

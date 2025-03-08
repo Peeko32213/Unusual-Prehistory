@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.client.model.plant;
 
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
@@ -28,8 +29,6 @@ public class PlantModel extends GeoModel<EntityPlant> {
 
     @Override
     public ResourceLocation getAnimationResource(EntityPlant object) {
-        return null;
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/plant/plant.animation.json");
     }
-
-
 }

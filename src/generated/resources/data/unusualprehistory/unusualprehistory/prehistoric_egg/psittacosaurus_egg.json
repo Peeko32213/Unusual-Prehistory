@@ -1,0 +1,8 @@
+{
+  "egg_base_color": 1.0506026E7,
+  "egg_secondary_color": 1.5258779E7,
+  "egg_size": "small",
+  "egg_variant": "spots",
+  "entity": "unusualprehistory:psittacosaurus",
+  "hatch_time": 1200
+}

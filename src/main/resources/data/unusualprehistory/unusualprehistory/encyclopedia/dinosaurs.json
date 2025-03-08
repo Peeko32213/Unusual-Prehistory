@@ -1,14 +1,13 @@
 {
   "title": "unusualprehistory.encyclopedia.dinosaurs",
-  "text": "root_dinosaur.txt",
-  "pictures": [
+  "text": "root/root_prehistoric_animal.txt",
+  "item_renders": [
     {
-      "page": 0,
-      "picture_location": "unusualprehistory:textures/item/ammonite_shell.png",
-      "x": 70,
-      "y": 28,
-      "xSize": 44,
-      "ySize": 44
+      "item" : "unusualprehistory:animal_dna_flasks",
+      "x": 30,
+      "y": 15,
+      "page" : 0,
+      "scale": 2.5
     }
   ],
   "entity_index": [

@@ -1,1627 +1,1152 @@
 {
   "majunga_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:majunga_idle_0"
-      },
-      {
-        "name": "unusualprehistory:majunga_idle_1"
-      },
-      {
-        "name": "unusualprehistory:majunga_idle_2"
-      }
+        "unusualprehistory:entity/majunga/majunga_idle_0",
+        "unusualprehistory:entity/majunga/majunga_idle_1",
+        "unusualprehistory:entity/majunga/majunga_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.majunga_idle"
   },
   "majunga_attack": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:majunga_attack_0"
-      },
-      {
-        "name": "unusualprehistory:majunga_attack_1"
-      }
+        "unusualprehistory:entity/majunga/majunga_attack_0",
+        "unusualprehistory:entity/majunga/majunga_attack_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.majunga_attack"
   },
   "majunga_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:majunga_hurt_0"
-      },
-      {
-        "name": "unusualprehistory:majunga_hurt_1"
-      }
+        "unusualprehistory:entity/majunga/majunga_hurt_0",
+        "unusualprehistory:entity/majunga/majunga_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.majunga_hurt"
   },
   "majunga_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:majunga_death_0"
-      },
-      {
-        "name": "unusualprehistory:majunga_death_1"
-      }
+        "unusualprehistory:entity/majunga/majunga_death_0",
+        "unusualprehistory:entity/majunga/majunga_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.majunga_death"
   },
   "majunga_step": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:majunga_step_0"
-      },
-      {
-        "name": "unusualprehistory:majunga_step_1"
-      }
+        "unusualprehistory:entity/majunga/majunga_step_0",
+        "unusualprehistory:entity/majunga/majunga_step_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.majunga_step"
   },
+
   "anuro_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:anuro_idle_0"
-      },
-      {
-        "name": "unusualprehistory:anuro_idle_1"
-      }
+        "unusualprehistory:entity/anuro/anuro_idle_0",
+        "unusualprehistory:entity/anuro/anuro_idle_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.anuro_idle"
   },
   "anuro_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:anuro_hurt_0"
-      },
-      {
-        "name": "unusualprehistory:anuro_hurt_1"
-      }
+        "unusualprehistory:entity/anuro/anuro_hurt_0",
+        "unusualprehistory:entity/anuro/anuro_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.anuro_hurt"
   },
   "anuro_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:anuro_death_0"
-      },
-      {
-        "name": "unusualprehistory:anuro_death_1"
-      }
+        "unusualprehistory:entity/anuro/anuro_death_0",
+        "unusualprehistory:entity/anuro/anuro_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.anuro_death"
   },
+
   "coty_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:coty_idle_0"
-      },
-      {
-        "name": "unusualprehistory:coty_idle_1"
-      }
+        "unusualprehistory:entity/coty/coty_idle_0",
+        "unusualprehistory:entity/coty/coty_idle_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.coty_idle"
   },
   "coty_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:coty_hurt_0"
-      },
-      {
-        "name": "unusualprehistory:coty_hurt_1"
-      }
+        "unusualprehistory:entity/coty/coty_hurt_0",
+        "unusualprehistory:entity/coty/coty_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.coty_hurt"
   },
   "coty_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:coty_death_0"
-      },
-      {
-        "name": "unusualprehistory:coty_death_1"
-      }
+        "unusualprehistory:entity/coty/coty_death_0",
+        "unusualprehistory:entity/coty/coty_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.coty_death"
   },
-  "dunk_attack": {
-    "category": "neutral",
+
+  "edaphosaurus_idle": {
     "sounds": [
-      {
-        "name": "unusualprehistory:dunk_attack_0"
-      },
-      {
-        "name": "unusualprehistory:dunk_attack_1"
-      },
-      {
-        "name": "unusualprehistory:dunk_attack_2"
-      }
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_0",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_1",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_2",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_idle_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.edaphosaurus_idle"
+  },
+  "edaphosaurus_hurt": {
+    "sounds": [
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_hurt_0",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_hurt_1",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_hurt_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.edaphosaurus_hurt"
+  },
+  "edaphosaurus_death": {
+    "sounds": [
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_death_0",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_death_1",
+        "unusualprehistory:entity/edaphosaurus/edaphosaurus_death_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.edaphosaurus_death"
+  },
+
+  "estemmenosuchus_idle": {
+    "sounds": [
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_idle_0",
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_idle_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_idle"
+  },
+  "estemmenosuchus_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_hurt_0",
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_hurt_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_hurt"
+  },
+  "estemmenosuchus_death": {
+    "sounds": [
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_death_0",
+      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_death_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_death"
+  },
+
+  "dunk_attack": {
+    "sounds": [
+        "unusualprehistory:entity/dunk/dunk_attack_0",
+        "unusualprehistory:entity/dunk/dunk_attack_1",
+        "unusualprehistory:entity/dunk/dunk_attack_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.dunk_attack"
   },
   "dunk_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:dunk_death_0"
-      },
-      {
-        "name": "unusualprehistory:dunk_death_1"
-      },
-      {
-        "name": "unusualprehistory:dunk_death_2"
-      },
-      {
-        "name": "unusualprehistory:dunk_death_3"
-      }
+        "unusualprehistory:entity/dunk/dunk_death_0",
+        "unusualprehistory:entity/dunk/dunk_death_1",
+        "unusualprehistory:entity/dunk/dunk_death_2",
+        "unusualprehistory:entity/dunk/dunk_death_3"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.dunk_death"
   },
   "dunk_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:dunk_hurt_0"
-      },
-      {
-        "name": "unusualprehistory:dunk_hurt_1"
-      },
-      {
-        "name": "unusualprehistory:dunk_hurt_2"
-      },
-      {
-        "name": "unusualprehistory:dunk_hurt_3"
-      }
+        "unusualprehistory:entity/dunk/dunk_hurt_0",
+        "unusualprehistory:entity/dunk/dunk_hurt_1",
+        "unusualprehistory:entity/dunk/dunk_hurt_2",
+        "unusualprehistory:entity/dunk/dunk_hurt_3"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.dunk_hurt"
   },
-  "beelze_idle": {
-    "category": "neutral",
+
+  "ammonite_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/ammonite/ammonite_hurt_0",
+      "unusualprehistory:entity/ammonite/ammonite_hurt_1",
+      "unusualprehistory:entity/ammonite/ammonite_hurt_2",
+      "unusualprehistory:entity/ammonite/ammonite_hurt_3",
+      "unusualprehistory:entity/ammonite/ammonite_hurt_4"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.ammonite_hurt"
+  },
+  "ammonite_flop": {
+    "sounds": [
+      "unusualprehistory:entity/ammonite/ammonite_flop_0",
+      "unusualprehistory:entity/ammonite/ammonite_flop_1",
+      "unusualprehistory:entity/ammonite/ammonite_flop_2",
+      "unusualprehistory:entity/ammonite/ammonite_flop_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.ammonite_flop"
+  },
+  "ammonite_death": {
+    "sounds": [
+      "unusualprehistory:entity/ammonite/ammonite_hurt_0",
+      "unusualprehistory:entity/ammonite/ammonite_hurt_1",
+      "unusualprehistory:entity/ammonite/ammonite_hurt_2",
+      "unusualprehistory:entity/ammonite/ammonite_hurt_3",
+      "unusualprehistory:entity/ammonite/ammonite_hurt_4"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.ammonite_death"
+  },
+
+  "diplo_hurt": {
     "sounds": [
       {
-        "name": "unusualprehistory:beelze_idle_0"
+        "name": "unusualprehistory:entity/diplo/diplo_hurt_0",
+        "pitch": 1.5
       },
       {
-        "name": "unusualprehistory:beelze_idle_1"
+        "name": "unusualprehistory:entity/diplo/diplo_hurt_1",
+        "pitch": 1.5
       },
       {
-        "name": "unusualprehistory:beelze_idle_2"
+        "name": "unusualprehistory:entity/diplo/diplo_hurt_2",
+        "pitch": 1.5
       }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.diplo_hurt"
+  },
+  "diplo_idle": {
+    "sounds": [
+      {
+        "name": "unusualprehistory:entity/diplo/diplo_idle_0",
+        "pitch": 1.5
+      },
+      {
+        "name": "unusualprehistory:entity/diplo/diplo_idle_1",
+        "pitch": 1.5
+      },
+      {
+        "name": "unusualprehistory:entity/diplo/diplo_idle_2",
+        "pitch": 1.5
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.diplo_idle"
+  },
+  "diplo_death": {
+    "sounds": [
+      {
+        "name": "unusualprehistory:entity/diplo/diplo_death_0",
+        "pitch": 1.5
+      },
+      {
+        "name": "unusualprehistory:entity/diplo/diplo_death_1",
+        "pitch": 1.5
+      },
+      {
+        "name": "unusualprehistory:entity/diplo/diplo_death_2",
+        "pitch": 1.5
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.diplo_death"
+  },
+
+  "hyneria_hurt": {
+    "sounds": [
+        "unusualprehistory:entity/hyneria/hyneria_hurt_0",
+        "unusualprehistory:entity/hyneria/hyneria_hurt_1",
+        "unusualprehistory:entity/hyneria/hyneria_hurt_2",
+        "unusualprehistory:entity/hyneria/hyneria_hurt_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hyneria_hurt"
+  },
+  "hyneria_attack": {
+    "sounds": [
+      {
+        "name": "unusualprehistory:entity/hyneria/hyneria_attack_0",
+        "pitch": 1.5
+      },
+      {
+        "name": "unusualprehistory:entity/hyneria/hyneria_attack_1",
+        "pitch": 1.5
+      },
+      {
+        "name": "unusualprehistory:entity/hyneria/hyneria_attack_2",
+        "pitch": 1.5
+      }
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hyneria_attack"
+  },
+  "hyneria_death": {
+    "sounds": [
+        "unusualprehistory:entity/hyneria/hyneria_death_0",
+        "unusualprehistory:entity/hyneria/hyneria_death_1",
+        "unusualprehistory:entity/hyneria/hyneria_death_2",
+        "unusualprehistory:entity/hyneria/hyneria_death_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hyneria_death"
+  },
+  "hyneria_jump": {
+    "sounds": [
+      "unusualprehistory:entity/hyneria/hyneria_jump_0",
+      "unusualprehistory:entity/hyneria/hyneria_jump_1",
+      "unusualprehistory:entity/hyneria/hyneria_jump_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hyneria_jump"
+  },
+
+  "beelze_idle": {
+    "sounds": [
+        "unusualprehistory:entity/beelze/beelze_idle_0",
+        "unusualprehistory:entity/beelze/beelze_idle_1",
+        "unusualprehistory:entity/beelze/beelze_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.beelze_idle"
   },
   "beelze_attack": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:beelze_attack_0"
-      },
-      {
-        "name": "unusualprehistory:beelze_attack_1"
-      },
-      {
-        "name": "unusualprehistory:beelze_attack_1"
-      }
+        "unusualprehistory:entity/beelze/beelze_attack_0",
+        "unusualprehistory:entity/beelze/beelze_attack_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.beelze_attack"
   },
   "beelze_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:beelze_hurt_0"
-      },
-      {
-        "name": "unusualprehistory:beelze_hurt_1"
-      }
+        "unusualprehistory:entity/beelze/beelze_hurt_0",
+        "unusualprehistory:entity/beelze/beelze_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.beelze_hurt"
   },
   "beelze_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:beelze_death_0"
-      },
-      {
-        "name": "unusualprehistory:beelze_death_1"
-      },
-      {
-        "name": "unusualprehistory:beelze_death_2"
-      }
+        "unusualprehistory:entity/beelze/beelze_death_0",
+        "unusualprehistory:entity/beelze/beelze_death_1",
+        "unusualprehistory:entity/beelze/beelze_death_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.beelze_death"
   },
-  "rex_bite": {
-    "category": "neutral",
+
+  "tyrannosaurus_bite": {
     "sounds": [
-      {
-        "name": "unusualprehistory:rex_bite_0"
-      },
-      {
-        "name": "unusualprehistory:rex_bite_1"
-      },
-      {
-        "name": "unusualprehistory:rex_bite_2"
-      }
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_bite_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_bite_1",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_bite_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_bite"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_bite"
   },
-  "rex_death": {
-    "category": "neutral",
+  "tyrannosaurus_death": {
     "sounds": [
-      {
-        "name": "unusualprehistory:rex_death_0"
-      },
-      {
-        "name": "unusualprehistory:rex_death_1"
-      }
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_death_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_death_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_death"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_death"
   },
-  "rex_hurt": {
-    "category": "neutral",
+  "tyrannosaurus_hurt": {
     "sounds": [
-      {
-        "name": "unusualprehistory:rex_hurt_0"
-      },
-      {
-        "name": "unusualprehistory:rex_hurt_1"
-      }
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_hurt_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_hurt"
   },
-  "rex_idle": {
-    "category": "neutral",
+  "tyrannosaurus_idle": {
     "sounds": [
-      {
-        "name": "unusualprehistory:rex_idle_0"
-      },
-      {
-        "name": "unusualprehistory:rex_idle_1"
-      },
-      {
-        "name": "unusualprehistory:rex_idle_2"
-      }
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_idle_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_idle_1",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_idle_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_idle"
   },
-  "rex_step": {
-    "category": "neutral",
+  "tyrannosaurus_step": {
     "sounds": [
-      {
-        "name": "unusualprehistory:rex_step"
-      }
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_step_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_step_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_step"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_step"
   },
-  "rex_stomp_attack": {
-    "category": "neutral",
+  "tyrannosaurus_stomp_attack": {
     "sounds": [
-      {
-        "name": "unusualprehistory:rex_stomp_attack_0"
-      },
-      {
-        "name": "unusualprehistory:rex_stomp_attack_1"
-      }
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_stomp_attack_0",
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_stomp_attack_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_stomp_attack"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_stomp_attack"
   },
-  "rex_tail_swipe": {
-    "category": "neutral",
+  "tyrannosaurus_tail_swipe": {
     "sounds": [
-      {
-        "name": "unusualprehistory:rex_tail_swipe"
-      }
+        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_tail_swipe"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.rex_tail_swipe"
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_tail_swipe"
   },
+  "tyrannosaurus_roar": {
+    "sounds": [
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_0",
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_roar"
+  },
+  "tyrannosaurus_sniff": {
+    "sounds": [
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_sniff"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_sniff"
+  },
+  "tyrannosaurus_revive": {
+    "sounds": [
+      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_revive"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_revive"
+  },
+
   "trike_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:trike_death_0"
-      },
-      {
-        "name": "unusualprehistory:trike_death_1"
-      }
+        "unusualprehistory:entity/trike/trike_death_0",
+        "unusualprehistory:entity/trike/trike_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.trike_death"
   },
   "trike_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:trike_hurt_0"
-      },
-      {
-        "name": "unusualprehistory:trike_hurt_1"
-      }
+        "unusualprehistory:entity/trike/trike_hurt_0",
+        "unusualprehistory:entity/trike/trike_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.trike_hurt"
   },
   "trike_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:trike_idle_0"
-      },
-      {
-        "name": "unusualprehistory:trike_idle_1"
-      },
-      {
-        "name": "unusualprehistory:trike_idle_2"
-      }
+        "unusualprehistory:entity/trike/trike_idle_0",
+        "unusualprehistory:entity/trike/trike_idle_1",
+        "unusualprehistory:entity/trike/trike_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.trike_idle"
   },
+
   "brachi_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:brachi_death_0"
-      },
-      {
-        "name": "unusualprehistory:brachi_death_1"
-      }
+        "unusualprehistory:entity/brachi/brachi_death_0",
+        "unusualprehistory:entity/brachi/brachi_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.brachi_death"
   },
   "brachi_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:brachi_hurt_0"
-      },
-      {
-        "name": "unusualprehistory:brachi_hurt_1"
-      }
+        "unusualprehistory:entity/brachi/brachi_hurt_0"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.brachi_hurt"
   },
   "brachi_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:brachi_idle_0"
-      },
-      {
-        "name": "unusualprehistory:brachi_idle_1"
-      },
-      {
-        "name": "unusualprehistory:brachi_idle_2"
-      }
+        "unusualprehistory:entity/brachi/brachi_idle_0",
+        "unusualprehistory:entity/brachi/brachi_idle_1",
+        "unusualprehistory:entity/brachi/brachi_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.brachi_idle"
   },
   "brachi_step": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:brachi_step_0"
-      },
-      {
-        "name": "unusualprehistory:brachi_step_1"
-      }
+        "unusualprehistory:entity/brachi/brachi_step_0",
+        "unusualprehistory:entity/brachi/brachi_step_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.brachi_step"
   },
   "brachi_toss": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:brachi_toss"
-      }
+        "unusualprehistory:entity/brachi/brachi_toss"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.brachi_toss"
   },
-  "encrusted_death": {
-    "category": "neutral",
+  "brachi_stomp": {
     "sounds": [
-      {
-        "name": "unusualprehistory:encrusted_death_0"
-      },
-      {
-        "name": "unusualprehistory:encrusted_death_1"
-      }
+      "unusualprehistory:entity/brachi/brachi_stomp_0",
+      "unusualprehistory:entity/brachi/brachi_stomp_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.brachi_stomp"
+  },
+
+  "encrusted_death": {
+    "sounds": [
+        "unusualprehistory:entity/encrusted/encrusted_death_0",
+        "unusualprehistory:entity/encrusted/encrusted_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.encrusted_death"
   },
   "encrusted_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:encrusted_hurt_0"
-      },
-      {
-        "name": "unusualprehistory:encrusted_hurt_1"
-      }
+        "unusualprehistory:entity/encrusted/encrusted_hurt_0",
+        "unusualprehistory:entity/encrusted/encrusted_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.encrusted_hurt"
   },
   "encrusted_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:encrusted_idle_0"
-      },
-      {
-        "name": "unusualprehistory:encrusted_idle_1"
-      },
-      {
-        "name": "unusualprehistory:encrusted_idle_2"
-      },
-      {
-        "name": "unusualprehistory:encrusted_idle_3"
-      }
+        "unusualprehistory:entity/encrusted/encrusted_idle_0",
+        "unusualprehistory:entity/encrusted/encrusted_idle_1",
+        "unusualprehistory:entity/encrusted/encrusted_idle_2",
+        "unusualprehistory:entity/encrusted/encrusted_idle_3"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.encrusted_idle"
   },
   "encrusted_melee": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:encrusted_melee_0"
-      },
-      {
-        "name": "unusualprehistory:encrusted_melee_1"
-      }
+        "unusualprehistory:entity/encrusted/encrusted_melee_0",
+        "unusualprehistory:entity/encrusted/encrusted_melee_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.encrusted_melee"
   },
   "encrusted_spit": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:encrusted_spit_0"
-      },
-      {
-        "name": "unusualprehistory:encrusted_spit_1"
-      }
+        "unusualprehistory:entity/encrusted/encrusted_spit_0",
+        "unusualprehistory:entity/encrusted/encrusted_spit_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.encrusted_spit"
   },
-  "raptor_attack": {
-    "category": "neutral",
+
+  "velociraptor_attack": {
     "sounds": [
-      {
-        "name": "unusualprehistory:raptor_attack_0",
-        "volume": 0.5
-      },
-      {
-        "name": "unusualprehistory:raptor_attack_1",
-        "volume": 0.5
-      }
+        "unusualprehistory:entity/velociraptor/velociraptor_attack_0",
+        "unusualprehistory:entity/velociraptor/velociraptor_attack_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.raptor_attack"
+    "subtitle": "unusualprehistory.sound.subtitle.velociraptor_attack"
   },
-  "raptor_death": {
-    "category": "neutral",
+  "velociraptor_death": {
     "sounds": [
-      {
-        "name": "unusualprehistory:raptor_death_0",
-        "volume": 0.5
-      }
+        "unusualprehistory:entity/velociraptor/velociraptor_death_0"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.raptor_death"
+    "subtitle": "unusualprehistory.sound.subtitle.velociraptor_death"
   },
-  "raptor_hurt": {
-    "category": "neutral",
+  "velociraptor_hurt": {
     "sounds": [
-      {
-        "name": "unusualprehistory:raptor_hurt_0",
-        "volume": 0.5
-      },
-      {
-        "name": "unusualprehistory:raptor_hurt_1",
-        "volume": 0.5
-      }
+        "unusualprehistory:entity/velociraptor/velociraptor_hurt_0",
+        "unusualprehistory:entity/velociraptor/velociraptor_hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.raptor_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.velociraptor_hurt"
   },
-  "raptor_idle": {
-    "category": "neutral",
+  "velociraptor_idle": {
     "sounds": [
-      {
-        "name": "unusualprehistory:raptor_idle_0",
-        "volume": 0.5
-      },
-      {
-        "name": "unusualprehistory:raptor_idle_1",
-        "volume": 0.5
-      },
-      {
-        "name": "unusualprehistory:raptor_idle_2",
-        "volume": 0.5
-      }
+        "unusualprehistory:entity/velociraptor/velociraptor_idle_0",
+        "unusualprehistory:entity/velociraptor/velociraptor_idle_1",
+        "unusualprehistory:entity/velociraptor/velociraptor_idle_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.raptor_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.velociraptor_idle"
   },
-  "raptor_search": {
-    "category": "neutral",
+  "velociraptor_search": {
     "sounds": [
-      {
-        "name": "unusualprehistory:raptor_search",
-        "volume": 0.5
-      }
+        "unusualprehistory:entity/velociraptor/velociraptor_search"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.raptor_search"
+    "subtitle": "unusualprehistory.sound.subtitle.velociraptor_search"
   },
+
   "pachy_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:pachy_death",
-        "volume": 0.5
-      }
+        "unusualprehistory:entity/pachy/pachy_death"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.pachy_death"
   },
   "pachy_headbutt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:pachy_headbutt_0"
-      },
-      {
-        "name": "unusualprehistory:pachy_headbutt_1"
-      },
-      {
-        "name": "unusualprehistory:pachy_headbutt_2"
-      }
+        "unusualprehistory:entity/pachy/pachy_headbutt_0",
+        "unusualprehistory:entity/pachy/pachy_headbutt_1",
+        "unusualprehistory:entity/pachy/pachy_headbutt_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.pachy_headbutt"
   },
   "pachy_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:pachy_hurt_0",
-        "volume": 0.5
-      },
-      {
-        "name": "unusualprehistory:pachy_hurt_1",
-        "volume": 0.5
-      }
+        "unusualprehistory:entity/pachy/pachy_hurt_0",
+        "unusualprehistory:entity/pachy/pachy_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.pachy_hurt"
   },
   "pachy_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:pachy_idle_0",
-        "volume": 0.5
-      },
-      {
-        "name": "unusualprehistory:pachy_idle_1",
-        "volume": 0.5
-      },
-      {
-        "name": "unusualprehistory:pachy_idle_2",
-        "volume": 0.5
-      }
+        "unusualprehistory:entity/pachy/pachy_idle_0",
+        "unusualprehistory:entity/pachy/pachy_idle_1",
+        "unusualprehistory:entity/pachy/pachy_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.pachy_idle"
   },
   "pachy_kick": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:pachy_kick_0",
-        "volume": 0.5
-      },
-      {
-        "name": "unusualprehistory:pachy_kick_1",
-        "volume": 0.5
-      }
+        "unusualprehistory:entity/pachy/pachy_kick_0",
+        "unusualprehistory:entity/pachy/pachy_kick_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.pachy_kick"
   },
+
   "eryon_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:eryon_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:eryon_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/eryon/eryon_death_0",
+        "unusualprehistory:entity/eryon/eryon_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.eryon_death"
   },
   "eryon_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:eryon_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:eryon_hurt_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:eryon_hurt_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/eryon/eryon_hurt_0",
+        "unusualprehistory:entity/eryon/eryon_hurt_1",
+        "unusualprehistory:entity/eryon/eryon_hurt_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.eryon_hurt"
   },
   "eryon_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:eryon_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:eryon_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:eryon_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/eryon/eryon_idle_0",
+        "unusualprehistory:entity/eryon/eryon_idle_1",
+        "unusualprehistory:entity/eryon/eryon_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.eryon_idle"
   },
+
   "austro_bite": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:austro_bite_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:austro_bite_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/austro/austro_bite_0",
+        "unusualprehistory:entity/austro/austro_bite_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.austro_bite"
   },
   "austro_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:austro_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:austro_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/austro/austro_death_0",
+        "unusualprehistory:entity/austro/austro_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.austro_death"
   },
   "austro_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:austro_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:austro_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/austro/austro_hurt_0",
+        "unusualprehistory:entity/austro/austro_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.austro_hurt"
   },
   "austro_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:austro_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:austro_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:austro_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/austro/austro_idle_0",
+        "unusualprehistory:entity/austro/austro_idle_1",
+        "unusualprehistory:entity/austro/austro_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.austro_idle"
   },
   "austro_preen": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:austro_preen_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:austro_preen_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/austro/austro_preen_0",
+        "unusualprehistory:entity/austro/austro_preen_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.austro_preen"
   },
+
   "hwacha_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:hwacha_death_0"
-      },
-      {
-        "name": "unusualprehistory:hwacha_death_1"
-      }
+        "unusualprehistory:entity/hwacha/hwacha_death_0",
+        "unusualprehistory:entity/hwacha/hwacha_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.hwacha_death"
   },
   "hwacha_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:hwacha_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:hwacha_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/hwacha/hwacha_hurt_0",
+        "unusualprehistory:entity/hwacha/hwacha_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.hwacha_hurt"
   },
   "hwacha_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:hwacha_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:hwacha_idle_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/hwacha/hwacha_idle_0",
+        "unusualprehistory:entity/hwacha/hwacha_idle_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.hwacha_idle"
   },
   "hwacha_shoot": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:hwacha_shoot_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:hwacha_shoot_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/hwacha/hwacha_shoot_0",
+        "unusualprehistory:entity/hwacha/hwacha_shoot_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.hwacha_shoot"
   },
+
   "kentro_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:kentro_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:kentro_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/kentro/kentro_death_0",
+        "unusualprehistory:entity/kentro/_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.kentro_death"
   },
   "kentro_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:kentro_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:kentro_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/kentro/_hurt_0",
+        "unusualprehistory:entity/kentro/_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.kentro_hurt"
   },
   "kentro_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:kentro_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:kentro_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:kentro_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/kentro/_idle_0",
+        "unusualprehistory:entity/kentro/_idle_1",
+        "unusualprehistory:entity/kentro/_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.kentro_idle"
   },
+
   "tail_swipe": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:tail_swipe_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:tail_swipe_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:tail_swipe_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/tail_swipe_0",
+        "unusualprehistory:entity/tail_swipe_1",
+        "unusualprehistory:entity/tail_swipe_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tail_swipe"
   },
+
   "ulugh_bite": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:ulugh_bite_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:ulugh_bite_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/ulugh/ulugh_bite_0",
+        "unusualprehistory:entity/ulugh/ulugh_bite_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_bite"
   },
   "ulugh_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:ulugh_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:ulugh_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/ulugh/ulugh_death_0",
+        "unusualprehistory:entity/ulugh/ulugh_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_death"
   },
   "ulugh_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:ulugh_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:ulugh_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/ulugh/ulugh_hurt_0",
+        "unusualprehistory:entity/ulugh/ulugh_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_hurt"
   },
   "ulugh_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:ulugh_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:ulugh_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:ulugh_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/ulugh/ulugh_idle_0",
+        "unusualprehistory:entity/ulugh/ulugh_idle_1",
+        "unusualprehistory:entity/ulugh/ulugh_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_idle"
   },
   "ulugh_step": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:ulugh_step_0"
-      },
-      {
-        "name": "unusualprehistory:ulugh_step_1"
-      },
-      {
-        "name": "unusualprehistory:ulugh_step_2"
-      },
-      {
-        "name": "unusualprehistory:ulugh_step_3"
-      }
+        "unusualprehistory:entity/ulugh/ulugh_step_0",
+        "unusualprehistory:entity/ulugh/ulugh_step_1",
+        "unusualprehistory:entity/ulugh/ulugh_step_2",
+        "unusualprehistory:entity/ulugh/ulugh_step_3"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.ulugh_step"
   },
+
   "antarcto_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:antarcto_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:antarcto_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/antarcto/antarcto_death_0",
+        "unusualprehistory:entity/antarcto/antarcto_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.antarcto_death"
   },
   "antarcto_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:antarcto_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:antarcto_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/antarcto/antarcto_hurt_0",
+        "unusualprehistory:entity/antarcto/antarcto_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.antarcto_hurt"
   },
   "antarcto_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:antarcto_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:antarcto_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:antarcto_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/antarcto/antarcto_idle_0",
+        "unusualprehistory:entity/antarcto/antarcto_idle_1",
+        "unusualprehistory:entity/antarcto/antarcto_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.antarcto_idle"
   },
+
   "rex_boombox": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:rex_boombox"
-      }
+        "unusualprehistory:block/rex_boombox"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.rex_boombox"
   },
+
   "giganto_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:giganto_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:giganto_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/giganto/giganto_death_0",
+        "unusualprehistory:entity/giganto/giganto_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.giganto_death"
   },
   "giganto_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:giganto_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:giganto_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/giganto/giganto_hurt_0",
+        "unusualprehistory:entity/giganto/giganto_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.giganto_hurt"
   },
   "giganto_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:giganto_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:giganto_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:giganto_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/giganto/giganto_idle_0",
+        "unusualprehistory:entity/giganto/giganto_idle_1",
+        "unusualprehistory:entity/giganto/giganto_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.giganto_idle"
   },
   "giganto_trade": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:giganto_trade_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:giganto_trade_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/giganto/giganto_trade_0",
+        "unusualprehistory:entity/giganto/giganto_trade_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.giganto_trade"
   },
+
   "mammoth_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:mammoth_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:mammoth_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/mammoth/mammoth_death_0",
+        "unusualprehistory:entity/mammoth/mammoth_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.mammoth_death"
   },
   "mammoth_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:mammoth_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:mammoth_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/mammoth/mammoth_hurt_0",
+        "unusualprehistory:entity/mammoth/mammoth_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.mammoth_hurt"
   },
   "mammoth_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:mammoth_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:mammoth_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:mammoth_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/mammoth/mammoth_idle_0",
+        "unusualprehistory:entity/mammoth/mammoth_idle_1",
+        "unusualprehistory:entity/mammoth/mammoth_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.mammoth_idle"
   },
+
   "paracer_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:paracer_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:paracer_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/paracer/paracer_death_0",
+        "unusualprehistory:entity/paracer/paracer_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.paracer_death"
   },
   "paracer_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:paracer_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:paracer_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/paracer/paracer_hurt_0",
+        "unusualprehistory:entity/paracer/paracer_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.paracer_hurt"
   },
   "paracer_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:paracer_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:paracer_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:paracer_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/paracer/paracer_idle_0",
+        "unusualprehistory:entity/paracer/paracer_idle_1",
+        "unusualprehistory:entity/paracer/paracer_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.paracer_idle"
   },
   "paracer_stomp": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:paracer_stomp_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:paracer_stomp_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/paracer/paracer_stomp_0",
+        "unusualprehistory:entity/paracer/paracer_stomp_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.paracer_stomp"
   },
+
   "talpanas_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:talpanas_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:talpanas_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/talpanas/talpanas_death_0",
+        "unusualprehistory:entity/talpanas/talpanas_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.talpanas_death"
   },
   "talpanas_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:talpanas_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:talpanas_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/talpanas/talpanas_hurt_0",
+        "unusualprehistory:entity/talpanas/talpanas_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.talpanas_hurt"
   },
   "talpanas_panic": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:talpanas_panic_0",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/talpanas/talpanas_panic_0"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.talpanas_panic"
   },
   "talpanas_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:talpanas_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:talpanas_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:talpanas_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/talpanas/talpanas_idle_0",
+        "unusualprehistory:entity/talpanas/talpanas_idle_1",
+        "unusualprehistory:entity/talpanas/talpanas_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.talpanas_idle"
   },
+
   "crocarina": {
-    "category": "records",
     "sounds": [
-      {
-        "name": "unusualprehistory:crocarina_0",
-        "volume": 0.4
-      },
-      {
-        "name": "unusualprehistory:crocarina_1",
-        "volume": 0.4
-      },
-      {
-        "name": "unusualprehistory:crocarina_2",
-        "volume": 0.4
-      },
-      {
-        "name": "unusualprehistory:crocarina_3",
-        "volume": 0.4
-      },
-      {
-        "name": "unusualprehistory:crocarina_4",
-        "volume": 0.4
-      },
-      {
-        "name": "unusualprehistory:crocarina_5",
-        "volume": 0.4
-      }
+        "unusualprehistory:item/crocarina/crocarina_0",
+        "unusualprehistory:item/crocarina/crocarina_1",
+        "unusualprehistory:item/crocarina/crocarina_2",
+        "unusualprehistory:item/crocarina/crocarina_3",
+        "unusualprehistory:item/crocarina/crocarina_4",
+        "unusualprehistory:item/crocarina/crocarina_5"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.crocarina"
   },
+
   "barina_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:barina_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:barina_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/barina/barina_death_0",
+        "unusualprehistory:entity/barina/barina_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.barina_death"
   },
   "barina_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:barina_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:barina_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/barina/barina_hurt_0",
+        "unusualprehistory:entity/barina/barina_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.barina_hurt"
   },
   "barina_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:barina_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:barina_idle_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/barina/barina_idle_0",
+        "unusualprehistory:entity/barina/barina_idle_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.barina_idle"
   },
-  "megather_death": {
-    "category": "neutral",
+  "barina_bite": {
     "sounds": [
-      {
-        "name": "unusualprehistory:megather_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:megather_death_1",
-        "volume": 0.2
-      }
+      "unusualprehistory:entity/barina/barina_bite_0",
+      "unusualprehistory:entity/barina/barina_bite_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.barina_bite"
+  },
+
+  "megather_death": {
+    "sounds": [
+        "unusualprehistory:entity/megather/megather_death_0",
+        "unusualprehistory:entity/megather/megather_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megather_death"
   },
   "megather_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:megather_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:megather_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/megather/megather_hurt_0",
+        "unusualprehistory:entity/megather/megather_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megather_hurt"
   },
   "megather_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:megather_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:megather_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:megather_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/megather/megather_idle_0",
+        "unusualprehistory:entity/megather/megather_idle_1",
+        "unusualprehistory:entity/megather/megather_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megather_idle"
   },
+
   "smilodon_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:smilodon_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:smilodon_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/smilodon/smilodon_death_0",
+        "unusualprehistory:entity/smilodon/smilodon_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.smilodon_death"
   },
   "smilodon_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:smilodon_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:smilodon_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/smilodon/smilodon_hurt_0",
+        "unusualprehistory:entity/smilodon/smilodon_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.smilodon_hurt"
   },
   "smilodon_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:smilodon_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:smilodon_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:smilodon_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/smilodon/smilodon_idle_0",
+        "unusualprehistory:entity/smilodon/smilodon_idle_1",
+        "unusualprehistory:entity/smilodon/smilodon_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.smilodon_idle"
   },
+
   "zulogae_disc": {
     "sounds": [
       {
-        "name": "unusualprehistory:zulogae_disc",
+        "name": "unusualprehistory:music/zulogae_disc",
         "stream": true
       }
     ]
   },
+
   "encased_disc": {
     "sounds": [
       {
-        "name": "unusualprehistory:encased",
+        "name": "unusualprehistory:music/encased_disc",
         "stream": true
       }
     ]
   },
+
   "palaeo_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:palaeo_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:palaeo_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/palaeo/palaeo_death_0",
+        "unusualprehistory:entity/palaeo/palaeo_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.palaeo_death"
   },
   "palaeo_bite": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:palaeo_bite_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:palaeo_bite_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/palaeo/palaeo_bite_0",
+        "unusualprehistory:entity/palaeo/palaeo_bite_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.palaeo_bite"
   },
   "palaeo_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:palaeo_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:palaeo_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/palaeo/palaeo_hurt_0",
+        "unusualprehistory:entity/palaeo/palaeo_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.palaeo_hurt"
   },
   "palaeo_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:palaeo_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:palaeo_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:palaeo_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/palaeo/palaeo_idle_0",
+        "unusualprehistory:entity/palaeo/palaeo_idle_1",
+        "unusualprehistory:entity/palaeo/palaeo_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.palaeo_idle"
   },
+
   "tar_pop": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:tar_pop_0",
-        "volume": 0.2
-      }
+        "unusualprehistory:block/tar/tar_pop_0"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tar_pop"
   },
   "tar_ambient": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:tar_ambient_0",
-        "volume": 0.2
-      }
+        "unusualprehistory:block/tar/tar_ambient_0"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tar_ambient"
   },
+
   "megalania_death": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:megalania_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:megalania_death_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/megalania/megalania_death_0",
+        "unusualprehistory:entity/megalania/megalania_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megalania_death"
   },
   "megalania_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:megalania_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:megalania_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/megalania/megalania_hurt_0",
+        "unusualprehistory:entity/megalania/megalania_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megalania_hurt"
   },
   "megalania_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:megalania_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:megalania_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:megalania_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/megalania/megalania_idle_0",
+        "unusualprehistory:entity/megalania/megalania_idle_1",
+        "unusualprehistory:entity/megalania/megalania_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megalania_idle"
   },
-  "sludge_death": {
-    "category": "neutral",
+  "megalania_bite": {
     "sounds": [
-      {
-        "name": "unusualprehistory:sludge_death_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:sludge_death_1",
-        "volume": 0.2
-      }
+      "unusualprehistory:entity/megalania/megalania_bite_0",
+      "unusualprehistory:entity/megalania/megalania_bite_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.megalania_bite"
+  },
+
+  "globidens_idle": {
+    "sounds": [
+        "unusualprehistory:entity/globidens/globidens_idle_0",
+        "unusualprehistory:entity/globidens/globidens_idle_1",
+        "unusualprehistory:entity/globidens/globidens_idle_2",
+        "unusualprehistory:entity/globidens/globidens_idle_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.globidens_idle"
+  },
+  "globidens_hurt": {
+    "sounds": [
+        "unusualprehistory:entity/globidens/globidens_hurt_0",
+        "unusualprehistory:entity/globidens/globidens_hurt_1",
+        "unusualprehistory:entity/globidens/globidens_hurt_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.globidens_hurt"
+  },
+  "globidens_death": {
+    "sounds": [
+        "unusualprehistory:entity/globidens/globidens_death_0",
+        "unusualprehistory:entity/globidens/globidens_death_1",
+        "unusualprehistory:entity/globidens/globidens_death_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.globidens_death"
+  },
+
+  "sludge_death": {
+    "sounds": [
+        "unusualprehistory:entity/sludge/sludge_death_0",
+        "unusualprehistory:entity/sludge/sludge_death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_death"
   },
   "sludge_hurt": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:sludge_hurt_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:sludge_hurt_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/sludge/sludge_hurt_0",
+        "unusualprehistory:entity/sludge/sludge_hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_hurt"
   },
   "sludge_idle": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:sludge_idle_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:sludge_idle_1",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:sludge_idle_2",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/sludge/sludge_idle_0",
+        "unusualprehistory:entity/sludge/sludge_idle_1",
+        "unusualprehistory:entity/sludge/sludge_idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_idle"
   },
   "sludge_slam": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:sludge_slam_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:sludge_slam_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/sludge/sludge_slam_0",
+        "unusualprehistory:entity/sludge/sludge_slam_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_slam"
   },
   "sludge_slap": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:sludge_slap_0",
-        "volume": 0.2
-      },
-      {
-        "name": "unusualprehistory:sludge_slap_1",
-        "volume": 0.2
-      }
+        "unusualprehistory:entity/sludge/sludge_slap_0",
+        "unusualprehistory:entity/sludge/sludge_slap_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.sludge_slap"
   },
-  "jarate_explode": {
-    "category": "neutral",
+
+  "leedsichthys_hurt": {
     "sounds": [
-      {
-        "name": "unusualprehistory:jarate_explode",
-        "volume": 0.05
-      }
+      "unusualprehistory:entity/leedsichthys/leedsichthys_hurt_0",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_hurt_1",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_hurt_2",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_hurt_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.leedsichthys_hurt"
+  },
+  "leedsichthys_idle": {
+    "sounds": [
+      "unusualprehistory:entity/leedsichthys/leedsichthys_idle_0",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_idle_1",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_idle_2",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_idle_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.leedsichthys_idle"
+  },
+  "leedsichthys_flop": {
+    "sounds": [
+      "unusualprehistory:entity/leedsichthys/leedsichthys_flop_0",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_flop_1",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_flop_2",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_flop_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.leedsichthys_flop"
+  },
+  "leedsichthys_death": {
+    "sounds": [
+      "unusualprehistory:entity/leedsichthys/leedsichthys_death_0",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_death_1",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_death_2",
+      "unusualprehistory:entity/leedsichthys/leedsichthys_death_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.leedsichthys_death"
+  },
+
+  "jarate_explode": {
+    "sounds": [
+        "unusualprehistory:entity/projectile/jarate/jarate_explode"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.jarate_explode"
   },
   "jarate_sniper": {
-    "category": "neutral",
     "sounds": [
-      {
-        "name": "unusualprehistory:jarate_sniper",
-        "volume": 0.5
-      }
+        "unusualprehistory:entity/projectile/jarate/jarate_sniper"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.jarate_sniper"
   }

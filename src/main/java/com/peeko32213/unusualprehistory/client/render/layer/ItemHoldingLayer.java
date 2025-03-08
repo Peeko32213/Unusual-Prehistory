@@ -3,9 +3,9 @@ package com.peeko32213.unusualprehistory.client.render.layer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import com.peeko32213.unusualprehistory.common.entity.EntityGigantopithicus;
-import com.peeko32213.unusualprehistory.common.entity.EntityMammoth;
-import com.peeko32213.unusualprehistory.common.entity.msc.util.dino.EntityBaseDinosaurAnimal;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.GigantopithicusEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MammothEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -21,7 +21,7 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 import software.bernie.geckolib.util.RenderUtils;
 
-public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoRenderLayer<T> {
+public class ItemHoldingLayer<T extends PrehistoricEntity> extends GeoRenderLayer<T> {
     private ItemStack mainHand;
 
     public ItemHoldingLayer(GeoRenderer<T> entityRendererIn) {
@@ -34,11 +34,11 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoRen
         ResourceLocation boneLoc = this.getGeoModel().getModelResource(dino);
         BakedGeoModel model = this.getGeoModel().getBakedModel(boneLoc);
 
-        if (dino instanceof EntityGigantopithicus gigantopithicus) {
+        if (dino instanceof GigantopithicusEntity gigantopithicus) {
             renderRecursivelyGiganto(gigantopithicus, model.topLevelBones().get(0), poseStack, bufferSource, packedLight, OverlayTexture.pack(OverlayTexture.u(0),
                     OverlayTexture.v(gigantopithicus.hurtTime > 0)));
         }
-        if (dino instanceof EntityMammoth mammoth) {
+        if (dino instanceof MammothEntity mammoth) {
             renderRecursivelyMammoth(mammoth, model.getBone("Fur").get(), poseStack, bufferSource, packedLight, OverlayTexture.pack(OverlayTexture.u(0),
                     OverlayTexture.v(mammoth.hurtTime > 0)));
         }
@@ -55,7 +55,7 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoRen
         RenderUtils.scaleMatrixForBone(stack, bone);
         RenderUtils.translateAwayFromPivotPoint(stack, bone);
 
-        if(entity instanceof EntityMammoth mammoth){
+        if(entity instanceof MammothEntity mammoth){
             //UnusualPrehistory.LOGGER.info("bones " + bone.getName());
             if (!mammoth.getHoldItemStack().isEmpty()) {
                 stack.pushPose();
@@ -101,8 +101,8 @@ public class ItemHoldingLayer<T extends EntityBaseDinosaurAnimal> extends GeoRen
         //RenderUtils.scaleMatrixForBone(stack, bone);
         //RenderUtils.translateAwayFromPivotPoint(stack, bone);
         RenderUtils.translateAndRotateMatrixForBone(stack, bone);
-        if(entity instanceof EntityBaseDinosaurAnimal entityBaseDinosaurAnimal) {
-            if (bone.getName().equals("Arm1") && entityBaseDinosaurAnimal.isTrading() && entityBaseDinosaurAnimal instanceof EntityGigantopithicus) {
+        if(entity instanceof PrehistoricEntity entityBaseDinosaurAnimal) {
+            if (bone.getName().equals("Arm1") && entityBaseDinosaurAnimal.isTrading() && entityBaseDinosaurAnimal instanceof GigantopithicusEntity) {
                 stack.pushPose();
                 //You'll need to play around with these to get item to render in the correct orientation
                 stack.mulPose(Axis.XP.rotationDegrees(-45));

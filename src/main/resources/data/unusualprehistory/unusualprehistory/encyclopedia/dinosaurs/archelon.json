@@ -5,10 +5,10 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:archelon",
-      "x": 90,
-      "y": 85,
+      "x": 95,
+      "y": 80,
       "page" : 0,
-      "scale": 0.8,
+      "scale": 0.5,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
@@ -22,9 +22,9 @@
       "y": 120,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.2,
-      "offset_x": 4,
-      "offset_y": -25,
+      "entity_scale": 0.7,
+      "offset_x": -15,
+      "offset_y": -5,
       "hover_text": "entity.unusualprehistory.archelon"
     }
   ]

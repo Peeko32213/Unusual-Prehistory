@@ -21,7 +21,6 @@ public class IncreaseAgeItem extends Item {
         this.toAge = toAge;
     }
 
-
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
         if(pInteractionTarget instanceof Animal animal && animal.getType().is(toAge)){

@@ -8,10 +8,10 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:longisquama",
-      "x": 90,
-      "y": 100,
+      "x": 100,
+      "y": 95,
       "page" : 0,
-      "scale": 1.05,
+      "scale": 1.2,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
@@ -25,9 +25,9 @@
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.56,
-      "offset_x": 3,
-      "offset_y": -11,
+      "entity_scale": 0.85,
+      "offset_x": 4,
+      "offset_y": -4,
       "hover_text": "entity.unusualprehistory.longisquama"
     }
   ]

@@ -6,7 +6,7 @@
 				"identifier": "geometry.shedscale_armor",
 				"texture_width": 64,
 				"texture_height": 64,
-				"visible_bounds_width": 2,
+				"visible_bounds_width": 3,
 				"visible_bounds_height": 3.5,
 				"visible_bounds_offset": [0, 1.25, 0]
 			},
@@ -43,7 +43,10 @@
 				{
 					"name": "armorRightArm",
 					"parent": "bipedRightArm",
-					"pivot": [-4, 22, 0]
+					"pivot": [-4, 22, 0],
+					"cubes": [
+						{"origin": [-8, 12, -2], "size": [4, 12, 4], "inflate": 0.3, "uv": [0, 33]}
+					]
 				},
 				{
 					"name": "bipedLeftArm",
@@ -52,7 +55,10 @@
 				{
 					"name": "armorLeftArm",
 					"parent": "bipedLeftArm",
-					"pivot": [4, 22, 0]
+					"pivot": [4, 22, 0],
+					"cubes": [
+						{"origin": [4, 12, -2], "size": [4, 12, 4], "inflate": 0.3, "uv": [0, 33], "mirror": true}
+					]
 				},
 				{
 					"name": "bipedLeftLeg",
@@ -80,7 +86,7 @@
 					"parent": "bipedLeftLeg",
 					"pivot": [-2, 12, 0],
 					"cubes": [
-						{"origin": [0, 0, -2], "size": [4, 4, 4], "inflate": 0.1, "uv": [30, 42]}
+						{"origin": [0, 0, -2], "size": [4, 4, 4], "inflate": 0.15, "uv": [30, 42]}
 					]
 				},
 				{
@@ -109,7 +115,7 @@
 					"parent": "bipedRightLeg",
 					"pivot": [2, 12, 0],
 					"cubes": [
-						{"origin": [-4, 0, -2], "size": [4, 4, 4], "inflate": 0.1, "uv": [34, 33]}
+						{"origin": [-4, 0, -2], "size": [4, 4, 4], "inflate": 0.15, "uv": [34, 33]}
 					]
 				}
 			]

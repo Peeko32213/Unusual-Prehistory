@@ -1,14 +1,13 @@
 {
   "title": "unusualprehistory.encyclopedia.root",
-  "text": "root.txt",
-  "pictures": [
+  "text": "root/root_main.txt",
+  "item_renders": [
     {
-      "page": 0,
-      "picture_location": "unusualprehistory:textures/item/ammonite_shell.png",
-      "x": 70,
-      "y": 28,
-      "xSize": 44,
-      "ySize": 44
+      "item" : "unusualprehistory:ammonite_shell",
+      "x": 30,
+      "y": 15,
+      "page" : 0,
+      "scale": 2.5
     }
   ],
   "entity_index": [
@@ -22,31 +21,31 @@
   ],
   "linked_page_buttons": [
     {
-      "linked_page": "unusualprehistory:tutorial",
+      "linked_page": "unusualprehistory:fossils",
       "text": "unusualprehistory.root.1",
-      "x": 300,
-      "y": 10,
+      "x": 295,
+      "y": 35,
+      "page": 0
+    },
+    {
+      "linked_page": "unusualprehistory:tutorial",
+      "text": "unusualprehistory.root.2",
+      "x": 295,
+      "y": 65,
       "page": 0
     },
     {
       "linked_page": "unusualprehistory:plants",
-      "text": "unusualprehistory.root.2",
-      "x": 300,
-      "y": 40,
+      "text": "unusualprehistory.root.3",
+      "x": 295,
+      "y": 95,
       "page": 0
     },
     {
       "linked_page": "unusualprehistory:dinosaurs",
-      "text": "unusualprehistory.root.3",
-      "x": 300,
-      "y": 70,
-      "page": 0
-    },
-    {
-      "linked_page": "unusualprehistory:fossils",
       "text": "unusualprehistory.root.4",
-      "x": 300,
-      "y": 100,
+      "x": 295,
+      "y": 125,
       "page": 0
     }
   ]

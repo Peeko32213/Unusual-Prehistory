@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/smilodon_embryo"
+    "layer0": "unusualprehistory:item/embryos/smilodon_embryo"
   }
 }

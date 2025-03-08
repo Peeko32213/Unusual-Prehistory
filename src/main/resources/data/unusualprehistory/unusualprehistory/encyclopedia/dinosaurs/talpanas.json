@@ -5,8 +5,8 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:talpanas",
-      "x": 90,
-      "y": 100,
+      "x": 95,
+      "y": 95,
       "page" : 0,
       "scale": 1.5,
       "rot_x": 30,
@@ -22,9 +22,9 @@
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.8,
-      "offset_x": 1,
-      "offset_y": -5,
+      "entity_scale": 1.0,
+      "offset_x": -2.75,
+      "offset_y": -4,
       "hover_text": "entity.unusualprehistory.talpanas"
     }
   ]

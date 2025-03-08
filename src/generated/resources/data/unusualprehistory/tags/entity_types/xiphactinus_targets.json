@@ -1,0 +1,21 @@
+{
+  "values": [
+    "minecraft:squid",
+    "minecraft:pig",
+    "minecraft:cow",
+    "minecraft:sheep",
+    "minecraft:horse",
+    "minecraft:chicken",
+    "minecraft:rabbit",
+    "minecraft:llama",
+    "minecraft:glow_squid",
+    "minecraft:axolotl",
+    "minecraft:dolphin",
+    "minecraft:cod",
+    "minecraft:salmon",
+    "minecraft:tropical_fish",
+    "minecraft:pufferfish",
+    "minecraft:drowned",
+    "minecraft:guardian"
+  ]
+}

@@ -5,10 +5,10 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:tartuosteus",
-      "x": 90,
-      "y": 90,
+      "x": 97,
+      "y": 92,
       "page" : 0,
-      "scale": 0.6,
+      "scale": 1.1,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,
@@ -22,9 +22,9 @@
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.25,
-      "offset_x": 10,
-      "offset_y": -26,
+      "entity_scale": 0.6,
+      "offset_x": 2,
+      "offset_y": -9.75,
       "hover_text": "entity.unusualprehistory.tartuosteus"
     }
   ]

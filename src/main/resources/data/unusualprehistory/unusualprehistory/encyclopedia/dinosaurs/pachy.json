@@ -9,19 +9,19 @@
       "y": 120,
       "page" : 1,
       "scale": 1.2,
-      "entity_scale": 0.47,
-      "offset_x": 7,
-      "offset_y": -10,
+      "entity_scale": 0.7,
+      "offset_x": -2,
+      "offset_y": -3,
       "hover_text": "entity.unusualprehistory.pachy"
     }
   ],
   "entity_renders": [
     {
       "entity": "unusualprehistory:pachy",
-      "x": 90,
+      "x": 100,
       "y": 100,
       "page" : 0,
-      "scale": 1,
+      "scale": 1.2,
       "rot_x": 30,
       "rot_y": 225,
       "rot_z": 0,

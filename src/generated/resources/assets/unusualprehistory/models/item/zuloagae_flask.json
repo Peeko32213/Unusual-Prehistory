@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/zuloagae_flask"
+    "layer0": "unusualprehistory:item/flasks/zuloagae_flask"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "egg_base_color": 7373695.0,
+  "egg_secondary_color": 1645098.0,
+  "egg_size": "small",
+  "egg_variant": "spots",
+  "entity": "unusualprehistory:pachy",
+  "hatch_time": 1200
+}

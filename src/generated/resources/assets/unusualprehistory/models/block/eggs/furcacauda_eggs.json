@@ -1,6 +1,0 @@
-{
-  "parent": "unusualprehistory:block/template_eggs/template_flat_water_egg",
-  "textures": {
-    "texture": "unusualprehistory:block/eggs/furcacauda_eggs"
-  }
-}

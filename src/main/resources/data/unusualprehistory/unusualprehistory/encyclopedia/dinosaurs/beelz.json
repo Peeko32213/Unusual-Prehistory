@@ -16,8 +16,8 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:beelz",
-      "x": 90,
-      "y": 100,
+      "x": 95,
+      "y": 85,
       "page" : 0,
       "scale": 1.05,
       "rot_x": 30,
@@ -33,7 +33,7 @@
       "y": 40,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.56,
+      "entity_scale": 0.65,
       "offset_x": 3,
       "offset_y": -11,
       "hover_text": "entity.unusualprehistory.beelz"

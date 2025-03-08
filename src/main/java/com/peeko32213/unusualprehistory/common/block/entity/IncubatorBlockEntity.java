@@ -1,8 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.EntitySmilodon;
-import com.peeko32213.unusualprehistory.common.entity.IHatchableEntity;
-import com.peeko32213.unusualprehistory.common.entity.msc.baby.EntityBabySmilodon;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.SmilodonEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
@@ -49,14 +48,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.peeko32213.unusualprehistory.common.block.BlockIncubator.CRACKED;
-import static com.peeko32213.unusualprehistory.common.block.BlockIncubator.FACING;
+import static com.peeko32213.unusualprehistory.common.block.custom.IncubatorBlock.CRACKED;
+import static com.peeko32213.unusualprehistory.common.block.custom.IncubatorBlock.FACING;
 
 public class IncubatorBlockEntity extends BlockEntity implements ContainerListener {
     private BlockState blockstate;
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 1152;
+    private int maxProgress = 2048;
     private List<ItemStack> inv = new ArrayList<>();
     private IncubatorBlockEntity blockEntity;
     public int tickCount = 0;
@@ -90,14 +89,10 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
         }
     }
 
-
-
-
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, IncubatorBlockEntity pBlockEntity) {
         if(!pLevel.isClientSide){
-            if(pBlockEntity.inv != null && !pBlockEntity.inv.isEmpty())
-            {
-                    UPMessages.sendToClients(new SyncItemStackS2CPacket(pBlockEntity.inv, pPos));
+            if(pBlockEntity.inv != null && !pBlockEntity.inv.isEmpty()) {
+                UPMessages.sendToClients(new SyncItemStackS2CPacket(pBlockEntity.inv, pPos));
             }
         }
         pBlockEntity.tickCount++;
@@ -126,8 +121,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
         for (int i = 0; i < entity.inv.size(); i++) {
             inventory.setItem(i, entity.inv.get(i));
         }
-        Optional<IncubatorRecipe> match = level.getRecipeManager()
-                .getRecipeFor(IncubatorRecipe.Type.INSTANCE, inventory, level);
+        Optional<IncubatorRecipe> match = level.getRecipeManager().getRecipeFor(IncubatorRecipe.Type.INSTANCE, inventory, level);
         return match.isPresent();
     }
 
@@ -139,8 +133,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
             inventory.setItem(i, entity.inv.get(i));
         }
 
-        Optional<IncubatorRecipe> match = level.getRecipeManager()
-                .getRecipeFor(IncubatorRecipe.Type.INSTANCE, inventory, level);
+        Optional<IncubatorRecipe> match = level.getRecipeManager().getRecipeFor(IncubatorRecipe.Type.INSTANCE, inventory, level);
 
         if(match.isPresent()) {
             entity.inv.clear();
@@ -154,9 +147,9 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
 
                // if(entity.getDestroyChance(level)){
                 //
-                if(entitySpawned) {
-                    entity.level.destroyBlock(entity.worldPosition, true);
-                }
+//                if(entitySpawned) {
+//                    entity.level.destroyBlock(entity.worldPosition, true);
+//                }
                 //}
             }
 
@@ -171,15 +164,13 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
             if(!inv.get(0).isEmpty())
             stack = inv.get(0);
         }
-
         return stack;
     }
 
     private static boolean spawnEntity(ServerLevel serverLevel, BlockPos pos, ResourceLocation toSpawn, IncubatorRecipe recipe){
         EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(toSpawn);
         LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
-        if(livingEntity == null)
-        {
+        if(livingEntity == null) {
             LOGGER.error("Invalid entity resourcelocation for {}", recipe.getId());
             return false;
         }
@@ -191,16 +182,14 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
             hatchableEntity.determineVariant(serverLevel.random.nextInt(100));
         }
 
-
         if(livingEntity instanceof Animal animal){
             animal.setAge(-24000);
 
-            if(livingEntity instanceof EntitySmilodon smilodon){
+            if(livingEntity instanceof SmilodonEntity smilodon){
                 smilodon.determineVariant(0);
-            } else if(livingEntity instanceof EntityBabySmilodon smilodon){
+            } else if(livingEntity instanceof SmilodonEntity smilodon){
                 smilodon.determineVariant(0);
             }
-
             serverLevel.addFreshEntity(animal);
         }
 
@@ -209,11 +198,6 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
         }
         return true;
     }
-
-    private boolean getDestroyChance(Level level){
-        return level.random.nextInt(0,100) <= 30;
-    }
-
 
     private void resetProgress() {
         this.progress = 0;
@@ -270,7 +254,6 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
         return compoundTag;
     }
 
-
     @Nullable
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
@@ -309,8 +292,6 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
         super.saveAdditional(tag);
     }
 
-
-
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
@@ -324,8 +305,6 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
                 this.inv.add(itemStack);
             }
         }
-
-
         progress = nbt.getInt("analyzer.progress");
     }
 

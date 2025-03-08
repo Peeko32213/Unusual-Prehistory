@@ -5,8 +5,8 @@
   "entity_renders": [
     {
       "entity": "unusualprehistory:mammoth",
-      "x": 90,
-      "y": 100,
+      "x": 95,
+      "y": 98,
       "page" : 0,
       "scale": 0.5,
       "rot_x": 30,
@@ -32,9 +32,9 @@
       "y": 160,
       "page" : 0,
       "scale": 1.2,
-      "entity_scale": 0.18,
-      "offset_x": 2,
-      "offset_y": -26,
+      "entity_scale": 0.45,
+      "offset_x": -25,
+      "offset_y": -3,
       "hover_text": "entity.unusualprehistory.mammoth"
     }
   ]
