@@ -512,7 +512,7 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
                     f1 *= 0.25F;
                 }
                 if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()) {
-                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.25F));
+                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2F));
                 } else {
                     this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F));
                 }

@@ -384,7 +384,7 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
                     f1 *= 0.25F;
                 }
                 if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()) {
-                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.05F));
+                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.4F));
                 } else {
                     this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F));
                 }
