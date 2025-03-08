@@ -83,4 +83,25 @@ public class PrehistoricEggItem extends Item {
     public Supplier<? extends EntityType<?>> getEntity() {
         return entity;
     }
+
+    public EggSize getSize() {
+        return size;
+    }
+
+    public EggVariant getVariant() {
+        return variant;
+    }
+
+    public float getColor1() {
+        return color1;
+    }
+
+    public float getColor2() {
+        return color2;
+    }
+
+    public int getHatchTime() {
+        return hatchTime;
+    }
+
 }
