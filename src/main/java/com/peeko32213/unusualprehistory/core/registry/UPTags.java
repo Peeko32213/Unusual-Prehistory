@@ -96,11 +96,7 @@ public class UPTags {
     //Food Tags
     public static final TagKey<Item> KENTRO_FOOD = registerItemTag( "kentro_food");
     public static final TagKey<Item> MAJUNGA_FOOD = registerItemTag("majunga_food");
-    public static final TagKey<Item> YELLOW_ULUGH_FOOD = registerItemTag("yellow_ulugh_food");
-    public static final TagKey<Item> BLUE_ULUGH_FOOD = registerItemTag( "blue_ulugh_food");
-    public static final TagKey<Item> ORANGE_ULUGH_FOOD = registerItemTag( "orange_ulugh_food");
-    public static final TagKey<Item> WHITE_ULUGH_FOOD = registerItemTag("white_ulugh_food");
-    public static final TagKey<Item> BROWN_ULUGH_FOOD = registerItemTag("brown_ulugh_food");
+    public static final TagKey<Item> ULUGH_FOOD = registerItemTag("ulugh_food");
 
     public static final TagKey<Item> TRICERATOPS_FOOD = registerItemTag("triceratops_food");
     public static final TagKey<Item> TRICERATOPS_TAMES = registerItemTag("triceratops_tames");

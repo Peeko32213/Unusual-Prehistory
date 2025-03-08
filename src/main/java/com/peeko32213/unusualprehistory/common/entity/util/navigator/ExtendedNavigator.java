@@ -13,6 +13,15 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at
+ * https://mozilla.org/MPL/2.0/.
+ *
+ * Source: SmartBrainLib - https://github.com/Tslat/SmartBrainLib/tree/1.20
+ * Modifications by: Unusual Prehistory - 3/7/2025
+ */
+
 /**
  * Extracted interface to act as a helper utility for cleaner navigator implementations
  * <p>

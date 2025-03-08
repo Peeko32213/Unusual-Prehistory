@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.render.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.client.render.prehistoric.TameableStatedPrehistoricRenderer;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.TamableStatedPrehistoricEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -13,11 +12,11 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
-public class TamablePrehistoricSaddleLayer<T extends TamablePrehistoricEntity> extends GeoRenderLayer<T> {
+public class TamableStatedPrehistoricSaddleLayer<T extends TamableStatedPrehistoricEntity> extends GeoRenderLayer<T> {
     private final ResourceLocation overlayLocation;
     private final ResourceLocation modelLocation;
     //private final GeoModel model;
-    public TamablePrehistoricSaddleLayer(GeoRenderer<T> entityRendererIn, ResourceLocation overlayLocation, ResourceLocation modelLocation) {
+    public TamableStatedPrehistoricSaddleLayer(GeoRenderer<T> entityRendererIn, ResourceLocation overlayLocation, ResourceLocation modelLocation) {
         super(entityRendererIn);
 
         this.overlayLocation = overlayLocation;

@@ -123,20 +123,9 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(UPTags.MAJUNGA_FOOD)
                 .add(UPItems.RAW_COTY.get());
 
-        tag(UPTags.ORANGE_ULUGH_FOOD)
-                .add(UPItems.RAW_COTY.get());
-
-        tag(UPTags.YELLOW_ULUGH_FOOD)
-                .add(UPItems.GOLDEN_SCAU.get());
-
-        tag(UPTags.WHITE_ULUGH_FOOD)
-                ;
-
-        tag(UPTags.BLUE_ULUGH_FOOD)
-                .add(UPItems.RAW_SCAU.get());
-
-        tag(UPTags.BROWN_ULUGH_FOOD)
-                ;
+        tag(UPTags.ULUGH_FOOD)
+                .add(UPItems.RAW_COTY.get())
+        ;
 
         tag(UPTags.TRICERATOPS_FOOD)
                 .add(UPItems.GINKGO_FRUIT.get())

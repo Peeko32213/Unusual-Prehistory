@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.client.render.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.TamableStatedPrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.UlughbegsaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,7 +16,7 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 import java.util.Locale;
 
-public class JebLayer<T extends TamablePrehistoricEntity> extends GeoRenderLayer<T> {
+public class JebLayer<T extends TamableStatedPrehistoricEntity> extends GeoRenderLayer<T> {
     private final ResourceLocation overlayLocation;
     private final ResourceLocation modelLocation;
 

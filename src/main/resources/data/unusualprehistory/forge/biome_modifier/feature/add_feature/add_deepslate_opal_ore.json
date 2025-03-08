@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "unusualprehistory:deepslate_opal_ore_placed",
+  "features": "unusualprehistory:ores/deepslate_opal_ore_placed",
   "step": "underground_ores"
 }

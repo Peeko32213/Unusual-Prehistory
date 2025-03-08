@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_jungle",
-  "features": "unusualprehistory:jungle_amber_fossil_ore_placed",
+  "features": "unusualprehistory:ores/jungle_amber_fossil_ore_placed",
   "step": "underground_ores"
 }

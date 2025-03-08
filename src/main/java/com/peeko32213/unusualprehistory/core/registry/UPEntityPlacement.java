@@ -40,7 +40,7 @@ public class UPEntityPlacement {
         SpawnPlacements.register(UPEntities.ERYON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.AUSTRO.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.ANTARCO.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntity::checkSurfaceDinoSpawnRules);
-        SpawnPlacements.register(UPEntities.ULUG.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TamablePrehistoricEntity::checkSurfaceDinoSpawnRules);
+        SpawnPlacements.register(UPEntities.ULUG.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TamableStatedPrehistoricEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.KENTRO.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.HWACHA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TamablePrehistoricEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.GIGANTOPITHICUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntity::checkSurfaceDinoSpawnRules);
