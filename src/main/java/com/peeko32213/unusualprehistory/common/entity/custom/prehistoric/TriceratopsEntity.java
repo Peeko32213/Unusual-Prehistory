@@ -384,9 +384,9 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
                     f1 *= 0.25F;
                 }
                 if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()) {
-                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.5F));
+                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.75F));
                 } else {
-                    this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F));
                 }
                 super.travel(new Vec3(f, pos.y, f1));
             } else {
@@ -831,7 +831,7 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
             return PlayState.CONTINUE;
         }
 
-        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasControllingPassenger()){
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasControllingPassenger() && !this.isInSittingPose()){
             if(this.isSprinting() && !this.isBaby()) {
                 event.setAndContinue(TRIKE_CHARGE);
                 event.getController().setAnimationSpeed(1.75F);
@@ -842,7 +842,7 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
             return PlayState.CONTINUE;
         }
 
-        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && this.hasControllingPassenger()){
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && this.hasControllingPassenger() && !this.isInSittingPose()){
 
             if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()){
                 event.setAndContinue(TRIKE_CHARGE);

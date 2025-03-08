@@ -101,7 +101,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.GLOBIDENS_FLASK.get())
                 .add(UPItems.ARCHELON_FLASK.get())
                 .add(UPItems.ESTEMMENO_FLASK.get())
-                ;
+        ;
 
         tag(UPTags.FOSSILS)
                 .add(UPItems.AMBER_FOSSIL.get())
@@ -114,14 +114,17 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(UPTags.ANALYZER_ITEMS_INPUT)
                 .addTag(UPTags.FOSSILS)
-                .addTag(UPTags.PETRIFIED_WOOD);
+                .addTag(UPTags.PETRIFIED_WOOD)
+        ;
 
         tag(UPTags.KENTRO_FOOD)
                 .add(UPBlocks.HORSETAIL.get().asItem())
-                .add(UPBlocks.TALL_HORSETAIL.get().asItem());
+                .add(UPBlocks.TALL_HORSETAIL.get().asItem())
+        ;
 
         tag(UPTags.MAJUNGA_FOOD)
-                .add(UPItems.RAW_COTY.get());
+                .add(UPItems.RAW_COTY.get())
+        ;
 
         tag(UPTags.ULUGH_FOOD)
                 .add(UPItems.RAW_COTY.get())

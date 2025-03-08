@@ -4,12 +4,13 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.TamableStatedPrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -64,7 +65,7 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity implements GeoEntity, GeoAnimatable, IAttackEntity, IVariantEntity {
+public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity implements GeoEntity, GeoAnimatable, IAttackEntity, IVariantEntity, ICustomFollower {
 
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -88,15 +89,15 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
     // Idle animations
     private static final RawAnimation ULUGH_IDLE = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.idle");
     private static final RawAnimation ULUGH_SIT = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.sit");
-    private static final RawAnimation ULUGH_EAT = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.eat");
-    private static final RawAnimation ULUGH_SLAY = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.slay");
-    private static final RawAnimation ULUGH_SCRATCH = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.scratch");
-    private static final RawAnimation ULUGH_SHAKE = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.shake");
-    private static final RawAnimation ULUGH_VOCAL = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.vocal");
+    private static final RawAnimation ULUGH_EAT = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.eat");
+    private static final RawAnimation ULUGH_SLAY = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.slay");
+    private static final RawAnimation ULUGH_SCRATCH = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.scratch");
+    private static final RawAnimation ULUGH_SHAKE = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.shake");
+    private static final RawAnimation ULUGH_VOCAL = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.vocal");
     private static final RawAnimation ULUGH_SLEEP = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.sleep");
 
     // Attack animations
-    private static final RawAnimation ULUGH_BITE = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.bite");
+    private static final RawAnimation ULUGH_BITE = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.bite");
 
     // Idle accessors
     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -169,7 +170,7 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
     @Override
     public void setAction(boolean action) {}
 
-    public UlughbegsaurusEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
+    public UlughbegsaurusEntity(EntityType<? extends TamableStatedPrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
     }
@@ -184,6 +185,7 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
 
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(2, new UlughbegsaurusEntity.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
@@ -233,7 +235,7 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
         this.goalSelector.addGoal(3, new TameableStatedFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
     }
 
-    protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
+    protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
@@ -317,6 +319,11 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
     public void afterAttack() {
         this.level().broadcastEntityEvent(this, (byte) 5);
         this.setSwinging(false);
+    }
+
+    @Override
+    public int getMaxHeadYRot() {
+        return 15;
     }
 
     @Override
@@ -407,18 +414,22 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Saddle", this.isSaddled());
-        compound.putInt("TrikeCommand", this.getCommand());
+        compound.putInt("UlughCommand", this.getCommand());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setSaddled(compound.getBoolean("Saddle"));
-        this.setCommand(compound.getInt("TrikeCommand"));
+        this.setCommand(compound.getInt("UlughCommand"));
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(IDLE_1_AC, false);
+        this.entityData.define(IDLE_2_AC, false);
+        this.entityData.define(IDLE_3_AC, false);
+        this.entityData.define(IDLE_4_AC, false);
         this.entityData.define(EATING_TIME, 0);
         this.entityData.define(SADDLED, Boolean.FALSE);
         this.entityData.define(COMMAND, 0);
@@ -446,19 +457,11 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
     protected void positionRider(Entity pPassenger, @NotNull MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-        pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
+        pPassenger.setPos(this.getX() + (double) (0.35F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.35F, this.getZ() - (double) (0.35F * yCos));
     }
 
     public double getPassengersRidingOffset() {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
-            return 2.1;
-        }
-        if (this.isInWater()) {
-            return 0.535;
-        }
-        else {
-            return 2.35;
-        }
+        return 1.85;
     }
 
 
@@ -492,35 +495,36 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
         }
     }
 
-    private static final double DELTA_Y_FOR_COLLISION = 0.5;
-    private static final float ROTATION_MULTIPLIER = 0.5F;
-    private static final float MOVEMENT_SPEED_MULTIPLIER = 1.5F;
-
-
     @Override
-    public void travel(@NotNull Vec3 destination) {
-        LivingEntity passenger = this.getControllingPassenger();
-        if (this.isVehicle() && passenger != null) {
-            double delta = DELTA_Y_FOR_COLLISION;
-            this.setYRot(passenger.getYRot());
-            this.yRotO = this.getYRot();
-            this.setXRot(passenger.getXRot() * ROTATION_MULTIPLIER);
-            this.setRot(this.getYRot(), this.getXRot());
-            this.yBodyRot = this.getYRot();
-            this.yHeadRot = this.yBodyRot;
-
-            float f = (float) (passenger.xxa * 0.5);
-            float f1 = passenger.zza;
-
-            if (f1 <= 0.0F) {
-                f1 *= 0.25F;
+    public void travel(@NotNull Vec3 pos) {
+        if (this.isAlive()) {
+            LivingEntity livingentity = this.getControllingPassenger();
+            if (this.isVehicle() && livingentity != null) {
+                this.setYRot(livingentity.getYRot());
+                this.yRotO = this.getYRot();
+                this.setXRot(livingentity.getXRot() * 0.5F);
+                this.setRot(this.getYRot(), this.getXRot());
+                this.yBodyRot = this.getYRot();
+                this.yHeadRot = this.yBodyRot;
+                float f = livingentity.xxa;
+                float f1 = livingentity.zza;
+                if (f1 <= 0.0F) {
+                    f1 *= 0.25F;
+                }
+                if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()) {
+                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.25F));
+                } else {
+                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F));
+                }
+                super.travel(new Vec3(f, pos.y, f1));
+            } else {
+                super.travel(pos);
             }
-
-            this.setSpeed((float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * MOVEMENT_SPEED_MULTIPLIER));
-            super.travel(new Vec3(f, destination.y, f1));
-        } else {
-            super.travel(destination);
         }
+    }
+
+    public boolean canSprint() {
+        return true;
     }
 
     @Override
@@ -542,7 +546,6 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
                 return livingentity.isAlliedTo(entityIn);
             }
         }
-
         return entityIn.is(this);
     }
 
@@ -666,6 +669,11 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
         return null;
     }
 
+    @Override
+    public boolean shouldFollow() {
+        return this.getCommand() == 1;
+    }
+
     class IMeleeAttackGoal extends MeleeAttackGoal {
         public IMeleeAttackGoal() {
             super(UlughbegsaurusEntity.this, 1.6D, true);
@@ -701,7 +709,6 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
         }
     }
 
-
     @Override
     public void customServerAiStep() {
         if (this.getMoveControl().hasWanted()) {
@@ -715,12 +722,15 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UPEntities.ULUG.get().create(serverLevel);
+        UlughbegsaurusEntity ulugh = UPEntities.ULUG.get().create(serverLevel);
+        assert ulugh != null;
+        ulugh.setVariant(this.getVariant());
+        return ulugh;
     }
 
     private void soundListener(SoundKeyframeEvent<UlughbegsaurusEntity> event) {
-        UlughbegsaurusEntity tyrannosaurus = event.getAnimatable();
-        if (tyrannosaurus.level().isClientSide) {
+        UlughbegsaurusEntity ulughbegsaurus = event.getAnimatable();
+        if (ulughbegsaurus.level().isClientSide) {
         }
     }
 
@@ -743,17 +753,28 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
             return event.setAndContinue(ULUGH_IDLE);
         }
 
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) {
-            if (this.isSprinting() || !this.getPassengers().isEmpty()) {
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasControllingPassenger() && !this.isInSittingPose()){
+            if(this.isSprinting() && !this.isBaby()) {
                 event.setAndContinue(ULUGH_SPRINT);
-                event.getController().setAnimationSpeed(2.0D);
-                return PlayState.CONTINUE;
-            }
-            else if (event.isMoving()) {
+                event.getController().setAnimationSpeed(1.0F);
+            } else {
                 event.setAndContinue(ULUGH_WALK);
-                event.getController().setAnimationSpeed(1.0D);
-                return PlayState.CONTINUE;
+                event.getController().setAnimationSpeed(1.0F);
             }
+            return PlayState.CONTINUE;
+        }
+
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && this.hasControllingPassenger() && !this.isInSittingPose()){
+
+            if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()){
+                event.setAndContinue(ULUGH_SPRINT);
+                event.getController().setAnimationSpeed(1.0F);
+            }
+            else {
+                event.setAndContinue(ULUGH_WALK);
+                event.getController().setAnimationSpeed(1.5F);
+            }
+            return PlayState.CONTINUE;
         }
 
         if (this.isInSittingPose() && !this.isInWater()) {

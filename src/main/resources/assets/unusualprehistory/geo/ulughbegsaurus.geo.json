@@ -79,8 +79,6 @@
 					"parent": "Ulugh_Head",
 					"pivot": [0.5, 42, -18],
 					"cubes": [
-						{"origin": [-6.5, 50, -25], "size": [13, 1, 8], "uv": [4, 110]},
-						{"origin": [-6.5, 48, -25], "size": [13, 2, 8], "uv": [85, 77]},
 						{
 							"origin": [-4.5, 42, -29],
 							"size": [9, 10, 11],
@@ -94,6 +92,15 @@
 							}
 						},
 						{"origin": [-3.5, 42, -37], "size": [7, 10, 8], "uv": [96, 2]}
+					]
+				},
+				{
+					"name": "crestdetail",
+					"parent": "Ulugh_Top_Jaw",
+					"pivot": [-0.5, 50, -18],
+					"cubes": [
+						{"origin": [-6.5, 48, -25], "size": [13, 2, 8], "uv": [85, 77]},
+						{"origin": [-6.5, 50, -25], "size": [13, 1, 8], "uv": [4, 110]}
 					]
 				},
 				{
@@ -134,8 +141,13 @@
 					]
 				},
 				{
-					"name": "Ulugh_Leg_Left",
+					"name": "Leg_control",
 					"parent": "Ulughbegsaurus",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Ulugh_Leg_Left",
+					"parent": "Leg_control",
 					"pivot": [8.5, 26, 3],
 					"cubes": [
 						{"origin": [4.5, 15, -3], "size": [8, 16, 12], "uv": [46, 51]}
@@ -162,7 +174,7 @@
 				},
 				{
 					"name": "Ulugh_Leg_Right",
-					"parent": "Ulughbegsaurus",
+					"parent": "Leg_control",
 					"pivot": [-8.5, 26, 3],
 					"cubes": [
 						{"origin": [-12.5, 15, -3], "size": [8, 16, 12], "uv": [46, 51], "mirror": true}
