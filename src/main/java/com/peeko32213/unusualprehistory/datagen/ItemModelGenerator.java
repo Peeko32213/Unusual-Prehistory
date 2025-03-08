@@ -34,20 +34,6 @@ public class ItemModelGenerator extends ItemModelProvider {
             }
         }
 
-        singleTex(UPItems.SMILO_FUR);
-        singleTex(UPItems.PALAEO_SKIN);
-        singleTex(UPItems.DINO_POUCH);
-        singleTex(UPItems.OPALESCENT_PEARL);
-        singleTex(UPItems.OPALESCENT_SHURIKEN);
-        toBlock(UPBlocks.PERMAFROST);
-        toBlock(UPBlocks.PERMAFROST_FOSSIL);
-        singleTex(UPItems.DRYO_NUTS);
-        singleTex(UPItems.ZULOGAE_DISC);
-        singleTex(UPItems.ENCASED_DISC);
-        singleTex(UPItems.RAW_MAMMOTH);
-        singleTex(UPItems.MAMMOTH_MEATBALL);
-        singleTex(UPItems.COOKED_MAMMOTH);
-
         flaskTex(UPItems.ZULOAGAE_FLASK);
         flaskTex(UPItems.RAIGUENRAYUN_FLASK);
         flaskTex(UPItems.FOXXI_FLASK);
@@ -134,6 +120,21 @@ public class ItemModelGenerator extends ItemModelProvider {
         embryoTex(UPItems.PALAEO_EMBRYO);
         embryoTex(UPItems.OTAROCYON_EMBRYO);
 
+        for(RegistryObject<?> object : UPEntities.prehistorics) {
+            addPrehistoricEgg(object.getId());
+        }
+
+        singleTex(UPItems.SMILO_FUR);
+        singleTex(UPItems.PALAEO_SKIN);
+        singleTex(UPItems.DINO_POUCH);
+        singleTex(UPItems.OPALESCENT_PEARL);
+        singleTex(UPItems.OPALESCENT_SHURIKEN);
+        singleTex(UPItems.DRYO_NUTS);
+        singleTex(UPItems.ZULOGAE_DISC);
+        singleTex(UPItems.ENCASED_DISC);
+        singleTex(UPItems.RAW_MAMMOTH);
+        singleTex(UPItems.MAMMOTH_MEATBALL);
+        singleTex(UPItems.COOKED_MAMMOTH);
         singleTex(UPItems.LEEDS_CAVIAR);
 
         singleTex(UPItems.DRYO_SIGN);
@@ -161,9 +162,14 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.AMBER_IDOL);
         singleTex(UPItems.QUILL_REMEDY);
 
-        for(RegistryObject<?> object : UPEntities.prehistorics) {
-            addPrehistoricEgg(object.getId());
-        }
+        toBlock(UPBlocks.STONE_FOSSIL);
+        toBlock(UPBlocks.DEEPSLATE_FOSSIL);
+        toBlock(UPBlocks.PLANT_FOSSIL);
+        toBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL);
+        toBlock(UPBlocks.STONE_TAR_FOSSIL);
+        toBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL);
+        toBlock(UPBlocks.PERMAFROST);
+        toBlock(UPBlocks.PERMAFROST_FOSSIL);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());

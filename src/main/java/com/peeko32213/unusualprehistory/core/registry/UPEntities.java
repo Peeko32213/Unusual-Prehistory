@@ -242,7 +242,7 @@ public class UPEntities {
     public static final RegistryObject<EntityType<VelociraptorEntity>> VELOCIRAPTOR = registerPrehistoricCreatureWithEgg("veloci",
             () -> EntityType.Builder.of(VelociraptorEntity::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "veloci").toString()),
-            EggSize.SMALL, EggVariant.SPOTS, 0x827158, 0x827158, 0x4a4242);
+            EggSize.SMALL, EggVariant.SPOTS, 1200, 0x827158, 0x4a4242);
 
     public static final RegistryObject<EntityType<XiphactinusEntity>> XIPH = ENTITIES.register("xiphactinus",
             () -> EntityType.Builder.of(XiphactinusEntity::new, MobCategory.WATER_CREATURE).sized(2.5F, 1.25F)
@@ -496,10 +496,6 @@ public class UPEntities {
             () -> EntityType.Builder.<PrehistoricEggEntity>of(PrehistoricEggEntity::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F)
                     .build(prefix("prehistoric_egg").toString()));
-
-//    private static <T extends EntityType<?>> RegistryObject<T> registerPrehistoricCreatureWithEgg(String name, Supplier<? extends T> entity, EggSize eggSize, int hatchTime ,int eggBaseColor, int eggSpotColor) {
-//        return registerPrehistoricCreatureWithEgg(name, entity, eggSize, EggVariant.SPOTS, hatchTime, eggBaseColor, eggSpotColor);
-//    }
 
     private static <T extends EntityType<?>> RegistryObject<T> registerPrehistoricCreatureWithEgg(String name, Supplier<? extends T> entity, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
         RegistryObject<T> prehistoric = ENTITIES.register(name, entity);

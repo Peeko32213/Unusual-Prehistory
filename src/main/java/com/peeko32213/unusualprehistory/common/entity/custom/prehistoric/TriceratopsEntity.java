@@ -172,11 +172,11 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 130.0D)
-            .add(Attributes.ARMOR, 16.0D)
+            .add(Attributes.MAX_HEALTH, 120.0D)
+            .add(Attributes.ARMOR, 12.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.145D)
             .add(Attributes.ATTACK_DAMAGE, 12.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 2.0D);
+            .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D);
     }
 
     @Override

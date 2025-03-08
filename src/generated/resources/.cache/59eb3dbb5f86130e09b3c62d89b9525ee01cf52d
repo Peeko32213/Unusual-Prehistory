@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-06T17:16:09.7787117	Loot Tables
+// 1.20.1	2025-03-07T18:43:23.2975737	Loot Tables
 aa0fbbdafff4a7570ffe9721402dbe44bccca34c data/unusualprehistory/loot_tables/blocks/amber_block.json
 7c3df34b96111b893727f05c09f92a8984a5ee13 data/unusualprehistory/loot_tables/blocks/ammon_eggs.json
 70955d85f7619afb14f10968f0cb3ce929b5a5e7 data/unusualprehistory/loot_tables/blocks/antarcto_fossil.json
@@ -25,7 +25,6 @@ e25490d527e86b78d22a97255c7197e16557e18e data/unusualprehistory/loot_tables/bloc
 cc4544117ebe82b9b3b771ad84f0ff431588375a data/unusualprehistory/loot_tables/blocks/dunk_fossil.json
 2e7ab8896f3ff2fd6b886f0858096883aa62208e data/unusualprehistory/loot_tables/blocks/eryon_eggs.json
 6a056b4be6985939a68d9a04f2abb24fa7284c06 data/unusualprehistory/loot_tables/blocks/eryon_fossil.json
-1d91fe69d2d939ce54c151174afa0e8eaa9496ce data/unusualprehistory/loot_tables/blocks/foxii_sapling.json
 eba634233fe213a8c61460fea9469a3589d6e835 data/unusualprehistory/loot_tables/blocks/foxii_sign.json
 04e09b06cea30db25e4623767c31d16901c3599a data/unusualprehistory/loot_tables/blocks/foxxi_button.json
 c64044deb3a0ceba42f09c3155da6c5c12b0857e data/unusualprehistory/loot_tables/blocks/foxxi_fence.json
@@ -88,7 +87,6 @@ d884c2d34e895ad66cf57a41930427e3c8f41210 data/unusualprehistory/loot_tables/bloc
 cbc614cca7f33b4e7f6bc235bc2c9b1760d8d5cc data/unusualprehistory/loot_tables/blocks/zuloagae.json
 c7baf11a983540e967769cd2691d4c3adc3a2592 data/unusualprehistory/loot_tables/blocks/zuloagae_block.json
 c2a7f588ae9cf43bd4b96d95a9a0f182028f467c data/unusualprehistory/loot_tables/blocks/zuloagae_button.json
-502305ff7d1491fa2b4e3e0dfa54c3c4707f444e data/unusualprehistory/loot_tables/blocks/zuloagae_door.json
 a379753846afb546bf1eeee0429dbe71b5f9c83d data/unusualprehistory/loot_tables/blocks/zuloagae_fence.json
 2d6e94466e5f99bec37b1525275da3e8a9a693c9 data/unusualprehistory/loot_tables/blocks/zuloagae_fence_gate.json
 40552d35810289a822c99c7130f8641f4fc0fe6d data/unusualprehistory/loot_tables/blocks/zuloagae_planks.json

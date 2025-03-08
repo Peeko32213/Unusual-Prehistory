@@ -63,7 +63,6 @@ public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
         super(dinosaurLandEggEntityType, level);
     }
 
-
     @Override
     public void tick() {
         super.tick();
@@ -77,7 +76,6 @@ public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
                 currentHatchTime = 0;
             }
         }
-
             currentHatchTime += getIncreaseTime(level);
         }
     }
@@ -153,7 +151,6 @@ public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
         if (dinosaurToSpawn instanceof IHatchableEntity hatchableEntity) {
             hatchableEntity.determineVariant(random.nextInt(100));
         }
-
 
         if (dinosaurToSpawn instanceof Animal animal) {
             animal.setAge(-24000);
@@ -254,7 +251,6 @@ public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
                 default -> SMALL_EGG_VERY_CRACKED;
             };
         }
-
         return null;
     }
 
@@ -285,7 +281,6 @@ public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
         return currentHatchTime;
     }
 
-
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -296,7 +291,6 @@ public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
         compound.putInt("maxHatchTime", maxHatchTime);
         compound.putInt("hatchCount", getHatchCount());
         compound.putString("eggVariant", getEggVariantString());
-
     }
 
     @Override

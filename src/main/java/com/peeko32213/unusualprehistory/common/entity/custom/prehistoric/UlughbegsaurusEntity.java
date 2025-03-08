@@ -107,11 +107,10 @@ public class UlughbegsaurusEntity extends TamablePrehistoricEntity implements IC
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 40.0D)
-                .add(Attributes.ARMOR, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 8.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D);
+            .add(Attributes.MAX_HEALTH, 60.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.2D)
+            .add(Attributes.ATTACK_DAMAGE, 8.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D);
     }
 
     protected void registerGoals() {
@@ -173,7 +172,7 @@ public class UlughbegsaurusEntity extends TamablePrehistoricEntity implements IC
         return UPSounds.ULUGH_IDLE.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.ULUGH_HURT.get();
     }
 
@@ -183,7 +182,12 @@ public class UlughbegsaurusEntity extends TamablePrehistoricEntity implements IC
 
     @Override
     public float getSoundVolume() {
-        return 0.75F;
+        if(this.isBaby()){
+            return 0.75F;
+        }
+        else{
+            return 1.0F;
+        }
     }
 
     public boolean isYellowFood(ItemStack stack) {
@@ -678,21 +682,21 @@ public class UlughbegsaurusEntity extends TamablePrehistoricEntity implements IC
 
     public void determineVariant(int variantChange){
         if (variantChange <= 30) {
-            this.setWhite(true);
             this.setVariant(1);
-        } else if (variantChange <= 40 && variantChange > 30) {
-            this.setYellow(true);
+        }
+        else if (variantChange <= 40 && variantChange > 30) {
             this.setVariant(2);
-        } else if (variantChange <= 60 && variantChange > 40) {
-            this.setOrange(true);
+        }
+        else if (variantChange <= 60 && variantChange > 40) {
             this.setVariant(3);
-        } else if (variantChange <= 80 && variantChange > 60) {
-            this.setBrown(true);
+        }
+        else if (variantChange <= 80 && variantChange > 60) {
             this.setVariant(4);
-        } else if (variantChange <= 100 && variantChange > 80) {
-            this.setBrown(true);
+        }
+        else if (variantChange <= 100 && variantChange > 80) {
             this.setVariant(5);
-        } else {
+        }
+        else {
             this.setBlue(true);
             this.setVariant(0);
         }

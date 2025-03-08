@@ -23,7 +23,18 @@ public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider
     }
 
     protected void addTags() {
-        tag(UPTags.IS_PETRIFIED_WOOD_FOREST_BIOME).add(Biomes.BADLANDS).add(Biomes.WOODED_BADLANDS).add(Biomes.ERODED_BADLANDS).add(Biomes.DESERT);
+
+        tag(UPTags.IS_FOSSIL_STRUCTURES_BIOME)
+                .addTag(BiomeTags.IS_BADLANDS)
+                .addTag(Tags.Biomes.IS_SWAMP)
+                .addTag(Tags.Biomes.IS_DESERT)
+        ;
+
+        tag(UPTags.IS_PETRIFIED_WOOD_FOREST_BIOME)
+                .addTag(BiomeTags.IS_BADLANDS)
+                .addTag(Tags.Biomes.IS_DESERT)
+        ;
+
         tag(UPTags.IS_STETHA_BIOME).add(Biomes.LUKEWARM_OCEAN);
         tag(UPTags.IS_MAJUNGA_BIOME).addTag(BiomeTags.IS_SAVANNA).addTag(BiomeTags.IS_JUNGLE);
         tag(UPTags.IS_ANURO_BIOME).add(Biomes.FLOWER_FOREST).addTag(BiomeTags.IS_SAVANNA);
@@ -53,7 +64,6 @@ public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider
         tag(UPTags.IS_MEGALANIA_BIOME).addTags(Tags.Biomes.IS_HOT_OVERWORLD);
         tag(UPTags.IS_BARINA_BIOME).add(Biomes.SPARSE_JUNGLE);
         tag(UPTags.IS_GIGANTO_BIOME).add(Biomes.BAMBOO_JUNGLE);
-
 
 
         tag(UPTags.IS_ICE_FOSSIL_ICEBERG_BIOME)

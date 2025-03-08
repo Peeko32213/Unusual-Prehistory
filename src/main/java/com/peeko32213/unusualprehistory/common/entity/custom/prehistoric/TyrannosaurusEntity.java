@@ -795,11 +795,6 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
         }
     }
 
-    @Override
-    public float getVoicePitch() {
-        return (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f;
-    }
-
     private void soundListener(SoundKeyframeEvent<TyrannosaurusEntity> event) {
         TyrannosaurusEntity tyrannosaurus = event.getAnimatable();
         if (tyrannosaurus.level().isClientSide) {

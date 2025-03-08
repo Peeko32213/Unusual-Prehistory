@@ -111,7 +111,6 @@ public class UPPlacedFeatures {
         return orePlacement(CountPlacement.of(count), modifier);
     }
 
-
     private static RegistryObject<PlacedFeature> registerPlacedFeature(String name, Supplier<PlacedFeature> feature) {
         placedFeatureList.add(name);
         return PLACED_FEATURES.register(name, feature);

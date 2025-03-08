@@ -78,7 +78,6 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.FOXXI_TRAPDOOR.get());
         dropSelf(UPBlocks.FOXII_SIGN.get());
         dropSelf(UPBlocks.FOXII_WALL_SIGN.get());
-        dropSelf(UPBlocks.FOXII_SAPLING.get());
 
         dropSelf(UPBlocks.OPAL_BLOCK.get());
         dropSelf(UPBlocks.DRYO_WOOD.get());
@@ -131,7 +130,6 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.ZULOAGAE_PLANKS.get());
         dropSelf(UPBlocks.ZULOAGAE_STAIRS.get());
         dropSelf(UPBlocks.ZULOAGAE_TRAPDOOR.get());
-        dropSelf(UPBlocks.ZULOAGAE_DOOR.get());
         dropSelf(UPBlocks.AMBER_BLOCK.get());
         dropSelf(UPBlocks.OPAL_BLOCK.get());
         createPotFlowerItemTable(UPBlocks.POTTED_ARCHAEOSIGILARIA.get(),UPBlocks.ARCHAEOSIGILARIA.get());

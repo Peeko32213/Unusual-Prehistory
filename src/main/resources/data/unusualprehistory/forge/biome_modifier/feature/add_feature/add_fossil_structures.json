@@ -1,0 +1,11 @@
+{
+  "type": "forge:remove_features",
+  "biomes": "#unusualprehistory:is_fossil_structures_biome",
+  "features": [
+    "unusualprehistory:fossil_structures/fossil_coal",
+    "unusualprehistory:fossil_structures/fossil_diamonds",
+    "unusualprehistory:fossil_structures/fossil_stone_fossil",
+    "unusualprehistory:fossil_structures/fossil_deepslate_fossil"
+  ],
+  "steps": "underground_structures"
+}
