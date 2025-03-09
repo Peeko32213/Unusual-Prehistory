@@ -189,10 +189,6 @@ public final class ClientEvents {
         event.registerSpecial(UPParticles.ELECTRIC_ATTACK.get(), new ElectricAttackParticle.ElectricAttackFactory());
     }
 
-    private static final ResourceLocation ULUGH_JEB_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus/ulughbegsaurus_jeb_overlay.png");
-    private static final ResourceLocation ULUGH_JEB = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ulughbegsaurus/ulughbegsaurus_jeb.png");
-    private static final ResourceLocation ULUGH_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/ulughbegsaurus.geo.json");
-
     private static final ResourceLocation HWACHA_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/hwachavenator_saddled.png");
     private static final ResourceLocation HWACHA_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/hwachavenator.geo.json");
 
@@ -215,7 +211,6 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.COTY.get(), e -> new PrehistoricRenderer<>(e, new CotylorhynchusModel()));
         event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DiplocaulusModel()));
         event.registerEntityRenderer(UPEntities.DUNK.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DunkleosteusModel()));
-        event.registerEntityRenderer(UPEntities.BABY_DUNK.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_DUNK)));
         event.registerEntityRenderer(UPEntities.EDAPHOSAURUS.get(), e -> new StatedPrehistoricRenderer<>(e, new EdaphosaurusModel()));
         event.registerEntityRenderer(UPEntities.ESTEMMENOSUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new EstemmenosuchusModel()));
         event.registerEntityRenderer(UPEntities.HYNERIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new HyneriaModel()));
@@ -253,7 +248,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));
         event.registerEntityRenderer(UPEntities.TRICERATOPS.get(), e -> new TameableStatedPrehistoricRenderer<>(e, new TriceratopsModel()));
         event.registerEntityRenderer(UPEntities.TYRANNOSAURUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TyrannosaurusModel()));
-        event.registerEntityRenderer(UPEntities.ULUG.get(), e -> UPRenderUtils.createTamableStatedDinosaurRenderer(e, new UlughbegsaurusModel()).withLayers(ULUGH_MODEL).withJebLayer(ULUGH_JEB_OVERLAY).build());
+        event.registerEntityRenderer(UPEntities.ULUG.get(), e -> new TameableStatedPrehistoricRenderer<>(e, new UlughbegsaurusModel()));
         event.registerEntityRenderer(UPEntities.VELOCIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new VelociraptorModel()));
         event.registerEntityRenderer(UPEntities.XIPH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new XiphactinusModel()));
 
@@ -292,6 +287,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), FlatMovingThrownItemRenderer::new);
         event.registerEntityRenderer(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
+        event.registerEntityRenderer(UPEntities.THROWABLE_FALLING_BLOCK.get(), ThrowableFallingBlockRenderer::new);
 
         // Eggs
         event.registerEntityRenderer(UPEntities.PREHISTORIC_EGG.get(), e -> new PrehistoricEggRenderer(e, new PrehistoricEggModel()));

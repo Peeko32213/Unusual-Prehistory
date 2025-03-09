@@ -559,7 +559,7 @@ public class KentrosaurusEntity extends PrehistoricEntity {
 
         protected void preformSlashAttack() {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 1.0f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 1.0f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
             this.mob.playSound(UPSounds.TAIL_SWIPE.get(), 0.1F, 1.0F);
         }
 
@@ -581,7 +581,7 @@ public class KentrosaurusEntity extends PrehistoricEntity {
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double) (this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
         }
     }
 

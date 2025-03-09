@@ -16,6 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -31,10 +32,9 @@ public class EncyclopediaItem extends Item {
     private boolean usedOnEntity = false;
 
     @Override
-    public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target, InteractionHand hand) {
+    public @NotNull InteractionResult interactLivingEntity(@NotNull ItemStack stack, Player playerIn, @NotNull LivingEntity target, @NotNull InteractionHand hand) {
         ItemStack itemStackIn = playerIn.getItemInHand(hand);
-        if (playerIn instanceof ServerPlayer) {
-            ServerPlayer serverplayerentity = (ServerPlayer)playerIn;
+        if (playerIn instanceof ServerPlayer serverplayerentity) {
             serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
         }
         if (playerIn.level().isClientSide && target.getEncodeId() != null && !target.getEncodeId().contains("minecraft:")) {

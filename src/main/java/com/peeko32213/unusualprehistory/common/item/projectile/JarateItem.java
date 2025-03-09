@@ -20,9 +20,7 @@ public class JarateItem extends Item {
         super(pProperties);
     }
 
-    public @NotNull InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, @NotNull InteractionHand pHand) {
-        //TODO: throws a bit farther than a normal potion, kinda like an AC brick
-        //TODO: obtained from right clicking any tyrannosaur with a flask whilst standing behind it, 50% chance to piss it off
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
 
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.SPLASH_POTION_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -44,10 +42,5 @@ public class JarateItem extends Item {
         }
 
         return InteractionResultHolder.sidedSuccess(itemstack, pLevel.isClientSide());
-    }
-
-    public @NotNull Rarity getRarity(@NotNull ItemStack pStack) {
-        return Rarity.UNCOMMON;
-        //epic rarity on default
     }
 }

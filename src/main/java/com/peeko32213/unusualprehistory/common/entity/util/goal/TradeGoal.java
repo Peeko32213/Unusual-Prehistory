@@ -41,7 +41,6 @@ public class TradeGoal extends Goal {
         return this.items.test(p_148139_.getMainHandItem()) || this.items.test(p_148139_.getOffhandItem());
     }
 
-
     @Override
     public boolean canUse() {
         if (this.mob.getTradingCooldownTimer() > 0 || this.mob.isInWaterRainOrBubble() || this.items == null) {
@@ -51,7 +50,6 @@ public class TradeGoal extends Goal {
             return this.player != null;
         }
     }
-
 
     @Override
     public boolean canContinueToUse() {
@@ -72,6 +70,7 @@ public class TradeGoal extends Goal {
     @Override
     public void tick() {
         super.tick();
+        assert player != null;
         Item item = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         List<LootFruitCodec> lootFruits = LootFruitJsonManager.getLoot(item, null);
         if (lootFruits == null) return;
@@ -107,8 +106,6 @@ public class TradeGoal extends Goal {
 
     @Override
     public void stop() {
-
-
         this.mob.setIsTrading(false);
         this.mob.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         super.stop();

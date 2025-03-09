@@ -1,13 +1,16 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.NearestTargetAI;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,9 +18,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -32,18 +34,17 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -54,9 +55,11 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Objects;
 
-public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IBookEntity {
+public class DunkleosteusEntity extends PrehistoricAquaticEntity implements GeoAnimatable, IBookEntity {
+
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
@@ -71,7 +74,7 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
 
     private int passiveFor = 0;
 
-    public DunkleosteusEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
+    public DunkleosteusEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -80,10 +83,10 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 50.0D)
+                .add(Attributes.MAX_HEALTH, 40.0D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.ARMOR, 10.0)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.1D)
                 .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
@@ -102,18 +105,10 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.DUNK_TARGETS)));
     }
 
-    public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
-    }
-
     public boolean passive = false;
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.getItem() == UPItems.GOLDEN_SCAU.get() && !this.passive) {
 
@@ -146,9 +141,8 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         return InteractionResult.FAIL;
     }
 
-
     @Override
-    public boolean canAttack(LivingEntity entity) {
+    public boolean canAttack(@NotNull LivingEntity entity) {
         boolean prev = super.canAttack(entity);
         if(prev && passiveFor > 0 && entity instanceof LivingEntity && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().getUUID().equals(entity.getUUID()))){
             return false;
@@ -156,11 +150,11 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         return prev;
     }
 
-    public void travel(Vec3 travelVector) {
+    public void travel(@NotNull Vec3 travelVector) {
         super.travel(travelVector);
     }
  
-    protected PathNavigation createNavigation(Level p_27480_) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level p_27480_) {
         return new WaterBoundPathNavigation(this, p_27480_);
     }
 
@@ -168,7 +162,7 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         return SoundEvents.COD_AMBIENT;
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.DUNK_HURT.get();
     }
 
@@ -178,6 +172,46 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
 
     protected SoundEvent getFlopSound() {
         return SoundEvents.COD_FLOP;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 8;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
     }
 
     protected void defineSynchedData() {
@@ -253,10 +287,6 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         return super.requiresCustomPersistence() || this.hasCustomName();
     }
 
-    public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
-    }
-
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
@@ -275,6 +305,26 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
             this.setSprinting(false);
         }
         super.customServerAiStep();
+    }
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
+
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {
+
     }
 
     static class MoveHelperController extends MoveControl {
@@ -423,18 +473,14 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
             Vec3 aim = this.mob.getLookAngle();
             Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
 
-
-            switch (animState) {
-                case 21:
-                    tickBiteAttack();
-                    break;
-                default:
-                    this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                    this.doMovement(target, distance);
-                    this.checkForCloseRangeAttack(distance, reach);
-                    break;
+            if (animState == 21) {
+                tickBiteAttack();
+            } else {
+                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                this.doMovement(target, distance);
+                this.checkForCloseRangeAttack(distance, reach);
             }
         }
 
@@ -509,7 +555,7 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
 
         protected void resetAttackCooldown () {
@@ -538,27 +584,22 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
     }
 
     public int getAnimationState() {
-
         return this.entityData.get(ANIMATION_STATE);
     }
 
     public void setAnimationState(int anim) {
-
         this.entityData.set(ANIMATION_STATE, anim);
     }
 
     public int getCombatState() {
-
         return this.entityData.get(COMBAT_STATE);
     }
 
     public void setCombatState(int anim) {
-
         this.entityData.set(COMBAT_STATE, anim);
     }
 
     public int getEntityState() {
-
         return this.entityData.get(ENTITY_STATE);
     }
 
@@ -567,7 +608,7 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         this.entityData.set(ENTITY_STATE, anim);
     }
     public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
+        return this.entityData.get(FROM_BOOK);
     }
     public void setIsFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
@@ -596,9 +637,15 @@ public class DunkleosteusEntity extends WaterAnimal implements GeoAnimatable, IB
         }
         return p_28137_;
     }
-    public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends DunkleosteusEntity> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        int i = pLevel.getSeaLevel();
-        int j = i - 13;
-        return pPos.getY() >= j && pPos.getY() <= i && pLevel.getFluidState(pPos.below()).is(FluidTags.WATER) && pLevel.getBlockState(pPos.above()).is(Blocks.WATER) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        return UPEntities.DUNK.get().create(serverLevel);
+    }
+
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
     }
 }

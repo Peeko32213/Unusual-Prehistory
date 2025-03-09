@@ -71,10 +71,8 @@ public class GigantopithicusEntity extends PrehistoricEntity implements IVariant
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.15D)
-                .add(Attributes.ARMOR, 1.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 1.0D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
     }
 
     @Override
@@ -393,7 +391,7 @@ public class GigantopithicusEntity extends PrehistoricEntity implements IVariant
 
         protected void preformSlamAttack() {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 2.5f, mob, pos, 9.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 2.5f, mob, pos, 9.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
         }
 
         protected void resetAttackCooldown() {

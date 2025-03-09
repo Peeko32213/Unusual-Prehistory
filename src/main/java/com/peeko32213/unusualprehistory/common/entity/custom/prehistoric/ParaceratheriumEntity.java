@@ -294,7 +294,6 @@ public class ParaceratheriumEntity extends PrehistoricEntity {
         public void tick() {
 
             LivingEntity target = this.mob.getTarget();
-            assert target != null;
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
@@ -379,7 +378,7 @@ public class ParaceratheriumEntity extends PrehistoricEntity {
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PARACER_STOMP.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),20.0f, 0.7f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),20.0f, 0.7f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, true);
             if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM.get()) {
                 double paraceratheriumShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(paraceratheriumShakeRange));

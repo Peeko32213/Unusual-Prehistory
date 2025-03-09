@@ -473,23 +473,16 @@
 
 
          protected void performLightAttack () {
-
-
              Vec3 pos = mob.position();
              this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 2.0f, 0.2f);
-             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),3.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
-
+             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),3.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, false);
          }
-
 
          protected void performAttackKick () {
-
              Vec3 pos = mob.position();
              this.mob.playSound(UPSounds.PACHY_KICK.get(), 0.5F, 0.5F);
-             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),6.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
-
+             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),6.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, false);
          }
-
 
          protected void resetAttackCooldown () {
              this.ticksUntilNextAttack = 0;
@@ -508,7 +501,7 @@
          }
 
          protected double getAttackReachSqr(LivingEntity p_25556_) {
-             return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 1.3F + p_25556_.getBbWidth());
+             return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 1.3F + p_25556_.getBbWidth();
          }
      }
 

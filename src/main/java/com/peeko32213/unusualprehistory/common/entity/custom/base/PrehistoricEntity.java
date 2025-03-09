@@ -59,8 +59,7 @@ public abstract class PrehistoricEntity extends Animal implements GeoAnimatable,
     int lastTimeSinceHungry;
     private int tradingCooldownTimer;
 
-    //5 minutes for trading cooldown for now
-    public final int TRADING_COOLDOWN = 6000;
+    public final int TRADING_COOLDOWN = 3000;
     protected PrehistoricEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
@@ -314,7 +313,7 @@ public abstract class PrehistoricEntity extends Animal implements GeoAnimatable,
      * @return true if the entity is from an egg, otherwise false.
      */
     public boolean isFromEgg() {
-        return this.entityData.get(IS_FROM_EGG).booleanValue();
+        return this.entityData.get(IS_FROM_EGG);
     }
 
     /**
@@ -332,7 +331,7 @@ public abstract class PrehistoricEntity extends Animal implements GeoAnimatable,
      * @return true if the entity is from a book, otherwise false.
      */
     public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
+        return this.entityData.get(FROM_BOOK);
     }
 
     /**

@@ -13,6 +13,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.goal.JarateFindWaterG
 import com.peeko32213.unusualprehistory.common.entity.util.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.common.message.*;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.ChatFormatting;
@@ -23,13 +24,18 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
@@ -51,6 +57,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -165,7 +172,7 @@ public class ServerEvents {
                 int hpReduction = 0;
 
                 if(entity.hasEffect(UPEffects.HEALTH_REDUCTION.get())){
-                    hpReduction = entity.getEffect(UPEffects.HEALTH_REDUCTION.get()).getAmplifier() + 1;
+                    hpReduction = Objects.requireNonNull(entity.getEffect(UPEffects.HEALTH_REDUCTION.get())).getAmplifier() + 1;
                 }
 
                 MobEffectInstance mobEffectInstance = new MobEffectInstance(UPEffects.HEALTH_REDUCTION.get(), 120, hpReduction);
@@ -185,7 +192,7 @@ public class ServerEvents {
         CompoundTag tag = stack.getTag();
         if(tag == null || !tag.contains("megalania_damage")) return;
         int amount = tag.getInt("megalania_damage");
-        MutableComponent component = Component.translatable("unusualprehistory.megalania_damage", amount).withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.ITALIC);
+        MutableComponent component = Component.translatable("unusualprehistory.megalania_damage", amount).withStyle(ChatFormatting.BLUE);
         List<Component> toolTip = event.getToolTip();
         event.getToolTip().add(component);
     }
@@ -229,18 +236,6 @@ public class ServerEvents {
                     serverLevel.destroyBlock(pos, true);
                 }
             }
-        }
-    }
-
-    @SubscribeEvent
-    public void clubExtraDamage(LivingDamageEvent event) {
-        if (event.getSource().getEntity() instanceof LivingEntity living) {
-            ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
-            if(!itemStack.is(UPItems.HANDMADE_CLUB.get())) return;
-            float extraDamageMultp = 1 - living.getArmorCoverPercentage();
-            float damage = event.getAmount();
-            damage *= extraDamageMultp;
-            event.setAmount(damage);
         }
     }
 
@@ -365,8 +360,8 @@ public class ServerEvents {
     private boolean checkContainPiss(Set<WrappedGoal> availableGoals) {
         WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
 
-        for (int i = 0; i < arring.length; i++) {
-            if (arring[i].getGoal() instanceof JarateFindWaterGoal) {
+        for (WrappedGoal wrappedGoal : arring) {
+            if (wrappedGoal.getGoal() instanceof JarateFindWaterGoal) {
                 return true;
                 //has piss goal
             }
@@ -380,8 +375,8 @@ public class ServerEvents {
     private boolean checkContainRabies(Set<WrappedGoal> availableGoals) {
         WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
 
-        for (int i = 0; i < arring.length; i++) {
-            if (arring[i].getGoal() instanceof RabiesHuntGoal) {
+        for (WrappedGoal wrappedGoal : arring) {
+            if (wrappedGoal.getGoal() instanceof RabiesHuntGoal) {
                 return true;
                 //has piss goal
             }
@@ -395,9 +390,9 @@ public class ServerEvents {
     private void cutPissGoal(PathfinderMob titty) {
         WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
 
-        for (int i = 0; i < arring.length; i++) {
-            if (arring[i].getGoal() instanceof JarateFindWaterGoal) {
-                titty.goalSelector.removeGoal(arring[i].getGoal());
+        for (WrappedGoal wrappedGoal : arring) {
+            if (wrappedGoal.getGoal() instanceof JarateFindWaterGoal) {
+                titty.goalSelector.removeGoal(wrappedGoal.getGoal());
             }
         }
     }
@@ -405,9 +400,9 @@ public class ServerEvents {
     private void cutRabies(PathfinderMob titty) {
         WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
 
-        for (int i = 0; i < arring.length; i++) {
-            if (arring[i].getGoal() instanceof RabiesHuntGoal) {
-                titty.goalSelector.removeGoal(arring[i].getGoal());
+        for (WrappedGoal wrappedGoal : arring) {
+            if (wrappedGoal.getGoal() instanceof RabiesHuntGoal) {
+                titty.goalSelector.removeGoal(wrappedGoal.getGoal());
             }
         }
     }

@@ -17,5 +17,13 @@
         "layer0": "unusualprehistory:item/primal_macuahuitl_inventory"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "unusualprehistory:item/primal_macuahuitl_blocking"
+    }
+  ]
 }

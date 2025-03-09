@@ -565,21 +565,21 @@ public class PachycephalosaurusEntity extends PrehistoricEntity {
             protected void performLightAttack () {
                 Vec3 pos = mob.position();
                 this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 2.0f, 0.2f);
-                HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),8.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
+                HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),8.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, false);
 
             }
 
         protected void performStrongAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 0.5F, 0.5F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),12.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),12.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, true);
 
         }
 
         protected void performAttackKick () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PACHY_KICK.get(), 0.5F, 0.5F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),15.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),15.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, false);
 
         }
 

@@ -108,10 +108,9 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 400.0D)
-            .add(Attributes.ARMOR, 15.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.2D)
-            .add(Attributes.ATTACK_DAMAGE, 20.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 10.0D)
+            .add(Attributes.ATTACK_DAMAGE, 24.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 3.0D)
             .add(Attributes.ATTACK_KNOCKBACK, 2.0D);
     }
 
@@ -899,7 +898,7 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.BRACHI_STOMP.get(), 2.5F, 0.65F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),36.0f, 1.4f, mob, pos,  8.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.4f, mob, pos,  8.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, true);
             if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));

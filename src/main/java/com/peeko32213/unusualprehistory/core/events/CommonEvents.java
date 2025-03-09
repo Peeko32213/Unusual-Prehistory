@@ -30,7 +30,6 @@ public class CommonEvents {
         event.put(UPEntities.AMMON.get(), AmmoniteEntity.createAttributes().build());
         event.put(UPEntities.COTY.get(), CotylorhynchusEntity.createAttributes().build());
         event.put(UPEntities.DUNK.get(), DunkleosteusEntity.createAttributes().build());
-        event.put(UPEntities.BABY_DUNK.get(), EntityBabyDunk.createAttributes().build());
         event.put(UPEntities.DIPLOCAULUS.get(), DiplocaulusEntity.createAttributes().build());
         event.put(UPEntities.EDAPHOSAURUS.get(), EdaphosaurusEntity.createAttributes().build());
         event.put(UPEntities.ESTEMMENOSUCHUS.get(), EstemmenosuchusEntity.createAttributes().build());

@@ -127,7 +127,6 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.AMMON_BUCKET, "Bucket of Ammonite");
         addItem(UPItems.STETHA_BUCKET, "Bucket of Stethacanthus");
         addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
-        addItem(UPItems.DUNK_BUCKET, "Bucket of Baby Dunkleosteus");
         addItem(UPItems.PALAEO_BUCKET, "Bucket of Palaeolophis Hatchling");
 
         //EGGS
@@ -511,7 +510,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.COTY, "Cotylorhynchus");
         addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
         addEntityType(UPEntities.DUNK, "Dunkleosteus");
-        addEntityType(UPEntities.BABY_DUNK, "Baby Dunkleosteus");
         addEntityType(UPEntities.EDAPHOSAURUS, "Edaphosaurus");
         addEntityType(UPEntities.ESTEMMENOSUCHUS, "Estemmenosuchus");
         addEntityType(UPEntities.HYNERIA, "Hyneria");
@@ -645,6 +643,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.TRIKE_IDLE, "Triceratops stouts");
         addSound(UPSounds.TRIKE_HURT, "Triceratops hurts");
         addSound(UPSounds.TRIKE_DEATH, "Triceratops dies");
+        addSound(UPSounds.TRIKE_CHATTER, "Triceratops chatters");
 
         addSound(UPSounds.BRACHI_IDLE, "Brachiosaurus bellows");
         addSound(UPSounds.BRACHI_HURT, "Brachiosaurus hurts");
@@ -998,14 +997,14 @@ public class LanguageGenerator extends LanguageProvider {
 
         add("death.attack.sludge_0.player", "%s was slapped to death by %s");
 
-        add("unusualprehistory.megalania_damage", " %s Venomous Coating");
+        add("unusualprehistory.megalania_damage", "%s Venomous Coating");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");
         add("unusualprehistory.shedscale_bonus", "Inverts some negative effects while wearing full set");
-        add("unusualprehistory.fruit_loot_box.salubrious", "§rSalubrious Fruit Block");
-        add("unusualprehistory.fruit_loot_box.luxurious", "§rLuxurious Fruit Block");
-        add("unusualprehistory.fruit_loot_box.redolent", "§rRedolent Fruit Block");
-        add("unusualprehistory.fruit_loot_box.exotic", "§rExotic Fruit Block");
-        add("unusualprehistory.fruit_loot_box.default", "§rFruit Block");
+        add("unusualprehistory.fruit_loot_box.salubrious", "Salubrious Fruit Block");
+        add("unusualprehistory.fruit_loot_box.luxurious", "Luxurious Fruit Block");
+        add("unusualprehistory.fruit_loot_box.redolent", "Redolent Fruit Block");
+        add("unusualprehistory.fruit_loot_box.exotic", "Exotic Fruit Block");
+        add("unusualprehistory.fruit_loot_box.default", "Fruit Block");
         add("unusualprehistory.attacher.animal_has_embryo", "%s already has an embryo");
         add("unusualprehistory.attacher.animal_not_correct", "%s cannot be inserted into %s");
         add("unusualprehistory.beelzebufo.meat_stick", "Hold coty on a stick to control");

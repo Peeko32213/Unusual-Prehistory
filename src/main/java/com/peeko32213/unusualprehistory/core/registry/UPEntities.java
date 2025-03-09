@@ -63,10 +63,6 @@ public class UPEntities {
             () -> EntityType.Builder.of(DunkleosteusEntity::new, MobCategory.WATER_CREATURE).sized(2.2F, 1.75F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "dunk").toString()));
 
-    public static final RegistryObject<EntityType<EntityBabyDunk>> BABY_DUNK = ENTITIES.register("baby_dunk",
-            () -> EntityType.Builder.of(EntityBabyDunk::new, MobCategory.WATER_AMBIENT).sized(1.1f, 0.6f)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "baby_dunk").toString()));
-
     public static final RegistryObject<EntityType<EdaphosaurusEntity>> EDAPHOSAURUS = registerPrehistoricCreatureWithEgg("edaphosaurus",
             () -> EntityType.Builder.of(EdaphosaurusEntity::new, MobCategory.CREATURE).sized(1.4F, 1.75F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "edaphosaurus").toString()),
@@ -491,6 +487,13 @@ public class UPEntities {
             () -> EntityType.Builder.<PsittaccoArrow>of(PsittaccoArrow::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).setCustomClientFactory(PsittaccoArrow::new)
                     .build(prefix("psittacco_arrow").toString()));
+
+    public static final RegistryObject<EntityType<ThrowableFallingBlockEntity>> THROWABLE_FALLING_BLOCK = ENTITIES.register("throwable_falling_block",
+            () -> EntityType.Builder.of(ThrowableFallingBlockEntity::new, MobCategory.MISC)
+                    .sized(0.98F, 0.98F)
+                    .clientTrackingRange(10)
+                    .updateInterval(20)
+                    .build(prefix("throwable_falling_block").toString()));
 
     public static final RegistryObject<EntityType<PrehistoricEggEntity>> PREHISTORIC_EGG = ENTITIES.register("prehistoric_egg",
             () -> EntityType.Builder.<PrehistoricEggEntity>of(PrehistoricEggEntity::new, MobCategory.MISC)

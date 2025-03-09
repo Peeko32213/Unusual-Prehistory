@@ -473,24 +473,10 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.ZULOAGAE_BUTTON.get())
         ;
 
-        //tag(BlockTags.CORAL_BLOCKS)
-        //        .add(UPBlocks.CLATHRODICTYON_BLOCK.get())
-        //        .add(UPBlocks.ANOSTYLOSTROMA_BLOCK.get());
-
-        tag(BlockTags.CORAL_PLANTS)
-                .add(UPBlocks.CLATHRODICTYON.get());
-
-       //tag(BlockTags.CORALS)
-       //        .add(UPBlocks.CLATHRODICTYON_FAN.get());
-
-        //tag(BlockTags.WALL_CORALS)
-        //        .add(UPBlocks.CLATHRODICTYON_WALL_FAN.get());
-
         tag(BlockTags.LEAVES)
                 .add(UPBlocks.FOXXI_LEAVES.get())
                 .add(UPBlocks.DRYO_LEAVES.get())
                 .add(UPBlocks.GINKGO_LEAVES.get());
-
 
         tag(UPTags.TAR_PIT_REPLACEABLE)
                 .addTags(BlockTags.SAND)
@@ -498,7 +484,8 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .addTags(BlockTags.BASE_STONE_OVERWORLD)
                 .addTags(BlockTags.TERRACOTTA)
                 .add(Blocks.SANDSTONE)
-                .add(Blocks.RED_SANDSTONE);
+                .add(Blocks.RED_SANDSTONE)
+        ;
 
         tag(UPTags.CLUB_WHITELIST_BLOCKS)
                 .addTags(BlockTags.SAND)

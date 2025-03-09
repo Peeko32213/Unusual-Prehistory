@@ -431,12 +431,12 @@
 
          protected void preformSpikeAttack() {
              Vec3 pos = mob.position();
-             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 0.5f, mob, pos, 3.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 0.5f, mob, pos, 3.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
          }
 
          protected void preformClawAttack() {
              Vec3 pos = mob.position();
-             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 5.0f, 0.2f, mob, pos, 2.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 5.0f, 0.2f, mob, pos, 2.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
          }
 
          protected void resetAttackCooldown() {
@@ -456,7 +456,7 @@
          }
 
          protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-             return (double) (this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+             return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
          }
      }
 

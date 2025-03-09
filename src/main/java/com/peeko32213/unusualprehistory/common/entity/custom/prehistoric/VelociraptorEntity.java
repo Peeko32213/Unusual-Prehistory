@@ -408,7 +408,6 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         VelociraptorEntity velociraptor = UPEntities.VELOCIRAPTOR.get().create(serverLevel);
-        assert velociraptor != null;
         velociraptor.setVariant(this.getVariant());
         return velociraptor;
     }

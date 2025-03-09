@@ -24,7 +24,7 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
     private static final ResourceLocation TEXTURE_LIME = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_lime.png");
     private static final ResourceLocation TEXTURE_PURPLE = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_purple.png");
     private static final ResourceLocation TEXTURE_RED = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_red.png");
-    private static final ResourceLocation TEXTURE_JEB = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_jeb.png");
+    private static final ResourceLocation TEXTURE_SKITTLES = new ResourceLocation("unusualprehistory:textures/entity/ulughbegsaurus/ulughbegsaurus_skittles.png");
 
     @Override
     public ResourceLocation getModelResource(UlughbegsaurusEntity object) {
@@ -44,7 +44,7 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
             case 8 -> TEXTURE_LIME;
             case 9 -> TEXTURE_PURPLE;
             case 10 -> TEXTURE_RED;
-            case 11 -> TEXTURE_JEB;
+            case 11 -> TEXTURE_SKITTLES;
             default -> TEXTURE_BLUE;
         };
     }

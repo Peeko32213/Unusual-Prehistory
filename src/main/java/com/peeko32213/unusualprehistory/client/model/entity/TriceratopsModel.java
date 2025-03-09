@@ -41,10 +41,10 @@ public class TriceratopsModel extends GeoModel<TriceratopsEntity> {
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-        CoreGeoBone neck = this.getAnimationProcessor().getBone("Trike_Neck");
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Trike_Head");
+        CoreGeoBone neck = this.getAnimationProcessor().getBone("neck");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
 
-        CoreGeoBone saddle = this.getAnimationProcessor().getBone("Trike_Saddle");
+        CoreGeoBone saddle = this.getAnimationProcessor().getBone("saddle");
 
         saddle.setHidden(!animatable.isSaddled());
 
