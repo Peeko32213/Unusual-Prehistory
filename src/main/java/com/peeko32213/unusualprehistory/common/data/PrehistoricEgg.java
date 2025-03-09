@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggSize;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggVariant;
+import com.peeko32213.unusualprehistory.core.registry.util.CodecUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -18,8 +19,8 @@ public class PrehistoricEgg {
                     EggSize.CODEC.fieldOf("egg_size").forGetter(PrehistoricEgg::getEggSize),
                     EggVariant.CODEC.fieldOf("egg_variant").forGetter(PrehistoricEgg::getVariant),
                     Codec.INT.fieldOf("hatch_time").forGetter(PrehistoricEgg::getHatchTime),
-                    Codec.FLOAT.fieldOf("egg_base_color").forGetter(PrehistoricEgg::getEggBaseColor),
-                    Codec.FLOAT.fieldOf("egg_secondary_color").forGetter(PrehistoricEgg::getEggSpotColor)
+                    CodecUtils.HEX_OR_INT_CODEC.fieldOf("egg_base_color").forGetter(PrehistoricEgg::getEggBaseColor),
+                    CodecUtils.HEX_OR_INT_CODEC.fieldOf("egg_secondary_color").forGetter(PrehistoricEgg::getEggSpotColor)
             ).apply(instance, PrehistoricEgg::new)
     );
 
@@ -27,11 +28,11 @@ public class PrehistoricEgg {
     private final EggSize eggSize;
     private final EggVariant variant;
     private final int hatchTime;
-    private final float eggBaseColor;
-    private final float eggSpotColor;
+    private final int eggBaseColor;
+    private final int eggSpotColor;
 
 
-    public PrehistoricEgg(EntityType<?> entityType, EggSize eggSize, EggVariant variant, int hatchTime, float eggBaseColor, float eggSpotColor) {
+    public PrehistoricEgg(EntityType<?> entityType, EggSize eggSize, EggVariant variant, int hatchTime, int eggBaseColor, int eggSpotColor) {
         this.entityType = entityType;
         this.eggSize = eggSize;
         this.variant = variant;
@@ -56,11 +57,11 @@ public class PrehistoricEgg {
         return hatchTime;
     }
 
-    public float getEggBaseColor() {
+    public int getEggBaseColor() {
         return eggBaseColor;
     }
 
-    public float getEggSpotColor() {
+    public int getEggSpotColor() {
         return eggSpotColor;
     }
 }

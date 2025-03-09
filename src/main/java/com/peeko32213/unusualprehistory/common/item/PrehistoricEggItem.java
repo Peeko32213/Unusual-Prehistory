@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggVariant;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,6 +15,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -22,6 +26,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class PrehistoricEggItem extends Item {
@@ -79,6 +85,19 @@ public class PrehistoricEggItem extends Item {
             }
         }
     }
+
+    public @NotNull ItemStack getDefaultInstance() {
+        return PotionUtils.setPotion(super.getDefaultInstance(), Potions.WATER);
+    }
+
+    public @NotNull String getDescriptionId(@NotNull ItemStack pStack) {
+        return PotionUtils.getPotion(pStack).getName(this.getDescriptionId() + ".effect.");
+    }
+
+    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
+        PotionUtils.addPotionTooltip(pStack, pTooltip, 1.0F);
+    }
+
 
     public Supplier<? extends EntityType<?>> getEntity() {
         return entity;
