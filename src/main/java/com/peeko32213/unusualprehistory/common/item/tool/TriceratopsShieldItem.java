@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -36,25 +37,25 @@ public class TriceratopsShieldItem extends ShieldItem  implements GeoItem {
     }
 
     @Override
-    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+    public boolean canPerformAction(@NotNull ItemStack stack, @NotNull ToolAction toolAction) {
         return ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
     }
 
-    public UseAnim getUseAnimation(ItemStack p_77661_1_) {
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack p_77661_1_) {
         return UseAnim.BLOCK;
     }
 
-    public int getUseDuration(ItemStack p_77626_1_) {
+    public int getUseDuration(@NotNull ItemStack p_77626_1_) {
         return 72000;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level p_77659_1_, Player p_77659_2_, InteractionHand p_77659_3_) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level p_77659_1_, Player p_77659_2_, @NotNull InteractionHand p_77659_3_) {
         ItemStack lvt_4_1_ = p_77659_2_.getItemInHand(p_77659_3_);
         p_77659_2_.startUsingItem(p_77659_3_);
         return InteractionResultHolder.consume(lvt_4_1_);
     }
 
-    public boolean isValidRepairItem(ItemStack p_82789_1_, ItemStack p_82789_2_) {
+    public boolean isValidRepairItem(@NotNull ItemStack p_82789_1_, ItemStack p_82789_2_) {
         return UPItems.AMBER_SHARDS.get() == p_82789_2_.getItem() || super.isValidRepairItem(p_82789_1_, p_82789_2_);
     }
 
@@ -62,7 +63,7 @@ public class TriceratopsShieldItem extends ShieldItem  implements GeoItem {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private final ToolRenderer renderer = new ToolRenderer<>(new TrikeShieldModel());
+            private final ToolRenderer<TriceratopsShieldItem> renderer = new ToolRenderer<>(new TrikeShieldModel());
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {

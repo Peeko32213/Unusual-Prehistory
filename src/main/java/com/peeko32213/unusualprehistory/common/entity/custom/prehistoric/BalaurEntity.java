@@ -761,17 +761,17 @@
 
          protected void preformClawAttack() {
              Vec3 pos = mob.position();
-             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
          }
 
          protected void preformScratchAttack() {
              Vec3 pos = mob.position();
-             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
          }
 
          protected void preformBiteAttack() {
              Vec3 pos = mob.position();
-             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 3.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 3.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
          }
 
 //         protected void preformLatchAttack() {

@@ -514,7 +514,7 @@ public class EstemmenosuchusEntity extends StatedPrehistoricEntity implements Ge
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.MEGALANIA_BITE.get(), 1.0F, 1.0F);
             this.mob.swing(InteractionHand.MAIN_HAND);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
 
         protected void resetAttackCooldown () {

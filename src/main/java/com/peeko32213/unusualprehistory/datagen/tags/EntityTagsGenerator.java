@@ -410,7 +410,6 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
                 .add(UPEntities.BARINASUCHUS.get())
                 .add(UPEntities.BEELZ.get())
                 .add(UPEntities.DUNK.get())
-                .add(UPEntities.BABY_DUNK.get())
                 .add(UPEntities.TYRANNOSAURUS.get())
                 .add(UPEntities.HWACHA.get())
                 .add(UPEntities.SMILODON.get())

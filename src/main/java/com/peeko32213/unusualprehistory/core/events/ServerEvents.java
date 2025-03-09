@@ -13,6 +13,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.goal.JarateFindWaterG
 import com.peeko32213.unusualprehistory.common.entity.util.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.common.message.*;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.ChatFormatting;
@@ -23,13 +24,18 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
@@ -393,9 +399,9 @@ public class ServerEvents {
     private void cutRabies(PathfinderMob titty) {
         WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
 
-        for (int i = 0; i < arring.length; i++) {
-            if (arring[i].getGoal() instanceof RabiesHuntGoal) {
-                titty.goalSelector.removeGoal(arring[i].getGoal());
+        for (WrappedGoal wrappedGoal : arring) {
+            if (wrappedGoal.getGoal() instanceof RabiesHuntGoal) {
+                titty.goalSelector.removeGoal(wrappedGoal.getGoal());
             }
         }
     }

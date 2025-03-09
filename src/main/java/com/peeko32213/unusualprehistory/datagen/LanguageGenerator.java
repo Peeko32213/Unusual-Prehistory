@@ -127,7 +127,6 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.AMMON_BUCKET, "Bucket of Ammonite");
         addItem(UPItems.STETHA_BUCKET, "Bucket of Stethacanthus");
         addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
-        addItem(UPItems.DUNK_BUCKET, "Bucket of Baby Dunkleosteus");
         addItem(UPItems.PALAEO_BUCKET, "Bucket of Palaeolophis Hatchling");
 
         //EGGS
@@ -511,7 +510,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.COTY, "Cotylorhynchus");
         addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
         addEntityType(UPEntities.DUNK, "Dunkleosteus");
-        addEntityType(UPEntities.BABY_DUNK, "Baby Dunkleosteus");
         addEntityType(UPEntities.EDAPHOSAURUS, "Edaphosaurus");
         addEntityType(UPEntities.ESTEMMENOSUCHUS, "Estemmenosuchus");
         addEntityType(UPEntities.HYNERIA, "Hyneria");

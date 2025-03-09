@@ -84,7 +84,7 @@ public class UPItems {
 
     public static final RegistryObject<Item> GROG = ITEMS.register("grog", () -> new UPDrinkItem(drinkItem().food(UPFood.GROG), true, false));
 
-    public static final RegistryObject<Item> CAPTURED_KIMMER_FLASK = ITEMS.register("captured_kimmer_flask", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CAPTURED_KIMMER_FLASK = ITEMS.register("captured_kimmeridgebrachypteraeschnidium_flask", () -> new CaptureFlaskItem(UPEntities.KIMMER::get, UPItems.FLASK.get(), false, new Item.Properties().stacksTo(1)));
 
     //Paleo flasks
     public static final RegistryObject<Item> AMMONITE_FLASK = ITEMS.register("ammonite_flask", () -> new Item(new Item.Properties()));
@@ -111,7 +111,7 @@ public class UPItems {
     public static final RegistryObject<Item> ERYON_FLASK = ITEMS.register("eryon_flask", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> HWACHA_FLASK = ITEMS.register("hwacha_flask", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> KENTRO_FLASK = ITEMS.register("kentro_flask", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> KIMMER_FLASK = ITEMS.register("kimmer_flask", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> KIMMER_FLASK = ITEMS.register("kimmeridgebrachypteraeschnidium_flask", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MAJUNGA_FLASK = ITEMS.register("majunga_flask", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PACHY_FLASK = ITEMS.register("pachy_flask", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PROTOSPHYRAENA_FLASK = ITEMS.register("protosphyraena_flask", () -> new Item(new Item.Properties()));
@@ -202,7 +202,7 @@ public class UPItems {
             () -> new WarpickItem(UPItemTiers.SHELL, 3, -2.8F));
 
     public static final RegistryObject<Item> PRIMAL_MACUAHUITL = ITEMS.register("primal_macuahuitl",
-            () -> new PrimalMacuahuitlItem(UPItemTiers.SHELL, 6, -1.8F));
+            () -> new PrimalMacuahuitlItem(UPItemTiers.SHELL, 5, -1.8F));
 
     public static final RegistryObject<Item> HANDMADE_SPEAR = ITEMS.register("handmade_spear",
             () -> new HandmadeSpearItem(UPItemTiers.HANDMADE, 0, -2.4F));
@@ -250,10 +250,6 @@ public class UPItems {
 
     public static final RegistryObject<Item> BEELZE_BUCKET = ITEMS.register("beelze_bucket",
             () -> new UPFishBucketItem(UPEntities.BEELZE_TADPOLE, () -> Fluids.WATER, Items.BUCKET, false,
-                    new Item.Properties().stacksTo(1)));
-
-    public static final RegistryObject<Item> DUNK_BUCKET = ITEMS.register("dunk_bucket",
-            () -> new UPFishBucketItem(UPEntities.BABY_DUNK, () -> Fluids.WATER, Items.BUCKET, false,
                     new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SCAU_BUCKET = ITEMS.register("scau_bucket",

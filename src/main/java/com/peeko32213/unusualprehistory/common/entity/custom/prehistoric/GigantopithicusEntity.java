@@ -391,7 +391,7 @@ public class GigantopithicusEntity extends PrehistoricEntity implements IVariant
 
         protected void preformSlamAttack() {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 2.5f, mob, pos, 9.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f);
+            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 2.5f, mob, pos, 9.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
         }
 
         protected void resetAttackCooldown() {

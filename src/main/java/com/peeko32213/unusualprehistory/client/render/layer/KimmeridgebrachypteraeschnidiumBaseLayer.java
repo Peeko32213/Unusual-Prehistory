@@ -22,7 +22,7 @@ public class KimmeridgebrachypteraeschnidiumBaseLayer extends GeoRenderLayer<Kim
 
     @Override
     public void render(PoseStack poseStack, KimmeridgebrachypteraeschnidiumEntity entityLivingBaseIn, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
-        KimmeridgebrachypteraeschnidiumEntity.Pattern pattern = entityLivingBaseIn.getVariant();
+        KimmeridgebrachypteraeschnidiumEntity.Pattern pattern = entityLivingBaseIn.getPattern();
 
         RenderType cameo = RenderType.entityCutout(COLORED_BODY);
 

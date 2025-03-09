@@ -1,9 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying;
 
+import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.StatedPrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.Util;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -11,12 +17,18 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -28,7 +40,10 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -37,7 +52,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -47,14 +64,14 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.function.IntFunction;
 
 //TODO LIST
 // - Add in Kimmer in a Flask
 // - Add in randomized color selection akin to tropical fish
 // - Add in Flask + Eggs
-// - Make Larvae State
-public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements GeoEntity, IBookEntity {
+public class KimmeridgebrachypteraeschnidiumEntity extends StatedPrehistoricEntity implements GeoEntity, GeoAnimatable, IBookEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Nullable
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
@@ -73,30 +90,21 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements
     private static final RawAnimation KIMMER_IDLE_2 = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.idle2");
     private static final RawAnimation KIMMER_PREEN = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.preen");
 
-    public KimmeridgebrachypteraeschnidiumEntity(EntityType<? extends AgeableMob> entityType, Level level) {
+    public KimmeridgebrachypteraeschnidiumEntity(EntityType<? extends StatedPrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         switchNavigator(true);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 6.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2F);
-
+            .add(Attributes.MAX_HEALTH, 6.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new AIFlyIdle());
-    }
-
-    public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
     }
 
 
@@ -159,7 +167,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements
         }
     }
 
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurt(@NotNull DamageSource source, float amount) {
         boolean prev = super.hurt(source, amount);
         return prev;
     }
@@ -247,7 +255,52 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements
         return false;
     }
 
-    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+    @Override
+    protected SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
+    }
+
+    protected void checkFallDamage(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
     }
 
     private boolean isOverWaterOrVoid() {
@@ -320,6 +373,26 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
+
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {
+
+    }
+
     private class AIFlyIdle extends Goal {
         protected double x;
         protected double y;
@@ -388,7 +461,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements
     }
 
     public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
+        return this.entityData.get(FROM_BOOK);
     }
 
     public void setIsFromBook(boolean fromBook) {
@@ -404,10 +477,41 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements
     }
 
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel p_146743_, @NotNull AgeableMob p_146744_) {
         return null;
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack heldItem = player.getItemInHand(hand);
+
+        if (heldItem.getItem() == UPItems.FLASK.get() && this.isAlive()) {
+            playSound(SoundEvents.BOTTLE_FILL_DRAGONBREATH, 0.5F, 1.0F);
+            heldItem.shrink(1);
+            ItemStack itemstack1 = new ItemStack(UPItems.CAPTURED_KIMMER_FLASK.get());
+            this.setBucketData(itemstack1);
+            if (!this.level().isClientSide) {
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);
+            }
+            if (heldItem.isEmpty()) {
+                player.setItemInHand(hand, itemstack1);
+            } else if (!player.getInventory().add(itemstack1)) {
+                player.drop(itemstack1, false);
+            }
+            this.discard();
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, hand);
+    }
+
+    private void setBucketData(ItemStack bucket) {
+        if (this.hasCustomName()) {
+            bucket.setHoverName(this.getCustomName());
+        }
+        CompoundTag compoundnbt = bucket.getOrCreateTag();
+        compoundnbt.putInt("Variant", this.getVariant());
     }
 
     @Nullable
@@ -433,18 +537,19 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        assert FLYING != null;
         this.entityData.define(FLYING, false);
         this.entityData.define(FROM_BOOK, false);
         this.entityData.define(DATA_ID_TYPE_VARIANT, 0);
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Flying", this.isFlying());
         compound.putInt("Variant", this.getPackedVariant());
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setFlying(compound.getBoolean("Flying"));
         this.setPackedVariant(compound.getInt("Variant"));
@@ -495,7 +600,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements
         return getWingColor(this.getPackedVariant());
     }
 
-    public Pattern getVariant() {
+    public Pattern getPattern() {
         return getPattern(this.getPackedVariant());
     }
 
@@ -535,7 +640,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AgeableMob implements
             return this.packedId;
         }
 
-        public String getSerializedName() {
+        public @NotNull String getSerializedName() {
             return this.name;
         }
 

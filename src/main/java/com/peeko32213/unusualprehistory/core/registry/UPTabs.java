@@ -160,7 +160,6 @@ public class UPTabs {
 
                     // Buckets
                     entries.accept(UPItems.AMMON_BUCKET.get());
-                    entries.accept(UPItems.DUNK_BUCKET.get());
                     entries.accept(UPItems.JAWLESS_FISH_BUCKET.get());
                     entries.accept(UPItems.SCAU_BUCKET.get());
                     entries.accept(UPItems.STETHA_BUCKET.get());

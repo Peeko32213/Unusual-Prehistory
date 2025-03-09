@@ -25,19 +25,17 @@ public class HitboxHelper {
     private static final double d = 0.6f;
     private static final double angleVar = Math.PI/12;
 
-    public static void LargeAttack(DamageSource source, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double angleFirst, double angleLast, double hInf, double hSup){
+    public static void LargeAttack(DamageSource source, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double angleFirst, double angleLast, double hInf, double hSup, boolean disableShield){
 
         Vec2 knockVec = MathHelpers.OrizontalAimVector(
                 MathHelpers.AimVector(new Vec3(-entityIn.position().x, -entityIn.position().y, -entityIn.position().z),
-                        new Vec3(-entityIn.getTarget().position().x, -entityIn.getTarget().position().y, -entityIn.getTarget().position().z)
+                        new Vec3(-Objects.requireNonNull(entityIn.getTarget()).position().x, -entityIn.getTarget().position().y, -entityIn.getTarget().position().z)
                 ));
 
         Vec2 aim = MathHelpers.OrizontalAimVector(entityIn.getLookAngle());
         Level worldIn = entityIn.level();
 
         for(int i = 0; i<=radius/d; ++i) {
-
-            //double angleVar = Math.asin(1-(1/(2*(i^2)+0.0001)));
 
             for(int j = 0; j<=(angleLast-angleFirst)/angleVar; ++j) {
 
@@ -50,48 +48,34 @@ public class HitboxHelper {
 
                     double y = pos0.y + hInf + k*d;
                     AABB scanAbove = new AABB(x-d, y - 4*d, z- d, x+ d, y + 2*d, z+ d);
-                    //if(!entityIn.level.isClientSide) hitboxOutline(scanAbove, (ServerLevel) entityIn.level);
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
 
-                    //if (!entityIn.level.isClientSide()) {
-                    //    hitboxOutline(scanAbove, (ServerLevel)entityIn.getLevel());
-                    //}
-
                     if(!entities.isEmpty()) {
-                        for(int n = 0; n < entities.size(); n++) {
+                        for (LivingEntity target : entities) {
 
-                            LivingEntity target = entities.get(n);
-
-                            if(target != entityIn) {
-                                //entityIn.doHurtTarget(target);
-                                target.hurt(source, damage);
-                                target.setLastHurtByMob(entityIn);
-
-                                target.knockback(knockback, knockVec.x, knockVec.y);
-
+                            if (target != entityIn) {
+                                if (target.invulnerableTime == 0) {
+                                    if (target instanceof Player && disableShield) {
+                                        disableShield((Player) target, target.getMainHandItem(), target.getOffhandItem(), entityIn);
+                                    }
+                                    target.hurt(source, damage);
+                                    target.setLastHurtByMob(entityIn);
+                                    target.knockback(knockback, knockVec.x, knockVec.y);
+                                }
                             }
                         }
                     }
                 }
             }
         }
-
     }
 
-
-    public static void LargeAttackWithTargetCheck(DamageSource source, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double angleFirst, double angleLast, double hInf, double hSup) {
-
-        Vec2 knockVec = MathHelpers.OrizontalAimVector(
-                MathHelpers.AimVector(new Vec3(-entityIn.position().x, -entityIn.position().y, -entityIn.position().z),
-                        new Vec3(-Objects.requireNonNull(entityIn.getTarget()).position().x, -entityIn.getTarget().position().y, -entityIn.getTarget().position().z)
-                ));
+    public static void LargeAttackWithTargetCheck(DamageSource damageSource, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double angleFirst, double angleLast, double hInf, double hSup, boolean disableShield) {
 
         Vec2 aim = MathHelpers.OrizontalAimVector(entityIn.getLookAngle());
         Level worldIn = entityIn.level();
 
-        for(int i = 0; i<=radius/d; ++i) {
-
-            //double angleVar = Math.asin(1-(1/(2*(i^2)+0.0001)));
+        for(int i = 0; i <= radius/d; ++i) {
 
             for(int j = 0; j<=(angleLast-angleFirst)/angleVar; ++j) {
 
@@ -105,13 +89,20 @@ public class HitboxHelper {
                     double y = pos0.y + hInf + k*d;
                     AABB scanAbove = new AABB(x-d, y - 4d, z- d, x+ d, y + 2d, z+ d);
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
-                    //if(!entityIn.level.isClientSide) hitboxOutline(scanAbove, (ServerLevel) entityIn.level);
 
-                    if(!entities.isEmpty()) {
-                        for (LivingEntity target : entities) {
+                    for (LivingEntity target : entities) {
+                        if (target != entityIn && target.invulnerableTime == 0) {
 
-                            if (target == entityIn.getTarget()) {
-                                target.hurt(source, damage);
+                            Vec2 knockVec = MathHelpers.OrizontalAimVector(
+                                MathHelpers.AimVector(new Vec3(-entityIn.position().x, -entityIn.position().y, -entityIn.position().z),
+                                        new Vec3(-target.position().x, -target.position().y, -target.position().z)
+                                ));
+
+                            if(target.invulnerableTime == 0) {
+                                if (target instanceof Player && disableShield) {
+                                    disableShield((Player) target, target.getMainHandItem(), target.getOffhandItem(), entityIn);
+                                }
+                                target.hurt(damageSource, damage);
                                 target.setLastHurtByMob(entityIn);
                                 target.knockback(knockback, knockVec.x, knockVec.y);
                             }
@@ -131,21 +122,18 @@ public class HitboxHelper {
         double[] trueXZ = {truePos.x, truePos.z};
 
         AffineTransform.getRotateInstance(Math.toRadians(entityAngle), sourcePos.x, sourcePos.z).transform(trueXZ, 0, trueXZ, 0, 1);
-        double[] transformedTrueXY = trueXZ;
-        Vec3 rotatedPos = new Vec3(transformedTrueXY[0], truePos.y, transformedTrueXY[1]);
+        Vec3 rotatedPos = new Vec3(trueXZ[0], truePos.y, trueXZ[1]);
         BlockPos finalPos = BlockPos.containing(rotatedPos.x, rotatedPos.y, rotatedPos.z);
         AABB Hitbox = new AABB(finalPos).inflate(attackWidth, attackHeight, attackLength);
         //hitboxOutline(Hitbox, world);
         //world.sendParticles(ParticleTypes.EXPLOSION, rotatedPos.x, rotatedPos.y, rotatedPos.z, 1, 0, 0, 0, 0);
         List<LivingEntity> victims = new ArrayList<>(world.getEntitiesOfClass(LivingEntity.class, Hitbox));
 
-        for (int i = 0; i < victims.size(); i++) {
-            LivingEntity victim = victims.get(i);
-
+        for (LivingEntity victim : victims) {
             if (victim != source) {
                 //entityIn.doHurtTarget(target);
                 if (victim instanceof Player && disableShield) {
-                    disableShield((Player)victim, victim.getMainHandItem(), victim.getOffhandItem(), source);
+                    disableShield((Player) victim, victim.getMainHandItem(), victim.getOffhandItem(), source);
                 }
 
                 Vec2 knockVec = MathHelpers.OrizontalAimVector(
@@ -162,15 +150,11 @@ public class HitboxHelper {
     }
 
     public static void disableShield(Player pPlayer, ItemStack mainHand, ItemStack offHand, Entity source) {
-        //System.out.println("Shatter " + (!mainHand.isEmpty() && mainHand.is(Items.SHIELD)));
-
         if (!mainHand.isEmpty() && mainHand.is(Items.SHIELD) && pPlayer.isBlocking()) {
-            //float f = 0.25F + (float) EnchantmentHelper.getBlockEfficiency(source) * 0.05F;
             pPlayer.getCooldowns().addCooldown(Items.SHIELD, 100);
             source.level().broadcastEntityEvent(pPlayer, (byte)30);
 
         } else if (!offHand.isEmpty() && offHand.is(Items.SHIELD) && pPlayer.isBlocking()) {
-            //float f = 0.25F + (float) EnchantmentHelper.getBlockEfficiency(source) * 0.05F;
             pPlayer.getCooldowns().addCooldown(Items.SHIELD, 100);
             source.level().broadcastEntityEvent(pPlayer, (byte)30);
         }
