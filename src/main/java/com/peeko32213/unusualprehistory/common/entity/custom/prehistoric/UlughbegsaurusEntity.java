@@ -73,8 +73,6 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
     private static final EntityDataAccessor<Integer> EATING_TIME = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
     public static final Logger LOGGER = LogManager.getLogger();
 
-    private static final Map<DyeColor, float[]> COLORARRAY_BY_COLOR = Maps.<DyeColor, float[]>newEnumMap(Arrays.stream(DyeColor.values()).collect(Collectors.toMap((p_29868_) -> {return p_29868_;}, UlughbegsaurusEntity::createSheepColor)));
-
     private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
 
@@ -539,7 +537,6 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
                 return true;
             }
             if (entityIn instanceof TamableAnimal) {
-                assert livingentity != null;
                 return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
             }
             if (livingentity != null) {
@@ -558,38 +555,41 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
     }
 
     public void determineVariant(int variantChange){
-        if (variantChange <= 10) {
+        if (variantChange <= 8) {
             this.setVariant(1);
         }
-        else if (variantChange <= 30 && variantChange > 20) {
+        else if (variantChange <= 16) {
             this.setVariant(2);
         }
-        else if (variantChange <= 40 && variantChange > 30) {
+        else if (variantChange <= 24) {
             this.setVariant(3);
         }
-        else if (variantChange <= 50 && variantChange > 40) {
+        else if (variantChange <= 32) {
             this.setVariant(4);
         }
-        else if (variantChange <= 60 && variantChange > 50) {
+        else if (variantChange <= 40) {
             this.setVariant(5);
         }
-        else if (variantChange <= 70 && variantChange > 60) {
+        else if (variantChange <= 48) {
             this.setVariant(6);
         }
-        else if (variantChange <= 80 && variantChange > 70) {
+        else if (variantChange <= 56) {
             this.setVariant(7);
         }
-        else if (variantChange <= 90 && variantChange > 80) {
+        else if (variantChange <= 64) {
             this.setVariant(8);
         }
-        else if (variantChange <= 100 && variantChange > 90) {
+        else if (variantChange <= 72) {
             this.setVariant(9);
         }
-        else if (variantChange > 100) {
+        else if (variantChange <= 80) {
             this.setVariant(10);
         }
-        else {
+        else if (variantChange <= 98) {
             this.setVariant(0);
+        }
+        else {
+            this.setVariant(11);
         }
     }
 
@@ -695,20 +695,6 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
         }
     }
 
-    public static float[] getColorArray(DyeColor pDyeColor) {
-        return COLORARRAY_BY_COLOR.get(pDyeColor);
-    }
-
-    private static float[] createSheepColor(DyeColor p_29866_) {
-        if (p_29866_ == DyeColor.WHITE) {
-            return new float[]{0.9019608F, 0.9019608F, 0.9019608F};
-        } else {
-            float[] afloat = p_29866_.getTextureDiffuseColors();
-            float f = 0.75F;
-            return new float[]{afloat[0] * 0.75F, afloat[1] * 0.75F, afloat[2] * 0.75F};
-        }
-    }
-
     @Override
     public void customServerAiStep() {
         if (this.getMoveControl().hasWanted()) {
@@ -723,7 +709,6 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         UlughbegsaurusEntity ulugh = UPEntities.ULUG.get().create(serverLevel);
-        assert ulugh != null;
         ulugh.setVariant(this.getVariant());
         return ulugh;
     }

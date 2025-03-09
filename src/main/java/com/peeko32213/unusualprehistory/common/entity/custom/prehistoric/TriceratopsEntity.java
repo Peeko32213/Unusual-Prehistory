@@ -40,7 +40,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -66,6 +65,7 @@ import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
@@ -95,14 +95,14 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
 
     // Idle animations
     private static final RawAnimation TRIKE_IDLE = RawAnimation.begin().thenLoop("animation.triceratops.idle");
-    private static final RawAnimation TRIKE_GRAZE = RawAnimation.begin().thenPlay("animation.triceratops.graze");
-    private static final RawAnimation TRIKE_HEAD_SHAKE = RawAnimation.begin().thenPlay("animation.triceratops.head_shake");
-    private static final RawAnimation TRIKE_CHATTER = RawAnimation.begin().thenPlay("animation.triceratops.chatter");
+    private static final RawAnimation TRIKE_GRAZE = RawAnimation.begin().thenPlay("animation.triceratops.graze_blend");
+    private static final RawAnimation TRIKE_HEAD_SHAKE = RawAnimation.begin().thenPlay("animation.triceratops.shake_blend");
+    private static final RawAnimation TRIKE_CHATTER = RawAnimation.begin().thenPlay("animation.triceratops.chatter_blend");
     private static final RawAnimation TRIKE_SIT = RawAnimation.begin().thenLoop("animation.triceratops.sit");
 
     // Attack animations
-    private static final RawAnimation TRIKE_ATTACK = RawAnimation.begin().thenPlay("animation.triceratops.attack");
-    private static final RawAnimation TRIKE_CHARGE_START = RawAnimation.begin().thenLoop("animation.triceratops.charge_start");
+    private static final RawAnimation TRIKE_ATTACK = RawAnimation.begin().thenPlay("animation.triceratops.attack_blend1");
+    private static final RawAnimation TRIKE_CHARGE_START = RawAnimation.begin().thenLoop("animation.triceratops.warning_blend");
     private static final RawAnimation TRIKE_CHARGE = RawAnimation.begin().thenLoop("animation.triceratops.charge");
 
     // Idle accessors
@@ -116,7 +116,7 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
     private static final StateHelper TRIKE_IDLE_1_STATE =
             StateHelper.Builder.state(IDLE_1_AC, "triceratops_graze")
                     .playTime(60)
-                    .stopTime(100)
+                    .stopTime(150)
                     .affectsAI(true)
                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
                     .entityAction(TRIKE_IDLE_1_ACTION)
@@ -127,7 +127,7 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
     private static final StateHelper TRIKE_IDLE_2_STATE =
             StateHelper.Builder.state(IDLE_2_AC, "triceratops_head_shake")
                     .playTime(40)
-                    .stopTime(90)
+                    .stopTime(120)
                     .entityAction(TRIKE_IDLE_2_ACTION)
                     .build();
 
@@ -135,8 +135,8 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
 
     private static final StateHelper TRIKE_IDLE_3_STATE =
             StateHelper.Builder.state(IDLE_3_AC, "triceratops_chatter")
-                    .playTime(40)
-                    .stopTime(80)
+                    .playTime(60)
+                    .stopTime(100)
                     .entityAction(TRIKE_IDLE_3_ACTION)
                     .build();
 
@@ -194,12 +194,11 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 28));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
-        this.targetSelector.addGoal(2, new TrikeNearestAttackablePlayerTargetGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
         this.goalSelector.addGoal(3, new TameableStatedFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(7, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(8, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(5, new TameableTempt(this, 1.1D, TEMPTATION_ITEMS, false));
     }
 
@@ -239,7 +238,6 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         TriceratopsEntity trike = UPEntities.TRICERATOPS.get().create(serverLevel);
-        assert trike != null;
         trike.setVariant(this.getVariant());
         return trike;
     }
@@ -362,7 +360,6 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
                 return true;
             }
             if (entityIn instanceof TamableAnimal) {
-                assert livingentity != null;
                 return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
             }
             if (livingentity != null) {
@@ -644,7 +641,6 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
         public void tick() {
 
             LivingEntity target = this.mob.getTarget();
-            assert target != null;
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
@@ -765,11 +761,6 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
         super.killed();
     }
 
-    @Override
-    public float getVoicePitch() {
-        return (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f;
-    }
-
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
@@ -812,16 +803,34 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
         }
     }
 
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 5, this::Controller));
-        controllers.add(new AnimationController<>(this, "blend", 5, this::Controller)
-                .triggerableAnim("shake", TRIKE_HEAD_SHAKE)
-                .triggerableAnim("chatter", TRIKE_CHATTER)
-                .triggerableAnim("attack", TRIKE_ATTACK));
+    private void soundListener(SoundKeyframeEvent<TriceratopsEntity> event) {
+        TriceratopsEntity triceratops = event.getAnimatable();
+        if (triceratops.level().isClientSide) {
+            if (event.getKeyframeData().getSound().equals("triceratops_chatter")) {
+                triceratops.level().playLocalSound(triceratops.getX(), triceratops.getY(), triceratops.getZ(), UPSounds.TRIKE_CHATTER.get(), triceratops.getSoundSource(), 1.5F, triceratops.getVoicePitch(), false);
+            }
+        }
     }
 
-    protected <E extends TriceratopsEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<TriceratopsEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+        AnimationController<TriceratopsEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
+                .triggerableAnim("shake", TRIKE_HEAD_SHAKE)
+                .triggerableAnim("chatter", TRIKE_CHATTER)
+                .triggerableAnim("graze", TRIKE_GRAZE)
+                .triggerableAnim("attack", TRIKE_ATTACK)
+                ;
+        blend.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(blend);
+    }
+
+    private boolean isStillEnough() {
+        return this.getDeltaMovement().horizontalDistance() < 0.05;
+    }
+
+    protected <E extends TriceratopsEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
         if (this.isFromBook()) {
             return event.setAndContinue(TRIKE_IDLE);
@@ -836,7 +845,7 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
         else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasControllingPassenger() && !this.isInSittingPose()){
             if(this.isSprinting() && !this.isBaby()) {
                 event.setAndContinue(TRIKE_CHARGE);
-                event.getController().setAnimationSpeed(1.75F);
+                event.getController().setAnimationSpeed(1.0F);
             } else {
                 event.setAndContinue(TRIKE_WALK);
                 event.getController().setAnimationSpeed(1.0F);
@@ -848,7 +857,7 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
 
             if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()){
                 event.setAndContinue(TRIKE_CHARGE);
-                event.getController().setAnimationSpeed(1.8F);
+                event.getController().setAnimationSpeed(1.0F);
             }
             else {
                 event.setAndContinue(TRIKE_WALK);
@@ -865,65 +874,54 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
         }
 
         if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC)) {
-                return event.setAndContinue(TRIKE_GRAZE);
+            if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "graze");
+                    return event.setAndContinue(TRIKE_IDLE);
+                } else {
+                    triggerAnim("blend", "graze");
+                    return PlayState.CONTINUE;
+                }
             }
-            if (getBooleanState(IDLE_2_AC)) {
-                triggerAnim("blend", "shake");
-                return PlayState.CONTINUE;
+            if (getBooleanState(IDLE_2_AC) && !this.isAsleep()) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "shake");
+                    return event.setAndContinue(TRIKE_IDLE);
+                } else {
+                    triggerAnim("blend", "shake");
+                    return PlayState.CONTINUE;
+                }
             }
-            if (getBooleanState(IDLE_3_AC)) {
-                triggerAnim("blend", "chatter");
-                return PlayState.CONTINUE;
+            if (getBooleanState(IDLE_3_AC) && !this.isAsleep()) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "chatter");
+                    return event.setAndContinue(TRIKE_IDLE);
+                } else {
+                    triggerAnim("blend", "chatter");
+                    return PlayState.CONTINUE;
+                }
             }
             return event.setAndContinue(TRIKE_IDLE);
         }
-
-        event.getController().setAnimationSpeed(1.0F);
         return PlayState.CONTINUE;
     }
 
-    static class TrikeNearestAttackablePlayerTargetGoal extends NearestAttackableTargetGoal<Player> {
-        private final TriceratopsEntity trike;
-
-        public TrikeNearestAttackablePlayerTargetGoal(TriceratopsEntity mob) {
-            super(mob, Player.class, 10, true, true, EntitySelector.NO_CREATIVE_OR_SPECTATOR::test);
-            this.trike = mob;
+    public void determineVariant(int variantChange){
+        if (variantChange <= 60) {
+            this.setVariant(0);
         }
-
-        @Override
-        public boolean canUse() {
-            if (this.trike.isBaby()) {
-                return false;
-            }
-            if (super.canUse()) {
-                if (!trike.isWithinYRange(target)) {
-                    return false;
-                }
-                List<TriceratopsEntity> nearbyEntities = this.trike.level().getEntitiesOfClass(TriceratopsEntity.class, this.trike.getBoundingBox().inflate(8.0, 4.0, 8.0));
-                for (TriceratopsEntity mob : nearbyEntities) {
-                    if (!mob.isBaby()) continue;
-                    return true;
-                }
-            }
-            return false;
+        else {
+            this.setVariant(1);
         }
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
-        Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {
-            this.setPersistenceRequired();
-        }
-        if (random.nextBoolean()) {
-            this.setVariant(1);
-        }
-        else {
-            this.setVariant(0);
-        }
-        return p_28137_;
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        int variantChange = this.random.nextInt(0, 100);
+        this.determineVariant(variantChange);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override

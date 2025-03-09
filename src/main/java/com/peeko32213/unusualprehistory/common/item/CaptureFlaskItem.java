@@ -28,7 +28,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -52,7 +51,6 @@ public class CaptureFlaskItem extends BucketItem {
         this.hasTooltip = hasTooltip;
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> UnusualPrehistory.CALLBACKS.add(() -> ItemProperties.register(this, new ResourceLocation(UnusualPrehistory.MODID, "variant"), (stack, world, player, i) -> {
             if (stack.hasTag()) {
-                assert stack.getTag() != null;
                 return stack.getTag().getInt("Variant");
             } else {
                 return 0;
@@ -60,7 +58,7 @@ public class CaptureFlaskItem extends BucketItem {
         })));
     }
 
-    public @NotNull InteractionResult useOn(UseOnContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         Level world = context.getLevel();
         Player player = context.getPlayer();
 
@@ -88,7 +86,6 @@ public class CaptureFlaskItem extends BucketItem {
                         player.addItem(new ItemStack(item1));
                     }
                 }
-                assert player != null;
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.NEUTRAL, 0.5F, 1.0F);
             }
         }
@@ -97,12 +94,10 @@ public class CaptureFlaskItem extends BucketItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, world, tooltip, flag);
         if (hasTooltip && stack.hasTag()) {
-            assert stack.getTag() != null;
             MutableComponent variant = Component.translatable(getEntityType().getDescriptionId() + "." + stack.getTag().getInt("Variant")).withStyle(ChatFormatting.GRAY);
-
             tooltip.add(variant);
         }
     }

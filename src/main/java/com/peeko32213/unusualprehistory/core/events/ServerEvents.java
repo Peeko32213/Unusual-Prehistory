@@ -57,6 +57,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -171,7 +172,7 @@ public class ServerEvents {
                 int hpReduction = 0;
 
                 if(entity.hasEffect(UPEffects.HEALTH_REDUCTION.get())){
-                    hpReduction = entity.getEffect(UPEffects.HEALTH_REDUCTION.get()).getAmplifier() + 1;
+                    hpReduction = Objects.requireNonNull(entity.getEffect(UPEffects.HEALTH_REDUCTION.get())).getAmplifier() + 1;
                 }
 
                 MobEffectInstance mobEffectInstance = new MobEffectInstance(UPEffects.HEALTH_REDUCTION.get(), 120, hpReduction);
@@ -191,7 +192,7 @@ public class ServerEvents {
         CompoundTag tag = stack.getTag();
         if(tag == null || !tag.contains("megalania_damage")) return;
         int amount = tag.getInt("megalania_damage");
-        MutableComponent component = Component.translatable("unusualprehistory.megalania_damage", amount).withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.ITALIC);
+        MutableComponent component = Component.translatable("unusualprehistory.megalania_damage", amount).withStyle(ChatFormatting.BLUE);
         List<Component> toolTip = event.getToolTip();
         event.getToolTip().add(component);
     }
@@ -359,8 +360,8 @@ public class ServerEvents {
     private boolean checkContainPiss(Set<WrappedGoal> availableGoals) {
         WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
 
-        for (int i = 0; i < arring.length; i++) {
-            if (arring[i].getGoal() instanceof JarateFindWaterGoal) {
+        for (WrappedGoal wrappedGoal : arring) {
+            if (wrappedGoal.getGoal() instanceof JarateFindWaterGoal) {
                 return true;
                 //has piss goal
             }
@@ -374,8 +375,8 @@ public class ServerEvents {
     private boolean checkContainRabies(Set<WrappedGoal> availableGoals) {
         WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
 
-        for (int i = 0; i < arring.length; i++) {
-            if (arring[i].getGoal() instanceof RabiesHuntGoal) {
+        for (WrappedGoal wrappedGoal : arring) {
+            if (wrappedGoal.getGoal() instanceof RabiesHuntGoal) {
                 return true;
                 //has piss goal
             }
@@ -389,9 +390,9 @@ public class ServerEvents {
     private void cutPissGoal(PathfinderMob titty) {
         WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
 
-        for (int i = 0; i < arring.length; i++) {
-            if (arring[i].getGoal() instanceof JarateFindWaterGoal) {
-                titty.goalSelector.removeGoal(arring[i].getGoal());
+        for (WrappedGoal wrappedGoal : arring) {
+            if (wrappedGoal.getGoal() instanceof JarateFindWaterGoal) {
+                titty.goalSelector.removeGoal(wrappedGoal.getGoal());
             }
         }
     }

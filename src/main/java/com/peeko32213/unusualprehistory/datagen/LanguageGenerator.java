@@ -643,6 +643,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.TRIKE_IDLE, "Triceratops stouts");
         addSound(UPSounds.TRIKE_HURT, "Triceratops hurts");
         addSound(UPSounds.TRIKE_DEATH, "Triceratops dies");
+        addSound(UPSounds.TRIKE_CHATTER, "Triceratops chatters");
 
         addSound(UPSounds.BRACHI_IDLE, "Brachiosaurus bellows");
         addSound(UPSounds.BRACHI_HURT, "Brachiosaurus hurts");
@@ -996,7 +997,7 @@ public class LanguageGenerator extends LanguageProvider {
 
         add("death.attack.sludge_0.player", "%s was slapped to death by %s");
 
-        add("unusualprehistory.megalania_damage", " %s Venomous Coating");
+        add("unusualprehistory.megalania_damage", "%s Venomous Coating");
         add("unusualprehistory.battle_axe", "An axe made for battle. Cutting wood effectively goes poorly..");
         add("unusualprehistory.shedscale_bonus", "Inverts some negative effects while wearing full set");
         add("unusualprehistory.fruit_loot_box.salubrious", "Salubrious Fruit Block");

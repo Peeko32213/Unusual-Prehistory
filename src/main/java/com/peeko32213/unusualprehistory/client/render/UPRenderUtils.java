@@ -45,11 +45,11 @@ public class UPRenderUtils {
             return this;
         }
 
-        public TamableStatedDinosaurRendererBuilder<T> withJebLayer(ResourceLocation jebOverlay) {
-            checkLayers();
-            layerFactories.add(new JebLayer<>(dinoRenderer, jebOverlay, modelLocation));
-            return this;
-        }
+//        public TamableStatedDinosaurRendererBuilder<T> withJebLayer(ResourceLocation jebOverlay) {
+//            checkLayers();
+//            layerFactories.add(new JebLayer<>(dinoRenderer, jebOverlay, modelLocation));
+//            return this;
+//        }
 
         public TameableStatedPrehistoricRenderer<T> build() {
             checkLayers();

@@ -385,27 +385,35 @@
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_revive"
   },
 
-  "trike_death": {
+  "triceratops_death": {
     "sounds": [
-        "unusualprehistory:entity/trike/trike_death_0",
-        "unusualprehistory:entity/trike/trike_death_1"
+        "unusualprehistory:entity/triceratops/triceratops_death_0",
+        "unusualprehistory:entity/triceratops/triceratops_death_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.trike_death"
+    "subtitle": "unusualprehistory.sound.subtitle.triceratops_death"
   },
-  "trike_hurt": {
+  "triceratops_hurt": {
     "sounds": [
-        "unusualprehistory:entity/trike/trike_hurt_0",
-        "unusualprehistory:entity/trike/trike_hurt_1"
+        "unusualprehistory:entity/triceratops/triceratops_hurt_0",
+        "unusualprehistory:entity/triceratops/triceratops_hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.trike_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.triceratops_hurt"
   },
-  "trike_idle": {
+  "triceratops_idle": {
     "sounds": [
-        "unusualprehistory:entity/trike/trike_idle_0",
-        "unusualprehistory:entity/trike/trike_idle_1",
-        "unusualprehistory:entity/trike/trike_idle_2"
+        "unusualprehistory:entity/triceratops/triceratops_idle_0",
+        "unusualprehistory:entity/triceratops/triceratops_idle_1",
+        "unusualprehistory:entity/triceratops/triceratops_idle_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.trike_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.triceratops_idle"
+  },
+  "triceratops_chatter": {
+    "sounds": [
+      "unusualprehistory:entity/triceratops/triceratops_chatter_0",
+      "unusualprehistory:entity/triceratops/triceratops_chatter_1",
+      "unusualprehistory:entity/triceratops/triceratops_chatter_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.triceratops_chatter"
   },
 
   "brachi_death": {

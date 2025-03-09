@@ -445,7 +445,6 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         TyrannosaurusEntity tyrannosaurus = UPEntities.TYRANNOSAURUS.get().create(serverLevel);
-        assert tyrannosaurus != null;
         tyrannosaurus.setVariant(this.getVariant());
         return tyrannosaurus;
     }
@@ -586,7 +585,6 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
         public void tick() {
 
             LivingEntity target = this.mob.getTarget();
-            assert target != null;
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
@@ -937,19 +935,21 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
         return PlayState.CONTINUE;
     }
 
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
-        Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {
-            this.setPersistenceRequired();
-        }
-        if (random.nextBoolean()) {
-            this.setVariant(1);
-        }
-        else {
+    public void determineVariant(int variantChange){
+        if (variantChange <= 60) {
             this.setVariant(0);
         }
-        return p_28137_;
+        else {
+            this.setVariant(1);
+        }
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        int variantChange = this.random.nextInt(0, 100);
+        this.determineVariant(variantChange);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 }

@@ -302,7 +302,6 @@
                  return true;
              }
              if (entityIn instanceof TamableAnimal) {
-                 assert livingentity != null;
                  return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
              }
              if (livingentity != null) {

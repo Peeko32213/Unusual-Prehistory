@@ -426,7 +426,6 @@ public class EstemmenosuchusEntity extends StatedPrehistoricEntity implements Ge
         public void tick() {
 
             LivingEntity target = this.mob.getTarget();
-            assert target != null;
             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();

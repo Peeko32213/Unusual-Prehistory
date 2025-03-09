@@ -195,7 +195,6 @@ public class SmilodonEntity extends PrehistoricEntity implements IVariantEntity 
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         SmilodonEntity smilodon = UPEntities.SMILODON.get().create(serverLevel);
-        assert smilodon != null;
         smilodon.setVariant(this.getVariant());
         return smilodon;
     }

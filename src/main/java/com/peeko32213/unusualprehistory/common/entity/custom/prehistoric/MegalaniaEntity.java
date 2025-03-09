@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStro
 import com.peeko32213.unusualprehistory.common.entity.util.goal.SleepRandomLookAroundGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -34,6 +35,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -60,10 +62,6 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
     private static final ResourceLocation TEXTURE_COLD = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold.png");
     private static final ResourceLocation TEXTURE_HOT = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot.png");
     private static final ResourceLocation TEXTURE_NETHER = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_nether.png");
-    private static final ResourceLocation TEXTURE_TEMPERATE_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_baby.png");
-    private static final ResourceLocation TEXTURE_COLD_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold_baby.png");
-    private static final ResourceLocation TEXTURE_HOT_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot_baby.png");
-    private static final ResourceLocation TEXTURE_NETHER_BABY = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_nether_baby.png");
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(MegalaniaEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(MegalaniaEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(MegalaniaEntity.class, EntityDataSerializers.INT);
@@ -84,8 +82,13 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
     private static final RawAnimation MEGALANIA_BABY_IDLE = RawAnimation.begin().thenLoop("animation.baby_megalania.idle");
     private static final RawAnimation MEGALANIA_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_megalania.swim");
 
-    public MegalaniaEntity(EntityType<? extends Animal> entityType, Level level) {
+    public MegalaniaEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -209,14 +212,13 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         if(pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if(itemStack.is(Tags.Items.TOOLS)) {
-         CompoundTag compoundTag = itemStack.getTag();
-            assert compoundTag != null;
-            compoundTag.putInt("megalania_venom", 30);
-         itemStack.setTag(compoundTag);
+            CompoundTag compoundTag = itemStack.getTag();
+            compoundTag.putInt("megalania_damage", 30);
+            itemStack.setTag(compoundTag);
         }
         return super.mobInteract(pPlayer, pHand);
     }
@@ -244,7 +246,6 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         MegalaniaEntity megalania = UPEntities.MEGALANIA.get().create(serverLevel);
-        assert megalania != null;
         megalania.setVariant(this.getVariant());
         return megalania;
     }
@@ -345,16 +346,16 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
 
         if(!this.level().isClientSide){
             if (this.isHotBiome() && !isInWaterRainOrBubble()) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2);
+                Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.2);
                 this.setAsleep(false);
             }
             if (this.isColdBiome() && !isInWaterRainOrBubble()) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.13);
+                Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.13);
                 this.setAsleep(true);
                 this.stunnedTick = 60;
             }
             else {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.16);
+                Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.16);
             }
         }
     }
@@ -401,7 +402,7 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
     @Override
     public float getSoundVolume() {
         if(this.isBaby()){
-            return 0.5F;
+            return 0.75F;
         }
         else{
             return 1.0F;
@@ -412,25 +413,13 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
     @Override
     public ResourceLocation getVariantTexture() {
         if(getVariant() == 1){
-            if(this.isBaby()) {
-                return TEXTURE_COLD_BABY;
-            }
             return TEXTURE_COLD;
         }
         else if(getVariant() == 2) {
-            if(this.isBaby()) {
-                return TEXTURE_HOT_BABY;
-            }
             return TEXTURE_HOT;
         }
         else if(getVariant() == 3) {
-            if(this.isBaby()) {
-                return TEXTURE_NETHER_BABY;
-            }
             return TEXTURE_NETHER;
-        }
-        else if(this.isBaby()){
-            return TEXTURE_TEMPERATE_BABY;
         }
         else return TEXTURE_TEMPERATE;
     }
@@ -525,15 +514,14 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
             double reach = this.getAttackReachSqr(target);
             int animState = this.mob.getAnimationState();
 
-            switch (animState) {
-                case 21 -> tickBiteAttack();
-                default -> {
-                    this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                    this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                    this.doMovement(target, distance);
-                    this.checkForCloseRangeAttack(distance, reach);
-                }
+            if (animState == 21) {
+                tickBiteAttack();
+            } else {
+                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                this.doMovement(target, distance);
+                this.checkForCloseRangeAttack(distance, reach);
             }
         }
 
@@ -564,10 +552,6 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
             }
         }
 
-        protected boolean getRangeCheck () {
-            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.05F * this.getAttackReachSqr(this.mob.getTarget());
-        }
-
         protected void tickBiteAttack () {
             animTime++;
 
@@ -590,7 +574,8 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
 
         protected void preformBiteAttack () {
             this.mob.playSound(UPSounds.MEGALANIA_BITE.get(), 0.75F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.biteOffSet, 3f, 2f, 3.5f, (ServerLevel)this.mob.level(), 5f, this.mob.damageSources().mobAttack(mob), 0.5f, false);
+            Vec3 pos = mob.position();
+            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.25f, mob, pos, 4.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
             List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(1));
             for (LivingEntity e : list) {
                 if (!(e instanceof MegalaniaEntity) && e.isAlive()) {
@@ -599,24 +584,24 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
             }
         }
 
-        protected void resetAttackCooldown () {
-            this.ticksUntilNextAttack = 3;
+        protected void resetAttackCooldown() {
+            this.ticksUntilNextAttack = this.adjustedTickDelay(20);
         }
 
-        protected boolean isTimeToAttack () {
+        protected boolean isTimeToAttack() {
             return this.ticksUntilNextAttack <= 0;
         }
 
-        protected int getTicksUntilNextAttack () {
+        protected int getTicksUntilNextAttack() {
             return this.ticksUntilNextAttack;
         }
 
-        protected int getAttackInterval () {
-            return 5;
+        protected int getAttackInterval() {
+            return this.adjustedTickDelay(20);
         }
 
-        protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
+        protected double getAttackReachSqr(LivingEntity pAttackTarget) {
+            return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + pAttackTarget.getBbWidth();
         }
     }
 
@@ -625,53 +610,47 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
         if(this.isFromBook()){
             return event.setAndContinue(MEGALANIA_IDLE);
         }
-        {
-            switch (animState) {
 
-                case 21:
-                    event.setAndContinue(MEGALANIA_BITE);
-                    event.getController().setAnimationSpeed(0.75F);
-                    break;
-                default:
-                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isAsleep()  && !this.isSwimming()) {
-                        if (this.isSprinting() || !this.getPassengers().isEmpty() && !this.isSwimming() && !this.isBaby()) {
-                            event.setAndContinue(MEGALANIA_SPRINT);
-                            return PlayState.CONTINUE;
-                        } else if (event.isMoving() && !this.isAsleep() && !this.isSwimming()) {
-                            if (this.isBaby()) {
-                                event.setAndContinue(MEGALANIA_BABY_WALK);
-                            }
-                            else{
-                                event.setAndContinue(MEGALANIA_WALK);
-                            }
-                            return PlayState.CONTINUE;
-                        }
-                    }
-                    if (this.isInWater()) {
+            if (animState == 21) {
+                event.setAndContinue(MEGALANIA_BITE);
+                event.getController().setAnimationSpeed(0.75F);
+            }
+            else {
+                if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isAsleep() && !this.isSwimming()) {
+                    if (this.isSprinting() || !this.getPassengers().isEmpty() && !this.isSwimming() && !this.isBaby()) {
+                        event.setAndContinue(MEGALANIA_SPRINT);
+                        return PlayState.CONTINUE;
+                    } else if (event.isMoving() && !this.isAsleep() && !this.isSwimming()) {
                         if (this.isBaby()) {
-                            event.setAndContinue(MEGALANIA_BABY_SWIM);
+                            event.setAndContinue(MEGALANIA_BABY_WALK);
+                        } else {
+                            event.setAndContinue(MEGALANIA_WALK);
                         }
-                        else{
-                            event.setAndContinue(MEGALANIA_SWIM);
-                        }
-                        event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
-
-                    if (isAsleep() && !this.isSwimming()) {
-                        event.setAndContinue(MEGALANIA_REST);
-                        return PlayState.CONTINUE;
-                    }
-
+                }
+                if (this.isInWater()) {
                     if (this.isBaby()) {
-                        event.setAndContinue(MEGALANIA_BABY_IDLE);
+                        event.setAndContinue(MEGALANIA_BABY_SWIM);
+                    } else {
+                        event.setAndContinue(MEGALANIA_SWIM);
                     }
-                    else {
-                        event.setAndContinue(MEGALANIA_IDLE);
-                    }
+                    event.getController().setAnimationSpeed(1.0F);
+                    return PlayState.CONTINUE;
+                }
+
+                if (isAsleep() && !this.isSwimming()) {
+                    event.setAndContinue(MEGALANIA_REST);
+                    return PlayState.CONTINUE;
+                }
+
+                if (this.isBaby()) {
+                    event.setAndContinue(MEGALANIA_BABY_IDLE);
+                } else {
+                    event.setAndContinue(MEGALANIA_IDLE);
+                }
                 return PlayState.CONTINUE;
             }
-        }
         return PlayState.CONTINUE;
     }
 
