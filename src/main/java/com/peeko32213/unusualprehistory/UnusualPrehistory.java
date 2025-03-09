@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
 import com.peeko32213.unusualprehistory.common.data.PrehistoricEgg;
+import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry;
 import com.peeko32213.unusualprehistory.core.registry.util.UPLootModifiers;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
@@ -67,6 +68,8 @@ public class UnusualPrehistory {
         modEventBus.addListener(this::packSetup);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.COMMON);
 
+        EntityActionsRegistry.register();
+        SerializableSynchedDataRegistry.register();
         // Register stuff
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
@@ -86,6 +89,9 @@ public class UnusualPrehistory {
         UPFeatureModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
         UPSounds.DEF_REG.register(modEventBus);
         UPEffects.EFFECT_DEF_REG.register(modEventBus);
+
+        //Register goalsmith goals
+        UPGoalRegistry.GOAL_TYPE_SERIALIZER.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         PROXY.init();

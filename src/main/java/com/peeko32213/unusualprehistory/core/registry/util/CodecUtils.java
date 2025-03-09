@@ -3,9 +3,14 @@ package com.peeko32213.unusualprehistory.core.registry.util;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.entity.ai.goal.Goal;
 
+import java.util.EnumSet;
+import java.util.List;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+
 
 public class CodecUtils {
 
@@ -32,5 +37,17 @@ public class CodecUtils {
             return DataResult.success(s);
         };
         return Codec.STRING.flatXmap(function, function).xmap(s -> Integer.valueOf(s, 16), Integer::toHexString);
+    }
+
+
+
+    public static final Codec<Goal.Flag> GOAL_FLAG_CODEC = ExtraCodecs.stringResolverCodec(
+            Goal.Flag::name,
+            Goal.Flag::valueOf
+    );
+
+    public static <T extends Enum<T>> Codec<EnumSet<T>> enumSetCodec(Codec<T> elementCodec) {
+        return Codec.list(elementCodec)
+                .xmap(EnumSet::copyOf, List::copyOf);
     }
 }

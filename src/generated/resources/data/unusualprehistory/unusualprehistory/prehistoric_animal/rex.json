@@ -26,6 +26,128 @@
             }
           ]
         },
+        "goals": {
+          "goal_operations": [
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:random_look_around_goal",
+                  "goal_priority": 0
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:float_goal",
+                  "goal_priority": 0
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:water_avoiding_random_stroll_goal",
+                  "goal_priority": 3,
+                  "probability": 20.0,
+                  "speed_modifier": 1.0
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:look_at_entity_goal",
+                  "goal_priority": 6,
+                  "look_at_type": "goalsmith:player",
+                  "look_distance": 6.0,
+                  "only_horizontal": false,
+                  "probability": 0.02
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:avoid_entity_goal",
+                  "avoid_predicate": {
+                    "type": "goalsmith:true"
+                  },
+                  "entity_class_to_avoid": "goalsmith:chicken",
+                  "goal_priority": 4,
+                  "max_distance": 12.0,
+                  "predicate_on_avoid_entity": {
+                    "type": "goalsmith:no_creative_or_spectator"
+                  },
+                  "sprint_speed_modifier": 2.0,
+                  "walk_speed_modifier": 2.0
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "unusualprehistory:random_state_goal",
+                  "goal_priority": 2,
+                  "state_helpers": [
+                    {
+                      "state_helper": {
+                        "affects_ai": false,
+                        "entity_action_id": {
+                          "action_id": "unusualprehistory:default",
+                          "time_to_perform_action": 0,
+                          "times_to_perform": 1
+                        },
+                        "goal_stop_time": 200,
+                        "name": "tyrannosaurus_shake",
+                        "play_time": 90,
+                        "starting_predicate": {
+                          "type": "goalsmith:true"
+                        },
+                        "state": "unusualprehistory:rex_idle_1_ac"
+                      },
+                      "weight": 11
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "target_goal_operations": [
+            {
+              "type": "goalsmith:add_target_goal_operation",
+              "target_goal": [
+                {
+                  "type": "goalsmith:nearest_attackable_target_goal",
+                  "must_reach": false,
+                  "must_see": false,
+                  "random_interval": 10,
+                  "target_goal_priority": 2,
+                  "target_predicate": {
+                    "type": "goalsmith:true"
+                  },
+                  "target_type": "unusualprehistory:tyrannosaurus_targets"
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_target_goal_operation",
+              "target_goal": [
+                {
+                  "type": "goalsmith:hurt_by_target_goal",
+                  "target_goal_priority": 9,
+                  "to_ignore": "unusualprehistory:tyrannosaurus_targets"
+                }
+              ]
+            }
+          ]
+        },
         "variant_id": 1,
         "variant_resource_locations": {
           "animation_location": "unusualprehistory:animations/tyrannosaurus.animation.json",
@@ -62,11 +184,104 @@
             }
           ]
         },
+        "goals": {
+          "goal_operations": [
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:random_look_around_goal",
+                  "goal_priority": 0
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:float_goal",
+                  "goal_priority": 0
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:water_avoiding_random_stroll_goal",
+                  "goal_priority": 3,
+                  "probability": 20.0,
+                  "speed_modifier": 1.0
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:look_at_entity_goal",
+                  "goal_priority": 6,
+                  "look_at_type": "goalsmith:player",
+                  "look_distance": 6.0,
+                  "only_horizontal": false,
+                  "probability": 0.02
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:avoid_entity_goal",
+                  "avoid_predicate": {
+                    "type": "goalsmith:true"
+                  },
+                  "entity_class_to_avoid": "goalsmith:chicken",
+                  "goal_priority": 4,
+                  "max_distance": 12.0,
+                  "predicate_on_avoid_entity": {
+                    "type": "goalsmith:no_creative_or_spectator"
+                  },
+                  "sprint_speed_modifier": 2.0,
+                  "walk_speed_modifier": 2.0
+                }
+              ]
+            }
+          ],
+          "target_goal_operations": [
+            {
+              "type": "goalsmith:add_target_goal_operation",
+              "target_goal": [
+                {
+                  "type": "goalsmith:nearest_attackable_target_goal",
+                  "must_reach": false,
+                  "must_see": false,
+                  "random_interval": 10,
+                  "target_goal_priority": 2,
+                  "target_predicate": {
+                    "type": "goalsmith:true"
+                  },
+                  "target_type": "unusualprehistory:tyrannosaurus_targets"
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_target_goal_operation",
+              "target_goal": [
+                {
+                  "type": "goalsmith:hurt_by_target_goal",
+                  "target_goal_priority": 9,
+                  "to_ignore": "unusualprehistory:tyrannosaurus_targets"
+                }
+              ]
+            }
+          ]
+        },
         "variant_id": 2,
         "variant_resource_locations": {
           "animation_location": "unusualprehistory:animations/tyrannosaurus.animation.json",
           "model_location": "unusualprehistory:geo/tyrannosaurus/tyrannosaurus_mcraeensis.geo.json",
-          "render_type": "minecraft:entity_cutout",
+          "render_type": "minecraft:entity_cutout_no_cull",
           "texture_location": "unusualprehistory:textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png"
         }
       },

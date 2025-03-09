@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.StatedPrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.StatedSleepingGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
@@ -202,26 +203,29 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
         if(!this.isAsleep() && !this.hasEepy() && !this.hasTargets()) {
             this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         }
-        this.goalSelector.addGoal(0, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(0, new FloatGoal(this));
+
+
+        //this.goalSelector.addGoal(0, new RandomLookAroundGoal(this));
+        //this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new TyrannosaurusEntity.TyrannosaurusMeleeAttackGoal(this, 1.75F, true) {
                 public boolean canUse() {
                     return !isBaby() && level().getDifficulty() != Difficulty.PEACEFUL && !hasEepy() && !isPassive() && super.canUse();
                 }
             });
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 20));
+        //this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 20));
         this.targetSelector.addGoal(9, (new HurtByTargetGoal(this) {
                 public boolean canUse() {
                     return !hasEepy() && !isBaby() && !hasEepy() && !isPassive() && super.canUse();
                 }
             }));
+
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.TYRANNOSAURUS_TARGETS)) {
                 public boolean canUse() {
                     return !hasEepy() && !isBaby() && !isPassive() && !hasEepy() && !isSleeping() && super.canUse();
                 }
             });
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Chicken.class, 12.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
+        //this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
+        //this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Chicken.class, 12.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
     }
 
     public @NotNull InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -353,6 +357,10 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+
+
+        SerializableSynchedDataRegistry.REX_VARIANT.defineData(this,0);
+
         this.entityData.define(IDLE_1_AC, false);
         this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(IDLE_3_AC, false);
