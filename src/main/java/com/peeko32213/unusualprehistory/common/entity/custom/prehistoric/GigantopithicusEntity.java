@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.Lists;
-import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
+import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.TradeGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;

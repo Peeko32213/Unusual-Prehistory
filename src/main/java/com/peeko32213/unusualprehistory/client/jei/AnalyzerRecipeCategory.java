@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory.client.jei;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
-import com.peeko32213.unusualprehistory.common.data.ItemWeightedPairCodec;
+import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
+import com.peeko32213.unusualprehistory.common.data.encyclopedia.ItemWeightedPairCodec;
 import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;

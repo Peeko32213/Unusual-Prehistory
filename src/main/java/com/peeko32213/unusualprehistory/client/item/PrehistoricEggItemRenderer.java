@@ -31,20 +31,20 @@ public class PrehistoricEggItemRenderer extends BlockEntityWithoutLevelRenderer 
 
 
     public boolean renderItemStack(ItemStack pStack, ItemDisplayContext pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
-        // validate item stack
-        if(pStack.isEmpty() || !pStack.hasTag() || !pStack.getTag().contains(AxolootlEntity.KEY_VARIANT_ID, Tag.TAG_STRING) || !(pStack.getItem() instanceof PrehistoricEggItem)) {
-            return false;
-        }
-        // load variant
-        final ResourceLocation variantId = new ResourceLocation(pStack.getTag().getString(AxolootlEntity.KEY_VARIANT_ID));
-        // load model
-        final ResourceLocation modelId = AxolootlBucketItemModelLoader.getModelForVariant(variantId);
-        final BakedModel model = Minecraft.getInstance().getModelManager().getModel(modelId);
-        // prepare item model
-        final VertexConsumer vertexconsumer = ItemRenderer.getFoilBuffer(pBuffer, RenderType.cutout(), true, pStack.hasFoil());
-        // render item model
-        itemRenderer.renderModelLists(model, pStack, pPackedLight, pPackedOverlay, pPoseStack, vertexconsumer);
-        // all checks passed
+       // // validate item stack
+       // if(pStack.isEmpty() || !pStack.hasTag() || !pStack.getTag().contains(AxolootlEntity.KEY_VARIANT_ID, Tag.TAG_STRING) || !(pStack.getItem() instanceof PrehistoricEggItem)) {
+       //     return false;
+       // }
+       // // load variant
+       // final ResourceLocation variantId = new ResourceLocation(pStack.getTag().getString(AxolootlEntity.KEY_VARIANT_ID));
+       // // load model
+       // final ResourceLocation modelId = AxolootlBucketItemModelLoader.getModelForVariant(variantId);
+       // final BakedModel model = Minecraft.getInstance().getModelManager().getModel(modelId);
+       // // prepare item model
+       // final VertexConsumer vertexconsumer = ItemRenderer.getFoilBuffer(pBuffer, RenderType.cutout(), true, pStack.hasFoil());
+       // // render item model
+       // itemRenderer.renderModelLists(model, pStack, pPackedLight, pPackedOverlay, pPoseStack, vertexconsumer);
+       // // all checks passed
         return true;
     }
 }

@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.data;
+package com.peeko32213.unusualprehistory.common.data.encyclopedia;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

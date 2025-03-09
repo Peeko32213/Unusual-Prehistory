@@ -8,7 +8,7 @@ import com.mojang.math.Axis;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.screen.LinkPlantButton;
 import com.peeko32213.unusualprehistory.client.screen.PlantLinkData;
-import com.peeko32213.unusualprehistory.common.data.*;
+import com.peeko32213.unusualprehistory.common.data.encyclopedia.*;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

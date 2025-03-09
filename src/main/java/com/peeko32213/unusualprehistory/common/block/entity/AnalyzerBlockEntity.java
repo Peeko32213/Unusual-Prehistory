@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
+import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;

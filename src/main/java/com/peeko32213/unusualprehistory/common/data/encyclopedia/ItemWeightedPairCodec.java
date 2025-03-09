@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.data;
+package com.peeko32213.unusualprehistory.common.data.encyclopedia;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

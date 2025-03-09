@@ -1,6 +1,6 @@
 {
-  "egg_base_color": 3085593.0,
-  "egg_secondary_color": 9382726.0,
+  "egg_base_color": 3085593,
+  "egg_secondary_color": 9382726,
   "egg_size": "small",
   "egg_variant": "spots",
   "entity": "unusualprehistory:rex",

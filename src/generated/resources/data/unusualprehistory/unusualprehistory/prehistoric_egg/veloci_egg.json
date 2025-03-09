@@ -1,6 +1,6 @@
 {
-  "egg_base_color": 8548696.0,
-  "egg_secondary_color": 4866626.0,
+  "egg_base_color": 8548696,
+  "egg_secondary_color": 4866626,
   "egg_size": "small",
   "egg_variant": "spots",
   "entity": "unusualprehistory:veloci",

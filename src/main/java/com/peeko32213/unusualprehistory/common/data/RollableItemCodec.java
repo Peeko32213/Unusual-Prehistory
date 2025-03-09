@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.peeko32213.unusualprehistory.common.data.encyclopedia.ItemWeightedPairCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;

@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.data;
+package com.peeko32213.unusualprehistory.common.data.encyclopedia;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -23,7 +23,7 @@ public class EncyclopediaCodec {
                     RecipeCodec.CODEC.listOf().optionalFieldOf("recipes",Collections.emptyList()).forGetter(r -> r.recipes),
                     EntityRenderDataCodec.CODEC.listOf().optionalFieldOf("entity_renders", Collections.emptyList()).forGetter( e -> e.entityRenders),
                     EntityLinkButtonCodec.CODEC.listOf().optionalFieldOf("entity_button", Collections.emptyList()).forGetter( e -> e.entityButtons),
-                    PlantLinkButtonCodec.CODEC.listOf().optionalFieldOf("plant_button", Collections.emptyList()).forGetter( e -> e.plantButtons),
+                    PlantLinkButtonCodec.CODEC.listOf().optionalFieldOf("plant_button", Collections.emptyList()).forGetter(e -> e.plantButtons),
                     EntityIndexCodec.CODEC.listOf().optionalFieldOf("entity_index", Collections.emptyList()).forGetter(i -> i.entityIndex),
                     PlantIndexCodec.CODEC.listOf().optionalFieldOf("plant_index", Collections.emptyList()).forGetter(i -> i.plantIndex),
                     LinkDataCodec.CODEC.listOf().optionalFieldOf("linked_page_buttons", Collections.emptyList()).forGetter(l -> l.linkButtons),

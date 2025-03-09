@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory.common.block.custom;
 
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
-import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
-import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
+import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitCodec;
+import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -10,7 +10,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;

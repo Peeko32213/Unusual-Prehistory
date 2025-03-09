@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
-import com.peeko32213.unusualprehistory.common.data.LootFruitCodec;
-import com.peeko32213.unusualprehistory.common.data.LootFruitJsonManager;
+import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitCodec;
+import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

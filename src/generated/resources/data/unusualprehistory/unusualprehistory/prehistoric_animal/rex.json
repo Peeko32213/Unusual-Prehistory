@@ -1,0 +1,76 @@
+{
+  "variants": [
+    {
+      "variant": {
+        "attributes": {
+          "attribute_definitions": [
+            {
+              "attribute": "minecraft:generic.max_health",
+              "value": 300.0
+            },
+            {
+              "attribute": "minecraft:generic.movement_speed",
+              "value": 0.2
+            },
+            {
+              "attribute": "minecraft:generic.attack_damage",
+              "value": 16.0
+            },
+            {
+              "attribute": "minecraft:generic.knockback_resistance",
+              "value": 1.5
+            },
+            {
+              "attribute": "minecraft:generic.follow_range",
+              "value": 32.0
+            }
+          ]
+        },
+        "variant_id": 1,
+        "variant_resource_locations": {
+          "animation_location": "unusualprehistory:animations/tyrannosaurus.animation.json",
+          "model_location": "unusualprehistory:geo/tyrannosaurus/tyrannosaurus_rex.geo.json",
+          "render_type": "minecraft:entity_cutout",
+          "texture_location": "unusualprehistory:textures/entity/tyrannosaurus/tyrannosaurus_rex.png"
+        }
+      },
+      "weight": 65
+    },
+    {
+      "variant": {
+        "attributes": {
+          "attribute_definitions": [
+            {
+              "attribute": "minecraft:generic.max_health",
+              "value": 300.0
+            },
+            {
+              "attribute": "minecraft:generic.movement_speed",
+              "value": 0.5
+            },
+            {
+              "attribute": "minecraft:generic.attack_damage",
+              "value": 16.0
+            },
+            {
+              "attribute": "minecraft:generic.knockback_resistance",
+              "value": 1.5
+            },
+            {
+              "attribute": "minecraft:generic.follow_range",
+              "value": 32.0
+            }
+          ]
+        },
+        "variant_id": 2,
+        "variant_resource_locations": {
+          "animation_location": "unusualprehistory:animations/tyrannosaurus.animation.json",
+          "model_location": "unusualprehistory:geo/tyrannosaurus/tyrannosaurus_mcraeensis.geo.json",
+          "render_type": "minecraft:entity_cutout",
+          "texture_location": "unusualprehistory:textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png"
+        }
+      },
+      "weight": 1
+    }
+  ]
+}

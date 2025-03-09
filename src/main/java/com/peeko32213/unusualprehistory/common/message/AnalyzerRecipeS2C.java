@@ -2,8 +2,8 @@ package com.peeko32213.unusualprehistory.common.message;
 
 import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.data.AnalyzerRecipeJsonManager;
-import com.peeko32213.unusualprehistory.common.data.ItemWeightedPairCodec;
+import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
+import com.peeko32213.unusualprehistory.common.data.encyclopedia.ItemWeightedPairCodec;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;

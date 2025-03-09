@@ -12,6 +12,7 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
@@ -50,26 +51,26 @@ public class SmoothGroundNavigation extends GroundPathNavigation implements Exte
     @Nullable
     @Override
     public Path getPath() {
-        return super.getPath();
+        return this.path;
     }
 
     /**
      * Patch {@link Path#getEntityPosAtNode} to use a properly rounding check
      */
     @Override
-    protected PathFinder createPathFinder(int maxVisitedNodes) {
+    protected @NotNull PathFinder createPathFinder(int maxVisitedNodes) {
         this.nodeEvaluator = new WalkNodeEvaluator();
         this.nodeEvaluator.setCanPassDoors(true);
 
         return new PathFinder(this.nodeEvaluator, maxVisitedNodes) {
             @Nullable
             @Override
-            public Path findPath(PathNavigationRegion navigationRegion, Mob mob, Set<BlockPos> targetPositions, float maxRange, int accuracy, float searchDepthMultiplier) {
+            public Path findPath(@NotNull PathNavigationRegion navigationRegion, @NotNull Mob mob, @NotNull Set<BlockPos> targetPositions, float maxRange, int accuracy, float searchDepthMultiplier) {
                 final Path path = super.findPath(navigationRegion, mob, targetPositions, maxRange, accuracy, searchDepthMultiplier);
 
                 return path == null ? null : new Path(path.nodes, path.getTarget(), path.canReach()) {
                     @Override
-                    public Vec3 getEntityPosAtNode(Entity entity, int nodeIndex) {
+                    public @NotNull Vec3 getEntityPosAtNode(@NotNull Entity entity, int nodeIndex) {
                         return SmoothGroundNavigation.this.getEntityPosAtNode(nodeIndex);
                     }
                 };
@@ -85,7 +86,9 @@ public class SmoothGroundNavigation extends GroundPathNavigation implements Exte
 
         if (!attemptShortcut(shortcutNode, safeSurfacePos)) {
             if (isCloseToNextNode(0.5f) || isAboutToTraverseVertically() && isCloseToNextNode(getMaxDistanceToWaypoint()))
-                this.path.advance();
+                if(this.path != null) {
+                    this.path.advance();
+                }
         }
 
         doStuckDetection(safeSurfacePos);

@@ -1,7 +1,8 @@
-package com.peeko32213.unusualprehistory.common.data;
+package com.peeko32213.unusualprehistory.common.data.analyzer;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.peeko32213.unusualprehistory.common.data.encyclopedia.ItemWeightedPairCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 

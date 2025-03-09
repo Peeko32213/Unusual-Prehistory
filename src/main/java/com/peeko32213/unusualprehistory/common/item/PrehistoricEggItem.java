@@ -35,16 +35,16 @@ public class PrehistoricEggItem extends Item {
     private Supplier<? extends EntityType<?>> entity;
     private EggSize size;
     private EggVariant variant;
-    private float color1;
-    private float color2;
+    private int color1;
+    private int color2;
     private int hatchTime;
 
 
-    public PrehistoricEggItem(Supplier<? extends EntityType<?>> entity, EggSize eggSize, EggVariant variant, int hatchTime , float eggBaseColor, float eggSpotColor) {
+    public PrehistoricEggItem(Supplier<? extends EntityType<?>> entity, EggSize eggSize, EggVariant variant, int hatchTime , int eggBaseColor, int eggSpotColor) {
         this(new Properties(), entity, eggSize,variant, hatchTime, eggBaseColor, eggSpotColor);
     }
 
-    public PrehistoricEggItem(Properties pProperties, Supplier<? extends EntityType<?>> entity, EggSize eggSize, EggVariant variant, int hatchTime , float eggBaseColor, float eggSpotColor) {
+    public PrehistoricEggItem(Properties pProperties, Supplier<? extends EntityType<?>> entity, EggSize eggSize, EggVariant variant, int hatchTime , int eggBaseColor, int eggSpotColor) {
         super(pProperties);
         this.entity = entity;
         this.size = eggSize;
@@ -111,11 +111,11 @@ public class PrehistoricEggItem extends Item {
         return variant;
     }
 
-    public float getColor1() {
+    public int getColor1() {
         return color1;
     }
 
-    public float getColor2() {
+    public int getColor2() {
         return color2;
     }
 

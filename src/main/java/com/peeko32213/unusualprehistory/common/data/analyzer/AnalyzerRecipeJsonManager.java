@@ -1,8 +1,9 @@
-package com.peeko32213.unusualprehistory.common.data;
+package com.peeko32213.unusualprehistory.common.data.analyzer;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
+import com.peeko32213.unusualprehistory.common.data.encyclopedia.ItemWeightedPairCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;

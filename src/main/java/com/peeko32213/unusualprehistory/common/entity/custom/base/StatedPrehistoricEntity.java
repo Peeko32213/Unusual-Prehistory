@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
@@ -171,7 +172,7 @@ public abstract class StatedPrehistoricEntity extends Animal implements GeoAnima
             return true;
         }
     }
-
+    @Nullable
     protected abstract SoundEvent getAttackSound();
     protected abstract int getKillHealAmount();
     protected abstract boolean canGetHungry();
@@ -180,7 +181,7 @@ public abstract class StatedPrehistoricEntity extends Animal implements GeoAnima
     protected abstract boolean hasCustomNavigation();
     protected abstract boolean hasMakeStuckInBlock();
     protected abstract boolean customMakeStuckInBlockCheck(BlockState blockState);
-
+    @Nullable
     protected abstract TagKey<EntityType<?>> getTargetTag();
     @Override
     protected void defineSynchedData() {
@@ -457,6 +458,13 @@ public abstract class StatedPrehistoricEntity extends Animal implements GeoAnima
         return getRandomNumber();
     }
 
+    @Override
+    public void onAddedToWorld() {
+        super.onAddedToWorld();
+        ResourceLocation entityLoc = EntityType.getKey(this.getType());
+        populateEntityFromData(entityLoc, true);
+    }
+
     public int getRandomNumber() {
         return this.entityData.get(RANDOM_NUMBER);
     }
@@ -488,6 +496,12 @@ public abstract class StatedPrehistoricEntity extends Animal implements GeoAnima
 
     public void setAnimationTimer(int time) {
         this.entityData.set(ANIM_TIMER,time);
+    }
+
+    public void populateEntityFromData(ResourceLocation location, boolean onlyGoals) {
+            //SomeDataManager manager = SomeDataManager;
+            //SomeEntityData someEntityData = manager.get(location);
+            //someEntityData.apply(this);
     }
 
     @Nullable
