@@ -28,7 +28,7 @@ public class PrehistoricEntityJsonDataManager extends SimpleJsonResourceReloadLi
     protected static Map<ResourceLocation, PrehistoricEntityData> prehistoricEntityData = new HashMap<>();
 
     public PrehistoricEntityJsonDataManager() {
-        this("puppetmaker/prehistoric_animal", STANDARD_GSON);
+        this("unusualprehistory/prehistoric_animal", STANDARD_GSON);
     }
 
     public static Map<ResourceLocation, PrehistoricEntityData> getPrehistoricEntityData() {
