@@ -176,8 +176,8 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         Optional<WeightedVariantData> weightedVariantData = entityData1.getVariantDataWeightedRandomList().getRandom(pLevel.getRandom());
         VariantData variantData = weightedVariantData
                 .map(WeightedVariantData::getVariantData)
-                //todo .orElse(defaultVariantData)
-                .get();
+                .orElse(VariantData.getDefaultInstance());
+
 
         this.setVariantId(variantData.getVariantId());
         variantData.getAttributesModifiers().performAdditions(this);
