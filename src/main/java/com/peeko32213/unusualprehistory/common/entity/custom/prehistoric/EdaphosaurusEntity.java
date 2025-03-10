@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.StatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
@@ -48,7 +48,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.EnumSet;
 import java.util.List;
 
-public class EdaphosaurusEntity extends StatedPrehistoricEntity implements GeoEntity, GeoAnimatable {
+public class EdaphosaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable {
 
     private static final Ingredient FOOD_ITEMS = Ingredient.of(UPTags.EDAPHO_FOOD_ITEMS);
 
@@ -159,7 +159,7 @@ public class EdaphosaurusEntity extends StatedPrehistoricEntity implements GeoEn
     @Override
     public void setAction(boolean action) {}
 
-    public EdaphosaurusEntity(EntityType<? extends StatedPrehistoricEntity> entityType, Level level) {
+    public EdaphosaurusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
     }
 

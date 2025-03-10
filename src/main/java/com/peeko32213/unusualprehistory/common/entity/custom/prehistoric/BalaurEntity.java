@@ -1,6 +1,6 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
@@ -48,7 +48,7 @@
  import java.util.EnumSet;
  import java.util.Objects;
 
- public class BalaurEntity extends TamablePrehistoricEntity implements ICustomFollower {
+ public class BalaurEntity extends TamablePrehistoricEntityOld implements ICustomFollower {
      private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(BalaurEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(BalaurEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(BalaurEntity.class, EntityDataSerializers.INT);
@@ -78,7 +78,7 @@
      public float sitProgress;
      private int latchTime = 0;
 
-     public BalaurEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
+     public BalaurEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
          super(entityType, level);
          ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
          this.setMaxUpStep(1.0F);

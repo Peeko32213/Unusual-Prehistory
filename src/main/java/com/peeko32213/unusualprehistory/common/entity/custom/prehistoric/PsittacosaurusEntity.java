@@ -1,6 +1,6 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
@@ -51,7 +51,7 @@
  // - Quils need their arrow capabilities, however we are still unsure on what the arrows should do to make them uniquely different
  // - Rabies has been highly suggested by the dev team, however we have to figure out how to actually implement and make it unique.
 
- public class PsittacosaurusEntity extends PrehistoricEntity {
+ public class PsittacosaurusEntity extends PrehistoricEntityOld {
      private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(PsittacosaurusEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(PsittacosaurusEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(PsittacosaurusEntity.class, EntityDataSerializers.INT);

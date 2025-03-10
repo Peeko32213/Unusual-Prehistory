@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
 import com.peeko32213.unusualprehistory.core.registry.*;
@@ -30,7 +30,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 
-public class OviraptorEntity extends PrehistoricEntity {
+public class OviraptorEntity extends PrehistoricEntityOld {
 
     private static final RawAnimation OVI_WALK = RawAnimation.begin().thenLoop("animation.oviraptor.walk");
     private static final RawAnimation OVI_IDLE = RawAnimation.begin().thenLoop("animation.oviraptor.idle");

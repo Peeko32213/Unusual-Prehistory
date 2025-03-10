@@ -2,8 +2,8 @@ package com.peeko32213.unusualprehistory.common.capabilities;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -70,12 +70,12 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
                 livingEntity.setPos(event.getEntity().position());
                 livingEntity.setUUID(UUID.randomUUID());
-                if(livingEntity instanceof TamablePrehistoricEntity animal){
+                if(livingEntity instanceof TamablePrehistoricEntityOld animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
 
-                if(livingEntity instanceof PrehistoricEntity animal){
+                if(livingEntity instanceof PrehistoricEntityOld animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
@@ -115,12 +115,12 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 LivingEntity livingEntity = (LivingEntity) entityType.create(serverLevel);
                 livingEntity.setPos(event.getEntity().position());
                 livingEntity.setUUID(UUID.randomUUID());
-                if(livingEntity instanceof TamablePrehistoricEntity animal){
+                if(livingEntity instanceof TamablePrehistoricEntityOld animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }
 
-                if(livingEntity instanceof PrehistoricEntity animal){
+                if(livingEntity instanceof PrehistoricEntityOld animal){
                     animal.setAge(-24000);
                     animal.determineVariant(1);
                 }

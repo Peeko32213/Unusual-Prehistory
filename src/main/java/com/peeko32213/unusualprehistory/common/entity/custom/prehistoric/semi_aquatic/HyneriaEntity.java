@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TameablePrehistoricNoFloatEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TameablePrehistoricNoFloatEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.FindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.HyneriaJumpGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
@@ -40,7 +40,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-public class HyneriaEntity extends TameablePrehistoricNoFloatEntity implements GeoEntity, ISemiAquatic {
+public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implements GeoEntity, ISemiAquatic {
 
     private static final RawAnimation HYNERIA_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.hyneria.swim_idle");
     private static final RawAnimation HYNERIA_SWIM = RawAnimation.begin().thenLoop("animation.hyneria.swim");
@@ -53,7 +53,7 @@ public class HyneriaEntity extends TameablePrehistoricNoFloatEntity implements G
 
     private boolean isLandNavigator;
 
-    public HyneriaEntity(EntityType<? extends TameablePrehistoricNoFloatEntity> pEntityType, Level pLevel) {
+    public HyneriaEntity(EntityType<? extends TameablePrehistoricNoFloatEntityOld> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);

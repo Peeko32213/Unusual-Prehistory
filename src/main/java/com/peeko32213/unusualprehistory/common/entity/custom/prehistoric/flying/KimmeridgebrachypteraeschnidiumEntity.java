@@ -4,7 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.StatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -25,7 +26,6 @@ import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -43,7 +43,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -68,10 +67,8 @@ import java.util.List;
 import java.util.function.IntFunction;
 
 //TODO LIST
-// - Add in Kimmer in a Flask
 // - Add in randomized color selection akin to tropical fish
-// - Add in Flask + Eggs
-public class KimmeridgebrachypteraeschnidiumEntity extends StatedPrehistoricEntity implements GeoEntity, GeoAnimatable, IBookEntity {
+public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntityOld implements GeoEntity, GeoAnimatable, IBookEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Nullable
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
@@ -90,7 +87,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends StatedPrehistoricEnti
     private static final RawAnimation KIMMER_IDLE_2 = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.idle2");
     private static final RawAnimation KIMMER_PREEN = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.preen");
 
-    public KimmeridgebrachypteraeschnidiumEntity(EntityType<? extends StatedPrehistoricEntity> entityType, Level level) {
+    public KimmeridgebrachypteraeschnidiumEntity(EntityType<? extends PrehistoricEntityOld> entityType, Level level) {
         super(entityType, level);
         switchNavigator(true);
     }
@@ -373,25 +370,25 @@ public class KimmeridgebrachypteraeschnidiumEntity extends StatedPrehistoricEnti
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
-    @Override
-    public ImmutableMap<String, StateHelper> getStates() {
-        return null;
-    }
-
-    @Override
-    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-        return List.of();
-    }
-
-    @Override
-    public boolean getAction() {
-        return false;
-    }
-
-    @Override
-    public void setAction(boolean action) {
-
-    }
+//    @Override
+//    public ImmutableMap<String, StateHelper> getStates() {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+//        return List.of();
+//    }
+//
+//    @Override
+//    public boolean getAction() {
+//        return false;
+//    }
+//
+//    @Override
+//    public void setAction(boolean action) {
+//
+//    }
 
     private class AIFlyIdle extends Goal {
         protected double x;

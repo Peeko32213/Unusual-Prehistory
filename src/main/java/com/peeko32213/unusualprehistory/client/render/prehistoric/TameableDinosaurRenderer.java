@@ -5,8 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.HwachavenatorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MegatheriumEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.UlughbegsaurusEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -16,7 +15,7 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class TameableDinosaurRenderer<T extends TamablePrehistoricEntity> extends GeoEntityRenderer<T> {
+public class TameableDinosaurRenderer<T extends TamablePrehistoricEntityOld> extends GeoEntityRenderer<T> {
 
 
     public TameableDinosaurRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
@@ -43,7 +43,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
 
-public class AntarctopeltaEntity extends PrehistoricEntity implements ICustomAnimationsEntity {
+public class AntarctopeltaEntity extends PrehistoricEntityOld implements ICustomAnimationsEntity {
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(AntarctopeltaEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(AntarctopeltaEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(AntarctopeltaEntity.class, EntityDataSerializers.INT);

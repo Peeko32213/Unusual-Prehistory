@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.StatedPrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.StatedSleepingGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
@@ -16,8 +16,6 @@ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroun
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -43,7 +41,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -70,7 +67,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
+public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.INT);
 
@@ -178,7 +175,7 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
     public void setAction(boolean action) {
     }
 
-    public TyrannosaurusEntity(EntityType<? extends Animal> entityType, Level level) {
+    public TyrannosaurusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
     }
@@ -495,7 +492,7 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
 
 
     // TODO: fight revamp with better attack ai / new attack ai for most things in the mod
-    class TyrannosaurusMeleeAttackGoal extends Goal {
+    static class TyrannosaurusMeleeAttackGoal extends Goal {
 
         protected final TyrannosaurusEntity mob;
         private final double speedModifier;
@@ -831,10 +828,6 @@ public class TyrannosaurusEntity extends StatedPrehistoricEntity implements GeoE
                 .triggerableAnim("bite_1", TYRANNO_BITE_1);
                 blend.setSoundKeyframeHandler(this::soundListener);
             controllers.add(blend);
-    }
-
-    private boolean isStillEnough() {
-        return this.getDeltaMovement().horizontalDistance() < 0.05;
     }
 
     protected <E extends TyrannosaurusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.interfaces;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -9,7 +9,7 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public interface ICustomAnimationsEntity<T extends PrehistoricEntity & GeoAnimatable> {
+public interface ICustomAnimationsEntity<T extends PrehistoricEntityOld & GeoAnimatable> {
     default void setCustomAnimation(GeoModel<T> model, T animatable, long instanceId, AnimationState<T> animationState) {
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

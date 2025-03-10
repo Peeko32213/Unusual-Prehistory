@@ -3,10 +3,10 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamableStatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.PrehistoricFollowOwnerGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableStatedFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableTempt;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
@@ -73,18 +73,14 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements ICustomFollower, GeoEntity, GeoAnimatable, IVariantEntity {
+public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollower, GeoEntity, GeoAnimatable, IVariantEntity {
 
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.TRICERATOPS_FOOD);
 
     public float sitProgress;
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
-
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
 
     public static final Logger LOGGER = LogManager.getLogger();
@@ -166,9 +162,10 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
     @Override
     public void setAction(boolean action) {}
 
-    public TriceratopsEntity(EntityType<? extends TamableStatedPrehistoricEntity> entityType, Level level) {
+    public TriceratopsEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
+        this.reassessTameGoals();
     }
 
     @Override
@@ -188,18 +185,15 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new TrikeMeleeAttackGoal(this, 1.75D, false));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 28));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
-        this.goalSelector.addGoal(3, new TameableStatedFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
-        this.targetSelector.addGoal(7, new OwnerHurtByTargetGoal(this));
+        this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
+        this.targetSelector.addGoal(8, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(8, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(5, new TameableTempt(this, 1.1D, TEMPTATION_ITEMS, false));
+        this.targetSelector.addGoal(7, (new HurtByTargetGoal(this)));
     }
 
     @Override
@@ -231,7 +225,7 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
 
     @Override
     public float getSoundVolume() {
-        return 0.75F;
+        return 0.85F;
     }
 
     @Nullable
@@ -261,36 +255,19 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
         this.entityData.define(IDLE_1_AC, false);
         this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(IDLE_3_AC, false);
-        this.entityData.define(VARIANT, 0);
         this.entityData.define(CHARGE_COOLDOWN_TICKS, 0);
         this.entityData.define(HAS_TARGET, false);
-        this.entityData.define(COMMAND, 0);
-        this.entityData.define(SADDLED, Boolean.FALSE);
         this.entityData.define(ANIMATION_STATE, 0);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
-        compound.putBoolean("Saddle", this.isSaddled());
-        compound.putInt("TrikeCommand", this.getCommand());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
-        this.setSaddled(compound.getBoolean("Saddle"));
-        this.setCommand(compound.getInt("TrikeCommand"));
-    }
-
-    public int getCommand() {
-        return this.entityData.get(COMMAND);
-    }
-
-    public void setCommand(int command) {
-        this.entityData.set(COMMAND, command);
     }
 
     @Override
@@ -340,34 +317,6 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
 
     public void tick() {
         super.tick();
-
-        if (this.isOrderedToSit() && sitProgress < 5F) {
-            sitProgress++;
-        }
-        if (!this.isOrderedToSit() && sitProgress > 0F) {
-            sitProgress--;
-        }
-        this.setOrderedToSit(this.getCommand() == 2 && !this.isVehicle());
-    }
-
-    @Override
-    protected void performAttack() {}
-
-    public boolean isAlliedTo(@NotNull Entity entityIn) {
-        if (this.isTame()) {
-            LivingEntity livingentity = this.getOwner();
-            if (entityIn == livingentity) {
-                return true;
-            }
-            if (entityIn instanceof TamableAnimal) {
-                return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
-            }
-            if (livingentity != null) {
-                return livingentity.isAlliedTo(entityIn);
-            }
-        }
-
-        return entityIn.is(this);
     }
 
     @Override
@@ -396,10 +345,6 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
                 super.travel(pos);
             }
         }
-    }
-
-    public boolean canSprint() {
-        return true;
     }
 
     @Override
@@ -498,14 +443,6 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
         return InteractionResult.PASS;
     }
 
-    public boolean isSaddled() {
-        return this.entityData.get(SADDLED);
-    }
-
-    public void setSaddled(boolean saddled) {
-        this.entityData.set(SADDLED, saddled);
-    }
-
     private boolean isWithinYRange(LivingEntity target) {
         if (target == null) {
             return false;
@@ -516,14 +453,6 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
     @Override
     public ResourceLocation getVariantTexture() {
         return null;
-    }
-
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
     }
 
     public int getAnimationState() {
@@ -756,13 +685,8 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
 
     }
 
-    @Override
-    public void killed() {
-        super.killed();
-    }
-
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
-        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.2F, 1.0F);
     }
 
     protected void dropEquipment() {
@@ -824,10 +748,6 @@ public class TriceratopsEntity extends TamableStatedPrehistoricEntity implements
                 ;
         blend.setSoundKeyframeHandler(this::soundListener);
         controllers.add(blend);
-    }
-
-    private boolean isStillEnough() {
-        return this.getDeltaMovement().horizontalDistance() < 0.05;
     }
 
     protected <E extends TriceratopsEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {

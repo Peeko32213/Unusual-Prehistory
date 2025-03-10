@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.client.render.prehistoric;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.BarinasuchusEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.BrachiosaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.DiplocaulusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.HyneriaEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -31,9 +32,7 @@ public class LivingCutoutNoCullEntityRenderer<T extends LivingEntity & GeoAnimat
     public void preRender(PoseStack stackIn, T animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.preRender(stackIn, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
 
-        if (animatable.isBaby()) {
-            stackIn.scale(0.5F, 0.5F, 0.5F);
-        }
+
 
         if(animatable instanceof DiplocaulusEntity diplocaulus) {
             if(diplocaulus.isBaby()) stackIn.scale(0.7F, 0.7F, 0.7F);
@@ -45,6 +44,14 @@ public class LivingCutoutNoCullEntityRenderer<T extends LivingEntity & GeoAnimat
 
         if(animatable instanceof BarinasuchusEntity barinasuchus) {
             if(barinasuchus.isBaby()) stackIn.scale(0.55F, 0.55F, 0.55F);
+        }
+
+        if(animatable instanceof BrachiosaurusEntity brachiosaurus) {
+            if(brachiosaurus.isBaby()) stackIn.scale(0.35F, 0.35F, 0.35F);
+        }
+
+        else if (animatable.isBaby()) {
+            stackIn.scale(0.5F, 0.5F, 0.5F);
         }
 
 //        if(animatable instanceof OtarocyonEntity otarocyon) {

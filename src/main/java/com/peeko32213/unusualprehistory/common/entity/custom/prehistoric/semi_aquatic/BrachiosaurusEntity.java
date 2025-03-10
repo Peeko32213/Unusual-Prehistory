@@ -1,12 +1,18 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.custom.part.BrachiosaurusPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.part.BrachiosaurusPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -34,7 +40,7 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -51,10 +57,14 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
+import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -64,13 +74,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquatic {
+public class BrachiosaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, ISemiAquatic {
+
     private static final EntityDataAccessor<Boolean> LAUNCHING = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Float> HEAD_HEIGHT = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.INT);
-//    private static final EntityDataAccessor<Boolean> TEEN = SynchedEntityData.defineId(EntityBrachiosaurus.class, EntityDataSerializers.BOOLEAN);
 
     public float prevHeadHeight = 0F;
     private int headPeakCooldown = 0;
@@ -88,21 +98,81 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
     private int swimTimer = -1000;
     private boolean isLandNavigator;
 
-    private static final RawAnimation BRACHI_LAUNCH = RawAnimation.begin().thenLoop("animation.brachiosaurus.launch");
+    // Movement animations
     private static final RawAnimation BRACHI_WALK = RawAnimation.begin().thenLoop("animation.brachiosaurus.walk");
     private static final RawAnimation BRACHI_SWIM = RawAnimation.begin().thenLoop("animation.brachiosaurus.swim");
-    private static final RawAnimation BRACHI_ATTACK = RawAnimation.begin().thenPlay("animation.brachiosaurus.attack");
+
+    // Idle animations
     private static final RawAnimation BRACHI_IDLE = RawAnimation.begin().thenPlay("animation.brachiosaurus.idle");
+    private static final RawAnimation BRACHI_VOCAL = RawAnimation.begin().thenPlay("animation.brachiosaurus.vocal");
+    private static final RawAnimation BRACHI_SHAKE = RawAnimation.begin().thenPlay("animation.brachiosaurus.shake");
+    private static final RawAnimation BRACHI_SIT = RawAnimation.begin().thenLoop("animation.brachiosaurus.sit");
+    private static final RawAnimation BRACHI_SLEEP = RawAnimation.begin().thenLoop("animation.brachiosaurus.sleep");
 
-    private static final RawAnimation BRACHI_BABY_WALK = RawAnimation.begin().thenLoop("animation.babybrachy.walk");
-    private static final RawAnimation BRACHI_BABY_IDLE = RawAnimation.begin().thenPlay("animation.babybrachy.idle");
-    private static final RawAnimation BRACHI_BABY_SWIM = RawAnimation.begin().thenPlay("animation.babybrachy.swim");
+    // Attack animations
+    private static final RawAnimation BRACHI_ATTACK = RawAnimation.begin().thenPlay("animation.brachiosaurus.stomp");
 
-    public BrachiosaurusEntity(EntityType<? extends Animal> entityType, Level level) {
+    // Misc animations
+    private static final RawAnimation BRACHI_LAUNCH = RawAnimation.begin().thenLoop("animation.brachiosaurus.launch");
+
+    // Idle accessors
+    private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Idle actions
+    private static final EntityAction BRACHI_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper BRACHI_IDLE_1_STATE =
+            StateHelper.Builder.state(IDLE_1_AC, "brachiosaurus_shake")
+                    .playTime(60)
+                    .stopTime(150)
+                    .affectsAI(true)
+                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                    .entityAction(BRACHI_IDLE_1_ACTION)
+                    .build();
+
+    private static final EntityAction BRACHI_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper BRACHI_IDLE_2_STATE =
+            StateHelper.Builder.state(IDLE_2_AC, "brachiosaurus_vocal")
+                    .playTime(40)
+                    .stopTime(120)
+                    .entityAction(BRACHI_IDLE_2_ACTION)
+                    .build();
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return ImmutableMap.of(
+                BRACHI_IDLE_1_STATE.getName(), BRACHI_IDLE_1_STATE,
+                BRACHI_IDLE_2_STATE.getName(), BRACHI_IDLE_2_STATE
+        );
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return ImmutableList.of(
+                WeightedState.of(BRACHI_IDLE_1_STATE, 10),
+                WeightedState.of(BRACHI_IDLE_2_STATE, 12)
+        );
+    }
+
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {}
+
+    public BrachiosaurusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
-        this.neck = new BrachiosaurusPartEntity(this, 2,9);
+        this.neck = new BrachiosaurusPartEntity(this, 2,19);
         this.theEntireNeck = new BrachiosaurusPartEntity[]{this.neck};
         this.allParts = new BrachiosaurusPartEntity[]{this.neck};
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -267,35 +337,21 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(IDLE_1_AC, false);
+        this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(HEAD_HEIGHT, 0F);
         this.entityData.define(LAUNCHING, Boolean.FALSE);
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
-//        this.entityData.define(TEEN, false);
     }
-
-//    public void getTeen(boolean teen) {
-//        this.entityData.set(TEEN, teen);
-//    }
-//
-//    public boolean isTeen() {
-//        return this.entityData.get(TEEN);
-//    }
-//
-//    // gets teen, doesn't work
-//    public boolean shouldBeTeen() {
-//        return this.getAge() < 0 && this.getAge() > -12000 && this.isBaby();
-//    }
 
     public void addAdditionalSaveData(CompoundTag p_31808_) {
         super.addAdditionalSaveData(p_31808_);
-//        p_31808_.putBoolean("Teen", this.isTeen());
     }
 
     public void readAdditionalSaveData(CompoundTag p_31795_) {
         super.readAdditionalSaveData(p_31795_);
-//        this.getTeen(p_31795_.getBoolean("Teen"));
     }
 
     public boolean isLaunching() {
@@ -317,7 +373,7 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
     }
 
     public int getMaxHeadYRot() {
-        return 45;
+        return 15;
     }
 
     protected SoundEvent getAmbientSound() {
@@ -414,10 +470,6 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
                 swimTimer--;
             }
         }
-
-//        if (this.shouldBeTeen()) {
-//            this.isTeen();
-//        }
 
         prevHeadHeight = this.getHeadHeight();
         float neckBase = 5.5F;
@@ -523,11 +575,11 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
                 for (LivingEntity e : list) {
                     if ((e instanceof Player)) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 8, brachiShakeAmp, false, false, false));
-                        this.playSound(UPSounds.BRACHI_STEP.get(), 1.25F, 0.75F);
+                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, brachiShakeAmp, false, false, false));
+                        this.playSound(UPSounds.BRACHI_STEP.get(), 1.75F, 0.4F / (level().getRandom().nextFloat() * 0.4F + 0.8F));
                     }
                 }
-                shakeCooldown = 15;
+                shakeCooldown = 23;
             }
         }
         shakeCooldown--;
@@ -868,13 +920,6 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
             }
         }
 
-        protected boolean getRangeCheck () {
-            return
-            this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                    <=
-                    1.8F * this.getAttackReachSqr(this.mob.getTarget());
-        }
-
         protected void tickStompAttack () {
             animTime++;
 
@@ -929,11 +974,30 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth());
+            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
         }
     }
 
-    protected <E extends BrachiosaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    private void soundListener(SoundKeyframeEvent<BrachiosaurusEntity> event) {
+        BrachiosaurusEntity brachiosaurus = event.getAnimatable();
+        if (brachiosaurus.level().isClientSide) {
+        }
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<BrachiosaurusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+        AnimationController<BrachiosaurusEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
+                .triggerableAnim("shake", BRACHI_SHAKE)
+                .triggerableAnim("vocal", BRACHI_VOCAL)
+                .triggerableAnim("attack", BRACHI_ATTACK)
+                ;
+        blend.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(blend);
+    }
+
+    protected <E extends BrachiosaurusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if(this.isFromBook()){
             return event.setAndContinue(BRACHI_IDLE);
         }
@@ -953,29 +1017,35 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
             }
 
             if (this.isInWater()) {
-                if (this.isBaby()) {
-                    event.setAndContinue(BRACHI_BABY_SWIM);
-                    return PlayState.CONTINUE;
-                }
                 event.setAndContinue(BRACHI_SWIM);
                 event.getController().setAnimationSpeed(1.5D);
             }
 
             if (event.isMoving() && !this.isInWater()) {
-                if (this.isBaby()) {
-                    event.setAndContinue(BRACHI_BABY_WALK);
-                    return PlayState.CONTINUE;
-                }
                 event.setAndContinue(BRACHI_WALK);
                 event.getController().setAnimationSpeed(1.5D);
             }
 
             else if (!this.isInWater()) {
-                if (this.isBaby()) {
-                    event.setAndContinue(BRACHI_BABY_IDLE);
+                if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+                    if (this.isStillEnough()) {
+                        triggerAnim("blend", "shake");
+                        return event.setAndContinue(BRACHI_IDLE);
+                    } else {
+                        triggerAnim("blend", "shake");
+                        return PlayState.CONTINUE;
+                    }
                 }
-                event.setAndContinue(BRACHI_IDLE);
-                event.getController().setAnimationSpeed(1.0F);
+                if (getBooleanState(IDLE_2_AC) && !this.isAsleep()) {
+                    if (this.isStillEnough()) {
+                        triggerAnim("blend", "vocal");
+                        return event.setAndContinue(BRACHI_IDLE);
+                    } else {
+                        triggerAnim("blend", "vocal");
+                        return PlayState.CONTINUE;
+                    }
+                }
+                return event.setAndContinue(BRACHI_IDLE);
             }
             return PlayState.CONTINUE;
         }
@@ -983,18 +1053,8 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
     }
 
     @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
-    @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
     }
 
 }

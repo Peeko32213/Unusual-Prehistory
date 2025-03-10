@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.StatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
@@ -54,7 +54,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class EstemmenosuchusEntity extends StatedPrehistoricEntity implements GeoEntity, GeoAnimatable {
+public class EstemmenosuchusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable {
 
     private static final Ingredient FOOD_ITEMS = Ingredient.of(UPTags.ESTEMME_FOOD_ITEMS);
 
@@ -164,7 +164,7 @@ public class EstemmenosuchusEntity extends StatedPrehistoricEntity implements Ge
     @Override
     public void setAction(boolean action) {}
 
-    public EstemmenosuchusEntity(EntityType<? extends Animal> entityType, Level level) {
+    public EstemmenosuchusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
     }
 

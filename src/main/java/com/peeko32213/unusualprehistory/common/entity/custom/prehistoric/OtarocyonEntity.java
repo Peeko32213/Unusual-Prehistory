@@ -1,6 +1,6 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.NocturnalSleepingGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
@@ -54,7 +54,7 @@
  // - Leaping does not work, along with the animations (Leaps like fox and has the animations for it)
  // - Walking animation sometimes play while idling
  //      - Scouters Fix, while working, caused none of the other idles to play
- public class OtarocyonEntity extends TamablePrehistoricEntity implements ICustomFollower {
+ public class OtarocyonEntity extends TamablePrehistoricEntityOld implements ICustomFollower {
 
      private static final RawAnimation OTAROCYON_IDLE = RawAnimation.begin().thenLoop("animation.otarocyon.idle");
      private static final RawAnimation OTAROCYON_SIT = RawAnimation.begin().thenLoop("animation.otarocyon.sit");
@@ -88,7 +88,7 @@
                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
      }
 
-     public OtarocyonEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
+     public OtarocyonEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
          super(entityType, level);
      }
 

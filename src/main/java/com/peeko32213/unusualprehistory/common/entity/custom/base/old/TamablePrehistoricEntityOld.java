@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity.custom.base;
+package com.peeko32213.unusualprehistory.common.entity.custom.base.old;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
@@ -40,32 +40,32 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class TamablePrehistoricEntity extends TamableAnimal implements GeoAnimatable, IBookEntity, IHatchableEntity {
+public abstract class TamablePrehistoricEntityOld extends TamableAnimal implements GeoAnimatable, IBookEntity, IHatchableEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.INT);
 
-    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> SWINGING = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SWINGING = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
 
-    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.INT);
 
-    private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> ASLEEP = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(TamablePrehistoricEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> ASLEEP = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(TamablePrehistoricEntityOld.class, EntityDataSerializers.INT);
 
     public static final Logger LOGGER = LogManager.getLogger();
     private boolean orderedToSit;
     public int attackCooldown = 0;
     int lastTimeSinceHungry;
     public int alertTicks = 0;
-    protected TamablePrehistoricEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
+    protected TamablePrehistoricEntityOld(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
         this.reassessTameGoals();
     }
@@ -82,7 +82,7 @@ public abstract class TamablePrehistoricEntity extends TamableAnimal implements 
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(getTargetTag())) {
                         @Override
                         public boolean canUse() {
-                            return ((TamablePrehistoricEntity) this.mob).isHungry() && super.canUse();
+                            return ((TamablePrehistoricEntityOld) this.mob).isHungry() && super.canUse();
                         }
                     }
             );
@@ -538,7 +538,7 @@ public abstract class TamablePrehistoricEntity extends TamableAnimal implements 
 
     protected PathNavigation createNavigation(Level level) {
         if(hasCustomNavigation()){
-            return new TamablePrehistoricEntity.DinoCustomNavigation(this, level);
+            return new TamablePrehistoricEntityOld.DinoCustomNavigation(this, level);
         }
         else return super.createNavigation(level);
     }
@@ -548,7 +548,7 @@ public abstract class TamablePrehistoricEntity extends TamableAnimal implements 
             super(p_33379_, p_33380_);
         }
         protected PathFinder createPathFinder(int p_33382_) {
-            this.nodeEvaluator = new TamablePrehistoricEntity.CustomNodeEvaluator();
+            this.nodeEvaluator = new TamablePrehistoricEntityOld.CustomNodeEvaluator();
             return new PathFinder(this.nodeEvaluator, p_33382_);
         }
     }
@@ -560,7 +560,7 @@ public abstract class TamablePrehistoricEntity extends TamableAnimal implements 
     }
 
 
-    public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends TamablePrehistoricEntity> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
+    public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends TamablePrehistoricEntityOld> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
         return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE) && isBrightEnoughToSpawn(level, pos) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();    }
 
 }

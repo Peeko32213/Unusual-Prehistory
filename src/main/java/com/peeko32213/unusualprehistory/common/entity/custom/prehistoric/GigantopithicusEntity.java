@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.TradeGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
@@ -46,7 +46,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
-public class GigantopithicusEntity extends PrehistoricEntity implements IVariantEntity {
+public class GigantopithicusEntity extends PrehistoricEntityOld implements IVariantEntity {
 
     private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/gigantopithicus.png");
     private static final ResourceLocation TEXTURE_VARIANT = new ResourceLocation("unusualprehistory:textures/entity/braypithicus.png");

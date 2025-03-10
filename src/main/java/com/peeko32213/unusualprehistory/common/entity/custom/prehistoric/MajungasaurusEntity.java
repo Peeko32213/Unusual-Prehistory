@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -47,7 +47,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class MajungasaurusEntity extends PrehistoricEntity {
+public class MajungasaurusEntity extends PrehistoricEntityOld {
 
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(MajungasaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(MajungasaurusEntity.class, EntityDataSerializers.BOOLEAN);

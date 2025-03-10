@@ -63,7 +63,7 @@ public class OpalescentPearlEntity extends ThrowableItemProjectile {
         } else if(!this.level().getBlockState(this.blockPosition()).is(Blocks.BEDROCK) && !(this.position().y() <= -64)) {
             this.noPhysics = true;
             RandomSource rand = this.level().random;
-            if(rand.nextInt(0,100) < 10){
+            if(rand.nextInt(0,128) < 7){
                 randomTeleport();
             }
             super.tick();
@@ -94,7 +94,6 @@ public class OpalescentPearlEntity extends ThrowableItemProjectile {
 
                         //entity.teleportTo(this.getTargetX(), event.getTargetY(), event.getTargetZ());
                         entity.resetFallDistance();
-                        entity.hurt(this.damageSources().fall(), 2);
                 }
             } else if (entity != null) {
                 entity.teleportTo(this.getX(), this.getY(), this.getZ());
@@ -109,7 +108,7 @@ public class OpalescentPearlEntity extends ThrowableItemProjectile {
     public Entity changeDimension(ServerLevel pServer, net.minecraftforge.common.util.ITeleporter teleporter) {
         Entity entity = this.getOwner();
         if (entity != null && entity.level().dimension() != pServer.dimension()) {
-            this.setOwner((Entity) null);
+            this.setOwner(null);
         }
 
         return super.changeDimension(pServer, teleporter);

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Objects;
 
-public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
+public class VelociraptorEntity extends PrehistoricEntityOld implements GeoEntity, GeoAnimatable, IVariantEntity {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);

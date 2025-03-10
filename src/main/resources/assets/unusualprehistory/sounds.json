@@ -416,46 +416,45 @@
     "subtitle": "unusualprehistory.sound.subtitle.triceratops_chatter"
   },
 
-  "brachi_death": {
+  "brachiosaurus_death": {
     "sounds": [
-        "unusualprehistory:entity/brachi/brachi_death_0",
-        "unusualprehistory:entity/brachi/brachi_death_1"
+        "unusualprehistory:entity/brachiosaurus/brachiosaurus_death_0",
+        "unusualprehistory:entity/brachiosaurus/brachiosaurus_death_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.brachi_death"
+    "subtitle": "unusualprehistory.sound.subtitle.brachiosaurus_death"
   },
-  "brachi_hurt": {
+  "brachiosaurus_hurt": {
     "sounds": [
-        "unusualprehistory:entity/brachi/brachi_hurt_0"
+        "unusualprehistory:entity/brachiosaurus/brachiosaurus_hurt_0"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.brachi_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.brachiosaurus_hurt"
   },
-  "brachi_idle": {
+  "brachiosaurus_idle": {
     "sounds": [
-        "unusualprehistory:entity/brachi/brachi_idle_0",
-        "unusualprehistory:entity/brachi/brachi_idle_1",
-        "unusualprehistory:entity/brachi/brachi_idle_2"
+        "unusualprehistory:entity/brachiosaurus/brachiosaurus_idle_0",
+        "unusualprehistory:entity/brachiosaurus/brachiosaurus_idle_1",
+        "unusualprehistory:entity/brachiosaurus/brachiosaurus_idle_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.brachi_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.brachiosaurus_idle"
   },
-  "brachi_step": {
+  "brachiosaurus_step": {
     "sounds": [
-        "unusualprehistory:entity/brachi/brachi_step_0",
-        "unusualprehistory:entity/brachi/brachi_step_1"
+        "unusualprehistory:entity/brachiosaurus/brachiosaurus_step_0"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.brachi_step"
+    "subtitle": "unusualprehistory.sound.subtitle.brachiosaurus_step"
   },
-  "brachi_toss": {
+  "brachiosaurus_toss": {
     "sounds": [
-        "unusualprehistory:entity/brachi/brachi_toss"
+        "unusualprehistory:entity/brachiosaurus/brachiosaurus_toss"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.brachi_toss"
+    "subtitle": "unusualprehistory.sound.subtitle.brachiosaurus_toss"
   },
-  "brachi_stomp": {
+  "brachiosaurus_stomp": {
     "sounds": [
-      "unusualprehistory:entity/brachi/brachi_stomp_0",
-      "unusualprehistory:entity/brachi/brachi_stomp_1"
+      "unusualprehistory:entity/brachiosaurus/brachiosaurus_stomp_0",
+      "unusualprehistory:entity/brachiosaurus/brachiosaurus_stomp_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.brachi_stomp"
+    "subtitle": "unusualprehistory.sound.subtitle.brachiosaurus_stomp"
   },
 
   "encrusted_death": {

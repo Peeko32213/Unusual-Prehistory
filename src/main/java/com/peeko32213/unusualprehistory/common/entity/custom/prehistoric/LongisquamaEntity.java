@@ -1,7 +1,7 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.TamableClimbingPrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamableClimbingPrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
@@ -56,7 +56,7 @@
  // - Chances in DNA loot pool need to be added (Added to Amber as amber needs more stuff in it)
  // - While ordered to sit it sometimes goes into the animation but still slides around, though it usually fixes itself after commanding it again
  // - Walking animation sometimes play while idling
- public class LongisquamaEntity extends TamableClimbingPrehistoricEntity implements ICustomFollower {
+ public class LongisquamaEntity extends TamableClimbingPrehistoricEntityOld implements ICustomFollower {
      private static final RawAnimation LONGISQUAMA_IDLE = RawAnimation.begin().thenLoop("animation.longisquama.ground_idle");
      private static final RawAnimation LONGISQUAMA_WALK = RawAnimation.begin().thenLoop("animation.longisquama.ground_walk");
      private static final RawAnimation LONGISQUAMA_SHAKING = RawAnimation.begin().thenLoop("animation.longisquama.shaking");
@@ -82,7 +82,7 @@
      public float sitProgress;
      private int rideCooldown = 0;
 
-     public LongisquamaEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
+     public LongisquamaEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
          super(entityType, level);
      }
 

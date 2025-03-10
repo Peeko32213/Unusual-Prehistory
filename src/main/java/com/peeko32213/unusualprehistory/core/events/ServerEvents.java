@@ -12,8 +12,8 @@ import com.peeko32213.unusualprehistory.common.effect.RampageEffect;
 import com.peeko32213.unusualprehistory.common.effect.RampageRemedyEffect;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.DunkleosteusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.HwachavenatorEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.JarateFindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.common.message.*;
@@ -203,11 +203,11 @@ public class ServerEvents {
             dunkleosteus.killed();
         }
 
-        if (event.getSource().getEntity() instanceof PrehistoricEntity dinosaurAnimal) {
+        if (event.getSource().getEntity() instanceof PrehistoricEntityOld dinosaurAnimal) {
             dinosaurAnimal.killed();
         }
 
-        if (event.getSource().getEntity() instanceof TamablePrehistoricEntity dinosaurAnimal) {
+        if (event.getSource().getEntity() instanceof TamablePrehistoricEntityOld dinosaurAnimal) {
             dinosaurAnimal.killed();
         }
 

@@ -8,7 +8,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.goal.SemiAquaticSwimm
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -50,7 +50,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.Collection;
 
-public class HynerpetonEntity extends PrehistoricEntity implements ISemiAquatic, GeoEntity {
+public class HynerpetonEntity extends PrehistoricEntityOld implements ISemiAquatic, GeoEntity {
     private static final RawAnimation HYNERPETON_IDLE = RawAnimation.begin().thenLoop("animation.hynerpeton.idle");
     private static final RawAnimation HYNERPETON_BASK_1 = RawAnimation.begin().thenLoop("animation.hynerpeton.bask1");
     private static final RawAnimation HYNERPETON_BASK_2 = RawAnimation.begin().thenLoop("animation.hynerpeton.bask2");

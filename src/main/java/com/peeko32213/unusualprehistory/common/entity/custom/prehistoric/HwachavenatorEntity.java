@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.peeko32213.unusualprehistory.common.entity.projectile.HwachavenatorSpikeEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
@@ -65,7 +65,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.Objects;
 import java.util.Optional;
 
-public class HwachavenatorEntity extends TamablePrehistoricEntity implements RangedAttackMob, ICustomFollower, IAttackEntity {
+public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements RangedAttackMob, ICustomFollower, IAttackEntity {
     private static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
@@ -84,7 +84,7 @@ public class HwachavenatorEntity extends TamablePrehistoricEntity implements Ran
     private static final RawAnimation HWACHA_TURRET_FIRE = RawAnimation.begin().thenLoop("animation.hwacha.turret_firing");
     private static final RawAnimation HWACHA_SWIM = RawAnimation.begin().thenLoop("animation.hwacha.swim");
 
-    public HwachavenatorEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
+    public HwachavenatorEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
         super(entityType, level);
     }
 

@@ -1,0 +1,120 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.brachiosaurus",
+				"texture_width": 512,
+				"texture_height": 512,
+				"visible_bounds_width": 25,
+				"visible_bounds_height": 26.5,
+				"visible_bounds_offset": [0, 12.75, 0]
+			},
+			"bones": [
+				{
+					"name": "Brachiosaurus",
+					"pivot": [-0.5, 93, 24]
+				},
+				{
+					"name": "body",
+					"parent": "Brachiosaurus",
+					"pivot": [0, 79, 7],
+					"cubes": [
+						{"origin": [-26.5, 41, -35], "size": [53, 61, 54], "uv": [142, 0]}
+					]
+				},
+				{
+					"name": "rear",
+					"parent": "body",
+					"pivot": [0, 74, 15],
+					"cubes": [
+						{"origin": [-17.5, 41, 16], "size": [35, 50, 29], "uv": [245, 317]}
+					]
+				},
+				{
+					"name": "tail",
+					"parent": "body",
+					"pivot": [0, 60, 47],
+					"cubes": [
+						{"origin": [-9.5, 51, 44], "size": [17, 18, 62], "uv": [241, 164]}
+					]
+				},
+				{
+					"name": "tailend",
+					"parent": "tail",
+					"pivot": [6.5, 51, 103],
+					"cubes": [
+						{"origin": [-6.5, 51, 106], "size": [11, 11, 62], "uv": [274, 244]}
+					]
+				},
+				{
+					"name": "neck",
+					"parent": "body",
+					"pivot": [0, 96, -25],
+					"cubes": [
+						{"origin": [-13.5, 75, -51], "size": [31, 322, 40], "inflate": 0.1, "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "neck",
+					"pivot": [0, 382, -52],
+					"cubes": [
+						{"origin": [0.5, 382, -82], "size": [3, 22, 24], "pivot": [2.5, 388, -67], "rotation": [10, 0, 0], "uv": [142, 0]},
+						{"origin": [-5.5, 377, -87], "size": [15, 5, 14], "uv": [274, 133]},
+						{"origin": [-10.5, 377, -73], "size": [25, 19, 24], "uv": [302, 0]},
+						{"origin": [-5.5, 372.75, -87], "size": [15, 5, 14], "inflate": -0.1, "uv": [102, 0]},
+						{"origin": [-10.5, 372.75, -73], "size": [25, 10, 24], "inflate": -0.1, "uv": [142, 337]},
+						{"origin": [-10.5, 377, -62], "size": [25, 5, 11], "uv": [344, 317]}
+					]
+				},
+				{
+					"name": "jaw",
+					"parent": "head",
+					"pivot": [-0.5, 382, -51],
+					"cubes": [
+						{"origin": [-10.5, 373, -73], "size": [25, 9, 24], "uv": [337, 178]},
+						{"origin": [-10.5, 373, -73], "size": [25, 9, 24], "uv": [337, 178]},
+						{"origin": [-5.5, 373, -87], "size": [15, 4, 14], "uv": [274, 244]},
+						{"origin": [-10.5, 377, -73], "size": [25, 5, 11], "uv": [356, 43]},
+						{"origin": [-10.5, 377, -62], "size": [25, 5, 13], "uv": [241, 115]},
+						{"origin": [-10.5, 372.75, -73], "size": [25, 10, 24], "inflate": -0.2, "uv": [142, 337]},
+						{"origin": [-5.5, 372.75, -87], "size": [15, 5, 14], "inflate": -0.2, "uv": [102, 0]}
+					]
+				},
+				{
+					"name": "leftbackfoot",
+					"parent": "Brachiosaurus",
+					"pivot": [14.5, 55, 36],
+					"cubes": [
+						{"origin": [6.5, 0, 23], "size": [25, 63, 26], "uv": [337, 89]}
+					]
+				},
+				{
+					"name": "rightbackfoot",
+					"parent": "Brachiosaurus",
+					"pivot": [-15.5, 55, 36],
+					"cubes": [
+						{"origin": [-31.5, 0, 23], "size": [25, 63, 26], "uv": [337, 89]}
+					]
+				},
+				{
+					"name": "leftfrontfoot",
+					"parent": "Brachiosaurus",
+					"pivot": [20.5, 71, -32],
+					"cubes": [
+						{"origin": [7.5, 0, -53], "size": [33, 78, 33], "uv": [142, 226]}
+					]
+				},
+				{
+					"name": "rightfrontfoot",
+					"parent": "Brachiosaurus",
+					"pivot": [-21.5, 71, -32],
+					"cubes": [
+						{"origin": [-40.5, 0, -53], "size": [33, 78, 33], "uv": [142, 115]}
+					]
+				}
+			]
+		}
+	]
+}

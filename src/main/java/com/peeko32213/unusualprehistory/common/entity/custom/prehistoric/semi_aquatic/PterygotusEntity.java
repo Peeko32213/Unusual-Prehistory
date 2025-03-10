@@ -1,6 +1,6 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.FindWaterGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.LeaveWaterGoal;
@@ -39,7 +39,7 @@
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.object.PlayState;
 
- public class PterygotusEntity extends PrehistoricEntity implements ISemiAquatic, GeoEntity {
+ public class PterygotusEntity extends PrehistoricEntityOld implements ISemiAquatic, GeoEntity {
 
      private static final RawAnimation PTERY_IDLE = RawAnimation.begin().thenLoop("animation.pterygotus.idle");
      private static final RawAnimation PTERY_WALK = RawAnimation.begin().thenLoop("animation.pterygotus.walk");

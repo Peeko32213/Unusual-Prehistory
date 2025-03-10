@@ -1,6 +1,6 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.*;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
@@ -36,7 +36,7 @@
 
  import java.util.List;
 
- public class TanystropheusEntity extends PrehistoricEntity implements ISemiAquatic {
+ public class TanystropheusEntity extends PrehistoricEntityOld implements ISemiAquatic {
      private static final EntityDataAccessor<Boolean> BASKING = SynchedEntityData.defineId(TanystropheusEntity.class, EntityDataSerializers.BOOLEAN);
      private static final RawAnimation TANY_IDLE = RawAnimation.begin().thenLoop("animation.tanystropheus.idle");
      private static final RawAnimation TANY_BASK = RawAnimation.begin().thenLoop("animation.tanystropheus.bask");

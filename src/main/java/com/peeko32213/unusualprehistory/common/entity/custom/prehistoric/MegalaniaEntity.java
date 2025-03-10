@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.SleepRandomLookAroundGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
@@ -36,7 +36,6 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -57,7 +56,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity {
+public class MegalaniaEntity extends PrehistoricEntityOld implements IVariantEntity {
     private static final ResourceLocation TEXTURE_TEMPERATE = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania.png");
     private static final ResourceLocation TEXTURE_COLD = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold.png");
     private static final ResourceLocation TEXTURE_HOT = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot.png");
@@ -82,7 +81,7 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
     private static final RawAnimation MEGALANIA_BABY_IDLE = RawAnimation.begin().thenLoop("animation.baby_megalania.idle");
     private static final RawAnimation MEGALANIA_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_megalania.swim");
 
-    public MegalaniaEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
+    public MegalaniaEntity(EntityType<? extends PrehistoricEntityOld> entityType, Level level) {
         super(entityType, level);
     }
 

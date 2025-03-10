@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.Lists;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -56,7 +56,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class TalpanasEntity extends PrehistoricEntity {
+public class TalpanasEntity extends PrehistoricEntityOld {
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(TalpanasEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(TalpanasEntity.class, EntityDataSerializers.INT);
     public static final ResourceLocation TALPANAS_REWARD = new ResourceLocation("unusualprehistory", "gameplay/talpanas_reward");

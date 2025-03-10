@@ -138,7 +138,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "beelz_tadpole").toString()));
 
     public static final RegistryObject<EntityType<BrachiosaurusEntity>> BRACHI = registerPrehistoricCreatureWithEgg("brachi",
-            () -> EntityType.Builder.of(BrachiosaurusEntity::new, MobCategory.CREATURE).sized(5.25F, 8.0F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
+            () -> EntityType.Builder.of(BrachiosaurusEntity::new, MobCategory.CREATURE).sized(4.8F, 7.5F).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "brachi").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x425860, 0x0a0d18);
 

@@ -40,7 +40,7 @@ public class OpalescentShurikenEntity extends ThrowableItemProjectile {
      */
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
-        pResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 10.0F);
+        pResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 8.0F);
     }
 
     /**
@@ -90,7 +90,7 @@ public class OpalescentShurikenEntity extends ThrowableItemProjectile {
     public Entity changeDimension(ServerLevel pServer, net.minecraftforge.common.util.ITeleporter teleporter) {
         Entity entity = this.getOwner();
         if (entity != null && entity.level().dimension() != pServer.dimension()) {
-            this.setOwner((Entity) null);
+            this.setOwner(null);
         }
 
         return super.changeDimension(pServer, teleporter);

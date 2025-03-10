@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.AustroraptorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -17,7 +17,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 import java.util.Locale;
 
-public class CutoutNoCullPrehistoricRenderer<T extends PrehistoricEntity> extends GeoEntityRenderer<T> {
+public class CutoutNoCullPrehistoricRenderer<T extends PrehistoricEntityOld> extends GeoEntityRenderer<T> {
 
     public CutoutNoCullPrehistoricRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
         super(renderManager, modelProvider);

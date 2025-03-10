@@ -1,6 +1,6 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.JoinPackGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.PackHunterGoal;
@@ -38,7 +38,7 @@
 
  import java.util.EnumSet;
 
- public class PsilopterusEntity extends PrehistoricEntity implements IPackHunter {
+ public class PsilopterusEntity extends PrehistoricEntityOld implements IPackHunter {
 
      private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.INT);

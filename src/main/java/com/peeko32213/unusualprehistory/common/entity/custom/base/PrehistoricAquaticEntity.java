@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.base;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import net.minecraft.core.BlockPos;
@@ -72,7 +73,7 @@ public abstract class PrehistoricAquaticEntity extends Animal implements GeoAnim
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(getTargetTag())) {
                     @Override
                     public boolean canUse() {
-                        return ((PrehistoricEntity) this.mob).isHungry() && super.canUse();
+                        return ((PrehistoricEntityOld) this.mob).isHungry() && super.canUse();
                     }
                 }
             );

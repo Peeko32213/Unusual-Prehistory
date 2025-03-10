@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.BeelzebufoTadpoleEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
@@ -54,7 +54,7 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 
-public class BeelzebufoEntity extends PrehistoricEntity implements PlayerRideableJumping {
+public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRideableJumping {
     private static final EntityDataAccessor<Byte> DATA_FLAG = SynchedEntityData.defineId(BeelzebufoEntity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> IS_SWALLOWING = SynchedEntityData.defineId(BeelzebufoEntity.class, EntityDataSerializers.BOOLEAN);
 

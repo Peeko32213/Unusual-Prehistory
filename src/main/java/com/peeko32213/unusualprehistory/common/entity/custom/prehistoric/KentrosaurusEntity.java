@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
@@ -48,7 +48,7 @@ import javax.annotation.Nonnull;
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
-public class KentrosaurusEntity extends PrehistoricEntity {
+public class KentrosaurusEntity extends PrehistoricEntityOld {
     public static final double FLEE_SPEED_MOD = 1.5D;
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(KentrosaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(KentrosaurusEntity.class, EntityDataSerializers.INT);

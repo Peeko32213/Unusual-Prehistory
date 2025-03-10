@@ -1,15 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public class NocturnalSleepingGoal extends Goal {
 
-    public TamablePrehistoricEntity entity;
+    public TamablePrehistoricEntityOld entity;
 
-    public NocturnalSleepingGoal(TamablePrehistoricEntity sleeper) {
+    public NocturnalSleepingGoal(TamablePrehistoricEntityOld sleeper) {
         super();
         this.entity = sleeper;
     }

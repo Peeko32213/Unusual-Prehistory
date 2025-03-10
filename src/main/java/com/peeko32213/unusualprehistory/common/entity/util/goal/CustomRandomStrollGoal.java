@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TameablePrehistoricNoFloatEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TameablePrehistoricNoFloatEntityOld;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
@@ -21,7 +21,7 @@ public class CustomRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
     }
 
     public boolean canUse() {
-        if(this.mob instanceof PrehistoricEntity entityBaseDinosaurAnimal) {
+        if(this.mob instanceof PrehistoricEntityOld entityBaseDinosaurAnimal) {
             if(entityBaseDinosaurAnimal.playingAnimation()) {
                 return false;
             }
@@ -31,12 +31,12 @@ public class CustomRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
                 return false;
             }
         }
-        if(this.mob instanceof TamablePrehistoricEntity entityBaseDinosaurAnimal) {
+        if(this.mob instanceof TamablePrehistoricEntityOld entityBaseDinosaurAnimal) {
             if(entityBaseDinosaurAnimal.playingAnimation()) {
                 return false;
             }
         }
-        if(this.mob instanceof TameablePrehistoricNoFloatEntity entityBaseDinosaurAnimal) {
+        if(this.mob instanceof TameablePrehistoricNoFloatEntityOld entityBaseDinosaurAnimal) {
             if(entityBaseDinosaurAnimal.playingAnimation()) {
                 return false;
             }

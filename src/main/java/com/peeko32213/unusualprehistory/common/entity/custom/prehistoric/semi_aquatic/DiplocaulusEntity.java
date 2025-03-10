@@ -1,11 +1,19 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
+ import com.google.common.collect.ImmutableList;
+ import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.*;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TriceratopsEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.UlughbegsaurusEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.FindWaterGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.LeaveWaterGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.SemiAquaticSwimmingGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -13,46 +21,106 @@
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
+ import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
+ import net.minecraft.resources.ResourceLocation;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.tags.TagKey;
+ import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
  import net.minecraft.world.entity.ai.control.MoveControl;
+ import net.minecraft.world.entity.ai.goal.Goal;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
  import net.minecraft.world.entity.animal.Animal;
  import net.minecraft.world.entity.player.Player;
+ import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
+ import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
+ import software.bernie.geckolib.animatable.GeoEntity;
+ import software.bernie.geckolib.core.animatable.GeoAnimatable;
+ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.object.PlayState;
 
- public class DiplocaulusEntity extends PrehistoricEntity implements ISemiAquatic {
-     private static final RawAnimation DIPLOCAULUS_IDLE = RawAnimation.begin().thenLoop("animation.diplocaulus.idle");
+ import java.util.EnumSet;
+ import java.util.List;
+
+ public class DiplocaulusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, ISemiAquatic, IVariantEntity, IStateAction {
+
+     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.TRICERATOPS_FOOD);
+
+     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(DiplocaulusEntity.class, EntityDataSerializers.INT);
+
+     // Movement
      private static final RawAnimation DIPLOCAULUS_WALK = RawAnimation.begin().thenLoop("animation.diplocaulus.walk");
-     private static final RawAnimation DIPLOCAULUS_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.diplocaulus.swim_idle");
      private static final RawAnimation DIPLOCAULUS_SWIM = RawAnimation.begin().thenLoop("animation.diplocaulus.swim");
-     private static final RawAnimation DIPLOCAULUS_SLIDE = RawAnimation.begin().thenLoop("animation.diplocaulus.slide");
-     private static final RawAnimation DIPLOCAULUS_BURROW_START = RawAnimation.begin().thenLoop("animation.diplocaulus.burrow_start");
+
+     // Idle animations
+     private static final RawAnimation DIPLOCAULUS_IDLE = RawAnimation.begin().thenLoop("animation.diplocaulus.idle");
+     private static final RawAnimation DIPLOCAULUS_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.diplocaulus.swim_idle");
      private static final RawAnimation DIPLOCAULUS_BURROW_HOLD = RawAnimation.begin().thenLoop("animation.diplocaulus.burrow_hold");
+     private static final RawAnimation DIPLOCAULUS_BURROW_START = RawAnimation.begin().thenLoop("animation.diplocaulus.burrow_start");
+     private static final RawAnimation DIPLOCAULUS_SLIDE = RawAnimation.begin().thenLoop("animation.diplocaulus.slide");
      private static final RawAnimation DIPLOCAULUS_ACROBAT = RawAnimation.begin().thenLoop("animation.diplocaulus.acrobat");
+
+     // Idle accessors
+     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(DiplocaulusEntity.class, EntityDataSerializers.BOOLEAN);
+
+     // Idle actions
+     private static final EntityAction DIPLOCAULUS_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+     private static final StateHelper DIPLOCAULUS_IDLE_1_STATE =
+             StateHelper.Builder.state(IDLE_1_AC, "diplocaulus_burrow")
+                     .playTime(200)
+                     .stopTime(300)
+                     .affectsAI(true)
+                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE))
+                     .entityAction(DIPLOCAULUS_IDLE_1_ACTION)
+                     .build();
+
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return ImmutableMap.of(
+                 DIPLOCAULUS_IDLE_1_STATE.getName(), DIPLOCAULUS_IDLE_1_STATE
+         );
+     }
+
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return ImmutableList.of(
+                 WeightedState.of(DIPLOCAULUS_IDLE_1_STATE, 10)
+         );
+     }
+
+     @Override
+     public boolean getAction() {
+         return false;
+     }
+
+     @Override
+     public void setAction(boolean action) {}
 
      public float prevSwimProgress;
      public float swimProgress;
      private int swimTimer = -1000;
      private boolean isLandNavigator;
 
-     public DiplocaulusEntity(EntityType<? extends Animal> entityType, Level level) {
+     public DiplocaulusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -61,14 +129,15 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 10.0D)
-                 .add(Attributes.ATTACK_DAMAGE, 0.0D)
-                 .add(Attributes.ARMOR, 0.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.18D)
-                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
+             .add(Attributes.MAX_HEALTH, 10.0D)
+             .add(Attributes.ATTACK_DAMAGE, 0.0D)
+             .add(Attributes.ARMOR, 0.0D)
+             .add(Attributes.MOVEMENT_SPEED, 0.18D)
+             .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
      }
 
      protected void registerGoals() {
+         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
          this.goalSelector.addGoal(7, new FindWaterGoal(this));
          this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
          this.goalSelector.addGoal(9, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
@@ -132,16 +201,20 @@
 
      @Override
      protected void defineSynchedData() {
+         this.entityData.define(IDLE_1_AC, false);
+         this.entityData.define(VARIANT, 0);
          super.defineSynchedData();
      }
 
      public void addAdditionalSaveData(CompoundTag compound) {
          super.addAdditionalSaveData(compound);
+         compound.putInt("Variant", this.getVariant());
          compound.putInt("SwimTimer", this.swimTimer);
      }
 
      public void readAdditionalSaveData(CompoundTag compound) {
          super.readAdditionalSaveData(compound);
+         this.setVariant(compound.getInt("Variant"));
          this.swimTimer = compound.getInt("SwimTimer");
      }
 
@@ -217,8 +290,10 @@
 
      @Nullable
      @Override
-     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-         return UPEntities.DIPLOCAULUS.get().create(serverLevel);
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+         DiplocaulusEntity diplo = UPEntities.DIPLOCAULUS.get().create(serverLevel);
+         diplo.setVariant(this.getVariant());
+         return diplo;
      }
 
      @Override
@@ -244,55 +319,67 @@
          return false;
      }
 
+     @Override
+     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+     }
+
      protected <E extends DiplocaulusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
          if (this.isFromBook()) {
              return event.setAndContinue(DIPLOCAULUS_SWIM_IDLE);
          }
 
          if (event.isMoving() && !this.isInWater() && !this.isSwimming()) {
              event.setAnimation(DIPLOCAULUS_WALK);
-             event.getController().setAnimationSpeed(1.0D);
              return PlayState.CONTINUE;
          }
+
          if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
              event.setAnimation(DIPLOCAULUS_SWIM);
-             event.getController().setAnimationSpeed(1.0F);
              return PlayState.CONTINUE;
          }
 
-         if(playingAnimation())
-         {
-             return PlayState.CONTINUE;
-         }
-
-         if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isSwimming()) {
-             int rand = getRandomAnimationNumber();
-             if (rand < 10) {
-                 setAnimationTimer(300);
-                 return event.setAndContinue(DIPLOCAULUS_BURROW_HOLD);
-             }
-            return event.setAndContinue(DIPLOCAULUS_IDLE);
-         }
-
-         if (isStillEnough() && getRandomAnimationNumber() == 0 && this.isInWater()) {
-             int rand = getRandomAnimationNumber();
-             if (rand < 50) {
-                 setAnimationTimer(300);
-                 return event.setAndContinue(DIPLOCAULUS_SWIM_IDLE);
-             }
+         if (isStillEnough() && this.isInWater()) {
              return event.setAndContinue(DIPLOCAULUS_SWIM_IDLE);
          }
 
+         if (!this.isInWater()) {
+             if (getBooleanState(IDLE_1_AC) && this.getFeetBlockState().is(UPTags.DIPLO_DIGS)) {
+                 return event.setAndContinue(DIPLOCAULUS_BURROW_HOLD);
+             } else {
+                 return PlayState.CONTINUE;
+             }
+         }
          return PlayState.CONTINUE;
      }
 
      @Override
-     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+     public ResourceLocation getVariantTexture() {
+         return null;
      }
 
-     private boolean isStillEnough() {
-         return this.getDeltaMovement().horizontalDistance() < 0.05;
+     public void determineVariant(int variantChange){
+         if (variantChange <= 25) {
+             this.setVariant(1);
+         }
+         else if (variantChange <= 50) {
+             this.setVariant(2);
+         }
+         else if (variantChange <= 75) {
+             this.setVariant(3);
+         }
+         else {
+             this.setVariant(0);
+         }
      }
 
+     @Nullable
+     @Override
+     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+         int variantChange = this.random.nextInt(0, 100);
+         this.determineVariant(variantChange);
+         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+     }
  }

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
@@ -49,7 +49,7 @@ import javax.annotation.Nonnull;
 import java.util.EnumSet;
 import java.util.Objects;
 
-public class BarinasuchusEntity extends TamablePrehistoricEntity implements ICustomFollower, GeoEntity {
+public class BarinasuchusEntity extends TamablePrehistoricEntityOld implements ICustomFollower, GeoEntity {
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.INT);
@@ -64,7 +64,7 @@ public class BarinasuchusEntity extends TamablePrehistoricEntity implements ICus
     private static final RawAnimation BARINA_SWIM = RawAnimation.begin().thenLoop("animation.barinasuchus.swim");
     private static final RawAnimation BARINA_IDLE = RawAnimation.begin().thenPlay("animation.barinasuchus.idle");
 
-    public BarinasuchusEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
+    public BarinasuchusEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
         super(entityType, level);
     }
 

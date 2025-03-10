@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity.custom.base;
+package com.peeko32213.unusualprehistory.common.entity.custom.base.old;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
@@ -23,7 +23,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -33,41 +33,35 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal implements GeoAnimatable, IBookEntity, IHatchableEntity {
+public abstract class PrehistoricEntityOld extends Animal implements GeoAnimatable, IHatchableEntity, IBookEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.INT);
 
-    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> SWINGING = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> HAS_SWUNG = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> TRADING = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.INT);
 
-    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.INT);
-
-    private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> ASLEEP = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(TameablePrehistoricNoFloatEntity.class, EntityDataSerializers.INT);
-    public static final Logger LOGGER = LogManager.getLogger();
-    private boolean orderedToSit;
-    public int attackCooldown = 0;
+    private boolean tradingAndGottenItem;
     int lastTimeSinceHungry;
-    public int alertTicks = 0;
-    protected TameablePrehistoricNoFloatEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
+    private int tradingCooldownTimer;
+
+    public final int TRADING_COOLDOWN = 3000;
+    protected PrehistoricEntityOld(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.reassessTameGoals();
     }
 
     @Override
@@ -76,41 +70,33 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
         if(hasAvoidEntity()) {
             this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, TyrannosaurusEntity.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         }
-        if(hasTargets() && !this.hasControllingPassenger()) {
+        if(hasTargets()) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(getTargetTag())) {
                         @Override
                         public boolean canUse() {
-                            return ((TameablePrehistoricNoFloatEntity) this.mob).isHungry() && super.canUse();
+                            return ((PrehistoricEntityOld) this.mob).isHungry() && super.canUse();
                         }
                     }
             );
         }
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
-    private static final int ATTACK_COOLDOWN = 30;
+
     @Override
     public void tick() {
         super.tick();
 
-        if(attackCooldown > 0) {
-            attackCooldown--;
-
+        if(tradingCooldownTimer > 0){
+            tradingCooldownTimer--;
         }
+        tickHunger();
+
         if(playingAnimation()) {
             setAnimationTimer(getAnimationTimer() - 1);
         }
-       // if (this.isSwinging() && !hasSwung()) {
-       //     setSwinging(false);
-       //     setHasSwung(true);
-       //     performAttack();
-       //     this.attackCooldown = ATTACK_COOLDOWN;
-       // }
+    }
 
-        if (attackCooldown <= 0) {
-            //setHasSwung(false);
-            setSwinging(false);
-        }
-
+    public void tickHunger(){
         if(!canGetHungry()) {
             return;
         }
@@ -122,8 +108,6 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
             lastTimeSinceHungry = 0;
         }
     }
-
-    protected abstract void performAttack();
 
     public void killed() {
         this.heal(getKillHealAmount());
@@ -137,26 +121,10 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
         }
     }
 
-
-    @Nullable
-    public LivingEntity getControllingPassenger() {
-        for (Entity passenger : this.getPassengers()) {
-            if (passenger instanceof Player) {
-                return (Player) passenger;
-            }
-        }
-        return null;
-    }
-
-
     @Override
     public boolean canAttack(LivingEntity entity) {
         boolean prev = super.canAttack(entity);
         if(prev && isBaby()){
-            return false;
-        }
-        if (this.isOwnedBy(entity))
-        {
             return false;
         }
         return prev;
@@ -164,7 +132,7 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
 
     public boolean doHurtTarget(Entity entityIn) {
         if (super.doHurtTarget(entityIn) && getAttackSound() != null) {
-            if(getAttackSound() != null) this.playSound(getAttackSound() , 0.1F, 1.0F);
+            this.playSound(getAttackSound() , 0.1F, 1.0F);
             return true;
         } else {
             return false;
@@ -205,13 +173,11 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
         this.entityData.define(HUNGRY, true);
         this.entityData.define(TIME_TILL_HUNGRY, 0);
         this.entityData.define(SADDLED, false);
-        this.entityData.define(SWINGING, false);
-        this.entityData.define(HAS_SWUNG, false);
         this.entityData.define(PASSIVE, 0);
         this.entityData.define(IS_FROM_EGG, false);
+        this.entityData.define(TRADING, false);
         this.entityData.define(FROM_BOOK, false);
         this.entityData.define(VARIANT, 0);
-        this.entityData.define(ASLEEP, false);
         this.entityData.define(RANDOM_BOOL, false);
         this.entityData.define(RANDOM_NUMBER,0);
         this.entityData.define(ANIM_TIMER, 0);
@@ -223,38 +189,33 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
         compound.putBoolean("IsHungry", this.isHungry());
         compound.putInt("TimeTillHungry", this.getTimeTillHungry());
         compound.putBoolean("Saddle", this.isSaddled());
-        compound.putBoolean("IsSwinging", this.isSwinging());
-        compound.putBoolean("HasSwung", this.hasSwung());
         compound.putInt("PassiveTicks", this.getPassiveTicks());
         compound.putBoolean("fromEgg", this.isFromEgg());
+        compound.putBoolean("trading", this.isTrading());
+        compound.putInt("tradingCooldown", this.getTradingCooldownTimer());
+        compound.putBoolean("tradingAndGotItem", this.getTradingAndGottenItem());
         compound.putInt("variant", this.getVariant());
-        compound.putBoolean("IsAsleep", this.isAsleep());
         compound.putInt("randomNr", this.getRandomNumber());
-        compound.putBoolean("randomBool", this.getRandomBool());
         compound.putInt("animTimer", this.getAnimationTimer());
+        compound.putBoolean("randomBool", this.getRandomBool());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setHungry(compound.getBoolean("IsHungry"));
-        this.setSwinging(compound.getBoolean("IsSwinging"));
-        this.setHasSwung(compound.getBoolean("HasSwung"));
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
         this.setPassiveTicks(compound.getInt("PassiveTicks"));
         this.setIsFromEgg(compound.getBoolean("fromEgg"));
+        this.setIsTrading(compound.getBoolean("trading"));
+        this.setTradingCooldownTimer(compound.getInt("tradingCooldown"));
+        this.setTradingAndGottenItem(compound.getBoolean("tradingAndGotItem"));
         this.setVariant(compound.getInt("variant"));
-        this.setAsleep(compound.getBoolean("IsAsleep"));
         this.setRandomNumber(compound.getInt("randomNr"));
         this.setRandomBool(compound.getBoolean("randomBool"));
         this.setAnimationTimer(compound.getInt("animTimer"));
     }
-
-    public boolean canBeLeashed(Player p_21813_) {
-        return !this.isLeashed();
-    }
-
 
     /**
      * Checks if the entity is hungry.
@@ -311,6 +272,24 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
     }
 
     /**
+     * Checks if the entity is currently trading.
+     *
+     * @return true if the entity is currently trading, otherwise false.
+     */
+    public boolean isTrading() {
+        return this.entityData.get(TRADING).booleanValue();
+    }
+
+    /**
+     * Sets the trading state of the entity.
+     *
+     * @param trading true if the entity should be set as currently trading, false otherwise.
+     */
+    public void setIsTrading(boolean trading) {
+        this.entityData.set(TRADING, Boolean.valueOf(trading));
+    }
+
+    /**
      * Gets the passive ticks for the entity.
      *
      * @return The number of passive ticks for the entity.
@@ -334,7 +313,7 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
      * @return true if the entity is from an egg, otherwise false.
      */
     public boolean isFromEgg() {
-        return this.entityData.get(IS_FROM_EGG).booleanValue();
+        return this.entityData.get(IS_FROM_EGG);
     }
 
     /**
@@ -352,7 +331,7 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
      * @return true if the entity is from a book, otherwise false.
      */
     public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK).booleanValue();
+        return this.entityData.get(FROM_BOOK);
     }
 
     /**
@@ -391,6 +370,42 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
     }
 
     /**
+     * Sets the trading and gotten item state of the entity.
+     *
+     * @param tradingAndGottenItem true if the entity has trading and gotten items, false otherwise.
+     */
+    public void setTradingAndGottenItem(boolean tradingAndGottenItem) {
+        this.tradingAndGottenItem = tradingAndGottenItem;
+    }
+
+    /**
+     * Gets the trading and gotten item state of the entity.
+     *
+     * @return true if the entity has trading and gotten items, otherwise false.
+     */
+    public boolean getTradingAndGottenItem() {
+        return tradingAndGottenItem;
+    }
+
+    /**
+     * Gets the trading cooldown timer for the entity.
+     *
+     * @return The trading cooldown timer value for the entity.
+     */
+    public int getTradingCooldownTimer() {
+        return tradingCooldownTimer;
+    }
+
+    /**
+     * Sets the trading cooldown timer for the entity.
+     *
+     * @param tradingCooldownTimer The trading cooldown timer value to set for the entity.
+     */
+    public void setTradingCooldownTimer(int tradingCooldownTimer) {
+        this.tradingCooldownTimer = tradingCooldownTimer;
+    }
+
+    /**
      * Gets the variant of the entity.
      *
      * @return The variant of the entity.
@@ -408,40 +423,7 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
         this.entityData.set(VARIANT, variant);
     }
 
-    public boolean isSwinging() {
-        return this.entityData.get(SWINGING).booleanValue();
-    }
-
-    public void setSwinging(boolean swinging) {
-        this.entityData.set(SWINGING, Boolean.valueOf(swinging));
-    }
-
-    public boolean hasSwung() {
-        return this.entityData.get(HAS_SWUNG).booleanValue();
-    }
-
-    public void setHasSwung(boolean swung) {
-        this.entityData.set(HAS_SWUNG, Boolean.valueOf(swinging));
-    }
-
-    public boolean isAsleep() {
-        return this.entityData.get(ASLEEP);
-    }
-
-    public void setAsleep(boolean isAsleep) {
-        this.entityData.set(ASLEEP, isAsleep);
-    }
-
-    public boolean playingAnimation() {
-        return getAnimationTimer() > 0;
-    }
-
-    public int getAnimationTimer() {
-        return this.entityData.get(ANIM_TIMER);
-    }
-
-    public void setAnimationTimer(int time) {
-        this.entityData.set(ANIM_TIMER,time);
+    public void determineVariant(int variantChange) {
     }
 
     public int getRandomAnimationNumber() {
@@ -470,43 +452,27 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
         this.entityData.set(RANDOM_BOOL,bool);
     }
 
-    /**
-     * Determines the variant of the entity based on the provided variant change value.
-     * The variant change value is used to determine the specific variant of the entity.
-     * The method sets the appropriate attributes and variant number based on the variant change value.
-     *
-     * @param variantChange The variant change value used to determine the entity's variant.
-     *                      The value should be within the range [0, 100].
-     */
-    public void determineVariant(int variantChange) {
+    public boolean playingAnimation() {
+        return getAnimationTimer() > 0;
     }
 
+    public int getAnimationTimer() {
+        return this.entityData.get(ANIM_TIMER);
+    }
 
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {
+    public void setAnimationTimer(int time) {
+        this.entityData.set(ANIM_TIMER,time);
+    }
+
+    @javax.annotation.Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {
         spawnGroupData = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, spawnGroupData, tag);
         Level level = levelAccessor.getLevel();
-
         determineVariant(random.nextInt(100));
         if (level instanceof ServerLevel) {
             this.setPersistenceRequired();
         }
         return spawnGroupData;
-    }
-
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        if (this.isAsleep()) this.navigation.setSpeedModifier(0);
-        if (!this.level().isClientSide) {
-            if (this.alertTicks != 0) alertTicks--;
-        }
-    }
-
-    public void setAwakeTicks(int ticks) {
-        if (!this.level().isClientSide) {
-            this.alertTicks = ticks;
-        }
     }
 
     @Override
@@ -528,10 +494,9 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
         }
     }
 
-
     protected PathNavigation createNavigation(Level level) {
         if(hasCustomNavigation()){
-            return new TameablePrehistoricNoFloatEntity.DinoCustomNavigation(this, level);
+            return new PrehistoricEntityOld.DinoCustomNavigation(this, level);
         }
         else return super.createNavigation(level);
     }
@@ -541,7 +506,7 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
             super(p_33379_, p_33380_);
         }
         protected PathFinder createPathFinder(int p_33382_) {
-            this.nodeEvaluator = new TameablePrehistoricNoFloatEntity.CustomNodeEvaluator();
+            this.nodeEvaluator = new PrehistoricEntityOld.CustomNodeEvaluator();
             return new PathFinder(this.nodeEvaluator, p_33382_);
         }
     }
@@ -552,8 +517,9 @@ public abstract class TameablePrehistoricNoFloatEntity extends TamableAnimal imp
         }
     }
 
-
-    public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends TameablePrehistoricNoFloatEntity> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE) && isBrightEnoughToSpawn(level, pos) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();    }
+    public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends PrehistoricEntityOld> dino, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
+        boolean canSpawn = level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE) && isBrightEnoughToSpawn(level, pos) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
+        return canSpawn;
+    }
 
 }

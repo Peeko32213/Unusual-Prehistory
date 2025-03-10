@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity.custom.base;
+package com.peeko32213.unusualprehistory.common.entity.custom.base.old;
 
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.WallClimbingNavigation;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -8,10 +8,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
 
-public abstract class TamableClimbingPrehistoricEntity extends TamablePrehistoricEntity {
-    private static final EntityDataAccessor<Byte> CLIMB_FLAG = SynchedEntityData.defineId(TamableClimbingPrehistoricEntity.class, EntityDataSerializers.BYTE);
+public abstract class TamableClimbingPrehistoricEntityOld extends TamablePrehistoricEntityOld {
+    private static final EntityDataAccessor<Byte> CLIMB_FLAG = SynchedEntityData.defineId(TamableClimbingPrehistoricEntityOld.class, EntityDataSerializers.BYTE);
 
-    protected TamableClimbingPrehistoricEntity(EntityType<? extends TamablePrehistoricEntity> entityType, Level level) {
+    protected TamableClimbingPrehistoricEntityOld(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
         super(entityType, level);
     }
 

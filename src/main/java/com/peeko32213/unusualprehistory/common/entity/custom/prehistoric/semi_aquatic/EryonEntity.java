@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
 import com.google.common.collect.Lists;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BottomFeederStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.FindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.LeaveWaterGoal;
@@ -59,7 +59,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class EryonEntity extends PrehistoricEntity implements IVariantEntity, ISemiAquatic {
+public class EryonEntity extends PrehistoricEntityOld implements IVariantEntity, ISemiAquatic {
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EryonEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EryonEntity.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
@@ -74,7 +74,7 @@ public class EryonEntity extends PrehistoricEntity implements IVariantEntity, IS
     private static final RawAnimation ERYON_IDLE = RawAnimation.begin().thenLoop("animation.eryon.idle");
     private static final RawAnimation ERYON_DIG = RawAnimation.begin().thenLoop("animation.eryon.dig");
 
-    public EryonEntity(EntityType<? extends PrehistoricEntity> p_21683_, Level p_21684_) {
+    public EryonEntity(EntityType<? extends PrehistoricEntityOld> p_21683_, Level p_21684_) {
         super(p_21683_, p_21684_);
     }
 

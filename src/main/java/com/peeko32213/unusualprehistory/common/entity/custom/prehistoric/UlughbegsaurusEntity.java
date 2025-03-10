@@ -2,14 +2,12 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamableStatedPrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.*;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -40,7 +38,6 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -63,9 +60,8 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity implements GeoEntity, GeoAnimatable, IAttackEntity, IVariantEntity, ICustomFollower {
+public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity, ICustomFollower {
 
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -168,9 +164,10 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
     @Override
     public void setAction(boolean action) {}
 
-    public UlughbegsaurusEntity(EntityType<? extends TamableStatedPrehistoricEntity> entityType, Level level) {
+    public UlughbegsaurusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
+        this.reassessTameGoals();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -230,7 +227,7 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(3, new TameableStatedFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
+        this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
     }
 
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
@@ -292,52 +289,52 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
         return shouldHurt;
     }
 
-    public void performAttack() {
-        if (this.level().isClientSide) {
-            return;
-        }
-        this.setSwinging(true);
-        for (Entity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
-            if (!this.hasSwung() && this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
-                if (entity instanceof UlughbegsaurusEntity ulughbegsaurus) {
-                    if (ulughbegsaurus.isTame()) {
-                        continue;
-                    }
-                }
-                if (entity.is(Objects.requireNonNull(this.getControllingPassenger()))) {
-                    continue;
-                }
-
-                entity.hurt(this.damageSources().mobAttack(this), 8.0F);
-            }
-        }
-    }
-
-    @Override
-    public void afterAttack() {
-        this.level().broadcastEntityEvent(this, (byte) 5);
-        this.setSwinging(false);
-    }
+//    public void performAttack() {
+//        if (this.level().isClientSide) {
+//            return;
+//        }
+//        this.setSwinging(true);
+//        for (Entity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
+//            if (!this.hasSwung() && this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
+//                if (entity instanceof UlughbegsaurusEntity ulughbegsaurus) {
+//                    if (ulughbegsaurus.isTame()) {
+//                        continue;
+//                    }
+//                }
+//                if (entity.is(Objects.requireNonNull(this.getControllingPassenger()))) {
+//                    continue;
+//                }
+//
+//                entity.hurt(this.damageSources().mobAttack(this), 8.0F);
+//            }
+//        }
+//    }
+//
+//    @Override
+//    public void afterAttack() {
+//        this.level().broadcastEntityEvent(this, (byte) 5);
+//        this.setSwinging(false);
+//    }
 
     @Override
     public int getMaxHeadYRot() {
         return 15;
     }
 
-    @Override
-    public int getMaxAttackCooldown() {
-        return ATTACK_COOLDOWN;
-    }
-
-    @Override
-    public int getAttackCooldown() {
-        return attackCooldown;
-    }
-
-    @Override
-    public void setAttackCooldown(int cooldown) {
-        this.attackCooldown = cooldown;
-    }
+//    @Override
+//    public int getMaxAttackCooldown() {
+//        return ATTACK_COOLDOWN;
+//    }
+//
+//    @Override
+//    public int getAttackCooldown() {
+//        return attackCooldown;
+//    }
+//
+//    @Override
+//    public void setAttackCooldown(int cooldown) {
+//        this.attackCooldown = cooldown;
+//    }
 
     public @NotNull InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -486,11 +483,7 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
             this.setEatingTime(this.getEatingTime() - 1);
             this.getNavigation().stop();
         }
-        if (this.getCommand() == 2 && !this.isVehicle()) {
-            this.setOrderedToSit(true);
-        } else {
-            this.setOrderedToSit(false);
-        }
+        this.setOrderedToSit(this.getCommand() == 2 && !this.isVehicle());
     }
 
     @Override
@@ -510,7 +503,7 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
                     f1 *= 0.25F;
                 }
                 if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()) {
-                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2F));
+                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.15F));
                 } else {
                     this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F));
                 }
@@ -519,10 +512,6 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
                 super.travel(pos);
             }
         }
-    }
-
-    public boolean canSprint() {
-        return true;
     }
 
     @Override
@@ -753,7 +742,7 @@ public class UlughbegsaurusEntity extends TamableStatedPrehistoricEntity impleme
 
             if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()){
                 event.setAndContinue(ULUGH_SPRINT);
-                event.getController().setAnimationSpeed(1.0F);
+                event.getController().setAnimationSpeed(1.15F);
             }
             else {
                 event.setAndContinue(ULUGH_WALK);

@@ -1,6 +1,6 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MajungasaurusEntity;
  import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
@@ -45,7 +45,7 @@
  import javax.annotation.Nullable;
  import java.util.EnumSet;
 
- public class PterodaustroEntity extends PrehistoricEntity implements GeoEntity, IBookEntity {
+ public class PterodaustroEntity extends PrehistoricEntityOld implements GeoEntity, IBookEntity {
      private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
      @Nullable
      private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(PterodaustroEntity.class, EntityDataSerializers.BOOLEAN);
@@ -70,7 +70,7 @@
      private static final RawAnimation PTERODAUSTRO_NESTING = RawAnimation.begin().thenPlay("animation.pterodaustro.nesting");
 
 
-     public PterodaustroEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
+     public PterodaustroEntity(EntityType<? extends PrehistoricEntityOld> entityType, Level level) {
          super(entityType, level);
          switchNavigator(true);
      }

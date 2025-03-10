@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.GigantopithicusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MammothEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -21,7 +21,7 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 import software.bernie.geckolib.util.RenderUtils;
 
-public class ItemHoldingLayer<T extends PrehistoricEntity> extends GeoRenderLayer<T> {
+public class ItemHoldingLayer<T extends PrehistoricEntityOld> extends GeoRenderLayer<T> {
     private ItemStack mainHand;
 
     public ItemHoldingLayer(GeoRenderer<T> entityRendererIn) {
@@ -101,7 +101,7 @@ public class ItemHoldingLayer<T extends PrehistoricEntity> extends GeoRenderLaye
         //RenderUtils.scaleMatrixForBone(stack, bone);
         //RenderUtils.translateAwayFromPivotPoint(stack, bone);
         RenderUtils.translateAndRotateMatrixForBone(stack, bone);
-        if(entity instanceof PrehistoricEntity entityBaseDinosaurAnimal) {
+        if(entity instanceof PrehistoricEntityOld entityBaseDinosaurAnimal) {
             if (bone.getName().equals("Arm1") && entityBaseDinosaurAnimal.isTrading() && entityBaseDinosaurAnimal instanceof GigantopithicusEntity) {
                 stack.pushPose();
                 //You'll need to play around with these to get item to render in the correct orientation

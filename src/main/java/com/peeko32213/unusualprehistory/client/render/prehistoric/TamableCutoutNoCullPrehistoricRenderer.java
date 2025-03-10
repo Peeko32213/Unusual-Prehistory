@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.render.prehistoric;
 
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.TamablePrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class TamableCutoutNoCullPrehistoricRenderer<T extends TamablePrehistoricEntity> extends GeoEntityRenderer<T> {
+public class TamableCutoutNoCullPrehistoricRenderer<T extends TamablePrehistoricEntityOld> extends GeoEntityRenderer<T> {
 
 
     public TamableCutoutNoCullPrehistoricRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
