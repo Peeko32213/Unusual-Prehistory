@@ -14,32 +14,18 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class MegatheriumModel extends GeoModel<MegatheriumEntity> {
 
     @Override
-    public ResourceLocation getModelResource(MegatheriumEntity megatherium)
-    {
-        if(megatherium.isBaby()){
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium/megatherium_baby.geo.json");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium/megatherium.geo.json");
-        }
+    public ResourceLocation getModelResource(MegatheriumEntity megatherium) {
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(MegatheriumEntity megatherium)
-    {
-        if(megatherium.isBaby()) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium/megatherium_baby.png");
-        } else{
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium/megatherium.png");
-        }
+    public ResourceLocation getTextureResource(MegatheriumEntity megatherium) {
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(MegatheriumEntity megatherium) {
-        if(megatherium.isBaby()){
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/megatherium/megatherium_baby.animation.json");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/megatherium/megatherium.animation.json");
-        }
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/megatherium.animation.json");
     }
 
     @Override
@@ -47,7 +33,13 @@ public class MegatheriumModel extends GeoModel<MegatheriumEntity> {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+
+        CoreGeoBone saddle = this.getAnimationProcessor().getBone("Saddle");
+
+        saddle.setHidden(!animatable.isSaddled());
+
+
+        CoreGeoBone head = this.getAnimationProcessor().getBone("Sloth_Head");
         head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
     }
 }

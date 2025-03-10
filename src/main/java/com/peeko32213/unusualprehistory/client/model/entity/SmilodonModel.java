@@ -12,44 +12,27 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class SmilodonModel extends GeoModel<SmilodonEntity> {
 
-    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon.png");
-    private static final ResourceLocation TEXTURE_OCELOT = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot.png");
-
-    private static final ResourceLocation TEXTURE_NORMAL_BABY = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_baby.png");
-    private static final ResourceLocation TEXTURE_OCELOT_BABY = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot_baby.png");
+    private static final ResourceLocation TEXTURE_COLD = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_cold.png");
+    private static final ResourceLocation TEXTURE_WARM = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_warm.png");
+    private static final ResourceLocation TEXTURE_REGAL = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_regal.png");
 
     @Override
     public ResourceLocation getModelResource(SmilodonEntity smilodon) {
-        if(smilodon.isBaby()){
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/smilodon/smilodon_baby.geo.json");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/smilodon/smilodon.geo.json");
-        }
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/smilodon.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(SmilodonEntity smilodon)
-    {
-        if (smilodon.isBaby()) {
-            return switch (smilodon.getVariant()) {
-                case 1 -> TEXTURE_OCELOT_BABY;
-                default -> TEXTURE_NORMAL_BABY;
-            };
-        } else {
-            return switch (smilodon.getVariant()) {
-                case 1 -> TEXTURE_OCELOT;
-                default -> TEXTURE_NORMAL;
-            };
-        }
+    public ResourceLocation getTextureResource(SmilodonEntity smilodon) {
+        return switch (smilodon.getVariant()) {
+            case 1 -> TEXTURE_WARM;
+            case 2 -> TEXTURE_REGAL;
+            default -> TEXTURE_COLD;
+        };
     }
 
     @Override
     public ResourceLocation getAnimationResource(SmilodonEntity smilodon) {
-        if(smilodon.isBaby()){
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/smilodon/smilodon_baby.animation.json");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/smilodon/smilodon.animation.json");
-        }
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/smilodon.animation.json");
     }
 
     @Override

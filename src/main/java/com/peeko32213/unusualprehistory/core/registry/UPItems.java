@@ -291,7 +291,7 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> MAJUNGA_EGG = registerSpawnEggs("majungasaurus_spawn_egg", UPEntities.MAJUNGA , 0x1d600e, 0xacd35d);
     public static final RegistryObject<ForgeSpawnEggItem> MAMMOTH_EGG = registerSpawnEggs("mammoth_spawn_egg", UPEntities.MAMMOTH , 0x180a08, 0x5e5333);
     public static final RegistryObject<ForgeSpawnEggItem> MEGALANIA_EGG = registerSpawnEggs("megalania_spawn_egg", UPEntities.MEGALANIA , 0x2e2319, 0x96874b);
-    public static final RegistryObject<ForgeSpawnEggItem> MEGATH_EGG = registerSpawnEggs("megatherium_spawn_egg", UPEntities.MEGATHERIUM , 0x65352a, 0x9a7c51);
+    public static final RegistryObject<ForgeSpawnEggItem> MEGATH_EGG = registerSpawnEggs("megatherium_spawn_egg", UPEntities.MEGATHERIUM , 0x221e1b, 0xc9bfa1);
     public static final RegistryObject<ForgeSpawnEggItem> OPHIODON_EGG = registerSpawnEggs("ophiodon_spawn_egg", UPEntities.OPHIODON , 0x212d47, 0x467186);
     public static final RegistryObject<ForgeSpawnEggItem> OTAROCYON_EGG = registerSpawnEggs("otarocyon_spawn_egg", UPEntities.OTAROCYON , 0x281b25, 0x681523);
     public static final RegistryObject<ForgeSpawnEggItem> OVIRAPTOR_EGG = registerSpawnEggs("oviraptor_spawn_egg", UPEntities.OVIRAPTOR , 0x365754, 0xe19f2e);
@@ -306,7 +306,7 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> PTERYGOTUS_EGG = registerSpawnEggs("pterygotus_spawn_egg", UPEntities.PTERYGOTUS , 0xb88966, 0x664531);
     public static final RegistryObject<ForgeSpawnEggItem> SCAU_EGG = registerSpawnEggs("scaumenacia_spawn_egg", UPEntities.SCAU , 0x909da1, 0x5094c1);
     public static final RegistryObject<ForgeSpawnEggItem> SLUDGE_EGG = registerSpawnEggs("sludge_spawn_egg", UPEntities.SLUDGE , 0x0a090a, 0x282627);
-    public static final RegistryObject<ForgeSpawnEggItem> SMILO_EGG = registerSpawnEggs("smilodon_spawn_egg", UPEntities.SMILODON , 0xd5ced4, 0x605a69);
+    public static final RegistryObject<ForgeSpawnEggItem> SMILO_EGG = registerSpawnEggs("smilodon_spawn_egg", UPEntities.SMILODON , 0x704333, 0xc8c5c2);
     public static final RegistryObject<ForgeSpawnEggItem> STETHA_EGG = registerSpawnEggs("stethacanthus_spawn_egg", UPEntities.STETHACANTHUS , 0x754123, 0xb59a6e);
     public static final RegistryObject<ForgeSpawnEggItem> TALPANAS_EGG = registerSpawnEggs("talpanas_spawn_egg", UPEntities.TALPANAS , 0x1d1311, 0x3c4849);
     public static final RegistryObject<ForgeSpawnEggItem> TANY_EGG = registerSpawnEggs("tanystropheus_spawn_egg", UPEntities.TANY , 0x08090d, 0xf2f6f8);
