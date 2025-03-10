@@ -267,7 +267,7 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> AUSTRO_EGG = registerSpawnEggs("austroraptor_spawn_egg", UPEntities.AUSTRO , 0xfff9f7, 0xc72727);
     public static final RegistryObject<ForgeSpawnEggItem> BALAUR_EGG = registerSpawnEggs("balaur_spawn_egg", UPEntities.BALAUR , 0x1d1d28, 0x3b8a34);
     public static final RegistryObject<ForgeSpawnEggItem> BARINA_EGG = registerSpawnEggs("barinasuchus_spawn_egg", UPEntities.BARINASUCHUS , 0x0e0b03, 0xbea61e);
-    public static final RegistryObject<ForgeSpawnEggItem> BEELZ_EGG = registerSpawnEggs("beelzebufo_spawn_egg", UPEntities.BEELZ , 0x443f13, 0xa5db90);
+    public static final RegistryObject<ForgeSpawnEggItem> BEELZ_EGG = registerSpawnEggs("beelzebufo_spawn_egg", UPEntities.BEELZ , 0x5d9439, 0x7457c5);
     public static final RegistryObject<ForgeSpawnEggItem> BEELZ_TADPOLE_EGG = registerSpawnEggs("beelzebufo_tadpole_spawn_egg", UPEntities.BEELZE_TADPOLE , 0x71b460, 0xd2bd7e);
     public static final RegistryObject<ForgeSpawnEggItem> BRACHI_EGG =registerSpawnEggs("brachiosaurus_spawn_egg", UPEntities.BRACHI , 0x5e6f9a, 0xc7e1e4);
     public static final RegistryObject<ForgeSpawnEggItem> COTY_EGG = registerSpawnEggs("cotylorhynchus_spawn_egg", UPEntities.COTY , 0xb56534, 0xdfd7ad);
