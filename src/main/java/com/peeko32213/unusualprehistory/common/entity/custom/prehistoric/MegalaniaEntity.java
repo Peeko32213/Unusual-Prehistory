@@ -85,10 +85,10 @@ public class MegalaniaEntity extends PrehistoricEntityOld implements IVariantEnt
         super(entityType, level);
     }
 
-    @Override
-    protected @NotNull PathNavigation createNavigation(Level levelIn) {
-        return new SmoothGroundNavigation(this, levelIn);
-    }
+//    @Override
+//    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+//        return new SmoothGroundNavigation(this, levelIn);
+//    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()

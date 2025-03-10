@@ -170,10 +170,10 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements GeoEntity,
         this.allParts = new BrachiosaurusPartEntity[]{this.neck};
     }
 
-    @Override
-    protected @NotNull PathNavigation createNavigation(Level levelIn) {
-        return new SmoothGroundNavigation(this, levelIn);
-    }
+//    @Override
+//    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+//        return new SmoothGroundNavigation(this, levelIn);
+//    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()

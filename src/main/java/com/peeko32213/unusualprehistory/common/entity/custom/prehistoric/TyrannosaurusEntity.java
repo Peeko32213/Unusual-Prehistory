@@ -180,10 +180,10 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         this.setMaxUpStep(1.25F);
     }
 
-    @Override
-    protected @NotNull PathNavigation createNavigation(Level levelIn) {
-        return new SmoothGroundNavigation(this, levelIn);
-    }
+//    @Override
+//    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+//        return new SmoothGroundNavigation(this, levelIn);
+//    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()

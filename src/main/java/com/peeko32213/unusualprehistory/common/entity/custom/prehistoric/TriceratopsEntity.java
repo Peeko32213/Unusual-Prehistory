@@ -168,10 +168,10 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         this.reassessTameGoals();
     }
 
-    @Override
-    protected @NotNull PathNavigation createNavigation(Level levelIn) {
-        return new SmoothGroundNavigation(this, levelIn);
-    }
+//    @Override
+//    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+//        return new SmoothGroundNavigation(this, levelIn);
+//    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
