@@ -172,7 +172,8 @@ public class EntityDataGenerator extends EntityDataProvider {
                                         )
                                         ),
                                         new EntityGoalsBuilder()
-                                                .addGoals(new RandomLookAroundGoalCodec(0),
+                                                .addGoals(
+                                                        new RandomLookAroundGoalCodec(0),
                                                         new FloatGoalCodec(0),
                                                         new WaterAvoidingRandomStrollGoalCodec(3, 1.0D, 20),
                                                         new LookAtEntityGoalCodec(6, GSTags.PLAYER, 6, 0.02F, false),

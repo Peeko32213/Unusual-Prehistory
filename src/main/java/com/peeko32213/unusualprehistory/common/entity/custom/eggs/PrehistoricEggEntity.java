@@ -13,10 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -159,7 +156,10 @@ public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
         if(dinosaurToSpawn instanceof Mob mob) {
             mob.restrictTo(this.blockPosition(), 20);
             mob.moveTo((double) this.blockPosition().getX() + 0.3D, this.blockPosition().getY(), (double) this.blockPosition().getZ() + 0.3D, 0.0F, 0.0F);
+            mob.finalizeSpawn((ServerLevel)level(), this.level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.SPAWN_EGG, null, null);
         }
+
+
 
         if (!level().isClientSide) {
             BlockPos pos = dinosaurToSpawn.blockPosition();
