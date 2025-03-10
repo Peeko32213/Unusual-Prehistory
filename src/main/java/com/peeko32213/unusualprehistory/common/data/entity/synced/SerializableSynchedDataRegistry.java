@@ -29,25 +29,25 @@ public class SerializableSynchedDataRegistry {
     public static final Codec<SerializableSynchedEntityData> CODEC = ExtraCodecs.stringResolverCodec(sa -> ALL_DATA_MAP.inverse().get(sa).toString(), key -> ALL_DATA_MAP.get(new ResourceLocation(key)));
 
 
-    public static final SerializableSynchedData<Integer> REX_VARIANT = new SerializableSynchedData<>(prefix("rex_variant"), TyrannosaurusEntity.class, EntityDataSerializers.INT, 0, Object::toString, Integer::parseInt);
-    public static final SerializableSynchedData<Integer> REX_ANIMATION_STATE = new SerializableSynchedData<>(prefix("rex_animation_state"), TyrannosaurusEntity.class, EntityDataSerializers.INT, 0, Object::toString, Integer::parseInt);
-    public static final SerializableSynchedData<Boolean> REX_EEPY = new SerializableSynchedData<>(prefix("rex_eepy"), TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
-    public static final SerializableSynchedData<Boolean> REX_PASSIVE = new SerializableSynchedData<>(prefix("rex_passive"), TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
-    public static final SerializableSynchedData<Boolean> REX_IDLE_1_AC = new SerializableSynchedData<>(prefix("rex_idle_1_ac"),TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
-    public static final SerializableSynchedData<Boolean> REX_IDLE_2_AC = new SerializableSynchedData<>(prefix("rex_idle_2_ac"),TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
-    public static final SerializableSynchedData<Boolean> REX_IDLE_3_AC = new SerializableSynchedData<>(prefix("rex_idle_3_ac"),TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
-    public static final SerializableSynchedData<Boolean> REX_IDLE_4_AC = new SerializableSynchedData<>(prefix("rex_idle_4_ac"),TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
+//    public static final SerializableSynchedData<Integer> REX_VARIANT = new SerializableSynchedData<>(prefix("rex_variant"), TyrannosaurusEntity.class, EntityDataSerializers.INT, 0, Object::toString, Integer::parseInt);
+//    public static final SerializableSynchedData<Integer> REX_ANIMATION_STATE = new SerializableSynchedData<>(prefix("rex_animation_state"), TyrannosaurusEntity.class, EntityDataSerializers.INT, 0, Object::toString, Integer::parseInt);
+//    public static final SerializableSynchedData<Boolean> REX_EEPY = new SerializableSynchedData<>(prefix("rex_eepy"), TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
+//    public static final SerializableSynchedData<Boolean> REX_PASSIVE = new SerializableSynchedData<>(prefix("rex_passive"), TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
+//    public static final SerializableSynchedData<Boolean> REX_IDLE_1_AC = new SerializableSynchedData<>(prefix("rex_idle_1_ac"),TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
+//    public static final SerializableSynchedData<Boolean> REX_IDLE_2_AC = new SerializableSynchedData<>(prefix("rex_idle_2_ac"),TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
+//    public static final SerializableSynchedData<Boolean> REX_IDLE_3_AC = new SerializableSynchedData<>(prefix("rex_idle_3_ac"),TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
+//    public static final SerializableSynchedData<Boolean> REX_IDLE_4_AC = new SerializableSynchedData<>(prefix("rex_idle_4_ac"),TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
 
 
     public static void register() {
-        register(REX_VARIANT);
-        register(REX_ANIMATION_STATE);
-        register(REX_EEPY);
-        register(REX_PASSIVE);
-        register(REX_IDLE_1_AC);
-        register(REX_IDLE_2_AC);
-        register(REX_IDLE_3_AC);
-        register(REX_IDLE_4_AC);
+//        register(REX_VARIANT);
+//        register(REX_ANIMATION_STATE);
+//        register(REX_EEPY);
+//        register(REX_PASSIVE);
+//        register(REX_IDLE_1_AC);
+//        register(REX_IDLE_2_AC);
+//        register(REX_IDLE_3_AC);
+//        register(REX_IDLE_4_AC);
     }
 
     public static void register(SerializableSynchedEntityData data) {

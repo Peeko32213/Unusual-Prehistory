@@ -78,18 +78,18 @@ public class EntityDataGenerator extends EntityDataProvider {
                                                 .addGoal(new WaterAvoidingRandomStrollGoalCodec(3,1.0D,20))
                                                 .addGoal(new LookAtEntityGoalCodec(6, GSTags.PLAYER, 6,0.02F,false))
                                                 .addGoal(new AvoidEntityGoalCodec(4, getGoalSmithEntityTag("chicken"),new TruePredicate<>(),12F,2D,2D, new NoCreativeOrSpectatorPredicate()))
-                                                .addGoal(new SerializableRandomStateGoalCodec(2,
-                                                            WeightedRandomList.create(
-                                                                    new WeightedSerializableStateHelper(
-                                                                            11,
-                                                                            SerializableStateHelper.Builder.state(SerializableSynchedDataRegistry.REX_IDLE_1_AC, "tyrannosaurus_shake")
-                                                                                    .playTime(90)
-                                                                                    .stopTime(200)
-                                                                                    .entityAction(EntityAction.getDefaultInstance())
-                                                                                    .build()
-                                                                    )
-                                                            )
-                                                        ))
+//                                                .addGoal(new SerializableRandomStateGoalCodec(2,
+//                                                            WeightedRandomList.create(
+//                                                                    new WeightedSerializableStateHelper(
+//                                                                            11,
+//                                                                            SerializableStateHelper.Builder.state(SerializableSynchedDataRegistry.REX_IDLE_1_AC, "tyrannosaurus_shake")
+//                                                                                    .playTime(90)
+//                                                                                    .stopTime(200)
+//                                                                                    .entityAction(EntityAction.getDefaultInstance())
+//                                                                                    .build()
+//                                                                    )
+//                                                            )
+//                                                        ))
 
                                                 .addTargetGoal(new NearestAttackableTargetGoalCodec(2, UPTags.TYRANNOSAURUS_TARGETS, 10,false,false, new TruePredicate<>()))
                                                 //TODO: this tag should be the one it should ignore, aka itself so it should be a tag with itself in it so this has to be done!

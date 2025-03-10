@@ -4,15 +4,13 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.DelayedAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PrehistoricFollowOwnerGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableTempt;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -42,7 +40,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
@@ -53,8 +50,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.pathfinder.Node;
-import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
@@ -81,7 +76,6 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
 
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
 
     public static final Logger LOGGER = LogManager.getLogger();
 
@@ -186,7 +180,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new TrikeMeleeAttackGoal(this, 1.75D, false));
+        this.goalSelector.addGoal(1, new TriceratopsEntity.MeleeAttackGoal());
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 28));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
@@ -257,7 +251,6 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         this.entityData.define(IDLE_3_AC, false);
         this.entityData.define(CHARGE_COOLDOWN_TICKS, 0);
         this.entityData.define(HAS_TARGET, false);
-        this.entityData.define(ANIMATION_STATE, 0);
     }
 
     @Override
@@ -455,14 +448,6 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         return null;
     }
 
-    public int getAnimationState() {
-        return this.entityData.get(ANIMATION_STATE);
-    }
-
-    public void setAnimationState(int anim) {
-        this.entityData.set(ANIMATION_STATE, anim);
-    }
-
     @Override
     public void customServerAiStep() {
         if (this.getMoveControl().hasWanted() && !this.isBaby()) {
@@ -473,160 +458,13 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         super.customServerAiStep();
     }
 
-    class TrikeMeleeAttackGoal extends Goal {
+    class MeleeAttackGoal extends DelayedAttackGoal {
 
-        protected final TriceratopsEntity mob;
-        private final double speedModifier;
-        private final boolean followingTargetEvenIfNotSeen;
-        private Path path;
-        private double pathedTargetX;
-        private double pathedTargetY;
-        private double pathedTargetZ;
-        private int ticksUntilNextPathRecalculation;
-        private int ticksUntilNextAttack;
-        private long lastCanUseCheck;
-        private int failedPathFindingPenalty = 0;
-        private boolean canPenalize = false;
-        private int animTime = 0;
-
-        public TrikeMeleeAttackGoal(TriceratopsEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
-            this.mob = p_i1636_1_;
-            this.speedModifier = p_i1636_2_;
-            this.followingTargetEvenIfNotSeen = p_i1636_4_;
+        public MeleeAttackGoal() {
+            super(TriceratopsEntity.this, 1.75D, false);
         }
 
-        public boolean canUse() {
-            long i = this.mob.level().getGameTime();
-
-            if (i - this.lastCanUseCheck < 20L) {
-                return false;
-            } else {
-                this.lastCanUseCheck = i;
-                LivingEntity livingentity = this.mob.getTarget();
-                if (livingentity == null) {
-                    return false;
-                } else if (!livingentity.isAlive()) {
-                    return false;
-                } else {
-                    if (canPenalize) {
-                        if (--this.ticksUntilNextPathRecalculation <= 0) {
-                            this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                            this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                            return this.path != null;
-                        } else {
-                            return true;
-                        }
-                    }
-                    this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                    if (this.path != null) {
-                        return true;
-                    } else {
-                        return this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                    }
-                }
-            }
-        }
-
-        public boolean canContinueToUse() {
-
-            LivingEntity livingentity = this.mob.getTarget();
-
-            if (livingentity == null) {
-                return false;
-            }
-            else if (!livingentity.isAlive()) {
-                return false;
-            }
-            else if (!this.followingTargetEvenIfNotSeen) {
-                return !this.mob.getNavigation().isDone();
-            }
-            else if (!this.mob.isWithinRestriction(livingentity.blockPosition())) {
-                return false;
-            }
-            else {
-                return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
-            }
-        }
-
-        public void start() {
-            this.mob.getNavigation().moveTo(this.path, this.speedModifier);
-            this.mob.setAggressive(true);
-            this.ticksUntilNextPathRecalculation = 0;
-            this.ticksUntilNextAttack = 0;
-            this.animTime = 0;
-            this.mob.setAnimationState(0);
-        }
-
-        public void stop() {
-            LivingEntity livingentity = this.mob.getTarget();
-            if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget(null);
-            }
-            this.mob.setAggressive(false);
-            this.mob.getNavigation().stop();
-            this.mob.setAnimationState(0);
-        }
-
-        public void tick() {
-
-            LivingEntity target = this.mob.getTarget();
-            double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
-            double reach = this.getAttackReachSqr(target);
-            int animState = this.mob.getAnimationState();
-
-            if (animState == 1) {
-                tickSlashAttack();
-            }
-
-            else {
-                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                this.doMovement(target, distance);
-                this.checkForCloseRangeAttack(distance, reach);
-            }
-        }
-
-        protected void doMovement(LivingEntity livingentity, Double d0) {
-
-            this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
-            if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
-                this.pathedTargetX = livingentity.getX();
-                this.pathedTargetY = livingentity.getY();
-                this.pathedTargetZ = livingentity.getZ();
-                this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                if (this.canPenalize) {
-                    this.ticksUntilNextPathRecalculation += failedPathFindingPenalty;
-                    if (this.mob.getNavigation().getPath() != null) {
-                        Node finalPathPoint = this.mob.getNavigation().getPath().getEndNode();
-                        if (finalPathPoint != null && livingentity.distanceToSqr(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                            failedPathFindingPenalty = 0;
-                        else
-                            failedPathFindingPenalty += 10;
-                    } else {
-                        failedPathFindingPenalty += 10;
-                    }
-                }
-                if (d0 > 1024.0D) {
-                    this.ticksUntilNextPathRecalculation += 10;
-                } else if (d0 > 256.0D) {
-                    this.ticksUntilNextPathRecalculation += 5;
-                }
-                if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
-                    this.ticksUntilNextPathRecalculation += 15;
-                }
-            }
-
-        }
-
-        protected void checkForCloseRangeAttack(double distance, double reach) {
-            if (distance <= reach && this.ticksUntilNextAttack <= 0) {
-                this.mob.setAnimationState(1);
-            }
-        }
-
-        protected void tickSlashAttack () {
+        protected void tickAttack () {
 
             triggerAnim("blend", "attack");
 
@@ -638,7 +476,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             }
 
             if(animTime==5) {
-                preformSlashAttack();
+                preformAttack();
             }
 
             if(animTime>=8) {
@@ -649,31 +487,14 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             }
         }
 
-        protected void preformSlashAttack () {
+        protected void preformAttack () {
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 1.0F, 1.0F);
-            this.mob.swing(InteractionHand.MAIN_HAND);
+            this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 1.0F, this.mob.getVoicePitch());
             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.5f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
 
-        protected void resetAttackCooldown() {
-            this.ticksUntilNextAttack = this.adjustedTickDelay(20);
-        }
-
-        protected boolean isTimeToAttack() {
-            return this.ticksUntilNextAttack <= 0;
-        }
-
-        protected int getTicksUntilNextAttack() {
-            return this.ticksUntilNextAttack;
-        }
-
-        protected int getAttackInterval() {
-            return this.adjustedTickDelay(20);
-        }
-
         protected double getAttackReachSqr(LivingEntity pAttackTarget) {
-            return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + pAttackTarget.getBbWidth();
+            return this.mob.getBbWidth() * 1.75F * this.mob.getBbWidth() * 3.0F + pAttackTarget.getBbWidth();
         }
     }
 
@@ -745,7 +566,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
                 .triggerableAnim("chatter", TRIKE_CHATTER)
                 .triggerableAnim("graze", TRIKE_GRAZE)
                 .triggerableAnim("attack", TRIKE_ATTACK)
-                ;
+            ;
         blend.setSoundKeyframeHandler(this::soundListener);
         controllers.add(blend);
     }
@@ -794,7 +615,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
 
         if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC) && !this.isAsleep() && this.getFeetBlockState().is(UPTags.TRIKE_GRAZING_BLOCKS)) {
+            if (getBooleanState(IDLE_1_AC) && !this.isAsleep() && level().getBlockState(this.blockPosition().below()).is(UPTags.TRIKE_GRAZING_BLOCKS)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "graze");
                     return event.setAndContinue(TRIKE_IDLE);

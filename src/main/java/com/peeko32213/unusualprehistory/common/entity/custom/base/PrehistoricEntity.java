@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TriceratopsEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableTempt;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
@@ -62,6 +63,7 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnim
     private static final EntityDataAccessor<Integer> RANDOM_NUMBER = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> RANDOM_BOOL = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Boolean> ASLEEP = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -78,7 +80,9 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnim
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
+        if(!this.isAsleep() && this.getTarget() == null) {
+            this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
+        }
         if(hasAvoidEntity()) {
             this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, TyrannosaurusEntity.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         }
@@ -209,7 +213,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnim
         this.entityData.define(HUNGRY, true);
         this.entityData.define(TIME_TILL_HUNGRY, 0);
         this.entityData.define(SADDLED, false);
-        this.entityData.define(PASSIVE, 0);
         this.entityData.define(IS_FROM_EGG, false);
         this.entityData.define(FROM_BOOK, false);
         this.entityData.define(VARIANT, 0);
@@ -218,6 +221,7 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnim
         this.entityData.define(ANIM_TIMER, 0);
         this.entityData.define(ASLEEP, false);
         this.entityData.define(COMMAND, 0);
+        this.entityData.define(ANIMATION_STATE, 0);
     }
 
     @Override
@@ -226,7 +230,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnim
         compound.putBoolean("IsHungry", this.isHungry());
         compound.putInt("TimeTillHungry", this.getTimeTillHungry());
         compound.putBoolean("Saddle", this.isSaddled());
-        compound.putInt("PassiveTicks", this.getPassiveTicks());
         compound.putBoolean("fromEgg", this.isFromEgg());
         compound.putInt("variant", this.getVariant());
         compound.putInt("randomNr", this.getRandomNumber());
@@ -242,7 +245,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnim
         this.setHungry(compound.getBoolean("IsHungry"));
         this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
         this.setSaddled(compound.getBoolean("Saddle"));
-        this.setPassiveTicks(compound.getInt("PassiveTicks"));
         this.setIsFromEgg(compound.getBoolean("fromEgg"));
         this.setVariant(compound.getInt("variant"));
         this.setRandomNumber(compound.getInt("randomNr"));
@@ -320,24 +322,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnim
      */
     public void setSaddled(boolean saddled) {
         this.entityData.set(SADDLED, saddled);
-    }
-
-    /**
-     * Gets the passive ticks for the entity.
-     *
-     * @return The number of passive ticks for the entity.
-     */
-    public int getPassiveTicks() {
-        return this.entityData.get(PASSIVE);
-    }
-
-    /**
-     * Sets the passive ticks for the entity.
-     *
-     * @param passiveTicks The number of passive ticks to set for the entity.
-     */
-    public void setPassiveTicks(int passiveTicks) {
-        this.entityData.set(PASSIVE, passiveTicks);
     }
 
     /**
@@ -466,6 +450,14 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnim
 
     public void setAnimationTimer(int time) {
         this.entityData.set(ANIM_TIMER,time);
+    }
+
+    public int getAnimationState() {
+        return this.entityData.get(ANIMATION_STATE);
+    }
+
+    public void setAnimationState(int anim) {
+        this.entityData.set(ANIMATION_STATE, anim);
     }
 
     public boolean isStillEnough() {

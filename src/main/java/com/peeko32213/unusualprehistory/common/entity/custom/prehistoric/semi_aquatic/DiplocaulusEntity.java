@@ -345,7 +345,7 @@
          }
 
          if (!this.isInWater()) {
-             if (getBooleanState(IDLE_1_AC) && this.getFeetBlockState().is(UPTags.DIPLO_DIGS)) {
+             if (getBooleanState(IDLE_1_AC) && level().getBlockState(this.blockPosition().below()).is(UPTags.DIPLO_DIGS)) {
                  return event.setAndContinue(DIPLOCAULUS_BURROW_HOLD);
              } else {
                  return PlayState.CONTINUE;

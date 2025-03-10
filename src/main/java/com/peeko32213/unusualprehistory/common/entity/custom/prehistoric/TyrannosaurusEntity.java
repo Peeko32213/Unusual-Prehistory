@@ -41,6 +41,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -197,19 +198,16 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
     protected void registerGoals() {
         super.registerGoals();
 //        this.goalSelector.addGoal(1, new StatedSleepingGoal(this));
-        if(!this.isAsleep() && !this.hasEepy() && !this.hasTargets()) {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        if(!this.isAsleep() && !this.hasEepy() && this.getTarget() == null) {
             this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         }
-
-
-        //this.goalSelector.addGoal(0, new RandomLookAroundGoal(this));
-        //this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new TyrannosaurusEntity.TyrannosaurusMeleeAttackGoal(this, 1.75F, true) {
                 public boolean canUse() {
                     return !isBaby() && level().getDifficulty() != Difficulty.PEACEFUL && !hasEepy() && !isPassive() && super.canUse();
                 }
             });
-        //this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 20));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 20));
         this.targetSelector.addGoal(9, (new HurtByTargetGoal(this) {
                 public boolean canUse() {
                     return !hasEepy() && !isBaby() && !hasEepy() && !isPassive() && super.canUse();
@@ -221,8 +219,8 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
                     return !hasEepy() && !isBaby() && !isPassive() && !hasEepy() && !isSleeping() && super.canUse();
                 }
             });
-        //this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
-        //this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Chicken.class, 12.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Chicken.class, 12.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
     }
 
     public @NotNull InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -338,7 +336,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
         compound.putBoolean("Eepy", this.hasEepy());
         compound.putBoolean("Passive", this.isPassive());
     }
@@ -346,7 +343,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
         this.setEepy(compound.getBoolean("Eepy"));
         this.setPassive(compound.getBoolean("Passive"));
     }
@@ -356,13 +352,12 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         super.defineSynchedData();
 
 
-        SerializableSynchedDataRegistry.REX_VARIANT.defineData(this,0);
+//        SerializableSynchedDataRegistry.REX_VARIANT.defineData(this,0);
 
         this.entityData.define(IDLE_1_AC, false);
         this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(IDLE_3_AC, false);
         this.entityData.define(IDLE_4_AC, false);
-        this.entityData.define(VARIANT, 0);
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(EEPY, false);
         this.entityData.define(PASSIVE, false);
@@ -480,14 +475,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
     @Override
     public ResourceLocation getVariantTexture() {
         return null;
-    }
-
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
     }
 
 

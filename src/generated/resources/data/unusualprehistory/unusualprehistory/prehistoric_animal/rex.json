@@ -88,35 +88,6 @@
                   "walk_speed_modifier": 2.0
                 }
               ]
-            },
-            {
-              "type": "goalsmith:add_goal_operation",
-              "goal": [
-                {
-                  "type": "unusualprehistory:random_state_goal",
-                  "goal_priority": 2,
-                  "state_helpers": [
-                    {
-                      "state_helper": {
-                        "affects_ai": false,
-                        "entity_action_id": {
-                          "action_id": "unusualprehistory:default",
-                          "time_to_perform_action": 0,
-                          "times_to_perform": 1
-                        },
-                        "goal_stop_time": 200,
-                        "name": "tyrannosaurus_shake",
-                        "play_time": 90,
-                        "starting_predicate": {
-                          "type": "goalsmith:true"
-                        },
-                        "state": "unusualprehistory:rex_idle_1_ac"
-                      },
-                      "weight": 11
-                    }
-                  ]
-                }
-              ]
             }
           ],
           "target_goal_operations": [
