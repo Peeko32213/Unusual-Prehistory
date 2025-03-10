@@ -23,7 +23,10 @@
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
  import net.minecraft.world.entity.ai.control.MoveControl;
- import net.minecraft.world.entity.ai.goal.*;
+ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+ import net.minecraft.world.entity.ai.goal.FloatGoal;
+ import net.minecraft.world.entity.ai.goal.Goal;
+ import net.minecraft.world.entity.ai.goal.PanicGoal;
  import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
  import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
  import net.minecraft.world.entity.monster.Monster;

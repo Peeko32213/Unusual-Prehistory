@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.data.entity.goal;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.SerializableRandomStateGoal;

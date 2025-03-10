@@ -5,7 +5,6 @@ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStro
 import com.peeko32213.unusualprehistory.common.entity.util.goal.SleepRandomLookAroundGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -35,7 +34,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;

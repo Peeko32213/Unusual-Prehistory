@@ -3,11 +3,9 @@ package com.peeko32213.unusualprehistory.common.data.entity.synced;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializer;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 
 import java.util.function.Function;
 
@@ -61,7 +59,7 @@ public class SerializableSynchedData<T> implements SerializableSynchedEntityData
     }
 
     @Override
-    public boolean isEqualToSValue(Entity entity, Object input) {
+    public boolean isEqualToValue(Entity entity, Object input) {
         if(input == null) return false;
         return getValueAsString(entity).equals(input.toString());
     }
@@ -72,9 +70,8 @@ public class SerializableSynchedData<T> implements SerializableSynchedEntityData
     }
 
     @Override
-    public void defineData(Entity entity, Object input) {
-        if(input == null) return;
-        entity.getEntityData().define(accessor, fromStringConverter.apply(input.toString()));
+    public void defineData(Entity entity) {
+        entity.getEntityData().define(accessor, fromStringConverter.apply(defaultValue.toString()));
     }
 
     @Override

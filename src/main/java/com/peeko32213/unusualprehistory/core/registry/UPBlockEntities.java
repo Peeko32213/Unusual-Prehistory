@@ -1,8 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.block.entity.UPHangingSignBlockEntity;
-import com.peeko32213.unusualprehistory.common.block.entity.UPSignBlockEntity;
 import com.peeko32213.unusualprehistory.common.block.entity.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;

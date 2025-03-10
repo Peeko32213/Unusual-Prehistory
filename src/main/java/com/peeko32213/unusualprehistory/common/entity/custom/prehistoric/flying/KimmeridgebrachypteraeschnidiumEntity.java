@@ -1,10 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying;
 
-import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
@@ -63,7 +59,6 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.List;
 import java.util.function.IntFunction;
 
 //TODO LIST

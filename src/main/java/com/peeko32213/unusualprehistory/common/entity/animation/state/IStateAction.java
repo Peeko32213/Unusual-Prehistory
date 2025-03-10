@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.animation.state;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.world.entity.Entity;
 
 import java.util.List;

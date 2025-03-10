@@ -3,15 +3,13 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamableStatedPrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.ChatFormatting;
@@ -40,7 +38,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -68,7 +65,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
+public class TyrannosaurusEntity extends TamableStatedPrehistoricEntityOld implements GeoEntity, GeoAnimatable, IVariantEntity {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.INT);
 
@@ -176,15 +173,15 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
     public void setAction(boolean action) {
     }
 
-    public TyrannosaurusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
+    public TyrannosaurusEntity(EntityType<? extends TamableStatedPrehistoricEntityOld> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
     }
 
-//    @Override
-//    protected @NotNull PathNavigation createNavigation(Level levelIn) {
-//        return new SmoothGroundNavigation(this, levelIn);
-//    }
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
@@ -358,6 +355,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(IDLE_3_AC, false);
         this.entityData.define(IDLE_4_AC, false);
+        this.entityData.define(VARIANT, 0);
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(EEPY, false);
         this.entityData.define(PASSIVE, false);
@@ -392,6 +390,11 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
             }
         }
         shakeCooldown--;
+    }
+
+    @Override
+    protected void performAttack() {
+
     }
 
     @Override
@@ -479,7 +482,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
 
 
     // TODO: fight revamp with better attack ai / new attack ai for most things in the mod
-    static class TyrannosaurusMeleeAttackGoal extends Goal {
+    class TyrannosaurusMeleeAttackGoal extends Goal {
 
         protected final TyrannosaurusEntity mob;
         private final double speedModifier;
@@ -815,6 +818,10 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
                 .triggerableAnim("bite_1", TYRANNO_BITE_1);
                 blend.setSoundKeyframeHandler(this::soundListener);
             controllers.add(blend);
+    }
+
+    private boolean isStillEnough() {
+        return this.getDeltaMovement().horizontalDistance() < 0.05;
     }
 
     protected <E extends TyrannosaurusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {

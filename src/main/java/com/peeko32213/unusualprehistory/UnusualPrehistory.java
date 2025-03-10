@@ -92,6 +92,7 @@ public class UnusualPrehistory {
 
         //Register goalsmith goals
         UPGoalRegistry.GOAL_TYPE_SERIALIZER.register(modEventBus);
+        UPSpawnPredicateRegistry.PREDICATE_SERIALIZER.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         PROXY.init();

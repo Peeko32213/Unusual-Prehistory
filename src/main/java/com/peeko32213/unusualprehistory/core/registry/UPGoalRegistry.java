@@ -1,13 +1,10 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomStateGoalCodec;
-import com.scouter.goalsmith.GoalSmith;
 import com.scouter.goalsmith.data.GSRegistries;
 import com.scouter.goalsmith.data.GoalCodec;
-import com.scouter.goalsmith.data.goalcodec.RandomStrollGoalCodec;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 

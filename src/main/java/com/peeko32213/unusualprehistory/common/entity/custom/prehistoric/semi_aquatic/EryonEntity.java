@@ -5,8 +5,8 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.Prehistori
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BottomFeederStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.FindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.LeaveWaterGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;

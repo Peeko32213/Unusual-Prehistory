@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefixS;
 
 public class UPRegistry {
     static { init(); }

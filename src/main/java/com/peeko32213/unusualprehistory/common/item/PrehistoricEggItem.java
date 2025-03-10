@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory.common.item;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.eggs.PrehistoricEggEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggSize;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggVariant;
+import com.peeko32213.unusualprehistory.common.entity.custom.eggs.PrehistoricEggEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

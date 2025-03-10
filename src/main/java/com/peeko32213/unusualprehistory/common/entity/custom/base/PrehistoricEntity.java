@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TriceratopsEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
@@ -8,7 +9,6 @@ import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableTempt;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

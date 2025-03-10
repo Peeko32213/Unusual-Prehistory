@@ -3,14 +3,10 @@ package com.peeko32213.unusualprehistory.datagen.entitydata;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.entity.*;
 import com.peeko32213.unusualprehistory.common.data.entity.attribute.AttributesModifier;
+import com.peeko32213.unusualprehistory.common.data.entity.generic.EntitySpawnData;
+import com.peeko32213.unusualprehistory.common.data.entity.generic.GenericEntityData;
 import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomStateGoalCodec;
-import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.SerializableStateHelper;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedSerializableStateHelper;
-import com.peeko32213.unusualprehistory.core.registry.EntityActionsRegistry;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPTabs;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.scouter.goalsmith.GoalSmith;
 import com.scouter.goalsmith.data.goalcodec.*;
@@ -25,10 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -43,6 +36,7 @@ public class EntityDataGenerator extends EntityDataProvider {
     @Override
     protected void buildEntityData(Consumer<EntityDataConsumer> pWriter) {
         PrehistoricEntityData trexData = new PrehistoricEntityData(
+                EntitySpawnData.getDefaultInstance(),
                 WeightedRandomList.create(
                         new WeightedVariantData(
                                 65,
@@ -78,23 +72,24 @@ public class EntityDataGenerator extends EntityDataProvider {
                                                 .addGoal(new WaterAvoidingRandomStrollGoalCodec(3,1.0D,20))
                                                 .addGoal(new LookAtEntityGoalCodec(6, GSTags.PLAYER, 6,0.02F,false))
                                                 .addGoal(new AvoidEntityGoalCodec(4, getGoalSmithEntityTag("chicken"),new TruePredicate<>(),12F,2D,2D, new NoCreativeOrSpectatorPredicate()))
-//                                                .addGoal(new SerializableRandomStateGoalCodec(2,
-//                                                            WeightedRandomList.create(
-//                                                                    new WeightedSerializableStateHelper(
-//                                                                            11,
-//                                                                            SerializableStateHelper.Builder.state(SerializableSynchedDataRegistry.REX_IDLE_1_AC, "tyrannosaurus_shake")
-//                                                                                    .playTime(90)
-//                                                                                    .stopTime(200)
-//                                                                                    .entityAction(EntityAction.getDefaultInstance())
-//                                                                                    .build()
-//                                                                    )
-//                                                            )
-//                                                        ))
+                                                .addGoal(new SerializableRandomStateGoalCodec(2,
+                                                            WeightedRandomList.create(
+                                                                    //new WeightedSerializableStateHelper(
+                                                                    //        11,
+                                                                    //        SerializableStateHelper.Builder.state(SerializableSynchedDataRegistry.REX_IDLE_1_AC, "tyrannosaurus_shake")
+                                                                    //                .playTime(90)
+                                                                    //                .stopTime(200)
+                                                                    //                .entityAction(EntityAction.getDefaultInstance())
+                                                                    //                .build()
+                                                                    //)
+                                                            )
+                                                        ))
 
                                                 .addTargetGoal(new NearestAttackableTargetGoalCodec(2, UPTags.TYRANNOSAURUS_TARGETS, 10,false,false, new TruePredicate<>()))
                                                 //TODO: this tag should be the one it should ignore, aka itself so it should be a tag with itself in it so this has to be done!
                                                 .addTargetGoal(new HurtByTargetGoalCodec(9, UPTags.TYRANNOSAURUS_TARGETS))
-                                                .build()
+                                                .build(),
+                                        GenericEntityData.getDefaulInstance()
                                 )
                         ),
                         new WeightedVariantData(
@@ -133,7 +128,8 @@ public class EntityDataGenerator extends EntityDataProvider {
                                         .addTargetGoal(new NearestAttackableTargetGoalCodec(2, UPTags.TYRANNOSAURUS_TARGETS, 10,false,false, new TruePredicate<>()))
                                         //TODO: this tag should be the one it should ignore, aka itself so it should be a tag with itself in it so this has to be done!
                                         .addTargetGoal(new HurtByTargetGoalCodec(9, UPTags.TYRANNOSAURUS_TARGETS))
-                                        .build()
+                                        .build(),
+                                        GenericEntityData.getDefaulInstance()
                                 )
                         )
                 )

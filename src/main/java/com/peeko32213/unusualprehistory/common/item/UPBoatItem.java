@@ -1,5 +1,7 @@
 package com.peeko32213.unusualprehistory.common.item;
 
+import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
+import com.peeko32213.unusualprehistory.common.entity.UPChestBoatEntity;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -14,8 +16,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
-import com.peeko32213.unusualprehistory.common.entity.UPChestBoatEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

@@ -4,7 +4,6 @@
  import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
- import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.core.BlockPos;

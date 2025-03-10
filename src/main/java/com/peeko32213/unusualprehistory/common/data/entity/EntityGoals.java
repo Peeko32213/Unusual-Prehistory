@@ -3,7 +3,9 @@ package com.peeko32213.unusualprehistory.common.data.entity;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.scouter.goalsmith.codec.NullableFieldCodec;
-import com.scouter.goalsmith.data.*;
+import com.scouter.goalsmith.data.GoalOperation;
+import com.scouter.goalsmith.data.TargetGoalOperation;
+import net.minecraft.world.entity.PathfinderMob;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,5 +33,18 @@ public class EntityGoals {
 
     public List<TargetGoalOperation> getTargetGoalOperation() {
         return targetGoalOperation;
+    }
+
+    public void addGoals(PathfinderMob mob) {
+        for(GoalOperation goalOperations : goalOperation) {
+            goalOperations.performOperation(mob);
+        }
+        for(TargetGoalOperation targetGoalOperations : targetGoalOperation) {
+            targetGoalOperations.performOperation(mob);
+        }
+    }
+
+    public static EntityGoals getDefaultInstance() {
+        return new EntityGoals(List.of(), List.of());
     }
 }

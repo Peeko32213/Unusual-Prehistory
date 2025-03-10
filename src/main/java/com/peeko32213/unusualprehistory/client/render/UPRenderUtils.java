@@ -1,6 +1,8 @@
 package com.peeko32213.unusualprehistory.client.render;
 
-import com.peeko32213.unusualprehistory.client.render.layer.*;
+import com.peeko32213.unusualprehistory.client.render.layer.ItemHoldingLayer;
+import com.peeko32213.unusualprehistory.client.render.layer.PrehistoricSaddleLayer;
+import com.peeko32213.unusualprehistory.client.render.layer.TamablePrehistoricSaddleLayer;
 import com.peeko32213.unusualprehistory.client.render.prehistoric.PrehistoricRenderer;
 import com.peeko32213.unusualprehistory.client.render.prehistoric.TameableDinosaurRenderer;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;

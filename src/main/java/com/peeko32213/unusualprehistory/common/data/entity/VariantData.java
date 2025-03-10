@@ -4,13 +4,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.data.codec.NullableFieldCodec;
 import com.peeko32213.unusualprehistory.common.data.entity.attribute.AttributesModifier;
-import com.scouter.goalsmith.data.AttributesAdditions;
-import com.scouter.goalsmith.data.GoalData;
+import com.peeko32213.unusualprehistory.common.data.entity.generic.EntitySpawnData;
+import com.peeko32213.unusualprehistory.common.data.entity.generic.GenericEntityData;
 import net.minecraft.util.ExtraCodecs;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.jar.Attributes;
 
 public class VariantData {
 
@@ -18,7 +14,8 @@ public class VariantData {
             ExtraCodecs.POSITIVE_INT.fieldOf("variant_id").forGetter(VariantData::getVariantId),
             NullableFieldCodec.makeDefaultableField("variant_resource_locations", EntityResourceLocationData.CODEC, EntityResourceLocationData.getDefaultInstance()).forGetter(VariantData::getEntityResourceLocationData),
             NullableFieldCodec.makeDefaultableField("attributes", AttributesModifier.CODEC, AttributesModifier.getDefaultInstance()).forGetter(VariantData::getAttributesModifiers),
-            EntityGoals.CODEC.fieldOf("goals").forGetter(VariantData::getEntityGoals)
+            EntityGoals.CODEC.fieldOf("goals").forGetter(VariantData::getEntityGoals),
+            NullableFieldCodec.makeDefaultableField("generic_entity_definitions", GenericEntityData.CODEC, GenericEntityData.getDefaulInstance()).forGetter(VariantData::getGenericEntityData)
     ).apply(instance, VariantData::new));
 
 
@@ -26,12 +23,14 @@ public class VariantData {
     private final EntityResourceLocationData entityResourceLocationData;
     private final AttributesModifier attributesModifiers;
     private final EntityGoals entityGoals;
+    private final GenericEntityData genericEntityData;
 
-    public VariantData(int variantId, EntityResourceLocationData entityResourceLocationData, AttributesModifier attributesModifiers, EntityGoals entityGoals) {
+    public VariantData(int variantId, EntityResourceLocationData entityResourceLocationData, AttributesModifier attributesModifiers, EntityGoals entityGoals, GenericEntityData genericEntityData) {
         this.variantId = variantId;
         this.entityResourceLocationData = entityResourceLocationData;
         this.attributesModifiers = attributesModifiers;
         this.entityGoals = entityGoals;
+        this.genericEntityData = genericEntityData;
     }
 
     public int getVariantId() {
@@ -48,6 +47,15 @@ public class VariantData {
 
     public EntityGoals getEntityGoals() {
         return entityGoals;
+    }
+
+    public GenericEntityData getGenericEntityData() {
+        return genericEntityData;
+    }
+
+
+    public static VariantData getDefaultInstance() {
+        return new VariantData(0, EntityResourceLocationData.getDefaultInstance(), AttributesModifier.getDefaultInstance(), EntityGoals.getDefaultInstance(), GenericEntityData.getDefaulInstance());
     }
 }
 

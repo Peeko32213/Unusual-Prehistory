@@ -1,13 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 //import com.peeko32213.unusualprehistory.common.entity.arrow.PsittaccoArrow;
-import net.minecraft.core.Position;
-import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.DispenserBlock;
 
 public class UPDispenserRegistry {
     public static void registerDispenserBehaviour() {

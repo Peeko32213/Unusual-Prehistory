@@ -1,13 +1,13 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
-import com.peeko32213.unusualprehistory.common.entity.projectile.HwachavenatorSpikeEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.projectile.HwachavenatorSpikeEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.ChatFormatting;

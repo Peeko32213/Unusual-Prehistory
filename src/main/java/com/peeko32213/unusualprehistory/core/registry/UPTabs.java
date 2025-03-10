@@ -1,10 +1,10 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.data.RollableItemCodec;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.ItemWeightedPairCodec;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
-import com.peeko32213.unusualprehistory.common.data.RollableItemCodec;
 import com.peeko32213.unusualprehistory.common.item.MusicalTameItem;
 import com.peeko32213.unusualprehistory.common.item.PrehistoricEggItem;
 import net.minecraft.core.HolderLookup;

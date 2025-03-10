@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry.util;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.peeko32213.unusualprehistory.core.registry.UPAdvancementTriggerRegistry;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;

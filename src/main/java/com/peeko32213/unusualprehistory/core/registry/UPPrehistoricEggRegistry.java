@@ -7,7 +7,6 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.RegistryObject;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;

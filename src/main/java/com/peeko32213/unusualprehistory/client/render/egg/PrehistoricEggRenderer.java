@@ -2,9 +2,7 @@ package com.peeko32213.unusualprehistory.client.render.egg;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.client.model.entity.egg.PrehistoricEggModel;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.PrehistoricEggEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

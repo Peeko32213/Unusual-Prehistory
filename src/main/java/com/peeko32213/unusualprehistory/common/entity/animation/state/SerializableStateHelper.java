@@ -7,13 +7,10 @@ import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSy
 import com.peeko32213.unusualprehistory.core.registry.util.CodecUtils;
 import com.scouter.goalsmith.data.PredicateCodec;
 import com.scouter.goalsmith.data.predicates.TruePredicate;
-import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
-import java.util.function.Predicate;
 
 public class SerializableStateHelper {
 
@@ -26,7 +23,7 @@ public class SerializableStateHelper {
             Codec.BOOL.fieldOf("affects_ai").forGetter(SerializableStateHelper::isAffectsAI),
             CodecUtils.enumSetCodec(CodecUtils.GOAL_FLAG_CODEC).optionalFieldOf("affected_flags", EnumSet.noneOf(Goal.Flag.class)).forGetter(SerializableStateHelper::getAffectedFlags),
             PredicateCodec.DIRECT_CODEC.fieldOf("starting_predicate").forGetter(SerializableStateHelper::getStartingPredicate),
-            EntityAction.CODEC.fieldOf("entity_action_id").forGetter(SerializableStateHelper::getEntityAction)
+            EntityAction.CODEC.fieldOf("entity_action").forGetter(SerializableStateHelper::getEntityAction)
     ).apply(instance, (serializableSynchedEntityData, s, integer, integer2, aBoolean, flags, predicateCodec, entityAction1) -> new SerializableStateHelper(serializableSynchedEntityData, s, integer, integer2, aBoolean, flags, (PredicateCodec<Entity>)predicateCodec, entityAction1)));
 
 

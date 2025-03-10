@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.eggs;
 
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import com.peeko32213.unusualprehistory.common.entity.animation.AnimationHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;

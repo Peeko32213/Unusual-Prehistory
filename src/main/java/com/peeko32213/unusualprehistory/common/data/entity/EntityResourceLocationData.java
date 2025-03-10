@@ -5,8 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.Map;
-
 public class EntityResourceLocationData {
 
     public static final Codec<EntityResourceLocationData> CODEC = RecordCodecBuilder.create(inst -> inst

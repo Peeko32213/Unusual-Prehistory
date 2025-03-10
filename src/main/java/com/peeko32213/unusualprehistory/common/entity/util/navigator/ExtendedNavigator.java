@@ -35,13 +35,15 @@ public interface ExtendedNavigator {
 
     /**
      * Helper overload getter for retrieving the entity from {@link PathNavigation#mob}
+     * For now change this as it crashes out of dev
      */
-    Mob getMob();
+    Mob getMobEN();
 
     /**
      * Helper overload getter for retrieving the path from {@link PathNavigation#path}
+     * For now change this as it crashes out of dev
      */
-    Path getPath();
+    Path getPathEN();
 
     /**
      * @return Whether the given path type can be pathed onto, or otherwise be considered a pathable surface
@@ -71,8 +73,8 @@ public interface ExtendedNavigator {
      * @see PathNavigation#getMaxDistanceToWaypoint()
      */
     default boolean isCloseToNextNode(float distance) {
-        final Mob mob = getMob();
-        final Path path = getPath();
+        final Mob mob = getMobEN();
+        final Path path = getPathEN();
         final Vec3 nextNodePos = getEntityPosAtNode(path.getNextNodeIndex());
 
         return Math.abs(mob.getX() - nextNodePos.x) < distance &&
@@ -84,8 +86,8 @@ public interface ExtendedNavigator {
      * @return Whether the path the mob is following is about to cause a change in elevation (either up or down), accounting for potentially skippable nodes based on the entity's stride size
      */
     default boolean isAboutToTraverseVertically() {
-        final Mob mob = getMob();
-        final Path path = getPath();
+        final Mob mob = getMobEN();
+        final Path path = getPathEN();
         final int fromNode = path.getNextNodeIndex();
         final int fromNodeHeight = path.getNode(fromNode).y;
         final int toNode = Math.min(path.getNodeCount(), fromNode + Mth.ceil(mob.getBbWidth() * 0.5d) + 1);
@@ -108,8 +110,8 @@ public interface ExtendedNavigator {
      * @return Whether the shortcut was successful or not
      */
     default boolean attemptShortcut(int targetNode, Vec3 safeSurfacePos) {
-        final Mob mob = getMob();
-        final Path path = getPath();
+        final Mob mob = getMobEN();
+        final Path path = getPathEN();
         final Vec3 position = mob.position();
         final Vec3 minBounds = safeSurfacePos.add(-mob.getBbWidth() * 0.5d, 0, -mob.getBbWidth() * 0.5d);
         final Vec3 maxBounds = minBounds.add(mob.getBbWidth(), mob.getBbHeight(), mob.getBbWidth());
@@ -136,8 +138,8 @@ public interface ExtendedNavigator {
      * @return The approximate position of the entity for the given node
      */
     default Vec3 getEntityPosAtNode(int nodeIndex) {
-        final Mob mob = getMob();
-        final Path path = getPath();
+        final Mob mob = getMobEN();
+        final Path path = getPathEN();
         final double lateralOffset = Mth.floor(mob.getBbWidth() + 1d) / 2d;
 
         return Vec3.atLowerCornerOf(path.getNodePos(nodeIndex)).add(lateralOffset, 0, lateralOffset);
@@ -187,7 +189,7 @@ public interface ExtendedNavigator {
      * @return Whether the given bounds would collide for the given trajectory
      */
     default boolean collidesWhileTraversing(VoxelRayDetails ray, float traversalDistance) {
-        final Mob mob = getMob();
+        final Mob mob = getMobEN();
         final Level level = mob.level();
 
         try (BulkSectionAccess sectionAccess = new BulkSectionAccess(level)) {

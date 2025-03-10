@@ -4,14 +4,10 @@
  import com.google.common.collect.ImmutableMap;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.*;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
- import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TriceratopsEntity;
- import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.UlughbegsaurusEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.FindWaterGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.LeaveWaterGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.SemiAquaticSwimmingGoal;
- import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
@@ -39,7 +35,6 @@
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
- import net.minecraft.world.entity.animal.Animal;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
@@ -51,7 +46,6 @@
  import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.animatable.GeoEntity;
  import software.bernie.geckolib.core.animatable.GeoAnimatable;
- import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
  import software.bernie.geckolib.core.animation.RawAnimation;

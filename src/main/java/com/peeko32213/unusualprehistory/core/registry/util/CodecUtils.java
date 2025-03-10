@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.core.registry.util;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -50,4 +51,14 @@ public class CodecUtils {
         return Codec.list(elementCodec)
                 .xmap(EnumSet::copyOf, List::copyOf);
     }
+
+    public static final Codec<SoundSource> SOUND_SOURCE_CODEC = Codec.STRING.comapFlatMap(s -> {
+        for (SoundSource source : SoundSource.values()) {
+            if (source.getName().equals(s)) {
+                return DataResult.success(source);
+            }
+        }
+        return DataResult.error(() -> "Unknown SoundSource: " + s);
+    }, SoundSource::getName);
+
 }
