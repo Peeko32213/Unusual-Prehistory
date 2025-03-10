@@ -1,0 +1,140 @@
+{
+  "entity_spawn_definitions": {
+    "spawn_predicate": {
+      "type": "unusualprehistory:and_spawn",
+      "first": {
+        "type": "unusualprehistory:is_block_state_spawn",
+        "block_type": {
+          "tag": "unusualprehistory:dino_natural_spawnable"
+        },
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "second": {
+        "type": "unusualprehistory:is_bright_enough_to_spawn",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "required_light": 8
+      }
+    },
+    "spawns_naturally": false
+  },
+  "variants": [
+    {
+      "variant": {
+        "attributes": {
+          "attribute_definitions": [
+            {
+              "attribute": "minecraft:generic.max_health",
+              "value": 3000.0
+            },
+            {
+              "attribute": "minecraft:generic.movement_speed",
+              "value": 1.0
+            },
+            {
+              "attribute": "minecraft:generic.attack_damage",
+              "value": 1600.0
+            },
+            {
+              "attribute": "minecraft:generic.knockback_resistance",
+              "value": 100.0
+            },
+            {
+              "attribute": "minecraft:generic.follow_range",
+              "value": 16.0
+            }
+          ]
+        },
+        "generic_entity_definitions": {
+          "can_be_collided_with": true,
+          "can_collide_with": true,
+          "entity_damage_type_definitions": {
+            "is_invulnerable_to": [
+              "minecraft:generic"
+            ]
+          },
+          "entity_dimensions": {
+            "height": 1.0,
+            "width": 1.0
+          },
+          "entity_sound_definitions": {
+            "ambient_sound": "unusualprehistory:tyrannosaurus_idle",
+            "death_sound": "unusualprehistory:tyrannosaurus_death",
+            "hurt_sound": "unusualprehistory:talpanas_hurt",
+            "pitch": 1.0,
+            "volume": 1.25
+          },
+          "is_attackable": true,
+          "is_pushable": {
+            "type": "goalsmith:true"
+          },
+          "screen_shake_definitions": {},
+          "spawns_naturally": false,
+          "turns_head": true
+        },
+        "goals": {
+          "goal_operations": [
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:random_look_around_goal",
+                  "goal_priority": 0
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:float_goal",
+                  "goal_priority": 0
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:water_avoiding_random_stroll_goal",
+                  "goal_priority": 3,
+                  "probability": 20.0,
+                  "speed_modifier": 1.0
+                }
+              ]
+            },
+            {
+              "type": "goalsmith:add_goal_operation",
+              "goal": [
+                {
+                  "type": "goalsmith:look_at_entity_goal",
+                  "goal_priority": 6,
+                  "look_at_type": "goalsmith:player",
+                  "look_distance": 6.0,
+                  "only_horizontal": false,
+                  "probability": 0.02
+                }
+              ]
+            }
+          ],
+          "target_goal_operations": []
+        },
+        "variant_id": 1,
+        "variant_resource_locations": {
+          "animation_location": "unusualprehistory:animations/telecrex.animation.json",
+          "model_location": "unusualprehistory:geo/telecrex.geo.json",
+          "render_type": "minecraft:entity_cutout",
+          "texture_location": "unusualprehistory:textures/telecrex.png"
+        }
+      },
+      "weight": 100
+    }
+  ]
+}

@@ -78,8 +78,8 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         super(pEntityType, pLevel);
     }
 
-    
-    abstract ResourceLocation getEntityDataResourceLocation();
+
+    protected abstract ResourceLocation getEntityDataResourceLocation();
 
     private PrehistoricEntityData getPrehistoricEntityData() {
         return getPrehistoricEntityData(getEntityDataResourceLocation());

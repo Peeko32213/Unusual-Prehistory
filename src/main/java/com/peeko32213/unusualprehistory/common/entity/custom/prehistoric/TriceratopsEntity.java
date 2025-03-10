@@ -495,10 +495,6 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 1.0F, this.mob.getVoicePitch());
             HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.5f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
-
-        protected double getAttackReachSqr(LivingEntity pAttackTarget) {
-            return this.mob.getBbWidth() * 1.75F * this.mob.getBbWidth() * 3.0F + pAttackTarget.getBbWidth();
-        }
     }
 
     protected void ageBoundaryReached() {
