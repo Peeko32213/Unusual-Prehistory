@@ -60,13 +60,6 @@ public class TelecrexEntity extends PrehistoricEntityDatafied {
         super(entityType, level);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 10.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.15D);
-    }
-
-
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
         this.playSound(SoundEvents.CHICKEN_STEP, 0.1F, 1.0F);
     }
