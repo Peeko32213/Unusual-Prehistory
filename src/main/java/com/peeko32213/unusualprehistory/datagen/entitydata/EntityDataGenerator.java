@@ -3,10 +3,13 @@ package com.peeko32213.unusualprehistory.datagen.entitydata;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.entity.*;
 import com.peeko32213.unusualprehistory.common.data.entity.attribute.AttributesModifier;
+import com.peeko32213.unusualprehistory.common.data.entity.generic.EntityDamageTypeData;
+import com.peeko32213.unusualprehistory.common.data.entity.generic.EntitySoundData;
 import com.peeko32213.unusualprehistory.common.data.entity.generic.EntitySpawnData;
 import com.peeko32213.unusualprehistory.common.data.entity.generic.GenericEntityData;
 import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomStateGoalCodec;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.scouter.goalsmith.GoalSmith;
 import com.scouter.goalsmith.data.goalcodec.*;
@@ -18,8 +21,11 @@ import com.scouter.goalsmith.util.GSTags;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
@@ -134,7 +140,7 @@ public class EntityDataGenerator extends EntityDataProvider {
 //                        )
 //                )
 
-                PrehistoricEntityData telecrexData = new PrehistoricEntityData(
+        PrehistoricEntityData telecrexData = new PrehistoricEntityData(
                 EntitySpawnData.getDefaultInstance(),
                 WeightedRandomList.create(
                         new WeightedVariantData(
@@ -143,35 +149,54 @@ public class EntityDataGenerator extends EntityDataProvider {
                                         1,
                                         new EntityResourceLocationData(
                                                 new ResourceLocation(UnusualPrehistory.MODID, "geo/telecrex.geo.json"),
-                                                new ResourceLocation(UnusualPrehistory.MODID, "textures/telecrex.png"),
+                                                new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/telecrex.png"),
                                                 new ResourceLocation(UnusualPrehistory.MODID, "animations/telecrex.animation.json"),
-                                                UPRenderTypes.getRenderType(ResourceLocation.tryParse("entity_cutout"))
+                                                UPRenderTypes.getRenderType(ResourceLocation.tryParse("entity_cutout_no_cull"))
                                         ),
                                         new AttributesModifier(List.of(
                                                 new AttributesModifier.AttributesMap(
-                                                        Attributes.MAX_HEALTH,3000D
+                                                        Attributes.MAX_HEALTH, 3000D
                                                 ),
                                                 new AttributesModifier.AttributesMap(
-                                                        Attributes.MOVEMENT_SPEED,1.0D
+                                                        Attributes.MOVEMENT_SPEED, 1.0D
                                                 ),
                                                 new AttributesModifier.AttributesMap(
-                                                        Attributes.ATTACK_DAMAGE,1600D
+                                                        Attributes.ATTACK_DAMAGE, 1600D
                                                 ),
                                                 new AttributesModifier.AttributesMap(
-                                                        Attributes.KNOCKBACK_RESISTANCE,100.0D
+                                                        Attributes.KNOCKBACK_RESISTANCE, 100.0D
                                                 ),
                                                 new AttributesModifier.AttributesMap(
-                                                        Attributes.FOLLOW_RANGE,16D
+                                                        Attributes.FOLLOW_RANGE, 16D
                                                 )
                                         )
                                         ),
                                         new EntityGoalsBuilder()
-                                                .addGoal(new RandomLookAroundGoalCodec(0))
-                                                .addGoal(new FloatGoalCodec(0))
-                                                .addGoal(new WaterAvoidingRandomStrollGoalCodec(3,1.0D,20))
-                                                .addGoal(new LookAtEntityGoalCodec(6, GSTags.PLAYER, 6,0.02F,false))
+                                                .addGoals(new RandomLookAroundGoalCodec(0),
+                                                        new FloatGoalCodec(0),
+                                                        new WaterAvoidingRandomStrollGoalCodec(3, 1.0D, 20),
+                                                        new LookAtEntityGoalCodec(6, GSTags.PLAYER, 6, 0.02F, false),
+                                                        new PanicGoalCodec(1,1.25D),
+                                                        new TemptGoalCodec(4, 1.2D, ItemTags.LEAVES, false)
+                                                )
+                                                //this one should probably be itself but its a tag of things it should be bothered by when attacked by it
+                                                .addTargetGoals(new HurtByTargetGoalCodec(8, GSTags.PLAYER))
+
                                                 .build(),
-                                        GenericEntityData.getDefaulInstance()
+                                        new GenericEntityData(true,true,false,true, true, new TruePredicate<>(),
+                                                new EntityDamageTypeData(
+                                                        List.of(
+                                                                DamageTypes.FALL,
+                                                                DamageTypes.IN_WALL
+                                                        )
+                                                ),
+                                                new EntitySoundData(
+                                                        UPSounds.ANURO_IDLE.get(),
+                                                        UPSounds.TALPANAS_HURT.get(),
+                                                        UPSounds.TYRANNO_DEATH.get(),
+                                                        1,
+                                                        1
+                                                ))
                                 )
                         )
                 )

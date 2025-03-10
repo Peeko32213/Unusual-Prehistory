@@ -49,6 +49,10 @@ public class GenericEntityData {
         this(canCollideWith, canBeCollidedWith ,spawnsNaturally, isAttackable,turnsHead,isPushable, EntityDamageTypeData.getDefaultInstance(), ScreenShakeEntityData.getDefaultInstance(), EntityDimensionData.getDefaultInstance(), entitySoundData);
     }
 
+    public GenericEntityData(boolean canCollideWith, boolean canBeCollidedWith, boolean spawnsNaturally, boolean isAttackable, boolean turnsHead, PredicateCodec<Entity> isPushable, EntityDamageTypeData entityDamageTypeData, EntitySoundData entitySoundData) {
+        this(canCollideWith, canBeCollidedWith ,spawnsNaturally, isAttackable,turnsHead,isPushable, entityDamageTypeData, ScreenShakeEntityData.getDefaultInstance(), EntityDimensionData.getDefaultInstance(), entitySoundData);
+    }
+
     public GenericEntityData(boolean canCollideWith, boolean canBeCollidedWith, boolean spawnsNaturally, boolean isAttackable, boolean turnsHead, PredicateCodec<Entity> isPushable, EntityDimensionData entityDimensionData) {
         this(canCollideWith, canBeCollidedWith ,spawnsNaturally, isAttackable,turnsHead,isPushable, EntityDamageTypeData.getDefaultInstance(), ScreenShakeEntityData.getDefaultInstance(), entityDimensionData, EntitySoundData.getDefaultInstance());
     }

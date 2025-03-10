@@ -41,13 +41,16 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 import java.util.Optional;
 
-public class TelecrexEntity extends PrehistoricEntityDatafied {
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
-    private Ingredient temptationItems;
+public class TelecrexEntity extends PrehistoricEntityDatafied {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
 
     private static final RawAnimation TELECREX_WALK = RawAnimation.begin().thenLoop("animation.telecrex.walk");
     private static final RawAnimation TELECREX_IDLE = RawAnimation.begin().thenLoop("animation.telecrex.idle");
@@ -63,28 +66,6 @@ public class TelecrexEntity extends PrehistoricEntityDatafied {
             .add(Attributes.MOVEMENT_SPEED, 0.15D);
     }
 
-    @Override
-    protected void registerGoals() {
-//        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
-//        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-//        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
-//        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-    }
-
-    private Ingredient getTemptationItems() {
-        if (temptationItems == null)
-            temptationItems = Ingredient.merge(Lists.newArrayList(
-                    Ingredient.of(ItemTags.LEAVES)
-            ));
-
-        return temptationItems;
-    }
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UPSounds.TALPANAS_HURT.get();
-    }
 
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
         this.playSound(SoundEvents.CHICKEN_STEP, 0.1F, 1.0F);
@@ -98,21 +79,10 @@ public class TelecrexEntity extends PrehistoricEntityDatafied {
 
     @Override
     protected ResourceLocation getEntityDataResourceLocation() {
-        return new ResourceLocation(UnusualPrehistory.MODID, "unusualprehistory/prehistoric_animal/telecrex.json");
+        return prefix("telecrex");
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-    }
 
-    public void tick() {
-        super.tick();
-    }
-
-    @Override
-    public boolean isInvulnerableTo(DamageSource source) {
-        return source.is(DamageTypes.FALL) || source.is(DamageTypes.IN_WALL);
-    }
 
     protected <E extends TelecrexEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
@@ -139,7 +109,7 @@ public class TelecrexEntity extends PrehistoricEntityDatafied {
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return null;
+        return cache;
     }
 
     @Override

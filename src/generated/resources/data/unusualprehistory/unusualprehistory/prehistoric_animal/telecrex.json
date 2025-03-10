@@ -57,7 +57,8 @@
           "can_collide_with": true,
           "entity_damage_type_definitions": {
             "is_invulnerable_to": [
-              "minecraft:generic"
+              "minecraft:fall",
+              "minecraft:in_wall"
             ]
           },
           "entity_dimensions": {
@@ -65,11 +66,11 @@
             "width": 1.0
           },
           "entity_sound_definitions": {
-            "ambient_sound": "unusualprehistory:tyrannosaurus_idle",
+            "ambient_sound": "unusualprehistory:anuro_idle",
             "death_sound": "unusualprehistory:tyrannosaurus_death",
             "hurt_sound": "unusualprehistory:talpanas_hurt",
             "pitch": 1.0,
-            "volume": 1.25
+            "volume": 1.0
           },
           "is_attackable": true,
           "is_pushable": {
@@ -87,32 +88,17 @@
                 {
                   "type": "goalsmith:random_look_around_goal",
                   "goal_priority": 0
-                }
-              ]
-            },
-            {
-              "type": "goalsmith:add_goal_operation",
-              "goal": [
+                },
                 {
                   "type": "goalsmith:float_goal",
                   "goal_priority": 0
-                }
-              ]
-            },
-            {
-              "type": "goalsmith:add_goal_operation",
-              "goal": [
+                },
                 {
                   "type": "goalsmith:water_avoiding_random_stroll_goal",
                   "goal_priority": 3,
                   "probability": 20.0,
                   "speed_modifier": 1.0
-                }
-              ]
-            },
-            {
-              "type": "goalsmith:add_goal_operation",
-              "goal": [
+                },
                 {
                   "type": "goalsmith:look_at_entity_goal",
                   "goal_priority": 6,
@@ -120,18 +106,59 @@
                   "look_distance": 6.0,
                   "only_horizontal": false,
                   "probability": 0.02
+                },
+                {
+                  "type": "goalsmith:panic_goal",
+                  "goal_priority": 1,
+                  "panic_predicate": {
+                    "type": "goalsmith:or",
+                    "predicate_1": {
+                      "type": "goalsmith:or",
+                      "predicate_1": {
+                        "type": "goalsmith:negate",
+                        "predicate": {
+                          "type": "goalsmith:last_hurt_by_mob_is_null"
+                        }
+                      },
+                      "predicate_2": {
+                        "type": "goalsmith:is_freezing"
+                      }
+                    },
+                    "predicate_2": {
+                      "type": "goalsmith:is_on_fire"
+                    }
+                  },
+                  "speed_modifier": 1.25
+                },
+                {
+                  "type": "goalsmith:tempt_goal",
+                  "can_scare": false,
+                  "goal_priority": 4,
+                  "items": "minecraft:leaves",
+                  "speed_modifier": 1.2
                 }
               ]
             }
           ],
-          "target_goal_operations": []
+          "target_goal_operations": [
+            {
+              "type": "goalsmith:add_target_goal_operation",
+              "target_goal": [
+                {
+                  "type": "goalsmith:hurt_by_target_goal",
+                  "target_goal_priority": 8,
+                  "to_ignore": "goalsmith:player"
+                }
+              ]
+            }
+          ]
         },
         "variant_id": 1,
         "variant_resource_locations": {
           "animation_location": "unusualprehistory:animations/telecrex.animation.json",
           "model_location": "unusualprehistory:geo/telecrex.geo.json",
-          "render_type": "minecraft:entity_cutout",
-          "texture_location": "unusualprehistory:textures/telecrex.png"
+          "render_type": "minecraft:entity_cutout_no_cull",
+          "texture_location": "unusualprehistory:textures/entity/telecrex.png"
         }
       },
       "weight": 100

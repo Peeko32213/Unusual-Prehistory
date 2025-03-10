@@ -142,6 +142,8 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         super.defineSynchedData();
         this.entityData.define(HEIGHT_SCALE, 1F);
         this.entityData.define(WIDTH_SCALE, 1F);
+        this.entityData.define(VARIANT_ID, 0);
+        this.entityData.define(TOGGLE_FLAGS, 0);
         this.entityData.define(TEXTURE_LOCATION, DEFAULT_LOC);
         this.entityData.define(MODEL_LOCATION, DEFAULT_LOC);
         this.entityData.define(ANIMATION_LOCATION, DEFAULT_LOC);
