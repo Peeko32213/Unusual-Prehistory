@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.client.render.prehistoric.data;
 
+import com.peeko32213.unusualprehistory.client.model.data.PrehistoricEntityDatafiedModel;
 import com.peeko32213.unusualprehistory.common.data.entity.UPRenderTypes;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.data.PrehistoricEntityDatafied;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartEntity;
@@ -12,8 +13,8 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class PrehistoricEntityDatafiedRenderer extends GeoEntityRenderer<PrehistoricEntityDatafied> {
-    public PrehistoricEntityDatafiedRenderer(EntityRendererProvider.Context renderManager, GeoModel<PrehistoricEntityDatafied> model) {
-        super(renderManager, model);
+    public PrehistoricEntityDatafiedRenderer(EntityRendererProvider.Context renderManager) {
+        super(renderManager, new PrehistoricEntityDatafiedModel());
     }
 
     @Override
