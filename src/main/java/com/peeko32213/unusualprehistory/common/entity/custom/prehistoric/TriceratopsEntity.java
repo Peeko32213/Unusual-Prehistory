@@ -794,7 +794,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
 
         if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_1_AC) && !this.isAsleep() && this.getFeetBlockState().is(UPTags.TRIKE_GRAZING_BLOCKS)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "graze");
                     return event.setAndContinue(TRIKE_IDLE);

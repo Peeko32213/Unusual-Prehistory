@@ -95,6 +95,13 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(Blocks.MUD)
         ;
 
+        tag(UPTags.TRIKE_GRAZING_BLOCKS)
+                .addTag(BlockTags.LEAVES)
+                .add(Blocks.GRASS_BLOCK)
+                .add(Blocks.PODZOL)
+                .add(Blocks.MYCELIUM)
+        ;
+
         tag(UPTags.MEGATHERIUM_EATABLES)
                 .addTag(BlockTags.LEAVES);
 

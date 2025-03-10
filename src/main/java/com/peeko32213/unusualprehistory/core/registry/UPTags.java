@@ -129,6 +129,8 @@ public class UPTags {
 
     public static final TagKey<Block> DIPLO_DIGS = registerBlockTag("diplocaulus_burrow_blocks");
 
+    public static final TagKey<Block> TRIKE_GRAZING_BLOCKS = registerBlockTag("triceratops_grazing_blocks");
+
     public static final TagKey<Block> MEGATHERIUM_EATABLES = registerBlockTag("megatherium_breakables");
     public static final TagKey<Block> MEGATHERIUM_MINEABLES = registerBlockTag("megatherium_mineables");
 
