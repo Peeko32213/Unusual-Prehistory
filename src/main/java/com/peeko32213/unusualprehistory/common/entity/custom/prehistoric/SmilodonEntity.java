@@ -91,11 +91,11 @@ public class SmilodonEntity extends PrehistoricEntityOld implements IVariantEnti
                 return !isBaby() && super.canUse();
             }
         });
-        this.goalSelector.addGoal(1, new PounceGoal(this, 5){
-            public boolean canUse() {
-                return !isBaby() && super.canUse();
-            }
-        });
+//        this.goalSelector.addGoal(1, new PounceGoal(this, 5){
+//            public boolean canUse() {
+//                return !isBaby() && super.canUse();
+//            }
+//        });
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));

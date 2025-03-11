@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.client.render.prehistoric;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -11,6 +12,8 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
+
+import java.util.Locale;
 
 public class StatedPrehistoricRenderer<T extends PrehistoricEntity> extends GeoEntityRenderer<T> {
 
@@ -29,6 +32,13 @@ public class StatedPrehistoricRenderer<T extends PrehistoricEntity> extends GeoE
 
         if (animatable.isBaby()) {
             stackIn.scale(0.5F, 0.5F, 0.5F);
+        }
+
+        if (animatable instanceof VelociraptorEntity velociraptor) {
+
+            if (velociraptor.hasCustomName() && "gigantoraptor".equals(velociraptor.getName().getString().toLowerCase(Locale.ROOT)) && !velociraptor.isBaby()) {
+                stackIn.scale(2F, 2F, 2F);
+            }
         }
 
     }

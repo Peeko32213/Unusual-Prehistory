@@ -254,7 +254,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.TRICERATOPS.get(), e -> new StatedPrehistoricRenderer<>(e, new TriceratopsModel()));
         event.registerEntityRenderer(UPEntities.TYRANNOSAURUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TyrannosaurusModel()));
         event.registerEntityRenderer(UPEntities.ULUG.get(), e -> new StatedPrehistoricRenderer<>(e, new UlughbegsaurusModel()));
-        event.registerEntityRenderer(UPEntities.VELOCIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new VelociraptorModel()));
+        event.registerEntityRenderer(UPEntities.VELOCIRAPTOR.get(), e -> new StatedPrehistoricRenderer<>(e, new VelociraptorModel()));
         event.registerEntityRenderer(UPEntities.XIPH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new XiphactinusModel()));
 
         // Ceno mobs

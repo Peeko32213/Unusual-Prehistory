@@ -136,6 +136,12 @@
                   "goal_priority": 4,
                   "items": "minecraft:leaves",
                   "speed_modifier": 1.2
+                },
+                {
+                  "type": "goalsmith:melee_attack_goal",
+                  "following_target_even_if_not_seen": true,
+                  "goal_priority": 1,
+                  "speed_modifier": 3.25
                 }
               ]
             }

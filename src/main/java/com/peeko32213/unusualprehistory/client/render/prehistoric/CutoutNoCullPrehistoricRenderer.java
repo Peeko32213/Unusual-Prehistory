@@ -31,14 +31,14 @@ public class CutoutNoCullPrehistoricRenderer<T extends PrehistoricEntityOld> ext
     @Override
     public void preRender(PoseStack stackIn, T animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.preRender(stackIn, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
-        if (animatable instanceof VelociraptorEntity) {
-            VelociraptorEntity velociraptor = (VelociraptorEntity) animatable;
-
-            if (velociraptor.hasCustomName() && "gigantoraptor".equals(velociraptor.getName().getString().toLowerCase(Locale.ROOT)) && !velociraptor.isBaby()) {
-                stackIn.scale(2F, 2F, 2F);
-                return;
-            }
-        }
+//        if (animatable instanceof VelociraptorEntity) {
+//            VelociraptorEntity velociraptor = (VelociraptorEntity) animatable;
+//
+//            if (velociraptor.hasCustomName() && "gigantoraptor".equals(velociraptor.getName().getString().toLowerCase(Locale.ROOT)) && !velociraptor.isBaby()) {
+//                stackIn.scale(2F, 2F, 2F);
+//                return;
+//            }
+//        }
         if(animatable instanceof AustroraptorEntity austroraptor)
         {
             if(austroraptor.isBaby()) stackIn.scale(0.3F, 0.3F, 0.3F);

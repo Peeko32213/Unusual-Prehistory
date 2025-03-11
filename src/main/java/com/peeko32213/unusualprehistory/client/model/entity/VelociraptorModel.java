@@ -40,7 +40,7 @@ public class VelociraptorModel extends GeoModel<VelociraptorEntity> {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Velo_Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
         if (animatable.isBaby()) {
             head.setScaleX(1.75F);
             head.setScaleY(1.75F);

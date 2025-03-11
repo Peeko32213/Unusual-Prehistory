@@ -9,8 +9,10 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.EnumSet;
 import java.util.Objects;
 
 public class DelayedAttackGoal extends Goal {
@@ -23,7 +25,7 @@ public class DelayedAttackGoal extends Goal {
     private double pathedTargetY;
     private double pathedTargetZ;
     protected int ticksUntilNextPathRecalculation;
-    private int ticksUntilNextAttack;
+    protected int ticksUntilNextAttack;
     private long lastCanUseCheck;
     private int failedPathFindingPenalty = 0;
     private boolean canPenalize = false;
@@ -33,6 +35,7 @@ public class DelayedAttackGoal extends Goal {
         this.mob = pMob;
         this.speedModifier = pSpeedModifier;
         this.followingTargetEvenIfNotSeen = pFollowingTargetEvenIfNotSeen;
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
     public boolean canUse() {
@@ -103,7 +106,6 @@ public class DelayedAttackGoal extends Goal {
             this.mob.setTarget(null);
         }
         this.mob.setAggressive(false);
-        this.mob.getNavigation().stop();
         this.mob.setAnimationState(0);
     }
 
@@ -113,17 +115,18 @@ public class DelayedAttackGoal extends Goal {
         double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
         double reach = this.getAttackReachSqr(target);
         int animState = this.mob.getAnimationState();
+        Vec3 aim = this.mob.getLookAngle();
+        Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
 
-        if (animState == 1) {
-            tickAttack();
-        }
-
-        else {
-            this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-            this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-            this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-            this.doMovement(target, distance);
-            this.checkForCloseRangeAttack(distance, reach);
+        switch (animState) {
+            case 1 -> tickAttack();
+            default -> {
+                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                this.doMovement(target, distance);
+                this.checkForCloseRangeAttack(distance, reach);
+            }
         }
     }
 
@@ -160,6 +163,10 @@ public class DelayedAttackGoal extends Goal {
 
     }
 
+    protected boolean getRangeCheck () {
+        return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
+    }
+
     protected void checkForCloseRangeAttack(double distance, double reach) {
         if (distance <= reach && this.ticksUntilNextAttack <= 0) {
             this.mob.setAnimationState(1);
@@ -167,45 +174,41 @@ public class DelayedAttackGoal extends Goal {
     }
 
     protected void tickAttack () {
-
         animTime++;
-
-        if (animTime <= 3) {
-            this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
-            this.mob.yBodyRot = this.mob.yHeadRot;
+        if(animTime==4) {
+            performAttack();
         }
-
-        if(animTime==5) {
-            preformAttack();
-        }
-
         if(animTime>=8) {
             animTime=0;
-            this.mob.setAnimationState(0);
-            this.resetAttackCooldown();
-            this.ticksUntilNextPathRecalculation = 0;
+            if (this.getRangeCheck()) {
+                this.mob.setAnimationState(22);
+            }else {
+                this.mob.setAnimationState(0);
+                this.resetAttackCooldown();
+                this.ticksUntilNextPathRecalculation = 0;
+            }
         }
     }
 
-    protected void preformAttack () {
+    protected void performAttack () {
         Vec3 pos = mob.position();
         HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
     }
 
-    protected void resetAttackCooldown() {
-        this.ticksUntilNextAttack = this.adjustedTickDelay(20);
+    protected void resetAttackCooldown () {
+        this.ticksUntilNextAttack = 0;
     }
 
-    protected boolean isTimeToAttack() {
+    protected boolean isTimeToAttack () {
         return this.ticksUntilNextAttack <= 0;
     }
 
-    protected int getTicksUntilNextAttack() {
+    protected int getTicksUntilNextAttack () {
         return this.ticksUntilNextAttack;
     }
 
-    protected int getAttackInterval() {
-        return this.adjustedTickDelay(20);
+    protected int getAttackInterval () {
+        return 5;
     }
 
     protected double getAttackReachSqr(LivingEntity pAttackTarget) {
