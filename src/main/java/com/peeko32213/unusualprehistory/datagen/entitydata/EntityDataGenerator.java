@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
-import static com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry.REX_VARIANT;
+//import static com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry.REX_VARIANT;
 
 public class EntityDataGenerator extends EntityDataProvider {
     public EntityDataGenerator(PackOutput pOutput) {
@@ -184,38 +184,38 @@ public class EntityDataGenerator extends EntityDataProvider {
                                                         new LookAtEntityGoalCodec(6, GSTags.PLAYER, 6, 0.02F, false),
                                                         new PanicGoalCodec(1,1.25D),
                                                         new TemptGoalCodec(4, 1.2D, ItemTags.LEAVES, false),
-                                                        new MeleeAttackGoalCodec(1,3.25D, true),
-                                                        new SerializableRandomMeleeAttackGoalCodec(1,
-                                                                WeightedRandomList.create(
-                                                                        new WeightedSerializableMeleeAttackHelper(
-                                                                                10,
-                                                                                SerializableRandomMeleeAttackHelper.Builder
-                                                                                        .state(REX_VARIANT, "rex")
-                                                                                        .meleeEntityAction(new MeleeEntityAction(
-                                                                                        8,1,
-                                                                                        new StompAttack(
-                                                                                                new SoundData(
-                                                                                                        UPSounds.TYRANNO_STOMP_ATTACK.get(),
-                                                                                                        SoundSource.AMBIENT,
-                                                                                                        1,
-                                                                                                        1
-
-                                                                                                ),
-                                                                                                new NoneAttack(),
-                                                                                                new CooldownWideRangeEffectData(
-                                                                                                        100,
-                                                                                                        new WideRangeEffectData(
-                                                                                                                new MobEffectInstanceCodec(UPEffects.SCREEN_SHAKE.get(),
-                                                                                                                        4,10,false,false,false),
-                                                                                                                0.2,UPTags.NONE_ENTITY_TAG
-                                                                                                        )
-                                                                                                )
-                                                                                        )
-                                                                                        )
-                                                                                        )
-                                                                                        .build()
-                                                                        )
-                                                                ),2,false,2)
+                                                        new MeleeAttackGoalCodec(1,3.25D, true)
+//                                                        new SerializableRandomMeleeAttackGoalCodec(1,
+//                                                                WeightedRandomList.create(
+//                                                                        new WeightedSerializableMeleeAttackHelper(
+//                                                                                10,
+//                                                                                SerializableRandomMeleeAttackHelper.Builder
+//                                                                                        .state(REX_VARIANT, "rex")
+//                                                                                        .meleeEntityAction(new MeleeEntityAction(
+//                                                                                        8,1,
+//                                                                                        new StompAttack(
+//                                                                                                new SoundData(
+//                                                                                                        UPSounds.TYRANNO_STOMP_ATTACK.get(),
+//                                                                                                        SoundSource.AMBIENT,
+//                                                                                                        1,
+//                                                                                                        1
+//
+//                                                                                                ),
+//                                                                                                new NoneAttack(),
+//                                                                                                new CooldownWideRangeEffectData(
+//                                                                                                        100,
+//                                                                                                        new WideRangeEffectData(
+//                                                                                                                new MobEffectInstanceCodec(UPEffects.SCREEN_SHAKE.get(),
+//                                                                                                                        4,10,false,false,false),
+//                                                                                                                0.2,UPTags.NONE_ENTITY_TAG
+//                                                                                                        )
+//                                                                                                )
+//                                                                                        )
+//                                                                                        )
+//                                                                                        )
+//                                                                                        .build()
+//                                                                        )
+//                                                                ),2,false,2)
 
                                                 )
                                                 //this one should probably be itself but its a tag of things it should be bothered by when attacked by it

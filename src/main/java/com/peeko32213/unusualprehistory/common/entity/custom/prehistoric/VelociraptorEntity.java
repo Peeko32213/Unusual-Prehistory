@@ -7,9 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelpe
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.DelayedAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
@@ -38,11 +36,13 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
@@ -173,6 +173,19 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
                     .entityAction(VELOCI_IDLE_7_ACTION)
                     .build();
 
+    // Attack actions
+
+//    private static final EntityAction VELOCI_ATTACK_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+//
+//    private static final StateHelper VELOCI_ATTACK_1_STATE =
+//            StateHelper.Builder.state(ATTACK_1_AC, "velociraptor_attack_1")
+//                    .playTime(60)
+//                    .stopTime(150)
+//                    .affectsAI(true)
+//                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+//                    .entityAction(VELOCI_ATTACK_1_ACTION)
+//                    .build();
+
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
@@ -207,6 +220,16 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
     @Override
     public void setAction(boolean action) {}
 
+//    public List<WeightedRandomList<WeightedSerializableMeleeAttackHelper>> getAttack() {
+//        return WeightedRandomList.create(
+//            new WeightedSerializableMeleeAttackHelper(10,
+//            SerializableRandomMeleeAttackHelper.Builder.state(ATTACK_1_AC, "velociraptor_attack_1")
+//                .meleeEntityAction(new MeleeEntityAction(8,1,
+//                    new LargeHitBoxAttackWithTargetCheck(1.0F, 1.0F, 1.0F, 30, 30, false, true))).build()
+//            )
+//        );
+//    }
+
     public VelociraptorEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
@@ -226,46 +249,46 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PounceGoal(this, 0));
         this.goalSelector.addGoal(4, new PushButtonsGoal(this, 0.5F, 5, 2));
-        this.goalSelector.addGoal(1, new VelociraptorEntity.MeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30) {
-                @Override
-                public boolean canUse() {
-                    if (this.mob.isVehicle()) {
-                        return false;
-                    } else {
-                        if (!this.forceTrigger) {
-                            if (this.mob.getNoActionTime() >= 100) {
-                                return false;
-                            }
-                            if (((VelociraptorEntity) this.mob).isHungry()) {
-                                if (this.mob.getRandom().nextInt(60) != 0) {
-                                    return false;
-                                }
-                            } else {
-                                if (this.mob.getRandom().nextInt(30) != 0) {
-                                    return false;
-                                }
-                            }
-                        }
-
-                        Vec3 vec3d = this.getPosition();
-                        if (vec3d == null) {
+                    @Override
+                    public boolean canUse() {
+                        if (this.mob.isVehicle()) {
                             return false;
                         } else {
-                            this.wantedX = vec3d.x;
-                            this.wantedY = vec3d.y;
-                            this.wantedZ = vec3d.z;
-                            this.forceTrigger = false;
-                            return true;
+                            if (!this.forceTrigger) {
+                                if (this.mob.getNoActionTime() >= 100) {
+                                    return false;
+                                }
+                                if (((VelociraptorEntity) this.mob).isHungry()) {
+                                    if (this.mob.getRandom().nextInt(60) != 0) {
+                                        return false;
+                                    }
+                                } else {
+                                    if (this.mob.getRandom().nextInt(30) != 0) {
+                                        return false;
+                                    }
+                                }
+                            }
+
+                            Vec3 vec3d = this.getPosition();
+                            if (vec3d == null) {
+                                return false;
+                            } else {
+                                this.wantedX = vec3d.x;
+                                this.wantedY = vec3d.y;
+                                this.wantedZ = vec3d.z;
+                                this.forceTrigger = false;
+                                return true;
+                            }
                         }
                     }
                 }
-            }
         );
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
+//        this.goalSelector.addGoal(1, new VelociraptorEntity.MeleeAttackGoal());
     }
 
     @Override
@@ -321,41 +344,47 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
         return super.doHurtTarget(entityIn);
     }
 
-    class MeleeAttackGoal extends DelayedAttackGoal {
+//    class MeleeAttackGoal extends SerializableRandomMeleeAttackGoal {
+//        public MeleeAttackGoal() {
+//            super(VelociraptorEntity.this, getAttack(), 1.75F, false, 2.0F);
+//        }
+//    }
 
-        public MeleeAttackGoal() {
-            super(VelociraptorEntity.this, 1.75D, false);
-        }
-
-        protected void tickAttack () {
-
-            triggerAnim("blend", "bite");
-
-            animTime++;
-
-            if (animTime <= 3) {
-                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
-                this.mob.yBodyRot = this.mob.yHeadRot;
-            }
-
-            if(animTime==5) {
-                preformAttack();
-            }
-
-            if(animTime>=8) {
-                animTime=0;
-                this.mob.setAnimationState(0);
-                this.resetAttackCooldown();
-                this.ticksUntilNextPathRecalculation = 0;
-            }
-        }
-
-        protected void preformAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 1.0F, this.mob.getVoicePitch());
-            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
-        }
-    }
+//    class MeleeAttackGoal extends DelayedAttackGoal {
+//
+//        public MeleeAttackGoal() {
+//            super(VelociraptorEntity.this, 1.75D, false);
+//        }
+//
+//        protected void tickAttack () {
+//
+//            triggerAnim("blend", "bite");
+//
+//            animTime++;
+//
+//            if (animTime <= 3) {
+//                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+//                this.mob.yBodyRot = this.mob.yHeadRot;
+//            }
+//
+//            if(animTime==5) {
+//                preformAttack();
+//            }
+//
+//            if(animTime>=8) {
+//                animTime=0;
+//                this.mob.setAnimationState(0);
+//                this.resetAttackCooldown();
+//                this.ticksUntilNextPathRecalculation = 0;
+//            }
+//        }
+//
+//        protected void preformAttack () {
+//            Vec3 pos = mob.position();
+//            this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 1.0F, this.mob.getVoicePitch());
+//            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+//        }
+//    }
 
     @Override
     public boolean isAlliedTo(Entity pEntity) {
@@ -550,7 +579,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
         }
 
         protected void onReachedTarget() {
-            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(raptor.level(), raptor)) {
+            if (ForgeEventFactory.getMobGriefingEvent(raptor.level(), raptor)) {
                 BlockState blockstate = raptor.level().getBlockState(this.blockPos);
                 if (blockstate.is(UPBlocks.AMBER_BUTTON.get())) {
                     this.pushButton(blockstate);
@@ -631,11 +660,11 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
         blend.setSoundKeyframeHandler(this::soundListener);
         controllers.add(blend);
 
-        AnimationController<VelociraptorEntity> flap = new AnimationController<>(this, "flapController", 3, this::flapPredicate);
+        AnimationController<VelociraptorEntity> flap = new AnimationController<>(this, "flapController", 5, this::flapPredicate);
         controllers.add(flap);
     }
 
-    protected <E extends VelociraptorEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    protected <E extends VelociraptorEntity> PlayState predicate(final AnimationState<E> event) {
 
         if (this.isFromBook()) {
             return event.setAndContinue(VELOCI_IDLE);
@@ -729,7 +758,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
         return PlayState.CONTINUE;
     }
 
-    protected <E extends VelociraptorEntity> PlayState flapPredicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    protected <E extends VelociraptorEntity> PlayState flapPredicate(final AnimationState<E> event) {
         if (!this.onGround() && !this.isInWater()) {
             event.getController().setAnimation(VELOCI_JUMP);
             event.getController().setAnimationSpeed(1.0D);
@@ -759,6 +788,10 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
         int variantChange = this.random.nextInt(0, 100);
         this.determineVariant(variantChange);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+    public boolean shouldFollow() {
+        return false;
     }
 
 }

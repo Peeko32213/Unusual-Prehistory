@@ -10,6 +10,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEnt
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.DelayedAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PrehistoricFollowOwnerGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableTempt;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
@@ -191,6 +192,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         this.targetSelector.addGoal(8, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(8, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(7, (new HurtByTargetGoal(this)));
+        this.goalSelector.addGoal(6, new TameableTempt(this, 1.1D, TEMPTATION_ITEMS, false));
     }
 
     @Override

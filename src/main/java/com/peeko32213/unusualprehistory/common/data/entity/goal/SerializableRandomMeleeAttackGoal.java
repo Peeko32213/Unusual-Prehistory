@@ -1,7 +1,5 @@
 package com.peeko32213.unusualprehistory.common.data.entity.goal;
 
-import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedSerializableStateHelper;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
