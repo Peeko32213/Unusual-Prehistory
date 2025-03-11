@@ -392,15 +392,15 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
     }
 
     protected SoundEvent getAmbientSound() {
-        return UPSounds.RAPTOR_IDLE.get();
+        return UPSounds.VELOCIRAPTOR_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UPSounds.RAPTOR_HURT.get();
+        return UPSounds.VELOCIRAPTOR_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.RAPTOR_DEATH.get();
+        return UPSounds.VELOCIRAPTOR_DEATH.get();
     }
 
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
@@ -409,7 +409,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
 
     @Override
     protected SoundEvent getAttackSound() {
-        return UPSounds.RAPTOR_ATTACK.get();
+        return UPSounds.VELOCIRAPTOR_ATTACK.get();
     }
 
     @Override
@@ -572,7 +572,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
                     ++this.ticksWaited;
                 }
             } else if (!this.isReachedTarget() && raptor.random.nextFloat() < 0.05F) {
-                raptor.playSound(UPSounds.RAPTOR_SEARCH.get(), 0.1F, 1.0F);
+                raptor.playSound(UPSounds.VELOCIRAPTOR_SEARCH.get(), 0.1F, 1.0F);
             }
 
             super.tick();
@@ -685,7 +685,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
             return PlayState.CONTINUE;
         }
         else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()){
-            if(this.isSprinting() && !this.isBaby()) {
+            if(this.isSprinting()) {
                 event.setAndContinue(VELOCI_RUN);
                 event.getController().setAnimationSpeed(1.0D);
             } else {

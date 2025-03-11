@@ -96,11 +96,15 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> ENCRUSTED_MELEE = createSoundEvent("encrusted_step");
     public static final RegistryObject<SoundEvent> ENCRUSTED_SPIT = createSoundEvent("encrusted_spit");
 
-    public static final RegistryObject<SoundEvent> RAPTOR_ATTACK = createSoundEvent("velociraptor_attack");
-    public static final RegistryObject<SoundEvent> RAPTOR_DEATH = createSoundEvent("velociraptor_death");
-    public static final RegistryObject<SoundEvent> RAPTOR_HURT = createSoundEvent("velociraptor_hurt");
-    public static final RegistryObject<SoundEvent> RAPTOR_IDLE = createSoundEvent("velociraptor_idle");
-    public static final RegistryObject<SoundEvent> RAPTOR_SEARCH = createSoundEvent("velociraptor_search");
+    public static final RegistryObject<SoundEvent> VELOCIRAPTOR_ATTACK = createSoundEvent("velociraptor_attack");
+    public static final RegistryObject<SoundEvent> VELOCIRAPTOR_DEATH = createSoundEvent("velociraptor_death");
+    public static final RegistryObject<SoundEvent> VELOCIRAPTOR_HURT = createSoundEvent("velociraptor_hurt");
+    public static final RegistryObject<SoundEvent> VELOCIRAPTOR_IDLE = createSoundEvent("velociraptor_idle");
+    public static final RegistryObject<SoundEvent> VELOCIRAPTOR_SEARCH = createSoundEvent("velociraptor_search");
+
+    public static final RegistryObject<SoundEvent> OVIRAPTOR_IDLE = createSoundEvent("oviraptor_idle");
+    public static final RegistryObject<SoundEvent> OVIRAPTOR_DEATH = createSoundEvent("oviraptor_death");
+    public static final RegistryObject<SoundEvent> OVIRAPTOR_HURT = createSoundEvent("oviraptor_hurt");
 
     public static final RegistryObject<SoundEvent> PACHY_DEATH = createSoundEvent("pachy_death");
     public static final RegistryObject<SoundEvent> PACHY_HEADBUTT = createSoundEvent("pachy_headbutt");

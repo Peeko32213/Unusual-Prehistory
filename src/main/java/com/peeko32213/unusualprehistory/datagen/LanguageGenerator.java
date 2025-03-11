@@ -658,11 +658,15 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ENCRUSTED_SPIT, "Encrusted pzzts");
         addSound(UPSounds.ENCRUSTED_DEATH, "Encrusted dies");
 
-        addSound(UPSounds.RAPTOR_IDLE, "Velociraptor coos");
-        addSound(UPSounds.RAPTOR_HURT, "Velociraptor hurts");
-        addSound(UPSounds.RAPTOR_ATTACK, "Velociraptor veloci-slashes");
-        addSound(UPSounds.RAPTOR_SEARCH, "Velociraptor coos curiously");
-        addSound(UPSounds.RAPTOR_DEATH, "Velociraptor dies");
+        addSound(UPSounds.VELOCIRAPTOR_IDLE, "Velociraptor coos");
+        addSound(UPSounds.VELOCIRAPTOR_HURT, "Velociraptor hurts");
+        addSound(UPSounds.VELOCIRAPTOR_ATTACK, "Velociraptor veloci-slashes");
+        addSound(UPSounds.VELOCIRAPTOR_SEARCH, "Velociraptor coos curiously");
+        addSound(UPSounds.VELOCIRAPTOR_DEATH, "Velociraptor dies");
+
+        addSound(UPSounds.OVIRAPTOR_IDLE, "Oviraptor squawks");
+        addSound(UPSounds.OVIRAPTOR_HURT, "Oviraptor hurts");
+        addSound(UPSounds.OVIRAPTOR_DEATH, "Oviraptor dies");
 
         addSound(UPSounds.PACHY_IDLE, "Pachycephalosaurus grunts");
         addSound(UPSounds.PACHY_HURT, "Pachycephalosaurus hurts");

@@ -281,7 +281,7 @@
              this.setLastHurtMob(target);
          }
          if (shouldHurt && target instanceof LivingEntity livingEntity) {
-             this.playSound(UPSounds.RAPTOR_HURT.get(), 0.1F, 1.0F);
+             this.playSound(UPSounds.VELOCIRAPTOR_HURT.get(), 0.1F, 1.0F);
          }
          return shouldHurt;
      }
@@ -316,15 +316,15 @@
      }
 
      protected SoundEvent getAmbientSound() {
-         return UPSounds.RAPTOR_IDLE.get();
+         return UPSounds.VELOCIRAPTOR_IDLE.get();
      }
 
      protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-         return UPSounds.RAPTOR_HURT.get();
+         return UPSounds.VELOCIRAPTOR_HURT.get();
      }
 
      protected SoundEvent getDeathSound() {
-         return UPSounds.RAPTOR_DEATH.get();
+         return UPSounds.VELOCIRAPTOR_DEATH.get();
      }
 
      protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
@@ -333,7 +333,7 @@
 
      @Override
      protected SoundEvent getAttackSound() {
-         return UPSounds.RAPTOR_ATTACK.get();
+         return UPSounds.VELOCIRAPTOR_ATTACK.get();
      }
 
      @Override
