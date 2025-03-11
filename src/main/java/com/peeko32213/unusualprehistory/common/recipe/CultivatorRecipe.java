@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -70,18 +71,14 @@ public class CultivatorRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return UPRecipes.CULTIVATOR_RECIPE.get();
     }
 
     @Override
     public boolean isSpecial() {
         return true;
     }
-    public static class Type implements RecipeType<CultivatorRecipe> {
-        private Type() { }
-        public static final CultivatorRecipe.Type INSTANCE = new CultivatorRecipe.Type();
-        public static final String ID = "cultivating";
-    }
+
 
     public static class Serializer implements RecipeSerializer<CultivatorRecipe> {
         public static final Serializer INSTANCE = new Serializer();

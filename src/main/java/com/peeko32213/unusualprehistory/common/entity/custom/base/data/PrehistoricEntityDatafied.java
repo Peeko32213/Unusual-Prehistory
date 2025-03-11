@@ -192,7 +192,7 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
 
         this.setVariantId(variantData.getVariantId());
         variantData.getAttributesModifiers().performAdditions(this);
-
+        this.heal(this.getMaxHealth());
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 

@@ -4,24 +4,22 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
-import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPMessages;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -32,17 +30,22 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
 import static com.peeko32213.unusualprehistory.common.block.custom.CultivatorBlock.HALF;
 
-public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
+public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer {
     private BlockState blockstate;
     public int ticksExisted;
 
+    private static final int[] SLOTS_FOR_UP = new int[]{0};
+    private static final int[] SLOTS_FOR_SIDES= new int[]{1};
+    private static final int[] SLOTS_FOR_DOWN = new int[]{2, 3};
 
 
     public CultivatorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
@@ -86,60 +89,60 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         }
     };
 
-    private IItemHandler hopperHandler = new IItemHandler() {
-        @Override
-        public int getSlots() {
-            return itemHandler.getSlots();
-        }
+   //private IItemHandler hopperHandler = new IItemHandler() {
+   //    @Override
+   //    public int getSlots() {
+   //        return itemHandler.getSlots();
+   //    }
 
-        @NotNull
-        @Override
-        public ItemStack getStackInSlot(int slot) {
-            return itemHandler.getStackInSlot(slot);
-        }
+   //    @NotNull
+   //    @Override
+   //    public ItemStack getStackInSlot(int slot) {
+   //        return itemHandler.getStackInSlot(slot);
+   //    }
 
-        @NotNull
-        @Override
-        public ItemStack extractItem(int slot, int amount, boolean simulate) {
-            if(blockstate.getValue(HALF) == DoubleBlockHalf.UPPER){
-                return itemHandler.extractItem(slot, amount, simulate);
-            }
+   //    @NotNull
+   //    @Override
+   //    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+   //        if(blockstate.getValue(HALF) == DoubleBlockHalf.UPPER){
+   //            return itemHandler.extractItem(slot, amount, simulate);
+   //        }
 
-            if((slot == 2) || (slot == 3)){
-                return itemHandler.extractItem(slot, amount, simulate);
-            }
-            return ItemStack.EMPTY;
-        }
+   //        if((slot == 2) || (slot == 3)){
+   //            return itemHandler.extractItem(slot, amount, simulate);
+   //        }
+   //        return ItemStack.EMPTY;
+   //    }
 
-        @NotNull
-        @Override
-        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-            if(stack.isEmpty()){
-                return stack;
-            }
+   //    @NotNull
+   //    @Override
+   //    public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+   //        if(stack.isEmpty()){
+   //            return stack;
+   //        }
 
-            if(slot == 0 && stack.is(UPTags.DNA_FLASKS)){
-                return itemHandler.insertItem(slot, stack, simulate);
-            }
-            if(slot == 1 && stack.is(UPItems.ORGANIC_OOZE.get())) {
-                return itemHandler.insertItem(slot, stack, simulate);
-            }
-            return stack;
-        }
+   //        if(slot == 0 && stack.is(UPTags.DNA_FLASKS)){
+   //            return itemHandler.insertItem(slot, stack, simulate);
+   //        }
+   //        if(slot == 1 && stack.is(UPItems.ORGANIC_OOZE.get())) {
+   //            return itemHandler.insertItem(slot, stack, simulate);
+   //        }
+   //        return stack;
+   //    }
 
-        @Override
-        public int getSlotLimit(int slot) {
-            return itemHandler.getSlotLimit(slot);
-        }
+   //    @Override
+   //    public int getSlotLimit(int slot) {
+   //        return itemHandler.getSlotLimit(slot);
+   //    }
 
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return itemHandler.isItemValid(slot, stack);
-        }
-    };
+   //    @Override
+   //    public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+   //        return itemHandler.isItemValid(slot, stack);
+   //    }
+   //};
 
     private LazyOptional<IItemHandler> lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
-    private LazyOptional<IItemHandler> hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
+    //private LazyOptional<IItemHandler> hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
 
     protected final ContainerData data;
     private int progress = 0;
@@ -154,26 +157,13 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         return Component.translatable(UnusualPrehistory.MODID + ".blockentity.cultivator");
     }
 
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == null) {
-                return lazyItemHandlerOptional.cast();
-            } else{
-                return hopperHandlerOptional.cast();
-            }
 
-        }
-
-        return super.getCapability(cap, side);
-    }
 
     @Override
     public void onLoad() {
         super.onLoad();
         lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
-        hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
+        //hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
         if(level != null && !level.isClientSide){
             UPMessages.sendToClients(new SyncItemStackC2SPacket(this.itemHandler, worldPosition));
         }
@@ -183,7 +173,9 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     public void invalidateCaps()  {
         super.invalidateCaps();
         lazyItemHandlerOptional.invalidate();
-        hopperHandlerOptional.invalidate();
+        //hopperHandlerOptional.invalidate();
+        for (int x = 0; x < handlers.length; x++)
+            handlers[x].invalidate();
     }
 
     @Override
@@ -260,7 +252,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
         Optional<CultivatorRecipe> match = level.getRecipeManager()
-                .getRecipeFor(CultivatorRecipe.Type.INSTANCE, inventory, level);
+                .getRecipeFor(UPRecipes.CULTIVATOR_RECIPE.get(), inventory, level);
 
         return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
                 && canInsertItemIntoOutputSlot(inventory, match.get().assemble(inventory, level.registryAccess()))
@@ -276,7 +268,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
         }
 
         Optional<CultivatorRecipe> match = level.getRecipeManager()
-                .getRecipeFor(CultivatorRecipe.Type.INSTANCE, inventory, level);
+                .getRecipeFor(UPRecipes.CULTIVATOR_RECIPE.get(), inventory, level);
 
         if(match.isPresent()) {
             entity.itemHandler.extractItem(0,1, false);
@@ -340,5 +332,122 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider {
     }
 
 
+    @Override
+    public int[] getSlotsForFace(Direction pSide) {
+        if (pSide == Direction.UP) {
+            return SLOTS_FOR_UP;
+        } else {
+            return pSide == Direction.DOWN ? SLOTS_FOR_DOWN : SLOTS_FOR_SIDES;
+        }
+    }
 
+    @Override
+    public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
+        return canTakeItem(pIndex, pItemStack);
+    }
+
+
+    public boolean canTakeItem(int slot, ItemStack stack) {
+
+        if(slot == 0 && stack.is(UPTags.DNA_FLASKS)){
+            return true;
+        }
+        if(slot == 1 && stack.is(UPItems.ORGANIC_OOZE.get())) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean canRemoveItem(int slot) {
+        if((slot == 2) || (slot == 3)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
+        return true;
+    }
+
+    @Override
+    public int getContainerSize() {
+        return this.itemHandler.getSlots();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        for(int i = 0; i < this.itemHandler.getSlots(); i++) {
+            if(!this.itemHandler.getStackInSlot(i).isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public ItemStack getItem(int pSlot) {
+        return this.itemHandler.getStackInSlot(pSlot);
+    }
+
+    @Override
+    public ItemStack removeItem(int pSlot, int pAmount) {
+        if(canRemoveItem(pSlot)) {
+            return this.itemHandler.extractItem(pSlot, pAmount, false);
+        }
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public ItemStack removeItemNoUpdate(int pSlot) {
+        if(canRemoveItem(pSlot)) {
+            return this.itemHandler.extractItem(pSlot, 0, false);
+        }
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public void setItem(int pSlot, ItemStack pStack) {
+        if(canTakeItem(pSlot, pStack)) {
+            this.itemHandler.setStackInSlot(pSlot, pStack);
+        }
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return Container.stillValidBlockEntity(this, player);
+    }
+
+    @Override
+    public void clearContent() {
+        this.itemHandler.setSize(4);
+    }
+
+    @Override
+    public void reviveCaps() {
+        super.reviveCaps();
+        this.handlers = SidedInvWrapper.create(this, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
+    }
+
+    private LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            if (side == null) {
+                return lazyItemHandlerOptional.cast();
+            } else{
+                return handlers[side.ordinal()].cast();
+            }
+
+        }
+
+        return super.getCapability(cap, side);
+    }
+
+
+    public static RecipeType<? extends CultivatorRecipe> getRecipeType(){
+        return UPRecipes.CULTIVATOR_RECIPE.get();
+    }
 }

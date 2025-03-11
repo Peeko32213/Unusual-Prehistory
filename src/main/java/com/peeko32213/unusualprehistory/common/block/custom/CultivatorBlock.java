@@ -8,6 +8,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -34,7 +36,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-public class CultivatorBlock extends BaseEntityBlock {
+public class CultivatorBlock extends BaseEntityBlock implements WorldlyContainerHolder {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 32, 16);
@@ -129,11 +131,17 @@ public class CultivatorBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos,
                                  Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
-            BlockEntity entity = pLevel.getBlockEntity(pPos);
+
             if(pState.getValue(HALF) == DoubleBlockHalf.UPPER){
-                pPlayer.displayClientMessage(Component.translatable("There doesn't appear to be any controls on top of this machine...."), true);
-                return InteractionResult.FAIL;
+                BlockEntity entity = pLevel.getBlockEntity(pPos.below());
+                if(entity instanceof CultivatorBlockEntity) {
+                    NetworkHooks.openScreen(((ServerPlayer)pPlayer), (CultivatorBlockEntity)entity, pPos.below());
+                } else {
+                    throw new IllegalStateException("Our Container provider is missing!");
+                }                //pPlayer.displayClientMessage(Component.translatable("There doesn't appear to be any controls on top of this machine...."), true);
+                return InteractionResult.SUCCESS;
             }
+            BlockEntity entity = pLevel.getBlockEntity(pPos);
             if(entity instanceof CultivatorBlockEntity) {
                 NetworkHooks.openScreen(((ServerPlayer)pPlayer), (CultivatorBlockEntity)entity, pPos);
             } else {
@@ -173,4 +181,16 @@ public class CultivatorBlock extends BaseEntityBlock {
         pBuilder.add(FACING, HALF);
     }
 
+    @Override
+    public WorldlyContainer getContainer(BlockState pState, LevelAccessor pLevel, BlockPos pPos) {
+        if(pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+            if(pLevel.getBlockEntity(pPos.below())  instanceof CultivatorBlockEntity blockEntity) {
+                return blockEntity;
+            }
+        }
+        if(pLevel.getBlockEntity(pPos)  instanceof CultivatorBlockEntity blockEntity) {
+            return blockEntity;
+        }
+        return null;
+    }
 }

@@ -89,6 +89,7 @@ public class UnusualPrehistory {
         UPFeatureModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
         UPSounds.DEF_REG.register(modEventBus);
         UPEffects.EFFECT_DEF_REG.register(modEventBus);
+        UPRecipes.TYPE_DEF_REG.register(modEventBus);
 
         //Register goalsmith goals
         UPGoalRegistry.GOAL_TYPE_SERIALIZER.register(modEventBus);
