@@ -178,7 +178,8 @@ public class EntityDataGenerator extends EntityDataProvider {
                                                         new WaterAvoidingRandomStrollGoalCodec(3, 1.0D, 20),
                                                         new LookAtEntityGoalCodec(6, GSTags.PLAYER, 6, 0.02F, false),
                                                         new PanicGoalCodec(1,1.25D),
-                                                        new TemptGoalCodec(4, 1.2D, ItemTags.LEAVES, false)
+                                                        new TemptGoalCodec(4, 1.2D, ItemTags.LEAVES, false),
+                                                        new MeleeAttackGoalCodec(1,3.25D, true)
                                                 )
                                                 //this one should probably be itself but its a tag of things it should be bothered by when attacked by it
                                                 .addTargetGoals(new HurtByTargetGoalCodec(8, GSTags.PLAYER))

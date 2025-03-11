@@ -54,7 +54,7 @@ public class OviraptorEntity extends PrehistoricEntityOld {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new PounceGoal(this, 0));
+//        this.goalSelector.addGoal(1, new PounceGoal(this, 0));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
         this.goalSelector.addGoal(2, new OviraptorEntity.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
