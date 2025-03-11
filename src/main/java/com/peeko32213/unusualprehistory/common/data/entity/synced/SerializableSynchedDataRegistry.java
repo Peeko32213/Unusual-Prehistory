@@ -3,6 +3,8 @@ package com.peeko32213.unusualprehistory.common.data.entity.synced;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.Entity;
@@ -11,6 +13,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class SerializableSynchedDataRegistry {
 
@@ -21,7 +25,7 @@ public class SerializableSynchedDataRegistry {
     public static final Codec<SerializableSynchedEntityData> CODEC = ExtraCodecs.stringResolverCodec(sa -> ALL_DATA_MAP.inverse().get(sa).toString(), key -> ALL_DATA_MAP.get(new ResourceLocation(key)));
 
 
-    //public static final SerializableSynchedData<Integer> REX_VARIANT = new SerializableSynchedData<>(prefix("rex_variant"), TyrannosaurusEntity.class, EntityDataSerializers.INT, 0, Object::toString, Integer::parseInt);
+    public static final SerializableSynchedData<Integer> REX_VARIANT = new SerializableSynchedData<>(prefix("rex_variant"), TyrannosaurusEntity.class, EntityDataSerializers.INT, 0, Object::toString, Integer::parseInt);
     //public static final SerializableSynchedData<Integer> REX_ANIMATION_STATE = new SerializableSynchedData<>(prefix("rex_animation_state"), TyrannosaurusEntity.class, EntityDataSerializers.INT, 0, Object::toString, Integer::parseInt);
     //public static final SerializableSynchedData<Boolean> REX_EEPY = new SerializableSynchedData<>(prefix("rex_eepy"), TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
     //public static final SerializableSynchedData<Boolean> REX_PASSIVE = new SerializableSynchedData<>(prefix("rex_passive"), TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
@@ -32,7 +36,7 @@ public class SerializableSynchedDataRegistry {
 
 
     public static void register() {
-        //register(REX_VARIANT);
+        register(REX_VARIANT);
         //register(REX_ANIMATION_STATE);
         //register(REX_EEPY);
         //register(REX_PASSIVE);

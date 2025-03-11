@@ -10,7 +10,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEnt
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.DelayedAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PrehistoricFollowOwnerGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -493,7 +493,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         protected void preformAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 1.0F, this.mob.getVoicePitch());
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.5f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.5f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
     }
 
@@ -524,12 +524,11 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         super.aiStep();
 
         if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isAggressive() && !this.isTame()) {
-            boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
                 BlockState blockstate = this.level().getBlockState(blockpos);
                 if (blockstate.is(UPTags.TRIKE_BREAKABLES)) {
-                    flag = this.level().destroyBlock(blockpos, true, this) || flag;
+                     this.level().destroyBlock(blockpos, true, this);
                 }
             }
         }

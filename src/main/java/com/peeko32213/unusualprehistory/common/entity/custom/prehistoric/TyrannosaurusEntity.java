@@ -8,8 +8,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStat
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamableStatedPrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.*;
@@ -712,19 +711,19 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.TYRANNO_TAIL_SWIPE.get(), 1.0F, 1.0F);
             this.mob.swing(InteractionHand.MAIN_HAND);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.5f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.5f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
 
         protected void preformWhipAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.TYRANNO_TAIL_SWIPE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - 5, 2.0f, mob, pos,  6.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - 5, 2.0f, mob, pos,  6.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
 
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.TYRANNO_STOMP_ATTACK.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - 1, 1.75f, mob, pos,  6.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, true);
+            HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - 1, 1.75f, mob, pos,  6.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, true);
             if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
                 double rexShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(rexShakeRange));
@@ -742,17 +741,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
             this.ticksUntilNextAttack = this.adjustedTickDelay(20);
         }
 
-        protected boolean isTimeToAttack() {
-            return this.ticksUntilNextAttack <= 0;
-        }
 
-        protected int getTicksUntilNextAttack() {
-            return this.ticksUntilNextAttack;
-        }
-
-        protected int getAttackInterval() {
-            return this.adjustedTickDelay(20);
-        }
 
         protected double getAttackReachSqr(LivingEntity pAttackTarget) {
             return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + pAttackTarget.getBbWidth();

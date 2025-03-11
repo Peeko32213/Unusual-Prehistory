@@ -6,11 +6,10 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityActi
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.DelayedAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
@@ -33,13 +32,11 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -356,7 +353,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
         protected void preformAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 1.0F, this.mob.getVoicePitch());
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
     }
 

@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.NearestTargetAI;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -555,7 +555,7 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements GeoA
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
 
         protected void resetAttackCooldown () {

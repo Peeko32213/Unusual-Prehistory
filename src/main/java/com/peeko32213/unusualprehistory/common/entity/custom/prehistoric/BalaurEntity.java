@@ -2,7 +2,7 @@
 
  import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
- import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.common.message.BalaurMountMessage;
  import com.peeko32213.unusualprehistory.core.registry.*;
@@ -761,17 +761,17 @@
 
          protected void preformClawAttack() {
              Vec3 pos = mob.position();
-             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
+             HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
          }
 
          protected void preformScratchAttack() {
              Vec3 pos = mob.position();
-             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
+             HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
          }
 
          protected void preformBiteAttack() {
              Vec3 pos = mob.position();
-             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 3.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
+             HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob), 3.0f, 0.2f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
          }
 
 //         protected void preformLatchAttack() {

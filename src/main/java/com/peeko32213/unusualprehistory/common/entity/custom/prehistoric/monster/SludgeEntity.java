@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster;
 
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -289,7 +289,7 @@ public class SludgeEntity extends Monster implements GeoAnimatable {
         protected void preformClapAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
-            HitboxHelper.PivotedPolyHitCheck(this.mob, this.rightOffset, 2f, 2f, 2f, (ServerLevel)this.mob.level(), 15f, this.mob.damageSources().mobAttack(mob), 0.5f, false);
+            HitboxAttacks.pivotedPolyHitCheck(this.mob, this.rightOffset, 2f, 2f, 2f, (ServerLevel)this.mob.level(), 15f, this.mob.damageSources().mobAttack(mob), 0.5f, false);
         }
 
         protected void resetAttackCooldown () {

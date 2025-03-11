@@ -1,13 +1,14 @@
 package com.peeko32213.unusualprehistory.datagen.entitydata;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.data.attack.NoneAttack;
+import com.peeko32213.unusualprehistory.common.data.attack.StompAttack;
+import com.peeko32213.unusualprehistory.common.data.codec.MobEffectInstanceCodec;
 import com.peeko32213.unusualprehistory.common.data.entity.*;
 import com.peeko32213.unusualprehistory.common.data.entity.attribute.AttributesModifier;
-import com.peeko32213.unusualprehistory.common.data.entity.generic.EntityDamageTypeData;
-import com.peeko32213.unusualprehistory.common.data.entity.generic.EntitySoundData;
-import com.peeko32213.unusualprehistory.common.data.entity.generic.EntitySpawnData;
-import com.peeko32213.unusualprehistory.common.data.entity.generic.GenericEntityData;
-import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomStateGoalCodec;
+import com.peeko32213.unusualprehistory.common.data.entity.generic.*;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.*;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -21,11 +22,14 @@ import com.scouter.goalsmith.util.GSTags;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
@@ -33,6 +37,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry.REX_VARIANT;
 
 public class EntityDataGenerator extends EntityDataProvider {
     public EntityDataGenerator(PackOutput pOutput) {
@@ -179,13 +184,45 @@ public class EntityDataGenerator extends EntityDataProvider {
                                                         new LookAtEntityGoalCodec(6, GSTags.PLAYER, 6, 0.02F, false),
                                                         new PanicGoalCodec(1,1.25D),
                                                         new TemptGoalCodec(4, 1.2D, ItemTags.LEAVES, false),
-                                                        new MeleeAttackGoalCodec(1,3.25D, true)
+                                                        new MeleeAttackGoalCodec(1,3.25D, true),
+                                                        new SerializableRandomMeleeAttackGoalCodec(1,
+                                                                WeightedRandomList.create(
+                                                                        new WeightedSerializableMeleeAttackHelper(
+                                                                                10,
+                                                                                SerializableRandomMeleeAttackHelper.Builder
+                                                                                        .state(REX_VARIANT, "rex")
+                                                                                        .meleeEntityAction(new MeleeEntityAction(
+                                                                                        8,1,
+                                                                                        new StompAttack(
+                                                                                                new SoundData(
+                                                                                                        UPSounds.TYRANNO_STOMP_ATTACK.get(),
+                                                                                                        SoundSource.AMBIENT,
+                                                                                                        1,
+                                                                                                        1
+
+                                                                                                ),
+                                                                                                new NoneAttack(),
+                                                                                                new CooldownWideRangeEffectData(
+                                                                                                        100,
+                                                                                                        new WideRangeEffectData(
+                                                                                                                new MobEffectInstanceCodec(UPEffects.SCREEN_SHAKE.get(),
+                                                                                                                        4,10,false,false,false),
+                                                                                                                0.2,UPTags.NONE_ENTITY_TAG
+                                                                                                        )
+                                                                                                )
+                                                                                        )
+                                                                                        )
+                                                                                        )
+                                                                                        .build()
+                                                                        )
+                                                                ),2,false,2)
+
                                                 )
                                                 //this one should probably be itself but its a tag of things it should be bothered by when attacked by it
                                                 .addTargetGoals(new HurtByTargetGoalCodec(8, GSTags.PLAYER))
 
                                                 .build(),
-                                        new GenericEntityData(true,true,false,true, true, new TruePredicate<>(),
+                                        new GenericEntityData(1.0D,1.0F,true,true,false,true, true, new TruePredicate<>(),
                                                 new EntityDamageTypeData(
                                                         List.of(
                                                                 DamageTypes.FALL,
@@ -198,7 +235,16 @@ public class EntityDataGenerator extends EntityDataProvider {
                                                         UPSounds.TYRANNO_DEATH.get(),
                                                         1,
                                                         1
-                                                ))
+                                                ),
+                                                new ScreenShakeEntityData(true,
+                                                        new CooldownWideRangeEffectData(100,
+                                                                new WideRangeEffectData(
+                                                                        new MobEffectInstanceCodec(MobEffects.ABSORPTION,10,1000,false,false,false),
+                                                                        10,
+                                                                        GSTags.PLAYER
+                                                                )))
+
+                                        )
                                 )
                         )
                 )

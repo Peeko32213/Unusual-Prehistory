@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.TradeGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -391,7 +391,7 @@ public class GigantopithicusEntity extends PrehistoricEntityOld implements IVari
 
         protected void preformSlamAttack() {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 2.5f, mob, pos, 9.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 2.5f, mob, pos, 9.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
         }
 
         protected void resetAttackCooldown() {

@@ -7,7 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStat
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -512,7 +512,7 @@ public class EstemmenosuchusEntity extends PrehistoricEntity implements GeoEntit
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.MEGALANIA_BITE.get(), 1.0F, 1.0F);
             this.mob.swing(InteractionHand.MAIN_HAND);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
 
         protected void resetAttackCooldown () {

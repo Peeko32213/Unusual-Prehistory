@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomAnimationsEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -375,7 +375,7 @@ public class AntarctopeltaEntity extends PrehistoricEntityOld implements ICustom
 
         protected void preformSliceAttack () {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),25.0f, 1.0f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob),25.0f, 1.0f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
             this.mob.playSound(UPSounds.TAIL_SWIPE.get(), 0.1F, 1.0F);
             if (mob.random.nextInt(5) == 0 && mob.getTarget() instanceof Enemy) {
                 mob.spawnAtLocation(UPItems.ANTARCTO_PLATE.get());

@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -552,7 +552,7 @@ public class BarinasuchusEntity extends TamablePrehistoricEntityOld implements I
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.BARINA_BITE.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),14.0f, 0.35f, mob, pos,  4.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob),14.0f, 0.35f, mob, pos,  4.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
         }
 
         protected void resetAttackCooldown () {

@@ -4,7 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartIndex;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -737,7 +737,7 @@ public class PalaeophisEntity extends PrehistoricAquaticEntityOld implements Geo
         protected void preformBiteAttack() {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PALAEO_BITE.get(), 0.1F, 1.0F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), 10.0f, 0.2f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), 10.0f, 0.2f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
         }
 
 

@@ -1,10 +1,13 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -32,36 +35,35 @@ public class RabiesHuntGoal extends Goal {
 
         //if (pLivingEntity instanceof PathfinderMob && !(this.mob instanceof Player)) {
 
-            double range = Math.max(this.mob.getAttribute(Attributes.FOLLOW_RANGE).getValue(), 15);
-            Vec3 loc = this.mob.position();
+        double range = Math.max(this.mob.getAttribute(Attributes.FOLLOW_RANGE).getValue(), 15);
+        Vec3 loc = this.mob.position();
 
-            AABB hitbox = this.mob.getBoundingBox().inflate(range, range, range);
-            List<LivingEntity> victimsList = this.mob.level().getEntitiesOfClass(LivingEntity.class, hitbox);
-            //scanbox creation
+        AABB hitbox = this.mob.getBoundingBox().inflate(range, range, range);
+        List<LivingEntity> victimsList = this.mob.level().getEntitiesOfClass(LivingEntity.class, hitbox);
+        //scanbox creation
 
-            double minRange = 100000;
-            LivingEntity finalizedTarget = null;
-            //closest target
+        double minRange = 100000;
+        LivingEntity finalizedTarget = null;
+        //closest target
 
-            if (!victimsList.isEmpty()) {
-                for (int i = 0; i < victimsList.size(); i++) {
-                    LivingEntity victim = victimsList.get(i);
+        if (!victimsList.isEmpty()) {
+            for (int i = 0; i < victimsList.size(); i++) {
+                LivingEntity victim = victimsList.get(i);
 
-                    if (this.mob.hasLineOfSight(victim) && this.mob.distanceTo(victim) <= minRange && this.mob != victim) {
-                        minRange = this.mob.distanceTo(victim);
-                        finalizedTarget = victim;
-                    }
-
+                if (this.mob.hasLineOfSight(victim) && this.mob.distanceTo(victim) <= minRange && this.mob != victim) {
+                    minRange = this.mob.distanceTo(victim);
+                    finalizedTarget = victim;
                 }
-            }//checks for the closest target within range that is visible
 
-            if (this.mob.getTarget() != finalizedTarget) {
-                this.mob.setTarget(finalizedTarget);
-                if (finalizedTarget != null) {
-                    this.mob.getNavigation().moveTo(this.mob.getTarget(), 4);
-                    this.target = finalizedTarget;
-                }
-            }//sets the target of the entity to the selected target if it isn't targeting it already
+            }
+        }//checks for the closest target within range that is visible
+
+        setTargetToBrainOrNormal(this.mob, finalizedTarget);
+        if (finalizedTarget != null && this.mob.getTarget() != null) {
+            this.mob.getNavigation().moveTo(this.mob.getTarget(), 4);
+
+        }
+        //sets the target of the entity to the selected target if it isn't targeting it already
 
     }
 
@@ -90,18 +92,21 @@ public class RabiesHuntGoal extends Goal {
             }
         }//checks for the closest target within range that is visible
 
-        if (this.mob.getTarget() != finalizedTarget) {
-            //if the closest target is not the current target
-            this.mob.setTarget(finalizedTarget);
-            this.target = finalizedTarget;
-        }
+        setTargetToBrainOrNormal(this.mob, finalizedTarget);
         if (this.mob.getTarget() != null) {
             this.mob.getNavigation().moveTo(this.mob.getTarget(), 1.5);
-            //constantly track target
         }
 
     }
 
 
-
+    private void setTargetToBrainOrNormal(LivingEntity targeter, LivingEntity target) {
+        if(target == null || targeter == null) return;
+        Brain<?> brain = targeter.getBrain();
+        if (!brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)) {
+            brain.setMemory(MemoryModuleType.ATTACK_TARGET, target);
+        }
+        this.mob.setTarget(target);
+        this.target = target;
+    }
 }

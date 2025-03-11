@@ -182,7 +182,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
     protected void saveAdditional(@NotNull CompoundTag tag) {
         tag.put("inventory", itemHandler.serializeNBT());
         tag.putInt("analyzer.progress", progress);
-        super.saveAdditional(tag);
+         super.saveAdditional(tag);
     }
 
 

@@ -3,7 +3,7 @@
 
  import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.*;
- import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
@@ -680,13 +680,13 @@
          protected void  preformBiteAttack() {
              Vec3 pos = mob.position();
              this.mob.playSound(UPSounds.MEGALANIA_BITE.get(), 0.75F, 1.2F);
-             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.1f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
+             HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.1f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
          }
 
          protected void  preformWaterBiteAttack() {
              Vec3 pos = mob.position();
              this.mob.playSound(UPSounds.MEGALANIA_BITE.get(), 0.75F, 1.2F);
-             HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.1f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
+             HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob), 8.0f, 0.1f, mob, pos, 1.5F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
          }
 
          protected void resetAttackCooldown() {

@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -559,7 +559,7 @@ public class KentrosaurusEntity extends PrehistoricEntityOld {
 
         protected void preformSlashAttack() {
             Vec3 pos = mob.position();
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 1.0f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob), 10.0f, 1.0f, mob, pos, 5.0F, -Math.PI / 2, Math.PI / 2, -1.0f, 3.0f, false);
             this.mob.playSound(UPSounds.TAIL_SWIPE.get(), 0.1F, 1.0F);
         }
 

@@ -2,10 +2,13 @@ package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
 import com.peeko32213.unusualprehistory.common.data.PrehistoricEgg;
+import com.peeko32213.unusualprehistory.common.data.attack.EntityAttack;
 import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry;
 import com.peeko32213.unusualprehistory.core.registry.util.UPLootModifiers;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
+import com.scouter.goalsmith.data.GSRegistries;
+import com.scouter.goalsmith.data.PredicateCodec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
@@ -91,6 +94,11 @@ public class UnusualPrehistory {
         UPEffects.EFFECT_DEF_REG.register(modEventBus);
         UPRecipes.TYPE_DEF_REG.register(modEventBus);
 
+        //register custom registry
+        UPRegistry.ENTITY_ATTACKS_TYPE_SERIALIZER.register(modEventBus);
+        UPAttackRegistry.ENTITY_ATTACK.register(modEventBus);
+
+
         //Register goalsmith goals
         UPGoalRegistry.GOAL_TYPE_SERIALIZER.register(modEventBus);
         UPSpawnPredicateRegistry.PREDICATE_SERIALIZER.register(modEventBus);
@@ -100,6 +108,7 @@ public class UnusualPrehistory {
 
         modEventBus.addListener((DataPackRegistryEvent.NewRegistry event) -> {
             event.dataPackRegistry(UPRegistry.Keys.PREHISTORIC_EGG, PrehistoricEgg.CODEC);
+            event.dataPackRegistry(UPRegistry.Keys.ENTITY_ATTACKS, EntityAttack.DIRECT_CODEC);
         });
 
 

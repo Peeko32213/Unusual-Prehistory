@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,6 +24,8 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -58,6 +61,9 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
     private ResourceLocation cachedRenderTypeKey;
     private UPRenderTypes.RenderTypes cachedRenderType;
 
+
+    private double passengerRidingOffset;
+    private float stepHeight;
     private boolean attackable;
     private boolean pushable;
     private boolean canCollideWith;
@@ -68,12 +74,13 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
     private SoundEvent ambientSound;
     private float soundVolume;
 
-    private boolean screenShake;
-    private double screenShakeRange;
-    private int screenShakeAmplifier;
 
-    private SpawnPredicate spawnPredicate;
 
+    private ScreenShakeEntityData screenShakeEntityData;
+    private EntityTerrainBreakData entityTerrainBreakData;
+
+    private TagKey<Item> food;
+    private TagKey<EntityType<?>> targets;
 
     private List<DamageType> invulnerabilityList = new ArrayList<>();
     protected PrehistoricEntityDatafied(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
@@ -122,11 +129,9 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         EntityDimensionData dimensionData = genericEntityData.getEntityDimensionData();
         EntitySoundData soundData = genericEntityData.getEntitySoundData();
         ScreenShakeEntityData screenShakeEntityData = genericEntityData.getScreenShakeEntityData();
-
-
-        setScreenShake(screenShakeEntityData.isCausesScreenShake());
-        setScreenShakeAmplifier(screenShakeEntityData.getScreenShakeAmplifier());
-        setScreenShakeRange(screenShakeEntityData.getScreenShakeRange());
+        EntityTagData entityTagData = genericEntityData.getEntityTagData();
+        setEntityTerrainBreakData(genericEntityData.getEntityTerrainBreakData());
+        setScreenShakeEntityData(screenShakeEntityData);
 
         setIsInvulnerableTo(damageTypeData.getIsInvulnerableTo(this.level()));
 
@@ -144,6 +149,11 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         setTurnsHead(genericEntityData.isTurnsHead());
         setCanBeCollidedWith(genericEntityData.isCanBeCollidedWith());
         setCanCollideWith(genericEntityData.isCanCollideWith());
+        setPassengerRidingOffset(genericEntityData.getPassengerRidingOffset());
+        setStepHeight(genericEntityData.getStepHeight());
+
+        setFood(entityTagData.getFood());
+        setTargets(entityTagData.getTargets());
     }
 
     @Override
@@ -299,6 +309,13 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         setPerformingAction(action);
     }
 
+    @Override
+    public void aiStep() {
+        super.aiStep();
+
+        getEntityTerrainBreakData().breakBlocks(this);
+
+    }
 
     @Override
     public void travel(Vec3 pTravelVector) {
@@ -343,21 +360,38 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         return super.getDimensions(pPose).scale(getWidthScale(), getHeightScale());
     }
 
-    public int getScreenShakeAmplifier() {
-        return screenShakeAmplifier;
+    @Override
+    public float getStepHeight() {
+        return stepHeight;
     }
 
-    public double getScreenShakeRange() {
-        return screenShakeRange;
+    @Override
+    public double getPassengersRidingOffset() {
+        return passengerRidingOffset;
     }
 
-    public SpawnPredicate getSpawnPredicate() {
-        return spawnPredicate;
+
+    @Override
+    public boolean isFood(ItemStack pStack) {
+        return pStack.is(getFood());
     }
 
-    public boolean isScreenShake() {
-        return screenShake;
+    public TagKey<EntityType<?>> getTargets() {
+        return targets;
     }
+
+    public TagKey<Item> getFood() {
+        return food;
+    }
+
+    public ScreenShakeEntityData getScreenShakeEntityData() {
+        return screenShakeEntityData;
+    }
+
+    public EntityTerrainBreakData getEntityTerrainBreakData() {
+        return entityTerrainBreakData;
+    }
+
 
     public void setCanCollideWith(boolean collideWith) {
         this.canCollideWith = collideWith;
@@ -391,16 +425,13 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         this.soundVolume = soundVolume;
     }
 
-    public void setScreenShake(boolean screenShake) {
-        this.screenShake = screenShake;
+
+    public void setScreenShakeEntityData(ScreenShakeEntityData screenShakeEntityData) {
+        this.screenShakeEntityData = screenShakeEntityData;
     }
 
-    public void setScreenShakeAmplifier(int screenShakeAmplifier) {
-        this.screenShakeAmplifier = screenShakeAmplifier;
-    }
-
-    public void setScreenShakeRange(double screenShakeRange) {
-        this.screenShakeRange = screenShakeRange;
+    public void setEntityTerrainBreakData(EntityTerrainBreakData entityTerrainBreakData) {
+        this.entityTerrainBreakData = entityTerrainBreakData;
     }
 
     public boolean getPerformingAction() {
@@ -411,13 +442,27 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         this.entityData.set(PERFORMING_ACTION, action);
     }
 
+    public void setStepHeight(float stepHeight) {
+        this.stepHeight = stepHeight;
+    }
+
+    public void setPassengerRidingOffset(double passengerRidingOffset) {
+        this.passengerRidingOffset = passengerRidingOffset;
+    }
+
+    public void setFood(TagKey<Item> food) {
+        this.food = food;
+    }
+
+    public void setTargets(TagKey<EntityType<?>> targets) {
+        this.targets = targets;
+    }
+
     public void setIsInvulnerableTo(List<DamageType> damageTypes) {
         this.invulnerabilityList = damageTypes;
     }
 
-    public void setSpawnPredicate(SpawnPredicate spawnPredicate) {
-        this.spawnPredicate = spawnPredicate;
-    }
+
 
     public void setModelLocation(ResourceLocation loc) {
         String locString = loc.toString();

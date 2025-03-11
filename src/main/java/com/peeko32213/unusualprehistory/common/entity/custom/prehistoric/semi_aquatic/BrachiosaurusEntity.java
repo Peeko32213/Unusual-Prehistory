@@ -9,7 +9,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedSt
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.BrachiosaurusPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.*;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
@@ -943,7 +943,7 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements GeoEntity,
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.BRACHI_STOMP.get(), 2.5F, 0.65F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.4f, mob, pos,  8.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, true);
+            HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.4f, mob, pos,  8.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, true);
             if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
                 double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));

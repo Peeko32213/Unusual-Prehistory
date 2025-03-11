@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -378,7 +378,7 @@ public class ParaceratheriumEntity extends PrehistoricEntityOld {
         protected void preformStompAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PARACER_STOMP.get(), 1.0F, 1.0F);
-            HitboxHelper.LargeAttack(this.mob.damageSources().mobAttack(mob),20.0f, 0.7f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, true);
+            HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob),20.0f, 0.7f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, true);
             if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM.get()) {
                 double paraceratheriumShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM_RANGE.get();
                 List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(paraceratheriumShakeRange));

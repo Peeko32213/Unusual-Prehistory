@@ -61,7 +61,7 @@ public class SerializableRandomStateGoal<T extends LivingEntity & IStateAction> 
 
     @Override
     public boolean canContinueToUse() {
-        return !this.helper.isEmpty() && playTicks < this.helper.get().getSerializableStateHelper().getPlayTime();
+        return this.helper.isPresent() && playTicks < this.helper.get().getSerializableStateHelper().getPlayTime();
     }
 
 

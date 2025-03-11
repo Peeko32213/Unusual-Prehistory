@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -565,21 +565,21 @@ public class PachycephalosaurusEntity extends PrehistoricEntityOld {
             protected void performLightAttack () {
                 Vec3 pos = mob.position();
                 this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 2.0f, 0.2f);
-                HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),8.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, false);
+                HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),8.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, false);
 
             }
 
         protected void performStrongAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 0.5F, 0.5F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),12.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, true);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),12.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, true);
 
         }
 
         protected void performAttackKick () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PACHY_KICK.get(), 0.5F, 0.5F);
-            HitboxHelper.LargeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),15.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),15.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, false);
 
         }
 

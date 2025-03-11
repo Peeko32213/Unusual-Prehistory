@@ -22,6 +22,8 @@ public class UPTags {
     //public static final TagKey<EntityType<?>> ANURO_EGG_TRAMPLERS = registerEntityTag("anuro_egg_tramplers");
 
     // Target tags
+    public static final TagKey<EntityType<?>> NONE_ENTITY_TAG = registerEntityTag("none_entity_tag");
+
     public static final TagKey<EntityType<?>> ANURO_TARGETS = registerEntityTag("anuro_targets");
     public static final TagKey<EntityType<?>> MAJUNGA_TARGETS = registerEntityTag("majunga_targets");
     public static final TagKey<EntityType<?>> MEGALANIA_TARGETS = registerEntityTag("megalania_targets");
@@ -59,6 +61,9 @@ public class UPTags {
     public static final TagKey<EntityType<?>> TAR_WALKABLE_THROUGH_MOBS= registerEntityTag("tar_walkable_through_mobs");
 
     // Food tags
+    public static final TagKey<Item> NONE_ITEM_TAG = registerItemTag("none_item_tag");
+
+
     public static final TagKey<Item> EDAPHO_FOOD_ITEMS = registerItemTag("edaphosaurus_food_items");
     public static final TagKey<Item> ESTEMME_FOOD_ITEMS = registerItemTag("estemmenosuchus_food_items");
 
@@ -113,6 +118,7 @@ public class UPTags {
 
 
     //Breakables Tags
+    public static final TagKey<Block> NONE_BLOCK_TAG = registerBlockTag("none_block_tag");
 
     public static final TagKey<Block> CLUB_WHITELIST_BLOCKS = registerBlockTag("club_whitelist_blocks");
     public static final TagKey<Block> ZULOAGAE_PLANTABLE_ON = registerBlockTag("zuloagae_plantable_on");
