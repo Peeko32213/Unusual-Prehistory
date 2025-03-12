@@ -230,8 +230,8 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
             });
             if(!this.level().isClientSide) {
                 if(!this.isPassive()) {
-                    this.spawnAtLocation(new ItemStack(UPItems.REX_SCALE.get(), random.nextInt(10)), 2);
-                    this.spawnAtLocation(new ItemStack(UPItems.REX_TOOTH.get(), random.nextInt(5)), 2);
+                    this.spawnAtLocation(new ItemStack(UPItems.REX_SCALE.get(), random.nextInt(10) + 8), 2);
+                    this.spawnAtLocation(new ItemStack(UPItems.REX_TOOTH.get(), random.nextInt(5) + 4), 2);
                 }
                 this.heal(300);
                 this.level().broadcastEntityEvent(this, (byte) 18);
