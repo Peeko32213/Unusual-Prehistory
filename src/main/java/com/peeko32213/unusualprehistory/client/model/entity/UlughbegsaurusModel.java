@@ -79,7 +79,7 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
         }
 
         if (!animatable.isSprinting()) {
-            neck.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
+//            neck.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
     }
 }

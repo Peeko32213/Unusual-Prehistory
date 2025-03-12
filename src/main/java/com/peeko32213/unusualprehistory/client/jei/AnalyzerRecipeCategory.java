@@ -80,7 +80,7 @@ public class AnalyzerRecipeCategory implements IRecipeCategory<AnalyzerRecipe> {
         List<ItemStack> outputs = new ArrayList<>();
         List<ItemWeightedPairCodec> itemWeightedPairs = AnalyzerRecipeJsonManager.getItems(input.getItem());
         for (ItemWeightedPairCodec weightedPair : itemWeightedPairs) {
-            outputs.add(new ItemStack(weightedPair.getItem()));
+            outputs.add(weightedPair.getItem().getDefaultInstance());
         }
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 35, 52).addItemStacks(outputs);

@@ -40,8 +40,7 @@ import java.util.Optional;
 import static com.peeko32213.unusualprehistory.common.block.custom.CultivatorBlock.HALF;
 
 public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer {
-    private BlockState blockstate;
-    public int ticksExisted;
+
 
     private static final int[] SLOTS_FOR_UP = new int[]{0};
     private static final int[] SLOTS_FOR_SIDES= new int[]{1};
@@ -50,7 +49,6 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
 
     public CultivatorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
-        this.blockstate = pBlockState;
         this.data = new ContainerData() {
             public int get(int index) {
                 return switch (index) {
@@ -89,60 +87,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
         }
     };
 
-   //private IItemHandler hopperHandler = new IItemHandler() {
-   //    @Override
-   //    public int getSlots() {
-   //        return itemHandler.getSlots();
-   //    }
-
-   //    @NotNull
-   //    @Override
-   //    public ItemStack getStackInSlot(int slot) {
-   //        return itemHandler.getStackInSlot(slot);
-   //    }
-
-   //    @NotNull
-   //    @Override
-   //    public ItemStack extractItem(int slot, int amount, boolean simulate) {
-   //        if(blockstate.getValue(HALF) == DoubleBlockHalf.UPPER){
-   //            return itemHandler.extractItem(slot, amount, simulate);
-   //        }
-
-   //        if((slot == 2) || (slot == 3)){
-   //            return itemHandler.extractItem(slot, amount, simulate);
-   //        }
-   //        return ItemStack.EMPTY;
-   //    }
-
-   //    @NotNull
-   //    @Override
-   //    public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-   //        if(stack.isEmpty()){
-   //            return stack;
-   //        }
-
-   //        if(slot == 0 && stack.is(UPTags.DNA_FLASKS)){
-   //            return itemHandler.insertItem(slot, stack, simulate);
-   //        }
-   //        if(slot == 1 && stack.is(UPItems.ORGANIC_OOZE.get())) {
-   //            return itemHandler.insertItem(slot, stack, simulate);
-   //        }
-   //        return stack;
-   //    }
-
-   //    @Override
-   //    public int getSlotLimit(int slot) {
-   //        return itemHandler.getSlotLimit(slot);
-   //    }
-
-   //    @Override
-   //    public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-   //        return itemHandler.isItemValid(slot, stack);
-   //    }
-   //};
-
     private LazyOptional<IItemHandler> lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
-    //private LazyOptional<IItemHandler> hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
 
     protected final ContainerData data;
     private int progress = 0;
@@ -163,7 +108,6 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
     public void onLoad() {
         super.onLoad();
         lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
-        //hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
         if(level != null && !level.isClientSide){
             UPMessages.sendToClients(new SyncItemStackC2SPacket(this.itemHandler, worldPosition));
         }
@@ -173,7 +117,6 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
     public void invalidateCaps()  {
         super.invalidateCaps();
         lazyItemHandlerOptional.invalidate();
-        //hopperHandlerOptional.invalidate();
         for (int x = 0; x < handlers.length; x++)
             handlers[x].invalidate();
     }
@@ -348,7 +291,6 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
 
 
     public boolean canTakeItem(int slot, ItemStack stack) {
-
         if(slot == 0 && stack.is(UPTags.DNA_FLASKS)){
             return true;
         }

@@ -57,7 +57,6 @@ import java.util.function.UnaryOperator;
 public class UnusualPrehistory {
     public static final String MODID = "unusualprehistory";
     private static int packetsRegistered;
-    public static final List<Runnable> CALLBACKS = new ArrayList<>();
     public static final Logger LOGGER = LogManager.getLogger();
     //public static final SimpleChannel NETWORK_WRAPPER;
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);

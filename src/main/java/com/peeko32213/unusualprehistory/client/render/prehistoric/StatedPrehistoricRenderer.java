@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.client.render.prehistoric;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.peeko32213.unusualprehistory.client.render.layer.RideLayer;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.OviraptorEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -19,7 +20,7 @@ public class StatedPrehistoricRenderer<T extends PrehistoricEntity> extends GeoE
 
     public StatedPrehistoricRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
-//        addRenderLayer(new <PrehistoricEntity>RideLayer(this));
+        addRenderLayer(new <PrehistoricEntity>RideLayer(this));
     }
 
     @Override

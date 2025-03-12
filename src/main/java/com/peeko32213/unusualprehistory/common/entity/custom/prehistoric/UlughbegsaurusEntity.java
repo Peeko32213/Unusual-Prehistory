@@ -412,9 +412,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         return InteractionResult.PASS;
     }
 
-    public @NotNull SoundEvent getEatingSound(@NotNull ItemStack p_28540_) {
-        return SoundEvents.GENERIC_EAT;
-    }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -727,9 +724,9 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        AnimationController<UlughbegsaurusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        AnimationController<UlughbegsaurusEntity> controller = new AnimationController<>(this, "controller", 10, this::predicate);
         controllers.add(controller);
-        AnimationController<UlughbegsaurusEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
+        AnimationController<UlughbegsaurusEntity> blend = new AnimationController<>(this, "blend", 10, this::predicate)
                 .triggerableAnim("slay", ULUGH_SLAY)
                 .triggerableAnim("scratch", ULUGH_SCRATCH)
                 .triggerableAnim("shake", ULUGH_SHAKE)

@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.client.event;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.client.ClientUtils;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.client.Minecraft;
@@ -15,7 +16,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.ViewportEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -96,6 +99,15 @@ public final class ClientForgeEvents {
             RandomSource rng = Minecraft.getInstance().player.getRandom();
             double totalAmp = (0.1 + 0.1 * amplifier);
             event.getCamera().move(rng.nextFloat() * 0.4F * intensity * totalAmp, rng.nextFloat() * 0.2F * intensity * totalAmp, rng.nextFloat() * 0.4F * intensity * totalAmp);
+        }
+    }
+
+    @SubscribeEvent
+    public static void preRenderLiving(RenderLivingEvent.Pre event) {
+        if (ClientUtils.blockedEntityRenders.contains(event.getEntity().getUUID())) {
+            MinecraftForge.EVENT_BUS.post(new RenderLivingEvent.Post(event.getEntity(), event.getRenderer(), event.getPartialTick(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight()));
+            event.setCanceled(true);
+            ClientUtils.blockedEntityRenders.remove(event.getEntity().getUUID());
         }
     }
 }

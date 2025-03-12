@@ -49,13 +49,6 @@ public class CaptureFlaskItem extends BucketItem {
         this.entityType = entityType;
         this.item1 = item;
         this.hasTooltip = hasTooltip;
-        DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> UnusualPrehistory.CALLBACKS.add(() -> ItemProperties.register(this, new ResourceLocation(UnusualPrehistory.MODID, "Variant"), (stack, world, player, i) -> {
-            if (stack.hasTag()) {
-                return stack.getTag().getInt("Variant");
-            } else {
-                return 0;
-            }
-        })));
     }
 
     public InteractionResult useOn(UseOnContext context) {

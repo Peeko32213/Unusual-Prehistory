@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.ClientProxy;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.client.ClientUtils;
 import com.peeko32213.unusualprehistory.client.model.CustomAnimationsModel;
 import com.peeko32213.unusualprehistory.client.model.DefaultModel;
 import com.peeko32213.unusualprehistory.client.model.ModelLocations;
@@ -46,6 +47,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -59,7 +61,7 @@ public final class ClientEvents {
 
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
-        UPItemProperties.addItemProperties();
+        event.enqueueWork(UPItemProperties::addItemProperties);
         BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
         BlockEntityRenderers.register(UPBlockEntities.UP_HANGING_SIGN.get(), HangingSignRenderer::new);
         event.enqueueWork(() -> {
@@ -365,13 +367,6 @@ public final class ClientEvents {
         });
     }
 
-//    @SubscribeEvent
-//    public static void preRenderLiving(RenderLivingEvent.Pre event) {
-//        if (ClientUtils.blockedEntityRenders.contains(event.getEntity().getUUID())) {
-//            MinecraftForge.EVENT_BUS.post(new RenderLivingEvent.Post(event.getEntity(), event.getRenderer(), event.getPartialTick(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight()));
-//            event.setCanceled(true);
-//            ClientUtils.blockedEntityRenders.remove(event.getEntity().getUUID());
-//        }
-//    }
+
 }
 

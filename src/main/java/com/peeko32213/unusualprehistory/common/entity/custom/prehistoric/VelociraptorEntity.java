@@ -47,6 +47,9 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 public class VelociraptorEntity extends PrehistoricEntity implements IVariantEntity {
 

@@ -17,9 +17,6 @@ public class UPFishBucketItem extends MobBucketItem {
 
 	public UPFishBucketItem(Supplier<? extends EntityType<?>> entityType, Supplier<? extends Fluid> fluid, Item item, boolean hasTooltip, Properties builder) {
 		super(entityType, fluid, () -> SoundEvents.BUCKET_EMPTY_FISH, builder);
-		DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> UnusualPrehistory.CALLBACKS.add(() ->
-				ItemProperties.register(this, new ResourceLocation(UnusualPrehistory.MODID, "variant"),
-						(stack, world, player, i) -> stack.hasTag() ? stack.getTag().getInt("Variant") : 0)));
 	}
 
 }
