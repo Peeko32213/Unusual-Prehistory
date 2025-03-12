@@ -43,6 +43,11 @@
 					]
 				},
 				{
+					"name": "Rider",
+					"parent": "saddle",
+					"pivot": [0, 61, -3.8]
+				},
+				{
 					"name": "neck_overlay",
 					"parent": "body",
 					"pivot": [-0.5, 27, -28]

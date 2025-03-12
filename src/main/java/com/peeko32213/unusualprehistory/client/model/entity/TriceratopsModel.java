@@ -57,7 +57,7 @@ public class TriceratopsModel extends GeoModel<TriceratopsEntity> {
             head.setScaleY(1.0F);
             head.setScaleZ(1.0F);
         }
-        if (!animatable.isSprinting()) {
+        if (!animatable.isSprinting() && !animatable.hasControllingPassenger()) {
             neck.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
     }

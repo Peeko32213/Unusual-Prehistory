@@ -264,7 +264,7 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> BRACHI_EGG =registerSpawnEggs("brachiosaurus_spawn_egg", UPEntities.BRACHI , 0x5e6f9a, 0xc7e1e4);
     public static final RegistryObject<ForgeSpawnEggItem> COTY_EGG = registerSpawnEggs("cotylorhynchus_spawn_egg", UPEntities.COTY , 0xb56534, 0xdfd7ad);
     public static final RegistryObject<ForgeSpawnEggItem> DIPLOCAULUS_EGG = registerSpawnEggs("diplocaulus_spawn_egg", UPEntities.DIPLOCAULUS , 0x21212e, 0xfc9214);
-    public static final RegistryObject<ForgeSpawnEggItem> DUNK_EGG = registerSpawnEggs("dunkleosteus_spawn_egg", UPEntities.DUNK , 0x611f0d, 0xb07b42);
+    public static final RegistryObject<ForgeSpawnEggItem> DUNK_EGG = registerSpawnEggs("dunkleosteus_spawn_egg", UPEntities.DUNK , 0x417a69, 0x825147);
     public static final RegistryObject<ForgeSpawnEggItem> EDAPHOSAURUS_EGG = registerSpawnEggs("edaphosaurus_spawn_egg", UPEntities.EDAPHOSAURUS , 0x572b2b, 0xf6e8e8);
     public static final RegistryObject<ForgeSpawnEggItem> ENCRUSTED_EGG = registerSpawnEggs("encrusted_spawn_egg", UPEntities.ENCRUSTED , 0x482300, 0xffc656);
     public static final RegistryObject<ForgeSpawnEggItem> ERYON_EGG = registerSpawnEggs("eryon_spawn_egg", UPEntities.ERYON , 0x1d2110, 0xe4b423);

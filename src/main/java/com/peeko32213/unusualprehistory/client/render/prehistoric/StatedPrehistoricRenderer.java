@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.client.render.prehistoric;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.render.layer.RideLayer;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.OviraptorEntity;
 import net.minecraft.client.renderer.MultiBufferSource;

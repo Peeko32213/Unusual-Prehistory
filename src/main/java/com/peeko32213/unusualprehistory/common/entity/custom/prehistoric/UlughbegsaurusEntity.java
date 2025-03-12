@@ -299,52 +299,10 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         return shouldHurt;
     }
 
-//    public void performAttack() {
-//        if (this.level().isClientSide) {
-//            return;
-//        }
-//        this.setSwinging(true);
-//        for (Entity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D))) {
-//            if (!this.hasSwung() && this.isSaddled() && this.isTame() && this.hasControllingPassenger()) {
-//                if (entity instanceof UlughbegsaurusEntity ulughbegsaurus) {
-//                    if (ulughbegsaurus.isTame()) {
-//                        continue;
-//                    }
-//                }
-//                if (entity.is(Objects.requireNonNull(this.getControllingPassenger()))) {
-//                    continue;
-//                }
-//
-//                entity.hurt(this.damageSources().mobAttack(this), 8.0F);
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void afterAttack() {
-//        this.level().broadcastEntityEvent(this, (byte) 5);
-//        this.setSwinging(false);
-//    }
-
     @Override
     public int getMaxHeadYRot() {
         return 15;
     }
-
-//    @Override
-//    public int getMaxAttackCooldown() {
-//        return ATTACK_COOLDOWN;
-//    }
-//
-//    @Override
-//    public int getAttackCooldown() {
-//        return attackCooldown;
-//    }
-//
-//    @Override
-//    public void setAttackCooldown(int cooldown) {
-//        this.attackCooldown = cooldown;
-//    }
 
     public @NotNull InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -465,14 +423,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     public double getPassengersRidingOffset() {
         return 1.85;
     }
-
-//    public void positionRider(Entity passenger, MoveFunction moveFunction) {
-//        super.positionRider(passenger, moveFunction);
-//    }
-//    public double getPassengersRidingOffset() {
-//        return 1.85;
-//    }
-
 
     public void tick() {
         super.tick();

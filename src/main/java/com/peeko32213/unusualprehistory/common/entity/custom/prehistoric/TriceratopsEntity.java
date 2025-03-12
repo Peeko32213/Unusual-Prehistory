@@ -14,6 +14,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableTempt;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -44,6 +45,7 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
@@ -160,16 +162,16 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     @Override
     public void setAction(boolean action) {}
 
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
     public TriceratopsEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
         this.reassessTameGoals();
     }
-
-//    @Override
-//    protected @NotNull PathNavigation createNavigation(Level levelIn) {
-//        return new SmoothGroundNavigation(this, levelIn);
-//    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
@@ -344,6 +346,17 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             }
         }
     }
+
+    @Nullable
+    public LivingEntity getControllingPassenger() {
+        for (Entity passenger : this.getPassengers()) {
+            if (passenger instanceof Player) {
+                return (Player) passenger;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public float getStepHeight() {

@@ -417,6 +417,8 @@ public class UPBlocks {
     public static final RegistryObject<Block> GOLD_ENGRAVED_ASPHALT = registerBlock("gold_engraved_asphalt", () -> new AsphaltBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE).speedFactor(1.15F)));
     public static final RegistryObject<Block> QUARTZ_ENGRAVED_ASPHALT = registerBlock("quartz_engraved_asphalt", () -> new AsphaltBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().sound(SoundType.STONE).speedFactor(1.15F)));
 
+    public static final RegistryObject<Block> ELECTRIC_PILLAR = registerBlock("electric_pillar", () -> new ElectricPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(1.5F).lightLevel((state -> 9)).emissiveRendering((state, level, pos) -> true).noOcclusion()));
+
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
         UPItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
@@ -454,10 +456,3 @@ public class UPBlocks {
     }
 }
 
-//    public static final RegistryObject<Block> ELECTRIC_PILLAR = registerBlock("electric_pillar",
-//            () -> new BlockElectricPillar(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(1.5F).lightLevel((state -> 9)).emissiveRendering((state, level, pos) -> true).noOcclusion()));
-//    public static <B extends Block> RegistryObject<B> registerDino(String name, Supplier<? extends B> supplier) {
-//        RegistryObject<B> block = BLOCKS.register(name, supplier);
-//        UPItems.ITEMS.register(name, () -> new DinoBlockItem(block.get(), new Item.Properties()));
-//        return block;
-//    }

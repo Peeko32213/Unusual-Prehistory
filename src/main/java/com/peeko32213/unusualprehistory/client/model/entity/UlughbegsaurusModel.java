@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.UlughbegsaurusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
@@ -78,8 +79,8 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
             head.setScaleZ(1.0F);
         }
 
-        if (!animatable.isSprinting()) {
-//            neck.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
+        if (!animatable.isSprinting() && !animatable.hasControllingPassenger()) {
+            neck.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
     }
 }

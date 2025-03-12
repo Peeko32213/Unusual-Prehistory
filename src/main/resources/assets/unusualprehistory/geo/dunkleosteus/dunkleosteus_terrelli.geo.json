@@ -1,0 +1,110 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 10,
+				"visible_bounds_height": 5,
+				"visible_bounds_offset": [0, 1.5, 0]
+			},
+			"bones": [
+				{
+					"name": "Dunkleosteus",
+					"pivot": [0, 17, 0],
+					"cubes": [
+						{"origin": [-12.5, 0, -16], "size": [25, 35, 32], "inflate": 0.1, "uv": [0, 0]},
+						{"origin": [-12.5, 0, -16], "size": [25, 35, 32], "uv": [0, 67]}
+					]
+				},
+				{
+					"name": "Dunk_Top_Jaw",
+					"parent": "Dunkleosteus",
+					"pivot": [0.5, 9, -16],
+					"cubes": [
+						{"origin": [-6.5, 9, -27], "size": [13, 7, 14], "uv": [114, 78]},
+						{"origin": [-6.5, 4, -27], "size": [13, 5, 14], "uv": [114, 99]}
+					]
+				},
+				{
+					"name": "Dunk_Bottom_Jaw",
+					"parent": "Dunkleosteus",
+					"pivot": [-0.5, 2, -16],
+					"cubes": [
+						{"origin": [-6.5, 2, -27], "size": [13, 4, 14], "uv": [114, 118]},
+						{"origin": [-6.5, 0, -27], "size": [13, 2, 12], "uv": [112, 136]}
+					]
+				},
+				{
+					"name": "Dunk_Fin_Left",
+					"parent": "Dunkleosteus",
+					"pivot": [12.5, 1, -2],
+					"rotation": [0, 0, 45],
+					"cubes": [
+						{"origin": [12.5, 0, -7], "size": [18, 2, 10], "uv": [0, 134]},
+						{"origin": [12.5, 0, -7], "size": [18, 2, 10], "inflate": 0.1, "uv": [56, 134]}
+					]
+				},
+				{
+					"name": "Dunk_Fin_Right",
+					"parent": "Dunkleosteus",
+					"pivot": [-12.5, 1, -2],
+					"rotation": [0, 0, -45],
+					"cubes": [
+						{"origin": [-30.5, 0, -7], "size": [18, 2, 10], "inflate": 0.1, "uv": [56, 134], "mirror": true},
+						{"origin": [-30.5, 0, -7], "size": [18, 2, 10], "uv": [0, 134], "mirror": true}
+					]
+				},
+				{
+					"name": "Dunk_Back_Fin_Left",
+					"parent": "Dunkleosteus",
+					"pivot": [12.5, 1, 14.5],
+					"rotation": [0, 0, 45],
+					"cubes": [
+						{"origin": [12.5, 0, 13], "size": [6, 2, 7], "uv": [52, 146]}
+					]
+				},
+				{
+					"name": "Dunk_Back_Fin_Right",
+					"parent": "Dunkleosteus",
+					"pivot": [-12.5, 1, 14.5],
+					"rotation": [0, 0, -45],
+					"cubes": [
+						{"origin": [-18.5, 0, 13], "size": [6, 2, 7], "uv": [52, 146], "mirror": true}
+					]
+				},
+				{
+					"name": "Dunk_Dorsal_Fin",
+					"parent": "Dunkleosteus",
+					"pivot": [0, 35, 16],
+					"rotation": [45, 0, 0],
+					"cubes": [
+						{"origin": [-1, 31.5, 12], "size": [2, 7, 13], "uv": [0, 146]}
+					]
+				},
+				{
+					"name": "Dunk_Tail",
+					"parent": "Dunkleosteus",
+					"pivot": [0, 16.5, 16],
+					"cubes": [
+						{"origin": [-1, 22, 27], "size": [2, 5, 5], "uv": [78, 146]},
+						{"origin": [-5.5, 11, 16], "size": [11, 11, 22], "uv": [114, 45]},
+						{"origin": [-1, 6, 27], "size": [2, 5, 5], "uv": [92, 146]}
+					]
+				},
+				{
+					"name": "Dunk_Fluke",
+					"parent": "Dunk_Tail",
+					"pivot": [0, 16, 35],
+					"rotation": [30, 0, 0],
+					"cubes": [
+						{"origin": [-1.5, 11, 35], "size": [3, 8, 37], "uv": [114, 0]},
+						{"origin": [-1, 4, 35], "size": [2, 10, 9], "pivot": [0, 11, 39.5], "rotation": [-15, 0, 0], "uv": [30, 146]}
+					]
+				}
+			]
+		}
+	]
+}

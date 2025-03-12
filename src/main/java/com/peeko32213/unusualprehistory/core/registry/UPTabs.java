@@ -420,6 +420,8 @@ public class UPTabs {
                     entries.accept(UPBlocks.ZULOAGAE_SIGN.get());
                     entries.accept(UPBlocks.ZULOAGAE_HANGING_SIGN.get());
 
+                    entries.accept(UPBlocks.ELECTRIC_PILLAR.get());
+
                     // Spawn eggs
                     UPItems.ITEMS.getEntries().forEach(spawnEgg ->{
                         if((spawnEgg.get() instanceof ForgeSpawnEggItem)) {
