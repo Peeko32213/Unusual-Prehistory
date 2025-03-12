@@ -3,97 +3,106 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.cotylorhynchus",
-				"texture_width": 128,
-				"texture_height": 128,
+				"identifier": "geometry.unknown",
+				"texture_width": 256,
+				"texture_height": 256,
 				"visible_bounds_width": 9,
-				"visible_bounds_height": 4,
-				"visible_bounds_offset": [0, 1, 0]
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
 			},
 			"bones": [
 				{
-					"name": "Coty",
-					"pivot": [0, 14, 0]
+					"name": "Cotylorhynchus",
+					"pivot": [0, 15, 0]
 				},
 				{
-					"name": "Body",
-					"parent": "Coty",
-					"pivot": [-0.5, 14, 0],
+					"name": "Coty_Upper_Body",
+					"parent": "Cotylorhynchus",
+					"pivot": [0, 9, 13]
+				},
+				{
+					"name": "Coty_Torso",
+					"parent": "Coty_Upper_Body",
+					"pivot": [0, 15, 0],
 					"cubes": [
-						{"origin": [-13.5, 6, -15], "size": [27, 22, 30], "uv": [0, 0]}
+						{"origin": [-13.5, 4, -20], "size": [27, 22, 41], "uv": [0, 0]}
 					]
 				},
 				{
-					"name": "BackBody",
-					"parent": "Body",
-					"pivot": [-0.5, 14, 15],
+					"name": "Coty_Head",
+					"parent": "Coty_Torso",
+					"pivot": [-1, 24, -20],
 					"cubes": [
-						{"origin": [-8, 6, 15], "size": [15, 12, 11], "uv": [45, 52]}
+						{"origin": [-1, 16.99, -23], "size": [2, 5, 6], "uv": [70, 107]},
+						{"origin": [0, 16, -24], "size": [0, 6, 8], "uv": [32, 103]}
 					]
 				},
 				{
-					"name": "Tail",
-					"parent": "BackBody",
-					"pivot": [-0.5, 10, 26],
+					"name": "Coty_Upper_Jaw",
+					"parent": "Coty_Head",
+					"pivot": [-0.5, 22, -20],
 					"cubes": [
-						{"origin": [-4, 6, 26], "size": [6, 6, 33], "uv": [0, 52]}
+						{"origin": [-2.5, 23, -26], "size": [5, 3, 6], "uv": [34, 94]}
 					]
 				},
 				{
-					"name": "Head",
-					"parent": "Body",
-					"pivot": [-0.5, 26.15, -15],
+					"name": "jaw",
+					"parent": "Coty_Head",
+					"pivot": [0, 23, -20],
 					"cubes": [
-						{"origin": [-1.5, 16.15, -20], "size": [2, 5, 5], "uv": [45, 75]},
-						{"origin": [-4, 21.15, -24], "size": [7, 7, 9], "uv": [0, 52]}
+						{"origin": [-2.5, 22, -26], "size": [5, 1, 6], "inflate": -0.01, "uv": [48, 107]}
 					]
 				},
 				{
-					"name": "Leg1",
-					"parent": "Coty",
-					"pivot": [7, 9, 20],
+					"name": "Coty_Tail",
+					"parent": "Coty_Torso",
+					"pivot": [0, 10, 21],
 					"cubes": [
-						{"origin": [8, 0, 16], "size": [0, 2, 2], "uv": [0, 0]},
-						{"origin": [9, 0, 16], "size": [0, 2, 2], "uv": [0, 0]},
-						{"origin": [11, 0, 16], "size": [0, 2, 2], "uv": [0, 0]},
-						{"origin": [12, 0, 16], "size": [0, 2, 2], "uv": [0, 0]},
-						{"origin": [7, 0, 18], "size": [5, 10, 5], "uv": [0, 68]}
+						{"origin": [-5.5, 6, 19], "size": [11, 8, 15], "uv": [62, 63]}
 					]
 				},
 				{
-					"name": "Leg2",
-					"parent": "Coty",
-					"pivot": [-8, 9, 20],
+					"name": "Coty_Tailtip",
+					"parent": "Coty_Tail",
+					"pivot": [0, 8.5, 34],
 					"cubes": [
-						{"origin": [-9, 0, 16], "size": [0, 2, 2], "uv": [0, 0], "mirror": true},
-						{"origin": [-10, 0, 16], "size": [0, 2, 2], "uv": [0, 0], "mirror": true},
-						{"origin": [-12, 0, 16], "size": [0, 2, 2], "uv": [0, 0], "mirror": true},
-						{"origin": [-13, 0, 16], "size": [0, 2, 2], "uv": [0, 0], "mirror": true},
-						{"origin": [-13, 0, 18], "size": [5, 10, 5], "uv": [0, 68], "mirror": true}
+						{"origin": [-2.5, 6.2, 34], "size": [5, 5, 26], "uv": [0, 63]}
 					]
 				},
 				{
-					"name": "Arm1",
-					"parent": "Coty",
-					"pivot": [13.5, 13, -8],
+					"name": "Coty_Arm_Left",
+					"parent": "Coty_Upper_Body",
+					"pivot": [13.5, 10.1, -15],
 					"cubes": [
-						{"origin": [13.5, 0, -13], "size": [7, 14, 8], "uv": [0, 0]},
-						{"origin": [16.5, 0, -15], "size": [0, 2, 2], "uv": [0, 0]},
-						{"origin": [17.5, 0, -15], "size": [0, 2, 2], "uv": [0, 0]},
-						{"origin": [14.5, 0, -15], "size": [0, 2, 2], "uv": [0, 0]},
-						{"origin": [19.5, 0, -15], "size": [0, 2, 2], "uv": [0, 0]}
+						{"origin": [13.5, 0, -18], "size": [6, 15, 6], "uv": [90, 86]},
+						{"origin": [13.5, 0.1, -20], "size": [8, 0, 8], "uv": [0, 102]}
 					]
 				},
 				{
-					"name": "Arm2",
-					"parent": "Coty",
-					"pivot": [-13.5, 13, -8],
+					"name": "Coty_Arm_Right",
+					"parent": "Coty_Upper_Body",
+					"pivot": [-13.5, 10.1, -15],
 					"cubes": [
-						{"origin": [-20.5, 0, -13], "size": [7, 14, 8], "uv": [0, 0], "mirror": true},
-						{"origin": [-16.5, 0, -15], "size": [0, 2, 2], "uv": [0, 0], "mirror": true},
-						{"origin": [-17.5, 0, -15], "size": [0, 2, 2], "uv": [0, 0], "mirror": true},
-						{"origin": [-14.5, 0, -15], "size": [0, 2, 2], "uv": [0, 0], "mirror": true},
-						{"origin": [-19.5, 0, -15], "size": [0, 2, 2], "uv": [0, 0], "mirror": true}
+						{"origin": [-19.5, 0, -18], "size": [6, 15, 6], "uv": [90, 86], "mirror": true},
+						{"origin": [-21.5, 0.1, -20], "size": [8, 0, 8], "uv": [0, 102], "mirror": true}
+					]
+				},
+				{
+					"name": "Coty_Leg_Left",
+					"parent": "Cotylorhynchus",
+					"pivot": [13.5, 9, 13],
+					"cubes": [
+						{"origin": [11.5, 0.1, 6], "size": [9, 0, 8], "uv": [0, 94]},
+						{"origin": [11.5, 0, 9], "size": [6, 13, 8], "uv": [62, 86]}
+					]
+				},
+				{
+					"name": "Coty_Leg_Right",
+					"parent": "Cotylorhynchus",
+					"pivot": [-13.5, 9, 13],
+					"cubes": [
+						{"origin": [-17.5, 0, 9], "size": [6, 13, 8], "uv": [62, 86], "mirror": true},
+						{"origin": [-20.5, 0.1, 6], "size": [9, 0, 8], "uv": [0, 94], "mirror": true}
 					]
 				}
 			]

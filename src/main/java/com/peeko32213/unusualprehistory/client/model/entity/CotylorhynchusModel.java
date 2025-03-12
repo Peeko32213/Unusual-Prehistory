@@ -33,7 +33,7 @@ public class CotylorhynchusModel extends GeoModel<CotylorhynchusEntity> {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("Coty_Head");
         if (animatable.isBaby()) {
             head.setScaleX(1.75F);
             head.setScaleY(1.75F);

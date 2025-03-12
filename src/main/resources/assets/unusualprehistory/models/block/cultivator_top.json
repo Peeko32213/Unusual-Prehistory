@@ -3,6 +3,6 @@
 	"render_type": "minecraft:translucent",
 	"textures": {
 		"all": "unusualprehistory:block/no_texture_block",
-		"particle": "unusualprehistory:block/cultivator"
+		"particle": "unusualprehistory:block/particle/cultivator_particle"
 	}
 }

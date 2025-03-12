@@ -4,7 +4,7 @@
 	"texture_size": [48, 32],
 	"textures": {
 		"0": "unusualprehistory:block/cultivator",
-		"particle": "unusualprehistory:block/cultivator"
+		"particle": "unusualprehistory:block/particle/cultivator_particle"
 	},
 	"elements": [
 		{
