@@ -668,6 +668,10 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.OVIRAPTOR_HURT, "Oviraptor hurts");
         addSound(UPSounds.OVIRAPTOR_DEATH, "Oviraptor dies");
 
+        addSound(UPSounds.BALAUR_IDLE, "Balaur chirps");
+        addSound(UPSounds.BALAUR_HURT, "Balaur hurts");
+        addSound(UPSounds.BALAUR_DEATH, "Balaur dies");
+
         addSound(UPSounds.PACHY_IDLE, "Pachycephalosaurus grunts");
         addSound(UPSounds.PACHY_HURT, "Pachycephalosaurus hurts");
         addSound(UPSounds.PACHY_HEADBUTT, "Pachycephalosaurus bonks");

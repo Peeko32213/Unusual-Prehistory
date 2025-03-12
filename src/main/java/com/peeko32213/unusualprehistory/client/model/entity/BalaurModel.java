@@ -11,8 +11,8 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class BalaurModel extends GeoModel<BalaurEntity>
-{
+public class BalaurModel extends GeoModel<BalaurEntity> {
+
     @Override
     public ResourceLocation getModelResource(BalaurEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/balaur.geo.json");

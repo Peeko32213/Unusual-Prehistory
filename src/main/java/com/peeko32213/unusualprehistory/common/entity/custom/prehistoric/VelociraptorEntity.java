@@ -9,10 +9,10 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEnt
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,7 +22,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -30,16 +29,14 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;
@@ -50,14 +47,11 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
-public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
+public class VelociraptorEntity extends PrehistoricEntity implements IVariantEntity {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -230,17 +224,22 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
 //        );
 //    }
 
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
     public VelociraptorEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
+        this.setMaxUpStep(1.25F);
         ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
-        this.setMaxUpStep(1.0F);
         this.refreshDimensions();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 16.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.2D)
+            .add(Attributes.MAX_HEALTH, 14.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.22D)
             .add(Attributes.ATTACK_DAMAGE, 5.0D);
     }
 
@@ -289,23 +288,6 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
 //        this.goalSelector.addGoal(1, new VelociraptorEntity.MeleeAttackGoal());
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-
-        if (!this.hasCustomName()) {
-            this.setScale(0);
-        } else {
-            if(!Objects.requireNonNull(this.getCustomName()).getString().equalsIgnoreCase("gigantoraptor")){
-                this.setScale(0);
-            } else {
-                if("gigantoraptor".equals(this.getName().getString().toLowerCase(Locale.ROOT)) && !this.isBaby()){
-                    this.setScale(1);
-                }
-            }
-        }
     }
 
     @Override
@@ -408,6 +390,16 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
     }
 
     @Override
+    public float getSoundVolume() {
+        if(this.isBaby()){
+            return 0.65F;
+        }
+        else{
+            return 0.8F;
+        }
+    }
+
+    @Override
     protected SoundEvent getAttackSound() {
         return UPSounds.VELOCIRAPTOR_ATTACK.get();
     }
@@ -453,16 +445,6 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
     }
 
     @Override
-    public void setCustomName(@Nullable Component pName) {
-        super.setCustomName(pName);
-    }
-
-    @Override
-    protected float getJumpPower() {
-        return 1.25F;
-    }
-
-    @Override
     public ResourceLocation getVariantTexture() {
         return null;
     }
@@ -471,7 +453,6 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Press", this.hasPressed());
-        compound.putInt("scale", this.getModelScale());
         compound.putInt("Variant", this.getVariant());
     }
 
@@ -479,7 +460,6 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setPress(compound.getBoolean("Press"));
-        this.setScale(Math.min(compound.getInt("scale"), 0));
         this.setVariant(compound.getInt("Variant"));
     }
 
@@ -494,36 +474,8 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
         this.entityData.define(IDLE_6_AC, false);
         this.entityData.define(IDLE_7_AC, false);
         this.entityData.define(PRESS, false);
-        this.entityData.define(SCALE, 0);
         this.entityData.define(VARIANT, 0);
         this.entityData.define(HAS_TARGET, false);
-    }
-
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> pKey) {
-        if (SCALE.equals(pKey)) {
-            this.refreshDimensions();
-        }
-
-        super.onSyncedDataUpdated(pKey);
-    }
-
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pPose) {
-        return super.getDimensions(pPose).scale(getScale(this.getModelScale()));
-    }
-
-    private static float getScale(int scale) {
-        if (scale == 1) {
-            return 1.8F;
-        }
-        return 0.9F;
-    }
-
-    public int getModelScale() {
-        return this.entityData.get(SCALE);
-    }
-
-    public void setScale(int scale) {
-        this.entityData.set(SCALE, scale);
     }
 
     public void setPress(boolean eepy) {
@@ -779,19 +731,6 @@ public class VelociraptorEntity extends PrehistoricEntity implements GeoEntity, 
         else {
             this.setVariant(0);
         }
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        int variantChange = this.random.nextInt(0, 100);
-        this.determineVariant(variantChange);
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    public boolean shouldFollow() {
-        return false;
     }
 
 }

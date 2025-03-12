@@ -3,11 +3,8 @@ package com.peeko32213.unusualprehistory.common.entity.custom.base;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TriceratopsEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableTempt;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -16,10 +13,9 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -30,28 +26,25 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.AirBlock;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnimatable, IHatchableEntity, IBookEntity, IStateAction {
+public abstract class PrehistoricEntity extends TamableAnimal implements GeoEntity, GeoAnimatable, IHatchableEntity, IBookEntity, IStateAction {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
@@ -421,6 +414,46 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnim
         populateEntityFromData(entityLoc, true);
     }
 
+//    protected void clampRotation(LivingEntity livingEntity, float clampRange) {
+//        livingEntity.setYBodyRot(this.getYRot());
+//        float f = Mth.wrapDegrees(livingEntity.getYRot() - this.getYRot());
+//        float f1 = Mth.clamp(f, -clampRange, clampRange);
+//        livingEntity.yRotO += f1 - f;
+//        livingEntity.yBodyRotO += f1 - f;
+//        livingEntity.setYRot(livingEntity.getYRot() + f1 - f);
+//        livingEntity.setYHeadRot(livingEntity.getYRot());
+//    }
+
+
+//    public void positionRider(Entity passenger, MoveFunction moveFunction) {
+//        if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity living && !this.touchingUnloadedChunk()) {
+//            Vec3 seatOffset = new Vec3(0F, 0.0F, 0F).xRot((float) Math.toRadians(this.getXRot())).yRot((float) Math.toRadians(-this.yBodyRot));
+//            double targetY = this.getY() + passenger.getBbHeight();
+//            passenger.setYBodyRot(this.yBodyRot);
+//            passenger.fallDistance = 0.0F;
+//            clampRotation(living, 105);
+//            moveFunction.accept(passenger, this.getX() + seatOffset.x, targetY, this.getZ() + seatOffset.z);
+//        } else {
+//            super.positionRider(passenger, moveFunction);
+//        }
+//    }
+//
+//    public LivingEntity getControllingPassenger() {
+//        Entity entity = this.getFirstPassenger();
+//        if (entity instanceof Player) {
+//            return (Player) entity;
+//        } else {
+//            return null;
+//        }
+//    }
+
+//    protected abstract int getMaxPassengers();
+//
+//    @Override
+//    protected boolean canAddPassenger(@NotNull Entity pPassenger) {
+//        return this.getPassengers().size() < this.getMaxPassengers();
+//    }
+
     public int getRandomNumber() {
         return this.entityData.get(RANDOM_NUMBER);
     }
@@ -473,14 +506,11 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoAnim
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {
-        spawnGroupData = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, spawnGroupData, tag);
-        Level level = levelAccessor.getLevel();
-        determineVariant(random.nextInt(100));
-        if (level instanceof ServerLevel) {
-            this.setPersistenceRequired();
-        }
-        return spawnGroupData;
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        int variantChange = this.random.nextInt(0, 100);
+        this.determineVariant(variantChange);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override

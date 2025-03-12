@@ -559,6 +559,36 @@
     "subtitle": "unusualprehistory.sound.subtitle.oviraptor_hurt"
   },
 
+  "balaur_idle": {
+    "sounds": [
+      "unusualprehistory:entity/balaur/balaur_idle_0",
+      "unusualprehistory:entity/balaur/balaur_idle_1",
+      "unusualprehistory:entity/balaur/balaur_idle_2",
+      "unusualprehistory:entity/balaur/balaur_idle_3",
+      "unusualprehistory:entity/balaur/balaur_idle_4",
+      "unusualprehistory:entity/balaur/balaur_idle_5"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.balaur_idle"
+  },
+  "balaur_death": {
+    "sounds": [
+      "unusualprehistory:entity/balaur/balaur_death_0",
+      "unusualprehistory:entity/balaur/balaur_death_1",
+      "unusualprehistory:entity/balaur/balaur_death_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.balaur_death"
+  },
+  "balaur_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/balaur/balaur_hurt_0",
+      "unusualprehistory:entity/balaur/balaur_hurt_1",
+      "unusualprehistory:entity/balaur/balaur_hurt_2",
+      "unusualprehistory:entity/balaur/balaur_hurt_3",
+      "unusualprehistory:entity/balaur/balaur_hurt_4"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.balaur_hurt"
+  },
+
   "pachy_death": {
     "sounds": [
         "unusualprehistory:entity/pachy/pachy_death"

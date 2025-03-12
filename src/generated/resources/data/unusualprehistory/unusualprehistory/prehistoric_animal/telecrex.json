@@ -173,57 +173,6 @@
                   "following_target_even_if_not_seen": true,
                   "goal_priority": 1,
                   "speed_modifier": 3.25
-                },
-                {
-                  "type": "unusualprehistory:random_melee_attack_goal",
-                  "attack_sqr_reach_bb_width_modifier": 2.0,
-                  "following_target_even_if_not_seen": false,
-                  "goal_priority": 1,
-                  "speed_modifier": 2.0,
-                  "state_helpers": [
-                    {
-                      "melee_attack_helper": {
-                        "affects_ai": false,
-                        "goal_stop_time": 0,
-                        "melee_entity_action": {
-                          "entity_attack": {
-                            "type": "unusualprehistory:stomp_attack",
-                            "attack": {
-                              "type": "unusualprehistory:none_attack"
-                            },
-                            "cooldown_wide_range_effect": {
-                              "cooldown_time": 100,
-                              "wide_range_effect": {
-                                "effect": {
-                                  "amplifier": 4,
-                                  "mob_effect": "unusualprehistory:screen_shake",
-                                  "screen_shake_amplifier": 10,
-                                  "show_icon": false,
-                                  "visible": false
-                                },
-                                "effect_range": 0.2
-                              }
-                            },
-                            "sound": {
-                              "pitch": 1,
-                              "sound_to_play": "unusualprehistory:tyrannosaurus_stomp_attack",
-                              "source_source": "ambient",
-                              "volume": 1.0
-                            }
-                          },
-                          "time_to_perform_attack": 8,
-                          "times_to_perform": 1
-                        },
-                        "name": "rex",
-                        "play_time": 0,
-                        "starting_predicate": {
-                          "type": "goalsmith:true"
-                        },
-                        "state": "unusualprehistory:rex_variant"
-                      },
-                      "weight": 10
-                    }
-                  ]
                 }
               ]
             }

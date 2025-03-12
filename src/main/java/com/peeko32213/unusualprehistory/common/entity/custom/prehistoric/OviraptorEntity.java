@@ -6,11 +6,9 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityActi
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -26,30 +24,26 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.Locale;
+import java.util.Objects;
 
-public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable {
+public class OviraptorEntity extends PrehistoricEntity {
+
+    private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(OviraptorEntity.class, EntityDataSerializers.INT);
 
     public float flap;
     public float flapSpeed;
@@ -57,8 +51,6 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
     public float oFlap;
     public float flapping = 1.0F;
     private float nextFlap = 1.0F;
-
-    private static final Predicate<Level> SLEEP_TIME = Level::isNight;
 
     // Movement animations
     private static final RawAnimation OVI_WALK = RawAnimation.begin().thenLoop("animation.oviraptor.walk");
@@ -68,10 +60,10 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
 
     // Idle animations
     private static final RawAnimation OVI_IDLE = RawAnimation.begin().thenLoop("animation.oviraptor.idle");
-    private static final RawAnimation OVI_LOOKOUT_1 = RawAnimation.begin().thenLoop("animation.oviraptor.idle");
-    private static final RawAnimation OVI_LOOKOUT_2 = RawAnimation.begin().thenLoop("animation.oviraptor.idle");
-    private static final RawAnimation OVI_COCKADOO = RawAnimation.begin().thenLoop("animation.oviraptor.cockadoo");
-    private static final RawAnimation OVI_PECK = RawAnimation.begin().thenLoop("animation.oviraptor.peck");
+    private static final RawAnimation OVI_LOOKOUT_1 = RawAnimation.begin().thenPlay("animation.oviraptor.idle");
+    private static final RawAnimation OVI_LOOKOUT_2 = RawAnimation.begin().thenPlay("animation.oviraptor.idle");
+    private static final RawAnimation OVI_COCKADOO = RawAnimation.begin().thenPlay("animation.oviraptor.cockadoo");
+    private static final RawAnimation OVI_PECK = RawAnimation.begin().thenPlay("animation.oviraptor.peck");
     private static final RawAnimation OVI_SIT_1 = RawAnimation.begin().thenLoop("animation.oviraptor.sit1");
     private static final RawAnimation OVI_SIT_2 = RawAnimation.begin().thenLoop("animation.oviraptor.sit2");
     private static final RawAnimation OVI_SLEEP = RawAnimation.begin().thenLoop("animation.oviraptor.sleep");
@@ -126,50 +118,13 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
                     .entityAction(OVI_IDLE_4_ACTION)
                     .build();
 
-    private static final EntityAction OVI_IDLE_5_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private static final StateHelper OVI_IDLE_5_STATE =
-            StateHelper.Builder.state(IDLE_5_AC, "oviraptor_sit_1")
-                    .playTime(200)
-                    .stopTime(250)
-                    .affectsAI(true)
-                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(OVI_IDLE_5_ACTION)
-                    .build();
-
-    private static final EntityAction OVI_IDLE_6_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private static final StateHelper OVI_IDLE_6_STATE =
-            StateHelper.Builder.state(IDLE_6_AC, "oviraptor_sit_2")
-                    .playTime(200)
-                    .stopTime(250)
-                    .affectsAI(true)
-                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(OVI_IDLE_6_ACTION)
-                    .build();
-
-    private static final EntityAction OVI_IDLE_7_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private final StateHelper OVI_IDLE_7_STATE =
-            StateHelper.Builder.state(IDLE_7_AC, "oviraptor_sleep")
-                    .playTime(320 + getRandom().nextInt(200))
-                    .stopTime(400)
-                    .affectsAI(true)
-                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-//                    .startingPredicate(SLEEP_TIME)
-                    .entityAction(OVI_IDLE_7_ACTION)
-                    .build();
-
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
                 OVI_IDLE_1_STATE.getName(), OVI_IDLE_1_STATE,
                 OVI_IDLE_2_STATE.getName(), OVI_IDLE_2_STATE,
                 OVI_IDLE_3_STATE.getName(), OVI_IDLE_3_STATE,
-                OVI_IDLE_4_STATE.getName(), OVI_IDLE_4_STATE,
-                OVI_IDLE_5_STATE.getName(), OVI_IDLE_5_STATE,
-                OVI_IDLE_6_STATE.getName(), OVI_IDLE_6_STATE,
-                OVI_IDLE_7_STATE.getName(), OVI_IDLE_7_STATE
+                OVI_IDLE_4_STATE.getName(), OVI_IDLE_4_STATE
         );
     }
 
@@ -179,10 +134,7 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
                 WeightedState.of(OVI_IDLE_1_STATE, 10),
                 WeightedState.of(OVI_IDLE_2_STATE, 10),
                 WeightedState.of(OVI_IDLE_3_STATE, 12),
-                WeightedState.of(OVI_IDLE_4_STATE, 11),
-                WeightedState.of(OVI_IDLE_5_STATE, 5),
-                WeightedState.of(OVI_IDLE_6_STATE, 5),
-                WeightedState.of(OVI_IDLE_7_STATE, 7)
+                WeightedState.of(OVI_IDLE_4_STATE, 11)
         );
     }
 
@@ -194,23 +146,26 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
     @Override
     public void setAction(boolean action) {}
 
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
     public OviraptorEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
-        this.refreshDimensions();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 6.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.18D)
-            .add(Attributes.ATTACK_DAMAGE, 3.0D);
+            .add(Attributes.MOVEMENT_SPEED, 0.18D);
     }
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(5, new PanicGoal(this, 2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(7, new PanicGoal(this, 2.0D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
     }
@@ -218,6 +173,18 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
     @Override
     public void tick() {
         super.tick();
+
+        if (!this.hasCustomName()) {
+            this.setScale(0);
+        } else {
+            if(!Objects.requireNonNull(this.getCustomName()).getString().equalsIgnoreCase("gigantoraptor")){
+                this.setScale(0);
+            } else {
+                if("gigantoraptor".equals(this.getName().getString().toLowerCase(Locale.ROOT)) && !this.isBaby()){
+                    this.setScale(1);
+                }
+            }
+        }
     }
 
     @Override
@@ -272,6 +239,16 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
     }
 
     @Override
+    public float getSoundVolume() {
+        if(this.isBaby()){
+            return 0.65F;
+        }
+        else{
+            return 0.8F;
+        }
+    }
+
+    @Override
     protected SoundEvent getAttackSound() {
         return null;
     }
@@ -319,11 +296,13 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putInt("scale", this.getModelScale());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.setScale(Math.min(compound.getInt("scale"), 0));
     }
 
     @Override
@@ -332,14 +311,34 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
         this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(IDLE_3_AC, false);
         this.entityData.define(IDLE_4_AC, false);
-        this.entityData.define(IDLE_5_AC, false);
-        this.entityData.define(IDLE_6_AC, false);
-        this.entityData.define(IDLE_7_AC, false);
+        this.entityData.define(SCALE, 0);
         super.defineSynchedData();
     }
 
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose pPose) {
+        return super.getDimensions(pPose).scale(getScale(this.getModelScale()));
+    }
+
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> pKey) {
+        if (SCALE.equals(pKey)) {
+            this.refreshDimensions();
+        }
         super.onSyncedDataUpdated(pKey);
+    }
+
+    private static float getScale(int scale) {
+        if (scale == 1) {
+            return 1.8F;
+        }
+        return 1.0F;
+    }
+
+    public int getModelScale() {
+        return this.entityData.get(SCALE);
+    }
+
+    public void setScale(int scale) {
+        this.entityData.set(SCALE, scale);
     }
 
     @Nullable
@@ -360,11 +359,6 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
         return false;
     }
 
-    private void soundListener(SoundKeyframeEvent<OviraptorEntity> event) {
-        OviraptorEntity oviraptor = event.getAnimatable();
-        if (oviraptor.level().isClientSide) {}
-    }
-
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         AnimationController<OviraptorEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
@@ -374,7 +368,6 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
                 .triggerableAnim("lookout_1", OVI_LOOKOUT_1)
                 .triggerableAnim("lookout_2", OVI_LOOKOUT_2)
                 ;
-        blend.setSoundKeyframeHandler(this::soundListener);
         controllers.add(blend);
 
         AnimationController<OviraptorEntity> flap = new AnimationController<>(this, "flapController", 5, this::flapPredicate);
@@ -425,15 +418,6 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
             if (getBooleanState(IDLE_4_AC) && !this.isAsleep()) {
                 return event.setAndContinue(OVI_PECK);
             }
-            if (getBooleanState(IDLE_5_AC) && !this.isAsleep()) {
-                return event.setAndContinue(OVI_SIT_1);
-            }
-            if (getBooleanState(IDLE_6_AC) && !this.isAsleep()) {
-                return event.setAndContinue(OVI_SIT_2);
-            }
-            if (getBooleanState(IDLE_7_AC) && !this.isAsleep()) {
-                return event.setAndContinue(OVI_SLEEP);
-            }
             return event.setAndContinue(OVI_IDLE);
         }
         return PlayState.CONTINUE;
@@ -448,10 +432,4 @@ public class OviraptorEntity extends PrehistoricEntity implements GeoEntity, Geo
         event.getController().forceAnimationReset();
         return PlayState.STOP;
     }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return null;
-    }
-
 }

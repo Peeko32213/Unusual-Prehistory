@@ -173,14 +173,14 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
     public void setAction(boolean action) {
     }
 
-    public TyrannosaurusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
-        super(entityType, level);
-        this.setMaxUpStep(1.25F);
-    }
-
     @Override
     protected @NotNull PathNavigation createNavigation(Level levelIn) {
         return new SmoothGroundNavigation(this, levelIn);
+    }
+
+    public TyrannosaurusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
+        super(entityType, level);
+        this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

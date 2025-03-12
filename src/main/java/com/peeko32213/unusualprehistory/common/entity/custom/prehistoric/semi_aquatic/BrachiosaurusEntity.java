@@ -282,12 +282,12 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements GeoEntity,
         return null;
     }
 
-    @Override
-    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
-        float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));
-        float yCos = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));
-        pPassenger.setPos(this.getX() + (double)(-1.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() - 0.1F, this.getZ() - (double)(-1.5F * yCos));
-    }
+//    @Override
+//    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
+//        float ySin = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F));
+//        float yCos = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));
+//        pPassenger.setPos(this.getX() + (double)(-1.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() - 0.1F, this.getZ() - (double)(-1.5F * yCos));
+//    }
 
     public double getPassengersRidingOffset() {
         return 15.3D;

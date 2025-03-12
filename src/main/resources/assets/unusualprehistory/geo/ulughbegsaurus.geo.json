@@ -141,6 +141,11 @@
 					]
 				},
 				{
+					"name": "Rider",
+					"parent": "Ulugh_Saddle",
+					"pivot": [0, 42, 0]
+				},
+				{
 					"name": "Leg_control",
 					"parent": "Ulughbegsaurus",
 					"pivot": [0, 0, 0]

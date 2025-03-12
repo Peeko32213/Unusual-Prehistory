@@ -229,7 +229,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.ANURO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.ANURO)));
         event.registerEntityRenderer(UPEntities.ARCHELON.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new ArchelonModel()).withLayers(ARCHELON_MODEL).withSaddleLayer(ARCHELON_SADDLE_EMPTY_OVERLAY).build());
         event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new PrehistoricRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.AUSTRORAPTOR)));
-        event.registerEntityRenderer(UPEntities.BALAUR.get(), e -> new TameableDinosaurRenderer<>(e, new BalaurModel()));
+        event.registerEntityRenderer(UPEntities.BALAUR.get(), e -> new StatedPrehistoricRenderer<>(e, new BalaurModel()));
         event.registerEntityRenderer(UPEntities.BEELZ.get(), e -> UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.BEELZEBUFO)).withLayers(BEELZE_MODEL).withSaddleLayer(BEELZE_SADDLE_OVERLAY).build());
         event.registerEntityRenderer(UPEntities.BEELZ.get(), e -> new PrehistoricRenderer<>(e, new BeelzebufoModel()));
 
@@ -245,7 +245,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.LEEDS_PART.get(), LeedsichthysPartRender::new);
         event.registerEntityRenderer(UPEntities.LONGISQUAMA.get(), e -> new TamableCutoutNoCullPrehistoricRenderer<>(e, new LongisquamaModel()));
         event.registerEntityRenderer(UPEntities.MAJUNGA.get(), e -> new PrehistoricRenderer<>(e, new MajungasaurusModel()));
-        event.registerEntityRenderer(UPEntities.OVIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new OviraptorModel()));
+        event.registerEntityRenderer(UPEntities.OVIRAPTOR.get(), e -> new StatedPrehistoricRenderer<>(e, new OviraptorModel()));
         event.registerEntityRenderer(UPEntities.PACHY.get(), e -> new PrehistoricRenderer<>(e, new PachycephalosaurusModel()));
         event.registerEntityRenderer(UPEntities.PROTOSPHYRAENA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new ProtosphyraenaModel()));
         event.registerEntityRenderer(UPEntities.PSITTACO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsittacosaurusModel()));
@@ -365,5 +365,13 @@ public final class ClientEvents {
         });
     }
 
+//    @SubscribeEvent
+//    public static void preRenderLiving(RenderLivingEvent.Pre event) {
+//        if (ClientUtils.blockedEntityRenders.contains(event.getEntity().getUUID())) {
+//            MinecraftForge.EVENT_BUS.post(new RenderLivingEvent.Post(event.getEntity(), event.getRenderer(), event.getPartialTick(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight()));
+//            event.setCanceled(true);
+//            ClientUtils.blockedEntityRenders.remove(event.getEntity().getUUID());
+//        }
+//    }
 }
 

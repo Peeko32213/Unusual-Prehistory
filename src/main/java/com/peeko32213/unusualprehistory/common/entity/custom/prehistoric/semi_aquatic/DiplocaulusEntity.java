@@ -54,9 +54,7 @@
  import java.util.EnumSet;
  import java.util.List;
 
- public class DiplocaulusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, ISemiAquatic, IVariantEntity, IStateAction {
-
-     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.TRICERATOPS_FOOD);
+ public class DiplocaulusEntity extends PrehistoricEntity implements ISemiAquatic, IVariantEntity {
 
      private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(DiplocaulusEntity.class, EntityDataSerializers.INT);
 
@@ -78,7 +76,7 @@
      // Idle actions
      private static final EntityAction DIPLOCAULUS_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-     private static final StateHelper DIPLOCAULUS_IDLE_1_STATE =
+     private final StateHelper DIPLOCAULUS_IDLE_1_STATE =
              StateHelper.Builder.state(IDLE_1_AC, "diplocaulus_burrow")
                      .playTime(200)
                      .stopTime(300)
@@ -124,14 +122,10 @@
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
              .add(Attributes.MAX_HEALTH, 10.0D)
-             .add(Attributes.ATTACK_DAMAGE, 0.0D)
-             .add(Attributes.ARMOR, 0.0D)
-             .add(Attributes.MOVEMENT_SPEED, 0.18D)
-             .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
+             .add(Attributes.MOVEMENT_SPEED, 0.18D);
      }
 
      protected void registerGoals() {
-         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
          this.goalSelector.addGoal(7, new FindWaterGoal(this));
          this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
          this.goalSelector.addGoal(9, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
@@ -366,14 +360,5 @@
          else {
              this.setVariant(0);
          }
-     }
-
-     @Nullable
-     @Override
-     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-         int variantChange = this.random.nextInt(0, 100);
-         this.determineVariant(variantChange);
-         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
      }
  }

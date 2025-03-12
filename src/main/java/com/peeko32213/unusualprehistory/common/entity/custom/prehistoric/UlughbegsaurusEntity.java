@@ -12,6 +12,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PrehistoricFollowOwnerGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -38,6 +39,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
@@ -166,6 +168,11 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
 
     @Override
     public void setAction(boolean action) {}
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
 
     public UlughbegsaurusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
@@ -461,6 +468,13 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     public double getPassengersRidingOffset() {
         return 1.85;
     }
+
+//    public void positionRider(Entity passenger, MoveFunction moveFunction) {
+//        super.positionRider(passenger, moveFunction);
+//    }
+//    public double getPassengersRidingOffset() {
+//        return 1.85;
+//    }
 
 
     public void tick() {
@@ -767,20 +781,40 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
 
         if (!this.isInWater()) {
             if (getBooleanState(IDLE_1_AC)) {
-                triggerAnim("blend", "slay");
-                return PlayState.CONTINUE;
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "slay");
+                    return event.setAndContinue(ULUGH_IDLE);
+                } else {
+                    triggerAnim("blend", "slay");
+                    return PlayState.CONTINUE;
+                }
             }
             if (getBooleanState(IDLE_2_AC)) {
-                triggerAnim("blend", "scratch");
-                return PlayState.CONTINUE;
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "scratch");
+                    return event.setAndContinue(ULUGH_IDLE);
+                } else {
+                    triggerAnim("blend", "scratch");
+                    return PlayState.CONTINUE;
+                }
             }
             if (getBooleanState(IDLE_3_AC)) {
-                triggerAnim("blend", "shake");
-                return PlayState.CONTINUE;
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "shake");
+                    return event.setAndContinue(ULUGH_IDLE);
+                } else {
+                    triggerAnim("blend", "shake");
+                    return PlayState.CONTINUE;
+                }
             }
             if (getBooleanState(IDLE_4_AC)) {
-                triggerAnim("blend", "vocal");
-                return PlayState.CONTINUE;
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "vocal");
+                    return event.setAndContinue(ULUGH_IDLE);
+                } else {
+                    triggerAnim("blend", "vocal");
+                    return PlayState.CONTINUE;
+                }
             }
             return event.setAndContinue(ULUGH_IDLE);
         }

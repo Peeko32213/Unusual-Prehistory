@@ -126,7 +126,7 @@ public class UPEntities {
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0xefebea, 0xc72727);
 
     public static final RegistryObject<EntityType<BalaurEntity>> BALAUR = registerPrehistoricCreatureWithEgg("balaur",
-            () -> EntityType.Builder.of(BalaurEntity::new, MobCategory.CREATURE).sized(0.9F, 1.15F)
+            () -> EntityType.Builder.of(BalaurEntity::new, MobCategory.CREATURE).sized(0.9F, 1.75F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "balaur").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x1f6731, 0xe5cb36);
 
@@ -237,7 +237,7 @@ public class UPEntities {
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x44302e, 0x65c4ca);
 
     public static final RegistryObject<EntityType<VelociraptorEntity>> VELOCIRAPTOR = registerPrehistoricCreatureWithEgg("veloci",
-            () -> EntityType.Builder.of(VelociraptorEntity::new, MobCategory.CREATURE).sized(1.15F, 1.45F)
+            () -> EntityType.Builder.of(VelociraptorEntity::new, MobCategory.CREATURE).sized(0.9F, 1.4F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "veloci").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x827158, 0x4a4242);
 
