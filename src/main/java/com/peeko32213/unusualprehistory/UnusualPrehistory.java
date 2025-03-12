@@ -208,6 +208,7 @@ public class UnusualPrehistory {
 
         // Data Packs
         this.setupNaturalGenPack(event);
+        this.setupNoFossilsPack(event);
 
     }
 
@@ -230,6 +231,27 @@ public class UnusualPrehistory {
                     false,
                     create(decorateWithSource(), UnusualPrehistoryConfig.NATURAL_PREHISTORIC_GENERATION.get()))
                 )
+            );
+        }
+    }
+
+    private void setupNoFossilsPack(AddPackFindersEvent event) {
+        if (event.getPackType() == PackType.SERVER_DATA) {
+            Path resourcePath = ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().findResource("packs/no_fossils");
+            PathPackResources pack = new PathPackResources(ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().getFileName() + ":" + resourcePath, resourcePath, true);
+            PackMetadataSection metadata = new PackMetadataSection(Component.translatable("pack.unusualprehistory.no_fossils.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.SERVER_DATA));
+            event.addRepositorySource((source) ->
+                    source.accept(Pack.create(
+                            "builtin/no_fossils",
+                            Component.translatable("pack.unusualprehistory.no_fossils.title"),
+                            false,
+                            (string) -> pack,
+                            new Pack.Info(metadata.getDescription(), metadata.getPackFormat(PackType.SERVER_DATA), metadata.getPackFormat(PackType.CLIENT_RESOURCES), FeatureFlagSet.of(), pack.isHidden()),
+                            PackType.SERVER_DATA,
+                            Pack.Position.TOP,
+                            false,
+                            create(decorateWithSource(), UnusualPrehistoryConfig.NATURAL_PREHISTORIC_GENERATION.get()))
+                    )
             );
         }
     }
