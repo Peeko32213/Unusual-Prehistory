@@ -19,9 +19,9 @@ public class RampageEffect extends MobEffect {
     private final int color = 6685988;
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        //TODO: Players have unique parameters against humans. Namely, they will take damage more often the longer they are infected.
-        //TODO: Players will randomly attack, more often the longer they are infected.
-        //TODO: Afflicted will be unable to drink or dive, and they will take damage upon entering water. Splash and lingering still works.
+        //Players will take damage more often the longer they are infected
+        //Players will randomly swing their arms, more often the longer they are infected
+        //Players will randomly shake their head
 
         if (!pLivingEntity.level().isClientSide && pLivingEntity instanceof ServerPlayer serverPlayer) {
             serverPlayer.getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(capability -> {
@@ -57,11 +57,6 @@ public class RampageEffect extends MobEffect {
             });
         }
 
-        if (pLivingEntity.isInWaterRainOrBubble()) {
-            pLivingEntity.hurt(pLivingEntity.damageSources().generic(), 0);
-            pLivingEntity.setDeltaMovement(pLivingEntity.getDeltaMovement().x, Math.min(0, pLivingEntity.getDeltaMovement().y), pLivingEntity.getDeltaMovement().z);
-            //cannot dive
-        }
         //randomly toss the entity's head
         duration ++;
     }
