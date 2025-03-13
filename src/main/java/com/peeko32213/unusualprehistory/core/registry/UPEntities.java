@@ -309,10 +309,10 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "talpanas").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x2b211c, 0x8ca6ad);
 
-//    public static final RegistryObject<EntityType<TelecrexEntity>> TELECREX = registerPrehistoricCreatureWithEgg("telecrex",
-//            () -> EntityType.Builder.of(TelecrexEntity::new, MobCategory.CREATURE).sized(0.8F, 1.1F)
-//                    .build(new ResourceLocation(UnusualPrehistory.MODID, "telecrex").toString()),
-//            EggSize.SMALL, EggVariant.SPOTS, 1200, 0x423025, 0xbcab39);
+    public static final RegistryObject<EntityType<TelecrexEntity>> TELECREX = registerPrehistoricCreatureWithEgg("telecrex",
+            () -> EntityType.Builder.of(TelecrexEntity::new, MobCategory.CREATURE).sized(0.8F, 1.1F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "telecrex").toString()),
+            EggSize.SMALL, EggVariant.SPOTS, 1200, 0x423025, 0xbcab39);
 
 
     // Misc mobs
