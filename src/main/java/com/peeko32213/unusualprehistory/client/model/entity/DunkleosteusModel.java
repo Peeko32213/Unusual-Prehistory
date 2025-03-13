@@ -25,28 +25,28 @@ public class DunkleosteusModel extends GeoModel<DunkleosteusEntity> {
 
     @Override
     public ResourceLocation getModelResource(DunkleosteusEntity object) {
-        return switch (object.getVariant()) {
+        return switch (object.getDunkSize()) {
             case 1 -> MODEL_MARSAISI;
-            case 2 -> MODEL_RAVERI;
-            default -> MODEL_TERRELLI;
+            case 2 -> MODEL_TERRELLI;
+            default -> MODEL_RAVERI;
         };
     }
 
     @Override
     public ResourceLocation getTextureResource(DunkleosteusEntity object) {
-        return switch (object.getVariant()) {
+        return switch (object.getDunkSize()) {
             case 1 -> TEXTURE_MARSAISI;
-            case 2 -> TEXTURE_RAVERI;
-            default -> TEXTURE_TERRELLI;
+            case 2 -> TEXTURE_TERRELLI;
+            default -> TEXTURE_RAVERI;
         };
     }
 
     @Override
     public ResourceLocation getAnimationResource(DunkleosteusEntity object) {
-        return switch (object.getVariant()) {
+        return switch (object.getDunkSize()) {
             case 1 -> ANIMATION_MARSAISI;
-            case 2 -> ANIMATION_RAVERI;
-            default -> ANIMATION_TERRELLI;
+            case 2 -> ANIMATION_TERRELLI;
+            default -> ANIMATION_RAVERI;
         };
     }
 

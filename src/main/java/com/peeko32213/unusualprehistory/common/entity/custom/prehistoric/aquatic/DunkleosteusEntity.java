@@ -4,8 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.OviraptorEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.UlughbegsaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -60,12 +58,13 @@ import java.util.Objects;
 
 public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVariantEntity {
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DUNK_SIZE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.75F, 0.6F);
+    private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(1.2F, 1.1F);
+    private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(2.2F, 2.1F);
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -88,15 +87,13 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
         this.moveControl = new MoveHelperController(this);
-        refreshDimensions();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 40.0D)
+            .add(Attributes.MAX_HEALTH, 10.0D)
             .add(Attributes.ATTACK_DAMAGE, 10.0D)
             .add(Attributes.ARMOR, 10.0)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 0.2D)
             .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
@@ -178,6 +175,11 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
         return SoundEvents.COD_FLOP;
     }
 
+    public float getVoicePitch() {
+        final float f = (3 - this.getDunkSize()) * 0.33F;
+        return (float) (super.getVoicePitch() * Math.sqrt(f) * 1.2F);
+    }
+
     @Override
     protected int getKillHealAmount() {
         return 8;
@@ -220,57 +222,51 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(SCALE, 0);
+        this.entityData.define(DUNK_SIZE, 0);
         this.entityData.define(ANIMATION_STATE, 0);
-        this.entityData.define(COMBAT_STATE, 0);
-        this.entityData.define(ENTITY_STATE, 0);
         this.entityData.define(FROM_BOOK, false);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
-        compound.putInt("scale", this.getModelScale());
         compound.putInt("PassiveFor", passiveFor);
+        compound.putFloat("DunkSize", this.getDunkSize());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
-        this.setScale(Math.min(compound.getInt("scale"), 0));
         passiveFor = compound.getInt("PassiveFor");
+        this.setDunkSize(compound.getInt("DunkSize"));
     }
 
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pPose) {
-        return super.getDimensions(pPose).scale(getScale(this.getModelScale()));
-    }
-
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> pKey) {
-        if (SCALE.equals(pKey)) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+        if (DUNK_SIZE.equals(accessor)) {
             this.refreshDimensions();
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10F * this.getDunkSize() + 10F);
+            this.heal(50F);
         }
-        super.onSyncedDataUpdated(pKey);
+        super.onSyncedDataUpdated(accessor);
     }
 
-    private static float getScale(int scale) {
-        if (scale == 1) {
-            return 0.5F;
-        }
-        else if (scale == 2) {
-            return 0.25F;
-        }
-        else {
-            return 1.0F;
-        }
+    public int getDunkSize() {
+        return Mth.clamp(this.entityData.get(DUNK_SIZE), 0, 2);
     }
 
-    public int getModelScale() {
-        return this.entityData.get(SCALE);
+    public void setDunkSize(int dunkSize) {
+        this.entityData.set(DUNK_SIZE, dunkSize);
     }
 
-    public void setScale(int scale) {
-        this.entityData.set(SCALE, scale);
+    @Override
+    public EntityDimensions getDimensions(Pose poseIn) {
+        return getDimsForDunk().scale(this.getScale());
+    }
+
+    private EntityDimensions getDimsForDunk() {
+        return switch (this.getDunkSize()) {
+            case 1 -> MEDIUM_SIZE;
+            case 2 -> LARGE_SIZE;
+            default -> SMALL_SIZE;
+        };
     }
 
     public void tick() {
@@ -632,22 +628,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
         this.entityData.set(ANIMATION_STATE, anim);
     }
 
-    public int getCombatState() {
-        return this.entityData.get(COMBAT_STATE);
-    }
-
-    public void setCombatState(int anim) {
-        this.entityData.set(COMBAT_STATE, anim);
-    }
-
-    public int getEntityState() {
-        return this.entityData.get(ENTITY_STATE);
-    }
-
-    public void setEntityState(int anim) {
-
-        this.entityData.set(ENTITY_STATE, anim);
-    }
     public boolean isFromBook() {
         return this.entityData.get(FROM_BOOK);
     }
@@ -665,45 +645,20 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
         this.heal(15);
     }
 
-    public void determineVariant(int variantChange){
-        if (variantChange <= 10) {
-            this.setVariant(2);
-        }
-        else if (variantChange <= 50) {
-            this.setVariant(1);
-        }
-        else {
-            this.setVariant(0);
-        }
-    }
-
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
 
         int variantChange = this.random.nextInt(0, 100);
-        this.determineVariant(variantChange);
 
-        if(this.getVariant() == 0) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(getAttributeBaseValue(Attributes.MAX_HEALTH));
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
-            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(getAttributeBaseValue(Attributes.KNOCKBACK_RESISTANCE));
-            this.getAttribute(Attributes.ARMOR).setBaseValue(getAttributeBaseValue(Attributes.ARMOR));
-            this.setScale(0);
+        if (variantChange <= 30) {
+            this.setDunkSize(1);
         }
-        else if(this.getVariant() == 1) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(getAttributeBaseValue(Attributes.MAX_HEALTH) * 0.75D);
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(getAttributeBaseValue(Attributes.ATTACK_DAMAGE) * 0.75D);
-            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(getAttributeBaseValue(Attributes.KNOCKBACK_RESISTANCE) * 0.75D);
-            this.getAttribute(Attributes.ARMOR).setBaseValue(getAttributeBaseValue(Attributes.ARMOR) * 0.75D);
-            this.setScale(1);
+        else if (variantChange <= 60) {
+            this.setDunkSize(2);
         }
-        else if(this.getVariant() == 2) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(getAttributeBaseValue(Attributes.MAX_HEALTH) * 0.5D);
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(getAttributeBaseValue(Attributes.ATTACK_DAMAGE) * 0.5D);
-            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(getAttributeBaseValue(Attributes.KNOCKBACK_RESISTANCE) * 0.5D);
-            this.getAttribute(Attributes.ARMOR).setBaseValue(getAttributeBaseValue(Attributes.ARMOR) * 0.5D);
-            this.setScale(2);
+        else {
+            this.setDunkSize(0);
         }
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
@@ -712,26 +667,7 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         DunkleosteusEntity dunkleosteus = UPEntities.DUNK.get().create(serverLevel);
-        dunkleosteus.setVariant(this.getVariant());
-
-        if(this.getVariant() == 0) {
-            this.setScale(0);
-        }
-        else if(this.getVariant() == 1) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(getAttributeBaseValue(Attributes.MAX_HEALTH) * 0.75D);
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(getAttributeBaseValue(Attributes.ATTACK_DAMAGE) * 0.75D);
-            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(getAttributeBaseValue(Attributes.KNOCKBACK_RESISTANCE) * 0.75D);
-            this.getAttribute(Attributes.ARMOR).setBaseValue(getAttributeBaseValue(Attributes.ARMOR) * 0.75D);
-            this.setScale(1);
-        }
-        else if(this.getVariant() == 2) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(getAttributeBaseValue(Attributes.MAX_HEALTH) * 0.5D);
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(getAttributeBaseValue(Attributes.ATTACK_DAMAGE) * 0.5D);
-            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(getAttributeBaseValue(Attributes.KNOCKBACK_RESISTANCE) * 0.5D);
-            this.getAttribute(Attributes.ARMOR).setBaseValue(getAttributeBaseValue(Attributes.ARMOR) * 0.5D);
-            this.setScale(2);
-        }
-
+        dunkleosteus.setDunkSize(this.getDunkSize());
         return dunkleosteus;
     }
 

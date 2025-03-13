@@ -61,7 +61,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "diplocaulus").toString()));
 
     public static final RegistryObject<EntityType<DunkleosteusEntity>> DUNK = ENTITIES.register("dunk",
-            () -> EntityType.Builder.of(DunkleosteusEntity::new, MobCategory.WATER_CREATURE).sized(2.2F, 1.75F)
+            () -> EntityType.Builder.of(DunkleosteusEntity::new, MobCategory.WATER_CREATURE).sized(0.75F, 0.6F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "dunk").toString()));
 
     public static final RegistryObject<EntityType<EdaphosaurusEntity>> EDAPHOSAURUS = registerPrehistoricCreatureWithEgg("edaphosaurus",
