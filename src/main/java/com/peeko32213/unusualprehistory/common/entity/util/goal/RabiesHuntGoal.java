@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,8 +33,9 @@ public class RabiesHuntGoal extends Goal {
 
         this.mob.setPathfindingMalus(BlockPathTypes.WATER, 1000000000);
         //avoid water ong
-
-        //if (pLivingEntity instanceof PathfinderMob && !(this.mob instanceof Player)) {
+        if (this.mob.getTarget() != null && this.mob.getTarget().hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
+            this.mob.setTarget(null);
+        }
 
         double range = Math.max(this.mob.getAttribute(Attributes.FOLLOW_RANGE).getValue(), 15);
         Vec3 loc = this.mob.position();
@@ -50,13 +52,13 @@ public class RabiesHuntGoal extends Goal {
             for (int i = 0; i < victimsList.size(); i++) {
                 LivingEntity victim = victimsList.get(i);
 
-                if (this.mob.hasLineOfSight(victim) && this.mob.distanceTo(victim) <= minRange && this.mob != victim) {
+                if (this.mob.hasLineOfSight(victim) && this.mob.distanceTo(victim) <= minRange && this.mob != victim && !victim.hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
                     minRange = this.mob.distanceTo(victim);
                     finalizedTarget = victim;
                 }
 
             }
-        }//checks for the closest target within range that is visible
+        }//checks for the closest target within range that is visible and not rabid
 
         setTargetToBrainOrNormal(this.mob, finalizedTarget);
         if (finalizedTarget != null && this.mob.getTarget() != null) {

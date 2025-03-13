@@ -21,6 +21,8 @@ public class RampageRemedyEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         //Comes into effect after 15 minutes(18000 ticks), removes all rabies. Before that, you can also milk away the rabies.
+        pLivingEntity.removeEffect(UPEffects.YIXIAN_RAMPAGE.get());
+        //TODO: comment above out^ when Capabilites are enabled
 
         if (!pLivingEntity.level().isClientSide && pLivingEntity instanceof ServerPlayer serverPlayer) {
 
@@ -38,6 +40,7 @@ public class RampageRemedyEffect extends MobEffect {
             pLivingEntity.getCapability(UPCapabilities.ANIMAL_CAPABILITY).ifPresent(capability -> {
                 if (capability.entityVaccinationTime >= 100 && pLivingEntity.hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
                     pLivingEntity.removeEffect(UPEffects.YIXIAN_RAMPAGE.get());
+                    System.out.println(pLivingEntity);
                     capability.entityRabiesHadTime = 0;
                 }//remove rabies after sufficent time has passed, and SET RABIES TIMER TO ZERO
 
