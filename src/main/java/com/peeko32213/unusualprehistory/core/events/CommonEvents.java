@@ -87,7 +87,7 @@ public class CommonEvents {
         event.put(UPEntities.PSILOPTERUS.get(), PsilopterusEntity.createAttributes().build());
         event.put(UPEntities.SMILODON.get(), SmilodonEntity.createAttributes().build());
         event.put(UPEntities.TALPANAS.get(), TalpanasEntity.createAttributes().build());
-        event.put(UPEntities.TELECREX.get(), TelecrexEntity.createAttributes().build());
+//        event.put(UPEntities.TELECREX.get(), TelecrexEntity.createAttributes().build());
 
         // Misc mobs
         event.put(UPEntities.ENCRUSTED.get(), EncrustedEntity.createAttributes().build());

@@ -175,7 +175,7 @@ public class LanguageGenerator extends LanguageProvider {
         addPrehistoricEgg(UPEntities.MEGALANIA, "Megalania Egg");
         addPrehistoricEgg(UPEntities.PSILOPTERUS, "Psilopterus Egg");
         addPrehistoricEgg(UPEntities.TALPANAS, "Talpanas Egg");
-        addPrehistoricEgg(UPEntities.TELECREX, "Telecrex Egg");
+//        addPrehistoricEgg(UPEntities.TELECREX, "Telecrex Egg");
 
         //SPAWN EGGS
         addItem(UPItems.AMMON_EGG, "Ammonite Spawn Egg");
@@ -234,7 +234,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PTERYGOTUS_EGG, "Pterygotus Spawn Egg");
         addItem(UPItems.GLOBIDENS_EGG, "Globidens Spawn Egg");
         addItem(UPItems.EDAPHOSAURUS_EGG, "Edaphosaurus Spawn Egg");
-        addItem(UPItems.TELECREX_EGG, "Telecrex Spawn Egg");
+//        addItem(UPItems.TELECREX_EGG, "Telecrex Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -564,7 +564,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
         addEntityType(UPEntities.SMILODON, "Smilodon");
         addEntityType(UPEntities.TALPANAS, "Talpanas");
-        addEntityType(UPEntities.TELECREX, "Telecrex");
+//        addEntityType(UPEntities.TELECREX, "Telecrex");
 
         // Misc mobs
         addEntityType(UPEntities.ENCRUSTED, "Encrusted");

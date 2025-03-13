@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
-import com.peeko32213.unusualprehistory.common.data.PrehistoricEntityJsonDataManager;
+//import com.peeko32213.unusualprehistory.common.data.PrehistoricEntityJsonDataManager;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaCodec;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaJsonManager;
@@ -115,7 +115,7 @@ public class ServerEvents {
         event.addListener(new AnalyzerRecipeJsonManager());
         event.addListener(new LootFruitJsonManager());
         event.addListener(new EncyclopediaJsonManager());
-        event.addListener(new PrehistoricEntityJsonDataManager());
+//        event.addListener(new PrehistoricEntityJsonDataManager());
     }
 
     @SubscribeEvent
