@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.data.entity;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
+import com.peeko32213.unusualprehistory.client.ClientUtils;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
@@ -33,15 +34,15 @@ public class UPRenderTypes {
 
 
     private static RenderType entityCutout(GeoAnimatable entity, GeoRenderer entityRenderer) {
-        return RenderType.entityCutout(entityRenderer.getTextureLocation(entity));
+        return ClientUtils.entityCutout(entity, entityRenderer);
     }
 
     private static RenderType entityCutoutNoCull(GeoAnimatable entity, GeoRenderer entityRenderer) {
-        return RenderType.entityCutoutNoCull(entityRenderer.getTextureLocation(entity));
+        return ClientUtils.entityCutoutNoCull(entity, entityRenderer);
     }
 
     private static RenderType translucent(GeoAnimatable entity, GeoRenderer entityRenderer) {
-        return RenderType.entityTranslucent(entityRenderer.getTextureLocation(entity));
+        return ClientUtils.translucent(entity, entityRenderer);
     }
 
     public static RenderTypes getRenderType(ResourceLocation location) {

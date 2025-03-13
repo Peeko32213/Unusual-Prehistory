@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.block.custom;
+package com.peeko32213.unusualprehistory.common.block;
 
 import com.peeko32213.unusualprehistory.common.message.ParticleSyncS2CPacket;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class ElectricPillarBlock extends Block {
+public class BlockElectricPillar extends Block {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
     private static final VoxelShape SHAPE_BOTTOM = Stream.of(
@@ -45,7 +45,7 @@ public class ElectricPillarBlock extends Block {
     ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
     private static final VoxelShape SHAPE_TOP = Shapes.join(Block.box(4, 0, 4, 12, 2, 12), Block.box(6, 2, 6, 10, 7, 10), BooleanOp.OR);
 
-    public ElectricPillarBlock(Properties pProperties) {
+    public BlockElectricPillar(Properties pProperties) {
         super( pProperties);
     }
 
@@ -73,13 +73,13 @@ public class ElectricPillarBlock extends Block {
 
     public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide && player.isCreative()) {
-            ElectricPillarBlock.preventCreativeDropFromBottomPart(level, pos, state, player);
+            BlockElectricPillar.preventCreativeDropFromBottomPart(level, pos, state, player);
         }
 
         super.playerWillDestroy(level, pos, state, player);
     }
 
-    protected static void preventCreativeDropFromBottomPart(Level level, BlockPos pos, BlockState state, Player player) {
+    public static void preventCreativeDropFromBottomPart(Level level, BlockPos pos, BlockState state, Player player) {
         DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
         if (doubleblockhalf == DoubleBlockHalf.UPPER) {
             BlockPos blockpos = pos.below();

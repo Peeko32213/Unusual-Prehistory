@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block.custom;
 
+import com.peeko32213.unusualprehistory.common.block.BlockElectricPillar;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class ElectricPillarFenceBlock extends CrossCollisionBlock {
+public class BlockElectricPillarFence extends CrossCollisionBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     private final VoxelShape[] occlusionByIndex;
     private static final VoxelShape SHAPE_BOTTOM = Stream.of(
@@ -41,7 +42,7 @@ public class ElectricPillarFenceBlock extends CrossCollisionBlock {
     ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
     private static final VoxelShape SHAPE_TOP = Shapes.join(Block.box(4, 0, 4, 12, 2, 12), Block.box(6, 2, 6, 10, 7, 10), BooleanOp.OR);
 
-    public ElectricPillarFenceBlock(Properties pProperties) {
+    public BlockElectricPillarFence(Properties pProperties) {
         super(4,4,16,16,24, pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(NORTH, Boolean.valueOf(false)).setValue(EAST, Boolean.valueOf(false)).setValue(SOUTH, Boolean.valueOf(false)).setValue(WEST, Boolean.valueOf(false)).setValue(WATERLOGGED, Boolean.valueOf(false)));
         this.occlusionByIndex = this.makeShapes(2.0F, 1.0F, 16.0F, 6.0F, 15.0F);
@@ -92,7 +93,7 @@ public class ElectricPillarFenceBlock extends CrossCollisionBlock {
 
     public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide && player.isCreative()) {
-            ElectricPillarBlock.preventCreativeDropFromBottomPart(level, pos, state, player);
+            BlockElectricPillar.preventCreativeDropFromBottomPart(level, pos, state, player);
         }
 
         super.playerWillDestroy(level, pos, state, player);
