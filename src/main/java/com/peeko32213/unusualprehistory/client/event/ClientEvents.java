@@ -213,7 +213,7 @@ public final class ClientEvents {
 
         // Paleo mobs
         event.registerEntityRenderer(UPEntities.AMMON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new AmmoniteModel()));
-        event.registerEntityRenderer(UPEntities.COTY.get(), e -> new PrehistoricRenderer<>(e, new CotylorhynchusModel()));
+        event.registerEntityRenderer(UPEntities.COTY.get(), e -> new StatedPrehistoricRenderer<>(e, new CotylorhynchusModel()));
         event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new StatedPrehistoricRenderer<>(e, new DiplocaulusModel()));
         event.registerEntityRenderer(UPEntities.DUNK.get(), e -> new StatedPrehistoricAquaticRenderer<>(e, new DunkleosteusModel()));
         event.registerEntityRenderer(UPEntities.EDAPHOSAURUS.get(), e -> new StatedPrehistoricRenderer<>(e, new EdaphosaurusModel()));

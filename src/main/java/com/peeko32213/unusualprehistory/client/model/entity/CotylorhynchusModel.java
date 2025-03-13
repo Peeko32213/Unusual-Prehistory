@@ -25,7 +25,7 @@ public class CotylorhynchusModel extends GeoModel<CotylorhynchusEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(CotylorhynchusEntity object) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/coty.animation.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/cotylorhynchus.animation.json");
     }
 
     @Override
@@ -33,7 +33,7 @@ public class CotylorhynchusModel extends GeoModel<CotylorhynchusEntity> {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Coty_Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
         if (animatable.isBaby()) {
             head.setScaleX(1.75F);
             head.setScaleY(1.75F);

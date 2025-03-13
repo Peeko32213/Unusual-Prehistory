@@ -24,7 +24,7 @@ public class UPEntityPlacement {
 
         SpawnPlacements.register(UPEntities.AMMON.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AmmoniteEntity::checkSurfaceWaterDinoSpawnRules);
 //        SpawnPlacements.register(UPEntities.PALAEOPHIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PalaeophisEntity::checkSurfaceWaterDinoSpawnRules);
-        SpawnPlacements.register(UPEntities.COTY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntityOld::checkSurfaceDinoSpawnRules);
+        SpawnPlacements.register(UPEntities.COTY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.SCAU.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScaumenaciaEntity::checkSurfaceWaterDinoSpawnRules);
         SpawnPlacements.register(UPEntities.TRICERATOPS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.PACHY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntityOld::checkSurfaceDinoSpawnRules);

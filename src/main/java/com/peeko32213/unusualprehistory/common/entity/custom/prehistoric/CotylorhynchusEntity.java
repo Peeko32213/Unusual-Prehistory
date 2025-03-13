@@ -1,5 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -42,17 +46,30 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.List;
 
-public class CotylorhynchusEntity extends PrehistoricEntityOld {
+
+public class CotylorhynchusEntity extends PrehistoricEntity {
     private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.MELON, Items.MELON_SLICE, Items.MELON_SEEDS, Items.GLISTERING_MELON_SLICE);
     private static final EntityDataAccessor<Boolean> FERMENTED = SynchedEntityData.defineId(CotylorhynchusEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    // Movement animations
     private static final RawAnimation COTY_WALK = RawAnimation.begin().thenLoop("animation.cotylorhynchus.walk");
-    private static final RawAnimation COTY_IDLE = RawAnimation.begin().thenLoop("animation.cotylorhynchus.idle");
+    private static final RawAnimation COTY_RUN = RawAnimation.begin().thenLoop("animation.cotylorhynchus.run");
     private static final RawAnimation COTY_SWIM = RawAnimation.begin().thenLoop("animation.cotylorhynchus.swim");
 
-    public CotylorhynchusEntity(EntityType<? extends Animal> entityType, Level level) {
+    // Idle animaitons
+    private static final RawAnimation COTY_IDLE = RawAnimation.begin().thenLoop("animation.cotylorhynchus.idle");
+    private static final RawAnimation COTY_GRAZE = RawAnimation.begin().thenLoop("animation.cotylorhynchus.graze_blend");
+    private static final RawAnimation COTY_SIT = RawAnimation.begin().thenLoop("animation.cotylorhynchus.sit");
+    private static final RawAnimation COTY_SLEEP = RawAnimation.begin().thenLoop("animation.cotylorhynchus.sleep");
+
+    // Misc animations
+    private static final RawAnimation COTY_GROG = RawAnimation.begin().thenLoop("animation.cotylorhynchus.idle");
+
+    public CotylorhynchusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -282,4 +299,23 @@ public class CotylorhynchusEntity extends PrehistoricEntityOld {
         return p_28137_;
     }
 
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
+
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {
+
+    }
 }
