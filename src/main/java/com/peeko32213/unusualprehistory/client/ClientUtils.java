@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -44,6 +45,25 @@ public final class ClientUtils {
     public static void releaseRenderingEntity(UUID id) {
         blockedEntityRenders.remove(id);
     }
+
+    public static RenderType getRenderType(String location, GeoAnimatable entity, GeoRenderer renderer) {
+
+        if (location == null) {
+            // Fallback if not specified
+            return ClientUtils.entityCutout(entity, renderer);
+        }
+        switch (location) {
+            case "translucent":
+                return ClientUtils.translucent(entity, renderer);
+            case "cutout":
+                return ClientUtils.entityCutout(entity, renderer);
+            case "cutout_no_cull":
+                return ClientUtils.entityCutoutNoCull(entity, renderer);
+            default:
+                return ClientUtils.entityCutout(entity, renderer);
+        }
+    }
+
 
     public static RenderType entityCutout(GeoAnimatable entity, GeoRenderer entityRenderer) {
         return RenderType.entityCutout(entityRenderer.getTextureLocation(entity));

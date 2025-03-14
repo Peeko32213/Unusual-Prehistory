@@ -156,7 +156,7 @@ public class EntityDataGenerator extends EntityDataProvider {
                                                 new ResourceLocation(UnusualPrehistory.MODID, "geo/telecrex.geo.json"),
                                                 new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/telecrex.png"),
                                                 new ResourceLocation(UnusualPrehistory.MODID, "animations/telecrex.animation.json"),
-                                                UPRenderTypes.getRenderType(ResourceLocation.tryParse("entity_cutout_no_cull"))
+                                                "entity_cutout_no_cull"
                                         ),
                                         new AttributesModifier(List.of(
                                                 new AttributesModifier.AttributesMap(

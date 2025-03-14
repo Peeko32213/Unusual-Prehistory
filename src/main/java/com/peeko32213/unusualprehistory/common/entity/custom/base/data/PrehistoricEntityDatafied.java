@@ -68,8 +68,8 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
     private ResourceLocation cachedAnimationLocation;
     private ResourceLocation cachedModelLocation;
     private ResourceLocation cachedTextureLocation;
-    private ResourceLocation cachedRenderTypeKey;
-    private UPRenderTypes.RenderTypes cachedRenderType;
+    private String cachedRenderTypeKey;
+    private String cachedRenderType;
 
 
     private double passengerRidingOffset;
@@ -538,21 +538,14 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         return cachedTextureLocation;
     }
 
-    public void setRenderTypeKey(UPRenderTypes.RenderTypes loc) {
-        String locString = loc.toString();
-        this.entityData.set(RENDER_TYPE_LOCATION, UPRenderTypes.getRenderType(loc).toString());
-        this.cachedRenderTypeKey = getResourceLocationFromEntityData(RENDER_TYPE_LOCATION);
+    public void setRenderTypeKey(String loc) {
+        this.entityData.set(RENDER_TYPE_LOCATION, loc);
+        this.cachedRenderTypeKey = getEntityData(RENDER_TYPE_LOCATION);
     }
 
-    public void setRenderTypeKey(ResourceLocation loc) {
-        String locString = loc.toString();
-        this.entityData.set(RENDER_TYPE_LOCATION, locString);
-        this.cachedRenderTypeKey = getResourceLocationFromEntityData(RENDER_TYPE_LOCATION);
-    }
-
-    public ResourceLocation getRenderTypeKey() {
+    public String getRenderTypeKey() {
         if (cachedRenderTypeKey == null) {
-            cachedRenderTypeKey = getResourceLocationFromEntityData(RENDER_TYPE_LOCATION);
+            cachedRenderTypeKey = getEntityData(RENDER_TYPE_LOCATION);
         }
         return cachedRenderTypeKey;
     }
@@ -562,9 +555,13 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
         return ResourceLocation.tryParse(this.entityData.get(entityDataAccessor));
     }
 
-    public UPRenderTypes.RenderTypes getRenderType() {
+    private String getEntityData(EntityDataAccessor<String> entityDataAccessor) {
+        return this.entityData.get(entityDataAccessor);
+    }
+
+    public String getRenderType() {
         if(cachedRenderType == null) {
-            cachedRenderType = UPRenderTypes.getRenderType(getRenderTypeKey());
+            cachedRenderType = getRenderTypeKey();
         }
         return cachedRenderType;
     }

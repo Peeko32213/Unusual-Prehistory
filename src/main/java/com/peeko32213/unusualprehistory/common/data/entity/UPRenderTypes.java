@@ -12,48 +12,45 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 
 public class UPRenderTypes {
 
-    public interface RenderTypes {
-        RenderType getRenderType(GeoAnimatable entity, GeoRenderer entityRenderer);
-    }
 
-    public static final BiMap<ResourceLocation, RenderTypes> NAMED_ALGORITHMS = HashBiMap.create();
+    public static final BiMap<ResourceLocation, String> NAMED_ALGORITHMS = HashBiMap.create();
     static {
-        NAMED_ALGORITHMS.put( ResourceLocation.tryParse("entity_translucent"), UPRenderTypes::translucent );
-        NAMED_ALGORITHMS.put( ResourceLocation.tryParse("entity_cutout"), UPRenderTypes::entityCutout);
-        NAMED_ALGORITHMS.put( ResourceLocation.tryParse("entity_cutout_no_cull"), UPRenderTypes::entityCutoutNoCull);
-
+        NAMED_ALGORITHMS.put(new ResourceLocation("entity_translucent"), "translucent");
+        NAMED_ALGORITHMS.put(new ResourceLocation("entity_cutout"), "cutout");
+        NAMED_ALGORITHMS.put(new ResourceLocation("entity_cutout_no_cull"), "cutout_no_cull");
     }
 
-    public static final Codec<RenderTypes> CODEC = ExtraCodecs.stringResolverCodec(
-            sa -> NAMED_ALGORITHMS.inverse().get(sa).toString(),
-            key -> NAMED_ALGORITHMS.get(new ResourceLocation(key))
+    public static final Codec<String> CODEC = ExtraCodecs.stringResolverCodec(
+            NAMED_ALGORITHMS::get,  // Convert ResourceLocation to String
+            key -> String.valueOf(NAMED_ALGORITHMS.inverse().get(new ResourceLocation(key))) // Convert String back to ResourceLocation
     );
 
 
 
 
 
-    private static RenderType entityCutout(GeoAnimatable entity, GeoRenderer entityRenderer) {
-        return ClientUtils.entityCutout(entity, entityRenderer);
-    }
 
-    private static RenderType entityCutoutNoCull(GeoAnimatable entity, GeoRenderer entityRenderer) {
-        return ClientUtils.entityCutoutNoCull(entity, entityRenderer);
-    }
+   //private static RenderType entityCutout(GeoAnimatable entity, GeoRenderer entityRenderer) {
+   //    return ClientUtils.entityCutout(entity, entityRenderer);
+   //}
 
-    private static RenderType translucent(GeoAnimatable entity, GeoRenderer entityRenderer) {
-        return ClientUtils.translucent(entity, entityRenderer);
-    }
+   //private static RenderType entityCutoutNoCull(GeoAnimatable entity, GeoRenderer entityRenderer) {
+   //    return ClientUtils.entityCutoutNoCull(entity, entityRenderer);
+   //}
 
-    public static RenderTypes getRenderType(ResourceLocation location) {
-        return NAMED_ALGORITHMS.getOrDefault(location, UPRenderTypes::entityCutout);
-    }
+   //private static RenderType translucent(GeoAnimatable entity, GeoRenderer entityRenderer) {
+   //    return ClientUtils.translucent(entity, entityRenderer);
+   //}
 
-    public static ResourceLocation getRenderType(RenderTypes location) {
-        return NAMED_ALGORITHMS.inverse().get(location);
-    }
-
-    public static void putRenderType(ResourceLocation location, UPRenderTypes.RenderTypes renderTypes) {
-        NAMED_ALGORITHMS.put(location, renderTypes);
-    }
+    //public static RenderTypes getRenderType(ResourceLocation location) {
+    //    return NAMED_ALGORITHMS.getOrDefault(location, ClientUtils::entityCutout);
+    //}
+//
+    //public static ResourceLocation getRenderType(RenderTypes location) {
+    //    return NAMED_ALGORITHMS.inverse().get(location);
+    //}
+//
+    //public static void putRenderType(ResourceLocation location, UPRenderTypes.RenderTypes renderTypes) {
+    //    NAMED_ALGORITHMS.put(location, renderTypes);
+    //}
 }

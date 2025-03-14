@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.client.render.prehistoric.data;
 
+import com.peeko32213.unusualprehistory.client.ClientUtils;
 import com.peeko32213.unusualprehistory.client.model.data.PrehistoricEntityDatafiedModel;
 import com.peeko32213.unusualprehistory.common.data.entity.UPRenderTypes;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.data.PrehistoricEntityDatafied;
@@ -19,11 +20,11 @@ public class PrehistoricEntityDatafiedRenderer extends GeoEntityRenderer<Prehist
 
     @Override
     public RenderType getRenderType(PrehistoricEntityDatafied animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-        UPRenderTypes.RenderTypes renderTypes = animatable.getRenderType();
+        String renderTypes = animatable.getRenderType();
         if(renderTypes == null) {
             return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
         }
-        RenderType renderType = renderTypes.getRenderType(animatable, this);
+        RenderType renderType = ClientUtils.getRenderType(renderTypes,animatable, this);
         if(renderType == null) {
             return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
         }

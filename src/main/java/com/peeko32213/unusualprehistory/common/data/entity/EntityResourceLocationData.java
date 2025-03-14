@@ -19,16 +19,16 @@ public class EntityResourceLocationData {
     private final ResourceLocation modelLocation;
     private final ResourceLocation textureLocation;
     private final ResourceLocation animationLocation;
-    private final UPRenderTypes.RenderTypes renderType;
+    private final String renderType;
 
-    public EntityResourceLocationData(ResourceLocation modelLocation, ResourceLocation textureLocation, ResourceLocation animationLocation, UPRenderTypes.RenderTypes renderType) {
+    public EntityResourceLocationData(ResourceLocation modelLocation, ResourceLocation textureLocation, ResourceLocation animationLocation, String renderType) {
         this.modelLocation = modelLocation;
         this.textureLocation = textureLocation;
         this.animationLocation = animationLocation;
         this.renderType = renderType;
     }
 
-    public UPRenderTypes.RenderTypes getRenderType() {
+    public String getRenderType() {
         return renderType;
     }
 
@@ -49,8 +49,7 @@ public class EntityResourceLocationData {
                 new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_mcraeensis.geo.json"),
                 new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png"),
                 new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus.animation.json"),
-                UPRenderTypes.getRenderType(ResourceLocation.tryParse("entity_cutout"))
-                );
+                "entity_cutout");
     }
 
 }
