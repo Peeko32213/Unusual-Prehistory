@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -129,9 +130,8 @@ public class MegalamprisEntity extends PrehistoricAquaticEntity {
         return false;
     }
 
-    @Override
-    protected SoundEvent getFlopSound() {
-        return null;
+    protected @NotNull SoundEvent getFlopSound() {
+        return SoundEvents.COD_FLOP;
     }
 
     @Override
