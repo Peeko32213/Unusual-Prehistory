@@ -14,6 +14,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableTempt;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -38,6 +39,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
@@ -163,6 +165,11 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     public void setAction(boolean action) {}
 
     @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        return new SmartBodyHelper(this);
+    }
+
+    @Override
     protected @NotNull PathNavigation createNavigation(Level levelIn) {
         return new SmoothGroundNavigation(this, levelIn);
     }
@@ -187,13 +194,13 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new TriceratopsEntity.MeleeAttackGoal());
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 28));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 30));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
         this.targetSelector.addGoal(8, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(8, new OwnerHurtTargetGoal(this));
-        this.targetSelector.addGoal(7, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
         this.goalSelector.addGoal(6, new TameableTempt(this, 1.1D, TEMPTATION_ITEMS, false));
     }
 

@@ -142,11 +142,6 @@
 						"3.0": [0, 0, 0]
 					}
 				}
-			},
-			"sound_effects": {
-				"0.25": {
-					"effect": "triceratops_chatter"
-				}
 			}
 		},
 		"animation.triceratops.idle": {
@@ -1644,7 +1639,6 @@
 			}
 		},
 		"animation.triceratops.warning_blend": {
-			"loop": true,
 			"animation_length": 2,
 			"bones": {
 				"body_overlay": {

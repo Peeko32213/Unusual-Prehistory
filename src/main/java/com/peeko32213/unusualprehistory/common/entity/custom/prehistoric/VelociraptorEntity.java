@@ -23,6 +23,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEnt
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
@@ -42,6 +43,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -216,6 +218,14 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
 
     @Override
     public void setAction(boolean action) {}
+
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.75F;
+        helper.bodyLagStill = 0.3F;
+        return helper;
+    }
 
     @Override
     protected @NotNull PathNavigation createNavigation(Level levelIn) {

@@ -44,16 +44,16 @@ public class GlobidensModel extends GeoModel<GlobidensEntity>
             head.setScaleY(1.0F);
             head.setScaleZ(1.0F);
         }
-        if (!entity.isSprinting()) {
-            head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
-        }
+//        if (!entity.isSprinting()) {
+//            head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
+//        }
 
         if (entity.isInWaterOrBubble()) {
-            CoreGeoBone tail = this.getAnimationProcessor().getBone("MidBody");
+            CoreGeoBone tail = this.getAnimationProcessor().getBone("fuckitextratailbone");
             CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tail");
 
             CoreGeoBone root = this.getAnimationProcessor().getBone("root");
-            root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(entity.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
+            //root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(entity.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
 
             head.setRotY((float) (Mth.PI + (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Angle, 0.05))));
             tail.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Angle, 0.05))));
@@ -69,17 +69,11 @@ public class GlobidensModel extends GeoModel<GlobidensEntity>
 
 
             root.setRotX((float) (MathHelpers.LerpDegrees((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.005)));
-            entity.currentBodyPitch = (float) MathHelpers.LerpDegrees((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.005);
+            entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.005);
 
-            double offset = 0;
-            if ((!entity.isSprinting())) {
-                offset = Mth.HALF_PI/2;
-            } else {
-                offset = 0;
-            }
-            tail.setRotX((float) (tail.getRotX() - offset + MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.005)));
+            tail.setRotX((float) (MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.005)));
             tailfin.setRotX((float) (tailfin.getRotX() + MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.005)));
-            entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.005);
+            entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.currentTail1Pitch, 0.005);
             entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.005);
 
             //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head

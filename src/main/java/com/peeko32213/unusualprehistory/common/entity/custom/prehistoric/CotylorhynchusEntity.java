@@ -8,7 +8,9 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedSt
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.PrehistoricPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.SmoothFloatGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -32,6 +34,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -117,6 +120,14 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
     public void setAction(boolean action) {}
 
     @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.65F;
+        helper.bodyLagStill = 0.2F;
+        return helper;
+    }
+
+    @Override
     protected @NotNull PathNavigation createNavigation(Level levelIn) {
         return new SmoothGroundNavigation(this, levelIn);
     }
@@ -136,7 +147,7 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new SmoothFloatGoal(this));
-        this.goalSelector.addGoal(8, new PanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(8, new PrehistoricPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, TEMPTATION_ITEMS, false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, TyrannosaurusEntity.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
@@ -333,16 +344,16 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
 
         if (this.isInWater()) {
             event.setAndContinue(COTY_SWIM);
-            event.getController().setAnimationSpeed(1.0D);
+            event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()){
             if(this.isSprinting()) {
                 event.setAndContinue(COTY_RUN);
-                event.getController().setAnimationSpeed(1.0D);
+                event.getController().setAnimationSpeed(1.25F);
             } else {
                 event.setAndContinue(COTY_WALK);
-                event.getController().setAnimationSpeed(1.0D);
+                event.getController().setAnimationSpeed(1.0F);
             }
             return PlayState.CONTINUE;
         }

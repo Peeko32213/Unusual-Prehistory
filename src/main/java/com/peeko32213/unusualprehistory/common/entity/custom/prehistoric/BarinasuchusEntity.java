@@ -4,6 +4,8 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePre
 import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -22,11 +24,13 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -64,18 +68,30 @@ public class BarinasuchusEntity extends TamablePrehistoricEntityOld implements I
     private static final RawAnimation BARINA_SWIM = RawAnimation.begin().thenLoop("animation.barinasuchus.swim");
     private static final RawAnimation BARINA_IDLE = RawAnimation.begin().thenPlay("animation.barinasuchus.idle");
 
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.6F;
+        helper.bodyLagStill = 0.2F;
+        return helper;
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
     public BarinasuchusEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
         super(entityType, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 40.0D)
+            .add(Attributes.MAX_HEALTH, 36.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.185D)
-            .add(Attributes.ARMOR, 10.0D)
-            .add(Attributes.ARMOR_TOUGHNESS, 5.0D)
-            .add(Attributes.ATTACK_DAMAGE, 14.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
+            .add(Attributes.ARMOR, 8.0D)
+            .add(Attributes.ATTACK_DAMAGE, 12.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 0.2D);
     }
 
     @Override
@@ -332,8 +348,6 @@ public class BarinasuchusEntity extends TamablePrehistoricEntityOld implements I
 
         return entityIn.is(this);
     }
-
-
 
     public int getCommand() {
         return this.entityData.get(COMMAND).intValue();
