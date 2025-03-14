@@ -414,46 +414,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         populateEntityFromData(entityLoc, true);
     }
 
-//    protected void clampRotation(LivingEntity livingEntity, float clampRange) {
-//        livingEntity.setYBodyRot(this.getYRot());
-//        float f = Mth.wrapDegrees(livingEntity.getYRot() - this.getYRot());
-//        float f1 = Mth.clamp(f, -clampRange, clampRange);
-//        livingEntity.yRotO += f1 - f;
-//        livingEntity.yBodyRotO += f1 - f;
-//        livingEntity.setYRot(livingEntity.getYRot() + f1 - f);
-//        livingEntity.setYHeadRot(livingEntity.getYRot());
-//    }
-
-
-//    public void positionRider(Entity passenger, MoveFunction moveFunction) {
-//        if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity living && !this.touchingUnloadedChunk()) {
-//            Vec3 seatOffset = new Vec3(0F, 0.0F, 0F).xRot((float) Math.toRadians(this.getXRot())).yRot((float) Math.toRadians(-this.yBodyRot));
-//            double targetY = this.getY() + passenger.getBbHeight();
-//            passenger.setYBodyRot(this.yBodyRot);
-//            passenger.fallDistance = 0.0F;
-//            clampRotation(living, 105);
-//            moveFunction.accept(passenger, this.getX() + seatOffset.x, targetY, this.getZ() + seatOffset.z);
-//        } else {
-//            super.positionRider(passenger, moveFunction);
-//        }
-//    }
-//
-//    public LivingEntity getControllingPassenger() {
-//        Entity entity = this.getFirstPassenger();
-//        if (entity instanceof Player) {
-//            return (Player) entity;
-//        } else {
-//            return null;
-//        }
-//    }
-
-//    protected abstract int getMaxPassengers();
-//
-//    @Override
-//    protected boolean canAddPassenger(@NotNull Entity pPassenger) {
-//        return this.getPassengers().size() < this.getMaxPassengers();
-//    }
-
     public int getRandomNumber() {
         return this.entityData.get(RANDOM_NUMBER);
     }

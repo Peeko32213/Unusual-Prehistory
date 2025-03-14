@@ -92,8 +92,8 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 10.0D)
-            .add(Attributes.ATTACK_DAMAGE, 10.0D)
-            .add(Attributes.ARMOR, 10.0)
+            .add(Attributes.ATTACK_DAMAGE, 2.0D)
+            .add(Attributes.ARMOR, 2.0)
             .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
@@ -243,6 +243,8 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
         if (DUNK_SIZE.equals(accessor)) {
             this.refreshDimensions();
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10F * this.getDunkSize() + 10F);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(2F * this.getDunkSize() + 6F);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2F * this.getDunkSize() + 6F);
             this.heal(50F);
         }
         super.onSyncedDataUpdated(accessor);

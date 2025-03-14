@@ -22,9 +22,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> ANURO_HURT = createSoundEvent("anuro_hurt");
     public static final RegistryObject<SoundEvent> ANURO_DEATH = createSoundEvent("anuro_death");
 
-    public static final RegistryObject<SoundEvent> COTY_IDLE = createSoundEvent("coty_idle");
-    public static final RegistryObject<SoundEvent> COTY_HURT = createSoundEvent("coty_hurt");
-    public static final RegistryObject<SoundEvent> COTY_DEATH = createSoundEvent("coty_death");
+    public static final RegistryObject<SoundEvent> COTY_IDLE = createSoundEvent("cotylorhynchus_idle");
+    public static final RegistryObject<SoundEvent> COTY_HURT = createSoundEvent("cotylorhynchus_hurt");
+    public static final RegistryObject<SoundEvent> COTY_DEATH = createSoundEvent("cotylorhynchus_death");
+    public static final RegistryObject<SoundEvent> COTY_BURP = createSoundEvent("cotylorhynchus_burp");
 
     // TODO: needs sneeze sound and stretch sound
     public static final RegistryObject<SoundEvent> EDAPHO_IDLE = createSoundEvent("edaphosaurus_idle");

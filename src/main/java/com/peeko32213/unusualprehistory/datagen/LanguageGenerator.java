@@ -602,6 +602,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.COTY_IDLE, "Cotylorhynchus groans");
         addSound(UPSounds.COTY_HURT, "Cotylorhynchus hurts");
         addSound(UPSounds.COTY_DEATH, "Cotylorhynchus dies");
+        addSound(UPSounds.COTY_BURP, "Cotylorhynchus burps");
 
         addSound(UPSounds.EDAPHO_IDLE, "Edaphosaurus groans");
         addSound(UPSounds.EDAPHO_HURT, "Edaphosaurus hurts");

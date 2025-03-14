@@ -1322,6 +1322,11 @@
 						"2.0": [1, 1, 1]
 					}
 				}
+			},
+			"sound_effects": {
+				"1.25": {
+					"effect": "cotylorhynchus_burp"
+				}
 			}
 		}
 	}

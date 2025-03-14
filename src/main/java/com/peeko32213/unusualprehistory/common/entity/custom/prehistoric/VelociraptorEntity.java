@@ -2,6 +2,20 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.data.attack.LargeHitBoxAttackWithTargetCheck;
+import com.peeko32213.unusualprehistory.common.data.attack.NoneAttack;
+import com.peeko32213.unusualprehistory.common.data.attack.StompAttack;
+import com.peeko32213.unusualprehistory.common.data.codec.MobEffectInstanceCodec;
+import com.peeko32213.unusualprehistory.common.data.entity.WideRangeEffectData;
+import com.peeko32213.unusualprehistory.common.data.entity.generic.CooldownWideRangeEffectData;
+import com.peeko32213.unusualprehistory.common.data.entity.generic.SoundData;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.MeleeEntityAction;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomMeleeAttackGoal;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomMeleeAttackHelper;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.WeightedSerializableMeleeAttackHelper;
+import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedData;
+import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedEntityData;
+import com.peeko32213.unusualprehistory.common.data.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
@@ -20,8 +34,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -47,9 +63,6 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.function.Predicate;
 
 public class VelociraptorEntity extends PrehistoricEntity implements IVariantEntity {
 
@@ -170,19 +183,6 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
                     .entityAction(VELOCI_IDLE_7_ACTION)
                     .build();
 
-    // Attack actions
-
-//    private static final EntityAction VELOCI_ATTACK_1_ACTION = new EntityAction(0, (e) -> {}, 1);
-//
-//    private static final StateHelper VELOCI_ATTACK_1_STATE =
-//            StateHelper.Builder.state(ATTACK_1_AC, "velociraptor_attack_1")
-//                    .playTime(60)
-//                    .stopTime(150)
-//                    .affectsAI(true)
-//                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-//                    .entityAction(VELOCI_ATTACK_1_ACTION)
-//                    .build();
-
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
@@ -216,16 +216,6 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
 
     @Override
     public void setAction(boolean action) {}
-
-//    public List<WeightedRandomList<WeightedSerializableMeleeAttackHelper>> getAttack() {
-//        return WeightedRandomList.create(
-//            new WeightedSerializableMeleeAttackHelper(10,
-//            SerializableRandomMeleeAttackHelper.Builder.state(ATTACK_1_AC, "velociraptor_attack_1")
-//                .meleeEntityAction(new MeleeEntityAction(8,1,
-//                    new LargeHitBoxAttackWithTargetCheck(1.0F, 1.0F, 1.0F, 30, 30, false, true))).build()
-//            )
-//        );
-//    }
 
     @Override
     protected @NotNull PathNavigation createNavigation(Level levelIn) {
@@ -290,7 +280,20 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
-//        this.goalSelector.addGoal(1, new VelociraptorEntity.MeleeAttackGoal());
+        // TODO: make this actually work and play animation from controller
+//        new SerializableRandomMeleeAttackGoal<>(this,
+//                WeightedRandomList.create(
+//                        new WeightedSerializableMeleeAttackHelper(
+//                                10,
+//                                SerializableRandomMeleeAttackHelper.Builder
+//                                    .state(VELOCIRAPTOR_BITE, "velociraptor_bite")
+//                                    .playTime(5)
+//                                    .meleeEntityAction(new MeleeEntityAction(
+//                                    8,1,
+//                                    new LargeHitBoxAttackWithTargetCheck(1F, 1F, 1F, 30D, 30D, false, true)
+//                                    )
+//                        ).build()
+//                )),1.75D,false,2);
     }
 
     @Override
@@ -328,48 +331,6 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
         this.level().broadcastEntityEvent(this, (byte) 4);
         return super.doHurtTarget(entityIn);
     }
-
-//    class MeleeAttackGoal extends SerializableRandomMeleeAttackGoal {
-//        public MeleeAttackGoal() {
-//            super(VelociraptorEntity.this, getAttack(), 1.75F, false, 2.0F);
-//        }
-//    }
-
-//    class MeleeAttackGoal extends DelayedAttackGoal {
-//
-//        public MeleeAttackGoal() {
-//            super(VelociraptorEntity.this, 1.75D, false);
-//        }
-//
-//        protected void tickAttack () {
-//
-//            triggerAnim("blend", "bite");
-//
-//            animTime++;
-//
-//            if (animTime <= 3) {
-//                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
-//                this.mob.yBodyRot = this.mob.yHeadRot;
-//            }
-//
-//            if(animTime==5) {
-//                preformAttack();
-//            }
-//
-//            if(animTime>=8) {
-//                animTime=0;
-//                this.mob.setAnimationState(0);
-//                this.resetAttackCooldown();
-//                this.ticksUntilNextPathRecalculation = 0;
-//            }
-//        }
-//
-//        protected void preformAttack () {
-//            Vec3 pos = mob.position();
-//            this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 1.0F, this.mob.getVoicePitch());
-//            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
-//        }
-//    }
 
     @Override
     public boolean isAlliedTo(Entity pEntity) {
@@ -708,7 +669,6 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
                 return event.setAndContinue(VELOCI_PREEN_2);
             }
             return event.setAndContinue(VELOCI_IDLE);
-
         }
         return PlayState.CONTINUE;
     }

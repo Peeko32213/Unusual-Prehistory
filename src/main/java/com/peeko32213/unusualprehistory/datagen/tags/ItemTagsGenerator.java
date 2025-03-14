@@ -141,6 +141,16 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.GINKGO_FRUIT.get())
         ;
 
+        tag(UPTags.COTY_FOOD)
+                .add(Items.MELON_SLICE)
+                .add(Items.MELON_SEEDS)
+                .add(Items.GLISTERING_MELON_SLICE)
+        ;
+        tag(UPTags.COTY_FERMENTERS)
+                .add(Items.SWEET_BERRIES)
+                .add(Items.GLOW_BERRIES)
+        ;
+
         tag(UPTags.HWACHA_FOOD)
         ;
 

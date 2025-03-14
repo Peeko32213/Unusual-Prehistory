@@ -96,10 +96,22 @@ public class BlockTagsGenerator extends BlockTagsProvider {
         ;
 
         tag(UPTags.TRIKE_GRAZING_BLOCKS)
-                .addTag(BlockTags.LEAVES)
                 .add(Blocks.GRASS_BLOCK)
-                .add(Blocks.PODZOL)
-                .add(Blocks.MYCELIUM)
+                .add(Blocks.FERN)
+                .add(Blocks.LARGE_FERN)
+                .add(Blocks.GRASS)
+                .add(UPBlocks.HORSETAIL.get())
+                .add(UPBlocks.TALL_HORSETAIL.get())
+        ;
+
+        tag(UPTags.COTY_GRAZING_BLOCKS)
+                .add(Blocks.GRASS_BLOCK)
+                .add(Blocks.FERN)
+                .add(Blocks.LARGE_FERN)
+                .add(Blocks.GRASS)
+                .add(Blocks.MELON)
+                .add(UPBlocks.HORSETAIL.get())
+                .add(UPBlocks.TALL_HORSETAIL.get())
         ;
 
         tag(UPTags.MEGATHERIUM_EATABLES)

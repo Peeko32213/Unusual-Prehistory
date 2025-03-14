@@ -1,14 +1,19 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.SmoothFloatGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -28,6 +33,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -37,20 +43,28 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 
 
 public class CotylorhynchusEntity extends PrehistoricEntity {
+
     private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.MELON, Items.MELON_SLICE, Items.MELON_SEEDS, Items.GLISTERING_MELON_SLICE);
+    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.COTY_FOOD);
+    private static final Ingredient FERMENTATION_ITEMS = Ingredient.of(UPTags.COTY_FERMENTERS);
     private static final EntityDataAccessor<Boolean> FERMENTED = SynchedEntityData.defineId(CotylorhynchusEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -62,34 +76,73 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
 
     // Idle animaitons
     private static final RawAnimation COTY_IDLE = RawAnimation.begin().thenLoop("animation.cotylorhynchus.idle");
-    private static final RawAnimation COTY_GRAZE = RawAnimation.begin().thenLoop("animation.cotylorhynchus.graze_blend");
+    private static final RawAnimation COTY_GRAZE = RawAnimation.begin().thenPlay("animation.cotylorhynchus.graze_blend");
     private static final RawAnimation COTY_SIT = RawAnimation.begin().thenLoop("animation.cotylorhynchus.sit");
     private static final RawAnimation COTY_SLEEP = RawAnimation.begin().thenLoop("animation.cotylorhynchus.sleep");
 
     // Misc animations
-    private static final RawAnimation COTY_GROG = RawAnimation.begin().thenLoop("animation.cotylorhynchus.idle");
+    private static final RawAnimation COTY_GROG = RawAnimation.begin().thenPlay("animation.cotylorhynchus.grog_blend");
+
+    private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(CotylorhynchusEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityAction COTY_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper COTY_IDLE_1_STATE =
+            StateHelper.Builder.state(IDLE_1_AC, "cotylorhynchus_graze")
+                    .playTime(40)
+                    .stopTime(100)
+                    .entityAction(COTY_IDLE_1_ACTION)
+                    .build();
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return ImmutableMap.of(
+                COTY_IDLE_1_STATE.getName(), COTY_IDLE_1_STATE
+        );
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return ImmutableList.of(
+                WeightedState.of(COTY_IDLE_1_STATE, 10)
+        );
+    }
+
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {}
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
 
     public CotylorhynchusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
+        this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.16D)
-                .add(Attributes.FOLLOW_RANGE, 12.0D);
+            .add(Attributes.MAX_HEALTH, 16.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.16D)
+            .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, FOOD_ITEMS, false));
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new SmoothFloatGoal(this));
+        this.goalSelector.addGoal(8, new PanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, TEMPTATION_ITEMS, false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, TyrannosaurusEntity.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, MajungasaurusEntity.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0, 30));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
     }
 
     @Override
@@ -146,6 +199,7 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(IDLE_1_AC, false);
         this.entityData.define(FERMENTED, false);
     }
 
@@ -153,15 +207,12 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Fermented", this.isFermented());
-
-
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setFermented(compound.getBoolean("Fermented"));
-
     }
 
     public void setFermented(boolean fermented) {
@@ -172,25 +223,35 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
         return this.entityData.get(FERMENTED);
     }
 
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UPTags.COTY_FOOD);
+    }
+
+    public boolean isFermentingFood(ItemStack stack) {
+        return stack.is(UPTags.COTY_FERMENTERS);
+    }
 
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if (item == Items.SWEET_BERRIES && !this.isFermented()) {
+
+        if (isFermentingFood(itemstack) && !this.isFermented()) {
 
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
             int brewAmount = random.nextInt(0, 100);
             if (brewAmount >= 70) {
-                this.playSound(SoundEvents.BREWING_STAND_BREW, 1.0F, 1.0F);
+                this.playSound(SoundEvents.BREWING_STAND_BREW, 0.5F, 1.0F);
+                triggerAnim("blend", "grog");
                 this.setFermented(true);
             } else {
-                this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
+                this.playSound(this.getEatingSound(itemstack), 0.5F, 1.0F);
             }
             return InteractionResult.SUCCESS;
-        } else if (item == UPItems.FLASK.get() && this.isFermented()) {
+        }
+        else if (item == UPItems.FLASK.get() && this.isFermented()) {
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
@@ -198,12 +259,27 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
                 player.spawnAtLocation(UPItems.GROG.get());
             }
             this.setFermented(false);
-            this.playSound(this.getBurpSound(itemstack), 1.0F, 1.0F);
+            this.playSound(SoundEvents.BOTTLE_FILL, 0.5F, 1.0F);
             return InteractionResult.SUCCESS;
-        } else {
-            return InteractionResult.FAIL;
         }
+        else if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+
+            if (!player.getAbilities().instabuild) {
+                itemstack.shrink(1);
+            }
+            if(!this.level().isClientSide) {
+                this.heal((float) this.getAttribute(Attributes.MAX_HEALTH).getValue() / 4);
+            }
+
+            this.playSound(this.getEatingSound(itemstack), 0.5F, 1.0F);
+            this.level().broadcastEntityEvent(this, (byte) 7);
+            this.gameEvent(GameEvent.EAT, this);
+            return InteractionResult.SUCCESS;
+
+        }
+        else return InteractionResult.FAIL;
     }
+
     private void spawnFluidParticle(Level pLevel, double pStartX, double pEndX, double pStartZ, double pEndZ, double pPosY) {
         pLevel.addParticle(ParticleTypes.DRIPPING_HONEY, Mth.lerp(pLevel.random.nextDouble(), pStartX, pEndX), pPosY, Mth.lerp(pLevel.random.nextDouble(), pStartZ, pEndZ), 0.0D, 0.0D, 0.0D);
     }
@@ -217,40 +293,75 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
         }
     }
 
-    public SoundEvent getEatingSound(ItemStack p_28540_) {
-        return SoundEvents.GENERIC_EAT;
-    }
-
-    public SoundEvent getBurpSound(ItemStack p_28540_) {
-        return SoundEvents.PLAYER_BURP;
-    }
-
-
-    protected <E extends CotylorhynchusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if(this.isFromBook()){
-            return event.setAndContinue(COTY_IDLE);
+    @Override
+    public void customServerAiStep() {
+        if (this.getMoveControl().hasWanted()) {
+            this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.25D);
+        } else {
+            this.setSprinting(false);
         }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
-            {
-                event.setAndContinue(COTY_WALK);
-                event.getController().setAnimationSpeed(1.0F);
-                return PlayState.CONTINUE;
+        super.customServerAiStep();
+    }
+
+    private void soundListener(SoundKeyframeEvent<CotylorhynchusEntity> event) {
+        CotylorhynchusEntity cotylorhynchus = event.getAnimatable();
+        if (cotylorhynchus.level().isClientSide) {
+            if (event.getKeyframeData().getSound().equals("cotylorhynchus_burp")) {
+                cotylorhynchus.level().playLocalSound(cotylorhynchus.getX(), cotylorhynchus.getY(), cotylorhynchus.getZ(), UPSounds.COTY_BURP.get(), cotylorhynchus.getSoundSource(), 1.0F, cotylorhynchus.getVoicePitch(), false);
             }
         }
-        if (this.isInWater()) {
-            event.setAndContinue(COTY_SWIM);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        } else if (!this.isInWater()) {
-            event.setAndContinue(COTY_IDLE);
-            event.getController().setAnimationSpeed(1.0F);
-        }
-        return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        AnimationController<CotylorhynchusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<CotylorhynchusEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
+                .triggerableAnim("graze", COTY_GRAZE)
+                .triggerableAnim("grog", COTY_GROG)
+            ;
+        blend.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(blend);
+    }
+
+    protected <E extends CotylorhynchusEntity> PlayState predicate(final AnimationState<E> event) {
+
+        if (this.isFromBook()) {
+            return event.setAndContinue(COTY_IDLE);
+        }
+
+        if (this.isInWater()) {
+            event.setAndContinue(COTY_SWIM);
+            event.getController().setAnimationSpeed(1.0D);
+            return PlayState.CONTINUE;
+        }
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()){
+            if(this.isSprinting()) {
+                event.setAndContinue(COTY_RUN);
+                event.getController().setAnimationSpeed(1.0D);
+            } else {
+                event.setAndContinue(COTY_WALK);
+                event.getController().setAnimationSpeed(1.0D);
+            }
+            return PlayState.CONTINUE;
+        }
+
+        if (!this.isInWater()) {
+            if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+                if (this.isStillEnough() && !this.isFermented() && level().getBlockState(this.blockPosition().below()).is(UPTags.COTY_GRAZING_BLOCKS)) {
+                    triggerAnim("blend", "graze");
+                    return event.setAndContinue(COTY_IDLE);
+                }
+                else if(!this.isFermented() && level().getBlockState(this.blockPosition().below()).is(UPTags.COTY_GRAZING_BLOCKS)) {
+                    triggerAnim("blend", "graze");
+                    return PlayState.CONTINUE;
+                }
+                else return PlayState.CONTINUE;
+            }
+            return event.setAndContinue(COTY_IDLE);
+        }
+        return PlayState.CONTINUE;
     }
 
     protected SoundEvent getAmbientSound() {
@@ -267,55 +378,5 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(SoundEvents.CAMEL_STEP, 1.0F, 1.0F);
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
-    }
-
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
-    }
-
-    public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
-    }
-
-    @javax.annotation.Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @javax.annotation.Nullable SpawnGroupData p_28137_, @javax.annotation.Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
-        Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {
-            {
-                this.setPersistenceRequired();
-            }
-        }
-        return p_28137_;
-    }
-
-    @Override
-    public ImmutableMap<String, StateHelper> getStates() {
-        return null;
-    }
-
-    @Override
-    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-        return List.of();
-    }
-
-    @Override
-    public boolean getAction() {
-        return false;
-    }
-
-    @Override
-    public void setAction(boolean action) {
-
     }
 }

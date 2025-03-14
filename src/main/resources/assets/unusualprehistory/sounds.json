@@ -58,26 +58,34 @@
     "subtitle": "unusualprehistory.sound.subtitle.anuro_death"
   },
 
-  "coty_idle": {
+  "cotylorhynchus_idle": {
     "sounds": [
-        "unusualprehistory:entity/coty/coty_idle_0",
-        "unusualprehistory:entity/coty/coty_idle_1"
+        "unusualprehistory:entity/cotylorhynchus/cotylorhynchus_idle_0",
+        "unusualprehistory:entity/cotylorhynchus/cotylorhynchus_idle_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.coty_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.cotylorhynchus_idle"
   },
-  "coty_hurt": {
+  "cotylorhynchus_hurt": {
     "sounds": [
-        "unusualprehistory:entity/coty/coty_hurt_0",
-        "unusualprehistory:entity/coty/coty_hurt_1"
+        "unusualprehistory:entity/cotylorhynchus/cotylorhynchus_hurt_0",
+        "unusualprehistory:entity/cotylorhynchus/cotylorhynchus_hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.coty_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.cotylorhynchus_hurt"
   },
-  "coty_death": {
+  "cotylorhynchus_death": {
     "sounds": [
-        "unusualprehistory:entity/coty/coty_death_0",
-        "unusualprehistory:entity/coty/coty_death_1"
+        "unusualprehistory:entity/cotylorhynchus/cotylorhynchus_death_0",
+        "unusualprehistory:entity/cotylorhynchus/cotylorhynchus_death_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.coty_death"
+    "subtitle": "unusualprehistory.sound.subtitle.cotylorhynchus_death"
+  },
+  "cotylorhynchus_burp": {
+    "sounds": [
+      "unusualprehistory:entity/cotylorhynchus/cotylorhynchus_burp_0",
+      "unusualprehistory:entity/cotylorhynchus/cotylorhynchus_burp_1",
+      "unusualprehistory:entity/cotylorhynchus/cotylorhynchus_burp_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.cotylorhynchus_burp"
   },
 
   "edaphosaurus_idle": {

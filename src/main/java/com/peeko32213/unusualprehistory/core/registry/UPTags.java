@@ -108,6 +108,9 @@ public class UPTags {
 
     public static final TagKey<Item> HWACHA_FOOD = registerItemTag("hwacha_food");
 
+    public static final TagKey<Item> COTY_FOOD = registerItemTag("cotylorhynchus_food");
+    public static final TagKey<Item> COTY_FERMENTERS = registerItemTag("cotylorhynchus_fermenting");
+
     public static final TagKey<Item> PACHY_FOOD = registerItemTag("pachy_food");
     public static final TagKey<Item> PETRIFIED_WOOD = registerItemTag("petrified_wood");
     public static final TagKey<Item> FOXXI = registerItemTag("foxxi");
@@ -136,6 +139,8 @@ public class UPTags {
     public static final TagKey<Block> DIPLO_DIGS = registerBlockTag("diplocaulus_burrow_blocks");
 
     public static final TagKey<Block> TRIKE_GRAZING_BLOCKS = registerBlockTag("triceratops_grazing_blocks");
+
+    public static final TagKey<Block> COTY_GRAZING_BLOCKS = registerBlockTag("cotylorhynchus_grazing_blocks");
 
     public static final TagKey<Block> MEGATHERIUM_EATABLES = registerBlockTag("megatherium_breakables");
     public static final TagKey<Block> MEGATHERIUM_MINEABLES = registerBlockTag("megatherium_mineables");

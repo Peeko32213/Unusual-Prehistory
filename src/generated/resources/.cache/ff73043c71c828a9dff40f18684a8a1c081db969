@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-08T17:28:30.0592686	unusualprehistory Item Tags
+// 1.20.1	2025-03-13T18:10:09.1461926	unusualprehistory Item Tags
 bc7e0fe2b69718f92222d63f69f3505863ee0fb3 data/minecraft/tags/items/arrows.json
 5c5d8ce6ffd4b0079c585611f9169a81f8bd2c51 data/minecraft/tags/items/buttons.json
 e829c615c93450811737e940255f47c59eab15f1 data/minecraft/tags/items/fishes.json
@@ -33,6 +33,8 @@ eca28e743a302b42edeea770211beb348b28ecf4 data/unusualprehistory/tags/items/analy
 a1bde0b759e1556ddcca3f534588404d57b9c4e3 data/unusualprehistory/tags/items/analyzer_items_output_raw_stetha.json
 37946f9db96ae0d16dfc1187c193e984790fbf12 data/unusualprehistory/tags/items/analyzer_items_output_tar_fossil.json
 4b1f76a42f844547b0522cb40900ee9e00b6758d data/unusualprehistory/tags/items/analyzer_items_output_tree.json
+02dfdb41688ccea8169a8d046943461f0aa3c361 data/unusualprehistory/tags/items/cotylorhynchus_fermenting.json
+7aadfe08d35c04f4746f8061765f234b94696782 data/unusualprehistory/tags/items/cotylorhynchus_food.json
 9df032f995c0718458eb9c277fc11fdee7d3d69b data/unusualprehistory/tags/items/dna_flasks.json
 e7979fa1ee3401c63e5b609e5c51d79f07e44332 data/unusualprehistory/tags/items/dryo.json
 d43aa4f04479d6bd489e878a657b8ae648155653 data/unusualprehistory/tags/items/edaphosaurus_food_items.json
