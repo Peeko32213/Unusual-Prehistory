@@ -1,13 +1,20 @@
 package com.peeko32213.unusualprehistory.common.effect;
 
 import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.UUID;
 
 public class RampageEffect extends MobEffect {
@@ -23,6 +30,22 @@ public class RampageEffect extends MobEffect {
         //Players will randomly swing their arms, more often the longer they are infected
         //Players will randomly shake their head
 
+        if (pLivingEntity.isDeadOrDying() && pLivingEntity.tickCount%5 == 0) {
+            pLivingEntity.level().playSound(null, pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ(), SoundEvents.GLOW_SQUID_HURT, SoundSource.NEUTRAL, 0.5F, 1F / (pLivingEntity.level().getRandom().nextFloat() * 0.4F + 0.8F));
+            pLivingEntity.level().playSound(null, pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ(), SoundEvents.SLIME_BLOCK_BREAK, SoundSource.NEUTRAL, 0.5F, 1F / (pLivingEntity.level().getRandom().nextFloat() * 0.4F + 0.8F));
+
+            if (!pLivingEntity.level().isClientSide) {
+                //this makes the potion effect cloud
+                AreaEffectCloud areaeffectcloud = new AreaEffectCloud(pLivingEntity.level(), pLivingEntity.getX(), pLivingEntity.getY() + 0.2F, pLivingEntity.getZ());
+                areaeffectcloud.setFixedColor(6685988);
+                areaeffectcloud.setRadius(4F);
+                areaeffectcloud.setDuration(1);
+                areaeffectcloud.addEffect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), -1));
+
+                pLivingEntity.level().addFreshEntity(areaeffectcloud);
+            }
+        }
+
         if (!pLivingEntity.level().isClientSide && pLivingEntity instanceof ServerPlayer serverPlayer) {
             serverPlayer.getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(capability -> {
 
@@ -33,7 +56,7 @@ public class RampageEffect extends MobEffect {
                 int dmg = (int) (5*Math.random());
 
                 if (hitRand < probability) {
-                    pLivingEntity.swing(InteractionHand.MAIN_HAND);
+
                     //players randomly attacks
                 }
                 if (dmgRand < probability) {
@@ -45,14 +68,12 @@ public class RampageEffect extends MobEffect {
                     //player's head randomly twitches
                 }
 
-                System.out.println(capability.playersRabiesHadTime);
                 capability.playersRabiesHadTime += 1;
                 //increase tick
             });
 
         } else {
             pLivingEntity.getCapability(UPCapabilities.ANIMAL_CAPABILITY).ifPresent(capability -> {
-                System.out.println(capability.entityRabiesHadTime);
                 capability.entityRabiesHadTime += 1;
             });
         }

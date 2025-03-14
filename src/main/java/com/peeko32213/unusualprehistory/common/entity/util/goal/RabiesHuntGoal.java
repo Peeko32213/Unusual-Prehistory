@@ -26,7 +26,7 @@ public class RabiesHuntGoal extends Goal {
     }
 
     public boolean canUse() {
-        return this.mob.onGround() && !this.mob.level().getFluidState(this.mob.blockPosition()).is(FluidTags.WATER);
+        return this.mob.onGround() && !this.mob.level().getFluidState(this.mob.blockPosition()).is(FluidTags.WATER) && this.mob.hasEffect(UPEffects.YIXIAN_RAMPAGE.get());
     }
 
     public void start() {
@@ -67,6 +67,11 @@ public class RabiesHuntGoal extends Goal {
         }
         //sets the target of the entity to the selected target if it isn't targeting it already
 
+    }
+
+    @Override
+    public boolean canContinueToUse() {
+        return this.mob.hasEffect(UPEffects.YIXIAN_RAMPAGE.get());
     }
 
     public void tick() {

@@ -87,7 +87,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PALAEO_SKIN, "Discarded Palaeolophis Skin");
         addItem(UPItems.PSITTACOSAURUS_QUILL, "Psittacosaurus Quill");
         addItem(UPItems.AMBER_IDOL, "Amber Idol");
-        addItem(UPItems.JARATE, "Flask of Jarate");
+        addItem(UPItems.JARATE, "Tyrannosaur Urine");
         addItem(UPItems.YIXIAN_RAMPAGE_FLASK, "Flask of Yixian Rampage");
         addItem(UPItems.DORMANT_RAMPAGE_FLASK, "Flask of Dormant Yixian Rampage");
         addItem(UPItems.QUILL_REMEDY, "Rampage Remedy Quill");

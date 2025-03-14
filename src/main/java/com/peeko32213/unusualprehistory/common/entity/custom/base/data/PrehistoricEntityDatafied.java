@@ -8,6 +8,7 @@ import com.peeko32213.unusualprehistory.common.data.predicate.SpawnPredicate;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamableStatedPrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.mixin.AttributeAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -19,17 +20,24 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -37,9 +45,11 @@ import software.bernie.geckolib.core.animatable.GeoAnimatable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public abstract class PrehistoricEntityDatafied extends TamableAnimal implements IStateAction, GeoEntity, GeoAnimatable {
+    public static final Logger LOGGER = LogManager.getLogger();
     private static final EntityDataAccessor<String> ANIMATION_LOCATION = SynchedEntityData.defineId(PrehistoricEntityDatafied.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<String> MODEL_LOCATION = SynchedEntityData.defineId(PrehistoricEntityDatafied.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<String> TEXTURE_LOCATION = SynchedEntityData.defineId(PrehistoricEntityDatafied.class, EntityDataSerializers.STRING);
@@ -91,7 +101,18 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.15D);
+                .add(Attributes.MOVEMENT_SPEED, 0.0D)
+                .add(Attributes.ARMOR, 0.0D)
+                .add(Attributes.ARMOR_TOUGHNESS, 0.0D)
+                .add(Attributes.ATTACK_DAMAGE, 0.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 0.0D)
+                .add(Attributes.ATTACK_SPEED, 0.0D)
+                .add(Attributes.FLYING_SPEED, 0.0D)
+                .add(Attributes.FOLLOW_RANGE, 0.0D)
+                .add(Attributes.JUMP_STRENGTH, 0.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
+                .add(Attributes.LUCK, 0.0D)
+                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0.0D);
     }
 
 
@@ -154,6 +175,19 @@ public abstract class PrehistoricEntityDatafied extends TamableAnimal implements
 
         setFood(entityTagData.getFood());
         setTargets(entityTagData.getTargets());
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        Map<Attribute, AttributeInstance> attributes =  ((AttributeAccessor) this.getAttributes()).unusualprehistory$getAttributes();
+        LOGGER.info("Level " + level());
+        for(Attribute attribute : attributes.keySet()) {
+           AttributeInstance instance = attributes.get(attribute);
+
+           LOGGER.info("Attribute: " + attribute.getDescriptionId() + " value " + instance.getValue());
+        }
+
+        return super.mobInteract(pPlayer, pHand);
     }
 
     @Override

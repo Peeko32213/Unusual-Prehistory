@@ -3,16 +3,24 @@ package com.peeko32213.unusualprehistory.datagen.tags;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
+
+import static com.scouter.goalsmith.GoalSmith.prefix;
 
 public class EntityTagsGenerator extends EntityTypeTagsProvider {
 
@@ -25,6 +33,8 @@ public class EntityTagsGenerator extends EntityTypeTagsProvider {
 
         /**Example**/
         //tag(UPTags.ANURO_TARGETS).add(UPEntities.BABY_BRACHI.get());
+
+
 
         tag(UPTags.LAND_MOBS)
                 .add(UPEntities.COTY.get())
