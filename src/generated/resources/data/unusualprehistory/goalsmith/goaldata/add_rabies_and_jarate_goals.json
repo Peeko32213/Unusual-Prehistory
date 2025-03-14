@@ -1,0 +1,22 @@
+{
+  "attributes_additions": [],
+  "goal_operations": [
+    {
+      "type": "goalsmith:add_goal_operation",
+      "goal": [
+        {
+          "type": "unusualprehistory:jarate_find_water_goal",
+          "goal_priority": -1
+        },
+        {
+          "type": "unusualprehistory:rabies_hunt_goal",
+          "goal_priority": -1
+        }
+      ]
+    }
+  ],
+  "target_goal_operations": [],
+  "target_type": {
+    "type": "goalsmith:all"
+  }
+}

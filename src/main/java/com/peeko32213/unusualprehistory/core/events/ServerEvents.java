@@ -23,6 +23,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -39,6 +40,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -63,6 +66,38 @@ import java.util.Set;
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ServerEvents {
 
+    /**
+     * This event handler listens for {@link LivingEntityParticleEvent}.
+     * It demonstrates examples of how to manipulate or cancel the particle spawn.
+     *
+     * @param event The particle event, which contains the entity, the particle type,
+     *              the position, and velocity of the particle.
+     */
+    @SubscribeEvent
+    public static void onLivingEntityParticle(LivingEntityChangeParticleEvent event) {
+        // 1) DO NOTHING: Let the particle spawn as normal
+        //    Just don't call event.setCanceled(true), and don't modify any fields.
+        //    So if the entity is not a Creeper or Zombie, we'll do nothing, so it spawns
+        //    normally. (We only handle Creeper/Zombie in the conditions below.)
+
+        // 2) REPLACE THE PARTICLE for CREEPERS
+        //    Suppose you want all Creepers to spawn END_ROD particles instead.
+        if (event.getEntity() instanceof Creeper) {
+            event.setParticleData(ParticleTypes.END_ROD);
+        }
+
+        // 3) CANCEL THE PARTICLE for ZOMBIES
+        //    Suppose you want to completely remove all particles from Zombies.
+        if (event.getEntity() instanceof Zombie) {
+            event.setCanceled(true);
+            return;
+        }
+
+        // 4) Optional further manipulation (if not canceled):
+        //    Example: Move the spawn point or change the velocity
+        // event.setX(event.getX() + 1.0D);
+        // event.setYSpeed(event.getYSpeed() + 0.05D);
+    }
 
     @SubscribeEvent
     public static void onRegisterReloadListeners(ServerStartedEvent event) {
@@ -296,34 +331,34 @@ public class ServerEvents {
     @SubscribeEvent
     //cant be canceled
     public void jarateFacilitatorEvent(LivingEvent.LivingTickEvent event) {
-        Entity titty = event.getEntity();
-
-        if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.PISSED_UPON.get()) && !checkContainPiss(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
-            //has effect but has no piss(add)
-            ((PathfinderMob) titty).goalSelector.addGoal(-1, new JarateFindWaterGoal(((PathfinderMob) titty)));
-        }
-
-        if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.PISSED_UPON.get()) && checkContainPiss(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
-            //has no effect but has piss(remove)
-            cutPissGoal(((PathfinderMob) titty));
-        }
+        //Entity titty = event.getEntity();
+//
+        //if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.PISSED_UPON.get()) && !checkContainPiss(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+        //    //has effect but has no piss(add)
+        //    ((PathfinderMob) titty).goalSelector.addGoal(-1, new JarateFindWaterGoal(((PathfinderMob) titty)));
+        //}
+//
+        //if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.PISSED_UPON.get()) && checkContainPiss(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+        //    //has no effect but has piss(remove)
+        //    cutPissGoal(((PathfinderMob) titty));
+        //}
     }
 
     @SubscribeEvent
     //cant be canceled
     public void rabiesFacilitatorEvent(LivingEvent.LivingTickEvent event) {
-        Entity titty = event.getEntity();
-
-        if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && !checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
-            //has effect but has no piss(add)
-            ((PathfinderMob) titty).goalSelector.addGoal(-1, new RabiesHuntGoal(((PathfinderMob) titty)));
-            //TODO: Make rabies only manifest after a certain number of ticks
-        }
-
-        if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
-            //has no effect but has piss(remove)
-            cutRabies(((PathfinderMob) titty));
-        }
+        //Entity titty = event.getEntity();
+//
+        //if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && !checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+        //    //has effect but has no piss(add)
+        //    ((PathfinderMob) titty).goalSelector.addGoal(-1, new RabiesHuntGoal(((PathfinderMob) titty)));
+        //    //TODO: Make rabies only manifest after a certain number of ticks
+        //}
+//
+        //if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+        //    //has no effect but has piss(remove)
+        //    cutRabies(((PathfinderMob) titty));
+        //}
     }
 
     @SubscribeEvent
@@ -358,55 +393,55 @@ public class ServerEvents {
         //can remove vaccines so that particles don't shit themselves
     }
 
-    private boolean checkContainPiss(Set<WrappedGoal> availableGoals) {
-        WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
+    //private boolean checkContainPiss(Set<WrappedGoal> availableGoals) {
+    //    WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
+//
+    //    for (WrappedGoal wrappedGoal : arring) {
+    //        if (wrappedGoal.getGoal() instanceof JarateFindWaterGoal) {
+    //            return true;
+    //            //has piss goal
+    //        }
+    //    }
+//
+    //    return false;
+    //    //has no piss goal
+    //    //remember this check also happens clientside and if that's the case it returns false.
+    //}
+//
+    //private boolean checkContainRabies(Set<WrappedGoal> availableGoals) {
+    //    WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
+//
+    //    for (WrappedGoal wrappedGoal : arring) {
+    //        if (wrappedGoal.getGoal() instanceof RabiesHuntGoal) {
+    //            return true;
+    //            //has piss goal
+    //        }
+    //    }
+//
+    //    return false;
+    //    //has no piss goal
+    //    //remember this check also happens clientside and if that's the case it returns false.
+    //}
 
-        for (WrappedGoal wrappedGoal : arring) {
-            if (wrappedGoal.getGoal() instanceof JarateFindWaterGoal) {
-                return true;
-                //has piss goal
-            }
-        }
-
-        return false;
-        //has no piss goal
-        //remember this check also happens clientside and if that's the case it returns false.
-    }
-
-    private boolean checkContainRabies(Set<WrappedGoal> availableGoals) {
-        WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
-
-        for (WrappedGoal wrappedGoal : arring) {
-            if (wrappedGoal.getGoal() instanceof RabiesHuntGoal) {
-                return true;
-                //has piss goal
-            }
-        }
-
-        return false;
-        //has no piss goal
-        //remember this check also happens clientside and if that's the case it returns false.
-    }
-
-    private void cutPissGoal(PathfinderMob titty) {
-        WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
-
-        for (WrappedGoal wrappedGoal : arring) {
-            if (wrappedGoal.getGoal() instanceof JarateFindWaterGoal) {
-                titty.goalSelector.removeGoal(wrappedGoal.getGoal());
-            }
-        }
-    }
-
-    private void cutRabies(PathfinderMob titty) {
-        WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
-
-        for (WrappedGoal wrappedGoal : arring) {
-            if (wrappedGoal.getGoal() instanceof RabiesHuntGoal) {
-                titty.goalSelector.removeGoal(wrappedGoal.getGoal());
-            }
-        }
-    }
+    //private void cutPissGoal(PathfinderMob titty) {
+    //    WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
+//
+    //    for (WrappedGoal wrappedGoal : arring) {
+    //        if (wrappedGoal.getGoal() instanceof JarateFindWaterGoal) {
+    //            titty.goalSelector.removeGoal(wrappedGoal.getGoal());
+    //        }
+    //    }
+    //}
+//
+    //private void cutRabies(PathfinderMob titty) {
+    //    WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
+//
+    //    for (WrappedGoal wrappedGoal : arring) {
+    //        if (wrappedGoal.getGoal() instanceof RabiesHuntGoal) {
+    //            titty.goalSelector.removeGoal(wrappedGoal.getGoal());
+    //        }
+    //    }
+    //}
 }
 
 

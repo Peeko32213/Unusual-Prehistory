@@ -83,45 +83,95 @@ public class HitboxAttacks {
         largeAttackWithTargetCheck(damageSource, damage, knockback, entityIn, pos0, radius, angleFirst, angleLast, hInf, hSup, disableShield, false);
     }
 
-        public static void largeAttackWithTargetCheck(DamageSource damageSource, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double angleFirst, double angleLast, double hInf, double hSup, boolean disableShield, boolean hitBoxOutline) {
+//        public static void largeAttackWithTargetCheck(DamageSource damageSource, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double angleFirst, double angleLast, double hInf, double hSup, boolean disableShield, boolean hitBoxOutline) {
+//
+//        Vec2 aim = MathHelpers.OrizontalAimVector(entityIn.getLookAngle());
+//        Level worldIn = entityIn.level();
+//
+//        for (int i = 0; i <= radius / d; ++i) {
+//
+//            for (int j = 0; j <= (angleLast - angleFirst) / angleVar; ++j) {
+//
+//                double angle = angleFirst + angleVar * j;
+//
+//                double x = pos0.x + i * d * (aim.x * Math.cos(angle) - aim.y * Math.sin(angle));
+//                double z = pos0.z + i * d * (aim.y * Math.cos(angle) + aim.x * Math.sin(angle));
+//
+//                for (int k = 0; k <= (hSup - hInf) / d; ++k) {
+//
+//                    double y = pos0.y + hInf + k * d;
+//                    AABB scanAbove = new AABB(x - d, y - 4d, z - d, x + d, y + 2d, z + d);
+//                    List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
+//                    if (hitBoxOutline) {
+//                        if(worldIn instanceof ServerLevel level) {
+//                            hitboxOutline(scanAbove, level);
+//                        }
+//                    }
+//                    for (LivingEntity target : entities) {
+//                        if (target != entityIn && target.invulnerableTime == 0) {
+//
+//                            Vec2 knockVec = MathHelpers.OrizontalAimVector(
+//                                    MathHelpers.AimVector(new Vec3(-entityIn.position().x, -entityIn.position().y, -entityIn.position().z),
+//                                            new Vec3(-target.position().x, -target.position().y, -target.position().z)
+//                                    ));
+//
+//                            if (target.invulnerableTime == 0) {
+//                                if (target instanceof Player && disableShield) {
+//                                    disableShield((Player) target, target.getMainHandItem(), target.getOffhandItem(), entityIn);
+//                                }
+//                                target.hurt(damageSource, damage);
+//                                target.setLastHurtByMob(entityIn);
+//                                target.knockback(knockback, knockVec.x, knockVec.y);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    public static void largeAttackWithTargetCheck(DamageSource damageSource, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double angleFirst, double angleLast, double hInf, double hSup, boolean disableShield, boolean hitBoxOutline) {
+
+        Vec2 knockVec = MathHelpers.OrizontalAimVector(
+                MathHelpers.AimVector(new Vec3(-entityIn.position().x, -entityIn.position().y, -entityIn.position().z),
+                        new Vec3(-entityIn.getTarget().position().x, -entityIn.getTarget().position().y, -entityIn.getTarget().position().z)
+                ));
 
         Vec2 aim = MathHelpers.OrizontalAimVector(entityIn.getLookAngle());
         Level worldIn = entityIn.level();
 
-        for (int i = 0; i <= radius / d; ++i) {
+        for(int i = 0; i<=radius/d; ++i) {
 
-            for (int j = 0; j <= (angleLast - angleFirst) / angleVar; ++j) {
+            for(int j = 0; j<=(angleLast-angleFirst)/angleVar; ++j) {
 
-                double angle = angleFirst + angleVar * j;
+                double angle = angleFirst + angleVar*j;
 
-                double x = pos0.x + i * d * (aim.x * Math.cos(angle) - aim.y * Math.sin(angle));
-                double z = pos0.z + i * d * (aim.y * Math.cos(angle) + aim.x * Math.sin(angle));
+                double x = pos0.x + i*d*(aim.x*Math.cos(angle) - aim.y * Math.sin(angle));
+                double z = pos0.z + i*d*(aim.y*Math.cos(angle) + aim.x * Math.sin(angle));
 
-                for (int k = 0; k <= (hSup - hInf) / d; ++k) {
+                for(int k = 0; k<=(hSup-hInf)/d; ++k) {
 
-                    double y = pos0.y + hInf + k * d;
-                    AABB scanAbove = new AABB(x - d, y - 4d, z - d, x + d, y + 2d, z + d);
+                    double y = pos0.y + hInf + k*d;
+                    AABB scanAbove = new AABB(x-d, y - 4d, z- d, x+ d, y + 2d, z+ d);
                     List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
                     if (hitBoxOutline) {
                         if(worldIn instanceof ServerLevel level) {
                             hitboxOutline(scanAbove, level);
                         }
                     }
-                    for (LivingEntity target : entities) {
-                        if (target != entityIn && target.invulnerableTime == 0) {
 
-                            Vec2 knockVec = MathHelpers.OrizontalAimVector(
-                                    MathHelpers.AimVector(new Vec3(-entityIn.position().x, -entityIn.position().y, -entityIn.position().z),
-                                            new Vec3(-target.position().x, -target.position().y, -target.position().z)
-                                    ));
+                    if(!entities.isEmpty()) {
+                        for (LivingEntity target : entities) {
 
-                            if (target.invulnerableTime == 0) {
-                                if (target instanceof Player && disableShield) {
-                                    disableShield((Player) target, target.getMainHandItem(), target.getOffhandItem(), entityIn);
+                            if (target == entityIn.getTarget()) {
+                                if (target.invulnerableTime == 0) {
+                                    if (target instanceof Player && disableShield) {
+                                        disableShield((Player) target, target.getMainHandItem(), target.getOffhandItem(), entityIn);
+                                    }
+                                    target.hurt(damageSource, damage);
+                                    target.setLastHurtByMob(entityIn);
+                                    target.knockback(knockback, knockVec.x, knockVec.y);
                                 }
-                                target.hurt(damageSource, damage);
-                                target.setLastHurtByMob(entityIn);
-                                target.knockback(knockback, knockVec.x, knockVec.y);
                             }
                         }
                     }
@@ -129,6 +179,7 @@ public class HitboxAttacks {
             }
         }
     }
+
     public static void pivotedPolyHitCheck(LivingEntity source, Vec3 boxOffset, double attackWidth, double attackHeight, double attackLength, ServerLevel world, float damage, DamageSource damageSource, float knockback, boolean disableShield) {
         pivotedPolyHitCheck(source, boxOffset, attackWidth, attackHeight, attackLength, world, damage, damageSource, knockback, disableShield, false);
     }
