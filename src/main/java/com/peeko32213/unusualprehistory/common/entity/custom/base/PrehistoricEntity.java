@@ -79,9 +79,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         if(!this.isAsleep() && this.getTarget() == null) {
             this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         }
-        if(hasAvoidEntity()) {
-            this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, TyrannosaurusEntity.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        }
         if(hasTargets()) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(getTargetTag())) {
                         @Override

@@ -46,7 +46,7 @@ import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public abstract class PrehistoricAquaticEntity extends Animal implements GeoEntity, GeoAnimatable, IBookEntity, IHatchableEntity, IStateAction {
+public abstract class PrehistoricAquaticEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IBookEntity, IHatchableEntity, IStateAction {
 
     private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.INT);
@@ -60,7 +60,7 @@ public abstract class PrehistoricAquaticEntity extends Animal implements GeoEnti
     int lastTimeSinceHungry;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public PrehistoricAquaticEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
+    public PrehistoricAquaticEntity(EntityType<? extends PrehistoricEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -70,18 +70,8 @@ public abstract class PrehistoricAquaticEntity extends Animal implements GeoEnti
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        if(hasTargets()) {
-            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(getTargetTag())) {
-                    @Override
-                    public boolean canUse() {
-                        return ((PrehistoricEntityOld) this.mob).isHungry() && super.canUse();
-                    }
-                }
-            );
-        }
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
     }
 
@@ -204,15 +194,6 @@ public abstract class PrehistoricAquaticEntity extends Animal implements GeoEnti
             return false;
         }
         return prev;
-    }
-
-    public boolean doHurtTarget(@NotNull Entity entityIn) {
-        if (super.doHurtTarget(entityIn) && getAttackSound() != null) {
-            this.playSound(getAttackSound() , 0.1F, 1.0F);
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, @NotNull DamageSource pSource) {
@@ -371,7 +352,6 @@ public abstract class PrehistoricAquaticEntity extends Animal implements GeoEnti
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
-    protected abstract SoundEvent getAttackSound();
     protected abstract SoundEvent getFlopSound();
     protected @NotNull SoundEvent getSwimSound() {
         return SoundEvents.FISH_SWIM;
@@ -379,8 +359,6 @@ public abstract class PrehistoricAquaticEntity extends Animal implements GeoEnti
 
     protected abstract int getKillHealAmount();
     protected abstract boolean canGetHungry();
-    protected abstract boolean hasTargets();
-    protected abstract boolean hasAvoidEntity();
     protected abstract boolean hasCustomNavigation();
     protected abstract boolean hasMakeStuckInBlock();
     protected abstract boolean customMakeStuckInBlockCheck(BlockState blockState);

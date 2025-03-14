@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.DelayedAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -27,9 +28,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -39,9 +40,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.Node;
-import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -52,7 +50,6 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -98,11 +95,11 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(1, new DunkleosteusEntity.DunkMeleeAttackGoal(this, 2F, true));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(1, new DunkleosteusEntity.MeleeAttackGoal());
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.DUNK_TARGETS)));
     }
 
@@ -124,8 +121,8 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
                 this.passive = true;
                 return InteractionResult.SUCCESS;
             }
-        } else
-        if (itemstack.getItem() == UPItems.RAW_SCAU.get() && this.passive) {
+        }
+        else if (itemstack.getItem() == UPItems.RAW_SCAU.get() && this.passive) {
 
             if (!this.level().isClientSide) {
 
@@ -149,6 +146,11 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
             return false;
         }
         return prev;
+    }
+
+    @Override
+    protected @Nullable SoundEvent getAttackSound() {
+        return null;
     }
 
     public void travel(@NotNull Vec3 travelVector) {
@@ -283,6 +285,11 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
         super.aiStep();
     }
 
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
+
     protected <E extends DunkleosteusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return event.setAndContinue(DUNK_IDLE);
@@ -291,7 +298,7 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
         int animState = this.getAnimationState();
 
         if(!this.isFromBook()) {
-            if (animState == 21) {
+            if (animState == 1) {
                 return event.setAndContinue(DUNK_ATTACK);
             } else {
                 if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
@@ -315,11 +322,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
             }
         }
         return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     public boolean requiresCustomPersistence() {
@@ -357,269 +359,41 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
     }
 
     @Override
-    public void setAction(boolean action) {
-
-    }
+    public void setAction(boolean action) {}
 
     @Override
     public ResourceLocation getVariantTexture() {
         return null;
     }
 
-    static class MoveHelperController extends MoveControl {
-        private final DunkleosteusEntity dolphin;
+    class MeleeAttackGoal extends DelayedAttackGoal {
 
-        public MoveHelperController(DunkleosteusEntity dolphinIn) {
-            super(dolphinIn);
-            this.dolphin = dolphinIn;
+        public MeleeAttackGoal() {
+            super(DunkleosteusEntity.this, 2.15D, true);
         }
 
-        public void tick() {
-            if (this.dolphin.isInWater()) {
-                this.dolphin.setDeltaMovement(this.dolphin.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
-            }
-
-            if (this.operation == MoveControl.Operation.MOVE_TO && !this.dolphin.getNavigation().isDone()) {
-                double d0 = this.wantedX - this.dolphin.getX();
-                double d1 = this.wantedY - this.dolphin.getY();
-                double d2 = this.wantedZ - this.dolphin.getZ();
-                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                if (d3 < (double) 2.5000003E-7F) {
-                    this.mob.setZza(0.0F);
-                } else {
-                    float f = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
-                    this.dolphin.setYRot(this.rotlerp(this.dolphin.getYRot(), f, 10.0F));
-                    this.dolphin.yBodyRot = this.dolphin.getYRot();
-                    this.dolphin.yHeadRot = this.dolphin.getYRot();
-                    float f1 = (float) (this.speedModifier * this.dolphin.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                    if (this.dolphin.isInWater()) {
-                        this.dolphin.setSpeed(f1 * 0.02F);
-                        float f2 = -((float) (Mth.atan2(d1, Mth.sqrt((float) (d0 * d0 + d2 * d2))) * (double) (180F / (float) Math.PI)));
-                        f2 = Mth.clamp(Mth.wrapDegrees(f2), -85.0F, 85.0F);
-                        this.dolphin.setXRot(this.rotlerp(this.dolphin.getXRot(), f2, 5.0F));
-                        float f3 = Mth.cos(this.dolphin.getXRot() * ((float) Math.PI / 180F));
-                        float f4 = Mth.sin(this.dolphin.getXRot() * ((float) Math.PI / 180F));
-                        this.dolphin.zza = f3 * f1;
-                        this.dolphin.yya = -f4 * f1;
-                    } else {
-                        this.dolphin.setSpeed(f1 * 0.1F);
-                    }
-
-                }
-            } else {
-                this.dolphin.setSpeed(0.0F);
-                this.dolphin.setXxa(0.0F);
-                this.dolphin.setYya(0.0F);
-                this.dolphin.setZza(0.0F);
-            }
-        }
-    }
-
-    static class DunkMeleeAttackGoal extends Goal {
-
-        protected final DunkleosteusEntity mob;
-        private final double speedModifier;
-        private final boolean followingTargetEvenIfNotSeen;
-        private Path path;
-        private double pathedTargetX;
-        private double pathedTargetY;
-        private double pathedTargetZ;
-        private int ticksUntilNextPathRecalculation;
-        private int ticksUntilNextAttack;
-        private long lastCanUseCheck;
-        private int failedPathFindingPenalty = 0;
-        private boolean canPenalize = false;
-        private int animTime = 0;
-
-        public DunkMeleeAttackGoal(DunkleosteusEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
-            this.mob = p_i1636_1_;
-            this.speedModifier = p_i1636_2_;
-            this.followingTargetEvenIfNotSeen = p_i1636_4_;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        }
-
-        public boolean canUse() {
-            long i = this.mob.level().getGameTime();
-
-             {
-                this.lastCanUseCheck = i;
-                LivingEntity livingentity = this.mob.getTarget();
-                if (livingentity == null) {
-                    return false;
-                } else if (!livingentity.isAlive()) {
-                    return false;
-                } else {
-                    if (canPenalize) {
-                        if (--this.ticksUntilNextPathRecalculation <= 0) {
-                            this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                            this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                            return this.path != null;
-                        } else {
-                            return true;
-                        }
-                    }
-                    this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                    if (this.path != null) {
-                        return true;
-                    } else {
-                        return this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                    }
-                }
-            }
-        }
-
-        public boolean canContinueToUse() {
-
-            LivingEntity livingentity = this.mob.getTarget();
-
-            if (livingentity == null) {
-                return false;
-            }
-            else if (!livingentity.isAlive()) {
-                return false;
-            } else if (!this.followingTargetEvenIfNotSeen) {
-                return !this.mob.getNavigation().isDone();
-            } else if (!this.mob.isWithinRestriction(livingentity.blockPosition())) {
-                return false;
-            } else {
-                return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
-            }
-        }
-
-        public void start() {
-            this.mob.getNavigation().moveTo(this.path, this.speedModifier);
-            this.ticksUntilNextPathRecalculation = 0;
-            this.ticksUntilNextAttack = 0;
-            this.animTime = 0;
-            this.mob.setAnimationState(0);
-        }
-
-        public void stop() {
-            LivingEntity livingentity = this.mob.getTarget();
-            if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget(null);
-            }
-            this.mob.setAnimationState(0);
-
-        }
-
-        public void tick() {
-
-            LivingEntity target = this.mob.getTarget();
-            double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
-            double reach = this.getAttackReachSqr(target);
-            int animState = this.mob.getAnimationState();
-            Vec3 aim = this.mob.getLookAngle();
-            Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
-            if (animState == 21) {
-                tickBiteAttack();
-            } else {
-                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                this.doMovement(target, distance);
-                this.checkForCloseRangeAttack(distance, reach);
-            }
-        }
-
-        protected void doMovement (LivingEntity livingentity, Double d0){
-
-            this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
-            if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
-                this.pathedTargetX = livingentity.getX();
-                this.pathedTargetY = livingentity.getY();
-                this.pathedTargetZ = livingentity.getZ();
-                this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                if (this.canPenalize) {
-                    this.ticksUntilNextPathRecalculation += failedPathFindingPenalty;
-                    if (this.mob.getNavigation().getPath() != null) {
-                        Node finalPathPoint = this.mob.getNavigation().getPath().getEndNode();
-                        if (finalPathPoint != null && livingentity.distanceToSqr(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                            failedPathFindingPenalty = 0;
-                        else
-                            failedPathFindingPenalty += 10;
-                    } else {
-                        failedPathFindingPenalty += 10;
-                    }
-                }
-                if (d0 > 1024.0D) {
-                    this.ticksUntilNextPathRecalculation += 10;
-                } else if (d0 > 256.0D) {
-                    this.ticksUntilNextPathRecalculation += 5;
-                }
-
-                if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
-                    this.ticksUntilNextPathRecalculation += 15;
-                }
-            }
-
-        }
-
-        protected void checkForCloseRangeAttack ( double distance, double reach){
-            if (distance <= reach && this.ticksUntilNextAttack <= 0) {
-                int r = this.mob.getRandom().nextInt(2048);
-                if (r <= 600) {
-                    this.mob.setAnimationState(21);
-                }
-
-            }
-        }
-
-        protected boolean getRangeCheck () {
-            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.2F * this.getAttackReachSqr(this.mob.getTarget());
-        }
-
-        protected void tickBiteAttack () {
+        protected void tickAttack () {
             animTime++;
-
-            if (animTime <= 3) {
-                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
-                this.mob.yBodyRot = this.mob.yHeadRot;
+            if(animTime==5) {
+                performAttack();
             }
-
-            if(animTime==6) {
-                preformBiteAttack();
-            }
-
-            if(animTime>=9) {
+            if(animTime>=8) {
                 animTime=0;
-                this.mob.setAnimationState(0);
-                this.resetAttackCooldown();
-                this.ticksUntilNextPathRecalculation = 0;
+                if (this.getRangeCheck()) {
+                    this.mob.setAnimationState(22);
+                }else {
+                    this.mob.setAnimationState(0);
+                    this.resetAttackCooldown();
+                    this.ticksUntilNextPathRecalculation = 0;
+                }
             }
         }
 
-        protected void preformBiteAttack () {
+        protected void performAttack () {
             Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.1F, 1.0F);
-            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),10.0f, 0.2f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.5F, this.mob.getVoicePitch());
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.1f, mob, pos,  1.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false, false);
         }
-
-        protected void resetAttackCooldown () {
-            this.ticksUntilNextAttack = 0;
-        }
-
-        protected boolean isTimeToAttack () {
-            return this.ticksUntilNextAttack <= 0;
-        }
-
-        protected int getTicksUntilNextAttack () {
-            return this.ticksUntilNextAttack;
-        }
-
-        protected int getAttackInterval () {
-            return 5;
-        }
-
-        protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + p_179512_1_.getBbWidth();
-        }
-    }
-
-    public boolean canDisableShield() {
-        return true;
     }
 
     public int getAnimationState() {
@@ -671,10 +445,5 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
         DunkleosteusEntity dunkleosteus = UPEntities.DUNK.get().create(serverLevel);
         dunkleosteus.setDunkSize(this.getDunkSize());
         return dunkleosteus;
-    }
-
-    @Override
-    protected SoundEvent getAttackSound() {
-        return null;
     }
 }

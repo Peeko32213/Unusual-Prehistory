@@ -44,9 +44,9 @@ public class GlobidensModel extends GeoModel<GlobidensEntity>
             head.setScaleY(1.0F);
             head.setScaleZ(1.0F);
         }
-        if (!entity.isSprinting()) {
-            head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
-        }
+//        if (!entity.isSprinting()) {
+//            head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
+//        }
 
         if (entity.isInWaterOrBubble()) {
             CoreGeoBone tail = this.getAnimationProcessor().getBone("MidBody");
