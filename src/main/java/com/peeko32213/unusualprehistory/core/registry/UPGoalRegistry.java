@@ -2,6 +2,8 @@ package com.peeko32213.unusualprehistory.core.registry;
 
 import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.JarateFindWaterGoalCodec;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.RabiesHuntGoalCodec;
 import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomMeleeAttackGoalCodec;
 import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomStateGoalCodec;
 import com.scouter.goalsmith.data.GSRegistries;
@@ -13,6 +15,8 @@ public class UPGoalRegistry {
     public static final DeferredRegister<Codec<? extends GoalCodec>> GOAL_TYPE_SERIALIZER = DeferredRegister.create(GSRegistries.Keys.GOAL_TYPE_SERIALIZERS, UnusualPrehistory.MODID);
     public static final RegistryObject<Codec<SerializableRandomStateGoalCodec>> RANDOM_STATE_GOAL_CODEC = GOAL_TYPE_SERIALIZER.register("random_state_goal", () -> SerializableRandomStateGoalCodec.CODEC);
     public static final RegistryObject<Codec<SerializableRandomMeleeAttackGoalCodec>> RANDOM_MELEE_ATTACK_GOAL_CODEC = GOAL_TYPE_SERIALIZER.register("random_melee_attack_goal", () -> SerializableRandomMeleeAttackGoalCodec.CODEC);
+    public static final RegistryObject<Codec<JarateFindWaterGoalCodec>> JARATE_FIND_WATER_GOAL_CODEC = GOAL_TYPE_SERIALIZER.register("jarate_find_water_goal", () -> JarateFindWaterGoalCodec.CODEC);
+    public static final RegistryObject<Codec<RabiesHuntGoalCodec>> RABIES_HUNT_GOAL_CODEC = GOAL_TYPE_SERIALIZER.register("rabies_hunt_goal", () -> RabiesHuntGoalCodec.CODEC);
 
 
 }

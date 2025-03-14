@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.util.goal;
 
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -22,7 +23,7 @@ public class JarateFindWaterGoal extends Goal {
     }
 
     public boolean canUse() {
-        return this.mob.onGround() && !this.mob.level().getFluidState(this.mob.blockPosition()).is(FluidTags.WATER);
+        return this.mob.onGround() && !this.mob.level().getFluidState(this.mob.blockPosition()).is(FluidTags.WATER) && this.mob.hasEffect(UPEffects.PISSED_UPON.get());
     }
 
     public void start() {
@@ -78,5 +79,8 @@ public class JarateFindWaterGoal extends Goal {
     }
 
 
-
+    @Override
+    public boolean canContinueToUse() {
+        return this.mob.hasEffect(UPEffects.PISSED_UPON.get());
+    }
 }

@@ -43,16 +43,17 @@ public class AttributesModifier implements AttributeModifier {
             } else {
                 AttributeInstance instance = new AttributeInstance(attributeMap.attribute , e -> onAttributeModified(e, mob));
                 instance.setBaseValue(attributeMap.value);
-                ((AttributeAccessor) mob.getAttributes()).unusualprehistory$getAttributes().put(attributeMap.attribute, instance);
+                 ((AttributeAccessor) mob.getAttributes()).unusualprehistory$getAttributes().put(attributeMap.attribute, instance);
+
             }
         }
 
     }
 
     public void onAttributeModified(AttributeInstance attributeInstance, PathfinderMob mob) {
-        if (attributeInstance.getAttribute().isClientSyncable()) {
+        //if (attributeInstance.getAttribute().isClientSyncable()) {
             ((AttributeAccessor) mob.getAttributes()).unusualprehistory$getDirtyAttributes().add(attributeInstance);
-        }
+       // }
 
     }
 

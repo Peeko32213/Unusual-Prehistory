@@ -12,6 +12,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PrehistoricFollowOwnerGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.kinematics.IKSolver;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -67,6 +68,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity, ICustomFollower {
+
+    private final IKSolver ikSolver;
 
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -178,6 +181,9 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         super(entityType, level);
         this.setMaxUpStep(1.25F);
         this.reassessTameGoals();
+        this.ikSolver = new IKSolver(this, 1,new Vec3(0,0,0), new Vec3[] {
+                new Vec3(0,0,0)
+        }, new Vec3(0,0,0), new Vec3(0,0,0), new Vec3(0,0,0), new Vec3(0,0,0));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
