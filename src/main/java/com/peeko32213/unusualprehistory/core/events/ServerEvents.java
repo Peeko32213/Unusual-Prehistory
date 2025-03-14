@@ -23,6 +23,7 @@ import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -39,6 +40,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -63,6 +66,38 @@ import java.util.Set;
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ServerEvents {
 
+    /**
+     * This event handler listens for {@link LivingEntityParticleEvent}.
+     * It demonstrates examples of how to manipulate or cancel the particle spawn.
+     *
+     * @param event The particle event, which contains the entity, the particle type,
+     *              the position, and velocity of the particle.
+     */
+    @SubscribeEvent
+    public static void onLivingEntityParticle(LivingEntityChangeParticleEvent event) {
+        // 1) DO NOTHING: Let the particle spawn as normal
+        //    Just don't call event.setCanceled(true), and don't modify any fields.
+        //    So if the entity is not a Creeper or Zombie, we'll do nothing, so it spawns
+        //    normally. (We only handle Creeper/Zombie in the conditions below.)
+
+        // 2) REPLACE THE PARTICLE for CREEPERS
+        //    Suppose you want all Creepers to spawn END_ROD particles instead.
+        if (event.getEntity() instanceof Creeper) {
+            event.setParticleData(ParticleTypes.END_ROD);
+        }
+
+        // 3) CANCEL THE PARTICLE for ZOMBIES
+        //    Suppose you want to completely remove all particles from Zombies.
+        if (event.getEntity() instanceof Zombie) {
+            event.setCanceled(true);
+            return;
+        }
+
+        // 4) Optional further manipulation (if not canceled):
+        //    Example: Move the spawn point or change the velocity
+        // event.setX(event.getX() + 1.0D);
+        // event.setYSpeed(event.getYSpeed() + 0.05D);
+    }
 
     @SubscribeEvent
     public static void onRegisterReloadListeners(ServerStartedEvent event) {
