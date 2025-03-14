@@ -33,16 +33,14 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
 
-        CoreGeoBone backBody = this.getAnimationProcessor().getBone("BackBody");
-        CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tail");
+//        CoreGeoBone backBody = this.getAnimationProcessor().getBone("BackBody");
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         CoreGeoBone root = this.getAnimationProcessor().getBone("FrontBody");
         root.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 7));
         root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(animatable.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
 
-        backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 180F));
-        tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 180F));
+//        backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 180F));
 
         if (animatable.isBaby()) {
             root.setScaleX(0.5F);

@@ -152,6 +152,10 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "globidens").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x1a2525, 0x867e68);
 
+    public static final RegistryObject<EntityType<GuanlingsaurusEntity>> GUANLINGSAURUS = ENTITIES.register("guanlingsaurus",
+            () -> EntityType.Builder.of(GuanlingsaurusEntity::new, MobCategory.WATER_CREATURE).sized(3.5f, 2.25f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "guanlingsaurus").toString()));
+
     public static final RegistryObject<EntityType<HwachavenatorEntity>> HWACHA = registerPrehistoricCreatureWithEgg("hwachavenator",
             () -> EntityType.Builder.of(HwachavenatorEntity::new, MobCategory.CREATURE).sized(1.95F, 2.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hwachavenator").toString()),
@@ -258,6 +262,10 @@ public class UPEntities {
     public static final RegistryObject<EntityType<MammothEntity>> MAMMOTH = ENTITIES.register("mammoth",
             () -> EntityType.Builder.of(MammothEntity::new, MobCategory.CREATURE).sized(3.75F, 4.5F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "mammoth").toString()));
+
+    public static final RegistryObject<EntityType<MegalamprisEntity>> MEGALAMPRIS = ENTITIES.register("megalampris",
+            () -> EntityType.Builder.of(MegalamprisEntity::new, MobCategory.WATER_CREATURE).sized(2.0f, 2.65f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "megalampris").toString()));
 
     public static final RegistryObject<EntityType<MegalaniaEntity>> MEGALANIA = registerPrehistoricCreatureWithEgg("megalania",
             () -> EntityType.Builder.of(MegalaniaEntity::new, MobCategory.CREATURE).sized(2.5F, 2.0F)

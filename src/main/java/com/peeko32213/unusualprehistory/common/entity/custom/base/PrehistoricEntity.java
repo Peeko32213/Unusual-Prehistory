@@ -69,8 +69,15 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     private boolean orderedToSit;
     public float sitProgress;
 
+    public Vec3 oldPos;
+    public Vec3 newPos;
+    public Vec3 velocity;
+    public double directionlessSpeed;
+
     protected PrehistoricEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
+        this.oldPos = this.position();
+        this.newPos = this.position();
     }
 
     @Override
@@ -123,6 +130,11 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         }
 
         this.setOrderedToSit(this.getCommand() == 2 && !this.isVehicle());
+
+        this.oldPos = this.newPos;
+        this.newPos = this.position();
+        this.velocity = this.newPos.subtract(this.oldPos);
+        this.directionlessSpeed = Math.abs(Math.sqrt((velocity.x * velocity.x) + (velocity.z * velocity.z) + (velocity.z * velocity.z)));
     }
 
     public void tickHunger(){

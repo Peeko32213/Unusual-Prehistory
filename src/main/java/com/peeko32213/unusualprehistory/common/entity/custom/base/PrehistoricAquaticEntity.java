@@ -46,7 +46,7 @@ import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public abstract class PrehistoricAquaticEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IBookEntity, IHatchableEntity, IStateAction {
+public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
 
     private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.INT);

@@ -91,7 +91,7 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
             .add(Attributes.MAX_HEALTH, 10.0D)
             .add(Attributes.ATTACK_DAMAGE, 2.0D)
             .add(Attributes.ARMOR, 2.0)
-            .add(Attributes.FOLLOW_RANGE, 12.0D);
+            .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
     protected void registerGoals() {

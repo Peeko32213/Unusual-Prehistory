@@ -16,7 +16,7 @@ public class PrehistoricPanicGoal extends PanicGoal {
     }
 
     protected boolean findRandomPosition() {
-        Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 10, 4);
+        Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 12, 4);
         if (vec3 == null) {
             return false;
         } else {

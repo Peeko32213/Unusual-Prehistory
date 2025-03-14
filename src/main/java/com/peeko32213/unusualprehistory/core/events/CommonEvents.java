@@ -52,6 +52,7 @@ public class CommonEvents {
         event.put(UPEntities.BRACHI.get(), BrachiosaurusEntity.createAttributes().build());
         event.put(UPEntities.ERYON.get(), EryonEntity.createAttributes().build());
         event.put(UPEntities.GLOBIDENS.get(), GlobidensEntity.createAttributes().build());
+        event.put(UPEntities.GUANLINGSAURUS.get(), GuanlingsaurusEntity.createAttributes().build());
         event.put(UPEntities.HWACHA.get(), HwachavenatorEntity.createAttributes().build());
         event.put(UPEntities.KAPROSUCHUS.get(), KaprosuchusEntity.createAttributes().build());
         event.put(UPEntities.KENTRO.get(), KentrosaurusEntity.createAttributes().build());
@@ -76,6 +77,7 @@ public class CommonEvents {
         event.put(UPEntities.BARINASUCHUS.get(), BarinasuchusEntity.createAttributes().build());
         event.put(UPEntities.GIGANTOPITHICUS.get(), GigantopithicusEntity.createAttributes().build());
         event.put(UPEntities.MAMMOTH.get(), MammothEntity.createAttributes().build());
+        event.put(UPEntities.MEGALAMPRIS.get(), MegalamprisEntity.createAttributes().build());
         event.put(UPEntities.MEGALANIA.get(), MegalaniaEntity.createAttributes().build());
         event.put(UPEntities.MEGATHERIUM.get(), MegatheriumEntity.createAttributes().build());
         event.put(UPEntities.OPHIODON.get(), OphiodonEntity.createAttributes().build());

@@ -29,6 +29,7 @@ import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.GuanlingsaurusEntity;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -237,6 +238,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BRACHI.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BrachiosaurusModel()));
         event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new PrehistoricRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
         event.registerEntityRenderer(UPEntities.GLOBIDENS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new GlobidensModel()));
+        event.registerEntityRenderer(UPEntities.GUANLINGSAURUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new GuanlingsaurusModel()));
         event.registerEntityRenderer(UPEntities.HWACHA.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new HwachavenatorModel()).withLayers(HWACHA_MODEL).withSaddleLayer(HWACHA_SADDLE_OVERLAY).build());
         event.registerEntityRenderer(UPEntities.KAPROSUCHUS.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new KaprosuchusModel()).withLayers(KAPROSUCHUS_MODEL).build());
         event.registerEntityRenderer(UPEntities.KENTRO.get(), e -> new PrehistoricRenderer<>(e, new KentrosaurusModel()));
@@ -261,6 +263,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BarinasuchusModel()));
         event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e -> new PrehistoricRenderer<>(e, new GigantopithicusModel()));
         event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e -> new PrehistoricRenderer<>(e, new MammothModel()));
+        event.registerEntityRenderer(UPEntities.MEGALAMPRIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new MegalamprisModel()));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new PrehistoricRenderer<>(e, new MegalaniaModel()));
         event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new MegatheriumModel()).withLayers(MEGATHERIUM_MODEL).withSaddleLayer(MEGATHERIUM_SADDLE_OVERLAY).build());
         event.registerEntityRenderer(UPEntities.OPHIODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OphiodonModel()));

@@ -122,8 +122,8 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
-        helper.bodyLagMoving = 0.65F;
-        helper.bodyLagStill = 0.2F;
+        helper.bodyLagMoving = 0.75F;
+        helper.bodyLagStill = 0.25F;
         return helper;
     }
 
@@ -140,14 +140,13 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 16.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.16D)
-            .add(Attributes.FOLLOW_RANGE, 12.0D);
+            .add(Attributes.MOVEMENT_SPEED, 0.16D);
     }
 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new SmoothFloatGoal(this));
-        this.goalSelector.addGoal(8, new PrehistoricPanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(8, new PrehistoricPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, TEMPTATION_ITEMS, false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, TyrannosaurusEntity.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
@@ -344,16 +343,16 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
 
         if (this.isInWater()) {
             event.setAndContinue(COTY_SWIM);
-            event.getController().setAnimationSpeed(1.0F);
+            event.getController().setAnimationSpeed(1.0F + (this.directionlessSpeed / 0.16));
             return PlayState.CONTINUE;
         }
         else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()){
             if(this.isSprinting()) {
                 event.setAndContinue(COTY_RUN);
-                event.getController().setAnimationSpeed(1.25F);
+                event.getController().setAnimationSpeed(0.25 + (this.directionlessSpeed / 0.16));
             } else {
                 event.setAndContinue(COTY_WALK);
-                event.getController().setAnimationSpeed(1.0F);
+                event.getController().setAnimationSpeed(1.0 + (this.directionlessSpeed / 0.16));
             }
             return PlayState.CONTINUE;
         }

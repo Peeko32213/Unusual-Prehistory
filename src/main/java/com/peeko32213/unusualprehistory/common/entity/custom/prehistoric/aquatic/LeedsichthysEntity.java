@@ -7,7 +7,9 @@
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
+ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.AquaticJumpGoal;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -28,6 +30,7 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -52,6 +55,7 @@
  import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
+ import software.bernie.geckolib.core.animation.AnimationState;
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
  import software.bernie.geckolib.core.object.PlayState;
@@ -159,6 +163,14 @@
      @Override
      public void setAction(boolean action) {}
 
+     @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         SmartBodyHelper helper = new SmartBodyHelper(this);
+         helper.bodyLagMoving = 0.09F;
+         helper.bodyLagStill = 0.06F;
+         return helper;
+     }
+
      public LeedsichthysEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
@@ -171,16 +183,14 @@
              .add(Attributes.MAX_HEALTH, 500.0D)
              .add(Attributes.ATTACK_DAMAGE, 10.0D)
              .add(Attributes.KNOCKBACK_RESISTANCE, 4.0D)
-             .add(Attributes.MOVEMENT_SPEED, 2.3D)
-             .add(Attributes.FOLLOW_RANGE, 12.0D);
+             .add(Attributes.MOVEMENT_SPEED, 2.3D);
      }
 
      @Override
      protected void registerGoals() {
          super.registerGoals();
-         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-         this.goalSelector.addGoal(5, new AquaticJumpGoal(this, 50));
+         this.goalSelector.addGoal(4, new AquaticJumpGoal(this, 50));
          this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1.8D, 10));
      }
 
@@ -290,6 +300,9 @@
                  .triggerableAnim("bump", LEEDS_BUMP);
          blend.setSoundKeyframeHandler(this::soundListener);
             controllers.add(blend);
+
+         AnimationController<LeedsichthysEntity> jump = new AnimationController<>(this, "jump", 5, this::jumpPredicate);
+            controllers.add(jump);
      }
 
      protected <E extends LeedsichthysEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -311,12 +324,9 @@
                      event.setAndContinue(LEEDS_SWIM);
                      return PlayState.CONTINUE;
                  }
-                 if (this.onGround()) {
+                 if (this.onGround() && !this.isInWater()) {
                      event.setAndContinue(LEEDS_BEACHED_1);
                      return PlayState.CONTINUE;
-                 }
-                 else if (this.isFallFlying()) {
-                     return event.setAndContinue(LEEDS_FREEFALL_1);
                  }
                  if (this.isInWater()) {
                      if (getBooleanState(IDLE_1_AC)) {
@@ -340,6 +350,17 @@
              }
          }
          return PlayState.CONTINUE;
+     }
+
+     protected <E extends LeedsichthysEntity> PlayState jumpPredicate(final AnimationState<E> event) {
+         if (!this.onGround() && !this.isInWater()) {
+             event.getController().setAnimation(LEEDS_FREEFALL_1);
+             event.getController().setAnimationSpeed(1.0D);
+             return PlayState.CONTINUE;
+         }
+         event.getController().forceAnimationReset();
+
+         return PlayState.STOP;
      }
 
      public boolean requiresCustomPersistence() {

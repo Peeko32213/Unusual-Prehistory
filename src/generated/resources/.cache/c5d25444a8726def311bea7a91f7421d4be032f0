@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-08T17:28:30.0558661	Item Models: unusualprehistory
+// 1.20.1	2025-03-14T16:48:18.1639806	Item Models: unusualprehistory
 b2ddf74df63b61d13d834643f401749b7f334d89 assets/unusualprehistory/models/item/amber_idol.json
 d94f2f9b14c1932019a23610ef0581bcae3f99a6 assets/unusualprehistory/models/item/ammonite_flask.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ammonite_spawn_egg.json
@@ -81,6 +81,7 @@ b3912e83fc6abe7397e13c083d1712fe58349a01 assets/unusualprehistory/models/item/gi
 2ce254f2887b4b72895967300823ee4b5a284070 assets/unusualprehistory/models/item/globidens_egg.json
 7079da03cd343fa3fec9176a5cf07e2e30b2d493 assets/unusualprehistory/models/item/globidens_flask.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/globidens_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/guanlingsaurus_spawn_egg.json
 8419531fd3c5a01708bd9f5142f14a7fedca68e4 assets/unusualprehistory/models/item/horsetail_flask.json
 b017f5d786c70682a0d92f3a416246c25bdb2582 assets/unusualprehistory/models/item/hwachavenator_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/hwachavenator_spawn_egg.json
@@ -115,6 +116,7 @@ a8b00b9727bf3740b663287925c0df0a540ba126 assets/unusualprehistory/models/item/ki
 9845544134228e52dc20dde572ae8466cbb90fcd assets/unusualprehistory/models/item/mammoth_flask.json
 f99c20ff32ece811a8fca9c3cf9a7a1a8ef1f14e assets/unusualprehistory/models/item/mammoth_meatball.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/mammoth_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/megalampris_spawn_egg.json
 d15e2ba850115c53cfcbdb2183716376bc3bc86f assets/unusualprehistory/models/item/megalania_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/megalania_spawn_egg.json
 3327eaf0e27d523876f2a6f89b72aa34fe2bf2ce assets/unusualprehistory/models/item/megala_flask.json

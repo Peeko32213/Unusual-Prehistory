@@ -159,6 +159,11 @@
 						"4.0": [0, 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"1.0": {
+					"effect": "tyrannosaurus_roar"
+				}
 			}
 		},
 		"animation.tyrannosaurus.sniff_blend": {
@@ -241,6 +246,11 @@
 						"2.0": ["5+math.sin(query.anim_time*180+60)*5", 2.5, 0],
 						"3.0": [0, 0, 0]
 					}
+				}
+			},
+			"sound_effects": {
+				"0.25": {
+					"effect": "tyrannosaurus_sniff"
 				}
 			}
 		},
