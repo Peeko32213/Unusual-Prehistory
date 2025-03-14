@@ -93,15 +93,15 @@ public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable,
 
 
     //Offset to the points relative to their parent point
-    public Vec3 noseOffset = new Vec3(0.0, 0.0, -1);
-    public Vec3 tail0Offset = new Vec3(0.0, 0.0, 1);
-    public Vec3 tail1Offset = new Vec3(0.0, 0.0, 1);
+    public Vec3 noseOffset = new Vec3(0.0, -1, -1);
+    public Vec3 tail0Offset = new Vec3(0.0, -1, 1);
+    public Vec3 tail1Offset = new Vec3(0.0, -1, 1);
     //technically the second segment's bone position offset, but affects the segment before it
-    public Vec3 tail2Offset = new Vec3(0.0, 0.0, 1);
-    public Vec3 tail3Offset = new Vec3(0.0, 0.0, 1);
-    public Vec3 tail4Offset = new Vec3(0.0, 0.0, 1);
-    public Vec3 tail5Offset = new Vec3(0.0, 0.0, 1);
-    public Vec3 tail6Offset = new Vec3(0.0, 0.0, 1);
+    public Vec3 tail2Offset = new Vec3(0.0, -1, 1);
+    public Vec3 tail3Offset = new Vec3(0.0, -1, 1);
+    public Vec3 tail4Offset = new Vec3(0.0, -1, 1);
+    public Vec3 tail5Offset = new Vec3(0.0, -1, 1);
+    public Vec3 tail6Offset = new Vec3(0.0, -1, 1);
 //x = side to side offset
 //y = vert offset
 //z = fore to back offset(pos is back)
@@ -109,11 +109,11 @@ public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable,
     public double bodyPitch = 0;
     public double currentBodyPitch = 0;
 
-    public double tail1Angle = 0;
-    public double tail2Angle = 0;
-    public double tail3Angle = 0;
-    public double tail4Angle = 0;
-    public double tail5Angle = 0;
+    public double tail1Angle;
+    public double tail2Angle;
+    public double tail3Angle;
+    public double tail4Angle;
+    public double tail5Angle;
     public double currentTail1Yaw = Mth.PI;
     public double currentTail2Yaw = Mth.PI;
     public double currentTail3Yaw = Mth.PI;
@@ -126,12 +126,12 @@ public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable,
     public double currentTail4Pitch = 0;
     public double currentTail5Pitch = 0;
     public double currentTail6Pitch = 0;
-    public double tail1Pitch = 0;
-    public double tail2Pitch = 0;
-    public double tail3Pitch = 0;
-    public double tail4Pitch = 0;
-    public double tail5Pitch = 0;
-    public double tail6Pitch = 0;
+    public double tail1Pitch;
+    public double tail2Pitch;
+    public double tail3Pitch;
+    public double tail4Pitch;
+    public double tail5Pitch;
+    public double tail6Pitch;
     //END of necessary IK shit
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.INT);
