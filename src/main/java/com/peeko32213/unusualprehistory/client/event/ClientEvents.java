@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.event;
 
 import com.peeko32213.unusualprehistory.ClientProxy;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.ClientUtils;
 import com.peeko32213.unusualprehistory.client.model.CustomAnimationsModel;
 import com.peeko32213.unusualprehistory.client.model.DefaultModel;
 import com.peeko32213.unusualprehistory.client.model.ModelLocations;
@@ -47,7 +46,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -291,6 +289,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.CHEST_BOAT.get(), ctx -> new UPBoatRenderer(ctx, true));
         event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
         event.registerEntityRenderer(UPEntities.JARATE.get(), JarateRenderer::new);
+        event.registerEntityRenderer(UPEntities.RABIES_FLASK.get(), RabiesFlaskRenderer::new);
         event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), FlatMovingThrownItemRenderer::new);
         event.registerEntityRenderer(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);

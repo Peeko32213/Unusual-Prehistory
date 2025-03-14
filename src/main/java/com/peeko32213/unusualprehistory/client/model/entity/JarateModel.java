@@ -16,7 +16,7 @@ public class JarateModel extends GeoModel<JarateEntity> {
     @Override
     public ResourceLocation getTextureResource(JarateEntity object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/jarate_entity.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/jarate.png");
     }
 
     @Override

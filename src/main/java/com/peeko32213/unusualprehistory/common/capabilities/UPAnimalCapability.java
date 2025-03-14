@@ -4,9 +4,11 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
@@ -51,6 +53,14 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
 
     public static void tickAnimal(LivingEvent.LivingTickEvent event) {
         if (!(event.getEntity() instanceof Animal) || event.getEntity().level().isClientSide) return;
+
+        event.getEntity().getCapability(UPCapabilities.ANIMAL_CAPABILITY).ifPresent(capability -> {
+
+            if (capability.entityRabiesHadTime > 0 && capability.entityVaccinationTime <= 0) {
+                event.getEntity().addEffect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), -1));
+            }
+            //if the entity has rabies time and no vacc time the entity gains rabies(makes it persist through bucket)
+        });
 
         ServerLevel serverLevel = (ServerLevel) event.getEntity().level();
         LazyOptional<UPAnimalCapability> animalCap = event.getEntity().getCapability(UPCapabilities.ANIMAL_CAPABILITY);

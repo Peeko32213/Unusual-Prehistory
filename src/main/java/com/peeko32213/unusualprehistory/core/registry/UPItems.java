@@ -5,10 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
 import com.peeko32213.unusualprehistory.common.item.*;
 import com.peeko32213.unusualprehistory.common.item.armor.*;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
-import com.peeko32213.unusualprehistory.common.item.projectile.JarateItem;
-import com.peeko32213.unusualprehistory.common.item.projectile.OpalescentPearlItem;
-import com.peeko32213.unusualprehistory.common.item.projectile.OpalescentShurikenItem;
-import com.peeko32213.unusualprehistory.common.item.projectile.PsittaccoArrow;
+import com.peeko32213.unusualprehistory.common.item.projectile.*;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -390,7 +387,7 @@ public class UPItems {
     
     public static final RegistryObject<Item> PSITTACOSAURUS_QUILL = ITEMS.register("psittacosaurus_quill", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> YIXIAN_RAMPAGE_FLASK = ITEMS.register("yixian_rampage_flask", () -> new UPDrinkItem(drinkItem().stacksTo(16).food(UPFood.YIXIAN_SALIVA), true, false));
+    public static final RegistryObject<Item> YIXIAN_RAMPAGE_FLASK = ITEMS.register("yixian_rampage_flask", () -> new RabiesFlaskItem(drinkItem().stacksTo(16).food(UPFood.YIXIAN_SALIVA), true, false));
     public static final RegistryObject<Item> DORMANT_RAMPAGE_FLASK = ITEMS.register("dormant_rampage_flask", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("jawless_fish_bucket", () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
