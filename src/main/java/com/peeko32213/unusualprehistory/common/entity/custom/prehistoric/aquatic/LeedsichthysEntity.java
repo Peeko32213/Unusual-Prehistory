@@ -8,10 +8,8 @@
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
- import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.AquaticJumpGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
- import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -39,7 +37,6 @@
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
- import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -87,13 +84,11 @@
      public Vec3 downRefPoint;
      public Vec3 downRefOffset = new Vec3(0, 1, 0);
 
-
      public Vec3 nosePoint;
      public Vec3 tail0Point;
      public Vec3 tail1Point;
      public Vec3 tail2Point;
      public Vec3 tail3Point;
-
 
      //Offset to the points relative to their parent point
      public Vec3 noseOffset = new Vec3(0.0, -1, -1);
@@ -248,7 +243,7 @@
              .add(Attributes.MAX_HEALTH, 500.0D)
              .add(Attributes.ATTACK_DAMAGE, 10.0D)
              .add(Attributes.KNOCKBACK_RESISTANCE, 4.0D)
-             .add(Attributes.MOVEMENT_SPEED, 5.3D)
+             .add(Attributes.MOVEMENT_SPEED, 0.5D)
              .add(Attributes.FOLLOW_RANGE, 12.0D);
      }
 
@@ -256,10 +251,9 @@
      protected void registerGoals() {
          super.registerGoals();
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-         this.goalSelector.addGoal(4, new AquaticJumpGoal(this, 50));
          this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1.8D, 10));
-         this.goalSelector.addGoal(5, new AquaticJumpGoal(this, 50));
-         this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.2, 1, 70, 70, 2));
+         this.goalSelector.addGoal(4, new AquaticJumpGoal(this, 50));
+         this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.25, 1, 70, 70, 2));
      }
 
      @Override
@@ -361,7 +355,6 @@
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail3Point.x), (tail3Point.y), (tail3Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
 
-
              //side refs don't move vertically
              leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
              rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
@@ -372,7 +365,7 @@
      }
 
      @Override
-     protected @org.jetbrains.annotations.Nullable SoundEvent getAttackSound() {
+     protected @Nullable SoundEvent getAttackSound() {
          return null;
      }
 

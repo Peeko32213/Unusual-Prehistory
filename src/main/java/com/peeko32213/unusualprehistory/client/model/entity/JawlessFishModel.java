@@ -11,6 +11,7 @@
  import software.bernie.geckolib.model.data.EntityModelData;
 
  public class JawlessFishModel extends GeoModel<JawlessFishEntity> {
+
      private static final ResourceLocation MODEL_CEPHALAPIS = new ResourceLocation(UnusualPrehistory.MODID, "geo/jawless_fish/cephalaspis.geo.json");
      private static final ResourceLocation MODEL_DORYASPIS = new ResourceLocation(UnusualPrehistory.MODID, "geo/jawless_fish/doryaspis.geo.json");
      private static final ResourceLocation MODEL_FURCACAUDA = new ResourceLocation(UnusualPrehistory.MODID, "geo/jawless_fish/furcacauda.geo.json");
@@ -51,14 +52,5 @@
      @Override
      public void setCustomAnimations(JawlessFishEntity animatable, long instanceId, AnimationState<JawlessFishEntity> animationState) {
          super.setCustomAnimations(animatable, instanceId, animationState);
-         if (animationState == null) return;
-         if(animatable.isFromBook()) return;
-         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-
-         CoreGeoBone root = this.getAnimationProcessor().getBone("root");
-         root.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 180));
-         root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(animatable.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
-         root.setRotY(root.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
      }
-
  }

@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.client.model.entity;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.NyctoraptorEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -12,19 +11,32 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class NyctoraptorModel extends GeoModel<NyctoraptorEntity> {
 
+    private static final ResourceLocation TEXTURE_TAIGA = new ResourceLocation("unusualprehistory:textures/entity/nyctoraptor/nyctoraptor_taiga.png");
+    private static final ResourceLocation TEXTURE_FOREST = new ResourceLocation("unusualprehistory:textures/entity/nyctoraptor/nyctoraptor_forest.png");
+    private static final ResourceLocation MODEL_TAIGA = new ResourceLocation("unusualprehistory:geo/nyctoraptor/nyctoraptor_taiga.geo.json");
+    private static final ResourceLocation MODEL_FOREST = new ResourceLocation("unusualprehistory:geo/nyctoraptor/nyctoraptor_forest.geo.json");
+    private static final ResourceLocation ANIMATION_TAIGA = new ResourceLocation("unusualprehistory:animations/nyctoraptor/nyctoraptor_taiga.animation.json");
+    private static final ResourceLocation ANIMATION_FOREST = new ResourceLocation("unusualprehistory:animations/nyctoraptor/nyctoraptor_forest.animation.json");
+
     @Override
     public ResourceLocation getModelResource(NyctoraptorEntity object) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/nyctoraptor.geo.json");
+        if(object.getVariant() == 1) {
+            return MODEL_FOREST;
+        }
+        else return MODEL_TAIGA;
     }
 
     @Override
     public ResourceLocation getTextureResource(NyctoraptorEntity object) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/nyctoraptor.png");
+        if(object.getVariant() == 1) {
+            return TEXTURE_FOREST;
+        }
+        else return TEXTURE_TAIGA;
     }
 
     @Override
     public ResourceLocation getAnimationResource(NyctoraptorEntity object) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/nyctoraptor.animation.json");
+        return ANIMATION_TAIGA;
     }
 
     @Override

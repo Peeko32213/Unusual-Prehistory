@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -163,7 +164,7 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
         this.flapping *= 0.9F;
         Vec3 vec3 = this.getDeltaMovement();
         if (!this.onGround() && vec3.y < 0.0) {
-            this.setDeltaMovement(vec3.multiply(1.0, 0.75, 1.0));
+            this.setDeltaMovement(vec3.multiply(1.0, 0.85, 1.0));
         }
 
         this.flap += this.flapping * 2.0F;
@@ -371,7 +372,9 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UPEntities.NYCTORAPTOR.get().create(serverLevel);
+        NyctoraptorEntity nyctoraptor = UPEntities.NYCTORAPTOR.get().create(serverLevel);
+        nyctoraptor.setVariant(this.getVariant());
+        return nyctoraptor;
     }
 
     protected boolean isFlapping() {
@@ -395,8 +398,8 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
                 ;
         controllers.add(blend);
 
-        AnimationController<NyctoraptorEntity> flap = new AnimationController<>(this, "flapController", 5, this::flapPredicate);
-        controllers.add(flap);
+//        AnimationController<NyctoraptorEntity> flap = new AnimationController<>(this, "flapController", 5, this::flapPredicate);
+//        controllers.add(flap);
     }
 
     protected <E extends NyctoraptorEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -439,13 +442,22 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
         return PlayState.CONTINUE;
     }
 
-    protected <E extends NyctoraptorEntity> PlayState flapPredicate(final AnimationState<E> event) {
-        if (!this.onGround() && !this.isInWater()) {
-            event.getController().setAnimation(NYCTO_FALL);
-            event.getController().setAnimationSpeed(1.0D);
-            return PlayState.CONTINUE;
+//    protected <E extends NyctoraptorEntity> PlayState flapPredicate(final AnimationState<E> event) {
+//        if (!this.onGround() && !this.isInWater()) {
+//            event.getController().setAnimation(NYCTO_FALL);
+//            event.getController().setAnimationSpeed(1.0D);
+//            return PlayState.CONTINUE;
+//        }
+//        event.getController().forceAnimationReset();
+//        return PlayState.STOP;
+//    }
+
+    public void determineVariant(int variantChange){
+        if (variantChange <= 50) {
+            this.setVariant(1);
         }
-        event.getController().forceAnimationReset();
-        return PlayState.STOP;
+        else {
+            this.setVariant(0);
+        }
     }
 }

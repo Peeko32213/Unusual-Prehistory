@@ -11,8 +11,8 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class OviraptorModel extends GeoModel<OviraptorEntity>
-{
+public class OviraptorModel extends GeoModel<OviraptorEntity> {
+
     @Override
     public ResourceLocation getModelResource(OviraptorEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/oviraptor.geo.json");

@@ -1,32 +1,43 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.BoidFishPrehistoricEntity;
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -39,21 +50,12 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import java.util.List;
 
-//TODO LIST
-// - Basically Done, nothing else really needed other than chances in the DNA loot pool
-public class JawlessFishEntity extends BoidFishPrehistoricEntity implements Bucketable, GeoAnimatable, IBookEntity {
+// TODO: make them school again and be bucketable
+// Maybe variant schooling like rainbow reef?
 
-    private static final ResourceLocation TEXTURE_CEPHALAPIS = prefix("textures/entity/cephalaspis.png");
-    private static final ResourceLocation TEXTURE_DORYASPIS = prefix("textures/entity/doryaspis.png");
-    private static final ResourceLocation TEXTURE_FURCACAUDA = prefix("textures/entity/furcacauda.png");
-    private static final ResourceLocation TEXTURE_SACAMAMBASPIS = prefix("textures/entity/sacabambaspis.png");
-
-    private static final ResourceLocation MODEL_CEPHALAPIS = prefix("geo/jawless_fish/cephalaspis.geo.json");
-    private static final ResourceLocation MODEL_DORYASPIS = prefix("geo/jawless_fish/doryaspis.geo.json");
-    private static final ResourceLocation MODEL_FURCACAUDA = prefix("geo/jawless_fish/furcacauda.geo.json");
-    private static final ResourceLocation MODEL_SACAMAMBASPIS = prefix("geo/jawless_fish/sacabambaspis.geo.json");
+public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucketable, GeoAnimatable, IBookEntity {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JawlessFishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(JawlessFishEntity.class, EntityDataSerializers.BOOLEAN);
@@ -62,25 +64,51 @@ public class JawlessFishEntity extends BoidFishPrehistoricEntity implements Buck
     private static final RawAnimation JAWLESS_FISH_FLOP = RawAnimation.begin().thenLoop("animation.jawless_fish.flop");
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.5F;
+        helper.bodyLagStill = 0.3F;
+        return helper;
+    }
 
-    public JawlessFishEntity(EntityType<? extends BoidFishPrehistoricEntity> entityType, Level level) {
+    public JawlessFishEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02f, 0.1f, true);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.moveControl = new MoveHelperController(this);
+    }
+
+    public void travel(@NotNull Vec3 travelVector) {
+        super.travel(travelVector);
+    }
+
+    protected @NotNull PathNavigation createNavigation(@NotNull Level p_27480_) {
+        return new WaterBoundPathNavigation(this, p_27480_);
+    }
+
+    public void aiStep() {
+        super.aiStep();
     }
 
     public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 2.0);
     }
 
-    @Override
-    public int getMaxSchoolSize() {
-        return 15;
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 3.0F));
     }
 
-    protected @NotNull InteractionResult mobInteract(@NotNull Player p_27477_, @NotNull InteractionHand p_27478_) {
-        return Bucketable.bucketMobPickup(p_27477_, p_27478_, this).orElse(super.mobInteract(p_27477_, p_27478_));
-    }
+//    @Override
+//    public int getMaxSchoolSize() {
+//        return 15;
+//    }
+
+//    protected @NotNull InteractionResult mobInteract(@NotNull Player p_27477_, @NotNull InteractionHand p_27478_) {
+//        return Bucketable.bucketMobPickup(p_27477_, p_27478_, this).orElse(super.mobInteract(p_27477_, p_27478_));
+//    }
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {
@@ -117,6 +145,51 @@ public class JawlessFishEntity extends BoidFishPrehistoricEntity implements Buck
     }
 
     @Override
+    protected @Nullable SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Override
+    protected int getKillHealAmount() {
+        return 0;
+    }
+
+    @Override
+    protected boolean canGetHungry() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasTargets() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasAvoidEntity() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasCustomNavigation() {
+        return false;
+    }
+
+    @Override
+    protected boolean hasMakeStuckInBlock() {
+        return false;
+    }
+
+    @Override
+    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
+        return false;
+    }
+
+    @Override
+    protected TagKey<EntityType<?>> getTargetTag() {
+        return null;
+    }
+
+    @Override
     public void setFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
     }
@@ -146,7 +219,6 @@ public class JawlessFishEntity extends BoidFishPrehistoricEntity implements Buck
             this.setVariant(compound.getInt("BucketVariantTag"));
         }
     }
-
 
     public int getVariant() {
         return this.entityData.get(VARIANT);
@@ -201,40 +273,21 @@ public class JawlessFishEntity extends BoidFishPrehistoricEntity implements Buck
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    public ResourceLocation getVariantTexture() {
-        if(getVariant() == 1){
-            return TEXTURE_DORYASPIS;
-        }
-        if(getVariant() == 2)
-        {
-            return TEXTURE_CEPHALAPIS;
-        }
-        if(getVariant() == 3)
-        {
-            return TEXTURE_FURCACAUDA;
-        }
-
-        return TEXTURE_SACAMAMBASPIS;
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        JawlessFishEntity jawlessFish = UPEntities.JAWLESS_FISH.get().create(serverLevel);
+        jawlessFish.setVariant(this.getVariant());
+        return jawlessFish;
     }
 
-    public ResourceLocation getVariantModel() {
-        if(getVariant() == 1){
-            return MODEL_DORYASPIS;
-        }
-        if(getVariant() == 2)
-        {
-            return MODEL_CEPHALAPIS;
-        }
-        if(getVariant() == 3)
-        {
-            return MODEL_FURCACAUDA;
-        }
-
-        return MODEL_SACAMAMBASPIS;
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
-
 
     protected <E extends JawlessFishEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
         if (this.isFromBook()) {
             return event.setAndContinue(JAWLESS_FISH_SWIM);
         }
@@ -253,17 +306,27 @@ public class JawlessFishEntity extends BoidFishPrehistoricEntity implements Buck
     }
 
     @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
-    @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
     }
 
     @Override
-    public double getTick(Object o) {
-        return tickCount;
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
+
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {
+
     }
 }

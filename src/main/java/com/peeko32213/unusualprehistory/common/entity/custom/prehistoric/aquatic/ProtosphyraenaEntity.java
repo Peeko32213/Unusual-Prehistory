@@ -6,6 +6,7 @@
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IPackHunter;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.core.BlockPos;
@@ -25,6 +26,7 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
  import net.minecraft.world.entity.ai.goal.*;
@@ -70,6 +72,14 @@
      private boolean hasDominateAttributes = false;
      private ProtosphyraenaEntity priorPackMember;
      private ProtosphyraenaEntity afterPackMember;
+
+     @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         SmartBodyHelper helper = new SmartBodyHelper(this);
+         helper.bodyLagMoving = 0.35F;
+         helper.bodyLagStill = 0.25F;
+         return helper;
+     }
 
      public ProtosphyraenaEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
          super(entityType, level);

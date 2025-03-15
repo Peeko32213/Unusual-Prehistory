@@ -44,14 +44,12 @@ public class UPFood {
             .saturationMod(0.1F)
             .build();
 
-    public static final FoodProperties YIXIAN_SALIVA = (new FoodProperties.Builder()).nutrition(0).saturationMod(0).effect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), -1), 1).build();
-
     //Grogs
     public static final FoodProperties GROG = (new FoodProperties.Builder())
             .alwaysEat()
-            .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 1200, 0), 0.5F)
-            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 0), 0.5F)
-            .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 1200, 0), 0.5F)
+            .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 1200, 0), 0.34F)
+            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 0), 0.33F)
+            .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 1200, 0), 0.33F)
             .build();
 
 
