@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model.entity;
 
 
+import com.peeko32213.unusualprehistory.MathHelpers;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.LeedsichthysEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -29,20 +30,26 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
     }
 
     @Override
-    public void setCustomAnimations(LeedsichthysEntity animatable, long instanceId, AnimationState<LeedsichthysEntity> animationState) {
-        super.setCustomAnimations(animatable, instanceId, animationState);
+    public void setCustomAnimations(LeedsichthysEntity entity, long instanceId, AnimationState<LeedsichthysEntity> animationState) {
+        super.setCustomAnimations(entity, instanceId, animationState);
         if (animationState == null) return;
 
+<<<<<<< Updated upstream
 //        CoreGeoBone backBody = this.getAnimationProcessor().getBone("BackBody");
+=======
+        CoreGeoBone tail = this.getAnimationProcessor().getBone("BackBody");
+        CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tail");
+>>>>>>> Stashed changes
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-        CoreGeoBone root = this.getAnimationProcessor().getBone("FrontBody");
-        root.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 7));
-        root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(animatable.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
+        CoreGeoBone root = this.getAnimationProcessor().getBone("root");
 
+<<<<<<< Updated upstream
 //        backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 180F));
+=======
+>>>>>>> Stashed changes
 
-        if (animatable.isBaby()) {
+        if (entity.isBaby()) {
             root.setScaleX(0.5F);
             root.setScaleY(0.5F);
             root.setScaleZ(0.5F);
@@ -50,6 +57,27 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
             root.setScaleX(1.0F);
             root.setScaleY(1.0F);
             root.setScaleZ(1.0F);
+        }
+
+        if (entity.isInWaterOrBubble()) {
+            tail.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.01))));
+            tailfin.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.01))));
+            entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.01);
+            entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.01);
+            //this runs BETWEEN TICKS
+            //0.25 means it interpolates to a quarter of the way to the target
+
+            //No deg to rad because the arccos function used to return the angle
+            //gotta set up UNIQUE NODES FOR EACH BONE
+
+            tail.setRotX((float) (MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.01)));
+            tailfin.setRotX((float) (tailfin.getRotX() + MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01)));
+            entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.currentTail1Pitch, 0.01);
+            entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01);
+
+            //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
+
+
         }
 
     }

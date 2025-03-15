@@ -86,22 +86,15 @@ public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable,
     public Vec3 tail1Point;
     public Vec3 tail2Point;
     public Vec3 tail3Point;
-    public Vec3 tail4Point;
-    public Vec3 tail5Point;
-    public Vec3 tail6Point;
-
 
 
     //Offset to the points relative to their parent point
-    public Vec3 noseOffset = new Vec3(0.0, -1, -1);
-    public Vec3 tail0Offset = new Vec3(0.0, -1, 1);
-    public Vec3 tail1Offset = new Vec3(0.0, -1, 1);
+    public Vec3 noseOffset = new Vec3(0.0, -1, -3);
+    public Vec3 tail0Offset = new Vec3(0.0, -1, 3);
+    public Vec3 tail1Offset = new Vec3(0.0, -1, 3);
     //technically the second segment's bone position offset, but affects the segment before it
-    public Vec3 tail2Offset = new Vec3(0.0, -1, 1);
-    public Vec3 tail3Offset = new Vec3(0.0, -1, 1);
-    public Vec3 tail4Offset = new Vec3(0.0, -1, 1);
-    public Vec3 tail5Offset = new Vec3(0.0, -1, 1);
-    public Vec3 tail6Offset = new Vec3(0.0, -1, 1);
+    public Vec3 tail2Offset = new Vec3(0.0, -1, 3);
+    public Vec3 tail3Offset = new Vec3(0.0, -1, 3);
 //x = side to side offset
 //y = vert offset
 //z = fore to back offset(pos is back)
@@ -111,27 +104,14 @@ public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable,
 
     public double tail1Angle;
     public double tail2Angle;
-    public double tail3Angle;
-    public double tail4Angle;
-    public double tail5Angle;
     public double currentTail1Yaw = Mth.PI;
     public double currentTail2Yaw = Mth.PI;
-    public double currentTail3Yaw = Mth.PI;
-    public double currentTail4Yaw = Mth.PI;
-    public double currentTail5Yaw = Mth.PI;
+
     //Yaw starts at pi
     public double currentTail1Pitch = 0;
     public double currentTail2Pitch = 0;
-    public double currentTail3Pitch = 0;
-    public double currentTail4Pitch = 0;
-    public double currentTail5Pitch = 0;
-    public double currentTail6Pitch = 0;
     public double tail1Pitch;
     public double tail2Pitch;
-    public double tail3Pitch;
-    public double tail4Pitch;
-    public double tail5Pitch;
-    public double tail6Pitch;
     //END of necessary IK shit
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.INT);
@@ -209,9 +189,6 @@ public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable,
         tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
         tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
         tail3Point = MathHelpers.rotateAroundCenterFlatDeg(tail2Point, tail2Point.subtract(tail3Offset), (double) -this.getYRot());
-        tail4Point = MathHelpers.rotateAroundCenterFlatDeg(tail3Point, tail3Point.subtract(tail4Offset), (double) -this.getYRot());
-        tail5Point = MathHelpers.rotateAroundCenterFlatDeg(tail4Point, tail4Point.subtract(tail5Offset), (double) -this.getYRot());
-        tail6Point = MathHelpers.rotateAroundCenterFlatDeg(tail5Point, tail5Point.subtract(tail6Offset), (double) -this.getYRot());
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -345,27 +322,17 @@ public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable,
 
             tail1Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail1Point, this.tail0Point, this.tail2Point, this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
             tail2Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail2Point, this.tail1Point, this.tail3Point, this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
-            tail3Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail3Point, this.tail2Point, this.tail4Point, this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
-            tail4Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail4Point, this.tail3Point, this.tail5Point, this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
-            tail5Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail5Point, this.tail4Point, this.tail6Point, this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
 
             bodyPitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.nosePoint, this.position(), this.tail0Point)));
 
             tail1Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point)));
             tail2Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail0Point, this.tail1Point, this.tail2Point)));
-            tail3Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail1Point, this.tail2Point, this.tail3Point)));
-            tail4Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail2Point, this.tail3Point, this.tail4Point)));
-            tail5Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail3Point, this.tail4Point, this.tail5Point)));
-            tail6Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail4Point, this.tail5Point, this.tail6Point)));
 
             nosePoint = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(noseOffset), -this.getYRot(), -this.getXRot());
             tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
             tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
             tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
             tail3Point = MathHelpers.rotateAroundCenter3dDeg(tail2Point, tail2Point.subtract(tail3Offset), -MathHelpers.angleTo(tail2Point, tail3Point).y, -MathHelpers.angleTo(tail2Point, tail3Point).x);
-            tail4Point = MathHelpers.rotateAroundCenter3dDeg(tail3Point, tail3Point.subtract(tail4Offset), -MathHelpers.angleTo(tail3Point, tail4Point).y, -MathHelpers.angleTo(tail3Point, tail4Point).x);
-            tail5Point = MathHelpers.rotateAroundCenter3dDeg(tail4Point, tail4Point.subtract(tail5Offset), -MathHelpers.angleTo(tail4Point, tail5Point).y, -MathHelpers.angleTo(tail4Point, tail5Point).x);
-            tail6Point = MathHelpers.rotateAroundCenter3dDeg(tail5Point, tail5Point.subtract(tail6Offset), -MathHelpers.angleTo(tail5Point, tail6Point).y, -MathHelpers.angleTo(tail5Point, tail6Point).x);
 
             if (!this.level().isClientSide()) {
                 ServerLevel llel = (ServerLevel) this.level();
@@ -374,9 +341,6 @@ public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable,
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail1Point.x), (tail1Point.y), (tail1Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail2Point.x), (tail2Point.y), (tail2Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail3Point.x), (tail3Point.y), (tail3Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail4Point.x), (tail4Point.y), (tail4Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail5Point.x), (tail5Point.y), (tail5Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail6Point.x), (tail6Point.y), (tail6Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
 
 

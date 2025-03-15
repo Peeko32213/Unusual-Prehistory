@@ -126,6 +126,51 @@ public class MathHelpers {
         }
     }
 
+    public static double LerpDegreesConstantSpeed(double start, double end, double amount)
+    {
+        double difference = Math.abs(end - start);
+        //System.out.println("guh");
+        //System.out.println(Math.abs(end - start));
+
+        if (difference > Mth.PI)
+        {
+            // We need to add on to one of the values.
+            if (end > start)
+            {
+                // We'll add it on to start...
+                start += Mth.TWO_PI;
+            }
+            else
+            {
+                // Add it on to end.
+                end += Mth.TWO_PI;
+            }
+        }
+
+        double value;
+        // Interpolate it.
+
+        if (start < end) {
+            value = Math.max(end, (start + (amount)));
+        } else {
+            value = Math.min(end, (start + (amount)));
+        }
+
+        //System.out.println(value);
+
+        // Wrap it..
+        float rangeZero = Mth.TWO_PI;
+
+        if (value >= 0 && value <= Mth.TWO_PI) {
+            //System.out.println(value);
+            return value;
+        }
+
+        //System.out.println(value % rangeZero);
+
+        return (value % rangeZero);
+    }
+
     public static double LerpDegrees(double start, double end, double amount)
     {
         double difference = Math.abs(end - start);
