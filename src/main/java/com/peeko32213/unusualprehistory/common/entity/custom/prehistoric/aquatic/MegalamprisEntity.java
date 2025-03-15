@@ -105,7 +105,7 @@ public class MegalamprisEntity extends PrehistoricAquaticEntity {
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
-        if (!this.isInWater() && this.onGround()) {
+        if (!this.isInWater()) {
             event.setAnimation(MEGALAMPRIS_LAND);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
