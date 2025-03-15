@@ -237,6 +237,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.TELECREX_EGG, "Telecrex Spawn Egg");
         addItem(UPItems.MEGALAMPRIS_EGG, "Megalampris Spawn Egg");
         addItem(UPItems.GUANLINGSAURUS_EGG, "Guanlingsaurus Spawn Egg");
+        addItem(UPItems.NYCTORAPTOR_EGG, "Nyctoraptor Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
@@ -532,6 +533,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BEELZE_TADPOLE, "Beelzebufo Tadpole");
         addEntityType(UPEntities.BRACHI, "Brachiosaurus");
         addEntityType(UPEntities.ERYON, "Eryon");
+        addEntityType(UPEntities.GUANLINGSAURUS, "Guanlingsaurus");
         addEntityType(UPEntities.HWACHA, "Hwachavenator");
         addEntityType(UPEntities.KAPROSUCHUS, "Kaprosuchus");
         addEntityType(UPEntities.KENTRO, "Kentrosaurus");
@@ -539,6 +541,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.LEEDSICHTHYS, "Leedsichthys");
         addEntityType(UPEntities.LONGISQUAMA, "Longisquama");
         addEntityType(UPEntities.MAJUNGA, "Majungasaurus");
+        addEntityType(UPEntities.NYCTORAPTOR, "Nyctoraptor");
         addEntityType(UPEntities.OVIRAPTOR, "Oviraptor");
         addEntityType(UPEntities.PACHY, "Pachycephalosaurus");
         addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
@@ -555,6 +558,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.BARINASUCHUS, "Barinasuchus");
         addEntityType(UPEntities.GIGANTOPITHICUS, "Gigantopithecus");
         addEntityType(UPEntities.MAMMOTH, "Mammoth");
+        addEntityType(UPEntities.MEGALAMPRIS, "Megalampris");
         addEntityType(UPEntities.MEGALANIA, "Megalania");
         addEntityType(UPEntities.MEGATHERIUM, "Megatherium");
         addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");
@@ -666,6 +670,11 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.VELOCIRAPTOR_ATTACK, "Velociraptor veloci-slashes");
         addSound(UPSounds.VELOCIRAPTOR_SEARCH, "Velociraptor coos curiously");
         addSound(UPSounds.VELOCIRAPTOR_DEATH, "Velociraptor dies");
+
+        addSound(UPSounds.NYCTORAPTOR_IDLE, "Nyctoraptor hisses");
+        addSound(UPSounds.NYCTORAPTOR_HURT, "Nyctoraptor hurts");
+        addSound(UPSounds.NYCTORAPTOR_CHATTER, "Nyctoraptor screeches");
+        addSound(UPSounds.NYCTORAPTOR_DEATH, "Nyctoraptor dies");
 
         addSound(UPSounds.OVIRAPTOR_IDLE, "Oviraptor squawks");
         addSound(UPSounds.OVIRAPTOR_HURT, "Oviraptor hurts");

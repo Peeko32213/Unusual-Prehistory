@@ -196,6 +196,11 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "majunga").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x1d600e, 0xcad9b0);
 
+    public static final RegistryObject<EntityType<NyctoraptorEntity>> NYCTORAPTOR = registerPrehistoricCreatureWithEgg("nyctoraptor",
+            () -> EntityType.Builder.of(NyctoraptorEntity::new, MobCategory.CREATURE).sized(2.15F, 3.0F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "nyctoraptor").toString()),
+            EggSize.SMALL, EggVariant.SPOTS, 1200, 0x4a302c, 0x99847a);
+
     public static final RegistryObject<EntityType<OviraptorEntity>> OVIRAPTOR = registerPrehistoricCreatureWithEgg("oviraptor",
             () -> EntityType.Builder.of(OviraptorEntity::new, MobCategory.CREATURE).sized(0.8F, 1.2F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "oviraptor").toString()),

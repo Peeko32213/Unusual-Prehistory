@@ -283,6 +283,7 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> MEGALAMPRIS_EGG = registerSpawnEggs("megalampris_spawn_egg", UPEntities.MEGALAMPRIS , 0x841e1e, 0xeac96f);
     public static final RegistryObject<ForgeSpawnEggItem> MEGALANIA_EGG = registerSpawnEggs("megalania_spawn_egg", UPEntities.MEGALANIA , 0x2e2319, 0x96874b);
     public static final RegistryObject<ForgeSpawnEggItem> MEGATH_EGG = registerSpawnEggs("megatherium_spawn_egg", UPEntities.MEGATHERIUM , 0x221e1b, 0xc9bfa1);
+    public static final RegistryObject<ForgeSpawnEggItem> NYCTORAPTOR_EGG = registerSpawnEggs("nyctoraptor_spawn_egg", UPEntities.NYCTORAPTOR , 0x4a302c, 0x99847a);
     public static final RegistryObject<ForgeSpawnEggItem> OPHIODON_EGG = registerSpawnEggs("ophiodon_spawn_egg", UPEntities.OPHIODON , 0x212d47, 0x467186);
     public static final RegistryObject<ForgeSpawnEggItem> OTAROCYON_EGG = registerSpawnEggs("otarocyon_spawn_egg", UPEntities.OTAROCYON , 0x281b25, 0x681523);
     public static final RegistryObject<ForgeSpawnEggItem> OVIRAPTOR_EGG = registerSpawnEggs("oviraptor_spawn_egg", UPEntities.OVIRAPTOR , 0x365754, 0xe19f2e);

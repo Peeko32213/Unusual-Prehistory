@@ -61,6 +61,7 @@ public class CommonEvents {
         event.put(UPEntities.LEEDS_PART.get(), LeedsichthysPartEntity.createAttributes().build());
         event.put(UPEntities.LONGISQUAMA.get(), LongisquamaEntity.createAttributes().build());
         event.put(UPEntities.MAJUNGA.get(), MajungasaurusEntity.createAttributes().build());
+        event.put(UPEntities.NYCTORAPTOR.get(), NyctoraptorEntity.createAttributes().build());
         event.put(UPEntities.OVIRAPTOR.get(), OviraptorEntity.createAttributes().build());
         event.put(UPEntities.PACHY.get(), PachycephalosaurusEntity.createAttributes().build());
         event.put(UPEntities.PROTOSPHYRAENA.get(), ProtosphyraenaEntity.createAttributes().build());

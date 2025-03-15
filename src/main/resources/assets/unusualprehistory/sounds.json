@@ -538,6 +538,41 @@
     "subtitle": "unusualprehistory.sound.subtitle.velociraptor_search"
   },
 
+  "nyctoraptor_chatter": {
+    "sounds": [
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_chatter_0",
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_chatter_1",
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_chatter_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.nyctoraptor_chatter"
+  },
+  "nyctoraptor_death": {
+    "sounds": [
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_death_0",
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_death_1",
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_death_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.nyctoraptor_death"
+  },
+  "nyctoraptor_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_hurt_0",
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_hurt_1",
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_hurt_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.nyctoraptor_hurt"
+  },
+  "nyctoraptor_idle": {
+    "sounds": [
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_idle_0",
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_idle_1",
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_idle_2",
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_idle_3",
+      "unusualprehistory:entity/nyctoraptor/nyctoraptor_idle_4"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.nyctoraptor_idle"
+  },
+
   "oviraptor_idle": {
     "sounds": [
       "unusualprehistory:entity/oviraptor/oviraptor_idle_0",
