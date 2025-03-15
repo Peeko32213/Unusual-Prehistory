@@ -11,7 +11,11 @@
  import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.AquaticJumpGoal;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+=======
+ import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
+>>>>>>> Stashed changes
 =======
  import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
 >>>>>>> Stashed changes
@@ -251,8 +255,11 @@
              .add(Attributes.ATTACK_DAMAGE, 10.0D)
              .add(Attributes.KNOCKBACK_RESISTANCE, 4.0D)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
              .add(Attributes.MOVEMENT_SPEED, 2.3D);
 =======
+=======
+>>>>>>> Stashed changes
              .add(Attributes.MOVEMENT_SPEED, 5.3D)
              .add(Attributes.FOLLOW_RANGE, 12.0D);
 >>>>>>> Stashed changes
@@ -262,9 +269,14 @@
      protected void registerGoals() {
          super.registerGoals();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(4, new AquaticJumpGoal(this, 50));
          this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1.8D, 10));
+=======
+         this.goalSelector.addGoal(5, new AquaticJumpGoal(this, 50));
+         this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.2, 1, 70, 70, 2));
+>>>>>>> Stashed changes
 =======
          this.goalSelector.addGoal(5, new AquaticJumpGoal(this, 50));
          this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.2, 1, 70, 70, 2));
@@ -438,7 +450,11 @@
                      return PlayState.CONTINUE;
                  }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                  if (this.onGround() && !this.isInWater()) {
+=======
+                 if (this.onGround() && !this.isUnderWater()) {
+>>>>>>> Stashed changes
 =======
                  if (this.onGround() && !this.isUnderWater()) {
 >>>>>>> Stashed changes

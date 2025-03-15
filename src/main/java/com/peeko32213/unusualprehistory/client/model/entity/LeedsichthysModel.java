@@ -35,8 +35,11 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
         if (animationState == null) return;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 //        CoreGeoBone backBody = this.getAnimationProcessor().getBone("BackBody");
 =======
+=======
+>>>>>>> Stashed changes
         CoreGeoBone tail = this.getAnimationProcessor().getBone("BackBody");
         CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tail");
 >>>>>>> Stashed changes
@@ -45,7 +48,10 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
         CoreGeoBone root = this.getAnimationProcessor().getBone("root");
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 //        backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 180F));
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
