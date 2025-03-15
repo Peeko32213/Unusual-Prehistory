@@ -10,15 +10,9 @@
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
  import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.goal.AquaticJumpGoal;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
-=======
  import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
->>>>>>> Stashed changes
-=======
  import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
->>>>>>> Stashed changes
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -254,33 +248,18 @@
              .add(Attributes.MAX_HEALTH, 500.0D)
              .add(Attributes.ATTACK_DAMAGE, 10.0D)
              .add(Attributes.KNOCKBACK_RESISTANCE, 4.0D)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-             .add(Attributes.MOVEMENT_SPEED, 2.3D);
-=======
-=======
->>>>>>> Stashed changes
              .add(Attributes.MOVEMENT_SPEED, 5.3D)
              .add(Attributes.FOLLOW_RANGE, 12.0D);
->>>>>>> Stashed changes
      }
 
      @Override
      protected void registerGoals() {
          super.registerGoals();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(4, new AquaticJumpGoal(this, 50));
          this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1.8D, 10));
-=======
          this.goalSelector.addGoal(5, new AquaticJumpGoal(this, 50));
          this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.2, 1, 70, 70, 2));
->>>>>>> Stashed changes
-=======
-         this.goalSelector.addGoal(5, new AquaticJumpGoal(this, 50));
-         this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.2, 1, 70, 70, 2));
->>>>>>> Stashed changes
      }
 
      @Override
@@ -432,56 +411,52 @@
 
      protected <E extends LeedsichthysEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
-         if(this.isFromBook()){
+         if (this.isFromBook()) {
              return event.setAndContinue(LEEDS_SWIM);
          }
 
          int animState = this.getAnimationState();
 
-         if(!this.isFromBook()) {
+         if (!this.isFromBook()) {
 
              if (animState == 21) {
                  return event.setAndContinue(LEEDS_BUMP);
-             }
-
-             else {
+             } else {
                  if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
                      event.setAndContinue(LEEDS_SWIM);
                      return PlayState.CONTINUE;
                  }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
                  if (this.onGround() && !this.isInWater()) {
-=======
-                 if (this.onGround() && !this.isUnderWater()) {
->>>>>>> Stashed changes
-=======
-                 if (this.onGround() && !this.isUnderWater()) {
->>>>>>> Stashed changes
-                     event.setAndContinue(LEEDS_BEACHED_1);
-                     return PlayState.CONTINUE;
+                     if (this.onGround() && !this.isUnderWater()) {
+                         if (this.onGround() && !this.isUnderWater()) {
+                             event.setAndContinue(LEEDS_BEACHED_1);
+                             return PlayState.CONTINUE;
+                         }
+                         if (this.isInWater()) {
+                             if (getBooleanState(IDLE_1_AC)) {
+                                 triggerAnim("blend", "gulp");
+                                 return PlayState.CONTINUE;
+                             }
+                             if (getBooleanState(IDLE_2_AC)) {
+                                 triggerAnim("blend", "roll_1");
+                                 return PlayState.CONTINUE;
+                             }
+                             if (getBooleanState(IDLE_3_AC)) {
+                                 triggerAnim("blend", "roll_2");
+                                 return PlayState.CONTINUE;
+                             }
+                             if (getBooleanState(IDLE_4_AC)) {
+                                 triggerAnim("blend", "yawn");
+                                 return PlayState.CONTINUE;
+                             }
+                             return event.setAndContinue(LEEDS_SWIM);
+                         }
+                     }
                  }
-                 if (this.isInWater()) {
-                     if (getBooleanState(IDLE_1_AC)) {
-                         triggerAnim("blend", "gulp");
-                         return PlayState.CONTINUE;
-                     }
-                     if (getBooleanState(IDLE_2_AC)) {
-                         triggerAnim("blend", "roll_1");
-                         return PlayState.CONTINUE;
-                     }
-                     if (getBooleanState(IDLE_3_AC)) {
-                         triggerAnim("blend", "roll_2");
-                         return PlayState.CONTINUE;
-                     }
-                     if (getBooleanState(IDLE_4_AC)) {
-                         triggerAnim("blend", "yawn");
-                         return PlayState.CONTINUE;
-                     }
-                     return event.setAndContinue(LEEDS_SWIM);
-                 }
+                 return PlayState.CONTINUE;
              }
          }
+
          return PlayState.CONTINUE;
      }
 
@@ -586,6 +561,11 @@
      @Override
      protected TagKey<EntityType<?>> getTargetTag() {
          return null;
+     }
+
+     @Override
+     public boolean isPushable() {
+         return false;
      }
 
      public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends WaterAnimal> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {

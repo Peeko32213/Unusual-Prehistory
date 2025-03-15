@@ -33,27 +33,11 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
     public void setCustomAnimations(LeedsichthysEntity entity, long instanceId, AnimationState<LeedsichthysEntity> animationState) {
         super.setCustomAnimations(entity, instanceId, animationState);
         if (animationState == null) return;
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-//        CoreGeoBone backBody = this.getAnimationProcessor().getBone("BackBody");
-=======
-=======
->>>>>>> Stashed changes
         CoreGeoBone tail = this.getAnimationProcessor().getBone("BackBody");
         CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tail");
->>>>>>> Stashed changes
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         CoreGeoBone root = this.getAnimationProcessor().getBone("root");
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-//        backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 180F));
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
         if (entity.isBaby()) {
             root.setScaleX(0.5F);
