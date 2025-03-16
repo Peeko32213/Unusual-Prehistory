@@ -11,7 +11,7 @@ public class IcebergSmilodonModel extends GeoModel<IcebergSmilodon> {
     private static final ResourceLocation SMILODON_MODEL_LOCATION = prefix("geo/smilodon.geo.json");
 
     //TEXTURES
-    private static final ResourceLocation SMILODON_TEXTURE_LOCATION = prefix("textures/entity/smilodon_frozen.png");
+    private static final ResourceLocation SMILODON_TEXTURE_LOCATION = prefix("textures/entity/smilodon/smilodon_frozen.png");
     //ANIMATIONS
 
     private static final ResourceLocation SMILODON_ANIMATION_LOCATION = prefix("animations/smilodon.animation.json");

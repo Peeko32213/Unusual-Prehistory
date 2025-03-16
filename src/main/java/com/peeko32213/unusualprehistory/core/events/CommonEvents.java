@@ -125,7 +125,5 @@ public class CommonEvents {
         event.put(UPEntities.NELUMBITES.get(), EntityPlant.bakeAttributes().build());
         event.put(UPEntities.QUEREUXIA.get(), EntityPlant.bakeAttributes().build());
         event.put(UPEntities.RAIGUENRAYUN.get(), EntityPlant.bakeAttributes().build());
-
-
     }
 }

@@ -8,13 +8,13 @@ import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class IcebergMammothModel extends GeoModel<IcebergMammoth> {
     //MODELS
-    private static final ResourceLocation MAMMOTH_MODEL_LOCATION = prefix("geo/mammoth.geo.json");
+    private static final ResourceLocation MAMMOTH_MODEL_LOCATION = prefix("geo/mammoth/mammoth.geo.json");
     
     //TEXTURES
-    private static final ResourceLocation MAMMOTH_TEXTURE_LOCATION = prefix("textures/entity/mammoth_frozen.png");
+    private static final ResourceLocation MAMMOTH_TEXTURE_LOCATION = prefix("textures/entity/mammoth/mammoth_frozen.png");
 
     //ANIMATIONS
-    private static final ResourceLocation MAMMOTH_ANIMATION_LOCATION = prefix("animations/mammoth.animation.json");
+    private static final ResourceLocation MAMMOTH_ANIMATION_LOCATION = prefix("animations/mammoth/mammoth.animation.json");
 
 
     @Override

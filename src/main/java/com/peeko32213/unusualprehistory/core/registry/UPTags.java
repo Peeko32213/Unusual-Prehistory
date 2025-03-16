@@ -112,6 +112,8 @@ public class UPTags {
 
     public static final TagKey<Item> HWACHA_FOOD = registerItemTag("hwacha_food");
 
+    public static final TagKey<Item> BARINA_FOOD = registerItemTag("barinasuchus_food");
+
     public static final TagKey<Item> COTY_FOOD = registerItemTag("cotylorhynchus_food");
     public static final TagKey<Item> COTY_FERMENTERS = registerItemTag("cotylorhynchus_fermenting");
 

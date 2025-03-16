@@ -40,9 +40,6 @@ import java.util.List;
 
 public class CoronodonEntity extends PrehistoricAquaticEntity {
 
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(CoronodonEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(CoronodonEntity.class, EntityDataSerializers.INT);
-
     // Movement animations
     private static final RawAnimation CORONODON_SWIM = RawAnimation.begin().thenLoop("animation.coronodon.swim");
 
@@ -56,49 +53,8 @@ public class CoronodonEntity extends PrehistoricAquaticEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     @Override
-    protected @NotNull BodyRotationControl createBodyControl() {
-        SmartBodyHelper helper = new SmartBodyHelper(this);
-        helper.bodyLagMoving = 0.35F;
-        helper.bodyLagStill = 0.2F;
-        return helper;
-    }
-
-    public CoronodonEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
-        super(entityType, level);
-    }
-
-    protected void registerGoals() {
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.5, 1, 70, 70, 2));
-    }
-
-    @Override
-    protected @Nullable SoundEvent getAttackSound() {
-        return null;
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.1D)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D);
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UPEntities.CORONODON.get().create(serverLevel);
-    }
-
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ANIMATION_STATE, 0);
-        this.entityData.define(COMBAT_STATE, 0);
-    }
-
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new WaterBoundPathNavigation(this, level);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
     protected <E extends CoronodonEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -121,9 +77,57 @@ public class CoronodonEntity extends PrehistoricAquaticEntity {
         return PlayState.STOP;
     }
 
+    // Body control / navigation
     @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.35F;
+        helper.bodyLagStill = 0.2F;
+        return helper;
+    }
+
+    public CoronodonEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
+        super(entityType, level);
+    }
+
+    // Attributes
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes()
+            .add(Attributes.MAX_HEALTH, 30.0D)
+            .add(Attributes.MOVEMENT_SPEED, 1.1D)
+            .add(Attributes.ATTACK_DAMAGE, 6.0D);
+    }
+
+    // Goals
+    protected void registerGoals() {
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.5, 1, 70, 70, 2));
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+    }
+
+    @Override
+    protected @Nullable SoundEvent getAttackSound() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        return UPEntities.CORONODON.get().create(serverLevel);
+    }
+
+    // Data
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+    }
+
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new WaterBoundPathNavigation(this, level);
     }
 
     public boolean requiresCustomPersistence() {
@@ -181,16 +185,6 @@ public class CoronodonEntity extends PrehistoricAquaticEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
-    }
-
-    public int getAnimationState() {
-
-        return this.entityData.get(ANIMATION_STATE);
-    }
-
-    public void setAnimationState(int anim) {
-
-        this.entityData.set(ANIMATION_STATE, anim);
     }
 
     @Override

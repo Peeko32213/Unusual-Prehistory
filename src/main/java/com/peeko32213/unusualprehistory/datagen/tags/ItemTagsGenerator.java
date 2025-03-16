@@ -11,7 +11,10 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -152,6 +155,14 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         ;
 
         tag(UPTags.HWACHA_FOOD)
+        ;
+
+        tag(UPTags.BARINA_FOOD)
+                .add(Items.BEEF)
+                .add(Items.PORKCHOP)
+                .add(Items.CHICKEN)
+                .add(Items.MUTTON)
+                .add(Items.RABBIT)
         ;
 
         tag(UPTags.PACHY_FOOD)

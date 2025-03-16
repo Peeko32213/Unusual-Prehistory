@@ -11,23 +11,20 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class StethacanthusModel extends GeoModel<StethacanthusEntity>
-{
+public class StethacanthusModel extends GeoModel<StethacanthusEntity> {
+
     @Override
-    public ResourceLocation getModelResource(StethacanthusEntity object)
-    {
+    public ResourceLocation getModelResource(StethacanthusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "geo/stethacanthus.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(StethacanthusEntity object)
-    {
+    public ResourceLocation getTextureResource(StethacanthusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/stethacanthus.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(StethacanthusEntity object)
-    {
+    public ResourceLocation getAnimationResource(StethacanthusEntity object) {
         return new ResourceLocation(UnusualPrehistory.MODID, "animations/stethacanthus.animation.json");
     }
 

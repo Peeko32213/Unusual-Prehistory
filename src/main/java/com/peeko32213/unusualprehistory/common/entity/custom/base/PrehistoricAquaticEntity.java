@@ -1,34 +1,20 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -36,29 +22,12 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
-
-    private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> TIME_TILL_HUNGRY = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.INT);
-
-    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> PASSIVE = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(PrehistoricAquaticEntity.class, EntityDataSerializers.INT);
-
-    int lastTimeSinceHungry;
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public PrehistoricAquaticEntity(EntityType<? extends PrehistoricEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -70,7 +39,6 @@ public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
     }
@@ -150,18 +118,7 @@ public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
     }
 
     @Override
-    public void aiStep() {
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-        }
-        super.aiStep();
-    }
-
-    @Override
-    public void travel(@NotNull Vec3 pTravelVector) {
+    public void travel(Vec3 pTravelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(0.01F, pTravelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -172,175 +129,6 @@ public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
         } else {
             super.travel(pTravelVector);
         }
-
-    }
-
-    public void killed() {
-        this.heal(getKillHealAmount());
-    }
-
-    public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
-    }
-
-    @Override
-    public boolean canAttack(@NotNull LivingEntity entity) {
-        boolean prev = super.canAttack(entity);
-        if(prev && isBaby()){
-            return false;
-        }
-        return prev;
-    }
-
-    public boolean causeFallDamage(float pFallDistance, float pMultiplier, @NotNull DamageSource pSource) {
-
-        int i = this.calculateFallDamage(pFallDistance, pMultiplier);
-        if (i <= 0) {
-            return false;
-        } else {
-            this.hurt(pSource, (float)i);
-            if (this.isVehicle()) {
-                for(Entity entity : this.getIndirectPassengers()) {
-                    entity.hurt(pSource, (float)i);
-                }
-            }
-            this.playBlockFallSound();
-            return true;
-        }
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HUNGRY, true);
-        this.entityData.define(TIME_TILL_HUNGRY, 0);
-        this.entityData.define(SADDLED, false);
-        this.entityData.define(PASSIVE, 0);
-        this.entityData.define(FROM_BOOK, false);
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(ANIM_TIMER, 0);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("IsHungry", this.isHungry());
-        compound.putInt("TimeTillHungry", this.getTimeTillHungry());
-        compound.putBoolean("Saddle", this.isSaddled());
-        compound.putInt("PassiveTicks", this.getPassiveTicks());
-        compound.putInt("variant", this.getVariant());
-        compound.putInt("animTimer", this.getAnimationTimer());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setHungry(compound.getBoolean("IsHungry"));
-        this.setTimeTillHungry(compound.getInt("TimeTillHungry"));
-        this.setSaddled(compound.getBoolean("Saddle"));
-        this.setPassiveTicks(compound.getInt("PassiveTicks"));
-        this.setVariant(compound.getInt("variant"));
-        this.setAnimationTimer(compound.getInt("animTimer"));
-    }
-
-    public boolean isHungry() {
-        return this.entityData.get(HUNGRY);
-    }
-
-    public void setHungry(boolean hungry) {
-        this.entityData.set(HUNGRY, hungry);
-    }
-
-    public int getTimeTillHungry() {
-        return this.entityData.get(TIME_TILL_HUNGRY);
-    }
-
-    public void setTimeTillHungry(int ticks) {
-        this.entityData.set(TIME_TILL_HUNGRY, ticks);
-    }
-
-    public boolean isSaddled() {
-        return this.entityData.get(SADDLED);
-    }
-
-    public void setSaddled(boolean saddled) {
-        this.entityData.set(SADDLED, saddled);
-    }
-
-    public int getPassiveTicks() {
-        return this.entityData.get(PASSIVE);
-    }
-
-    public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK);
-    }
-
-    public void setIsFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
-    public void setPassiveTicks(int passiveTicks) {
-        this.entityData.set(PASSIVE, passiveTicks);
-    }
-
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
-    }
-
-    public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
-    }
-
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
-    }
-
-    /**
-     * Determines the variant of the entity based on the provided variant change value.
-     * The variant change value is used to determine the specific variant of the entity.
-     * The method sets the appropriate attributes and variant number based on the variant change value.
-     *
-     * @param variantChange The variant change value used to determine the entity's variant.
-     *                      The value should be within the range [0, 100].
-     */
-    public void determineVariant(int variantChange) {
-    }
-
-    public boolean getBooleanState(EntityDataAccessor<Boolean> pKey) {
-        return this.entityData.get(pKey);
-    }
-
-    public void setBooleanState(EntityDataAccessor<Boolean> pKey, boolean state) {
-        this.entityData.set(pKey, state);
-    }
-
-    public boolean playingAnimation() {
-        return getAnimationTimer() > 0;
-    }
-
-    public int getAnimationTimer() {
-        return this.entityData.get(ANIM_TIMER);
-    }
-
-    public void setAnimationTimer(int time) {
-        this.entityData.set(ANIM_TIMER,time);
-    }
-
-    public boolean isStillEnough() {
-        return this.getDeltaMovement().horizontalDistance() < 0.05;
-    }
-
-    @Override
-    public void setFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
     }
 
     @Nullable
@@ -353,17 +141,10 @@ public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
     }
 
     protected abstract SoundEvent getFlopSound();
+
     protected @NotNull SoundEvent getSwimSound() {
         return SoundEvents.FISH_SWIM;
     }
-
-    protected abstract int getKillHealAmount();
-    protected abstract boolean canGetHungry();
-    protected abstract boolean hasCustomNavigation();
-    protected abstract boolean hasMakeStuckInBlock();
-    protected abstract boolean customMakeStuckInBlockCheck(BlockState blockState);
-
-    protected abstract TagKey<EntityType<?>> getTargetTag();
 
     protected static class MoveHelperController extends MoveControl {
 
@@ -414,16 +195,6 @@ public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
                 this.entity.setZza(0.0F);
             }
         }
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
     }
 
     public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends WaterAnimal> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {

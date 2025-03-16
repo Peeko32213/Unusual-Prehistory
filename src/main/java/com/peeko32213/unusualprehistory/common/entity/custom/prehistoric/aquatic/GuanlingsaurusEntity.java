@@ -138,6 +138,11 @@ public class GuanlingsaurusEntity extends PrehistoricAquaticEntity {
 
     }
 
+    @Override
+    public void aiStep() {
+        super.aiStep();
+    }
+
     protected <E extends GuanlingsaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
 

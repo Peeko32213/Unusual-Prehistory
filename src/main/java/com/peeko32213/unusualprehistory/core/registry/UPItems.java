@@ -291,7 +291,7 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> PACHY_EGG = registerSpawnEggs("pachycephalosaurus_spawn_egg", UPEntities.PACHY , 0x852d2d, 0xf8b209);
     public static final RegistryObject<ForgeSpawnEggItem> PALAEOPHIS_EGG =registerSpawnEggs("palaeophis_spawn_egg", UPEntities.PALAEOPHIS , 0x211d4b, 0xa1b7c1);
     public static final RegistryObject<ForgeSpawnEggItem> PALAEOPHIS_BABY_EGG =registerSpawnEggs("palaeophis_hatchling_spawn_egg", UPEntities.BABY_PALAEO , 0x3a4172, 0x8da5b3);
-    public static final RegistryObject<ForgeSpawnEggItem> PANACANTHOCARIS_EGG = registerSpawnEggs("panacanthocaris_spawn_egg", UPEntities.PANACANTHOCARIS , 0x16181a, 0xefee49);
+    public static final RegistryObject<ForgeSpawnEggItem> PANACANTHOCARIS_EGG = registerSpawnEggs("panacanthocaris_spawn_egg", UPEntities.PANACANTHOCARIS , 0xc9d0d4, 0xefee49);
     public static final RegistryObject<ForgeSpawnEggItem> PARACER_EGG = registerSpawnEggs("paraceratherium_spawn_egg", UPEntities.PARACERATHERIUM , 0x564642, 0x9a9490);
     public static final RegistryObject<ForgeSpawnEggItem> PROSCINETES_EGG = registerSpawnEggs("proscinetes_spawn_egg", UPEntities.PROSCINETES , 0x600e76, 0xf3c33a);
     public static final RegistryObject<ForgeSpawnEggItem> PROTOSPHYRAENA_EGG = registerSpawnEggs("protosphyraena_spawn_egg", UPEntities.PROTOSPHYRAENA , 0x283545, 0x462828);

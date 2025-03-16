@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.client.render.prehistoric;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.BarinasuchusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.BrachiosaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.DiplocaulusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.HyneriaEntity;
@@ -40,10 +39,6 @@ public class LivingCutoutNoCullEntityRenderer<T extends LivingEntity & GeoAnimat
 
         if(animatable instanceof HyneriaEntity hyneria) {
             if(hyneria.isBaby()) stackIn.scale(0.65F, 0.65F, 0.65F);
-        }
-
-        if(animatable instanceof BarinasuchusEntity barinasuchus) {
-            if(barinasuchus.isBaby()) stackIn.scale(0.55F, 0.55F, 0.55F);
         }
 
         if(animatable instanceof BrachiosaurusEntity brachiosaurus) {

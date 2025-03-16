@@ -32,11 +32,12 @@ public class BarinasuchusModel extends GeoModel<BarinasuchusEntity> {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
+
         if (animatable.isBaby()) {
-            head.setScaleX(1.35F);
-            head.setScaleY(1.35F);
-            head.setScaleZ(1.35F);
+            head.setScaleX(1.5F);
+            head.setScaleY(1.5F);
+            head.setScaleZ(1.5F);
         } else {
             head.setScaleX(1.0F);
             head.setScaleY(1.0F);

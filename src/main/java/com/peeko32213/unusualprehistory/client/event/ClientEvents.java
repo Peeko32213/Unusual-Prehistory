@@ -29,6 +29,7 @@ import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
 import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.NyctoraptorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.GuanlingsaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.ProscinetesEntity;
@@ -265,7 +266,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.XIPH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new XiphactinusModel()));
 
         // Ceno mobs
-        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BarinasuchusModel()));
+        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new StatedPrehistoricRenderer<>(e, new BarinasuchusModel()));
         event.registerEntityRenderer(UPEntities.CORONODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new CoronodonModel()));
         event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e -> new PrehistoricRenderer<>(e, new GigantopithicusModel()));
         event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e -> new PrehistoricRenderer<>(e, new MammothModel()));
