@@ -1,0 +1,158 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.proscinetes.land": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"core": {
+					"position": [0, "Math.clamp(Math.cos((query.anim_time+0.05)*360)*10, 0, 100)", 0]
+				},
+				"body": {
+					"rotation": [0, "Math.clamp(Math.cos((query.anim_time+0.1)*360)*-30, -100, 0)", 90],
+					"position": [-4, -2, 0]
+				},
+				"dorsal": {
+					"rotation": [
+						0,
+						"13+Math.clamp(Math.cos((query.anim_time+0.1)*360)*40, 0, 100)+Math.clamp(Math.cos((query.anim_time+0.7)*360)*-30, -100, 0)",
+						"13+Math.clamp(Math.cos((query.anim_time+0.1)*360)*5, 0, 100)+Math.clamp(Math.cos((query.anim_time+0.7)*360)*-5, -100, 0)"
+					]
+				},
+				"anal": {
+					"rotation": [
+						0,
+						"13+Math.clamp(Math.cos((query.anim_time+0.1)*360)*40, 0, 100)+Math.clamp(Math.cos((query.anim_time+0.7)*360)*-30, -100, 0)",
+						"-13+Math.clamp(Math.cos((query.anim_time+0.1)*360)*5, 0, 100)+Math.clamp(Math.cos((query.anim_time+0.7)*360)*-5, -100, 0)"
+					]
+				},
+				"tail": {
+					"rotation": [0, "13+Math.clamp(Math.cos((query.anim_time+0.2)*360)*40, 0, 100)+Math.clamp(Math.cos((query.anim_time+0.8)*360)*-30, -100, 0)", 0]
+				},
+				"tailfin": {
+					"rotation": [0, "Math.clamp(Math.cos((query.anim_time+0.1)*360)*40, 0, 100)+Math.clamp(Math.cos((query.anim_time+0.8)*360)*-30, -100, 0)", 0]
+				},
+				"pecleft": {
+					"rotation": [0, "13+Math.clamp(Math.cos((query.anim_time+0.2)*360)*40, 0, 100)+Math.clamp(Math.cos((query.anim_time+0.8)*360)*-30, -100, 0)", 0]
+				},
+				"leftpelvic": {
+					"rotation": [0, "Math.clamp(Math.cos((query.anim_time+0.1)*360)*40, 0, 100)+Math.clamp(Math.cos((query.anim_time+0.8)*360)*-30, -100, 0)", 0]
+				},
+				"pecright": {
+					"rotation": [0, "-50++Math.clamp(Math.cos((query.anim_time+0.2)*360)*-40, -100, 0)+Math.clamp(Math.cos((query.anim_time+0.8)*360)*30, 0, 100)", 0]
+				},
+				"rightpelvic": {
+					"rotation": [0, "-15+Math.clamp(Math.cos((query.anim_time+0.2)*360)*-40, -100, 0)+Math.clamp(Math.cos((query.anim_time+0.8)*360)*13, 0, 100)", 0]
+				}
+			}
+		},
+		"animation.proscinetes.pose": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [17.89807, -11.91276, -8.81397]
+				},
+				"dorsal": {
+					"rotation": [0, 0, 7.5]
+				},
+				"anal": {
+					"rotation": [0, 0, -20]
+				},
+				"tail": {
+					"rotation": [0, 35, 0]
+				},
+				"tailfin": {
+					"rotation": [0, 20, 0]
+				},
+				"pecleft": {
+					"rotation": [0, -40, 20]
+				},
+				"leftpelvic": {
+					"rotation": [32.73241, -24.4045, -34.76759]
+				}
+			}
+		},
+		"animation.proscinetes.swim": {
+			"loop": true,
+			"animation_length": 4,
+			"bones": {
+				"body": {
+					"rotation": ["Math.cos((query.anim_time-0.2)*180)*-3", "Math.cos((query.anim_time)*720)*2", "Math.cos((query.anim_time)*90)*-10"]
+				},
+				"dorsal": {
+					"rotation": [0, "Math.cos((query.anim_time-0.4)*720)*-5", "Math.cos((query.anim_time-0.4)*720)*-5"]
+				},
+				"anal": {
+					"rotation": [0, "Math.cos((query.anim_time-0.4)*720)*-5", "Math.cos((query.anim_time-0.4)*720)*5"]
+				},
+				"tail": {
+					"rotation": [0, "Math.cos((query.anim_time-0.2)*720)*-30", "Math.cos((query.anim_time-0.3)*720)*-10"]
+				},
+				"tailfin": {
+					"rotation": [0, "Math.cos((query.anim_time-0.3)*720)*-20", "Math.cos((query.anim_time-0.3)*720)*-10"]
+				},
+				"pecleft": {
+					"rotation": [
+						"Math.clamp(Math.cos((query.anim_time)*180)*-80, -80, 0)",
+						"Math.clamp(Math.cos((query.anim_time)*180)*110, 0, 110)",
+						"Math.clamp(Math.cos((query.anim_time+0.2)*180)*-30, -30, 0)"
+					]
+				},
+				"leftpelvic": {
+					"rotation": [
+						"Math.clamp(Math.cos((query.anim_time-0.3)*180)*-80, -80, 0)",
+						"Math.clamp(Math.cos((query.anim_time-0.3)*180)*110, 0, 110)",
+						"Math.clamp(Math.cos((query.anim_time)*180)*-30, -30, 0)"
+					]
+				},
+				"pecright": {
+					"rotation": [
+						"Math.clamp(Math.cos((query.anim_time)*180)*-80, -80, 0)",
+						"Math.clamp(Math.cos((query.anim_time)*180)*-110, -110, 0)",
+						"Math.clamp(Math.cos((query.anim_time+0.2)*180)*30, 0, 30)"
+					]
+				},
+				"rightpelvic": {
+					"rotation": [
+						"Math.clamp(Math.cos((query.anim_time-0.3)*180)*-80, -80, 0)",
+						"Math.clamp(Math.cos((query.anim_time-0.3)*180)*-110, -110, 0)",
+						"Math.clamp(Math.cos((query.anim_time)*180)*30, 0, 30)"
+					]
+				}
+			}
+		},
+		"animation.proscinetes.idle": {
+			"loop": true,
+			"animation_length": 8,
+			"bones": {
+				"body": {
+					"rotation": ["Math.cos((query.anim_time-0.2)*45)*-5", "Math.cos((query.anim_time)*180)*2", "Math.cos((query.anim_time)*90)*-5"]
+				},
+				"dorsal": {
+					"rotation": [0, "Math.cos((query.anim_time-0.4)*180)*-5", "Math.cos((query.anim_time-0.3)*180)*-3"]
+				},
+				"anal": {
+					"rotation": [0, "Math.cos((query.anim_time-0.4)*90)*-5", "Math.cos((query.anim_time-0.4)*90)*5"]
+				},
+				"tail": {
+					"rotation": [0, "Math.cos((query.anim_time-0.2)*180)*-5", 0]
+				},
+				"tailfin": {
+					"rotation": [0, "Math.cos((query.anim_time-0.3)*180)*-10", 0]
+				},
+				"pecleft": {
+					"rotation": ["Math.cos((query.anim_time-0.2)*720)*-30", "80+Math.cos((query.anim_time)*720)*-30", "Math.cos((query.anim_time-0.3)*720)*30"]
+				},
+				"leftpelvic": {
+					"rotation": ["Math.cos((query.anim_time-0.4)*720)*-30", "80+Math.cos((query.anim_time-0.2)*720)*-30", "Math.cos((query.anim_time-0.5)*720)*30"]
+				},
+				"pecright": {
+					"rotation": ["Math.cos((query.anim_time-0.2)*720)*-30", "-80+Math.cos((query.anim_time)*720)*30", "Math.cos((query.anim_time-0.3)*720)*-30"]
+				},
+				"rightpelvic": {
+					"rotation": ["Math.cos((query.anim_time-0.4)*720)*-30", "-80+Math.cos((query.anim_time-0.2)*720)*30", "Math.cos((query.anim_time-0.5)*720)*-30"]
+				}
+			}
+		}
+	}
+}

@@ -87,6 +87,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(JawlessFishEntity::new, MobCategory.WATER_AMBIENT).sized(0.6f, 0.6f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "jawless_fish").toString()));
 
+    public static final RegistryObject<EntityType<PanacanthocarisEntity>> PANACANTHOCARIS = ENTITIES.register("panacanthocaris",
+            () -> EntityType.Builder.of(PanacanthocarisEntity::new, MobCategory.WATER_CREATURE).sized(1.0F, 1.0F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "panacanthocaris").toString()));
+
     public static final RegistryObject<EntityType<PterygotusEntity>> PTERYGOTUS = ENTITIES.register("pterygotus",
             () -> EntityType.Builder.of(PterygotusEntity::new, MobCategory.CREATURE).sized(2.75F, 1.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "pterygotus").toString()));
@@ -211,6 +215,10 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "pachy").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x70837f, 0x191a2a);
 
+    public static final RegistryObject<EntityType<ProscinetesEntity>> PROSCINETES = ENTITIES.register("proscinetes",
+            () -> EntityType.Builder.of(ProscinetesEntity::new, MobCategory.WATER_CREATURE).sized(1.75F, 1.25F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "proscinetes").toString()));
+
     public static final RegistryObject<EntityType<ProtosphyraenaEntity>> PROTOSPHYRAENA = ENTITIES.register("protosphyraena",
             () -> EntityType.Builder.of(ProtosphyraenaEntity::new, MobCategory.WATER_CREATURE).sized(1.35f, 0.8f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "protosphyraena").toString()));
@@ -224,6 +232,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(PterodaustroEntity::new, MobCategory.CREATURE).sized(0.8F, 0.8F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "pterodaustro").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0xc93660, 0xf9e3f9);
+
+    public static final RegistryObject<EntityType<SchlumbergeritesEntity>> SCHLUMBERGERITES = ENTITIES.register("schlumbergerites",
+            () -> EntityType.Builder.of(com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.SchlumbergeritesEntity::new, MobCategory.WATER_CREATURE).sized(1.75F, 1.25F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "schlumbergerites").toString()));
 
     public static final RegistryObject<EntityType<TanystropheusEntity>> TANY = registerPrehistoricCreatureWithEgg("tanystropheus",
             () -> EntityType.Builder.of(TanystropheusEntity::new, MobCategory.CREATURE).sized(1.8F, 0.7F)
@@ -259,6 +271,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(BarinasuchusEntity::new, MobCategory.CREATURE).sized(2.4F, 2.2F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "barinasuchus").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x181606, 0xcebd1e);
+
+    public static final RegistryObject<EntityType<CoronodonEntity>> CORONODON = ENTITIES.register("coronodon",
+            () -> EntityType.Builder.of(CoronodonEntity::new, MobCategory.WATER_CREATURE).sized(2.0f, 2.65f)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "coronodon").toString()));
 
     public static final RegistryObject<EntityType<GigantopithicusEntity>> GIGANTOPITHICUS = ENTITIES.register("gigantopithicus",
             () -> EntityType.Builder.of(GigantopithicusEntity::new, MobCategory.CREATURE).sized(2.55F, 3.0F)
@@ -326,6 +342,10 @@ public class UPEntities {
             () -> EntityType.Builder.of(TelecrexEntity::new, MobCategory.CREATURE).sized(0.8F, 1.1F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "telecrex").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x423025, 0xbcab39);
+
+    public static final RegistryObject<EntityType<TitanonarkeEntity>> TITANONARKE = ENTITIES.register("titanonarke",
+            () -> EntityType.Builder.of(TitanonarkeEntity::new, MobCategory.CREATURE).sized(1F, 1.6F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "titanonarke").toString()));
 
 
     // Misc mobs

@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.stethacanthus",
+				"identifier": "geometry.unknown",
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 4,
@@ -12,58 +12,95 @@
 			},
 			"bones": [
 				{
-					"name": "body",
-					"pivot": [0, 0, 0],
+					"name": "Stethacanthus",
+					"pivot": [2.5, 5, 1],
 					"cubes": [
-						{"origin": [3, 2, -4], "size": [1, 3, 3], "uv": [0, 0]},
-						{"origin": [-4, 2, -4], "size": [1, 3, 3], "uv": [0, 0], "mirror": true},
-						{"origin": [-2.5, 8, -3], "size": [5, 2, 5], "uv": [21, 18]},
-						{"origin": [-3, 0, -6], "size": [6, 6, 11], "uv": [0, 0]},
-						{"origin": [-1.5, 6, -2], "size": [3, 2, 3], "uv": [23, 6]}
+						{"origin": [-3.5, 0, -5], "size": [7, 9, 11], "uv": [0, 0]}
 					]
 				},
 				{
-					"name": "fin1",
-					"parent": "body",
-					"pivot": [2.75, 1.75, 0],
-					"rotation": [0, 5, 30],
+					"name": "Stetha_Head",
+					"parent": "Stethacanthus",
+					"pivot": [0, 1, -5],
 					"cubes": [
-						{"origin": [2.75, 1.75, -0.25], "size": [4, 0, 6], "uv": [17, 0]}
+						{"origin": [2.5, 5, -10], "size": [0, 1, 5], "uv": [4, 21]},
+						{"origin": [1, 5, -10], "size": [0, 1, 5], "uv": [1, 26]},
+						{"origin": [-3.5, 0, -10], "size": [7, 5, 5], "uv": [34, 0]},
+						{"origin": [3.5, 2, -9], "size": [1, 3, 3], "uv": [26, 2]},
+						{"origin": [-4.5, 2, -9], "size": [1, 3, 3], "uv": [26, 2], "mirror": true},
+						{"origin": [-3.5, 1, -10], "size": [7, 0, 5], "uv": [11, 25]},
+						{"origin": [-2.5, 5, -10], "size": [0, 1, 5], "uv": [4, 21], "mirror": true},
+						{"origin": [-1, 5, -10], "size": [0, 1, 5], "uv": [1, 26], "mirror": true}
 					]
 				},
 				{
-					"name": "fin2",
-					"parent": "body",
-					"pivot": [-2.75, 1.75, 0],
-					"rotation": [0, -5, -30],
+					"name": "Stetha_Jaw",
+					"parent": "Stetha_Head",
+					"pivot": [0, 0, -5],
 					"cubes": [
-						{"origin": [-6.75, 1.75, -0.25], "size": [4, 0, 6], "uv": [17, 0], "mirror": true}
+						{"origin": [-3.5, 0.01, -10], "size": [7, 0, 5], "uv": [11, 20]},
+						{"origin": [-3.5, 0, -10], "size": [7, 1, 5], "inflate": 0.01, "uv": [25, 35]}
 					]
 				},
 				{
-					"name": "tail",
-					"parent": "body",
-					"pivot": [0, 3, 5],
+					"name": "Stetha_Front_Fin_Left",
+					"parent": "Stethacanthus",
+					"pivot": [3.5, 2, -3],
 					"cubes": [
-						{"origin": [0, 0, 5], "size": [0, 6, 13], "uv": [0, 4]}
+						{"origin": [3.5, 2, -4], "size": [5, 0, 6], "uv": [28, 29]}
 					]
 				},
 				{
-					"name": "backfin1",
-					"parent": "tail",
-					"pivot": [0, 2, 6],
-					"rotation": [0, 5, 35],
+					"name": "Stetha_Front_Fin_Right",
+					"parent": "Stethacanthus",
+					"pivot": [-3.5, 2, -3],
 					"cubes": [
-						{"origin": [0, 2, 6], "size": [3, 0, 6], "uv": [0, 23]}
+						{"origin": [-8.5, 2, -4], "size": [5, 0, 6], "uv": [28, 29], "mirror": true}
 					]
 				},
 				{
-					"name": "backfin2",
-					"parent": "tail",
-					"pivot": [0, 2, 6],
-					"rotation": [0, -5, -35],
+					"name": "Stetha_Dorsal",
+					"parent": "Stethacanthus",
+					"pivot": [0, 9, -0.5],
 					"cubes": [
-						{"origin": [-3, 2, 6], "size": [3, 0, 6], "uv": [0, 23], "mirror": true}
+						{"origin": [-3.5, 13, -4], "size": [7, 1, 7], "uv": [0, 45], "mirror": true},
+						{"origin": [-2.5, 13, -3], "size": [5, 1, 5], "uv": [21, 45]},
+						{"origin": [-1.5, 13, -2], "size": [3, 1, 3], "uv": [28, 41]},
+						{"origin": [-3.5, 11, -4], "size": [7, 2, 7], "uv": [30, 20]},
+						{"origin": [-1.5, 7, -2], "size": [3, 4, 3], "uv": [16, 38]}
+					]
+				},
+				{
+					"name": "Stetha_Back_Fin_Left",
+					"parent": "Stethacanthus",
+					"pivot": [3.5, 2, 5],
+					"cubes": [
+						{"origin": [3.5, 2, 4], "size": [4, 0, 3], "uv": [1, 39]}
+					]
+				},
+				{
+					"name": "Stetha_Back_Fin_Right",
+					"parent": "Stethacanthus",
+					"pivot": [-3.5, 2, 5],
+					"cubes": [
+						{"origin": [-7.5, 2, 4], "size": [4, 0, 3], "uv": [1, 39], "mirror": true}
+					]
+				},
+				{
+					"name": "Stetha_Tail",
+					"parent": "Stethacanthus",
+					"pivot": [0, 3.5, 6],
+					"cubes": [
+						{"origin": [-1.5, 2, 6], "size": [3, 3, 5], "uv": [38, 11]},
+						{"origin": [0, 0, 7], "size": [0, 7, 2], "uv": [0, 43]}
+					]
+				},
+				{
+					"name": "Stetha_Tailfin",
+					"parent": "Stetha_Tail",
+					"pivot": [0, 3.5, 11],
+					"cubes": [
+						{"origin": [0, -1, 10], "size": [0, 5, 13], "pivot": [0, 4, 10], "rotation": [30, 0, 0], "uv": [0, 20]}
 					]
 				}
 			]

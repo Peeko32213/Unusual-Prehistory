@@ -7,7 +7,6 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAqu
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,12 +22,10 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -41,59 +38,57 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class GuanlingsaurusEntity extends PrehistoricAquaticEntity {
-    //TODO:model, texture, animation
+public class CoronodonEntity extends PrehistoricAquaticEntity {
 
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(GuanlingsaurusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(GuanlingsaurusEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(CoronodonEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(CoronodonEntity.class, EntityDataSerializers.INT);
 
-    public double prevYRot = 0;
-    public double deltaYRot = 0;
+    // Movement animations
+    private static final RawAnimation CORONODON_SWIM = RawAnimation.begin().thenLoop("animation.coronodon.swim");
 
-    public double xDiff = 0;
-    public double oldRotX = 0;
+    // Idle animations
+    private static final RawAnimation CORONODON_IDLE = RawAnimation.begin().thenLoop("animation.coronodon.idle");
+    private static final RawAnimation CORONODON_BEACHED = RawAnimation.begin().thenLoop("animation.coronodon.beached");
 
-    public Vec3 prevPos = new Vec3(0, 0, 0);
-    public Vec3 deltaPos = new Vec3(0, 0, 0);
-    public double deltaDist = 0;
-
-    private static final RawAnimation GUANLINGSAURUS_SWIM = RawAnimation.begin().thenLoop("animation.guanlingsaurus.swim");
-    private static final RawAnimation GUANLINGSAURUS_IDLE = RawAnimation.begin().thenLoop("animation.guanlingsaurus.idle");
-    private static final RawAnimation GUANLINGSAURUS_LAND = RawAnimation.begin().thenLoop("animation.guanlingsaurus.land");
+    // Attack animations
+    private static final RawAnimation CORONODON_BITE = RawAnimation.begin().thenLoop("animation.coronodon.bite");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
-        helper.bodyLagMoving = 0.1F;
-        helper.bodyLagStill = 0.075F;
+        helper.bodyLagMoving = 0.35F;
+        helper.bodyLagStill = 0.2F;
         return helper;
     }
 
-    public GuanlingsaurusEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
+    public CoronodonEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.0, 1, 70, 70, 2));
+        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.5, 1, 70, 70, 2));
     }
 
+    @Override
+    protected @Nullable SoundEvent getAttackSound() {
+        return null;
+    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8D)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D);
+                .add(Attributes.MAX_HEALTH, 30.0D)
+                .add(Attributes.MOVEMENT_SPEED, 1.1D)
+                .add(Attributes.ATTACK_DAMAGE, 6.0D);
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UPEntities.GUANLINGSAURUS.get().create(serverLevel);
+        return UPEntities.CORONODON.get().create(serverLevel);
     }
 
     protected void defineSynchedData() {
@@ -106,53 +101,21 @@ public class GuanlingsaurusEntity extends PrehistoricAquaticEntity {
         return new WaterBoundPathNavigation(this, level);
     }
 
-    public void tick() {
-        super.tick();
-
-        deltaYRot = this.getYHeadRot() - prevYRot;
-        prevYRot = this.getYHeadRot();
-        //MAKE SURE YOU USE HEADROT
-
-        deltaPos = this.position().subtract(prevPos);
-        deltaDist = prevPos.distanceTo(this.position());
-        prevPos = this.position();
-
-    }
-
-    @Override
-    protected @Nullable SoundEvent getAttackSound() {
-        return null;
-    }
-
-    public void travel(Vec3 pTravelVector) {
-        if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), pTravelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
-            if (this.getTarget() == null) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
-            }
-        } else {
-            super.travel(pTravelVector);
-        }
-
-    }
-
-    protected <E extends GuanlingsaurusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    protected <E extends CoronodonEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         int animState = this.getAnimationState();
 
         if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-            event.setAnimation(GUANLINGSAURUS_SWIM);
+            event.setAnimation(CORONODON_SWIM);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (!this.isInWater()) {
-            event.setAnimation(GUANLINGSAURUS_LAND);
+            event.setAnimation(CORONODON_BEACHED);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         else if (this.isInWater()) {
-            event.setAnimation(GUANLINGSAURUS_SWIM);
+            event.setAnimation(CORONODON_IDLE);
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
@@ -218,11 +181,6 @@ public class GuanlingsaurusEntity extends PrehistoricAquaticEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
     }
 
     public int getAnimationState() {

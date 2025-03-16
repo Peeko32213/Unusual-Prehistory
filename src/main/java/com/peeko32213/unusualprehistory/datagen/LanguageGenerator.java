@@ -238,6 +238,11 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.MEGALAMPRIS_EGG, "Megalampris Spawn Egg");
         addItem(UPItems.GUANLINGSAURUS_EGG, "Guanlingsaurus Spawn Egg");
         addItem(UPItems.NYCTORAPTOR_EGG, "Nyctoraptor Spawn Egg");
+        addItem(UPItems.CORONODON_EGG, "Coronodon Spawn Egg");
+        addItem(UPItems.PANACANTHOCARIS_EGG, "Panacanthocaris Spawn Egg");
+        addItem(UPItems.PROSCINETES_EGG, "Proscinetes Spawn Egg");
+        addItem(UPItems.SCHLUMBERGERITES_EGG, "Schlumbergerites Spawn Egg");
+        addItem(UPItems.TITANONARKE_EGG, "Titanonarke Spawn Egg");
 
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
