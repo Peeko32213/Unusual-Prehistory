@@ -79,7 +79,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class BrachiosaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, ISemiAquatic {
+public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquatic {
 
     private static final EntityDataAccessor<Boolean> LAUNCHING = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Float> HEAD_HEIGHT = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.FLOAT);
@@ -409,49 +409,8 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements GeoEntity,
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        //Not sure if you want this you can leave it null otherwise
-        return UPSounds.BRACHI_TOSS.get();
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 5;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        //Since it has no targets you can leave this null
-        return null;
-    }
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return true;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return !(blockState.getBlock() == Blocks.BAMBOO) || blockState.is(BlockTags.LEAVES);
     }
 
     public void tick() {
@@ -1037,7 +996,7 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements GeoEntity,
             }
 
             else if (!this.isInWater()) {
-                if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+                if (getBooleanState(IDLE_1_AC)) {
                     if (this.isStillEnough()) {
                         triggerAnim("blend", "shake");
                         return event.setAndContinue(BRACHI_IDLE);
@@ -1046,7 +1005,7 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements GeoEntity,
                         return PlayState.CONTINUE;
                     }
                 }
-                if (getBooleanState(IDLE_2_AC) && !this.isAsleep()) {
+                if (getBooleanState(IDLE_2_AC)) {
                     if (this.isStillEnough()) {
                         triggerAnim("blend", "vocal");
                         return event.setAndContinue(BRACHI_IDLE);

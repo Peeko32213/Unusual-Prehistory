@@ -17,7 +17,7 @@ public class UnusualPrehistoryConfig {
     public static ConfigValue<Boolean> SCREEN_SHAKE_REX;
     public static ConfigValue<Double> SCREEN_SHAKE_REX_RANGE;
     public static ConfigValue<Integer> SCREEN_SHAKE_REX_AMPLIFIER;
-    public static ConfigValue<Boolean> REX_COLLISON;
+    public static ConfigValue<Boolean> REX_COLLISION;
     public static ConfigValue<Boolean> PARACERATHERIUM_COLLISON;
     public static ConfigValue<Boolean> TRIKE_COLLISON;
     public static ConfigValue<Boolean> MAMMOTH_COLLISON;
@@ -48,11 +48,11 @@ public class UnusualPrehistoryConfig {
 
             CONFIG_BUILDER.pop();
             CONFIG_BUILDER.comment("Collision configs").push("collision_config");;
-            BRACHI_COLLISON = CONFIG_BUILDER.comment("Brachiosaurus hitbox collison").define("brachi_collison", true);
-            MAMMOTH_COLLISON = CONFIG_BUILDER.comment("Mammoth hitbox collison").define("mammoth_collison", false);
-            PARACERATHERIUM_COLLISON = CONFIG_BUILDER.comment("Paraceratherium hitbox collison").define("paraceratherium_collison", true);
-            REX_COLLISON = CONFIG_BUILDER.comment("Tyrannosaurus hitbox collison").define("rex_collison", false);
-            TRIKE_COLLISON = CONFIG_BUILDER.comment("Triceratops hitbox collison").define("trike_collison", false);
+            BRACHI_COLLISON = CONFIG_BUILDER.comment("Brachiosaurus hitbox collision").define("brachi_collision", true);
+            MAMMOTH_COLLISON = CONFIG_BUILDER.comment("Mammoth hitbox collision").define("mammoth_collision", false);
+            PARACERATHERIUM_COLLISON = CONFIG_BUILDER.comment("Paraceratherium hitbox collision").define("paraceratherium_collision", true);
+            REX_COLLISION = CONFIG_BUILDER.comment("Tyrannosaurus hitbox collision").define("rex_collision", false);
+            TRIKE_COLLISON = CONFIG_BUILDER.comment("Triceratops hitbox collision").define("trike_collision", false);
 
             CONFIG_BUILDER.pop();
             CONFIG_BUILDER.comment("Misc configs").push("misc_config");

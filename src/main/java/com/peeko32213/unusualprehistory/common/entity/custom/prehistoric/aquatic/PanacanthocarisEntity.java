@@ -10,7 +10,6 @@ import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -22,7 +21,6 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -105,12 +103,14 @@ public class PanacanthocarisEntity extends PrehistoricAquaticEntity {
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
+    // Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
                 .add(Attributes.MOVEMENT_SPEED, 1D);
     }
 
+    // Goals
     protected void registerGoals() {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 3.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
@@ -127,11 +127,6 @@ public class PanacanthocarisEntity extends PrehistoricAquaticEntity {
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }
         super.aiStep();
-    }
-
-    @Override
-    protected @Nullable SoundEvent getAttackSound() {
-        return null;
     }
 
     @Nullable
@@ -160,40 +155,5 @@ public class PanacanthocarisEntity extends PrehistoricAquaticEntity {
     @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 }

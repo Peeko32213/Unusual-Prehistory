@@ -76,7 +76,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollower, GeoEntity, GeoAnimatable, IVariantEntity {
+public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollower {
 
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.TRICERATOPS_FOOD);
 
@@ -278,48 +278,8 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 10;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     public void tick() {
@@ -466,11 +426,6 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             return false;
         }
         return Math.abs(target.getY() - this.getY()) < 3;
-    }
-
-    @Override
-    public ResourceLocation getVariantTexture() {
-        return null;
     }
 
     @Override
@@ -635,7 +590,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
 
         if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC) && !this.isAsleep() && level().getBlockState(this.blockPosition().below()).is(UPTags.TRIKE_GRAZING_BLOCKS)) {
+            if (getBooleanState(IDLE_1_AC) && level().getBlockState(this.blockPosition().below()).is(UPTags.TRIKE_GRAZING_BLOCKS)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "graze");
                     return event.setAndContinue(TRIKE_IDLE);
@@ -644,7 +599,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
                     return PlayState.CONTINUE;
                 }
             }
-            if (getBooleanState(IDLE_2_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_2_AC)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "shake");
                     return event.setAndContinue(TRIKE_IDLE);
@@ -653,7 +608,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
                     return PlayState.CONTINUE;
                 }
             }
-            if (getBooleanState(IDLE_3_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_3_AC)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "chatter");
                     return event.setAndContinue(TRIKE_IDLE);

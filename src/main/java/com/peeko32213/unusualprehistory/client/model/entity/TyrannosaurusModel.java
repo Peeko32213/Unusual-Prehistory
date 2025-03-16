@@ -46,7 +46,6 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
         CoreGeoBone eyes = this.getAnimationProcessor().getBone("eepy");
 
         eyes.setHidden(!animatable.hasEepy());
-        eyes.setHidden(!animatable.isAsleep());
 
         if (animatable.isBaby()) {
             head.setScaleX(1.5F);

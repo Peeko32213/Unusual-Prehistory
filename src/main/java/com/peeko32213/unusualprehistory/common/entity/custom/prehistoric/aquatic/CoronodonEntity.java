@@ -110,11 +110,6 @@ public class CoronodonEntity extends PrehistoricAquaticEntity {
         super.aiStep();
     }
 
-    @Override
-    protected @Nullable SoundEvent getAttackSound() {
-        return null;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
@@ -145,41 +140,6 @@ public class CoronodonEntity extends PrehistoricAquaticEntity {
     @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     @Override

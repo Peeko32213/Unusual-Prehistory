@@ -104,17 +104,6 @@ public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
         if(playingAnimation()) {
             setAnimationTimer(getAnimationTimer() - 1);
         }
-
-        if(!canGetHungry()) {
-            return;
-        }
-        if (!this.isHungry() && lastTimeSinceHungry < this.getTimeTillHungry()) {
-            lastTimeSinceHungry++;
-        }
-        if (lastTimeSinceHungry >= this.getTimeTillHungry()) {
-            this.setHungry(true);
-            lastTimeSinceHungry = 0;
-        }
     }
 
     @Override

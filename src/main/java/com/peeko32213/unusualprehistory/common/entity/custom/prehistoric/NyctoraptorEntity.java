@@ -14,10 +14,6 @@ import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -34,7 +30,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -45,7 +40,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
@@ -54,12 +48,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollower {
-
-    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(NyctoraptorEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(NyctoraptorEntity.class, EntityDataSerializers.INT);
-
-    public float sitProgress;
-    private int latchTime = 0;
 
     public float flap;
     public float flapSpeed;
@@ -86,8 +74,7 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
 
     // Idle accessors
 
-    // Idle actions
-
+    // States
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
@@ -100,6 +87,7 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
         );
     }
 
+    // Actions
     @Override
     public boolean getAction() {
         return false;
@@ -108,6 +96,71 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
     @Override
     public void setAction(boolean action) {}
 
+    // Animation control
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<NyctoraptorEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<NyctoraptorEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
+                ;
+        controllers.add(blend);
+
+//        AnimationController<NyctoraptorEntity> flap = new AnimationController<>(this, "flapController", 5, this::flapPredicate);
+//        controllers.add(flap);
+    }
+
+    protected <E extends NyctoraptorEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if (this.isFromBook()) {
+            event.setAndContinue(NYCTO_IDLE);
+        }
+
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) {
+            if (this.isSprinting()) {
+                event.setAndContinue(NYCTO_RUN);
+                event.getController().setAnimationSpeed(1.0D);
+                return PlayState.CONTINUE;
+            } else if (event.isMoving()) {
+                event.setAndContinue(NYCTO_WALK);
+                event.getController().setAnimationSpeed(1.0D);
+                return PlayState.CONTINUE;
+            }
+        }
+
+        if (this.isInWater()) {
+            event.setAndContinue(NYCTO_SWIM);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
+            return event.setAndContinue(NYCTO_SIT);
+        }
+
+        if (!this.isInSittingPose()) {
+            event.setAndContinue(NYCTO_SLEEP);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        if (!this.isInWater()) {
+            return event.setAndContinue(NYCTO_IDLE);
+        }
+        return PlayState.CONTINUE;
+    }
+
+//    protected <E extends NyctoraptorEntity> PlayState flapPredicate(final AnimationState<E> event) {
+//        if (!this.onGround() && !this.isInWater()) {
+//            event.getController().setAnimation(NYCTO_FALL);
+//            event.getController().setAnimationSpeed(1.0D);
+//            return PlayState.CONTINUE;
+//        }
+//        event.getController().forceAnimationReset();
+//        return PlayState.STOP;
+//    }
+
+    // Body control / navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
@@ -123,31 +176,43 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
 
     public NyctoraptorEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
-        ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
         this.setMaxUpStep(1.25F);
-        this.reassessTameGoals();
     }
 
+    // Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 30.0D)
+            .add(Attributes.MAX_HEALTH, 30D)
             .add(Attributes.MOVEMENT_SPEED, 0.21D)
-            .add(Attributes.ATTACK_DAMAGE, 9.0D);
+            .add(Attributes.ATTACK_DAMAGE, 9D);
     }
 
+    // Goals
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(8, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(8, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(8, new OwnerHurtTargetGoal(this));
+    }
+
+    // Flap
+    protected boolean isFlapping() {
+        return this.flyDist > this.nextFlap;
+    }
+
+    protected void onFlap() {
+        this.nextFlap = this.flyDist + this.flapSpeed / 2.0F;
+    }
+
+    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+        return false;
     }
 
     @Override
@@ -170,6 +235,7 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
         this.flap += this.flapping * 2.0F;
     }
 
+    // Sprinting
     @Override
     public void customServerAiStep() {
         if (this.getMoveControl().hasWanted()) {
@@ -180,6 +246,7 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
         super.customServerAiStep();
     }
 
+    // Mob interactions
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -229,30 +296,9 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
     @Override
     public void tick() {
         super.tick();
-        if (this.isOrderedToSit() && sitProgress < 5F) {
-            sitProgress++;
-        }
-        if (!this.isOrderedToSit() && sitProgress > 0F) {
-            sitProgress--;
-        }
-
-        this.setOrderedToSit(this.getCommand() == 2 && !this.isVehicle());
-
-        if (isPassenger()) {
-            if (latchTime < 0)
-                latchTime = 0;
-
-            latchTime++;
-        } else {
-            latchTime = 0;
-        }
     }
 
-    @Override
-    public boolean isAlliedTo(Entity pEntity) {
-        return pEntity.is(this);
-    }
-
+    // Sounds
     protected SoundEvent getAmbientSound() {
         return UPSounds.NYCTORAPTOR_IDLE.get();
     }
@@ -280,93 +326,29 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 4;
     }
 
-    @Override
-    protected boolean canGetHungry() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return UPTags.RAPTOR_TARGETS;
-    }
-
-    @Override
-    public void setCustomName(@Nullable Component pName) {
-        super.setCustomName(pName);
-    }
-
-    @Override
-    public boolean shouldFollow() {
-        return this.getCommand() == 1;
-    }
-
+    // Save data
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Command", this.getCommand());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setCommand(compound.getInt("Command"));
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(COMMAND, 0);
-        this.entityData.define(ANIMATION_STATE, 0);
     }
 
-    public int getCommand() {
-        return this.entityData.get(COMMAND);
-    }
-
-    public void setCommand(int command) {
-        this.entityData.set(COMMAND, command);
-    }
-
-    public int getAnimationState() {
-        return this.entityData.get(ANIMATION_STATE);
-    }
-
-    public void setAnimationState(int anim) {
-        this.entityData.set(ANIMATION_STATE, anim);
+    @Override
+    public boolean shouldFollow() {
+        return true;
     }
 
     @Nullable
@@ -377,81 +359,7 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
         return nyctoraptor;
     }
 
-    protected boolean isFlapping() {
-        return this.flyDist > this.nextFlap;
-    }
-
-    protected void onFlap() {
-        this.nextFlap = this.flyDist + this.flapSpeed / 2.0F;
-    }
-
-    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
-        return false;
-    }
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        AnimationController<NyctoraptorEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        controllers.add(controller);
-
-        AnimationController<NyctoraptorEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
-                ;
-        controllers.add(blend);
-
-//        AnimationController<NyctoraptorEntity> flap = new AnimationController<>(this, "flapController", 5, this::flapPredicate);
-//        controllers.add(flap);
-    }
-
-    protected <E extends NyctoraptorEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-
-        if (this.isFromBook()) {
-            event.setAndContinue(NYCTO_IDLE);
-        }
-
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInSittingPose() && !this.isInWater()) {
-            if (this.isSprinting()) {
-                event.setAndContinue(NYCTO_RUN);
-                event.getController().setAnimationSpeed(1.0D);
-                return PlayState.CONTINUE;
-            } else if (event.isMoving()) {
-                event.setAndContinue(NYCTO_WALK);
-                event.getController().setAnimationSpeed(1.0D);
-                return PlayState.CONTINUE;
-            }
-        }
-
-        if (this.isInWater()) {
-            event.setAndContinue(NYCTO_SWIM);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-
-        if (this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
-            return event.setAndContinue(NYCTO_SIT);
-        }
-
-        if (this.isAsleep() && !this.isInSittingPose()) {
-            event.setAndContinue(NYCTO_SLEEP);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-
-        if (!this.isInWater()) {
-            return event.setAndContinue(NYCTO_IDLE);
-        }
-        return PlayState.CONTINUE;
-    }
-
-//    protected <E extends NyctoraptorEntity> PlayState flapPredicate(final AnimationState<E> event) {
-//        if (!this.onGround() && !this.isInWater()) {
-//            event.getController().setAnimation(NYCTO_FALL);
-//            event.getController().setAnimationSpeed(1.0D);
-//            return PlayState.CONTINUE;
-//        }
-//        event.getController().forceAnimationReset();
-//        return PlayState.STOP;
-//    }
-
+    // Variants
     public void determineVariant(int variantChange){
         if (variantChange <= 50) {
             this.setVariant(1);

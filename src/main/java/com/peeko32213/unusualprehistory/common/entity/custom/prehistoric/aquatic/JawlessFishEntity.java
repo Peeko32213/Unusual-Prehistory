@@ -145,48 +145,8 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
     }
 
     @Override
-    protected @Nullable SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     @Override

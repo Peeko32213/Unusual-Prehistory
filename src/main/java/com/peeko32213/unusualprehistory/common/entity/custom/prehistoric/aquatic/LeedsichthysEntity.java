@@ -365,11 +365,6 @@
      }
 
      @Override
-     protected @Nullable SoundEvent getAttackSound() {
-         return null;
-     }
-
-     @Override
      public void aiStep() {
          super.aiStep();
      }
@@ -513,41 +508,6 @@
      @Override
      protected int getKillHealAmount() {
          return 10;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return null;
      }
 
      @Override

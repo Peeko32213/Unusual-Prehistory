@@ -216,38 +216,9 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30) {
                     @Override
                     public boolean canUse() {
-                        if (this.mob.isVehicle()) {
-                            return false;
-                        } else {
-                            if (!this.forceTrigger) {
-                                if (this.mob.getNoActionTime() >= 100) {
-                                    return false;
-                                }
-                                if (((UlughbegsaurusEntity) this.mob).isHungry()) {
-                                    if (this.mob.getRandom().nextInt(60) != 0) {
-                                        return false;
-                                    }
-                                } else {
-                                    if (this.mob.getRandom().nextInt(30) != 0) {
-                                        return false;
-                                    }
-                                }
-                            }
-
-                            Vec3 vec3d = this.getPosition();
-                            if (vec3d == null) {
-                                return false;
-                            } else {
-                                this.wantedX = vec3d.x;
-                                this.wantedY = vec3d.y;
-                                this.wantedZ = vec3d.z;
-                                this.forceTrigger = false;
-                                return true;
-                            }
-                        }
+                        return !this.mob.isVehicle();
                     }
                 }
-
         );
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
@@ -572,48 +543,8 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return UPSounds.ULUGH_BITE.get();
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 10;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return UPTags.RAPTOR_TARGETS;
     }
 
     private void attack(LivingEntity entity) {
@@ -657,9 +588,7 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
             double d0 = this.getAttackReachSqr(enemy);
             if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
                 this.resetAttackCooldown();
-                ((UlughbegsaurusEntity) this.mob).setHungry(false);
                 ((UlughbegsaurusEntity) this.mob).attack(enemy);
-                ((UlughbegsaurusEntity) this.mob).setTimeTillHungry(mob.getRandom().nextInt(300) + 300);
             }
         }
     }

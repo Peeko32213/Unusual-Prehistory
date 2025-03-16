@@ -227,7 +227,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
             }
             else {
                 if (!this.isInWater()) {
-                    if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+                    if (getBooleanState(IDLE_1_AC)) {
                         if (this.isStillEnough()) {
                             triggerAnim("blend", "yawn");
                             return event.setAndContinue(BARINA_IDLE);
@@ -237,7 +237,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
                             return PlayState.CONTINUE;
                         }
                     }
-                    if (getBooleanState(IDLE_2_AC) && !this.isAsleep()) {
+                    if (getBooleanState(IDLE_2_AC)) {
                         if (this.isStillEnough()) {
                             triggerAnim("blend", "shake");
                             return event.setAndContinue(BARINA_IDLE);
@@ -247,7 +247,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
                             return PlayState.CONTINUE;
                         }
                     }
-                    if (getBooleanState(IDLE_3_AC) && !this.isAsleep()) {
+                    if (getBooleanState(IDLE_3_AC)) {
                         if (this.isStillEnough()) {
                             triggerAnim("blend", "scratch1");
                             return event.setAndContinue(BARINA_IDLE);
@@ -257,7 +257,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
                             return PlayState.CONTINUE;
                         }
                     }
-                    if (getBooleanState(IDLE_4_AC) && !this.isAsleep()) {
+                    if (getBooleanState(IDLE_4_AC)) {
                         if (this.isStillEnough()) {
                             triggerAnim("blend", "scratch2");
                             return event.setAndContinue(BARINA_IDLE);
@@ -401,48 +401,8 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 9;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return UPTags.RAPTOR_TARGETS;
     }
 
     @Nullable

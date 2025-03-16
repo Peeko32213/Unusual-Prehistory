@@ -53,7 +53,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class EstemmenosuchusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable {
+public class EstemmenosuchusEntity extends PrehistoricEntity {
 
     private static final Ingredient FOOD_ITEMS = Ingredient.of(UPTags.ESTEMME_FOOD_ITEMS);
 
@@ -197,48 +197,8 @@ public class EstemmenosuchusEntity extends PrehistoricEntity implements GeoEntit
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 10;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     @Nullable

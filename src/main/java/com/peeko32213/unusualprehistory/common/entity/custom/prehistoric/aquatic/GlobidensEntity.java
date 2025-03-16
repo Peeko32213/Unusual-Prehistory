@@ -67,7 +67,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable, GeoEntity, IBookEntity {
+public class GlobidensEntity extends PrehistoricEntity {
     //START of necessary IK shit
     public Vec3 rightRefPoint;
     public Vec3 rightRefOffset = new Vec3(1, 0, 0);
@@ -223,48 +223,8 @@ public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable,
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 6;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     public void travel(@NotNull Vec3 travelVector) {
@@ -369,11 +329,6 @@ public class GlobidensEntity extends PrehistoricEntity implements GeoAnimatable,
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
     }
 
     @Override

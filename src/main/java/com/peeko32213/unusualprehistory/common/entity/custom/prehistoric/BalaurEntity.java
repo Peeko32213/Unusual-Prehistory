@@ -429,48 +429,8 @@
      }
 
      @Override
-     protected SoundEvent getAttackSound() {
-         return null;
-     }
-
-     @Override
      protected int getKillHealAmount() {
          return 4;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return true;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return true;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return true;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return UPTags.RAPTOR_TARGETS;
      }
 
      @Override
@@ -603,14 +563,14 @@
              return PlayState.CONTINUE;
          }
 
-         if (this.isAsleep() && !this.isInSittingPose()) {
+         if (!this.isInSittingPose()) {
              event.setAndContinue(BALAUR_SLEEP);
              event.getController().setAnimationSpeed(1.0F);
              return PlayState.CONTINUE;
          }
 
          if (!this.isInWater()) {
-             if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+             if (getBooleanState(IDLE_1_AC)) {
                  if (this.isStillEnough()) {
                      triggerAnim("blend", "scratch_1");
                      return event.setAndContinue(BALAUR_IDLE);
@@ -619,7 +579,7 @@
                      return PlayState.CONTINUE;
                  }
              }
-             if (getBooleanState(IDLE_2_AC) && !this.isAsleep()) {
+             if (getBooleanState(IDLE_2_AC)) {
                  if (this.isStillEnough()) {
                      triggerAnim("blend", "scratch_2");
                      return event.setAndContinue(BALAUR_IDLE);
@@ -628,13 +588,13 @@
                      return PlayState.CONTINUE;
                  }
              }
-             if (getBooleanState(IDLE_3_AC) && !this.isAsleep()) {
+             if (getBooleanState(IDLE_3_AC)) {
                  return event.setAndContinue(BALAUR_HISS);
              }
-             if (getBooleanState(IDLE_4_AC) && !this.isAsleep()) {
+             if (getBooleanState(IDLE_4_AC)) {
                  return event.setAndContinue(BALAUR_PREEN_1);
              }
-             if (getBooleanState(IDLE_5_AC) && !this.isAsleep()) {
+             if (getBooleanState(IDLE_5_AC)) {
                  return event.setAndContinue(BALAUR_PREEN_2);
              }
              return event.setAndContinue(BALAUR_IDLE);

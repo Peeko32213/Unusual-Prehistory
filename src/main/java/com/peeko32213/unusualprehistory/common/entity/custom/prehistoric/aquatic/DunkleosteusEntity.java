@@ -7,7 +7,6 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAqu
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.DelayedAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -17,11 +16,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -41,7 +38,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -56,7 +52,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVariantEntity {
+public class DunkleosteusEntity extends PrehistoricAquaticEntity {
 
     private static final EntityDataAccessor<Integer> DUNK_SIZE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
 
@@ -159,11 +155,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
         return prev;
     }
 
-    @Override
-    protected @Nullable SoundEvent getAttackSound() {
-        return null;
-    }
-
     public void travel(@NotNull Vec3 travelVector) {
         super.travel(travelVector);
     }
@@ -196,41 +187,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
     @Override
     protected int getKillHealAmount() {
         return 8;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     protected void defineSynchedData() {
@@ -378,11 +334,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity implements IVar
 
     @Override
     public void setAction(boolean action) {}
-
-    @Override
-    public ResourceLocation getVariantTexture() {
-        return null;
-    }
 
     class MeleeAttackGoal extends DelayedAttackGoal {
 

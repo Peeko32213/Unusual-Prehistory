@@ -2,20 +2,6 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.peeko32213.unusualprehistory.common.data.attack.LargeHitBoxAttackWithTargetCheck;
-import com.peeko32213.unusualprehistory.common.data.attack.NoneAttack;
-import com.peeko32213.unusualprehistory.common.data.attack.StompAttack;
-import com.peeko32213.unusualprehistory.common.data.codec.MobEffectInstanceCodec;
-import com.peeko32213.unusualprehistory.common.data.entity.WideRangeEffectData;
-import com.peeko32213.unusualprehistory.common.data.entity.generic.CooldownWideRangeEffectData;
-import com.peeko32213.unusualprehistory.common.data.entity.generic.SoundData;
-import com.peeko32213.unusualprehistory.common.data.entity.goal.MeleeEntityAction;
-import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomMeleeAttackGoal;
-import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomMeleeAttackHelper;
-import com.peeko32213.unusualprehistory.common.data.entity.goal.WeightedSerializableMeleeAttackHelper;
-import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedData;
-import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedEntityData;
-import com.peeko32213.unusualprehistory.common.data.entity.*;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
@@ -35,10 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
-import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -66,7 +49,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-public class VelociraptorEntity extends PrehistoricEntity implements IVariantEntity {
+public class VelociraptorEntity extends PrehistoricEntity {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PRESS = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
@@ -252,41 +235,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
         this.goalSelector.addGoal(1, new PounceGoal(this, 0));
         this.goalSelector.addGoal(4, new PushButtonsGoal(this, 0.5F, 5, 2));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30) {
-                    @Override
-                    public boolean canUse() {
-                        if (this.mob.isVehicle()) {
-                            return false;
-                        } else {
-                            if (!this.forceTrigger) {
-                                if (this.mob.getNoActionTime() >= 100) {
-                                    return false;
-                                }
-                                if (((VelociraptorEntity) this.mob).isHungry()) {
-                                    if (this.mob.getRandom().nextInt(60) != 0) {
-                                        return false;
-                                    }
-                                } else {
-                                    if (this.mob.getRandom().nextInt(30) != 0) {
-                                        return false;
-                                    }
-                                }
-                            }
-
-                            Vec3 vec3d = this.getPosition();
-                            if (vec3d == null) {
-                                return false;
-                            } else {
-                                this.wantedX = vec3d.x;
-                                this.wantedY = vec3d.y;
-                                this.wantedZ = vec3d.z;
-                                this.forceTrigger = false;
-                                return true;
-                            }
-                        }
-                    }
-                }
-        );
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
@@ -374,53 +323,8 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return UPSounds.VELOCIRAPTOR_ATTACK.get();
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 4;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return UPTags.RAPTOR_TARGETS;
-    }
-
-    @Override
-    public ResourceLocation getVariantTexture() {
-        return null;
     }
 
     @Override
@@ -627,7 +531,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
         }
 
         if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_1_AC)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "lookout_1");
                     return event.setAndContinue(VELOCI_IDLE);
@@ -636,7 +540,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
                     return PlayState.CONTINUE;
                 }
             }
-            if (getBooleanState(IDLE_2_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_2_AC)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "lookout_2");
                     return event.setAndContinue(VELOCI_IDLE);
@@ -645,7 +549,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
                     return PlayState.CONTINUE;
                 }
             }
-            if (getBooleanState(IDLE_3_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_3_AC)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "scratch_1");
                     return event.setAndContinue(VELOCI_IDLE);
@@ -654,7 +558,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
                     return PlayState.CONTINUE;
                 }
             }
-            if (getBooleanState(IDLE_4_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_4_AC)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "scratch_2");
                     return event.setAndContinue(VELOCI_IDLE);
@@ -663,7 +567,7 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
                     return PlayState.CONTINUE;
                 }
             }
-            if (getBooleanState(IDLE_5_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_5_AC)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "chatter");
                     return event.setAndContinue(VELOCI_IDLE);
@@ -672,10 +576,10 @@ public class VelociraptorEntity extends PrehistoricEntity implements IVariantEnt
                     return PlayState.CONTINUE;
                 }
             }
-            if (getBooleanState(IDLE_6_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_6_AC)) {
                 return event.setAndContinue(VELOCI_PREEN_1);
             }
-            if (getBooleanState(IDLE_7_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_7_AC)) {
                 return event.setAndContinue(VELOCI_PREEN_2);
             }
             return event.setAndContinue(VELOCI_IDLE);

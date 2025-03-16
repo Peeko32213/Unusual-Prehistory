@@ -54,7 +54,7 @@
  import java.util.EnumSet;
  import java.util.List;
 
- public class DiplocaulusEntity extends PrehistoricEntity implements ISemiAquatic, IVariantEntity {
+ public class DiplocaulusEntity extends PrehistoricEntity implements ISemiAquatic {
 
      private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(DiplocaulusEntity.class, EntityDataSerializers.INT);
 
@@ -232,48 +232,8 @@
      }
 
      @Override
-     protected SoundEvent getAttackSound() {
-         return null;
-     }
-
-     @Override
      protected int getKillHealAmount() {
          return 5;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return true;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return true;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return UPTags.PISCIVORE_DIET;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
      }
 
      @Nullable
@@ -340,11 +300,6 @@
              }
          }
          return PlayState.CONTINUE;
-     }
-
-     @Override
-     public ResourceLocation getVariantTexture() {
-         return null;
      }
 
      public void determineVariant(int variantChange){

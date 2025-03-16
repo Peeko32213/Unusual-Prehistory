@@ -4,12 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.*;
@@ -20,13 +18,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -46,7 +41,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
@@ -54,8 +48,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -67,14 +59,12 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity {
+public class TyrannosaurusEntity extends PrehistoricEntity {
 
     private static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
-
     private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
 
     private int shakeCooldown = 0;
-
 
     // Movement animations
     private static final RawAnimation TYRANNO_SWIM = RawAnimation.begin().thenLoop("animation.tyrannosaurus.swim");
@@ -82,7 +72,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
     private static final RawAnimation TYRANNO_WALK = RawAnimation.begin().thenLoop("animation.tyrannosaurus.walk");
 
     // Attack animations
-    private static final RawAnimation TYRANNO_AGGRO = RawAnimation.begin().thenPlay("animation.tyrannosaurus.aggro_blend");
     private static final RawAnimation TYRANNO_BITE_0 = RawAnimation.begin().thenPlay("animation.tyrannosaurus.bite_blend1");
     private static final RawAnimation TYRANNO_BITE_1 = RawAnimation.begin().thenPlay("animation.tyrannosaurus.bite_blend2");
     private static final RawAnimation TYRANNO_WHIP = RawAnimation.begin().thenPlay("animation.tyrannosaurus.whip");
@@ -98,6 +87,9 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
     private static final RawAnimation TYRANNO_SNIFF = RawAnimation.begin().thenPlay("animation.tyrannosaurus.sniff_blend");
     private static final RawAnimation TYRANNO_ROAR = RawAnimation.begin().thenPlay("animation.tyrannosaurus.roar_blend");
     private static final RawAnimation TYRANNO_EEPY = RawAnimation.begin().thenLoop("animation.tyrannosaurus.knockout");
+
+    // Misc animations
+    private static final RawAnimation TYRANNO_AGGRO = RawAnimation.begin().thenPlay("animation.tyrannosaurus.aggro_blend");
 
     // Idle accessors
     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -144,6 +136,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
                     .entityAction(TYRANNO_IDLE_4_ACTION)
                     .build();
 
+    // States
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
@@ -164,15 +157,150 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         );
     }
 
+    // Actions
     @Override
     public boolean getAction() {
         return false;
     }
 
     @Override
-    public void setAction(boolean action) {
+    public void setAction(boolean action) {}
+
+    // Animation sounds
+    private void soundListener(SoundKeyframeEvent<TyrannosaurusEntity> event) {
+        TyrannosaurusEntity tyrannosaurus = event.getAnimatable();
+        if (tyrannosaurus.level().isClientSide) {
+            if (event.getKeyframeData().getSound().equals("tyrannosaurus_sniff")) {
+                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_SNIFF.get(), tyrannosaurus.getSoundSource(), 1.0F, tyrannosaurus.getVoicePitch(), false);
+            }
+            if (event.getKeyframeData().getSound().equals("tyrannosaurus_roar")) {
+                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_ROAR.get(), tyrannosaurus.getSoundSource(), 2.5F, tyrannosaurus.getVoicePitch(), false);
+            }
+        }
     }
 
+    // Animation control
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<TyrannosaurusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+        AnimationController<TyrannosaurusEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
+                .triggerableAnim("shake", TYRANNO_SHAKE)
+                .triggerableAnim("sniff", TYRANNO_SNIFF)
+                .triggerableAnim("roar", TYRANNO_ROAR)
+                .triggerableAnim("bite_0", TYRANNO_BITE_0)
+                .triggerableAnim("bite_1", TYRANNO_BITE_1);
+        blend.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(blend);
+    }
+
+    protected <E extends TyrannosaurusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if(this.isFromBook()){
+            return event.setAndContinue(TYRANNO_IDLE);
+        }
+
+        int animState = this.getAnimationState(); {
+
+            switch (animState) {
+
+                case 1:
+                    if (!this.hasEepy()) {
+                        event.setAndContinue(TYRANNO_TACKLE);
+                        event.getController().setAnimationSpeed(0.85F);
+                        break;
+                    }
+                case 2:
+                    if (!this.hasEepy()) {
+                        event.setAndContinue(TYRANNO_WHIP);
+                        event.getController().setAnimationSpeed(1.0F);
+                        break;
+                    }
+                case 3:
+                    if (!this.hasEepy()) {
+                        event.setAndContinue(TYRANNO_STOMP_L);
+                        event.getController().setAnimationSpeed(1.35F);
+                        break;
+                    }
+                case 4:
+                    if (!this.hasEepy()) {
+                        event.setAndContinue(TYRANNO_STOMP_R);
+                        event.getController().setAnimationSpeed(1.35F);
+                        break;
+                    }
+
+                default:
+
+                    if (this.hasEepy()) {
+                        event.setAndContinue(TYRANNO_EEPY);
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    }
+
+                    if (this.isInWater() && !this.hasEepy()  ) {
+                        event.setAndContinue(TYRANNO_SWIM);
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    }
+
+                    else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy()) {
+                        if (this.isSprinting() && !this.isBaby()) {
+                            event.setAndContinue(TYRANNO_CHARGE);
+                        } else {
+                            event.setAndContinue(TYRANNO_WALK);
+                        }
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    }
+
+                    if (!this.isInWater() && !this.hasEepy() && !getBooleanState(IDLE_1_AC) && !getBooleanState(IDLE_2_AC) && !getBooleanState(IDLE_3_AC) && !getBooleanState(IDLE_4_AC)) {
+                        event.setAndContinue(TYRANNO_SLEEP);
+                        event.getController().setAnimationSpeed(1.0F);
+                        return PlayState.CONTINUE;
+                    }
+
+                    if (!this.isInWater() && !this.hasEepy()) {
+                        if (getBooleanState(IDLE_1_AC)) {
+                            if (this.isStillEnough()) {
+                                triggerAnim("blend", "shake");
+                                return event.setAndContinue(TYRANNO_IDLE);
+                            }
+                            else {
+                                triggerAnim("blend", "shake");
+                                return PlayState.CONTINUE;
+                            }
+                        }
+                        if (getBooleanState(IDLE_2_AC)) {
+                            if (this.isStillEnough()) {
+                                triggerAnim("blend", "sniff");
+                                return event.setAndContinue(TYRANNO_IDLE);
+                            }
+                            else {
+                                triggerAnim("blend", "sniff");
+                                return PlayState.CONTINUE;
+                            }
+                        }
+                        if (getBooleanState(IDLE_3_AC)) {
+                            if (this.isStillEnough()) {
+                                triggerAnim("blend", "roar");
+                                return event.setAndContinue(TYRANNO_IDLE);
+                            }
+                            else {
+                                triggerAnim("blend", "roar");
+                                return PlayState.CONTINUE;
+                            }
+                        }
+                        if (getBooleanState(IDLE_4_AC)) {
+                            return event.setAndContinue(TYRANNO_SIT);
+                        }
+                        return event.setAndContinue(TYRANNO_IDLE);
+                    }
+            }
+        }
+        return PlayState.CONTINUE;
+    }
+
+    // Body control / navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
@@ -191,22 +319,20 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         this.setMaxUpStep(1.25F);
     }
 
+    // Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 300.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 16.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
-                .add(Attributes.FOLLOW_RANGE, 32D);
+            .add(Attributes.MAX_HEALTH, 300D)
+            .add(Attributes.MOVEMENT_SPEED, 0.2D)
+            .add(Attributes.ATTACK_DAMAGE, 16D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
+            .add(Attributes.FOLLOW_RANGE, 32D);
     }
 
+    // Goals
     protected void registerGoals() {
         super.registerGoals();
-//        this.goalSelector.addGoal(1, new StatedSleepingGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        if(!this.isAsleep() && !this.hasEepy() && this.getTarget() == null) {
-            this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
-        }
         this.goalSelector.addGoal(3, new TyrannosaurusEntity.TyrannosaurusMeleeAttackGoal(this, 1.75F, true) {
             public boolean canUse() {
                 return !isBaby() && level().getDifficulty() != Difficulty.PEACEFUL && !hasEepy() && !isPassive() && super.canUse();
@@ -225,9 +351,11 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
             }
         });
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Chicken.class, 12.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
     }
 
+    // Mob interactions
     public @NotNull InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
@@ -256,18 +384,8 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
     }
 
     @Override
-    public boolean isNoAi() {
-        return this.hasEepy() || super.isNoAi();
-    }
-
-    @Override
     public boolean canBeLeashed(@NotNull Player p_21418_) {
         return this.isBaby();
-    }
-
-    @Override
-    protected SoundEvent getAttackSound() {
-        return null;
     }
 
     @Override
@@ -275,45 +393,10 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         return 30;
     }
 
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
-    }
-
+    // Eepy
     public void setEepy(boolean eepy) {
         this.entityData.set(EEPY, eepy);
     }
-
     public boolean hasEepy() {
         return this.entityData.get(EEPY);
     }
@@ -325,6 +408,11 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         else {
             return false;
         }
+    }
+
+    @Override
+    public boolean isNoAi() {
+        return this.hasEepy() || super.isNoAi();
     }
 
     public void setPassive(boolean passive) {
@@ -339,6 +427,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         super.travel(vec3d);
     }
 
+    // Save data
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -353,6 +442,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         this.setPassive(compound.getBoolean("Passive"));
     }
 
+    // Synched data
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -372,6 +462,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
             this.setTarget(null);
         }
 
+        // Screen shake walk
         if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy() && !this.isBaby() && this.onGround()) {
 
             if(this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_REX.get()) {
@@ -395,17 +486,13 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         shakeCooldown--;
     }
 
+    // Sprinting
     @Override
     public void customServerAiStep() {
         if (this.getMoveControl().hasWanted() && !this.isBaby()) {
             this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.5D);
         } else {
             this.setSprinting(false);
-        }
-
-        if (this.isAsleep()) {
-            this.navigation.stop();
-            this.navigation.setSpeedModifier(0);
         }
         super.customServerAiStep();
     }
@@ -420,6 +507,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
             this.setTarget(null);
         }
 
+        // Break blocks when sprinting
         if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isSprinting() && !this.isBaby()) {
             boolean flag = false;
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
@@ -429,11 +517,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
                     flag = this.level().destroyBlock(blockpos, true, this) || flag;
                 }
             }
-        }
-
-        if (this.isAsleep()) {
-            this.navigation.stop();
-            this.navigation.setSpeedModifier(0);
         }
     }
 
@@ -457,19 +540,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         }
     }
 
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
-    }
-
-    public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
-    }
-
-    @Override
-    public ResourceLocation getVariantTexture() {
-        return null;
-    }
-
+    // Melee attacks
     // TODO: fight revamp with better attack ai / new attack ai for most things in the mod
     class TyrannosaurusMeleeAttackGoal extends Goal {
 
@@ -725,15 +796,18 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         }
     }
 
+    // Collision config
     public boolean canBeCollidedWith() {
-        return UnusualPrehistoryConfig.REX_COLLISON.get();
+        return UnusualPrehistoryConfig.REX_COLLISION.get();
     }
 
+    // Damage invulnerability
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.CACTUS) || super.isInvulnerableTo(source);
     }
 
+    // Sounds
     protected SoundEvent getAmbientSound() {
         return UPSounds.TYRANNO_IDLE.get();
     }
@@ -756,138 +830,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         }
     }
 
-    private void soundListener(SoundKeyframeEvent<TyrannosaurusEntity> event) {
-        TyrannosaurusEntity tyrannosaurus = event.getAnimatable();
-        if (tyrannosaurus.level().isClientSide) {
-            if (event.getKeyframeData().getSound().equals("tyrannosaurus_sniff")) {
-                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_SNIFF.get(), tyrannosaurus.getSoundSource(), 1.0F, tyrannosaurus.getVoicePitch(), false);
-            }
-            if (event.getKeyframeData().getSound().equals("tyrannosaurus_roar")) {
-                tyrannosaurus.level().playLocalSound(tyrannosaurus.getX(), tyrannosaurus.getY(), tyrannosaurus.getZ(), UPSounds.TYRANNO_ROAR.get(), tyrannosaurus.getSoundSource(), 2.5F, tyrannosaurus.getVoicePitch(), false);
-            }
-        }
-    }
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        AnimationController<TyrannosaurusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        controllers.add(controller);
-        AnimationController<TyrannosaurusEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
-                .triggerableAnim("shake", TYRANNO_SHAKE)
-                .triggerableAnim("sniff", TYRANNO_SNIFF)
-                .triggerableAnim("roar", TYRANNO_ROAR)
-                .triggerableAnim("bite_0", TYRANNO_BITE_0)
-                .triggerableAnim("bite_1", TYRANNO_BITE_1);
-        blend.setSoundKeyframeHandler(this::soundListener);
-        controllers.add(blend);
-    }
-
-    protected <E extends TyrannosaurusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-
-        if(this.isFromBook()){
-            return event.setAndContinue(TYRANNO_IDLE);
-        }
-
-        int animState = this.getAnimationState(); {
-
-            switch (animState) {
-
-                case 1:
-                    if (!this.hasEepy() && !this.isAsleep()) {
-                        event.setAndContinue(TYRANNO_TACKLE);
-                        event.getController().setAnimationSpeed(0.85F);
-                        break;
-                    }
-                case 2:
-                    if (!this.hasEepy() && !this.isAsleep()) {
-                        event.setAndContinue(TYRANNO_WHIP);
-                        event.getController().setAnimationSpeed(1.0F);
-                        break;
-                    }
-                case 3:
-                    if (!this.hasEepy() && !this.isAsleep()) {
-                        event.setAndContinue(TYRANNO_STOMP_L);
-                        event.getController().setAnimationSpeed(1.35F);
-                        break;
-                    }
-                case 4:
-                    if (!this.hasEepy() && !this.isAsleep()) {
-                        event.setAndContinue(TYRANNO_STOMP_R);
-                        event.getController().setAnimationSpeed(1.35F);
-                        break;
-                    }
-
-                default:
-
-                    if (this.hasEepy() && !this.isAsleep()) {
-                        event.setAndContinue(TYRANNO_EEPY);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-
-                    if (this.isInWater() && !this.hasEepy()  ) {
-                        event.setAndContinue(TYRANNO_SWIM);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-
-                    else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy() && !this.isAsleep()) {
-                        if (this.isSprinting() && !this.isBaby()) {
-                            event.setAndContinue(TYRANNO_CHARGE);
-                        } else {
-                            event.setAndContinue(TYRANNO_WALK);
-                        }
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-
-                    if (!this.isInWater() && !this.hasEepy() && !this.hasTargets() && this.isAsleep() && !getBooleanState(IDLE_1_AC) && !getBooleanState(IDLE_2_AC) && !getBooleanState(IDLE_3_AC) && !getBooleanState(IDLE_4_AC)) {
-                        event.setAndContinue(TYRANNO_SLEEP);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-
-                    if (!this.isInWater() && !this.hasEepy() && !this.isAsleep()) {
-                        if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
-                            if (this.isStillEnough()) {
-                                triggerAnim("blend", "shake");
-                                return event.setAndContinue(TYRANNO_IDLE);
-                            }
-                            else {
-                                triggerAnim("blend", "shake");
-                                return PlayState.CONTINUE;
-                            }
-                        }
-                        if (getBooleanState(IDLE_2_AC) && !this.isAsleep()) {
-                            if (this.isStillEnough()) {
-                                triggerAnim("blend", "sniff");
-                                return event.setAndContinue(TYRANNO_IDLE);
-                            }
-                            else {
-                                triggerAnim("blend", "sniff");
-                                return PlayState.CONTINUE;
-                            }
-                        }
-                        if (getBooleanState(IDLE_3_AC) && !this.isAsleep()) {
-                            if (this.isStillEnough()) {
-                                triggerAnim("blend", "roar");
-                                return event.setAndContinue(TYRANNO_IDLE);
-                            }
-                            else {
-                                triggerAnim("blend", "roar");
-                                return PlayState.CONTINUE;
-                            }
-                        }
-                        if (getBooleanState(IDLE_4_AC) && !this.isAsleep()) {
-                            return event.setAndContinue(TYRANNO_SIT);
-                        }
-                        return event.setAndContinue(TYRANNO_IDLE);
-                    }
-            }
-        }
-        return PlayState.CONTINUE;
-    }
-
+    // Variants
     public void determineVariant(int variantChange){
         if (variantChange <= 60) {
             this.setVariant(0);
@@ -895,14 +838,5 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
         else {
             this.setVariant(1);
         }
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        int variantChange = this.random.nextInt(0, 100);
-        this.determineVariant(variantChange);
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 }

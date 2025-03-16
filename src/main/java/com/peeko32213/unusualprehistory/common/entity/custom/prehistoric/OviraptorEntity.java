@@ -259,48 +259,8 @@ public class OviraptorEntity extends PrehistoricEntity {
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 2;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     @Override
@@ -404,7 +364,7 @@ public class OviraptorEntity extends PrehistoricEntity {
             return PlayState.CONTINUE;
         }
         if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_1_AC)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "lookout_1");
                     return event.setAndContinue(OVI_IDLE);
@@ -413,7 +373,7 @@ public class OviraptorEntity extends PrehistoricEntity {
                     return PlayState.CONTINUE;
                 }
             }
-            if (getBooleanState(IDLE_2_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_2_AC)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "lookout_2");
                     return event.setAndContinue(OVI_IDLE);
@@ -422,10 +382,10 @@ public class OviraptorEntity extends PrehistoricEntity {
                     return PlayState.CONTINUE;
                 }
             }
-            if (getBooleanState(IDLE_3_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_3_AC)) {
                 return event.setAndContinue(OVI_COCKADOO);
             }
-            if (getBooleanState(IDLE_4_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_4_AC)) {
                 return event.setAndContinue(OVI_PECK);
             }
             return event.setAndContinue(OVI_IDLE);

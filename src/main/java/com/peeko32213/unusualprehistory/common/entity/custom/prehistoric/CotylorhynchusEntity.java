@@ -65,12 +65,9 @@ import java.util.Objects;
 
 public class CotylorhynchusEntity extends PrehistoricEntity {
 
-    private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.MELON, Items.MELON_SLICE, Items.MELON_SEEDS, Items.GLISTERING_MELON_SLICE);
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.COTY_FOOD);
     private static final Ingredient FERMENTATION_ITEMS = Ingredient.of(UPTags.COTY_FERMENTERS);
     private static final EntityDataAccessor<Boolean> FERMENTED = SynchedEntityData.defineId(CotylorhynchusEntity.class, EntityDataSerializers.BOOLEAN);
-
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     // Movement animations
     private static final RawAnimation COTY_WALK = RawAnimation.begin().thenLoop("animation.cotylorhynchus.walk");
@@ -156,48 +153,8 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     @Nullable
@@ -358,7 +315,7 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
         }
 
         if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC) && !this.isAsleep()) {
+            if (getBooleanState(IDLE_1_AC)) {
                 if (this.isStillEnough() && !this.isFermented() && level().getBlockState(this.blockPosition().below()).is(UPTags.COTY_GRAZING_BLOCKS)) {
                     triggerAnim("blend", "graze");
                     return event.setAndContinue(COTY_IDLE);

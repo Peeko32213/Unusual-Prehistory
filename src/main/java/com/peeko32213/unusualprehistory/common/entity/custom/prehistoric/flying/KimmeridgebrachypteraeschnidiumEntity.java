@@ -61,8 +61,6 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.function.IntFunction;
 
-//TODO LIST
-// - Add in randomized color selection akin to tropical fish
 public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntityOld implements GeoEntity, GeoAnimatable, IBookEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Nullable
