@@ -25,9 +25,10 @@ public class JarateRenderer extends GeoEntityRenderer<JarateEntity> {
 
     @Override
     protected void applyRotations(JarateEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
-        float f = 4.3F * Mth.sin(0.6F * ageInTicks);
+
         if (animatable.getOwner() != null) {
-            super.applyRotations(animatable, poseStack, ageInTicks, animatable.getOwner().getYRot(), partialTick);
+            System.out.println(animatable.getPointDirection());
+            super.applyRotations(animatable, poseStack, ageInTicks, animatable.getPointDirection(), partialTick);
         }
     }
 

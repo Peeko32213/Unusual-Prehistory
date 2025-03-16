@@ -27,15 +27,15 @@ public class JarateItem extends Item {
             pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), UPSounds.JARATE_SNIPER.get(), SoundSource.NEUTRAL, 0.5F, 1F);
         }
 
-        if (!pLevel.isClientSide) {
-            JarateEntity jar = new JarateEntity(pLevel, pPlayer);
-            jar.setItem(itemstack);
-            jar.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 0.5F, 0.2F);
-            pLevel.addFreshEntity(jar);
-        }
+        JarateEntity jar = new JarateEntity(pLevel, pPlayer);
+        jar.setItem(itemstack);
+        jar.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 0.5F, 0.2F);
+        jar.setPointDirection(pPlayer.getYHeadRot());
+        pLevel.addFreshEntity(jar);
+
 
         pPlayer.awardStat(Stats.ITEM_USED.get(this));
-        if (!pPlayer.getAbilities().instabuild) {
+        if (!pPlayer.isCreative()) {
             itemstack.shrink(1);
         }
 

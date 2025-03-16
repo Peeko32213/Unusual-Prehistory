@@ -15,7 +15,7 @@
 						"vector": [1, "1+Math.cos((query.anim_time-0.2)*360)*0.1", 1]
 					}
 				},
-				"core": {
+				"jar": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 0]

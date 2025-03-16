@@ -30,7 +30,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.List;
 
 public class JarateEntity extends ThrowableItemProjectile implements GeoAnimatable {
-    public int lifetime = 10000;
+    private int lifetime = 10000;
+    private float pointDirection = 0;
     protected Item getDefaultItem() {
         return UPItems.JARATE.get();
     }
@@ -127,6 +128,13 @@ public class JarateEntity extends ThrowableItemProjectile implements GeoAnimatab
     @Override
     public double getTick(Object o) {
         return tickCount;
+    }
+
+    public float getPointDirection() {
+        return this.pointDirection;
+    }
+    public void setPointDirection(float dir) {
+        this.pointDirection = dir;
     }
 
 }

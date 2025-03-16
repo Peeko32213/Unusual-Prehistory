@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.item.projectile;
 
+import com.peeko32213.unusualprehistory.common.entity.projectile.JarateEntity;
 import com.peeko32213.unusualprehistory.common.entity.projectile.RabiesFlaskEntity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -24,15 +25,14 @@ public class RabiesFlaskItem extends Item {
             pPlayer.swing(InteractionHand.MAIN_HAND);
             pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.SPLASH_POTION_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
 
-            if (!pLevel.isClientSide) {
-                RabiesFlaskEntity jar = new RabiesFlaskEntity(pLevel, pPlayer);
-                jar.setItem(itemstack);
-                jar.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 0.5F, 0.2F);
-                pLevel.addFreshEntity(jar);
-            }
+
+            RabiesFlaskEntity jar = new RabiesFlaskEntity(pLevel, pPlayer);
+            jar.setItem(itemstack);
+            jar.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 0.5F, 0.2F);
+            pLevel.addFreshEntity(jar);
 
             pPlayer.awardStat(Stats.ITEM_USED.get(this));
-            if (!pPlayer.getAbilities().instabuild) {
+            if (!pPlayer.isCreative()) {
                 itemstack.shrink(1);
             }
 
