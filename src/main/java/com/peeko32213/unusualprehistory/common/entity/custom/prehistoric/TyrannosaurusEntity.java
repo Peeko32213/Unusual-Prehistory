@@ -75,8 +75,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
 
     private int shakeCooldown = 0;
 
-    private int bladder = 3000;
-
 
     // Movement animations
     private static final RawAnimation TYRANNO_SWIM = RawAnimation.begin().thenLoop("animation.tyrannosaurus.swim");
@@ -254,25 +252,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
             return InteractionResult.SUCCESS;
         }
 
-        if(item == UPItems.FLASK.get() && this.bladder >= 600) {
-            //each jarate harvest consumes 600 piss
-
-            player.getItemInHand(hand).shrink(1);
-            player.addItem(new ItemStack(UPItems.JARATE.get()));
-            //add jarate if the rex is ready to piss
-
-            double anger = Math.random();
-            //between 0 and 1
-            if (anger <= 0.25) {
-                this.setTarget(player);
-                //rex will randomly be pissed off if it had been harvested
-            }
-
-            this.bladder -= 600;
-            //bladder drain
-            return InteractionResult.SUCCESS;
-        }
-
         return InteractionResult.FAIL;
     }
 
@@ -387,11 +366,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
 
     public void tick() {
         super.tick();
-
-        if (this.bladder < 6000) {
-            // a rex can stash a max of 10 jars of jarate inside itself
-            this.bladder += 1;
-        }
 
         if (this.shouldBeEepy()) {
             this.setEepy(true);

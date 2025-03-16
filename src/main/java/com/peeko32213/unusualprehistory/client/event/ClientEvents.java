@@ -292,7 +292,6 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BOAT.get(), ctx -> new UPBoatRenderer(ctx, false));
         event.registerEntityRenderer(UPEntities.CHEST_BOAT.get(), ctx -> new UPBoatRenderer(ctx, true));
         event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
-        event.registerEntityRenderer(UPEntities.JARATE.get(), JarateRenderer::new);
         event.registerEntityRenderer(UPEntities.RABIES_FLASK.get(), RabiesFlaskRenderer::new);
         event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), FlatMovingThrownItemRenderer::new);

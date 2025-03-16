@@ -390,12 +390,10 @@ public class UPItems {
     
     public static final RegistryObject<Item> PSITTACOSAURUS_QUILL = ITEMS.register("psittacosaurus_quill", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> YIXIAN_RAMPAGE_FLASK = ITEMS.register("yixian_rampage_flask", () -> new RabiesFlaskItem((new Item.Properties()).stacksTo(16)));
+    public static final RegistryObject<Item> YIXIAN_RAMPAGE_FLASK = ITEMS.register("yixian_rampage_flask", () -> new RabiesFlaskItem((new Item.Properties()).stacksTo(16), true, false));
     public static final RegistryObject<Item> DORMANT_RAMPAGE_FLASK = ITEMS.register("dormant_rampage_flask", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("jawless_fish_bucket", () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
-
-    public static final RegistryObject<Item> JARATE =  ITEMS.register("jarate", () -> new JarateItem((new Item.Properties()).stacksTo(16)));
 
     public static final RegistryObject<Item> QUILL_REMEDY = ITEMS.register("quill_remedy", () -> new RampageRemedyItem(new Item.Properties()));
 

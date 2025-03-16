@@ -87,7 +87,6 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.PALAEO_SKIN, "Discarded Palaeolophis Skin");
         addItem(UPItems.PSITTACOSAURUS_QUILL, "Psittacosaurus Quill");
         addItem(UPItems.AMBER_IDOL, "Amber Idol");
-        addItem(UPItems.JARATE, "Tyrannosaur Urine");
         addItem(UPItems.YIXIAN_RAMPAGE_FLASK, "Flask of Yixian Rampage");
         addItem(UPItems.DORMANT_RAMPAGE_FLASK, "Flask of Dormant Yixian Rampage");
         addItem(UPItems.QUILL_REMEDY, "Rampage Remedy Quill");
@@ -583,7 +582,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.ICEBERG_SMILODON, "Frozen Smilodon");
         addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
         addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-        addEntityType(UPEntities.JARATE, "Jarate");
 
         // Boats
         addEntityType(UPEntities.BOAT, "Boat");
@@ -1060,7 +1058,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEffect(UPEffects.PREVENT_CLICK, "Debilitating Toxin");
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");
         addEffect(UPEffects.HEALTH_REDUCTION, "Draining Venom");
-        addEffect(UPEffects.PISSED_UPON, "Soaked in Jarate");
         addEffect(UPEffects.YIXIAN_RAMPAGE, "Yixian Rampage");
         addEffect(UPEffects.RABIES_VACCINE, "M-Lyssavirus Vaccine");
 

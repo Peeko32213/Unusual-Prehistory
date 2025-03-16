@@ -15,7 +15,6 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.Prehistori
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.HwachavenatorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.DunkleosteusEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.JarateFindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.common.message.*;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
@@ -186,11 +185,6 @@ public class ServerEvents {
                     //rabid animals only deal quarter damage to each other
                 }
 
-                if (entity.hasEffect(UPEffects.PISSED_UPON.get())) {
-                    //urine increases damage
-                    event.setAmount(event.getAmount() * 1.15F);
-                }
-
                 ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
                 if(!itemStack.hasTag()) return;
                 CompoundTag tag = itemStack.getTag();
@@ -321,21 +315,6 @@ public class ServerEvents {
 
     // Unfinished piss and rabies
 
-    @SubscribeEvent
-    //cant be canceled
-    public void jarateFacilitatorEvent(LivingEvent.LivingTickEvent event) {
-        Entity titty = event.getEntity();
-//
-        if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.PISSED_UPON.get()) && !checkContainPiss(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
-            //has effect but has no piss(add)
-            ((PathfinderMob) titty).goalSelector.addGoal(-1, new JarateFindWaterGoal(((PathfinderMob) titty)));
-        }
-//
-        if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.PISSED_UPON.get()) && checkContainPiss(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
-            //has no effect but has piss(remove)
-            cutPissGoal(((PathfinderMob) titty));
-        }
-    }
 
     @SubscribeEvent
     //cant be canceled
@@ -386,20 +365,6 @@ public class ServerEvents {
         //can remove vaccines so that particles don't shit themselves
     }
 
-    private boolean checkContainPiss(Set<WrappedGoal> availableGoals) {
-        WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
-//
-        for (WrappedGoal wrappedGoal : arring) {
-            if (wrappedGoal.getGoal() instanceof JarateFindWaterGoal) {
-                return true;
-                //has piss goal
-            }
-        }
-//
-        return false;
-        //has no piss goal
-        //remember this check also happens clientside and if that's the case it returns false.
-    }
 //
     private boolean checkContainRabies(Set<WrappedGoal> availableGoals) {
         WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
@@ -414,16 +379,6 @@ public class ServerEvents {
         return false;
         //has no piss goal
         //remember this check also happens clientside and if that's the case it returns false.
-    }
-
-    private void cutPissGoal(PathfinderMob titty) {
-        WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
-//
-        for (WrappedGoal wrappedGoal : arring) {
-            if (wrappedGoal.getGoal() instanceof JarateFindWaterGoal) {
-                titty.goalSelector.removeGoal(wrappedGoal.getGoal());
-            }
-        }
     }
 //
     private void cutRabies(PathfinderMob titty) {

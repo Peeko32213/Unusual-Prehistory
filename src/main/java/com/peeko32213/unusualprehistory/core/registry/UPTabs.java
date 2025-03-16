@@ -190,7 +190,6 @@ public class UPTabs {
                     entries.accept(UPItems.FLASK.get());
                     entries.accept(UPItems.GROG.get());
                     entries.accept(UPItems.CAPTURED_KIMMER_FLASK.get());
-                    entries.accept(UPItems.JARATE.get());
                     entries.accept(UPItems.DORMANT_RAMPAGE_FLASK.get());
                     entries.accept(UPItems.YIXIAN_RAMPAGE_FLASK.get());
 

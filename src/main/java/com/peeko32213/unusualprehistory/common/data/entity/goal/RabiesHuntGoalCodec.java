@@ -2,11 +2,9 @@ package com.peeko32213.unusualprehistory.common.data.entity.goal;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.JarateFindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.core.registry.UPGoalRegistry;
 import com.scouter.goalsmith.data.GoalCodec;
-import com.scouter.goalsmith.data.goalcodec.MoveTowardsRestrictionGoalCodec;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
