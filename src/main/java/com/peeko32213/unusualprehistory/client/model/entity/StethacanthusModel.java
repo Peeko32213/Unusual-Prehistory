@@ -34,19 +34,19 @@ public class StethacanthusModel extends GeoModel<StethacanthusEntity>
     @Override
     public void setCustomAnimations(StethacanthusEntity animatable, long instanceId, AnimationState<StethacanthusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
-        if (animationState == null) return;
-        if (animatable.isFromBook()) return;
+//        if (animationState == null) return;
+//        if (animatable.isFromBook()) return;
 
-        CoreGeoBone backBody = this.getAnimationProcessor().getBone("body");
+//        CoreGeoBone backBody = this.getAnimationProcessor().getBone("body");
         //CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tailfin");
-        EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+//        EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         //CoreGeoBone root = this.getAnimationProcessor().getBone("Body");
         //7
-        backBody.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 2));
+//        backBody.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 2));
         //root.setRotZ(Mth.clamp(Mth.lerp(0.1F, Mth.cos(animatable.yBodyRot * 0.1F) * 0.1F, 1.0F), -15F, 15F));
 
-        backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
+//        backBody.setRotY(backBody.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
         //tailfin.setRotZ(tailfin.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
     }
 }
