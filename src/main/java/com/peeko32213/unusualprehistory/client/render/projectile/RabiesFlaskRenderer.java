@@ -25,9 +25,8 @@ public class RabiesFlaskRenderer extends GeoEntityRenderer<RabiesFlaskEntity> {
 
     @Override
     protected void applyRotations(RabiesFlaskEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
-        float f = 4.3F * Mth.sin(0.6F * ageInTicks);
         if (animatable.getOwner() != null) {
-            super.applyRotations(animatable, poseStack, ageInTicks, animatable.getOwner().getYRot(), partialTick);
+            super.applyRotations(animatable, poseStack, ageInTicks, animatable.getPointDirection(), partialTick);
         }
     }
 

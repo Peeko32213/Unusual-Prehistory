@@ -75,6 +75,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
 
     private int shakeCooldown = 0;
 
+
     // Movement animations
     private static final RawAnimation TYRANNO_SWIM = RawAnimation.begin().thenLoop("animation.tyrannosaurus.swim");
     private static final RawAnimation TYRANNO_CHARGE = RawAnimation.begin().thenLoop("animation.tyrannosaurus.run");
@@ -250,6 +251,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements GeoEntity,
             }
             return InteractionResult.SUCCESS;
         }
+
         return InteractionResult.FAIL;
     }
 

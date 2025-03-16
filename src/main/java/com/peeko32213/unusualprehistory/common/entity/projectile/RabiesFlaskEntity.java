@@ -30,7 +30,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.List;
 
 public class RabiesFlaskEntity extends ThrowableItemProjectile implements GeoAnimatable {
-    public int lifetime = 10000;
+    private int lifetime = 10000;
+    private float pointDirection = 0;
     protected Item getDefaultItem() {
         return UPItems.YIXIAN_RAMPAGE_FLASK.get();
     }
@@ -52,6 +53,11 @@ public class RabiesFlaskEntity extends ThrowableItemProjectile implements GeoAni
 
     public void tick() {
         lifetime --;
+
+
+        if (tickCount == 1 && this.getOwner() != null) {
+            this.setPointDirection(this.getOwner().getYHeadRot());;
+        }
 
         if (lifetime == 0) {
             this.discard();
@@ -124,6 +130,13 @@ public class RabiesFlaskEntity extends ThrowableItemProjectile implements GeoAni
     @Override
     public double getTick(Object o) {
         return tickCount;
+    }
+
+    public float getPointDirection() {
+        return this.pointDirection;
+    }
+    public void setPointDirection(float dir) {
+        this.pointDirection = dir;
     }
 
 }

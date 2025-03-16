@@ -107,7 +107,6 @@ public class ItemModelGenerator extends ItemModelProvider {
         flaskTex(UPItems.CAPTURED_KIMMER_FLASK);
         flaskTex(UPItems.DORMANT_RAMPAGE_FLASK);
         flaskTex(UPItems.YIXIAN_RAMPAGE_FLASK);
-        flaskTex(UPItems.JARATE);
 
         flaskTex(UPItems.ANIMAL_DNA_FLASKS);
         flaskTex(UPItems.PLANT_DNA_FLASKS);
