@@ -52,5 +52,10 @@
      @Override
      public void setCustomAnimations(JawlessFishEntity animatable, long instanceId, AnimationState<JawlessFishEntity> animationState) {
          super.setCustomAnimations(animatable, instanceId, animationState);
+
+         CoreGeoBone core = this.getAnimationProcessor().getBone("root");
+         EntityModelData extraData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+
+         core.setRotX(extraData.headPitch() * (Mth.DEG_TO_RAD));
      }
  }

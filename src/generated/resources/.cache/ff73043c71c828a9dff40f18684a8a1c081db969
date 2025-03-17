@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-13T18:10:09.1461926	unusualprehistory Item Tags
+// 1.20.1	2025-03-16T21:11:53.7117232	unusualprehistory Item Tags
 bc7e0fe2b69718f92222d63f69f3505863ee0fb3 data/minecraft/tags/items/arrows.json
 5c5d8ce6ffd4b0079c585611f9169a81f8bd2c51 data/minecraft/tags/items/buttons.json
 e829c615c93450811737e940255f47c59eab15f1 data/minecraft/tags/items/fishes.json
@@ -33,6 +33,7 @@ eca28e743a302b42edeea770211beb348b28ecf4 data/unusualprehistory/tags/items/analy
 a1bde0b759e1556ddcca3f534588404d57b9c4e3 data/unusualprehistory/tags/items/analyzer_items_output_raw_stetha.json
 37946f9db96ae0d16dfc1187c193e984790fbf12 data/unusualprehistory/tags/items/analyzer_items_output_tar_fossil.json
 4b1f76a42f844547b0522cb40900ee9e00b6758d data/unusualprehistory/tags/items/analyzer_items_output_tree.json
+601842f29ede5ec3edbc19a93d51d11f67f2836d data/unusualprehistory/tags/items/barinasuchus_food.json
 02dfdb41688ccea8169a8d046943461f0aa3c361 data/unusualprehistory/tags/items/cotylorhynchus_fermenting.json
 7aadfe08d35c04f4746f8061765f234b94696782 data/unusualprehistory/tags/items/cotylorhynchus_food.json
 9df032f995c0718458eb9c277fc11fdee7d3d69b data/unusualprehistory/tags/items/dna_flasks.json
@@ -42,7 +43,7 @@ d43aa4f04479d6bd489e878a657b8ae648155653 data/unusualprehistory/tags/items/edaph
 291718131b430f202c603d9f307f34ade8dc2264 data/unusualprehistory/tags/items/filled_flasks.json
 678b5f4dc6ccd09e6f0ab7a1397e054e4160ef3e data/unusualprehistory/tags/items/fossils.json
 00abf03d0837119246c91f18ba93d00885396ca4 data/unusualprehistory/tags/items/foxxi.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/unusualprehistory/tags/items/hwacha_food.json
+601842f29ede5ec3edbc19a93d51d11f67f2836d data/unusualprehistory/tags/items/hwacha_food.json
 47be456ad97366b91300f74739cd8cac544f698d data/unusualprehistory/tags/items/hynerpeton_igniters.json
 9a167887814f36e0277c10df98c76f8299730929 data/unusualprehistory/tags/items/kentro_food.json
 0cfc4c92da27d037007490c029532b51268cb300 data/unusualprehistory/tags/items/majunga_food.json

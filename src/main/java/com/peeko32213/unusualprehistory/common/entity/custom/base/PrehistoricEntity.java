@@ -98,6 +98,17 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         this.newPos = this.position();
         this.velocity = this.newPos.subtract(this.oldPos);
         this.directionlessSpeed = Math.abs(Math.sqrt((velocity.x * velocity.x) + (velocity.z * velocity.z) + (velocity.z * velocity.z)));
+
+        // Make ridden mobs float while being ridden
+        boolean ridden = !this.getPassengers().isEmpty();
+        boolean water = this.isInWater();
+        if(ridden && water) {
+            boolean waterBelow = this.level().isWaterAt(this.blockPosition().below());
+
+            if(waterBelow) {
+                this.move(MoverType.PLAYER, new Vec3(0, 0.08, 0));
+            }
+        }
     }
 
     // Heal on kill

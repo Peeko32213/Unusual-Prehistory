@@ -270,7 +270,7 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> GIGANTO_EGG = registerSpawnEggs("gigantopithecus_spawn_egg", UPEntities.GIGANTOPITHICUS , 0x7c3c23, 0x665f58);
     public static final RegistryObject<ForgeSpawnEggItem> GLOBIDENS_EGG = registerSpawnEggs("globidens_spawn_egg", UPEntities.GLOBIDENS , 0x414f4a, 0xdbe4e1);
     public static final RegistryObject<ForgeSpawnEggItem> GUANLINGSAURUS_EGG = registerSpawnEggs("guanlingsaurus_spawn_egg", UPEntities.GUANLINGSAURUS , 0x4a7f88, 0xeef37a);
-    public static final RegistryObject<ForgeSpawnEggItem> HWACHA_EGG = registerSpawnEggs("hwachavenator_spawn_egg", UPEntities.HWACHA , 0x14191b, 0xf4f435);
+    public static final RegistryObject<ForgeSpawnEggItem> HWACHA_EGG = registerSpawnEggs("hwachavenator_spawn_egg", UPEntities.HWACHA , 0x314940, 0xe6d53c);
     public static final RegistryObject<ForgeSpawnEggItem> HYNERIA_EGG =registerSpawnEggs("hyneria_spawn_egg", UPEntities.HYNERIA , 0x1a2121, 0xbd2e2e);
     public static final RegistryObject<ForgeSpawnEggItem> HYNERPETON_EGG = registerSpawnEggs("hynerpeton_spawn_egg", UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
     public static final RegistryObject<ForgeSpawnEggItem> JAWLESS_FISH_EGG = registerSpawnEggs("jawless_fish_spawn_egg", UPEntities.JAWLESS_FISH , 0x9a32af, 0xe7cd39);

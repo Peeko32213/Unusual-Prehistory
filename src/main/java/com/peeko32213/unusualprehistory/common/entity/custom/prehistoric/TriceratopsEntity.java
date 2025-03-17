@@ -302,10 +302,12 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
-                if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()) {
-                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.4F));
-                } else {
-                    this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F));
+                if(!this.isInSittingPose()) {
+                    if (this.getControllingPassenger().isSprinting()) {
+                        this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.4F));
+                    } else {
+                        this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F));
+                    }
                 }
                 super.travel(new Vec3(f, pos.y, f1));
             } else {

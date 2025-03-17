@@ -111,6 +111,7 @@ public class UPTags {
     public static final TagKey<Item> TRICERATOPS_TAMES = registerItemTag("triceratops_tames");
 
     public static final TagKey<Item> HWACHA_FOOD = registerItemTag("hwacha_food");
+    public static final TagKey<Item> HWACHA_TAMES = registerItemTag("hwacha_food");
 
     public static final TagKey<Item> BARINA_FOOD = registerItemTag("barinasuchus_food");
 

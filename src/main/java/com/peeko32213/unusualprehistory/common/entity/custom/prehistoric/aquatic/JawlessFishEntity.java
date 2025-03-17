@@ -16,8 +16,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -25,28 +23,21 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 
@@ -58,25 +49,68 @@ import java.util.List;
 public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucketable, GeoAnimatable, IBookEntity {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JawlessFishEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(JawlessFishEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JawlessFishEntity.class, EntityDataSerializers.INT);
+
     private static final RawAnimation JAWLESS_FISH_SWIM = RawAnimation.begin().thenLoop("animation.jawless_fish.swim");
     private static final RawAnimation JAWLESS_FISH_FLOP = RawAnimation.begin().thenLoop("animation.jawless_fish.flop");
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
+
+    // Animation control
+    protected <E extends JawlessFishEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if (this.isFromBook()) {
+            return event.setAndContinue(JAWLESS_FISH_SWIM);
+        }
+
+        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+            event.setAndContinue(JAWLESS_FISH_SWIM);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        else if (!this.isInWater()) {
+            event.setAndContinue(JAWLESS_FISH_FLOP);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        return PlayState.CONTINUE;
+    }
+
+    // States
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
+
+    // Actions
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {}
 
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
-        helper.bodyLagMoving = 0.5F;
-        helper.bodyLagStill = 0.3F;
+        helper.bodyLagMoving = 0.4F;
+        helper.bodyLagStill = 0.25F;
         return helper;
     }
 
     public JawlessFishEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
-        this.moveControl = new MoveHelperController(this);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public void travel(@NotNull Vec3 travelVector) {
@@ -87,18 +121,26 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
         return new WaterBoundPathNavigation(this, p_27480_);
     }
 
+    @Override
     public void aiStep() {
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
+        }
         super.aiStep();
     }
 
+    // Attributes
     public static AttributeSupplier.@NotNull Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 2.0);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0);
     }
 
+    // Goals
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 3.0F));
+        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.0, 1, 20, 20, 3));
     }
 
 //    @Override
@@ -150,16 +192,9 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
     }
 
     @Override
-    public void setFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
-    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
         this.entityData.define(FROM_BUCKET, false);
-        this.entityData.define(FROM_BOOK, false);
     }
 
     @Override
@@ -180,23 +215,13 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
         }
     }
 
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
-    }
-
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
         compound.putBoolean("FromBucket", this.fromBucket());
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
         this.setFromBucket(compound.getBoolean("FromBucket"));
     }
 
@@ -210,29 +235,6 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
         this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
 
-    public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK);
-    }
-
-    public void setIsFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.25F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.50F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.75F){
-            this.setVariant(1);
-        }else{
-            this.setVariant(0);
-        }
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
@@ -241,52 +243,19 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
         return jawlessFish;
     }
 
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
-    protected <E extends JawlessFishEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-
-        if (this.isFromBook()) {
-            return event.setAndContinue(JAWLESS_FISH_SWIM);
+    // Variants
+    public void determineVariant(int variantChange){
+        if (variantChange <= 25) {
+            this.setVariant(1);
         }
-
-        if(!this.isFromBook()) {
-            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                event.setAndContinue(JAWLESS_FISH_SWIM);
-                return PlayState.CONTINUE;
-            }
-            if (!this.isInWater()) {
-                event.setAndContinue(JAWLESS_FISH_FLOP);
-                return PlayState.CONTINUE;
-            }
+        else if (variantChange <= 50) {
+            this.setVariant(2);
         }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    @Override
-    public ImmutableMap<String, StateHelper> getStates() {
-        return null;
-    }
-
-    @Override
-    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-        return List.of();
-    }
-
-    @Override
-    public boolean getAction() {
-        return false;
-    }
-
-    @Override
-    public void setAction(boolean action) {
-
+        else if (variantChange <= 75) {
+            this.setVariant(3);
+        }
+        else {
+            this.setVariant(0);
+        }
     }
 }

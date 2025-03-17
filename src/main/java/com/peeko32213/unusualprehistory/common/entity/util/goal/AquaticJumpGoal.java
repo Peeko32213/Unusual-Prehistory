@@ -72,7 +72,7 @@ public class AquaticJumpGoal extends JumpGoal {
     public void start() {
         Direction direction = this.entity.getMotionDirection();
         float scale = (float) 1.2;
-        this.entity.setDeltaMovement(this.entity.getDeltaMovement().add((double)direction.getStepX() * scale, 0.75D, (double)direction.getStepZ() * 0.6D));
+        this.entity.setDeltaMovement(this.entity.getDeltaMovement().add((double)direction.getStepX() * scale, 1.0D, (double)direction.getStepZ() * 0.6D));
         this.entity.getNavigation().stop();
     }
 

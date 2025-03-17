@@ -5,10 +5,6 @@
       "type": "goalsmith:add_goal_operation",
       "goal": [
         {
-          "type": "unusualprehistory:jarate_find_water_goal",
-          "goal_priority": -1
-        },
-        {
           "type": "unusualprehistory:rabies_hunt_goal",
           "goal_priority": -1
         }

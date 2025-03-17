@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.AquaticJumpGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -50,8 +52,7 @@ public class CoronodonEntity extends PrehistoricAquaticEntity {
     // Attack animations
     private static final RawAnimation CORONODON_BITE = RawAnimation.begin().thenLoop("animation.coronodon.bite");
 
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-
+    // Animation control
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
@@ -81,13 +82,15 @@ public class CoronodonEntity extends PrehistoricAquaticEntity {
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
-        helper.bodyLagMoving = 0.35F;
-        helper.bodyLagStill = 0.2F;
+        helper.bodyLagMoving = 0.25F;
+        helper.bodyLagStill = 0.15F;
         return helper;
     }
 
     public CoronodonEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.025F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     // Attributes
@@ -102,7 +105,8 @@ public class CoronodonEntity extends PrehistoricAquaticEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.5, 1, 70, 70, 2));
+        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.6, 1, 40, 40, 2));
+        this.goalSelector.addGoal(4, new AquaticJumpGoal(this, 50));
     }
 
     @Override
@@ -139,12 +143,7 @@ public class CoronodonEntity extends PrehistoricAquaticEntity {
 
     @Override
     protected int getKillHealAmount() {
-        return 0;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
+        return 4;
     }
 
     @Override
