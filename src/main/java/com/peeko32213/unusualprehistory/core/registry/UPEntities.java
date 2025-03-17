@@ -285,7 +285,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "mammoth").toString()));
 
     public static final RegistryObject<EntityType<MegalamprisEntity>> MEGALAMPRIS = ENTITIES.register("megalampris",
-            () -> EntityType.Builder.of(MegalamprisEntity::new, MobCategory.WATER_CREATURE).sized(2.0f, 2.65f)
+            () -> EntityType.Builder.of(MegalamprisEntity::new, MobCategory.WATER_CREATURE).sized(2.0f, 2.25f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "megalampris").toString()));
 
     public static final RegistryObject<EntityType<MegalaniaEntity>> MEGALANIA = registerPrehistoricCreatureWithEgg("megalania",

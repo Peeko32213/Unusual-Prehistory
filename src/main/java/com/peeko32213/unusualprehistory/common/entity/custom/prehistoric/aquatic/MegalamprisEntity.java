@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.server.level.ServerLevel;
@@ -19,7 +20,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -102,22 +102,26 @@ public class MegalamprisEntity extends PrehistoricAquaticEntity {
     public MegalamprisEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 4, 0.01F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     // Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 30D)
-                .add(Attributes.MOVEMENT_SPEED, 1.1D);
+            .add(Attributes.MAX_HEALTH, 20D)
+            .add(Attributes.MOVEMENT_SPEED, 1D);
     }
 
     // Goals
     protected void registerGoals() {
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 0.75, 1, 20, 20, 3));
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return this.isInWater();
     }
 
     @Nullable
@@ -150,16 +154,12 @@ public class MegalamprisEntity extends PrehistoricAquaticEntity {
     @Override
     public void aiStep() {
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
+            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.25F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
             this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }
         super.aiStep();
-    }
-
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
-        return 1.75F;
     }
 
     // Sounds

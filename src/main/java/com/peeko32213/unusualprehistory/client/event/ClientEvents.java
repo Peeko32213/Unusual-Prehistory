@@ -268,7 +268,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.CORONODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new CoronodonModel()));
         event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e -> new PrehistoricRenderer<>(e, new GigantopithicusModel()));
         event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e -> new PrehistoricRenderer<>(e, new MammothModel()));
-        event.registerEntityRenderer(UPEntities.MEGALAMPRIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new MegalamprisModel()));
+        event.registerEntityRenderer(UPEntities.MEGALAMPRIS.get(), e -> new StatedPrehistoricRenderer<>(e, new MegalamprisModel()));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new PrehistoricRenderer<>(e, new MegalaniaModel()));
         event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new MegatheriumModel()).withLayers(MEGATHERIUM_MODEL).withSaddleLayer(MEGATHERIUM_SADDLE_OVERLAY).build());
         event.registerEntityRenderer(UPEntities.OPHIODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OphiodonModel()));
