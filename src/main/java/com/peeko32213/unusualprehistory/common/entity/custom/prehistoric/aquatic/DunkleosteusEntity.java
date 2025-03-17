@@ -29,6 +29,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -81,16 +82,15 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
-        helper.bodyLagMoving = 0.3F;
+        helper.bodyLagMoving = 0.25F;
         helper.bodyLagStill = 0.18F;
         return helper;
     }
 
     public DunkleosteusEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
-        this.moveControl = new MoveHelperController(this);
+        this.lookControl = new SmoothSwimmingLookControl(this, 6);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 4, 0.02F, 0.1F, true);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

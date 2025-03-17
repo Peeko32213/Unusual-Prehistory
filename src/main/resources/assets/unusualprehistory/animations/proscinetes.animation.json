@@ -39,7 +39,7 @@
 					"rotation": [0, "Math.clamp(Math.cos((query.anim_time+0.1)*360)*40, 0, 100)+Math.clamp(Math.cos((query.anim_time+0.8)*360)*-30, -100, 0)", 0]
 				},
 				"pecright": {
-					"rotation": [0, "-50++Math.clamp(Math.cos((query.anim_time+0.2)*360)*-40, -100, 0)+Math.clamp(Math.cos((query.anim_time+0.8)*360)*30, 0, 100)", 0]
+					"rotation": [0, "-50+Math.clamp(Math.cos((query.anim_time+0.2)*360)*-40, -100, 0)+Math.clamp(Math.cos((query.anim_time+0.8)*360)*30, 0, 100)", 0]
 				},
 				"rightpelvic": {
 					"rotation": [0, "-15+Math.clamp(Math.cos((query.anim_time+0.2)*360)*-40, -100, 0)+Math.clamp(Math.cos((query.anim_time+0.8)*360)*13, 0, 100)", 0]

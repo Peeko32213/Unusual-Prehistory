@@ -1,46 +1,6 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"pose": {
-			"loop": true,
-			"bones": {
-				"core": {
-					"rotation": {
-						"vector": [10, 22.5, 0]
-					}
-				},
-				"pecright": {
-					"rotation": {
-						"vector": [0, 0, -42.5]
-					}
-				},
-				"tail": {
-					"rotation": {
-						"vector": [7.98205, -23.7695, -19.18246]
-					}
-				},
-				"tailfin": {
-					"rotation": {
-						"vector": [0, -30, 0]
-					}
-				},
-				"rightpel": {
-					"rotation": {
-						"vector": [37.5, 0, 20]
-					}
-				},
-				"pecleft": {
-					"rotation": {
-						"vector": [0, 0, 35]
-					}
-				},
-				"leftpel": {
-					"rotation": {
-						"vector": [47.5, 0, -12.5]
-					}
-				}
-			}
-		},
 		"animation.megalampris.swim": {
 			"loop": true,
 			"animation_length": 4,
@@ -62,7 +22,11 @@
 				},
 				"tail": {
 					"rotation": {
-						"vector": ["Math.cos((query.anim_time-0.4)*90)*-5", "(Math.cos((query.anim_time-0.4)*180)*-10)+(((query.yaw_speed+2*math.pi)/(2*math.pi+2*math.pi))*(0.001+0.001)-0.001)", "Math.cos((query.anim_time-0.3)*180)*-10"]
+						"vector": [
+							"Math.cos((query.anim_time-0.4)*90)*-5",
+							"(Math.cos((query.anim_time-0.4)*180)*-10)+(((query.yaw_speed+2*math.pi)/(2*math.pi+2*math.pi))*(0.001+0.001)-0.001)",
+							"Math.cos((query.anim_time-0.3)*180)*-10"
+						]
 					}
 				},
 				"tailfin": {

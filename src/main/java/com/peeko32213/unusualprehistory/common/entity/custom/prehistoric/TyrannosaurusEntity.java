@@ -252,50 +252,43 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
             return event.setAndContinue(TYRANNO_IDLE);
         }
 
+        if (this.hasEepy()) {
+            event.setAndContinue(TYRANNO_EEPY);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        if(!this.hasEepy()) {
+
         int animState = this.getAnimationState(); {
 
             switch (animState) {
 
                 case 1:
-                    if (!this.hasEepy()) {
-                        event.setAndContinue(TYRANNO_TACKLE);
-                        event.getController().setAnimationSpeed(0.85F);
-                        break;
-                    }
+                    event.setAndContinue(TYRANNO_TACKLE);
+                    event.getController().setAnimationSpeed(0.85F);
+                    break;
                 case 2:
-                    if (!this.hasEepy()) {
-                        event.setAndContinue(TYRANNO_WHIP);
-                        event.getController().setAnimationSpeed(1.0F);
-                        break;
-                    }
+                    event.setAndContinue(TYRANNO_WHIP);
+                    event.getController().setAnimationSpeed(1.0F);
+                    break;
                 case 3:
-                    if (!this.hasEepy()) {
-                        event.setAndContinue(TYRANNO_STOMP_L);
-                        event.getController().setAnimationSpeed(1.35F);
-                        break;
-                    }
+                    event.setAndContinue(TYRANNO_STOMP_L);
+                    event.getController().setAnimationSpeed(1.35F);
+                    break;
                 case 4:
-                    if (!this.hasEepy()) {
-                        event.setAndContinue(TYRANNO_STOMP_R);
-                        event.getController().setAnimationSpeed(1.35F);
-                        break;
-                    }
+                    event.setAndContinue(TYRANNO_STOMP_R);
+                    event.getController().setAnimationSpeed(1.35F);
+                    break;
 
                 default:
 
-                    if (this.hasEepy()) {
-                        event.setAndContinue(TYRANNO_EEPY);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-
-                    if (this.isInWater() && !this.hasEepy()  ) {
+                    if (this.isInWater()) {
                         event.setAndContinue(TYRANNO_SWIM);
                         event.getController().setAnimationSpeed(1.0F);
                         return PlayState.CONTINUE;
                     }
-
-                    else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasEepy()) {
+                    else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
                         if (this.isSprinting() && !this.isBaby()) {
                             event.setAndContinue(TYRANNO_CHARGE);
                         } else {
@@ -305,13 +298,12 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
                         return PlayState.CONTINUE;
                     }
 
-                    if (!this.isInWater() && !this.hasEepy()) {
+                    if (!this.isInWater()) {
                         if (getBooleanState(IDLE_1_AC)) {
                             if (this.isStillEnough()) {
                                 triggerAnim("blend", "shake");
                                 return event.setAndContinue(TYRANNO_IDLE);
-                            }
-                            else {
+                            } else {
                                 triggerAnim("blend", "shake");
                                 return PlayState.CONTINUE;
                             }
@@ -320,8 +312,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
                             if (this.isStillEnough()) {
                                 triggerAnim("blend", "sniff");
                                 return event.setAndContinue(TYRANNO_IDLE);
-                            }
-                            else {
+                            } else {
                                 triggerAnim("blend", "sniff");
                                 return PlayState.CONTINUE;
                             }
@@ -330,8 +321,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
                             if (this.isStillEnough()) {
                                 triggerAnim("blend", "roar");
                                 return event.setAndContinue(TYRANNO_IDLE);
-                            }
-                            else {
+                            } else {
                                 triggerAnim("blend", "roar");
                                 return PlayState.CONTINUE;
                             }
@@ -341,6 +331,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
                         }
                         return event.setAndContinue(TYRANNO_IDLE);
                     }
+                }
             }
         }
         return PlayState.CONTINUE;
