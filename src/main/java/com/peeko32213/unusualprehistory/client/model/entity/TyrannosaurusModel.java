@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.client.model.entity;
 
+import com.peeko32213.unusualprehistory.MathHelpers;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -36,8 +37,8 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
     }
 
     @Override
-    public void setCustomAnimations(TyrannosaurusEntity animatable, long instanceId, AnimationState<TyrannosaurusEntity> animationState) {
-        super.setCustomAnimations(animatable, instanceId, animationState);
+    public void setCustomAnimations(TyrannosaurusEntity entity, long instanceId, AnimationState<TyrannosaurusEntity> animationState) {
+        super.setCustomAnimations(entity, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
@@ -45,9 +46,9 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
 
         CoreGeoBone eyes = this.getAnimationProcessor().getBone("eepy");
 
-        eyes.setHidden(!animatable.hasEepy());
+        eyes.setHidden(!entity.hasEepy());
 
-        if (animatable.isBaby()) {
+        if (entity.isBaby()) {
             head.setScaleX(1.5F);
             head.setScaleY(1.5F);
             head.setScaleZ(1.5F);
@@ -57,9 +58,33 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
             head.setScaleZ(1.0F);
         }
 
-        if (!animatable.isSprinting()) {
+        if (!entity.isSprinting()) {
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
+
+        CoreGeoBone tail = this.getAnimationProcessor().getBone("tail1_overlay");
+        CoreGeoBone tail2 = this.getAnimationProcessor().getBone("tail2_overlay");
+
+
+        tail.setRotY((float) (Mth.PI + (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.01))));
+        tail2.setRotY((float) (Mth.PI + (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.01))));
+        entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.01);
+        entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.01);
+        //this runs BETWEEN TICKS
+        //0.25 means it interpolates to a quarter of the way to the target
+        //setRotY takes RADIANS
+
+        //No deg to rad because the arccos function used to return the angle
+        //gotta set up UNIQUE NODES FOR EACH BONE
+
+        tail.setRotX((float) (-MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.01)));
+        tail2.setRotX((float) (-MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01)));
+        entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.currentTail1Pitch, 0.01);
+        entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01);
+
+        //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
+
+
     }
 }
 

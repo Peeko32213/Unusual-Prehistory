@@ -166,8 +166,6 @@ public class MathHelpers {
             return value;
         }
 
-        //System.out.println(value % rangeZero);
-
         return (value % rangeZero);
     }
 

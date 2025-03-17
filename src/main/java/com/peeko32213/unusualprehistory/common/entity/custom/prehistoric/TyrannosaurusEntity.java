@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.MathHelpers;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
@@ -13,6 +14,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroun
 import com.peeko32213.unusualprehistory.core.registry.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -60,6 +62,56 @@ import java.util.List;
 import java.util.Objects;
 
 public class TyrannosaurusEntity extends PrehistoricEntity {
+
+    //START of necessary IK shit
+
+    public double prevYHeadRot;
+    public double deltaYHeadRot;
+
+    public Vec3 rightRefPoint;
+    public Vec3 rightRefOffset = new Vec3(1, 0, 0);
+
+    public Vec3 leftRefPoint;
+    public Vec3 leftRefOffset = new Vec3(-1, 0, 0);
+
+    public Vec3 upRefPoint;
+    public Vec3 upRefOffset = new Vec3(0, -1, 0);
+
+    public Vec3 downRefPoint;
+    public Vec3 downRefOffset = new Vec3(0, 1, 0);
+
+    public Vec3 nosePoint;
+    public Vec3 tail0Point;
+    public Vec3 tail1Point;
+    public Vec3 tail2Point;
+    public Vec3 tail3Point;
+
+    //Offset to the points relative to their parent point
+    public Vec3 noseOffset = new Vec3(0.0, 0.0, -1);
+    public Vec3 tail0Offset = new Vec3(0.0, 0.0, 1);
+    public Vec3 tail1Offset = new Vec3(0.0, 0.0, 1);
+    //technically the second segment's bone position offset, but affects the segment before it
+    public Vec3 tail2Offset = new Vec3(0.0, 0.0, 1);
+    public Vec3 tail3Offset = new Vec3(0.0, 0.0, 1);
+
+//x = side to side offset
+//y = vert offset
+//z = fore to back offset(pos is back)
+
+    public double bodyPitch = 0;
+    public double currentBodyPitch = 0;
+
+    public double tail1Yaw;
+    public double tail2Yaw;
+    public double currentTail1Yaw = Mth.PI;
+    public double currentTail2Yaw = Mth.PI;
+
+    //Yaw starts at pi
+    public double currentTail1Pitch = 0;
+    public double currentTail2Pitch = 0;
+    public double tail1Pitch;
+    public double tail2Pitch;
+    //END of necessary IK shit
 
     private static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -253,12 +305,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
                         return PlayState.CONTINUE;
                     }
 
-                    if (!this.isInWater() && !this.hasEepy() && !getBooleanState(IDLE_1_AC) && !getBooleanState(IDLE_2_AC) && !getBooleanState(IDLE_3_AC) && !getBooleanState(IDLE_4_AC)) {
-                        event.setAndContinue(TYRANNO_SLEEP);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-
                     if (!this.isInWater() && !this.hasEepy()) {
                         if (getBooleanState(IDLE_1_AC)) {
                             if (this.isStillEnough()) {
@@ -317,6 +363,20 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
     public TyrannosaurusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
+        prevYHeadRot = 0;
+        deltaYHeadRot = 0;
+
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
+
+        nosePoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(noseOffset), (double) -this.getYRot());
+        tail0Point = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(tail0Offset), (double) -this.getYRot());
+        tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
+        tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
+        tail3Point = MathHelpers.rotateAroundCenterFlatDeg(tail2Point, tail2Point.subtract(tail3Offset), (double) -this.getYRot());
+
     }
 
     // Attributes
@@ -484,6 +544,49 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
             }
         }
         shakeCooldown--;
+
+
+        if (!this.hasEepy()) {
+            //START of IK
+            //the entity rotations must be negativized because we want the points to be transformed relative to the entity
+
+            tail1Yaw = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail1Point, this.tail0Point, this.tail2Point, this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
+            tail2Yaw = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail2Point, this.tail1Point, this.tail3Point, this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
+
+            bodyPitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.nosePoint, this.position(), this.tail0Point)));
+
+            tail1Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point)));
+            tail2Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail0Point, this.tail1Point, this.tail2Point)));
+
+            nosePoint = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(noseOffset), -this.getYHeadRot(), -this.getXRot());
+            tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYHeadRot(), -this.getXRot());
+            tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), (float) (-MathHelpers.angleTo(tail0Point, tail1Point).y - deltaYHeadRot*Mth.DEG_TO_RAD), -MathHelpers.angleTo(tail0Point, tail1Point).x);
+            tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), (float) (-MathHelpers.angleTo(tail1Point, tail2Point).y), -MathHelpers.angleTo(tail1Point, tail2Point).x);
+            tail3Point = MathHelpers.rotateAroundCenter3dDeg(tail2Point, tail2Point.subtract(tail3Offset), (float) (-MathHelpers.angleTo(tail2Point, tail3Point).y), -MathHelpers.angleTo(tail2Point, tail3Point).x);
+
+            deltaYHeadRot = prevYHeadRot-this.getYHeadRot();
+            prevYHeadRot = this.getYHeadRot();
+            //this value is in degrees
+
+            if (!this.level().isClientSide()) {
+                ServerLevel llel = (ServerLevel) this.level();
+                llel.sendParticles(ParticleTypes.BUBBLE, (nosePoint.x), (nosePoint.y), (nosePoint.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, (this.getX()), (this.getY()), (this.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.BUBBLE, (tail0Point.x), (tail0Point.y), (tail0Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.BUBBLE, (tail1Point.x), (tail1Point.y), (tail1Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.BUBBLE, (tail2Point.x), (tail2Point.y), (tail2Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.BUBBLE, (tail3Point.x), (tail3Point.y), (tail3Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            }
+
+            leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
+            rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
+            upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
+            downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
+
+
+            //side refs don't move vertically
+           //END of IK
+        }
     }
 
     // Sprinting
