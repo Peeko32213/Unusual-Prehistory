@@ -116,7 +116,7 @@ public class MegalamprisEntity extends PrehistoricAquaticEntity {
     // Goals
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 0.75, 1, 20, 20, 3));
+        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 0.75, 1, 40, 40, 2));
     }
 
     @Override
@@ -154,7 +154,7 @@ public class MegalamprisEntity extends PrehistoricAquaticEntity {
     @Override
     public void aiStep() {
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.25F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
+            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
             this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
