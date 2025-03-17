@@ -39,15 +39,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -60,11 +57,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
     private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.75F, 0.6F);
     private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(1.2F, 1.1F);
     private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(2.2F, 2.1F);
-
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.BOOLEAN);
-
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     // Movement animations
     private static final RawAnimation DUNK_SWIM = RawAnimation.begin().thenLoop("animation.dunkleosteus.swim");
@@ -192,8 +184,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DUNK_SIZE, 0);
-        this.entityData.define(ANIMATION_STATE, 0);
-        this.entityData.define(FROM_BOOK, false);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -298,15 +288,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
         return PlayState.CONTINUE;
     }
 
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
     @Override
     public void customServerAiStep() {
         if (this.getMoveControl().hasWanted() && !this.isBaby()) {
@@ -363,26 +344,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
             this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.5F, this.mob.getVoicePitch());
             HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.1f, mob, pos,  1.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false, false);
         }
-    }
-
-    public int getAnimationState() {
-        return this.entityData.get(ANIMATION_STATE);
-    }
-
-    public void setAnimationState(int anim) {
-        this.entityData.set(ANIMATION_STATE, anim);
-    }
-
-    public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK);
-    }
-    public void setIsFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
-    @Override
-    public void setFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
     }
 
     public void killed() {
