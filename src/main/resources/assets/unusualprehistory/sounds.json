@@ -730,33 +730,41 @@
     "subtitle": "unusualprehistory.sound.subtitle.austro_preen"
   },
 
-  "hwacha_death": {
+  "hwachavenator_death": {
     "sounds": [
-        "unusualprehistory:entity/hwacha/hwacha_death_0",
-        "unusualprehistory:entity/hwacha/hwacha_death_1"
+        "unusualprehistory:entity/hwachavenator/hwachavenator_death_0",
+        "unusualprehistory:entity/hwachavenator/hwachavenator_death_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.hwacha_death"
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_death"
   },
-  "hwacha_hurt": {
+  "hwachavenator_hurt": {
     "sounds": [
-        "unusualprehistory:entity/hwacha/hwacha_hurt_0",
-        "unusualprehistory:entity/hwacha/hwacha_hurt_1"
+        "unusualprehistory:entity/hwachavenator/hwachavenator_hurt_0",
+        "unusualprehistory:entity/hwachavenator/hwachavenator_hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.hwacha_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_hurt"
   },
-  "hwacha_idle": {
+  "hwachavenator_idle": {
     "sounds": [
-        "unusualprehistory:entity/hwacha/hwacha_idle_0",
-        "unusualprehistory:entity/hwacha/hwacha_idle_1"
+        "unusualprehistory:entity/hwachavenator/hwachavenator_idle_0",
+        "unusualprehistory:entity/hwachavenator/hwachavenator_idle_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.hwacha_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_idle"
   },
-  "hwacha_shoot": {
+  "hwachavenator_roar": {
     "sounds": [
-        "unusualprehistory:entity/hwacha/hwacha_shoot_0",
-        "unusualprehistory:entity/hwacha/hwacha_shoot_1"
+      "unusualprehistory:entity/hwachavenator/hwachavenator_roar_0",
+      "unusualprehistory:entity/hwachavenator/hwachavenator_roar_1",
+      "unusualprehistory:entity/hwachavenator/hwachavenator_roar_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.hwacha_shoot"
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_roar"
+  },
+  "hwachavenator_shoot": {
+    "sounds": [
+        "unusualprehistory:entity/hwachavenator/hwachavenator_shoot_0",
+        "unusualprehistory:entity/hwachavenator/hwachavenator_shoot_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_shoot"
   },
 
   "kentro_death": {

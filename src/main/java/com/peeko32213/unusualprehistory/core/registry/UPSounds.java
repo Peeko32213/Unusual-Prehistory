@@ -132,10 +132,11 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> AUSTRO_IDLE = createSoundEvent("austro_idle");
     public static final RegistryObject<SoundEvent> AUSTRO_PREEN = createSoundEvent("austro_preen");
 
-    public static final RegistryObject<SoundEvent> HWACHA_DEATH = createSoundEvent("hwacha_death");
-    public static final RegistryObject<SoundEvent> HWACHA_HURT = createSoundEvent("hwacha_hurt");
-    public static final RegistryObject<SoundEvent> HWACHA_IDLE = createSoundEvent("hwacha_idle");
-    public static final RegistryObject<SoundEvent> HWACHA_SHOOT = createSoundEvent("hwacha_shoot");
+    public static final RegistryObject<SoundEvent> HWACHA_DEATH = createSoundEvent("hwachavenator_death");
+    public static final RegistryObject<SoundEvent> HWACHA_HURT = createSoundEvent("hwachavenator_hurt");
+    public static final RegistryObject<SoundEvent> HWACHA_IDLE = createSoundEvent("hwachavenator_idle");
+    public static final RegistryObject<SoundEvent> HWACHA_ROAR = createSoundEvent("hwachavenator_roar");
+    public static final RegistryObject<SoundEvent> HWACHA_SHOOT = createSoundEvent("hwachavenator_shoot");
 
     public static final RegistryObject<SoundEvent> KENTRO_DEATH = createSoundEvent("kentro_death");
     public static final RegistryObject<SoundEvent> KENTRO_HURT = createSoundEvent("kentro_hurt");

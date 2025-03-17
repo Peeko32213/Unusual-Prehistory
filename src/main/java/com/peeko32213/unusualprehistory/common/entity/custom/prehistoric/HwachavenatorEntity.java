@@ -1,13 +1,18 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.projectile.HwachavenatorSpikeEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.ChatFormatting;
@@ -23,7 +28,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,10 +35,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
@@ -59,46 +65,245 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements RangedAttackMob, ICustomFollower, IAttackEntity {
+public class HwachavenatorEntity extends PrehistoricEntity implements RangedAttackMob, ICustomFollower, IAttackEntity {
+
     private static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
 
     public static final Logger LOGGER = LogManager.getLogger();
     public float shootProgress;
-    public float sitProgress;
     public int soundTimer = 0;
     private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private static final RawAnimation HWACHA_WALK = RawAnimation.begin().thenLoop("animation.hwacha.walk");
-    private static final RawAnimation HWACHA_IDLE = RawAnimation.begin().thenLoop("animation.hwacha.idle");
-    private static final RawAnimation HWACHA_SPRINT = RawAnimation.begin().thenLoop("animation.hwacha.sprinting");
-    private static final RawAnimation HWACHA_SIT = RawAnimation.begin().thenLoop("animation.hwacha.sitting");
-    private static final RawAnimation HWACHA_TURRET_FIRE = RawAnimation.begin().thenLoop("animation.hwacha.turret_firing");
-    private static final RawAnimation HWACHA_SWIM = RawAnimation.begin().thenLoop("animation.hwacha.swim");
 
-    public HwachavenatorEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
-        super(entityType, level);
+    // Movement animations
+    private static final RawAnimation HWACHA_WALK = RawAnimation.begin().thenLoop("animation.hwachavenator.walk");
+    private static final RawAnimation HWACHA_SPRINT = RawAnimation.begin().thenLoop("animation.hwachavenator.run");
+    private static final RawAnimation HWACHA_SWIM = RawAnimation.begin().thenLoop("animation.hwachavenator.swim");
+
+    // Idle animations
+    private static final RawAnimation HWACHA_IDLE = RawAnimation.begin().thenLoop("animation.hwachavenator.idle");
+    private static final RawAnimation HWACHA_SIT = RawAnimation.begin().thenLoop("animation.hwachavenator.sit");
+    private static final RawAnimation HWACHA_SLEEP = RawAnimation.begin().thenLoop("animation.hwachavenator.sleep");
+    private static final RawAnimation HWACHA_ROAR = RawAnimation.begin().thenPlay("animation.hwachavenator.roar");
+    private static final RawAnimation HWACHA_YAWN = RawAnimation.begin().thenPlay("animation.hwachavenator.yawn");
+    private static final RawAnimation HWACHA_LOOKOUT = RawAnimation.begin().thenPlay("animation.hwachavenator.lookout");
+
+    // Attack animations
+    private static final RawAnimation HWACHA_TURRET_FIRE = RawAnimation.begin().thenLoop("animation.hwachavenator.shake_attack");
+    private static final RawAnimation HWACHA_BITE_1 = RawAnimation.begin().thenPlay("animation.hwachavenator.bite_1");
+    private static final RawAnimation HWACHA_BITE_2 = RawAnimation.begin().thenPlay("animation.hwachavenator.bite_2");
+
+    // Misc animations
+    private static final RawAnimation HWACHA_EAT = RawAnimation.begin().thenPlay("animation.hwachavenator.eat");
+
+    // Idle accessors
+    private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Idle actions
+    private static final EntityAction HWACHA_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper HWACHA_IDLE_1_STATE =
+            StateHelper.Builder.state(IDLE_1_AC, "hwachavenator_roar")
+                    .playTime(60)
+                    .stopTime(180)
+                    .entityAction(HWACHA_IDLE_1_ACTION)
+                    .build();
+
+    private static final EntityAction HWACHA_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper HWACHA_IDLE_2_STATE =
+            StateHelper.Builder.state(IDLE_2_AC, "hwachavenator_yawn")
+                    .playTime(100)
+                    .stopTime(200)
+                    .entityAction(HWACHA_IDLE_2_ACTION)
+                    .build();
+
+    private static final EntityAction HWACHA_IDLE_3_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper HWACHA_IDLE_3_STATE =
+            StateHelper.Builder.state(IDLE_3_AC, "hwachavenator_lookout")
+                    .playTime(60)
+                    .stopTime(150)
+                    .entityAction(HWACHA_IDLE_3_ACTION)
+                    .build();
+
+    // States
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return ImmutableMap.of(
+                HWACHA_IDLE_1_STATE.getName(), HWACHA_IDLE_1_STATE,
+                HWACHA_IDLE_2_STATE.getName(), HWACHA_IDLE_2_STATE,
+                HWACHA_IDLE_3_STATE.getName(), HWACHA_IDLE_3_STATE
+        );
     }
 
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return ImmutableList.of(
+                WeightedState.of(HWACHA_IDLE_1_STATE, 9),
+                WeightedState.of(HWACHA_IDLE_2_STATE, 10),
+                WeightedState.of(HWACHA_IDLE_3_STATE, 11)
+        );
+    }
+
+    // Actions
+    @Override
+    public boolean getAction() {
+        return false;
+    }
+
+    @Override
+    public void setAction(boolean action) {}
+
+    // Animation sounds
+    private void soundListener(SoundKeyframeEvent<HwachavenatorEntity> event) {
+        HwachavenatorEntity hwacha = event.getAnimatable();
+        if (event.getKeyframeData().getSound().equals("hwacha_roar")) {
+            hwacha.level().playLocalSound(hwacha.getX(), hwacha.getY(), hwacha.getZ(), UPSounds.HWACHA_ROAR.get(), hwacha.getSoundSource(), 1.5F, hwacha.getVoicePitch(), false);
+        }
+    }
+
+    // Animation control
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<HwachavenatorEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<HwachavenatorEntity> blend = new AnimationController<>(this, "blend", 10, this::predicate)
+                .triggerableAnim("roar", HWACHA_ROAR)
+                .triggerableAnim("yawn", HWACHA_YAWN)
+                .triggerableAnim("lookout", HWACHA_LOOKOUT)
+                .triggerableAnim("bite_1", HWACHA_BITE_1)
+                .triggerableAnim("bite_2", HWACHA_BITE_2);
+        blend.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(blend);
+    }
+
+    protected <E extends HwachavenatorEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if(this.isFromBook()){
+            return event.setAndContinue(HWACHA_IDLE);
+        }
+
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasControllingPassenger() && !this.isInSittingPose()){
+            if(this.isSprinting() && !this.isBaby()) {
+                event.setAndContinue(HWACHA_SPRINT);
+                event.getController().setAnimationSpeed(1.0F);
+            } else {
+                event.setAndContinue(HWACHA_WALK);
+                event.getController().setAnimationSpeed(1.0F);
+            }
+            return PlayState.CONTINUE;
+        }
+
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && this.hasControllingPassenger() && !this.isInSittingPose()){
+
+            if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()){
+                event.setAndContinue(HWACHA_SPRINT);
+                event.getController().setAnimationSpeed(1.15F);
+            }
+            else {
+                event.setAndContinue(HWACHA_WALK);
+                event.getController().setAnimationSpeed(1.5F);
+            }
+            return PlayState.CONTINUE;
+        }
+
+        if (isShooting() && !this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
+            event.setAndContinue(HWACHA_TURRET_FIRE);
+            return PlayState.CONTINUE;
+        }
+
+        if (this.isInSittingPose() && !isShooting()) {
+            event.setAndContinue(HWACHA_SIT);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        if (this.isInWater()  && !isShooting() && !this.isInSittingPose()) {
+            event.setAndContinue(HWACHA_SWIM);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        if(!this.isInWater()) {
+            if (getBooleanState(IDLE_1_AC)) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "roar");
+                    return event.setAndContinue(HWACHA_IDLE);
+                }
+                else {
+                    triggerAnim("blend", "roar");
+                    return PlayState.CONTINUE;
+                }
+            }
+            if (getBooleanState(IDLE_2_AC)) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "yawn");
+                    return event.setAndContinue(HWACHA_IDLE);
+                }
+                else {
+                    triggerAnim("blend", "yawn");
+                    return PlayState.CONTINUE;
+                }
+            }
+            if (getBooleanState(IDLE_3_AC)) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "lookout");
+                    return event.setAndContinue(HWACHA_IDLE);
+                }
+                else {
+                    triggerAnim("blend", "lookout");
+                    return PlayState.CONTINUE;
+                }
+            }
+            return event.setAndContinue(HWACHA_IDLE);
+        }
+        return PlayState.CONTINUE;
+    }
+
+    // Body control / navigation
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.35F;
+        helper.bodyLagStill = 0.1F;
+        return helper;
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
+    public HwachavenatorEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
+        super(entityType, level);
+        this.setMaxUpStep(1.25F);
+    }
+
+    // Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 80D)
-                .add(Attributes.FOLLOW_RANGE, 16D)
-                .add(Attributes.ARMOR, 5.0D)
-                .add(Attributes.ATTACK_DAMAGE, 2.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.3D)
-                .add(Attributes.MOVEMENT_SPEED, 0.17F);
-
+            .add(Attributes.MAX_HEALTH, 50D)
+            .add(Attributes.FOLLOW_RANGE, 16D)
+            .add(Attributes.ARMOR, 5D)
+            .add(Attributes.ATTACK_DAMAGE, 6D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D)
+            .add(Attributes.MOVEMENT_SPEED, 0.17D);
     }
 
+    // Goals
     protected void registerGoals() {
         super.registerGoals();
         if(!this.hasControllingPassenger()) {
@@ -106,41 +311,40 @@ public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements 
         }
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1, 30));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new CustomRideGoal(this, 3D));
         this.goalSelector.addGoal(4, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(4, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
+        this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(5, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(5, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(5, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(6, new OwnerHurtTargetGoal(this));
     }
 
+    // Synched data
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(IDLE_1_AC, false);
+        this.entityData.define(IDLE_2_AC, false);
+        this.entityData.define(IDLE_3_AC, false);
         this.entityData.define(SHOOTING, false);
-        this.entityData.define(COMMAND, 0);
-        this.entityData.define(SADDLED, Boolean.valueOf(false));
     }
 
-
+    // Save data
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("isShooting", this.isShooting());
-        pCompound.putBoolean("Saddle", this.isSaddled());
-        pCompound.putInt("HwachaCommand", this.getCommand());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setIsShooting(pCompound.getBoolean("isShooting"));
-        this.setSaddled(pCompound.getBoolean("Saddle"));
-        this.setCommand(pCompound.getInt("HwachaCommand"));
     }
 
-    @javax.annotation.Nullable
+    // Passenger
+    @Nullable
     public LivingEntity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {
             if (passenger instanceof Player) {
@@ -163,14 +367,10 @@ public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements 
     }
 
     public double getPassengersRidingOffset() {
-        if (this.isInWater()) {
-            return -0.5;
-        }
-        else {
-            return 2.0D;
-        }
+        return 2.0D;
     }
 
+    // Sounds
     protected SoundEvent getAmbientSound() {
         return UPSounds.HWACHA_IDLE.get();
     }
@@ -183,29 +383,23 @@ public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements 
         return UPSounds.HWACHA_DEATH.get();
     }
 
-    public boolean isAlliedTo(Entity entityIn) {
-        if (this.isTame()) {
-            LivingEntity livingentity = this.getOwner();
-            if (entityIn == livingentity) {
-                return true;
-            }
-            if (entityIn instanceof TamableAnimal) {
-                return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
-            }
-            if (livingentity != null) {
-                return livingentity.isAlliedTo(entityIn);
-            }
+    @Override
+    public float getSoundVolume() {
+        if(this.isBaby()){
+            return 0.8F;
         }
-
-        return entityIn.is(this);
+        else{
+            return 1.15F;
+        }
     }
 
+    // Mob interactions
     public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         if(this.level().isClientSide) return InteractionResult.PASS;
         ItemStack itemstack = player.getItemInHand(hand);
 
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if (isFood(itemstack) && !isTame()) {
+        if (isTameFood(itemstack) && !isTame()) {
 
             this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
             this.level().broadcastEntityEvent(this, (byte) 6);
@@ -310,20 +504,8 @@ public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements 
         return stack.is(UPTags.HWACHA_FOOD);
     }
 
-    public boolean isSaddled() {
-        return this.entityData.get(SADDLED).booleanValue();
-    }
-
-    public void setSaddled(boolean saddled) {
-        this.entityData.set(SADDLED, Boolean.valueOf(saddled));
-    }
-
-    public int getCommand() {
-        return this.entityData.get(COMMAND).intValue();
-    }
-
-    public void setCommand(int command) {
-        this.entityData.set(COMMAND, Integer.valueOf(command));
+    public boolean isTameFood(ItemStack stack) {
+        return stack.is(UPTags.HWACHA_FOOD);
     }
 
     public boolean isShooting() {
@@ -334,15 +516,12 @@ public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements 
         this.entityData.set(SHOOTING, shooting);
     }
 
-
-
     public void tick() {
         super.tick();
 
         if(attackCooldown > 0){
             attackCooldown--;
         }
-
 
         if(soundTimer > 0){
             soundTimer--;
@@ -361,19 +540,6 @@ public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements 
            shootProgress += 1;
            return;
        }
-
-
-        if (this.isOrderedToSit() && sitProgress < 5F) {
-            sitProgress++;
-        }
-        if (!this.isOrderedToSit() && sitProgress > 0F) {
-            sitProgress--;
-        }
-        if (this.getCommand() == 2 && !this.isVehicle()) {
-            this.setOrderedToSit(true);
-        } else {
-            this.setOrderedToSit(false);
-        }
 
         shootProgress = 0;
         this.setIsShooting(false);
@@ -422,43 +588,45 @@ public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements 
     }
 
     @Override
-    public void travel(Vec3 pos) {
+    public void travel(@NotNull Vec3 pos) {
         if (this.isAlive()) {
-            LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
-
-
-            if((this.isShooting() || this.isInSittingPose()) && livingentity != null){
-                this.setYRot(livingentity.getYRot());
-                this.setXRot(livingentity.getXRot() * 0.5F);
-                this.setRot(livingentity.getYRot(), livingentity.getXRot());
-                this.yBodyRot = livingentity.getYRot();
-                this.yHeadRot = livingentity.yHeadRot;
-                return;
-            }
-
+            LivingEntity livingentity = this.getControllingPassenger();
             if (this.isVehicle() && livingentity != null) {
-                double d0 = 0.08D;
                 this.setYRot(livingentity.getYRot());
                 this.yRotO = this.getYRot();
                 this.setXRot(livingentity.getXRot() * 0.5F);
                 this.setRot(this.getYRot(), this.getXRot());
                 this.yBodyRot = this.getYRot();
                 this.yHeadRot = this.yBodyRot;
-                float f = livingentity.xxa * 0.5F;
+                float f = livingentity.xxa;
                 float f1 = livingentity.zza;
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
-
-                this.setSpeed(0.3F);
-                super.travel(new Vec3((double) f, pos.y, (double) f1));
-                if (this.isShooting() && this.isVehicle()){
-                    this.setSpeed(0.0F);
+                if(!this.isInSittingPose()) {
+                    if (this.isShooting() && this.isVehicle()) {
+                        this.setSpeed(0.0F);
+                    } else if (this.getControllingPassenger().isSprinting()) {
+                        this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.15F));
+                    } else {
+                        this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F));
+                    }
                 }
+                super.travel(new Vec3(f, pos.y, f1));
             } else {
                 super.travel(pos);
             }
         }
+    }
+
+    @Override
+    public void customServerAiStep() {
+        if (this.getMoveControl().hasWanted()) {
+            this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.25D);
+        } else {
+            this.setSprinting(false);
+        }
+        super.customServerAiStep();
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
@@ -494,7 +662,6 @@ public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements 
             this.level().addFreshEntity(llamaspitentity);
         }
     }
-
 
     public void spitNoTarget() {
         final int MAX_SHOTS = 2;
@@ -613,54 +780,8 @@ public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements 
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 5;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return UPTags.RAPTOR_TARGETS;
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return null;
     }
 
     public void performRangedAttack(LivingEntity p_30762_, float p_30763_) {
@@ -669,55 +790,25 @@ public class HwachavenatorEntity extends TamablePrehistoricEntityOld implements 
         }
     }
 
-    protected <E extends HwachavenatorEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if(this.isFromBook()){
-            return event.setAndContinue(HWACHA_IDLE);
-        }
-        if (event.isMoving() && !isShooting() && !this.isInSittingPose() && !this.isInWater()) {
-            if (this.isSprinting() || !this.getPassengers().isEmpty() ) {
-                event.setAndContinue(HWACHA_SPRINT);
-                event.getController().setAnimationSpeed(2.0D);
-                return PlayState.CONTINUE;
-            } else if (event.isMoving()){
-                event.setAndContinue(HWACHA_WALK);
-                event.getController().setAnimationSpeed(1.0D);
-                return PlayState.CONTINUE;
-            }
-        }
-        if (isShooting() && !this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
-            event.setAndContinue(HWACHA_TURRET_FIRE);
-            return PlayState.CONTINUE;
-        }
-        if (this.isInSittingPose() && !isShooting()) {
-            event.setAndContinue(HWACHA_SIT);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-        if (this.isInWater()  && !isShooting() && !this.isInSittingPose()) {
-            event.setAndContinue(HWACHA_SWIM);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-        if(!this.isInWater()) {
-            event.setAndContinue(HWACHA_IDLE);
-            event.getController().setAnimationSpeed(1.0D);
-        }
-        return PlayState.CONTINUE;
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        HwachavenatorEntity hwacha = UPEntities.HWACHA.get().create(serverLevel);
+        hwacha.setVariant(this.getVariant());
+        return hwacha;
     }
 
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
+    // Variants
+    public void determineVariant(int variantChange){
+        if (variantChange <= 33) {
+            this.setVariant(1);
+        }
+        else if (variantChange <= 66) {
+            this.setVariant(2);
+        }
+        else {
+            this.setVariant(0);
+        }
     }
 
     @Override

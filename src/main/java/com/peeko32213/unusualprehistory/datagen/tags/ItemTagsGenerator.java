@@ -157,6 +157,14 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(UPTags.HWACHA_FOOD)
         ;
 
+        tag(UPTags.HWACHA_TAMES)
+                .add(Items.BEEF)
+                .add(Items.PORKCHOP)
+                .add(Items.CHICKEN)
+                .add(Items.MUTTON)
+                .add(Items.RABBIT)
+        ;
+
         tag(UPTags.BARINA_FOOD)
                 .add(Items.BEEF)
                 .add(Items.PORKCHOP)

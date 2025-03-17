@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-15T22:57:57.5094334	Item Models: unusualprehistory
+// 1.20.1	2025-03-16T21:11:53.7081838	Item Models: unusualprehistory
 b2ddf74df63b61d13d834643f401749b7f334d89 assets/unusualprehistory/models/item/amber_idol.json
 d94f2f9b14c1932019a23610ef0581bcae3f99a6 assets/unusualprehistory/models/item/ammonite_flask.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ammonite_spawn_egg.json
@@ -92,7 +92,6 @@ b267aca77088882c872842e51a221488533b4d72 assets/unusualprehistory/models/item/hy
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/hynerpeton_spawn_egg.json
 e8d2f980353ae10694f9cf68e14e5b35bd99e515 assets/unusualprehistory/models/item/hynerpteon_egg.json
 d4831760307f74a9596119a97973210917b6c71d assets/unusualprehistory/models/item/hynerp_flask.json
-a60f6bd98472ed4945125ce0967cf5dd6d91edc2 assets/unusualprehistory/models/item/jarate.json
 67c8e3519502df4ccddeb76655a67c85cbda1b11 assets/unusualprehistory/models/item/jawless_fish_flask.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/jawless_fish_spawn_egg.json
 7726c531974132670972c6e808dceb646043084e assets/unusualprehistory/models/item/kaprosuchus_egg.json

@@ -705,6 +705,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.HWACHA_DEATH, "Hwachavenator dies");
         addSound(UPSounds.HWACHA_HURT, "Hwachavenator hurts");
         addSound(UPSounds.HWACHA_IDLE, "Hwachavenator hums");
+        addSound(UPSounds.HWACHA_ROAR, "Hwachavenator screeches");
         addSound(UPSounds.HWACHA_SHOOT, "Hwachavenator shoots");
 
         addSound(UPSounds.KENTRO_DEATH, "Kentrosaurus dies");
