@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedEntityData;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
@@ -179,6 +180,12 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         this.setAnimationTimer(compound.getInt("animTimer"));
         this.setCommand(compound.getInt("command"));
     }
+
+
+    public boolean isSDataTrue(SerializableSynchedEntityData data) {
+        return data.isEqualToValue(this, true);
+    }
+
 
     public boolean getBooleanState(EntityDataAccessor<Boolean> pKey) {
         return this.entityData.get(pKey);

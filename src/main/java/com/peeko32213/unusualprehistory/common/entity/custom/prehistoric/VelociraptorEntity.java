@@ -2,13 +2,18 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.data.attack.LargeHitBoxAttackWithTargetCheck;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.MeleeEntityAction;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomMeleeAttackGoal;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.SerializableRandomMeleeAttackHelper;
+import com.peeko32213.unusualprehistory.common.data.entity.goal.WeightedSerializableMeleeAttackHelper;
+import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedData;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.*;
@@ -17,11 +22,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -48,6 +53,9 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
+
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+
 
 public class VelociraptorEntity extends PrehistoricEntity {
 
@@ -95,7 +103,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
     private static final EntityDataAccessor<Boolean> IDLE_5_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_6_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_7_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
-
+    public static final SerializableSynchedData<Boolean> VELOCIRAPTOR_BITE = new SerializableSynchedData<>(prefix("velociraptor_bite"), VelociraptorEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
     // Idle actions
     private static final EntityAction VELOCI_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
 
@@ -240,19 +248,21 @@ public class VelociraptorEntity extends PrehistoricEntity {
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
         // TODO: make this actually work and play animation from controller
-//        new SerializableRandomMeleeAttackGoal<>(this,
-//                WeightedRandomList.create(
-//                        new WeightedSerializableMeleeAttackHelper(
-//                                10,
-//                                SerializableRandomMeleeAttackHelper.Builder
-//                                    .state(VELOCIRAPTOR_BITE, "velociraptor_bite")
-//                                    .playTime(5)
-//                                    .meleeEntityAction(new MeleeEntityAction(
-//                                    8,1,
-//                                    new LargeHitBoxAttackWithTargetCheck(1F, 1F, 1F, 30D, 30D, false, true)
-//                                    )
-//                        ).build()
-//                )),1.75D,false,2);
+        SerializableRandomMeleeAttackGoal<VelociraptorEntity> goals = new SerializableRandomMeleeAttackGoal<>(this,
+                WeightedRandomList.create(
+                        new WeightedSerializableMeleeAttackHelper(
+                                10,
+                                SerializableRandomMeleeAttackHelper.Builder
+                                    .state(VELOCIRAPTOR_BITE, "velociraptor_bite")
+                                    .playTime(10)
+                                    .meleeEntityAction(new MeleeEntityAction(
+                                    8,1,
+                                    new LargeHitBoxAttackWithTargetCheck(1F, 1F, 1F, 30D, 30D, false, true)
+                                    )
+                        ).build()
+                )),1.75D,false,2);
+
+        this.goalSelector.addGoal(1,goals);
     }
 
     @Override
@@ -354,6 +364,9 @@ public class VelociraptorEntity extends PrehistoricEntity {
         this.entityData.define(PRESS, false);
         this.entityData.define(VARIANT, 0);
         this.entityData.define(HAS_TARGET, false);
+
+
+        VELOCIRAPTOR_BITE.defineData(this);
     }
 
     public void setPress(boolean eepy) {
@@ -508,6 +521,10 @@ public class VelociraptorEntity extends PrehistoricEntity {
 //        } else if (animState == 2) {
 //            return event.setAndContinue(VELOCI_ATTACK_2);
 //        }
+
+        if(isSDataTrue(VELOCIRAPTOR_BITE)) {
+            return event.setAndContinue(VELOCI_ATTACK_1);
+        }
 
         if (this.isInWater()) {
             event.setAndContinue(VELOCI_SWIM);

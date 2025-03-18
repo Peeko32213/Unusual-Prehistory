@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity.VELOCIRAPTOR_BITE;
 
 public class SerializableSynchedDataRegistry {
 
@@ -35,7 +36,7 @@ public class SerializableSynchedDataRegistry {
 //    public static final SerializableSynchedData<Boolean> REX_IDLE_3_AC = new SerializableSynchedData<>(prefix("rex_idle_3_ac"),TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
 //    public static final SerializableSynchedData<Boolean> REX_IDLE_4_AC = new SerializableSynchedData<>(prefix("rex_idle_4_ac"),TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
 
-//    public static final SerializableSynchedData<Boolean> VELOCIRAPTOR_BITE = new SerializableSynchedData<>(prefix("velociraptor_bite"), VelociraptorEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
+
 
     public static void register() {
 //        register(REX_VARIANT);
@@ -46,7 +47,7 @@ public class SerializableSynchedDataRegistry {
 //        register(REX_IDLE_2_AC);
 //        register(REX_IDLE_3_AC);
 //        register(REX_IDLE_4_AC);
-//        register(VELOCIRAPTOR_BITE);
+        register(VELOCIRAPTOR_BITE);
     }
 
     public static void register(SerializableSynchedEntityData data) {

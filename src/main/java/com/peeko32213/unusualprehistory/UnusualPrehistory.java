@@ -74,7 +74,7 @@ public class UnusualPrehistory {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.COMMON);
 
         EntityActionsRegistry.register();
-        SerializableSynchedDataRegistry.register();
+
         // Register stuff
         UPItems.ITEMS.register(modEventBus);
         UPBlocks.BLOCKS.register(modEventBus);
@@ -145,6 +145,7 @@ public class UnusualPrehistory {
 
         event.enqueueWork(() -> {
             UPEntityPlacement.entityPlacement();
+            SerializableSynchedDataRegistry.register();
 
             //Todo add this to own class
             addToFlowerPot(UPBlocks.HORSETAIL, UPBlocks.POTTED_HORSETAIL);

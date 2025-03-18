@@ -315,23 +315,23 @@ public class ServerEvents {
 
     // Unfinished piss and rabies
 
-
-    @SubscribeEvent
-    //cant be canceled
-    public void rabiesFacilitatorEvent(LivingEvent.LivingTickEvent event) {
-        Entity titty = event.getEntity();
-//
-        if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && !checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
-            //has effect but has no piss(add)
-            ((PathfinderMob) titty).goalSelector.addGoal(-1, new RabiesHuntGoal(((PathfinderMob) titty)));
-            //TODO: Make rabies only manifest after a certain number of ticks
-        }
-//
-        if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
-            //has no effect but has piss(remove)
-            cutRabies(((PathfinderMob) titty));
-        }
-    }
+    //This is already added  to the entity no need to check it every tick
+    //@SubscribeEvent
+    ////cant be canceled
+    //public void rabiesFacilitatorEvent(LivingEvent.LivingTickEvent event) {
+    //    Entity titty = event.getEntity();
+////
+    //    if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && !checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+    //        //has effect but has no piss(add)
+    //        ((PathfinderMob) titty).goalSelector.addGoal(-1, new RabiesHuntGoal(((PathfinderMob) titty)));
+    //        //TODO: Make rabies only manifest after a certain number of ticks
+    //    }
+////
+    //    if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
+    //        //has no effect but has piss(remove)
+    //        cutRabies(((PathfinderMob) titty));
+    //    }
+    //}
 
     @SubscribeEvent
     public void thingsThatCannotBeMilkedEvent(MobEffectEvent.Remove event) {
