@@ -417,13 +417,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         if(attackCooldown > 0){
             attackCooldown--;
         }
-
-        if (this.isOrderedToSit() && sitProgress < 5F) {
-            sitProgress++;
-        }
-        if (!this.isOrderedToSit() && sitProgress > 0F) {
-            sitProgress--;
-        }
         if (this.isEating() && eatProgress < 5F) {
             eatProgress++;
         }
@@ -434,7 +427,16 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
             this.setEatingTime(this.getEatingTime() - 1);
             this.getNavigation().stop();
         }
-        this.setOrderedToSit(this.getCommand() == 2 && !this.isVehicle());
+
+        boolean ridden = !this.getPassengers().isEmpty();
+        boolean water = this.isInWater();
+        if(ridden && water) {
+            boolean waterBelow = this.level().isWaterAt(this.blockPosition().below());
+
+            if(waterBelow) {
+                this.move(MoverType.PLAYER, new Vec3(0, 0.08, 0));
+            }
+        }
     }
 
     @Override

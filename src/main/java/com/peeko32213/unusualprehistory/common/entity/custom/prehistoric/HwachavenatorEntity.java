@@ -61,13 +61,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 import java.util.Objects;
@@ -82,7 +80,6 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     public int soundTimer = 0;
     private int attackCooldown;
     public static final int ATTACK_COOLDOWN = 30;
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     // Movement animations
     private static final RawAnimation HWACHA_WALK = RawAnimation.begin().thenLoop("animation.hwachavenator.walk");
@@ -543,6 +540,16 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
 
         shootProgress = 0;
         this.setIsShooting(false);
+
+        boolean ridden = !this.getPassengers().isEmpty();
+        boolean water = this.isInWater();
+        if(ridden && water) {
+            boolean waterBelow = this.level().isWaterAt(this.blockPosition().below());
+
+            if(waterBelow) {
+                this.move(MoverType.PLAYER, new Vec3(0, 0.08, 0));
+            }
+        }
     }
 
     @Override

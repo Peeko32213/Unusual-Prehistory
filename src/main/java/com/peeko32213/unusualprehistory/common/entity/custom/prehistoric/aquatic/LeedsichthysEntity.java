@@ -23,7 +23,6 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.tags.FluidTags;
- import net.minecraft.tags.TagKey;
  import net.minecraft.util.Mth;
  import net.minecraft.util.RandomSource;
  import net.minecraft.world.DifficultyInstance;
@@ -49,26 +48,21 @@
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.Blocks;
- import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import software.bernie.geckolib.animatable.GeoEntity;
  import software.bernie.geckolib.core.animatable.GeoAnimatable;
- import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
  import software.bernie.geckolib.core.animation.AnimationState;
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
  import software.bernie.geckolib.core.object.PlayState;
- import software.bernie.geckolib.util.GeckoLibUtil;
 
  import javax.annotation.Nonnull;
  import javax.annotation.Nullable;
  import java.util.List;
- import java.util.Optional;
- import java.util.UUID;
 
  public class LeedsichthysEntity extends PrehistoricAquaticEntity implements GeoEntity, GeoAnimatable {
      //START of necessary IK shit
@@ -118,10 +112,6 @@
      //END of necessary IK shit
      private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
-     private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.OPTIONAL_UUID);
-     private static final EntityDataAccessor<Integer> CHILD_ID = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.INT);
-
-     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
      // Movement animations
      private static final RawAnimation LEEDS_SWIM = RawAnimation.begin().thenLoop("animation.leedsichthys.swim");
@@ -132,7 +122,6 @@
      private static final RawAnimation LEEDS_BEACHED_2 = RawAnimation.begin().thenLoop("animation.leedsichthys.beached2");
 
      // Idle animations
-     private static final RawAnimation LEEDS_IDLE = RawAnimation.begin().thenLoop("animation.leedsichthys.idle");
      private static final RawAnimation LEEDS_GULP = RawAnimation.begin().thenPlay("animation.leedsichthys.biggulp_blend");
      private static final RawAnimation LEEDS_ROLL_1 = RawAnimation.begin().thenPlay("animation.leedsichthys.roll_blend1");
      private static final RawAnimation LEEDS_ROLL_2 = RawAnimation.begin().thenPlay("animation.leedsichthys.roll_blend2");
@@ -184,6 +173,7 @@
                      .entityAction(LEEDS_IDLE_4_ACTION)
                      .build();
 
+     // States
      @Override
      public ImmutableMap<String, StateHelper> getStates() {
          return ImmutableMap.of(
@@ -204,6 +194,7 @@
          );
      }
 
+     // Actions
      @Override
      public boolean getAction() {return false;}
 
@@ -238,6 +229,7 @@
 
      }
 
+     // Attributes
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
              .add(Attributes.MAX_HEALTH, 500.0D)
@@ -247,6 +239,7 @@
              .add(Attributes.FOLLOW_RANGE, 12.0D);
      }
 
+     // Goals
      @Override
      protected void registerGoals() {
          super.registerGoals();
@@ -276,6 +269,7 @@
          return new WaterBoundPathNavigation(this, p_27480_);
      }
 
+     // Sounds
      protected SoundEvent getAmbientSound() {
          return UPSounds.LEEDS_IDLE.get();
      }
@@ -403,42 +397,40 @@
 
              if (animState == 21) {
                  return event.setAndContinue(LEEDS_BUMP);
-             } else {
+             }
+             else {
                  if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
                      event.setAndContinue(LEEDS_SWIM);
                      return PlayState.CONTINUE;
                  }
-                 if (this.onGround() && !this.isInWater()) {
-                     if (this.onGround() && !this.isUnderWater()) {
-                         if (this.onGround() && !this.isUnderWater()) {
-                             event.setAndContinue(LEEDS_BEACHED_1);
-                             return PlayState.CONTINUE;
-                         }
-                         if (this.isInWater()) {
-                             if (getBooleanState(IDLE_1_AC)) {
-                                 triggerAnim("blend", "gulp");
-                                 return PlayState.CONTINUE;
-                             }
-                             if (getBooleanState(IDLE_2_AC)) {
-                                 triggerAnim("blend", "roll_1");
-                                 return PlayState.CONTINUE;
-                             }
-                             if (getBooleanState(IDLE_3_AC)) {
-                                 triggerAnim("blend", "roll_2");
-                                 return PlayState.CONTINUE;
-                             }
-                             if (getBooleanState(IDLE_4_AC)) {
-                                 triggerAnim("blend", "yawn");
-                                 return PlayState.CONTINUE;
-                             }
-                             return event.setAndContinue(LEEDS_SWIM);
-                         }
+                 if (this.onGround() && !this.isUnderWater()) {
+                     event.setAndContinue(LEEDS_BEACHED_1);
+                     return PlayState.CONTINUE;
+                 }
+
+                 // Idle states
+                 if (this.isInWater()) {
+                     if (getBooleanState(IDLE_1_AC)) {
+                         triggerAnim("blend", "gulp");
+                         return PlayState.CONTINUE;
                      }
+                     if (getBooleanState(IDLE_2_AC)) {
+                         triggerAnim("blend", "roll_1");
+                         return PlayState.CONTINUE;
+                     }
+                     if (getBooleanState(IDLE_3_AC)) {
+                         triggerAnim("blend", "roll_2");
+                         return PlayState.CONTINUE;
+                     }
+                     if (getBooleanState(IDLE_4_AC)) {
+                         triggerAnim("blend", "yawn");
+                         return PlayState.CONTINUE;
+                     }
+                     return event.setAndContinue(LEEDS_SWIM);
                  }
                  return PlayState.CONTINUE;
              }
          }
-
          return PlayState.CONTINUE;
      }
 
@@ -451,41 +443,6 @@
          event.getController().forceAnimationReset();
 
          return PlayState.STOP;
-     }
-
-     public boolean requiresCustomPersistence() {
-         return super.requiresCustomPersistence() || this.hasCustomName();
-     }
-
-     @Override
-     public AnimatableInstanceCache getAnimatableInstanceCache() {
-         return this.cache;
-     }
-
-     @Override
-     public double getTick(Object o) {
-         return tickCount;
-     }
-
-     public int getAnimationState() {
-         return this.entityData.get(ANIMATION_STATE);
-     }
-
-     public void setAnimationState(int anim) {
-         this.entityData.set(ANIMATION_STATE, anim);
-     }
-
-     public boolean isFromBook() {
-         return this.entityData.get(FROM_BOOK);
-     }
-
-     public void setIsFromBook(boolean fromBook) {
-         this.entityData.set(FROM_BOOK, fromBook);
-     }
-
-     @Override
-     public void setFromBook(boolean fromBook) {
-         this.entityData.set(FROM_BOOK, fromBook);
      }
 
      @Nullable

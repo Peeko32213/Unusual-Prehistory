@@ -284,6 +284,16 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
 
     public void tick() {
         super.tick();
+
+        boolean ridden = !this.getPassengers().isEmpty();
+        boolean water = this.isInWater();
+        if(ridden && water) {
+            boolean waterBelow = this.level().isWaterAt(this.blockPosition().below());
+
+            if(waterBelow) {
+                this.move(MoverType.PLAYER, new Vec3(0, 0.08, 0));
+            }
+        }
     }
 
     @Override
