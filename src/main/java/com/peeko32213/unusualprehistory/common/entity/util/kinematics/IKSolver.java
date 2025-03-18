@@ -103,17 +103,17 @@ public class IKSolver {
         }
 
         // Update Geckolib - usable bone angles for each node.
-        tailYaws[0] = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.entity.position(), this.nosePoint, this.nodes[0], this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
-        tailYaws[1] = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.nodes[0], this.entity.position(), this.nodes[1], this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
+        tailYaws[0] = ((MathHelpers.getAngleForLinkTopDownFlat(this.entity.position(), this.nosePoint, this.nodes[0], this.leftRefPoint, this.rightRefPoint)));
+        tailYaws[1] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[0], this.entity.position(), this.nodes[1], this.leftRefPoint, this.rightRefPoint)));
 
         for (int i = 2; i < nodes.length; i++) {
-            tailYaws[i] = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 2], this.nodes[i - 1], this.nodes[i], this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
+            tailYaws[i] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 2], this.nodes[i - 1], this.nodes[i], this.leftRefPoint, this.rightRefPoint)));
         }
         //Yaw
 
         tailPitches[0] = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.entity.position(), this.nodes[0], this.nodes[1])));;
         for (int i = 1; i < nodes.length - 1; i++) {
-            tailYaws[i] = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 1], this.nodes[i], this.nodes[i + 1], this.leftRefPoint, this.rightRefPoint), Mth.PI * 0.75));
+            tailYaws[i] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 1], this.nodes[i], this.nodes[i + 1], this.leftRefPoint, this.rightRefPoint)));
         }
         //Pitch
 
