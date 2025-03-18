@@ -62,7 +62,7 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
 
             tail.setRotX((float) (MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.01)));
             tailfin.setRotX((float) (tailfin.getRotX() + MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01)));
-            entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.currentTail1Pitch, 0.01);
+            entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.01);
             entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01);
 
             //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head

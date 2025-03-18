@@ -7,6 +7,21 @@ import net.minecraft.world.phys.Vec3;
 
 public class MathHelpers {
 
+    public static Vec3 distConstraint(Vec3 anchor, Vec3 point, double dist){
+        return anchor.add((point.subtract(anchor)).normalize().multiply(dist, dist, dist));
+    }
+
+    public static Vec3[] constraintChain(Vec3[] nodes, Vec3 anchor, double dist) {
+
+        nodes[0] = distConstraint(anchor, nodes[0], dist);
+
+        for (int i = 1; i < nodes.length; i++) {
+            nodes[i] = distConstraint(nodes[i], nodes[i+1], dist);
+        }
+
+        return nodes;
+    }
+
     public static Vec2 angleTo(Vec3 target, Vec3 mePos) {
         double d0 = target.x - mePos.x;
         double d1 = target.y - mePos.y;

@@ -66,10 +66,10 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
         CoreGeoBone tail2 = this.getAnimationProcessor().getBone("tail2_overlay");
 
 
-        tail.setRotY((float) (Mth.PI + (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.01))));
-        tail2.setRotY((float) (Mth.PI + (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.01))));
-        entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.01);
-        entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.01);
+        tail.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[0], (float) entity.rexIK.getTailYaws()[0], 0.01))));
+        tail2.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[1], (float) entity.rexIK.getTailYaws()[1], 0.01))));
+        entity.rexIK.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[0], (float) entity.rexIK.getTailYaws()[0], 0.01);
+        entity.rexIK.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[1], (float) entity.rexIK.getTailYaws()[1], 0.01);
         //this runs BETWEEN TICKS
         //0.25 means it interpolates to a quarter of the way to the target
         //setRotY takes RADIANS
@@ -77,10 +77,10 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
         //No deg to rad because the arccos function used to return the angle
         //gotta set up UNIQUE NODES FOR EACH BONE
 
-        tail.setRotX((float) (-MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.01)));
-        tail2.setRotX((float) (-MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01)));
-        entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.currentTail1Pitch, 0.01);
-        entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01);
+        tail.setRotX((float) (MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailPitches()[0], (float) entity.rexIK.getTailPitches()[0], 0.01)));
+        tail2.setRotX((float) (MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailPitches()[1], (float) entity.rexIK.getTailPitches()[1], 0.01)));
+        entity.rexIK.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailPitches()[0], (float) entity.rexIK.getTailPitches()[0], 0.01);
+        entity.rexIK.getCurrentTailPitches()[1] = (float) MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailPitches()[1], (float) entity.rexIK.getTailPitches()[1], 0.01);
 
         //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
 

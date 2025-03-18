@@ -66,6 +66,10 @@
 
  public class LeedsichthysEntity extends PrehistoricAquaticEntity implements GeoEntity, GeoAnimatable {
      //START of necessary IK shit
+
+     public double prevYHeadRot;
+     public double deltaYHeadRot;
+
      public Vec3 rightRefPoint;
      public Vec3 rightRefOffset = new Vec3(1, 0, 0);
 
@@ -336,9 +340,13 @@
 
              nosePoint = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(noseOffset), -this.getYRot(), -this.getXRot());
              tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
-             tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
+             tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), (float) (-MathHelpers.angleTo(tail0Point, tail1Point).y - deltaYHeadRot*Mth.DEG_TO_RAD), -MathHelpers.angleTo(tail0Point, tail1Point).x);
              tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
              tail3Point = MathHelpers.rotateAroundCenter3dDeg(tail2Point, tail2Point.subtract(tail3Offset), -MathHelpers.angleTo(tail2Point, tail3Point).y, -MathHelpers.angleTo(tail2Point, tail3Point).x);
+
+             deltaYHeadRot = prevYHeadRot-this.getYHeadRot();
+             prevYHeadRot = this.getYHeadRot();
+             //this value is in degrees
 
             if (!this.level().isClientSide()) {
                 ServerLevel llel = (ServerLevel) this.level();

@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model.entity;
 
 
+import com.peeko32213.unusualprehistory.MathHelpers;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.UlughbegsaurusEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -56,8 +57,8 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
     }
 
     @Override
-    public void setCustomAnimations(UlughbegsaurusEntity animatable, long instanceId, AnimationState<UlughbegsaurusEntity> animationState) {
-        super.setCustomAnimations(animatable, instanceId, animationState);
+    public void setCustomAnimations(UlughbegsaurusEntity entity, long instanceId, AnimationState<UlughbegsaurusEntity> animationState) {
+        super.setCustomAnimations(entity, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
@@ -67,9 +68,9 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
 
         CoreGeoBone head = this.getAnimationProcessor().getBone("Ulugh_Head");
 
-        saddle.setHidden(!animatable.isSaddled());
+        saddle.setHidden(!entity.isSaddled());
 
-        if (animatable.isBaby()) {
+        if (entity.isBaby()) {
             head.setScaleX(1.5F);
             head.setScaleY(1.5F);
             head.setScaleZ(1.5F);
@@ -79,9 +80,11 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
             head.setScaleZ(1.0F);
         }
 
-        if (!animatable.isSprinting() && !animatable.hasControllingPassenger()) {
+        if (!entity.isSprinting() && !entity.hasControllingPassenger()) {
             neck.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
+
+
     }
 }
 
