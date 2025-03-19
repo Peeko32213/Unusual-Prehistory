@@ -68,8 +68,8 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
         CoreGeoBone tail = this.getAnimationProcessor().getBone("tail1_overlay");
         CoreGeoBone tail2 = this.getAnimationProcessor().getBone("tail2_overlay");
 
-        tail.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[0], (float) entity.rexIK.getTailYaws()[0], 0.01))));
-        tail2.setRotY((float) ((MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[1], (float) entity.rexIK.getTailYaws()[1], 0.01))));
+        tail.setRotY((float) (Mth.PI - MathHelpers.angleClamp(MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[0], (float) entity.rexIK.getTailYaws()[0], 0.01),-Mth.PI*0.50)));
+        tail2.setRotY((float) (MathHelpers.angleClamp(MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[1], (float) entity.rexIK.getTailYaws()[1], 0.01), -Mth.PI*0.50)));
         entity.rexIK.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[0], (float) entity.rexIK.getTailYaws()[0], 0.01);
         entity.rexIK.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[1], (float) entity.rexIK.getTailYaws()[1], 0.01);
         //this runs BETWEEN TICKS
