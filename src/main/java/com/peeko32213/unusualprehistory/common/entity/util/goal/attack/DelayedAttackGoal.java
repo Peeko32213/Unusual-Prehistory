@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity.util.goal;
+package com.peeko32213.unusualprehistory.common.entity.util.goal.attack;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
@@ -118,15 +118,14 @@ public class DelayedAttackGoal extends Goal {
         Vec3 aim = this.mob.getLookAngle();
         Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
 
-        switch (animState) {
-            case 1 -> tickAttack();
-            default -> {
-                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                this.doMovement(target, distance);
-                this.checkForCloseRangeAttack(distance, reach);
-            }
+        if (animState == 1) {
+            tickAttack();
+        } else {
+            this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+            this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+            this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            this.doMovement(target, distance);
+            this.checkForCloseRangeAttack(distance, reach);
         }
     }
 
@@ -164,7 +163,7 @@ public class DelayedAttackGoal extends Goal {
     }
 
     protected boolean getRangeCheck () {
-        return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
+        return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 2.0F * this.getAttackReachSqr(this.mob.getTarget());
     }
 
     protected void checkForCloseRangeAttack(double distance, double reach) {
@@ -212,6 +211,6 @@ public class DelayedAttackGoal extends Goal {
     }
 
     protected double getAttackReachSqr(LivingEntity pAttackTarget) {
-        return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + pAttackTarget.getBbWidth();
+        return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.0F + pAttackTarget.getBbWidth();
     }
 }

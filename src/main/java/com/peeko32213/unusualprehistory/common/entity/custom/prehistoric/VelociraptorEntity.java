@@ -104,6 +104,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
     private static final EntityDataAccessor<Boolean> IDLE_6_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_7_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
     public static final SerializableSynchedData<Boolean> VELOCIRAPTOR_BITE = new SerializableSynchedData<>(prefix("velociraptor_bite"), VelociraptorEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
+
     // Idle actions
     private static final EntityAction VELOCI_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
 
@@ -247,20 +248,17 @@ public class VelociraptorEntity extends PrehistoricEntity {
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
-        // TODO: make this actually work and play animation from controller
         SerializableRandomMeleeAttackGoal<VelociraptorEntity> goals = new SerializableRandomMeleeAttackGoal<>(this,
                 WeightedRandomList.create(
-                        new WeightedSerializableMeleeAttackHelper(
-                                10,
-                                SerializableRandomMeleeAttackHelper.Builder
-                                    .state(VELOCIRAPTOR_BITE, "velociraptor_bite")
-                                    .playTime(10)
-                                    .meleeEntityAction(new MeleeEntityAction(
-                                    8,1,
-                                    new LargeHitBoxAttackWithTargetCheck(1F, 1F, 1F, 30D, 30D, false, true)
-                                    )
-                        ).build()
-                )),1.75D,false,2);
+                new WeightedSerializableMeleeAttackHelper(
+                    10,
+                    SerializableRandomMeleeAttackHelper.Builder
+                    .state(VELOCIRAPTOR_BITE, "velociraptor_bite")
+                    .playTime(16)
+                    .meleeEntityAction(
+                    new MeleeEntityAction(9,1,
+                    new LargeHitBoxAttackWithTargetCheck(1F, 0.1F, 5.5F, -Math.PI/4, Math.PI/4, false, true))).build())),
+                    1.75D,false,2.0F);
 
         this.goalSelector.addGoal(1,goals);
     }
@@ -513,17 +511,9 @@ public class VelociraptorEntity extends PrehistoricEntity {
             return event.setAndContinue(VELOCI_IDLE);
         }
 
-        int animState = this.getAnimationState();
-
-//        if (animState == 1) {
-//            triggerAnim("blend", "bite");
-//            return PlayState.CONTINUE;
-//        } else if (animState == 2) {
-//            return event.setAndContinue(VELOCI_ATTACK_2);
-//        }
-
         if(isSDataTrue(VELOCIRAPTOR_BITE)) {
-            return event.setAndContinue(VELOCI_ATTACK_1);
+            triggerAnim("blend", "bite");
+            return PlayState.CONTINUE;
         }
 
         if (this.isInWater()) {

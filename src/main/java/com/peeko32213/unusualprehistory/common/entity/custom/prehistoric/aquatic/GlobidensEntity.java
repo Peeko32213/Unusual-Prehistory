@@ -9,6 +9,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStat
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TriceratopsEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
@@ -58,7 +59,9 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -138,9 +141,9 @@ public class GlobidensEntity extends PrehistoricEntity {
     private static final RawAnimation GLO_YAWN = RawAnimation.begin().thenPlay("animation.globidens.yawn_blend");
 
     // Attack animations
-    private static final RawAnimation GLO_BITE_1 = RawAnimation.begin().thenLoop("animation.globidens.attack_blend1");
-    private static final RawAnimation GLO_BITE_2 = RawAnimation.begin().thenLoop("animation.globidens.attack_blend2");
-    private static final RawAnimation GLO_SLAP = RawAnimation.begin().thenLoop("animation.globidens.tailsmack");
+    private static final RawAnimation GLO_BITE_1 = RawAnimation.begin().thenPlay("animation.globidens.attack_blend1");
+    private static final RawAnimation GLO_BITE_2 = RawAnimation.begin().thenPlay("animation.globidens.attack_blend2");
+    private static final RawAnimation GLO_SLAP = RawAnimation.begin().thenPlay("animation.globidens.tailsmack");
 
     // Idle accessors
     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(GlobidensEntity.class, EntityDataSerializers.BOOLEAN);
@@ -210,7 +213,7 @@ public class GlobidensEntity extends PrehistoricEntity {
         this.goalSelector.addGoal(1, new GlobidensEntity.GloMeleeAttackGoal(this, 2F, true));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.0, 1, 70, 70, 2));
-        this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(9, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.GLO_TARGETS)));
     }
 
@@ -465,13 +468,9 @@ public class GlobidensEntity extends PrehistoricEntity {
             if (!(this.mob.getAnimationState() == 0)){
                 if (livingentity == null) {
                     this.mob.setTarget(this.mob);
-                    return true;
-                } else {
-                    return true;
                 }
+                return true;
             }
-
-
 
             if (livingentity == null) {
                 return false;
@@ -524,7 +523,7 @@ public class GlobidensEntity extends PrehistoricEntity {
             }
             else {
                 this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.ticksUntilNextAttack = Math.max(this.animTime - 1, 0);
                 this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
                 this.doMovement(target, distance);
                 this.checkForCloseRangeAttack(distance, reach);
@@ -571,32 +570,32 @@ public class GlobidensEntity extends PrehistoricEntity {
                 if (r <= 600) {
                     this.mob.setAnimationState(1);
                 }
-                if (r <= 1200) {
+                else if (r <= 1200) {
                     this.mob.setAnimationState(2);
                 }
-                if (r <= 1600) {
+                else if (r <= 1600) {
                     this.mob.setAnimationState(3);
                 }
             }
         }
 
         protected boolean getRangeCheck () {
-            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.35F * this.getAttackReachSqr(this.mob.getTarget());
+            return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
         }
 
         protected void tickSlapAttack () {
             animTime++;
 
             if (animTime <= 3) {
-                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
                 this.mob.yBodyRot = this.mob.yHeadRot;
             }
 
-            if(animTime==10) {
+            if(animTime==15) {
                 preformSlapAttack();
             }
 
-            if(animTime>=25) {
+            if(animTime>=38) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -608,15 +607,15 @@ public class GlobidensEntity extends PrehistoricEntity {
             animTime++;
 
             if (animTime <= 3) {
-                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
+                this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
                 this.mob.yBodyRot = this.mob.yHeadRot;
             }
 
-            if(animTime==10) {
+            if(animTime==13) {
                 preformBiteAttack();
             }
 
-            if(animTime>=20) {
+            if(animTime>=18) {
                 animTime=0;
                 this.mob.setAnimationState(0);
                 this.resetAttackCooldown();
@@ -627,13 +626,13 @@ public class GlobidensEntity extends PrehistoricEntity {
         protected void preformSlapAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.3F, 1.0F);
-            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() + 2, 0.45f, mob, pos,  6.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue() + 2, 0.45f, mob, pos,  3.5F, -Math.PI/2, 15, -1.0f, 1.0f, false, true);
         }
 
         protected void preformBiteAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.15F, 1.0F);
-            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
+            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), 0.15f, mob, pos,  2.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false, true);
         }
 
         protected void resetAttackCooldown () {
@@ -653,7 +652,13 @@ public class GlobidensEntity extends PrehistoricEntity {
         }
 
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
+            return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + p_179512_1_.getBbWidth();
+        }
+    }
+
+    private void soundListener(SoundKeyframeEvent<GlobidensEntity> event) {
+        GlobidensEntity globidens = event.getAnimatable();
+        if (globidens.level().isClientSide) {
         }
     }
 
@@ -662,9 +667,13 @@ public class GlobidensEntity extends PrehistoricEntity {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "blend", 5, this::Controller)
                 .triggerableAnim("yawn", GLO_YAWN));
-        controllers.add(new AnimationController<>(this, "attack", 5, this::Controller)
-                .triggerableAnim("bite_1", GLO_BITE_1)
-                .triggerableAnim("bite_2", GLO_BITE_2));
+
+        AnimationController<GlobidensEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate)
+                .triggerableAnim("attack_1", GLO_BITE_1)
+                .triggerableAnim("attack_2", GLO_BITE_2)
+                ;
+        attack.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(attack);
     }
 
     protected <E extends GlobidensEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -673,90 +682,52 @@ public class GlobidensEntity extends PrehistoricEntity {
             return event.setAndContinue(GLO_IDLE);
         }
 
-        int animState = this.getAnimationState();
-
         if(!this.isFromBook()) {
-            if (animState == 1) {
-                event.setAnimation(GLO_BITE_1.begin().then("animation.globidens.attack_blend1", Animation.LoopType.HOLD_ON_LAST_FRAME));
+            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+                if(this.isSprinting()){
+                    event.setAndContinue(GLO_SWIM_SPRINT);
+                    event.getController().setAnimationSpeed(1.0F);
+                } else {
+                    event.setAndContinue(GLO_SWIM);
+                    event.getController().setAnimationSpeed(1.0F);
+                }
                 return PlayState.CONTINUE;
             }
-            if (animState == 2) {
-                event.setAnimation(GLO_BITE_2.begin().then("animation.globidens.attack_blend2", Animation.LoopType.HOLD_ON_LAST_FRAME));
+            if (!this.isInWater()) {
+                event.setAndContinue(GLO_FLOP);
+                event.getController().setAnimationSpeed(2.0F);
                 return PlayState.CONTINUE;
             }
-            if (animState == 3) {
-                event.setAnimation(GLO_SLAP.begin().then("animation.globidens.tailsmack", Animation.LoopType.HOLD_ON_LAST_FRAME));
+            else if (this.isInWater()) {
+                if (getBooleanState(IDLE_1_AC)) {
+                    triggerAnim("blend", "yawn");
+                    return PlayState.CONTINUE;
+                }
+                else {
+                    event.setAndContinue(GLO_IDLE);
+                }
                 return PlayState.CONTINUE;
-            }
-            else {
-                if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                    if(this.isSprinting()){
-                        event.setAndContinue(GLO_SWIM_SPRINT);
-                        event.getController().setAnimationSpeed(1.0F);
-                    } else {
-                        event.setAndContinue(GLO_SWIM);
-                        event.getController().setAnimationSpeed(1.0F);
-                    }
-                    return PlayState.CONTINUE;
-                }
-                if (!this.isInWater()) {
-                    event.setAndContinue(GLO_FLOP);
-                    event.getController().setAnimationSpeed(2.0F);
-                    return PlayState.CONTINUE;
-                }
-                else if (this.isInWater()) {
-                    if (getBooleanState(IDLE_1_AC)) {
-                        triggerAnim("blend", "yawn");
-                        return PlayState.CONTINUE;
-                    }
-                    else {
-                        event.setAndContinue(GLO_IDLE);
-                    }
-                    return PlayState.CONTINUE;
-                }
             }
         }
         return PlayState.CONTINUE;
     }
 
-    public boolean canDisableShield() {
-        return false;
-    }
+    protected <E extends GlobidensEntity> PlayState attackPredicate(final AnimationState<E> event) {
+        int animState = this.getAnimationState();
 
-    public int getAnimationState() {
-        return this.entityData.get(ANIMATION_STATE);
-    }
-
-    public void setAnimationState(int anim) {
-        this.entityData.set(ANIMATION_STATE, anim);
-    }
-
-    public int getCombatState() {
-        return this.entityData.get(COMBAT_STATE);
-    }
-
-    public void setCombatState(int anim) {
-        this.entityData.set(COMBAT_STATE, anim);
-    }
-
-    public int getEntityState() {
-        return this.entityData.get(ENTITY_STATE);
-    }
-
-    public void setEntityState(int anim) {
-        this.entityData.set(ENTITY_STATE, anim);
-    }
-
-    public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK);
-    }
-    public void setIsFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
-    @Override
-    public void setFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
+        if (animState == 1) {
+            event.setAnimation(GLO_BITE_1.begin().then("animation.globidens.attack_blend1", Animation.LoopType.HOLD_ON_LAST_FRAME));
+            return PlayState.CONTINUE;
+        }
+        if (animState == 2) {
+            event.setAnimation(GLO_BITE_2.begin().then("animation.globidens.attack_blend2", Animation.LoopType.HOLD_ON_LAST_FRAME));
+            return PlayState.CONTINUE;
+        }
+        if (animState == 3) {
+            event.setAnimation(GLO_SLAP.begin().then("animation.globidens.tailsmack", Animation.LoopType.HOLD_ON_LAST_FRAME));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.CONTINUE;
     }
 
     public void killed() {

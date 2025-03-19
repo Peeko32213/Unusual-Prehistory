@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelpe
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomizableRandomSwimGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.DelayedAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.util.goal.attack.DelayedAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
