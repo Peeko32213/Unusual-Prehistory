@@ -498,6 +498,10 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.ZULOAGAE_BUTTON.get())
         ;
 
+        tag(UPTags.VELOCI_BUTTONS)
+                .add(UPBlocks.AMBER_BUTTON.get())
+        ;
+
         tag(BlockTags.LEAVES)
                 .add(UPBlocks.FOXXI_LEAVES.get())
                 .add(UPBlocks.DRYO_LEAVES.get())

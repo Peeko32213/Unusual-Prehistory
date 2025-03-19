@@ -3280,6 +3280,11 @@
 						}
 					}
 				}
+			},
+			"sound_effects": {
+				"0.4167": {
+					"effect": "velociraptor_attack"
+				}
 			}
 		},
 		"animation.velociraptor.kick": {
@@ -4239,6 +4244,11 @@
 							"lerp_mode": "catmullrom"
 						}
 					}
+				}
+			},
+			"sound_effects": {
+				"0.75": {
+					"effect": "velociraptor_attack"
 				}
 			}
 		}
