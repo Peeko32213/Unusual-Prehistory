@@ -12,8 +12,8 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityActi
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PounceGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.*;

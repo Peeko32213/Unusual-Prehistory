@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.MathHelpers;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
@@ -164,15 +165,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
         );
     }
 
-    // Actions
-    @Override
-    public boolean getAction() {
-        return false;
-    }
-
-    @Override
-    public void setAction(boolean action) {}
-
     // Animation sounds
     private void soundListener(SoundKeyframeEvent<TyrannosaurusEntity> event) {
         TyrannosaurusEntity tyrannosaurus = event.getAnimatable();
@@ -325,7 +317,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
 
     // Goals
     protected void registerGoals() {
-        super.registerGoals();
+        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new TyrannosaurusEntity.TyrannosaurusMeleeAttackGoal(this, 1.75F, true) {
             public boolean canUse() {

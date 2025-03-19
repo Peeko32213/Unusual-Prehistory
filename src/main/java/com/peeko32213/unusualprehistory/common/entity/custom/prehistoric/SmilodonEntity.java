@@ -1,9 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.GroomGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.PounceGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.SmilodonAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;

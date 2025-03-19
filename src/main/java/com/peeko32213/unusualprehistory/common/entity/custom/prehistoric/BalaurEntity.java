@@ -6,9 +6,8 @@
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
- import com.peeko32213.unusualprehistory.common.entity.util.goal.BabyPanicGoal;
- import com.peeko32213.unusualprehistory.common.entity.util.goal.PrehistoricFollowOwnerGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
@@ -24,7 +23,6 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
- import net.minecraft.tags.TagKey;
  import net.minecraft.util.Mth;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;

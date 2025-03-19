@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monste
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.projectile.AmberShotEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.AttackSound;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.CustomAbstractRangedAttack;

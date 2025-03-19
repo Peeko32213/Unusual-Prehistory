@@ -243,7 +243,7 @@ public class UPEntities {
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x101217, 0x67bce1);
 
     public static final RegistryObject<EntityType<TriceratopsEntity>> TRICERATOPS = registerPrehistoricCreatureWithEgg("trike",
-            () -> EntityType.Builder.of(TriceratopsEntity::new, MobCategory.CREATURE).sized(2.85F, 3.75F)
+            () -> EntityType.Builder.of(TriceratopsEntity::new, MobCategory.CREATURE).sized(3.0F, 3.75F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "trike").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x383323, 0x9c2f2f);
 

@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
-import com.peeko32213.unusualprehistory.common.entity.util.goal.boids.BoidFishSchoolingGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.boids.HeightBoundsGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.boids.LimitSpeedAndLookInVelocityDirectionGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.boids.OrganizeBoidSchoolingGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.boids.BoidFishSchoolingGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.boids.HeightBoundsGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.boids.LimitSpeedAndLookInVelocityDirectionGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.boids.OrganizeBoidSchoolingGoal;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;

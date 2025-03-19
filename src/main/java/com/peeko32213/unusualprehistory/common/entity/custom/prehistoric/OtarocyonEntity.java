@@ -1,8 +1,7 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
  import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
- import com.peeko32213.unusualprehistory.common.entity.util.goal.NocturnalSleepingGoal;
- import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;

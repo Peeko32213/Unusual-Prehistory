@@ -15,7 +15,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.Prehistori
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.HwachavenatorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.DunkleosteusEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.RabiesHuntGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.common.message.*;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;

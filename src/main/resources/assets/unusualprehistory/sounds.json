@@ -423,6 +423,14 @@
     ],
     "subtitle": "unusualprehistory.sound.subtitle.triceratops_chatter"
   },
+  "triceratops_warn": {
+    "sounds": [
+      "unusualprehistory:entity/triceratops/triceratops_warn_0",
+      "unusualprehistory:entity/triceratops/triceratops_warn_1",
+      "unusualprehistory:entity/triceratops/triceratops_warn_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.triceratops_warn"
+  },
 
   "brachiosaurus_death": {
     "sounds": [

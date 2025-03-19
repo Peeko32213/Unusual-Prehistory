@@ -22,6 +22,7 @@ public class PivotedPolyHitCheckAttack implements EntityAttack {
             Codec.FLOAT.fieldOf("attack_modifier").forGetter(PivotedPolyHitCheckAttack::getAttackModifier),
             Codec.FLOAT.fieldOf("knockback").forGetter(PivotedPolyHitCheckAttack::getKnockback),
             Codec.BOOL.fieldOf("disable_shield").forGetter(PivotedPolyHitCheckAttack::isDisableShield),
+            Codec.BOOL.fieldOf("check_target").forGetter(PivotedPolyHitCheckAttack::isCheckTarget),
             Codec.BOOL.optionalFieldOf("hitbox_outline", false).forGetter(PivotedPolyHitCheckAttack::isHitboxOutline)
     ).apply(instance, PivotedPolyHitCheckAttack::new));
 
@@ -33,9 +34,10 @@ public class PivotedPolyHitCheckAttack implements EntityAttack {
     private final float attackModifier;
     private final float knockback;
     private final boolean disableShield;
+    private final boolean checkTarget;
     private final boolean hitboxOutline;
 
-    public PivotedPolyHitCheckAttack(Vec3 attackOffset, float attackWidth, float attackHeight, float attackLength, float attackModifier, float knockback, boolean disableShield, boolean hitboxOutline) {
+    public PivotedPolyHitCheckAttack(Vec3 attackOffset, float attackWidth, float attackHeight, float attackLength, float attackModifier, float knockback, boolean disableShield, boolean checkTarget, boolean hitboxOutline) {
         this.attackOffset = attackOffset;
         this.attackModifier = attackModifier;
         this.knockback = knockback;
@@ -43,6 +45,7 @@ public class PivotedPolyHitCheckAttack implements EntityAttack {
         this.attackHeight = attackHeight;
         this.attackLength = attackLength;
         this.disableShield = disableShield;
+        this.checkTarget = checkTarget;
         this.hitboxOutline = hitboxOutline;
 
     }
@@ -50,7 +53,7 @@ public class PivotedPolyHitCheckAttack implements EntityAttack {
     @Override
     public void performAttack(PathfinderMob entity) {
         if (entity.level() instanceof ServerLevel level) {
-            HitboxAttacks.pivotedPolyHitCheck(entity, attackOffset, attackWidth, attackHeight, attackLength, level, (float) Objects.requireNonNull(entity.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - attackModifier, entity.damageSources().mobAttack(entity), knockback, disableShield, hitboxOutline);
+            HitboxAttacks.pivotedPolyHitCheck(entity, entity, attackOffset, attackWidth, attackHeight, attackLength, level, (float) Objects.requireNonNull(entity.getAttribute(Attributes.ATTACK_DAMAGE)).getValue() - attackModifier, entity.damageSources().mobAttack(entity), knockback, disableShield, checkTarget, hitboxOutline);
         }
     }
 
@@ -86,6 +89,10 @@ public class PivotedPolyHitCheckAttack implements EntityAttack {
 
     public boolean isDisableShield() {
         return disableShield;
+    }
+
+    public boolean isCheckTarget() {
+        return checkTarget;
     }
 
     public boolean isHitboxOutline() {

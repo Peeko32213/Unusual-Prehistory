@@ -2,8 +2,7 @@
 
  import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamableClimbingPrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
- import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRandomStrollGoal;
- import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableFollowOwner;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.util.UPMath;

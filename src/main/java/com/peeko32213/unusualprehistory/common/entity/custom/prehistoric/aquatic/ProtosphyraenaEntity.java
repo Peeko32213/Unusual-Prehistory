@@ -1,8 +1,7 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
  import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
- import com.peeko32213.unusualprehistory.common.entity.util.goal.JoinPackGoal;
- import com.peeko32213.unusualprehistory.common.entity.util.goal.ShoalHunterGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IPackHunter;

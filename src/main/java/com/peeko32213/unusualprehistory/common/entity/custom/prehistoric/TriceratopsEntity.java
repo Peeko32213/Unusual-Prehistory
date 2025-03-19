@@ -3,14 +3,10 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.*;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.CustomRideGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.PrehistoricFollowOwnerGoal;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.TameableTempt;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.attack.TriceratopsMeleeAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.TriceratopsMeleeAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
@@ -28,7 +24,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -51,7 +46,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -69,14 +63,9 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollower {
+public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollower, IStateAction {
 
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.TRICERATOPS_FOOD);
-
-    public float sitProgress;
-
-    private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
 
     public static final Logger LOGGER = LogManager.getLogger();
 
@@ -132,6 +121,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
                     .entityAction(TRIKE_IDLE_3_ACTION)
                     .build();
 
+    // States
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
@@ -150,14 +140,137 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         );
     }
 
-    @Override
-    public boolean getAction() {
-        return false;
+    // Animation sounds
+    private void soundListener(SoundKeyframeEvent<TriceratopsEntity> event) {
+        TriceratopsEntity triceratops = event.getAnimatable();
+        if (triceratops.level().isClientSide) {
+            if (event.getKeyframeData().getSound().equals("triceratops_chatter")) {
+                triceratops.level().playLocalSound(triceratops.getX(), triceratops.getY(), triceratops.getZ(), UPSounds.TRIKE_CHATTER.get(), triceratops.getSoundSource(), 1.5F, triceratops.getVoicePitch(), false);
+            }
+            if (event.getKeyframeData().getSound().equals("triceratops_warn")) {
+                triceratops.level().playLocalSound(triceratops.getX(), triceratops.getY(), triceratops.getZ(), UPSounds.TRIKE_WARN.get(), triceratops.getSoundSource(), 1.75F, triceratops.getVoicePitch(), false);
+            }
+            if (event.getKeyframeData().getSound().equals("triceratops_swipe")) {
+                triceratops.level().playLocalSound(triceratops.getX(), triceratops.getY(), triceratops.getZ(), UPSounds.TAIL_SWIPE.get(), triceratops.getSoundSource(), 0.75F, triceratops.getVoicePitch(), false);
+            }
+        }
     }
 
+    // Animation control
     @Override
-    public void setAction(boolean action) {}
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<TriceratopsEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
 
+        AnimationController<TriceratopsEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
+                .triggerableAnim("shake", TRIKE_HEAD_SHAKE)
+                .triggerableAnim("chatter", TRIKE_CHATTER)
+                .triggerableAnim("graze", TRIKE_GRAZE);
+        blend.setSoundKeyframeHandler(this::soundListener);
+
+        AnimationController<TriceratopsEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
+        attack.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(attack);
+    }
+
+    protected <E extends TriceratopsEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if (this.isFromBook()) {
+            return event.setAndContinue(TRIKE_IDLE);
+        }
+
+        if (this.isInWater() || this.isSwimming()) {
+            event.setAndContinue(TRIKE_SWIM);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.isInSittingPose()) {
+            if(this.hasControllingPassenger()) {
+                if (this.getControllingPassenger().isSprinting()) {
+                    event.setAndContinue(TRIKE_SPRINT);
+                    event.getController().setAnimationSpeed(1.0F);
+                } else {
+                    event.setAndContinue(TRIKE_WALK);
+                    event.getController().setAnimationSpeed(1.5F);
+                }
+            }
+            else {
+                if (this.isSprinting() && !this.isBaby()) {
+                    event.setAndContinue(TRIKE_SPRINT);
+                    event.getController().setAnimationSpeed(1.0F);
+                } else {
+                    event.setAndContinue(TRIKE_WALK);
+                    event.getController().setAnimationSpeed(1.0F);
+                }
+            }
+            return PlayState.CONTINUE;
+        }
+
+        else if (!this.isInWater()) {
+            if (getBooleanState(IDLE_1_AC) && level().getBlockState(this.blockPosition().below()).is(UPTags.TRIKE_GRAZING_BLOCKS)) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "graze");
+                    return event.setAndContinue(TRIKE_IDLE);
+                } else {
+                    triggerAnim("blend", "graze");
+                    return PlayState.CONTINUE;
+                }
+            }
+            if (getBooleanState(IDLE_2_AC)) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "shake");
+                    return event.setAndContinue(TRIKE_IDLE);
+                } else {
+                    triggerAnim("blend", "shake");
+                    return PlayState.CONTINUE;
+                }
+            }
+            if (getBooleanState(IDLE_3_AC)) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "chatter");
+                    return event.setAndContinue(TRIKE_IDLE);
+                } else {
+                    triggerAnim("blend", "chatter");
+                    return PlayState.CONTINUE;
+                }
+            }
+            return event.setAndContinue(TRIKE_IDLE);
+        }
+
+        if (this.isInSittingPose()) {
+            event.setAndContinue(TRIKE_SIT);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        return PlayState.CONTINUE;
+    }
+
+    // Attack animations
+    protected <E extends TriceratopsEntity> PlayState attackPredicate(final AnimationState<E> event) {
+        int animState = this.getAnimationState();
+
+        if (animState == 21) {
+            event.setAndContinue(TRIKE_ATTACK_1);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 22) {
+            event.setAndContinue(TRIKE_ATTACK_2);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 23) {
+            event.setAndContinue(TRIKE_CHARGE);
+            event.getController().setAnimationSpeed(1.25F);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 0) {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
+        else return PlayState.CONTINUE;
+    }
+
+    // Body control / navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         return new SmartBodyHelper(this);
@@ -174,23 +287,25 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         this.reassessTameGoals();
     }
 
+    // Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 120.0D)
             .add(Attributes.ARMOR, 12.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.145D)
+            .add(Attributes.MOVEMENT_SPEED, 0.15D)
             .add(Attributes.ATTACK_DAMAGE, 12.0D)
             .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
             .add(Attributes.FOLLOW_RANGE, 24D)
         ;
     }
 
+    // Goals
     @Override
     protected void registerGoals() {
-        super.registerGoals();
+        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(1, new TriceratopsMeleeAttackGoal(this, 1.6F, true));
+        this.goalSelector.addGoal(1, new TriceratopsMeleeAttackGoal(this, 1.65F, true));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 30));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
@@ -205,24 +320,18 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         return 15;
     }
 
-    @Override
-    public boolean doHurtTarget(Entity entityIn) {
-        this.level().broadcastEntityEvent(this, (byte) 4);
-        return super.doHurtTarget(entityIn);
-    }
-
+    // Collision config
     public boolean canBeCollidedWith() {
         return UnusualPrehistoryConfig.TRIKE_COLLISON.get();
     }
 
+    // Sounds
     protected SoundEvent getAmbientSound() {
         return UPSounds.TRIKE_IDLE.get();
     }
-
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return UPSounds.TRIKE_HURT.get();
     }
-
     protected SoundEvent getDeathSound() {
         return UPSounds.TRIKE_DEATH.get();
     }
@@ -253,16 +362,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(IDLE_1_AC, false);
-        this.entityData.define(IDLE_2_AC, false);
-        this.entityData.define(IDLE_3_AC, false);
-        this.entityData.define(CHARGE_COOLDOWN_TICKS, 0);
-        this.entityData.define(HAS_TARGET, false);
-    }
-
+    // Save data
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -273,6 +373,16 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         super.readAdditionalSaveData(compound);
     }
 
+    // Synched data
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(IDLE_1_AC, false);
+        this.entityData.define(IDLE_2_AC, false);
+        this.entityData.define(IDLE_3_AC, false);
+    }
+
+    // Heal on kill
     @Override
     protected int getKillHealAmount() {
         return 10;
@@ -281,6 +391,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     public void tick() {
         super.tick();
 
+        // Float while being ridden
         boolean ridden = !this.getPassengers().isEmpty();
         boolean water = this.isInWater();
         if(ridden && water) {
@@ -292,6 +403,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
     }
 
+    // Travel
     @Override
     public void travel(@NotNull Vec3 pos) {
         if (this.isAlive()) {
@@ -322,6 +434,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
     }
 
+    // Controlling passenger
     @Nullable
     public LivingEntity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {
@@ -332,12 +445,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         return null;
     }
 
-
-    @Override
-    public float getStepHeight() {
-        return 1.25F;
-    }
-
+    // Rider hitbox position
     @Override
     protected void positionRider(Entity pPassenger, @NotNull MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
@@ -349,14 +457,15 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         return 2.85;
     }
 
+    // Foods
     public boolean isFood(ItemStack stack) {
         return stack.is(UPTags.TRICERATOPS_FOOD);
     }
-
     public boolean isTameFood(ItemStack stack) {
         return stack.is(UPTags.TRICERATOPS_TAMES);
     }
 
+    // Mob interactions
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
 
         ItemStack itemstack = player.getItemInHand(hand);
@@ -429,6 +538,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         return InteractionResult.PASS;
     }
 
+    // Set sprinting
     @Override
     public void customServerAiStep() {
         if (this.getMoveControl().hasWanted() && !this.isBaby()) {
@@ -439,12 +549,12 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         super.customServerAiStep();
     }
 
+    // Drop horn on grow up
     protected void ageBoundaryReached() {
         super.ageBoundaryReached();
         if (!this.isBaby() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
             this.spawnAtLocation(UPItems.TRIKE_HORN.get(), 1);
         }
-
     }
 
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
@@ -465,6 +575,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     public void aiStep() {
         super.aiStep();
 
+        // Break blocks while angry
         if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isAggressive() && !this.isTame()) {
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
@@ -476,143 +587,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
     }
 
-    @Override
-    public void handleEntityEvent(byte pId) {
-        super.handleEntityEvent(pId);
-    }
-
-    @Override
-    public void ate() {
-        if (this.isBaby()) {
-            this.ageUp(60);
-        }
-    }
-
-    private void soundListener(SoundKeyframeEvent<TriceratopsEntity> event) {
-        TriceratopsEntity triceratops = event.getAnimatable();
-        if (triceratops.level().isClientSide) {
-            if (event.getKeyframeData().getSound().equals("triceratops_chatter")) {
-                triceratops.level().playLocalSound(triceratops.getX(), triceratops.getY(), triceratops.getZ(), UPSounds.TRIKE_CHATTER.get(), triceratops.getSoundSource(), 1.5F, triceratops.getVoicePitch(), false);
-            }
-        }
-    }
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        AnimationController<TriceratopsEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        controllers.add(controller);
-        AnimationController<TriceratopsEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
-                .triggerableAnim("shake", TRIKE_HEAD_SHAKE)
-                .triggerableAnim("chatter", TRIKE_CHATTER)
-                .triggerableAnim("graze", TRIKE_GRAZE)
-            ;
-        blend.setSoundKeyframeHandler(this::soundListener);
-
-        AnimationController<TriceratopsEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
-        attack.setSoundKeyframeHandler(this::soundListener);
-        controllers.add(attack);
-    }
-
-    protected <E extends TriceratopsEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-
-        if (this.isFromBook()) {
-            return event.setAndContinue(TRIKE_IDLE);
-        }
-
-        if (this.isInWater() || this.isSwimming()) {
-            event.setAndContinue(TRIKE_SWIM);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-
-        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasControllingPassenger() && !this.isInSittingPose()){
-            if(this.isSprinting() && !this.isBaby()) {
-                event.setAndContinue(TRIKE_SPRINT);
-                event.getController().setAnimationSpeed(1.0F);
-            } else {
-                event.setAndContinue(TRIKE_WALK);
-                event.getController().setAnimationSpeed(1.0F);
-            }
-            return PlayState.CONTINUE;
-        }
-
-        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && this.hasControllingPassenger() && !this.isInSittingPose()){
-
-            if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()){
-                event.setAndContinue(TRIKE_SPRINT);
-                event.getController().setAnimationSpeed(1.0F);
-            }
-            else {
-                event.setAndContinue(TRIKE_WALK);
-                event.getController().setAnimationSpeed(1.5F);
-            }
-
-            return PlayState.CONTINUE;
-        }
-
-        if (this.isInSittingPose()) {
-            event.setAndContinue(TRIKE_SIT);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-
-        if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC) && level().getBlockState(this.blockPosition().below()).is(UPTags.TRIKE_GRAZING_BLOCKS)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "graze");
-                    return event.setAndContinue(TRIKE_IDLE);
-                } else {
-                    triggerAnim("blend", "graze");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_2_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "shake");
-                    return event.setAndContinue(TRIKE_IDLE);
-                } else {
-                    triggerAnim("blend", "shake");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_3_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "chatter");
-                    return event.setAndContinue(TRIKE_IDLE);
-                } else {
-                    triggerAnim("blend", "chatter");
-                    return PlayState.CONTINUE;
-                }
-            }
-            return event.setAndContinue(TRIKE_IDLE);
-        }
-        return PlayState.CONTINUE;
-    }
-
-    // Attack animations
-    protected <E extends TriceratopsEntity> PlayState attackPredicate(final AnimationState<E> event) {
-        int animState = this.getAnimationState();
-
-        if (animState == 21) {
-            event.setAndContinue(TRIKE_ATTACK_1);
-            return PlayState.CONTINUE;
-        }
-        else if (animState == 22) {
-            event.setAndContinue(TRIKE_ATTACK_2);
-            return PlayState.CONTINUE;
-        }
-        else if (animState == 23) {
-            event.setAndContinue(TRIKE_CHARGE);
-            event.getController().setAnimationSpeed(1.25F);
-            return PlayState.CONTINUE;
-        }
-        else if (animState == 0) {
-            event.getController().forceAnimationReset();
-            return PlayState.STOP;
-        }
-        else return PlayState.CONTINUE;
-    }
-
+    // Variants
     public void determineVariant(int variantChange){
         if (variantChange <= 60) {
             this.setVariant(0);
@@ -622,15 +597,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
     }
 
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        int variantChange = this.random.nextInt(0, 100);
-        this.determineVariant(variantChange);
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
+    // Follow owner
     @Override
     public boolean shouldFollow() {
         return this.getCommand() == 1;

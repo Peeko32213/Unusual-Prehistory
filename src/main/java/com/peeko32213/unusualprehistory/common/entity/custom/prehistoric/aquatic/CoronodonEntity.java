@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.CoronodonJumpGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CoronodonJumpGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.server.level.ServerLevel;

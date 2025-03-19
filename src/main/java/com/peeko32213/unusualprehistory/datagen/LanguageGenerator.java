@@ -654,6 +654,7 @@ public class LanguageGenerator extends LanguageProvider {
         addSound(UPSounds.TRIKE_HURT, "Triceratops hurts");
         addSound(UPSounds.TRIKE_DEATH, "Triceratops dies");
         addSound(UPSounds.TRIKE_CHATTER, "Triceratops chatters");
+        addSound(UPSounds.TRIKE_WARN, "Triceratops warns");
 
         addSound(UPSounds.BRACHI_IDLE, "Brachiosaurus bellows");
         addSound(UPSounds.BRACHI_HURT, "Brachiosaurus hurts");

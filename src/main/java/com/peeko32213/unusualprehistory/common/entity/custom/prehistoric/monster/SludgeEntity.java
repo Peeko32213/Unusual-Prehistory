@@ -289,7 +289,7 @@ public class SludgeEntity extends Monster implements GeoAnimatable {
         protected void preformClapAttack () {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.SLUDGE_SLAP.get(), 1.0F, 1.0F);
-            HitboxAttacks.pivotedPolyHitCheck(this.mob, this.rightOffset, 2f, 2f, 2f, (ServerLevel)this.mob.level(), 15f, this.mob.damageSources().mobAttack(mob), 0.5f, false);
+            HitboxAttacks.pivotedPolyHitCheck(mob, this.mob, this.rightOffset, 2f, 2f, 2f, (ServerLevel)this.mob.level(), 15f, this.mob.damageSources().mobAttack(mob), 0.5f, false, true);
         }
 
         protected void resetAttackCooldown () {

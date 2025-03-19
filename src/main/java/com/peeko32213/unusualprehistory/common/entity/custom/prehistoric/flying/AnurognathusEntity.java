@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MajungasaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.goal.AnuroPolinateGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.AnuroPolinateGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;

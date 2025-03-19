@@ -133,10 +133,11 @@ public class HitboxAttacks {
         }
     }
 
-    public static void pivotedPolyHitCheck(LivingEntity source, Vec3 boxOffset, double attackWidth, double attackHeight, double attackLength, ServerLevel world, float damage, DamageSource damageSource, float knockback, boolean disableShield) {
-        pivotedPolyHitCheck(source, boxOffset, attackWidth, attackHeight, attackLength, world, damage, damageSource, knockback, disableShield, false);
+    public static void pivotedPolyHitCheck(PathfinderMob entityIn, LivingEntity source, Vec3 boxOffset, double attackWidth, double attackHeight, double attackLength, ServerLevel world, float damage, DamageSource damageSource, float knockback, boolean disableShield, boolean checkTarget) {
+        pivotedPolyHitCheck(entityIn, source, boxOffset, attackWidth, attackHeight, attackLength, world, damage, damageSource, knockback, disableShield, checkTarget, false);
     }
-    public static void pivotedPolyHitCheck(LivingEntity source, Vec3 boxOffset, double attackWidth, double attackHeight, double attackLength, ServerLevel world, float damage, DamageSource damageSource, float knockback, boolean disableShield, boolean hitBoxOutline) {
+
+    public static void pivotedPolyHitCheck(PathfinderMob entityIn, LivingEntity source, Vec3 boxOffset, double attackWidth, double attackHeight, double attackLength, ServerLevel world, float damage, DamageSource damageSource, float knockback, boolean disableShield, boolean checkTarget, boolean hitBoxOutline) {
         //attackRadius is in blocks
 
         Vec3 sourcePos = source.position();
@@ -152,25 +153,40 @@ public class HitboxAttacks {
         if (hitBoxOutline) {
             hitboxOutline(Hitbox, world);
         }
-        //world.sendParticles(ParticleTypes.EXPLOSION, rotatedPos.x, rotatedPos.y, rotatedPos.z, 1, 0, 0, 0, 0);
-        List<LivingEntity> victims = new ArrayList<>(world.getEntitiesOfClass(LivingEntity.class, Hitbox));
+        List<LivingEntity> entities = new ArrayList<>(world.getEntitiesOfClass(LivingEntity.class, Hitbox));
 
-        for (LivingEntity victim : victims) {
-            if (victim != source) {
-                //entityIn.doHurtTarget(target);
-                if (victim instanceof Player && disableShield) {
-                    disableShield((Player) victim, victim.getMainHandItem(), victim.getOffhandItem(), source);
+        for (LivingEntity target : entities) {
+            if(checkTarget) {
+                if (target != source && target == entityIn.getTarget()) {
+                    if (target instanceof Player && disableShield) {
+                        disableShield((Player) target, target.getMainHandItem(), target.getOffhandItem(), source);
+                    }
+
+                    Vec2 knockVec = MathHelpers.OrizontalAimVector(
+                            MathHelpers.AimVector(new Vec3(-source.position().x, -source.position().y, -source.position().z),
+                                    new Vec3(-target.position().x, -target.position().y, -target.position().z)
+                            ));
+
+                    target.hurt(damageSource, damage);
+                    target.setLastHurtByMob(source);
+                    target.knockback(knockback, knockVec.x, knockVec.y);
                 }
+            }
+            else {
+                if (target != source) {
+                    if (target instanceof Player && disableShield) {
+                        disableShield((Player) target, target.getMainHandItem(), target.getOffhandItem(), source);
+                    }
 
-                Vec2 knockVec = MathHelpers.OrizontalAimVector(
-                        MathHelpers.AimVector(new Vec3(-source.position().x, -source.position().y, -source.position().z),
-                                new Vec3(-victim.position().x, -victim.position().y, -victim.position().z)
-                        ));
+                    Vec2 knockVec = MathHelpers.OrizontalAimVector(
+                            MathHelpers.AimVector(new Vec3(-source.position().x, -source.position().y, -source.position().z),
+                                    new Vec3(-target.position().x, -target.position().y, -target.position().z)
+                            ));
 
-                victim.hurt(damageSource, damage);
-                victim.setLastHurtByMob(source);
-                victim.knockback(knockback, knockVec.x, knockVec.y);
-
+                    target.hurt(damageSource, damage);
+                    target.setLastHurtByMob(source);
+                    target.knockback(knockback, knockVec.x, knockVec.y);
+                }
             }
         }
     }

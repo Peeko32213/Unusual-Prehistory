@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.common.entity.custom.base;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedEntityData;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -34,6 +33,7 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
+    private static final EntityDataAccessor<Boolean> PERFORMING_ACTION = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
@@ -43,9 +43,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
 
-    int lastTimeSinceHungry;
-
-    private boolean orderedToSit;
     public float sitProgress;
 
     public Vec3 oldPos;
@@ -62,9 +59,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        if(this.getTarget() == null) {
-            this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
-        }
     }
 
     @Override
@@ -149,6 +143,7 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(PERFORMING_ACTION, false);
         this.entityData.define(SADDLED, false);
         this.entityData.define(IS_FROM_EGG, false);
         this.entityData.define(FROM_BOOK, false);
@@ -181,18 +176,36 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         this.setCommand(compound.getInt("command"));
     }
 
-
-    public boolean isSDataTrue(SerializableSynchedEntityData data) {
-        return data.isEqualToValue(this, true);
-    }
-
-
+    // Animation states
     public boolean getBooleanState(EntityDataAccessor<Boolean> pKey) {
         return this.entityData.get(pKey);
     }
 
     public void setBooleanState(EntityDataAccessor<Boolean> pKey, boolean state) {
         this.entityData.set(pKey, state);
+    }
+
+    // Actions
+    public boolean getPerformingAction() {
+        return this.entityData.get(PERFORMING_ACTION);
+    }
+
+    public void setPerformingAction(boolean action) {
+        this.entityData.set(PERFORMING_ACTION, action);
+    }
+
+    @Override
+    public boolean getAction() {
+        return getPerformingAction();
+    }
+
+    @Override
+    public void setAction(boolean action) {
+        setPerformingAction(action);
+    }
+
+    public boolean isSDataTrue(SerializableSynchedEntityData data) {
+        return data.isEqualToValue(this, true);
     }
 
     // Tame command
