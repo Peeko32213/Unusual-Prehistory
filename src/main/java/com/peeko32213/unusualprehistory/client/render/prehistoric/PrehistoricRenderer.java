@@ -13,8 +13,6 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-import java.util.Locale;
-
 public class PrehistoricRenderer<T extends PrehistoricEntityOld> extends GeoEntityRenderer<T> {
 
     public PrehistoricRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {

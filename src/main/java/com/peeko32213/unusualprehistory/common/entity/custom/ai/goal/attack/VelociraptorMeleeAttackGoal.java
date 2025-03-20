@@ -1,10 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TriceratopsEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -12,7 +10,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;

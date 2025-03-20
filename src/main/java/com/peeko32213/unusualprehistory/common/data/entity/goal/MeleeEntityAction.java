@@ -4,10 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.data.attack.EntityAttack;
 import com.peeko32213.unusualprehistory.common.data.attack.NoneAttack;
-import com.peeko32213.unusualprehistory.core.registry.EntityActionsRegistry;
-import net.minecraft.world.entity.LivingEntity;
-
-import java.util.function.Consumer;
 
 public class MeleeEntityAction {
     public static final Codec<MeleeEntityAction> CODEC = RecordCodecBuilder.create(instance -> instance.group(

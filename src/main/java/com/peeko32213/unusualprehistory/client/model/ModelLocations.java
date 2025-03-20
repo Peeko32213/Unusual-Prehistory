@@ -1,50 +1,49 @@
 package com.peeko32213.unusualprehistory.client.model;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.resources.ResourceLocation;
+
+import java.util.Map;
 
 public class ModelLocations {
 
-    public static ModelData AMBER_SHOT = new ModelData("amber_shot");
-    public static ModelData JARATE = new ModelData("jarate");
-    public static ModelData RABIES = new ModelData("rabies");
-    public static ModelData AMMONITE = new ModelData("ammonite");
-    public static ModelData ANURO = new ModelData("anuro");
-    public static ModelData BABY_DUNK = new ModelData("baby_dunk");
-    public static ModelData BARINASUCHUS = new ModelData("barinasuchus");
-    public static ModelData BEELZEBUFO = new ModelData("beelzebufo");
-    public static ModelData BABY_BEELZEBUFO = new ModelData("beelze_baby");
-    public static ModelData BOOK_SNAKE = new ModelData("palaeophis/palaeophis");
-    public static ModelData ENCRUSTED = new ModelData("encrusted");
-    public static ModelData FURACACAUDA = new ModelData("furacacauda");
-    public static ModelData HWACHA_SPIKE = new ModelData("pin");
-    public static ModelData KIMMER = new ModelData("kimmeridgebrachypteraeschnidium", "kimmer/kimmeridgebrachypteraeschnidium_pattern_a");
-    public static ModelData SLUDGE = new ModelData("sludge");
-    public static ModelData TALPANAS = new ModelData("talpanas");
-    public static ModelData TARTUOSTEUS = new ModelData("tartuosteus");
-    public static ModelData REX = new ModelData("rex");
-    public static ModelData ANTARCTOPELTA = new ModelData("antarctopelta");
-    public static ModelData AUSTRORAPTOR = new ModelData("austroraptor");
-    public static ModelData ERYON = new ModelData("eryon");
-    public static ModelData PTERODAUSTRO = new ModelData("pterodaustro");
+    public static ModelData AMBER_SHOT = ModelLocationBuilder.create("amber_shot").build();
+    public static ModelData JARATE = ModelLocationBuilder.create("jarate").build();
+    public static ModelData RABIES = ModelLocationBuilder.create("rabies").build();
+    public static ModelData AMMONITE = ModelLocationBuilder.create("ammonite").build();
+    public static ModelData ANURO = ModelLocationBuilder.create("anuro").build();
+    public static ModelData BABY_DUNK = ModelLocationBuilder.create("baby_dunk").build();
+    public static ModelData BARINASUCHUS = ModelLocationBuilder.create("barinasuchus").build();
+    public static ModelData BEELZEBUFO = ModelLocationBuilder.create("beelzebufo").build();
+    public static ModelData BABY_BEELZEBUFO = ModelLocationBuilder.create("beelze_baby").build();
+    public static ModelData BOOK_SNAKE = ModelLocationBuilder.create("palaeophis/palaeophis").build();
+    public static ModelData ENCRUSTED = ModelLocationBuilder.create("encrusted").build();
+    public static ModelData FURACACAUDA = ModelLocationBuilder.create("furacacauda").build();
+    public static ModelData HWACHA_SPIKE = ModelLocationBuilder.create("pin").build();
+    public static ModelData KIMMER = ModelLocationBuilder.create("kimmeridgebrachypteraeschnidium", "kimmer/kimmeridgebrachypteraeschnidium_pattern_a").build();
+    public static ModelData SLUDGE = ModelLocationBuilder.create("sludge").build();
+    public static ModelData TALPANAS = ModelLocationBuilder.create("talpanas").build();
+    public static ModelData TARTUOSTEUS = ModelLocationBuilder.create("tartuosteus").build();
+    public static ModelData REX = ModelLocationBuilder.create("rex").build();
+    public static ModelData ANTARCTOPELTA = ModelLocationBuilder.create("antarctopelta").build();
+    public static ModelData AUSTRORAPTOR = ModelLocationBuilder.create("austroraptor").build();
+    public static ModelData ERYON = ModelLocationBuilder.create("eryon").build();
+    public static ModelData PTERODAUSTRO = ModelLocationBuilder.create("pterodaustro").build();
 
     public static class ModelData {
-        private ResourceLocation model;
-        private ResourceLocation texture;
-        private ResourceLocation animation;
 
+        private final ResourceLocation model;
+        private final ResourceLocation animation;
+        private final Map<Integer, ResourceLocation> textures;
+        private final float babyHeadScale;
+        private final String headBone;
 
-        public ModelData(String name, String texture){
-            this.model = new ResourceLocation(UnusualPrehistory.MODID, "geo/" + name + ".geo.json");
-            this.texture = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/" + texture + ".png");
-            this.animation = new ResourceLocation(UnusualPrehistory.MODID, "animations/" + name + ".animation.json");
+        public ModelData(ResourceLocation model, ResourceLocation animation, Map<Integer, ResourceLocation> textures, float babyHeadScale, String headBone) {
+            this.model = model;
+            this.animation = animation;
+            this.textures = textures;
+            this.babyHeadScale = babyHeadScale;
+            this.headBone = headBone;
         }
-        public ModelData(String name){
-            this.model = new ResourceLocation(UnusualPrehistory.MODID, "geo/" + name + ".geo.json");
-            this.texture = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/" + name + ".png");
-            this.animation = new ResourceLocation(UnusualPrehistory.MODID, "animations/" + name + ".animation.json");
-        }
-
 
         public ResourceLocation getAnimation() {
             return animation;
@@ -54,9 +53,20 @@ public class ModelLocations {
             return model;
         }
 
-        public ResourceLocation getTexture() {
-            return texture;
+        public ResourceLocation getTexture(int variant) {
+            return textures.getOrDefault(variant, textures.get(0)); // Default texture if variant not found
         }
 
+        public Map<Integer, ResourceLocation> getTextures() {
+            return textures;
+        }
+
+        public float getBabyHeadScale() {
+            return babyHeadScale;
+        }
+
+        public String getHeadBone() {
+            return headBone;
+        }
     }
 }

@@ -1,14 +1,9 @@
 package com.peeko32213.unusualprehistory.client.model.entity;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.NyctoraptorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.PanacanthocarisEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 
 public class PanacanthocarisModel extends GeoModel<PanacanthocarisEntity> {
 

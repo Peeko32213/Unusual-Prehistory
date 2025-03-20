@@ -3,9 +3,6 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.attack.*;
-import com.peeko32213.unusualprehistory.common.data.predicate.*;
-import com.scouter.goalsmith.data.GSRegistries;
-import com.scouter.goalsmith.data.PredicateCodec;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 

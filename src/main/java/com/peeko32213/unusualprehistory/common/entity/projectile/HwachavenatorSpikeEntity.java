@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.projectile;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.HwachavenatorEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -33,7 +34,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class HwachavenatorSpikeEntity extends Entity implements GeoAnimatable {
+public class HwachavenatorSpikeEntity extends Entity implements GeoAnimatable, IVariantEntity {
     public static final Logger LOGGER = LogManager.getLogger();
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private UUID ownerUUID;
@@ -266,6 +267,11 @@ public class HwachavenatorSpikeEntity extends Entity implements GeoAnimatable {
     @Override
     public double getTick(Object o) {
         return tickCount;
+    }
+
+    @Override
+    public int getVariant() {
+        return 0;
     }
 }
 

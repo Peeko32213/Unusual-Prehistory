@@ -10,7 +10,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
@@ -288,10 +287,6 @@ public class AmmoniteEntity extends AbstractSchoolingFish implements Bucketable,
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
-    @Override
-    public ResourceLocation getVariantTexture() {
-        return null;
-    }
 
     public int getVariant() {
         return this.entityData.get(VARIANT);

@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.core.events;
 
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 

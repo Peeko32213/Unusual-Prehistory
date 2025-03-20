@@ -2,9 +2,14 @@
 
  import com.google.common.collect.ImmutableList;
  import com.google.common.collect.ImmutableMap;
- import com.peeko32213.unusualprehistory.common.entity.animation.state.*;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FindWaterGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.LeaveWaterGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.SemiAquaticSwimmingGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;

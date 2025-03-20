@@ -1,10 +1,8 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
 
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FindWaterGoal;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;

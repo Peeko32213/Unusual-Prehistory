@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.data.entity.goal;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.common.entity.animation.state.SerializableStateHelper;
 import net.minecraft.util.random.Weight;
 import net.minecraft.util.random.WeightedEntry;
 

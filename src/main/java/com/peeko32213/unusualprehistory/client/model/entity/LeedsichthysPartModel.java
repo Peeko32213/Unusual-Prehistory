@@ -28,10 +28,10 @@ public class LeedsichthysPartModel extends GeoModel<LeedsichthysPartEntity> {
     }
 
     private ResourceLocation getModelForType(LeedsichthysPartIndex partType) {
-        switch (partType){
-
-            case TAIL: return tailModel;
-        }
+        //switch (partType){
+//
+        //    case TAIL: return tailModel;
+        //}
         return tailModel;
     }
 

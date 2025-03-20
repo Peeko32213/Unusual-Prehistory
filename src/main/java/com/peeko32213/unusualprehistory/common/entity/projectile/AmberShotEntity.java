@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.projectile;
 
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.BetterAbstractHurtingProjectile;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.RangedMeleeMob;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
@@ -24,7 +25,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class AmberShotEntity extends BetterAbstractHurtingProjectile implements GeoAnimatable {
+public class AmberShotEntity extends BetterAbstractHurtingProjectile implements GeoAnimatable, IVariantEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     protected int timeInAir;
@@ -167,6 +168,11 @@ public class AmberShotEntity extends BetterAbstractHurtingProjectile implements 
     @Override
     public double getTick(Object o) {
         return tickCount;
+    }
+
+    @Override
+    public int getVariant() {
+        return 0;
     }
 }
 

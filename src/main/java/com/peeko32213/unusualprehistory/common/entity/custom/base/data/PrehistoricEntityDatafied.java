@@ -1,13 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base.data;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.data.PrehistoricEntityJsonDataManager;
 import com.peeko32213.unusualprehistory.common.data.entity.*;
 import com.peeko32213.unusualprehistory.common.data.entity.generic.*;
-import com.peeko32213.unusualprehistory.common.data.predicate.SpawnPredicate;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamableStatedPrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.peeko32213.unusualprehistory.mixin.AttributeAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;

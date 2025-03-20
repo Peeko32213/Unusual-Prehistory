@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.data.entity.generic.SoundData;
 import com.peeko32213.unusualprehistory.core.registry.UPAttackRegistry;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.phys.Vec3;
 
 public class GenericAttack implements EntityAttack {
 

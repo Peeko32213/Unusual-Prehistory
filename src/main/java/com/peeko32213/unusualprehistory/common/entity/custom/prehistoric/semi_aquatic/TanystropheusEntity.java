@@ -1,10 +1,7 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BaskRandomLookAroundGoal;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FindWaterGoal;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;

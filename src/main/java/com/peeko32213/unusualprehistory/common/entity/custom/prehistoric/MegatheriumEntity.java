@@ -1,8 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.Lists;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TameableFollowOwner;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;

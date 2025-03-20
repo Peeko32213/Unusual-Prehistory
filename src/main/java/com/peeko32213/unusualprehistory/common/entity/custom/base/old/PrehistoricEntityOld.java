@@ -4,6 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -39,7 +40,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class PrehistoricEntityOld extends Animal implements GeoAnimatable, IHatchableEntity, IBookEntity {
+public abstract class PrehistoricEntityOld extends Animal implements GeoAnimatable, IHatchableEntity, IBookEntity, IVariantEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Boolean> HUNGRY = SynchedEntityData.defineId(PrehistoricEntityOld.class, EntityDataSerializers.BOOLEAN);

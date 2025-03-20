@@ -12,8 +12,6 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-import java.util.Locale;
-
 public class StatedPrehistoricAquaticRenderer<T extends PrehistoricAquaticEntity> extends GeoEntityRenderer<T> {
 
     public StatedPrehistoricAquaticRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {

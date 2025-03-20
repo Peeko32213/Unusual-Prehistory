@@ -2,8 +2,9 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.MammothMeleeAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;

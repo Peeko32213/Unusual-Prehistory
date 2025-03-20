@@ -1,9 +1,10 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.projectile.AmberShotEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.projectile.AmberShotEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.AttackSound;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.CustomAbstractRangedAttack;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.CustomRangedAttackGoal;
@@ -45,7 +46,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class EncrustedEntity extends RangedMeleeMob implements GeoAnimatable, IBookEntity {
+public class EncrustedEntity extends RangedMeleeMob implements GeoAnimatable, IBookEntity, IVariantEntity {
     private static final EntityDataAccessor<Boolean> SPITTING = SynchedEntityData.defineId(EncrustedEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(EncrustedEntity.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -90,6 +91,11 @@ public class EncrustedEntity extends RangedMeleeMob implements GeoAnimatable, IB
     @Override
     public void setFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
+    }
+
+    @Override
+    public int getVariant() {
+        return 0;
     }
 
     public static class RangedAttack extends CustomAbstractRangedAttack {

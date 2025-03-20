@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamableStatedPrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.AmmoniteEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.BeelzebufoTadpoleEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.ScaumenaciaEntity;

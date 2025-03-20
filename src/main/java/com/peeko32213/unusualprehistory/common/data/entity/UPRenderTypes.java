@@ -3,12 +3,8 @@ package com.peeko32213.unusualprehistory.common.data.entity;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.client.ClientUtils;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.renderer.GeoRenderer;
 
 public class UPRenderTypes {
 

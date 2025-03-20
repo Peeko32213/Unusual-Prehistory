@@ -2,8 +2,10 @@ package com.peeko32213.unusualprehistory.common.data.entity.generic;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.data.predicate.*;
+import com.peeko32213.unusualprehistory.common.data.predicate.AndSpawnPredicate;
+import com.peeko32213.unusualprehistory.common.data.predicate.IsBlockStateSpawnPredicate;
+import com.peeko32213.unusualprehistory.common.data.predicate.IsBrightEnoughToSpawnPredicate;
+import com.peeko32213.unusualprehistory.common.data.predicate.SpawnPredicate;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.scouter.goalsmith.data.PredicateCodec;
 

@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.common.data.PrehistoricEgg;
 import com.peeko32213.unusualprehistory.common.data.attack.EntityAttack;
-import com.scouter.goalsmith.GoalSmith;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;

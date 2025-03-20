@@ -4,20 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import com.peeko32213.unusualprehistory.common.data.entity.PrehistoricEntityData;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.world.level.biome.Biome;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PrehistoricEntityJsonDataManager extends SimpleJsonResourceReloadListener {
 

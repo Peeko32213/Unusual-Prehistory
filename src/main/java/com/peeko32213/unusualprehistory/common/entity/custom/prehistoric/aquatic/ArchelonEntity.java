@@ -5,8 +5,8 @@
  import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;

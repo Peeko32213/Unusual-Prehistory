@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.data.codec.NullableFieldCodec;
 import com.peeko32213.unusualprehistory.common.data.entity.attribute.AttributesModifier;
-import com.peeko32213.unusualprehistory.common.data.entity.generic.EntitySpawnData;
 import com.peeko32213.unusualprehistory.common.data.entity.generic.GenericEntityData;
 import net.minecraft.util.ExtraCodecs;
 

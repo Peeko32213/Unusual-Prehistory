@@ -1,7 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.GroomGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.SmilodonAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -292,11 +293,8 @@ public class SmilodonEntity extends PrehistoricEntityOld implements IVariantEnti
     private static final ResourceLocation TEXTURE_OCELOT_BABY = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot_baby.png");
 
     @Override
-    public ResourceLocation getVariantTexture() {
-        if(getVariant() == 1){
-            return TEXTURE_OCELOT;
-        }
-        return TEXTURE_NORMAL;
+    public int getVariant() {
+       return this.entityData.get(VARIANT);
     }
 
     static class SmilodonStalkGoal extends Goal {

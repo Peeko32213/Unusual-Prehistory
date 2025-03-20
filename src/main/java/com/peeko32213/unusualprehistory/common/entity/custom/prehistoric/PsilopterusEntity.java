@@ -6,8 +6,10 @@
  import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.JoinPackGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PackHunterGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IPackHunter;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
@@ -19,7 +21,6 @@
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
- import net.minecraft.util.Mth;
  import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;

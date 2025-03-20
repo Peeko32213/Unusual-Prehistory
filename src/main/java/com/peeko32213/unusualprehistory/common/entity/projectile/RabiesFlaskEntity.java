@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.projectile;
 
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
@@ -29,7 +30,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class RabiesFlaskEntity extends ThrowableItemProjectile implements GeoAnimatable {
+public class RabiesFlaskEntity extends ThrowableItemProjectile implements GeoAnimatable, IVariantEntity {
     private int lifetime = 10000;
     private float pointDirection = 0;
     protected Item getDefaultItem() {
@@ -139,4 +140,8 @@ public class RabiesFlaskEntity extends ThrowableItemProjectile implements GeoAni
         this.pointDirection = dir;
     }
 
+    @Override
+    public int getVariant() {
+        return 0;
+    }
 }

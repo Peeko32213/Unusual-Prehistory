@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster;
 
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -33,7 +34,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.EnumSet;
 import java.util.Objects;
 
-public class SludgeEntity extends Monster implements GeoAnimatable {
+public class SludgeEntity extends Monster implements GeoAnimatable, IVariantEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(SludgeEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(SludgeEntity.class, EntityDataSerializers.INT);
@@ -119,6 +120,11 @@ public class SludgeEntity extends Monster implements GeoAnimatable {
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
+    }
+
+    @Override
+    public int getVariant() {
+        return 0;
     }
 
     static class SludgeMeleeAttackGoal extends Goal {

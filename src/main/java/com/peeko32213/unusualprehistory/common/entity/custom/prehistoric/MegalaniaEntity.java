@@ -1,7 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.SleepRandomLookAroundGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;

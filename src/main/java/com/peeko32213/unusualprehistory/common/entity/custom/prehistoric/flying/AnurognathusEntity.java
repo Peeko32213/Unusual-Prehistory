@@ -1,10 +1,11 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.AnuroPolinateGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MajungasaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.AnuroPolinateGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -55,7 +56,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 
-public class AnurognathusEntity extends AgeableMob implements GeoEntity, NeutralMob, IBookEntity {
+public class AnurognathusEntity extends AgeableMob implements GeoEntity, NeutralMob, IBookEntity, IVariantEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -399,6 +400,11 @@ public class AnurognathusEntity extends AgeableMob implements GeoEntity, Neutral
     @Override
     public void setFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
+    }
+
+    @Override
+    public int getVariant() {
+        return 0;
     }
 
     private class AIFlyIdle extends Goal {

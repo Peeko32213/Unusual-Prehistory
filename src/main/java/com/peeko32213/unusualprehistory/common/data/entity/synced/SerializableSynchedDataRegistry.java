@@ -3,9 +3,6 @@ package com.peeko32213.unusualprehistory.common.data.entity.synced;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.Entity;
@@ -15,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 import static com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity.VELOCIRAPTOR_BITE;
 
 public class SerializableSynchedDataRegistry {

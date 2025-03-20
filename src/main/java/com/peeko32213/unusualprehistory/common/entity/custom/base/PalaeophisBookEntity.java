@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -18,7 +19,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Collections;
 
-public class PalaeophisBookEntity extends LivingEntity implements GeoAnimatable, IBookEntity {
+public class PalaeophisBookEntity extends LivingEntity implements GeoAnimatable, IBookEntity, IVariantEntity {
     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(PalaeophisBookEntity.class, EntityDataSerializers.BOOLEAN);
 
 
@@ -87,5 +88,10 @@ public class PalaeophisBookEntity extends LivingEntity implements GeoAnimatable,
     @Override
     public void setFromBook(boolean fromBook) {
         this.entityData.set(FROM_BOOK, fromBook);
+    }
+
+    @Override
+    public int getVariant() {
+        return 0;
     }
 }

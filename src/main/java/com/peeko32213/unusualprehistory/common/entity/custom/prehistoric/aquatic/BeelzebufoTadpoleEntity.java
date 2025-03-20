@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquati
 
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.BeelzebufoEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.core.BlockPos;
@@ -50,7 +51,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-public class BeelzebufoTadpoleEntity extends AbstractFish implements GeoAnimatable {
+public class BeelzebufoTadpoleEntity extends AbstractFish implements GeoAnimatable, IVariantEntity {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(BeelzebufoTadpoleEntity.class, EntityDataSerializers.BOOLEAN);
     public static final int MAX_TADPOLE_AGE = Math.abs(-24000);
     private static final RawAnimation BABY_SWIM = RawAnimation.begin().thenLoop("animation.babybeelze.swim");
@@ -300,5 +301,10 @@ public class BeelzebufoTadpoleEntity extends AbstractFish implements GeoAnimatab
         int i = pLevel.getSeaLevel();
         int j = i - 13;
         return pPos.getY() >= j && pPos.getY() <= i && pLevel.getFluidState(pPos.below()).is(FluidTags.WATER) && pLevel.getBlockState(pPos.above()).is(Blocks.WATER) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
+    }
+
+    @Override
+    public int getVariant() {
+        return 0;
     }
 }

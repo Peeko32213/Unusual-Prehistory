@@ -7,10 +7,10 @@
  import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.AquaticJumpGoal;
- import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomizableRandomSwimGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
