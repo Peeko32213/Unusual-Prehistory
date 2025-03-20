@@ -14,6 +14,7 @@ import java.util.Collections;
 public class IKSolver {
     private final LivingEntity entity;
     private final int nodeCount;
+    private final double stiffness = Mth.PI*0.5;
 
 
     private Vec3[] nodes = {};
@@ -102,6 +103,7 @@ public class IKSolver {
             nodes[i] = MathHelpers.distConstraint(nodes[i - 1], nodes[i], nodeDist);
         }
 
+
         // Update Geckolib - usable bone angles for each node.
         tailYaws[0] = ((MathHelpers.getAngleForLinkTopDownFlat(this.entity.position(), this.nosePoint, this.nodes[0], this.leftRefPoint, this.rightRefPoint)));
         tailYaws[1] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[0], this.entity.position(), this.nodes[1], this.leftRefPoint, this.rightRefPoint)));
@@ -157,7 +159,8 @@ public class IKSolver {
             L.sendParticles(ParticleTypes.BUBBLE, (entity.getX()), (entity.getY()), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 
             for (int i = 0; i < nodeCount; i++) {
-                L.sendParticles(ParticleTypes.BUBBLE_POP, (nodes[i].x), (nodes[i].y), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y ), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                System.out.println(nodes[i]);
             }
         }
     }
