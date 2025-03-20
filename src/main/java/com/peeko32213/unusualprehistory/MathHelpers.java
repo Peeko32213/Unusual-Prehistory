@@ -22,6 +22,23 @@ public class MathHelpers {
         return nodes;
     }
 
+    // Constrain the angle to be within a certain range of the anchor(Constraint entered must be positive)
+    public static double constrainAngle(double angle, double constraint) {
+        System.out.println("ang");
+        System.out.println(angle);
+        if (angle < 0 && angle < -constraint) {
+            System.out.println("yea");
+            return -constraint;
+        }
+
+        if (angle > 0 && angle > constraint) {
+            return constraint;
+        }
+
+        return angle;
+    }
+
+
 
 
 

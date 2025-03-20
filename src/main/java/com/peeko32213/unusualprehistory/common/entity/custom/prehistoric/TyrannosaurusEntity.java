@@ -470,6 +470,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
             }
         }
         shakeCooldown--;
+        this.rexIK.calculateTailAngles(this);
         this.rexIK.visualizeNodes(this.level());
     }
 

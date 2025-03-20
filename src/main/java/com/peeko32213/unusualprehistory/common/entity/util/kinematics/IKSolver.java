@@ -14,7 +14,7 @@ import java.util.Collections;
 public class IKSolver {
     private final LivingEntity entity;
     private final int nodeCount;
-    private final double stiffness = Mth.PI*0.5;
+    private final double stiffness = Mth.PI*0.50;
 
 
     private Vec3[] nodes = {};
@@ -75,7 +75,7 @@ public class IKSolver {
 
         // Initialize the first tail point (tail0) relative to the entity and the nose point
         nosePoint = MathHelpers.rotateAroundCenter3dDeg(this.entity.position(), this.entity.position().subtract(noseOffset), -this.entity.getYHeadRot(), -this.entity.getXRot());
-        nodes[0] = MathHelpers.rotateAroundCenterFlatDeg(pos, pos.subtract(nodeDist, 0, nodeDist), yRot);
+        nodes[0] = MathHelpers.rotateAroundCenterFlatDeg(this.entity.position(), this.entity.position().subtract(nodeDist, 0, nodeDist), yRot);
 
         // Chain the rotations for subsequent tail segments.
         for (int i = 1; i < nodeCount; i++) {
@@ -92,20 +92,40 @@ public class IKSolver {
      */
     public void calculateTailAngles(LivingEntity entity) {
 
-        Vec3 anchor = entity.position();
-
         // Update the first node that can be attributed to the tail(the root of the tail) and nosepoint.
-        nosePoint = MathHelpers.rotateAroundCenter3dDeg(this.entity.position(), this.entity.position().subtract(noseOffset), -this.entity.getYHeadRot(), -this.entity.getXRot());
-        nodes[0] = MathHelpers.distConstraint(anchor.subtract(0, 0, 0), nodes[0], nodeDist);
+        nosePoint = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(noseOffset), -entity.getYHeadRot(), -entity.getXRot());
+        nodes[0] = MathHelpers.distConstraint(entity.position().subtract(0, 0, 0), nodes[0], nodeDist);
 
         // Chain-update subsequent tail points.
         for (int i = 1; i < nodeCount; i++) {
             nodes[i] = MathHelpers.distConstraint(nodes[i - 1], nodes[i], nodeDist);
         }
 
+        double node0Angle = MathHelpers.constrainAngle(MathHelpers.getAngleForLinkTopDownFlat(this.nosePoint, entity.position(), this.nodes[0], this.leftRefPoint, this.rightRefPoint), stiffness);
+        System.out.println(node0Angle);
+        nodes[0] = MathHelpers.rotateAroundCenter3dDeg(entity.position(), nodes[0], (float) (node0Angle*Mth.RAD_TO_DEG), 0);
+        System.out.println(MathHelpers.getAngleForLinkTopDownFlat(this.nosePoint, entity.position(), this.nodes[0], this.leftRefPoint, this.rightRefPoint));
+
+        double node1Angle = MathHelpers.constrainAngle(MathHelpers.getAngleForLinkTopDownFlat(entity.position(), this.nodes[0], this.nodes[1], this.leftRefPoint, this.rightRefPoint), stiffness);
+        System.out.println(node1Angle);
+        nodes[1] = MathHelpers.rotateAroundCenter3dDeg(nodes[0], nodes[1], (float) (node1Angle*Mth.RAD_TO_DEG), 0);
+        System.out.println(MathHelpers.getAngleForLinkTopDownFlat(entity.position(), this.nodes[0], this.nodes[1], this.leftRefPoint, this.rightRefPoint));
+
+        for (int i = 2; i < nodes.length; i++) {
+            double nodeAngle = MathHelpers.constrainAngle(MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 2], this.nodes[i - 1], this.nodes[i], this.leftRefPoint, this.rightRefPoint), stiffness);
+            System.out.println(nodeAngle);
+            nodes[i] = MathHelpers.rotateAroundCenter3dDeg(nodes[i - 1], nodes[i], (float) (nodeAngle*Mth.RAD_TO_DEG), 0);
+            System.out.println(node1Angle);
+        }
+        System.out.println("---------------------------------------------------------------------------------------------");
+
+
+
+
+
 
         // Update Geckolib - usable bone angles for each node.
-        tailYaws[0] = ((MathHelpers.getAngleForLinkTopDownFlat(this.entity.position(), this.nosePoint, this.nodes[0], this.leftRefPoint, this.rightRefPoint)));
+        tailYaws[0] = ((MathHelpers.getAngleForLinkTopDownFlat(entity.position(), this.nosePoint, this.nodes[0], this.leftRefPoint, this.rightRefPoint)));
         tailYaws[1] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[0], this.entity.position(), this.nodes[1], this.leftRefPoint, this.rightRefPoint)));
 
         for (int i = 2; i < nodes.length; i++) {
@@ -113,7 +133,7 @@ public class IKSolver {
         }
         //Yaw
 
-        tailPitches[0] = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.entity.position(), this.nodes[0], this.nodes[1])));;
+        tailPitches[0] = ((float) (Mth.PI * MathHelpers.angleFromYdiff(entity.position(), this.nodes[0], this.nodes[1])));;
         for (int i = 1; i < nodes.length - 1; i++) {
             tailYaws[i] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 1], this.nodes[i], this.nodes[i + 1], this.leftRefPoint, this.rightRefPoint)));
         }
@@ -121,10 +141,10 @@ public class IKSolver {
 
 
         //side refs don't move vertically
-        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.entity.position(), this.entity.position().subtract(leftRefOffset), (double) -this.entity.getYHeadRot());
-        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.entity.position(), this.entity.position().subtract(rightRefOffset), (double) -this.entity.getYHeadRot());
-        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.entity.position(), this.entity.position().subtract(upRefOffset), (double) -this.entity.getYHeadRot());
-        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.entity.position(), this.entity.position().subtract(downRefOffset), (double) -this.entity.getYHeadRot());
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(leftRefOffset), (double) -entity.getYHeadRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(rightRefOffset), (double) -entity.getYHeadRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(upRefOffset), (double) -entity.getYHeadRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(downRefOffset), (double) -entity.getYHeadRot());
         //END of IK
 
     }
@@ -156,11 +176,10 @@ public class IKSolver {
     public void visualizeNodes(Level level) {
         if (!level.isClientSide()) {
             ServerLevel L = (ServerLevel) level;
-            L.sendParticles(ParticleTypes.BUBBLE, (entity.getX()), (entity.getY()), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            L.sendParticles(ParticleTypes.BUBBLE, (entity.getX()), (entity.getY() + 2), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 
             for (int i = 0; i < nodeCount; i++) {
-                L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y ), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                System.out.println(nodes[i]);
+                L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y + 2), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
         }
     }
