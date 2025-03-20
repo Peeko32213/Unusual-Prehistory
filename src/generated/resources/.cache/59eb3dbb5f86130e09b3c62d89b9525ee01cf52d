@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-07T18:43:23.2975737	Loot Tables
+// 1.20.1	2025-03-19T19:16:47.1957946	Loot Tables
 aa0fbbdafff4a7570ffe9721402dbe44bccca34c data/unusualprehistory/loot_tables/blocks/amber_block.json
 7c3df34b96111b893727f05c09f92a8984a5ee13 data/unusualprehistory/loot_tables/blocks/ammon_eggs.json
 70955d85f7619afb14f10968f0cb3ce929b5a5e7 data/unusualprehistory/loot_tables/blocks/antarcto_fossil.json
@@ -6,6 +6,8 @@ c782a008bec0887a4027a7b1ce6115e888c973f3 data/unusualprehistory/loot_tables/bloc
 ebecdfc5c512c0e1887e6989aa5389385d8550c5 data/unusualprehistory/loot_tables/blocks/austro_fossil.json
 6df25ddc5916d354d1f473d3f0ff967febe34e11 data/unusualprehistory/loot_tables/blocks/beelze_eggs.json
 b2bf99e97edd5785dd5fcf45bcc38a38fee63996 data/unusualprehistory/loot_tables/blocks/beelze_fossil.json
+262d84e444b54c631d51fec23324ff3e417cdf4a data/unusualprehistory/loot_tables/blocks/black_opal_block.json
+4b70bf106943da90b0605fd33e2eb5937fb32297 data/unusualprehistory/loot_tables/blocks/boulder_opal_block.json
 6c66ceef514f37f19da560835a1ef50bf7cca05f data/unusualprehistory/loot_tables/blocks/brachi_fossil.json
 ce3939a0cd70b9e12da8df562ef896dc83ece12d data/unusualprehistory/loot_tables/blocks/coty_fossil.json
 29e1e9ac3f4d962f71ddc66adae12900a55e2f13 data/unusualprehistory/loot_tables/blocks/diplocaulus_eggs.json
@@ -25,6 +27,7 @@ e25490d527e86b78d22a97255c7197e16557e18e data/unusualprehistory/loot_tables/bloc
 cc4544117ebe82b9b3b771ad84f0ff431588375a data/unusualprehistory/loot_tables/blocks/dunk_fossil.json
 2e7ab8896f3ff2fd6b886f0858096883aa62208e data/unusualprehistory/loot_tables/blocks/eryon_eggs.json
 6a056b4be6985939a68d9a04f2abb24fa7284c06 data/unusualprehistory/loot_tables/blocks/eryon_fossil.json
+951d7c09f4db9189f1a7e34162e24de49e2ee5cb data/unusualprehistory/loot_tables/blocks/fire_opal_block.json
 eba634233fe213a8c61460fea9469a3589d6e835 data/unusualprehistory/loot_tables/blocks/foxii_sign.json
 04e09b06cea30db25e4623767c31d16901c3599a data/unusualprehistory/loot_tables/blocks/foxxi_button.json
 c64044deb3a0ceba42f09c3155da6c5c12b0857e data/unusualprehistory/loot_tables/blocks/foxxi_fence.json

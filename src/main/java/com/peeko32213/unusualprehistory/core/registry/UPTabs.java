@@ -47,8 +47,14 @@ public class UPTabs {
                     entries.accept(UPItems.DEFROSTED_FROZEN_FOSSIL.get());
                     entries.accept(UPItems.AMBER_SHARDS.get());
                     entries.accept(UPItems.AMBER_FOSSIL.get());
-                    entries.accept(UPItems.OPAL_CHUNK.get());
+                    entries.accept(UPItems.OPAL.get());
                     entries.accept(UPItems.OPAL_FOSSIL.get());
+                    entries.accept(UPItems.FIRE_OPAL.get());
+                    entries.accept(UPItems.FIRE_OPAL_FOSSIL.get());
+                    entries.accept(UPItems.BOULDER_OPAL.get());
+                    entries.accept(UPItems.BOULDER_OPAL_FOSSIL.get());
+                    entries.accept(UPItems.BLACK_OPAL.get());
+                    entries.accept(UPItems.BLACK_OPAL_FOSSIL.get());
                     entries.accept(UPBlocks.STONE_FOSSIL.get());
                     entries.accept(UPBlocks.DEEPSLATE_FOSSIL.get());
                     entries.accept(UPBlocks.PLANT_FOSSIL.get());
@@ -76,6 +82,9 @@ public class UPTabs {
                     entries.accept(UPItems.AMBER_GUMMY.get());
                     entries.accept(UPItems.AMBER_IDOL.get());
                     entries.accept(UPBlocks.OPAL_BLOCK.get());
+                    entries.accept(UPBlocks.FIRE_OPAL_BLOCK.get());
+                    entries.accept(UPBlocks.BOULDER_OPAL_BLOCK.get());
+                    entries.accept(UPBlocks.BLACK_OPAL_BLOCK.get());
                     entries.accept(UPItems.OPALESCENT_PEARL.get());
                     entries.accept(UPItems.OPALESCENT_SHURIKEN.get());
 

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_opal_block": {
+    "has_boulder_opal_block": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusualprehistory:opal_block"
+              "unusualprehistory:boulder_opal_block"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:opalescent_pearl"
+        "recipe": "minecraft:boulder_opal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_opal_block",
+      "has_boulder_opal_block",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:opalescent_pearl"
+      "minecraft:boulder_opal"
     ]
   },
   "sends_telemetry_event": false

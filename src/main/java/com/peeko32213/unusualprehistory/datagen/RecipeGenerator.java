@@ -116,7 +116,10 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
 
         makePressurePlate(UPBlocks.DRYO_PRESSURE_PLATE, UPBlocks.DRYO_PLANKS).save(consumer);
 
-        nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.OPALESCENT_PEARL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.OPAL_BLOCK.get().asItem());
+        nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.OPAL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.OPAL_BLOCK.get().asItem());
+        nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.FIRE_OPAL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.FIRE_OPAL_BLOCK.get().asItem());
+        nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.BOULDER_OPAL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.BOULDER_OPAL_BLOCK.get().asItem());
+        nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.BLACK_OPAL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.BLACK_OPAL_BLOCK.get().asItem());
 
 //        makeSign(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS).save(consumer);
 

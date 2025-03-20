@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_opalescent_pearl": {
+    "has_opal": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusualprehistory:opalescent_pearl"
+              "unusualprehistory:opal"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_opalescent_pearl",
+      "has_opal",
       "has_the_recipe"
     ]
   ],

@@ -172,6 +172,11 @@ public class BlockstateGenerator extends BlockStateProvider {
         simpleBlock(UPBlocks.PERMAFROST.get());
         simpleBlock(UPBlocks.PERMAFROST_FOSSIL.get());
 
+        simpleBlock(UPBlocks.AMBER_BLOCK.get());
+
+        simpleBlock(UPBlocks.OPAL_BLOCK.get());
+        simpleBlock(UPBlocks.BLACK_OPAL_BLOCK.get());
+
         //Zuloagae
         logBlock(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get());
         simpleBlockItem(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get(), existingModel((getName(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get()))));
