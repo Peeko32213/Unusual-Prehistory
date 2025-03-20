@@ -1,85 +1,307 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+ import com.google.common.collect.ImmutableList;
+ import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IPackHunter;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
+ import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
- import net.minecraft.sounds.SoundEvent;
- import net.minecraft.tags.TagKey;
+ import net.minecraft.util.Mth;
  import net.minecraft.world.DifficultyInstance;
+ import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.goal.*;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
- import net.minecraft.world.entity.animal.Animal;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.animal.Pig;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.ServerLevelAccessor;
- import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.Node;
  import net.minecraft.world.level.pathfinder.Path;
  import net.minecraft.world.phys.Vec2;
  import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
+ import software.bernie.geckolib.core.animation.AnimationState;
  import software.bernie.geckolib.core.animation.RawAnimation;
+ import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
  import software.bernie.geckolib.core.object.PlayState;
 
  import java.util.EnumSet;
+ import java.util.List;
 
- public class PsilopterusEntity extends PrehistoricEntityOld implements IPackHunter {
+ public class PsilopterusEntity extends PrehistoricEntity implements IPackHunter {
 
-     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.INT);
-     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.INT);
-     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.INT);
-     private static final EntityDataAccessor<Boolean> DOMINATE = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> DOMINANT = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.BOOLEAN);
 
-     private static final RawAnimation PSILO_IDLE = RawAnimation.begin().thenLoop("animation.psilopterus.idle");
-     private static final RawAnimation PSILO_SIT = RawAnimation.begin().thenLoop("animation.psilopterus.sit");
-     private static final RawAnimation PSILO_SLEEP = RawAnimation.begin().thenLoop("animation.psilopterus.sleep");
+     // Movement animations
      private static final RawAnimation PSILO_WALK = RawAnimation.begin().thenLoop("animation.psilopterus.walk");
      private static final RawAnimation PSILO_RUN = RawAnimation.begin().thenLoop("animation.psilopterus.run");
      private static final RawAnimation PSILO_SWIM = RawAnimation.begin().thenLoop("animation.psilopterus.swim");
-     private static final RawAnimation PSILO_DIG = RawAnimation.begin().thenLoop("animation.psilopterus.dig");
-     private static final RawAnimation PSILO_PREEN_1 = RawAnimation.begin().thenLoop("animation.psilopterus.preen1");
-     private static final RawAnimation PSILO_PREEN_2 = RawAnimation.begin().thenLoop("animation.psilopterus.preen2");
-     private static final RawAnimation PSILO_LOOKOUT_1 = RawAnimation.begin().thenLoop("animation.psilopterus.lookout1");
-     private static final RawAnimation PSILO_LOOKOUT_2 = RawAnimation.begin().thenLoop("animation.psilopterus.lookout2");
-     private static final RawAnimation PSILO_ATTACK_1 = RawAnimation.begin().thenLoop("animation.psilopterus.attack1");
-     private static final RawAnimation PSILO_ATTACK_2 = RawAnimation.begin().thenLoop("animation.psilopterus.attack2");
-     private static final RawAnimation PSILO_KICK = RawAnimation.begin().thenLoop("animation.psilopterus.kick");
 
+     // Idle animations
+     private static final RawAnimation PSILO_IDLE = RawAnimation.begin().thenLoop("animation.psilopterus.idle");
+     private static final RawAnimation PSILO_SIT = RawAnimation.begin().thenLoop("animation.psilopterus.sit");
+     private static final RawAnimation PSILO_SLEEP = RawAnimation.begin().thenLoop("animation.psilopterus.sleep");
+     private static final RawAnimation PSILO_DIG = RawAnimation.begin().thenPlay("animation.psilopterus.dig");
+     private static final RawAnimation PSILO_PREEN_1 = RawAnimation.begin().thenPlay("animation.psilopterus.preen1");
+     private static final RawAnimation PSILO_PREEN_2 = RawAnimation.begin().thenPlay("animation.psilopterus.preen2");
+     private static final RawAnimation PSILO_LOOKOUT_1 = RawAnimation.begin().thenPlay("animation.psilopterus.lookout1");
+     private static final RawAnimation PSILO_LOOKOUT_2 = RawAnimation.begin().thenPlay("animation.psilopterus.lookout2");
      private static final RawAnimation PSILO_IDLE_BOOK = RawAnimation.begin().thenLoop("animation.psilopterus.idle_book");
 
-     private boolean hasDominateAttributes = false;
+     // Attack animations
+     private static final RawAnimation PSILO_ATTACK_1 = RawAnimation.begin().thenPlay("animation.psilopterus.attack1");
+     private static final RawAnimation PSILO_ATTACK_2 = RawAnimation.begin().thenPlay("animation.psilopterus.attack2");
+     private static final RawAnimation PSILO_KICK = RawAnimation.begin().thenPlay("animation.psilopterus.kick");
+
+     // Idle accessors
+     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> IDLE_5_AC = SynchedEntityData.defineId(PsilopterusEntity.class, EntityDataSerializers.BOOLEAN);
+
+     // Idle actions
+     private static final EntityAction PSILO_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+     private static final StateHelper PSILO_IDLE_1_STATE =
+             StateHelper.Builder.state(IDLE_1_AC, "psilopterus_dig")
+                     .playTime(60)
+                     .stopTime(200)
+                     .affectsAI(true)
+                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                     .entityAction(PSILO_IDLE_1_ACTION)
+                     .build();
+
+     private static final EntityAction PSILO_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+     private static final StateHelper PSILO_IDLE_2_STATE =
+             StateHelper.Builder.state(IDLE_2_AC, "psilopterus_preen_1")
+                     .playTime(80)
+                     .stopTime(160)
+                     .entityAction(PSILO_IDLE_2_ACTION)
+                     .build();
+
+     private static final EntityAction PSILO_IDLE_3_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+     private static final StateHelper PSILO_IDLE_3_STATE =
+             StateHelper.Builder.state(IDLE_3_AC, "psilopterus_preen_2")
+                     .playTime(80)
+                     .stopTime(160)
+                     .entityAction(PSILO_IDLE_3_ACTION)
+                     .build();
+
+     private static final EntityAction PSILO_IDLE_4_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+     private static final StateHelper PSILO_IDLE_4_STATE =
+             StateHelper.Builder.state(IDLE_4_AC, "psilopterus_lookout_1")
+                     .playTime(60)
+                     .stopTime(150)
+                     .entityAction(PSILO_IDLE_4_ACTION)
+                     .build();
+
+     private static final EntityAction PSILO_IDLE_5_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+     private static final StateHelper PSILO_IDLE_5_STATE =
+             StateHelper.Builder.state(IDLE_5_AC, "psilopterus_lookout_2")
+                     .playTime(60)
+                     .stopTime(150)
+                     .entityAction(PSILO_IDLE_5_ACTION)
+                     .build();
+
+     private boolean hasDominantAttributes = false;
      private PsilopterusEntity priorPackMember;
      private PsilopterusEntity afterPackMember;
-     public PsilopterusEntity(EntityType<? extends Animal> entityType, Level level) {
+
+     // States
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return ImmutableMap.of(
+                 PSILO_IDLE_1_STATE.getName(), PSILO_IDLE_1_STATE,
+                 PSILO_IDLE_2_STATE.getName(), PSILO_IDLE_2_STATE,
+                 PSILO_IDLE_3_STATE.getName(), PSILO_IDLE_3_STATE,
+                 PSILO_IDLE_4_STATE.getName(), PSILO_IDLE_4_STATE,
+                 PSILO_IDLE_5_STATE.getName(), PSILO_IDLE_5_STATE
+         );
+     }
+
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return ImmutableList.of(
+                 WeightedState.of(PSILO_IDLE_1_STATE, 10),
+                 WeightedState.of(PSILO_IDLE_2_STATE, 10),
+                 WeightedState.of(PSILO_IDLE_3_STATE, 12),
+                 WeightedState.of(PSILO_IDLE_4_STATE, 11),
+                 WeightedState.of(PSILO_IDLE_5_STATE, 11)
+         );
+     }
+
+     // Animation sounds
+     private void soundListener(SoundKeyframeEvent<PsilopterusEntity> event) {
+         PsilopterusEntity psilopterus = event.getAnimatable();
+         if (event.getKeyframeData().getSound().equals("psilopterus_attack")) {
+         }
+     }
+
+     // Animation control
+     @Override
+     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+         AnimationController<PsilopterusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+         controllers.add(controller);
+
+         AnimationController<PsilopterusEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
+                 .triggerableAnim("preen_1", PSILO_PREEN_1)
+                 .triggerableAnim("preen_2", PSILO_PREEN_2)
+                 .triggerableAnim("lookout_1", PSILO_LOOKOUT_1)
+                 .triggerableAnim("lookout_2", PSILO_LOOKOUT_2);
+         blend.setSoundKeyframeHandler(this::soundListener);
+         controllers.add(blend);
+
+         AnimationController<PsilopterusEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
+         attack.setSoundKeyframeHandler(this::soundListener);
+         controllers.add(attack);
+     }
+
+     protected <E extends PsilopterusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+         if(this.isFromBook()){
+             return event.setAndContinue(PSILO_IDLE_BOOK);
+         }
+
+         if (this.isInWater()) {
+             event.setAndContinue(PSILO_SWIM);
+             event.getController().setAnimationSpeed(1.0F);
+             return PlayState.CONTINUE;
+         }
+
+         if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && ! this.isInWater() && !isStillEnough()){
+             if(this.isSprinting()) {
+                 event.setAndContinue(PSILO_RUN);
+             } else {
+                 event.setAndContinue(PSILO_WALK);
+             }
+             event.getController().setAnimationSpeed(1.0F);
+             return PlayState.CONTINUE;
+         }
+
+         if (!this.isInWater()) {
+             if (getBooleanState(IDLE_1_AC)) {
+                 return event.setAndContinue(PSILO_DIG);
+             }
+             if (getBooleanState(IDLE_2_AC)) {
+                 if (this.isStillEnough()) {
+                     triggerAnim("blend", "preen_1");
+                     return event.setAndContinue(PSILO_IDLE);
+                 } else {
+                     triggerAnim("blend", "preen_1");
+                     return PlayState.CONTINUE;
+                 }
+             }
+             if (getBooleanState(IDLE_3_AC)) {
+                 if (this.isStillEnough()) {
+                     triggerAnim("blend", "preen_2");
+                     return event.setAndContinue(PSILO_IDLE);
+                 } else {
+                     triggerAnim("blend", "preen_2");
+                     return PlayState.CONTINUE;
+                 }
+             }
+             if (getBooleanState(IDLE_4_AC)) {
+                 if (this.isStillEnough()) {
+                     triggerAnim("blend", "lookout_1");
+                     return event.setAndContinue(PSILO_IDLE);
+                 } else {
+                     triggerAnim("blend", "lookout_1");
+                     return PlayState.CONTINUE;
+                 }
+             }
+             if (getBooleanState(IDLE_5_AC)) {
+                 if (this.isStillEnough()) {
+                     triggerAnim("blend", "lookout_1");
+                     return event.setAndContinue(PSILO_IDLE);
+                 } else {
+                     triggerAnim("blend", "lookout_2");
+                     return PlayState.CONTINUE;
+                 }
+             }
+             return event.setAndContinue(PSILO_IDLE);
+         }
+         return PlayState.CONTINUE;
+     }
+
+     // Attack animations
+     protected <E extends PsilopterusEntity> PlayState attackPredicate(final AnimationState<E> event) {
+         int animState = this.getAnimationState();
+
+         if (animState == 21) {
+             event.setAndContinue(PSILO_ATTACK_1);
+             return PlayState.CONTINUE;
+         }
+         else if (animState == 22) {
+             event.setAndContinue(PSILO_ATTACK_2);
+             return PlayState.CONTINUE;
+         }
+         else if (animState == 23) {
+             event.setAndContinue(PSILO_KICK);
+             return PlayState.CONTINUE;
+         }
+         else if (animState == 0) {
+             event.getController().forceAnimationReset();
+             return PlayState.STOP;
+         }
+         else return PlayState.CONTINUE;
+     }
+
+     // Body control / navigation
+     @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         SmartBodyHelper helper = new SmartBodyHelper(this);
+         helper.bodyLagMoving = 0.4F;
+         helper.bodyLagStill = 0.25F;
+         return helper;
+     }
+
+     @Override
+     protected @NotNull PathNavigation createNavigation(Level levelIn) {
+         return new SmoothGroundNavigation(this, levelIn);
+     }
+
+     public PsilopterusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
          super(entityType, level);
          this.setMaxUpStep(1.25F);
      }
 
+     // Attributes
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 15.0D)
-                 .add(Attributes.ARMOR, 0.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                 .add(Attributes.ATTACK_DAMAGE, 8.0D)
-                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.2D)
-                 .add(Attributes.ATTACK_KNOCKBACK, 0.1D);
+             .add(Attributes.MAX_HEALTH, 16.0D)
+             .add(Attributes.MOVEMENT_SPEED, 0.25D)
+             .add(Attributes.ATTACK_DAMAGE, 6.0D);
      }
 
+     // Goals
      protected void registerGoals() {
-         super.registerGoals();
+         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
          this.goalSelector.addGoal(0, new FloatGoal(this));
          this.goalSelector.addGoal(1, new PsilopterusEntity.PsiloMeleeAttackGoal(this,  1.3F, true));
          this.targetSelector.addGoal(5, new PackHunterGoal(this, Player.class, 30, false, 5));
@@ -95,10 +317,6 @@
 
      @Override
      public void travel(Vec3 pTravelVector) {
-
-         if(playingAnimation()){
-             super.travel(Vec3.ZERO);
-         }
          super.travel(pTravelVector);
      }
 
@@ -107,7 +325,7 @@
 
          LivingEntity target = this.getTarget();
          if (target != null && target.isAlive() && !(target instanceof Player player && player.isCreative())) {
-             if (this.isDominate()) {
+             if (this.isDominant()) {
                  IPackHunter leader = this;
                  while (leader.getAfterPackMember() != null) {
                      leader = leader.getAfterPackMember();
@@ -129,14 +347,14 @@
                  this.setLastHurtByMob(null);
              }
          }
-         if (isDominate() && !hasDominateAttributes) {
-             hasDominateAttributes = true;
+         if (isDominant() && !hasDominantAttributes) {
+             hasDominantAttributes = true;
              this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
              this.getAttribute(Attributes.ARMOR).setBaseValue(5.0D);
              this.heal(25.0F);
          }
-         if (!isDominate() && hasDominateAttributes) {
-             hasDominateAttributes = false;
+         if (!isDominant() && hasDominantAttributes) {
+             hasDominantAttributes = false;
              this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(15.0D);
              this.getAttribute(Attributes.ARMOR).setBaseValue(0.0D);
              this.heal(20.0F);
@@ -144,66 +362,60 @@
      }
 
      @Override
-     protected void defineSynchedData() {
-         super.defineSynchedData();
-         this.entityData.define(ANIMATION_STATE, 0);
-         this.entityData.define(COMBAT_STATE, 0);
-         this.entityData.define(ENTITY_STATE, 0);
-         this.entityData.define(DOMINATE, false);
+     public void aiStep() {
+         super.aiStep();
 
-     }
-
-     public boolean isDominate() {
-         return this.entityData.get(DOMINATE);
-     }
-
-     public void setDominate(boolean bool) {
-         this.entityData.set(DOMINATE, bool);
+         Vec3 vec3 = this.getDeltaMovement();
+         if (!this.onGround() && vec3.y < 0.0) {
+             this.setDeltaMovement(vec3.multiply(1.0, 0.75, 1.0));
+         }
      }
 
      @Override
+     public void customServerAiStep() {
+         if (this.getMoveControl().hasWanted() && !this.isBaby()) {
+             this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.25D);
+         } else {
+             this.setSprinting(false);
+         }
+         super.customServerAiStep();
+     }
+
+     // Save data
+     @Override
      public void addAdditionalSaveData(CompoundTag compound) {
          super.addAdditionalSaveData(compound);
-         this.setDominate(compound.getBoolean("Elder"));
+         this.setDominant(compound.getBoolean("Elder"));
      }
 
      @Override
      public void readAdditionalSaveData(CompoundTag compound) {
          super.readAdditionalSaveData(compound);
-         compound.putBoolean("Elder", this.isDominate());
+         compound.putBoolean("Elder", this.isDominant());
      }
 
-
-     public int getAnimationState() {
-
-         return this.entityData.get(ANIMATION_STATE);
+     // Synched data
+     @Override
+     protected void defineSynchedData() {
+         super.defineSynchedData();
+         this.entityData.define(IDLE_1_AC, false);
+         this.entityData.define(IDLE_2_AC, false);
+         this.entityData.define(IDLE_3_AC, false);
+         this.entityData.define(IDLE_4_AC, false);
+         this.entityData.define(IDLE_5_AC, false);
+         this.entityData.define(DOMINANT, false);
      }
 
-     public void setAnimationState(int anim) {
-
-         this.entityData.set(ANIMATION_STATE, anim);
+     // Dominant
+     public boolean isDominant() {
+         return this.entityData.get(DOMINANT);
      }
 
-     public int getCombatState() {
-
-         return this.entityData.get(COMBAT_STATE);
+     public void setDominant(boolean bool) {
+         this.entityData.set(DOMINANT, bool);
      }
 
-     public void setCombatState(int anim) {
-
-         this.entityData.set(COMBAT_STATE, anim);
-     }
-
-     public int getEntityState() {
-
-         return this.entityData.get(ENTITY_STATE);
-     }
-
-     public void setEntityState(int anim) {
-
-         this.entityData.set(ENTITY_STATE, anim);
-     }
-
+     // Pack members
      @Override
      public IPackHunter getPriorPackMember() {
          return this.priorPackMember;
@@ -224,19 +436,20 @@
          this.afterPackMember = (PsilopterusEntity) animal;
      }
 
-     @javax.annotation.Nullable
-     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
+     @Nullable
+     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
          if (spawnDataIn instanceof AgeableMob.AgeableMobGroupData) {
              AgeableMob.AgeableMobGroupData data = (AgeableMob.AgeableMobGroupData) spawnDataIn;
              if (data.getGroupSize() == 0) {
-                 this.setDominate(true);
+                 this.setDominant(true);
              }
          } else {
-             this.setDominate(this.getRandom().nextInt(2) == 0);
+             this.setDominant(this.getRandom().nextInt(2) == 0);
          }
          return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
      }
 
+     // todo: move goal to ai/goals/attack/
      static class PsiloMeleeAttackGoal extends Goal {
 
          protected final PsilopterusEntity mob;
@@ -504,133 +717,19 @@
      }
 
      @Override
-     protected SoundEvent getAttackSound() {
-         return null;
-     }
-
-     @Override
      protected int getKillHealAmount() {
          return 4;
      }
 
-     @Override
-     protected boolean canGetHungry() {
+     public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
          return false;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return null;
      }
 
      @Nullable
      @Override
-     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-         return null;
-     }
-
-     private boolean isStillEnough() {
-         return this.getDeltaMovement().horizontalDistance() < 0.05;
-     }
-
-     protected <E extends PsilopterusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-         if(this.isFromBook()){
-             return event.setAndContinue(PSILO_IDLE_BOOK);
-         }
-
-         int animState = this.getAnimationState();
-         {
-             switch (animState) {
-
-                 case 21:
-                     event.setAndContinue(PSILO_ATTACK_1);
-                     break;
-                 case 22:
-                     event.setAndContinue(PSILO_ATTACK_2);
-                     break;
-                 case 23:
-                     event.setAndContinue(PSILO_KICK);
-                     break;
-                 default:
-                     if (this.isInWater()) {
-                         event.setAndContinue(PSILO_SWIM);
-                         event.getController().setAnimationSpeed(1.0F);
-                         return PlayState.CONTINUE;
-                     }
-                     if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && ! this.isInWater() && !isStillEnough()){
-                         if(this.isSprinting()) {
-                             event.setAndContinue(PSILO_RUN);
-                         } else {
-                             event.setAndContinue(PSILO_WALK);
-                         }
-                         event.getController().setAnimationSpeed(1.0F);
-                         return PlayState.CONTINUE;
-                     }
-                     if(playingAnimation()){
-                         return PlayState.CONTINUE;
-                     }
-
-                     if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isSwimming()) {
-                         int rand = getRandomAnimationNumber();
-                         if (rand < 40) {
-                             setAnimationTimer(150);
-                             event.setAndContinue(PSILO_SIT);
-                         }
-                         if (rand < 60) {
-                             setAnimationTimer(150);
-                             event.setAndContinue(PSILO_PREEN_1);
-                         }
-                         if (rand < 70) {
-                             setAnimationTimer(150);
-                             event.setAndContinue(PSILO_PREEN_2);
-                         }
-                         if (rand < 80F) {
-                             setAnimationTimer(150);
-                             event.setAndContinue(PSILO_LOOKOUT_1);
-                         }
-                         if (rand < 90F) {
-                             setAnimationTimer(150);
-                             event.setAndContinue(PSILO_LOOKOUT_2);
-                         }
-                         event.setAndContinue(PSILO_IDLE);
-                     }
-             }
-             return PlayState.CONTINUE;
-         }
-     }
-
-     @Override
-     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-     }
-
-     @Override
-     public double getTick(Object o) {
-         return tickCount;
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+         PsilopterusEntity psilopterus = UPEntities.PSILOPTERUS.get().create(serverLevel);
+         psilopterus.setDominant(this.isDominant());
+         return psilopterus;
      }
  }

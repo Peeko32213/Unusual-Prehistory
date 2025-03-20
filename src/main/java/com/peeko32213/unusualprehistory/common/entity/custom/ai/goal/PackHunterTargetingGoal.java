@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.ai.goal;
 
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -8,9 +9,9 @@ import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class PackHunterTargetingGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-    private final PrehistoricEntityOld tamableMob;
+    private final PrehistoricEntity tamableMob;
 
-    public PackHunterTargetingGoal(PrehistoricEntityOld tamableAnimal, Class<T> clazz, int chance, boolean seeCheck, boolean reachCheck, @Nullable Predicate<LivingEntity> entityPredicate) {
+    public PackHunterTargetingGoal(PrehistoricEntity tamableAnimal, Class<T> clazz, int chance, boolean seeCheck, boolean reachCheck, @Nullable Predicate<LivingEntity> entityPredicate) {
         super(tamableAnimal, clazz, chance, seeCheck, reachCheck, entityPredicate);
         this.tamableMob = tamableAnimal;
     }

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedData;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.VelociraptorPushButtonsGoal;
@@ -193,6 +194,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
         );
     }
 
+    // Animation sounds
     private void soundListener(SoundKeyframeEvent<VelociraptorEntity> event) {
         VelociraptorEntity velociraptor = event.getAnimatable();
         if (event.getKeyframeData().getSound().equals("velociraptor_attack")) {
@@ -200,6 +202,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
         }
     }
 
+    // Animation control
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         AnimationController<VelociraptorEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
@@ -342,6 +345,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
         else return PlayState.CONTINUE;
     }
 
+    // Body control / navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
@@ -370,7 +374,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
     }
 
     protected void registerGoals() {
-        super.registerGoals();
+        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PounceGoal(this, 0));
         this.goalSelector.addGoal(1, new VelociraptorMeleeAttackGoal(this, 1.5F, true));
