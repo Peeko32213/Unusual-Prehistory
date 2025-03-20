@@ -53,6 +53,9 @@
     "unusualprehistory:permafrost_fossil",
     "unusualprehistory:permafrost",
     "unusualprehistory:opal_block",
+    "unusualprehistory:fire_opal_block",
+    "unusualprehistory:boulder_opal_block",
+    "unusualprehistory:black_opal_block",
     "unusualprehistory:amber_block"
   ]
 }

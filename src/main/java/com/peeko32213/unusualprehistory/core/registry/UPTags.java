@@ -127,8 +127,11 @@ public class UPTags {
     public static final TagKey<Item> DRYO = registerItemTag("dryo");
     public static final TagKey<Item> ZULOAGAE = registerItemTag("zuloagae");
 
+    // Hynerpeton tags
     public static final TagKey<Item> HYNERPETON_IGNITERS = registerItemTag("hynerpeton_igniters");
 
+    // Opal tags
+    public static final TagKey<Item> OPAL_GEMS = registerItemTag("opal_gems");
 
     //Breakables Tags
     public static final TagKey<Block> NONE_BLOCK_TAG = registerBlockTag("none_block_tag");

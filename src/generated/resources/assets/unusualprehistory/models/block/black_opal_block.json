@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "unusualprehistory:block/black_opal_block"
+  }
+}

@@ -50,8 +50,18 @@ public class UPItems {
     public static final RegistryObject<Item> AMBER_SHARDS = ITEMS.register("amber_shard", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> AMBER_FOSSIL = ITEMS.register("amber_fossil", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> OPAL_CHUNK = ITEMS.register("opal_chunk", () -> new Item(new Item.Properties()));
+    // Opal
+    public static final RegistryObject<Item> OPAL = ITEMS.register("opal", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> OPAL_FOSSIL = ITEMS.register("opal_fossil", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> FIRE_OPAL = ITEMS.register("fire_opal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FIRE_OPAL_FOSSIL = ITEMS.register("fire_opal_fossil", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> BOULDER_OPAL = ITEMS.register("boulder_opal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> BOULDER_OPAL_FOSSIL = ITEMS.register("boulder_opal_fossil", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> BLACK_OPAL = ITEMS.register("black_opal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> BLACK_OPAL_FOSSIL = ITEMS.register("black_opal_fossil", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> MEAT_ON_A_STICK = ITEMS.register("meat_on_a_stick", () -> new Item(new Item.Properties().durability(130)));
 

@@ -161,14 +161,34 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.AMBER_IDOL);
         singleTex(UPItems.QUILL_REMEDY);
 
+        // Opal
+        singleTex(UPItems.OPAL);
+        singleTex(UPItems.OPAL_FOSSIL);
+        singleTex(UPItems.FIRE_OPAL);
+        singleTex(UPItems.FIRE_OPAL_FOSSIL);
+        singleTex(UPItems.BOULDER_OPAL);
+        singleTex(UPItems.BOULDER_OPAL_FOSSIL);
+        singleTex(UPItems.BLACK_OPAL);
+        singleTex(UPItems.BLACK_OPAL_FOSSIL);
+
         toBlock(UPBlocks.STONE_FOSSIL);
         toBlock(UPBlocks.DEEPSLATE_FOSSIL);
         toBlock(UPBlocks.PLANT_FOSSIL);
         toBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL);
         toBlock(UPBlocks.STONE_TAR_FOSSIL);
         toBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL);
+        toBlock(UPBlocks.STONE_OPAL_FOSSIL);
+        toBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL);
+        toBlock(UPBlocks.STONE_AMBER_FOSSIL);
+        toBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL);
         toBlock(UPBlocks.PERMAFROST);
         toBlock(UPBlocks.PERMAFROST_FOSSIL);
+
+        toBlock(UPBlocks.AMBER_BLOCK);
+
+        // Opal blocks
+        toBlock(UPBlocks.OPAL_BLOCK);
+        toBlock(UPBlocks.BLACK_OPAL_BLOCK);
     }
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());

@@ -79,7 +79,12 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.FOXII_SIGN.get());
         dropSelf(UPBlocks.FOXII_WALL_SIGN.get());
 
+        // Opal blocks
         dropSelf(UPBlocks.OPAL_BLOCK.get());
+        dropSelf(UPBlocks.FIRE_OPAL_BLOCK.get());
+        dropSelf(UPBlocks.BOULDER_OPAL_BLOCK.get());
+        dropSelf(UPBlocks.BLACK_OPAL_BLOCK.get());
+
         dropSelf(UPBlocks.DRYO_WOOD.get());
         dropSelf(UPBlocks.DRYO_LOG.get());
         dropSelf(UPBlocks.DRYO_FENCE_GATE.get());
@@ -131,7 +136,6 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(UPBlocks.ZULOAGAE_STAIRS.get());
         dropSelf(UPBlocks.ZULOAGAE_TRAPDOOR.get());
         dropSelf(UPBlocks.AMBER_BLOCK.get());
-        dropSelf(UPBlocks.OPAL_BLOCK.get());
         createPotFlowerItemTable(UPBlocks.POTTED_ARCHAEOSIGILARIA.get(),UPBlocks.ARCHAEOSIGILARIA.get());
         createPotFlowerItemTable(UPBlocks.POTTED_BENNETTITALES.get(),UPBlocks.BENNETTITALES.get());
         createPotFlowerItemTable(UPBlocks.POTTED_HORSETAIL.get(),UPBlocks.HORSETAIL.get());

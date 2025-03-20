@@ -6,6 +6,9 @@
     "unusualprehistory:paleo_fossil",
     "unusualprehistory:frozen_fossil_item",
     "unusualprehistory:opal_fossil",
+    "unusualprehistory:fire_opal_fossil",
+    "unusualprehistory:boulder_opal_fossil",
+    "unusualprehistory:black_opal_fossil",
     "unusualprehistory:tar_fossil_item"
   ]
 }

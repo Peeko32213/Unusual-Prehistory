@@ -113,6 +113,9 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.PALEO_FOSSIL.get())
                 .add(UPItems.FROZEN_FOSSIL.get())
                 .add(UPItems.OPAL_FOSSIL.get())
+                .add(UPItems.FIRE_OPAL_FOSSIL.get())
+                .add(UPItems.BOULDER_OPAL_FOSSIL.get())
+                .add(UPItems.BLACK_OPAL_FOSSIL.get())
                 .add(UPItems.TAR_FOSSIL.get());
 
         tag(UPTags.ANALYZER_ITEMS_INPUT)
@@ -239,6 +242,13 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(UPTags.HYNERPETON_IGNITERS)
                 .add(Items.FLINT_AND_STEEL)
                 .add(Items.FIRE_CHARGE)
+        ;
+
+        tag(UPTags.OPAL_GEMS)
+                .add(UPItems.OPAL.get())
+                .add(UPItems.FIRE_OPAL.get())
+                .add(UPItems.BOULDER_OPAL.get())
+                .add(UPItems.BLACK_OPAL.get())
         ;
 
         tag(ItemTags.PLANKS)

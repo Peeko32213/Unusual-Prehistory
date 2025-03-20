@@ -3,11 +3,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "unusualprehistory:opal_block"
+      "item": "unusualprehistory:fire_opal_block"
     }
   ],
   "result": {
     "count": 9,
-    "item": "unusualprehistory:opalescent_pearl"
+    "item": "unusualprehistory:fire_opal"
   }
 }

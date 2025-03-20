@@ -61,8 +61,14 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.AMBER_SHARDS, "Amber Chunk");
         addItem(UPItems.FROZEN_FOSSIL, "Frozen Meat");
         addItem(UPItems.TAR_FOSSIL, "Tar Fossil");
-        addItem(UPItems.OPAL_CHUNK, "Opal Chunk");
+        addItem(UPItems.OPAL, "Opal");
         addItem(UPItems.OPAL_FOSSIL, "Opal Fossil");
+        addItem(UPItems.FIRE_OPAL, "Fire Opal");
+        addItem(UPItems.FIRE_OPAL_FOSSIL, "Fire Opal Fossil");
+        addItem(UPItems.BOULDER_OPAL, "Boulder Opal");
+        addItem(UPItems.BOULDER_OPAL_FOSSIL, "Boulder Opal Fossil");
+        addItem(UPItems.BLACK_OPAL, "Black Opal");
+        addItem(UPItems.BLACK_OPAL_FOSSIL, "Black Opal Fossil");
 
         //EMBRYOS
         addItem(UPItems.SMILODON_EMBRYO, "Smilodon Embryo");
@@ -377,6 +383,9 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.REX_BOOMBOX, "Tyrannosaurus Boombox");
         addBlock(UPBlocks.AMBER_BLOCK, "Amber Block");
         addBlock(UPBlocks.OPAL_BLOCK, "Opal Block");
+        addBlock(UPBlocks.FIRE_OPAL_BLOCK, "Fire Opal Block");
+        addBlock(UPBlocks.BOULDER_OPAL_BLOCK, "Boulder Opal Block");
+        addBlock(UPBlocks.BLACK_OPAL_BLOCK, "Black Opal Block");
         addBlock(UPBlocks.INCUBATOR, "Incubator");
         addBlock(UPBlocks.ASPHALT, "Asphalt");
         addBlock(UPBlocks.GOLD_ENGRAVED_ASPHALT, "Gold Engraved Asphalt");

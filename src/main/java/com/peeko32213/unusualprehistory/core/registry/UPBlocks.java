@@ -55,7 +55,11 @@ public class UPBlocks {
     public static final RegistryObject<Block> STONE_TAR_FOSSIL = registerBlock("stone_tar_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> DEEPSLATE_TAR_FOSSIL = registerBlock("deepslate_tar_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
-    public static final RegistryObject<Block> OPAL_BLOCK = registerBlock("opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(0.5F).sound(SoundType.AMETHYST)));
+    // Opal blocks
+    public static final RegistryObject<Block> OPAL_BLOCK = registerBlock("opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
+    public static final RegistryObject<Block> FIRE_OPAL_BLOCK = registerBlock("fire_opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
+    public static final RegistryObject<Block> BOULDER_OPAL_BLOCK = registerBlock("boulder_opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
+    public static final RegistryObject<Block> BLACK_OPAL_BLOCK = registerBlock("black_opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
 
     // Science doodads
     public static final RegistryObject<Block> ANALYZER = registerBlock("analyzer", () -> new AnalyzerBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
