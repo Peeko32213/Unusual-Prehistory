@@ -59,7 +59,7 @@ public class UPEntities {
     public static final RegistryObject<EntityType<TriceratopsSkeleton>> TRIKE_SKELETON = ENTITIES.register("triceratops_skeleton",
             () -> EntityType.Builder.<TriceratopsSkeleton>of(TriceratopsSkeleton::new, MobCategory.CREATURE)
                     .fireImmune()
-                    .sized(3.25F, 4F)
+                    .sized(3.0F, 3.75F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "triceratops_skeleton").toString()));
 
     // Frozen
