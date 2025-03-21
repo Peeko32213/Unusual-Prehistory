@@ -1,7 +1,11 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.GroomGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.SmilodonAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
@@ -42,11 +46,10 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
+import java.util.List;
 
-public class SmilodonEntity extends PrehistoricEntityOld implements IVariantEntity {
+public class SmilodonEntity extends PrehistoricEntity {
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SmilodonEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(SmilodonEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> CAN_GROOM = SynchedEntityData.defineId(SmilodonEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> GROOM_1 = SynchedEntityData.defineId(SmilodonEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> GROOM_2 = SynchedEntityData.defineId(SmilodonEntity.class, EntityDataSerializers.BOOLEAN);
@@ -65,17 +68,16 @@ public class SmilodonEntity extends PrehistoricEntityOld implements IVariantEnti
     private static final RawAnimation SMILO_BABY_WALK = RawAnimation.begin().thenLoop("animation.baby_smilodon.move");
     private static final RawAnimation SMILO_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_smilodon.swim");
 
-    public SmilodonEntity(EntityType<? extends PrehistoricEntityOld> entityType, Level level) {
+    public SmilodonEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 15.0D)
+            .add(Attributes.MAX_HEALTH, 30.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.15D)
-            .add(Attributes.ARMOR, 10.0D)
-            .add(Attributes.ATTACK_DAMAGE, 10.0D)
+            .add(Attributes.ATTACK_DAMAGE, 8.0D)
             .add(Attributes.KNOCKBACK_RESISTANCE, 0.1D);
     }
 
@@ -146,48 +148,8 @@ public class SmilodonEntity extends PrehistoricEntityOld implements IVariantEnti
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     @Nullable
@@ -220,14 +182,6 @@ public class SmilodonEntity extends PrehistoricEntityOld implements IVariantEnti
         setCanGroom(compound.getBoolean("canGroom"));
         setGroom1(compound.getBoolean("groom1"));
         setGroom2(compound.getBoolean("groom2"));
-    }
-
-    public int getAnimationState() {
-        return this.entityData.get(ANIMATION_STATE);
-    }
-
-    public void setAnimationState(int anim) {
-        this.entityData.set(ANIMATION_STATE, anim);
     }
 
     public boolean canGroom() {
@@ -286,15 +240,14 @@ public class SmilodonEntity extends PrehistoricEntityOld implements IVariantEnti
         }
     }
 
-    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon.png");
-    private static final ResourceLocation TEXTURE_OCELOT = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot.png");
-
-    private static final ResourceLocation TEXTURE_NORMAL_BABY = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_baby.png");
-    private static final ResourceLocation TEXTURE_OCELOT_BABY = new ResourceLocation("unusualprehistory:textures/entity/smilodon/smilodon_ocelot_baby.png");
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
 
     @Override
-    public int getVariant() {
-       return this.entityData.get(VARIANT);
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
     }
 
     static class SmilodonStalkGoal extends Goal {
@@ -508,10 +461,4 @@ public class SmilodonEntity extends PrehistoricEntityOld implements IVariantEnti
         controllers.add(new AnimationController<>(this, "Normal", 10, this::Controller));
         controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
     }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
-    }
-
 }

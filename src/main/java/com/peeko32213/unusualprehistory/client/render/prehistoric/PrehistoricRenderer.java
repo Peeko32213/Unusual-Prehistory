@@ -38,11 +38,6 @@ public class PrehistoricRenderer<T extends PrehistoricEntityOld> extends GeoEnti
             return;
         }
 
-        if(animatable instanceof SmilodonEntity smilodon) {
-            if(smilodon.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
-            return;
-        }
-
         if(animatable instanceof MammothEntity mammoth) {
             if(mammoth.isBaby()) stackIn.scale(0.5F, 0.5F, 0.5F);
             return;

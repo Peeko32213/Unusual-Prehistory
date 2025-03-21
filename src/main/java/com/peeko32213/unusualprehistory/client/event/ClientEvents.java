@@ -195,7 +195,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PalaeophisHatchlingModel()));
         event.registerEntityRenderer(UPEntities.PARACERATHERIUM.get(), e -> new PrehistoricRenderer<>(e, new ParaceratheriumModel()));
         event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
-        event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new PrehistoricRenderer<>(e, new SmilodonModel()));
+        event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new StatedPrehistoricRenderer<>(e, new SmilodonModel()));
         event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new PrehistoricRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
         event.registerEntityRenderer(UPEntities.TELECREX.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TelecrexModel()));
         event.registerEntityRenderer(UPEntities.TITANONARKE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TitanonarkeModel()));
