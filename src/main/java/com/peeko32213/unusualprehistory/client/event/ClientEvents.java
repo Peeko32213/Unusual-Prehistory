@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.client.model.DefaultModel;
 import com.peeko32213.unusualprehistory.client.model.ModelLocations;
 import com.peeko32213.unusualprehistory.client.model.VariantModel;
 import com.peeko32213.unusualprehistory.client.model.entity.egg.PrehistoricEggModel;
+import com.peeko32213.unusualprehistory.client.model.entity.skeleton.TriceratopsSkeletonModel;
 import com.peeko32213.unusualprehistory.client.model.entity.skeleton.TyrannosaurusSkeletonModel;
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.*;
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.aquatic.*;
@@ -205,6 +206,7 @@ public final class ClientEvents {
 
         // Fossils
         event.registerEntityRenderer(UPEntities.TYRANNO_SKELETON.get(), e -> new LivingEntityRenderer<>(e, new TyrannosaurusSkeletonModel()));
+        event.registerEntityRenderer(UPEntities.TRIKE_SKELETON.get(), e -> new LivingEntityRenderer<>(e, new TriceratopsSkeletonModel()));
 
         // Non-living mobs
         event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));

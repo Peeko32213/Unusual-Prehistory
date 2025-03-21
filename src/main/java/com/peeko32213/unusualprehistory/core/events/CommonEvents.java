@@ -104,6 +104,7 @@ public class CommonEvents {
 
         // Fossils
         event.put(UPEntities.TYRANNO_SKELETON.get(), SkeletonEntity.createAttributes().build());
+        event.put(UPEntities.TRIKE_SKELETON.get(), SkeletonEntity.createAttributes().build());
 
         // Non-living mobs
         event.put(UPEntities.BOOK_PALAEO.get(), PalaeophisBookEntity.createAttributes().build());

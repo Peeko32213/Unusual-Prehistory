@@ -284,6 +284,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.GINKGO_CHEST_BOAT, "Ginkgo Boat with Chest");
 
         // Skeletons
+        addItem(UPItems.TRIKE_SKELETON, "Triceratops Skeleton");
         addItem(UPItems.TYRANNO_SKELETON, "Tyrannosaurus Skeleton");
 
         //FLASKS

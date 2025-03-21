@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PalaeophisBook
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggSize;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggVariant;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.PrehistoricEggEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TriceratopsSkeleton;
 import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TyrannosaurusSkeleton;
 import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergSmilodon;
@@ -54,6 +55,12 @@ public class UPEntities {
                     .fireImmune()
                     .sized(3.25F, 4F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "tyrannosaurus_skeleton").toString()));
+
+    public static final RegistryObject<EntityType<TriceratopsSkeleton>> TRIKE_SKELETON = ENTITIES.register("triceratops_skeleton",
+            () -> EntityType.Builder.<TriceratopsSkeleton>of(TriceratopsSkeleton::new, MobCategory.CREATURE)
+                    .fireImmune()
+                    .sized(3.25F, 4F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "triceratops_skeleton").toString()));
 
     // Frozen
     public static final RegistryObject<EntityType<IcebergMammoth>> ICEBERG_MAMMOTH = ENTITIES.register("iceberg_mammoth",

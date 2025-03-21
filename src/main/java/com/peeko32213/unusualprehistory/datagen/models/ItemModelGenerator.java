@@ -134,6 +134,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         }
 
         // Fossil skeleton items
+        singleTex(UPItems.TRIKE_SKELETON);
         singleTex(UPItems.TYRANNO_SKELETON);
 
         // Bottle items

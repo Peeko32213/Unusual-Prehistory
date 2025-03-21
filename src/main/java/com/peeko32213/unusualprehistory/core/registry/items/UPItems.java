@@ -91,6 +91,7 @@ public class UPItems {
     public static final RegistryObject<Item> CAPTURED_KIMMER_BOTTLE = ITEMS.register("kimmeridgebrachypteraeschnidium_bottle", () -> new CaptureFlaskItem(UPEntities.KIMMER::get, Items.GLASS_BOTTLE, false, new Item.Properties().stacksTo(1)));
 
     // Fossil skeletons
+    public static final RegistryObject<Item> TRIKE_SKELETON = ITEMS.register("triceratops_skeleton", () -> new SkeletonItem(UPEntities.TRIKE_SKELETON, new Item.Properties()));
     public static final RegistryObject<Item> TYRANNO_SKELETON = ITEMS.register("tyrannosaurus_skeleton", () -> new SkeletonItem(UPEntities.TYRANNO_SKELETON, new Item.Properties()));
 
     // Palaeo dna

@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-21T11:12:24.7432998	Item Models: unusualprehistory
+// 1.20.1	2025-03-21T11:31:47.5843066	Item Models: unusualprehistory
 fa55f567c295cf4dd68b82024d508fa7c97626f4 assets/unusualprehistory/models/item/amber.json
 728259086070ef1e799652ab2b9ca4701f9f0104 assets/unusualprehistory/models/item/amber_block.json
 880e29a540337d3f6b8590ec99b1b3e34d287ac0 assets/unusualprehistory/models/item/amber_fossil.json
@@ -243,6 +243,7 @@ c47430a2a6870647bb039f5985ca5ce447f19cb1 assets/unusualprehistory/models/item/ta
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/titanonarke_spawn_egg.json
 0c6170c1f224978bf00967d53515bad8386f8042 assets/unusualprehistory/models/item/triceratops_dna_bottle.json
 f601681a87507a216107a40da9acc9903c9b917e assets/unusualprehistory/models/item/triceratops_horn.json
+174a26078600bf29222613a5102ec21486a6c169 assets/unusualprehistory/models/item/triceratops_skeleton.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/triceratops_spawn_egg.json
 eb2ea033dac67ca71107109f0c80e6918bcba496 assets/unusualprehistory/models/item/trike_egg.json
 48065bbcb83c35f8544b876dd4ad3951a99f5667 assets/unusualprehistory/models/item/tyrannosaurus_dna_bottle.json

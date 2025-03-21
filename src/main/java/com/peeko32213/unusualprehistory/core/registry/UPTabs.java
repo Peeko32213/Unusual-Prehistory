@@ -182,6 +182,7 @@ public class UPTabs {
                     entries.accept(UPBlocks.REX_HEAD.get());
 
                     // Fossil skeletons
+                    entries.accept(UPItems.TRIKE_SKELETON.get());
                     entries.accept(UPItems.TYRANNO_SKELETON.get());
 
                     // Fossil mounts
