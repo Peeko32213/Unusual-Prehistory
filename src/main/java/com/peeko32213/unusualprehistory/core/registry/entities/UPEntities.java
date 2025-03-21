@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PalaeophisBook
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggSize;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggVariant;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.PrehistoricEggEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TyrannosaurusSkeleton;
 import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergSmilodon;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartEntity;
@@ -46,6 +47,26 @@ public class UPEntities {
     // Boat.
     public static final RegistryObject<EntityType<UPBoatEntity>> BOAT = ENTITIES.register("boat", () -> EntityType.Builder.<UPBoatEntity>of(UPBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10).build(new ResourceLocation(UnusualPrehistory.MODID, "boat").toString()));
     public static final RegistryObject<EntityType<UPChestBoatEntity>> CHEST_BOAT = ENTITIES.register("chest_boat", () -> EntityType.Builder.<UPChestBoatEntity>of(UPChestBoatEntity::new, MobCategory.MISC).sized(1.375f, 0.5625f).clientTrackingRange(10).build(new ResourceLocation(UnusualPrehistory.MODID, "chest_boat").toString()));
+
+    // Fossils
+    public static final RegistryObject<EntityType<TyrannosaurusSkeleton>> TYRANNO_SKELETON = ENTITIES.register("tyrannosaurus_skeleton",
+            () -> EntityType.Builder.<TyrannosaurusSkeleton>of(TyrannosaurusSkeleton::new, MobCategory.CREATURE)
+                    .fireImmune()
+                    .sized(3.25F, 4F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "tyrannosaurus_skeleton").toString()));
+
+    // Frozen
+    public static final RegistryObject<EntityType<IcebergMammoth>> ICEBERG_MAMMOTH = ENTITIES.register("iceberg_mammoth",
+            () -> EntityType.Builder.<IcebergMammoth>of(IcebergMammoth::new, MobCategory.CREATURE)
+                    .fireImmune()
+                    .sized(5, 5)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "icberg_mammoth").toString()));
+
+    public static final RegistryObject<EntityType<IcebergSmilodon>> ICEBERG_SMILODON = ENTITIES.register("iceberg_smilodon",
+            () -> EntityType.Builder.<IcebergSmilodon>of(IcebergSmilodon::new, MobCategory.CREATURE)
+                    .fireImmune()
+                    .sized(2, 2)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "iceberg_smilodon").toString()));
 
     // Paleo mobs
     public static final RegistryObject<EntityType<AmmoniteEntity>> AMMON = ENTITIES.register("ammon",
@@ -369,18 +390,6 @@ public class UPEntities {
             "hwacha_spike", () -> EntityType.Builder.<HwachavenatorSpikeEntity>of(HwachavenatorSpikeEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).clientTrackingRange(9).noSummon()
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hwacha_spike").toString()));
-
-    public static final RegistryObject<EntityType<IcebergMammoth>> ICEBERG_MAMMOTH = ENTITIES.register("iceberg_mammoth",
-            () -> EntityType.Builder.<IcebergMammoth>of(IcebergMammoth::new, MobCategory.CREATURE)
-                    .fireImmune()
-                    .sized(5, 5)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "icberg_mammoth").toString()));
-
-    public static final RegistryObject<EntityType<IcebergSmilodon>> ICEBERG_SMILODON = ENTITIES.register("iceberg_smilodon",
-            () -> EntityType.Builder.<IcebergSmilodon>of(IcebergSmilodon::new, MobCategory.CREATURE)
-                    .fireImmune()
-                    .sized(2, 2)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "iceberg_smilodon").toString()));
 
     public static final RegistryObject<EntityType<OpalescentPearlEntity>> OPALESCENT_PEARL = ENTITIES.register("opalescent_pearl",
             () ->  EntityType.Builder.<OpalescentPearlEntity>of(OpalescentPearlEntity::new, MobCategory.MISC)

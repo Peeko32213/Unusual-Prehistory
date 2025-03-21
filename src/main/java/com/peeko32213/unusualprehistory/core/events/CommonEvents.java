@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.SkeletonEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PalaeophisBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.WorldSpawnableEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartEntity;
@@ -100,6 +101,9 @@ public class CommonEvents {
         // Misc mobs
         event.put(UPEntities.ENCRUSTED.get(), EncrustedEntity.createAttributes().build());
         event.put(UPEntities.SLUDGE.get(), SludgeEntity.createAttributes().build());
+
+        // Fossils
+        event.put(UPEntities.TYRANNO_SKELETON.get(), SkeletonEntity.createAttributes().build());
 
         // Non-living mobs
         event.put(UPEntities.BOOK_PALAEO.get(), PalaeophisBookEntity.createAttributes().build());

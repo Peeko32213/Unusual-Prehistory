@@ -177,9 +177,14 @@ public class UPTabs {
                     entries.accept(UPItems.BEELZE_BUCKET.get());
                     entries.accept(UPItems.PALAEO_BUCKET.get());
 
-                    // Fossil mounts
+                    // Rex blocks
                     entries.accept(UPBlocks.REX_BOOMBOX.get());
                     entries.accept(UPBlocks.REX_HEAD.get());
+
+                    // Fossil skeletons
+                    entries.accept(UPItems.TYRANNO_SKELETON.get());
+
+                    // Fossil mounts
                     entries.accept(UPBlocks.COTY_FOSSIL.get());
                     entries.accept(UPBlocks.DUNK_FOSSIL.get());
                     entries.accept(UPBlocks.SCAU_FOSSIL.get());

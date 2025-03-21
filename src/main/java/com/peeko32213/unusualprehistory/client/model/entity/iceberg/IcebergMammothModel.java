@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.client.model.iceberg;
+package com.peeko32213.unusualprehistory.client.model.entity.iceberg;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergMammoth;
 import net.minecraft.resources.ResourceLocation;

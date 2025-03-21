@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-20T20:31:00.7219912	Item Models: unusualprehistory
+// 1.20.1	2025-03-21T11:12:24.7432998	Item Models: unusualprehistory
 fa55f567c295cf4dd68b82024d508fa7c97626f4 assets/unusualprehistory/models/item/amber.json
 728259086070ef1e799652ab2b9ca4701f9f0104 assets/unusualprehistory/models/item/amber_block.json
 880e29a540337d3f6b8590ec99b1b3e34d287ac0 assets/unusualprehistory/models/item/amber_fossil.json
@@ -247,6 +247,7 @@ f601681a87507a216107a40da9acc9903c9b917e assets/unusualprehistory/models/item/tr
 eb2ea033dac67ca71107109f0c80e6918bcba496 assets/unusualprehistory/models/item/trike_egg.json
 48065bbcb83c35f8544b876dd4ad3951a99f5667 assets/unusualprehistory/models/item/tyrannosaurus_dna_bottle.json
 6ce5022080db2cd1a16e9bd7a2c5df29105b7e1e assets/unusualprehistory/models/item/tyrannosaurus_scale.json
+365199f89bfd745983e6175da18082a379f7a10a assets/unusualprehistory/models/item/tyrannosaurus_skeleton.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/tyrannosaurus_spawn_egg.json
 3d2ef40cbb499c0928ca7a73f0c8891b11f3c3a2 assets/unusualprehistory/models/item/tyrannosaurus_tooth.json
 bc28959a187b5dbad158a23cf16ecd62c94116d3 assets/unusualprehistory/models/item/ulughbegsaurus_dna_bottle.json

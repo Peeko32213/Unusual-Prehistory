@@ -133,6 +133,9 @@ public class ItemModelGenerator extends ItemModelProvider {
             addPrehistoricEgg(object.getId());
         }
 
+        // Fossil skeleton items
+        singleTex(UPItems.TYRANNO_SKELETON);
+
         // Bottle items
         singleTex(UPItems.CAPTURED_KIMMER_BOTTLE);
         singleTex(UPItems.DORMANT_RAMPAGE_BOTTLE);

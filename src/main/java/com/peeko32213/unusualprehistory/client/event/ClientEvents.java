@@ -7,12 +7,13 @@ import com.peeko32213.unusualprehistory.client.model.DefaultModel;
 import com.peeko32213.unusualprehistory.client.model.ModelLocations;
 import com.peeko32213.unusualprehistory.client.model.VariantModel;
 import com.peeko32213.unusualprehistory.client.model.entity.egg.PrehistoricEggModel;
+import com.peeko32213.unusualprehistory.client.model.entity.skeleton.TyrannosaurusSkeletonModel;
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.*;
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.aquatic.*;
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.flying.TelecrexModel;
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.semi_aquatic.*;
-import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergMammothModel;
-import com.peeko32213.unusualprehistory.client.model.iceberg.IcebergSmilodonModel;
+import com.peeko32213.unusualprehistory.client.model.entity.iceberg.IcebergMammothModel;
+import com.peeko32213.unusualprehistory.client.model.entity.iceberg.IcebergSmilodonModel;
 import com.peeko32213.unusualprehistory.client.model.plant.PlantModel;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.particles.ElectricAttackParticle;
@@ -201,6 +202,9 @@ public final class ClientEvents {
         // Misc mobs
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
         event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.SLUDGE)));
+
+        // Fossils
+        event.registerEntityRenderer(UPEntities.TYRANNO_SKELETON.get(), e -> new LivingEntityRenderer<>(e, new TyrannosaurusSkeletonModel()));
 
         // Non-living mobs
         event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));
