@@ -19,9 +19,15 @@ public class DiplocaulusModel extends GeoModel<DiplocaulusEntity> {
     private static final ResourceLocation MODEL_3 = new ResourceLocation("unusualprehistory:geo/diplocaulus/diplocaulus_recurvatis.geo.json");
     private static final ResourceLocation MODEL_4 = new ResourceLocation("unusualprehistory:geo/diplocaulus/diplocaulus_salamandroides.geo.json");
 
+    private static final ResourceLocation ANIMATION_1 = new ResourceLocation("unusualprehistory:animations/diplocaulus/diplocaulus_brevirostris.animation.json");
+    private static final ResourceLocation ANIMATION_2 = new ResourceLocation("unusualprehistory:animations/diplocaulus/diplocaulus_magnicornis.animation.json");
+    private static final ResourceLocation ANIMATION_3 = new ResourceLocation("unusualprehistory:animations/diplocaulus/diplocaulus_recurvatis.animation.json");
+    private static final ResourceLocation ANIMATION_4 = new ResourceLocation("unusualprehistory:animations/diplocaulus/diplocaulus_salamandroides.animation.json");
+
+
     @Override
-    public ResourceLocation getModelResource(DiplocaulusEntity object) {
-        return switch (object.getVariant()) {
+    public ResourceLocation getModelResource(DiplocaulusEntity diplo) {
+        return switch (diplo.getVariant()) {
             case 1 -> MODEL_2;
             case 2 -> MODEL_3;
             case 3 -> MODEL_4;
@@ -30,8 +36,8 @@ public class DiplocaulusModel extends GeoModel<DiplocaulusEntity> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(DiplocaulusEntity animatable) {
-        return switch (animatable.getVariant()) {
+    public ResourceLocation getTextureResource(DiplocaulusEntity diplo) {
+        return switch (diplo.getVariant()) {
             case 1 -> TEXTURE_2;
             case 2 -> TEXTURE_3;
             case 3 -> TEXTURE_4;
@@ -40,8 +46,13 @@ public class DiplocaulusModel extends GeoModel<DiplocaulusEntity> {
     }
 
     @Override
-    public ResourceLocation getAnimationResource(DiplocaulusEntity object) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/diplocaulus.animation.json");
+    public ResourceLocation getAnimationResource(DiplocaulusEntity diplo) {
+        return switch (diplo.getVariant()) {
+            case 1 -> ANIMATION_2;
+            case 2 -> ANIMATION_3;
+            case 3 -> ANIMATION_4;
+            default -> ANIMATION_1;
+        };
     }
 
     @Override
@@ -49,7 +60,7 @@ public class DiplocaulusModel extends GeoModel<DiplocaulusEntity> {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
 
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
         if (animatable.isBaby()) {
             head.setScaleX(1.35F);
             head.setScaleY(1.35F);

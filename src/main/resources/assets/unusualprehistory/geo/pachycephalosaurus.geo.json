@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.pachycephalosaurus",
 				"texture_width": 128,
 				"texture_height": 128,
 				"visible_bounds_width": 4,
@@ -12,28 +12,48 @@
 			},
 			"bones": [
 				{
-					"name": "Pachycephalosaurus",
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "body_main",
+					"parent": "root",
 					"pivot": [0, 14, 0]
 				},
 				{
-					"name": "Pachy_Upper_Body",
-					"parent": "Pachycephalosaurus",
-					"pivot": [0, 10.5, 4],
+					"name": "body_overlay",
+					"parent": "body_main",
+					"pivot": [0, 14, 0]
+				},
+				{
+					"name": "body",
+					"parent": "body_overlay",
+					"pivot": [0, 14, 0],
 					"cubes": [
 						{"origin": [-4.5, 9, -6], "size": [9, 10, 12], "uv": [0, 0]}
 					]
 				},
 				{
-					"name": "Pachy_Neck",
-					"parent": "Pachy_Upper_Body",
+					"name": "neck_overlay",
+					"parent": "body",
+					"pivot": [0, 14, -5]
+				},
+				{
+					"name": "neck",
+					"parent": "neck_overlay",
 					"pivot": [0, 14, -5],
 					"cubes": [
 						{"origin": [-2.5, 11, -9], "size": [5, 11, 7], "uv": [0, 43]}
 					]
 				},
 				{
-					"name": "Pachy_Head",
-					"parent": "Pachy_Neck",
+					"name": "head_overlay",
+					"parent": "neck",
+					"pivot": [0, 20, -5]
+				},
+				{
+					"name": "head",
+					"parent": "head_overlay",
 					"pivot": [0, 20, -5],
 					"cubes": [
 						{"origin": [-4, 20, -10], "size": [8, 8, 9], "uv": [40, 22]},
@@ -42,26 +62,42 @@
 					]
 				},
 				{
-					"name": "bone",
-					"parent": "Pachy_Head",
+					"name": "snout_overlay",
+					"parent": "head",
+					"pivot": [2, 22, -10]
+				},
+				{
+					"name": "snout",
+					"parent": "snout_overlay",
 					"pivot": [2, 22, -10],
 					"cubes": [
-						{"origin": [-2, 21, -14], "size": [4, 2, 4], "uv": [24, 54]},
-						{"origin": [-2, 22, -14], "size": [4, 0, 4], "uv": [58, 48]}
+						{"origin": [-2, 21, -14], "size": [4, 2, 4], "inflate": 0.0025, "uv": [24, 54]},
+						{"origin": [-1, 23, -14], "size": [2, 1, 4], "uv": [32, 61]},
+						{"origin": [-2, 22, -14], "size": [4, 0, 4], "inflate": 0.0025, "uv": [58, 48]}
 					]
 				},
 				{
-					"name": "Pachy_Jaw",
-					"parent": "Pachy_Head",
+					"name": "jaw_overlay",
+					"parent": "head",
+					"pivot": [0, 22, -10]
+				},
+				{
+					"name": "jaw",
+					"parent": "jaw_overlay",
 					"pivot": [0, 22, -10],
 					"cubes": [
-						{"origin": [-2, 20, -14], "size": [4, 2, 4], "uv": [24, 32]},
-						{"origin": [-2, 21.01, -14], "size": [4, 0, 4], "uv": [58, 53]}
+						{"origin": [-2, 20, -14], "size": [4, 2, 4], "inflate": 0.0025, "uv": [24, 32]},
+						{"origin": [-2, 21.01, -14], "size": [4, 0, 4], "inflate": 0.0025, "uv": [58, 53]}
 					]
 				},
 				{
-					"name": "Pachy_Arm_Left",
-					"parent": "Pachy_Upper_Body",
+					"name": "left_arm_overlay",
+					"parent": "body",
+					"pivot": [4.5, 11.5, -2.5]
+				},
+				{
+					"name": "left_arm",
+					"parent": "left_arm_overlay",
 					"pivot": [4.5, 11.5, -2.5],
 					"cubes": [
 						{"origin": [4, 7, -4], "size": [2, 6, 3], "uv": [58, 58]},
@@ -69,8 +105,13 @@
 					]
 				},
 				{
-					"name": "Pachy_Arm_Right",
-					"parent": "Pachy_Upper_Body",
+					"name": "right_arm_overlay",
+					"parent": "body",
+					"pivot": [-4.5, 11.5, -2.5]
+				},
+				{
+					"name": "right_arm",
+					"parent": "right_arm_overlay",
 					"pivot": [-4.5, 11.5, -2.5],
 					"cubes": [
 						{"origin": [-6, 7, -4], "size": [2, 6, 3], "uv": [58, 58], "mirror": true},
@@ -78,45 +119,89 @@
 					]
 				},
 				{
-					"name": "Pachy_Tail",
-					"parent": "Pachy_Upper_Body",
+					"name": "tail_overlay",
+					"parent": "body",
+					"pivot": [0, 11.5, 6]
+				},
+				{
+					"name": "tail",
+					"parent": "tail_overlay",
 					"pivot": [0, 11.5, 6],
 					"cubes": [
 						{"origin": [-2, 9, 6], "size": [4, 5, 16], "uv": [0, 22]}
 					]
 				},
 				{
-					"name": "Pachy_Leg_Left",
-					"parent": "Pachycephalosaurus",
+					"name": "leg_control",
+					"parent": "body_main",
+					"pivot": [0, 10.5, 4]
+				},
+				{
+					"name": "left_leg1_overlay",
+					"parent": "leg_control",
+					"pivot": [4.5, 10.5, 4]
+				},
+				{
+					"name": "left_leg1",
+					"parent": "left_leg1_overlay",
 					"pivot": [4.5, 10.5, 4],
 					"cubes": [
-						{"origin": [2, 6, 1.5], "size": [5, 7, 5], "uv": [42, 8]},
+						{"origin": [2, 6, 1.5], "size": [5, 7, 5], "uv": [42, 8]}
+					]
+				},
+				{
+					"name": "left_leg2_overlay",
+					"parent": "left_leg1",
+					"pivot": [4.5, 8.5, 6]
+				},
+				{
+					"name": "left_leg2",
+					"parent": "left_leg2_overlay",
+					"pivot": [4.5, 8.5, 6],
+					"cubes": [
 						{"origin": [3, 0, 4.5], "size": [3, 10, 3], "uv": [46, 48]}
 					]
 				},
 				{
-					"name": "Pachy_Foot_Left",
-					"parent": "Pachy_Leg_Left",
-					"pivot": [4.5, 0, 6.5],
+					"name": "left_leg3",
+					"parent": "left_leg2",
+					"pivot": [4.5, 0.05, 6.5],
 					"cubes": [
-						{"origin": [2, 0.01, 2.5], "size": [5, 0, 6], "uv": [24, 48]}
+						{"origin": [2, 0.06, 2.5], "size": [5, 0, 6], "inflate": 0.0025, "uv": [24, 48]}
 					]
 				},
 				{
-					"name": "Pachy_Leg_Right",
-					"parent": "Pachycephalosaurus",
+					"name": "right_leg1_overlay",
+					"parent": "leg_control",
+					"pivot": [-4.5, 10.5, 4]
+				},
+				{
+					"name": "right_leg1",
+					"parent": "right_leg1_overlay",
 					"pivot": [-4.5, 10.5, 4],
 					"cubes": [
-						{"origin": [-7, 6, 1.5], "size": [5, 7, 5], "uv": [42, 8], "mirror": true},
+						{"origin": [-7, 6, 1.5], "size": [5, 7, 5], "uv": [42, 8], "mirror": true}
+					]
+				},
+				{
+					"name": "right_leg2_overlay",
+					"parent": "right_leg1",
+					"pivot": [-4.5, 8.5, 6]
+				},
+				{
+					"name": "right_leg2",
+					"parent": "right_leg2_overlay",
+					"pivot": [-4.5, 8.5, 6],
+					"cubes": [
 						{"origin": [-6, 0, 4.5], "size": [3, 10, 3], "uv": [46, 48], "mirror": true}
 					]
 				},
 				{
-					"name": "Pachy_Foot_Right",
-					"parent": "Pachy_Leg_Right",
-					"pivot": [-4.5, 0, 6.5],
+					"name": "right_leg3",
+					"parent": "right_leg2",
+					"pivot": [-4.5, 0.05, 6.5],
 					"cubes": [
-						{"origin": [-7, 0.01, 2.5], "size": [5, 0, 6], "uv": [24, 48], "mirror": true}
+						{"origin": [-7, 0.06, 2.5], "size": [5, 0, 6], "inflate": 0.0025, "uv": [24, 48], "mirror": true}
 					]
 				}
 			]

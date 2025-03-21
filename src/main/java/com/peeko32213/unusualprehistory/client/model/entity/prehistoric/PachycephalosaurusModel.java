@@ -32,7 +32,7 @@ public class PachycephalosaurusModel extends GeoModel<PachycephalosaurusEntity>
     @Override
     public ResourceLocation getAnimationResource(PachycephalosaurusEntity object)
     {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/pachy.animation.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/pachycephalosaurus.animation.json");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class PachycephalosaurusModel extends GeoModel<PachycephalosaurusEntity>
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Pachy_Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
         if (animatable.isBaby()) {
             head.setScaleX(1.75F);
             head.setScaleY(1.75F);

@@ -52,16 +52,35 @@ public class PachycephalosaurusEntity extends PrehistoricEntityOld {
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(PachycephalosaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(PachycephalosaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(PachycephalosaurusEntity.class, EntityDataSerializers.INT);
-    private static final RawAnimation PACHY_HEADSWING_1 = RawAnimation.begin().thenLoop("animation.pachy.headswing1");
-    private static final RawAnimation PACHY_HEADSWING_2 = RawAnimation.begin().thenLoop("animation.pachy.headswing2");
-    private static final RawAnimation PACHY_ATTACK = RawAnimation.begin().thenLoop("animation.pachy.attack");
-    private static final RawAnimation PACHY_KICK = RawAnimation.begin().thenLoop("animation.pachy.kick");
-    private static final RawAnimation PACHY_SWIM = RawAnimation.begin().thenLoop("animation.pachy.swim");
-    private static final RawAnimation PACHY_WALK = RawAnimation.begin().thenLoop("animation.pachy.walk");
-    private static final RawAnimation PACHY_IDLE = RawAnimation.begin().thenLoop("animation.pachy.idle");
+
+    // Movement animations
+    private static final RawAnimation PACHY_WALK = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.walk");
+    private static final RawAnimation PACHY_RUN = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.run");
+    private static final RawAnimation PACHY_SWIM = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.swim");
+
+    // Idle animations
+    private static final RawAnimation PACHY_IDLE = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.idle");
+    private static final RawAnimation PACHY_GRAZE = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.graze_blend");
+    private static final RawAnimation PACHY_HUFF = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.huff_blend");
+    private static final RawAnimation PACHY_STOMP_1 = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.stomp_blend1");
+    private static final RawAnimation PACHY_STOMP_2 = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.stomp_blend2");
+    private static final RawAnimation PACHY_SIT_START = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.sit_start");
+    private static final RawAnimation PACHY_SIT = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.sit");
+    private static final RawAnimation PACHY_SIT_END = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.sit_end");
+    private static final RawAnimation PACHY_SLEEP = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.sleep");
+
+    // Attack animations
+    private static final RawAnimation PACHY_CHARGE = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.charge");
+    private static final RawAnimation PACHY_ATTACK_1 = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.attack1");
+    private static final RawAnimation PACHY_ATTACK_2 = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.attack2");
+    private static final RawAnimation PACHY_ATTACK_3 = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.attack3");
+
+    // Misc animations
+    private static final RawAnimation PACHY_WARN = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.warn_blend");
+
     public PachycephalosaurusEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1.0F);
+        this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -293,16 +312,13 @@ public class PachycephalosaurusEntity extends PrehistoricEntityOld {
             switch (animState) {
 
                 case 21:
-                    event.setAndContinue(PACHY_HEADSWING_1);
+                    event.setAndContinue(PACHY_ATTACK_1);
                     break;
                 case 22:
-                    event.setAndContinue(PACHY_HEADSWING_2);
+                    event.setAndContinue(PACHY_ATTACK_2);
                     break;
-                case 23:
-                    event.setAndContinue(PACHY_ATTACK);
-                    break;
-                case 24:
-                    event.setAndContinue(PACHY_KICK);
+                case 23, 24:
+                    event.setAndContinue(PACHY_ATTACK_3);
                     break;
                 default:
                     if (this.isInWater()) {
