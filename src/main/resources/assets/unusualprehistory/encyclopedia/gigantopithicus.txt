@@ -1,0 +1,16 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Un orangután enorme que data del Pleistoceno inferior y medio, estas dóciles criaturas pueden ser una de las criaturas más sofisticadas que se han revivido hasta ahora. Debido a que no tienen descendientes vivos, estas criaturas deben ser revividas a través de un incubador. Pasan la mayor parte de sus días deambulando, explorando el mundo que los rodea. Sin embargo, cuando se les presenta un tallo del antiguo bambú zuloagae, muestran una amplia mercancía.
+<NEWLINE>
+<NEWLINE>
+Si bien no se de dónde los obtienen, ofrecen una amplia variedad de productos exóticos, yendo desde frutas nunca antes vistas hasta armas aparentemente hechas a mano. Cuando se comercia, le darán al comprador una fruta enorme que parece estar repleta hasta el borde con productos al azar. Dependiendo de la fruta comerciada, se obtienen mejores objetos. Hasta ahora, aquí hay una lista de todo lo que he obtenido de cada fruta:
+<NEWLINE>
+§lBotín de fruta exótica (comerciado por bambú zuloagae):§r trozos de fruta exótica, cola de caballo, raíces colgantes, semillas de calabaza, semillas de sandía.
+<NEWLINE>
+§lBotín de fruta lujosa (comerciado por fruta exótica):§r trozos de fruta lujosa, trozos de fruta exótica, cola de caballo, cola de caballo alta, §oLeefructus, §oBennettitales, §oSarracenia, §oSarracenia§r alta, §oArchaeosigillaria§r, hacha de batalla hecha a mano, sandía reluciente, zanahoria.
+<NEWLINE>
+§lBotín de fruta olorosa (comerciado por fruta lujosa):§r trozos de fruta olorosa, trozos de fruta lujosa, garrote hecho a mano, lapislázuli, pepitas de oro, zanahoria, crocarina.
+<NEWLINE>
+§lBotín de fruta saludable (comerciado por fruta olorosa):§r trozos de fruta saludable, lanza hecha a mano, esmeraldas, pepitas de hierro, zanahorias doradas, brotes de ginkgo prehistórico, brotes de foxii, brotes de §oDryophyllum§r, disco de música.

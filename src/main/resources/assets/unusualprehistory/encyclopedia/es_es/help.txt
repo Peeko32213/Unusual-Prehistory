@@ -1,0 +1,6 @@
+<NEWLINE>
+Oh, no, algo salió mal.
+<NEWLINE>
+Si ves esto e interactuaste con un dinosaurio, significa que el archivo json no tiene el nombre correcto.
+<NEWLINE>
+Si ves esto e intentas agregar una entrada, también significa que el archivo json no tiene el nombre correcto o que no especificaste tu archivo de texto.

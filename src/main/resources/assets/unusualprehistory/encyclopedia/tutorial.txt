@@ -1,0 +1,11 @@
+<NEWLINE>
+La resurrección de animales antiguos es un proceso bastante sencillo. El primer paso de este proceso es encontrar fósiles.
+Los fósiles se pueden encontrar en cualquier altura, sin embargo, la profundidad afecta su antigüedad. Hay 7 tipos:
+Fósiles paleozoicos, fósiles mesozoicos, fósiles vegetales, fósiles de ámbar, fósiles de madera petrificada, fósiles de alquitrán y fósiles de ópalo.
+<NEWLINE>
+<NEWLINE>
+Sin embargo, para extraer ADN es necesario fabricar un analizador. Los analizadores son un extraño artilugio que permite obtener ADN de fósiles. Para usar esta máquina, es necesario tener matraces para mantener el ADN en un lugar estable. La máquina buscará entonces cualquier   rastro de ADN en el fósil.
+<NEWLINE>
+El ADN encontrado deberá colocarse en un cultivador. Esta es una curiosa máquina que convierte el ADN en criaturas o plantas reales. Todo lo que se necesita es ADN y un poco de cieno orgánico, una masa de materia orgánica que permite el proceso de resurrección.
+<NEWLINE>
+El proceso de resurrección de criaturas vivíparas es ligeramente diferente, ya que después del proceso de cultivo se obtiene un embrión. Si se dispone de un pariente moderno, se puede usar como madre sustituta. Sin embargo, hasta el momento solo se conoce un pariente vivíparo de un animal extinto que todavía existe hoy en día. Para los otros se debe construir un incubador, que se puede usar para gestar una criatura una vez antes de romperse.
