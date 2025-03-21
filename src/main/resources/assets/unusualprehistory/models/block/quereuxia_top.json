@@ -1,5 +1,6 @@
 {
   "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
   "textures": {
     "particle": "unusualprehistory:block/quereuxia_top",
     "texture": "unusualprehistory:block/quereuxia_top"
