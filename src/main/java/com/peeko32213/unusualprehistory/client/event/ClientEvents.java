@@ -154,7 +154,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BEELZ.get(), e -> new PrehistoricRenderer<>(e, new BeelzebufoModel()));
         event.registerEntityRenderer(UPEntities.BEELZE_TADPOLE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BEELZEBUFO)));
         event.registerEntityRenderer(UPEntities.BRACHI.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BrachiosaurusModel()));
-        event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new PrehistoricRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
+       // event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new PrehistoricRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
         event.registerEntityRenderer(UPEntities.GLOBIDENS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new GlobidensModel()));
         event.registerEntityRenderer(UPEntities.GUANLINGSAURUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new GuanlingsaurusModel()));
         event.registerEntityRenderer(UPEntities.HWACHA.get(), e -> new StatedPrehistoricRenderer<>(e, new HwachavenatorModel()));
