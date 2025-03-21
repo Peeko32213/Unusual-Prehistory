@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.Prehistori
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -196,17 +196,6 @@ public class GigantopithicusEntity extends PrehistoricEntityOld implements IVari
     @Override
     public boolean isAlliedTo(Entity pEntity) {
         return pEntity.is(this);
-    }
-
-    @Override
-    public ResourceLocation getVariantTexture() {
-        if (hasCustomName()) {
-            if(getCustomName().getString().equalsIgnoreCase("braypithicus")){
-                return TEXTURE_VARIANT;
-            }
-
-        }
-        return TEXTURE_NORMAL;
     }
 
     static class ApeMeleeAttackGoal extends Goal {

@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -238,10 +238,7 @@ public class ScaumenaciaEntity extends AbstractFish implements Bucketable, GeoAn
     public static ResourceLocation NORMAL = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/scaumenacia.png");
 
     @Override
-    public ResourceLocation getVariantTexture() {
-        if (isGolden()) {
-            return GOLDEN;
-        }
-        return NORMAL;
+    public int getVariant() {
+        return 0;
     }
 }

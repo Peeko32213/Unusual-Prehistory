@@ -3,8 +3,8 @@ package com.peeko32213.unusualprehistory.common.block.entity;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
-import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -102,7 +103,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
                 return stack;
             }
 
-            if(slot == 0 && stack.is(UPItems.FLASK.get())){
+            if(slot == 0 && stack.is(Items.GLASS_BOTTLE)){
                 return itemHandler.insertItem(slot, stack, simulate);
             }
 
@@ -220,7 +221,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private static boolean hasFlaskInWaterSlot(AnalyzerBlockEntity entity) {
-        return entity.itemHandler.getStackInSlot(0).getItem() == UPItems.FLASK.get();
+        return entity.itemHandler.getStackInSlot(0).getItem() == Items.GLASS_BOTTLE;
     }
 
     private static void craftItem(AnalyzerBlockEntity entity) {

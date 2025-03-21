@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 
 import com.peeko32213.unusualprehistory.client.model.tool.TrikeShieldModel;
 import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -56,7 +56,7 @@ public class TriceratopsShieldItem extends ShieldItem  implements GeoItem {
     }
 
     public boolean isValidRepairItem(@NotNull ItemStack p_82789_1_, ItemStack p_82789_2_) {
-        return UPItems.AMBER_SHARDS.get() == p_82789_2_.getItem() || super.isValidRepairItem(p_82789_1_, p_82789_2_);
+        return UPItems.AMBER.get() == p_82789_2_.getItem() || super.isValidRepairItem(p_82789_1_, p_82789_2_);
     }
 
 

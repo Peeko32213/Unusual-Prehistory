@@ -1,8 +1,8 @@
 //package com.peeko32213.unusualprehistory.datagen.advancements;
 //
-//import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
-//import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-//import com.peeko32213.unusualprehistory.core.registry.UPItems;
+//import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+//import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+//import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 //import com.peeko32213.unusualprehistory.core.registry.util.BarinaTameTrigger;
 //import net.minecraft.advancements.Advancement;
 //import net.minecraft.advancements.FrameType;
@@ -59,7 +59,7 @@
 //                .addCriterion("cultivator", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.CULTIVATOR.get()))
 //                .save(consumer, prefixS("main/cultivator"));
 //
-//        Advancement eggs = getAdvancement(cultivator, (ItemLike) UPBlocks.COTY_EGG.get(), "obtain_egg", FrameType.TASK, true, true, true)
+//        Advancement eggs = getAdvancement(cultivator, (ItemLike) UPBlocks.COTY_SPAWN_EGG.get(), "obtain_egg", FrameType.TASK, true, true, true)
 //
 //                .requirements(RequirementsStrategy.OR)
 //                .save(consumer, prefixS("main/egg"));
@@ -74,7 +74,7 @@
 //                .requirements(RequirementsStrategy.OR)
 //                .save(consumer, prefixS("main/embryo"));
 //
-//        Advancement ammon = getAdvancement(eggs, (ItemLike)UPItems.AMMONITE_FLASK.get(), "interact_ammonite", FrameType.TASK, true, true, true)
+//        Advancement ammon = getAdvancement(eggs, (ItemLike)UPItems.AMMONITE_DNA.get(), "interact_ammonite", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_ammon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.AMMON.get())))))
 //                .addCriterion("interact_ammon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.AMMON.get()).build())))
 //                .addCriterion("killed_ammon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.AMMON.get())))
@@ -89,7 +89,7 @@
 //                .addCriterion("warpick", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.WARPICK.get()))
 //                .save(consumer, prefixS("main/ammon_weapon"));
 //
-//        Advancement antarcto = getAdvancement(eggs, (ItemLike)UPItems.ANTARCTO_FLASK.get(), "interact_antarcto", FrameType.TASK, true, true, true)
+//        Advancement antarcto = getAdvancement(eggs, (ItemLike)UPItems.ANTARCTO_DNA.get(), "interact_antarcto", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_antarcto", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ANTARCO.get())))))
 //                .addCriterion("interact_antarcto", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.ANTARCO.get()).build())))
 //                .addCriterion("killed_antarcto", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ANTARCO.get())))
@@ -101,7 +101,7 @@
 //                .addCriterion("primal_macuahuitl", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.PRIMAL_MACUAHUITL.get()))
 //                .save(consumer, prefixS("main/antarcto_weapon"));
 //
-//        Advancement austro = getAdvancement(eggs, (ItemLike)UPItems.AUSTRO_FLASK.get(), "interact_austro", FrameType.TASK, true, true, true)
+//        Advancement austro = getAdvancement(eggs, (ItemLike)UPItems.AUSTRO_DNA.get(), "interact_austro", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_austro", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.AUSTRO.get())))))
 //                .addCriterion("interact_austro", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.AUSTRO.get()).build())))
 //                .addCriterion("killed_austro", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.AUSTRO.get())))
@@ -113,7 +113,7 @@
 //                .addCriterion("primal_macuahuitl", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.AUSTRO_BOOTS.get()))
 //                .save(consumer,prefixS("main/austro_boots"));
 //
-//        Advancement beelze = getAdvancement(eggs, (ItemLike)UPItems.BEELZ_FLASK.get(), "interact_beelze", FrameType.TASK, true, true, true)
+//        Advancement beelze = getAdvancement(eggs, (ItemLike)UPItems.BEELZ_DNA.get(), "interact_beelze", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_beelze", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.BEELZ.get())))))
 //                .addCriterion("interact_beelze", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.BEELZ.get()).build())))
 //                .addCriterion("killed_beelze", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.BEELZ.get())))
@@ -125,7 +125,7 @@
 //                .addCriterion("meat_on_a_stick", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.MEAT_ON_A_STICK.get()))
 //                .save(consumer, prefixS("main/meat_stick"));
 //
-//        Advancement pachy = getAdvancement(eggs, (ItemLike)UPItems.PACHY_FLASK.get(), "interact_pachy", FrameType.TASK, true, true, true)
+//        Advancement pachy = getAdvancement(eggs, (ItemLike)UPItems.PACHY_DNA.get(), "interact_pachy", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_pachy", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.PACHY.get())))))
 //                .addCriterion("interact_pachy", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.PACHY.get()).build())))
 //                .addCriterion("killed_pachy", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.PACHY.get())))
@@ -133,7 +133,7 @@
 //
 //                .save(consumer, prefixS("main/pachy"));
 //
-//        Advancement ulugh = getAdvancement(eggs, (ItemLike)UPItems.ULUGH_FLASK.get(), "interact_ulugh", FrameType.TASK, true, true, true)
+//        Advancement ulugh = getAdvancement(eggs, (ItemLike)UPItems.ULUGH_DNA.get(), "interact_ulugh", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_ulugh", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ULUG.get())))))
 //                .addCriterion("interact_ulugh", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.ULUG.get()).build())))
 //                .addCriterion("killed_ulugh", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ULUG.get())))
@@ -141,7 +141,7 @@
 //
 //                .save(consumer, prefixS("main/ulugh"));
 //
-//        Advancement kentro = getAdvancement(eggs, (ItemLike)UPItems.KENTRO_FLASK.get(), "interact_kentro", FrameType.TASK, true, true, true)
+//        Advancement kentro = getAdvancement(eggs, (ItemLike)UPItems.KENTRO_DNA.get(), "interact_kentro", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_kentro", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.KENTRO.get())))))
 //                .addCriterion("interact_kentro", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.KENTRO.get()).build())))
 //                .addCriterion("killed_kentro", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.KENTRO.get())))
@@ -149,7 +149,7 @@
 //
 //                .save(consumer, prefixS("main/kentro"));
 //
-//        Advancement stetha = getAdvancement(eggs, (ItemLike)UPItems.STETHA_FLASK.get(), "interact_stetha", FrameType.TASK, true, true, true)
+//        Advancement stetha = getAdvancement(eggs, (ItemLike)UPItems.STETHA_DNA.get(), "interact_stetha", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_stetha", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.STETHACANTHUS.get())))))
 //                .addCriterion("interact_stetha", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.STETHACANTHUS.get()).build())))
 //                .addCriterion("killed_stetha", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.STETHACANTHUS.get())))
@@ -157,7 +157,7 @@
 //
 //                .save(consumer, prefixS("main/stetha"));
 //
-//        Advancement eryon = getAdvancement(eggs, (ItemLike)UPItems.ERYON_FLASK.get(), "interact_eryon", FrameType.TASK, true, true, true)
+//        Advancement eryon = getAdvancement(eggs, (ItemLike)UPItems.ERYON_DNA.get(), "interact_eryon", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_eryon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ERYON.get())))))
 //                .addCriterion("interact_eryon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.ERYON.get()).build())))
 //                .addCriterion("killed_eryon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ERYON.get())))
@@ -185,7 +185,7 @@
 //                .requirements(RequirementsStrategy.OR)
 //                .save(consumer, prefixS("main/fossil_stand"));
 //
-//        Advancement hwacha = getAdvancement(eggs, (ItemLike)UPItems.HWACHA_FLASK.get(), "interact_hwacha", FrameType.TASK, true, true, true)
+//        Advancement hwacha = getAdvancement(eggs, (ItemLike)UPItems.HWACHA_DNA.get(), "interact_hwacha", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_hwacha", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.HWACHA.get())))))
 //                .addCriterion("interact_hwacha", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.HWACHA.get()).build())))
 //                .addCriterion("killed_hwacha", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.HWACHA.get())))
@@ -193,7 +193,7 @@
 //
 //                .save(consumer, prefixS("main/hwacha"));
 //
-//        Advancement brachi = getAdvancement(eggs, (ItemLike)UPItems.BRACHI_FLASK.get(), "interact_brachi", FrameType.TASK, true, true, true)
+//        Advancement brachi = getAdvancement(eggs, (ItemLike)UPItems.BRACHI_DNA.get(), "interact_brachi", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_brachi", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.BRACHI.get())))))
 //                .addCriterion("interact_brachi", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.BRACHI.get()).build())))
 //                .addCriterion("killed_brachi", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.BRACHI.get())))
@@ -201,7 +201,7 @@
 //
 //                .save(consumer, prefixS("main/brachi"));
 //
-//        Advancement scau = getAdvancement(eggs, (ItemLike)UPItems.SCAU_FLASK.get(), "interact_scau", FrameType.TASK, true, true, true)
+//        Advancement scau = getAdvancement(eggs, (ItemLike)UPItems.SCAU_DNA.get(), "interact_scau", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_scau", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.SCAU.get())))))
 //                .addCriterion("interact_scau", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.SCAU.get()).build())))
 //                .addCriterion("killed_scau", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.SCAU.get())))
@@ -214,7 +214,7 @@
 //                .save(consumer, prefixS("main/golden_scau"));
 //
 //
-//        Advancement majunga = getAdvancement(eggs, (ItemLike)UPItems.MAJUNGA_FLASK.get(), "interact_majunga", FrameType.TASK, true, true, true)
+//        Advancement majunga = getAdvancement(eggs, (ItemLike)UPItems.MAJUNGA_DNA.get(), "interact_majunga", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_majunga", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.MAJUNGA.get())))))
 //                .addCriterion("interact_majunga", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.MAJUNGA.get()).build())))
 //                .addCriterion("killed_scau", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MAJUNGA.get())))
@@ -226,7 +226,7 @@
 //                .addCriterion("majunga_helmet", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.MAJUNGA_HELMET.get()))
 //                .save(consumer, prefixS("main/majunga_helmet"));
 //
-//        Advancement veloci = getAdvancement(eggs, (ItemLike)UPItems.VELOCI_FLASK.get(), "interact_veloci", FrameType.TASK, true, true, true)
+//        Advancement veloci = getAdvancement(eggs, (ItemLike)UPItems.VELOCI_DNA.get(), "interact_veloci", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_veloci", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.VELOCIRAPTOR.get())))))
 //                .addCriterion("interact_veloci", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.VELOCIRAPTOR.get()).build())))
 //                .addCriterion("killed_veloci", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.VELOCIRAPTOR.get())))
@@ -238,7 +238,7 @@
 //                .addCriterion("veloci_shield", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.VELOCI_SHIELD.get()))
 //                .save(consumer, prefixS("main/veloci_shield"));
 //
-//        Advancement dunk = getAdvancement(eggs, (ItemLike)UPItems.DUNK_FLASK.get(), "interact_dunk", FrameType.TASK, true, true, true)
+//        Advancement dunk = getAdvancement(eggs, (ItemLike)UPItems.DUNK_DNA.get(), "interact_dunk", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_dunk", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.DUNK.get())))))
 //                .addCriterion("interact_dunk", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.DUNK.get()).build())))
 //                .addCriterion("killed_dunk", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.DUNK.get())))
@@ -246,7 +246,7 @@
 //
 //                .save(consumer, prefixS("main/dunk"));
 //
-//        Advancement anuro = getAdvancement(eggs, (ItemLike)UPItems.ANURO_FLASK.get(), "interact_anuro", FrameType.TASK, true, true, true)
+//        Advancement anuro = getAdvancement(eggs, (ItemLike)UPItems.ANURO_DNA.get(), "interact_anuro", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_anuro", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ANURO.get())))))
 //                .addCriterion("interact_anuro", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.ANURO.get()).build())))
 //                .addCriterion("killed_anuro", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ANURO.get())))
@@ -254,7 +254,7 @@
 //
 //                .save(consumer, prefixS("main/anuro"));
 //
-//        Advancement trike = getAdvancement(eggs, (ItemLike)UPItems.TRIKE_FLASK.get(), "interact_trike", FrameType.TASK, true, true, true)
+//        Advancement trike = getAdvancement(eggs, (ItemLike)UPItems.TRIKE_DNA.get(), "interact_trike", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_trike", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TRICERATOPS.get())))))
 //                .addCriterion("interact_trike", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TRICERATOPS.get()).build())))
 //                .addCriterion("killed_trike", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TRICERATOPS.get())))
@@ -266,7 +266,7 @@
 //                .addCriterion("trike_shield", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.TRIKE_SHIELD.get()))
 //                .save(consumer, prefixS("main/trike_shield"));
 //
-//        Advancement coty = getAdvancement(eggs, (ItemLike)UPItems.COTY_FLASK.get(), "interact_coty", FrameType.TASK, true, true, true)
+//        Advancement coty = getAdvancement(eggs, (ItemLike)UPItems.COTY_DNA.get(), "interact_coty", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_coty", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.COTY.get())))))
 //                .addCriterion("interact_coty", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.COTY.get()).build())))
 //                .addCriterion("killed_coty", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.COTY.get())))
@@ -278,7 +278,7 @@
 //                .addCriterion("grog", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.GROG.get()))
 //                .save(consumer, prefixS("main/grog"));
 //
-//        Advancement rex = getAdvancement(eggs, (ItemLike)UPItems.TYRANNO_FLASK.get(), "interact_rex", FrameType.TASK, true, true, true)
+//        Advancement rex = getAdvancement(eggs, (ItemLike)UPItems.TYRANNO_DNA.get(), "interact_rex", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_rex", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get())))))
 //                .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get()).build())))
 //                .addCriterion("killed_rex", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get())))
@@ -286,11 +286,11 @@
 //
 //                .save(consumer, prefixS("main/rex"));
 //
-//        Advancement rex_defeat = getAdvancement(rex, (ItemLike)UPItems.REX_TOOTH.get(), "rex_passify", FrameType.CHALLENGE, true, true, true)
+//        Advancement rex_defeat = getAdvancement(rex, (ItemLike)UPItems.TYRANNO_TOOTH.get(), "rex_passify", FrameType.CHALLENGE, true, true, true)
 //                .addCriterion("interact_rex", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TYRANNOSAURUS.get()).build())))
 //                .save(consumer, prefixS("main/rex_passify"));
 //
-//        Advancement smilodon = getAdvancement(cultivator, UPItems.SMILODON_FLASK.get(), "interact_smilo", FrameType.TASK, true, true, false)
+//        Advancement smilodon = getAdvancement(cultivator, UPItems.SMILODON_DNA.get(), "interact_smilo", FrameType.TASK, true, true, false)
 //                .addCriterion("damage_smilodon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get())))))
 //                .addCriterion("interact_smilodon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get()).build())))
 //                .addCriterion("killed_smilodon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.SMILODON.get())))
@@ -306,7 +306,7 @@
 //                .addCriterion("incubator", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPBlocks.INCUBATOR.get()))
 //                .save(consumer, prefixS("main/incubator"));
 //
-//        Advancement palaeo = getAdvancement(birthingPod, UPItems.PALAEO_FLASK.get(), "interact_palaeo", FrameType.TASK, true, true, true)
+//        Advancement palaeo = getAdvancement(birthingPod, UPItems.PALAEO_DNA.get(), "interact_palaeo", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_palaeo", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get())))))
 //                .addCriterion("interact_palaeo", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get()).build())))
 //                .addCriterion("killed_palaeo", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.PALAEOPHIS.get())))
@@ -321,7 +321,7 @@
 //                .addCriterion("shedscale_boots", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.SHEDSCALE_BOOTS.get()))
 //                .save(consumer, prefixS("main/shedscale"));
 //
-//        Advancement giganto = getAdvancement(birthingPod, (ItemLike)UPItems.GIGANTO_FLASK.get(), "interact_giganto", FrameType.TASK, true, true, true)
+//        Advancement giganto = getAdvancement(birthingPod, (ItemLike)UPItems.GIGANTO_DNA.get(), "interact_giganto", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_gigantopithicus", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.GIGANTOPITHICUS.get())))))
 //                .addCriterion("interact_gigantopithicus", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.GIGANTOPITHICUS.get()).build())))
 //                .addCriterion("killed_gigantopithicus", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.GIGANTOPITHICUS.get())))
@@ -343,7 +343,7 @@
 //
 //                .save(consumer, prefixS("main/gigantopithicus_fruits"));
 //
-//        Advancement talapanas = getAdvancement(eggs, (ItemLike)UPItems.TALPANAS_FLASK.get(), "interact_talpanas", FrameType.TASK, true, true, true)
+//        Advancement talapanas = getAdvancement(eggs, (ItemLike)UPItems.TALPANAS_DNA.get(), "interact_talpanas", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_talapanas", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))))
 //                .addCriterion("interact_talapanas", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get()).build())))
 //                .addCriterion("killed_talapanas", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))
@@ -351,7 +351,7 @@
 //
 //                .save(consumer, prefixS("main/talapanas"));
 //
-//        Advancement mammoth = getAdvancement(birthingPod, (ItemLike)UPItems.MAMMOTH_FLASK.get(), "interact_mammoth", FrameType.TASK, true, true, true)
+//        Advancement mammoth = getAdvancement(birthingPod, (ItemLike)UPItems.MAMMOTH_DNA.get(), "interact_mammoth", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_mammoth", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.MAMMOTH.get())))))
 //                .addCriterion("interact_mammoth", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.MAMMOTH.get()).build())))
 //                .addCriterion("killed_mammoth", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MAMMOTH.get())))
@@ -359,7 +359,7 @@
 //
 //                .save(consumer, prefixS("main/mammoth"));
 //
-//        Advancement barina = getAdvancement(eggs, (ItemLike)UPItems.BARINA_FLASK.get(), "interact_barina", FrameType.TASK, true, true, true)
+//        Advancement barina = getAdvancement(eggs, (ItemLike)UPItems.BARINA_DNA.get(), "interact_barina", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_barina", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get())))))
 //                .addCriterion("interact_barina", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get()).build())))
 //                .addCriterion("killed_barina", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.BARINASUCHUS.get())))
@@ -367,11 +367,11 @@
 //
 //                .save(consumer, prefixS("main/barina"));
 //
-//        Advancement tameBarina = getAdvancement(barina, (ItemLike)UPItems.BARINA_WHISTLE.get(), "tame_barina", FrameType.TASK, true, true, true)
+//        Advancement tameBarina = getAdvancement(barina, (ItemLike)UPItems.CROCARINA.get(), "tame_barina", FrameType.TASK, true, true, true)
 //                .addCriterion("tame_barina", BarinaTameTrigger.TriggerInstance.placedBlock())
 //                .save(consumer, prefixS("main/tame_barina"));
 //
-//        Advancement paracer = getAdvancement(birthingPod, (ItemLike)UPItems.PARACER_FLASK.get(), "interact_paracer", FrameType.TASK, true, true, true)
+//        Advancement paracer = getAdvancement(birthingPod, (ItemLike)UPItems.PARACER_DNA.get(), "interact_paracer", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_paracer", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.PARACERATHERIUM.get())))))
 //                .addCriterion("interact_paracer", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.PARACERATHERIUM.get()).build())))
 //                .addCriterion("killed_paracer", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.PARACERATHERIUM.get())))
@@ -379,7 +379,7 @@
 //
 //                .save(consumer, prefixS("main/paraceratherium"));
 //
-//        Advancement megalania = getAdvancement(eggs, (ItemLike)UPItems.MEGALANIA_FLASK.get(), "interact_megala", FrameType.TASK, true, true, true)
+//        Advancement megalania = getAdvancement(eggs, (ItemLike)UPItems.MEGALANIA_DNA.get(), "interact_megala", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_megala", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))))
 //                .addCriterion("interact_megala", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get()).build())))
 //                .addCriterion("killed_megala", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.MEGALANIA.get())))
@@ -387,7 +387,7 @@
 //
 //                .save(consumer, prefixS("main/megalania"));
 //
-//        Advancement otarocyon = getAdvancement(birthingPod, (ItemLike)UPItems.OTAROCYON_FLASK.get(), "interact_otarocyon", FrameType.TASK, true, true, true)
+//        Advancement otarocyon = getAdvancement(birthingPod, (ItemLike)UPItems.OTAROCYON_DNA.get(), "interact_otarocyon", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_otarocyon", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))))
 //                .addCriterion("interact_otarocyon", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get()).build())))
 //                .addCriterion("killed_otarocyon", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.TALPANAS.get())))
@@ -399,22 +399,22 @@
 //                .requirements(RequirementsStrategy.OR)
 //                .save(consumer, prefixS("main/petrified"));
 //
-//        Advancement plants = getAdvancement(petrified, (ItemLike)UPItems.HORSETAIL_FLASK.get(), "prehistoric_plants", FrameType.TASK, true, true, true)
-//                .addCriterion("horsetail_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.HORSETAIL_FLASK.get()))
-//                .addCriterion("leefructus_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.LEEFRUCTUS_FLASK.get()))
-//                .addCriterion("archao_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ARCHAO_FLASK.get()))
-//                .addCriterion("bennet_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.BENNET_FLASK.get()))
-//                .addCriterion("ginkgo_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.GINKGO_FLASK.get()))
-//                .addCriterion("sarr_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.SARR_FLASK.get()))
-//                .addCriterion("anostylostroma_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ANOSTYLOSTRAMA_FLASK.get()))
-//                .addCriterion("archaefructus_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ARCHAEFRUCTUS_FLASK.get()))
-//                .addCriterion("clathrodictyon_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.CLATHRODICTYON_FLASK.get()))
-//                .addCriterion("nelumbites_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.NELUMBITES_FLASK.get()))
-//                .addCriterion("quereuxia_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.QUEREUXIA_FLASK.get()))
-//                .addCriterion("zuloagae_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ZULOAGAE_FLASK.get()))
-//                .addCriterion("raiguenrayun_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.RAIGUENRAYUN_FLASK.get()))
-//                .addCriterion("foxxi_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.FOXXI_FLASK.get()))
-//                .addCriterion("dryo_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.DRYO_FLASK.get()))
+//        Advancement plants = getAdvancement(petrified, (ItemLike)UPItems.HORSETAIL_DNA.get(), "prehistoric_plants", FrameType.TASK, true, true, true)
+//                .addCriterion("horsetail_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.HORSETAIL_DNA.get()))
+//                .addCriterion("leefructus_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.LEEFRUCTUS_DNA.get()))
+//                .addCriterion("archao_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ARCHAO_DNA.get()))
+//                .addCriterion("bennet_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.BENNET_DNA.get()))
+//                .addCriterion("ginkgo_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.GINKGO_DNA.get()))
+//                .addCriterion("sarr_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.SARR_DNA.get()))
+//                .addCriterion("anostylostroma_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ANOSTYLOSTRAMA_DNA.get()))
+//                .addCriterion("archaefructus_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ARCHAEFRUCTUS_DNA.get()))
+//                .addCriterion("clathrodictyon_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.CLATHRODICTYON_DNA.get()))
+//                .addCriterion("nelumbites_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.NELUMBITES_DNA.get()))
+//                .addCriterion("quereuxia_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.QUEREUXIA_DNA.get()))
+//                .addCriterion("zuloagae_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ZULOAGAE_DNA.get()))
+//                .addCriterion("raiguenrayun_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.RAIGUENRAYUN_DNA.get()))
+//                .addCriterion("foxxi_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.FOXII_DNA.get()))
+//                .addCriterion("dryo_flask", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.DRYO_DNA.get()))
 //                .requirements(RequirementsStrategy.OR)
 //                .save(consumer, prefixS("main/plants"));
 //
@@ -463,7 +463,7 @@
 //                .requirements(RequirementsStrategy.OR)
 //                .save(consumer, prefixS("main/amber_gummy"));
 //
-//        Advancement encrusted = getAdvancement(amberFossil, UPItems.ENCRUSTED_FLASK.get(), "interact_encrusted", FrameType.TASK, true, true, true)
+//        Advancement encrusted = getAdvancement(amberFossil, UPItems.ENCRUSTED_DNA.get(), "interact_encrusted", FrameType.TASK, true, true, true)
 //                .addCriterion("damage_encrusted", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get())))))
 //                .addCriterion("interact_encrusted", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get()).build())))
 //                .addCriterion("killed_encrusted", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(UPEntities.ENCRUSTED.get())))

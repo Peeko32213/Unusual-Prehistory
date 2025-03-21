@@ -12,7 +12,7 @@ public class VariantModel<T extends GeoAnimatable & IVariantEntity> extends GeoM
 
     public VariantModel(ModelLocations.ModelData modelData){
         this.model = modelData.getModel();
-        this.texture = modelData.getTexture();
+        this.texture = modelData.getTexture(0);
         this.animation = modelData.getAnimation();
     }
 
@@ -23,9 +23,9 @@ public class VariantModel<T extends GeoAnimatable & IVariantEntity> extends GeoM
 
     @Override
     public ResourceLocation getTextureResource(T animatable) {
-        if(animatable.getVariantTexture() != null) {
-            return animatable.getVariantTexture();
-        }
+//        if(animatable.getVariantTexture() != null) {
+//            return animatable.getVariantTexture();
+//        }
         return texture;
     }
 

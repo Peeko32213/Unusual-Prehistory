@@ -5,6 +5,9 @@ import com.peeko32213.unusualprehistory.datagen.entitydata.EntityDataGenerator;
 import com.peeko32213.unusualprehistory.datagen.entitydata.EntityGoalGenerator;
 import com.peeko32213.unusualprehistory.datagen.loot.GlobalLootModifiersGenerator;
 import com.peeko32213.unusualprehistory.datagen.loot.LootGenerator;
+import com.peeko32213.unusualprehistory.datagen.models.BlockstateGenerator;
+import com.peeko32213.unusualprehistory.datagen.models.ItemModelGenerator;
+import com.peeko32213.unusualprehistory.datagen.recipes.RecipeGenerator;
 import com.peeko32213.unusualprehistory.datagen.tags.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -55,11 +58,15 @@ public class DataGenerators {
         generator.addProvider(evt.includeServer(), LootGenerator.create(packOutput));
 
         generator.addProvider(true,new BiomeTagsProvider(packOutput, lookupProvider, helper));
+
         generator.addProvider(true,new EntityGoalGenerator(packOutput));
+
         generator.addProvider(true,new InstrumentTagsGenerator(packOutput, lookupProvider,helper));
+
         generator.addProvider(evt.includeServer(), new EntityDataGenerator(packOutput));
 
 //        generator.addProvider(true,new AdvancementProvider(packOutput, provider, helper));
+//        generator.addProvider(evt.includeServer(), new DamageTypeTagsGenerator(packOutput, lookupProvider, helper));
 
         generator.addProvider(evt.includeServer(), new GlobalLootModifiersGenerator(packOutput));
 

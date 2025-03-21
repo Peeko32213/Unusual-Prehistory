@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.item.armor.material;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;
@@ -19,7 +19,7 @@ public enum UPArmorMaterial implements ArmorMaterial {
 
     MAJUNGA("majunga", 28, new int[]{1, 4, 5, 2}, 19, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(UPItems.MAJUNGA_SCUTE.get())),
 
-    TYRANTS("tyrants", 28, new int[]{1, 1, 1, 3}, 19, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0F, 0.0F, () -> Ingredient.of(UPItems.REX_SCALE.get())),
+    TYRANTS("tyrants", 28, new int[]{1, 1, 1, 3}, 19, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0F, 0.0F, () -> Ingredient.of(UPItems.TYRANNO_SCALE.get())),
 
     SHEDSCALE("shedscale", 28, new int[]{1, 4, 5, 2}, 19, SoundEvents.ARMOR_EQUIP_LEATHER, 2.0F, 0.0F, () -> Ingredient.of(UPItems.PALAEO_SKIN.get())),
 

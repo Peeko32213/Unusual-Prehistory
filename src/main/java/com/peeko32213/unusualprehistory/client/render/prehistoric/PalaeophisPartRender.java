@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.client.render.prehistoric;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.peeko32213.unusualprehistory.client.model.entity.PalaeophisPartModel;
+import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.aquatic.PalaeophisPartModel;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

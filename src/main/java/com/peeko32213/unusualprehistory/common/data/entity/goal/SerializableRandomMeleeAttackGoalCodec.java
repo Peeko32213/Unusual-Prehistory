@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.data.entity.goal;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.core.registry.UPGoalRegistry;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPGoalRegistry;
 import com.scouter.goalsmith.data.GoalCodec;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.PathfinderMob;

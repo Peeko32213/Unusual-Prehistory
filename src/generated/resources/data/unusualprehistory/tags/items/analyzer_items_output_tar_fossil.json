@@ -1,10 +1,10 @@
 {
   "values": [
     "minecraft:coal",
-    "unusualprehistory:megala_flask",
-    "unusualprehistory:barin_flask",
-    "unusualprehistory:paracer_flask",
-    "unusualprehistory:giganto_flask",
-    "unusualprehistory:talpanas_flask"
+    "unusualprehistory:megalania_dna_bottle",
+    "unusualprehistory:barinasuchus_dna_bottle",
+    "unusualprehistory:paraceratherium_dna_bottle",
+    "unusualprehistory:gigantopithecus_dna_bottle",
+    "unusualprehistory:talpanas_dna_bottle"
   ]
 }

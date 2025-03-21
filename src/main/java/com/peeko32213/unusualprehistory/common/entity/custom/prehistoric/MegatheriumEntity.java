@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TameableFol
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;

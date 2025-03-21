@@ -17,7 +17,7 @@ import java.util.EnumSet;
 public class VelociraptorMeleeAttackGoal extends Goal {
 
     protected final VelociraptorEntity mob;
-    private final int meleeRange = 40;
+    private final int meleeRange = 32;
     private final double speedModifier;
     private final boolean followingTargetEvenIfNotSeen;
     private Path path;

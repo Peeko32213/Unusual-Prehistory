@@ -2,8 +2,8 @@ package com.peeko32213.unusualprehistory.common.world.feature;
 
 import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.SludgeEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

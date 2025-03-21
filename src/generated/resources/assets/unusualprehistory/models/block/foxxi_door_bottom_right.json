@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/door_bottom_right",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "unusualprehistory:block/foxxi_door_bottom",
     "top": "unusualprehistory:block/foxxi_door_top"

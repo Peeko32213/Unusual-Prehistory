@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.Prehistori
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -404,21 +404,6 @@ public class MegalaniaEntity extends PrehistoricEntityOld implements IVariantEnt
         else{
             return 1.0F;
         }
-    }
-
-    // Variant textures
-    @Override
-    public ResourceLocation getVariantTexture() {
-        if(getVariant() == 1){
-            return TEXTURE_COLD;
-        }
-        else if(getVariant() == 2) {
-            return TEXTURE_HOT;
-        }
-        else if(getVariant() == 3) {
-            return TEXTURE_NETHER;
-        }
-        else return TEXTURE_TEMPERATE;
     }
 
     // Melee attack

@@ -2,9 +2,8 @@ package com.peeko32213.unusualprehistory.common.entity.projectile;
 
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -16,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
@@ -34,7 +34,7 @@ public class RabiesFlaskEntity extends ThrowableItemProjectile implements GeoAni
     private int lifetime = 10000;
     private float pointDirection = 0;
     protected Item getDefaultItem() {
-        return UPItems.YIXIAN_RAMPAGE_FLASK.get();
+        return UPItems.YIXIAN_RAMPAGE_BOTTLE.get();
     }
     private static final RawAnimation RABIES_FLASK_IDLE = RawAnimation.begin().thenLoop("animation.jarate.idle");
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -96,7 +96,7 @@ public class RabiesFlaskEntity extends ThrowableItemProjectile implements GeoAni
 
         for(int $$2 = 0; $$2 < 20; ++$$2) {
             //this makes the glass particles
-            this.level().addAlwaysVisibleParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(UPItems.FLASK.get())), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5) * 1.5, ((double)this.random.nextFloat() + 0.1) * 0.5, ((double)this.random.nextFloat() - 0.5) * 1.5);
+            this.level().addAlwaysVisibleParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.GLASS_BOTTLE)), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5) * 1.5, ((double)this.random.nextFloat() + 0.1) * 0.5, ((double)this.random.nextFloat() - 0.5) * 1.5);
         }
 
         super.onHit(hitResult);

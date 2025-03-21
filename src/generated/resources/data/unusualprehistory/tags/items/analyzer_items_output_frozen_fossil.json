@@ -1,8 +1,8 @@
 {
   "values": [
     "minecraft:ice",
-    "unusualprehistory:mammoth_flask",
-    "unusualprehistory:megath_flask",
-    "unusualprehistory:smilo_flask"
+    "unusualprehistory:mammoth_dna_bottle",
+    "unusualprehistory:megatherium_dna_bottle",
+    "unusualprehistory:smilodon_dna_bottle"
   ]
 }

@@ -104,6 +104,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> VELOCIRAPTOR_IDLE = createSoundEvent("velociraptor_idle");
     public static final RegistryObject<SoundEvent> VELOCIRAPTOR_SEARCH = createSoundEvent("velociraptor_search");
 
+    public static final RegistryObject<SoundEvent> PSILO_DEATH = createSoundEvent("psilopterus_death");
+    public static final RegistryObject<SoundEvent> PSILO_HURT = createSoundEvent("psilopterus_hurt");
+    public static final RegistryObject<SoundEvent> PSILO_IDLE = createSoundEvent("psilopterus_idle");
+
     public static final RegistryObject<SoundEvent> NYCTORAPTOR_CHATTER = createSoundEvent("nyctoraptor_chatter");
     public static final RegistryObject<SoundEvent> NYCTORAPTOR_DEATH = createSoundEvent("nyctoraptor_death");
     public static final RegistryObject<SoundEvent> NYCTORAPTOR_HURT = createSoundEvent("nyctoraptor_hurt");

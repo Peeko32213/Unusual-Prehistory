@@ -9,12 +9,12 @@ import software.bernie.geckolib.model.GeoModel;
 public class TrikeShieldModel extends GeoModel<TriceratopsShieldItem> {
     @Override
     public ResourceLocation getModelResource(TriceratopsShieldItem object) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/trike_shield.geo.json");
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops_shield.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(TriceratopsShieldItem object) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/item/trike_shield.png");
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/item/triceratops_shield.png");
     }
 
     @Override

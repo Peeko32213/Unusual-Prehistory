@@ -14,7 +14,7 @@ public class CustomAnimationsModel<T extends PrehistoricEntityOld & GeoAnimatabl
 
     public CustomAnimationsModel(ModelLocations.ModelData modelData){
         this.model = modelData.getModel();
-        this.texture = modelData.getTexture();
+        this.texture = modelData.getTexture(0);
         this.animation = modelData.getAnimation();
     }
 

@@ -5,7 +5,7 @@
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.core.registry.UPEffects;
- import com.peeko32213.unusualprehistory.core.registry.UPItems;
+ import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,6 +31,7 @@
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.Item;
  import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.Items;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
@@ -615,11 +616,11 @@
          ItemStack itemstack = player.getItemInHand(hand);
          Item item = itemstack.getItem();
 
-         if(item == UPItems.FLASK.get() && this.hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
+         if(item == Items.GLASS_BOTTLE && this.hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
              //harvest rabies from rabid psittacos
 
              player.getItemInHand(hand).shrink(1);
-             player.addItem(new ItemStack(UPItems.YIXIAN_RAMPAGE_FLASK.get()));
+             player.addItem(new ItemStack(UPItems.YIXIAN_RAMPAGE_BOTTLE.get()));
              //add rabies
              return InteractionResult.SUCCESS;
          }

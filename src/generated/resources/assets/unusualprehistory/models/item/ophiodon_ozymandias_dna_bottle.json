@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unusualprehistory:item/dna/ophiodon_ozymandias_dna_bottle"
+  }
+}

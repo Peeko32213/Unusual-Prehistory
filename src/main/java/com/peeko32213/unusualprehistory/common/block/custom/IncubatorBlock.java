@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.block.custom;
 import com.peeko32213.unusualprehistory.common.block.entity.IncubatorBlockEntity;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
-import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
@@ -29,11 +28,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class IncubatorBlock extends BaseEntityBlock {
+
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
-    public static final BooleanProperty CRACKED = BooleanProperty.create("cracked");
+
     public IncubatorBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(CRACKED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     /* BLOCK ENTITY */
@@ -106,7 +106,7 @@ public class IncubatorBlock extends BaseEntityBlock {
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, CRACKED);
+        builder.add(FACING);
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {

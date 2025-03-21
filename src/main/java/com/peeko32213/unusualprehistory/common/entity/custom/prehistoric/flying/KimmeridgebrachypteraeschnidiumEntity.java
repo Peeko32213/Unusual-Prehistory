@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -39,6 +39,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -477,10 +478,10 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntityOld 
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
 
-        if (heldItem.getItem() == UPItems.FLASK.get() && this.isAlive()) {
+        if (heldItem.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
             playSound(SoundEvents.BOTTLE_FILL_DRAGONBREATH, 0.5F, 1.0F);
             heldItem.shrink(1);
-            ItemStack itemstack1 = new ItemStack(UPItems.CAPTURED_KIMMER_FLASK.get());
+            ItemStack itemstack1 = new ItemStack(UPItems.CAPTURED_KIMMER_BOTTLE.get());
             this.setBucketData(itemstack1);
             if (!this.level().isClientSide) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);

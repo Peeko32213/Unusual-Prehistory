@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.google.common.collect.ImmutableList;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;

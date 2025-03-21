@@ -1,5 +1,7 @@
 {
 	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+  	"render_type": "minecraft:cutout",
 	"texture_size": [128, 128],
 	"textures": {
 		"0": "unusualprehistory:block/antarcto_fossil",

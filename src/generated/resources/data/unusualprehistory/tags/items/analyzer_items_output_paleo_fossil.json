@@ -3,12 +3,12 @@
     "minecraft:coal",
     "minecraft:cobblestone",
     "minecraft:bone",
-    "unusualprehistory:ammonite_flask",
-    "unusualprehistory:scau_flask",
-    "unusualprehistory:coty_flask",
-    "unusualprehistory:stetha_flask",
-    "unusualprehistory:dunk_flask",
-    "unusualprehistory:diplo_flask",
-    "unusualprehistory:hyneria_flask"
+    "unusualprehistory:ammonite_dna_bottle",
+    "unusualprehistory:scaumenacia_dna_bottle",
+    "unusualprehistory:cotylorhynchus_dna_bottle",
+    "unusualprehistory:stethacanthus_dna_bottle",
+    "unusualprehistory:dunkleosteus_dna_bottle",
+    "unusualprehistory:diplocaulus_dna_bottle",
+    "unusualprehistory:hyneria_dna_bottle"
   ]
 }

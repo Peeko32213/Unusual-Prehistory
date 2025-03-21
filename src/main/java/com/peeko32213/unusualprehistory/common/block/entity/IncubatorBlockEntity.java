@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchable
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
-import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -48,10 +48,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.peeko32213.unusualprehistory.common.block.custom.IncubatorBlock.CRACKED;
 import static com.peeko32213.unusualprehistory.common.block.custom.IncubatorBlock.FACING;
 
 public class IncubatorBlockEntity extends BlockEntity implements ContainerListener {
+
     private BlockState blockstate;
     protected final ContainerData data;
     private int progress = 0;
@@ -60,6 +60,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
     private IncubatorBlockEntity blockEntity;
     public int tickCount = 0;
     public static final Logger LOGGER = LogManager.getLogger();
+
     public IncubatorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), pPos, pBlockState);
         this.blockstate = pBlockState;
@@ -100,9 +101,6 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
         if(hasRecipe(pBlockEntity)) {
             //spawnParticles(pLevel, pPos, pLevel.random, 0D,0.02);
             pBlockEntity.progress++;
-            if(pBlockEntity.progress >= (pBlockEntity.maxProgress/2)){
-                pBlockEntity.getBlockState().setValue(CRACKED, true);
-            }
 
             setChanged(pLevel, pPos, pState);
             if(pBlockEntity.progress > pBlockEntity.maxProgress) {
@@ -144,13 +142,6 @@ public class IncubatorBlockEntity extends BlockEntity implements ContainerListen
                 Direction dir = entity.getBlockState().getValue(FACING);
                 pos = pos.relative(dir,1);
                 boolean entitySpawned = spawnEntity((ServerLevel) level, pos, toSpawn, match.get());
-
-               // if(entity.getDestroyChance(level)){
-                //
-//                if(entitySpawned) {
-//                    entity.level.destroyBlock(entity.worldPosition, true);
-//                }
-                //}
             }
 
             entity.resetProgress();

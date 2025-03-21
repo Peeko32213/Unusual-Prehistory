@@ -1,5 +1,6 @@
 {
   "parent": "block/coral_fan",
+  "render_type": "minecraft:cutout",
   "textures": {
     "fan": "unusualprehistory:block/clathrodictyon_fan"
   }

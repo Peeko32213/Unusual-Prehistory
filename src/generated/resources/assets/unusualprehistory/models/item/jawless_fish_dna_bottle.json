@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unusualprehistory:item/dna/jawless_fish_dna_bottle"
+  }
+}

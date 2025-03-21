@@ -6,7 +6,6 @@ import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import org.jetbrains.annotations.NotNull;
 
 public class UPWallHangingSignBlock extends WallHangingSignBlock {
 
@@ -15,7 +14,7 @@ public class UPWallHangingSignBlock extends WallHangingSignBlock {
     }
 
     @Override
-    public @NotNull BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new UPHangingSignBlockEntity(pPos, pState);
     }
 }

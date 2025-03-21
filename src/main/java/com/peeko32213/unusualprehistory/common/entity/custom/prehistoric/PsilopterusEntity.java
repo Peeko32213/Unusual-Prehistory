@@ -9,18 +9,21 @@
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.JoinPackGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PackHunterGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.PsilopterusMeleeAttackGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
- import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IPackHunter;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
- import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+ import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+ import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
+ import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.sounds.SoundEvents;
  import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
@@ -34,9 +37,7 @@
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.ServerLevelAccessor;
- import net.minecraft.world.level.pathfinder.Node;
- import net.minecraft.world.level.pathfinder.Path;
- import net.minecraft.world.phys.Vec2;
+ import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
@@ -149,18 +150,22 @@
      @Override
      public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
          return ImmutableList.of(
-                 WeightedState.of(PSILO_IDLE_1_STATE, 10),
-                 WeightedState.of(PSILO_IDLE_2_STATE, 10),
-                 WeightedState.of(PSILO_IDLE_3_STATE, 12),
-                 WeightedState.of(PSILO_IDLE_4_STATE, 11),
-                 WeightedState.of(PSILO_IDLE_5_STATE, 11)
+                 WeightedState.of(PSILO_IDLE_1_STATE, 8),
+                 WeightedState.of(PSILO_IDLE_2_STATE, 9),
+                 WeightedState.of(PSILO_IDLE_3_STATE, 9),
+                 WeightedState.of(PSILO_IDLE_4_STATE, 10),
+                 WeightedState.of(PSILO_IDLE_5_STATE, 10)
          );
      }
 
      // Animation sounds
      private void soundListener(SoundKeyframeEvent<PsilopterusEntity> event) {
          PsilopterusEntity psilopterus = event.getAnimatable();
-         if (event.getKeyframeData().getSound().equals("psilopterus_attack")) {
+         if (event.getKeyframeData().getSound().equals("psilopterus_bite")) {
+             psilopterus.level().playLocalSound(psilopterus.getX(), psilopterus.getY(), psilopterus.getZ(), UPSounds.TAIL_SWIPE.get(), psilopterus.getSoundSource(), 0.5F, psilopterus.getVoicePitch(), false);
+         }
+         if (event.getKeyframeData().getSound().equals("psilopterus_kick")) {
+             psilopterus.level().playLocalSound(psilopterus.getX(), psilopterus.getY(), psilopterus.getZ(), UPSounds.TAIL_SWIPE.get(), psilopterus.getSoundSource(), 0.5F, psilopterus.getVoicePitch(), false);
          }
      }
 
@@ -304,7 +309,7 @@
      protected void registerGoals() {
          this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
          this.goalSelector.addGoal(0, new FloatGoal(this));
-         this.goalSelector.addGoal(1, new PsilopterusEntity.PsiloMeleeAttackGoal(this,  1.3F, true));
+         this.goalSelector.addGoal(1, new PsilopterusMeleeAttackGoal(this,  1.5F, true));
          this.targetSelector.addGoal(5, new PackHunterGoal(this, Player.class, 30, false, 5));
          this.targetSelector.addGoal(5, new PackHunterGoal(this, Pig.class, 30, false, 3));
          this.goalSelector.addGoal(5, new JoinPackGoal(this, 60, 8));
@@ -437,6 +442,23 @@
          this.afterPackMember = (PsilopterusEntity) animal;
      }
 
+     // Sounds
+     protected SoundEvent getAmbientSound() {
+         return UPSounds.PSILO_IDLE.get();
+     }
+
+     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+         return UPSounds.PSILO_HURT.get();
+     }
+
+     protected SoundEvent getDeathSound() {
+         return UPSounds.PSILO_DEATH.get();
+     }
+
+     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
+         this.playSound(SoundEvents.CHICKEN_STEP, 0.125F, 1.0F);
+     }
+
      @Nullable
      public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
          if (spawnDataIn instanceof AgeableMob.AgeableMobGroupData) {
@@ -448,273 +470,6 @@
              this.setDominant(this.getRandom().nextInt(2) == 0);
          }
          return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
-     }
-
-     // todo: move goal to ai/goals/attack/
-     static class PsiloMeleeAttackGoal extends Goal {
-
-         protected final PsilopterusEntity mob;
-         private final double speedModifier;
-         private final boolean followingTargetEvenIfNotSeen;
-         private Path path;
-         private double pathedTargetX;
-         private double pathedTargetY;
-         private double pathedTargetZ;
-         private int ticksUntilNextPathRecalculation;
-         private int ticksUntilNextAttack;
-         private long lastCanUseCheck;
-         private int failedPathFindingPenalty = 0;
-         private boolean canPenalize = false;
-         private int animTime = 0;
-
-
-         public PsiloMeleeAttackGoal(PsilopterusEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
-             this.mob = p_i1636_1_;
-             this.speedModifier = p_i1636_2_;
-             this.followingTargetEvenIfNotSeen = p_i1636_4_;
-             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-         }
-
-         public boolean canUse() {
-             long i = this.mob.level().getGameTime();
-
-             if (i - this.lastCanUseCheck < 20L) {
-                 return false;
-             } else {
-                 this.lastCanUseCheck = i;
-                 LivingEntity livingentity = this.mob.getTarget();
-                 if (livingentity == null) {
-                     return false;
-                 } else if (!livingentity.isAlive()) {
-                     return false;
-                 } else {
-                     if (canPenalize) {
-                         if (--this.ticksUntilNextPathRecalculation <= 0) {
-                             this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                             this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                             return this.path != null;
-                         } else {
-                             return true;
-                         }
-                     }
-                     this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                     if (this.path != null) {
-                         return true;
-                     } else {
-                         return this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                     }
-                 }
-             }
-
-         }
-
-         public boolean canContinueToUse() {
-
-             LivingEntity livingentity = this.mob.getTarget();
-
-             if (livingentity == null) {
-                 return false;
-             } else if (!livingentity.isAlive()) {
-                 return false;
-             } else if (!this.followingTargetEvenIfNotSeen) {
-                 return !this.mob.getNavigation().isDone();
-             } else if (!this.mob.isWithinRestriction(livingentity.blockPosition())) {
-                 return false;
-             } else {
-                 return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
-             }
-
-         }
-
-         public void start() {
-             this.mob.getNavigation().moveTo(this.path, this.speedModifier);
-             this.mob.setAggressive(true);
-             this.ticksUntilNextPathRecalculation = 0;
-             this.ticksUntilNextAttack = 0;
-             this.animTime = 0;
-             this.mob.setAnimationState(0);
-
-         }
-
-         public void stop() {
-             LivingEntity livingentity = this.mob.getTarget();
-             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                 this.mob.setTarget(null);
-             }
-             this.mob.setAnimationState(0);
-             this.mob.setAggressive(false);
-         }
-
-         public void tick() {
-
-
-             LivingEntity target = this.mob.getTarget();
-             double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
-             double reach = this.getAttackReachSqr(target);
-             int animState = this.mob.getAnimationState();
-             Vec3 aim = this.mob.getLookAngle();
-             Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
-
-             switch (animState) {
-                 case 21 -> tickLightAttack1();
-                 case 22 -> tickLightAttack2();
-                 case 23 -> tickKickAttack();
-                 default -> {
-                     this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                     this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                     this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                     this.doMovement(target, distance);
-                     this.checkForCloseRangeAttack(distance, reach);
-                 }
-             }
-
-         }
-
-         protected void doMovement (LivingEntity livingentity, Double d0){
-
-
-             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
-
-             if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
-                 this.pathedTargetX = livingentity.getX();
-                 this.pathedTargetY = livingentity.getY();
-                 this.pathedTargetZ = livingentity.getZ();
-                 this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                 if (this.canPenalize) {
-                     this.ticksUntilNextPathRecalculation += failedPathFindingPenalty;
-                     if (this.mob.getNavigation().getPath() != null) {
-                         Node finalPathPoint = this.mob.getNavigation().getPath().getEndNode();
-                         if (finalPathPoint != null && livingentity.distanceToSqr(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                             failedPathFindingPenalty = 0;
-                         else
-                             failedPathFindingPenalty += 10;
-                     } else {
-                         failedPathFindingPenalty += 10;
-                     }
-                 }
-                 if (d0 > 1024.0D) {
-                     this.ticksUntilNextPathRecalculation += 10;
-                 } else if (d0 > 256.0D) {
-                     this.ticksUntilNextPathRecalculation += 5;
-                 }
-
-                 if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
-                     this.ticksUntilNextPathRecalculation += 15;
-                 }
-             }
-
-         }
-
-
-         protected void checkForCloseRangeAttack ( double distance, double reach){
-             if (distance <= reach && this.ticksUntilNextAttack <= 0) {
-
-
-                 int r = this.mob.getRandom().nextInt(2048);
-                 if (r <= 800) {
-                     this.mob.setAnimationState(21);
-                 } else if (r <= 1300) {
-                     this.mob.setAnimationState(22);
-                 } else {
-                     this.mob.setAnimationState(23);
-                 }
-
-             }
-         }
-
-
-         protected boolean getRangeCheck () {
-
-             return
-                     this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ())
-                             <=
-                             1.3F * this.getAttackReachSqr(this.mob.getTarget());
-
-         }
-
-
-
-         protected void tickLightAttack1 () {
-             animTime++;
-             if(animTime==4) {
-                 performLightAttack();
-             }
-             if(animTime>=8) {
-                 animTime=0;
-                 if (this.getRangeCheck()) {
-                     this.mob.setAnimationState(22);
-                 }else {
-                     this.mob.setAnimationState(0);
-                     this.resetAttackCooldown();
-                     this.ticksUntilNextPathRecalculation = 0;
-                 }
-             }
-         }
-
-         protected void tickLightAttack2 () {
-             animTime++;
-
-             if(animTime==4) {
-                 performLightAttack();
-             }
-             if(animTime>=7) {
-                 animTime=0;
-
-                 this.mob.setAnimationState(0);
-                 this.resetAttackCooldown();
-                 this.ticksUntilNextPathRecalculation = 0;
-
-             }
-
-         }
-
-         protected void tickKickAttack () {
-             animTime++;
-             if(animTime==7) {
-                 performAttackKick();
-             }
-             if(animTime>=12) {
-                 animTime=0;
-                 this.mob.setAnimationState(0);
-                 this.resetAttackCooldown();
-                 this.ticksUntilNextPathRecalculation = 0;
-             }
-         }
-
-
-         protected void performLightAttack () {
-             Vec3 pos = mob.position();
-             this.mob.playSound(UPSounds.PACHY_HEADBUTT.get(), 2.0f, 0.2f);
-             HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),3.0f, 0.1f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, false);
-         }
-
-         protected void performAttackKick () {
-             Vec3 pos = mob.position();
-             this.mob.playSound(UPSounds.PACHY_KICK.get(), 0.5F, 0.5F);
-             HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob),6.0f, 1.0f, mob, pos,  2.1F, -Math.PI/5, Math.PI/3, -1.0f, 3.0f, false);
-         }
-
-         protected void resetAttackCooldown () {
-             this.ticksUntilNextAttack = 0;
-         }
-
-         protected boolean isTimeToAttack () {
-             return this.ticksUntilNextAttack <= 0;
-         }
-
-         protected int getTicksUntilNextAttack () {
-             return this.ticksUntilNextAttack;
-         }
-
-         protected int getAttackInterval () {
-             return 5;
-         }
-
-         protected double getAttackReachSqr(LivingEntity p_25556_) {
-             return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 1.3F + p_25556_.getBbWidth();
-         }
      }
 
      @Override

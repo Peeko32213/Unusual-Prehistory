@@ -4,8 +4,8 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.BeelzebufoEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -400,13 +400,5 @@ public class PalaeolophisHatchlingEntity extends PrehistoricAquaticEntityOld imp
         } else {
             this.noActionTime = 0;
         }
-    }
-
-    @Override
-    public ResourceLocation getVariantTexture() {
-        if(getVariant() == 1){
-            return DEEP;
-        }
-        return NORMAL;
     }
 }

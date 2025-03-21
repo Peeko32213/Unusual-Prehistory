@@ -25,11 +25,6 @@ public class UPRegistry {
 
         public static final ResourceKey<Registry<Codec<? extends EntityAttack>>> ENTITY_ATTACKS_TYPE_SERIALIZER = key(prefix("entity_attacks_type_serializer").toString());
         public static final ResourceKey<Registry<EntityAttack>> ENTITY_ATTACKS = key(prefix("entity_attacks_type").toString());
-
-
-
-
-
         public static final ResourceKey<Registry<PrehistoricEgg>> PREHISTORIC_EGG = key(prefix("prehistoric_egg").toString());
 
 

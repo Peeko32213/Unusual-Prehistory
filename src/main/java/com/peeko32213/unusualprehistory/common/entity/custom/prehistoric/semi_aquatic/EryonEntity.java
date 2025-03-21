@@ -7,7 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.LeaveWaterG
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -311,14 +311,6 @@ public class EryonEntity extends PrehistoricEntityOld implements IVariantEntity,
         if (this.getFeedingTime() <= 0 && feedProgress > 0F) {
             feedProgress--;
         }
-    }
-
-    @Override
-    public ResourceLocation getVariantTexture() {
-        if (getVariant() == 1) {
-            return TEXTURE_BLUE;
-        }
-        return TEXTURE_NORMAL;
     }
 
     @Override

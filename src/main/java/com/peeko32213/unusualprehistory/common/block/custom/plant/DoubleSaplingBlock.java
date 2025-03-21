@@ -47,6 +47,7 @@ public class DoubleSaplingBlock extends SaplingBlock {
             return Blocks.AIR.defaultBlockState();
         }
     }
+
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext context) {
         if(state.getValue(HALF) == DoubleBlockHalf.UPPER) {
@@ -107,7 +108,6 @@ public class DoubleSaplingBlock extends SaplingBlock {
                 return levelReader.getBlockState(blockpos).canSustainPlant(levelReader, blockpos, Direction.UP, this);
         }
 
-
         return state.getValue(HALF) == DoubleBlockHalf.LOWER ? this.mayPlaceOn(levelReader.getBlockState(blockpos), levelReader, blockpos) : blockstate.is(this);
     }
 
@@ -116,7 +116,6 @@ public class DoubleSaplingBlock extends SaplingBlock {
         if (pLevel.getMaxLocalRawBrightness(pPos.above()) >= 9 && pRandom.nextInt(7) == 0 && pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
             this.advanceTree(pLevel, pPos, pState, pRandom);
         }
-
     }
 
     @Override

@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-19T19:16:47.1957946	Loot Tables
+// 1.20.1	2025-03-20T19:55:49.6220845	Loot Tables
 aa0fbbdafff4a7570ffe9721402dbe44bccca34c data/unusualprehistory/loot_tables/blocks/amber_block.json
 7c3df34b96111b893727f05c09f92a8984a5ee13 data/unusualprehistory/loot_tables/blocks/ammon_eggs.json
 70955d85f7619afb14f10968f0cb3ce929b5a5e7 data/unusualprehistory/loot_tables/blocks/antarcto_fossil.json
@@ -18,7 +18,7 @@ fbdd695bf1cf0ea8b9c304959f903092c61b2686 data/unusualprehistory/loot_tables/bloc
 ee54c280d092a15f88b6395de4a5ce9f43c8d8eb data/unusualprehistory/loot_tables/blocks/dryo_planks.json
 0bba8135968daf222beed8b11d48a6588c22b543 data/unusualprehistory/loot_tables/blocks/dryo_pressure_plate.json
 a8231913f3c1a134dd6735b7093cf94c649cd69d data/unusualprehistory/loot_tables/blocks/dryo_sapling.json
-983ab67c26b225a5b8ef86a8de2be756bf6099bb data/unusualprehistory/loot_tables/blocks/dryo_sign.json
+c222e7ced6a8bc72c400c38c10e77dedb893eb4d data/unusualprehistory/loot_tables/blocks/dryo_sign.json
 36ea08e1ede1df151d3c01fc5294a1b1f8e386c4 data/unusualprehistory/loot_tables/blocks/dryo_slab.json
 30e4c9b93112083592cfcd3e44c3c7f9057e61cc data/unusualprehistory/loot_tables/blocks/dryo_stairs.json
 e39c26ccd30251c939c9cc6c7a8e084cf8edb8e7 data/unusualprehistory/loot_tables/blocks/dryo_trapdoor.json
@@ -49,7 +49,7 @@ f939d186a3baed411aa65b1826d1be9f3e711c16 data/unusualprehistory/loot_tables/bloc
 8a676f02a59343f9219bc027c13e1873970b78c6 data/unusualprehistory/loot_tables/blocks/ophiodon_eggs.json
 d06c1ac99195d5d632669b6985dc21875c68001f data/unusualprehistory/loot_tables/blocks/pachy_fossil.json
 809dfccb92677397d75a3384afbd9961445bbbb6 data/unusualprehistory/loot_tables/blocks/permafrost.json
-6f3e74163f6d420ea349ff47e2280332995b0809 data/unusualprehistory/loot_tables/blocks/permafrost_fossil.json
+d96717c285368ef2fc750ade453b9a268d09bfc0 data/unusualprehistory/loot_tables/blocks/permafrost_fossil.json
 7c3b5439737b4b71152fe4583ef0f407d68becbd data/unusualprehistory/loot_tables/blocks/petrified_planks.json
 71d5df48a9d3611aa57254c2faad2378464b16bb data/unusualprehistory/loot_tables/blocks/petrified_wood.json
 cbbe108a14f9242b904f6351877ff377efb3a108 data/unusualprehistory/loot_tables/blocks/petrified_wood_button.json

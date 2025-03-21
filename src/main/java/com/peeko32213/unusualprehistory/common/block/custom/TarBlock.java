@@ -1,6 +1,8 @@
 package com.peeko32213.unusualprehistory.common.block.custom;
 
 import com.peeko32213.unusualprehistory.core.registry.*;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -56,7 +58,7 @@ public class TarBlock extends Block implements BucketPickup {
     public void entityInside(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Entity pEntity) {
 
         if (!(pEntity instanceof LivingEntity) || pEntity.getFeetBlockState().is(this)) {
-            DamageSource damageSource = UPDamageTypes.causeTarDamage(pEntity.level().registryAccess());
+            DamageSource damageSource = UPDamageTypes.tar(pLevel);
             if(!pEntity.getType().is(UPTags.TAR_WALKABLE_THROUGH_MOBS)) {
                 pEntity.makeStuckInBlock(pState, new Vec3(0.15F, 0.3D, 0.15F));
                 pEntity.hurt(damageSource,1);

@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.datagen.tags;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -367,39 +367,54 @@ public class BlockTagsGenerator extends BlockTagsProvider {
         tag(BlockTags.NEEDS_DIAMOND_TOOL)
         ;
 
-
-        tag(BlockTags.STANDING_SIGNS)
+        tag(BlockTags.SIGNS)
                 .add(UPBlocks.GINKGO_SIGN.get())
                 .add(UPBlocks.PETRIFIED_WOOD_SIGN.get())
                 .add(UPBlocks.FOXII_SIGN.get())
-                .add(UPBlocks.DRYO_SIGN.get());
+                .add(UPBlocks.DRYO_SIGN.get())
+                .add(UPBlocks.ZULOAGAE_SIGN.get())
+        ;
+
+        tag(BlockTags.WALL_SIGNS)
+                .add(UPBlocks.GINKGO_WALL_SIGN.get())
+                .add(UPBlocks.FOXII_WALL_SIGN.get())
+                .add(UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get())
+                .add(UPBlocks.DRYO_WALL_SIGN.get())
+                .add(UPBlocks.ZULOAGAE_WALL_SIGN.get())
+        ;
+
+        tag(BlockTags.CEILING_HANGING_SIGNS)
+                .add(UPBlocks.GINKGO_HANGING_SIGN.get())
+                .add(UPBlocks.PETRIFIED_WOOD_HANGING_SIGN.get())
+                .add(UPBlocks.FOXII_HANGING_SIGN.get())
+                .add(UPBlocks.DRYO_HANGING_SIGN.get())
+                .add(UPBlocks.ZULOAGAE_HANGING_SIGN.get())
+        ;
+
+        tag(BlockTags.WALL_HANGING_SIGNS)
+                .add(UPBlocks.GINKGO_WALL_HANGING_SIGN.get())
+                .add(UPBlocks.PETRIFIED_WOOD_WALL_HANGING_SIGN.get())
+                .add(UPBlocks.FOXII_WALL_HANGING_SIGN.get())
+                .add(UPBlocks.DRYO_WALL_HANGING_SIGN.get())
+                .add(UPBlocks.ZULOAGAE_WALL_HANGING_SIGN.get())
+        ;
 
         tag(BlockTags.TALL_FLOWERS)
                 .add(UPBlocks.TALL_SARACENIA.get())
-                .add(UPBlocks.TALL_HORSETAIL.get())
                 .add(UPBlocks.RAIGUENRAYUN.get());
-
 
         tag(BlockTags.SMALL_FLOWERS)
                 .add(UPBlocks.LEEFRUCTUS.get())
                 .add(UPBlocks.SARACENIA.get())
-                .add(UPBlocks.HORSETAIL.get())
-                .add(UPBlocks.BENNETTITALES.get())
-                .add(UPBlocks.ARCHAEOSIGILARIA.get())
-                .add(UPBlocks.PETRIFIED_BUSH.get());
+        ;
 
         tag(BlockTags.PLANKS)
                 .add(UPBlocks.GINKGO_PLANKS.get())
                 .add(UPBlocks.FOXXI_PLANKS.get())
                 .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get())
                 .add(UPBlocks.ZULOAGAE_PLANKS.get())
-                .add(UPBlocks.DRYO_PLANKS.get());
-
-        tag(BlockTags.WALL_SIGNS);
-                //.add(UPBlocks.GINKGO_WALL_SIGN.get())
-                //.add(UPBlocks.FOXXI_WALL_SIGN.get())
-                //.add(UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get())
-                //.add(UPBlocks.DRYO_WALL_SIGN.get());
+                .add(UPBlocks.DRYO_PLANKS.get())
+        ;
 
         tag(BlockTags.WOODEN_DOORS)
                 .add(UPBlocks.GINKGO_DOOR.get())
@@ -407,7 +422,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                 .add(UPBlocks.DRYO_DOOR.get())
                 .add(UPBlocks.PETRIFIED_WOOD_DOOR.get())
                 .add(UPBlocks.ZULOAGAE_DOOR.get())
-                ;
+        ;
 
         tag(BlockTags.WOODEN_FENCES)
                 .add(UPBlocks.GINKGO_FENCE.get())

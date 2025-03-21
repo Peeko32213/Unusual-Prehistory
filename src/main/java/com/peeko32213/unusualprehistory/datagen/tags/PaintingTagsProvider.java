@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.datagen.tags;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.core.registry.UPPaintings;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPPaintings;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.PaintingVariantTagsProvider;

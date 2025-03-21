@@ -40,7 +40,7 @@
     },
     {
       "apply": {
-        "model": "minecraft:block/bamboo_small_leaves"
+        "model": "unusualprehistory:block/zuloagae_small_leaves"
       },
       "when": {
         "leaves": "small"
@@ -48,7 +48,7 @@
     },
     {
       "apply": {
-        "model": "minecraft:block/bamboo_large_leaves"
+        "model": "unusualprehistory:block/zuloagae_large_leaves"
       },
       "when": {
         "leaves": "large"

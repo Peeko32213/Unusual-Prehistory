@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.client.jei;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
-import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
+import com.peeko32213.unusualprehistory.core.registry.items.UPRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;

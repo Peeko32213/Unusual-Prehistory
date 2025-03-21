@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
+	"render_type": "minecraft:translucent",
 	"texture_size": [48, 32],
 	"textures": {
 		"0": "unusualprehistory:block/cultivator",

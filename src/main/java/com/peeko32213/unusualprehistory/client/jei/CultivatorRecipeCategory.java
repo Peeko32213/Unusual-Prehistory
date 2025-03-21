@@ -2,8 +2,8 @@ package com.peeko32213.unusualprehistory.client.jei;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
-import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -17,6 +17,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,7 +54,7 @@ public class CultivatorRecipeCategory implements IRecipeCategory<CultivatorRecip
         return this.icon;
     }
     private final ItemStack ORGANIC_OOZE = new ItemStack(UPItems.ORGANIC_OOZE.get());
-    private final ItemStack FLASK = new ItemStack(UPItems.FLASK.get());
+    private final ItemStack BOTTLE = new ItemStack(Items.GLASS_BOTTLE);
 
     @Override
     public void draw(CultivatorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics stack, double mouseX, double mouseY) {
@@ -68,6 +69,6 @@ public class CultivatorRecipeCategory implements IRecipeCategory<CultivatorRecip
         
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 128, 31).addItemStack(recipe.getResultItem());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 152, 64).addItemStack(FLASK);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 152, 64).addItemStack(BOTTLE);
     }
 }

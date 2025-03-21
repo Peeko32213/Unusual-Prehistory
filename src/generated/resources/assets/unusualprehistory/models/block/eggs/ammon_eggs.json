@@ -1,5 +1,5 @@
 {
-  "parent": "unusualprehistory:block/template_eggs/template_flat_water_egg",
+  "parent": "unusualprehistory:block/templates/flat_water_egg",
   "textures": {
     "texture": "unusualprehistory:block/eggs/ammon_eggs"
   }

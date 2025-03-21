@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/black_opal_fossil"
+    "layer0": "unusualprehistory:item/fossils/black_opal_fossil"
   }
 }

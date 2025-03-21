@@ -1,17 +1,20 @@
 package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
-import com.peeko32213.unusualprehistory.common.capabilities.UPAnimalCapability;
-import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
-import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
 import com.peeko32213.unusualprehistory.common.data.PrehistoricEgg;
 import com.peeko32213.unusualprehistory.common.data.attack.EntityAttack;
 import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.entities.*;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPRecipes;
 import com.peeko32213.unusualprehistory.core.registry.util.UPLootModifiers;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
-import com.scouter.goalsmith.data.GSRegistries;
-import com.scouter.goalsmith.data.PredicateCodec;
+import com.peeko32213.unusualprehistory.core.registry.world.UPFeatureModifiers;
+import com.peeko32213.unusualprehistory.core.registry.world.UPFeatures;
+import com.peeko32213.unusualprehistory.core.registry.world.UPTrunkPlacerType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
@@ -49,8 +52,6 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;

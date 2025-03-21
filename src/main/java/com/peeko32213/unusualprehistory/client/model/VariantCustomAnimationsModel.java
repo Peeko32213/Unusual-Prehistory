@@ -15,7 +15,7 @@ public class VariantCustomAnimationsModel<T extends PrehistoricEntityOld & GeoAn
 
     public VariantCustomAnimationsModel(ModelLocations.ModelData modelData){
         this.model = modelData.getModel();
-        this.texture = modelData.getTexture();
+        this.texture = modelData.getTexture(0);
         this.animation = modelData.getAnimation();
     }
 
@@ -26,9 +26,9 @@ public class VariantCustomAnimationsModel<T extends PrehistoricEntityOld & GeoAn
 
     @Override
     public ResourceLocation getTextureResource(T animatable) {
-        if(animatable.getVariantTexture() != null) {
-            return animatable.getVariantTexture();
-        }
+//        if(animatable.getVariantTexture() != null) {
+//            return animatable.getVariantTexture();
+//        }
         return texture;
     }
 

@@ -5,6 +5,10 @@ import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.*;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPRecipes;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -17,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -194,7 +199,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
 
         return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
                 && canInsertItemIntoOutputSlot(inventory, match.get().assemble(inventory, level.registryAccess()))
-                && canDiscardFlask(inventory, new ItemStack(UPItems.FLASK.get()))
+                && canDiscardFlask(inventory, new ItemStack(Items.GLASS_BOTTLE))
                 && entity.hasFuel();
     }
 
@@ -211,7 +216,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
         if(match.isPresent()) {
             entity.itemHandler.extractItem(0,1, false);
             entity.itemHandler.insertItem(2, match.get().assemble(inventory, level.registryAccess()), false);
-            entity.itemHandler.insertItem(3, new ItemStack(UPItems.FLASK.get()), false);
+            entity.itemHandler.insertItem(3, new ItemStack(Items.GLASS_BOTTLE), false);
             entity.resetProgress();
         }
     }

@@ -4,7 +4,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRando
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.BeelzebufoTadpoleEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
@@ -249,7 +249,7 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
         if (shouldHurt && target instanceof LivingEntity livingEntity) {
             this.playSound(UPSounds.BEELZE_ATTACK.get(), 0.1F, 1.0F);
             if (random.nextInt(15) == 0 && this.getTarget() instanceof LivingEntity) {
-                this.spawnAtLocation(UPItems.FROG_SALIVA.get());
+                this.spawnAtLocation(UPItems.BEELZ_SALIVA.get());
             }
         }
         return shouldHurt;
@@ -333,7 +333,7 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
             if(!entity.level().isClientSide) {
                 ExperienceOrb.award((ServerLevel) entity.level(), entity.position(), ((LivingEntity) entity).getExperienceReward());
                 mob.remove(RemovalReason.KILLED);
-                this.spawnAtLocation(UPItems.FROG_SALIVA.get());
+                this.spawnAtLocation(UPItems.BEELZ_SALIVA.get());
             }
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
@@ -354,7 +354,7 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
             this.onItemPickup(itemEntity);
             this.take(itemEntity, 1);
             itemEntity.discard();
-            this.spawnAtLocation(UPItems.FROG_SALIVA.get());
+            this.spawnAtLocation(UPItems.BEELZ_SALIVA.get());
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
             this.setHungry(false);

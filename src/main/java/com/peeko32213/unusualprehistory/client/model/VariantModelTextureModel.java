@@ -12,7 +12,7 @@ public class VariantModelTextureModel<T extends GeoAnimatable & IVariantModelTex
 
     public VariantModelTextureModel(ModelLocations.ModelData modelData){
         this.model = modelData.getModel();
-        this.texture = modelData.getTexture();
+        this.texture = modelData.getTexture(0);
         this.animation = modelData.getAnimation();
     }
 

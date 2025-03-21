@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.iceberg;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.base.WorldSpawnableEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;

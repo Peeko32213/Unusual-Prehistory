@@ -13,6 +13,9 @@ import com.peeko32213.unusualprehistory.common.entity.util.kinematics.IKSolver;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.*;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -350,8 +353,8 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
             });
             if(!this.level().isClientSide) {
                 if(!this.isPassive()) {
-                    this.spawnAtLocation(new ItemStack(UPItems.REX_SCALE.get(), random.nextInt(10) + 8), 2);
-                    this.spawnAtLocation(new ItemStack(UPItems.REX_TOOTH.get(), random.nextInt(5) + 4), 2);
+                    this.spawnAtLocation(new ItemStack(UPItems.TYRANNO_SCALE.get(), random.nextInt(10) + 8), 2);
+                    this.spawnAtLocation(new ItemStack(UPItems.TYRANNO_TOOTH.get(), random.nextInt(5) + 4), 2);
                 }
                 this.heal(300);
                 this.level().broadcastEntityEvent(this, (byte) 18);
@@ -522,7 +525,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
     protected void ageBoundaryReached() {
         super.ageBoundaryReached();
         if (!this.isBaby() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-            this.spawnAtLocation(UPItems.REX_SCALE.get(), 1);
+            this.spawnAtLocation(UPItems.TYRANNO_SCALE.get(), 1);
         }
     }
 

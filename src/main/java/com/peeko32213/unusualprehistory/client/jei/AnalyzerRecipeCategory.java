@@ -4,8 +4,8 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.ItemWeightedPairCodec;
 import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
-import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -19,6 +19,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,7 +60,7 @@ public class AnalyzerRecipeCategory implements IRecipeCategory<AnalyzerRecipe> {
         return this.icon;
     }
 
-    private final ItemStack ANALYZER_FLASK = new ItemStack(UPItems.FLASK.get());
+    private final ItemStack ANALYZER_BOTTLE = new ItemStack(Items.GLASS_BOTTLE);
 
 
     @Override
@@ -71,7 +72,7 @@ public class AnalyzerRecipeCategory implements IRecipeCategory<AnalyzerRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AnalyzerRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 33, 5).addItemStack(ANALYZER_FLASK);
+        builder.addSlot(RecipeIngredientRole.INPUT, 33, 5).addItemStack(ANALYZER_BOTTLE);
 
         Ingredient ingredient = recipe.getIngredients().get(0);
         ItemStack input = ingredient.getItems()[0];

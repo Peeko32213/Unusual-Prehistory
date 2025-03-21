@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.ai.goal;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
@@ -46,7 +46,7 @@ public class VelociraptorPushButtonsGoal extends MoveToBlockGoal {
             if (this.ticksWaited >= 60) {
                 this.onReachedTarget();
                 if (r <= 0.05F) {
-                    entity.spawnAtLocation(UPItems.RAPTOR_FEATHERS.get());
+                    entity.spawnAtLocation(UPItems.VELOCI_FEATHERS.get());
                 }
             } else {
                 ++this.ticksWaited;

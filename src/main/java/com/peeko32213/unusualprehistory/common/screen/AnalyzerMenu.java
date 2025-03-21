@@ -2,8 +2,8 @@ package com.peeko32213.unusualprehistory.common.screen;
 
 import com.peeko32213.unusualprehistory.common.block.entity.AnalyzerBlockEntity;
 import com.peeko32213.unusualprehistory.common.screen.slot.UPResultSlot;
-import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -138,7 +139,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
         @Override
         public boolean mayPlace(ItemStack itemStack) {
-            return super.mayPlace(itemStack) && itemStack.is(UPItems.FLASK.get());
+            return super.mayPlace(itemStack) && itemStack.is(Items.GLASS_BOTTLE);
         }
     }
 

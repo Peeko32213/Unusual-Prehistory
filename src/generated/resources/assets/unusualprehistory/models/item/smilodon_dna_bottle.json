@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unusualprehistory:item/dna/smilodon_dna_bottle"
+  }
+}

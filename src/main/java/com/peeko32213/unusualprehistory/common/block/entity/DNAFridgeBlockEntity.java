@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.block.entity;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.custom.DNAFridgeBlock;
 import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
-import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
