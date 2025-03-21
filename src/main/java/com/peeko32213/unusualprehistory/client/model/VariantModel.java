@@ -23,9 +23,9 @@ public class VariantModel<T extends GeoAnimatable & IVariantEntity> extends GeoM
 
     @Override
     public ResourceLocation getTextureResource(T animatable) {
-//        if(animatable.getVariantTexture() != null) {
-//            return animatable.getVariantTexture();
-//        }
+        if(animatable.getVariantTexture() != null) {
+            return animatable.getVariantTexture();
+        }
         return texture;
     }
 
