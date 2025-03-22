@@ -88,12 +88,12 @@ public class GlobidensEntity extends PrehistoricEntity {
 
 
     //Offset to the points relative to their parent point
-    public Vec3 noseOffset = new Vec3(0.0, -1, -3);
-    public Vec3 tail0Offset = new Vec3(0.0, -1, 3);
-    public Vec3 tail1Offset = new Vec3(0.0, -1, 3);
+    public Vec3 noseOffset = new Vec3(0.0, -1, -1);
+    public Vec3 tail0Offset = new Vec3(0.0, -1, 1);
+    public Vec3 tail1Offset = new Vec3(0.0, 0, 1);
     //technically the second segment's bone position offset, but affects the segment before it
-    public Vec3 tail2Offset = new Vec3(0.0, -1, 3);
-    public Vec3 tail3Offset = new Vec3(0.0, -1, 3);
+    public Vec3 tail2Offset = new Vec3(0.0, 0, 1);
+    public Vec3 tail3Offset = new Vec3(0.0, 0, 1);
 //x = side to side offset
 //y = vert offset
 //z = fore to back offset(pos is back)
@@ -287,8 +287,8 @@ public class GlobidensEntity extends PrehistoricEntity {
             tail1Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point)));
             tail2Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail0Point, this.tail1Point, this.tail2Point)));
 
-            nosePoint = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(noseOffset), -this.getYRot(), -this.getXRot());
-            tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
+            nosePoint = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(noseOffset), -this.getYHeadRot(), -this.getXRot());
+            tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYHeadRot(), -this.getXRot());
             tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), (float) (-MathHelpers.angleTo(tail0Point, tail1Point).y - deltaYHeadRot*Mth.DEG_TO_RAD), -MathHelpers.angleTo(tail0Point, tail1Point).x);
             tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
             tail3Point = MathHelpers.rotateAroundCenter3dDeg(tail2Point, tail2Point.subtract(tail3Offset), -MathHelpers.angleTo(tail2Point, tail3Point).y, -MathHelpers.angleTo(tail2Point, tail3Point).x);

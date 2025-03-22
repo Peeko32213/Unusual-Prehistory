@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class IKSolver {
+
     private final LivingEntity entity;
     private final int nodeCount;
     private final double stiffness = Mth.PI*0.75;
@@ -27,19 +28,23 @@ public class IKSolver {
     private double[] currentTailPitches = {};
 
 
-    private Vec3 nosePoint;
-    private Vec3 noseOffset = new Vec3(0, 0, -1);
+    private Vec3 torsoFront;
+    private Vec3 torsoFrontOffset = new Vec3(0, 0, -1);
+
+    private Vec3 torsoBack;
+    private Vec3 torsoBackOffset = new Vec3(0, 0, 1);
+
     private Vec3 rightRefPoint;
-    private Vec3 rightRefOffset = new Vec3(1, 0, 0);
+    private final Vec3 rightRefOffset = new Vec3(1, 0, 0);
 
     private Vec3 leftRefPoint;
-    private Vec3 leftRefOffset = new Vec3(-1, 0, 0);
+    private final Vec3 leftRefOffset = new Vec3(-1, 0, 0);
 
     private Vec3 upRefPoint;
-    private Vec3 upRefOffset = new Vec3(0, -1, 0);
+    private final Vec3 upRefOffset = new Vec3(0, -1, 0);
 
     private Vec3 downRefPoint;
-    private Vec3 downRefOffset = new Vec3(0, 1, 0);
+    private final Vec3 downRefOffset = new Vec3(0, 1, 0);
 
 
     public IKSolver(LivingEntity entity, int nodeCount, int nodeDist) {
@@ -60,7 +65,8 @@ public class IKSolver {
         rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(rightRefOffset), (double) -entity.getYHeadRot());
         upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(upRefOffset), (double) -entity.getYHeadRot());
         downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(downRefOffset), (double) -entity.getYHeadRot());
-        nosePoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(noseOffset), (double) -entity.getYHeadRot());
+        torsoFront = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoFrontOffset), (double) -entity.getYHeadRot());
+        torsoBack = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoBackOffset), (double) -entity.getYHeadRot());
 
 
         initTailPoints();
@@ -72,7 +78,9 @@ public class IKSolver {
         double yRot = -entity.getYHeadRot();
 
         // Initialize the first tail point (tail0) relative to the entity and the nose point
-        nosePoint = MathHelpers.rotateAroundCenter3dDeg(this.entity.position(), this.entity.position().subtract(noseOffset), -this.entity.getYHeadRot(), -this.entity.getXRot());
+        torsoFront = MathHelpers.rotateAroundCenter3dDeg(this.entity.position(), this.entity.position().subtract(torsoFrontOffset), -this.entity.getYHeadRot(), -this.entity.getXRot());
+        torsoBack = MathHelpers.rotateAroundCenter3dDeg(this.entity.position(), this.entity.position().subtract(torsoBackOffset), -this.entity.getYHeadRot(), -this.entity.getXRot());
+
         nodes[0] = MathHelpers.rotateAroundCenterFlatDeg(this.entity.position(), this.entity.position().subtract(nodeDist, 0, nodeDist), yRot);
 
         // Chain the rotations for subsequent tail segments.
@@ -90,34 +98,36 @@ public class IKSolver {
      */
     public void calculateTailAngles(LivingEntity entity) {
 
-        // Update the first node that can be attributed to the tail(the root of the tail) and nosepoint.
-        nosePoint = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(noseOffset), -entity.getYHeadRot(), -entity.getXRot());
+        // torsoFront corresponds to the start of the body, torsoBack correspond to the back of the body(start of the tail).
+        torsoFront = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoFrontOffset), -entity.getYHeadRot(), -entity.getXRot());
+        torsoBack = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoBackOffset),  -entity.getYHeadRot(), -entity.getXRot());
 
-        nodes[0] = MathHelpers.distConstraint(entity.position(), nodes[0], nodeDist);
-
-        nodes[1] = MathHelpers.distConstraint(nodes[0], nodes[1], nodeDist);
+        nodes[0] = MathHelpers.rotateAroundCenter3dDeg(torsoBack, torsoBack.subtract(0, 0, nodeDist), (float) (-MathHelpers.angleTo(torsoBack, nodes[0]).y), -MathHelpers.angleTo(torsoBack, nodes[0]).x);
+        System.out.println(-MathHelpers.angleTo(torsoBack, nodes[0]).y);
 
         // Chain-update subsequent tail points.
-        for (int i = 2; i < nodeCount; i++) {
-            nodes[i] = MathHelpers.distConstraint(nodes[i - 1], nodes[i], nodeDist);
-
+        for (int i = 1; i < nodeCount; i++) {
+            nodes[i] = MathHelpers.rotateAroundCenter3dDeg(nodes[i - 1], nodes[i - 1].subtract(0, 0, nodeDist), (float) (-MathHelpers.angleTo(nodes[i - 1], nodes[i]).y), -MathHelpers.angleTo(nodes[i - 1], nodes[i]).x);
         }
 
         System.out.println("---------------------------------------------------------------------------------------------");
+        //everything above takes in and outputs degrees
+
+
 
 
         // Update Geckolib - usable bone angles for each node.
-        tailYaws[0] = (MathHelpers.getAngleForLinkTopDownFlat(nosePoint, entity.position(), this.nodes[0], leftRefPoint, rightRefPoint));
+        tailYaws[0] = (MathHelpers.getAngleForLinkTopDownFlat(entity.position(), torsoBack, this.nodes[0], leftRefPoint, rightRefPoint));
         System.out.println(tailYaws[0]);
         System.out.println("---------------------------------------------------------------------------------------------");
-        tailYaws[1] = (MathHelpers.getAngleForLinkTopDownFlat(entity.position(), this.nodes[0], this.nodes[1], leftRefPoint, rightRefPoint));
+        tailYaws[1] = (MathHelpers.getAngleForLinkTopDownFlat(torsoBack, this.nodes[0], this.nodes[1], leftRefPoint, rightRefPoint));
 
         for (int i = 2; i < nodes.length; i++) {
             tailYaws[i] = (MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 2], this.nodes[i - 1], this.nodes[i], leftRefPoint, rightRefPoint));
         }
         //Yaw
 
-        tailPitches[0] = ((float) (Mth.PI * MathHelpers.angleFromYdiff(entity.position(), this.nodes[0], this.nodes[1])));;
+        tailPitches[0] = ((float) (Mth.PI * MathHelpers.angleFromYdiff(torsoBack, this.nodes[0], this.nodes[1])));;
         for (int i = 1; i < nodes.length - 1; i++) {
             tailYaws[i] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 1], this.nodes[i], this.nodes[i + 1], this.leftRefPoint, this.rightRefPoint)));
         }

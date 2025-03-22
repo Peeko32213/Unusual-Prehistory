@@ -101,6 +101,7 @@ public class MathHelpers {
 
     public static Vec3 rotateAroundCenter3dDeg(Vec3 center, Vec3 me, float yRot, float xRot) {
         //Rotates me around center in 3 dimensions. The intake is in degrees.
+        //the intake is in WORLD ROTATION - the reference plane is the serverlevel, not in relation to smthing else
 
         yRot = -(Mth.DEG_TO_RAD*yRot);
         xRot = -(Mth.DEG_TO_RAD*xRot);
