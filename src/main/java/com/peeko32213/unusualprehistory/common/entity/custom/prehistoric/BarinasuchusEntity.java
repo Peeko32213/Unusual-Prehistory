@@ -6,9 +6,8 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityActi
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.DelayedAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.BarinasuchusMeleeAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
@@ -17,7 +16,6 @@ import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -45,22 +43,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Objects;
 
 public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFollower {
-
-    public float sitProgress;
 
     public boolean isFood(ItemStack stack) {
         return stack.is(UPTags.BARINA_FOOD);
@@ -72,8 +67,9 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     private static final RawAnimation BARINA_SWIM = RawAnimation.begin().thenLoop("animation.barinasuchus.swim");
 
     // Idle animations
-    private static final RawAnimation BARINA_IDLE = RawAnimation.begin().thenPlay("animation.barinasuchus.idle");
-    private static final RawAnimation BARINA_SIT = RawAnimation.begin().thenPlay("animation.barinasuchus.sit");
+    private static final RawAnimation BARINA_IDLE = RawAnimation.begin().thenLoop("animation.barinasuchus.idle");
+    private static final RawAnimation BARINA_SIT = RawAnimation.begin().thenPlay("animation.barinasuchus.sit_start").thenLoop("animation.barinasuchus.sit");
+    private static final RawAnimation BARINA_SIT_END = RawAnimation.begin().thenPlay("animation.barinasuchus.sit_end");
     private static final RawAnimation BARINA_SLEEP = RawAnimation.begin().thenPlay("animation.barinasuchus.sleep");
     private static final RawAnimation BARINA_YAWN = RawAnimation.begin().thenPlay("animation.barinasuchus.yawn_blend");
     private static final RawAnimation BARINA_SHAKE = RawAnimation.begin().thenPlay("animation.barinasuchus.shake_blend");
@@ -81,8 +77,8 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     private static final RawAnimation BARINA_SCRATCH_2 = RawAnimation.begin().thenPlay("animation.barinasuchus.scratch_blend2");
 
     // Attack animations
-    private static final RawAnimation BARINA_BITE_1 = RawAnimation.begin().thenLoop("animation.barinasuchus.bite_blend1");
-    private static final RawAnimation BARINA_BITE_2 = RawAnimation.begin().thenLoop("animation.barinasuchus.bite_blend2");
+    private static final RawAnimation BARINA_BITE_1 = RawAnimation.begin().thenPlay("animation.barinasuchus.bite_blend1");
+    private static final RawAnimation BARINA_BITE_2 = RawAnimation.begin().thenPlay("animation.barinasuchus.bite_blend2");
 
     // Misc animations
     private static final RawAnimation BARINA_SNAP = RawAnimation.begin().thenPlay("animation.barinasuchus.snap_blend");
@@ -164,7 +160,8 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     private void soundListener(SoundKeyframeEvent<BarinasuchusEntity> event) {
         BarinasuchusEntity barina = event.getAnimatable();
         if (barina.level().isClientSide) {
-            if (event.getKeyframeData().getSound().equals("")) {
+            if (event.getKeyframeData().getSound().equals("barina_bite")) {
+                barina.level().playLocalSound(barina.getX(), barina.getY(), barina.getZ(), UPSounds.BARINA_BITE.get(), barina.getSoundSource(), 0.5F, barina.getVoicePitch(), false);
             }
         }
     }
@@ -183,6 +180,10 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
             ;
         blend.setSoundKeyframeHandler(this::soundListener);
         controllers.add(blend);
+
+        AnimationController<BarinasuchusEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
+        attack.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(attack);
     }
 
     protected <E extends BarinasuchusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -191,17 +192,14 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
             return event.setAndContinue(BARINA_IDLE);
         }
 
-        int animState = this.getAnimationState();
-
         if(!this.isFromBook()) {
 
-            if (animState == 21) {
-                return event.setAndContinue(BARINA_BITE_1);
-            }
-
-            if (this.isInSittingPose() && !this.isBaby()) {
+            if (this.isInSittingPose()) {
+                if(this.isStandingUp()) {
+                    event.setAndContinue(BARINA_SIT_END);
+                    return PlayState.CONTINUE;
+                }
                 event.setAndContinue(BARINA_SIT);
-                event.getController().setAnimationSpeed(1.0F);
                 return PlayState.CONTINUE;
             }
 
@@ -210,6 +208,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
                 event.getController().setAnimationSpeed(1.0F);
                 return PlayState.CONTINUE;
             }
+
             else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
                 if(this.isSprinting() && !this.isBaby()) {
                     event.setAndContinue(BARINA_SPRINT);
@@ -219,6 +218,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
                 event.getController().setAnimationSpeed(1.0F);
                 return PlayState.CONTINUE;
             }
+
             else {
                 if (!this.isInWater()) {
                     if (getBooleanState(IDLE_1_AC)) {
@@ -269,12 +269,31 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
         return PlayState.CONTINUE;
     }
 
+    // Attack animations
+    protected <E extends BarinasuchusEntity> PlayState attackPredicate(final AnimationState<E> event) {
+        int animState = this.getAnimationState();
+
+        if (animState == 21) {
+            event.setAndContinue(BARINA_BITE_1);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 22) {
+            event.setAndContinue(BARINA_BITE_2);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 0) {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
+        else return PlayState.CONTINUE;
+    }
+
     // Body control / navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
-        helper.bodyLagMoving = 0.6F;
-        helper.bodyLagStill = 0.2F;
+        helper.bodyLagMoving = 0.5F;
+        helper.bodyLagStill = 0.25F;
         return helper;
     }
 
@@ -307,7 +326,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new BarinasuchusEntity.MeleeAttackGoal());
+        this.goalSelector.addGoal(1, new BarinasuchusMeleeAttackGoal(this, 1.75, true));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 30));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 100, true, false, this::canAttack));
@@ -328,27 +347,10 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
                 if (!player.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
-
                 this.heal((float)itemstack.getFoodProperties(this).getNutrition());
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
-            } else {
-                this.setCommand((this.getCommand() + 1) % 3);
-
-                if (this.getCommand() == 3) {
-                    this.setCommand(0);
-                }
-                player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
-                boolean sit = this.getCommand() == 2;
-                if (sit) {
-                    this.setOrderedToSit(true);
-                    return InteractionResult.SUCCESS;
-                } else {
-                    this.setOrderedToSit(false);
-                    return InteractionResult.SUCCESS;
-                }
             }
-
         }
         return super.mobInteract(player, hand);
     }
@@ -427,57 +429,15 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
         super.tick();
     }
 
-    public boolean isAlliedTo(Entity entityIn) {
-        if (this.isTame()) {
-            LivingEntity livingentity = this.getOwner();
-            if (entityIn == livingentity) {
-                return true;
-            }
-            if (entityIn instanceof TamableAnimal) {
-                return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
-            }
-            if (livingentity != null) {
-                return livingentity.isAlliedTo(entityIn);
-            }
-        }
-
-        return entityIn.is(this);
-    }
-
+    // Follow
     @Override
     public boolean shouldFollow() {
         return this.getCommand() == 1;
     }
 
-    // Melee attack
-    class MeleeAttackGoal extends DelayedAttackGoal {
-
-        public MeleeAttackGoal() {
-            super(BarinasuchusEntity.this, 1.75D, false);
-        }
-
-        protected void tickAttack () {
-
-            triggerAnim("blend", "attack");
-
-            animTime++;
-
-            if(animTime==5) {
-                preformAttack();
-            }
-
-            if(animTime>=8) {
-                animTime=0;
-                this.mob.setAnimationState(0);
-                this.resetAttackCooldown();
-                this.ticksUntilNextPathRecalculation = 0;
-            }
-        }
-
-        protected void preformAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.BARINA_BITE.get(), 1.0F, this.mob.getVoicePitch());
-            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.1f, mob, pos,  3.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
-        }
+    // Command
+    @Override
+    public boolean canOwnerCommand(Player ownerPlayer) {
+        return true;
     }
 }

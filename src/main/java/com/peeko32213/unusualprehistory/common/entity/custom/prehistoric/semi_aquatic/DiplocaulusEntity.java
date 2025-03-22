@@ -116,7 +116,7 @@
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
              .add(Attributes.MAX_HEALTH, 10.0D)
-             .add(Attributes.MOVEMENT_SPEED, 0.18D);
+             .add(Attributes.MOVEMENT_SPEED, 0.16D);
      }
 
      protected void registerGoals() {
@@ -282,7 +282,10 @@
              return PlayState.CONTINUE;
          }
 
-         if (isStillEnough() && this.isInWater()) {
+         if (isStillEnough()) {
+             return event.setAndContinue(DIPLOCAULUS_IDLE);
+         }
+         else if (isStillEnough() && this.isInWater()) {
              return event.setAndContinue(DIPLOCAULUS_SWIM_IDLE);
          }
 

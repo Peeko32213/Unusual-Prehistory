@@ -49,6 +49,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 public class PachycephalosaurusEntity extends PrehistoricEntityOld {
+
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(PachycephalosaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(PachycephalosaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(PachycephalosaurusEntity.class, EntityDataSerializers.INT);
@@ -56,7 +57,6 @@ public class PachycephalosaurusEntity extends PrehistoricEntityOld {
     // Movement animations
     private static final RawAnimation PACHY_WALK = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.walk");
     private static final RawAnimation PACHY_RUN = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.run");
-    private static final RawAnimation PACHY_SWIM = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.swim");
 
     // Idle animations
     private static final RawAnimation PACHY_IDLE = RawAnimation.begin().thenLoop("animation.pachycephalosaurus.idle");
@@ -321,12 +321,7 @@ public class PachycephalosaurusEntity extends PrehistoricEntityOld {
                     event.setAndContinue(PACHY_ATTACK_3);
                     break;
                 default:
-                    if (this.isInWater()) {
-                        event.setAndContinue(PACHY_SWIM);
-                        event.getController().setAnimationSpeed(1.0F);
-                        return PlayState.CONTINUE;
-                    }
-                    else if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F && !this.isInWater())) {
+                   if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
                         event.setAndContinue(PACHY_WALK);
                         return PlayState.CONTINUE;
                     } else if(!this.isInWater()) {

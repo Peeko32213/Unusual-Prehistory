@@ -18,7 +18,6 @@ import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -82,7 +81,8 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     private static final RawAnimation TRIKE_GRAZE = RawAnimation.begin().thenPlay("animation.triceratops.graze_blend");
     private static final RawAnimation TRIKE_HEAD_SHAKE = RawAnimation.begin().thenPlay("animation.triceratops.shake_blend");
     private static final RawAnimation TRIKE_CHATTER = RawAnimation.begin().thenPlay("animation.triceratops.chatter_blend");
-    private static final RawAnimation TRIKE_SIT = RawAnimation.begin().thenLoop("animation.triceratops.sit");
+    private static final RawAnimation TRIKE_SIT = RawAnimation.begin().thenPlay("animation.triceratops.sit_start").thenPlay("animation.triceratops.sit");
+    private static final RawAnimation TRIKE_SIT_END = RawAnimation.begin().thenPlay("animation.triceratops.sit_end");
 
     // Attack animations
     private static final RawAnimation TRIKE_ATTACK_1 = RawAnimation.begin().thenPlay("animation.triceratops.attack_blend1");
@@ -242,9 +242,10 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
 
         if (this.isInSittingPose()) {
+            if(this.isStandingUp()) {
+                return event.setAndContinue(TRIKE_SIT_END);
+            }
             event.setAndContinue(TRIKE_SIT);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
     }
@@ -298,7 +299,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             .add(Attributes.MOVEMENT_SPEED, 0.15D)
             .add(Attributes.ATTACK_DAMAGE, 12.0D)
             .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
-            .add(Attributes.FOLLOW_RANGE, 24D)
+            .add(Attributes.FOLLOW_RANGE, 32D)
         ;
     }
 
@@ -307,8 +308,8 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     protected void registerGoals() {
         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(1, new TriceratopsMeleeAttackGoal(this, 1.65F, true));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new TriceratopsMeleeAttackGoal(this, 1.7F, true));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 30));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
@@ -341,7 +342,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
 
     @Override
     public float getSoundVolume() {
-        return 0.85F;
+        return 0.9F;
     }
 
     @Nullable
@@ -469,9 +470,12 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     }
 
     // Mob interactions
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
 
         ItemStack itemstack = player.getItemInHand(hand);
+        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
+        InteractionResult type = super.mobInteract(player, hand);
 
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
 
@@ -491,7 +495,8 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
 
             return InteractionResult.SUCCESS;
-        } else if (this.isTame() && this.isOwnedBy(player)) {
+        }
+        else if (this.isTame() && this.isOwnedBy(player)) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
 
                 if (!player.getAbilities().instabuild) {
@@ -506,39 +511,25 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
 
-            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled() && this.isTame() && this.isOwnedBy(player)) {
+            }
+            else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled() && this.isTame() && this.isOwnedBy(player)) {
 
                 this.usePlayerItem(player, hand, itemstack);
                 this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
                 this.setSaddled(true);
 
                 return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled() && this.isTame() && this.isOwnedBy(player)) {
+            }
+            else if (itemstack.getItem() == Items.SHEARS && this.isSaddled() && this.isTame() && this.isOwnedBy(player)) {
 
                 this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
                 this.setSaddled(false);
                 this.spawnAtLocation(Items.SADDLE);
 
                 return InteractionResult.SUCCESS;
-            } else if(this.isTame() && this.isOwnedBy(player)) {
-                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && this.isTame() && this.isOwnedBy(player)) {
-                    if(!this.level().isClientSide) {
-                        player.startRiding(this);
-                    }
-                } else if(this.isTame() && this.isOwnedBy(player)){
-                    this.setCommand((this.getCommand() + 1) % 3);
-                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
-                    boolean sit = this.getCommand() == 2;
-                    this.setOrderedToSit(sit);
-
-                    if (this.getCommand() == 3) {
-                        this.setCommand(0);
-                    }
-                }
-                return InteractionResult.SUCCESS;
             }
         }
-        return InteractionResult.PASS;
+        return super.mobInteract(player, hand);
     }
 
     // Set sprinting
@@ -604,5 +595,11 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     @Override
     public boolean shouldFollow() {
         return this.getCommand() == 1;
+    }
+
+    // Command
+    @Override
+    public boolean canOwnerCommand(Player ownerPlayer) {
+        return true;
     }
 }

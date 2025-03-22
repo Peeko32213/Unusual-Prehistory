@@ -4411,6 +4411,11 @@
 						}
 					}
 				}
+			},
+			"sound_effects": {
+				"0.4583": {
+					"effect": "barina_bite"
+				}
 			}
 		},
 		"animation.barinasuchus.bite_blend2": {
@@ -4567,6 +4572,11 @@
 							"lerp_mode": "catmullrom"
 						}
 					}
+				}
+			},
+			"sound_effects": {
+				"0.4583": {
+					"effect": "barina_bite"
 				}
 			}
 		}

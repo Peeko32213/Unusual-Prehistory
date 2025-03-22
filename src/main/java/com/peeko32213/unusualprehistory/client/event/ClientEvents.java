@@ -198,7 +198,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new StatedPrehistoricRenderer<>(e, new SmilodonModel()));
         event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new PrehistoricRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
         event.registerEntityRenderer(UPEntities.TELECREX.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TelecrexModel()));
-        event.registerEntityRenderer(UPEntities.TITANONARKE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TitanonarkeModel()));
+        event.registerEntityRenderer(UPEntities.TITANONARKE.get(), e -> new StatedPrehistoricRenderer<>(e, new TitanonarkeModel()));
 
         // Misc mobs
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
