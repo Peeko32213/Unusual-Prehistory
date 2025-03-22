@@ -134,15 +134,22 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.1.3'
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.7.1.1')
+
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}"))
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}"))
     runtimeOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}"))
+
+    // extra utils
+    runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")
+    runtimeOnly fg.deobf("curse.maven:mouse-tweaks-60089:5338457")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation fg.deobf("curse.maven:goalsmith-1050624:5753787")
     compileOnly fg.deobf("curse.maven:goalsmith-1050624:5753787")
+
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.7.1.1')
+    implementation fg.deobf("curse.maven:blueprint-382216:6267669")
 }
 
 jar {
