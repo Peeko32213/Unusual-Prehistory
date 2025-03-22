@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.client.event;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.message.AttackInputMessage;
 import com.peeko32213.unusualprehistory.common.message.AttackOutputMessage;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;

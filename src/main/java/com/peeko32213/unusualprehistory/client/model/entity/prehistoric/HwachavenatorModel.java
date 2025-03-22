@@ -9,7 +9,7 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class HwachavenatorModel extends GeoModel<HwachavenatorEntity> {
 

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;

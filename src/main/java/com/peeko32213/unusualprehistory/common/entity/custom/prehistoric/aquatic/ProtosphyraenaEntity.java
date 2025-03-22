@@ -1,6 +1,6 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
- import com.peeko32213.unusualprehistory.core.UnusualPrehistoryConfig;
+ import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.JoinPackGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.ShoalHunterGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
@@ -8,7 +8,7 @@
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IPackHunter;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
- import com.peeko32213.unusualprehistory.core.other.UPTags;
+ import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;

@@ -5,7 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.math.Axis;
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.screen.LinkPlantButton;
 import com.peeko32213.unusualprehistory.client.screen.PlantLinkData;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.*;
@@ -45,7 +45,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.util.*;
 
-import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class BookScreen extends Screen {
 

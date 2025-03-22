@@ -4,7 +4,7 @@ import com.peeko32213.unusualprehistory.common.item.armor.ShedscaleArmorItem;
 import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
-import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class ShedscaleArmorRenderer extends GeoArmorRenderer<ShedscaleArmorItem> {
     public ShedscaleArmorRenderer() {

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric.aquatic;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.SchlumbergeritesEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animation.AnimationState;

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.core.events;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.SkeletonEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PalaeophisBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.WorldSpawnableEntity;
@@ -15,7 +15,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.SludgeEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.*;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

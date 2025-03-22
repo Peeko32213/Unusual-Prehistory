@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.world.feature.tree;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.core.registry.UPFeatureModifiers;
+import com.peeko32213.unusualprehistory.core.registry.world.UPFeatureModifiers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;

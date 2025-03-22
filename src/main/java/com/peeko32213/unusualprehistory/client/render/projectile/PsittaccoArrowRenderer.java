@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
-import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class PsittaccoArrowRenderer extends ArrowRenderer<PsittaccoArrow> {
     public static final ResourceLocation PSITTACCO_ARROW_LOCATION = prefix("textures/entity/projectile/psittacco_arrow.png");

@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 
 import com.peeko32213.unusualprehistory.client.model.tool.TrikeShieldModel;
 import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;

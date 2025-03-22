@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRando
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomAnimationsEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;

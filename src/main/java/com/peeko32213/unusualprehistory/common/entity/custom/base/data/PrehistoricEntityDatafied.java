@@ -4,7 +4,7 @@ import com.peeko32213.unusualprehistory.common.data.PrehistoricEntityJsonDataMan
 import com.peeko32213.unusualprehistory.common.data.entity.*;
 import com.peeko32213.unusualprehistory.common.data.entity.generic.*;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
-import com.peeko32213.unusualprehistory.core.mixin.AttributeAccessor;
+import com.peeko32213.unusualprehistory.mixin.AttributeAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;

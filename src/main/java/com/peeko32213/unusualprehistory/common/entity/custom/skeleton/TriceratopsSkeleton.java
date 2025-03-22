@@ -1,12 +1,13 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.skeleton;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.base.SkeletonEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;

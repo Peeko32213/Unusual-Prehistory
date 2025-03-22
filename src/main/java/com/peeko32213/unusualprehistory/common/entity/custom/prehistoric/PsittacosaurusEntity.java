@@ -5,8 +5,8 @@
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.core.registry.UPEffects;
- import com.peeko32213.unusualprehistory.core.registry.UPItems;
- import com.peeko32213.unusualprehistory.core.other.UPTags;
+ import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+ import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;

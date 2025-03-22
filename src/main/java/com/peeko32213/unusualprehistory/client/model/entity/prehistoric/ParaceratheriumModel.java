@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric;
 
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.ParaceratheriumEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;

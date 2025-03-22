@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.data.attack;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
-import com.peeko32213.unusualprehistory.core.registry.UPAttackRegistry;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPAttackRegistry;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 

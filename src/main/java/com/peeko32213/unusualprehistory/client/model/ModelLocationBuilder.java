@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.client.model;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;

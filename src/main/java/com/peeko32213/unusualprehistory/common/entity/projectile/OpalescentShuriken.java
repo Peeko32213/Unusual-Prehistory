@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity.projectile;
 
 import com.peeko32213.unusualprehistory.core.registry.UPDamageTypes;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;

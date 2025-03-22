@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.block.custom;
 import com.peeko32213.unusualprehistory.common.block.entity.IncubatorBlockEntity;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
-import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

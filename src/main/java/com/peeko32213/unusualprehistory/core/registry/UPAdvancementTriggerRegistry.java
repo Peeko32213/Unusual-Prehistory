@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.core.registry;
 import com.peeko32213.unusualprehistory.core.registry.util.BarinaTameTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 
-import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class UPAdvancementTriggerRegistry {
 

@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.core.registry.util;
 
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.loot.AddItemModifier;
 import com.peeko32213.unusualprehistory.common.loot.AddLootTableModifier;
 import net.minecraftforge.common.loot.IGlobalLootModifier;

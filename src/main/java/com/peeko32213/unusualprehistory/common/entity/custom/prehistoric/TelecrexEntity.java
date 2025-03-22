@@ -23,7 +23,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class TelecrexEntity extends PrehistoricEntityDatafied {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);

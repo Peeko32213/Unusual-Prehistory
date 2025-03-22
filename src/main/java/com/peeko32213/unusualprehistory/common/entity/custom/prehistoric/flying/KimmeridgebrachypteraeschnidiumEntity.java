@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;

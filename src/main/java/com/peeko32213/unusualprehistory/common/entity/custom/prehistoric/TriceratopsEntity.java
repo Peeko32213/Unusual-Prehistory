@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.peeko32213.unusualprehistory.core.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.*;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
@@ -12,10 +12,10 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEnt
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.other.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

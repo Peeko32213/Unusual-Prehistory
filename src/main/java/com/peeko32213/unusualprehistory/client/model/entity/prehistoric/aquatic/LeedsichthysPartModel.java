@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPa
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class LeedsichthysPartModel extends GeoModel<LeedsichthysPartEntity> {
 

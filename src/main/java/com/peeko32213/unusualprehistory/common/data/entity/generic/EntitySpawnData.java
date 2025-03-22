@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.data.predicate.AndSpawnPredicate;
 import com.peeko32213.unusualprehistory.common.data.predicate.IsBlockStateSpawnPredicate;
 import com.peeko32213.unusualprehistory.common.data.predicate.IsBrightEnoughToSpawnPredicate;
 import com.peeko32213.unusualprehistory.common.data.predicate.SpawnPredicate;
-import com.peeko32213.unusualprehistory.core.other.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.scouter.goalsmith.data.PredicateCodec;
 
 public class EntitySpawnData {

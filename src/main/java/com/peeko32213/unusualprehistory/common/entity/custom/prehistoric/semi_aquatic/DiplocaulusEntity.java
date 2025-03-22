@@ -13,9 +13,9 @@
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
- import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+ import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
- import com.peeko32213.unusualprehistory.core.other.UPTags;
+ import com.peeko32213.unusualprehistory.core.registry.UPTags;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;

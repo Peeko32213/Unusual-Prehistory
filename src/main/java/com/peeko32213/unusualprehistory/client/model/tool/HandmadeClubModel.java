@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model.tool;
 
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.tool.HandmadeClubItem;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;

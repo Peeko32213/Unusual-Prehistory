@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.effect.*;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.fml.common.Mod;

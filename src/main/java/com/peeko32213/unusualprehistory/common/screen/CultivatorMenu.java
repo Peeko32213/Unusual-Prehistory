@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.screen;
 
 import com.peeko32213.unusualprehistory.common.block.entity.CultivatorBlockEntity;
 import com.peeko32213.unusualprehistory.common.screen.slot.UPResultSlot;
-import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;

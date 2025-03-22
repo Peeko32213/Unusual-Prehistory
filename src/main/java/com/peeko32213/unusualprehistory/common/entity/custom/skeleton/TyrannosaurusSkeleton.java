@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.skeleton;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.base.SkeletonEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;

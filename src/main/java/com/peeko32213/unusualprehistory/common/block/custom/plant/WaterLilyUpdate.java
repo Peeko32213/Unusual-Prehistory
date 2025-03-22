@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block.custom.plant;
 
-import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

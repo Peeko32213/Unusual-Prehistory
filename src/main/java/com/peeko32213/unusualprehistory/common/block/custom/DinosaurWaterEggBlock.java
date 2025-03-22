@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.custom;
 
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
-import com.peeko32213.unusualprehistory.core.other.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import net.minecraft.core.BlockPos;

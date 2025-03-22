@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedSt
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomizableRandomSwimGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;

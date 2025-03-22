@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.ClientAmberProtectionData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

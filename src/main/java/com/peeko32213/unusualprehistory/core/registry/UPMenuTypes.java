@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;

@@ -1,10 +1,11 @@
 package com.peeko32213.unusualprehistory.client.jei;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.ItemWeightedPairCodec;
 import com.peeko32213.unusualprehistory.common.recipe.AnalyzerRecipe;
-import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

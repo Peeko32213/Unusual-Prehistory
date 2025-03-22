@@ -1,13 +1,14 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.RollableItemCodec;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.ItemWeightedPairCodec;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.item.MusicalTameItem;
 import com.peeko32213.unusualprehistory.common.item.PrehistoricEggItem;
-import com.peeko32213.unusualprehistory.core.other.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -373,31 +374,31 @@ public class UPTabs {
                     entries.accept(UPBlocks.DRYO_TRAPDOOR.get());
                     entries.accept(UPBlocks.DRYO_PRESSURE_PLATE.get());
                     entries.accept(UPBlocks.DRYO_BUTTON.get());
-                    entries.accept(UPBlocks.DRYO_SIGNS.getFirst().get());
-                    entries.accept(UPBlocks.DRYO_HANGING_SIGNS.getFirst().get());
+                    entries.accept(UPBlocks.DRYO_SIGN.get());
+                    entries.accept(UPBlocks.DRYO_HANGING_SIGN.get());
                     entries.accept(UPItems.DRYO_BOAT.get());
                     entries.accept(UPItems.DRYO_CHEST_BOAT.get());
                     entries.accept(UPBlocks.DRYO_LEAVES.get());
 
                     // Foxii wood
-                    entries.accept(UPBlocks.FOXII_LOG.get());
-                    entries.accept(UPBlocks.FOXII_WOOD.get());
-                    entries.accept(UPBlocks.STRIPPED_FOXII_LOG.get());
-                    entries.accept(UPBlocks.STRIPPED_FOXII_WOOD.get());
-                    entries.accept(UPBlocks.FOXII_PLANKS.get());
-                    entries.accept(UPBlocks.FOXII_STAIRS.get());
-                    entries.accept(UPBlocks.FOXII_SLAB.get());
-                    entries.accept(UPBlocks.FOXII_FENCE.get());
-                    entries.accept(UPBlocks.FOXII_FENCE_GATE.get());
-                    entries.accept(UPBlocks.FOXII_DOOR.get());
-                    entries.accept(UPBlocks.FOXII_TRAPDOOR.get());
-                    entries.accept(UPBlocks.FOXII_PRESSURE_PLATE.get());
-                    entries.accept(UPBlocks.FOXII_BUTTON.get());
-                    entries.accept(UPBlocks.FOXII_SIGNS.getFirst().get());
-                    entries.accept(UPBlocks.FOXII_HANGING_SIGNS.getFirst().get());
+                    entries.accept(UPBlocks.FOXXI_LOG.get());
+                    entries.accept(UPBlocks.FOXXI_WOOD.get());
+                    entries.accept(UPBlocks.STRIPPED_FOXXI_LOG.get());
+                    entries.accept(UPBlocks.STRIPPED_FOXXI_WOOD.get());
+                    entries.accept(UPBlocks.FOXXI_PLANKS.get());
+                    entries.accept(UPBlocks.FOXXI_STAIRS.get());
+                    entries.accept(UPBlocks.FOXXI_SLAB.get());
+                    entries.accept(UPBlocks.FOXXI_FENCE.get());
+                    entries.accept(UPBlocks.FOXXI_FENCE_GATE.get());
+                    entries.accept(UPBlocks.FOXXI_DOOR.get());
+                    entries.accept(UPBlocks.FOXXI_TRAPDOOR.get());
+                    entries.accept(UPBlocks.FOXXI_PRESSURE_PLATE.get());
+                    entries.accept(UPBlocks.FOXXI_BUTTON.get());
+                    entries.accept(UPBlocks.FOXII_SIGN.get());
+                    entries.accept(UPBlocks.FOXII_HANGING_SIGN.get());
                     entries.accept(UPItems.FOXXI_BOAT.get());
                     entries.accept(UPItems.FOXXI_CHEST_BOAT.get());
-                    entries.accept(UPBlocks.FOXII_LEAVES.get());
+                    entries.accept(UPBlocks.FOXXI_LEAVES.get());
 
                     // Ginkgo wood
                     entries.accept(UPBlocks.GINKGO_LOG.get());

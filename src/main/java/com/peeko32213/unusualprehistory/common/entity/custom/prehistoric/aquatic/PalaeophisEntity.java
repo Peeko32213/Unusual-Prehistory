@@ -1,12 +1,12 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartIndex;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
-import com.peeko32213.unusualprehistory.core.registry.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
 import net.minecraft.core.BlockPos;
@@ -63,7 +63,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
 
 public class PalaeophisEntity extends PrehistoricAquaticEntityOld implements GeoAnimatable {
 

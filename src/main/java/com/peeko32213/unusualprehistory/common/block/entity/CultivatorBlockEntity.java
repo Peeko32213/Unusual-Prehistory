@@ -1,14 +1,14 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.registry.*;
-import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPRecipes;
-import com.peeko32213.unusualprehistory.core.other.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.items.UPRecipes;
+import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

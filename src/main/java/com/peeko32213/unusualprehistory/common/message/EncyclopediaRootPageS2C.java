@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.message;
 
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaCodec;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaJsonManager;
 import net.minecraft.nbt.CompoundTag;
