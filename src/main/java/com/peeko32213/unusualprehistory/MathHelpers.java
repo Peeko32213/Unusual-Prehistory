@@ -38,6 +38,31 @@ public class MathHelpers {
         return angle;
     }
 
+    public static Vec3 rotateAroundCenterFlatRads(Vec3 center, Vec3 point, Double angleInRads) {
+
+        double cx = center.x();
+        double cy = center.z();
+
+        double pX = point.x();
+        double pY = point.z();
+
+        double s = Math.sin(angleInRads);
+        double c = Math.cos(angleInRads);
+
+        // translate point back to origin:
+        pX -= cx;
+        pY -= cy;
+
+        // rotate point
+        double xnew = pX * c - pY * s;
+        double ynew = pX * s + pY * c;
+
+        // translate point back:
+        pX = xnew + cx;
+        pY = ynew + cy;
+
+        return new Vec3(pX, point.y, pY);
+    }
 
 
 

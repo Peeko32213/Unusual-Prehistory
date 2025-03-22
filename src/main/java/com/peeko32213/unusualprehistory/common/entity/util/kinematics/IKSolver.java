@@ -11,10 +11,11 @@ import net.minecraft.world.phys.Vec3;
 public class IKSolver {
     private final LivingEntity entity;
     private final int nodeCount;
-    private final double stiffness = Mth.PI*0.50;
+    private final double stiffness = Mth.PI*0.75;
 
 
     private Vec3[] nodes = {};
+    private enum nodeLimits {POS_LIMIT, NEG_LIMIT}
     private int nodeDist;
 
 
@@ -91,43 +92,28 @@ public class IKSolver {
 
         // Update the first node that can be attributed to the tail(the root of the tail) and nosepoint.
         nosePoint = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(noseOffset), -entity.getYHeadRot(), -entity.getXRot());
-        nodes[0] = MathHelpers.distConstraint(entity.position().subtract(0, 0, 0), nodes[0], nodeDist);
+
+        nodes[0] = MathHelpers.distConstraint(entity.position(), nodes[0], nodeDist);
+
+        nodes[1] = MathHelpers.distConstraint(nodes[0], nodes[1], nodeDist);
 
         // Chain-update subsequent tail points.
-        for (int i = 1; i < nodeCount; i++) {
+        for (int i = 2; i < nodeCount; i++) {
             nodes[i] = MathHelpers.distConstraint(nodes[i - 1], nodes[i], nodeDist);
-        }
 
-        double node0Angle = MathHelpers.constrainAngle(MathHelpers.getAngleForLinkTopDownFlat(this.nosePoint, entity.position(), this.nodes[0], this.leftRefPoint, this.rightRefPoint), stiffness);
-        System.out.println(node0Angle);
-        nodes[0] = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), nodes[0],  (node0Angle*Mth.RAD_TO_DEG));
-        System.out.println(MathHelpers.getAngleForLinkTopDownFlat(this.nosePoint, entity.position(), this.nodes[0], this.leftRefPoint, this.rightRefPoint));
-
-        double node1Angle = MathHelpers.constrainAngle(MathHelpers.getAngleForLinkTopDownFlat(entity.position(), this.nodes[0], this.nodes[1], this.leftRefPoint, this.rightRefPoint), stiffness);
-        System.out.println(node1Angle);
-        nodes[1] = MathHelpers.rotateAroundCenterFlatDeg(nodes[0], nodes[1],  (node1Angle*Mth.RAD_TO_DEG));
-        System.out.println(MathHelpers.getAngleForLinkTopDownFlat(entity.position(), this.nodes[0], this.nodes[1], this.leftRefPoint, this.rightRefPoint));
-
-        for (int i = 2; i < nodes.length; i++) {
-            double nodeAngle = MathHelpers.constrainAngle(MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 2], this.nodes[i - 1], this.nodes[i], this.leftRefPoint, this.rightRefPoint), stiffness);
-            System.out.println(nodeAngle);
-            nodes[i] = MathHelpers.rotateAroundCenterFlatDeg(nodes[i - 1], nodes[i], (nodeAngle*Mth.RAD_TO_DEG));
-            System.out.println(node1Angle);
         }
 
         System.out.println("---------------------------------------------------------------------------------------------");
 
 
-
-
-
-
         // Update Geckolib - usable bone angles for each node.
-        tailYaws[0] = ((MathHelpers.getAngleForLinkTopDownFlat(entity.position(), this.nosePoint, this.nodes[0], this.leftRefPoint, this.rightRefPoint)));
-        tailYaws[1] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[0], this.entity.position(), this.nodes[1], this.leftRefPoint, this.rightRefPoint)));
+        tailYaws[0] = (MathHelpers.getAngleForLinkTopDownFlat(nosePoint, entity.position(), this.nodes[0], leftRefPoint, rightRefPoint));
+        System.out.println(tailYaws[0]);
+        System.out.println("---------------------------------------------------------------------------------------------");
+        tailYaws[1] = (MathHelpers.getAngleForLinkTopDownFlat(entity.position(), this.nodes[0], this.nodes[1], leftRefPoint, rightRefPoint));
 
         for (int i = 2; i < nodes.length; i++) {
-            tailYaws[i] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 2], this.nodes[i - 1], this.nodes[i], this.leftRefPoint, this.rightRefPoint)));
+            tailYaws[i] = (MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 2], this.nodes[i - 1], this.nodes[i], leftRefPoint, rightRefPoint));
         }
         //Yaw
 
