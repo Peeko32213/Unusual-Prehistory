@@ -1,10 +1,10 @@
 package com.peeko32213.unusualprehistory.client.event;
 
 import com.mojang.blaze3d.shaders.FogShape;
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.client.ClientUtils;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FogRenderer;

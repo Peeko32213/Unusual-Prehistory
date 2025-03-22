@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.data.entity.attribute;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.mixin.AttributeAccessor;
+import com.peeko32213.unusualprehistory.core.mixin.AttributeAccessor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.Attribute;

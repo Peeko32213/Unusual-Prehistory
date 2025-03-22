@@ -1,0 +1,33 @@
+package com.peeko32213.unusualprehistory.core.other;
+
+import com.peeko32213.unusualprehistory.client.screen.util.BookScreen;
+import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.common.Mod;
+
+@OnlyIn(Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, value = Dist.CLIENT)
+public class ClientProxy extends CommonProxy  {
+
+    public Player getClientSidePlayer() {
+        return Minecraft.getInstance().player;
+    }
+    public void openBookGUI(ResourceLocation resourceLocation) {
+        Minecraft.getInstance().setScreen(new BookScreen(resourceLocation, 0));
+    }
+
+    @SuppressWarnings({ "deprecation" })
+    public static void setupBlockRenders() {
+        RenderType cutoutRenderType = RenderType.cutout();
+        RenderType cutoutMippedRenderType = RenderType.cutoutMipped();
+        RenderType translucentRenderType = RenderType.translucent();
+    }
+}
+
+
+

@@ -1,11 +1,10 @@
 package com.peeko32213.unusualprehistory.client.model.entity.skeleton;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TriceratopsSkeleton;
-import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TyrannosaurusSkeleton;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
 
 // todo: move to ModelLocations
 public class TriceratopsSkeletonModel extends GeoModel<TriceratopsSkeleton> {

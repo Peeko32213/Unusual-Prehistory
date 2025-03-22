@@ -1,11 +1,10 @@
 package com.peeko32213.unusualprehistory.common.block.entity;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
-import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.other.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

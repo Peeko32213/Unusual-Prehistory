@@ -1,0 +1,24 @@
+package com.peeko32213.unusualprehistory.core.other;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.fml.common.Mod;
+
+import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.MODID;
+
+@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+public class CommonProxy {
+
+    public void init() {
+    }
+
+    public void clientInit() {
+    }
+    public Player getClientSidePlayer() {
+        return null;
+    }
+
+    public void openBookGUI(ResourceLocation resourceLocation) {
+    }
+
+}

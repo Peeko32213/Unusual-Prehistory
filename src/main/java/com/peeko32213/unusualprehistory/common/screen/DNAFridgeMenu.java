@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.screen;
 
 import com.peeko32213.unusualprehistory.core.registry.UPMenuTypes;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.UPTags;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.PsilopterusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -10,7 +10,7 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
 
 public class PsilopterusModel extends GeoModel<PsilopterusEntity> {
 

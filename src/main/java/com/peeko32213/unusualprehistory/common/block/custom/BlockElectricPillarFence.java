@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.custom;
 
 import com.peeko32213.unusualprehistory.common.block.BlockElectricPillar;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;

@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchable
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackS2CPacket;
 import com.peeko32213.unusualprehistory.common.recipe.IncubatorRecipe;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

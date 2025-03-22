@@ -4,9 +4,9 @@ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRando
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.BeelzebufoTadpoleEntity;
-import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.UPTags;
 import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

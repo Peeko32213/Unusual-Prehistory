@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.animation.state;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.core.registry.entities.EntityActionsRegistry;
+import com.peeko32213.unusualprehistory.core.registry.EntityActionsRegistry;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.function.Consumer;

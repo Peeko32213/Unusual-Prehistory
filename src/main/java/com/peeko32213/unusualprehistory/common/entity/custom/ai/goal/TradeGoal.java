@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.ai.goal;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;

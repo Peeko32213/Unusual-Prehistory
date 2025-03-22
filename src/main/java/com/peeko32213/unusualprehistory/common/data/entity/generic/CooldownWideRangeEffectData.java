@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.data.codec.MobEffectInstanceCodec;
 import com.peeko32213.unusualprehistory.common.data.entity.WideRangeEffectData;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.UPTags;
 import net.minecraft.world.entity.Mob;
 
 public class CooldownWideRangeEffectData {

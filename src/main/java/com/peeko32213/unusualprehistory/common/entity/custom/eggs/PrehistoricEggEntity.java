@@ -2,8 +2,8 @@ package com.peeko32213.unusualprehistory.common.entity.custom.eggs;
 
 import com.peeko32213.unusualprehistory.common.entity.animation.AnimationHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
-import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.other.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
 
 public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
 

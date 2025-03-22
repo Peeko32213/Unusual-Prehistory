@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.projectile;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.HwachavenatorEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
-import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;

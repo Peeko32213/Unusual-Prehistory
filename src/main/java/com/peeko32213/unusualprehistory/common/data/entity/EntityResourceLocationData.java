@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.data.entity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
 import net.minecraft.resources.ResourceLocation;
 
 public class EntityResourceLocationData {

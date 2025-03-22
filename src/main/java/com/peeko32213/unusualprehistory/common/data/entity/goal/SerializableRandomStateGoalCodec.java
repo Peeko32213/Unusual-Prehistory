@@ -6,7 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.SerializableRandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedSerializableStateHelper;
-import com.peeko32213.unusualprehistory.core.registry.entities.UPGoalRegistry;
+import com.peeko32213.unusualprehistory.core.registry.UPGoalRegistry;
 import com.scouter.goalsmith.data.GoalCodec;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.PathfinderMob;

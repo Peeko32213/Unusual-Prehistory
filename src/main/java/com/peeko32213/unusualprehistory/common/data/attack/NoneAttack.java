@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.data.attack;
 
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.core.registry.entities.UPAttackRegistry;
+import com.peeko32213.unusualprehistory.core.registry.UPAttackRegistry;
 import net.minecraft.world.entity.PathfinderMob;
 
 public class NoneAttack implements EntityAttack {

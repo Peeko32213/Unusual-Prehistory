@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.data.codec.NullableFieldCodec;
-import com.peeko32213.unusualprehistory.core.registry.entities.UPSpawnPredicateRegistry;
+import com.peeko32213.unusualprehistory.core.registry.UPSpawnPredicateRegistry;
 import com.scouter.goalsmith.data.PredicateCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;

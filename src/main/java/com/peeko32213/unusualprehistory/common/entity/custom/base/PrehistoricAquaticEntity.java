@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.core.UnusualPrehistoryConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;

@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryBuilder;
 
 import java.util.function.Supplier;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
 
 public class UPRegistry {
     static { init(); }

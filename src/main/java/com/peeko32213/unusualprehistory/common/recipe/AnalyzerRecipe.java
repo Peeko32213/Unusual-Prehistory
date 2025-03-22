@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;

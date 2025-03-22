@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block.custom;
 
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.AxeItem;
@@ -51,12 +51,12 @@ public class UPWoodBlocks extends RotatedPillarBlock {
             if(state.is(UPBlocks.PETRIFIED_WOOD.get())) {
                 return UPBlocks.STRIPPED_PETRIFIED_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
-            if(state.is(UPBlocks.FOXXI_LOG.get())) {
-                return UPBlocks.STRIPPED_FOXXI_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            if(state.is(UPBlocks.FOXII_LOG.get())) {
+                return UPBlocks.STRIPPED_FOXII_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
 
-            if(state.is(UPBlocks.FOXXI_WOOD.get())) {
-                return UPBlocks.STRIPPED_FOXXI_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            if(state.is(UPBlocks.FOXII_WOOD.get())) {
+                return UPBlocks.STRIPPED_FOXII_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
             if(state.is(UPBlocks.DRYO_LOG.get())) {
                 return UPBlocks.STRIPPED_DRYO_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));

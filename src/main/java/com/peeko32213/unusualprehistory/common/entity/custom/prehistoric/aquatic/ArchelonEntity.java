@@ -9,7 +9,7 @@
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
- import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+ import com.peeko32213.unusualprehistory.core.registry.UPEntities;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.chat.Component;

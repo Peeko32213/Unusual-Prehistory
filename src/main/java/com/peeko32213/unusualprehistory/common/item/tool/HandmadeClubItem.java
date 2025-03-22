@@ -5,7 +5,7 @@ import com.google.common.collect.Multimap;
 import com.peeko32213.unusualprehistory.client.model.tool.HandmadeClubModel;
 import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
 import com.peeko32213.unusualprehistory.common.entity.projectile.ThrowableFallingBlockEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.UPTags;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

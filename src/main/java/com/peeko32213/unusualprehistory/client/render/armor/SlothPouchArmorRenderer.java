@@ -4,7 +4,7 @@ import com.peeko32213.unusualprehistory.common.item.armor.SlothPouchItem;
 import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.core.UnusualPrehistory.prefix;
 
 public class SlothPouchArmorRenderer extends GeoArmorRenderer<SlothPouchItem> {
     public SlothPouchArmorRenderer() {

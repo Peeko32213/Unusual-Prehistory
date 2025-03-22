@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric;
 
-import com.peeko32213.unusualprehistory.MathHelpers;
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.other.MathHelpers;
+import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;

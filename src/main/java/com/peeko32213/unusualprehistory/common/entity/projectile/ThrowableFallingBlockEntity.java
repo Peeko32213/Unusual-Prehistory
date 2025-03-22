@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.projectile;
 
 import com.mojang.logging.LogUtils;
-import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity;
 
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -72,7 +72,7 @@ public class UPBoatEntity extends Boat {
 
     public enum BoatType {
         DRYO(UPBlocks.DRYO_PLANKS.get(), "dryo"),
-        FOXXI(UPBlocks.FOXXI_PLANKS.get(), "foxxi"),
+        FOXXI(UPBlocks.FOXII_PLANKS.get(), "foxxi"),
         GINKGO(UPBlocks.GINKGO_PLANKS.get(), "ginkgo");
 
         private final String name;

@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.projectile;
 
-import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;

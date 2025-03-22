@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric.semi_aquatic;
 
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.core.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.HynerpetonEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animation.AnimationState;

@@ -5,7 +5,7 @@
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
- import com.peeko32213.unusualprehistory.core.registry.UPTags;
+ import com.peeko32213.unusualprehistory.core.other.UPTags;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
