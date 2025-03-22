@@ -1,36 +1,46 @@
 modLoader="javafml"
 loaderVersion="[43,)"
 license="MIT"
+issueTrackerURL = "https://github.com/Peeko32213/Unusual-Prehistory/issues"
 
 [[mods]]
 modId="unusualprehistory"
-version="1.6.0.0.1."
+version="${file.jarVersion}"
+logoFile= "logo.png"
+itemIcon = "unusualprehistory:mesozoic_fossil"
+configBackground = "unusualprehistory:textures/block/fire_opal_block.png"
 displayName= "Unusual Prehistory"
-logoFile= "examplemod.png"
-credits= "Thanks to Fred, Omatypaty, and Crydigo for textures! Thanks to skyjay1#2076 for help on GUI code! Thanks to Scouter456 and Codyy for Coding Help! Thanks to Shroomy and BrayDoesStuff for sound help!"
-authors= "Peeko32213"
+authors= "Unusual Modding"
+credits= "Fred, Omatypaty, Crydigo, magmastrider, Nova, Reaper, The Indominator, Ghoul, Miceli, BrayDoesStuff, skyjay1#2076, Scouter456, Codyy, platypushasnohat, TheValiantSquidward"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/unusual-prehistory"
 description='''
-A Mod that adds a variety of prehistoric creatures and a way to revive them
+A Mod that adds a variety of prehistoric creatures and a way to revive them!
 '''
 
 [[dependencies.unusualprehistory]]
-modId="forge"
-mandatory=true
-versionRange="[43,)"
-ordering="NONE"
-side="BOTH"
+	modId="forge"
+	mandatory=true
+	versionRange="[43,)"
+	ordering="NONE"
+	side="BOTH"
 
 [[dependencies.unusualprehistory]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.20,1.21)"
-ordering="NONE"
-side="BOTH"
+	modId="minecraft"
+	mandatory=true
+	versionRange="[1.20,1.21)"
+	ordering="NONE"
+	side="BOTH"
 
 [[dependencies.geckolib]]
-modId="geckolib"
-mandatory=true
-versionRange="[4.2,)"
-ordering="BEFORE"
-side="BOTH"
+	modId="geckolib"
+	mandatory=true
+	versionRange="[4.2,)"
+	ordering="BEFORE"
+	side="BOTH"
 
+[[dependencies.blueprint]]
+    modId = "blueprint"
+    mandatory = true
+    versionRange = "[7.1.0,)"
+    ordering = "AFTER"
+    side = "BOTH"
