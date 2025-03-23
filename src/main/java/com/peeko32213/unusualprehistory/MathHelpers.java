@@ -23,11 +23,12 @@ public class MathHelpers {
     }
 
     // Constrain the angle to be within a certain range of the anchor(Constraint entered must be positive)
+    // works with both rad and deg
     public static double constrainAngle(double angle, double constraint) {
-        System.out.println("ang");
-        System.out.println(angle);
+        //System.out.println("ang");
+        //System.out.println(angle);
         if (angle < 0 && angle < -constraint) {
-            System.out.println("yea");
+            //System.out.println("yea");
             return -constraint;
         }
 
@@ -38,30 +39,14 @@ public class MathHelpers {
         return angle;
     }
 
-    public static Vec3 rotateAroundCenterFlatRads(Vec3 center, Vec3 point, Double angleInRads) {
+    public static double makeAlwaysPositive(Double angleInDegs) {
 
-        double cx = center.x();
-        double cy = center.z();
+        if (angleInDegs < 0) {
+            //check if the angle is negative
+            return 360 - Math.abs(angleInDegs);
+        }
 
-        double pX = point.x();
-        double pY = point.z();
-
-        double s = Math.sin(angleInRads);
-        double c = Math.cos(angleInRads);
-
-        // translate point back to origin:
-        pX -= cx;
-        pY -= cy;
-
-        // rotate point
-        double xnew = pX * c - pY * s;
-        double ynew = pX * s + pY * c;
-
-        // translate point back:
-        pX = xnew + cx;
-        pY = ynew + cy;
-
-        return new Vec3(pX, point.y, pY);
+        return angleInDegs;
     }
 
 
@@ -74,8 +59,8 @@ public class MathHelpers {
         double d2 = target.z - mePos.z;
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
 
-        double XAngle = (Mth.wrapDegrees((float)(-(Mth.atan2(d1, d3) * 57.2957763671875))));
-        double YAngle = (Mth.wrapDegrees((float)(Mth.atan2(d2, d0) * 57.2957763671875) - 90.0F));
+        double XAngle = (((float)(-(Mth.atan2(d1, d3) * 57.2957763671875))));
+        double YAngle = (((float)(Mth.atan2(d2, d0) * 57.2957763671875) - 90.0F));
 
         return new Vec2((float) XAngle, (float) YAngle);
         //returns the y and x angle from the source location(mePos) to the target location(target)

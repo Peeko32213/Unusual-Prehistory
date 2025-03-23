@@ -303,7 +303,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
         super(entityType, level);
         this.setMaxUpStep(1.25F);
 
-        this.rexIK = new IKSolver(this, 3, 4);
+        this.rexIK = new IKSolver(this, 3, 3);
     }
 
     // Attributes
