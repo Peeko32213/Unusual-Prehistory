@@ -24,10 +24,12 @@ public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider
 
     protected void addTags() {
 
-        tag(UPTags.IS_FOSSIL_STRUCTURES_BIOME)
-                .addTag(BiomeTags.IS_BADLANDS)
-                .addTag(Tags.Biomes.IS_SWAMP)
-                .addTag(Tags.Biomes.IS_DESERT)
+        tag(UPTags.HAS_FOSSIL_SKELETONS)
+                .addTag(BiomeTags.IS_OVERWORLD)
+        ;
+
+        tag(UPTags.HAS_GIANT_FOSSILS)
+                .addTag(BiomeTags.IS_OVERWORLD)
         ;
 
         tag(UPTags.IS_PETRIFIED_WOOD_FOREST_BIOME)

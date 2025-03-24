@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.teamabnormals.blueprint.core.util.TagUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -161,8 +162,10 @@ public class UPTags {
     public static final TagKey<Block> DINO_NATURAL_SPAWNABLE = registerBlockTag("dino_natural_spawnable");
 
 
-    //BIOME Tags
-    public static final TagKey<Biome> IS_FOSSIL_STRUCTURES_BIOME = registerBiomeTag("is_fossil_structures_biome");
+    // Biome tags
+    public static final TagKey<Biome> HAS_FOSSIL_SKELETONS = TagUtil.biomeTag(UnusualPrehistory.MODID, "has_structure/fossil_skeleton");
+    public static final TagKey<Biome> HAS_GIANT_FOSSILS = TagUtil.biomeTag(UnusualPrehistory.MODID,"has_feature/giant_fossil");
+
     public static final TagKey<Biome> IS_PETRIFIED_WOOD_FOREST_BIOME = registerBiomeTag("is_petrified_wood_forest_biome");
     public static final TagKey<Biome> IS_ICE_FOSSIL_ICEBERG_BIOME = registerBiomeTag("is_ice_fossil_iceberg_biome");
     public static final TagKey<Biome> IS_TAR_BIOME = registerBiomeTag("is_tar_biome");
@@ -214,6 +217,5 @@ public class UPTags {
 
     private static TagKey<Biome> registerBiomeTag(String name){
         return TagKey.create(Registries.BIOME, new ResourceLocation(UnusualPrehistory.MODID, name));
-
     }
 }
