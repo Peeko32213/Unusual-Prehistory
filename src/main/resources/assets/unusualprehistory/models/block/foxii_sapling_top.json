@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cross",
   "render_type": "minecraft:cutout",
   "textures": {
-    "cross": "unusualprehistory:block/foxxi_sapling_top"
+    "cross": "unusualprehistory:block/foxii_sapling_top"
   }
 }

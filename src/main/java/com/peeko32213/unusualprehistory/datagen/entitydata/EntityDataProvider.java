@@ -14,13 +14,13 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public abstract class EntityDataProvider implements DataProvider {
     protected final PackOutput.PathProvider entityPathProvider;
 
     public EntityDataProvider(PackOutput pOutput) {
-        this.entityPathProvider = pOutput.createPathProvider(PackOutput.Target.DATA_PACK, prefix("unusualprehistory/prehistoric_animal").getPath());
+        this.entityPathProvider = pOutput.createPathProvider(PackOutput.Target.DATA_PACK, modPrefix("unusualprehistory/prehistoric_animal").getPath());
     }
 
     @Override

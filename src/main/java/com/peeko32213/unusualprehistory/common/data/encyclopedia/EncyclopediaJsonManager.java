@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class EncyclopediaJsonManager extends SimpleJsonResourceReloadListener {
 
@@ -64,7 +64,7 @@ public class EncyclopediaJsonManager extends SimpleJsonResourceReloadListener {
                     .ifLeft(result -> {
                         EncyclopediaCodec encyclopediaCodec = result.getFirst();
 
-                        if(key.equals(prefix("root"))){
+                        if(key.equals(modPrefix("root"))){
                             rootPageR.set(encyclopediaCodec);
 
                         } else {

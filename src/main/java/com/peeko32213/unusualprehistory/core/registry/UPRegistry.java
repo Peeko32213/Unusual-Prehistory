@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryBuilder;
 
 import java.util.function.Supplier;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class UPRegistry {
     static { init(); }
@@ -21,11 +21,11 @@ public class UPRegistry {
 
 
     public static final class Keys {
-        //public static final ResourceKey<Registry<CustomLevelRendererType<?>>> CUSTOM_LEVEL_RENDER_TYPE_SERIALIZER = key(prefix("custom_level_renderer_type_serializer").toString());
+        //public static final ResourceKey<Registry<CustomLevelRendererType<?>>> CUSTOM_LEVEL_RENDER_TYPE_SERIALIZER = key(modPrefix("custom_level_renderer_type_serializer").toString());
 
-        public static final ResourceKey<Registry<Codec<? extends EntityAttack>>> ENTITY_ATTACKS_TYPE_SERIALIZER = key(prefix("entity_attacks_type_serializer").toString());
-        public static final ResourceKey<Registry<EntityAttack>> ENTITY_ATTACKS = key(prefix("entity_attacks_type").toString());
-        public static final ResourceKey<Registry<PrehistoricEgg>> PREHISTORIC_EGG = key(prefix("prehistoric_egg").toString());
+        public static final ResourceKey<Registry<Codec<? extends EntityAttack>>> ENTITY_ATTACKS_TYPE_SERIALIZER = key(modPrefix("entity_attacks_type_serializer").toString());
+        public static final ResourceKey<Registry<EntityAttack>> ENTITY_ATTACKS = key(modPrefix("entity_attacks_type").toString());
+        public static final ResourceKey<Registry<PrehistoricEgg>> PREHISTORIC_EGG = key(modPrefix("prehistoric_egg").toString());
 
 
         private static <T> ResourceKey<Registry<T>> key(String name)

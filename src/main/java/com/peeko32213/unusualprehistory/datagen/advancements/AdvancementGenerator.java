@@ -29,7 +29,7 @@
 //                .display(UPItems.ENCYLOPEDIA.get(),
 //                        getTranslation("advancement.root", new Object[0]),
 //                        getTranslation("advancement.root.desc", new Object[0]),
-//                        prefix("textures/block/ginkgo_log_side.png"),
+//                        modPrefix("textures/block/ginkgo_log_side.png"),
 //                        FrameType.TASK, false, true, false)
 //                .addCriterion("acquired_encyclopedia", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike)UPItems.ENCYLOPEDIA.get()))
 //                .save(consumer, prefixS("main/root"));

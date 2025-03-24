@@ -59,7 +59,7 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     public static void populateWithTrees(WorldGenLevel worldgenlevel, RandomSource rand, BlockPos origin, FastNoiseLite noise, int radius) {
-        BlockState block = UPBlocks.PETRIFIED_WOOD_LOG.get().defaultBlockState();
+        BlockState block = UPBlocks.PETRIFIED_LOG.get().defaultBlockState();
         for (int x = -radius; x < radius; x++) {
             for (int z = -radius; z < radius; z++) {
                 BlockPos pos = origin.offset(x, 0, z);
@@ -114,7 +114,7 @@ public class PetrifiedTreeFeature extends Feature<NoneFeatureConfiguration> {
 
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockState blockstate1 = worldGenLevel.getBlockState(pos.relative(direction));
-            if (blockstate1.is(UPBlocks.PETRIFIED_WOOD_LOG.get())) {
+            if (blockstate1.is(UPBlocks.PETRIFIED_LOG.get())) {
                 return true;
             }
         }

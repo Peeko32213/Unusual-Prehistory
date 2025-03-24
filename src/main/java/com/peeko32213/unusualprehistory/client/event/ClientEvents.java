@@ -28,31 +28,22 @@ import com.peeko32213.unusualprehistory.client.render.egg.PrehistoricEggRenderer
 import com.peeko32213.unusualprehistory.client.render.prehistoric.*;
 import com.peeko32213.unusualprehistory.client.render.projectile.*;
 import com.peeko32213.unusualprehistory.client.render.projectile.FlatMovingThrownItemRenderer;
-import com.peeko32213.unusualprehistory.client.render.tool.UPBoatRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
 import com.peeko32213.unusualprehistory.common.block.entity.FruitLootBoxEntity;
-import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockSetType;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItemProperties;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -60,7 +51,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
 import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -69,43 +59,19 @@ public final class ClientEvents {
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
         event.enqueueWork(UPItemProperties::addItemProperties);
-        BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
-        BlockEntityRenderers.register(UPBlockEntities.UP_HANGING_SIGN.get(), HangingSignRenderer::new);
-        event.enqueueWork(() -> {
-            Sheets.addWoodType(UPBlockSetType.DRYO);
-            Sheets.addWoodType(UPBlockSetType.FOXII);
-            Sheets.addWoodType(UPBlockSetType.GINKGO);
-            Sheets.addWoodType(UPBlockSetType.PETRIFIED);
-            Sheets.addWoodType(UPBlockSetType.ZULOAGAE);
-        });
         ClientProxy.setupBlockRenders();
     }
 
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {
         UnusualPrehistory.checkForGeckoLib();
-
         MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
         MenuScreens.register(UPMenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
         MenuScreens.register(UPMenuTypes.DNA_FRIDGE_MENU.get(), DNAFridgeScreen::new);
-
-        WoodType.register(UPBlockSetType.DRYO);
-        WoodType.register(UPBlockSetType.FOXII);
-        WoodType.register(UPBlockSetType.GINKGO);
-        WoodType.register(UPBlockSetType.PETRIFIED);
-        WoodType.register(UPBlockSetType.ZULOAGAE);
-
-        Sheets.addWoodType(UPBlockSetType.DRYO);
-        Sheets.addWoodType(UPBlockSetType.FOXII);
-        Sheets.addWoodType(UPBlockSetType.GINKGO);
-        Sheets.addWoodType(UPBlockSetType.PETRIFIED);
-        Sheets.addWoodType(UPBlockSetType.ZULOAGAE);
     }
 
     @SubscribeEvent
     public static void registerBER(EntityRenderersEvent.RegisterRenderers event){
-        BlockEntityRenderers.register(UPBlockEntities.UP_SIGN.get(), SignRenderer::new);
-        BlockEntityRenderers.register(UPBlockEntities.UP_HANGING_SIGN.get(), HangingSignRenderer::new);
         BlockEntityRenderers.register(UPBlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
         BlockEntityRenderers.register(UPBlockEntities.INCUBATOR_BLOCK_ENTITY.get(), IncubatorBlockEntityRenderer::new);
     }
@@ -215,8 +181,6 @@ public final class ClientEvents {
 
         // Misc entities
         event.registerEntityRenderer(UPEntities.AMBER_SHOT.get(), AmberShotRenderer::new);
-        event.registerEntityRenderer(UPEntities.BOAT.get(), ctx -> new UPBoatRenderer(ctx, false));
-        event.registerEntityRenderer(UPEntities.CHEST_BOAT.get(), ctx -> new UPBoatRenderer(ctx, true));
         event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
         event.registerEntityRenderer(UPEntities.RABIES_FLASK.get(), RabiesFlaskRenderer::new);
         event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
@@ -285,14 +249,6 @@ public final class ClientEvents {
 
     private static KeyMapping create() {
         return new KeyMapping("key." + UnusualPrehistory.MODID + "." + "attack_key", KeyEvent.VK_G, "key.category." + UnusualPrehistory.MODID);
-    }
-
-    @SubscribeEvent
-    public static void registerEntityModelLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        Arrays.stream(UPBoatEntity.BoatType.values()).forEach(type -> {
-            event.registerLayerDefinition(UPModelLayers.createBoat(type), BoatModel::createBodyModel);
-            event.registerLayerDefinition(UPModelLayers.createChestBoat(type), ChestBoatModel::createBodyModel);
-        });
     }
 }
 

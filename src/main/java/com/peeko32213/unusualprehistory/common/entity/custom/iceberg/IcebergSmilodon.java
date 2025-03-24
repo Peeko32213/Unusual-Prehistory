@@ -9,10 +9,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.core.animation.RawAnimation;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class IcebergSmilodon extends WorldSpawnableEntity {
-    public static final ResourceLocation SMILODON_LOOT = prefix("entities/iceberg/smilodon");
+    public static final ResourceLocation SMILODON_LOOT = modPrefix("entities/iceberg/smilodon");
     protected static final RawAnimation FROZEN = RawAnimation.begin().thenPlay("animation.smilodon.frozen");
 
     public IcebergSmilodon(EntityType<? extends LivingEntity> p_27557_, Level p_27558_) {

@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.core.registry.items;
 
+import com.mojang.datafixers.util.Pair;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
 import com.peeko32213.unusualprehistory.common.item.*;
 import com.peeko32213.unusualprehistory.common.item.armor.*;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
@@ -14,19 +14,26 @@ import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import com.teamabnormals.blueprint.common.item.BlueprintBoatItem;
+import com.teamabnormals.blueprint.core.registry.BlueprintBoatTypes;
+import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
+@Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UPItems {
 
     public static Item.Properties drinkItem() {
@@ -38,6 +45,8 @@ public class UPItems {
     }
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UnusualPrehistory.MODID);
+
+    public static final ItemSubRegistryHelper HELPER = UnusualPrehistory.REGISTRY_HELPER.getItemSubHelper();
 
     // Book items
     public static final RegistryObject<Item> ANIMAL_DNA_BOTTLES = ITEMS.register("animal_dna_bottles", () -> new Item(new Item.Properties()));
@@ -332,28 +341,10 @@ public class UPItems {
 
     public static final RegistryObject<Item> DEFROSTED_FROZEN_FOSSIL = ITEMS.register("defrosted_frozen_fossil", () -> new Item(new Item.Properties().food(UPFood.DEFROSTED_FOSSIL)));
 
-    public static final RegistryObject<Item> GINKGO_SIGN = ITEMS.register("ginkgo_sign", () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.GINKGO_SIGN.get(), UPBlocks.GINKGO_WALL_SIGN.get()));
-    public static final RegistryObject<Item> GINKGO_HANGING_SIGN = ITEMS.register("ginkgo_hanging_sign", () -> new HangingSignItem(UPBlocks.GINKGO_HANGING_SIGN.get(), UPBlocks.GINKGO_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
-
-    public static final RegistryObject<Item> PETRIFIED_WOOD_SIGN = ITEMS.register("petrified_sign", () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.PETRIFIED_WOOD_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get()));
-    public static final RegistryObject<Item> PETRIFIED_WOOD_HANGING_SIGN = ITEMS.register("petrified_hanging_sign", () -> new HangingSignItem(UPBlocks.PETRIFIED_WOOD_HANGING_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
-
-    public static final RegistryObject<Item> FOXII_SIGN = ITEMS.register("foxii_sign", () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.FOXII_SIGN.get(), UPBlocks.FOXII_WALL_SIGN.get()));
-    public static final RegistryObject<Item> FOXII_HANGING_SIGN = ITEMS.register("foxii_hanging_sign", () -> new HangingSignItem(UPBlocks.FOXII_HANGING_SIGN.get(), UPBlocks.FOXII_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
-
-    public static final RegistryObject<Item> DRYO_SIGN = ITEMS.register("dryophyllum_sign", () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.DRYO_SIGN.get(), UPBlocks.DRYO_WALL_SIGN.get()));
-    public static final RegistryObject<Item> DRYO_HANGING_SIGN = ITEMS.register("dryophyllum_hanging_sign", () -> new HangingSignItem(UPBlocks.DRYO_HANGING_SIGN.get(), UPBlocks.DRYO_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
-
-    public static final RegistryObject<Item> ZULOAGAE_SIGN = ITEMS.register("zuloagae_sign", () -> new SignItem(new Item.Properties().stacksTo(16), UPBlocks.ZULOAGAE_SIGN.get(), UPBlocks.ZULOAGAE_WALL_SIGN.get()));
-    public static final RegistryObject<Item> ZULOAGAE_HANGING_SIGN = ITEMS.register("zuloagae_hanging_sign", () -> new HangingSignItem(UPBlocks.ZULOAGAE_HANGING_SIGN.get(), UPBlocks.ZULOAGAE_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
-
-    public static final RegistryObject<Item> DRYO_BOAT = ITEMS.register("dryophyllum_boat", () -> new UPBoatItem(false, UPBoatEntity.BoatType.DRYO, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> FOXXI_BOAT = ITEMS.register("foxii_boat", () -> new UPBoatItem(false, UPBoatEntity.BoatType.FOXXI, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> GINKGO_BOAT = ITEMS.register("ginkgo_boat", () -> new UPBoatItem(false, UPBoatEntity.BoatType.GINKGO, new Item.Properties().stacksTo(1)));
-
-    public static final RegistryObject<Item> DRYO_CHEST_BOAT = ITEMS.register("dryophyllum_chest_boat", () -> new UPBoatItem(true, UPBoatEntity.BoatType.DRYO, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> FOXXI_CHEST_BOAT = ITEMS.register("foxii_chest_boat", () -> new UPBoatItem(true, UPBoatEntity.BoatType.FOXXI, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> GINKGO_CHEST_BOAT = ITEMS.register("ginkgo_chest_boat", () -> new UPBoatItem(true, UPBoatEntity.BoatType.GINKGO, new Item.Properties().stacksTo(1)));
+    // Boats
+    public static final Pair<RegistryObject<Item>, RegistryObject<Item>> DRYO_BOAT = HELPER.createBoatAndChestBoatItem("dryophyllum", UPBlocks.DRYO_PLANKS);
+    public static final Pair<RegistryObject<Item>, RegistryObject<Item>> FOXII_BOAT = HELPER.createBoatAndChestBoatItem("foxii", UPBlocks.FOXII_PLANKS);
+    public static final Pair<RegistryObject<Item>, RegistryObject<Item>> GINKGO_BOAT = HELPER.createBoatAndChestBoatItem("ginkgo", UPBlocks.GINKGO_PLANKS);
 
     public static final RegistryObject<Item> CROCARINA = ITEMS.register("crocarina", () -> new MusicalTameItem(new Item.Properties().stacksTo(1), UPEntities.BARINASUCHUS, UPTags.OCARINA_WHISTLE));
 

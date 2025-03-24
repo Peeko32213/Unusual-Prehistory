@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.data.PrehistoricEgg;
 import com.peeko32213.unusualprehistory.common.data.attack.EntityAttack;
 import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockSubRegistryHelper;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.*;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
@@ -15,6 +16,8 @@ import com.peeko32213.unusualprehistory.core.registry.*;
 import com.peeko32213.unusualprehistory.core.registry.world.UPFeatureModifiers;
 import com.peeko32213.unusualprehistory.core.registry.world.UPFeatures;
 import com.peeko32213.unusualprehistory.core.registry.world.UPTrunkPlacerType;
+import com.teamabnormals.blueprint.core.Blueprint;
+import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
@@ -46,6 +49,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DataPackRegistryEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -65,6 +69,8 @@ public class UnusualPrehistory {
     //public static final SimpleChannel NETWORK_WRAPPER;
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
+    public static final RegistryHelper REGISTRY_HELPER = RegistryHelper.create(MODID, helper -> helper.putSubHelper(ForgeRegistries.BLOCKS, new UPBlockSubRegistryHelper(helper)));
+
     public UnusualPrehistory() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus eventBus = MinecraftForge.EVENT_BUS;
@@ -75,6 +81,7 @@ public class UnusualPrehistory {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.COMMON);
 
         EntityActionsRegistry.register();
+        REGISTRY_HELPER.register(modEventBus);
 
         // Register stuff
         UPItems.ITEMS.register(modEventBus);
@@ -149,18 +156,6 @@ public class UnusualPrehistory {
             SerializableSynchedDataRegistry.register();
 
             //Todo add this to own class
-            addToFlowerPot(UPBlocks.HORSETAIL, UPBlocks.POTTED_HORSETAIL);
-            addToFlowerPot(UPBlocks.LEEFRUCTUS, UPBlocks.POTTED_LEEFRUCTUS);
-            addToFlowerPot(UPBlocks.BENNETTITALES, UPBlocks.POTTED_BENNETTITALES);
-            addToFlowerPot(UPBlocks.ARCHAEOSIGILARIA, UPBlocks.POTTED_ARCHAEOSIGILARIA);
-            addToFlowerPot(UPBlocks.PETRIFIED_BUSH, UPBlocks.POTTED_PETRIFIED_BUSH);
-            addToFlowerPot(UPBlocks.SARACENIA, UPBlocks.POTTED_SARACENIA);
-            addToFlowerPot(UPBlocks.GINKGO_SAPLING, UPBlocks.POTTED_GINKGO_SAPLING);
-            //addToFlowerPot(UPBlocks.FOXII_SAPLING.getId(), UPBlocks.POTTED_FOXXI);
-            addToFlowerPot(UPBlocks.ZULOAGAE_SAPLING, UPBlocks.POTTED_ZULOGAE);
-            addToFlowerPot(UPBlocks.DRYO_SAPLING, UPBlocks.POTTED_DRYO);
-
-            //Todo add this to own class
             addToComposter(UPBlocks.HORSETAIL.get().asItem(), 0.4f);
             addToComposter(UPBlocks.TALL_HORSETAIL.get().asItem(), 0.8f);
             addToComposter(UPBlocks.LEEFRUCTUS.get().asItem(), 0.4f);
@@ -170,7 +165,6 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.TALL_SARACENIA.get().asItem(), 0.8f);
             addToComposter(UPBlocks.RAIGUENRAYUN.get().asItem(), 0.8f);
             addToComposter(UPBlocks.GINKGO_LEAVES.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.FOXXI_LEAVES.get().asItem(), 0.4f);
             addToComposter(UPBlocks.GINKGO_SAPLING.get().asItem(), 0.4f);
             addToComposter(UPBlocks.ARCHAEFRUCTUS.get().asItem(), 0.4f);
             addToComposter(UPBlocks.NELUMBITES.get().asItem(), 0.4f);
@@ -192,12 +186,12 @@ public class UnusualPrehistory {
         ComposterBlock.COMPOSTABLES.put(item, amountOfCompost);
     }
 
-    public static ResourceLocation prefix(String name) {
-        return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
+    public static ResourceLocation modPrefix(String name) {
+        return new ResourceLocation(UnusualPrehistory.MODID, name.toLowerCase(Locale.ROOT));
     }
 
-    public static String prefixS(String name) {
-        return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT)).toString();
+    public static ResourceLocation blueprintPrefix(String name) {
+        return new ResourceLocation(Blueprint.MOD_ID, name.toLowerCase(Locale.ROOT));
     }
 
     public static MutableComponent getTranslation(String key, Object... args) {

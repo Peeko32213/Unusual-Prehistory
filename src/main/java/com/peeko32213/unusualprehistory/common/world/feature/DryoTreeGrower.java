@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class DryoTreeGrower extends AbstractTreeGrower {
 
@@ -16,6 +16,6 @@ public class DryoTreeGrower extends AbstractTreeGrower {
     protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource pRandom, boolean pHasFlowers) {
 
 
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, prefix("dryo"));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, modPrefix("dryo"));
     }
 }

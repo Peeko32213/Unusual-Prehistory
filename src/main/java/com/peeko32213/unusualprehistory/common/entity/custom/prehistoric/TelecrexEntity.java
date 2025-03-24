@@ -23,7 +23,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class TelecrexEntity extends PrehistoricEntityDatafied {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -49,7 +49,7 @@ public class TelecrexEntity extends PrehistoricEntityDatafied {
 
     @Override
     protected ResourceLocation getEntityDataResourceLocation() {
-        return prefix("telecrex");
+        return modPrefix("telecrex");
     }
 
 

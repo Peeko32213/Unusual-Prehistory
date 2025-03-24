@@ -26,7 +26,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 //import static com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry.REX_VARIANT;
 
 public class EntityDataGenerator extends EntityDataProvider {
@@ -249,6 +249,6 @@ public class EntityDataGenerator extends EntityDataProvider {
     }
 
     private static TagKey<EntityType<?>> getUPEntityTag(String name) {
-        return TagKey.create(Registries.ENTITY_TYPE, prefix(name));
+        return TagKey.create(Registries.ENTITY_TYPE, modPrefix(name));
     }
 }

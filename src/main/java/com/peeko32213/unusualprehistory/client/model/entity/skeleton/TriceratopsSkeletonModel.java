@@ -1,18 +1,17 @@
 package com.peeko32213.unusualprehistory.client.model.entity.skeleton;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TriceratopsSkeleton;
-import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TyrannosaurusSkeleton;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 // todo: move to ModelLocations
 public class TriceratopsSkeletonModel extends GeoModel<TriceratopsSkeleton> {
 
-    private static final ResourceLocation SKELETON_MODEL = prefix("geo/triceratops/triceratops_skeleton.geo.json");
-    private static final ResourceLocation SKELETON_TEXTURE = prefix("textures/entity/triceratops/triceratops_skeleton.png");
-    private static final ResourceLocation SKELETON_ANIMATION = prefix("animations/skeletons/triceratops_skeleton.animation.json");
+    private static final ResourceLocation SKELETON_MODEL = modPrefix("geo/triceratops/triceratops_skeleton.geo.json");
+    private static final ResourceLocation SKELETON_TEXTURE = modPrefix("textures/entity/triceratops/triceratops_skeleton.png");
+    private static final ResourceLocation SKELETON_ANIMATION = modPrefix("animations/skeletons/triceratops_skeleton.animation.json");
 
     @Override
     public ResourceLocation getModelResource(TriceratopsSkeleton object) {

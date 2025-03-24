@@ -51,7 +51,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 
 public class VelociraptorEntity extends PrehistoricEntity {
@@ -97,7 +97,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
     private static final EntityDataAccessor<Boolean> IDLE_5_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_6_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_7_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
-    public static final SerializableSynchedData<Boolean> VELOCIRAPTOR_BITE = new SerializableSynchedData<>(prefix("velociraptor_bite"), VelociraptorEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
+    public static final SerializableSynchedData<Boolean> VELOCIRAPTOR_BITE = new SerializableSynchedData<>(modPrefix("velociraptor_bite"), VelociraptorEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
 
     // Idle actions
     private static final EntityAction VELOCI_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);

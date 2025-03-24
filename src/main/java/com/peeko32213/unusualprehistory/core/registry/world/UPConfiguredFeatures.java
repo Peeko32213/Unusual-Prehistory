@@ -66,9 +66,9 @@ public class UPConfiguredFeatures {
 
     public static final RegistryObject<ConfiguredFeature<?, ?>> FOXII_TREE =
             registerConfiguredFeature("foxii", () -> new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
-                    BlockStateProvider.simple(UPBlocks.FOXXI_LOG.get()),
+                    BlockStateProvider.simple(UPBlocks.FOXII_LOG.get()),
                     new GiantTrunkPlacerWithRoots(32, 13, 10),
-                    BlockStateProvider.simple(UPBlocks.FOXXI_LEAVES.get()),
+                    BlockStateProvider.simple(UPBlocks.FOXII_LEAVES.get()),
                     new FoxiiFoliagePlacer( ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(2, 3)),
                     new TwoLayersFeatureSize(1, 1, 2))
                     .decorators(ImmutableList.of(new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)))).build())

@@ -5,39 +5,39 @@ import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPart
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class PalaeophisPartModel extends GeoModel<PalaeophisPartEntity> {
 
-    private ResourceLocation neckModel = prefix("geo/palaeophis/palaeophis_neck.geo.json");
-    private ResourceLocation bodyModel = prefix("geo/palaeophis/palaeophis_body.geo.json");
-    private ResourceLocation bodyFinModel = prefix("geo/palaeophis/palaeophis_body_fin.geo.json");
-    private ResourceLocation tailModel = prefix("geo/palaeophis/palaeophis_tail.geo.json");
-    private ResourceLocation finModel = prefix("geo/palaeophis/palaeophis_fin.geo.json");
+    private ResourceLocation neckModel = modPrefix("geo/palaeophis/palaeophis_neck.geo.json");
+    private ResourceLocation bodyModel = modPrefix("geo/palaeophis/palaeophis_body.geo.json");
+    private ResourceLocation bodyFinModel = modPrefix("geo/palaeophis/palaeophis_body_fin.geo.json");
+    private ResourceLocation tailModel = modPrefix("geo/palaeophis/palaeophis_tail.geo.json");
+    private ResourceLocation finModel = modPrefix("geo/palaeophis/palaeophis_fin.geo.json");
 
-    private ResourceLocation neckTexture = prefix("textures/entity/palaeophis/palaeophis_neck.png");
-    private ResourceLocation bodyTexture = prefix("textures/entity/palaeophis/palaeophis_body.png");
-    private ResourceLocation bodyFinTexture = prefix("textures/entity/palaeophis/palaeophis_body_fin.png");
-    private ResourceLocation tailTexture = prefix("textures/entity/palaeophis/palaeophis_tail.png");
-    private ResourceLocation finTexture = prefix("textures/entity/palaeophis/palaeophis_fin.png");
+    private ResourceLocation neckTexture = modPrefix("textures/entity/palaeophis/palaeophis_neck.png");
+    private ResourceLocation bodyTexture = modPrefix("textures/entity/palaeophis/palaeophis_body.png");
+    private ResourceLocation bodyFinTexture = modPrefix("textures/entity/palaeophis/palaeophis_body_fin.png");
+    private ResourceLocation tailTexture = modPrefix("textures/entity/palaeophis/palaeophis_tail.png");
+    private ResourceLocation finTexture = modPrefix("textures/entity/palaeophis/palaeophis_fin.png");
 
-    private ResourceLocation neckTextureShed = prefix("textures/entity/palaeophis/palaeophis_neck_shed.png");
-    private ResourceLocation bodyTextureShed = prefix("textures/entity/palaeophis/palaeophis_body_shed.png");
-    private ResourceLocation bodyFinTextureShed = prefix("textures/entity/palaeophis/palaeophis_body_fin_shed.png");
-    private ResourceLocation tailTextureShed = prefix("textures/entity/palaeophis/palaeophis_tail_shed.png");
-    private ResourceLocation finTextureShed = prefix("textures/entity/palaeophis/palaeophis_fin_shed.png");
+    private ResourceLocation neckTextureShed = modPrefix("textures/entity/palaeophis/palaeophis_neck_shed.png");
+    private ResourceLocation bodyTextureShed = modPrefix("textures/entity/palaeophis/palaeophis_body_shed.png");
+    private ResourceLocation bodyFinTextureShed = modPrefix("textures/entity/palaeophis/palaeophis_body_fin_shed.png");
+    private ResourceLocation tailTextureShed = modPrefix("textures/entity/palaeophis/palaeophis_tail_shed.png");
+    private ResourceLocation finTextureShed = modPrefix("textures/entity/palaeophis/palaeophis_fin_shed.png");
 
-    private ResourceLocation neckTextureDeep = prefix("textures/entity/palaeophis/palaeophis_deep_neck.png");
-    private ResourceLocation bodyTextureDeep = prefix("textures/entity/palaeophis/palaeophis_deep_body.png");
-    private ResourceLocation bodyFinTextureDeep = prefix("textures/entity/palaeophis/palaeophis_deep_body_fin.png");
-    private ResourceLocation tailTextureDeep = prefix("textures/entity/palaeophis/palaeophis_deep_tail.png");
-    private ResourceLocation finTextureDeep = prefix("textures/entity/palaeophis/palaeophis_deep_fin.png");
+    private ResourceLocation neckTextureDeep = modPrefix("textures/entity/palaeophis/palaeophis_deep_neck.png");
+    private ResourceLocation bodyTextureDeep = modPrefix("textures/entity/palaeophis/palaeophis_deep_body.png");
+    private ResourceLocation bodyFinTextureDeep = modPrefix("textures/entity/palaeophis/palaeophis_deep_body_fin.png");
+    private ResourceLocation tailTextureDeep = modPrefix("textures/entity/palaeophis/palaeophis_deep_tail.png");
+    private ResourceLocation finTextureDeep = modPrefix("textures/entity/palaeophis/palaeophis_deep_fin.png");
 
-    private ResourceLocation neckTextureShedDeep = prefix("textures/entity/palaeophis/palaeophis_deep_neck_shed.png");
-    private ResourceLocation bodyTextureShedDeep = prefix("textures/entity/palaeophis/palaeophis_deep_body_shed.png");
-    private ResourceLocation bodyFinTextureShedDeep = prefix("textures/entity/palaeophis/palaeophis_deep_body_fin_shed.png");
-    private ResourceLocation tailTextureShedDeep = prefix("textures/entity/palaeophis/palaeophis_deep_tail_shed.png");
-    private ResourceLocation finTextureShedDeep = prefix("textures/entity/palaeophis/palaeophis_deep_fin_shed.png");
+    private ResourceLocation neckTextureShedDeep = modPrefix("textures/entity/palaeophis/palaeophis_deep_neck_shed.png");
+    private ResourceLocation bodyTextureShedDeep = modPrefix("textures/entity/palaeophis/palaeophis_deep_body_shed.png");
+    private ResourceLocation bodyFinTextureShedDeep = modPrefix("textures/entity/palaeophis/palaeophis_deep_body_fin_shed.png");
+    private ResourceLocation tailTextureShedDeep = modPrefix("textures/entity/palaeophis/palaeophis_deep_tail_shed.png");
+    private ResourceLocation finTextureShedDeep = modPrefix("textures/entity/palaeophis/palaeophis_deep_fin_shed.png");
 
     @Override
     public ResourceLocation getModelResource(PalaeophisPartEntity object) {

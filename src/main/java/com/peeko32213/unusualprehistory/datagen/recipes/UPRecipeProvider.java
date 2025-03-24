@@ -341,12 +341,7 @@ public abstract class UPRecipeProvider extends RecipeProvider {
         return SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(new ItemStack(ingredient, count)),RecipeCategory.BUILDING_BLOCKS, result, exp, 100)
                 .unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(ingredient.asItem()), has(ingredient));
     }
-    /*
-    public UpgradeRecipeBuilder smithingRecipe(Supplier<Item> input, Supplier<Item> upgradeItem, Supplier<Item> result) {
-        return Smit.smithing(Ingredient.of(input.get()), Ingredient.of(upgradeItem.get()), result.get())
-                .unlocks("has_" + ForgeRegistries.ITEMS.getKey(upgradeItem.get()), has(upgradeItem.get()));
-    }
-*/
+
     public SingleItemRecipeBuilder stonecutting(Supplier<Block> input, ItemLike result) {
         return SingleItemRecipeBuilder.stonecutting(Ingredient.of(input.get()),RecipeCategory.BUILDING_BLOCKS, result)
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(input.get()), has(input.get()));
@@ -355,22 +350,5 @@ public abstract class UPRecipeProvider extends RecipeProvider {
     public SingleItemRecipeBuilder stonecutting(Supplier<Block> input, ItemLike result, int resultAmount) {
         return SingleItemRecipeBuilder.stonecutting(Ingredient.of(input.get()),RecipeCategory.BUILDING_BLOCKS, result, resultAmount)
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(input.get()), has(input.get()));
-    }
-
-    public SingleItemRecipeBuilder petrifiedWoodStonecutting(ItemLike result) {
-        return stonecutting(UPBlocks.PETRIFIED_WOOD, result);
-    }
-
-    public SingleItemRecipeBuilder petrifiedWoodStonecutting(ItemLike result, int resultAmount) {
-        return stonecutting(UPBlocks.PETRIFIED_WOOD, result, resultAmount);
-    }
-
-
-    public SingleItemRecipeBuilder polishedPetrifiedWoodStonecutting(ItemLike result) {
-        return stonecutting(UPBlocks.POLISHED_PETRIFIED_WOOD, result);
-    }
-
-    public SingleItemRecipeBuilder polishedPetrifiedWoodStonecutting(ItemLike result, int resultAmount) {
-        return stonecutting(UPBlocks.POLISHED_PETRIFIED_WOOD, result, resultAmount);
     }
 }

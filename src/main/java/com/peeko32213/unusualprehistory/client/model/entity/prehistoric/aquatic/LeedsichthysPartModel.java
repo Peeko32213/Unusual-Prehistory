@@ -5,12 +5,12 @@ import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPa
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class LeedsichthysPartModel extends GeoModel<LeedsichthysPartEntity> {
 
-    private ResourceLocation tailModel = prefix("geo/leedsichthys.geo.json");
-    private ResourceLocation tailTexture = prefix("textures/entity/leedsichthys_invis.png");
+    private ResourceLocation tailModel = modPrefix("geo/leedsichthys.geo.json");
+    private ResourceLocation tailTexture = modPrefix("textures/entity/leedsichthys_invis.png");
 
     @Override
     public ResourceLocation getModelResource(LeedsichthysPartEntity object) {

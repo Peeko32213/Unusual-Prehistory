@@ -35,114 +35,12 @@ public class RecipeGenerator extends UPRecipeProvider implements IConditionBuild
     @Override
     protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
 
-
-        makePlanks(UPBlocks.PETRIFIED_WOOD_PLANKS, UPTags.PETRIFIED_WOOD).save(consumer);
-
-        makeWood(UPBlocks.PETRIFIED_WOOD, UPBlocks.PETRIFIED_WOOD_LOG).save(consumer);
-
-        makeSign(UPBlocks.PETRIFIED_WOOD_SIGN, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
-
-        makeStairs(UPBlocks.PETRIFIED_WOOD_STAIRS, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
-
-        makeStairs(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS, UPBlocks.POLISHED_PETRIFIED_WOOD).save(consumer);
-
-        makeSlab(UPBlocks.PETRIFIED_WOOD_SLAB, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
-
-        makeFence(UPBlocks.PETRIFIED_WOOD_FENCE, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
-
-        makeFenceGate(UPBlocks.PETRIFIED_WOOD_FENCE_GATE, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
-
-        makeDoor(UPBlocks.PETRIFIED_WOOD_DOOR, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
-
-        makeTrapdoor(UPBlocks.PETRIFIED_WOOD_TRAPDOOR, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
-
-        makeButton(UPBlocks.PETRIFIED_WOOD_BUTTON, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
-
-        makePressurePlate(UPBlocks.PETRIFIED_WOOD_PRESSURE_PLATE, UPBlocks.PETRIFIED_WOOD_PLANKS).save(consumer);
-
-        makeBricks(UPBlocks.POLISHED_PETRIFIED_WOOD, UPBlocks.PETRIFIED_WOOD).save(consumer);
-
-        petrifiedWoodStonecutting(UPBlocks.POLISHED_PETRIFIED_WOOD.get()).save(consumer, name("polished_petrified_wood_stonecutting"));
-
-        petrifiedWoodStonecutting(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get(), 2).save(consumer, name("polished_petrified_wood_slab_stonecutting"));
-
-        petrifiedWoodStonecutting(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get()).save(consumer, name("polished_petrified_wood_stairs_stonecutting"));
-
-        polishedPetrifiedWoodStonecutting(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get(), 2).save(consumer, name("polished_petrified_wood_to_polished_petrified_wood_slab_stonecutting"));
-
-        polishedPetrifiedWoodStonecutting(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get()).save(consumer, name("polished_petrified_wood_to_polished_petrified_wood_stairs_stonecutting"));
-
-        // Foxxi
-        makePlanks(UPBlocks.FOXXI_PLANKS, UPTags.FOXXI).save(consumer);
-
-        makeWood(UPBlocks.FOXXI_WOOD, UPBlocks.FOXXI_LOG).save(consumer);
-
-        makeStairs(UPBlocks.FOXXI_STAIRS, UPBlocks.FOXXI_PLANKS).save(consumer);
-
-        makeSlab(UPBlocks.FOXXI_SLAB, UPBlocks.FOXXI_PLANKS).save(consumer);
-
-        makeFence(UPBlocks.FOXXI_FENCE, UPBlocks.FOXXI_PLANKS).save(consumer);
-
-        makeFenceGate(UPBlocks.FOXXI_FENCE_GATE, UPBlocks.FOXXI_PLANKS).save(consumer);
-
-        makeDoor(UPBlocks.FOXXI_DOOR, UPBlocks.FOXXI_PLANKS).save(consumer);
-
-        makeTrapdoor(UPBlocks.FOXXI_TRAPDOOR, UPBlocks.FOXXI_PLANKS).save(consumer);
-
-        makeButton(UPBlocks.FOXXI_BUTTON, UPBlocks.FOXXI_PLANKS).save(consumer);
-
-        makePressurePlate(UPBlocks.FOXXI_PRESSURE_PLATE, UPBlocks.FOXXI_PLANKS).save(consumer);
-
-        makeSign(UPBlocks.FOXII_SIGN, UPBlocks.FOXXI_PLANKS).save(consumer);
-
-        // Dryo
-        makePlanks(UPBlocks.DRYO_PLANKS, UPTags.DRYO).save(consumer);
-
-        makeWood(UPBlocks.DRYO_WOOD, UPBlocks.DRYO_LOG).save(consumer);
-
-        makeStairs(UPBlocks.DRYO_STAIRS, UPBlocks.DRYO_PLANKS).save(consumer);
-
-        makeSlab(UPBlocks.DRYO_SLAB, UPBlocks.DRYO_PLANKS).save(consumer);
-
-        makeFence(UPBlocks.DRYO_FENCE, UPBlocks.DRYO_PLANKS).save(consumer);
-
-        makeFenceGate(UPBlocks.DRYO_FENCE_GATE, UPBlocks.DRYO_PLANKS).save(consumer);
-
-        makeDoor(UPBlocks.DRYO_DOOR, UPBlocks.DRYO_PLANKS).save(consumer);
-
-        makeTrapdoor(UPBlocks.DRYO_TRAPDOOR, UPBlocks.DRYO_PLANKS).save(consumer);
-
-        makeButton(UPBlocks.DRYO_BUTTON, UPBlocks.DRYO_PLANKS).save(consumer);
-
-        makePressurePlate(UPBlocks.DRYO_PRESSURE_PLATE, UPBlocks.DRYO_PLANKS).save(consumer);
-
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.OPAL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.OPAL_BLOCK.get().asItem());
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.FIRE_OPAL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.FIRE_OPAL_BLOCK.get().asItem());
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.BOULDER_OPAL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.BOULDER_OPAL_BLOCK.get().asItem());
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, UPItems.BLACK_OPAL.get(), RecipeCategory.BUILDING_BLOCKS,UPBlocks.BLACK_OPAL_BLOCK.get().asItem());
 
-//        makeSign(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS).save(consumer);
-
         //oreSmelting();
-
-        // Zuloagae
-        makePlanks(UPBlocks.ZULOAGAE_PLANKS, UPTags.ZULOAGAE).save(consumer);
-
-        makeStairs(UPBlocks.ZULOAGAE_STAIRS, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
-
-        makeSlab(UPBlocks.ZULOAGAE_SLAB, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
-
-        makeFence(UPBlocks.ZULOAGAE_FENCE, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
-
-        makeFenceGate(UPBlocks.ZULOAGAE_FENCE_GATE, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
-
-        makeDoor(UPBlocks.ZULOAGAE_DOOR, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
-
-        makeTrapdoor(UPBlocks.ZULOAGAE_TRAPDOOR, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
-
-        makeButton(UPBlocks.ZULOAGAE_BUTTON, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
-
-        makePressurePlate(UPBlocks.ZULOAGAE_PRESSURE_PLATE, UPBlocks.ZULOAGAE_PLANKS).save(consumer);
 
         // cultivating
         cultivating(consumer, UPItems.KIMMER_DNA.get(), UPBlocks.KIMMER_EGGS.get().asItem());

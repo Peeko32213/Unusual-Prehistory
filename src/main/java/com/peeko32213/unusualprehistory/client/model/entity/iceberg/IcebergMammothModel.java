@@ -4,17 +4,17 @@ import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergMamm
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class IcebergMammothModel extends GeoModel<IcebergMammoth> {
     //MODELS
-    private static final ResourceLocation MAMMOTH_MODEL_LOCATION = prefix("geo/mammoth/mammoth.geo.json");
+    private static final ResourceLocation MAMMOTH_MODEL_LOCATION = modPrefix("geo/mammoth/mammoth.geo.json");
     
     //TEXTURES
-    private static final ResourceLocation MAMMOTH_TEXTURE_LOCATION = prefix("textures/entity/mammoth/mammoth_frozen.png");
+    private static final ResourceLocation MAMMOTH_TEXTURE_LOCATION = modPrefix("textures/entity/mammoth/mammoth_frozen.png");
 
     //ANIMATIONS
-    private static final ResourceLocation MAMMOTH_ANIMATION_LOCATION = prefix("animations/mammoth/mammoth.animation.json");
+    private static final ResourceLocation MAMMOTH_ANIMATION_LOCATION = modPrefix("animations/mammoth/mammoth.animation.json");
 
 
     @Override

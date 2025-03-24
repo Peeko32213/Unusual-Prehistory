@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class EncyclopediaItem extends Item {
 
@@ -41,7 +41,7 @@ public class EncyclopediaItem extends Item {
             usedOnEntity = true;
 
             String id = target.getEncodeId().split(":")[1];
-            ResourceLocation resourceLocation = prefix("dinosaurs/"+id);
+            ResourceLocation resourceLocation = modPrefix("dinosaurs/"+id);
 
             UnusualPrehistory.PROXY.openBookGUI(resourceLocation);
         }
@@ -57,7 +57,7 @@ public class EncyclopediaItem extends Item {
                 serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
             }
             if (worldIn.isClientSide) {
-                UnusualPrehistory.PROXY.openBookGUI(prefix("root"));
+                UnusualPrehistory.PROXY.openBookGUI(modPrefix("root"));
             }
         }
         usedOnEntity = false;

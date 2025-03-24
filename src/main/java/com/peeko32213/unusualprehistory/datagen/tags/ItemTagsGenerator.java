@@ -205,23 +205,16 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPItems.ORGANIC_OOZE.get());
 
         tag(ItemTags.LEAVES)
-                .add(UPBlocks.FOXXI_LEAVES.get().asItem())
                 .add(UPBlocks.DRYO_LEAVES.get().asItem())
                 .add(UPBlocks.GINKGO_LEAVES.get().asItem())
         ;
 
         tag(UPTags.PETRIFIED_WOOD)
-                .add(UPBlocks.PETRIFIED_WOOD_LOG.get().asItem())
                 .add(UPBlocks.PETRIFIED_WOOD.get().asItem())
                 .add(UPBlocks.STRIPPED_PETRIFIED_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get().asItem())
         ;
 
         tag(UPTags.FOXXI)
-                .add(UPBlocks.FOXXI_LOG.get().asItem())
-                .add(UPBlocks.FOXXI_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_FOXXI_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_FOXXI_LOG.get().asItem())
         ;
 
         tag(UPTags.DRYO)
@@ -250,9 +243,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(ItemTags.PLANKS)
                 .add(UPBlocks.GINKGO_PLANKS.get().asItem())
-                .add(UPBlocks.PETRIFIED_WOOD_PLANKS.get().asItem())
                 .add(UPBlocks.DRYO_PLANKS.get().asItem())
-                .add(UPBlocks.FOXXI_PLANKS.get().asItem())
                 .add(UPBlocks.ZULOAGAE_PLANKS.get().asItem())
         ;
 
@@ -261,11 +252,6 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.STRIPPED_GINKGO_LOG.get().asItem())
                 .add(UPBlocks.GINKGO_WOOD.get().asItem())
                 .add(UPBlocks.STRIPPED_GINKGO_WOOD.get().asItem())
-
-                .add(UPBlocks.FOXXI_LOG.get().asItem())
-                .add(UPBlocks.STRIPPED_FOXXI_LOG.get().asItem())
-                .add(UPBlocks.FOXXI_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_FOXXI_WOOD.get().asItem())
 
                 .add(UPBlocks.DRYO_LOG.get().asItem())
                 .add(UPBlocks.STRIPPED_DRYO_LOG.get().asItem())
@@ -304,11 +290,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 .add(UPBlocks.ZULOAGAE_SAPLING.get().asItem())
         ;
 
-        tag(ItemTags.SIGNS)
-               .add(UPBlocks.GINKGO_SIGN.get().asItem())
-               .add(UPBlocks.FOXII_SIGN.get().asItem())
-               .add(UPBlocks.DRYO_SIGN.get().asItem())
-               .add(UPBlocks.PETRIFIED_WOOD_SIGN.get().asItem());
+        tag(ItemTags.SIGNS);
 
         tag(ItemTags.SMALL_FLOWERS)
                 .add(UPBlocks.LEEFRUCTUS.get().asItem())
@@ -322,42 +304,35 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
         tag(ItemTags.WOODEN_FENCES)
                 .add(UPBlocks.GINKGO_FENCE.get().asItem())
-                .add(UPBlocks.FOXXI_FENCE.get().asItem())
                 .add(UPBlocks.DRYO_FENCE.get().asItem())
-                .add(UPBlocks.PETRIFIED_WOOD_FENCE.get().asItem())
                 .add(UPBlocks.ZULOAGAE_FENCE.get().asItem());
 
         tag(ItemTags.WOODEN_DOORS)
                 .add(UPBlocks.GINKGO_DOOR.get().asItem())
-                .add(UPBlocks.FOXXI_DOOR.get().asItem())
                 .add(UPBlocks.DRYO_DOOR.get().asItem())
                 .add(UPBlocks.ZULOAGAE_DOOR.get().asItem())
         ;
 
         tag(ItemTags.WOODEN_SLABS)
                 .add(UPBlocks.GINKGO_SLAB.get().asItem())
-                .add(UPBlocks.FOXXI_SLAB.get().asItem())
                 .add(UPBlocks.DRYO_SLAB.get().asItem())
                 .add(UPBlocks.ZULOAGAE_SLAB.get().asItem())
         ;
 
         tag(ItemTags.WOODEN_STAIRS)
                 .add(UPBlocks.GINKGO_STAIRS.get().asItem())
-                .add(UPBlocks.FOXXI_STAIRS.get().asItem())
                 .add(UPBlocks.DRYO_STAIRS.get().asItem())
                 .add(UPBlocks.ZULOAGAE_STAIRS.get().asItem())
         ;
 
         tag(ItemTags.WOODEN_PRESSURE_PLATES)
                 .add(UPBlocks.GINKGO_PRESSURE_PLATE.get().asItem())
-                .add(UPBlocks.FOXXI_PRESSURE_PLATE.get().asItem())
                 .add(UPBlocks.DRYO_PRESSURE_PLATE.get().asItem())
                 .add(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get().asItem())
         ;
 
         tag(ItemTags.WOODEN_TRAPDOORS)
                 .add(UPBlocks.GINKGO_TRAPDOOR.get().asItem())
-                .add(UPBlocks.FOXXI_TRAPDOOR.get().asItem())
                 .add(UPBlocks.DRYO_TRAPDOOR.get().asItem())
                 .add(UPBlocks.ZULOAGAE_TRAPDOOR.get().asItem())
         ;
@@ -371,17 +346,13 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         tag(ItemTags.BUTTONS)
                 .add(UPBlocks.AMBER_BUTTON.get().asItem())
                 .add(UPBlocks.GINKGO_BUTTON.get().asItem())
-                .add(UPBlocks.FOXXI_BUTTON.get().asItem())
                 .add(UPBlocks.DRYO_BUTTON.get().asItem())
-                .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get().asItem())
                 .add(UPBlocks.ZULOAGAE_BUTTON.get().asItem());
         ;
 
         tag(ItemTags.WOODEN_BUTTONS)
                 .add(UPBlocks.GINKGO_BUTTON.get().asItem())
-                .add(UPBlocks.FOXXI_BUTTON.get().asItem())
                 .add(UPBlocks.DRYO_BUTTON.get().asItem())
-                .add(UPBlocks.PETRIFIED_WOOD_BUTTON.get().asItem())
                 .add(UPBlocks.ZULOAGAE_BUTTON.get().asItem())
         ;
 

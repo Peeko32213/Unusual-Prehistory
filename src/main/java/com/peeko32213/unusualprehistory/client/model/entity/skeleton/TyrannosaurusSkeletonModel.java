@@ -4,14 +4,14 @@ import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.Tyrannosau
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 // todo: move to ModelLocations
 public class TyrannosaurusSkeletonModel extends GeoModel<TyrannosaurusSkeleton> {
 
-    private static final ResourceLocation SKELETON_MODEL = prefix("geo/tyrannosaurus/tyrannosaurus_skeleton.geo.json");
-    private static final ResourceLocation SKELETON_TEXTURE = prefix("textures/entity/tyrannosaurus/tyrannosaurus_skeleton.png");
-    private static final ResourceLocation SKELETON_ANIMATION = prefix("animations/skeletons/tyrannosaurus_skeleton.animation.json");
+    private static final ResourceLocation SKELETON_MODEL = modPrefix("geo/tyrannosaurus/tyrannosaurus_skeleton.geo.json");
+    private static final ResourceLocation SKELETON_TEXTURE = modPrefix("textures/entity/tyrannosaurus/tyrannosaurus_skeleton.png");
+    private static final ResourceLocation SKELETON_ANIMATION = modPrefix("animations/skeletons/tyrannosaurus_skeleton.animation.json");
 
     @Override
     public ResourceLocation getModelResource(TyrannosaurusSkeleton object) {

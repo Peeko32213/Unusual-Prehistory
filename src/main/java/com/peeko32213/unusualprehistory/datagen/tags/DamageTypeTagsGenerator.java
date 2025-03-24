@@ -13,7 +13,6 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import java.util.concurrent.CompletableFuture;
 
 import static com.peeko32213.unusualprehistory.core.registry.UPDamageTypes.SHURIKEN;
-import static com.peeko32213.unusualprehistory.core.registry.UPDamageTypes.TAR;
 
 public class DamageTypeTagsGenerator extends TagsProvider<DamageType> {
 
@@ -58,6 +57,6 @@ public class DamageTypeTagsGenerator extends TagsProvider<DamageType> {
     }
 
     private static TagKey<DamageType> create(String name) {
-        return TagKey.create(Registries.DAMAGE_TYPE, UnusualPrehistory.prefix(name));
+        return TagKey.create(Registries.DAMAGE_TYPE, UnusualPrehistory.modPrefix(name));
     }
 }

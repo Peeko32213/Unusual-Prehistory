@@ -10,7 +10,7 @@ import net.minecraft.data.PackOutput;
 
 import java.util.function.Consumer;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class EntityGoalGenerator extends GoalDataProvider {
     public EntityGoalGenerator(PackOutput pOutput) {
@@ -24,6 +24,6 @@ public class EntityGoalGenerator extends GoalDataProvider {
         GoalData addGoalToAll = new GoalDataBuilder(new AllEntityTargetType())
                 .addGoals(new RabiesHuntGoalCodec(-1)).build();
 
-        consumer.accept(new GoalDataConsumer(prefix("add_rabies_and_jarate_goals") ,addGoalToAll));
+        consumer.accept(new GoalDataConsumer(modPrefix("add_rabies_and_jarate_goals") ,addGoalToAll));
     }
 }

@@ -1,8 +1,13 @@
 package com.peeko32213.unusualprehistory.datagen.models;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.teamabnormals.blueprint.common.block.sign.BlueprintCeilingHangingSignBlock;
+import com.teamabnormals.blueprint.common.block.sign.BlueprintStandingSignBlock;
+import com.teamabnormals.blueprint.common.block.sign.BlueprintWallHangingSignBlock;
+import com.teamabnormals.blueprint.common.block.sign.BlueprintWallSignBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
@@ -15,7 +20,9 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
+import static com.peeko32213.unusualprehistory.datagen.UPDatagenUtils.*;
 import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 public class BlockstateGenerator extends BlockStateProvider {
@@ -55,6 +62,101 @@ public class BlockstateGenerator extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
 
+        // Dryophyllum
+        basicBlock(UPBlocks.DRYO_PLANKS);
+        modSignBlock(UPBlocks.DRYO_SIGN, UPBlocks.DRYO_PLANKS);
+        modHangingSignBlock(UPBlocks.DRYO_HANGING_SIGN, UPBlocks.STRIPPED_DRYO_LOG);
+        modLogBlock(UPBlocks.DRYO_LOG);
+        modLogBlock(UPBlocks.STRIPPED_DRYO_LOG);
+        modWoodBlock(UPBlocks.DRYO_WOOD, UPBlocks.DRYO_LOG);
+        modWoodBlock(UPBlocks.STRIPPED_DRYO_WOOD, UPBlocks.STRIPPED_DRYO_LOG);
+        modFenceBlock(UPBlocks.DRYO_FENCE, UPBlocks.DRYO_PLANKS);
+        modFenceGateBlock(UPBlocks.DRYO_FENCE_GATE, UPBlocks.DRYO_PLANKS);
+        modTrapdoorWithRenderType(UPBlocks.DRYO_TRAPDOOR, "cutout");
+        modDoorBlockWithRenderType(UPBlocks.DRYO_DOOR, "cutout");
+        modPressurePlateBlock(UPBlocks.DRYO_PRESSURE_PLATE, UPBlocks.DRYO_PLANKS);
+        modStairsBlock(UPBlocks.DRYO_STAIRS, UPBlocks.DRYO_PLANKS);
+        modSlabBlock(UPBlocks.DRYO_SLAB, UPBlocks.DRYO_PLANKS);
+        basicButtonBlock(UPBlocks.DRYO_BUTTON, UPBlocks.DRYO_PLANKS);
+        basicBlockWithRenderType(UPBlocks.DRYO_LEAVES, "cutout");
+        plantWithPottedBlock(UPBlocks.DRYO_SAPLING, UPBlocks.POTTED_DRYO_SAPLING);
+
+        // Foxii
+        basicBlock(UPBlocks.FOXII_PLANKS);
+        modSignBlock(UPBlocks.FOXII_SIGN, UPBlocks.FOXII_PLANKS);
+        modHangingSignBlock(UPBlocks.FOXII_HANGING_SIGN, UPBlocks.STRIPPED_FOXII_LOG);
+        modLogBlock(UPBlocks.FOXII_LOG);
+        modLogBlock(UPBlocks.STRIPPED_FOXII_LOG);
+        modWoodBlock(UPBlocks.FOXII_WOOD, UPBlocks.FOXII_LOG);
+        modWoodBlock(UPBlocks.STRIPPED_FOXII_WOOD, UPBlocks.STRIPPED_FOXII_LOG);
+        modFenceBlock(UPBlocks.FOXII_FENCE, UPBlocks.FOXII_PLANKS);
+        modFenceGateBlock(UPBlocks.FOXII_FENCE_GATE, UPBlocks.FOXII_PLANKS);
+        modTrapdoorBlock(UPBlocks.FOXII_TRAPDOOR);
+        modDoorBlock(UPBlocks.FOXII_DOOR);
+        modPressurePlateBlock(UPBlocks.FOXII_PRESSURE_PLATE, UPBlocks.FOXII_PLANKS);
+        modStairsBlock(UPBlocks.FOXII_STAIRS, UPBlocks.FOXII_PLANKS);
+        modSlabBlock(UPBlocks.FOXII_SLAB, UPBlocks.FOXII_PLANKS);
+        basicBlockWithRenderType(UPBlocks.FOXII_LEAVES, "cutout");
+        basicButtonBlock(UPBlocks.FOXII_BUTTON, UPBlocks.FOXII_PLANKS);
+
+        // Ginkgo
+        basicBlock(UPBlocks.GINKGO_PLANKS);
+        modSignBlock(UPBlocks.GINKGO_SIGN, UPBlocks.GINKGO_PLANKS);
+        modHangingSignBlock(UPBlocks.GINKGO_HANGING_SIGN, UPBlocks.STRIPPED_GINKGO_LOG);
+        modLogBlock(UPBlocks.GINKGO_LOG);
+        modLogBlock(UPBlocks.STRIPPED_GINKGO_LOG);
+        modWoodBlock(UPBlocks.GINKGO_WOOD, UPBlocks.GINKGO_LOG);
+        modWoodBlock(UPBlocks.STRIPPED_GINKGO_WOOD, UPBlocks.STRIPPED_GINKGO_LOG);
+        modFenceBlock(UPBlocks.GINKGO_FENCE, UPBlocks.GINKGO_PLANKS);
+        modFenceGateBlock(UPBlocks.GINKGO_FENCE_GATE, UPBlocks.GINKGO_PLANKS);
+        modTrapdoorWithRenderType(UPBlocks.GINKGO_TRAPDOOR, "cutout");
+        modDoorBlockWithRenderType(UPBlocks.GINKGO_DOOR, "cutout");
+        modPressurePlateBlock(UPBlocks.GINKGO_PRESSURE_PLATE, UPBlocks.GINKGO_PLANKS);
+        modStairsBlock(UPBlocks.GINKGO_STAIRS, UPBlocks.GINKGO_PLANKS);
+        modSlabBlock(UPBlocks.GINKGO_SLAB, UPBlocks.GINKGO_PLANKS);
+        basicButtonBlock(UPBlocks.GINKGO_BUTTON, UPBlocks.GINKGO_PLANKS);
+        basicBlockWithRenderType(UPBlocks.GINKGO_LEAVES, "cutout");
+        plantWithPottedBlock(UPBlocks.GINKGO_SAPLING, UPBlocks.POTTED_GINKGO_SAPLING);
+
+        // Petrified
+        basicBlock(UPBlocks.PETRIFIED_PLANKS);
+        modSignBlock(UPBlocks.PETRIFIED_SIGN, UPBlocks.PETRIFIED_PLANKS);
+        modHangingSignBlock(UPBlocks.PETRIFIED_HANGING_SIGN, UPBlocks.STRIPPED_PETRIFIED_LOG);
+        modLogBlock(UPBlocks.PETRIFIED_LOG);
+        modLogBlock(UPBlocks.STRIPPED_PETRIFIED_LOG);
+        modWoodBlock(UPBlocks.PETRIFIED_WOOD, UPBlocks.PETRIFIED_LOG);
+        modWoodBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD, UPBlocks.STRIPPED_PETRIFIED_LOG);
+        modFenceBlock(UPBlocks.PETRIFIED_FENCE, UPBlocks.PETRIFIED_PLANKS);
+        modFenceGateBlock(UPBlocks.PETRIFIED_FENCE_GATE, UPBlocks.PETRIFIED_PLANKS);
+        modTrapdoorWithRenderType(UPBlocks.PETRIFIED_TRAPDOOR, "cutout");
+        modDoorBlockWithRenderType(UPBlocks.PETRIFIED_DOOR, "cutout");
+        modPressurePlateBlock(UPBlocks.PETRIFIED_PRESSURE_PLATE, UPBlocks.PETRIFIED_PLANKS);
+        modStairsBlock(UPBlocks.PETRIFIED_STAIRS, UPBlocks.PETRIFIED_PLANKS);
+        modSlabBlock(UPBlocks.PETRIFIED_SLAB, UPBlocks.PETRIFIED_PLANKS);
+        basicButtonBlock(UPBlocks.PETRIFIED_BUTTON, UPBlocks.PETRIFIED_PLANKS);
+        plantWithPottedBlock(UPBlocks.PETRIFIED_BUSH, UPBlocks.POTTED_PETRIFIED_BUSH);
+
+        basicBlock(UPBlocks.POLISHED_PETRIFIED_WOOD);
+        modStairsBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS, UPBlocks.POLISHED_PETRIFIED_WOOD);
+        modSlabBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB, UPBlocks.POLISHED_PETRIFIED_WOOD);
+        modWallBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_WALL, UPBlocks.POLISHED_PETRIFIED_WOOD);
+
+        // Zuloagae
+        basicBlock(UPBlocks.ZULOAGAE_PLANKS);
+        modSignBlock(UPBlocks.ZULOAGAE_SIGN, UPBlocks.ZULOAGAE_PLANKS);
+        modHangingSignBlock(UPBlocks.ZULOAGAE_HANGING_SIGN, UPBlocks.STRIPPED_ZULOAGAE_BLOCK);
+        modLogBlock(UPBlocks.ZULOAGAE_BLOCK);
+        modLogBlock(UPBlocks.STRIPPED_ZULOAGAE_BLOCK);
+        modFenceBlock(UPBlocks.ZULOAGAE_FENCE, UPBlocks.ZULOAGAE_PLANKS);
+        modFenceGateBlock(UPBlocks.ZULOAGAE_FENCE_GATE, UPBlocks.ZULOAGAE_PLANKS);
+        modTrapdoorWithRenderType(UPBlocks.ZULOAGAE_TRAPDOOR, "cutout");
+        modDoorBlockWithRenderType(UPBlocks.ZULOAGAE_DOOR, "cutout");
+        modPressurePlateBlock(UPBlocks.ZULOAGAE_PRESSURE_PLATE, UPBlocks.ZULOAGAE_PLANKS);
+        modStairsBlock(UPBlocks.ZULOAGAE_STAIRS, UPBlocks.ZULOAGAE_PLANKS);
+        modSlabBlock(UPBlocks.ZULOAGAE_SLAB, UPBlocks.ZULOAGAE_PLANKS);
+        basicButtonBlock(UPBlocks.ZULOAGAE_BUTTON, UPBlocks.ZULOAGAE_PLANKS);
+        plantWithPottedBlock(UPBlocks.ZULOAGAE_SAPLING, UPBlocks.POTTED_ZULOAGAE_SAPLING);
+
         // Water eggs
         createFlatWaterEgg(UPBlocks.OPHIDION_EGGS.get());
         createFlatWaterEgg(UPBlocks.HYNERIA_EGGS.get());
@@ -68,137 +170,31 @@ public class BlockstateGenerator extends BlockStateProvider {
         createFlatWaterEgg(UPBlocks.KIMMER_EGGS.get());
         createFlatWaterEgg(UPBlocks.DIPLOCAULUS_EGGS.get());
 
-        // Petrified wood
-        simpleBlock(UPBlocks.PETRIFIED_WOOD.get());
-        logBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
-        simpleBlockItem(UPBlocks.STRIPPED_PETRIFIED_WOOD.get(), existingModel((getName(UPBlocks.STRIPPED_PETRIFIED_WOOD.get()))));
-        simpleBlock(UPBlocks.POLISHED_PETRIFIED_WOOD.get());
-        logBlock(UPBlocks.PETRIFIED_WOOD_LOG.get());
-        logBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get());
-        simpleBlock(UPBlocks.PETRIFIED_WOOD_PLANKS.get());
-        slabBlock(UPBlocks.PETRIFIED_WOOD_SLAB.get(), resourceBlock(getName(UPBlocks.PETRIFIED_WOOD_PLANKS.get())), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
-        slabBlock((SlabBlock) UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get(), resourceBlock(getName(UPBlocks.POLISHED_PETRIFIED_WOOD.get())), new ResourceLocation(UnusualPrehistory.MODID, "block/polished_petrified_wood"));
-
-        stairsBlock(UPBlocks.PETRIFIED_WOOD_STAIRS.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
-        stairsBlock((StairBlock) UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/polished_petrified_wood"));
-
-        doorBlockWithRenderType(UPBlocks.PETRIFIED_WOOD_DOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_wood_door_bottom"),new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_wood_door_top"), "cutout");
-        trapdoorBlockWithRenderType(UPBlocks.PETRIFIED_WOOD_TRAPDOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_wood_trapdoor"), true, "cutout");
-
-        pressurePlateBlock(UPBlocks.PETRIFIED_WOOD_PRESSURE_PLATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
-        buttonBlock(UPBlocks.PETRIFIED_WOOD_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
-        fenceBlock(UPBlocks.PETRIFIED_WOOD_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
-        fenceGateBlock(UPBlocks.PETRIFIED_WOOD_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/petrified_planks"));
-        signBlock(UPBlocks.PETRIFIED_WOOD_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get(), blockTexture(UPBlocks.PETRIFIED_WOOD_PLANKS.get()));
-        hangingSignBlock(UPBlocks.PETRIFIED_WOOD_HANGING_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_HANGING_SIGN.get(), blockTexture(UPBlocks.PETRIFIED_WOOD_PLANKS.get()));
-
-        // Foxxi wood
-        simpleBlock(UPBlocks.STRIPPED_FOXXI_WOOD.get());
-        simpleBlockItem(UPBlocks.STRIPPED_FOXXI_WOOD.get(), existingModel((getName(UPBlocks.STRIPPED_FOXXI_WOOD.get()))));
-        logBlock(UPBlocks.FOXXI_LOG.get());
-        simpleBlockItem(UPBlocks.FOXXI_LOG.get(), existingModel((getName(UPBlocks.FOXXI_LOG.get()))));
-        logBlock(UPBlocks.FOXXI_WOOD.get());
-        simpleBlockItem(UPBlocks.FOXXI_WOOD.get(), existingModel((getName(UPBlocks.FOXXI_WOOD.get()))));
-        logBlock(UPBlocks.STRIPPED_FOXXI_LOG.get());
-        simpleBlockItem(UPBlocks.STRIPPED_FOXXI_LOG.get(), existingModel((getName(UPBlocks.STRIPPED_FOXXI_LOG.get()))));
-        simpleBlock(UPBlocks.FOXXI_PLANKS.get());
-        simpleBlockItem(UPBlocks.FOXXI_PLANKS.get(), existingModel((getName(UPBlocks.FOXXI_PLANKS.get()))));
-        simpleBlock(UPBlocks.FOXXI_LEAVES.get());
-        simpleBlockItem(UPBlocks.FOXXI_LEAVES.get(), existingModel((getName(UPBlocks.FOXXI_LEAVES.get()))));
-        slabBlock(UPBlocks.FOXXI_SLAB.get(), resourceBlock(getName(UPBlocks.FOXXI_PLANKS.get())), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
-        simpleBlockItem(UPBlocks.FOXXI_SLAB.get(), existingModel((getName(UPBlocks.FOXXI_SLAB.get()))));
-
-        doorBlockWithRenderType(UPBlocks.FOXXI_DOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_door_bottom"),new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_door_top"), "cutout");
-        trapdoorBlockWithRenderType(UPBlocks.FOXXI_TRAPDOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_trapdoor"), true, "cutout");
-
-        stairsBlock(UPBlocks.FOXXI_STAIRS.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
-        simpleBlockItem(UPBlocks.FOXXI_STAIRS.get(), existingModel((getName(UPBlocks.FOXXI_STAIRS.get()))));
-        pressurePlateBlock(UPBlocks.FOXXI_PRESSURE_PLATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
-        simpleBlockItem(UPBlocks.FOXXI_PRESSURE_PLATE.get(), existingModel((getName(UPBlocks.FOXXI_PRESSURE_PLATE.get()))));
-        buttonBlock(UPBlocks.FOXXI_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
-        fenceBlock(UPBlocks.FOXXI_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
-        fenceGateBlock(UPBlocks.FOXXI_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/foxxi_planks"));
-        signBlock(UPBlocks.FOXII_SIGN.get(), UPBlocks.FOXII_WALL_SIGN.get(), blockTexture(UPBlocks.FOXXI_PLANKS.get()));
-        hangingSignBlock(UPBlocks.FOXII_HANGING_SIGN.get(), UPBlocks.FOXII_WALL_HANGING_SIGN.get(), blockTexture(UPBlocks.FOXXI_PLANKS.get()));
-
-        // Dryophyllum wood
-        logBlock(UPBlocks.STRIPPED_DRYO_WOOD.get());
-        simpleBlockItem(UPBlocks.STRIPPED_DRYO_WOOD.get(), existingModel((getName(UPBlocks.STRIPPED_DRYO_WOOD.get()))));
-        logBlock(UPBlocks.DRYO_LOG.get());
-        simpleBlockItem(UPBlocks.DRYO_LOG.get(), existingModel((getName(UPBlocks.DRYO_LOG.get()))));
-        logBlock(UPBlocks.DRYO_WOOD.get());
-        simpleBlockItem(UPBlocks.DRYO_WOOD.get(), existingModel((getName(UPBlocks.DRYO_WOOD.get()))));
-        logBlock(UPBlocks.STRIPPED_DRYO_LOG.get());
-        simpleBlockItem(UPBlocks.STRIPPED_DRYO_LOG.get(), existingModel((getName(UPBlocks.STRIPPED_DRYO_LOG.get()))));
-        simpleBlock(UPBlocks.DRYO_PLANKS.get());
-        simpleBlockItem(UPBlocks.DRYO_PLANKS.get(), existingModel((getName(UPBlocks.DRYO_PLANKS.get()))));
-        simpleBlock(UPBlocks.DRYO_LEAVES.get());
-        simpleBlockItem(UPBlocks.DRYO_LEAVES.get(), existingModel((getName(UPBlocks.DRYO_LEAVES.get()))));
-        slabBlock(UPBlocks.DRYO_SLAB.get(), resourceBlock(getName(UPBlocks.DRYO_PLANKS.get())), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
-        simpleBlockItem(UPBlocks.DRYO_SLAB.get(), existingModel((getName(UPBlocks.DRYO_SLAB.get()))));
-
-        doorBlockWithRenderType(UPBlocks.DRYO_DOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_door_bottom"),new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_door_top"), "cutout");
-        trapdoorBlockWithRenderType(UPBlocks.DRYO_TRAPDOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_trapdoor"), true, "cutout");
-
-        stairsBlock(UPBlocks.DRYO_STAIRS.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
-        simpleBlockItem(UPBlocks.DRYO_STAIRS.get(), existingModel((getName(UPBlocks.DRYO_STAIRS.get()))));
-        pressurePlateBlock(UPBlocks.DRYO_PRESSURE_PLATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
-        simpleBlockItem(UPBlocks.DRYO_PRESSURE_PLATE.get(), existingModel((getName(UPBlocks.DRYO_PRESSURE_PLATE.get()))));
-        buttonBlock(UPBlocks.DRYO_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
-        fenceBlock(UPBlocks.DRYO_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
-        fenceGateBlock(UPBlocks.DRYO_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/dryo_planks"));
-        signBlock(UPBlocks.DRYO_SIGN.get(), UPBlocks.DRYO_WALL_SIGN.get(), blockTexture(UPBlocks.DRYO_PLANKS.get()));
-        hangingSignBlock(UPBlocks.DRYO_HANGING_SIGN.get(), UPBlocks.DRYO_WALL_HANGING_SIGN.get(), blockTexture(UPBlocks.DRYO_PLANKS.get()));
-
-        // Asphalt
-        simpleBlock(UPBlocks.ASPHALT.get());
+        basicBlock(UPBlocks.ASPHALT);
 
         // Fossil ores
-        simpleBlock(UPBlocks.STONE_FOSSIL.get());
-        simpleBlock(UPBlocks.DEEPSLATE_FOSSIL.get());
+        basicBlock(UPBlocks.STONE_FOSSIL);
+        basicBlock(UPBlocks.DEEPSLATE_FOSSIL);
 
-        simpleBlock(UPBlocks.PLANT_FOSSIL.get());
-        simpleBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL.get());
+        basicBlock(UPBlocks.PLANT_FOSSIL);
+        basicBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL);
 
-        simpleBlock(UPBlocks.STONE_AMBER_FOSSIL.get());
-        simpleBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL.get());
+        basicBlock(UPBlocks.STONE_AMBER_FOSSIL);
+        basicBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL);
 
-        simpleBlock(UPBlocks.STONE_OPAL_FOSSIL.get());
-        simpleBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get());
+        basicBlock(UPBlocks.STONE_OPAL_FOSSIL);
+        basicBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL);
 
-        simpleBlock(UPBlocks.STONE_TAR_FOSSIL.get());
-        simpleBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL.get());
+        basicBlock(UPBlocks.STONE_TAR_FOSSIL);
+        basicBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL);
 
-        simpleBlock(UPBlocks.PERMAFROST.get());
-        simpleBlock(UPBlocks.PERMAFROST_FOSSIL.get());
+        basicBlock(UPBlocks.PERMAFROST);
+        basicBlock(UPBlocks.PERMAFROST_FOSSIL);
 
-        simpleBlock(UPBlocks.AMBER_BLOCK.get());
+        basicBlock(UPBlocks.AMBER_BLOCK);
 
-        simpleBlock(UPBlocks.OPAL_BLOCK.get());
-        simpleBlock(UPBlocks.BLACK_OPAL_BLOCK.get());
-
-        // Zuloagae wood
-        logBlock(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get());
-        simpleBlockItem(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get(), existingModel((getName(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get()))));
-        logBlock(UPBlocks.ZULOAGAE_BLOCK.get());
-        simpleBlockItem(UPBlocks.ZULOAGAE_BLOCK.get(), existingModel((getName(UPBlocks.ZULOAGAE_BLOCK.get()))));
-        simpleBlock(UPBlocks.ZULOAGAE_PLANKS.get());
-        simpleBlockItem(UPBlocks.ZULOAGAE_PLANKS.get(), existingModel((getName(UPBlocks.ZULOAGAE_PLANKS.get()))));
-        slabBlock(UPBlocks.ZULOAGAE_SLAB.get(), resourceBlock(getName(UPBlocks.ZULOAGAE_PLANKS.get())), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
-        simpleBlockItem(UPBlocks.ZULOAGAE_SLAB.get(), existingModel((getName(UPBlocks.ZULOAGAE_SLAB.get()))));
-
-        doorBlockWithRenderType(UPBlocks.ZULOAGAE_DOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_door_bottom"),new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_door_top"), "cutout");
-        trapdoorBlockWithRenderType(UPBlocks.ZULOAGAE_TRAPDOOR.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_trapdoor"), true, "cutout");
-        stairsBlock(UPBlocks.ZULOAGAE_STAIRS.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
-        simpleBlockItem(UPBlocks.ZULOAGAE_STAIRS.get(), existingModel((getName(UPBlocks.ZULOAGAE_STAIRS.get()))));
-        pressurePlateBlock(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
-        simpleBlockItem(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get(), existingModel((getName(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get()))));
-        buttonBlock(UPBlocks.ZULOAGAE_BUTTON.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
-        fenceBlock(UPBlocks.ZULOAGAE_FENCE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
-        fenceGateBlock(UPBlocks.ZULOAGAE_FENCE_GATE.get(), new ResourceLocation(UnusualPrehistory.MODID, "block/zuloagae_planks"));
-
-        signBlock(((StandingSignBlock) UPBlocks.ZULOAGAE_SIGN.get()), ((WallSignBlock) UPBlocks.ZULOAGAE_WALL_SIGN.get()), blockTexture(UPBlocks.ZULOAGAE_PLANKS.get()));
-        hangingSignBlock(UPBlocks.ZULOAGAE_HANGING_SIGN.get(), UPBlocks.ZULOAGAE_WALL_HANGING_SIGN.get(), blockTexture(UPBlocks.ZULOAGAE_PLANKS.get()));
+        basicBlock(UPBlocks.OPAL_BLOCK);
+        basicBlock(UPBlocks.BLACK_OPAL_BLOCK);
 
         // Potted plants
         createPottedPlant(UPBlocks.ARCHAEOSIGILARIA, UPBlocks.POTTED_ARCHAEOSIGILARIA,"cutout");
@@ -206,11 +202,90 @@ public class BlockstateGenerator extends BlockStateProvider {
         createPottedPlant(UPBlocks.HORSETAIL, UPBlocks.POTTED_HORSETAIL,"cutout");
         createPottedPlant(UPBlocks.LEEFRUCTUS, UPBlocks.POTTED_LEEFRUCTUS,"cutout");
         createPottedPlant(UPBlocks.SARACENIA, UPBlocks.POTTED_SARACENIA,"cutout");
-        createPottedPlant(UPBlocks.GINKGO_SAPLING, UPBlocks.POTTED_GINKGO_SAPLING,"cutout");
-        createPottedPlant(UPBlocks.PETRIFIED_BUSH, UPBlocks.POTTED_PETRIFIED_BUSH,"cutout");
-        createPottedPlant(UPBlocks.DRYO_SAPLING, UPBlocks.POTTED_DRYO,"cutout");
-        createPottedPlant(UPBlocks.ZULOAGAE_SAPLING, UPBlocks.POTTED_ZULOGAE,"cutout");
-        //createPottedPlant(UPBlocks.FOXII_SAPLING, UPBlocks.POTTED_FOXXI,"cutout");
+    }
+
+    private void basicBlock(Supplier<? extends Block> block) {
+        simpleBlock(block.get());
+    }
+
+    private void basicBlockWithRenderType(Supplier<? extends Block> block, String renderType) {
+        ModelFile modelFile = models().cubeAll(name(block.get()), blockTexture(block.get())).renderType(renderType);
+        getVariantBuilder(block.get()).partialState().setModels(new ConfiguredModel(modelFile));
+    }
+
+    private void pillarBlock(Supplier<? extends Block> block, String topTexture) {
+        axisBlock((RotatedPillarBlock) block.get(), modBlockLocation(name(block.get())), modBlockLocation(topTexture));
+    }
+
+    private void modLogBlock(Supplier<? extends Block> block) {
+        this.logBlock((RotatedPillarBlock) block.get());
+    }
+
+    private void modWoodBlock(Supplier<? extends Block> block, Supplier<? extends Block> blockForTexture) {
+        axisBlock((RotatedPillarBlock) block.get(),
+                models().cubeColumn(name(block.get()), modBlockLocation(name(blockForTexture.get())), modBlockLocation(name(blockForTexture.get()))),
+                models().cubeColumnHorizontal(name(block.get()), modBlockLocation(name(blockForTexture.get())), modBlockLocation(name(blockForTexture.get()))));
+    }
+
+    private void modFenceBlock(Supplier<? extends Block> block, Supplier<? extends Block> blockForTexture) {
+        fenceBlock((FenceBlock) block.get(), modBlockLocation(name(blockForTexture.get())));
+    }
+
+    private void modFenceGateBlock(Supplier<? extends Block> block, Supplier<? extends Block> blockForTexture) {
+        fenceGateBlock((FenceGateBlock) block.get(), modBlockLocation(name(blockForTexture.get())));
+    }
+
+    private void modPressurePlateBlock(Supplier<? extends Block> block, Supplier<? extends Block> blockForTexture) {
+        pressurePlateBlock((PressurePlateBlock) block.get(), modBlockLocation(name(blockForTexture.get())));
+    }
+
+    private void modDoorBlock(Supplier<? extends Block> block) {
+        doorBlock((DoorBlock) block.get(), modBlockLocation(name(block.get()) + "_bottom"), modBlockLocation(name(block.get()) + "_top"));
+    }
+    private void modDoorBlockWithRenderType(Supplier<? extends Block> block, String rendertype) {
+        doorBlockWithRenderType((DoorBlock) block.get(), modBlockLocation(name(block.get()) + "_bottom"), modBlockLocation(name(block.get()) + "_top"), rendertype);
+    }
+
+    private void modTrapdoorBlock(Supplier<? extends Block> block) {
+        trapdoorBlock((TrapDoorBlock) block.get(), modBlockLocation(name(block.get())), true);
+    }
+    private void modTrapdoorWithRenderType(Supplier<? extends Block> block, String renderType) {
+        trapdoorBlockWithRenderType((TrapDoorBlock)block.get(), modBlockLocation(name(block.get())), true, renderType);
+    }
+
+    private void modSignBlock(Pair<RegistryObject<BlueprintStandingSignBlock>, RegistryObject<BlueprintWallSignBlock>> pair, Supplier<? extends Block> blockForTexture) {
+        signBlock(pair.getFirst().get(), pair.getSecond().get(), modBlockLocation(name(blockForTexture.get())));
+    }
+    private void modHangingSignBlock(Pair<RegistryObject<BlueprintCeilingHangingSignBlock>, RegistryObject<BlueprintWallHangingSignBlock>> pair, Supplier<? extends Block> blockForTexture) {
+        ModelFile sign = models().sign(name(pair.getFirst().get()), modBlockLocation(name(blockForTexture.get())));
+        simpleBlock(pair.getFirst().get(), sign);
+        simpleBlock(pair.getSecond().get(), sign);
+    }
+
+    private void basicButtonBlock(Supplier<? extends Block> block, Supplier<? extends Block> blockForTexture) {
+        buttonBlock((ButtonBlock)block.get(), blockTexture(blockForTexture.get()));
+    }
+
+    private void modStairsBlock(Supplier<? extends Block> block, Supplier<? extends Block> blockForTexture) {
+        stairsBlock((StairBlock) block.get(), blockTexture(blockForTexture.get()));
+    }
+    private void modWallBlock(Supplier<? extends Block> block, Supplier<? extends Block> blockForTexture) {
+        wallBlock((WallBlock) block.get(), blockTexture(blockForTexture.get()));
+    }
+
+    private void modSlabBlock(Supplier<? extends Block> block, Supplier<? extends Block> blockForTexture) {
+        slabBlock((SlabBlock) block.get(), blockTexture(blockForTexture.get()), blockTexture(blockForTexture.get()));
+    }
+
+    private void modCrossBlock(Supplier<? extends Block> block, String renderType) {
+        getVariantBuilder(block.get()).forAllStates(blockState -> ConfiguredModel.builder()
+                .modelFile(models().cross(name(block.get()), modBlockLocation(name(block.get()))).renderType(renderType)).build());
+    }
+
+    private void plantWithPottedBlock(Supplier<? extends Block> plant, Supplier<? extends Block> potted_plant) {
+        modCrossBlock(plant, "cutout");
+        simpleBlock(potted_plant.get(), models().withExistingParent(name(potted_plant.get()), POTTED_CROSS)
+                .texture(PLANT, modBlockLocation(name(plant.get()))).renderType("cutout"));
     }
 
     public void hangingSignBlock(Block signBlock, Block wallSignBlock, ResourceLocation texture) {

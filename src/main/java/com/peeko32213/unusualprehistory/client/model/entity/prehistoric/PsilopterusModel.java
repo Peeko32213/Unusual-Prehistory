@@ -10,12 +10,12 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class PsilopterusModel extends GeoModel<PsilopterusEntity> {
 
-    private static final ResourceLocation NORMAL = prefix("textures/entity/psilopterus.png");
-    private static final ResourceLocation DOMINATE = prefix("textures/entity/psilopterus_dominate.png");
+    private static final ResourceLocation NORMAL = modPrefix("textures/entity/psilopterus.png");
+    private static final ResourceLocation DOMINATE = modPrefix("textures/entity/psilopterus_dominate.png");
 
     @Override
     public ResourceLocation getModelResource(PsilopterusEntity object) {

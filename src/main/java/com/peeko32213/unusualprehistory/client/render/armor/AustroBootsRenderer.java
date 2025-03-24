@@ -4,11 +4,11 @@ import com.peeko32213.unusualprehistory.common.item.armor.AustroraptorBootsItem;
 import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class AustroBootsRenderer extends GeoArmorRenderer<AustroraptorBootsItem> {
     public AustroBootsRenderer() {
-        super(new DefaultedItemGeoModel<>(prefix("armor/austro_boots")));
+        super(new DefaultedItemGeoModel<>(modPrefix("armor/austro_boots")));
     }
 
 }

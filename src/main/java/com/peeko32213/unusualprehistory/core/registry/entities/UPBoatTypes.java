@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.Block;
 
 public enum UPBoatTypes {
     DRYO(UPBlocks.DRYO_PLANKS.get(), "dryo"),
-    FOXXI(UPBlocks.FOXXI_PLANKS.get(), "foxxi"),
+    FOXXI(UPBlocks.FOXII_PLANKS.get(), "foxxi"),
     GINKGO(UPBlocks.GINKGO_PLANKS.get(), "ginkgo");
 
     public final Block block;

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "unusualprehistory:block/polished_petrified_wood"
+  }
+}

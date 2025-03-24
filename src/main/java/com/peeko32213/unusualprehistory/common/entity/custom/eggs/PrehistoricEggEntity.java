@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
 
@@ -175,33 +175,33 @@ public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
         this.triggerAnim(EGG_HATCH.getControllerName(), EGG_HATCH.getAnimName());
     }
 
-    private static final ResourceLocation MASSIVE_EGG_BASE = prefix("textures/entity/eggs/massive_egg_base.png");
-    private static final ResourceLocation MASSIVE_EGG_SLIGHTLY_CRACKED = prefix("textures/entity/eggs/massive_egg_slightly_cracked.png");
-    private static final ResourceLocation MASSIVE_EGG_VERY_CRACKED = prefix("textures/entity/eggs/massive_egg_very_cracked.png");
-    private static final ResourceLocation MASSIVE_EGG_SPOTS = prefix("textures/entity/eggs/massive_egg_spots.png");
-    private static final ResourceLocation MASSIVE_EGG_MODEL = prefix("geo/eggs/massive_egg.geo.json");
-    private static final ResourceLocation MASSIVE_EGG_ANIMATIONS = prefix("animations/eggs/massive_egg.animation.json");
+    private static final ResourceLocation MASSIVE_EGG_BASE = modPrefix("textures/entity/eggs/massive_egg_base.png");
+    private static final ResourceLocation MASSIVE_EGG_SLIGHTLY_CRACKED = modPrefix("textures/entity/eggs/massive_egg_slightly_cracked.png");
+    private static final ResourceLocation MASSIVE_EGG_VERY_CRACKED = modPrefix("textures/entity/eggs/massive_egg_very_cracked.png");
+    private static final ResourceLocation MASSIVE_EGG_SPOTS = modPrefix("textures/entity/eggs/massive_egg_spots.png");
+    private static final ResourceLocation MASSIVE_EGG_MODEL = modPrefix("geo/eggs/massive_egg.geo.json");
+    private static final ResourceLocation MASSIVE_EGG_ANIMATIONS = modPrefix("animations/eggs/massive_egg.animation.json");
 
-    private static final ResourceLocation SMALL_EGG_BASE = prefix("textures/entity/eggs/small_egg_base.png");
-    private static final ResourceLocation SMALL_EGG_SLIGHTLY_CRACKED = prefix("textures/entity/eggs/small_egg_slightly_cracked.png");
-    private static final ResourceLocation SMALL_EGG_VERY_CRACKED = prefix("textures/entity/eggs/small_egg_very_cracked.png");
-    private static final ResourceLocation SMALL_EGG_SPOTS = prefix("textures/entity/eggs/small_egg_spots.png");
-    private static final ResourceLocation SMALL_EGG_MODEL = prefix("geo/eggs/small_egg.geo.json");
-    private static final ResourceLocation SMALL_EGG_ANIMATIONS = prefix("animations/eggs/small_egg.animation.json");
+    private static final ResourceLocation SMALL_EGG_BASE = modPrefix("textures/entity/eggs/small_egg_base.png");
+    private static final ResourceLocation SMALL_EGG_SLIGHTLY_CRACKED = modPrefix("textures/entity/eggs/small_egg_slightly_cracked.png");
+    private static final ResourceLocation SMALL_EGG_VERY_CRACKED = modPrefix("textures/entity/eggs/small_egg_very_cracked.png");
+    private static final ResourceLocation SMALL_EGG_SPOTS = modPrefix("textures/entity/eggs/small_egg_spots.png");
+    private static final ResourceLocation SMALL_EGG_MODEL = modPrefix("geo/eggs/small_egg.geo.json");
+    private static final ResourceLocation SMALL_EGG_ANIMATIONS = modPrefix("animations/eggs/small_egg.animation.json");
 
-    private static final ResourceLocation MEDIUM_EGG_BASE = prefix("textures/entity/eggs/medium_egg_base.png");
-    private static final ResourceLocation MEDIUM_EGG_SLIGHTLY_CRACKED = prefix("textures/entity/eggs/medium_egg_slightly_cracked.png");
-    private static final ResourceLocation MEDIUM_EGG_VERY_CRACKED = prefix("textures/entity/eggs/medium_egg_very_cracked.png");
-    private static final ResourceLocation MEDIUM_EGG_SPOTS = prefix("textures/entity/eggs/medium_egg_spots.png");
-    private static final ResourceLocation MEDIUM_EGG_MODEL = prefix("geo/eggs/medium_egg.geo.json");
-    private static final ResourceLocation MEDIUM_EGG_ANIMATIONS = prefix("animations/eggs/medium_egg.animation.json");
+    private static final ResourceLocation MEDIUM_EGG_BASE = modPrefix("textures/entity/eggs/medium_egg_base.png");
+    private static final ResourceLocation MEDIUM_EGG_SLIGHTLY_CRACKED = modPrefix("textures/entity/eggs/medium_egg_slightly_cracked.png");
+    private static final ResourceLocation MEDIUM_EGG_VERY_CRACKED = modPrefix("textures/entity/eggs/medium_egg_very_cracked.png");
+    private static final ResourceLocation MEDIUM_EGG_SPOTS = modPrefix("textures/entity/eggs/medium_egg_spots.png");
+    private static final ResourceLocation MEDIUM_EGG_MODEL = modPrefix("geo/eggs/medium_egg.geo.json");
+    private static final ResourceLocation MEDIUM_EGG_ANIMATIONS = modPrefix("animations/eggs/medium_egg.animation.json");
 
-    private static final ResourceLocation NORMAL_EGG_BASE = prefix("textures/entity/eggs/normal_egg_base.png");
-    private static final ResourceLocation NORMAL_EGG_SLIGHTLY_CRACKED = prefix("textures/entity/eggs/normal_egg_slightly_cracked.png");
-    private static final ResourceLocation NORMAL_EGG_VERY_CRACKED = prefix("textures/entity/eggs/normal_egg_very_cracked.png");
-    private static final ResourceLocation NORMAL_EGG_SPOTS = prefix("textures/entity/eggs/normal_egg_spots.png");
-    private static final ResourceLocation NORMAL_EGG_MODEL = prefix("geo/eggs/normal_egg.geo.json");
-    private static final ResourceLocation NORMAL_EGG_ANIMATIONS = prefix("animations/eggs/normal_egg.animation.json");
+    private static final ResourceLocation NORMAL_EGG_BASE = modPrefix("textures/entity/eggs/normal_egg_base.png");
+    private static final ResourceLocation NORMAL_EGG_SLIGHTLY_CRACKED = modPrefix("textures/entity/eggs/normal_egg_slightly_cracked.png");
+    private static final ResourceLocation NORMAL_EGG_VERY_CRACKED = modPrefix("textures/entity/eggs/normal_egg_very_cracked.png");
+    private static final ResourceLocation NORMAL_EGG_SPOTS = modPrefix("textures/entity/eggs/normal_egg_spots.png");
+    private static final ResourceLocation NORMAL_EGG_MODEL = modPrefix("geo/eggs/normal_egg.geo.json");
+    private static final ResourceLocation NORMAL_EGG_ANIMATIONS = modPrefix("animations/eggs/normal_egg.animation.json");
 
     @Override
     public ResourceLocation getTexture() {

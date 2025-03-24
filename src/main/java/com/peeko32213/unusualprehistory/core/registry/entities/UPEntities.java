@@ -1,8 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry.entities;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.UPBoatEntity;
-import com.peeko32213.unusualprehistory.common.entity.UPChestBoatEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PalaeophisBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggSize;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggVariant;
@@ -37,17 +35,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UPEntities {
 
     public static final List<RegistryObject<?>> prehistorics = new ArrayList<>();
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, UnusualPrehistory.MODID);
-
-    // Boat.
-    public static final RegistryObject<EntityType<UPBoatEntity>> BOAT = ENTITIES.register("boat", () -> EntityType.Builder.<UPBoatEntity>of(UPBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10).build(new ResourceLocation(UnusualPrehistory.MODID, "boat").toString()));
-    public static final RegistryObject<EntityType<UPChestBoatEntity>> CHEST_BOAT = ENTITIES.register("chest_boat", () -> EntityType.Builder.<UPChestBoatEntity>of(UPChestBoatEntity::new, MobCategory.MISC).sized(1.375f, 0.5625f).clientTrackingRange(10).build(new ResourceLocation(UnusualPrehistory.MODID, "chest_boat").toString()));
 
     // Fossils
     public static final RegistryObject<EntityType<TyrannosaurusSkeleton>> TYRANNO_SKELETON = ENTITIES.register("tyrannosaurus_skeleton",
@@ -403,21 +397,21 @@ public class UPEntities {
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(10)
-                    .build(prefix("opalescent_pearl").toString()));
+                    .build(modPrefix("opalescent_pearl").toString()));
 
     public static final RegistryObject<EntityType<OpalescentShuriken>> OPALESCENT_SHURIKEN = ENTITIES.register("opalescent_shuriken",
             () ->  EntityType.Builder.<OpalescentShuriken>of(OpalescentShuriken::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(10)
-                    .build(prefix("opalescent_shuriken").toString()));
+                    .build(modPrefix("opalescent_shuriken").toString()));
 
     public static final RegistryObject<EntityType<RabiesFlaskEntity>> RABIES_FLASK = ENTITIES.register("rabies_flask",
             () ->  EntityType.Builder.<RabiesFlaskEntity>of(RabiesFlaskEntity::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(10)
-                    .build(prefix("rabies_flask").toString()));
+                    .build(modPrefix("rabies_flask").toString()));
 
     public static final RegistryObject<EntityType<PalaeophisBookEntity>> BOOK_PALAEO = ENTITIES.register("palaeo_book_palaeo",
             () -> EntityType.Builder.<PalaeophisBookEntity>of(PalaeophisBookEntity::new, MobCategory.MISC)
@@ -537,19 +531,19 @@ public class UPEntities {
     public static final RegistryObject<EntityType<PsittaccoArrow>> PSITTACCO_ARROW = ENTITIES.register("psittacco_arrow",
             () -> EntityType.Builder.<PsittaccoArrow>of(PsittaccoArrow::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).setCustomClientFactory(PsittaccoArrow::new)
-                    .build(prefix("psittacco_arrow").toString()));
+                    .build(modPrefix("psittacco_arrow").toString()));
 
     public static final RegistryObject<EntityType<ThrowableFallingBlockEntity>> THROWABLE_FALLING_BLOCK = ENTITIES.register("throwable_falling_block",
             () -> EntityType.Builder.of(ThrowableFallingBlockEntity::new, MobCategory.MISC)
                     .sized(0.98F, 0.98F)
                     .clientTrackingRange(10)
                     .updateInterval(20)
-                    .build(prefix("throwable_falling_block").toString()));
+                    .build(modPrefix("throwable_falling_block").toString()));
 
     public static final RegistryObject<EntityType<PrehistoricEggEntity>> PREHISTORIC_EGG = ENTITIES.register("prehistoric_egg",
             () -> EntityType.Builder.<PrehistoricEggEntity>of(PrehistoricEggEntity::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F)
-                    .build(prefix("prehistoric_egg").toString()));
+                    .build(modPrefix("prehistoric_egg").toString()));
 
     private static <T extends EntityType<?>> RegistryObject<T> registerPrehistoricCreatureWithEgg(String name, Supplier<? extends T> entity, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
         RegistryObject<T> prehistoric = ENTITIES.register(name, entity);

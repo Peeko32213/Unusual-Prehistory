@@ -4,10 +4,10 @@ import com.peeko32213.unusualprehistory.common.item.armor.MajungasaurusHelmetIte
 import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class MajungaHelmetRenderer extends GeoArmorRenderer<MajungasaurusHelmetItem> {
     public MajungaHelmetRenderer() {
-        super(new DefaultedItemGeoModel<>(prefix("armor/majunga_helmet")));
+        super(new DefaultedItemGeoModel<>(modPrefix("armor/majunga_helmet")));
     }
 }

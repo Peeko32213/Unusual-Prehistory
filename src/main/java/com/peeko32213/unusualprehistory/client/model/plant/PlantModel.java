@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class PlantModel extends GeoModel<EntityPlant> {
     //MODELS
@@ -19,12 +19,12 @@ public class PlantModel extends GeoModel<EntityPlant> {
 
     @Override
     public ResourceLocation getModelResource(EntityPlant object) {
-        return prefix("geo/plants/"+ modelMod + ".geo.json");
+        return modPrefix("geo/plants/"+ modelMod + ".geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(EntityPlant object) {
-        return prefix("textures/entity/"+ textureName);
+        return modPrefix("textures/entity/"+ textureName);
     }
 
     @Override

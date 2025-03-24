@@ -9,21 +9,21 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class HwachavenatorModel extends GeoModel<HwachavenatorEntity> {
 
-    private static final ResourceLocation HWACHA_ACUTI_MODEL = prefix("geo/hwachavenator/hwachavenator_acuti.geo.json");
-    private static final ResourceLocation HWACHA_TRUCULENTUS_MODEL = prefix("geo/hwachavenator/hwachavenator_truculentus.geo.json");
-    private static final ResourceLocation HWACHA_VENENUM_MODEL = prefix("geo/hwachavenator/hwachavenator_venenum.geo.json");
+    private static final ResourceLocation HWACHA_ACUTI_MODEL = modPrefix("geo/hwachavenator/hwachavenator_acuti.geo.json");
+    private static final ResourceLocation HWACHA_TRUCULENTUS_MODEL = modPrefix("geo/hwachavenator/hwachavenator_truculentus.geo.json");
+    private static final ResourceLocation HWACHA_VENENUM_MODEL = modPrefix("geo/hwachavenator/hwachavenator_venenum.geo.json");
 
-    private static final ResourceLocation HWACHA_ACUTI_TEXTURE = prefix("textures/entity/hwachavenator/hwachavenator_acuti.png");
-    private static final ResourceLocation HWACHA_TRUCULENTUS_TEXTURE = prefix("textures/entity/hwachavenator/hwachavenator_truculentus.png");
-    private static final ResourceLocation HWACHA_VENENUM_TEXTURE = prefix("textures/entity/hwachavenator/hwachavenator_venenum.png");
+    private static final ResourceLocation HWACHA_ACUTI_TEXTURE = modPrefix("textures/entity/hwachavenator/hwachavenator_acuti.png");
+    private static final ResourceLocation HWACHA_TRUCULENTUS_TEXTURE = modPrefix("textures/entity/hwachavenator/hwachavenator_truculentus.png");
+    private static final ResourceLocation HWACHA_VENENUM_TEXTURE = modPrefix("textures/entity/hwachavenator/hwachavenator_venenum.png");
 
-    private static final ResourceLocation HWACHA_ACUTI_ANIMATION = prefix("animations/hwachavenator/hwachavenator_acuti.animation.json");
-    private static final ResourceLocation HWACHA_TRUCULENTUS_ANIMATION = prefix("animations/hwachavenator/hwachavenator_truculentus.animation.json");
-    private static final ResourceLocation HWACHA_VENENUM_ANIMATION = prefix("animations/hwachavenator/hwachavenator_venenum.animation.json");
+    private static final ResourceLocation HWACHA_ACUTI_ANIMATION = modPrefix("animations/hwachavenator/hwachavenator_acuti.animation.json");
+    private static final ResourceLocation HWACHA_TRUCULENTUS_ANIMATION = modPrefix("animations/hwachavenator/hwachavenator_truculentus.animation.json");
+    private static final ResourceLocation HWACHA_VENENUM_ANIMATION = modPrefix("animations/hwachavenator/hwachavenator_venenum.animation.json");
 
     @Override
     public ResourceLocation getModelResource(HwachavenatorEntity object) {

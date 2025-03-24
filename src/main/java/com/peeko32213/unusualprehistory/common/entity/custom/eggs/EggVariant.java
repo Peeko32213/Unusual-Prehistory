@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public enum EggVariant implements StringRepresentable {
     SPOTS("spots", 0),
@@ -25,10 +25,10 @@ public enum EggVariant implements StringRepresentable {
         this.name = variant;
         this.nr = nr;
         this.displayName = Component.translatable("entity.dinosaur_egg_" + this.name);
-        this.smallVariantLocation = prefix("textures/entity/eggs/small_egg_"+variant+".png");
-        this.normalVariantLocation = prefix("textures/entity/eggs/normal_egg_"+variant+".png");
-        this.mediumVariantLocation = prefix("textures/entity/eggs/medium_egg_"+variant+".png");
-        this.massiveVariantLocation = prefix("textures/entity/eggs/massive_egg_"+variant+".png");
+        this.smallVariantLocation = modPrefix("textures/entity/eggs/small_egg_"+variant+".png");
+        this.normalVariantLocation = modPrefix("textures/entity/eggs/normal_egg_"+variant+".png");
+        this.mediumVariantLocation = modPrefix("textures/entity/eggs/medium_egg_"+variant+".png");
+        this.massiveVariantLocation = modPrefix("textures/entity/eggs/massive_egg_"+variant+".png");
     }
 
     @Override

@@ -36,35 +36,35 @@ public class UPWoodBlocks extends RotatedPillarBlock {
     @Override
     public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
         if(context.getItemInHand().getItem() instanceof AxeItem) {
+
             if(state.is(UPBlocks.GINKGO_LOG.get())) {
                 return UPBlocks.STRIPPED_GINKGO_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
-
             if(state.is(UPBlocks.GINKGO_WOOD.get())) {
                 return UPBlocks.STRIPPED_GINKGO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
 
-            if(state.is(UPBlocks.PETRIFIED_WOOD_LOG.get())) {
-                return UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            if(state.is(UPBlocks.PETRIFIED_LOG.get())) {
+                return UPBlocks.STRIPPED_PETRIFIED_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
-
             if(state.is(UPBlocks.PETRIFIED_WOOD.get())) {
                 return UPBlocks.STRIPPED_PETRIFIED_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
-            if(state.is(UPBlocks.FOXXI_LOG.get())) {
-                return UPBlocks.STRIPPED_FOXXI_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+
+            if(state.is(UPBlocks.FOXII_LOG.get())) {
+                return UPBlocks.STRIPPED_FOXII_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            }
+            if(state.is(UPBlocks.FOXII_WOOD.get())) {
+                return UPBlocks.STRIPPED_FOXII_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
 
-            if(state.is(UPBlocks.FOXXI_WOOD.get())) {
-                return UPBlocks.STRIPPED_FOXXI_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-            }
             if(state.is(UPBlocks.DRYO_LOG.get())) {
                 return UPBlocks.STRIPPED_DRYO_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
-
             if(state.is(UPBlocks.DRYO_WOOD.get())) {
                 return UPBlocks.STRIPPED_DRYO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
+
             if(state.is(UPBlocks.ZULOAGAE_BLOCK.get())) {
                 return UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }

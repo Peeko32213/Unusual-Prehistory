@@ -20,6 +20,8 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import static com.peeko32213.unusualprehistory.datagen.UPDatagenUtils.*;
+
 public class ItemModelGenerator extends ItemModelProvider {
     public ItemModelGenerator(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, UnusualPrehistory.MODID, existingFileHelper);
@@ -27,12 +29,110 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels(){
-        for (Item i : BuiltInRegistries.ITEM) {
-            if (i instanceof SpawnEggItem && Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getNamespace().equals(UnusualPrehistory.MODID)) {
-                getBuilder(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getPath())
-                        .parent(getExistingFile(new ResourceLocation("item/template_spawn_egg")));
-            }
-        }
+
+        // Dryophyllum
+        basicBlockItem(UPBlocks.DRYO_PLANKS);
+        basicBlockItem(UPBlocks.DRYO_LOG);
+        basicBlockItem(UPBlocks.STRIPPED_DRYO_LOG);
+        basicBlockItem(UPBlocks.DRYO_WOOD);
+        basicBlockItem(UPBlocks.STRIPPED_DRYO_WOOD);
+        basicBlockItem(UPBlocks.DRYO_PRESSURE_PLATE);
+        trapdoorBlockItem(UPBlocks.DRYO_TRAPDOOR);
+        basicBlockItem(UPBlocks.DRYO_STAIRS);
+        basicBlockItem(UPBlocks.DRYO_SLAB);
+        modButtonBlockItem(UPBlocks.DRYO_BUTTON, UPBlocks.DRYO_PLANKS);
+        fenceBlockItem(UPBlocks.DRYO_FENCE, UPBlocks.DRYO_PLANKS);
+        basicBlockItem(UPBlocks.DRYO_FENCE_GATE);
+        blockItemWithItemTexture(UPBlocks.DRYO_SIGN.getFirst());
+        blockItemWithItemTexture(UPBlocks.DRYO_HANGING_SIGN.getFirst());
+        blockItemWithItemTexture(UPBlocks.DRYO_DOOR);
+        basicBlockItem(UPBlocks.DRYO_LEAVES);
+        itemFromBlockTexture(UPBlocks.DRYO_SAPLING);
+        basicItem(UPItems.DRYO_BOAT.getFirst());
+        basicItem(UPItems.DRYO_BOAT.getSecond());
+        basicItem(UPItems.DRYO_NUTS);
+
+        // Foxii
+        basicBlockItem(UPBlocks.FOXII_PLANKS);
+        basicBlockItem(UPBlocks.FOXII_LOG);
+        basicBlockItem(UPBlocks.STRIPPED_FOXII_LOG);
+        basicBlockItem(UPBlocks.FOXII_WOOD);
+        basicBlockItem(UPBlocks.STRIPPED_FOXII_WOOD);
+        basicBlockItem(UPBlocks.FOXII_PRESSURE_PLATE);
+        trapdoorBlockItem(UPBlocks.FOXII_TRAPDOOR);
+        basicBlockItem(UPBlocks.FOXII_STAIRS);
+        basicBlockItem(UPBlocks.FOXII_SLAB);
+        modButtonBlockItem(UPBlocks.FOXII_BUTTON, UPBlocks.FOXII_PLANKS);
+        fenceBlockItem(UPBlocks.FOXII_FENCE, UPBlocks.FOXII_PLANKS);
+        basicBlockItem(UPBlocks.FOXII_FENCE_GATE);
+        blockItemWithItemTexture(UPBlocks.FOXII_SIGN.getFirst());
+        blockItemWithItemTexture(UPBlocks.FOXII_HANGING_SIGN.getFirst());
+        blockItemWithItemTexture(UPBlocks.FOXII_DOOR);
+        basicBlockItem(UPBlocks.FOXII_LEAVES);
+        itemFromBlockTexture(UPBlocks.FOXII_SAPLING);
+        basicItem(UPItems.FOXII_BOAT.getFirst());
+        basicItem(UPItems.FOXII_BOAT.getSecond());
+
+        // Ginkgo
+        basicBlockItem(UPBlocks.GINKGO_PLANKS);
+        basicBlockItem(UPBlocks.GINKGO_LOG);
+        basicBlockItem(UPBlocks.STRIPPED_GINKGO_LOG);
+        basicBlockItem(UPBlocks.GINKGO_WOOD);
+        basicBlockItem(UPBlocks.STRIPPED_GINKGO_WOOD);
+        basicBlockItem(UPBlocks.GINKGO_PRESSURE_PLATE);
+        trapdoorBlockItem(UPBlocks.GINKGO_TRAPDOOR);
+        basicBlockItem(UPBlocks.GINKGO_STAIRS);
+        basicBlockItem(UPBlocks.GINKGO_SLAB);
+        modButtonBlockItem(UPBlocks.GINKGO_BUTTON, UPBlocks.GINKGO_PLANKS);
+        fenceBlockItem(UPBlocks.GINKGO_FENCE, UPBlocks.GINKGO_PLANKS);
+        basicBlockItem(UPBlocks.GINKGO_FENCE_GATE);
+        blockItemWithItemTexture(UPBlocks.GINKGO_SIGN.getFirst());
+        blockItemWithItemTexture(UPBlocks.GINKGO_HANGING_SIGN.getFirst());
+        blockItemWithItemTexture(UPBlocks.GINKGO_DOOR);
+        basicBlockItem(UPBlocks.GINKGO_LEAVES);
+        itemFromBlockTexture(UPBlocks.GINKGO_SAPLING);
+        basicItem(UPItems.GINKGO_BOAT.getFirst());
+        basicItem(UPItems.GINKGO_BOAT.getSecond());
+        basicItem(UPItems.RAW_GINKGO_SEEDS);
+        basicItem(UPItems.COOKED_GINKGO_SEEDS);
+        basicItem(UPItems.GINKGO_FRUIT);
+
+        // Petrified
+        basicBlockItem(UPBlocks.PETRIFIED_PLANKS);
+        basicBlockItem(UPBlocks.PETRIFIED_LOG);
+        basicBlockItem(UPBlocks.STRIPPED_PETRIFIED_LOG);
+        basicBlockItem(UPBlocks.PETRIFIED_WOOD);
+        basicBlockItem(UPBlocks.STRIPPED_PETRIFIED_WOOD);
+        basicBlockItem(UPBlocks.PETRIFIED_PRESSURE_PLATE);
+        trapdoorBlockItem(UPBlocks.PETRIFIED_TRAPDOOR);
+        basicBlockItem(UPBlocks.PETRIFIED_STAIRS);
+        basicBlockItem(UPBlocks.PETRIFIED_SLAB);
+        modButtonBlockItem(UPBlocks.PETRIFIED_BUTTON, UPBlocks.PETRIFIED_PLANKS);
+        fenceBlockItem(UPBlocks.PETRIFIED_FENCE, UPBlocks.PETRIFIED_PLANKS);
+        basicBlockItem(UPBlocks.PETRIFIED_FENCE_GATE);
+        blockItemWithItemTexture(UPBlocks.PETRIFIED_SIGN.getFirst());
+        blockItemWithItemTexture(UPBlocks.PETRIFIED_HANGING_SIGN.getFirst());
+        blockItemWithItemTexture(UPBlocks.PETRIFIED_DOOR);
+        itemFromBlockTexture(UPBlocks.PETRIFIED_BUSH);
+        basicBlockItem(UPBlocks.POLISHED_PETRIFIED_WOOD);
+        basicBlockItem(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS);
+        basicBlockItem(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB);
+        wallBlockItem(UPBlocks.POLISHED_PETRIFIED_WOOD_WALL, UPBlocks.POLISHED_PETRIFIED_WOOD);
+
+        // Zuloagae
+        basicBlockItem(UPBlocks.ZULOAGAE_PLANKS);
+        basicBlockItem(UPBlocks.ZULOAGAE_BLOCK);
+        basicBlockItem(UPBlocks.STRIPPED_ZULOAGAE_BLOCK);
+        basicBlockItem(UPBlocks.ZULOAGAE_PRESSURE_PLATE);
+        trapdoorBlockItem(UPBlocks.ZULOAGAE_TRAPDOOR);
+        basicBlockItem(UPBlocks.ZULOAGAE_STAIRS);
+        basicBlockItem(UPBlocks.ZULOAGAE_SLAB);
+        modButtonBlockItem(UPBlocks.ZULOAGAE_BUTTON, UPBlocks.ZULOAGAE_PLANKS);
+        fenceBlockItem(UPBlocks.ZULOAGAE_FENCE, UPBlocks.ZULOAGAE_PLANKS);
+        basicBlockItem(UPBlocks.ZULOAGAE_FENCE_GATE);
+        blockItemWithItemTexture(UPBlocks.ZULOAGAE_SIGN.getFirst());
+        blockItemWithItemTexture(UPBlocks.ZULOAGAE_HANGING_SIGN.getFirst());
+        blockItemWithItemTexture(UPBlocks.ZULOAGAE_DOOR);
 
         // Fossils
         fossilTex(UPItems.PALEO_FOSSIL);
@@ -161,7 +261,6 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.DINO_POUCH);
         singleTex(UPItems.OPALESCENT_PEARL);
         singleTex(UPItems.OPALESCENT_SHURIKEN);
-        singleTex(UPItems.DRYO_NUTS);
         singleTex(UPItems.ZULOGAE_DISC);
         singleTex(UPItems.ENCASED_DISC);
         singleTex(UPItems.RAW_MAMMOTH);
@@ -180,26 +279,6 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.BLUE_FRUIT);
         singleTex(UPItems.BLUE_FRUIT_SCRAPS);
 
-        singleTex(UPItems.DRYO_SIGN);
-        singleTex(UPItems.DRYO_HANGING_SIGN);
-        singleTex(UPItems.DRYO_BOAT);
-        singleTex(UPItems.DRYO_CHEST_BOAT);
-
-        singleTex(UPItems.GINKGO_SIGN);
-        singleTex(UPItems.GINKGO_HANGING_SIGN);
-        singleTex(UPItems.GINKGO_BOAT);
-        singleTex(UPItems.GINKGO_CHEST_BOAT);
-
-        singleTex(UPItems.FOXXI_BOAT);
-        singleTex(UPItems.FOXXI_CHEST_BOAT);
-        singleTex(UPItems.FOXII_SIGN);
-        singleTex(UPItems.FOXII_HANGING_SIGN);
-
-        singleTex(UPItems.PETRIFIED_WOOD_SIGN);
-        singleTex(UPItems.PETRIFIED_WOOD_HANGING_SIGN);
-
-        singleTex(UPItems.ZULOAGAE_SIGN);
-        singleTex(UPItems.ZULOAGAE_HANGING_SIGN);
         singleTex(UPItems.PSITTACOSAURUS_QUILL);
         singleTex(UPItems.PSITTACCO_ARROW);
         singleTex(UPItems.QUILL_REMEDY);
@@ -214,6 +293,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.BOULDER_OPAL);
         singleTex(UPItems.BLACK_OPAL);
 
+        // Fossil ores
         toBlock(UPBlocks.STONE_FOSSIL);
         toBlock(UPBlocks.DEEPSLATE_FOSSIL);
         toBlock(UPBlocks.PLANT_FOSSIL);
@@ -227,12 +307,58 @@ public class ItemModelGenerator extends ItemModelProvider {
         toBlock(UPBlocks.PERMAFROST);
         toBlock(UPBlocks.PERMAFROST_FOSSIL);
 
-        toBlock(UPBlocks.AMBER_BLOCK);
+        basicBlockItem(UPBlocks.AMBER_BLOCK);
 
         // Opal blocks
-        toBlock(UPBlocks.OPAL_BLOCK);
-        toBlock(UPBlocks.BLACK_OPAL_BLOCK);
+        basicBlockItem(UPBlocks.OPAL_BLOCK);
+        basicBlockItem(UPBlocks.BLACK_OPAL_BLOCK);
+
+        basicBlockItem(UPBlocks.ASPHALT);
+
+        for (Item i : BuiltInRegistries.ITEM) {
+            if (i instanceof SpawnEggItem && Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getNamespace().equals(UnusualPrehistory.MODID)) {
+                getBuilder(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getPath())
+                        .parent(getExistingFile(new ResourceLocation("item/template_spawn_egg")));
+            }
+        }
     }
+
+    private void basicItem(Supplier<? extends Item> item) {
+        basicItem(item.get());
+    }
+
+    private void basicBlockItem(Supplier<? extends Block> blockForItem) {
+        withExistingParent(name(blockForItem.get()), modBlockLocation(name(blockForItem.get())));
+    }
+
+    private void modButtonBlockItem(Supplier<? extends Block> blockForItem, Supplier<? extends Block> blockForTexture) {
+        buttonInventory(name(blockForItem.get()), modBlockLocation(name(blockForTexture.get())));
+    }
+
+    private void wallBlockItem(Supplier<? extends Block> block, Supplier<? extends Block> blockForTexture) {
+        wallInventory(name(block.get()), modBlockLocation(name(blockForTexture.get())));
+    }
+
+    private void itemFromBlockTexture(Supplier<? extends Block> block) {
+        withExistingParent(name(block.get()), GENERATED).texture(LAYER0, modBlockLocation(name(block.get())));
+    }
+
+    private void blockItemWithItemTexture(Supplier<? extends Block> blockForItem) {
+        basicItem(blockForItem.get().asItem());
+    }
+
+    private void fenceBlockItem(Supplier<? extends Block> block, Supplier<? extends Block> blockForTexture) {
+        fenceInventory(name(block.get()), modBlockLocation(name(blockForTexture.get())));
+    }
+
+    private void basicBlockItemWithSuffix(Supplier<? extends Block> block, String suffix) {
+        withExistingParent(name(block.get()), modBlockLocation(name(block.get()) + suffix));
+    }
+
+    private void trapdoorBlockItem(Supplier<? extends Block> block) {
+        basicBlockItemWithSuffix(block, "_bottom");
+    }
+
     private void toBlock(RegistryObject<Block> b) {
         toBlockModel(b, b.getId().getPath());
     }

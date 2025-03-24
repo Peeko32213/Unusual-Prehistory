@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "unusualprehistory:block/polished_petrified_wood"
+  }
+}

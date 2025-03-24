@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
+      "model": "unusualprehistory:block/stripped_foxxi_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
       "model": "unusualprehistory:block/stripped_foxxi_wood"
+    },
+    "axis=z": {
+      "model": "unusualprehistory:block/stripped_foxxi_wood",
+      "x": 90
     }
   }
 }

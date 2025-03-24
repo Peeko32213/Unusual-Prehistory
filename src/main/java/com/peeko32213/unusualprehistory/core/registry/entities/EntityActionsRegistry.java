@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 import java.util.function.Consumer;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class EntityActionsRegistry {
     private static final BiMap<ResourceLocation, Consumer<LivingEntity>> ACTIONS = HashBiMap.create();
@@ -21,7 +21,7 @@ public class EntityActionsRegistry {
 
 
     public static void register() {
-        register(prefix("default"), DEFAULT);
+        register(modPrefix("default"), DEFAULT);
     }
 
 

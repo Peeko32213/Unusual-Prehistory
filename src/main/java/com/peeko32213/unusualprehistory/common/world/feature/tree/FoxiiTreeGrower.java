@@ -8,7 +8,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class FoxiiTreeGrower extends AbstractMegaTreeGrower {
 
@@ -21,7 +21,7 @@ public class FoxiiTreeGrower extends AbstractMegaTreeGrower {
     @Nullable
     @Override
     protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(@NotNull RandomSource pRandom) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, prefix("foxii"));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, modPrefix("foxii"));
     }
 }
 

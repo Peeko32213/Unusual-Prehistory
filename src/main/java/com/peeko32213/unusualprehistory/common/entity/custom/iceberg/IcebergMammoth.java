@@ -9,10 +9,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.core.animation.RawAnimation;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class IcebergMammoth extends WorldSpawnableEntity {
-    public static final ResourceLocation MAMMOTH_LOOT = prefix("entities/iceberg/mammoth");
+    public static final ResourceLocation MAMMOTH_LOOT = modPrefix("entities/iceberg/mammoth");
     public IcebergMammoth(EntityType<? extends LivingEntity> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
     }

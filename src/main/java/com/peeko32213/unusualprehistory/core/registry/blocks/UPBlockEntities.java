@@ -32,24 +32,6 @@ public class UPBlockEntities {
                     BlockEntityType.Builder.of(DNAFridgeBlockEntity::new,
                             UPBlocks.DNA_FRIDGE.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<UPSignBlockEntity>> UP_SIGN = BLOCK_ENTITIES.register("unusualprehistory_sign", () ->
-            BlockEntityType.Builder.of(UPSignBlockEntity::new,
-                   UPBlocks.GINKGO_SIGN.get(), UPBlocks.GINKGO_WALL_SIGN.get(),
-                   UPBlocks.FOXII_SIGN.get(), UPBlocks.FOXII_WALL_SIGN.get(),
-                   UPBlocks.DRYO_SIGN.get(), UPBlocks.DRYO_WALL_SIGN.get(),
-                   UPBlocks.PETRIFIED_WOOD_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_SIGN.get(),
-                   UPBlocks.ZULOAGAE_SIGN.get(), UPBlocks.ZULOAGAE_WALL_SIGN.get()
-           ).build(null));
-
-    public static final RegistryObject<BlockEntityType<UPHangingSignBlockEntity>> UP_HANGING_SIGN = BLOCK_ENTITIES.register("unusualprehistory_hanging_sign", () ->
-            BlockEntityType.Builder.of(UPHangingSignBlockEntity::new,
-                    UPBlocks.DRYO_HANGING_SIGN.get(), UPBlocks.DRYO_WALL_HANGING_SIGN.get(),
-                    UPBlocks.GINKGO_HANGING_SIGN.get(), UPBlocks.GINKGO_WALL_HANGING_SIGN.get(),
-                    UPBlocks.PETRIFIED_WOOD_HANGING_SIGN.get(), UPBlocks.PETRIFIED_WOOD_WALL_HANGING_SIGN.get(),
-                    UPBlocks.FOXII_HANGING_SIGN.get(), UPBlocks.FOXII_WALL_HANGING_SIGN.get(),
-                    UPBlocks.ZULOAGAE_HANGING_SIGN.get(), UPBlocks.ZULOAGAE_WALL_HANGING_SIGN.get()
-            ).build(null));
-
     public static final RegistryObject<BlockEntityType<FruitLootBoxEntity>> FRUIT_LOOT_BOX_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("fruit_loot_box_block_entity", () ->
                     BlockEntityType.Builder.of(FruitLootBoxEntity::new,

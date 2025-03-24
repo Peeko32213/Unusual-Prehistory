@@ -328,6 +328,7 @@ public class UPTabs {
                     entries.accept(UPBlocks.DRYO_SAPLING.get());
                     entries.accept(UPBlocks.FOXII_SAPLING.get());
                     entries.accept(UPBlocks.GINKGO_SAPLING.get());
+                    entries.accept(UPBlocks.PETRIFIED_BUSH.get());
                     entries.accept(UPBlocks.HORSETAIL.get());
                     entries.accept(UPBlocks.TALL_HORSETAIL.get());
                     entries.accept(UPBlocks.LEEFRUCTUS.get());
@@ -338,27 +339,6 @@ public class UPTabs {
                     entries.accept(UPBlocks.SARACENIA.get());
                     entries.accept(UPBlocks.TALL_SARACENIA.get());
                     entries.accept(UPBlocks.ZULOAGAE.get());
-
-                    // Petrified wood
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_LOG.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD.get());
-                    entries.accept(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG.get());
-                    entries.accept(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_PLANKS.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_STAIRS.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_SLAB.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_FENCE.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_FENCE_GATE.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_PRESSURE_PLATE.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_BUTTON.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_DOOR.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_TRAPDOOR.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_SIGN.get());
-                    entries.accept(UPBlocks.PETRIFIED_WOOD_HANGING_SIGN.get());
-                    entries.accept(UPBlocks.POLISHED_PETRIFIED_WOOD.get());
-                    entries.accept(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
-                    entries.accept(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
-                    entries.accept(UPBlocks.PETRIFIED_BUSH.get());
 
                     // Dryo wood
                     entries.accept(UPBlocks.DRYO_LOG.get());
@@ -374,31 +354,31 @@ public class UPTabs {
                     entries.accept(UPBlocks.DRYO_TRAPDOOR.get());
                     entries.accept(UPBlocks.DRYO_PRESSURE_PLATE.get());
                     entries.accept(UPBlocks.DRYO_BUTTON.get());
-                    entries.accept(UPBlocks.DRYO_SIGN.get());
-                    entries.accept(UPBlocks.DRYO_HANGING_SIGN.get());
-                    entries.accept(UPItems.DRYO_BOAT.get());
-                    entries.accept(UPItems.DRYO_CHEST_BOAT.get());
+                    entries.accept(UPBlocks.DRYO_SIGN.getFirst().get());
+                    entries.accept(UPBlocks.DRYO_HANGING_SIGN.getFirst().get());
+                    entries.accept(UPItems.DRYO_BOAT.getFirst().get());
+                    entries.accept(UPItems.DRYO_BOAT.getSecond().get());
                     entries.accept(UPBlocks.DRYO_LEAVES.get());
 
                     // Foxii wood
-                    entries.accept(UPBlocks.FOXXI_LOG.get());
-                    entries.accept(UPBlocks.FOXXI_WOOD.get());
-                    entries.accept(UPBlocks.STRIPPED_FOXXI_LOG.get());
-                    entries.accept(UPBlocks.STRIPPED_FOXXI_WOOD.get());
-                    entries.accept(UPBlocks.FOXXI_PLANKS.get());
-                    entries.accept(UPBlocks.FOXXI_STAIRS.get());
-                    entries.accept(UPBlocks.FOXXI_SLAB.get());
-                    entries.accept(UPBlocks.FOXXI_FENCE.get());
-                    entries.accept(UPBlocks.FOXXI_FENCE_GATE.get());
-                    entries.accept(UPBlocks.FOXXI_DOOR.get());
-                    entries.accept(UPBlocks.FOXXI_TRAPDOOR.get());
-                    entries.accept(UPBlocks.FOXXI_PRESSURE_PLATE.get());
-                    entries.accept(UPBlocks.FOXXI_BUTTON.get());
-                    entries.accept(UPBlocks.FOXII_SIGN.get());
-                    entries.accept(UPBlocks.FOXII_HANGING_SIGN.get());
-                    entries.accept(UPItems.FOXXI_BOAT.get());
-                    entries.accept(UPItems.FOXXI_CHEST_BOAT.get());
-                    entries.accept(UPBlocks.FOXXI_LEAVES.get());
+                    entries.accept(UPBlocks.FOXII_LOG.get());
+                    entries.accept(UPBlocks.FOXII_WOOD.get());
+                    entries.accept(UPBlocks.STRIPPED_FOXII_LOG.get());
+                    entries.accept(UPBlocks.STRIPPED_FOXII_WOOD.get());
+                    entries.accept(UPBlocks.FOXII_PLANKS.get());
+                    entries.accept(UPBlocks.FOXII_STAIRS.get());
+                    entries.accept(UPBlocks.FOXII_SLAB.get());
+                    entries.accept(UPBlocks.FOXII_FENCE.get());
+                    entries.accept(UPBlocks.FOXII_FENCE_GATE.get());
+                    entries.accept(UPBlocks.FOXII_DOOR.get());
+                    entries.accept(UPBlocks.FOXII_TRAPDOOR.get());
+                    entries.accept(UPBlocks.FOXII_PRESSURE_PLATE.get());
+                    entries.accept(UPBlocks.FOXII_BUTTON.get());
+                    entries.accept(UPBlocks.FOXII_SIGN.getFirst().get());
+                    entries.accept(UPBlocks.FOXII_HANGING_SIGN.getFirst().get());
+                    entries.accept(UPItems.FOXII_BOAT.getFirst().get());
+                    entries.accept(UPItems.FOXII_BOAT.getSecond().get());
+                    entries.accept(UPBlocks.FOXII_LEAVES.get());
 
                     // Ginkgo wood
                     entries.accept(UPBlocks.GINKGO_LOG.get());
@@ -414,11 +394,32 @@ public class UPTabs {
                     entries.accept(UPBlocks.GINKGO_TRAPDOOR.get());
                     entries.accept(UPBlocks.GINKGO_PRESSURE_PLATE.get());
                     entries.accept(UPBlocks.GINKGO_BUTTON.get());
-                    entries.accept(UPBlocks.GINKGO_SIGN.get());
-                    entries.accept(UPBlocks.GINKGO_HANGING_SIGN.get());
-                    entries.accept(UPItems.GINKGO_BOAT.get());
-                    entries.accept(UPItems.GINKGO_CHEST_BOAT.get());
+                    entries.accept(UPBlocks.GINKGO_SIGN.getFirst().get());
+                    entries.accept(UPBlocks.GINKGO_HANGING_SIGN.getFirst().get());
+                    entries.accept(UPItems.GINKGO_BOAT.getFirst().get());
+                    entries.accept(UPItems.GINKGO_BOAT.getSecond().get());
                     entries.accept(UPBlocks.GINKGO_LEAVES.get());
+
+                    // Petrified wood
+                    entries.accept(UPBlocks.PETRIFIED_LOG.get());
+                    entries.accept(UPBlocks.PETRIFIED_WOOD.get());
+                    entries.accept(UPBlocks.STRIPPED_PETRIFIED_LOG.get());
+                    entries.accept(UPBlocks.STRIPPED_PETRIFIED_WOOD.get());
+                    entries.accept(UPBlocks.PETRIFIED_PLANKS.get());
+                    entries.accept(UPBlocks.PETRIFIED_STAIRS.get());
+                    entries.accept(UPBlocks.PETRIFIED_SLAB.get());
+                    entries.accept(UPBlocks.POLISHED_PETRIFIED_WOOD.get());
+                    entries.accept(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
+                    entries.accept(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
+                    entries.accept(UPBlocks.POLISHED_PETRIFIED_WOOD_WALL.get());
+                    entries.accept(UPBlocks.PETRIFIED_FENCE.get());
+                    entries.accept(UPBlocks.PETRIFIED_FENCE_GATE.get());
+                    entries.accept(UPBlocks.PETRIFIED_DOOR.get());
+                    entries.accept(UPBlocks.PETRIFIED_TRAPDOOR.get());
+                    entries.accept(UPBlocks.PETRIFIED_PRESSURE_PLATE.get());
+                    entries.accept(UPBlocks.PETRIFIED_BUTTON.get());
+                    entries.accept(UPBlocks.PETRIFIED_SIGN.getFirst().get());
+                    entries.accept(UPBlocks.PETRIFIED_HANGING_SIGN.getFirst().get());
 
                     // Zuloagae wood
                     entries.accept(UPBlocks.ZULOAGAE_BLOCK.get());
@@ -432,8 +433,8 @@ public class UPTabs {
                     entries.accept(UPBlocks.ZULOAGAE_TRAPDOOR.get());
                     entries.accept(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get());
                     entries.accept(UPBlocks.ZULOAGAE_BUTTON.get());
-                    entries.accept(UPBlocks.ZULOAGAE_SIGN.get());
-                    entries.accept(UPBlocks.ZULOAGAE_HANGING_SIGN.get());
+                    entries.accept(UPBlocks.ZULOAGAE_SIGN.getFirst().get());
+                    entries.accept(UPBlocks.ZULOAGAE_HANGING_SIGN.getFirst().get());
 
                     entries.accept(UPBlocks.ELECTRIC_PILLAR.get());
 

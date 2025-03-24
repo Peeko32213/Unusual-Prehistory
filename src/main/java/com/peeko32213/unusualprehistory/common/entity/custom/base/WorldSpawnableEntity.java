@@ -38,16 +38,16 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public abstract class WorldSpawnableEntity extends LivingEntity implements GeoAnimatable {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WorldSpawnableEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> WIDTH_SCALE = SynchedEntityData.defineId(WorldSpawnableEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> HEIGHT_SCALE = SynchedEntityData.defineId(WorldSpawnableEntity.class, EntityDataSerializers.FLOAT);
-    public static final ResourceLocation MAMMOTH_LOOT = prefix("entities/iceberg/mammoth");
-    public static final ResourceLocation SMILODON_LOOT = prefix("entities/iceberg/smilodon");
-    public static final ResourceLocation ERYON_LOOT = prefix("entities/iceberg/eryon");
+    public static final ResourceLocation MAMMOTH_LOOT = modPrefix("entities/iceberg/mammoth");
+    public static final ResourceLocation SMILODON_LOOT = modPrefix("entities/iceberg/smilodon");
+    public static final ResourceLocation ERYON_LOOT = modPrefix("entities/iceberg/eryon");
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final Logger LOGGER = LogManager.getLogger();
     private boolean hasGivenDna;

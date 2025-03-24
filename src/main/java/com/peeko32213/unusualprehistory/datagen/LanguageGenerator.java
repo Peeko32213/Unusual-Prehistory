@@ -7,6 +7,7 @@ import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPPaintings;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.peeko32213.unusualprehistory.core.registry.util.UPTextUtils;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -15,10 +16,13 @@ import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class LanguageGenerator extends LanguageProvider {
@@ -28,6 +32,62 @@ public class LanguageGenerator extends LanguageProvider {
     private static final Logger LOGGER = LogUtils.getLogger();
     @Override
     protected void addTranslations(){
+
+        // Blocks
+        UPBlocks.AUTO_TRANSLATE.forEach(this::forBlock);
+
+        // Untranslated blocks
+        addBlock(UPBlocks.DRYO_LOG, "Dryophyllum Log");
+        addBlock(UPBlocks.STRIPPED_DRYO_LOG, "Stripped Dryophyllum Log");
+        addBlock(UPBlocks.DRYO_WOOD, "Dryophyllum Wood");
+        addBlock(UPBlocks.STRIPPED_DRYO_WOOD, "Stripped Dryophyllum Wood");
+        addBlock(UPBlocks.DRYO_PLANKS, "Dryophyllum Planks");
+        addBlock(UPBlocks.DRYO_STAIRS, "Dryophyllum Stairs");
+        addBlock(UPBlocks.DRYO_SLAB, "Dryophyllum Slab");
+        addBlock(UPBlocks.DRYO_FENCE, "Dryophyllum Fence");
+        addBlock(UPBlocks.DRYO_FENCE_GATE, "Dryophyllum Fence Gate");
+        addBlock(UPBlocks.DRYO_DOOR, "Dryophyllum Door");
+        addBlock(UPBlocks.DRYO_TRAPDOOR, "Dryophyllum Trapdoor");
+        addBlock(UPBlocks.DRYO_PRESSURE_PLATE, "Dryophyllum Pressure Plate");
+        addBlock(UPBlocks.DRYO_BUTTON, "Dryophyllum Button");
+        addBlock(UPBlocks.DRYO_LEAVES, "Dryophyllum Leaves");
+        addBlock(UPBlocks.DRYO_SAPLING, "Dryophyllum Sapling");
+
+        addBlock(UPBlocks.FOXII_LOG, "Foxii Log");
+        addBlock(UPBlocks.STRIPPED_FOXII_LOG, "Stripped Foxii Log");
+        addBlock(UPBlocks.FOXII_WOOD, "Foxii Wood");
+        addBlock(UPBlocks.STRIPPED_FOXII_WOOD, "Stripped Foxii Wood");
+        addBlock(UPBlocks.FOXII_PLANKS, "Foxii Planks");
+        addBlock(UPBlocks.FOXII_STAIRS, "Foxii Stairs");
+        addBlock(UPBlocks.FOXII_SLAB, "Foxii Slab");
+        addBlock(UPBlocks.FOXII_FENCE, "Foxii Fence");
+        addBlock(UPBlocks.FOXII_FENCE_GATE, "Foxii Fence Gate");
+        addBlock(UPBlocks.FOXII_DOOR, "Foxii Door");
+        addBlock(UPBlocks.FOXII_TRAPDOOR, "Foxii Trapdoor");
+        addBlock(UPBlocks.FOXII_PRESSURE_PLATE, "Foxii Pressure Plate");
+        addBlock(UPBlocks.FOXII_BUTTON, "Foxii Button");
+        addBlock(UPBlocks.FOXII_LEAVES, "Foxii Leaves");
+
+        addBlock(UPBlocks.PETRIFIED_LOG, "Petrified Log");
+        addBlock(UPBlocks.STRIPPED_PETRIFIED_LOG, "Stripped Petrified Log");
+        addBlock(UPBlocks.PETRIFIED_STAIRS, "Petrified Stairs");
+        addBlock(UPBlocks.PETRIFIED_SLAB, "Petrified Slab");
+        addBlock(UPBlocks.PETRIFIED_FENCE, "Petrified Fence");
+        addBlock(UPBlocks.PETRIFIED_FENCE_GATE, "Petrified Fence Gate");
+        addBlock(UPBlocks.PETRIFIED_DOOR, "Petrified Door");
+        addBlock(UPBlocks.PETRIFIED_TRAPDOOR, "Petrified Trapdoor");
+        addBlock(UPBlocks.PETRIFIED_PRESSURE_PLATE, "Petrified Pressure Plate");
+        addBlock(UPBlocks.PETRIFIED_BUTTON, "Petrified Button");
+
+        // Items
+
+        // Untranslated items
+        addItem(UPItems.DRYO_BOAT.getFirst(), "Dryophyllum Boat");
+        addItem(UPItems.DRYO_BOAT.getSecond(), "Dryophyllum Chest Boat");
+        addItem(UPItems.FOXII_BOAT.getFirst(), "Foxii Boat");
+        addItem(UPItems.FOXII_BOAT.getSecond(), "Foxii Chest Boat");
+        addItem(UPItems.GINKGO_BOAT.getFirst(), "Ginkgo Boat");
+        addItem(UPItems.GINKGO_BOAT.getSecond(), "Ginkgo Chest Boat");
 
         //TABS
         addTabName(UPTabs.UP_TAB.get(), "Unusual Prehistory");
@@ -274,15 +334,6 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.VELOCI_SHIELD, "Veloci-Shield");
         addItem(UPItems.TRIKE_SHIELD, "Triceratops Shield");
 
-        // Boats
-        addItem(UPItems.DRYO_BOAT, "Dryophyllum Boat");
-        addItem(UPItems.FOXXI_BOAT, "Foxii Boat");
-        addItem(UPItems.GINKGO_BOAT, "Ginkgo Boat");
-
-        addItem(UPItems.DRYO_CHEST_BOAT, "Dryophyllum Boat with Chest");
-        addItem(UPItems.FOXXI_CHEST_BOAT, "Foxii Boat with Chest");
-        addItem(UPItems.GINKGO_CHEST_BOAT, "Ginkgo Boat with Chest");
-
         // Skeletons
         addItem(UPItems.TRIKE_SKELETON, "Triceratops Skeleton");
         addItem(UPItems.TYRANNO_SKELETON, "Tyrannosaurus Skeleton");
@@ -406,107 +457,11 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ARCHAEOSIGILARIA, "Archaeosigillaria");
         addBlock(UPBlocks.SARACENIA, "Sarracenia");
         addBlock(UPBlocks.TALL_SARACENIA, "Tall Sarracenia");
-        addBlock(UPBlocks.GINKGO_SAPLING, "Ginkgo Sapling");
         addBlock(UPBlocks.ARCHAEFRUCTUS, "Archaefructus");
         addBlock(UPBlocks.NELUMBITES, "Nelumbites");
         addBlock(UPBlocks.QUEREUXIA, "Quereuxia");
         addBlock(UPBlocks.QUEREUXIA_TOP, "Quereuxia Clovers");
-        addBlock(UPBlocks.PETRIFIED_BUSH, "Petrified Bush");
-        addBlock(UPBlocks.ZULOAGAE, "Zuloagae");
-        addBlock(UPBlocks.ZULOAGAE_SAPLING, "Zuloagae Sapling");
         addBlock(UPBlocks.RAIGUENRAYUN, "Raiguenrayun");
-
-        //GINKGO
-        addBlock(UPBlocks.GINKGO_PLANKS, "Ginkgo Planks");
-        addBlock(UPBlocks.GINKGO_WOOD, "Ginkgo Wood");
-        addBlock(UPBlocks.STRIPPED_GINKGO_WOOD, "Stripped Ginkgo Wood");
-        addBlock(UPBlocks.GINKGO_LEAVES, "Ginkgo Leaves");
-        addBlock(UPBlocks.GINKGO_LOG, "Ginkgo Log");
-        addBlock(UPBlocks.STRIPPED_GINKGO_LOG, "Stripped Ginkgo Log");
-        addBlock(UPBlocks.GINKGO_STAIRS, "Ginkgo Stairs");
-        addBlock(UPBlocks.GINKGO_SLAB, "Ginkgo Slab");
-        addBlock(UPBlocks.GINKGO_FENCE, "Ginkgo Fence");
-        addBlock(UPBlocks.GINKGO_FENCE_GATE, "Ginkgo Fence Gate");
-        addBlock(UPBlocks.GINKGO_DOOR, "Ginkgo Door");
-        addBlock(UPBlocks.GINKGO_TRAPDOOR, "Ginkgo Trapdoor");
-        addBlock(UPBlocks.GINKGO_BUTTON, "Ginkgo Button");
-        addBlock(UPBlocks.GINKGO_PRESSURE_PLATE, "Ginkgo Pressure Plate");
-        addItem(UPItems.GINKGO_SIGN, "Ginkgo Sign");
-        addItem(UPItems.GINKGO_HANGING_SIGN, "Ginkgo Hanging Sign");
-        addBlock(UPBlocks.AMBER_BUTTON, "Amber Button");
-
-        //FOXXI
-        addBlock(UPBlocks.FOXXI_PLANKS, "Foxii Planks");
-        addBlock(UPBlocks.FOXXI_WOOD, "Foxii Wood");
-        addBlock(UPBlocks.STRIPPED_FOXXI_WOOD, "Stripped Foxii Wood");
-        addBlock(UPBlocks.FOXXI_LEAVES, "Foxii Leaves");
-        addBlock(UPBlocks.FOXXI_LOG, "Foxii Log");
-        addBlock(UPBlocks.STRIPPED_FOXXI_LOG, "Stripped Foxii Log");
-        addBlock(UPBlocks.FOXXI_STAIRS, "Foxii Stairs");
-        addBlock(UPBlocks.FOXXI_SLAB, "Foxii Slab");
-        addBlock(UPBlocks.FOXXI_FENCE, "Foxii Fence");
-        addBlock(UPBlocks.FOXXI_FENCE_GATE, "Foxii Fence Gate");
-        addBlock(UPBlocks.FOXXI_BUTTON, "Foxii Button");
-        addBlock(UPBlocks.FOXXI_PRESSURE_PLATE, "Foxii Pressure Plate");
-        addBlock(UPBlocks.FOXXI_DOOR, "Foxii Door");
-        addBlock(UPBlocks.FOXXI_TRAPDOOR, "Foxii Trapdoor");
-        addBlock(UPBlocks.FOXII_SAPLING, "Foxii Sapling");
-        addItem(UPItems.FOXII_SIGN, "Foxii Sign");
-        addItem(UPItems.FOXII_HANGING_SIGN, "Foxii Hanging Sign");
-
-        //DRYO
-        addBlock(UPBlocks.DRYO_PLANKS, "Dryophyllum Planks");
-        addBlock(UPBlocks.DRYO_WOOD, "Dryophyllum Wood");
-        addBlock(UPBlocks.STRIPPED_DRYO_WOOD, "Stripped Dryophyllum Wood");
-        addBlock(UPBlocks.DRYO_LEAVES, "Dryophyllum Leaves");
-        addBlock(UPBlocks.DRYO_LOG, "Dryophyllum Log");
-        addBlock(UPBlocks.STRIPPED_DRYO_LOG, "Stripped Dryophyllum Log");
-        addBlock(UPBlocks.DRYO_STAIRS, "Dryophyllum Stairs");
-        addBlock(UPBlocks.DRYO_SLAB, "Dryophyllum Slab");
-        addBlock(UPBlocks.DRYO_FENCE, "Dryophyllum Fence");
-        addBlock(UPBlocks.DRYO_FENCE_GATE, "Dryophyllum Fence Gate");
-        addBlock(UPBlocks.DRYO_BUTTON, "Dryophyllum Button");
-        addBlock(UPBlocks.DRYO_PRESSURE_PLATE, "Dryophyllum Pressure Plate");
-        addBlock(UPBlocks.DRYO_DOOR, "Dryophyllum Door");
-        addBlock(UPBlocks.DRYO_TRAPDOOR, "Dryophyllum Trapdoor");
-        addBlock(UPBlocks.DRYO_SAPLING, "Dryophyllum Sapling");
-        addItem(UPItems.DRYO_SIGN, "Dryophyllum Sign");
-        addItem(UPItems.DRYO_HANGING_SIGN, "Dryophyllum Hanging Sign");
-
-        //PETRIFIED
-        addBlock(UPBlocks.PETRIFIED_WOOD_PLANKS, "Petrified Planks");
-        addBlock(UPBlocks.PETRIFIED_WOOD, "Petrified Wood");
-        addBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD, "Stripped Petrified Wood");
-        addBlock(UPBlocks.PETRIFIED_WOOD_LOG, "Petrified Log");
-        addBlock(UPBlocks.STRIPPED_PETRIFIED_WOOD_LOG, "Stripped Petrified Log");
-        addBlock(UPBlocks.PETRIFIED_WOOD_STAIRS, "Petrified Stairs");
-        addBlock(UPBlocks.PETRIFIED_WOOD_SLAB, "Petrified Slab");
-        addBlock(UPBlocks.PETRIFIED_WOOD_FENCE, "Petrified Fence");
-        addBlock(UPBlocks.PETRIFIED_WOOD_FENCE_GATE, "Petrified Fence Gate");
-        addBlock(UPBlocks.PETRIFIED_WOOD_DOOR, "Petrified Door");
-        addBlock(UPBlocks.PETRIFIED_WOOD_TRAPDOOR, "Petrified Trapdoor");
-        addBlock(UPBlocks.PETRIFIED_WOOD_BUTTON, "Petrified Button");
-        addBlock(UPBlocks.PETRIFIED_WOOD_PRESSURE_PLATE, "Petrified Pressure Plate");
-        addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD, "Polished Petrified Wood");
-        addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_STAIRS, "Polished Petrified Wood Stairs");
-        addBlock(UPBlocks.POLISHED_PETRIFIED_WOOD_SLAB, "Polished Petrified Wood Slab");
-        addItem(UPItems.PETRIFIED_WOOD_SIGN, "Petrified Sign");
-        addItem(UPItems.PETRIFIED_WOOD_HANGING_SIGN, "Petrified Hanging Sign");
-
-        //FOXXI
-        addBlock(UPBlocks.ZULOAGAE_BLOCK, "Zuloagae Block");
-        addBlock(UPBlocks.ZULOAGAE_PLANKS, "Zuloagae Planks");
-        addBlock(UPBlocks.STRIPPED_ZULOAGAE_BLOCK, "Stripped Zuloagae Block");
-        addBlock(UPBlocks.ZULOAGAE_STAIRS, "Zuloagae Stairs");
-        addBlock(UPBlocks.ZULOAGAE_SLAB, "Zuloagae Slab");
-        addBlock(UPBlocks.ZULOAGAE_FENCE, "Zuloagae Fence");
-        addBlock(UPBlocks.ZULOAGAE_FENCE_GATE, "Zuloagae Fence Gate");
-        addBlock(UPBlocks.ZULOAGAE_BUTTON, "Zuloagae Button");
-        addBlock(UPBlocks.ZULOAGAE_PRESSURE_PLATE, "Zuloagae Pressure Plate");
-        addBlock(UPBlocks.ZULOAGAE_DOOR, "Zuloagae Door");
-        addBlock(UPBlocks.ZULOAGAE_TRAPDOOR, "Zuloagae Trapdoor");
-        addItem(UPItems.ZULOAGAE_SIGN, "Zuloagae Sign");
-        addItem(UPItems.ZULOAGAE_HANGING_SIGN, "Zuloagae Hanging Sign");
 
         //FOSSILS
         addBlock(UPBlocks.COTY_FOSSIL, "Cotylorhynchus Fossil");
@@ -603,10 +558,6 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.ICEBERG_SMILODON, "Frozen Smilodon");
         addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
         addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-
-        // Boats
-        addEntityType(UPEntities.BOAT, "Boat");
-        addEntityType(UPEntities.CHEST_BOAT, "Boat with Chest");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Beelzebufo croaks");
@@ -1148,12 +1099,8 @@ public class LanguageGenerator extends LanguageProvider {
         add("item.minecraft.splash_potion.effect." + regName, "Splash " + name);
         add("item.minecraft.lingering_potion.effect." + regName, "Lingering " + name);
     }
+
+    protected void forBlock(Supplier<? extends Block> block) {
+        addBlock(block, UPTextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block.get())).getPath()));
+    }
 }
-
-//        addItem(UPItems.ARTHROPLEURA_FLASK, "Arthropleura DNA Flask");
-//        addItem(UPItems.SCUTO_FLASK, "Scutosaurus DNA Flask");
-//        addItem(UPItems.ENCHODUS_FLASK, "Enchodus DNA Flask");
-//        addItem(UPItems.IGUANODON_FLASK, "Iguanodon DNA Flask");
-
-
-//        addBlock(UPBlocks.ELECTRIC_PILLAR, "Electric Pillar");

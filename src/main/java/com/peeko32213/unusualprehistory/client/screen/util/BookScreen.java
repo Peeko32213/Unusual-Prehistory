@@ -45,12 +45,12 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.util.*;
 
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.prefix;
+import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class BookScreen extends Screen {
 
-    public static final ResourceLocation BOOK_LOCATION = prefix("textures/gui/book/book_pages.png");
-    public static final ResourceLocation BOOK_BIND = prefix("textures/gui/book/book_binding.png");
+    public static final ResourceLocation BOOK_LOCATION = modPrefix("textures/gui/book/book_pages.png");
+    public static final ResourceLocation BOOK_BIND = modPrefix("textures/gui/book/book_binding.png");
     private static final ResourceLocation BOOK_WIDGET_TEXTURE = new ResourceLocation("unusualprehistory:textures/gui/book/widgets.png");
 
 
@@ -96,7 +96,7 @@ public class BookScreen extends Screen {
         super(Component.translatable("encyclopedia.title"));
         this.currentResourceLocation = resourceLocation;
 
-        if (resourceLocation.equals(prefix("root"))) {
+        if (resourceLocation.equals(modPrefix("root"))) {
             this.currentEntry = EncyclopediaJsonManager.getRootPage();
            //EncyclopediaJsonManager.getEncyclopediaEntries().values().forEach(encyclopediaCodec -> {
            //    encyclopediaCodec.getEntityButtons().forEach(entityRenderDataCodec -> {
@@ -108,7 +108,7 @@ public class BookScreen extends Screen {
         }else {
             this.currentEntry = EncyclopediaJsonManager.getEncyclopediaEntries().get(resourceLocation);
         }
-        if (resourceLocation.equals(prefix("plants"))) {
+        if (resourceLocation.equals(modPrefix("plants"))) {
             EncyclopediaJsonManager.getEncyclopediaEntries().values().forEach(encyclopediaCodec -> {
                 encyclopediaCodec.getPlantButtons().forEach(plantLinkData -> {
                     this.plantLinkData.add(plantLinkData);
@@ -117,7 +117,7 @@ public class BookScreen extends Screen {
 
             Collections.sort(this.plantLinkData, Comparator.comparing(PlantLinkData::getPlant));
         }
-        if (resourceLocation.equals(prefix("dinosaurs"))) {
+        if (resourceLocation.equals(modPrefix("dinosaurs"))) {
             EncyclopediaJsonManager.getEncyclopediaEntries().values().forEach(encyclopediaCodec -> {
                 encyclopediaCodec.getEntityButtons().forEach(entityRenderDataCodec -> {
                     this.entityLinkData.add(entityRenderDataCodec);
@@ -127,7 +127,7 @@ public class BookScreen extends Screen {
             Collections.sort(this.entityLinkData, Comparator.comparing(EntityLinkData::getEntity));
         }
         if(this.currentEntry == null){
-            this.currentEntry =  EncyclopediaJsonManager.getEncyclopediaEntries().get(prefix("help"));
+            this.currentEntry =  EncyclopediaJsonManager.getEncyclopediaEntries().get(modPrefix("help"));
         }
         this.pageToGo = this.currentEntry.getPageToGo();
         this.entityRenders.clear();
@@ -185,7 +185,7 @@ public class BookScreen extends Screen {
                 this.nextPageToStartNrCache = lines.getPage();
             }
         }
-        if (this.currentResourceLocation.equals(prefix("dinosaurs"))) {
+        if (this.currentResourceLocation.equals(modPrefix("dinosaurs"))) {
             double dataSize = entityLinkData.size();
             for (EntityIndexCodec linkData : entityIndex) {
                 double entriesPerPage = (linkData.getColums() * linkData.getRows()) * 2;
@@ -199,7 +199,7 @@ public class BookScreen extends Screen {
             }
         }
 
-        if (this.currentResourceLocation.equals(prefix("plants"))) {
+        if (this.currentResourceLocation.equals(modPrefix("plants"))) {
             double dataSize = plantLinkData.size();
             for (PlantIndexCodec linkData : plantIndex) {
                 double entriesPerPage = (linkData.getColums() * linkData.getRows()) * 2;
@@ -594,7 +594,7 @@ public class BookScreen extends Screen {
                 this.maxPagesFromPrinting = linkData.getPage();
             }
         }
-        if (this.currentResourceLocation.equals(prefix("dinosaurs"))) {
+        if (this.currentResourceLocation.equals(modPrefix("dinosaurs"))) {
             int rowCount = 0;
             int columnCount = 0;
 
@@ -665,7 +665,7 @@ public class BookScreen extends Screen {
 
         }
 
-        if (this.currentResourceLocation.equals(prefix("plants"))) {
+        if (this.currentResourceLocation.equals(modPrefix("plants"))) {
             int rowCount = 0;
             int columnCount = 0;
 
@@ -950,12 +950,12 @@ public class BookScreen extends Screen {
             }, true));
         }
 
-        if (!(this.currentPage <= 0 && this.currentResourceLocation.equals(prefix("root")))) {
+        if (!(this.currentPage <= 0 && this.currentResourceLocation.equals(modPrefix("root")))) {
             this.buttonPreviousPage = this.addRenderableWidget(new BookPageButton(this, k + 10, l + 180, false, (p_214208_1_) -> {
                 this.onSwitchPage(false);
             }, true));
         }
-        if (!this.currentResourceLocation.equals(prefix("root"))) {
+        if (!this.currentResourceLocation.equals(modPrefix("root"))) {
             this.buttonPreviousPage = this.addRenderableWidget(new BookPageButton(this, k + 10, l + 180, false, (p_214208_1_) -> {
                 this.onSwitchPage(false);
             }, true));
@@ -974,7 +974,7 @@ public class BookScreen extends Screen {
             this.previousMap.put(this.currentPage, this.nextPageToStartNr);
             Minecraft.getInstance().setScreen(new BookScreen(this.currentResourceLocation, this.currentPage + 1));
         } else {
-            if (this.currentResourceLocation.equals(prefix("root"))) {
+            if (this.currentResourceLocation.equals(modPrefix("root"))) {
                 Minecraft.getInstance().setScreen(new BookScreen(this.currentResourceLocation, this.currentPage - 1));
                 return;
             }
