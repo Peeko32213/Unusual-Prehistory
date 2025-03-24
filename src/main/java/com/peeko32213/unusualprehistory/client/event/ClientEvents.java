@@ -107,7 +107,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PANACANTHOCARIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PanacanthocarisModel()));
         event.registerEntityRenderer(UPEntities.PTERYGOTUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PterygotusModel()));
         event.registerEntityRenderer(UPEntities.SCAU.get(), e -> new LivingEntityFishRenderer<>(e, new ScaumenaciaModel()));
-        event.registerEntityRenderer(UPEntities.STETHACANTHUS.get(), e -> new StatedPrehistoricRenderer<>(e, new StethacanthusModel()));
+        event.registerEntityRenderer(UPEntities.STETHACANTHUS.get(), e -> new LivingEntityRenderer<>(e, new StethacanthusModel()));
         event.registerEntityRenderer(UPEntities.TARTUOSTEUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.TARTUOSTEUS)));
 
         // Meso mobs
