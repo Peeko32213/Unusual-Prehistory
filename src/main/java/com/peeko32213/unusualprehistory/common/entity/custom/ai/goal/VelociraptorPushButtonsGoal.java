@@ -1,9 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.ai.goal;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.level.LevelReader;
@@ -61,7 +61,7 @@ public class VelociraptorPushButtonsGoal extends MoveToBlockGoal {
     protected void onReachedTarget() {
         if (ForgeEventFactory.getMobGriefingEvent(entity.level(), entity)) {
             BlockState blockstate = entity.level().getBlockState(this.blockPos);
-            if (blockstate.is(UPTags.VELOCI_BUTTONS)) {
+            if (blockstate.is(UPBlockTags.VELOCI_BUTTONS)) {
                 this.pushButton(blockstate);
                 this.stop();
             }
@@ -83,7 +83,7 @@ public class VelociraptorPushButtonsGoal extends MoveToBlockGoal {
     @Override
     protected boolean isValidTarget(LevelReader world, @NotNull BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
-        return (blockState.is(UPTags.VELOCI_BUTTONS));
+        return (blockState.is(UPBlockTags.VELOCI_BUTTONS));
     }
 
     private void pushButton(BlockState p_148929_) {

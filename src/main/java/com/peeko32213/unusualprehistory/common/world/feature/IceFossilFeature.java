@@ -5,7 +5,7 @@ import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.WorldSpawnableEntity;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.util.FastNoiseLite;
+import com.peeko32213.unusualprehistory.core.other.util.FastNoiseLite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;

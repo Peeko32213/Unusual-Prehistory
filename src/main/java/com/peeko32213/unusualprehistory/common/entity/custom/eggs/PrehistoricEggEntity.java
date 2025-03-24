@@ -2,8 +2,8 @@ package com.peeko32213.unusualprehistory.common.entity.custom.eggs;
 
 import com.peeko32213.unusualprehistory.common.entity.animation.AnimationHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -104,7 +104,7 @@ public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
                 BlockState blockState = level.getBlockState(currentPosition);
                 // Check if the block is hatchable
                 cachedBlockStatePos.clear();
-                if (blockState.is(UPTags.DINO_HATCHABLE_BLOCKS)) {
+                if (blockState.is(UPBlockTags.DINO_HATCHABLE_BLOCKS)) {
 
                     cachedBlockStatePos.put(currentPosition, CORRECT_BLOCK_EXTRA_TIME);
                     increaseTime += CORRECT_BLOCK_EXTRA_TIME; // Increase time for correct block

@@ -7,9 +7,9 @@ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.LeaveWaterG
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -454,7 +454,7 @@ public class EryonEntity extends PrehistoricEntityOld implements IVariantEntity,
         }
 
         private boolean isDigBlock(Level world, BlockPos.MutableBlockPos pos) {
-            return world.getBlockState(pos).is(UPTags.ERYON_DIGGABLES);
+            return world.getBlockState(pos).is(UPBlockTags.ERYON_DIGGABLES);
         }
 
     }

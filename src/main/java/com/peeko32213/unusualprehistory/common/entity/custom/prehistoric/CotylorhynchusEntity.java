@@ -9,10 +9,11 @@ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.Prehistoric
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -56,8 +57,8 @@ import java.util.List;
 
 public class CotylorhynchusEntity extends PrehistoricEntity {
 
-    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.COTY_FOOD);
-    private static final Ingredient FERMENTATION_ITEMS = Ingredient.of(UPTags.COTY_FERMENTERS);
+    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItemTags.COTY_FOOD);
+    private static final Ingredient FERMENTATION_ITEMS = Ingredient.of(UPItemTags.COTY_FERMENTERS);
     private static final EntityDataAccessor<Boolean> FERMENTED = SynchedEntityData.defineId(CotylorhynchusEntity.class, EntityDataSerializers.BOOLEAN);
 
     // Movement animations
@@ -182,11 +183,11 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
     }
 
     public boolean isFood(ItemStack stack) {
-        return stack.is(UPTags.COTY_FOOD);
+        return stack.is(UPItemTags.COTY_FOOD);
     }
 
     public boolean isFermentingFood(ItemStack stack) {
-        return stack.is(UPTags.COTY_FERMENTERS);
+        return stack.is(UPItemTags.COTY_FERMENTERS);
     }
 
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
@@ -307,11 +308,11 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
 
         if (!this.isInWater()) {
             if (getBooleanState(IDLE_1_AC)) {
-                if (this.isStillEnough() && !this.isFermented() && level().getBlockState(this.blockPosition().below()).is(UPTags.COTY_GRAZING_BLOCKS)) {
+                if (this.isStillEnough() && !this.isFermented() && level().getBlockState(this.blockPosition().below()).is(UPBlockTags.COTY_GRAZING_BLOCKS)) {
                     triggerAnim("blend", "graze");
                     return event.setAndContinue(COTY_IDLE);
                 }
-                else if(!this.isFermented() && level().getBlockState(this.blockPosition().below()).is(UPTags.COTY_GRAZING_BLOCKS)) {
+                else if(!this.isFermented() && level().getBlockState(this.blockPosition().below()).is(UPBlockTags.COTY_GRAZING_BLOCKS)) {
                     triggerAnim("blend", "graze");
                     return PlayState.CONTINUE;
                 }

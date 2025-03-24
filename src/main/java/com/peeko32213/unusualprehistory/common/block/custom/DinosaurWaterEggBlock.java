@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.custom;
 
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import net.minecraft.core.BlockPos;
@@ -82,7 +82,7 @@ public class DinosaurWaterEggBlock extends Block {
     }
 
     public static boolean isProperHabitat(BlockGetter reader, BlockPos pos) {
-        return reader.getBlockState(pos).is(UPTags.DINO_HATCHABLE_BLOCKS);
+        return reader.getBlockState(pos).is(UPBlockTags.DINO_HATCHABLE_BLOCKS);
     }
 
     private static int getSpawnHatchDelay(RandomSource randomSource) {

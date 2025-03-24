@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.data.entity.generic;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.scouter.goalsmith.data.PredicateCodec;
 import com.scouter.goalsmith.data.predicates.TruePredicate;
 import net.minecraft.core.BlockPos;
@@ -74,6 +74,6 @@ public class EntityTerrainBreakData {
     }
 
     public static EntityTerrainBreakData getDefaultInstance() {
-        return new EntityTerrainBreakData(false, new TruePredicate<>(),UPTags.NONE_BLOCK_TAG,0D);
+        return new EntityTerrainBreakData(false, new TruePredicate<>(), UPBlockTags.NONE_BLOCK_TAG,0D);
     }
 }

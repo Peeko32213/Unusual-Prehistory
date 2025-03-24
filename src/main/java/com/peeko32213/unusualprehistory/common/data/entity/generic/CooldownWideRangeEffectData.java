@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.data.codec.MobEffectInstanceCodec;
 import com.peeko32213.unusualprehistory.common.data.entity.WideRangeEffectData;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.world.entity.Mob;
 
 public class CooldownWideRangeEffectData {
@@ -44,7 +44,7 @@ public class CooldownWideRangeEffectData {
     }
 
     public static CooldownWideRangeEffectData getDefaultInstance() {
-        return new CooldownWideRangeEffectData(0, new WideRangeEffectData(new MobEffectInstanceCodec(UPEffects.SCREEN_SHAKE.get(), 0,0,false,false,false),0, UPTags.NONE_ENTITY_TAG));
+        return new CooldownWideRangeEffectData(0, new WideRangeEffectData(new MobEffectInstanceCodec(UPEffects.SCREEN_SHAKE.get(), 0,0,false,false,false),0, UPEntityTypeTags.NONE_ENTITY_TAG));
     }
     
 }

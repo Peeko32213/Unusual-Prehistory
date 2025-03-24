@@ -2,8 +2,8 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -381,7 +381,7 @@ public class TalpanasEntity extends PrehistoricEntityOld {
         }
 
         private boolean isDigBlock(Level world, BlockPos.MutableBlockPos pos) {
-            return world.getBlockState(pos).is(UPTags.TALPANAS_DIGGABLES);
+            return world.getBlockState(pos).is(UPBlockTags.TALPANAS_DIGGABLES);
         }
     }
 

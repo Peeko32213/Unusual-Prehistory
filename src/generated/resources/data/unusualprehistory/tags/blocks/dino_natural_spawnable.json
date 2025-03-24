@@ -1,16 +1,3 @@
 {
-  "values": [
-    "#minecraft:animals_spawnable_on",
-    "#minecraft:terracotta",
-    "#minecraft:sand",
-    "minecraft:snow_block",
-    "minecraft:snow",
-    "minecraft:podzol",
-    "minecraft:mud",
-    "minecraft:coarse_dirt",
-    "minecraft:rooted_dirt",
-    "minecraft:packed_mud",
-    "minecraft:sandstone",
-    "minecraft:red_sand"
-  ]
+  "values": []
 }

@@ -6,7 +6,7 @@
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.core.registry.UPEffects;
  import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
- import com.peeko32213.unusualprehistory.core.registry.UPTags;
+ import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
@@ -95,7 +95,7 @@
          super.registerGoals();
          this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
          this.goalSelector.addGoal(1, new PsittacosaurusEntity.PsittacoMeleeAttackGoal(this, 1.5F, true));
-         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.PSITTACO_TARGETS)));
+         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPEntityTypeTags.PSITTACO_TARGETS)));
          this.goalSelector.addGoal(0, new FloatGoal(this));
          this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
          this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));

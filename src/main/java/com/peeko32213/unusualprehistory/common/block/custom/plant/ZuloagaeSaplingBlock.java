@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.block.custom.plant;
 
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -49,7 +49,7 @@ public class ZuloagaeSaplingBlock extends Block implements BonemealableBlock {
     }
 
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        return pLevel.getBlockState(pPos.below()).is(UPTags.ZULOAGAE_PLANTABLE_ON);
+        return pLevel.getBlockState(pPos.below()).is(UPBlockTags.ZULOAGAE_PLANTABLE_ON);
     }
 
     /**

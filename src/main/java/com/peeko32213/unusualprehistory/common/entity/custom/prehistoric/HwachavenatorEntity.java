@@ -14,9 +14,9 @@ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEnt
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -500,11 +500,11 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     }
 
     public boolean isFood(ItemStack stack) {
-        return stack.is(UPTags.HWACHA_FOOD);
+        return stack.is(UPItemTags.HWACHA_FOOD);
     }
 
     public boolean isTameFood(ItemStack stack) {
-        return stack.is(UPTags.HWACHA_FOOD);
+        return stack.is(UPItemTags.HWACHA_FOOD);
     }
 
     public boolean isShooting() {

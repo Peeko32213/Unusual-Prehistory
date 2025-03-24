@@ -6,8 +6,8 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.Prehistori
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.BeelzebufoTadpoleEntity;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
-import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
+import com.peeko32213.unusualprehistory.core.other.util.UPMath;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -426,7 +426,7 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
 
     @Override
     protected TagKey<EntityType<?>> getTargetTag() {
-        return UPTags.BEELZE_TARGETS;
+        return UPEntityTypeTags.BEELZE_TARGETS;
     }
 
     protected void dropEquipment() {

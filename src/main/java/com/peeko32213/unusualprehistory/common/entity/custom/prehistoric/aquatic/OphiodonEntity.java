@@ -5,7 +5,7 @@
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
- import com.peeko32213.unusualprehistory.core.registry.UPTags;
+ import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -91,7 +91,7 @@
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
          this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.4D, 10));
-         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.OPHIODON_TARGETS)));
+         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.OPHIODON_TARGETS)));
 
      }
 

@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry;
 
-import com.peeko32213.unusualprehistory.core.registry.util.BarinaTameTrigger;
+import com.peeko32213.unusualprehistory.core.other.util.BarinaTameTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;

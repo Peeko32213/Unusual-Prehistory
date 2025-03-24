@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.Prehistori
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomAnimationsEntity;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -306,7 +306,7 @@ public class AustroraptorEntity extends PrehistoricEntityOld implements ICustomA
 
     @Override
     protected TagKey<EntityType<?>> getTargetTag() {
-        return UPTags.RAPTOR_TARGETS;
+        return UPEntityTypeTags.RAPTOR_TARGETS;
     }
 
     private void attack(LivingEntity entity) {

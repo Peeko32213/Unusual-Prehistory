@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.data.entity;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.data.codec.MobEffectInstanceCodec;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -17,7 +17,7 @@ public class WideRangeEffectData
     public static final Codec<WideRangeEffectData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             MobEffectInstanceCodec.CODEC.fieldOf("effect").forGetter(WideRangeEffectData::getMobEffectInstance),
             Codec.DOUBLE.fieldOf("effect_range").forGetter(WideRangeEffectData::getEffectRange),
-            TagKey.codec(Registries.ENTITY_TYPE).optionalFieldOf("entities_to_target", UPTags.NONE_ENTITY_TAG).forGetter(WideRangeEffectData::getEntitiesToTarget)
+            TagKey.codec(Registries.ENTITY_TYPE).optionalFieldOf("entities_to_target", UPEntityTypeTags.NONE_ENTITY_TAG).forGetter(WideRangeEffectData::getEntitiesToTarget)
     ).apply(instance, WideRangeEffectData::new));
     private final MobEffectInstanceCodec mobEffectInstance;
     private final double effectRange;

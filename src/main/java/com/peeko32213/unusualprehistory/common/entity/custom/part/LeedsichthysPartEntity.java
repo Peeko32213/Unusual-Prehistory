@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHurtableMultipart;
 import com.peeko32213.unusualprehistory.common.message.UPMessageHurtMultipart;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
-import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
+import com.peeko32213.unusualprehistory.core.other.util.UPMath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

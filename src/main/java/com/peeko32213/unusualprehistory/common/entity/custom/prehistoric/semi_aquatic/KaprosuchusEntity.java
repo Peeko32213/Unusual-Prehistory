@@ -10,7 +10,7 @@
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
  import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
- import com.peeko32213.unusualprehistory.core.registry.UPTags;
+ import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -140,7 +140,7 @@
          );
          this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
          this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 60, 1.0D, 100, 34));
-         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.PSITTACO_TARGETS)));
+         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPEntityTypeTags.PSITTACO_TARGETS)));
      }
 
      private void switchNavigator(boolean onLand) {

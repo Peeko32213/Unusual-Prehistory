@@ -3,8 +3,8 @@ package com.peeko32213.unusualprehistory.common.block.entity;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.custom.DNAFridgeBlock;
 import com.peeko32213.unusualprehistory.common.screen.DNAFridgeMenu;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -141,7 +141,7 @@ public class DNAFridgeBlockEntity extends RandomizableContainerBlockEntity imple
 
     @Override
     public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction direction) {
-        return direction != Direction.DOWN && stack.is(UPTags.ALLOWED_FRIDGE_ITEMS) && stack.getItem().canFitInsideContainerItems();
+        return direction != Direction.DOWN && stack.is(UPItemTags.ALLOWED_FRIDGE_ITEMS) && stack.getItem().canFitInsideContainerItems();
     }
 
     @Override

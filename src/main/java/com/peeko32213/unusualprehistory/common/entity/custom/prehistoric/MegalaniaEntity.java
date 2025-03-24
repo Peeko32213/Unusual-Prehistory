@@ -8,7 +8,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEn
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -104,7 +104,7 @@ public class MegalaniaEntity extends PrehistoricEntityOld implements IVariantEnt
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.MEGALANIA_TARGETS)));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPEntityTypeTags.MEGALANIA_TARGETS)));
         //Todo Doesnt seem to work correctly, attacks megalania when it got attacked by it
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
 
@@ -205,7 +205,7 @@ public class MegalaniaEntity extends PrehistoricEntityOld implements IVariantEnt
 
     @Override
     protected TagKey<EntityType<?>> getTargetTag() {
-        return UPTags.MEGALANIA_TARGETS;
+        return UPEntityTypeTags.MEGALANIA_TARGETS;
     }
 
     @Override

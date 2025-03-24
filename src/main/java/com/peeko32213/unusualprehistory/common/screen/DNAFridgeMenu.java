@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.screen;
 
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.UPMenuTypes;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -111,7 +111,7 @@ public class DNAFridgeMenu extends AbstractContainerMenu {
         }
 
         public static boolean mayPlaceItem(ItemStack stack) {
-            return stack.is(UPTags.ALLOWED_FRIDGE_ITEMS);
+            return stack.is(UPItemTags.ALLOWED_FRIDGE_ITEMS);
         }
     }
 }

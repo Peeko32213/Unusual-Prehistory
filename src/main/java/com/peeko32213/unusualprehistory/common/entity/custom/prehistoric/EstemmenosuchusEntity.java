@@ -8,9 +8,9 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelpe
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -52,7 +52,7 @@ import java.util.Objects;
 
 public class EstemmenosuchusEntity extends PrehistoricEntity {
 
-    private static final Ingredient FOOD_ITEMS = Ingredient.of(UPTags.ESTEMME_FOOD_ITEMS);
+    private static final Ingredient FOOD_ITEMS = Ingredient.of(UPItemTags.ESTEMME_FOOD_ITEMS);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -257,7 +257,7 @@ public class EstemmenosuchusEntity extends PrehistoricEntity {
     }
 
     public boolean isFood(ItemStack stack) {
-        return stack.is(UPTags.ESTEMME_FOOD_ITEMS);
+        return stack.is(UPItemTags.ESTEMME_FOOD_ITEMS);
     }
 
     // Heal mob

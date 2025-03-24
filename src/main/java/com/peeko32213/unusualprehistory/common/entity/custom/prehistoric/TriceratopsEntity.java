@@ -12,10 +12,11 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEnt
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -67,7 +68,7 @@ import java.util.List;
 
 public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollower, IStateAction {
 
-    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPTags.TRICERATOPS_FOOD);
+    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItemTags.TRICERATOPS_FOOD);
 
     public static final Logger LOGGER = LogManager.getLogger();
 
@@ -211,7 +212,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
 
         else if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC) && level().getBlockState(this.blockPosition().below()).is(UPTags.TRIKE_GRAZING_BLOCKS)) {
+            if (getBooleanState(IDLE_1_AC) && level().getBlockState(this.blockPosition().below()).is(UPBlockTags.TRIKE_GRAZING_BLOCKS)) {
                 if (this.isStillEnough()) {
                     triggerAnim("blend", "graze");
                     return event.setAndContinue(TRIKE_IDLE);
@@ -463,10 +464,10 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
 
     // Foods
     public boolean isFood(ItemStack stack) {
-        return stack.is(UPTags.TRICERATOPS_FOOD);
+        return stack.is(UPItemTags.TRICERATOPS_FOOD);
     }
     public boolean isTameFood(ItemStack stack) {
-        return stack.is(UPTags.TRICERATOPS_TAMES);
+        return stack.is(UPItemTags.TRICERATOPS_TAMES);
     }
 
     // Mob interactions
@@ -574,7 +575,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
                 BlockState blockstate = this.level().getBlockState(blockpos);
-                if (blockstate.is(UPTags.TRIKE_BREAKABLES)) {
+                if (blockstate.is(UPBlockTags.TRIKE_BREAKABLES)) {
                      this.level().destroyBlock(blockpos, true, this);
                 }
             }

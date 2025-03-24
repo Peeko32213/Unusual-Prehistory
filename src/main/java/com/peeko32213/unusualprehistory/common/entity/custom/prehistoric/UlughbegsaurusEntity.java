@@ -14,9 +14,9 @@ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFol
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -246,7 +246,7 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     }
 
     public boolean isFood(ItemStack stack) {
-        return stack.is(UPTags.ULUGH_FOOD);
+        return stack.is(UPItemTags.ULUGH_FOOD);
     }
 
     public boolean isEating() {

@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry;
 import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedEntityData;
-import com.peeko32213.unusualprehistory.core.registry.util.CodecUtils;
+import com.peeko32213.unusualprehistory.core.other.util.CodecUtils;
 import com.scouter.goalsmith.data.PredicateCodec;
 import com.scouter.goalsmith.data.predicates.TruePredicate;
 import net.minecraft.world.entity.Entity;

@@ -9,8 +9,9 @@ import com.peeko32213.unusualprehistory.common.entity.util.ranged.AttackSound;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.CustomAbstractRangedAttack;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.CustomRangedAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.RangedMeleeMob;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -84,7 +85,7 @@ public class EncrustedEntity extends RangedMeleeMob implements GeoAnimatable, IB
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 15.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPTags.ENCRUSTED_TARGETS)));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPEntityTypeTags.ENCRUSTED_TARGETS)));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
@@ -262,7 +263,7 @@ public class EncrustedEntity extends RangedMeleeMob implements GeoAnimatable, IB
     }
 
     public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends EncrustedEntity> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE)  && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();    }
+        return level.getBlockState(pos.below()).is(UPBlockTags.DINO_NATURAL_SPAWNABLE)  && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();    }
 
 
 }

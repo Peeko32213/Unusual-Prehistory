@@ -6,7 +6,7 @@
  import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
- import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
+ import com.peeko32213.unusualprehistory.core.other.util.UPMath;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.Direction;
  import net.minecraft.nbt.CompoundTag;

@@ -16,7 +16,7 @@
  import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.UPMessages;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
- import com.peeko32213.unusualprehistory.core.registry.util.UPMath;
+ import com.peeko32213.unusualprehistory.core.other.util.UPMath;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.chat.Component;

@@ -10,20 +10,17 @@ import com.peeko32213.unusualprehistory.common.item.projectile.OpalescentShurike
 import com.peeko32213.unusualprehistory.common.item.projectile.PsittaccoArrow;
 import com.peeko32213.unusualprehistory.common.item.projectile.RabiesFlaskItem;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
+import com.peeko32213.unusualprehistory.core.other.tags.UPInstrumentTags;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
-import com.teamabnormals.blueprint.common.item.BlueprintBoatItem;
-import com.teamabnormals.blueprint.core.registry.BlueprintBoatTypes;
 import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.common.Mod;
@@ -180,25 +177,25 @@ public class UPItems {
     public static final RegistryObject<Item> ZULOAGAE_DNA = ITEMS.register("zuloagae_dna_bottle", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> GIGANTO_EMBRYO = ITEMS.register("gigantopithecus_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPTags.GIGANTO_EMBRYO_ATTACH_TO, UPEntities.GIGANTOPITHICUS, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPEntityTypeTags.GIGANTO_EMBRYO_ATTACH_TO, UPEntities.GIGANTOPITHICUS, 1000));
 
     public static final RegistryObject<Item> MAMMOTH_EMBRYO = ITEMS.register("mammoth_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPTags.MAMMOTH_EMBRYO_ATTACH_TO, UPEntities.MAMMOTH, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPEntityTypeTags.MAMMOTH_EMBRYO_ATTACH_TO, UPEntities.MAMMOTH, 1000));
 
     public static final RegistryObject<Item> MEGATH_EMBRYO = ITEMS.register("megatherium_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPTags.MEGATH_EMBRYO_ATTACH_TO, UPEntities.MEGATHERIUM, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPEntityTypeTags.MEGATH_EMBRYO_ATTACH_TO, UPEntities.MEGATHERIUM, 1000));
 
     public static final RegistryObject<Item> PALAEO_EMBRYO = ITEMS.register("palaeophis_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPTags.PALAEO_EMBRYO_ATTACH_TO, UPEntities.BABY_PALAEO, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPEntityTypeTags.PALAEO_EMBRYO_ATTACH_TO, UPEntities.BABY_PALAEO, 1000));
 
     public static final RegistryObject<Item> PARACER_EMBRYO = ITEMS.register("paraceratherium_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPTags.PARACER_EMBRYO_ATTACH_TO, UPEntities.PARACERATHERIUM, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPEntityTypeTags.PARACER_EMBRYO_ATTACH_TO, UPEntities.PARACERATHERIUM, 1000));
 
     public static final RegistryObject<Item> SMILODON_EMBRYO = ITEMS.register("smilodon_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.SMILODON, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPEntityTypeTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.SMILODON, 1000));
 
     public static final RegistryObject<Item> OTAROCYON_EMBRYO = ITEMS.register("otarocyon_embryo",
-            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPTags.OTAROCYON_EMBRYO_ATTACH_TO, UPEntities.OTAROCYON, 1000));
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPEntityTypeTags.OTAROCYON_EMBRYO_ATTACH_TO, UPEntities.OTAROCYON, 1000));
 
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze", () -> new Item(new Item.Properties()));
 
@@ -346,7 +343,7 @@ public class UPItems {
     public static final Pair<RegistryObject<Item>, RegistryObject<Item>> FOXII_BOAT = HELPER.createBoatAndChestBoatItem("foxii", UPBlocks.FOXII_PLANKS);
     public static final Pair<RegistryObject<Item>, RegistryObject<Item>> GINKGO_BOAT = HELPER.createBoatAndChestBoatItem("ginkgo", UPBlocks.GINKGO_PLANKS);
 
-    public static final RegistryObject<Item> CROCARINA = ITEMS.register("crocarina", () -> new MusicalTameItem(new Item.Properties().stacksTo(1), UPEntities.BARINASUCHUS, UPTags.OCARINA_WHISTLE));
+    public static final RegistryObject<Item> CROCARINA = ITEMS.register("crocarina", () -> new MusicalTameItem(new Item.Properties().stacksTo(1), UPEntities.BARINASUCHUS, UPInstrumentTags.OCARINA_WHISTLE));
 
     public static final RegistryObject<Item> SHEDSCALE_HELMET = ITEMS.register("shedscale_helmet", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.HELMET, new Item.Properties(), 0.2));
     public static final RegistryObject<Item> SHEDSCALE_CHESTPLATE = ITEMS.register("shedscale_chestplate", () -> new ShedscaleArmorItem(UPArmorMaterial.SHEDSCALE, ArmorItem.Type.CHESTPLATE, new Item.Properties(), 0.2));
@@ -369,7 +366,7 @@ public class UPItems {
 
     public static final RegistryObject<Item> PALAEO_SKIN = ITEMS.register("palaeophis_skin", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> DRYO_NUTS = ITEMS.register("dryophyllum_nuts", () -> new IncreaseAgeItem(new Item.Properties().food(UPFood.DRYO_NUTS), UPTags.HERBIVORES,10));
+    public static final RegistryObject<Item> DRYO_NUTS = ITEMS.register("dryophyllum_nuts", () -> new IncreaseAgeItem(new Item.Properties().food(UPFood.DRYO_NUTS), UPEntityTypeTags.HERBIVORES,10));
 
     public static final RegistryObject<Item> RAW_MAMMOTH = ITEMS.register("raw_mammoth", () -> new Item(new Item.Properties().food(UPFood.RAW_MAMMOTH)));
     public static final RegistryObject<Item> COOKED_MAMMOTH = ITEMS.register("cooked_mammoth", () -> new Item(new Item.Properties().food(UPFood.COOKED_MAMMOTH)));

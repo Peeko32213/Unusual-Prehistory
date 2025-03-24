@@ -15,10 +15,10 @@ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquatic
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -660,7 +660,7 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
                 BlockState blockstate = this.level().getBlockState(blockpos);
-                if (blockstate.is(UPTags.PASSIVE_BRACHI_BREAKABLES)) {
+                if (blockstate.is(UPBlockTags.PASSIVE_BRACHI_BREAKABLES)) {
                     flag = this.level().destroyBlock(blockpos, true, this) || flag;
                 }
             }
@@ -670,7 +670,7 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
             AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
                 BlockState blockstate = this.level().getBlockState(blockpos);
-                if (blockstate.is(UPTags.ANGRY_BRACHI_BREAKABLES)) {
+                if (blockstate.is(UPBlockTags.ANGRY_BRACHI_BREAKABLES)) {
                     flag = this.level().destroyBlock(blockpos, true, this) || flag;
                 }
             }

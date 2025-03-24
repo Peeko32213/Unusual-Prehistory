@@ -9,7 +9,8 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.old.Prehistori
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -152,7 +153,7 @@ public class HynerpetonEntity extends PrehistoricEntityOld implements ISemiAquat
     @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        if (itemstack.is(UPTags.HYNERPETON_IGNITERS)) {
+        if (itemstack.is(UPItemTags.HYNERPETON_IGNITERS)) {
             SoundEvent soundevent = itemstack.is(Items.FIRE_CHARGE) ? SoundEvents.FIRECHARGE_USE : SoundEvents.FLINTANDSTEEL_USE;
             this.level().playSound(pPlayer, this.getX(), this.getY(), this.getZ(), soundevent, this.getSoundSource(), 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
             if (!this.level().isClientSide) {
@@ -282,7 +283,7 @@ public class HynerpetonEntity extends PrehistoricEntityOld implements ISemiAquat
 
     @Override
     protected TagKey<EntityType<?>> getTargetTag() {
-        return UPTags.HYNERPETON_TARGETS;
+        return UPEntityTypeTags.HYNERPETON_TARGETS;
     }
 
     @Override

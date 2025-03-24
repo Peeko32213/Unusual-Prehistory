@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.peeko32213.unusualprehistory.common.data.codec.MobEffectInstanceCodec;
 import com.peeko32213.unusualprehistory.common.data.entity.WideRangeEffectData;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.world.entity.Mob;
 
 public class ScreenShakeEntityData {
@@ -39,6 +39,6 @@ public class ScreenShakeEntityData {
     }
 
     public static ScreenShakeEntityData getDefaultInstance() {
-        return new ScreenShakeEntityData(false, new CooldownWideRangeEffectData(100, new WideRangeEffectData(new MobEffectInstanceCodec(UPEffects.SCREEN_SHAKE.get(), 4,10,false,false,false),0.2,UPTags.NONE_ENTITY_TAG)));
+        return new ScreenShakeEntityData(false, new CooldownWideRangeEffectData(100, new WideRangeEffectData(new MobEffectInstanceCodec(UPEffects.SCREEN_SHAKE.get(), 4,10,false,false,false),0.2, UPEntityTypeTags.NONE_ENTITY_TAG)));
     }
 }

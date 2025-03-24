@@ -8,7 +8,7 @@ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquatic
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -88,7 +88,7 @@ public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implement
             this.goalSelector.addGoal(2, new HyneriaJumpGoal(this, 200));
         }
         if(!this.isBaby()) {
-            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPTags.HYNERIA_TARGETS)));
+            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.HYNERIA_TARGETS)));
         }
     }
 
@@ -247,7 +247,7 @@ public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implement
 
     @Override
     protected TagKey<EntityType<?>> getTargetTag() {
-        return UPTags.HYNERIA_TARGETS;
+        return UPEntityTypeTags.HYNERIA_TARGETS;
     }
 
     public boolean isJumping() {

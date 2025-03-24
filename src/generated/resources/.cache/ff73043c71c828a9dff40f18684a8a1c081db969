@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-23T19:59:10.7734241	unusualprehistory Item Tags
+// 1.20.1	2025-03-24T14:20:53.6745872	unusualprehistory Item Tags
 0e007da7010fb59ad16ba8721022e513aafaa8d5 data/minecraft/tags/items/arrows.json
 7fb79063f8a205257a5de1bf232fff4dcac02b8f data/minecraft/tags/items/buttons.json
 500835e6514e02057dbd99458db517ebab81f3d9 data/minecraft/tags/items/fishes.json
@@ -7,7 +7,6 @@ aef209b4c38c00b3209a95d71f859278c946554a data/minecraft/tags/items/leaves.json
 69a3b0d382500cfa2a5649efc7286a3465f005ab data/minecraft/tags/items/music_discs.json
 4e0e98372d02d2c49f7a65d7c293678845125d55 data/minecraft/tags/items/planks.json
 70ff7d509b708740c357ca323ed7ca01bfd1e17e data/minecraft/tags/items/saplings.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/items/signs.json
 04ca6fa73b03349e3ee40ff7e78bef18974a9542 data/minecraft/tags/items/small_flowers.json
 675313cc0efaf6e05eda47e3ff495d06824612ae data/minecraft/tags/items/tall_flowers.json
 11ecc602faec8e86a9bdc7ef318046cc7ca58a4b data/minecraft/tags/items/wooden_buttons.json
@@ -29,8 +28,6 @@ b62e48712772e920d80a0e0a7b84f5f53d625649 data/unusualprehistory/tags/items/analy
 256d873dc755b783f12d79f24fb2f8ee5f9c99ad data/unusualprehistory/tags/items/analyzer_items_output_petrified.json
 b49def80017ebcbf2f4a12fbaff3dd0e142ea01b data/unusualprehistory/tags/items/analyzer_items_output_plant_fossil.json
 6bdbdb1697bd198cb373ceb96263427deac4f1bd data/unusualprehistory/tags/items/analyzer_items_output_raw_coty.json
-f1eeed16c9ad77c1f40cbb65e49795d2a3dada63 data/unusualprehistory/tags/items/analyzer_items_output_raw_scau.json
-f4e8feae5b5388eaf59482aa0a3443f196977f12 data/unusualprehistory/tags/items/analyzer_items_output_raw_stetha.json
 14c56b9ada3de2be4024df590de34c5de92ab517 data/unusualprehistory/tags/items/analyzer_items_output_tar_fossil.json
 67018d4185f91159dbe1f6d003f34a64cbc76a50 data/unusualprehistory/tags/items/analyzer_items_output_tree.json
 601842f29ede5ec3edbc19a93d51d11f67f2836d data/unusualprehistory/tags/items/barinasuchus_food.json
@@ -47,15 +44,10 @@ ff158dc1741e31aa81e15bc84006af8cfb64ce9d data/unusualprehistory/tags/items/fossi
 47be456ad97366b91300f74739cd8cac544f698d data/unusualprehistory/tags/items/hynerpeton_igniters.json
 9a167887814f36e0277c10df98c76f8299730929 data/unusualprehistory/tags/items/kentro_food.json
 d1babc0d187228a0d645e8b086ae13d5490028e2 data/unusualprehistory/tags/items/majunga_food.json
-f175e9f0bf709c1820a0b05fe1cfcf8c97795396 data/unusualprehistory/tags/items/mammoth_weapons.json
 9b60e340008138b58f90aa13fb096ba3c8c2dbf4 data/unusualprehistory/tags/items/opal_gems.json
 8c693e070134b06a0aca7e31e0b583e96d6a3a12 data/unusualprehistory/tags/items/organic_ooze.json
 a0ae93ebb6c1e0daf4745c49f8aadf5984b46e48 data/unusualprehistory/tags/items/pachy_food.json
 9a4bc613e8182cc019938dbbdc1b5e73cc94813c data/unusualprehistory/tags/items/petrified_wood.json
-49fcade46717c3911d80d315b95f01901a1bd789 data/unusualprehistory/tags/items/shiny_boots.json
-f7830fc0abd8edfa6ccff141f4214d4cb194ce53 data/unusualprehistory/tags/items/shiny_chest.json
-484e2b4e0ed5b49c8e8f0db1f875f93371aa6ce8 data/unusualprehistory/tags/items/shiny_head.json
-391f26c3c2aaf292f9c677ad5205fc0c07a9d4cf data/unusualprehistory/tags/items/shiny_legs.json
 cd895cf19d27aba603bda83fb6e09625533e6abb data/unusualprehistory/tags/items/triceratops_food.json
 506d6476cc7794fbbf746c92c5bd837843613273 data/unusualprehistory/tags/items/triceratops_tames.json
 d1babc0d187228a0d645e8b086ae13d5490028e2 data/unusualprehistory/tags/items/ulugh_food.json

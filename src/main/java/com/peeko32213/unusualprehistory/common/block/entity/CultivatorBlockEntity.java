@@ -4,11 +4,11 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.message.SyncItemStackC2SPacket;
 import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.*;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.items.UPRecipes;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -250,7 +250,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     private int getFuelAmount(final ItemStack fuelStack) {
-        if(!fuelStack.isEmpty() && fuelStack.is(UPTags.ORGANIC_OOZE)) {
+        if(!fuelStack.isEmpty() && fuelStack.is(UPItemTags.ORGANIC_OOZE)) {
             return maxFuel;
         }
         return 0;
@@ -291,7 +291,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
 
 
     public boolean canTakeItem(int slot, ItemStack stack) {
-        if(slot == 0 && stack.is(UPTags.DNA_FLASKS)){
+        if(slot == 0 && stack.is(UPItemTags.DNA_FLASKS)){
             return true;
         }
         if(slot == 1 && stack.is(UPItems.ORGANIC_OOZE.get())) {

@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.data.predicate.AndSpawnPredicate;
 import com.peeko32213.unusualprehistory.common.data.predicate.IsBlockStateSpawnPredicate;
 import com.peeko32213.unusualprehistory.common.data.predicate.IsBrightEnoughToSpawnPredicate;
 import com.peeko32213.unusualprehistory.common.data.predicate.SpawnPredicate;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.scouter.goalsmith.data.PredicateCodec;
 
 public class EntitySpawnData {
@@ -40,6 +40,6 @@ public class EntitySpawnData {
     }
 
     public static EntitySpawnData getDefaultInstance() {
-        return new EntitySpawnData(false, new AndSpawnPredicate(new IsBlockStateSpawnPredicate(UPTags.DINO_NATURAL_SPAWNABLE), new IsBrightEnoughToSpawnPredicate()));
+        return new EntitySpawnData(false, new AndSpawnPredicate(new IsBlockStateSpawnPredicate(UPBlockTags.DINO_NATURAL_SPAWNABLE), new IsBrightEnoughToSpawnPredicate()));
     }
 }

@@ -3,9 +3,8 @@ package com.peeko32213.unusualprehistory.common.block.entity;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
-import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -107,7 +106,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
                 return itemHandler.insertItem(slot, stack, simulate);
             }
 
-            if(slot == 1 && stack.is(UPTags.ANALYZER_ITEMS_INPUT)) {
+            if(slot == 1 && stack.is(UPItemTags.ANALYZER_ITEMS_INPUT)) {
                 return itemHandler.insertItem(slot, stack, simulate);
             }
             //if(slot == 1 && !AnalyzerRecipeJsonManager.getRecipes().isEmpty() && AnalyzerRecipeJsonManager.getRecipes().containsKey(stack.getItem())) {
@@ -269,7 +268,7 @@ public class AnalyzerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private static boolean isFilledFlask(ItemStack itemStack) {
-        return itemStack.is(UPTags.FILLED_FLASKS);
+        return itemStack.is(UPItemTags.FILLED_FLASKS);
     }
 
     @Override

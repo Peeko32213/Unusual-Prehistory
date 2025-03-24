@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.block.custom;
 
 import com.peeko32213.unusualprehistory.core.registry.*;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
-import com.peeko32213.unusualprehistory.core.registry.UPTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -59,7 +59,7 @@ public class TarBlock extends Block implements BucketPickup {
 
         if (!(pEntity instanceof LivingEntity) || pEntity.getFeetBlockState().is(this)) {
             DamageSource damageSource = UPDamageTypes.tar(pLevel);
-            if(!pEntity.getType().is(UPTags.TAR_WALKABLE_THROUGH_MOBS)) {
+            if(!pEntity.getType().is(UPEntityTypeTags.TAR_WALKABLE_THROUGH_MOBS)) {
                 pEntity.makeStuckInBlock(pState, new Vec3(0.15F, 0.3D, 0.15F));
                 pEntity.hurt(damageSource,1);
             }
@@ -102,7 +102,7 @@ public class TarBlock extends Block implements BucketPickup {
     }
 
     public static boolean canEntityWalkOnTar(Entity pEntity) {
-        if (pEntity.getType().is(UPTags.TAR_WALKABLE_ON_MOBS)) {
+        if (pEntity.getType().is(UPEntityTypeTags.TAR_WALKABLE_ON_MOBS)) {
             return true;
         } else {
             return pEntity instanceof LivingEntity && ((LivingEntity) pEntity).getItemBySlot(EquipmentSlot.FEET).canWalkOnPowderedSnow((LivingEntity) pEntity);
