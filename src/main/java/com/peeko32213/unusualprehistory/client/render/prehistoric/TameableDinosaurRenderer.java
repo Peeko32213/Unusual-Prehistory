@@ -30,11 +30,6 @@ public class TameableDinosaurRenderer<T extends TamablePrehistoricEntityOld> ext
     public void preRender(PoseStack stackIn, T animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.preRender(stackIn, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
 
-        if(animatable instanceof MegatheriumEntity megatherium) {
-            if(megatherium.isBaby()) stackIn.scale(1.0F, 1.0F, 1.0F);
-            return;
-        }
-
         if (animatable.isBaby()) {
             stackIn.scale(0.5F, 0.5F, 0.5F);
         }

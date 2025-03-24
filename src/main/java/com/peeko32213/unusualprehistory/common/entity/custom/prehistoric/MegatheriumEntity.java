@@ -1,11 +1,18 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TameableFollowOwner;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.UPTags;
@@ -27,10 +34,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -46,38 +55,59 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-public class MegatheriumEntity extends TamablePrehistoricEntityOld implements ICustomFollower, IAttackEntity {
-//    private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(EntityMegatherium.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(MegatheriumEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(MegatheriumEntity.class, EntityDataSerializers.INT);
+import java.util.List;
+
+public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollower {
+
     private Ingredient temptationItems;
-//    private int eatingTime;
     public float sitProgress;
 
-    private static final RawAnimation MEGATHERIUM_WALK = RawAnimation.begin().thenLoop("animation.megatherium.move");
-    private static final RawAnimation MEGATHERIUM_IDLE = RawAnimation.begin().thenLoop("animation.megatherium.idle");
-    private static final RawAnimation MEGATHERIUM_DIG = RawAnimation.begin().thenLoop("animation.megatherium.digging");
-    private static final RawAnimation MEGATHERIUM_SIT = RawAnimation.begin().thenLoop("animation.megatherium.sitting");
+    // Movement animations
+    private static final RawAnimation MEGATHERIUM_WALK = RawAnimation.begin().thenLoop("animation.megatherium.walk");
+    private static final RawAnimation MEGATHERIUM_RUN = RawAnimation.begin().thenLoop("animation.megatherium.run");
     private static final RawAnimation MEGATHERIUM_SWIM = RawAnimation.begin().thenLoop("animation.megatherium.swim");
-    private static final RawAnimation MEGATHERIUM_EAT = RawAnimation.begin().thenLoop("animation.megatherium.eating");
 
-    private static final RawAnimation MEGATHERIUM_BABY_WALK = RawAnimation.begin().thenLoop("animation.baby_megatherium.walk");
-    private static final RawAnimation MEGATHERIUM_BABY_IDLE = RawAnimation.begin().thenLoop("animation.baby_megatherium.idle");
-    private static final RawAnimation MEGATHERIUM_BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_megatherium.swim");
+    // Idle animations
+    private static final RawAnimation MEGATHERIUM_IDLE = RawAnimation.begin().thenLoop("animation.megatherium.idle");
+    private static final RawAnimation MEGATHERIUM_SIT = RawAnimation.begin().thenLoop("animation.megatherium.sit");
+    private static final RawAnimation MEGATHERIUM_SIT_START = RawAnimation.begin().thenPlay("animation.megatherium.sit_start");
+    private static final RawAnimation MEGATHERIUM_SIT_END = RawAnimation.begin().thenPlay("animation.megatherium.sit_end");
+    private static final RawAnimation MEGATHERIUM_MBLEM_1 = RawAnimation.begin().thenLoop("animation.megatherium.mblem_blend1");
+    private static final RawAnimation MEGATHERIUM_MBLEM_2 = RawAnimation.begin().thenLoop("animation.megatherium.mblem_blend2");
+    private static final RawAnimation MEGATHERIUM_SCRATCH_1 = RawAnimation.begin().thenLoop("animation.megatherium.scratch_blend1");
+    private static final RawAnimation MEGATHERIUM_SCRATCH_2 = RawAnimation.begin().thenLoop("animation.megatherium.scratch_blend2");
+    private static final RawAnimation MEGATHERIUM_SHAKE = RawAnimation.begin().thenLoop("animation.megatherium.shake");
+    private static final RawAnimation MEGATHERIUM_YAWN = RawAnimation.begin().thenLoop("animation.megatherium.yawn_blend");
 
-    public MegatheriumEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
-        super(entityType, level);
+    // Attack animations
+    private static final RawAnimation MEGATHERIUM_ATTACK_1 = RawAnimation.begin().thenPlay("animation.megatherium.attack1");
+    private static final RawAnimation MEGATHERIUM_ATTACK_2 = RawAnimation.begin().thenPlay("animation.megatherium.attack2");
+
+    // Misc animations
+    private static final RawAnimation MEGATHERIUM_BULLDOZE = RawAnimation.begin().thenLoop("animation.megatherium.bulldoze");
+
+    // Body control / navigation
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        return new SmartBodyHelper(this);
     }
-    private int attackCooldown;
-    public static final int ATTACK_COOLDOWN = 15;
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
+    public MegatheriumEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
+        super(entityType, level);
+        this.setMaxUpStep(1.25F);
+    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 35.0D)
+            .add(Attributes.MAX_HEALTH, 80.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.16D)
-            .add(Attributes.ARMOR, 3.0D)
-            .add(Attributes.ARMOR_TOUGHNESS, 3.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 3.5D);
+            .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
+        ;
     }
 
     @Override
@@ -85,7 +115,6 @@ public class MegatheriumEntity extends TamablePrehistoricEntityOld implements IC
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-//        this.goalSelector.addGoal(1, new EatLeavesGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 2D));
@@ -93,7 +122,7 @@ public class MegatheriumEntity extends TamablePrehistoricEntityOld implements IC
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
+        this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 10));
     }
 
@@ -109,49 +138,10 @@ public class MegatheriumEntity extends TamablePrehistoricEntityOld implements IC
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-//        this.entityData.define(EATING, Boolean.FALSE);
-        this.entityData.define(SADDLED, Boolean.FALSE);
-        this.entityData.define(COMMAND, 0);
     }
-
-//    public boolean isEating() {
-//        return this.entityData.get(EATING);
-//    }
-
-//    public void setEating(boolean eating) {
-//        this.entityData.set(EATING, eating);
-//    }
 
     public void tick() {
         super.tick();
-
-        if(attackCooldown > 0){
-            attackCooldown--;
-        }
-
-//        if (!this.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
-//            this.setEating(true);
-//        }
-
-//        if (isEating()) {
-//            eatingTime++;
-//            if (!this.getMainHandItem().is(ItemTags.LEAVES)) {
-//                for (int i = 0; i < 3; i++) {
-//                    double d2 = this.random.nextGaussian() * 0.02D;
-//                    double d0 = this.random.nextGaussian() * 0.02D;
-//                    double d1 = this.random.nextGaussian() * 0.02D;
-//                    this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, this.getItemInHand(InteractionHand.MAIN_HAND)), this.getX() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, this.getY() + this.getBbHeight() * 0.5F + (double) (this.random.nextFloat() * this.getBbHeight() * 0.5F), this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, d0, d1, d2);
-//                }
-//            }
-//            if (eatingTime % 5 == 0) {
-//                this.gameEvent(GameEvent.EAT);
-//                this.playSound(SoundEvents.PANDA_EAT, this.getSoundVolume(), this.getVoicePitch());
-//            }
-//            if (eatingTime > 100) {
-//                this.setEating(false);
-//                eatingTime = 0;
-//            }
-//        }
 
         if (this.isOrderedToSit() && sitProgress < 5F) {
             sitProgress++;
@@ -251,60 +241,9 @@ public class MegatheriumEntity extends TamablePrehistoricEntityOld implements IC
         return InteractionResult.PASS;
     }
 
-    public int getCommand() {
-        return this.entityData.get(COMMAND).intValue();
-    }
-
-    public void setCommand(int command) {
-        this.entityData.set(COMMAND, Integer.valueOf(command));
-    }
-
     @Override
     public boolean shouldFollow() {
         return this.getCommand() == 1;
-    }
-
-    @Override
-    public void performAttack() {
-        BlockPos targetPos = BlockPos.containing(this.getX(), this.getY(), this.getZ());
-        if (!this.level().isClientSide) {
-            this.setSwinging(true);
-            ServerLevel serverLevel = (ServerLevel) this.level();
-            for (int x = -3; x < 3; x++) {
-                for (int z = -3; z < 3; z++) {
-                    for (int y = 0; y < 6; y++) {
-                        if (serverLevel.getBlockState(targetPos.offset(x, y, z)).is(UPTags.MEGATHERIUM_MINEABLES))
-                            serverLevel.destroyBlock(targetPos.offset(x, y, z), true);
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
-    public void afterAttack() {
-        this.level().broadcastEntityEvent(this, (byte)5);
-        this.setSwinging(false);
-    }
-
-    @Override
-    public int getMaxAttackCooldown() {
-        return ATTACK_COOLDOWN;
-    }
-
-    @Override
-    public int getAttackCooldown() {
-        return attackCooldown;
-    }
-
-    @Override
-    public void setAttackCooldown(int cooldown) {
-        this.attackCooldown = cooldown;
-    }
-
-    @Override
-    public float getStepHeight() {
-        return 1.25F;
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
@@ -367,14 +306,6 @@ public class MegatheriumEntity extends TamablePrehistoricEntityOld implements IC
         this.setCommand(compound.getInt("TrikeCommand"));
     }
 
-    public boolean isSaddled() {
-        return this.entityData.get(SADDLED).booleanValue();
-    }
-
-    public void setSaddled(boolean saddled) {
-        this.entityData.set(SADDLED, Boolean.valueOf(saddled));
-    }
-
     protected SoundEvent getAmbientSound() {
         return UPSounds.MEGATHER_IDLE.get();
     }
@@ -390,7 +321,7 @@ public class MegatheriumEntity extends TamablePrehistoricEntityOld implements IC
     @Override
     public float getSoundVolume() {
         if(this.isBaby()){
-            return 0.5F;
+            return 0.75F;
         }
         else{
             return 1.0F;
@@ -398,48 +329,8 @@ public class MegatheriumEntity extends TamablePrehistoricEntityOld implements IC
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
-        return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
+        return 10;
     }
 
     @Nullable
@@ -453,68 +344,29 @@ public class MegatheriumEntity extends TamablePrehistoricEntityOld implements IC
             return event.setAndContinue(MEGATHERIUM_IDLE);
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isInSittingPose() && !this.isSwimming()) {
-            if(this.isBaby()){
-                event.getController().setAnimationSpeed(1.0F);
-                event.setAndContinue(MEGATHERIUM_BABY_WALK);
-                return PlayState.CONTINUE;
-            }
-            else {
-                event.getController().setAnimationSpeed(1.0F);
-                event.setAndContinue(MEGATHERIUM_WALK);
-                return PlayState.CONTINUE;
-            }
+            event.getController().setAnimationSpeed(1.0F);
+            event.setAndContinue(MEGATHERIUM_WALK);
+            return PlayState.CONTINUE;
         }
         if (this.isInWater() || this.isSwimming()) {
-            if(this.isBaby()){
-                event.getController().setAnimationSpeed(1.0F);
-                event.setAndContinue(MEGATHERIUM_BABY_SWIM);
-                return PlayState.CONTINUE;
-            }
-            else {
-                event.getController().setAnimationSpeed(1.0F);
-                event.setAndContinue(MEGATHERIUM_SWIM);
-                return PlayState.CONTINUE;
-            }
+            event.getController().setAnimationSpeed(1.0F);
+            event.setAndContinue(MEGATHERIUM_SWIM);
+            return PlayState.CONTINUE;
         }
 
-        if (this.isInSittingPose() && !this.isBaby()) {
+        if (this.isInSittingPose()) {
             event.getController().setAnimationSpeed(1.0F);
             event.setAndContinue(MEGATHERIUM_SIT);
             return PlayState.CONTINUE;
         }
-
-        if(this.isBaby()){
-            event.setAndContinue(MEGATHERIUM_BABY_IDLE);
-        }
-        else {
-            event.setAndContinue(MEGATHERIUM_IDLE);
-        }
+        event.setAndContinue(MEGATHERIUM_IDLE);
         event.getController().setAnimationSpeed(1.0F);
-        return PlayState.CONTINUE;
-    }
-
-    protected <E extends MegatheriumEntity> PlayState eatController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (!this.isInSittingPose() && !this.isSwimming()) {
-            event.setAndContinue(MEGATHERIUM_EAT);
-            return PlayState.CONTINUE;
-        }
-        event.getController().forceAnimationReset();
-        return PlayState.STOP;
-    }
-
-    protected <E extends MegatheriumEntity> PlayState digController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if ((isSwinging()) && event.getController().getAnimationState().equals(AnimationController.State.STOPPED) && !this.isInSittingPose()) {
-            event.getController().forceAnimationReset();
-            return event.setAndContinue(MEGATHERIUM_DIG);
-        }
         return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-//        controllers.add(new AnimationController<>(this, "Eat", 5, this::eatController));
-        controllers.add(new AnimationController<>(this, "Digging", 0, this::digController));
     }
 
     @Override
@@ -522,4 +374,13 @@ public class MegatheriumEntity extends TamablePrehistoricEntityOld implements IC
         return tickCount;
     }
 
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
 }

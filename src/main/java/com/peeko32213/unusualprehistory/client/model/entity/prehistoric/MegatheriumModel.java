@@ -34,12 +34,11 @@ public class MegatheriumModel extends GeoModel<MegatheriumEntity> {
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-        CoreGeoBone saddle = this.getAnimationProcessor().getBone("Saddle");
+        CoreGeoBone saddle = this.getAnimationProcessor().getBone("saddle");
 
         saddle.setHidden(!animatable.isSaddled());
 
-
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Sloth_Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
         head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
     }
 }

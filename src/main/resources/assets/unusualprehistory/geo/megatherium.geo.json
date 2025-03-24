@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.megatherium",
 				"texture_width": 256,
 				"texture_height": 256,
 				"visible_bounds_width": 7,
@@ -12,79 +12,151 @@
 			},
 			"bones": [
 				{
-					"name": "Megatherium",
-					"pivot": [0, 42, 0]
+					"name": "root",
+					"pivot": [0, 0, 0]
 				},
 				{
-					"name": "Sloth_Upper_Body",
-					"parent": "Megatherium",
-					"pivot": [0, 19, 15],
+					"name": "body_main",
+					"parent": "root",
+					"pivot": [0, 41, 0]
+				},
+				{
+					"name": "body_overlay",
+					"parent": "body_main",
+					"pivot": [0, 25, 15]
+				},
+				{
+					"name": "body",
+					"parent": "body_overlay",
+					"pivot": [0, 25, 15],
 					"cubes": [
 						{"origin": [-18.5, 19, -26], "size": [37, 44, 52], "uv": [0, 0]},
 						{"origin": [-18.5, 16, -26], "size": [37, 3, 52], "uv": [0, 96]}
 					]
 				},
 				{
-					"name": "Sloth_Head",
-					"parent": "Sloth_Upper_Body",
+					"name": "saddle",
+					"parent": "body",
+					"pivot": [0, 63.25, 2],
+					"cubes": [
+						{"origin": [-18.5, 19, -26], "size": [37, 44, 52], "inflate": 0.2, "uv": [22, 154]},
+						{"origin": [-5.5, 63.2, -5], "size": [11, 4, 0], "inflate": 0.0025, "uv": [49, 199]}
+					]
+				},
+				{
+					"name": "head_overlay",
+					"parent": "body",
+					"pivot": [-0.5, 55.5, -26]
+				},
+				{
+					"name": "head",
+					"parent": "head_overlay",
 					"pivot": [-0.5, 55.5, -26],
 					"cubes": [
 						{"origin": [-5.5, 49, -30], "size": [11, 12, 6], "uv": [202, 66]},
-						{"origin": [-6.5, 59, -28], "size": [3, 3, 0], "uv": [131, 117], "mirror": true},
-						{"origin": [3.5, 59, -28], "size": [3, 3, 0], "uv": [131, 117]},
-						{"origin": [-5.5, 52, -34], "size": [11, 9, 4], "uv": [178, 84]},
-						{"origin": [-3.5, 50, -42], "size": [7, 11, 8], "uv": [178, 49]}
+						{"origin": [-5.5, 52, -34], "size": [11, 9, 4], "uv": [178, 84]}
 					]
 				},
 				{
-					"name": "Sloth_Jaw",
-					"parent": "Sloth_Head",
+					"name": "snout",
+					"parent": "head",
+					"pivot": [0, 50, -34],
+					"cubes": [
+						{"origin": [-3.5, 50, -42], "size": [7, 11, 8], "inflate": 0.01, "uv": [178, 49]}
+					]
+				},
+				{
+					"name": "left_ear",
+					"parent": "head",
+					"pivot": [5, 60.5, -28],
+					"cubes": [
+						{"origin": [3.5, 59, -28], "size": [3, 3, 0], "inflate": 0.0025, "uv": [131, 117]}
+					]
+				},
+				{
+					"name": "right_ear",
+					"parent": "head",
+					"pivot": [-5, 60.5, -28],
+					"cubes": [
+						{"origin": [-6.5, 59, -28], "size": [3, 3, 0], "inflate": 0.0025, "uv": [131, 117], "mirror": true}
+					]
+				},
+				{
+					"name": "jaw_overlay",
+					"parent": "head",
+					"pivot": [0, 52, -30]
+				},
+				{
+					"name": "jaw",
+					"parent": "jaw_overlay",
 					"pivot": [0, 52, -30],
 					"cubes": [
 						{"origin": [-5.5, 49, -34], "size": [11, 3, 4], "inflate": 0.01, "uv": [178, 106]},
-						{"origin": [-3.5, 49, -42], "size": [7, 1, 8], "inflate": 0.01, "uv": [178, 97]}
+						{"origin": [-3.5, 49, -42], "size": [7, 1, 8], "uv": [178, 97]}
 					]
 				},
 				{
-					"name": "Sloth_Tongue",
-					"parent": "Sloth_Jaw",
-					"pivot": [-3.5, 50, -37.5],
-					"rotation": [0, 0, 5],
+					"name": "tongue",
+					"parent": "jaw",
+					"pivot": [0.5, 50, -37.5],
+					"rotation": [0, 0, 90],
 					"cubes": [
-						{
-							"origin": [-3.5, 46, -39],
-							"size": [0, 4, 3],
-							"inflate": 0.01,
-							"uv": {
-								"north": {"uv": [181, 147], "uv_size": [0, 4]},
-								"east": {"uv": [178, 147], "uv_size": [3, 4]},
-								"south": {"uv": [184, 147], "uv_size": [0, 4]},
-								"west": {"uv": [181, 147], "uv_size": [3, 4]},
-								"up": {"uv": [181, 144], "uv_size": [0, 3]},
-								"down": {"uv": [181, 147], "uv_size": [0, -3]}
-							}
-						}
+						{"origin": [0.5, 46, -39], "size": [0, 4, 3], "inflate": 0.0025, "uv": [178, 144]}
 					]
 				},
 				{
-					"name": "Sloth_Arm_Left",
-					"parent": "Sloth_Upper_Body",
+					"name": "tail_overlay",
+					"parent": "body",
+					"pivot": [0, 26, 26]
+				},
+				{
+					"name": "tail",
+					"parent": "tail_overlay",
+					"pivot": [0, 26, 26],
+					"cubes": [
+						{"origin": [-6.5, 16, 26], "size": [13, 3, 16], "uv": [178, 0]},
+						{"origin": [-6.5, 19, 26], "size": [13, 13, 16], "uv": [128, 117]}
+					]
+				},
+				{
+					"name": "arm_control",
+					"parent": "body_main",
+					"pivot": [0, 41, -14.5]
+				},
+				{
+					"name": "left_arm1_overlay",
+					"parent": "arm_control",
+					"pivot": [18, 41, -14.5]
+				},
+				{
+					"name": "left_arm1",
+					"parent": "left_arm1_overlay",
 					"pivot": [18, 41, -14.5],
 					"cubes": [
 						{"origin": [15, 25, -24], "size": [13, 23, 19], "uv": [0, 151]}
 					]
 				},
 				{
-					"name": "Sloth_Elbow_Left",
-					"parent": "Sloth_Arm_Left",
+					"name": "left_arm2_overlay",
+					"parent": "left_arm1",
+					"pivot": [21.5, 25, -5]
+				},
+				{
+					"name": "left_arm2",
+					"parent": "left_arm2_overlay",
 					"pivot": [21.5, 25, -5],
 					"cubes": [
 						{"origin": [15, 3, -17], "size": [12, 22, 12], "uv": [0, 96]}
 					]
 				},
 				{
-					"name": "Sloth_Hand_Left",
-					"parent": "Sloth_Elbow_Left",
+					"name": "left_arm3_overlay",
+					"parent": "left_arm2",
+					"pivot": [21, 3, -12]
+				},
+				{
+					"name": "left_arm3",
+					"parent": "left_arm3_overlay",
 					"pivot": [21, 3, -12],
 					"cubes": [
 						{"origin": [15.5, 0, -16], "size": [11, 3, 13], "uv": [142, 33]},
@@ -95,25 +167,40 @@
 					]
 				},
 				{
-					"name": "Sloth_Arm_Right",
-					"parent": "Sloth_Upper_Body",
+					"name": "right_arm1_overlay",
+					"parent": "arm_control",
+					"pivot": [-18, 41, -14.5]
+				},
+				{
+					"name": "right_arm1",
+					"parent": "right_arm1_overlay",
 					"pivot": [-18, 41, -14.5],
 					"cubes": [
 						{"origin": [-28, 25, -24], "size": [13, 23, 19], "uv": [0, 151], "mirror": true}
 					]
 				},
 				{
-					"name": "Sloth_Elbow_Right",
-					"parent": "Sloth_Arm_Right",
+					"name": "right_arm2_overlay",
+					"parent": "right_arm1",
+					"pivot": [-21.5, 25, -5]
+				},
+				{
+					"name": "right_arm2",
+					"parent": "right_arm2_overlay",
 					"pivot": [-21.5, 25, -5],
 					"cubes": [
 						{"origin": [-27, 3, -17], "size": [12, 22, 12], "uv": [0, 96], "mirror": true}
 					]
 				},
 				{
-					"name": "Sloth_Hand_Right",
-					"parent": "Sloth_Elbow_Right",
-					"pivot": [-21, 3, -11],
+					"name": "right_arm3_overlay",
+					"parent": "right_arm2",
+					"pivot": [-21, 3, -12]
+				},
+				{
+					"name": "right_arm3",
+					"parent": "right_arm3_overlay",
+					"pivot": [-21, 3, -12],
 					"cubes": [
 						{"origin": [-26.5, 0, -16], "size": [11, 3, 13], "uv": [142, 33], "mirror": true},
 						{"origin": [-26.5, 0, -3], "size": [2, 6, 3], "uv": [178, 113], "mirror": true},
@@ -123,34 +210,21 @@
 					]
 				},
 				{
-					"name": "Sloth_Tail",
-					"parent": "Sloth_Upper_Body",
-					"pivot": [0, 26, 26],
-					"cubes": [
-						{"origin": [-6.5, 16, 26], "size": [13, 3, 16], "uv": [178, 0]},
-						{"origin": [-6.5, 19, 26], "size": [13, 13, 16], "uv": [128, 117]}
-					]
+					"name": "leg_control",
+					"parent": "body_main",
+					"pivot": [0, 19, 15]
 				},
 				{
-					"name": "Saddle",
-					"parent": "Sloth_Upper_Body",
-					"pivot": [0, 19, 15],
-					"cubes": [
-						{"origin": [-18.5, 19, -26], "size": [37, 44, 52], "inflate": 0.2, "uv": [22, 154]},
-						{"origin": [-5.5, 63.2, -5], "size": [11, 4, 0], "uv": [49, 199]}
-					]
-				},
-				{
-					"name": "Sloth_Leg_Left",
-					"parent": "Megatherium",
+					"name": "left_leg1",
+					"parent": "leg_control",
 					"pivot": [11, 19, 15],
 					"cubes": [
 						{"origin": [6, 0.01, 8], "size": [10, 21, 14], "uv": [170, 151]}
 					]
 				},
 				{
-					"name": "Sloth_Foot_Left",
-					"parent": "Sloth_Leg_Left",
+					"name": "left_leg2",
+					"parent": "left_leg1",
 					"pivot": [8, 6, 12],
 					"rotation": [175, 0, 90],
 					"cubes": [
@@ -162,16 +236,16 @@
 					]
 				},
 				{
-					"name": "Sloth_Leg_Right",
-					"parent": "Megatherium",
+					"name": "right_leg1",
+					"parent": "leg_control",
 					"pivot": [-11, 19, 15],
 					"cubes": [
 						{"origin": [-16, 0.01, 8], "size": [10, 21, 14], "uv": [170, 151], "mirror": true}
 					]
 				},
 				{
-					"name": "Sloth_Foot_Right",
-					"parent": "Sloth_Leg_Right",
+					"name": "right_leg2",
+					"parent": "right_leg1",
 					"pivot": [-8, 6, 12],
 					"rotation": [175, 0, -90],
 					"cubes": [

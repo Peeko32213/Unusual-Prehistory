@@ -22,8 +22,6 @@ public class UPTags {
     //public static final TagKey<EntityType<?>> ANURO_EGG_TRAMPLERS = registerEntityTag("anuro_egg_tramplers");
 
     // Target tags
-
-
     public static final TagKey<EntityType<?>> NO_ATTACK_ATTRIBUTE_MOBS = registerEntityTag("no_attack_attribute_mobs");
 
     public static final TagKey<EntityType<?>> NONE_ENTITY_TAG = registerEntityTag("none_entity_tag");
