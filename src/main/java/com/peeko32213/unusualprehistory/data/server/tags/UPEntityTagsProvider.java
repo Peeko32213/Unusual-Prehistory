@@ -23,11 +23,6 @@ public class UPEntityTagsProvider extends EntityTypeTagsProvider {
 
     protected void addTags(HolderLookup.@NotNull Provider pProvider) {
 
-        /**Example**/
-        //tag(UPTags.ANURO_TARGETS).add(UPEntities.BABY_BRACHI.get());
-
-
-
         tag(UPEntityTypeTags.LAND_MOBS)
                 .add(UPEntities.COTY.get())
                 .add(UPEntities.PACHY.get())

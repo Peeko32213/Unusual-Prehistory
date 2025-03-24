@@ -22,7 +22,7 @@ public class UnusualPrehistoryConfig {
     public static ConfigValue<Boolean> TRIKE_COLLISON;
     public static ConfigValue<Boolean> MAMMOTH_COLLISON;
     public static ConfigValue<Boolean> BRACHI_COLLISON;
-    public static ConfigValue<Boolean> DINO_NATURAL_SPAWNING;
+    public static ConfigValue<Boolean> NATURAL_PREHISTORIC_MOB_SPAWNS;
     public static ConfigValue<Boolean> NATURAL_PREHISTORIC_GENERATION;
     public static ConfigValue<Boolean> NO_FOSSILS;
 
@@ -56,7 +56,7 @@ public class UnusualPrehistoryConfig {
 
             CONFIG_BUILDER.pop();
             CONFIG_BUILDER.comment("Misc configs").push("misc_config");
-            DINO_NATURAL_SPAWNING = CONFIG_BUILDER.comment("Prehistoric mob spawning").define("dino_natural_spawn", false);
+            NATURAL_PREHISTORIC_MOB_SPAWNS = CONFIG_BUILDER.comment("Automatically enable the natural prehistoric mob spawns datapack").define("natural_prehistoric_mob_spawns", false);
             NATURAL_PREHISTORIC_GENERATION = CONFIG_BUILDER.comment("Automatically enable the natural prehistoric generation datapack").define("natural_prehistoric_generation", false);
             NO_FOSSILS = CONFIG_BUILDER.comment("Automatically enable the no fossils datapack").define("no_fossils", false);
 

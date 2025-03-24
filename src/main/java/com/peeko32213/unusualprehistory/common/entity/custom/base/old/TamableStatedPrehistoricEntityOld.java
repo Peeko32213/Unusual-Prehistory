@@ -580,7 +580,7 @@ public abstract class TamableStatedPrehistoricEntityOld extends TamableAnimal im
 
 
     public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends TamableStatedPrehistoricEntityOld> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        return level.getBlockState(pos.below()).is(UPBlockTags.DINO_NATURAL_SPAWNABLE) && isBrightEnoughToSpawn(level, pos) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
+        return level.getBlockState(pos.below()).is(UPBlockTags.DINO_NATURAL_SPAWNABLE) && isBrightEnoughToSpawn(level, pos);
     }
 
 }

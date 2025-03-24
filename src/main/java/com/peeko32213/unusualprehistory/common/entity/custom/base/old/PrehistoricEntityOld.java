@@ -519,7 +519,7 @@ public abstract class PrehistoricEntityOld extends Animal implements GeoAnimatab
     }
 
     public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends PrehistoricEntityOld> dino, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        boolean canSpawn = level.getBlockState(pos.below()).is(UPBlockTags.DINO_NATURAL_SPAWNABLE) && isBrightEnoughToSpawn(level, pos) && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
+        boolean canSpawn = level.getBlockState(pos.below()).is(UPBlockTags.DINO_NATURAL_SPAWNABLE) && isBrightEnoughToSpawn(level, pos);
         return canSpawn;
     }
 

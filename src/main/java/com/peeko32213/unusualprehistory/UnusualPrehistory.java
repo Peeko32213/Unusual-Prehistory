@@ -176,7 +176,6 @@ public class UnusualPrehistory {
             addToComposter(UPBlocks.ZULOAGAE.get().asItem(), 0.2f);
         });
 
-        event.enqueueWork(UPDispenserRegistry::registerDispenserBehaviour);
         UPMessages.register();
     }
 
@@ -205,7 +204,7 @@ public class UnusualPrehistory {
 
     public void packSetup(AddPackFindersEvent event) {
 
-        // Data Packs
+        this.setupNaturalSpawnPack(event);
         this.setupNaturalGenPack(event);
         this.setupNoFossilsPack(event);
 
@@ -213,9 +212,30 @@ public class UnusualPrehistory {
 
     // Shoutout Aether
 
+    private void setupNaturalSpawnPack(AddPackFindersEvent event) {
+        if (event.getPackType() == PackType.SERVER_DATA) {
+            Path resourcePath = ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().findResource("builtin/natural_prehistoric_mob_spawns");
+            PathPackResources pack = new PathPackResources(ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().getFileName() + ":" + resourcePath, resourcePath, true);
+            PackMetadataSection metadata = new PackMetadataSection(Component.translatable("pack.unusualprehistory.natural_prehistoric_mob_spawns.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.SERVER_DATA));
+            event.addRepositorySource((source) ->
+                    source.accept(Pack.create(
+                            "builtin/natural_prehistoric_mob_spawns",
+                            Component.translatable("pack.unusualprehistory.natural_prehistoric_mob_spawns.title"),
+                            false,
+                            (string) -> pack,
+                            new Pack.Info(metadata.getDescription(), metadata.getPackFormat(PackType.SERVER_DATA), metadata.getPackFormat(PackType.CLIENT_RESOURCES), FeatureFlagSet.of(), pack.isHidden()),
+                            PackType.SERVER_DATA,
+                            Pack.Position.TOP,
+                            false,
+                            create(decorateWithSource(), UnusualPrehistoryConfig.NATURAL_PREHISTORIC_MOB_SPAWNS.get()))
+                    )
+            );
+        }
+    }
+
     private void setupNaturalGenPack(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.SERVER_DATA) {
-            Path resourcePath = ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().findResource("packs/natural_prehistoric_generation");
+            Path resourcePath = ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().findResource("builtin/natural_prehistoric_generation");
             PathPackResources pack = new PathPackResources(ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().getFileName() + ":" + resourcePath, resourcePath, true);
             PackMetadataSection metadata = new PackMetadataSection(Component.translatable("pack.unusualprehistory.natural_prehistoric_generation.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.SERVER_DATA));
             event.addRepositorySource((source) ->
@@ -236,7 +256,7 @@ public class UnusualPrehistory {
 
     private void setupNoFossilsPack(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.SERVER_DATA) {
-            Path resourcePath = ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().findResource("packs/no_fossils");
+            Path resourcePath = ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().findResource("builtin/no_fossils");
             PathPackResources pack = new PathPackResources(ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().getFileName() + ":" + resourcePath, resourcePath, true);
             PackMetadataSection metadata = new PackMetadataSection(Component.translatable("pack.unusualprehistory.no_fossils.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.SERVER_DATA));
             event.addRepositorySource((source) ->
@@ -249,7 +269,7 @@ public class UnusualPrehistory {
                             PackType.SERVER_DATA,
                             Pack.Position.TOP,
                             false,
-                            create(decorateWithSource(), UnusualPrehistoryConfig.NATURAL_PREHISTORIC_GENERATION.get()))
+                            create(decorateWithSource(), UnusualPrehistoryConfig.NO_FOSSILS.get()))
                     )
             );
         }

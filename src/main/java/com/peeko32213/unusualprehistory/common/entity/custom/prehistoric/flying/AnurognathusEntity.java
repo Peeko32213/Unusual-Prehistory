@@ -556,6 +556,6 @@ public class AnurognathusEntity extends AgeableMob implements GeoEntity, Neutral
         return p_28137_;
     }
     public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends AnurognathusEntity> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        return level.getBlockState(pos.below()).is(UPBlockTags.DINO_NATURAL_SPAWNABLE)  && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();    }
+        return level.getBlockState(pos.below()).is(UPBlockTags.DINO_NATURAL_SPAWNABLE);    }
 
 }
