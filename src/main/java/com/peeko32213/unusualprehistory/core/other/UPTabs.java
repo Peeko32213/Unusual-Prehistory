@@ -450,8 +450,6 @@ public class UPTabs {
                     entries.accept(UPBlocks.ZULOAGAE_SIGN.getFirst().get());
                     entries.accept(UPBlocks.ZULOAGAE_HANGING_SIGN.getFirst().get());
 
-                    entries.accept(UPBlocks.ELECTRIC_PILLAR.get());
-
                     // Unsorted stuff
                     if(!(item.get() instanceof ForgeSpawnEggItem) && !item.get().getDefaultInstance().is(UPItems.CROCARINA.get()) && !item.get().getDefaultInstance().is(UPBlocks.FRUIT_LOOT_BOX.get().asItem()) && !item.get().getDefaultInstance().is(UPItems.ANIMAL_DNA_BOTTLES.get()) && !item.get().getDefaultInstance().is(UPItems.PLANT_DNA_BOTTLES.get()) && !item.get().getDefaultInstance().is(UPBlocks.FOSSIL_ORES.get().asItem()) && !(item.get() instanceof PrehistoricEggItem)) {
                         entries.accept(item.get());
