@@ -1,8 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.google.common.collect.ImmutableList;
-import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TriceratopsSkeleton;
-import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -21,10 +19,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.DebugStickItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -32,7 +28,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -57,6 +52,14 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
         super(pEntityType, pLevel);
     }
 
+    public void refreshDimensions() {
+        double d0 = this.getX();
+        double d1 = this.getY();
+        double d2 = this.getZ();
+        super.refreshDimensions();
+        this.setPos(d0, d1, d2);
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D);
     }
@@ -66,7 +69,7 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     }
 
     public static float yawToYRot(double yaw) {
-        return (float) Mth.wrapDegrees(yaw - 90);
+        return (float) Mth.wrapDegrees(yaw - 120);
     }
 
     @Override
