@@ -428,8 +428,6 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL, "Deepslate Tar Fossil");
         addBlock(UPBlocks.STONE_AMBER_FOSSIL, "Amber Ore");
         addBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL, "Deepslate Amber Ore");
-        addBlock(UPBlocks.STONE_OPAL_FOSSIL, "Opal Ore");
-        addBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL, "Deepslate Opal Ore");
         addBlock(UPBlocks.PERMAFROST_FOSSIL, "Permafrost Fossil");
         addBlock(UPBlocks.PERMAFROST, "Permafrost");
         addBlock(UPBlocks.ANALYZER, "Analyzer");
@@ -771,6 +769,10 @@ public class LanguageGenerator extends LanguageProvider {
         add("entity.unusualprehistory.all.command_0", "%s is wandering");
         add("entity.unusualprehistory.all.command_1", "%s is following");
         add("entity.unusualprehistory.all.command_2", "%s is staying");
+
+        add("entity.unusualprehistory.skeleton.natural_false", "Set %s isNatural false");
+        add("entity.unusualprehistory.skeleton.natural_true", "Set %s isNatural true");
+
         add("block.unusualprehistory.majunga_egg.desc", "%s x %s");
         add("block.unusualprehistory.coty_egg.desc", "%s x %s");
         add("item.unusualprehistory.encyclopedia.desc", "By Award Winning Scientist, Peeko Noneyah");

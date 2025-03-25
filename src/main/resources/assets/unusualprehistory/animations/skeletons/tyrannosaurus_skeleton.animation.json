@@ -6924,6 +6924,349 @@
 					}
 				}
 			}
+		},
+		"animation.tyrannosaurus_skeleton.pose_roar": {
+			"loop": true,
+			"bones": {
+				"left_leg1": {
+					"rotation": [-22.03435, -8.82892, -1.78391],
+					"position": [0, 1, 0]
+				},
+				"body": {
+					"rotation": [11.81435, 9.08375, -8.61907]
+				},
+				"left_leg3": {
+					"rotation": [22.48072, -0.95645, 2.30991]
+				},
+				"tail1": {
+					"rotation": [8.63633, -3.74704, -8.03892]
+				},
+				"tail2": {
+					"rotation": [16.01692, -16.4517, -9.04099]
+				},
+				"left_arm": {
+					"rotation": [25.33666, 48.07025, -39.57059]
+				},
+				"neck": {
+					"rotation": [17.43745, 1.50179, -4.76968]
+				},
+				"head": {
+					"rotation": [-38.31993, 15.53929, -5.68147]
+				},
+				"jaw": {
+					"rotation": [45, 0, 0]
+				},
+				"right_leg1": {
+					"rotation": [15.10615, 8.36718, 7.42487],
+					"position": [0, -3, 0]
+				},
+				"right_leg3": {
+					"rotation": [-15.59721, 17.37478, -12.5266]
+				},
+				"right_arm": {
+					"rotation": [57.65821, -62.19837, -1.30974]
+				},
+				"masseter": {
+					"rotation": [-10, 0, 0]
+				}
+			}
+		},
+		"animation.tyrannosaurus_skeleton.pose_run": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [10.01319, 5.79149, -4.05601]
+				},
+				"neck": {
+					"rotation": [15.02932, -6.12268, 3.53509]
+				},
+				"head": {
+					"rotation": [-20, 0, 0]
+				},
+				"jaw": {
+					"rotation": [20, 0, 0]
+				},
+				"left_arm": {
+					"rotation": [46.21467, 17.59787, 0.57519]
+				},
+				"right_arm": {
+					"rotation": [34.29928, -14.5158, -0.95658]
+				},
+				"tail1": {
+					"rotation": [-17.56274, -4.76804, 1.50701]
+				},
+				"tail2": {
+					"rotation": [11.79886, -10.82156, 2.78058]
+				},
+				"left_leg1": {
+					"rotation": [-27.5, 0, 0],
+					"position": [2, 1.8, 3]
+				},
+				"left_leg2": {
+					"rotation": [10.15108, -9.84655, -1.75378]
+				},
+				"left_leg3": {
+					"rotation": [17.76699, 5.50039, -1.88764]
+				},
+				"right_leg1": {
+					"rotation": [47.5, 0, 0],
+					"position": [-2, 0.25, 14]
+				},
+				"right_leg2": {
+					"rotation": [10.15108, 9.84655, 1.75378]
+				},
+				"right_leg3": {
+					"rotation": [27.49262, 10.02177, 5.77509]
+				}
+			}
+		},
+		"animation.tyrannosaurus_skeleton.pose_walk": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [-0.32902, -7.49282, 7.52154]
+				},
+				"neck": {
+					"rotation": [7.31618, 15.1955, -8.05338]
+				},
+				"head": {
+					"rotation": [15, 17.5, -5]
+				},
+				"left_arm": {
+					"rotation": [32.5, 0, 0]
+				},
+				"right_arm": {
+					"rotation": [47.5, 0, 0]
+				},
+				"tail1": {
+					"rotation": [-7.49917, 5.21308, -4.77737]
+				},
+				"tail2": {
+					"rotation": [7.33601, 14.76689, -10.34527]
+				},
+				"left_leg1": {
+					"rotation": [0, -15, 0],
+					"position": [0, 0, 5]
+				},
+				"left_leg2": {
+					"rotation": [12.68664, 9.76061, 2.18558]
+				},
+				"left_leg3": {
+					"rotation": [-12.4443, -12.42769, 1.1439]
+				},
+				"right_leg1": {
+					"rotation": [-40.3342, 3.82237, -3.27643],
+					"position": [0, 1, 4]
+				},
+				"right_leg2": {
+					"rotation": [-7.5547, -4.82922, 1.29717]
+				},
+				"right_leg3": {
+					"rotation": [30.21362, 6.49053, 3.76613]
+				}
+			}
+		},
+		"animation.tyrannosaurus_skeleton.pose_reference": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [-17.5, 0, 0]
+				},
+				"neck": {
+					"rotation": [20.56101, -22.31478, -1.74997]
+				},
+				"head": {
+					"rotation": [-32.5, -32.5, 0]
+				},
+				"jaw": {
+					"rotation": [47.5, 0, 0]
+				},
+				"left_arm": {
+					"rotation": [-24.8493, 11.53486, -22.99008]
+				},
+				"right_arm": {
+					"rotation": [-14.62284, -29.21893, 14.35885]
+				},
+				"tail1": {
+					"rotation": [-6.42848, 26.79524, 0.96729]
+				},
+				"tail2": {
+					"rotation": [12.5, 37.5, 12.5]
+				},
+				"left_leg1": {
+					"rotation": [-25, 0, 0],
+					"position": [0, 0.25, 0]
+				},
+				"left_leg2": {
+					"rotation": [0, -7.5, 0]
+				},
+				"left_leg3": {
+					"rotation": [25.61844, -21.35979, -13.53533]
+				},
+				"right_leg1": {
+					"rotation": [20, 0, 0],
+					"position": [0, -4, 0]
+				},
+				"right_leg2": {
+					"rotation": [-7.61435, 9.91358, -1.31845]
+				},
+				"right_leg3": {
+					"rotation": [-12.52441, 4.34057, -3.52383]
+				}
+			}
+		},
+		"animation.tyrannosaurus_skeleton.pose_eat": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"position": [0, -2, 0]
+				},
+				"body": {
+					"rotation": [12.5, 0, -5]
+				},
+				"neck": {
+					"rotation": [35.06274, 4.76804, 1.50701]
+				},
+				"head": {
+					"rotation": [-17.35319, -1.6225, -7.33782]
+				},
+				"jaw": {
+					"rotation": [15, 0, 0]
+				},
+				"left_arm": {
+					"rotation": [44.61295, 14.12467, 3.51407]
+				},
+				"right_arm": {
+					"rotation": [24.91643, -2.11089, 4.53359]
+				},
+				"tail1": {
+					"rotation": [9.97296, 6.22373, -6.52225]
+				},
+				"tail2": {
+					"rotation": [10.20294, 13.60812, -5.18956]
+				},
+				"left_leg1": {
+					"rotation": [-25.17702, -9.96158, -3.61622],
+					"position": [0, 2, 0]
+				},
+				"left_leg2": {
+					"rotation": [-5, 0, 0]
+				},
+				"left_leg3": {
+					"rotation": [29.97638, -1.2497, 2.16541]
+				},
+				"right_leg1": {
+					"rotation": [10.952, 6.01437, 8.7342]
+				},
+				"right_leg3": {
+					"rotation": [-10.02616, 8.55095, -9.12019]
+				}
+			}
+		},
+		"animation.tyrannosaurus_skeleton.pose_retro": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [-47.28118, -1.4024, 8.89697],
+					"position": [0, 4, 0]
+				},
+				"neck": {
+					"rotation": [53.0563, -4.07166, -9.47414],
+					"position": [0, 0, -2]
+				},
+				"head": {
+					"rotation": [10.32449, -28.83314, 6.42903]
+				},
+				"jaw": {
+					"rotation": [15, 0, 0]
+				},
+				"left_arm": {
+					"rotation": [-0.35085, 31.63886, -14.72765]
+				},
+				"right_arm": {
+					"rotation": [6.71604, -12.06754, 15.34721]
+				},
+				"tail1": {
+					"rotation": [25.3564, 13.19177, 8.76165]
+				},
+				"tail2": {
+					"rotation": [65.17361, 20.22023, -3.97225]
+				},
+				"left_leg1": {
+					"rotation": [12.5, 0, 0],
+					"position": [0, -3, 0]
+				},
+				"left_leg2": {
+					"rotation": [-0.32902, -7.49282, 2.52154]
+				},
+				"left_leg3": {
+					"rotation": [-12.5, -10, 0]
+				},
+				"right_leg1": {
+					"rotation": [-49.49948, 13.94685, 1.04539],
+					"position": [0, 2, 2]
+				},
+				"right_leg2": {
+					"rotation": [-20, 0, 0]
+				},
+				"right_leg3": {
+					"rotation": [25, 0, 0]
+				}
+			}
+		},
+		"animation.tyrannosaurus_skeleton.pose_dead": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [0, 0, -92.5],
+					"position": [0, -20, 0]
+				},
+				"body": {
+					"rotation": [-0.98448, 7.43547, -7.56397]
+				},
+				"neck": {
+					"rotation": [3.90399, 17.07228, 13.08619]
+				},
+				"head": {
+					"rotation": [-39.35639, -22.95966, -10.67384]
+				},
+				"jaw": {
+					"rotation": [27.93477, -3.61119, 12.20496]
+				},
+				"left_arm": {
+					"rotation": [-63.16838, 65.30591, 28.82828],
+					"position": [0, -4, 0]
+				},
+				"right_arm": {
+					"rotation": [-41.43839, -7.85702, 9.34964]
+				},
+				"tail1": {
+					"rotation": [0, -27.5, 0]
+				},
+				"tail2": {
+					"rotation": [43.19178, 17.08516, 11.37579]
+				},
+				"left_leg1": {
+					"rotation": [-16.23846, -10.50082, 38.5456],
+					"position": [-5, -6, 2]
+				},
+				"left_leg3": {
+					"rotation": [30.45471, 5.04122, -9.33441]
+				},
+				"right_leg1": {
+					"rotation": [20, 0, 0],
+					"position": [0, 0, 4]
+				},
+				"right_leg2": {
+					"rotation": [17.5, 0, 0]
+				},
+				"right_leg3": {
+					"rotation": [40, 0, 0]
+				}
+			}
+		},
+		"animation.tyrannosaurus_skeleton.pose_base": {
+			"loop": true
 		}
 	}
 }

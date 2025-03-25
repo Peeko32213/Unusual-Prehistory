@@ -65,7 +65,6 @@ public class HandmadeClubItem extends SwordItem implements GeoItem {
 
         ThrowableFallingBlockEntity fallingBlockEntity = ThrowableFallingBlockEntity.fall(level, pos,state);
 
-        assert player != null;
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BASALT_HIT, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
 
         Vec3 vec3 = new Vec3(0,0.1,0);

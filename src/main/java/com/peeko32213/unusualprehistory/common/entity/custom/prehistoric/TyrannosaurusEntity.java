@@ -26,6 +26,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
@@ -64,12 +65,16 @@ import javax.annotation.Nonnull;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class TyrannosaurusEntity extends PrehistoricEntity {
 
     //START of necessary IK shit
 
     public IKSolver rexIK;
+
+    private static final EntityDataAccessor<Boolean> SKELETAL = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
+    private UUID lastLightningBoltUUID;
 
     private static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -421,6 +426,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Eepy", this.hasEepy());
         compound.putBoolean("Passive", this.isPassive());
+        compound.putBoolean("skeletal", this.isSkeletal());
     }
 
     @Override
@@ -428,6 +434,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
         super.readAdditionalSaveData(compound);
         this.setEepy(compound.getBoolean("Eepy"));
         this.setPassive(compound.getBoolean("Passive"));
+        this.setSkeletal(compound.getBoolean("skeletal"));
     }
 
     // Synched data
@@ -440,6 +447,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
         this.entityData.define(IDLE_4_AC, false);
         this.entityData.define(EEPY, false);
         this.entityData.define(PASSIVE, false);
+        this.entityData.define(SKELETAL, false);
     }
 
     public void tick() {
@@ -804,11 +812,17 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
     }
 
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UPSounds.TYRANNO_HURT.get();
+        if(this.isSkeletal()) {
+            return SoundEvents.SKELETON_HURT;
+        }
+        else return UPSounds.TYRANNO_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UPSounds.TYRANNO_DEATH.get();
+        if(this.isSkeletal()) {
+            return SoundEvents.SKELETON_DEATH;
+        }
+        else return UPSounds.TYRANNO_DEATH.get();
     }
 
     @Override
@@ -828,6 +842,22 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
         }
         else {
             this.setVariant(1);
+        }
+    }
+
+    public boolean isSkeletal() {
+        return this.entityData.get(SKELETAL);
+    }
+
+    private void setSkeletal(boolean isSkeletal) {
+        this.entityData.set(SKELETAL, isSkeletal);
+    }
+
+    public void thunderHit(ServerLevel pLevel, LightningBolt pLightning) {
+        UUID uuid = pLightning.getUUID();
+        if (!uuid.equals(this.lastLightningBoltUUID)) {
+            this.setSkeletal((!this.isSkeletal() || this.isSkeletal()) != this.isSkeletal());
+            this.lastLightningBoltUUID = uuid;
         }
     }
 }

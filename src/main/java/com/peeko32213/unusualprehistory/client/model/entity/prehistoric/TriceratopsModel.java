@@ -14,20 +14,23 @@ public class TriceratopsModel extends GeoModel<TriceratopsEntity> {
 
     @Override
     public ResourceLocation getModelResource(TriceratopsEntity trike) {
-        if(trike.getVariant() == 1) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops/triceratops_horridus.geo.json");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops/triceratops_prorsus.geo.json");
+        if(!trike.isSkeletal()) {
+            if (trike.getVariant() == 1) {
+                return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops/triceratops_horridus.geo.json");
+            } else return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops/triceratops_prorsus.geo.json");
         }
+        else return new ResourceLocation(UnusualPrehistory.MODID, "geo/triceratops/triceratops_skeleton.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(TriceratopsEntity trike) {
-        if(trike.getVariant() == 1) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops/triceratops_horridus.png");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops/triceratops_prorsus.png");
+        if(!trike.isSkeletal()) {
+            if (trike.getVariant() == 1) {
+                return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops/triceratops_horridus.png");
+            } else
+                return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops/triceratops_prorsus.png");
         }
+        else return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/triceratops/triceratops_skeleton.png");
     }
 
     @Override

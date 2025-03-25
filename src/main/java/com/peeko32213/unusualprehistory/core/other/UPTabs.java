@@ -75,8 +75,14 @@ public class UPTabs {
                     entries.accept(UPBlocks.PERMAFROST_FOSSIL.get());
                     entries.accept(UPBlocks.STONE_AMBER_FOSSIL.get());
                     entries.accept(UPBlocks.DEEPSLATE_AMBER_FOSSIL.get());
-                    entries.accept(UPBlocks.STONE_OPAL_FOSSIL.get());
-                    entries.accept(UPBlocks.DEEPSLATE_OPAL_FOSSIL.get());
+                    entries.accept(UPBlocks.OPAL_ORE.get());
+                    entries.accept(UPBlocks.DEEPSLATE_OPAL_ORE.get());
+                    entries.accept(UPBlocks.FIRE_OPAL_ORE.get());
+                    entries.accept(UPBlocks.DEEPSLATE_FIRE_OPAL_ORE.get());
+                    entries.accept(UPBlocks.BOULDER_OPAL_ORE.get());
+                    entries.accept(UPBlocks.DEEPSLATE_BOULDER_OPAL_ORE.get());
+                    entries.accept(UPBlocks.BLACK_OPAL_ORE.get());
+                    entries.accept(UPBlocks.DEEPSLATE_BLACK_OPAL_ORE.get());
 
                     // Misc amber & opal stuff
                     entries.accept(UPItems.TAR_BUCKET.get());

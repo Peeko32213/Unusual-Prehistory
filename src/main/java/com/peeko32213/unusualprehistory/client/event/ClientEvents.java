@@ -140,8 +140,8 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PTERODAUSTRO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.PTERODAUSTRO)));
         event.registerEntityRenderer(UPEntities.SCHLUMBERGERITES.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new SchlumbergeritesModel()));
         event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));
-        event.registerEntityRenderer(UPEntities.TRICERATOPS.get(), e -> new StatedPrehistoricRenderer<>(e, new TriceratopsModel()));
-        event.registerEntityRenderer(UPEntities.TYRANNOSAURUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TyrannosaurusModel()));
+        event.registerEntityRenderer(UPEntities.TRICERATOPS.get(), e -> new AgeableMobRenderer<>(e, new TriceratopsModel()));
+        event.registerEntityRenderer(UPEntities.TYRANNOSAURUS.get(), e -> new AgeableMobRenderer<>(e, new TyrannosaurusModel()));
         event.registerEntityRenderer(UPEntities.ULUG.get(), e -> new StatedPrehistoricRenderer<>(e, new UlughbegsaurusModel()));
         event.registerEntityRenderer(UPEntities.VELOCIRAPTOR.get(), e -> new StatedPrehistoricRenderer<>(e, new VelociraptorModel()));
         event.registerEntityRenderer(UPEntities.XIPH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new XiphactinusModel()));

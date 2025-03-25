@@ -300,12 +300,20 @@ public class ItemModelGenerator extends ItemModelProvider {
         toBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL);
         toBlock(UPBlocks.STONE_TAR_FOSSIL);
         toBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL);
-        toBlock(UPBlocks.STONE_OPAL_FOSSIL);
-        toBlock(UPBlocks.DEEPSLATE_OPAL_FOSSIL);
         toBlock(UPBlocks.STONE_AMBER_FOSSIL);
         toBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL);
         toBlock(UPBlocks.PERMAFROST);
         toBlock(UPBlocks.PERMAFROST_FOSSIL);
+
+        // Opal ores
+        toBlock(UPBlocks.OPAL_ORE);
+        toBlock(UPBlocks.DEEPSLATE_OPAL_ORE);
+        toBlock(UPBlocks.FIRE_OPAL_ORE);
+        toBlock(UPBlocks.DEEPSLATE_FIRE_OPAL_ORE);
+        toBlock(UPBlocks.BOULDER_OPAL_ORE);
+        toBlock(UPBlocks.DEEPSLATE_BOULDER_OPAL_ORE);
+        toBlock(UPBlocks.BLACK_OPAL_ORE);
+        toBlock(UPBlocks.DEEPSLATE_BLACK_OPAL_ORE);
 
         basicBlockItem(UPBlocks.AMBER_BLOCK);
 

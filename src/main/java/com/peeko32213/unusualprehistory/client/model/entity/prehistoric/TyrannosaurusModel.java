@@ -15,20 +15,26 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
 
     @Override
     public ResourceLocation getModelResource(TyrannosaurusEntity tyranno) {
-        if(tyranno.getVariant() == 1) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_mcraeensis.geo.json");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_rex.geo.json");
+        if(!tyranno.isSkeletal()) {
+            if (tyranno.getVariant() == 1) {
+                return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_mcraeensis.geo.json");
+            } else {
+                return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_rex.geo.json");
+            }
         }
+        else return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_skeleton.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(TyrannosaurusEntity tyranno) {
-        if(tyranno.getVariant() == 1) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png");
-        } else {
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex.png");
+        if(!tyranno.isSkeletal()) {
+            if (tyranno.getVariant() == 1) {
+                return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png");
+            } else {
+                return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex.png");
+            }
         }
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton.png");
     }
 
     @Override
@@ -44,9 +50,9 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
 
         CoreGeoBone head = this.getAnimationProcessor().getBone("head");
 
-        CoreGeoBone eyes = this.getAnimationProcessor().getBone("eepy");
-
-        eyes.setHidden(!entity.hasEepy());
+//        CoreGeoBone eyes = this.getAnimationProcessor().getBone("eepy");
+//
+//        eyes.setHidden(!entity.hasEepy());
 
         if (entity.isBaby()) {
             head.setScaleX(1.5F);

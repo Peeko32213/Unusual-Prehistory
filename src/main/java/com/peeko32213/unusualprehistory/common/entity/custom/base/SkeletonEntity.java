@@ -1,10 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.google.common.collect.ImmutableList;
+import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TriceratopsSkeleton;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -19,7 +24,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.DebugStickItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -42,6 +49,8 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public static final Logger LOGGER = LogManager.getLogger();
 
+    private static final EntityDataAccessor<Boolean> NATURAL = SynchedEntityData.defineId(SkeletonEntity.class, EntityDataSerializers.BOOLEAN);
+
     public long lastHit;
 
     protected SkeletonEntity(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
@@ -63,7 +72,7 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     @Override
     public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if (itemStack.isEmpty() && pHand == InteractionHand.MAIN_HAND) {
+        if (itemStack.isEmpty() && pHand == InteractionHand.MAIN_HAND && !this.isNatural()) {
             if (!pPlayer.isShiftKeyDown()) {
                 double d0 = pPlayer.getX() - this.getX();
                 double d2 = pPlayer.getZ() - this.getZ();
@@ -71,22 +80,29 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
             }
             return InteractionResult.SUCCESS;
         }
+        else if(itemStack.getItem() == Items.DEBUG_STICK && pHand == InteractionHand.MAIN_HAND){
+            this.setNatural(!this.isNatural());
+            pPlayer.displayClientMessage(Component.translatable("entity.unusualprehistory.skeleton.natural_" + this.isNatural(), this.getName()), true);
+        }
         return super.interact(pPlayer, pHand);
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(NATURAL, false);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.setNatural(compound.getBoolean("IsNatural"));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putBoolean("IsNatural", this.isNatural());
     }
 
     @Override
@@ -233,6 +249,14 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     public void kill() {
         this.remove(RemovalReason.KILLED);
         this.gameEvent(GameEvent.ENTITY_DIE);
+    }
+
+    // Natural
+    public void setNatural(boolean natural) {
+        this.entityData.set(NATURAL, natural);
+    }
+    public boolean isNatural() {
+        return this.entityData.get(NATURAL);
     }
 
     @Override

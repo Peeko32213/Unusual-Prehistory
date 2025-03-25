@@ -41,6 +41,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
@@ -65,8 +66,12 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.UUID;
 
 public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollower, IStateAction {
+
+    private static final EntityDataAccessor<Boolean> SKELETAL = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
+    private UUID lastLightningBoltUUID;
 
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(UPItemTags.TRICERATOPS_FOOD);
 
@@ -335,10 +340,16 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         return UPSounds.TRIKE_IDLE.get();
     }
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UPSounds.TRIKE_HURT.get();
+        if(this.isSkeletal()) {
+            return SoundEvents.SKELETON_HURT;
+        }
+        else return UPSounds.TRIKE_HURT.get();
     }
     protected SoundEvent getDeathSound() {
-        return UPSounds.TRIKE_DEATH.get();
+        if(this.isSkeletal()) {
+            return SoundEvents.SKELETON_DEATH;
+        }
+        else return UPSounds.TRIKE_DEATH.get();
     }
 
     @Override
@@ -371,11 +382,13 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putBoolean("skeletal", this.isSkeletal());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.setSkeletal(compound.getBoolean("skeletal"));
     }
 
     // Synched data
@@ -385,6 +398,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         this.entityData.define(IDLE_1_AC, false);
         this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(IDLE_3_AC, false);
+        this.entityData.define(SKELETAL, false);
     }
 
     // Heal on kill
@@ -589,6 +603,22 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
         else {
             this.setVariant(1);
+        }
+    }
+
+    public boolean isSkeletal() {
+        return this.entityData.get(SKELETAL);
+    }
+
+    private void setSkeletal(boolean isSkeletal) {
+        this.entityData.set(SKELETAL, isSkeletal);
+    }
+
+    public void thunderHit(ServerLevel pLevel, LightningBolt pLightning) {
+        UUID uuid = pLightning.getUUID();
+        if (!uuid.equals(this.lastLightningBoltUUID)) {
+            this.setSkeletal((!this.isSkeletal() || this.isSkeletal()) != this.isSkeletal());
+            this.lastLightningBoltUUID = uuid;
         }
     }
 
