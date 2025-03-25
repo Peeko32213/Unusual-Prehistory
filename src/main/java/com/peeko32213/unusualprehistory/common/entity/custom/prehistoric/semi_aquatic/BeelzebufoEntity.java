@@ -1,12 +1,14 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.BeelzebufoTadpoleEntity;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import com.peeko32213.unusualprehistory.core.other.util.UPMath;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -18,7 +20,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,9 +29,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -54,7 +53,8 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 
-public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRideableJumping {
+public class BeelzebufoEntity extends PrehistoricEntity implements PlayerRideableJumping {
+
     private static final EntityDataAccessor<Byte> DATA_FLAG = SynchedEntityData.defineId(BeelzebufoEntity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> IS_SWALLOWING = SynchedEntityData.defineId(BeelzebufoEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -65,22 +65,34 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
     protected boolean isJumping;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    private static final RawAnimation BEELZE_BITE = RawAnimation.begin().thenLoop("animation.beelzebufo.bite");
+    // Movement animations
     private static final RawAnimation BEELZE_WALK = RawAnimation.begin().thenLoop("animation.beelzebufo.walk");
+    private static final RawAnimation BEELZE_RUN = RawAnimation.begin().thenLoop("animation.beelzebufo.run");
     private static final RawAnimation BEELZE_SWIM = RawAnimation.begin().thenLoop("animation.beelzebufo.swim");
     private static final RawAnimation BEELZE_JUMP = RawAnimation.begin().thenPlay("animation.beelzebufo.jump");
     private static final RawAnimation BEELZE_JUMP_HOLD = RawAnimation.begin().thenLoop("animation.beelzebufo.jump_hold");
+
+    // Idle animations
     private static final RawAnimation BEELZE_IDLE = RawAnimation.begin().thenPlay("animation.beelzebufo.idle");
+    private static final RawAnimation BEELZE_SIT_START = RawAnimation.begin().thenPlay("animation.beelzebufo.sit_start");
+    private static final RawAnimation BEELZE_SIT_END = RawAnimation.begin().thenPlay("animation.beelzebufo.sit_end");
+    private static final RawAnimation BEELZE_SIT = RawAnimation.begin().thenPlay("animation.beelzebufo.sit");
+    private static final RawAnimation BEELZE_SLEEP = RawAnimation.begin().thenPlay("animation.beelzebufo.sleep");
+    private static final RawAnimation BEELZE_CROAk = RawAnimation.begin().thenPlay("animation.beelzebufo.croak_blend");
+    private static final RawAnimation BEELZE_BLINK = RawAnimation.begin().thenPlay("animation.beelzebufo.blink_blend");
+
+    // Attack animations
+    private static final RawAnimation BEELZE_ATTACK = RawAnimation.begin().thenLoop("animation.beelzebufo.bite");
+
     private int eatCooldown = 0;
-    public BeelzebufoEntity(EntityType<? extends Animal> entityType, Level level) {
+    public BeelzebufoEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 30D)
-                .add(Attributes.ARMOR, 0.0D)
-                .add(Attributes.ATTACK_DAMAGE, 8.0D)
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20D)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.1F)
                 .add(Attributes.JUMP_STRENGTH, 1);
     }
@@ -102,11 +114,10 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
                                 if (this.mob.getNoActionTime() >= 100) {
                                     return false;
                                 }
-                                if (((BeelzebufoEntity) this.mob).isHungry()) {
-                                    if (this.mob.getRandom().nextInt(60) != 0) {
-                                        return false;
-                                    }
-                                } else {
+                                if (this.mob.getRandom().nextInt(60) != 0) {
+                                    return false;
+                                }
+                                    else {
                                     if (this.mob.getRandom().nextInt(30) != 0) {
                                         return false;
                                     }
@@ -337,7 +348,6 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
             }
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
-            this.setHungry(false);
             //setIsSwallowing(false);
             return true;
         }
@@ -350,16 +360,13 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
 
     @Override
     protected void pickUpItem(ItemEntity itemEntity) {
-        if (isHungry()) {
             this.onItemPickup(itemEntity);
             this.take(itemEntity, 1);
             itemEntity.discard();
             this.spawnAtLocation(UPItems.BEELZ_SALIVA.get());
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
-            this.setHungry(false);
             //setIsSwallowing(false);
-        }
     }
 
 
@@ -388,45 +395,8 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-    @Override
     protected int getKillHealAmount() {
         return 10;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return true;
-    }
-    @Override
-    protected boolean hasTargets() {
-        return true;
-    }
-    @Override
-    protected boolean hasAvoidEntity() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return UPEntityTypeTags.BEELZE_TARGETS;
     }
 
     protected void dropEquipment() {
@@ -445,7 +415,7 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
             return event.setAndContinue(BEELZE_IDLE);
         }
         if(this.isSwallowing()){
-            event.setAndContinue(BEELZE_BITE);
+            event.setAndContinue(BEELZE_ATTACK);
             event.getController().setAnimationSpeed(0.9D);
             return PlayState.CONTINUE;
         }
@@ -573,7 +543,15 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
         this.isJumping = p_30656_;
     }
 
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
 
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
 
 
     class EatFoodGoal extends Goal{
@@ -598,13 +576,11 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
                 executionCooldown--;
             } else {
                 executionCooldown = 50 + random.nextInt(50);
-                if(beelzebufo.isHungry()){
                     final List<Entity> list = beelzebufo.level().getEntitiesOfClass(Entity.class, beelzebufo.getBoundingBox().inflate(8, 8, 8), EntitySelector.NO_SPECTATORS.and(entity -> entity != beelzebufo && beelzebufo.isFood(entity) && !(entity instanceof BeelzebufoTadpoleEntity)));
                     list.sort(Comparator.comparingDouble(beelzebufo::distanceToSqr));
                     if (!list.isEmpty()) {
                         food = list.get(0);
                         return true;
-                    }
                 }
             }
             return false;
@@ -612,7 +588,7 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
 
         @Override
         public boolean canContinueToUse() {
-            return food != null && food.isAlive() && !this.beelzebufo.isHungry();
+            return food != null && food.isAlive();
         }
 
         public void stop() {
@@ -661,9 +637,7 @@ public class BeelzebufoEntity extends PrehistoricEntityOld implements PlayerRide
             double d0 = this.getAttackReachSqr(enemy);
             if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
                 this.resetAttackCooldown();
-                ((BeelzebufoEntity) this.mob).setHungry(false);
                 ((BeelzebufoEntity) this.mob).attack(enemy);
-                ((BeelzebufoEntity) this.mob).setTimeTillHungry(mob.getRandom().nextInt(100) + 100);
             }
         }
 

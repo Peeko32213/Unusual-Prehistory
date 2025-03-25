@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.client.render.prehistoric;
 
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.client.model.DefaultModel;
 import com.peeko32213.unusualprehistory.client.model.ModelLocations;
@@ -24,14 +23,14 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends GeoEntityRenderer<K
         this.addRenderLayer(new KimmeridgebrachypteraeschnidiumWingLayer(this));
     }
 
-    @Override
-    public RenderType getRenderType(KimmeridgebrachypteraeschnidiumEntity animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
-    }
+//    @Override
+//    public RenderType getRenderType(KimmeridgebrachypteraeschnidiumEntity animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
+//        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
+//    }
 
     @Override
-    public void render(KimmeridgebrachypteraeschnidiumEntity kimmer, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
-        super.render(kimmer, f, g, poseStack, multiBufferSource, i);
+    public void render(KimmeridgebrachypteraeschnidiumEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn) {
+        super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLightIn);
     }
 
 }

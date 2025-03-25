@@ -9,10 +9,13 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;
@@ -20,6 +23,8 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 public class TyrannosaurusSkeleton extends SkeletonEntity {
+
+    private static final Item SKELETON_ITEM = UPItems.TYRANNO_SKELETON.get();
 
     private static final EntityDataAccessor<Boolean> BASE = SynchedEntityData.defineId(TyrannosaurusSkeleton.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> ROAR = SynchedEntityData.defineId(TyrannosaurusSkeleton.class, EntityDataSerializers.BOOLEAN);
@@ -47,44 +52,39 @@ public class TyrannosaurusSkeleton extends SkeletonEntity {
     @Override
     public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if (itemStack.isEmpty() && pHand == InteractionHand.MAIN_HAND && !this.isNatural() && pPlayer.isShiftKeyDown()) {
-            this.playSound(SoundEvents.SKELETON_STEP, 0.15F, 1.0F);
+        if (!this.isLocked()) {
+            if (itemStack.isEmpty() && pHand == InteractionHand.MAIN_HAND && !this.isNatural() && pPlayer.isShiftKeyDown() && !this.isWaxed()) {
+                this.playSound(SoundEvents.SKELETON_STEP, 0.15F, 1.0F);
 
-            if (!this.isBase() && !this.isRun() && !this.isRoar() && !this.isEat() && !this.isReference() && !this.isWalk() && !this.isRetro() && !this.isDead()) {
-                this.setBase(true);
-            }
+                if (!this.isBase() && !this.isRun() && !this.isRoar() && !this.isEat() && !this.isReference() && !this.isWalk() && !this.isRetro() && !this.isDead()) {
+                    this.setBase(true);
+                }
 
-            if (this.isBase()) {
-                this.setBase(false);
-                this.setRun(true);
-            }
-            else if (this.isRun()) {
-                this.setRun(false);
-                this.setRoar(true);
-            }
-            else if (this.isRoar()) {
-                this.setRoar(false);
-                this.setEat(true);
-            }
-            else if (this.isEat()) {
-                this.setEat(false);
-                this.setReference(true);
-            }
-            else if (this.isReference()) {
-                this.setReference(false);
-                this.setWalk(true);
-            }
-            else if (this.isWalk()) {
-                this.setWalk(false);
-                this.setRetro(true);
-            }
-            else if (this.isRetro()) {
-                this.setRetro(false);
-                this.setDead(true);
-            }
-            else if (this.isDead()) {
-                this.setDead(false);
-                this.setBase(true);
+                if (this.isBase()) {
+                    this.setBase(false);
+                    this.setRun(true);
+                } else if (this.isRun()) {
+                    this.setRun(false);
+                    this.setRoar(true);
+                } else if (this.isRoar()) {
+                    this.setRoar(false);
+                    this.setEat(true);
+                } else if (this.isEat()) {
+                    this.setEat(false);
+                    this.setReference(true);
+                } else if (this.isReference()) {
+                    this.setReference(false);
+                    this.setWalk(true);
+                } else if (this.isWalk()) {
+                    this.setWalk(false);
+                    this.setRetro(true);
+                } else if (this.isRetro()) {
+                    this.setRetro(false);
+                    this.setDead(true);
+                } else if (this.isDead()) {
+                    this.setDead(false);
+                    this.setBase(true);
+                }
             }
         }
         return super.interact(pPlayer, pHand);
@@ -131,6 +131,13 @@ public class TyrannosaurusSkeleton extends SkeletonEntity {
         compound.putBoolean("runPose", this.isReference());
         compound.putBoolean("retroPose", this.isRetro());
         compound.putBoolean("deadPose", this.isDead());
+    }
+
+    @Override
+    public void broken(DamageSource pDamageSource) {
+        ItemStack itemstack = new ItemStack(SKELETON_ITEM);
+        Block.popResource(this.level(), this.blockPosition(), itemstack);
+        super.broken(pDamageSource);
     }
 
     public boolean isBase() {

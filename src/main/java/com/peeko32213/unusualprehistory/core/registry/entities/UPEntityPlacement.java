@@ -18,7 +18,7 @@ public class UPEntityPlacement {
         SpawnPlacements.register(UPEntities.MAJUNGA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntityOld::checkSurfaceDinoSpawnRules);
         //Does not have bright enough to spawn check for now!
         SpawnPlacements.register(UPEntities.ANURO.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AnurognathusEntity::checkSurfaceDinoSpawnRules);
-        SpawnPlacements.register(UPEntities.BEELZ.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntityOld::checkSurfaceDinoSpawnRules);
+        SpawnPlacements.register(UPEntities.BEELZ.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrehistoricEntity::checkSurfaceDinoSpawnRules);
         SpawnPlacements.register(UPEntities.BEELZE_TADPOLE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeelzebufoTadpoleEntity::checkSurfaceWaterDinoSpawnRules);
 
         SpawnPlacements.register(UPEntities.AMMON.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AmmoniteEntity::checkSurfaceWaterDinoSpawnRules);

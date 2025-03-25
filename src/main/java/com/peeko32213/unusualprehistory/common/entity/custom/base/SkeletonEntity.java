@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -11,6 +12,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -45,6 +48,8 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     public static final Logger LOGGER = LogManager.getLogger();
 
     private static final EntityDataAccessor<Boolean> NATURAL = SynchedEntityData.defineId(SkeletonEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> WAXED = SynchedEntityData.defineId(SkeletonEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> LOCKED = SynchedEntityData.defineId(SkeletonEntity.class, EntityDataSerializers.BOOLEAN);
 
     public long lastHit;
 
@@ -61,7 +66,7 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D);
     }
 
     public boolean canBreatheUnderwater() {
@@ -69,23 +74,43 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     }
 
     public static float yawToYRot(double yaw) {
-        return (float) Mth.wrapDegrees(yaw - 120);
+        return (float) Mth.wrapDegrees(yaw - 90);
     }
 
     @Override
     public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if (itemStack.isEmpty() && pHand == InteractionHand.MAIN_HAND && !this.isNatural()) {
-            if (!pPlayer.isShiftKeyDown()) {
-                double d0 = pPlayer.getX() - this.getX();
-                double d2 = pPlayer.getZ() - this.getZ();
-                setYRot(yawToYRot(Mth.atan2(d2, d0) * Mth.RAD_TO_DEG));
+        if (!this.isLocked()) {
+            if (!this.isNatural()) {
+                if (!this.isWaxed()) {
+                    if (itemStack.isEmpty() && pHand == InteractionHand.MAIN_HAND) {
+                        if (!pPlayer.isShiftKeyDown()) {
+                            double d0 = pPlayer.getX() - this.getX();
+                            double d2 = pPlayer.getZ() - this.getZ();
+                            setYRot(yawToYRot(Mth.atan2(d2, d0) * Mth.RAD_TO_DEG));
+                        }
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+                if (itemStack.getItem() == Items.HONEYCOMB && !this.isWaxed()) {
+                    this.setWaxed(true);
+                    this.spawnWaxParticles(ParticleTypes.WAX_ON);
+                    this.level().playSound(pPlayer, this.getX(), this.getY(), this.getZ(), SoundEvents.HONEYCOMB_WAX_ON, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                    itemStack.shrink(1);
+                    return InteractionResult.SUCCESS;
+                }
+                if (itemStack.getItem() instanceof AxeItem && this.isWaxed()) {
+                    this.setWaxed(false);
+                    this.spawnWaxParticles(ParticleTypes.WAX_OFF);
+                    this.level().playSound(pPlayer, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_WAX_OFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                    return InteractionResult.SUCCESS;
+                }
             }
-            return InteractionResult.SUCCESS;
-        }
-        else if(itemStack.getItem() == Items.DEBUG_STICK && pHand == InteractionHand.MAIN_HAND){
-            this.setNatural(!this.isNatural());
-            pPlayer.displayClientMessage(Component.translatable("entity.unusualprehistory.skeleton.natural_" + this.isNatural(), this.getName()), true);
+            if (itemStack.getItem() == Items.DEBUG_STICK && pHand == InteractionHand.MAIN_HAND) {
+                this.setNatural(!this.isNatural());
+                pPlayer.displayClientMessage(Component.translatable("entity.unusualprehistory.skeleton.natural_" + this.isNatural(), this.getName()), true);
+                return InteractionResult.SUCCESS;
+            }
         }
         return super.interact(pPlayer, pHand);
     }
@@ -94,18 +119,24 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(NATURAL, false);
+        this.entityData.define(WAXED, false);
+        this.entityData.define(LOCKED, false);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setNatural(compound.getBoolean("IsNatural"));
+        this.setNatural(compound.getBoolean("Natural"));
+        this.setWaxed(compound.getBoolean("Waxed"));
+        this.setLocked(compound.getBoolean("Locked"));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("IsNatural", this.isNatural());
+        compound.putBoolean("Natural", this.isNatural());
+        compound.putBoolean("Waxed", this.isWaxed());
+        compound.putBoolean("Locked", this.isLocked());
     }
 
     @Override
@@ -119,23 +150,10 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
                 this.kill();
                 return false;
             }
-            else if (!this.isInvulnerableTo(pSource)) {
+            else if (!this.isInvulnerableTo(pSource) && !this.isLocked()) {
                 if (pSource.is(DamageTypeTags.IS_EXPLOSION)) {
                     this.broken(pSource);
                     this.kill();
-                    return false;
-                }
-                else if (pSource.is(DamageTypeTags.IGNITES_ARMOR_STANDS)) {
-                    if (this.isOnFire()) {
-                        this.causeDamage(pSource, 0.15F);
-                    } else {
-                        this.setSecondsOnFire(5);
-                    }
-
-                    return false;
-                }
-                else if (pSource.is(DamageTypeTags.BURNS_ARMOR_STANDS) && this.getHealth() > 0.5F) {
-                    this.causeDamage(pSource, 4.0F);
                     return false;
                 }
                 else {
@@ -197,19 +215,7 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
         }
     }
 
-    private void causeDamage(DamageSource pDamageSource, float pAmount) {
-        float f = this.getHealth();
-        f -= pAmount;
-        if (f <= 0.5F) {
-            this.broken(pDamageSource);
-            this.kill();
-        } else {
-            this.setHealth(f);
-            this.gameEvent(GameEvent.ENTITY_DAMAGE, pDamageSource.getEntity());
-        }
-    }
-
-    private void broken(DamageSource pDamageSource) {
+    public void broken(DamageSource pDamageSource) {
         this.playBrokenSound();
         this.dropAllDeathLoot(pDamageSource);
     }
@@ -217,6 +223,17 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     private void showBreakingParticles() {
         if (this.level() instanceof ServerLevel) {
             ((ServerLevel)this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.BONE_BLOCK.defaultBlockState()), this.getX(), this.getY(0.6666666666666666), this.getZ(), 10, (double)(this.getBbWidth() / 4.0F), (double)(this.getBbHeight() / 4.0F), (double)(this.getBbWidth() / 4.0F), 0.05);
+        }
+    }
+
+    private void spawnWaxParticles(ParticleOptions particle) {
+        if (this.level().isClientSide) {
+            for (int i = 0; i < 7; ++i) {
+                double d0 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
+                double d1 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
+                double d2 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
+                this.level().addParticle(particle, this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), d0, d1, d2);
+            }
         }
     }
 
@@ -249,6 +266,15 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
         return false;
     }
 
+    @Override
+    public boolean isPickable() {
+        return true;
+    }
+
+    public boolean skipAttackInteraction(Entity pEntity) {
+        return pEntity instanceof Player && !this.level().mayInteract((Player)pEntity, this.blockPosition());
+    }
+
     public void kill() {
         this.remove(RemovalReason.KILLED);
         this.gameEvent(GameEvent.ENTITY_DIE);
@@ -260,6 +286,22 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     }
     public boolean isNatural() {
         return this.entityData.get(NATURAL);
+    }
+
+    // Waxed
+    public void setWaxed(boolean waxed) {
+        this.entityData.set(WAXED, waxed);
+    }
+    public boolean isWaxed() {
+        return this.entityData.get(WAXED);
+    }
+
+    // Locked
+    public void setLocked(boolean locked) {
+        this.entityData.set(LOCKED, locked);
+    }
+    public boolean isLocked() {
+        return this.entityData.get(LOCKED);
     }
 
     @Override

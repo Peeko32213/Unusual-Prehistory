@@ -6,7 +6,6 @@ import software.bernie.geckolib.model.GeoModel;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
-// todo: move to ModelLocations
 public class TyrannosaurusSkeletonModel extends GeoModel<TyrannosaurusSkeleton> {
 
     private static final ResourceLocation SKELETON_MODEL = modPrefix("geo/tyrannosaurus/tyrannosaurus_skeleton.geo.json");

@@ -305,7 +305,14 @@ public class UPBlockTagsProvider extends BlockTagsProvider {
 
         tag(BlockTags.WOODEN_FENCES)
                 .add(UPBlocks.DRYO_FENCE.get())
+                .add(UPBlocks.FOXII_FENCE.get())
+                .add(UPBlocks.GINKGO_FENCE.get())
+                .add(UPBlocks.PETRIFIED_FENCE.get())
                 .add(UPBlocks.ZULOAGAE_FENCE.get())
+        ;
+
+        tag(BlockTags.WALLS)
+                .add(UPBlocks.POLISHED_PETRIFIED_WOOD_WALL.get())
         ;
 
         tag(BlockTags.PRESSURE_PLATES)

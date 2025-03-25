@@ -13,6 +13,7 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 public class KimmeridgebrachypteraeschnidiumWingLayer extends GeoRenderLayer<KimmeridgebrachypteraeschnidiumEntity> {
+
     private static final ResourceLocation WING = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/kimmer/kimmeridgebrachypteraeschnidium_wing_layer.png");
     private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kimmeridgebrachypteraeschnidium.geo.json");
 
@@ -22,7 +23,8 @@ public class KimmeridgebrachypteraeschnidiumWingLayer extends GeoRenderLayer<Kim
 
     @Override
     public void render(PoseStack poseStack, KimmeridgebrachypteraeschnidiumEntity entityLivingBaseIn, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
-        RenderType cameo = RenderType.entityCutoutNoCull(WING);
+        RenderType cameo = RenderType.entityCutout(WING);
+
         float[] fs = entityLivingBaseIn.getWingColor().getTextureDiffuseColors();
         getRenderer().reRender(this.getGeoModel().getBakedModel(MODEL), poseStack, bufferSource, entityLivingBaseIn, renderType,
                 bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY,

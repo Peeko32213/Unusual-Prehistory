@@ -5,7 +5,6 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.CustomAnimationsModel;
 import com.peeko32213.unusualprehistory.client.model.DefaultModel;
 import com.peeko32213.unusualprehistory.client.model.ModelLocations;
-import com.peeko32213.unusualprehistory.client.model.VariantModel;
 import com.peeko32213.unusualprehistory.client.model.entity.egg.PrehistoricEggModel;
 import com.peeko32213.unusualprehistory.client.model.entity.skeleton.TriceratopsSkeletonModel;
 import com.peeko32213.unusualprehistory.client.model.entity.skeleton.TyrannosaurusSkeletonModel;
@@ -27,7 +26,7 @@ import com.peeko32213.unusualprehistory.client.render.block.PlantEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.egg.PrehistoricEggRenderer;
 import com.peeko32213.unusualprehistory.client.render.prehistoric.*;
 import com.peeko32213.unusualprehistory.client.render.projectile.*;
-import com.peeko32213.unusualprehistory.client.render.projectile.FlatMovingThrownItemRenderer;
+import com.peeko32213.unusualprehistory.client.render.projectile.OpalescentShurikenRenderer;
 import com.peeko32213.unusualprehistory.client.screen.AnalyzerScreen;
 import com.peeko32213.unusualprehistory.client.screen.CultivatorScreen;
 import com.peeko32213.unusualprehistory.client.screen.DNAFridgeScreen;
@@ -83,12 +82,6 @@ public final class ClientEvents {
         event.registerSpecial(UPParticles.ELECTRIC_ATTACK.get(), new ElectricAttackParticle.ElectricAttackFactory());
     }
 
-    private static final ResourceLocation MEGATHERIUM_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/megatherium/megatherium_saddled.png");
-    private static final ResourceLocation MEGATHERIUM_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/megatherium/megatherium.geo.json");
-
-    private static final ResourceLocation BEELZE_SADDLE_OVERLAY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/beelzebufo_saddle.png");
-    private static final ResourceLocation BEELZE_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/beelzebufo.geo.json");
-
     private static final ResourceLocation KAPROSUCHUS_MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kaprosuchus.geo.json");
 
     @SubscribeEvent
@@ -116,8 +109,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.ARCHELON.get(), e -> new StatedPrehistoricRenderer<>(e, new ArchelonModel()));
         event.registerEntityRenderer(UPEntities.AUSTRO.get(), e -> new PrehistoricRenderer<>(e, new CustomAnimationsModel<>(ModelLocations.AUSTRORAPTOR)));
         event.registerEntityRenderer(UPEntities.BALAUR.get(), e -> new StatedPrehistoricRenderer<>(e, new BalaurModel()));
-        event.registerEntityRenderer(UPEntities.BEELZ.get(), e -> UPRenderUtils.createDinosaurRenderer(e, new DefaultModel<>(ModelLocations.BEELZEBUFO)).withLayers(BEELZE_MODEL).withSaddleLayer(BEELZE_SADDLE_OVERLAY).build());
-        event.registerEntityRenderer(UPEntities.BEELZ.get(), e -> new PrehistoricRenderer<>(e, new BeelzebufoModel()));
+        event.registerEntityRenderer(UPEntities.BEELZ.get(), e -> new AgeableMobRenderer<>(e, new BeelzebufoModel()));
         event.registerEntityRenderer(UPEntities.BEELZE_TADPOLE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.BABY_BEELZEBUFO)));
         event.registerEntityRenderer(UPEntities.BRACHI.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BrachiosaurusModel()));
        // event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new PrehistoricRenderer<>(e, new VariantModel<>(ModelLocations.ERYON)));
@@ -184,7 +176,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.HWACHA_SPIKE.get(), HwachaSpikeRenderer::new);
         event.registerEntityRenderer(UPEntities.RABIES_FLASK.get(), RabiesFlaskRenderer::new);
         event.registerEntityRenderer(UPEntities.OPALESCENT_PEARL.get(), ThrownItemRenderer::new);
-        event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), FlatMovingThrownItemRenderer::new);
+        event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), OpalescentShurikenRenderer::new);
         event.registerEntityRenderer(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
         event.registerEntityRenderer(UPEntities.THROWABLE_FALLING_BLOCK.get(), ThrowableFallingBlockRenderer::new);
 

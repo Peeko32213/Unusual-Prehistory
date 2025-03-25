@@ -192,14 +192,14 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(UPItems.YELLOW_FRUIT_SCRAPS, "Redolent Fruit Scraps");
         addItem(UPItems.BLUE_FRUIT_SCRAPS, "Salubrious Fruit Scraps");
 
-        //BUCKETS
+        // Buckets
         addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");
         addItem(UPItems.AMMON_BUCKET, "Bucket of Ammonite");
         addItem(UPItems.STETHA_BUCKET, "Bucket of Stethacanthus");
         addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
         addItem(UPItems.PALAEO_BUCKET, "Bucket of Palaeolophis Hatchling");
 
-        //EGGS
+        // Block Eggs
         addBlock(UPBlocks.STETHA_EGGS, "Stethacanthus Eggs");
         addBlock(UPBlocks.BEELZE_EGGS, "Beelzebufo Spawn");
         addBlock(UPBlocks.AMON_EGGS, "Ammonite Eggs");
@@ -247,7 +247,7 @@ public class LanguageGenerator extends LanguageProvider {
         addPrehistoricEgg(UPEntities.TALPANAS, "Talpanas Egg");
         addPrehistoricEgg(UPEntities.TELECREX, "Telecrex Egg");
 
-        //SPAWN EGGS
+        // Spawn eggs
         addItem(UPItems.AMMON_SPAWN_EGG, "Ammonite Spawn Egg");
         addItem(UPItems.STETHA_SPAWN_EGG, "Stethacanthus Spawn Egg");
         addItem(UPItems.DUNK_SPAWN_EGG, "Dunkleosteus Spawn Egg");
@@ -481,6 +481,8 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.HWACHA_FOSSIL, "Hwachavenator Fossil");
 
         // Entities
+        addEntityType(UPEntities.TRIKE_SKELETON, "Triceratops Skeleton");
+        addEntityType(UPEntities.TYRANNO_SKELETON, "Tyrannosaurus Skeleton");
 
         // Paleo mobs
         addEntityType(UPEntities.AMMON, "Ammonite");
@@ -770,8 +772,8 @@ public class LanguageGenerator extends LanguageProvider {
         add("entity.unusualprehistory.all.command_1", "%s is following");
         add("entity.unusualprehistory.all.command_2", "%s is staying");
 
-        add("entity.unusualprehistory.skeleton.natural_false", "Set %s isNatural false");
-        add("entity.unusualprehistory.skeleton.natural_true", "Set %s isNatural true");
+        add("entity.unusualprehistory.skeleton.natural_false", "Set %s \"Natural\" to false");
+        add("entity.unusualprehistory.skeleton.natural_true", "Set %s \"Natural\" to true");
 
         add("block.unusualprehistory.majunga_egg.desc", "%s x %s");
         add("block.unusualprehistory.coty_egg.desc", "%s x %s");

@@ -14,48 +14,24 @@ import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 
 import javax.annotation.Nullable;
 
-public class OpalescentPearlEntity extends ThrowableItemProjectile {
+public class OpalescentPearl extends ThrowableItemProjectile {
 
-    public OpalescentPearlEntity(EntityType<? extends OpalescentPearlEntity> pEntityType, Level pLevel) {
+    public OpalescentPearl(EntityType<? extends OpalescentPearl> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    public OpalescentPearlEntity(Level pLevel, LivingEntity pShooter) {
+    public OpalescentPearl(Level pLevel, LivingEntity pShooter) {
         super(UPEntities.OPALESCENT_PEARL.get(), pShooter, pLevel);
         this.noPhysics = true;
-
     }
 
     protected Item getDefaultItem() {
         return UPItems.OPALESCENT_PEARL.get();
     }
 
-    /**
-     * Called when the arrow hits an entity
-     */
-    protected void onHitEntity(EntityHitResult pResult) {
-        super.onHitEntity(pResult);
-        pResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 0.0F);
-    }
-
-    /**
-     * Called when this EntityFireball hits a block or entity.
-     */
-    protected void onHit(HitResult pResult) {
-        super.onHit(pResult);
-
-
-
-    }
-
-    /**
-     * Called to update the entity's position/logic.
-     */
     public void tick() {
         Entity entity = this.getOwner();
         if (entity instanceof Player && !entity.isAlive() || tickCount > 200) {

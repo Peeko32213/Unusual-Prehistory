@@ -13,6 +13,7 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 public class KimmeridgebrachypteraeschnidiumPatternLayer extends GeoRenderLayer<KimmeridgebrachypteraeschnidiumEntity> {
+
     private static final ResourceLocation COLORED_PATTERNS = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/kimmer/kimmeridgebrachypteraeschnidium_pattern_a_1.png");
     private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kimmeridgebrachypteraeschnidium.geo.json");
 

@@ -7,34 +7,33 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SnowballItem;
 import net.minecraft.world.level.Level;
 
-public class OpalescentShurikenItem extends Item {
+public class OpalescentShurikenItem extends SnowballItem {
 
     public OpalescentShurikenItem(Properties pProperties) {
         super(pProperties);
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        ItemStack itemstack = playerIn.getItemInHand(handIn);
-        worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.EGG_THROW, SoundSource.PLAYERS, 0.5F, 0.4F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
-        playerIn.getCooldowns().addCooldown(this, 3);
-        if (!worldIn.isClientSide()) {
-            OpalescentShuriken shuriken = new OpalescentShuriken(worldIn, playerIn);
-            shuriken.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, 2.45F, 0.8F);
-            if (playerIn.getAbilities().instabuild) {
-                shuriken.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-            }
-            worldIn.addFreshEntity(shuriken);
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EGG_THROW, SoundSource.NEUTRAL, 0.5F, 0.55F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+        player.getCooldowns().addCooldown(this, 5);
+        if (!level.isClientSide) {
+            OpalescentShuriken entity = new OpalescentShuriken(level, player, itemstack);
+            entity.setItem(itemstack);
+            entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+            level.addFreshEntity(entity);
         }
-        playerIn.awardStat(Stats.ITEM_USED.get(this));
-        if (!playerIn.getAbilities().instabuild) {
+
+        player.awardStat(Stats.ITEM_USED.get(this));
+        if (!player.getAbilities().instabuild) {
             itemstack.shrink(1);
         }
-        return InteractionResultHolder.sidedSuccess(itemstack, worldIn.isClientSide());
+
+        return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }
 }

@@ -392,8 +392,8 @@ public class UPEntities {
                     .sized(0.5F, 0.5F).clientTrackingRange(9).noSummon()
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hwacha_spike").toString()));
 
-    public static final RegistryObject<EntityType<OpalescentPearlEntity>> OPALESCENT_PEARL = ENTITIES.register("opalescent_pearl",
-            () ->  EntityType.Builder.<OpalescentPearlEntity>of(OpalescentPearlEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<OpalescentPearl>> OPALESCENT_PEARL = ENTITIES.register("opalescent_pearl",
+            () ->  EntityType.Builder.<OpalescentPearl>of(OpalescentPearl::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(10)

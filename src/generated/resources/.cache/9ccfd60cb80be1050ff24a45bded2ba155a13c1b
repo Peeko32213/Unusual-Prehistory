@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-24T20:10:21.7620242	unusualprehistory Block Tags
+// 1.20.1	2025-03-25T10:13:18.3583694	unusualprehistory Block Tags
 f38b750c1dba1384cc81303e6a93a35bbca1e49c data/minecraft/tags/blocks/buttons.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/blocks/ceiling_hanging_signs.json
 db60b18956c37cead718babedc18434ca6f06f77 data/minecraft/tags/blocks/fences.json
@@ -18,11 +18,12 @@ c49335c21f9524c07a7ff40b21769f491aa274fd data/minecraft/tags/blocks/small_flower
 75650737e5d6395e34d8008fa9455cadfb03845b data/minecraft/tags/blocks/stairs.json
 675313cc0efaf6e05eda47e3ff495d06824612ae data/minecraft/tags/blocks/tall_flowers.json
 b01bfd3fe64f4565cc6cf5347a5968909e02cb48 data/minecraft/tags/blocks/trapdoors.json
+a37e111997f9f2e296fd1ad8bb2a1341c933376a data/minecraft/tags/blocks/walls.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/blocks/wall_hanging_signs.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/blocks/wall_signs.json
 cb9033d48bb78e48c02887148b11eb0e202772c7 data/minecraft/tags/blocks/wooden_buttons.json
 5fa02dd36e3d0f9b5c5834ebf38f34848b08582d data/minecraft/tags/blocks/wooden_doors.json
-54d0736e817860c3348d022efc7e890fa0f9aa73 data/minecraft/tags/blocks/wooden_fences.json
+700fab9a16fc1e2c9aa7f76d1a10dd815c368877 data/minecraft/tags/blocks/wooden_fences.json
 74cce9cd22612b5ff95a8f71b7abde2f853bed21 data/unusualprehistory/tags/blocks/angry_brachi_breakables.json
 22cf9ac269d1dd09f11eab7a295b2e94e0dca36d data/unusualprehistory/tags/blocks/club_whitelist_blocks.json
 b7726e3621961ad271e90d08ede4be964c05ab95 data/unusualprehistory/tags/blocks/cotylorhynchus_grazing_blocks.json

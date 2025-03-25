@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry.items;
 
 import com.mojang.datafixers.util.Pair;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.entity.projectile.OpalescentShuriken;
 import com.peeko32213.unusualprehistory.common.item.*;
 import com.peeko32213.unusualprehistory.common.item.armor.*;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
@@ -267,7 +268,7 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> DIPLOCAULUS_SPAWN_EGG = registerSpawnEggs("diplocaulus_spawn_egg", UPEntities.DIPLOCAULUS , 0x21212e, 0xfc9214);
     public static final RegistryObject<ForgeSpawnEggItem> DUNK_SPAWN_EGG = registerSpawnEggs("dunkleosteus_spawn_egg", UPEntities.DUNK , 0x417a69, 0x825147);
     public static final RegistryObject<ForgeSpawnEggItem> EDAPHOSAURUS_SPAWN_EGG = registerSpawnEggs("edaphosaurus_spawn_egg", UPEntities.EDAPHOSAURUS , 0x572b2b, 0xf6e8e8);
-    public static final RegistryObject<ForgeSpawnEggItem> ENCRUSTED_SPAWN_EGG = registerSpawnEggs("encrusted_spawn_egg", UPEntities.ENCRUSTED , 0x482300, 0xffc656);
+    public static final RegistryObject<ForgeSpawnEggItem> ENCRUSTED_SPAWN_EGG = registerSpawnEggs("encrusted_spawn_egg", UPEntities.ENCRUSTED , 0x8c5302, 0xffb12a);
     public static final RegistryObject<ForgeSpawnEggItem> ERYON_SPAWN_EGG = registerSpawnEggs("eryon_spawn_egg", UPEntities.ERYON , 0x1d2110, 0xe4b423);
     public static final RegistryObject<ForgeSpawnEggItem> ESTEMMENOSUCHUS_SPAWN_EGG = registerSpawnEggs("estemmenosuchus_spawn_egg", UPEntities.ESTEMMENOSUCHUS , 0x1e202d, 0x7e4995);
     public static final RegistryObject<ForgeSpawnEggItem> GIGANTO_SPAWN_EGG = registerSpawnEggs("gigantopithecus_spawn_egg", UPEntities.GIGANTOPITHICUS , 0x7c3c23, 0x665f58);

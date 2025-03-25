@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric.semi_aquatic;
 
-
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.BeelzebufoEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -29,7 +28,7 @@ public class BeelzebufoModel extends GeoModel<BeelzebufoEntity> {
     public void setCustomAnimations(BeelzebufoEntity animatable, long instanceId, AnimationState<BeelzebufoEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
 
-        CoreGeoBone saddle = this.getAnimationProcessor().getBone("Saddle");
+        CoreGeoBone saddle = this.getAnimationProcessor().getBone("saddle");
 
         saddle.setHidden(!animatable.isSaddled());
     }

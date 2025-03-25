@@ -12,7 +12,7 @@ public class UPProperties {
     public static final class Blocks {
 
         public static BlockBehaviour.Properties dryo() {
-            return BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BIT).strength(2.0F, 1.0F).sound(SoundType.WOOD).mapColor(MapColor.TERRACOTTA_PINK);
+            return BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT).strength(2.0F, 1.0F).sound(SoundType.WOOD).mapColor(MapColor.TERRACOTTA_PINK);
         }
 
         public static BlockBehaviour.Properties foxii() {
@@ -28,7 +28,7 @@ public class UPProperties {
         }
 
         public static BlockBehaviour.Properties zuloagae() {
-            return BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SNARE).strength(2.0F, 1.0F).requiresCorrectToolForDrops().sound(SoundType.BAMBOO_WOOD).mapColor(MapColor.TERRACOTTA_GRAY);
+            return BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.SNARE).strength(2.0F, 1.0F).sound(SoundType.BAMBOO_WOOD).mapColor(MapColor.TERRACOTTA_GRAY);
         }
 
         public static final BlockBehaviour.Properties DRYO_TRAPDOOR = dryo().noOcclusion().isValidSpawn(PropertyUtil::never).strength(3.0F);
