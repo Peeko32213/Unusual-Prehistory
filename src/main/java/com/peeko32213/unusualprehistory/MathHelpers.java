@@ -43,7 +43,7 @@ public class MathHelpers {
 
         if (angleInDegs < 0) {
             //check if the angle is negative
-            return 360 - Math.abs(angleInDegs);
+            return 360 + angleInDegs;
         }
 
         return angleInDegs;
