@@ -1,0 +1,8 @@
+{
+  "parent": "unusualprehistory:block/templates/emissive_block",
+  "textures": {
+    "all": "unusualprehistory:block/fire_opal_ore",
+    "glow": "unusualprehistory:block/fire_opal_ore_glow",
+    "particle": "unusualprehistory:block/fire_opal_ore"
+  }
+}

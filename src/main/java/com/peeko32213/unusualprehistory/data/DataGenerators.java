@@ -31,55 +31,48 @@ import static com.peeko32213.unusualprehistory.UnusualPrehistory.MODID;
 public class DataGenerators {
 
     @SubscribeEvent
-    public static void gatherData(GatherDataEvent evt) {
-        if (evt.includeServer())
-            registerServerProviders(evt.getGenerator(), evt);
-
+    public static void gatherData(GatherDataEvent event) {
+        if (event.includeServer()) registerServerProviders(event.getGenerator(), event);
+        if (event.includeClient()) registerClientProviders(event.getGenerator(), event);
     }
-    private static void registerServerProviders(DataGenerator generator, GatherDataEvent evt) {
+
+    private static void registerClientProviders(DataGenerator generator, GatherDataEvent event) {
+        ExistingFileHelper helper = event.getExistingFileHelper();
         PackOutput packOutput = generator.getPackOutput();
-        ExistingFileHelper helper = evt.getExistingFileHelper();
+        generator.addProvider(true,new BlockstateGenerator(packOutput, helper));
+        generator.addProvider(true,new ItemModelGenerator(packOutput, helper));
+        generator.addProvider(true,new LanguageGenerator(packOutput));
+    }
+
+    private static void registerServerProviders(DataGenerator generator, GatherDataEvent event) {
+        PackOutput packOutput = generator.getPackOutput();
+        ExistingFileHelper helper = event.getExistingFileHelper();
         Set<BlockStateGenerator> set = Sets.newHashSet();
         Consumer<BlockStateGenerator> consumer = set::add;
-        CompletableFuture<HolderLookup.Provider> provider = evt.getLookupProvider();
-        CompletableFuture<HolderLookup.Provider> lookupProvider = evt.getLookupProvider();
+        CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
+        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         generator.addProvider(true,new UPEntityTagsProvider(packOutput, lookupProvider, helper));
-
         generator.addProvider(true,new UPPaintingTagsProvider(packOutput, lookupProvider, helper));
-
         generator.addProvider(true,new UPRecipeGenerator(packOutput));
-
-        generator.addProvider(true,new BlockstateGenerator(packOutput, helper));
-
-        generator.addProvider(true,new ItemModelGenerator(packOutput, helper));
-
-        generator.addProvider(true,new LanguageGenerator(packOutput));
-
-        generator.addProvider(evt.includeServer(), LootGenerator.create(packOutput));
-
+        generator.addProvider(event.includeServer(), LootGenerator.create(packOutput));
         generator.addProvider(true,new UPBiomeTagsProvider(packOutput, lookupProvider, helper));
-
         generator.addProvider(true,new EntityGoalGenerator(packOutput));
-
         generator.addProvider(true,new UPInstrumentTagsProvider(packOutput, lookupProvider,helper));
-
-        generator.addProvider(evt.includeServer(), new EntityDataGenerator(packOutput));
+        generator.addProvider(event.includeServer(), new EntityDataGenerator(packOutput));
 
 //        generator.addProvider(true,new AdvancementProvider(packOutput, provider, helper));
-//        generator.addProvider(evt.includeServer(), new DamageTypeTagsGenerator(packOutput, lookupProvider, helper));
+//        generator.addProvider(event.includeServer(), new DamageTypeTagsGenerator(packOutput, lookupProvider, helper));
 
-        generator.addProvider(evt.includeServer(), new GlobalLootModifiersGenerator(packOutput));
+        generator.addProvider(event.includeServer(), new GlobalLootModifiersGenerator(packOutput));
 
-        UPBlockTagsProvider blockTagGenerator = generator.addProvider(evt.includeServer(),
+        UPBlockTagsProvider blockTagGenerator = generator.addProvider(event.includeServer(),
                 new UPBlockTagsProvider(packOutput, lookupProvider, helper));
-        generator.addProvider(evt.includeServer(), new UPItemTagsProvider(packOutput, lookupProvider, blockTagGenerator.contentsGetter(), helper));
+        generator.addProvider(event.includeServer(), new UPItemTagsProvider(packOutput, lookupProvider, blockTagGenerator.contentsGetter(), helper));
 
         DatapackBuiltinEntriesProvider datapackProvider = new RegistryDataGenerator(packOutput, lookupProvider);
         CompletableFuture<HolderLookup.Provider> customLookupProvider = datapackProvider.getRegistryProvider();
-        generator.addProvider(evt.includeServer(), datapackProvider);
-
-
+        generator.addProvider(event.includeServer(), datapackProvider);
     }
 
 }

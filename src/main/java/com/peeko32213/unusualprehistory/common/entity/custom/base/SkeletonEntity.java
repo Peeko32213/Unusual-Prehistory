@@ -238,7 +238,7 @@ public class SkeletonEntity extends LivingEntity implements GeoEntity, GeoAnimat
     }
 
     private void playBrokenSound() {
-        this.level().playSound((Player)null, this.getX(), this.getY(), this.getZ(), SoundEvents.SKELETON_HURT, this.getSoundSource(), 1.0F, 1.0F);
+        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SKELETON_HURT, this.getSoundSource(), 1.0F, 1.0F);
     }
 
     public LivingEntity.Fallsounds getFallSounds() {

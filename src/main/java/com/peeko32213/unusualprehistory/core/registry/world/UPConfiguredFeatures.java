@@ -10,14 +10,15 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.GeodeBlockSettings;
+import net.minecraft.world.level.levelgen.GeodeCrackSettings;
+import net.minecraft.world.level.levelgen.GeodeLayerSettings;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -92,6 +93,28 @@ public class UPConfiguredFeatures {
     public static final RegistryObject<ConfiguredFeature<?, ?>> DEEPSLATE_OPAL_ORE = registerConfiguredFeature("deepslate_opal_ore", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_OPAL_ORE.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), UPBlocks.DEEPSLATE_OPAL_ORE.get().defaultBlockState())), 4)));
     public static final RegistryObject<ConfiguredFeature<?, ?>> PERMAFROST_PATCH = registerConfiguredFeature("permafrost_patch",  () -> new ConfiguredFeature<>(Feature.DISK, new DiskConfiguration(RuleBasedBlockStateProvider.simple(UPBlocks.PERMAFROST.get()), BlockPredicate.matchesBlocks(List.of(Blocks.STONE, Blocks.DEEPSLATE)), UniformInt.of(2, 3), 1)));
     public static final RegistryObject<ConfiguredFeature<?, ?>> PERMAFROST_FOSSIL_PATCH = registerConfiguredFeature("permafrost_fossil_patch",  () -> new ConfiguredFeature<>(Feature.DISK, new DiskConfiguration(RuleBasedBlockStateProvider.simple(UPBlocks.PERMAFROST_FOSSIL.get()), BlockPredicate.matchesBlocks(List.of(UPBlocks.PERMAFROST.get())), UniformInt.of(2, 3), 1)));
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> OPAL_GEODE = registerConfiguredFeature("opal_geode",  () -> new ConfiguredFeature<>(Feature.GEODE, new GeodeConfiguration(
+            new GeodeBlockSettings(
+                BlockStateProvider.simple(Blocks.WATER),
+                BlockStateProvider.simple(UPBlocks.OPAL_ORE.get()),
+                BlockStateProvider.simple(UPBlocks.OPAL_ORE.get()),
+                BlockStateProvider.simple(Blocks.TUFF), BlockStateProvider.simple(Blocks.SMOOTH_BASALT),
+                List.of(Blocks.WATER.defaultBlockState()), BlockTags.FEATURES_CANNOT_REPLACE, BlockTags.GEODE_INVALID_BLOCKS
+            ),
+            new GeodeLayerSettings(1D, 1.2D, 2.2D, 2.8D),
+            new GeodeCrackSettings(1f, 4.0D, 3),
+            0.85D,
+            0.2D,
+            true,
+            UniformInt.of(3, 5),
+            UniformInt.of(2, 3),
+            UniformInt.of(0, 1),
+            -16,
+            16,
+            0.1D,
+            1)
+    ));
 
     public static RegistryObject<ConfiguredFeature<?, ?>> registerConfiguredFeature(String name, Supplier<ConfiguredFeature<?, ?>> feature) {
         configuredFeatureList.add(name);

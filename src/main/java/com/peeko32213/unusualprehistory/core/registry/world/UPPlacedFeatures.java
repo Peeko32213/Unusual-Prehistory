@@ -104,6 +104,17 @@ public class UPPlacedFeatures {
                             BlockPredicate.matchesBlocks(Direction.UP.getNormal(), Blocks.WATER))),
             BiomeFilter.biome())));
 
+    public static final RegistryObject<PlacedFeature> OPAL_GEODE = registerPlacedFeature("opal_geode", () -> new PlacedFeature((UPConfiguredFeatures.OPAL_GEODE.getHolder().get()),
+    ImmutableList.<PlacementModifier>builder().add(
+            RarityFilter.onAverageOnceEvery(24),
+            InSquarePlacement.spread(),
+                    HeightRangePlacement.uniform(
+                    VerticalAnchor.aboveBottom(6),
+                    VerticalAnchor.absolute(-10)),
+                    BiomeFilter.biome())
+                    .build()
+    ));
+
     private static List<PlacementModifier> orePlacement(PlacementModifier modifier, PlacementModifier modifier2) {
         return List.of(modifier, InSquarePlacement.spread(), modifier2, BiomeFilter.biome());
     }

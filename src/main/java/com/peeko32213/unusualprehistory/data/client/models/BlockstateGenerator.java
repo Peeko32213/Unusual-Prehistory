@@ -184,10 +184,6 @@ public class BlockstateGenerator extends BlockStateProvider {
 
         basicBlock(UPBlocks.OPAL_ORE);
         basicBlock(UPBlocks.DEEPSLATE_OPAL_ORE);
-        basicBlock(UPBlocks.FIRE_OPAL_ORE);
-        basicBlock(UPBlocks.DEEPSLATE_FIRE_OPAL_ORE);
-        basicBlock(UPBlocks.BOULDER_OPAL_ORE);
-        basicBlock(UPBlocks.DEEPSLATE_BOULDER_OPAL_ORE);
         basicBlock(UPBlocks.BLACK_OPAL_ORE);
         basicBlock(UPBlocks.DEEPSLATE_BLACK_OPAL_ORE);
 

@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-24T20:10:21.7670084	Item Models: unusualprehistory
+// 1.20.1	2025-03-25T20:45:08.1120764	Item Models: unusualprehistory
 fa55f567c295cf4dd68b82024d508fa7c97626f4 assets/unusualprehistory/models/item/amber.json
 728259086070ef1e799652ab2b9ca4701f9f0104 assets/unusualprehistory/models/item/amber_block.json
 880e29a540337d3f6b8590ec99b1b3e34d287ac0 assets/unusualprehistory/models/item/amber_fossil.json
@@ -42,7 +42,6 @@ c9d4941b3295221df16fedf098da350f930cf927 assets/unusualprehistory/models/item/bl
 00157581e1bb0179e1e4ec2699ad3bd9323b61c9 assets/unusualprehistory/models/item/black_opal_ore.json
 ad61eef7b557f5d4820bd473f5494cbee6f72ef5 assets/unusualprehistory/models/item/boulder_opal.json
 8057a1621556aee806f52cabfcf6c6af31b9f865 assets/unusualprehistory/models/item/boulder_opal_fossil.json
-3b111e4548d404691c53a1c259ec7f0dbbcabfbb assets/unusualprehistory/models/item/boulder_opal_ore.json
 9d5bc7da74a3a9272904e496d70340235b129a9c assets/unusualprehistory/models/item/brachiosaurus_dna_bottle.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/brachiosaurus_spawn_egg.json
 a6330a9dfee93f5944e6c7832145bf25e38ae479 assets/unusualprehistory/models/item/brachi_egg.json
@@ -58,8 +57,6 @@ cd900501d526334841484bf2c785ae0d2bfc99ff assets/unusualprehistory/models/item/co
 60901488fa3f8ccb461b1a70f3a01e3d6d29e026 assets/unusualprehistory/models/item/crocarina.json
 ffe9174845fdc45f569600448a4ef1e530a4f83c assets/unusualprehistory/models/item/deepslate_amber_ore.json
 20ab03a701af6b0c47b1ba6174c786f12f4c9aab assets/unusualprehistory/models/item/deepslate_black_opal_ore.json
-06d95a8fe19d5c5051fed8c7211fe6d567dc0177 assets/unusualprehistory/models/item/deepslate_boulder_opal_ore.json
-76c8a4b800c8d1a3ed513a226ec3490ecc7322fa assets/unusualprehistory/models/item/deepslate_fire_opal_ore.json
 cb730d9329a16f5642de88fab401ac26d03e94f3 assets/unusualprehistory/models/item/deepslate_fossil.json
 d9ba79c5953f80d5e3f48ad26563d1366ff991a4 assets/unusualprehistory/models/item/deepslate_opal_ore.json
 8d49b069c8bb4989b59f8d2c8f6eac6dbd678821 assets/unusualprehistory/models/item/deepslate_plant_fossil.json
@@ -106,7 +103,6 @@ d42dcdab03168b999a17a083818745dbcfaef918 assets/unusualprehistory/models/item/es
 7910b79479173571b1a472f4815520b27f56dce7 assets/unusualprehistory/models/item/exotic_fruit_scraps.json
 75dd9473449b29b36552f569d1c9b20fc51ccd41 assets/unusualprehistory/models/item/fire_opal.json
 19f9f2d4a30d1b8bb528e074bd7f3aa86fe60ccd assets/unusualprehistory/models/item/fire_opal_fossil.json
-ad95d3dcfd06d7ecae4d0178761c72c9ea98bf6a assets/unusualprehistory/models/item/fire_opal_ore.json
 a9ea645a94344464239d27ee9f2abd0d982b9f6e assets/unusualprehistory/models/item/foxii_boat.json
 ffdd02b36973381291da31421d23d30d2358fd79 assets/unusualprehistory/models/item/foxii_chest_boat.json
 4c9e3e61b3d600ba01cb9a4d1a13727fcee77e84 assets/unusualprehistory/models/item/foxii_dna_bottle.json

@@ -308,10 +308,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         // Opal ores
         toBlock(UPBlocks.OPAL_ORE);
         toBlock(UPBlocks.DEEPSLATE_OPAL_ORE);
-        toBlock(UPBlocks.FIRE_OPAL_ORE);
-        toBlock(UPBlocks.DEEPSLATE_FIRE_OPAL_ORE);
-        toBlock(UPBlocks.BOULDER_OPAL_ORE);
-        toBlock(UPBlocks.DEEPSLATE_BOULDER_OPAL_ORE);
+
         toBlock(UPBlocks.BLACK_OPAL_ORE);
         toBlock(UPBlocks.DEEPSLATE_BLACK_OPAL_ORE);
 
