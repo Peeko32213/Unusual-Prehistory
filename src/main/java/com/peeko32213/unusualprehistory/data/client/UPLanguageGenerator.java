@@ -26,8 +26,8 @@ import org.slf4j.Logger;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class LanguageGenerator extends LanguageProvider {
-    public LanguageGenerator(PackOutput output) {
+public class UPLanguageGenerator extends LanguageProvider {
+    public UPLanguageGenerator(PackOutput output) {
         super(output, UnusualPrehistory.MODID, "en_us");
     }
     private static final Logger LOGGER = LogUtils.getLogger();

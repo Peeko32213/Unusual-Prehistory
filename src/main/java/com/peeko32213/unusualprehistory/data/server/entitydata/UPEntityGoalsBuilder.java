@@ -13,94 +13,94 @@ import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityGoalsBuilder {
+public class UPEntityGoalsBuilder {
     private final List<GoalOperation> goalOperations = new ArrayList<>();
     private final List<TargetGoalOperation> targetGoalOperations = new ArrayList<>();
 
 
 
-    public EntityGoalsBuilder() {
+    public UPEntityGoalsBuilder() {
     }
 
 
-    public EntityGoalsBuilder addGoalOperation(GoalOperation operation) {
+    public UPEntityGoalsBuilder addGoalOperation(GoalOperation operation) {
         goalOperations.add(operation);
         return this;
     }
 
-    public EntityGoalsBuilder addTargetGoalOperation(TargetGoalOperation operation) {
+    public UPEntityGoalsBuilder addTargetGoalOperation(TargetGoalOperation operation) {
         targetGoalOperations.add(operation);
         return this;
     }
 
-    public EntityGoalsBuilder addGoals(GoalCodec... goals) {
+    public UPEntityGoalsBuilder addGoals(GoalCodec... goals) {
         goalOperations.add(new AddOperation(List.of(goals)));
         return this;
     }
 
-    public EntityGoalsBuilder addAddOperation(List<GoalCodec> goals) {
+    public UPEntityGoalsBuilder addAddOperation(List<GoalCodec> goals) {
         goalOperations.add(new AddOperation(goals));
         return this;
     }
 
-    public EntityGoalsBuilder addGoal(GoalCodec goals) {
+    public UPEntityGoalsBuilder addGoal(GoalCodec goals) {
         goalOperations.add(new AddOperation(List.of(goals)));
         return this;
     }
 
-    public EntityGoalsBuilder addRemoveAllOperation() {
+    public UPEntityGoalsBuilder addRemoveAllOperation() {
         goalOperations.add(new RemoveAllOperation());
         return this;
     }
 
-    public EntityGoalsBuilder addRemoveSpecificOperation(int priority, Class<? extends Goal> goal) {
+    public UPEntityGoalsBuilder addRemoveSpecificOperation(int priority, Class<? extends Goal> goal) {
         goalOperations.add(new RemoveSpecificOperation(new RemoveSpecificOperation.ReplacementGoal(priority, goal)));
         return this;
     }
 
-    public EntityGoalsBuilder addRemoveSpecificPriorityOperation(int priorityToRemove) {
+    public UPEntityGoalsBuilder addRemoveSpecificPriorityOperation(int priorityToRemove) {
         goalOperations.add(new RemoveSpecificPriorityOperation(priorityToRemove));
         return this;
     }
 
-    public EntityGoalsBuilder addReplaceOperation(int priority, Class<? extends Goal> goal, GoalCodec replacementGoal) {
+    public UPEntityGoalsBuilder addReplaceOperation(int priority, Class<? extends Goal> goal, GoalCodec replacementGoal) {
         goalOperations.add(new ReplaceOperation(new ReplaceOperation.ReplacementGoal(priority, goal), replacementGoal));
         return this;
     }
 
 
     ///////////////////
-    public EntityGoalsBuilder addAddTargetOperation(List<TargetGoalCodec> goals) {
+    public UPEntityGoalsBuilder addAddTargetOperation(List<TargetGoalCodec> goals) {
         targetGoalOperations.add(new AddTargetOperation(goals));
         return this;
     }
 
-    public EntityGoalsBuilder addTargetGoal(TargetGoalCodec goals) {
+    public UPEntityGoalsBuilder addTargetGoal(TargetGoalCodec goals) {
         targetGoalOperations.add(new AddTargetOperation(List.of(goals)));
         return this;
     }
 
-    public EntityGoalsBuilder addTargetGoals(TargetGoalCodec... goals) {
+    public UPEntityGoalsBuilder addTargetGoals(TargetGoalCodec... goals) {
         targetGoalOperations.add(new AddTargetOperation(List.of(goals)));
         return this;
     }
 
-    public EntityGoalsBuilder addRemoveAllTargetOperation() {
+    public UPEntityGoalsBuilder addRemoveAllTargetOperation() {
         targetGoalOperations.add(new RemoveAllTargetOperation());
         return this;
     }
 
-    public EntityGoalsBuilder addRemoveSpecificTargetOperation(int priority, Class<? extends TargetGoal> goal) {
+    public UPEntityGoalsBuilder addRemoveSpecificTargetOperation(int priority, Class<? extends TargetGoal> goal) {
         targetGoalOperations.add(new RemoveSpecificTargetOperation(new RemoveSpecificTargetOperation.ReplacementGoal(priority, goal)));
         return this;
     }
 
-    public EntityGoalsBuilder addRemoveSpecificTargetPriorityOperation(int priorityToRemove) {
+    public UPEntityGoalsBuilder addRemoveSpecificTargetPriorityOperation(int priorityToRemove) {
         targetGoalOperations.add(new RemoveSpecificTargetPriorityOperation(priorityToRemove));
         return this;
     }
 
-    public EntityGoalsBuilder addReplaceOperation(int priority, Class<? extends TargetGoal> goal, TargetGoalCodec replacementGoal) {
+    public UPEntityGoalsBuilder addReplaceOperation(int priority, Class<? extends TargetGoal> goal, TargetGoalCodec replacementGoal) {
         targetGoalOperations.add(new ReplaceTargetOperation(new ReplaceTargetOperation.ReplacementGoal(priority, goal), replacementGoal));
         return this;
     }

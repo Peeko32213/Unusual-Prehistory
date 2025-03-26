@@ -16,10 +16,10 @@ import java.util.function.Consumer;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
-public abstract class EntityDataProvider implements DataProvider {
+public abstract class UPEntityDataProvider implements DataProvider {
     protected final PackOutput.PathProvider entityPathProvider;
 
-    public EntityDataProvider(PackOutput pOutput) {
+    public UPEntityDataProvider(PackOutput pOutput) {
         this.entityPathProvider = pOutput.createPathProvider(PackOutput.Target.DATA_PACK, modPrefix("unusualprehistory/prehistoric_animal").getPath());
     }
 
@@ -45,7 +45,7 @@ public abstract class EntityDataProvider implements DataProvider {
     }
 
 
-    protected abstract void buildEntityData(Consumer<EntityDataConsumer> pWriter);
+    protected abstract void buildEntityData(Consumer<UPEntityDataConsumer> pWriter);
 
     @Override
     public String getName() {

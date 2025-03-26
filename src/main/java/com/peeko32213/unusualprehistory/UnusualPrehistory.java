@@ -17,14 +17,24 @@ import com.peeko32213.unusualprehistory.core.registry.*;
 import com.peeko32213.unusualprehistory.core.registry.world.UPFeatureModifiers;
 import com.peeko32213.unusualprehistory.core.registry.world.UPFeatures;
 import com.peeko32213.unusualprehistory.core.registry.world.UPTrunkPlacerType;
+import com.peeko32213.unusualprehistory.data.client.UPLanguageGenerator;
+import com.peeko32213.unusualprehistory.data.client.models.UPBlockstateGenerator;
+import com.peeko32213.unusualprehistory.data.client.models.UPItemModelGenerator;
+import com.peeko32213.unusualprehistory.data.UPDatapackBuiltinEntriesProvider;
+import com.peeko32213.unusualprehistory.data.server.entitydata.UPEntityDataGenerator;
+import com.peeko32213.unusualprehistory.data.server.entitydata.UPEntityGoalGenerator;
+import com.peeko32213.unusualprehistory.data.server.loot.UPGlobalLootModifiersProvider;
+import com.peeko32213.unusualprehistory.data.server.loot.UPLootProvider;
+import com.peeko32213.unusualprehistory.data.server.recipes.UPRecipeGenerator;
+import com.peeko32213.unusualprehistory.data.server.tags.*;
 import com.teamabnormals.blueprint.core.Blueprint;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.ChatFormatting;
-import net.minecraft.CrashReport;
-import net.minecraft.ReportedException;
 import net.minecraft.SharedConstants;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.PathPackResources;
@@ -32,13 +42,10 @@ import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -51,73 +58,86 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DataPackRegistryEvent;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
 import java.util.Locale;
-import java.util.function.Supplier;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.UnaryOperator;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(UnusualPrehistory.MODID)
+@Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID)
 public class UnusualPrehistory {
+
     public static final String MODID = "unusualprehistory";
     private static int packetsRegistered;
     public static final Logger LOGGER = LogManager.getLogger();
     //public static final SimpleChannel NETWORK_WRAPPER;
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-
     public static final RegistryHelper REGISTRY_HELPER = RegistryHelper.create(MODID, helper -> helper.putSubHelper(ForgeRegistries.BLOCKS, new UPBlockSubRegistryHelper(helper)));
 
+    public static ResourceLocation modPrefix(String name) {
+        return new ResourceLocation(UnusualPrehistory.MODID, name.toLowerCase(Locale.ROOT));
+    }
+
+    public static ResourceLocation blueprintPrefix(String name) {
+        return new ResourceLocation(Blueprint.MOD_ID, name.toLowerCase(Locale.ROOT));
+    }
+
     public UnusualPrehistory() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        IEventBus eventBus = MinecraftForge.EVENT_BUS;
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(ClientEvents::init));
-        modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::setupClient);
-        modEventBus.addListener(this::packSetup);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.COMMON);
 
-        EntityActionsRegistry.register();
-        REGISTRY_HELPER.register(modEventBus);
-
-        // Register stuff
-        UPItems.ITEMS.register(modEventBus);
-        UPBlocks.BLOCKS.register(modEventBus);
-        UPTabs.TABS.register(modEventBus);
-        UPFeatures.FEATURES.register(modEventBus);
-        UPParticles.PARTICLE_TYPES.register(modEventBus);
-        UPAdvancementTriggerRegistry.init();
-        UPTrunkPlacerType.TRUNK_PLACER_TYPES.register(modEventBus);
-        UPInstruments.INSTRUMENT.register(modEventBus);
-        UPPaintings.PAINTING_VARIANTS.register(modEventBus);
-        UPBlockEntities.BLOCK_ENTITIES.register(modEventBus);
-        UPMenuTypes.MENUS.register(modEventBus);
-        UPRecipes.SERIALIZERS.register(modEventBus);
-        UPEntities.ENTITIES.register(modEventBus);
-        UPLootModifiers.LOOT_MODIFIERS.register(modEventBus);
-        UPFeatureModifiers.FOLIAGE_PLACERS.register(modEventBus);
-        UPFeatureModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
-        UPSounds.DEF_REG.register(modEventBus);
-        UPEffects.EFFECT_DEF_REG.register(modEventBus);
-        UPRecipes.TYPE_DEF_REG.register(modEventBus);
-
-        //register custom registry
-        UPRegistry.ENTITY_ATTACKS_TYPE_SERIALIZER.register(modEventBus);
-        UPAttackRegistry.ENTITY_ATTACK.register(modEventBus);
-
-
-        //Register goalsmith goals
-        UPGoalRegistry.GOAL_TYPE_SERIALIZER.register(modEventBus);
-        UPSpawnPredicateRegistry.PREDICATE_SERIALIZER.register(modEventBus);
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        MinecraftForge.EVENT_BUS.register(this);
+        ModLoadingContext context = ModLoadingContext.get();
 
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
         PROXY.init();
 
-        modEventBus.addListener((DataPackRegistryEvent.NewRegistry event) -> {
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> bus.addListener(ClientEvents::init));
+
+        bus.addListener(this::commonSetup);
+        bus.addListener(this::clientSetup);
+        bus.addListener(this::dataSetup);
+        bus.addListener(this::packSetup);
+
+        context.registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.COMMON);
+
+        EntityActionsRegistry.register();
+        REGISTRY_HELPER.register(bus);
+
+        // Register stuff
+        UPItems.ITEMS.register(bus);
+        UPBlocks.BLOCKS.register(bus);
+        UPTabs.TABS.register(bus);
+        UPFeatures.FEATURES.register(bus);
+        UPParticles.PARTICLE_TYPES.register(bus);
+        UPAdvancementTriggerRegistry.init();
+        UPTrunkPlacerType.TRUNK_PLACER_TYPES.register(bus);
+        UPInstruments.INSTRUMENT.register(bus);
+        UPPaintings.PAINTING_VARIANTS.register(bus);
+        UPBlockEntities.BLOCK_ENTITIES.register(bus);
+        UPMenuTypes.MENUS.register(bus);
+        UPRecipes.SERIALIZERS.register(bus);
+        UPEntities.ENTITIES.register(bus);
+        UPLootModifiers.LOOT_MODIFIERS.register(bus);
+        UPFeatureModifiers.FOLIAGE_PLACERS.register(bus);
+        UPFeatureModifiers.PLACEMENT_MODIFIERS.register(bus);
+        UPSounds.DEF_REG.register(bus);
+        UPEffects.EFFECT_DEF_REG.register(bus);
+        UPRecipes.TYPE_DEF_REG.register(bus);
+
+        //register custom registry
+        UPRegistry.ENTITY_ATTACKS_TYPE_SERIALIZER.register(bus);
+        UPAttackRegistry.ENTITY_ATTACK.register(bus);
+
+
+        //Register goalsmith goals
+        UPGoalRegistry.GOAL_TYPE_SERIALIZER.register(bus);
+        UPSpawnPredicateRegistry.PREDICATE_SERIALIZER.register(bus);
+
+        bus.addListener((DataPackRegistryEvent.NewRegistry event) -> {
             event.dataPackRegistry(UPRegistry.Keys.PREHISTORIC_EGG, PrehistoricEgg.CODEC);
             event.dataPackRegistry(UPRegistry.Keys.ENTITY_ATTACKS, EntityAttack.DIRECT_CODEC);
         });
@@ -133,84 +153,59 @@ public class UnusualPrehistory {
        //eventBus.addListener(UPAnimalCapability::tickWaterAnimal);
     }
 
-//    Not sure if we need this but w/e this will give players a better reason as to why the mod isn't working when geckolib isnt added
-    public static void checkForGeckoLib(){
-            if(ModList.get().isLoaded("geckolib")){
-                LOGGER.debug("Geckolib loaded correctly!");
-            } else {
-                try {
-                    LOGGER.debug("Geckolib3 version 1.20.1:4.2.4 and up didn't seem to be loaded!");
-                    throw new Exception("Something went wrong setting up compat");
-                }
-                catch (Exception e) {
-                        CrashReport crashreport = CrashReport.forThrowable(e, "Geckolib3 version 1.20.1:4.2.4 and up didn't seem to be loaded!");
-                        crashreport.addCategory("Mod not loaded");
-                        throw new ReportedException(crashreport);
-                }
-            }
-    }
-
     private void commonSetup(final FMLCommonSetupEvent event) {
-
         event.enqueueWork(() -> {
             UPEntityPlacement.entityPlacement();
             SerializableSynchedDataRegistry.register();
-
-            //Todo add this to own class
-            addToComposter(UPBlocks.HORSETAIL.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.TALL_HORSETAIL.get().asItem(), 0.8f);
-            addToComposter(UPBlocks.LEEFRUCTUS.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.BENNETTITALES.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.ARCHAEOSIGILARIA.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.SARACENIA.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.TALL_SARACENIA.get().asItem(), 0.8f);
-            addToComposter(UPBlocks.RAIGUENRAYUN.get().asItem(), 0.8f);
-            addToComposter(UPBlocks.GINKGO_LEAVES.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.GINKGO_SAPLING.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.ARCHAEFRUCTUS.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.NELUMBITES.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.NELUMBITES.get().asItem(), 0.4f);
-            addToComposter(UPBlocks.QUEREUXIA.get().asItem(), 0.2f);
-            addToComposter(UPBlocks.QUEREUXIA_TOP.get().asItem(), 0.2f);
-            addToComposter(UPBlocks.PETRIFIED_BUSH.get().asItem(), 0.2f);
-            addToComposter(UPBlocks.ZULOAGAE.get().asItem(), 0.2f);
         });
-
         UPMessages.register();
     }
 
-    public static void addToFlowerPot(RegistryObject<Block> plantBlockLoc, Supplier<? extends Block> pottedPlantBlock){
-        ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(plantBlockLoc.getId(),pottedPlantBlock);
-    }
-    public static void addToComposter(ItemLike item, float amountOfCompost){
-        ComposterBlock.COMPOSTABLES.put(item, amountOfCompost);
-    }
-
-    public static ResourceLocation modPrefix(String name) {
-        return new ResourceLocation(UnusualPrehistory.MODID, name.toLowerCase(Locale.ROOT));
-    }
-
-    public static ResourceLocation blueprintPrefix(String name) {
-        return new ResourceLocation(Blueprint.MOD_ID, name.toLowerCase(Locale.ROOT));
-    }
-
-    public static MutableComponent getTranslation(String key, Object... args) {
-        return Component.translatable("unusualprehistory." + key, args);
-    }
-
-    private void setupClient(FMLClientSetupEvent event) {
+    private void clientSetup(FMLClientSetupEvent event) {
         PROXY.clientInit();
     }
 
-    public void packSetup(AddPackFindersEvent event) {
+    private void dataSetup(GatherDataEvent event) {
+        DataGenerator generator = event.getGenerator();
+        PackOutput output = generator.getPackOutput();
+        CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
+        ExistingFileHelper helper = event.getExistingFileHelper();
 
+        boolean server = event.includeServer();
+        boolean client = event.includeClient();
+
+        UPDatapackBuiltinEntriesProvider datapackEntries = new UPDatapackBuiltinEntriesProvider(output, provider);
+        generator.addProvider(server, datapackEntries);
+        provider = datapackEntries.getRegistryProvider();
+
+        // Server generators
+        UPBlockTagsProvider blockTags = new UPBlockTagsProvider(output, provider, helper);
+        generator.addProvider(server, blockTags);
+        generator.addProvider(server, new UPItemTagsProvider(output, provider, blockTags.contentsGetter(), helper));
+        generator.addProvider(server, new UPEntityTagsProvider(output, provider, helper));
+        generator.addProvider(server, new UPBiomeTagsProvider(output, provider, helper));
+        generator.addProvider(server, new UPRecipeGenerator(output));
+        generator.addProvider(server, new UPPaintingTagsProvider(output, provider, helper));
+        generator.addProvider(server, UPLootProvider.create(output));
+        generator.addProvider(server, new UPEntityGoalGenerator(output));
+        generator.addProvider(server, new UPInstrumentTagsProvider(output, provider,helper));
+        generator.addProvider(server, new UPEntityDataGenerator(output));
+        generator.addProvider(server, new UPGlobalLootModifiersProvider(output));
+//        generator.addProvider(true,new AdvancementProvider(packOutput, provider, helper));
+//        generator.addProvider(event.includeServer(), new DamageTypeTagsGenerator(packOutput, lookupProvider, helper));
+
+        // Client generators
+        generator.addProvider(client, new UPBlockstateGenerator(output, helper));
+        generator.addProvider(client, new UPItemModelGenerator(output, helper));
+        generator.addProvider(client, new UPLanguageGenerator(output));
+    }
+
+    // Credit: The Aether - https://github.com/The-Aether-Team/The-Aether/blob/1.20.1-develop/src/main/java/com/aetherteam/aether/Aether.java
+    public void packSetup(AddPackFindersEvent event) {
         this.setupNaturalSpawnPack(event);
         this.setupNaturalGenPack(event);
         this.setupNoFossilsPack(event);
-
     }
-
-    // Shoutout Aether
 
     private void setupNaturalSpawnPack(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.SERVER_DATA) {
@@ -291,5 +286,4 @@ public class UnusualPrehistory {
         Component component = Component.translatable("pack.source.builtin");
         return (name) -> Component.translatable("pack.nameAndSource", name, component).withStyle(ChatFormatting.GRAY);
     }
-
 }

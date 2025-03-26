@@ -25,9 +25,9 @@ import java.util.function.Supplier;
 import static com.peeko32213.unusualprehistory.data.UPDatagenUtils.*;
 import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
-public class BlockstateGenerator extends BlockStateProvider {
+public class UPBlockstateGenerator extends BlockStateProvider {
 
-    public BlockstateGenerator(PackOutput output, ExistingFileHelper exFileHelper) {
+    public UPBlockstateGenerator(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, UnusualPrehistory.MODID, exFileHelper);
     }
 

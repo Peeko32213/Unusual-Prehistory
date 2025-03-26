@@ -5,10 +5,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 
-public class EntityDataConsumer {
+public class UPEntityDataConsumer {
     private ResourceLocation location;
 
-    public EntityDataConsumer(EntityType<?> targetEntity, PrehistoricEntityData entityData) {
+    public UPEntityDataConsumer(EntityType<?> targetEntity, PrehistoricEntityData entityData) {
         this.location = BuiltInRegistries.ENTITY_TYPE.getKey(targetEntity);
         this.entityData =entityData;
     }
@@ -16,7 +16,7 @@ public class EntityDataConsumer {
 
     private PrehistoricEntityData entityData;
 
-    public EntityDataConsumer(ResourceLocation loc, PrehistoricEntityData entityData) {
+    public UPEntityDataConsumer(ResourceLocation loc, PrehistoricEntityData entityData) {
         this.location = loc;
         this.entityData = entityData;
     }

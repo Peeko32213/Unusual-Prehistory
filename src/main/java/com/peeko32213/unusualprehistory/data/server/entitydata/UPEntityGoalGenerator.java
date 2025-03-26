@@ -12,8 +12,8 @@ import java.util.function.Consumer;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
-public class EntityGoalGenerator extends GoalDataProvider {
-    public EntityGoalGenerator(PackOutput pOutput) {
+public class UPEntityGoalGenerator extends GoalDataProvider {
+    public UPEntityGoalGenerator(PackOutput pOutput) {
         super(pOutput, UnusualPrehistory.MODID);
     }
 

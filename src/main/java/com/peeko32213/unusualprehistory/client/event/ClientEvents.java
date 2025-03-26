@@ -61,7 +61,6 @@ public final class ClientEvents {
 
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {
-        UnusualPrehistory.checkForGeckoLib();
         MenuScreens.register(UPMenuTypes.ANALYZER_MENU.get(), AnalyzerScreen::new);
         MenuScreens.register(UPMenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
         MenuScreens.register(UPMenuTypes.DNA_FRIDGE_MENU.get(), DNAFridgeScreen::new);

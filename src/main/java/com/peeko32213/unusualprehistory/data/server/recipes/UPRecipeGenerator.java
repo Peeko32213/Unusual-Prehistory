@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-import static com.peeko32213.unusualprehistory.data.client.models.ItemModelGenerator.prefix;
+import static com.peeko32213.unusualprehistory.data.client.models.UPItemModelGenerator.prefix;
 
 public class UPRecipeGenerator extends UPRecipeProvider implements IConditionBuilder {
     public UPRecipeGenerator(PackOutput pGenerator) {

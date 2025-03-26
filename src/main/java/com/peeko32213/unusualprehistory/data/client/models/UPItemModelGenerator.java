@@ -22,8 +22,8 @@ import java.util.function.Supplier;
 
 import static com.peeko32213.unusualprehistory.data.UPDatagenUtils.*;
 
-public class ItemModelGenerator extends ItemModelProvider {
-    public ItemModelGenerator(PackOutput output, ExistingFileHelper existingFileHelper) {
+public class UPItemModelGenerator extends ItemModelProvider {
+    public UPItemModelGenerator(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, UnusualPrehistory.MODID, existingFileHelper);
     }
 

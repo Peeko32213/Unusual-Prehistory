@@ -29,13 +29,13 @@ import java.util.function.Consumer;
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 //import static com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry.REX_VARIANT;
 
-public class EntityDataGenerator extends EntityDataProvider {
-    public EntityDataGenerator(PackOutput pOutput) {
+public class UPEntityDataGenerator extends UPEntityDataProvider {
+    public UPEntityDataGenerator(PackOutput pOutput) {
         super(pOutput);
     }
 
     @Override
-    protected void buildEntityData(Consumer<EntityDataConsumer> pWriter) {
+    protected void buildEntityData(Consumer<UPEntityDataConsumer> pWriter) {
 //        PrehistoricEntityData trexData = new PrehistoricEntityData(
 //                EntitySpawnData.getDefaultInstance(),
 //                WeightedRandomList.create(
@@ -166,7 +166,7 @@ public class EntityDataGenerator extends EntityDataProvider {
                                                 )
                                         )
                                         ),
-                                        new EntityGoalsBuilder()
+                                        new UPEntityGoalsBuilder()
                                                 .addGoals(
                                                         new RandomLookAroundGoalCodec(0),
                                                         new FloatGoalCodec(0),
@@ -240,7 +240,7 @@ public class EntityDataGenerator extends EntityDataProvider {
                 )
         );
 
-        pWriter.accept(new EntityDataConsumer(UPEntities.TELECREX.get(), telecrexData));
+        pWriter.accept(new UPEntityDataConsumer(UPEntities.TELECREX.get(), telecrexData));
     }
 
 
