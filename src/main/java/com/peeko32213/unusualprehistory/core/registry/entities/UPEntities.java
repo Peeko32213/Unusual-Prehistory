@@ -48,12 +48,14 @@ public class UPEntities {
             () -> EntityType.Builder.<TyrannosaurusSkeleton>of(TyrannosaurusSkeleton::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(3.25F, 4F)
+                    .setTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "tyrannosaurus_skeleton").toString()));
 
     public static final RegistryObject<EntityType<TriceratopsSkeleton>> TRIKE_SKELETON = ENTITIES.register("triceratops_skeleton",
             () -> EntityType.Builder.<TriceratopsSkeleton>of(TriceratopsSkeleton::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(3.0F, 3.75F)
+                    .setTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "triceratops_skeleton").toString()));
 
     // Frozen

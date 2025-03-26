@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.client.event;
 
-import com.peeko32213.unusualprehistory.ClientProxy;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.CustomAnimationsModel;
 import com.peeko32213.unusualprehistory.client.model.DefaultModel;
@@ -58,7 +57,6 @@ public final class ClientEvents {
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
         event.enqueueWork(UPItemProperties::addItemProperties);
-        ClientProxy.setupBlockRenders();
     }
 
     @SubscribeEvent
@@ -123,7 +121,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.LEEDS_PART.get(), LeedsichthysPartRender::new);
         event.registerEntityRenderer(UPEntities.LONGISQUAMA.get(), e -> new TamableCutoutNoCullPrehistoricRenderer<>(e, new LongisquamaModel()));
         event.registerEntityRenderer(UPEntities.MAJUNGA.get(), e -> new PrehistoricRenderer<>(e, new MajungasaurusModel()));
-        event.registerEntityRenderer(UPEntities.NYCTORAPTOR.get(), e -> new StatedPrehistoricRenderer<>(e, new NyctoraptorModel()));
+        event.registerEntityRenderer(UPEntities.NYCTORAPTOR.get(), e -> new AgeableMobRenderer<>(e, new NyctoraptorModel()));
         event.registerEntityRenderer(UPEntities.OVIRAPTOR.get(), e -> new StatedPrehistoricRenderer<>(e, new OviraptorModel()));
         event.registerEntityRenderer(UPEntities.PACHY.get(), e -> new PrehistoricRenderer<>(e, new PachycephalosaurusModel()));
         event.registerEntityRenderer(UPEntities.PROSCINETES.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new ProscinetesModel()));

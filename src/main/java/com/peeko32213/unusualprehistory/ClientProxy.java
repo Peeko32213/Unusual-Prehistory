@@ -19,13 +19,6 @@ public class ClientProxy extends CommonProxy  {
     public void openBookGUI(ResourceLocation resourceLocation) {
         Minecraft.getInstance().setScreen(new BookScreen(resourceLocation, 0));
     }
-
-    @SuppressWarnings({ "deprecation" })
-    public static void setupBlockRenders() {
-        RenderType cutoutRenderType = RenderType.cutout();
-        RenderType cutoutMippedRenderType = RenderType.cutoutMipped();
-        RenderType translucentRenderType = RenderType.translucent();
-    }
 }
 
 

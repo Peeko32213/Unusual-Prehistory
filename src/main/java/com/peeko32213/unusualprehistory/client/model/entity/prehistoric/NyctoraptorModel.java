@@ -18,6 +18,9 @@ public class NyctoraptorModel extends GeoModel<NyctoraptorEntity> {
     private static final ResourceLocation ANIMATION_TAIGA = new ResourceLocation("unusualprehistory:animations/nyctoraptor/nyctoraptor_taiga.animation.json");
     private static final ResourceLocation ANIMATION_FOREST = new ResourceLocation("unusualprehistory:animations/nyctoraptor/nyctoraptor_forest.animation.json");
 
+    // test
+    private static final ResourceLocation TEXTURE_TRANSLUCENT = new ResourceLocation("unusualprehistory:textures/entity/nyctoraptor/nyctoraptor_taiga_translucent.png");
+
     @Override
     public ResourceLocation getModelResource(NyctoraptorEntity object) {
         if(object.getVariant() == 1) {
