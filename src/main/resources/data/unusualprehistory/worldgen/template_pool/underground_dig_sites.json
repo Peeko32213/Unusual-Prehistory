@@ -1,0 +1,14 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "unusualprehistory:dig_sites/deepslate_dig_site_0",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

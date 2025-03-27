@@ -9,7 +9,7 @@
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.JoinPackGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PackHunterGoal;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.PsilopterusMeleeAttackGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.PsilopterusAttackGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IPackHunter;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
@@ -309,7 +309,7 @@
      protected void registerGoals() {
          this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
          this.goalSelector.addGoal(0, new FloatGoal(this));
-         this.goalSelector.addGoal(1, new PsilopterusMeleeAttackGoal(this,  1.5F, true));
+         this.goalSelector.addGoal(1, new PsilopterusAttackGoal(this,  1.5F, true));
          this.targetSelector.addGoal(5, new PackHunterGoal(this, Player.class, 30, false, 5));
          this.targetSelector.addGoal(5, new PackHunterGoal(this, Pig.class, 30, false, 3));
          this.goalSelector.addGoal(5, new JoinPackGoal(this, 60, 8));

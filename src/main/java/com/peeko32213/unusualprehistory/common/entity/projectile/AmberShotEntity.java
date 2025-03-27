@@ -1,8 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity.projectile;
 
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.EncrustedEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.BetterAbstractHurtingProjectile;
-import com.peeko32213.unusualprehistory.common.entity.util.ranged.RangedMeleeMob;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -140,11 +140,11 @@ public class AmberShotEntity extends BetterAbstractHurtingProjectile implements 
         if (!this.level().isClientSide) {
             Entity entity = p_213868_1_.getEntity();
             Entity entity1 = this.getOwner();
-            if (!(entity instanceof RangedMeleeMob))
+            if (!(entity instanceof EncrustedEntity))
                 entity.hurt(this.damageSources().mobAttack((LivingEntity) entity1), directHitDamage);
             this.remove(RemovalReason.KILLED);
             if (entity1 instanceof LivingEntity) {
-                if (!(entity instanceof RangedMeleeMob))
+                if (!(entity instanceof EncrustedEntity))
                     this.doEnchantDamageEffects((LivingEntity) entity1, entity);
             }
         }

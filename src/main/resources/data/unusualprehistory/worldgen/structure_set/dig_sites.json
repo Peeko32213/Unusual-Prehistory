@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "unusualprehistory:underground_dig_site",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 6,
+    "salt": 0
+  }
+}

@@ -151,7 +151,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.TYRANNO_TOOTH, "Tyrannosaurus Tooth");
         addItem(UPItems.TRIKE_HORN, "Triceratops Horn");
         addItem(UPItems.BEELZ_SALIVA, "Beelzebufo Saliva");
-        addItem(UPItems.ENCRUSTED_ORGAN, "Encrusted Organ");
         addItem(UPItems.AUSTRO_FEATHER, "Austroraptor Feather");
         addItem(UPItems.ANTARCTO_PLATE, "Antarctopelta Plate");
         addItem(UPItems.SMILO_FUR, "Smilodon Fur");

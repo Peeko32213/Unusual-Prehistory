@@ -4,7 +4,6 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.SkeletonEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PalaeophisBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.WorldSpawnableEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.*;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.*;
@@ -60,7 +59,6 @@ public class CommonEvents {
         event.put(UPEntities.KENTRO.get(), KentrosaurusEntity.createAttributes().build());
         event.put(UPEntities.KIMMER.get(), KimmeridgebrachypteraeschnidiumEntity.createAttributes().build());
         event.put(UPEntities.LEEDSICHTHYS.get(), LeedsichthysEntity.createAttributes().build());
-        event.put(UPEntities.LEEDS_PART.get(), LeedsichthysPartEntity.createAttributes().build());
         event.put(UPEntities.LONGISQUAMA.get(), LongisquamaEntity.createAttributes().build());
         event.put(UPEntities.MAJUNGA.get(), MajungasaurusEntity.createAttributes().build());
         event.put(UPEntities.NYCTORAPTOR.get(), NyctoraptorEntity.createAttributes().build());

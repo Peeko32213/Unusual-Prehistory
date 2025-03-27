@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityActi
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.BarinasuchusMeleeAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.BarinasuchusAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
@@ -326,7 +326,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new BarinasuchusMeleeAttackGoal(this, 1.75, true));
+        this.goalSelector.addGoal(1, new BarinasuchusAttackGoal(this, 1.75, true));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 30));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 100, true, false, this::canAttack));

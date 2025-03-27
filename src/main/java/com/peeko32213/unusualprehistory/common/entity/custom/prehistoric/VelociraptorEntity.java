@@ -10,7 +10,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedSt
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PounceGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.VelociraptorPushButtonsGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.VelociraptorMeleeAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.VelociraptorAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
@@ -234,18 +234,14 @@ public class VelociraptorEntity extends PrehistoricEntity {
             return event.setAndContinue(VELOCI_IDLE);
         }
 
-//        if(isSDataTrue(VELOCIRAPTOR_BITE)) {
-//            triggerAnim("blend", "bite");
-//            return PlayState.CONTINUE;
-//        }
-
         if (this.isInWater()) {
             event.setAndContinue(VELOCI_SWIM);
             event.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
         }
-        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()){
-            if(this.isSprinting()) {
+
+        else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
+            if (this.isSprinting()) {
                 event.setAndContinue(VELOCI_RUN);
                 event.getController().setAnimationSpeed(1.0D);
             } else {
@@ -255,7 +251,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
             return PlayState.CONTINUE;
         }
 
-        if(this.isFlapping()){
+        if (this.isFlapping()) {
             event.setAndContinue(VELOCI_JUMP);
             event.getController().setAnimationSpeed(1.0D);
         }
@@ -380,7 +376,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PounceGoal(this, 0));
-        this.goalSelector.addGoal(1, new VelociraptorMeleeAttackGoal(this, 1.5F, true));
+        this.goalSelector.addGoal(1, new VelociraptorAttackGoal(this, 1.5F, true));
         this.goalSelector.addGoal(4, new VelociraptorPushButtonsGoal(this, 0.5F, 5, 2));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30));
@@ -426,7 +422,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
 
     @Override
     public void customServerAiStep() {
-        if (this.getMoveControl().hasWanted() && !this.isBaby()) {
+        if (this.getMoveControl().hasWanted()) {
             this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.25D);
         } else {
             this.setSprinting(false);

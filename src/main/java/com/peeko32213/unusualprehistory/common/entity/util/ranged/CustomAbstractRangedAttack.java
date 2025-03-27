@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.util.ranged;
 
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IRangedAttack;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
@@ -9,19 +9,18 @@ import net.minecraft.world.phys.Vec3;
 
 public abstract class CustomAbstractRangedAttack implements IRangedAttack {
 
-    public RangedMeleeMob parentEntity;
+    public PrehistoricEntity parentEntity;
     public double xOffSetModifier = 2;
     public double entityHeightFraction = 0.5;
     public double zOffSetModifier = 2;
     public float damage = 1;
     public double accuracy = 0.95;
 
-    public CustomAbstractRangedAttack(RangedMeleeMob parentEntity) {
+    public CustomAbstractRangedAttack(PrehistoricEntity parentEntity) {
         this.parentEntity = parentEntity;
     }
 
-    public CustomAbstractRangedAttack(RangedMeleeMob parentEntity, double xOffSetModifier, double entityHeightFraction,
-                                double zOffSetModifier, float damage) {
+    public CustomAbstractRangedAttack(PrehistoricEntity parentEntity, double xOffSetModifier, double entityHeightFraction, double zOffSetModifier, float damage) {
         this.parentEntity = parentEntity;
         this.xOffSetModifier = xOffSetModifier;
         this.entityHeightFraction = entityHeightFraction;
@@ -38,18 +37,6 @@ public abstract class CustomAbstractRangedAttack implements IRangedAttack {
 
     public CustomAbstractRangedAttack setDamage(float damage) {
         this.damage = damage;
-        return this;
-    }
-
-    private AttackSound sound;
-
-    public CustomAbstractRangedAttack setSound(AttackSound sound) {
-        this.sound = sound;
-        return this;
-    }
-
-    public CustomAbstractRangedAttack setSound(SoundEvent sound, float volume, float pitch) {
-        this.sound = new AttackSound(sound, volume, pitch);
         return this;
     }
 
@@ -73,9 +60,5 @@ public abstract class CustomAbstractRangedAttack implements IRangedAttack {
         projectile.setPos(this.parentEntity.getX() + vector3d.x * xOffSetModifier,
                 this.parentEntity.getY(entityHeightFraction), this.parentEntity.getZ() + vector3d.z * zOffSetModifier);
         world.addFreshEntity(projectile);
-        if (sound == null)
-            getDefaultAttackSound().play(this.parentEntity);
-        else
-            sound.play(this.parentEntity);
     }
 }

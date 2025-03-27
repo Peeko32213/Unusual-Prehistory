@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
 
-    public PrehistoricAquaticEntity(EntityType<? extends PrehistoricEntity> pEntityType, Level pLevel) {
+    public PrehistoricAquaticEntity(EntityType<? extends PrehistoricAquaticEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }

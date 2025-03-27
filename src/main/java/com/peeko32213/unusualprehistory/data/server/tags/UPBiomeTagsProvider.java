@@ -32,6 +32,7 @@ public class UPBiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvid
 
         // Structure
         tag(UPBiomeTags.HAS_FOSSIL_SKELETONS).addTag(BiomeTags.IS_OVERWORLD);
+        tag(UPBiomeTags.HAS_UNDERGROUND_DIG_SITES).addTag(BiomeTags.IS_OVERWORLD);
 
     }
 }

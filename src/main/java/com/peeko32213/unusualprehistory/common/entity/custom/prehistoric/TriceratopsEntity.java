@@ -7,7 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.*;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TameableTempt;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.TriceratopsMeleeAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.TriceratopsAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
@@ -314,7 +314,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new TriceratopsMeleeAttackGoal(this, 1.7F, true));
+        this.goalSelector.addGoal(2, new TriceratopsAttackGoal(this, 1.7F, true));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 30));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));

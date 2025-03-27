@@ -117,7 +117,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
                 }
             }
         }
-
         return type;
     }
 

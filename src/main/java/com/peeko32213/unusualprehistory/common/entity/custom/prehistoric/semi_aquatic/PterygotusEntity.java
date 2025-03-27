@@ -34,12 +34,13 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.animatable.GeoEntity;
+ import software.bernie.geckolib.core.animatable.GeoAnimatable;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.object.PlayState;
 
- public class PterygotusEntity extends PrehistoricEntityOld implements ISemiAquatic, GeoEntity {
+ public class PterygotusEntity extends PrehistoricEntityOld implements ISemiAquatic, GeoEntity, GeoAnimatable {
 
      private static final RawAnimation PTERY_IDLE = RawAnimation.begin().thenLoop("animation.pterygotus.idle");
      private static final RawAnimation PTERY_WALK = RawAnimation.begin().thenLoop("animation.pterygotus.walk");

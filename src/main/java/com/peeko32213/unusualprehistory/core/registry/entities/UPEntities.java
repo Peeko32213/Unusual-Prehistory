@@ -9,7 +9,6 @@ import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.Triceratop
 import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TyrannosaurusSkeleton;
 import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergMammoth;
 import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergSmilodon;
-import com.peeko32213.unusualprehistory.common.entity.custom.part.LeedsichthysPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.*;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.*;
@@ -208,13 +207,6 @@ public class UPEntities {
             () -> EntityType.Builder.of(LeedsichthysEntity::new, MobCategory.WATER_CREATURE).sized(7.75F, 5.25F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "leedsichthys").toString()));
 
-    public static final RegistryObject<EntityType<LeedsichthysPartEntity>> LEEDS_PART = ENTITIES.register("leeds_part",
-            () -> EntityType.Builder.<LeedsichthysPartEntity>of(LeedsichthysPartEntity::new, MobCategory.MISC)
-                    .sized(10.0F, 10.0F).setShouldReceiveVelocityUpdates(true)
-                    .setUpdateInterval(1)
-                    .noSummon()
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "leeds_part").toString()));
-
     public static final RegistryObject<EntityType<LongisquamaEntity>> LONGISQUAMA = registerPrehistoricCreatureWithEgg("longisquama",
             () -> EntityType.Builder.of(LongisquamaEntity::new, MobCategory.CREATURE).sized(1.0F, 1.0F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "longisquama").toString()),
@@ -372,10 +364,9 @@ public class UPEntities {
             () -> EntityType.Builder.of(TitanonarkeEntity::new, MobCategory.CREATURE).sized(1.5F, 0.35F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "titanonarke").toString()));
 
-
     // Misc mobs
     public static final RegistryObject<EntityType<EncrustedEntity>> ENCRUSTED = registerPrehistoricCreatureWithEgg("encrusted",
-            () -> EntityType.Builder.of(EncrustedEntity::new, MobCategory.CREATURE).sized(1.5F, 1.95F)
+            () -> EntityType.Builder.of(EncrustedEntity::new, MobCategory.CREATURE).sized(1.5F, 1.6F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "encrusted").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x6e3a01, 0xffa204);
 

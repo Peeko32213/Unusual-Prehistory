@@ -129,7 +129,6 @@ public class UPTabs {
                     entries.accept(UPItems.TRIKE_HORN.get());
                     entries.accept(UPItems.TYRANNO_SCALE.get());
                     entries.accept(UPItems.TYRANNO_TOOTH.get());
-                    entries.accept(UPItems.ENCRUSTED_ORGAN.get());
                     entries.accept(UPItems.PALAEO_SKIN.get());
                     entries.accept(UPItems.SMILO_FUR.get());
 

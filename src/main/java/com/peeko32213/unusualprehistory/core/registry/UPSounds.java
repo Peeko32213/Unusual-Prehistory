@@ -95,7 +95,7 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> ENCRUSTED_DEATH = createSoundEvent("encrusted_death");
     public static final RegistryObject<SoundEvent> ENCRUSTED_HURT = createSoundEvent("encrusted_hurt");
     public static final RegistryObject<SoundEvent> ENCRUSTED_IDLE = createSoundEvent("encrusted_idle");
-    public static final RegistryObject<SoundEvent> ENCRUSTED_MELEE = createSoundEvent("encrusted_step");
+    public static final RegistryObject<SoundEvent> ENCRUSTED_MELEE = createSoundEvent("encrusted_melee");
     public static final RegistryObject<SoundEvent> ENCRUSTED_SPIT = createSoundEvent("encrusted_spit");
 
     public static final RegistryObject<SoundEvent> VELOCIRAPTOR_ATTACK = createSoundEvent("velociraptor_attack");

@@ -116,8 +116,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.KAPROSUCHUS.get(), e -> UPRenderUtils.createTamableDinosaurRenderer(e, new KaprosuchusModel()).withLayers(KAPROSUCHUS_MODEL).build());
         event.registerEntityRenderer(UPEntities.KENTRO.get(), e -> new PrehistoricRenderer<>(e, new KentrosaurusModel()));
         event.registerEntityRenderer(UPEntities.KIMMER.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
-        event.registerEntityRenderer(UPEntities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
-        event.registerEntityRenderer(UPEntities.LEEDS_PART.get(), LeedsichthysPartRender::new);
+        event.registerEntityRenderer(UPEntities.LEEDSICHTHYS.get(), e -> new StatedPrehistoricRenderer<>(e, new LeedsichthysModel()));
         event.registerEntityRenderer(UPEntities.LONGISQUAMA.get(), e -> new TamableCutoutNoCullPrehistoricRenderer<>(e, new LongisquamaModel()));
         event.registerEntityRenderer(UPEntities.MAJUNGA.get(), e -> new PrehistoricRenderer<>(e, new MajungasaurusModel()));
         event.registerEntityRenderer(UPEntities.NYCTORAPTOR.get(), e -> new AgeableMobRenderer<>(e, new NyctoraptorModel()));
@@ -152,11 +151,11 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
         event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new StatedPrehistoricRenderer<>(e, new SmilodonModel()));
         event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new PrehistoricRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
-        event.registerEntityRenderer(UPEntities.TELECREX.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TelecrexModel()));
+        event.registerEntityRenderer(UPEntities.TELECREX.get(), e -> new AgeableMobRenderer<>(e, new TelecrexModel()));
         event.registerEntityRenderer(UPEntities.TITANONARKE.get(), e -> new StatedPrehistoricRenderer<>(e, new TitanonarkeModel()));
 
-        // Misc mobs
-        event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
+        // Monsters
+        event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
         event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.SLUDGE)));
 
         // Fossils

@@ -14,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class PsilopterusMeleeAttackGoal extends Goal {
+public class PsilopterusAttackGoal extends Goal {
 
     protected final PsilopterusEntity mob;
     private final int meleeRange = 30;
@@ -33,7 +33,7 @@ public class PsilopterusMeleeAttackGoal extends Goal {
 
     Vec3 biteOffSet = new Vec3(0, 0.25, 1.2);
 
-    public PsilopterusMeleeAttackGoal(PsilopterusEntity pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
+    public PsilopterusAttackGoal(PsilopterusEntity pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
         this.mob = pMob;
         this.speedModifier = pSpeedModifier;
         this.followingTargetEvenIfNotSeen = pFollowingTargetEvenIfNotSeen;

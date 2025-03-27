@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.BarinasuchusEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntitySelector;
@@ -14,10 +14,10 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class BarinasuchusMeleeAttackGoal extends Goal {
+public class VelociraptorAttackGoal extends Goal {
 
-    protected final BarinasuchusEntity mob;
-    private final int meleeRange = 20;
+    protected final VelociraptorEntity mob;
+    private final int meleeRange = 32;
     private final double speedModifier;
     private final boolean followingTargetEvenIfNotSeen;
     private Path path;
@@ -31,9 +31,9 @@ public class BarinasuchusMeleeAttackGoal extends Goal {
     private boolean canPenalize = false;
     private int animTime = 0;
 
-    Vec3 biteOffSet = new Vec3(0, 0.25, 1.6);
+    Vec3 biteOffSet = new Vec3(0, 0.25, 1.2);
 
-    public BarinasuchusMeleeAttackGoal(BarinasuchusEntity pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
+    public VelociraptorAttackGoal(VelociraptorEntity pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
         this.mob = pMob;
         this.speedModifier = pSpeedModifier;
         this.followingTargetEvenIfNotSeen = pFollowingTargetEvenIfNotSeen;
@@ -118,7 +118,8 @@ public class BarinasuchusMeleeAttackGoal extends Goal {
         int animState = this.mob.getAnimationState();
 
         switch (animState) {
-            case 21, 22 -> tickBiteAttack();
+            case 21 -> tickBiteAttack();
+            case 22 -> tickKickAttack();
             default -> {
                 this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                 this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -165,7 +166,7 @@ public class BarinasuchusMeleeAttackGoal extends Goal {
         if (distance <= meleeRange && this.ticksUntilNextAttack <= 0) {
             int r = (this.mob.getRandom().nextInt(100) + 1);
 
-            if (r <= 50) {
+            if (r <= 60) {
                 this.mob.setAnimationState(21);
             }
             else {
@@ -196,9 +197,32 @@ public class BarinasuchusMeleeAttackGoal extends Goal {
         }
     }
 
+    protected void tickKickAttack () {
+        animTime++;
+        LivingEntity target = this.mob.getTarget();
+        this.mob.lookAt(target, 100000, 100000);
+        this.mob.yBodyRot = this.mob.yHeadRot;
+
+        if(animTime==15) {
+            //System.out.println("kick");
+            preformKickAttack();
+        }
+        if(animTime>=28) {
+            animTime=0;
+            this.mob.setAnimationState(0);
+            this.resetAttackCooldown();
+            this.ticksUntilNextPathRecalculation = 0;
+        }
+    }
+
     protected void preformBiteAttack () {
         this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0));
-        HitboxAttacks.pivotedPolyHitCheck(mob, this.mob, this.biteOffSet, 0.75, 1, 1.0, (ServerLevel)this.mob.level(), (float) mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (this.mob.damageSources().mobAttack(mob)), 0.15F, false, true, false);
+        HitboxAttacks.pivotedPolyHitCheck(mob, this.mob, this.biteOffSet, 0.5, 1, 0.8, (ServerLevel)this.mob.level(), (float) mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (this.mob.damageSources().mobAttack(mob)), 0.1F, false, true, false);
+    }
+
+    protected void preformKickAttack () {
+        this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0));
+        HitboxAttacks.pivotedPolyHitCheck(mob, this.mob, this.biteOffSet, 0.6, 1, 1.0, (ServerLevel)this.mob.level(), (float) mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.25F, (this.mob.damageSources().mobAttack(mob)), 0.1F, false, true, false);
     }
 
     protected void resetAttackCooldown () {

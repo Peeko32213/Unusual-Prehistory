@@ -1,7 +1,8 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack;
 
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.VelociraptorEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.EncrustedEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
+import com.peeko32213.unusualprehistory.common.entity.util.ranged.CustomAbstractRangedAttack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,10 +15,10 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class VelociraptorMeleeAttackGoal extends Goal {
+public class EncrustedAttackGoal extends Goal {
 
-    protected final VelociraptorEntity mob;
-    private final int meleeRange = 32;
+    protected final EncrustedEntity mob;
+    private final int meleeRange = 12;
     private final double speedModifier;
     private final boolean followingTargetEvenIfNotSeen;
     private Path path;
@@ -30,13 +31,17 @@ public class VelociraptorMeleeAttackGoal extends Goal {
     private int failedPathFindingPenalty = 0;
     private boolean canPenalize = false;
     private int animTime = 0;
+    private CustomAbstractRangedAttack attack;
+    private boolean multiShot;
 
-    Vec3 biteOffSet = new Vec3(0, 0.25, 1.2);
+    Vec3 attackOffSet = new Vec3(0, 0.25, 1.65);
 
-    public VelociraptorMeleeAttackGoal(VelociraptorEntity pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
+    public EncrustedAttackGoal(EncrustedEntity pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen, CustomAbstractRangedAttack attack) {
         this.mob = pMob;
         this.speedModifier = pSpeedModifier;
         this.followingTargetEvenIfNotSeen = pFollowingTargetEvenIfNotSeen;
+        this.attack = attack;
+        this.multiShot = false;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
@@ -118,8 +123,8 @@ public class VelociraptorMeleeAttackGoal extends Goal {
         int animState = this.mob.getAnimationState();
 
         switch (animState) {
-            case 21 -> tickBiteAttack();
-            case 22 -> tickKickAttack();
+            case 21 -> tickSwipeAttack();
+            case 22 -> tickSpitAttack();
             default -> {
                 this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                 this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -166,7 +171,7 @@ public class VelociraptorMeleeAttackGoal extends Goal {
         if (distance <= meleeRange && this.ticksUntilNextAttack <= 0) {
             int r = (this.mob.getRandom().nextInt(100) + 1);
 
-            if (r <= 60) {
+            if (r <= 50) {
                 this.mob.setAnimationState(21);
             }
             else {
@@ -179,15 +184,61 @@ public class VelociraptorMeleeAttackGoal extends Goal {
         return this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.8F * this.getAttackReachSqr(this.mob.getTarget());
     }
 
-    protected void tickBiteAttack () {
+    // todo: fix animation and make it spit more
+    protected void tickSpitAttack() {
+        animTime++;
+        LivingEntity target = this.mob.getTarget();
+        boolean inLineOfSight = this.mob.getSensing().hasLineOfSight(target);
+        this.mob.lookAt(target, 30.0F, 30.0F);
+        double d0 = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
+        double d1 = this.getAttackReachSqr(target);
+        if (inLineOfSight) {
+            if (this.mob.distanceTo(target) >= 6.0D) {
+                if (animTime == 1) {
+                    this.mob.getNavigation().stop();
+                    this.mob.setAnimationState(2);
+                }
+                if (animTime == 4) {
+                    this.attack.shoot();
+
+                }
+                if (animTime == 6 && this.multiShot) {
+                    this.attack.shoot();
+                    boolean isInsideWaterBlock = mob.level().isWaterAt(mob.blockPosition());
+                }
+                if (animTime >= 8) {
+                    this.mob.setAnimationState(0);
+                    this.animTime = -15;
+                }
+            }
+            else {
+                if (animTime == 4) {
+                    this.mob.getNavigation().stop();
+                    if (d0 <= d1) {
+                        this.mob.doHurtTarget(target);
+                        this.mob.setAnimationState(1);
+                    }
+                    target.invulnerableTime = 0;
+                }
+                if (this.animTime >= 8) {
+                    animTime=0;
+                    this.mob.setAnimationState(0);
+                    this.resetAttackCooldown();
+                    this.ticksUntilNextPathRecalculation = 0;
+                }
+            }
+        }
+    }
+
+    protected void tickSwipeAttack() {
         animTime++;
         LivingEntity target = this.mob.getTarget();
         this.mob.lookAt(target, 100000, 100000);
         this.mob.yBodyRot = this.mob.yHeadRot;
 
         if(animTime==9) {
-            //System.out.println("bite");
-            preformBiteAttack();
+            //System.out.println("swipe");
+            preformSwipeAttack();
         }
         if(animTime>=10) {
             animTime=0;
@@ -197,32 +248,9 @@ public class VelociraptorMeleeAttackGoal extends Goal {
         }
     }
 
-    protected void tickKickAttack () {
-        animTime++;
-        LivingEntity target = this.mob.getTarget();
-        this.mob.lookAt(target, 100000, 100000);
-        this.mob.yBodyRot = this.mob.yHeadRot;
-
-        if(animTime==15) {
-            //System.out.println("kick");
-            preformKickAttack();
-        }
-        if(animTime>=28) {
-            animTime=0;
-            this.mob.setAnimationState(0);
-            this.resetAttackCooldown();
-            this.ticksUntilNextPathRecalculation = 0;
-        }
-    }
-
-    protected void preformBiteAttack () {
+    protected void preformSwipeAttack () {
         this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0));
-        HitboxAttacks.pivotedPolyHitCheck(mob, this.mob, this.biteOffSet, 0.5, 1, 0.8, (ServerLevel)this.mob.level(), (float) mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (this.mob.damageSources().mobAttack(mob)), 0.1F, false, true, false);
-    }
-
-    protected void preformKickAttack () {
-        this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0));
-        HitboxAttacks.pivotedPolyHitCheck(mob, this.mob, this.biteOffSet, 0.6, 1, 1.0, (ServerLevel)this.mob.level(), (float) mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.25F, (this.mob.damageSources().mobAttack(mob)), 0.1F, false, true, false);
+        HitboxAttacks.pivotedPolyHitCheck(mob, this.mob, this.attackOffSet, 0.6, 1, 1.0, (ServerLevel)this.mob.level(), (float) mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (this.mob.damageSources().mobAttack(mob)), 0.15F, false, true, false);
     }
 
     protected void resetAttackCooldown () {
@@ -242,6 +270,6 @@ public class VelociraptorMeleeAttackGoal extends Goal {
     }
 
     protected double getAttackReachSqr(LivingEntity entity) {
-        return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + entity.getBbWidth());
+        return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + entity.getBbWidth();
     }
 }

@@ -1,6 +1,7 @@
-// 1.20.1	2025-03-26T13:51:11.7690424	Tags for minecraft:worldgen/biome mod id unusualprehistory
+// 1.20.1	2025-03-26T22:32:35.7919934	Tags for minecraft:worldgen/biome mod id unusualprehistory
 b020f6cdcd2d955793278b2f89a178a1d31e599a data/unusualprehistory/tags/worldgen/biome/has_feature/giant_fossil.json
 b020f6cdcd2d955793278b2f89a178a1d31e599a data/unusualprehistory/tags/worldgen/biome/has_structure/fossil_skeleton.json
+b020f6cdcd2d955793278b2f89a178a1d31e599a data/unusualprehistory/tags/worldgen/biome/has_structure/underground_dig_sites.json
 7ab168754d6e78ecef39a6d1baa046622304b683 data/unusualprehistory/tags/worldgen/biome/is_ice_fossil_iceberg_biome.json
 4c2f928f4897c968da43c5ef426fd4d0a9980a93 data/unusualprehistory/tags/worldgen/biome/is_petrified_wood_forest_biome.json
 45707864d688ef531d52bd0287366ea1e7736874 data/unusualprehistory/tags/worldgen/biome/is_tar_biome.json

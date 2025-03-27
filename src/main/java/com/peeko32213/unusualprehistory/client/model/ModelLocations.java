@@ -11,7 +11,6 @@ public class ModelLocations {
     public static ModelData RABIES = ModelLocationBuilder.create("rabies").build();
     public static ModelData AMMONITE = ModelLocationBuilder.create("ammonite").build();
     public static ModelData ANURO = ModelLocationBuilder.create("anuro").build();
-    public static ModelData BABY_DUNK = ModelLocationBuilder.create("baby_dunk").build();
     public static ModelData BARINASUCHUS = ModelLocationBuilder.create("barinasuchus").build();
     public static ModelData BEELZEBUFO = ModelLocationBuilder.create("beelzebufo").build();
     public static ModelData BABY_BEELZEBUFO = ModelLocationBuilder.create("beelze_baby").build();
