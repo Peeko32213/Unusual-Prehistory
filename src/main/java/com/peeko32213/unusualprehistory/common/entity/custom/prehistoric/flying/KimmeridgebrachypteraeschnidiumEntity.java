@@ -1,8 +1,12 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying;
 
+import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.Util;
@@ -15,9 +19,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -60,9 +62,11 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.function.IntFunction;
 
-public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntityOld implements GeoEntity, GeoAnimatable, IBookEntity {
+public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IBookEntity, IVariantEntity {
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Nullable
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
@@ -81,7 +85,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntityOld 
     private static final RawAnimation KIMMER_IDLE_2 = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.idle2");
     private static final RawAnimation KIMMER_PREEN = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.preen");
 
-    public KimmeridgebrachypteraeschnidiumEntity(EntityType<? extends PrehistoricEntityOld> entityType, Level level) {
+    public KimmeridgebrachypteraeschnidiumEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         switchNavigator(true);
     }
@@ -247,48 +251,8 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntityOld 
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     protected void checkFallDamage(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
@@ -364,25 +328,15 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntityOld 
         this.entityData.set(FROM_BOOK, fromBook);
     }
 
-//    @Override
-//    public ImmutableMap<String, StateHelper> getStates() {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-//        return List.of();
-//    }
-//
-//    @Override
-//    public boolean getAction() {
-//        return false;
-//    }
-//
-//    @Override
-//    public void setAction(boolean action) {
-//
-//    }
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
 
     private class AIFlyIdle extends Goal {
         protected double x;

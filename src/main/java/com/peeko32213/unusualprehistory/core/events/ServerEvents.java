@@ -12,8 +12,6 @@ import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManag
 import com.peeko32213.unusualprehistory.common.effect.RampageEffect;
 import com.peeko32213.unusualprehistory.common.effect.RampageRemedyEffect;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.RabiesHuntGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.HwachavenatorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.DunkleosteusEntity;
 import com.peeko32213.unusualprehistory.common.message.*;
@@ -225,14 +223,6 @@ public class ServerEvents {
     public void preventClick(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof DunkleosteusEntity dunkleosteus) {
             dunkleosteus.killed();
-        }
-
-        if (event.getSource().getEntity() instanceof PrehistoricEntityOld dinosaurAnimal) {
-            dinosaurAnimal.killed();
-        }
-
-        if (event.getSource().getEntity() instanceof TamablePrehistoricEntityOld dinosaurAnimal) {
-            dinosaurAnimal.killed();
         }
 
         if (event.getSource().getEntity() instanceof HwachavenatorEntity dinosaurAnimal) {

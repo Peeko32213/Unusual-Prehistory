@@ -1,31 +1,35 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
+ import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FindWaterGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.LeaveWaterGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.SemiAquaticSwimmingGoal;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
  import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
- import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
- import net.minecraft.tags.TagKey;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
  import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
- import net.minecraft.world.entity.animal.Animal;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.block.state.BlockState;
@@ -35,12 +39,15 @@
  import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.animatable.GeoEntity;
  import software.bernie.geckolib.core.animatable.GeoAnimatable;
+ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.object.PlayState;
 
- public class PterygotusEntity extends PrehistoricEntityOld implements ISemiAquatic, GeoEntity, GeoAnimatable {
+ import java.util.List;
+
+ public class PterygotusEntity extends PrehistoricEntity implements ISemiAquatic, GeoEntity, GeoAnimatable {
 
      private static final RawAnimation PTERY_IDLE = RawAnimation.begin().thenLoop("animation.pterygotus.idle");
      private static final RawAnimation PTERY_WALK = RawAnimation.begin().thenLoop("animation.pterygotus.walk");
@@ -52,7 +59,21 @@
      private int swimTimer = -1000;
      private boolean isLandNavigator;
 
-     public PterygotusEntity(EntityType<? extends Animal> entityType, Level level) {
+     // Body control / navigation
+     @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         SmartBodyHelper helper = new SmartBodyHelper(this);
+         helper.bodyLagMoving = 0.25F;
+         helper.bodyLagStill = 0.15F;
+         return helper;
+     }
+
+     @Override
+     protected @NotNull PathNavigation createNavigation(Level levelIn) {
+         return new SmoothGroundNavigation(this, levelIn);
+     }
+
+     public PterygotusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -72,7 +93,7 @@
          this.goalSelector.addGoal(7, new FindWaterGoal(this));
          this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
          this.goalSelector.addGoal(9, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
-         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1, 30));
          this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
      }
@@ -167,52 +188,12 @@
 
      @Override
      public float getSoundVolume() {
-         return 0.5F;
-     }
-
-     @Override
-     protected SoundEvent getAttackSound() {
-         return null;
+         return 0.8F;
      }
 
      @Override
      protected int getKillHealAmount() {
          return 5;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return true;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return true;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return UPEntityTypeTags.PISCIVORE_DIET;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
      }
 
      @Nullable
@@ -243,10 +224,6 @@
      @Override
      public boolean shouldStopMoving() {
          return false;
-     }
-
-     private boolean isStillEnough() {
-         return this.getDeltaMovement().horizontalDistance() < 0.05;
      }
 
      protected <E extends PterygotusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -293,4 +270,18 @@
          controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
      }
 
+     @Override
+     public AnimatableInstanceCache getAnimatableInstanceCache() {
+         return null;
+     }
+
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return null;
+     }
+
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return List.of();
+     }
  }

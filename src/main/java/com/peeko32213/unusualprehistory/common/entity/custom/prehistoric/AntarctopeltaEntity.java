@@ -1,40 +1,41 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomAnimationsEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -42,81 +43,54 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
+import java.util.List;
 
-public class AntarctopeltaEntity extends PrehistoricEntityOld implements ICustomAnimationsEntity {
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(AntarctopeltaEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(AntarctopeltaEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(AntarctopeltaEntity.class, EntityDataSerializers.INT);
+public class AntarctopeltaEntity extends PrehistoricEntity implements IVariantEntity {
+
     private static final RawAnimation ANTARCTO_SLASH = RawAnimation.begin().thenLoop("animation.antarctopelta.slash");
     private static final RawAnimation ANTARCTO_IDLE = RawAnimation.begin().thenLoop("animation.antarctopelta.idle");
     private static final RawAnimation ANTARCTO_WALK = RawAnimation.begin().thenLoop("animation.antarctopelta.walk");
     private static final RawAnimation ANTARCTO_SWIM = RawAnimation.begin().thenPlay("animation.antarctopelta.swim");
-    public AntarctopeltaEntity(EntityType<? extends Animal> entityType, Level level) {
+
+    // Body control / navigation
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        return new SmartBodyHelper(this);
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
+    public AntarctopeltaEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
+        this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 45.0D)
-                .add(Attributes.ARMOR, 25.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.12D)
-                .add(Attributes.ATTACK_DAMAGE, 15.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 25.0D);
+            .add(Attributes.MAX_HEALTH, 40)
+            .add(Attributes.ARMOR, 20)
+            .add(Attributes.MOVEMENT_SPEED, 0.12D)
+            .add(Attributes.ATTACK_DAMAGE, 10)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D);
     }
 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new AntarctopeltaEntity.AntarcoMeleeAttackGoal(this,  2.5F, true));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1, 30));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (p_28879_) -> p_28879_ instanceof Enemy && !(p_28879_ instanceof Creeper)));
-
-    }
-    
-    @Override
-    protected SoundEvent getAttackSound() {
-        return UPSounds.BRACHI_TOSS.get();
     }
 
     @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
-    }
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return true;
-    }
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return !(blockState.getBlock() == Blocks.BAMBOO) || blockState.is(BlockTags.LEAVES);
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
@@ -137,40 +111,6 @@ public class AntarctopeltaEntity extends PrehistoricEntityOld implements ICustom
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(ANIMATION_STATE, 0);
-        this.entityData.define(COMBAT_STATE, 0);
-        this.entityData.define(ENTITY_STATE, 0);
-
-    }
-
-    public int getAnimationState() {
-
-        return this.entityData.get(ANIMATION_STATE);
-    }
-
-    public void setAnimationState(int anim) {
-
-        this.entityData.set(ANIMATION_STATE, anim);
-    }
-
-    public int getCombatState() {
-
-        return this.entityData.get(COMBAT_STATE);
-    }
-
-    public void setCombatState(int anim) {
-
-        this.entityData.set(COMBAT_STATE, anim);
-    }
-
-    public int getEntityState() {
-
-        return this.entityData.get(ENTITY_STATE);
-    }
-
-    public void setEntityState(int anim) {
-
-        this.entityData.set(ENTITY_STATE, anim);
     }
 
     @Override
@@ -178,6 +118,15 @@ public class AntarctopeltaEntity extends PrehistoricEntityOld implements ICustom
         return pEntity.is(this);
     }
 
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
 
     static class AntarcoMeleeAttackGoal extends Goal {
 
@@ -424,24 +373,22 @@ public class AntarctopeltaEntity extends PrehistoricEntityOld implements ICustom
         int animState = this.getAnimationState();
 
         if(!this.isFromBook()) {
-            switch (animState) {
-                case 21:
-                    event.setAndContinue(ANTARCTO_SLASH);
-                    break;
-                default:
-                    if (this.isInWater()) {
-                        event.setAndContinue(ANTARCTO_SWIM);
+            if (animState == 21) {
+                event.setAndContinue(ANTARCTO_SLASH);
+            } else {
+                if (this.isInWater()) {
+                    event.setAndContinue(ANTARCTO_SWIM);
+                    event.getController().setAnimationSpeed(1.0F);
+                }
+                if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
+                    {
+                        event.setAndContinue(ANTARCTO_WALK);
                         event.getController().setAnimationSpeed(1.0F);
                     }
-                    if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater()) {
-                        {
-                            event.setAndContinue(ANTARCTO_WALK);
-                            event.getController().setAnimationSpeed(1.0F);
-                        }
-                    } else if (!this.isInWater()) {
-                        event.setAndContinue(ANTARCTO_IDLE);
-                        event.getController().setAnimationSpeed(1.0F);
-                    }
+                } else if (!this.isInWater()) {
+                    event.setAndContinue(ANTARCTO_IDLE);
+                    event.getController().setAnimationSpeed(1.0F);
+                }
             }
         }
         return PlayState.CONTINUE;
@@ -451,11 +398,4 @@ public class AntarctopeltaEntity extends PrehistoricEntityOld implements ICustom
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
-    }
-
-
 }

@@ -1,9 +1,14 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -13,19 +18,18 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
@@ -41,7 +45,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class ParaceratheriumEntity extends PrehistoricEntityOld {
+public class ParaceratheriumEntity extends PrehistoricEntity {
 
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(ParaceratheriumEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(ParaceratheriumEntity.class, EntityDataSerializers.INT);
@@ -54,19 +58,31 @@ public class ParaceratheriumEntity extends PrehistoricEntityOld {
     private static final RawAnimation PARACER_ATTACK = RawAnimation.begin().thenLoop("animation.paraceratherium.attack");
     private static final RawAnimation PARACER_SWIM = RawAnimation.begin().thenLoop("animation.paraceratherium.swim");
 
-    public ParaceratheriumEntity(EntityType<? extends Animal> entityType, Level level) {
+    // Body control / navigation
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.25F;
+        helper.bodyLagStill = 0.15F;
+        return helper;
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
+    public ParaceratheriumEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.75F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 150.0D)
-            .add(Attributes.ATTACK_DAMAGE, 20.0D)
+            .add(Attributes.MAX_HEALTH, 150)
+            .add(Attributes.ATTACK_DAMAGE, 20)
             .add(Attributes.MOVEMENT_SPEED, 0.13D)
-            .add(Attributes.ARMOR, 6.0D)
-            .add(Attributes.ARMOR_TOUGHNESS, 6.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 10.5D);
+            .add(Attributes.KNOCKBACK_RESISTANCE, 2);
     }
 
     @Override
@@ -121,43 +137,8 @@ public class ParaceratheriumEntity extends PrehistoricEntityOld {
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
     }
 
     public int getAnimationState() {
@@ -200,6 +181,16 @@ public class ParaceratheriumEntity extends PrehistoricEntityOld {
         this.entityData.define(ANIMATION_STATE, 0);
         this.entityData.define(COMBAT_STATE, 0);
         this.entityData.define(ENTITY_STATE, 0);
+    }
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
     }
 
     static class ParacerMeleeAttackGoal extends Goal {
@@ -411,11 +402,6 @@ public class ParaceratheriumEntity extends PrehistoricEntityOld {
         protected double getAttackReachSqr(LivingEntity p_179512_1_) {
             return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
         }
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     @Nullable

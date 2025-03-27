@@ -1,10 +1,13 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TameableFollowOwner;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamableClimbingPrehistoricEntityOld;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
+ import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.WallClimbingNavigation;
  import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
  import com.peeko32213.unusualprehistory.core.other.util.UPMath;
  import net.minecraft.core.BlockPos;
@@ -17,9 +20,7 @@
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.server.level.ServerPlayer;
- import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
- import net.minecraft.tags.TagKey;
  import net.minecraft.util.Mth;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
@@ -30,10 +31,12 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.goal.*;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
  import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
  import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.ai.targeting.TargetingConditions;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.entity.vehicle.DismountHelper;
@@ -43,12 +46,14 @@
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.phys.AABB;
  import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.object.PlayState;
 
+ import java.util.List;
  import java.util.function.Predicate;
  //TODO LIST
  // - They look around too much while climbing, breaking the immersion a bit
@@ -56,7 +61,8 @@
  // - Chances in DNA loot pool need to be added (Added to Amber as amber needs more stuff in it)
  // - While ordered to sit it sometimes goes into the animation but still slides around, though it usually fixes itself after commanding it again
  // - Walking animation sometimes play while idling
- public class LongisquamaEntity extends TamableClimbingPrehistoricEntityOld implements ICustomFollower {
+ public class LongisquamaEntity extends PrehistoricEntity implements ICustomFollower {
+
      private static final RawAnimation LONGISQUAMA_IDLE = RawAnimation.begin().thenLoop("animation.longisquama.ground_idle");
      private static final RawAnimation LONGISQUAMA_WALK = RawAnimation.begin().thenLoop("animation.longisquama.ground_walk");
      private static final RawAnimation LONGISQUAMA_SHAKING = RawAnimation.begin().thenLoop("animation.longisquama.shaking");
@@ -65,6 +71,8 @@
      private static final RawAnimation LONGISQUAMA_BASKING = RawAnimation.begin().thenLoop("animation.longisquama.basking");
      private static final RawAnimation LONGISQUAMA_FLAIRING = RawAnimation.begin().thenLoop("animation.longisquama.flaring");
      private static final RawAnimation LONGISQUAMA_CLIMBING = RawAnimation.begin().thenLoop("animation.longisquama.climbing");
+
+     private static final EntityDataAccessor<Byte> CLIMB_FLAG = SynchedEntityData.defineId(LongisquamaEntity.class, EntityDataSerializers.BYTE);
 
      private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(LongisquamaEntity.class, EntityDataSerializers.INT);
      private static final Predicate<LivingEntity> SCARY_MOB = (entity) -> {
@@ -82,21 +90,29 @@
      public float sitProgress;
      private int rideCooldown = 0;
 
-     public LongisquamaEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
+     // Body control / navigation
+     @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         SmartBodyHelper helper = new SmartBodyHelper(this);
+         helper.bodyLagMoving = 0.5F;
+         helper.bodyLagStill = 0.35F;
+         return helper;
+     }
+
+     @Override
+     protected PathNavigation createNavigation(Level pLevel) {
+         return new WallClimbingNavigation(this, pLevel);
+     }
+
+     public LongisquamaEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
          super(entityType, level);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 10.0D)
-                 .add(Attributes.MAX_HEALTH, 5.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.26D)
-                 .add(Attributes.ARMOR, 0.5D)
-                 .add(Attributes.ARMOR_TOUGHNESS, 0.5D)
-                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
+                 .add(Attributes.MOVEMENT_SPEED, 0.26D);
      }
-
-
 
      @Override
      protected void registerGoals() {
@@ -108,8 +124,8 @@
          this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
          this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
          this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-         this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
-         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 60, 1.0D, 100, 34));
+         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
+         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1, 30));
          this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 5.0F, 2.5D, 2.7D, EntitySelector.NO_SPECTATORS::test));
      }
 
@@ -265,15 +281,21 @@
      public void tick() {
          super.tick();
 
-         if (attackCooldown > 0) {
-             attackCooldown--;
+         if (!this.level().isClientSide) {
+             this.setClimbing(this.horizontalCollision);
          }
+         if (this.horizontalCollision && this.onClimbable()) {
+             this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y * this.getClimbSpeedMultiplier(), this.getDeltaMovement().z);
+         }
+
+
      }
 
      @Override
      protected void defineSynchedData() {
          super.defineSynchedData();
          this.entityData.define(COMMAND, 0);
+         this.entityData.define(CLIMB_FLAG, (byte)0);
      }
 
      public int getCommand() {
@@ -332,58 +354,8 @@
      }
 
      @Override
-     protected float getClimbSpeedMultiplier() {
-         return 0.5F;
-     }
-
-     @Override
-     protected void performAttack() {
-
-     }
-
-     @Override
-     protected SoundEvent getAttackSound() {
-         return null;
-     }
-
-     @Override
      protected int getKillHealAmount() {
          return 0;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return null;
      }
 
      @Nullable
@@ -395,10 +367,6 @@
      @Override
      public boolean isInvulnerableTo(DamageSource source) {
          return source.is(DamageTypes.FALL) || source.is(DamageTypes.CACTUS)  || super.isInvulnerableTo(source);
-     }
-
-     private boolean isStillEnough() {
-         return this.getDeltaMovement().horizontalDistance() < 0.05;
      }
 
      public boolean isAlliedTo(Entity entityIn) {
@@ -446,16 +414,7 @@
          {
              return PlayState.CONTINUE;
          }
-         if (isStillEnough() && getRandomAnimationNumber(500) == 0 && !this.isInSittingPose() && !this.isSwimming() && this.isClimbing()) {
-             int rand = getRandomAnimationNumber();
-             if (rand < 55) {
-                 setAnimationTimer(100);
-                 return event.setAndContinue(LONGISQUAMA_BASKING);
-             }
-             if (rand < 75) {
-                 setAnimationTimer(100);
-                 return event.setAndContinue(LONGISQUAMA_FLAIRING);
-             }
+         if (isStillEnough() && !this.isInSittingPose() && !this.isSwimming() && this.isClimbing()) {
              event.setAndContinue(LONGISQUAMA_IDLE);
          }
          return PlayState.CONTINUE;
@@ -477,5 +436,45 @@
      @Override
      public boolean shouldFollow() {
          return this.getCommand() == 1;
+     }
+
+
+     @Override
+     public boolean onClimbable() {
+         return this.isClimbing();
+     }
+
+     public boolean isClimbing() {
+         return (this.entityData.get(CLIMB_FLAG) & 1) != 0;
+     }
+
+     public void setClimbing(boolean pClimbing) {
+         byte flag = this.entityData.get(CLIMB_FLAG);
+         if (pClimbing) {
+             flag = (byte)(flag | 1);
+         } else {
+             flag = (byte)(flag & -2);
+         }
+
+         this.entityData.set(CLIMB_FLAG, flag);
+     }
+
+     @Override
+     protected float getJumpPower() {
+         return 0.0F;
+     }
+
+     protected float getClimbSpeedMultiplier() {
+         return 1.0F;
+     }
+
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return null;
+     }
+
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return List.of();
      }
  }

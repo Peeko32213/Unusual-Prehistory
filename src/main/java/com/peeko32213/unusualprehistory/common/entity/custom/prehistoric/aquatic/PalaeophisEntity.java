@@ -1,7 +1,9 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.part.PalaeophisPartIndex;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
@@ -19,7 +21,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -65,7 +66,7 @@ import java.util.UUID;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
-public class PalaeophisEntity extends PrehistoricAquaticEntityOld implements GeoAnimatable {
+public class PalaeophisEntity extends PrehistoricAquaticEntity implements GeoAnimatable {
 
     private ResourceLocation DEEP_ONE_SHED = modPrefix("textures/entity/palaeophis_deep_head_shed.png");
     private ResourceLocation DEEP_ONE = modPrefix("textures/entity/palaeophis_deep_head.png");
@@ -92,7 +93,7 @@ public class PalaeophisEntity extends PrehistoricAquaticEntityOld implements Geo
     private static final RawAnimation PALAEO_IDLE_TOUNGE = RawAnimation.begin().thenLoop("animation.palaophis_head.idle_tounge");
 
 
-    public PalaeophisEntity(EntityType<? extends PrehistoricAquaticEntityOld> entityType, Level level) {
+    public PalaeophisEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -446,48 +447,18 @@ public class PalaeophisEntity extends PrehistoricAquaticEntityOld implements Geo
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 0;
     }
 
     @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
+    public ImmutableMap<String, StateHelper> getStates() {
         return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
     }
 
     static class MoveHelperController extends MoveControl {
@@ -813,6 +784,11 @@ public class PalaeophisEntity extends PrehistoricAquaticEntityOld implements Geo
             }
         }
         return p_28137_;
+    }
+
+    @Override
+    public @org.jetbrains.annotations.Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+        return null;
     }
 
 //    @Nullable

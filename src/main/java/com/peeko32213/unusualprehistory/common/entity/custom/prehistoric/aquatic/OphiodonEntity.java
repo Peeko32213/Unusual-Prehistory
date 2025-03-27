@@ -1,11 +1,15 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
- import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
+ import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
+ import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,7 +19,6 @@
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.tags.FluidTags;
- import net.minecraft.tags.TagKey;
  import net.minecraft.util.Mth;
  import net.minecraft.util.RandomSource;
  import net.minecraft.world.Difficulty;
@@ -24,6 +27,7 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
  import net.minecraft.world.entity.ai.goal.*;
@@ -36,7 +40,6 @@
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.Blocks;
- import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.level.pathfinder.Node;
  import net.minecraft.world.level.pathfinder.Path;
@@ -53,8 +56,9 @@
 
  import javax.annotation.Nullable;
  import java.util.EnumSet;
+ import java.util.List;
 
- public class OphiodonEntity extends PrehistoricAquaticEntityOld implements GeoAnimatable, IBookEntity {
+ public class OphiodonEntity extends PrehistoricAquaticEntity implements GeoAnimatable, IBookEntity {
      private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(OphiodonEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(OphiodonEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(OphiodonEntity.class, EntityDataSerializers.INT);
@@ -69,7 +73,16 @@
      private static final RawAnimation OPHIODON_PATROL = RawAnimation.begin().thenLoop("animation.ophiodon.patrol");
      private static final RawAnimation OPHIODON_SIEVE = RawAnimation.begin().thenLoop("animation.ophiodon.sieve");
 
-     public OphiodonEntity(EntityType<? extends PrehistoricAquaticEntityOld> entityType, Level level) {
+     // Body control / navigation
+     @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         SmartBodyHelper helper = new SmartBodyHelper(this);
+         helper.bodyLagMoving = 0.3F;
+         helper.bodyLagStill = 0.2F;
+         return helper;
+     }
+
+     public OphiodonEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -185,21 +198,6 @@
                      if(playingAnimation()) {
                          return PlayState.CONTINUE;
                      }
-                     else if (this.isInWater() && this.getRandomAnimationNumber() == 0) {
-                         int rand = getRandomAnimationNumber();
-                         if (rand < 15) {
-                             setAnimationTimer(200);
-                             return event.setAndContinue(OPHIODON_REST);
-                         }
-                         if (rand < 55) {
-                             setAnimationTimer(200);
-                             return event.setAndContinue(OPHIODON_PATROL);
-                         }
-                         if (rand < 75) {
-                             setAnimationTimer(200);
-                             return event.setAndContinue(OPHIODON_SIEVE);
-                         }
-                     }
                      event.setAndContinue(OPHIODON_IDLE);
              }
          }
@@ -222,6 +220,16 @@
      @Override
      public double getTick(Object o) {
          return tickCount;
+     }
+
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return null;
+     }
+
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return List.of();
      }
 
      static class MoveHelperController extends MoveControl {
@@ -531,55 +539,15 @@
          return p_28137_;
      }
 
-//     @Nullable
-//     @Override
-//     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-//         return UPEntities.OPHIODON.get().create(serverLevel);
-//     }
-
+     @Nullable
      @Override
-     protected SoundEvent getAttackSound() {
-         return null;
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+         return UPEntities.OPHIODON.get().create(serverLevel);
      }
 
      @Override
      protected int getKillHealAmount() {
          return 4;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return null;
      }
 
      public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends WaterAnimal> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {

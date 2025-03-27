@@ -1,16 +1,17 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
+import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.AnimationHelper;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.LeaveWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.SemiAquaticSwimmingGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
-import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -18,7 +19,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,31 +27,27 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.Collection;
+import java.util.List;
 
-public class HynerpetonEntity extends PrehistoricEntityOld implements ISemiAquatic, GeoEntity {
+public class HynerpetonEntity extends PrehistoricEntity implements ISemiAquatic {
+
     private static final RawAnimation HYNERPETON_IDLE = RawAnimation.begin().thenLoop("animation.hynerpeton.idle");
     private static final RawAnimation HYNERPETON_BASK_1 = RawAnimation.begin().thenLoop("animation.hynerpeton.bask1");
     private static final RawAnimation HYNERPETON_BASK_2 = RawAnimation.begin().thenLoop("animation.hynerpeton.bask2");
@@ -70,7 +66,7 @@ public class HynerpetonEntity extends PrehistoricEntityOld implements ISemiAquat
     private int swimTimer = -1000;
     private boolean isLandNavigator;
 
-    public HynerpetonEntity(EntityType<? extends Animal> entityType, Level level) {
+    public HynerpetonEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -91,7 +87,7 @@ public class HynerpetonEntity extends PrehistoricEntityOld implements ISemiAquat
         this.goalSelector.addGoal(7, new FindWaterGoal(this));
         this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
         this.goalSelector.addGoal(9, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1, 30));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
     }
@@ -262,48 +258,8 @@ public class HynerpetonEntity extends PrehistoricEntityOld implements ISemiAquat
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 5;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return true;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return UPEntityTypeTags.HYNERPETON_TARGETS;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
     }
 
     @Nullable
@@ -367,20 +323,7 @@ public class HynerpetonEntity extends PrehistoricEntityOld implements ISemiAquat
             return PlayState.CONTINUE;
         }
 
-        if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isSwimming()) {
-            int rand = getRandomAnimationNumber();
-            if (rand < 45) {
-                setAnimationTimer(100);
-                return event.setAndContinue(HYNERPETON_BELLOW);
-            }
-            if (rand < 55) {
-                setAnimationTimer(100);
-                return event.setAndContinue(HYNERPETON_BASK_2);
-            }
-            if (rand < 65) {
-                setAnimationTimer(100);
-                return event.setAndContinue(HYNERPETON_BASK_1);
-            }
+        if (isStillEnough()) {
             event.setAndContinue(HYNERPETON_IDLE);
         }
 
@@ -392,10 +335,6 @@ public class HynerpetonEntity extends PrehistoricEntityOld implements ISemiAquat
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
-    private boolean isStillEnough() {
-        return this.getDeltaMovement().horizontalDistance() < 0.05;
     }
 
     public boolean isIgnited() {
@@ -410,5 +349,15 @@ public class HynerpetonEntity extends PrehistoricEntityOld implements ISemiAquat
     }
     public void setExplodeTimer(int timer) {
         this.entityData.set(EXPLODE_TIMER, timer);
+    }
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
     }
 }

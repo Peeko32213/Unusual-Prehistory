@@ -1,8 +1,11 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
@@ -12,11 +15,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,7 +26,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -45,15 +45,17 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
+import java.util.List;
 
-public class GigantopithicusEntity extends PrehistoricEntityOld implements IVariantEntity {
+public class GigantopithicusEntity extends PrehistoricEntity implements IVariantEntity {
 
-    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("unusualprehistory:textures/entity/gigantopithicus.png");
-    private static final ResourceLocation TEXTURE_VARIANT = new ResourceLocation("unusualprehistory:textures/entity/braypithicus.png");
+    private boolean tradingAndGottenItem;
+    int lastTimeSinceHungry;
+    private int tradingCooldownTimer;
 
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(GigantopithicusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(GigantopithicusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(GigantopithicusEntity.class, EntityDataSerializers.INT);
+    public final int TRADING_COOLDOWN = 3000;
+    private static final EntityDataAccessor<Boolean> TRADING = SynchedEntityData.defineId(GigantopithicusEntity.class, EntityDataSerializers.BOOLEAN);
+
     private Ingredient temptationItems;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final RawAnimation GIGANTO_WALK = RawAnimation.begin().thenLoop("animation.gigantopithicus.walk");
@@ -63,7 +65,7 @@ public class GigantopithicusEntity extends PrehistoricEntityOld implements IVari
     private static final RawAnimation GIGANTO_SWIM = RawAnimation.begin().thenLoop("animation.gigantopithicus.swim");
     private static final RawAnimation GIGANTO_HOLD = RawAnimation.begin().thenLoop("animation.gigantopithicus.hold");
 
-    public GigantopithicusEntity(EntityType<? extends Animal> entityType, Level level) {
+    public GigantopithicusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -78,7 +80,7 @@ public class GigantopithicusEntity extends PrehistoricEntityOld implements IVari
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(0, new TradeGoal(this, Ingredient.of(LootFruitJsonManager.getTrades().keySet().stream().map(e -> new ItemStack(e)))));
+        this.goalSelector.addGoal(0, new GigantopithecusTradeGoal(this, Ingredient.of(LootFruitJsonManager.getTrades().keySet().stream().map(e -> new ItemStack(e)))));
         this.goalSelector.addGoal(1, new GigantopithicusEntity.ApeMeleeAttackGoal(this, 1.3F, true));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
@@ -111,48 +113,8 @@ public class GigantopithicusEntity extends PrehistoricEntityOld implements IVari
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     @Nullable
@@ -164,38 +126,26 @@ public class GigantopithicusEntity extends PrehistoricEntityOld implements IVari
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(ANIMATION_STATE, 0);
-        this.entityData.define(COMBAT_STATE, 0);
-        this.entityData.define(ENTITY_STATE, 0);
-    }
-
-    public int getAnimationState() {
-        return this.entityData.get(ANIMATION_STATE);
-    }
-
-    public void setAnimationState(int anim) {
-        this.entityData.set(ANIMATION_STATE, anim);
-    }
-
-    public int getCombatState() {
-        return this.entityData.get(COMBAT_STATE);
-    }
-
-    public void setCombatState(int anim) {
-        this.entityData.set(COMBAT_STATE, anim);
-    }
-
-    public int getEntityState() {
-        return this.entityData.get(ENTITY_STATE);
-    }
-
-    public void setEntityState(int anim) {
-        this.entityData.set(ENTITY_STATE, anim);
     }
 
     @Override
     public boolean isAlliedTo(Entity pEntity) {
         return pEntity.is(this);
+    }
+
+    @Override
+    public int getVariant() {
+        return 0;
+    }
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
     }
 
     static class ApeMeleeAttackGoal extends Goal {
@@ -414,6 +364,27 @@ public class GigantopithicusEntity extends PrehistoricEntityOld implements IVari
 
     protected SoundEvent getDeathSound() {
         return UPSounds.GIGANTO_DEATH.get();
+    }
+
+    public boolean isTrading() {
+        return this.entityData.get(TRADING).booleanValue();
+    }
+    public void setIsTrading(boolean trading) {
+        this.entityData.set(TRADING, Boolean.valueOf(trading));
+    }
+
+    public void setTradingAndGottenItem(boolean tradingAndGottenItem) {
+        this.tradingAndGottenItem = tradingAndGottenItem;
+    }
+    public boolean getTradingAndGottenItem() {
+        return tradingAndGottenItem;
+    }
+
+    public int getTradingCooldownTimer() {
+        return tradingCooldownTimer;
+    }
+    public void setTradingCooldownTimer(int tradingCooldownTimer) {
+        this.tradingCooldownTimer = tradingCooldownTimer;
     }
 
 

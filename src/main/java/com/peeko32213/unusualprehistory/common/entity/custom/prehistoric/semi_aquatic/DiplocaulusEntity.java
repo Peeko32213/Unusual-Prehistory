@@ -5,7 +5,6 @@
  import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FindWaterGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.LeaveWaterGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.SemiAquaticSwimmingGoal;
@@ -32,6 +31,7 @@
  import net.minecraft.world.entity.ai.goal.Goal;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
  import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.level.Level;
@@ -123,7 +123,7 @@
          this.goalSelector.addGoal(7, new FindWaterGoal(this));
          this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
          this.goalSelector.addGoal(9, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
-         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34));
+         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1, 30));
          this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
      }

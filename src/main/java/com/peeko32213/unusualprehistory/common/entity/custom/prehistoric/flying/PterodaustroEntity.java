@@ -1,10 +1,16 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+ import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MajungasaurusEntity;
  import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
@@ -13,7 +19,6 @@
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
- import net.minecraft.tags.TagKey;
  import net.minecraft.util.Mth;
  import net.minecraft.world.Difficulty;
  import net.minecraft.world.DifficultyInstance;
@@ -22,6 +27,7 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
  import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -29,6 +35,7 @@
  import net.minecraft.world.entity.ai.goal.PanicGoal;
  import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
  import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.monster.Monster;
  import net.minecraft.world.level.ClipContext;
  import net.minecraft.world.level.Level;
@@ -37,6 +44,7 @@
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.phys.HitResult;
  import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
  import software.bernie.geckolib.animatable.GeoEntity;
  import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -47,8 +55,10 @@
 
  import javax.annotation.Nullable;
  import java.util.EnumSet;
+ import java.util.List;
 
- public class PterodaustroEntity extends PrehistoricEntityOld implements GeoEntity, IBookEntity {
+ public class PterodaustroEntity extends PrehistoricEntity implements GeoEntity, IBookEntity, IVariantEntity {
+
      private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
      @Nullable
      private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(PterodaustroEntity.class, EntityDataSerializers.BOOLEAN);
@@ -72,8 +82,21 @@
      private static final RawAnimation PTERODAUSTRO_FLAP = RawAnimation.begin().thenPlay("animation.pterodaustro.flap");
      private static final RawAnimation PTERODAUSTRO_NESTING = RawAnimation.begin().thenPlay("animation.pterodaustro.nesting");
 
+     // Body control / navigation
+     @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         SmartBodyHelper helper = new SmartBodyHelper(this);
+         helper.bodyLagMoving = 0.4F;
+         helper.bodyLagStill = 0.3F;
+         return helper;
+     }
 
-     public PterodaustroEntity(EntityType<? extends PrehistoricEntityOld> entityType, Level level) {
+     @Override
+     protected @NotNull PathNavigation createNavigation(Level levelIn) {
+         return new SmoothGroundNavigation(this, levelIn);
+     }
+
+     public PterodaustroEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
          super(entityType, level);
          switchNavigator(true);
      }
@@ -110,48 +133,8 @@
      }
 
      @Override
-     protected SoundEvent getAttackSound() {
-         return null;
-     }
-
-     @Override
      protected int getKillHealAmount() {
          return 0;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return null;
      }
 
 
@@ -379,32 +362,8 @@
              return PlayState.CONTINUE;
          }
 
-         if (!event.isMoving() && this.onGround() && this.onGround() && getRandomAnimationNumber() == 0) {
-             int rand = getRandomAnimationNumber();
-             if (rand < 15) {
-                 setAnimationTimer(100);
-                 return event.setAndContinue(PTERODAUSTRO_FLAP);
-             }
-             if (rand < 66) {
-                 setAnimationTimer(100);
-                 return event.setAndContinue(PTERODAUSTRO_SIT);
-             }
-             if (rand < 77) {
-                 setAnimationTimer(100);
-                 return event.setAndContinue(PTERODAUSTRO_DISPLAY);
-             }
-             if (rand < 90) {
-                 setAnimationTimer(100);
-                 return event.setAndContinue(PTERODAUSTRO_IDLE);
-             }
-         }
-
 
          return event.setAndContinue(PTERODAUSTRO_IDLE);
-     }
-
-     private boolean isStillEnough() {
-         return this.getDeltaMovement().horizontalDistance() < 0.05;
      }
 
 
@@ -421,6 +380,16 @@
      @Override
      public void setFromBook(boolean fromBook) {
          this.entityData.set(FROM_BOOK, fromBook);
+     }
+
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return null;
+     }
+
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return List.of();
      }
 
      private class AIFlyIdle extends Goal {

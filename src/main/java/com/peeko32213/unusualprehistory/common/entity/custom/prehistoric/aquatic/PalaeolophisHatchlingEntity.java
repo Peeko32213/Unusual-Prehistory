@@ -1,7 +1,10 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
+import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.BeelzebufoEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
@@ -15,7 +18,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -35,7 +37,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -48,8 +49,9 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
-public class PalaeolophisHatchlingEntity extends PrehistoricAquaticEntityOld implements GeoAnimatable, Bucketable, IVariantEntity {
+public class PalaeolophisHatchlingEntity extends PrehistoricAquaticEntity implements GeoAnimatable, Bucketable, IVariantEntity {
 
     private static final ResourceLocation DEEP = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_deep_palaeophis.png");
     private static final ResourceLocation NORMAL = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/baby_palaeophis.png");
@@ -62,7 +64,7 @@ public class PalaeolophisHatchlingEntity extends PrehistoricAquaticEntityOld imp
     private static final RawAnimation BABY_SWIM = RawAnimation.begin().thenLoop("animation.baby_palaeophis.move");
 
     private int age;
-    public PalaeolophisHatchlingEntity(EntityType<? extends PrehistoricAquaticEntityOld> entityType, Level level) {
+    public PalaeolophisHatchlingEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -203,6 +205,21 @@ public class PalaeolophisHatchlingEntity extends PrehistoricAquaticEntityOld imp
 
     private int getTicksUntilGrowth() {
         return Math.max(0, MAX_TADPOLE_AGE - this.age);
+    }
+
+    @Override
+    public int getVariant() {
+        return 0;
+    }
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
     }
 
     static class MoveHelperController extends MoveControl {
@@ -350,48 +367,8 @@ public class PalaeolophisHatchlingEntity extends PrehistoricAquaticEntityOld imp
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     public void checkDespawn() {

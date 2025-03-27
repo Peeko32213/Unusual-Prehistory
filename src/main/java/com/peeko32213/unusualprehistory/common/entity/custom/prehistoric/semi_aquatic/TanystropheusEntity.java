@@ -1,30 +1,33 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
+ import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
- import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
- import net.minecraft.sounds.SoundEvent;
- import net.minecraft.tags.TagKey;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
  import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
- import net.minecraft.world.entity.animal.Animal;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.level.Level;
- import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
@@ -36,7 +39,8 @@
 
  import java.util.List;
 
- public class TanystropheusEntity extends PrehistoricEntityOld implements ISemiAquatic {
+ public class TanystropheusEntity extends PrehistoricEntity implements ISemiAquatic {
+
      private static final EntityDataAccessor<Boolean> BASKING = SynchedEntityData.defineId(TanystropheusEntity.class, EntityDataSerializers.BOOLEAN);
      private static final RawAnimation TANY_IDLE = RawAnimation.begin().thenLoop("animation.tanystropheus.idle");
      private static final RawAnimation TANY_BASK = RawAnimation.begin().thenLoop("animation.tanystropheus.bask");
@@ -58,7 +62,21 @@
      public float baskProgress;
      public int fishingCooldown = 1200 + random.nextInt(1200);
 
-     public TanystropheusEntity(EntityType<? extends Animal> entityType, Level level) {
+     // Body control / navigation
+     @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         SmartBodyHelper helper = new SmartBodyHelper(this);
+         helper.bodyLagMoving = 0.25F;
+         helper.bodyLagStill = 0.15F;
+         return helper;
+     }
+
+     @Override
+     protected @NotNull PathNavigation createNavigation(Level levelIn) {
+         return new SmoothGroundNavigation(this, levelIn);
+     }
+
+     public TanystropheusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -81,7 +99,7 @@
          this.goalSelector.addGoal(7, new LeaveWaterGoal(this));
          this.goalSelector.addGoal(9, new SemiAquaticSwimmingGoal(this, 1.0D, 10));
          this.goalSelector.addGoal(1, new TanyFishingGoal(this));
-         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34) {
+         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1, 30) {
                      @Override
                      public boolean canUse() {
                          if (this.mob.isVehicle() || ((TanystropheusEntity)this.mob).isBasking()) {
@@ -91,11 +109,7 @@
                                  if (this.mob.getNoActionTime() >= 100) {
                                      return false;
                                  }
-                                 if (((TanystropheusEntity) this.mob).isHungry()) {
-                                     if (this.mob.getRandom().nextInt(60) != 0) {
-                                         return false;
-                                     }
-                                 } else {
+                                 else {
                                      if (this.mob.getRandom().nextInt(30) != 0) {
                                          return false;
                                      }
@@ -274,48 +288,8 @@
      }
 
      @Override
-     protected SoundEvent getAttackSound() {
-         return null;
-     }
-
-     @Override
      protected int getKillHealAmount() {
          return 5;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return true;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return true;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return UPEntityTypeTags.PISCIVORE_DIET;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
      }
 
      @Nullable
@@ -384,10 +358,14 @@
          controllers.add(new AnimationController<>(this, "Bask", 5, this::baskController));
      }
 
-     private boolean isStillEnough() {
-         return this.getDeltaMovement().horizontalDistance() < 0.05;
+
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return null;
      }
 
-
-
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return List.of();
+     }
  }

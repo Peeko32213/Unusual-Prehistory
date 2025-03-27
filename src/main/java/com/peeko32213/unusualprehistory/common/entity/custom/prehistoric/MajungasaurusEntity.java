@@ -1,12 +1,16 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -16,7 +20,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,13 +27,13 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,7 +51,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class MajungasaurusEntity extends PrehistoricEntityOld {
+public class MajungasaurusEntity extends PrehistoricEntity {
 
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(MajungasaurusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(MajungasaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -63,9 +66,23 @@ public class MajungasaurusEntity extends PrehistoricEntityOld {
     private static final RawAnimation MAJUNGA_SWIM = RawAnimation.begin().thenLoop("animation.majungasaurus.swim");
     private static final RawAnimation MAJUNGA_BITE = RawAnimation.begin().thenLoop("animation.majungasaurus.bite");
 
-    public MajungasaurusEntity(EntityType<? extends Animal> entityType, Level level) {
+    // Body control / navigation
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.35F;
+        helper.bodyLagStill = 0.25F;
+        return helper;
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
+    public MajungasaurusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1.0f);
+        this.setMaxUpStep(1.25f);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -97,11 +114,6 @@ public class MajungasaurusEntity extends PrehistoricEntityOld {
                             if (!this.forceTrigger) {
                                 if (this.mob.getNoActionTime() >= 100) {
                                     return false;
-                                }
-                                if (((MajungasaurusEntity) this.mob).isHungry()) {
-                                    if (this.mob.getRandom().nextInt(60) != 0) {
-                                        return false;
-                                    }
                                 } else {
                                     if (this.mob.getRandom().nextInt(30) != 0) {
                                         return false;
@@ -145,19 +157,8 @@ public class MajungasaurusEntity extends PrehistoricEntityOld {
         return shouldHurt;
     }
 
-
     public boolean isAngryAt(LivingEntity p_21675_) {
         return this.canAttack(p_21675_);
-    }
-
-
-    @Override
-    public boolean canAttack(LivingEntity entity) {
-        boolean prev = super.canAttack(entity);
-        if (isBaby() || getPassiveTicks() > 0) {
-            return false;
-        }
-        return prev;
     }
 
     @Nullable
@@ -197,16 +198,6 @@ public class MajungasaurusEntity extends PrehistoricEntityOld {
 
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
-        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if (isFood(itemstack) && (this.getPassiveTicks() <= 0 || this.getHealth() < this.getMaxHealth())) {
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
-            }
-            this.heal(10);
-            this.setPassiveTicks(this.getPassiveTicks() + 2500);
-            return InteractionResult.SUCCESS;
-        }
         return super.mobInteract(player, hand);
     }
 
@@ -227,49 +218,8 @@ public class MajungasaurusEntity extends PrehistoricEntityOld {
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return UPSounds.MAJUNGA_ATTACK.get();
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 10;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return true;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return UPEntityTypeTags.MAJUNGA_TARGETS;
-    }
-
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
     }
 
     public void setChargeCooldownTicks(int ticks) {
@@ -370,6 +320,16 @@ public class MajungasaurusEntity extends PrehistoricEntityOld {
     @Override
     public float getVoicePitch() {
         return (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f;
+    }
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
     }
 
     static class MajungaPrepareChargeGoal extends Goal {
@@ -518,9 +478,7 @@ public class MajungasaurusEntity extends PrehistoricEntityOld {
             double d0 = this.getAttackReachSqr(enemy);
             if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
                 this.resetAttackCooldown();
-                ((MajungasaurusEntity) this.mob).setHungry(false);
                 ((MajungasaurusEntity) this.mob).attack(enemy);
-                ((MajungasaurusEntity) this.mob).setTimeTillHungry(mob.getRandom().nextInt(300) + 300);
             }
         }
 

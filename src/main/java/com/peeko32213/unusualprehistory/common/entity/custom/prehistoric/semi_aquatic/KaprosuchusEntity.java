@@ -1,12 +1,17 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
-
+ import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.*;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
  import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -17,13 +22,12 @@
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
- import net.minecraft.sounds.SoundEvent;
- import net.minecraft.tags.TagKey;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.goal.*;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -31,6 +35,7 @@
  import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
  import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
  import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.level.Level;
@@ -41,6 +46,7 @@
  import net.minecraft.world.level.pathfinder.Path;
  import net.minecraft.world.phys.Vec2;
  import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
@@ -48,9 +54,10 @@
  import software.bernie.geckolib.core.object.PlayState;
 
  import java.util.EnumSet;
+ import java.util.List;
  import java.util.Objects;
 
- public class KaprosuchusEntity extends TamablePrehistoricEntityOld implements ICustomFollower, ISemiAquatic {
+ public class KaprosuchusEntity extends PrehistoricEntity implements ICustomFollower, ISemiAquatic {
 
      private static final RawAnimation KAPROSUCHUS_WALK = RawAnimation.begin().thenLoop("animation.kaprosuchus.walking");
      private static final RawAnimation KAPROSUCHUS_RUN = RawAnimation.begin().thenLoop("animation.kaprosuchus.run");
@@ -73,7 +80,22 @@
      public float swimProgress;
      private int swimTimer = -1000;
      private boolean isLandNavigator;
-     public KaprosuchusEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
+
+     // Body control / navigation
+     @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         SmartBodyHelper helper = new SmartBodyHelper(this);
+         helper.bodyLagMoving = 0.35F;
+         helper.bodyLagStill = 0.25F;
+         return helper;
+     }
+
+     @Override
+     protected @NotNull PathNavigation createNavigation(Level levelIn) {
+         return new SmoothGroundNavigation(this, levelIn);
+     }
+
+     public KaprosuchusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -103,7 +125,7 @@
          this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
          this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
          this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 50, 1.0D, 100, 34) {
+         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1, 30) {
                      @Override
                      public boolean canUse() {
                          if (this.mob.isVehicle()) {
@@ -112,12 +134,7 @@
                              if (!this.forceTrigger) {
                                  if (this.mob.getNoActionTime() >= 100) {
                                      return false;
-                                 }
-                                 if (((KaprosuchusEntity) this.mob).isHungry()) {
-                                     if (this.mob.getRandom().nextInt(60) != 0) {
-                                         return false;
-                                     }
-                                 } else {
+                                 }else {
                                      if (this.mob.getRandom().nextInt(30) != 0) {
                                          return false;
                                      }
@@ -138,8 +155,8 @@
                      }
                  }
          );
-         this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
-         this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 60, 1.0D, 100, 34));
+         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
+         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1, 30));
          this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> entity.getType().is(UPEntityTypeTags.PSITTACO_TARGETS)));
      }
 
@@ -229,9 +246,6 @@
                  swimTimer--;
              }
          }
-         if(attackCooldown > 0){
-             attackCooldown--;
-         }
 
          if (this.isOrderedToSit() && sitProgress < 5F) {
              sitProgress++;
@@ -286,54 +300,8 @@
      }
 
      @Override
-     protected void performAttack() {
-
-     }
-
-     @Override
-     protected SoundEvent getAttackSound() {
-         return null;
-     }
-
-     @Override
      protected int getKillHealAmount() {
          return 0;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return true;
-     }
-
-
-     @Override
-     protected boolean hasTargets() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return null;
      }
 
      @Nullable
@@ -428,6 +396,16 @@
          else {
              super.travel(travelVector);
          }
+     }
+
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return null;
+     }
+
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return List.of();
      }
 
      static class KaproMeleeAttackGoal extends Goal {
@@ -710,12 +688,6 @@
          }
      }
 
-
-     private boolean isStillEnough() {
-         return this.getDeltaMovement().horizontalDistance() < 0.05;
-     }
-
-
      protected <E extends KaprosuchusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
          if(this.isFromBook()){
              return event.setAndContinue(KAPROSUCHUS_IDLE);
@@ -763,16 +735,7 @@
                          return PlayState.CONTINUE;
                      }
 
-                      else if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isInSittingPose() && !this.isSwimming()) {
-                         int rand = getRandomAnimationNumber();
-                         if (rand < 15) {
-                             setAnimationTimer(150);
-                             return event.setAndContinue(KAPROSUCHUS_ROAR);
-                         }
-                         if (rand < 66) {
-                             setAnimationTimer(150);
-                             return event.setAndContinue(KAPROSUCHUS_SCRATCH);
-                         }
+                      else if (isStillEnough() && !this.isInSittingPose() && !this.isSwimming()) {
                          event.setAndContinue(KAPROSUCHUS_IDLE);
                      }
              }

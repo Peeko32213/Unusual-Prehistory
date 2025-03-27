@@ -1,10 +1,14 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.HyneriaJumpGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TameablePrehistoricNoFloatEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -14,7 +18,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -23,6 +26,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -45,7 +49,9 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implements GeoEntity, ISemiAquatic {
+import java.util.List;
+
+public class HyneriaEntity extends PrehistoricEntity implements GeoEntity, ISemiAquatic {
 
     private static final RawAnimation HYNERIA_SWIM_IDLE = RawAnimation.begin().thenLoop("animation.hyneria.swim_idle");
     private static final RawAnimation HYNERIA_SWIM = RawAnimation.begin().thenLoop("animation.hyneria.swim");
@@ -58,7 +64,16 @@ public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implement
 
     private boolean isLandNavigator;
 
-    public HyneriaEntity(EntityType<? extends TameablePrehistoricNoFloatEntityOld> pEntityType, Level pLevel) {
+    // Body control / navigation
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.3F;
+        helper.bodyLagStill = 0.2F;
+        return helper;
+    }
+
+    public HyneriaEntity(EntityType<? extends PrehistoricEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -104,10 +119,6 @@ public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implement
         return new WaterBoundPathNavigation(this, p_27480_);
     }
 
-    @Override
-    protected void performAttack() {
-    }
-
     private void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new MoveControl(this);
@@ -137,6 +148,16 @@ public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implement
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+    }
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
     }
 
     static class MoveHelperController extends MoveControl {
@@ -188,11 +209,6 @@ public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implement
         }
     }
 
-    @Override
-    protected SoundEvent getAttackSound() {
-        return UPSounds.HYNERIA_ATTACK.get();
-    }
-
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return UPSounds.HYNERIA_HURT.get();
     }
@@ -213,41 +229,6 @@ public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implement
     @Override
     protected int getKillHealAmount() {
         return 10;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return UPEntityTypeTags.HYNERIA_TARGETS;
     }
 
     public boolean isJumping() {
@@ -284,21 +265,11 @@ public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implement
             return PlayState.CONTINUE;
         }
 
-        if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isSwimming()) {
-            int rand = getRandomAnimationNumber();
-            if (rand < 10) {
-                setAnimationTimer(300);
-                return event.setAndContinue(HYNERIA_YAWN_BLEND);
-            }
+        if (isStillEnough() && !this.isSwimming()) {
             return event.setAndContinue(HYNERIA_IDLE);
         }
 
-        if (isStillEnough() && getRandomAnimationNumber() == 0 && this.isInWater()) {
-            int rand = getRandomAnimationNumber();
-            if (rand < 50) {
-                setAnimationTimer(300);
-                return event.setAndContinue(HYNERIA_SWIM_IDLE);
-            }
+        if (isStillEnough() && this.isInWater()) {
             return event.setAndContinue(HYNERIA_SWIM_IDLE);
         }
 
@@ -308,10 +279,6 @@ public class HyneriaEntity extends TameablePrehistoricNoFloatEntityOld implement
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
-    private boolean isStillEnough() {
-        return this.getDeltaMovement().horizontalDistance() < 0.05;
     }
 
     @Override

@@ -1,12 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomAnimationsEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
-import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,38 +18,34 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.List;
 
-public class AustroraptorEntity extends PrehistoricEntityOld implements ICustomAnimationsEntity {
+
+public class AustroraptorEntity extends PrehistoricEntity implements IVariantEntity {
+
     private static final EntityDataAccessor<Integer> PREENING_TIME = SynchedEntityData.defineId(AustroraptorEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PREENING = SynchedEntityData.defineId(AustroraptorEntity.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -63,8 +62,23 @@ public class AustroraptorEntity extends PrehistoricEntityOld implements ICustomA
     private static final RawAnimation AUSTRO_PREEN = RawAnimation.begin().thenPlay("animation.austroraptor.preening");
     private static final RawAnimation AUSTRO_ATTACK = RawAnimation.begin().thenPlay("animation.austroraptor.attack");
 
-    public AustroraptorEntity(EntityType<? extends Animal> entityType, Level level) {
+    // Body control / navigation
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.35F;
+        helper.bodyLagStill = 0.25F;
+        return helper;
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
+    public AustroraptorEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
+        this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -82,7 +96,7 @@ public class AustroraptorEntity extends PrehistoricEntityOld implements ICustomA
         this.goalSelector.addGoal(2, new AustroraptorEntity.IMeleeAttackGoal());
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1, 30)
                 {
                     @Override
                     public boolean canUse() {
@@ -92,12 +106,7 @@ public class AustroraptorEntity extends PrehistoricEntityOld implements ICustomA
                             if (!this.forceTrigger) {
                                 if (this.mob.getNoActionTime() >= 100) {
                                     return false;
-                                }
-                                if (((AustroraptorEntity) this.mob).isHungry()) {
-                                    if (this.mob.getRandom().nextInt(60) != 0) {
-                                        return false;
-                                    }
-                                } else {
+                                }else {
                                     if (this.mob.getRandom().nextInt(30) != 0) {
                                         return false;
                                     }
@@ -265,52 +274,22 @@ public class AustroraptorEntity extends PrehistoricEntityOld implements ICustomA
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return UPSounds.AUSTRO_BITE.get();
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 5;
     }
 
-    @Override
-    protected boolean canGetHungry() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return true;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return UPEntityTypeTags.RAPTOR_TARGETS;
-    }
-
     private void attack(LivingEntity entity) {
         entity.hurt(this.damageSources().mobAttack(this), 5.0F);
+    }
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
     }
 
     class IMeleeAttackGoal extends MeleeAttackGoal {
@@ -319,7 +298,7 @@ public class AustroraptorEntity extends PrehistoricEntityOld implements ICustomA
         }
 
         protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth());
+            return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth();
         }
 
         @Override
@@ -327,12 +306,9 @@ public class AustroraptorEntity extends PrehistoricEntityOld implements ICustomA
             double d0 = this.getAttackReachSqr(enemy);
             if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
                 this.resetAttackCooldown();
-                ((AustroraptorEntity) this.mob).setHungry(false);
                 ((AustroraptorEntity) this.mob).attack(enemy);
-                ((AustroraptorEntity) this.mob).setTimeTillHungry(mob.getRandom().nextInt(300) + 300);
             }
         }
-
     }
 
     @Nullable
@@ -385,27 +361,5 @@ public class AustroraptorEntity extends PrehistoricEntityOld implements ICustomA
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Attack", 3, this::attackController));
         controllers.add(new AnimationController<>(this, "Preen", 5, this::preenController));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
-    }
-
-    @Override
-    public void setCustomAnimation(GeoModel model, PrehistoricEntityOld animatable, long instanceId, AnimationState animationState) {
-        if (animationState == null) return;
-
-        EntityModelData extraDataOfType = (EntityModelData) animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = model.getAnimationProcessor().getBone("Neck");
-
-        if (!animatable.isSprinting()) {
-            head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
-        }
     }
 }

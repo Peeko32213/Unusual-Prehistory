@@ -23,10 +23,10 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends GeoEntityRenderer<K
         this.addRenderLayer(new KimmeridgebrachypteraeschnidiumWingLayer(this));
     }
 
-//    @Override
-//    public RenderType getRenderType(KimmeridgebrachypteraeschnidiumEntity animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-//        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
-//    }
+    @Override
+    public RenderType getRenderType(KimmeridgebrachypteraeschnidiumEntity animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
+        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
+    }
 
     @Override
     public void render(KimmeridgebrachypteraeschnidiumEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn) {

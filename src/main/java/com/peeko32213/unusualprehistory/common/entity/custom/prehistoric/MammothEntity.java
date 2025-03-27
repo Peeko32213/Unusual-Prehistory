@@ -1,10 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.MammothMeleeAttackGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -20,15 +25,15 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -51,7 +56,8 @@ import software.bernie.geckolib.core.object.PlayState;
 import java.util.Collections;
 import java.util.List;
 
-public class MammothEntity extends PrehistoricEntityOld implements Shearable, net.minecraftforge.common.IForgeShearable, ContainerListener {
+public class MammothEntity extends PrehistoricEntity implements Shearable, net.minecraftforge.common.IForgeShearable, ContainerListener {
+
     public static final ResourceLocation MAMMOTH_LOOT = new ResourceLocation("unusualprehistory", "gameplay/mammoth_loot");
     private static final EntityDataAccessor<Boolean> IS_TRUNKING = SynchedEntityData.defineId(MammothEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<ItemStack> HOLD_ITEM = SynchedEntityData.defineId(MammothEntity.class, EntityDataSerializers.ITEM_STACK);
@@ -63,20 +69,33 @@ public class MammothEntity extends PrehistoricEntityOld implements Shearable, ne
     private static final RawAnimation MAMMOTH_IDLE = RawAnimation.begin().thenLoop("animation.mammoth.idle");
     private static final RawAnimation MAMMOTH_SWIM = RawAnimation.begin().thenLoop("animation.mammoth.swim");
     private static final RawAnimation MAMMOTH_TRUNK = RawAnimation.begin().thenLoop("animation.mammoth.idle_trunk");
-    public MammothEntity(EntityType<? extends Animal> entityType, Level level) {
+
+    // Body control / navigation
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.25F;
+        helper.bodyLagStill = 0.15F;
+        return helper;
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
+    public MammothEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
         initMammothInventory();
+        this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 50.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.15D)
-                .add(Attributes.ATTACK_DAMAGE, 5D)
-
-                .add(Attributes.ARMOR, 5.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 3.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 8.5D);
+            .add(Attributes.MAX_HEALTH, 80)
+            .add(Attributes.MOVEMENT_SPEED, 0.15D)
+            .add(Attributes.ATTACK_DAMAGE, 10)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D);
     }
 
     @Override
@@ -283,6 +302,16 @@ public class MammothEntity extends PrehistoricEntityOld implements Shearable, ne
         return Collections.emptyList();
     }
 
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
+
     public class MammothTrunkIdleGoal extends Goal {
         private final MammothEntity mammoth;
 
@@ -315,48 +344,8 @@ public class MammothEntity extends PrehistoricEntityOld implements Shearable, ne
     }
 
     @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
-    @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
     }
 
     protected SoundEvent getAmbientSound() {

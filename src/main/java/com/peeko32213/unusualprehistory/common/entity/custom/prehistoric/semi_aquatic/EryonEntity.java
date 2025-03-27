@@ -1,12 +1,17 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BottomFeederStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FindWaterGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.LeaveWaterGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricEntityOld;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -22,9 +27,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -32,7 +35,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -47,6 +52,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -59,7 +65,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class EryonEntity extends PrehistoricEntityOld implements IVariantEntity, ISemiAquatic {
+public class EryonEntity extends PrehistoricEntity implements IVariantEntity, ISemiAquatic {
+
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(EryonEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(EryonEntity.class, EntityDataSerializers.INT);
     public static final ResourceLocation ERYON_REWARD = new ResourceLocation("unusualprehistory", "gameplay/eryon_reward");
@@ -74,7 +81,21 @@ public class EryonEntity extends PrehistoricEntityOld implements IVariantEntity,
     private static final RawAnimation ERYON_IDLE = RawAnimation.begin().thenLoop("animation.eryon.idle");
     private static final RawAnimation ERYON_DIG = RawAnimation.begin().thenLoop("animation.eryon.dig");
 
-    public EryonEntity(EntityType<? extends PrehistoricEntityOld> p_21683_, Level p_21684_) {
+    // Body control / navigation
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.45F;
+        helper.bodyLagStill = 0.35F;
+        return helper;
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
+
+    public EryonEntity(EntityType<? extends PrehistoricEntity> p_21683_, Level p_21684_) {
         super(p_21683_, p_21684_);
     }
 
@@ -139,75 +160,9 @@ public class EryonEntity extends PrehistoricEntityOld implements IVariantEntity,
         return "normal";
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
-    }
-
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
-    }
-
-    public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
-    }
-
-    @Override
-    protected SoundEvent getAttackSound() {
-        return null;
-    }
-
     @Override
     protected int getKillHealAmount() {
         return 0;
-    }
-
-    @Override
-    protected boolean canGetHungry() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasTargets() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasAvoidEntity() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasCustomNavigation() {
-        return false;
-    }
-
-    @Override
-    protected boolean hasMakeStuckInBlock() {
-        return false;
-    }
-
-    @Override
-    protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    protected TagKey<EntityType<?>> getTargetTag() {
-        return null;
-    }
-
-    public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
-    }
-
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
     }
 
     @Nullable
@@ -246,16 +201,7 @@ public class EryonEntity extends PrehistoricEntityOld implements IVariantEntity,
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FEEDING_TIME, 0);
-        this.entityData.define(VARIANT, 0);
         this.entityData.define(FEEDING_POS, Optional.empty());
-    }
-
-    public int getVariant() {
-        return this.entityData.get(VARIANT).intValue();
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, Integer.valueOf(variant));
     }
 
     public int getFeedingTime() {
@@ -331,6 +277,16 @@ public class EryonEntity extends PrehistoricEntityOld implements IVariantEntity,
     @Override
     public int getWaterSearchRange() {
         return 10;
+    }
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
     }
 
     private class DigSandGoal extends Goal {
@@ -507,17 +463,4 @@ public class EryonEntity extends PrehistoricEntityOld implements IVariantEntity,
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
         controllers.add(new AnimationController<>(this, "Dig", 10, this::digController));
     }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
-    }
-
-
-
 }

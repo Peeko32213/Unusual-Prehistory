@@ -3,7 +3,6 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_a
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRandomStrollGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.BeelzebufoTadpoleEntity;
@@ -103,7 +102,7 @@ public class BeelzebufoEntity extends PrehistoricEntity implements PlayerRideabl
         this.goalSelector.addGoal(2, new CustomRideGoal(this, 1.5D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new BeelzebufoEntity.EatFoodGoal(this));
-        this.goalSelector.addGoal(3, new CustomRandomStrollGoal(this, 30, 1.0D, 100, 34)
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1, 30)
                 {
                     @Override
                     public boolean canUse() {

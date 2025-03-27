@@ -1,15 +1,20 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.PrehistoricAquaticEntityOld;
+ import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
+ import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
- import net.minecraft.tags.TagKey;
  import net.minecraft.util.Mth;
+ import net.minecraft.world.entity.AgeableMob;
  import net.minecraft.world.entity.EntityType;
  import net.minecraft.world.entity.Mob;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -28,6 +33,7 @@
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.core.animatable.GeoAnimatable;
  import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -36,11 +42,12 @@
  import software.bernie.geckolib.core.object.PlayState;
  import software.bernie.geckolib.util.GeckoLibUtil;
 
+ import java.util.List;
+
  //TODO LIST
  // - Burrowing At Night
- // - Electric Goop + Electric Fence, though waiting on crydigo to make textures
 
- public class TartuosteusEntity extends PrehistoricAquaticEntityOld implements GeoAnimatable, IBookEntity {
+ public class TartuosteusEntity extends PrehistoricAquaticEntity implements GeoAnimatable, IBookEntity, IVariantEntity {
 
      private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(TartuosteusEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -53,7 +60,7 @@
      private static final RawAnimation TARTUO_FLOP = RawAnimation.begin().thenLoop("animation.tartuosteus.flop");
      private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-     public TartuosteusEntity(EntityType<? extends PrehistoricAquaticEntityOld> pEntityType, Level pLevel) {
+     public TartuosteusEntity(EntityType<? extends PrehistoricAquaticEntity> pEntityType, Level pLevel) {
          super(pEntityType, pLevel);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -78,6 +85,11 @@
          super.travel(travelVector);
      }
 
+     @Override
+     protected SoundEvent getFlopSound() {
+         return null;
+     }
+
      protected @NotNull PathNavigation createNavigation(@NotNull Level p_27480_) {
          return new WaterBoundPathNavigation(this, p_27480_);
      }
@@ -86,10 +98,10 @@
          return SoundEvents.COD_AMBIENT;
      }
 
-//     @Override
-//     public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel pLevel, @NotNull AgeableMob pOtherParent) {
-//         return null;
-//     }
+     @Override
+     public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+         return null;
+     }
 
      protected void defineSynchedData() {
          super.defineSynchedData();
@@ -123,57 +135,8 @@
      }
 
      @Override
-     protected SoundEvent getAttackSound() {
-         return null;
-     }
-
-//     @Override
-//     protected SoundEvent getFlopSound() {
-//         return null;
-//     }
-
-     @Override
      protected int getKillHealAmount() {
          return 0;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return null;
-     }
-
-     private boolean isStillEnough() {
-         return this.getDeltaMovement().horizontalDistance() < 0.05;
      }
 
      protected <E extends TartuosteusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -197,16 +160,9 @@
              return PlayState.CONTINUE;
          }
 
-         if (isStillEnough() && getRandomAnimationNumber(500) == 0 && this.isInWater()) {
-             int rand = getRandomAnimationNumber();
-             if (rand < 50) {
-                 setAnimationTimer(150);
-                 event.setAndContinue(TARTUO_REST);
-             }
-             else {
-                 event.setAndContinue(TARTUO_IDLE);
-                 return PlayState.CONTINUE;
-             }
+         if (isStillEnough() && this.isInWater()) {
+             event.setAndContinue(TARTUO_IDLE);
+             return PlayState.CONTINUE;
          }
          return PlayState.CONTINUE;
      }
@@ -232,6 +188,16 @@
      @Override
      public double getTick(Object o) {
          return tickCount;
+     }
+
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return null;
+     }
+
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return List.of();
      }
 
      static class MoveHelperController extends MoveControl {

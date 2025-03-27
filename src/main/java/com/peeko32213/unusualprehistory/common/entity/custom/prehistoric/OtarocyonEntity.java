@@ -1,8 +1,11 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+ import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.NocturnalSleepingGoal;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TameableFollowOwner;
- import com.peeko32213.unusualprehistory.common.entity.custom.base.old.TamablePrehistoricEntityOld;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
  import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
  import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
@@ -13,8 +16,6 @@
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
- import net.minecraft.sounds.SoundEvent;
- import net.minecraft.tags.TagKey;
  import net.minecraft.util.Mth;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
@@ -35,7 +36,6 @@
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.block.Blocks;
- import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.gameevent.GameEvent;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
@@ -54,7 +54,7 @@
  // - Leaping does not work, along with the animations (Leaps like fox and has the animations for it)
  // - Walking animation sometimes play while idling
  //      - Scouters Fix, while working, caused none of the other idles to play
- public class OtarocyonEntity extends TamablePrehistoricEntityOld implements ICustomFollower {
+ public class OtarocyonEntity extends PrehistoricEntity implements ICustomFollower {
 
      private static final RawAnimation OTAROCYON_IDLE = RawAnimation.begin().thenLoop("animation.otarocyon.idle");
      private static final RawAnimation OTAROCYON_SIT = RawAnimation.begin().thenLoop("animation.otarocyon.sit");
@@ -70,9 +70,12 @@
      private static final RawAnimation OTAROCYON_LEAP_START = RawAnimation.begin().thenLoop("animation.otarocyon.leap_start");
      private static final RawAnimation OTAROCYON_LEAP_HOLD = RawAnimation.begin().thenLoop("animation.otarocyon.leap_hold");
 
+     private static final EntityDataAccessor<Boolean> ASLEEP = SynchedEntityData.defineId(OtarocyonEntity.class, EntityDataSerializers.BOOLEAN);
      private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(OtarocyonEntity.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Integer> SPOOKED = SynchedEntityData.defineId(OtarocyonEntity.class, EntityDataSerializers.INT);
      private Goal landTargetGoal;
+
+     public int alertTicks = 0;
 
      public float sitProgress;
      private int spookMobsTime = 0;
@@ -88,7 +91,7 @@
                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
      }
 
-     public OtarocyonEntity(EntityType<? extends TamablePrehistoricEntityOld> entityType, Level level) {
+     public OtarocyonEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
          super(entityType, level);
      }
 
@@ -106,7 +109,7 @@
          this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
          this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
          this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-         this.goalSelector.addGoal(3, new TameableFollowOwner(this, 1.2D, 5.0F, 2.0F, false));
+         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
          this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0F, 40));
          this.landTargetGoal = new NearestAttackableTargetGoal<>(this, Animal.class, 10, false, false, (entity) -> entity instanceof Chicken || entity instanceof Rabbit);
      }
@@ -163,10 +166,6 @@
      public void tick() {
          super.tick();
 
-         if(attackCooldown > 0){
-             attackCooldown--;
-         }
-
          if (this.isOrderedToSit() && sitProgress < 5F) {
              sitProgress++;
          }
@@ -183,7 +182,7 @@
          } else {
              this.crouchAmount = 0.0F;
          }
-         if(isStillEnough() && random.nextInt(500) == 0 && !this.isInSittingPose() && !this.isSwimming() && !this.isAsleep()){
+         if(isStillEnough() && random.nextInt(500) == 0 && !this.isInSittingPose() && !this.isSwimming()){
              float rand = random.nextFloat();
              if (rand < 0.2F) {
                  spookMobsTime = 40;
@@ -212,6 +211,7 @@
          super.defineSynchedData();
          this.entityData.define(COMMAND, 0);
          this.entityData.define(SPOOKED, 0);
+         this.entityData.define(ASLEEP, false);
      }
 
      public int getCommand() {
@@ -226,12 +226,14 @@
          super.addAdditionalSaveData(compound);
          compound.putInt("Command", this.getCommand());
          compound.putInt("spooked", this.spookMobsTime);
+         compound.putBoolean("sleeping", this.isAsleep());
      }
 
      public void readAdditionalSaveData(CompoundTag compound) {
          super.readAdditionalSaveData(compound);
          this.setCommand(compound.getInt("Command"));
          this.setSpooked(compound.getInt("spooked"));
+         this.setAsleep(compound.getBoolean("sleeping"));
      }
 
      @Override
@@ -240,80 +242,14 @@
      }
 
      @Override
-     protected void performAttack() {
-
-     }
-
-     @Override
-     protected SoundEvent getAttackSound() {
-         return null;
-     }
-
-     @Override
      protected int getKillHealAmount() {
          return 0;
-     }
-
-     @Override
-     protected boolean canGetHungry() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasTargets() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasAvoidEntity() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasCustomNavigation() {
-         return false;
-     }
-
-     @Override
-     protected boolean hasMakeStuckInBlock() {
-         return false;
-     }
-
-     @Override
-     protected boolean customMakeStuckInBlockCheck(BlockState blockState) {
-         return false;
-     }
-
-     @Override
-     protected TagKey<EntityType<?>> getTargetTag() {
-         return null;
      }
 
      @Nullable
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
          return UPEntities.OTAROCYON.get().create(serverLevel);
-     }
-
-     public boolean isAlliedTo(@NotNull Entity entityIn) {
-         if (this.isTame()) {
-             LivingEntity livingentity = this.getOwner();
-             if (entityIn == livingentity) {
-                 return true;
-             }
-             if (entityIn instanceof TamableAnimal) {
-                 return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
-             }
-             if (livingentity != null) {
-                 return livingentity.isAlliedTo(entityIn);
-             }
-         }
-
-         return entityIn.is(this);
-     }
-
-     private boolean isStillEnough() {
-         return this.getDeltaMovement().horizontalDistance() < 0.05;
      }
 
      protected <E extends OtarocyonEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -346,7 +282,7 @@
              event.getController().setAnimationSpeed(1.0F);
              return PlayState.CONTINUE;
          }
-         if (this.isAsleep() && !this.isInSittingPose()){
+         if (!this.isInSittingPose()){
              event.setAndContinue(OTAROCYON_SLEEP);
              event.getController().setAnimationSpeed(1.0F);
              return PlayState.CONTINUE;
@@ -357,22 +293,6 @@
 
          if(playingAnimation()) {
              return PlayState.CONTINUE;
-         }
-
-         else if (isStillEnough() && getRandomAnimationNumber() == 0 && !this.isInSittingPose() && !this.isSwimming()) {
-             int rand = getRandomAnimationNumber();
-             if (rand < 15) {
-                 setAnimationTimer(200);
-                 return event.setAndContinue(OTAROCYON_LOAF);
-             }
-             if (rand < 66) {
-                 setAnimationTimer(300);
-                 return event.setAndContinue(OTAROCYON_DIG);
-             }
-             if (rand < 77) {
-                 setAnimationTimer(300);
-                 return event.setAndContinue(OTAROCYON_YAWN);
-             }
          }
          return event.setAndContinue(OTAROCYON_IDLE);
      }
@@ -388,6 +308,16 @@
      public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
          controllers.add(new AnimationController<>(this, "Normal", 10, this::Controller));
          controllers.add(new AnimationController<>(this, "Attack", 0, this::attackController));
+     }
+
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return null;
+     }
+
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return List.of();
      }
 
      public class FoxPounceGoal extends JumpGoal {
@@ -594,5 +524,28 @@
 
      public void setSpooked(int nr) {
          this.entityData.set(SPOOKED,nr);
+     }
+
+     public boolean isAsleep() {
+         return this.entityData.get(ASLEEP);
+     }
+
+     public void setAsleep(boolean isAsleep) {
+         this.entityData.set(ASLEEP, isAsleep);
+     }
+
+     public void setAwakeTicks(int ticks) {
+         if (!this.level().isClientSide) {
+             this.alertTicks = ticks;
+         }
+     }
+
+     @Override
+     public void aiStep() {
+         super.aiStep();
+         if (this.isAsleep()) this.navigation.setSpeedModifier(0);
+         if (!this.level().isClientSide) {
+             if (this.alertTicks != 0) alertTicks--;
+         }
      }
  }
