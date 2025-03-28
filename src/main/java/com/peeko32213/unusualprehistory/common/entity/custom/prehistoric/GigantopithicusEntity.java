@@ -126,6 +126,7 @@ public class GigantopithicusEntity extends PrehistoricEntity implements IVariant
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(TRADING, false);
     }
 
     @Override
