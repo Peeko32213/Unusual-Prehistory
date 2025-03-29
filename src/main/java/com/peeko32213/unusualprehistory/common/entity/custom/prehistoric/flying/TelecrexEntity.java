@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
+package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;

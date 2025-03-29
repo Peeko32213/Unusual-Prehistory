@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry.world;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.world.feature.IceFossilFeature;
-import com.peeko32213.unusualprehistory.common.world.feature.PetrifiedTreeFeature;
+import com.peeko32213.unusualprehistory.common.world.feature.tree.PetrifiedTreeFeature;
 import com.peeko32213.unusualprehistory.common.world.feature.TarPitFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;

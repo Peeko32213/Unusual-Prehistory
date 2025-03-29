@@ -10,6 +10,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.AnurognathusEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.KimmeridgebrachypteraeschnidiumEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.PterodaustroEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.TelecrexEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.EncrustedEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.SludgeEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.*;

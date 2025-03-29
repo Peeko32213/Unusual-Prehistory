@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.block.custom.*;
 import com.peeko32213.unusualprehistory.common.block.custom.decorations.FossilDecorationBlock;
 import com.peeko32213.unusualprehistory.common.block.custom.decorations.RexHeadBlock;
 import com.peeko32213.unusualprehistory.common.block.custom.plant.*;
-import com.peeko32213.unusualprehistory.common.world.feature.DryoTreeGrower;
+import com.peeko32213.unusualprehistory.common.world.feature.tree.DryoTreeGrower;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiTreeGrower;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoTreeGrower;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;

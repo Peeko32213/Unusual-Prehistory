@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric.flying;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TelecrexEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.TelecrexEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;

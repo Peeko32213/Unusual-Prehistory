@@ -14,9 +14,7 @@ import com.peeko32213.unusualprehistory.core.registry.items.UPRecipes;
 import com.peeko32213.unusualprehistory.core.other.util.UPLootModifiers;
 import com.peeko32213.unusualprehistory.core.events.ServerEvents;
 import com.peeko32213.unusualprehistory.core.registry.*;
-import com.peeko32213.unusualprehistory.core.registry.world.UPFeatureModifiers;
-import com.peeko32213.unusualprehistory.core.registry.world.UPFeatures;
-import com.peeko32213.unusualprehistory.core.registry.world.UPTrunkPlacerType;
+import com.peeko32213.unusualprehistory.core.registry.world.*;
 import com.peeko32213.unusualprehistory.data.client.UPLanguageGenerator;
 import com.peeko32213.unusualprehistory.data.client.models.UPBlockstateGenerator;
 import com.peeko32213.unusualprehistory.data.client.models.UPItemModelGenerator;
@@ -127,6 +125,10 @@ public class UnusualPrehistory {
         UPSounds.DEF_REG.register(bus);
         UPEffects.EFFECT_DEF_REG.register(bus);
         UPRecipes.TYPE_DEF_REG.register(bus);
+
+        // Structures
+        UPStructures.STRUCTURE_TYPES.register(bus);
+        UPStructureProcessors.STRUCTURE_PROCESSORS.register(bus);
 
         //register custom registry
         UPRegistry.ENTITY_ATTACKS_TYPE_SERIALIZER.register(bus);

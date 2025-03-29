@@ -4,10 +4,10 @@
     {
       "weight": 1,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "location": "unusualprehistory:dig_sites/dig_site_0",
+        "processors": "unusualprehistory:underground_dig_site",
         "projection": "rigid",
-        "location": "unusualprehistory:dig_sites/deepslate_dig_site_0",
-        "processors": "minecraft:empty"
+        "element_type": "minecraft:single_pool_element"
       }
     }
   ]

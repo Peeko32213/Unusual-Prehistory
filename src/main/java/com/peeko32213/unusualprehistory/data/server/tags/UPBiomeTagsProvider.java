@@ -23,11 +23,8 @@ public class UPBiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvid
 
         // Feature
         tag(UPBiomeTags.HAS_GIANT_FOSSILS).addTag(BiomeTags.IS_OVERWORLD);
-
         tag(UPBiomeTags.IS_PETRIFIED_WOOD_FOREST_BIOME).addTag(BiomeTags.IS_BADLANDS).addTag(Tags.Biomes.IS_DESERT);
-
         tag(UPBiomeTags.IS_ICE_FOSSIL_ICEBERG_BIOME).add(Biomes.FROZEN_OCEAN).add(Biomes.DEEP_FROZEN_OCEAN);
-
         tag(UPBiomeTags.IS_TAR_BIOME).addTag(BiomeTags.IS_BADLANDS);
 
         // Structure

@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.world.feature;
+package com.peeko32213.unusualprehistory.common.world.feature.tree;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;

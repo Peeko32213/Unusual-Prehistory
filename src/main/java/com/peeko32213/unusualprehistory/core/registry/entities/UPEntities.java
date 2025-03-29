@@ -5,6 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PalaeophisBook
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggSize;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggVariant;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.PrehistoricEggEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.TelecrexEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TriceratopsSkeleton;
 import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.TyrannosaurusSkeleton;
 import com.peeko32213.unusualprehistory.common.entity.custom.iceberg.IcebergMammoth;

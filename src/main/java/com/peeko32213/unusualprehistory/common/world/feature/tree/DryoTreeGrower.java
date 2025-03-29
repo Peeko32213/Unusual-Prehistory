@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.world.feature;
+package com.peeko32213.unusualprehistory.common.world.feature.tree;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
