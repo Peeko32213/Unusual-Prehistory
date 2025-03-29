@@ -8,7 +8,6 @@ import com.peeko32213.unusualprehistory.client.model.entity.skeleton.Triceratops
 import com.peeko32213.unusualprehistory.client.model.entity.skeleton.TyrannosaurusSkeletonModel;
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.*;
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.aquatic.*;
-import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.flying.TelecrexModel;
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.semi_aquatic.*;
 import com.peeko32213.unusualprehistory.client.model.entity.iceberg.IcebergMammothModel;
 import com.peeko32213.unusualprehistory.client.model.entity.iceberg.IcebergSmilodonModel;
@@ -147,7 +146,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PSILOPTERUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsilopterusModel()));
         event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new PrehistoricRenderer<>(e, new SmilodonModel()));
         event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
-        event.registerEntityRenderer(UPEntities.TELECREX.get(), e -> new AgeableMobRenderer<>(e, new TelecrexModel()));
+        event.registerEntityRenderer(UPEntities.TELECREX.get(), TelecrexRenderer::new);
         event.registerEntityRenderer(UPEntities.TITANONARKE.get(), e -> new PrehistoricRenderer<>(e, new TitanonarkeModel()));
 
         // Monsters

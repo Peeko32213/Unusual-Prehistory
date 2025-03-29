@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.client.model.entity.prehistoric;
+package com.peeko32213.unusualprehistory.client.model.entity.prehistoric.aquatic;
 
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
