@@ -842,6 +842,32 @@
 				"right_leg": {
 					"rotation": ["math.sin(query.anim_time*1440)*-5", 0, 0]
 				}
+			},
+			"sound_effects": {
+				"0.0417": {
+					"effect": "telecrex_flap"
+				},
+				"0.5417": {
+					"effect": "telecrex_flap"
+				},
+				"1.0417": {
+					"effect": "telecrex_flap"
+				},
+				"1.5417": {
+					"effect": "telecrex_flap"
+				},
+				"2.0417": {
+					"effect": "telecrex_flap"
+				},
+				"2.5417": {
+					"effect": "telecrex_flap"
+				},
+				"3.0417": {
+					"effect": "telecrex_flap"
+				},
+				"3.5417": {
+					"effect": "telecrex_flap"
+				}
 			}
 		},
 		"animation.telecrex.fly": {
@@ -1000,6 +1026,23 @@
 						"4.0": ["math.sin(query.anim_time*1440)*-5", 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.1": {
+					"effect": "telecrex_flap"
+				},
+				"0.6": {
+					"effect": "telecrex_flap"
+				},
+				"1.1": {
+					"effect": "telecrex_flap"
+				},
+				"1.6": {
+					"effect": "telecrex_flap"
+				},
+				"2.1": {
+					"effect": "telecrex_flap"
+				}
 			}
 		},
 		"animation.telecrex.flyfast": {
@@ -1045,6 +1088,56 @@
 				},
 				"right_leg": {
 					"rotation": ["math.sin(query.anim_time*1440)*-5", 0, 0]
+				}
+			},
+			"sound_effects": {
+				"0.0417": {
+					"effect": "telecrex_flap"
+				},
+				"0.2917": {
+					"effect": "telecrex_flap"
+				},
+				"0.5417": {
+					"effect": "telecrex_flap"
+				},
+				"0.7917": {
+					"effect": "telecrex_flap"
+				},
+				"1.0417": {
+					"effect": "telecrex_flap"
+				},
+				"1.2917": {
+					"effect": "telecrex_flap"
+				},
+				"1.5417": {
+					"effect": "telecrex_flap"
+				},
+				"1.7917": {
+					"effect": "telecrex_flap"
+				},
+				"2.0417": {
+					"effect": "telecrex_flap"
+				},
+				"2.2917": {
+					"effect": "telecrex_flap"
+				},
+				"2.5417": {
+					"effect": "telecrex_flap"
+				},
+				"2.7917": {
+					"effect": "telecrex_flap"
+				},
+				"3.0417": {
+					"effect": "telecrex_flap"
+				},
+				"3.2917": {
+					"effect": "telecrex_flap"
+				},
+				"3.5417": {
+					"effect": "telecrex_flap"
+				},
+				"3.7917": {
+					"effect": "telecrex_flap"
 				}
 			}
 		}

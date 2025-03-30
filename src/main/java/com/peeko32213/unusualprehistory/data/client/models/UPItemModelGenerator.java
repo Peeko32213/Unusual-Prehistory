@@ -263,6 +263,7 @@ public class UPItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.OPALESCENT_SHURIKEN);
         singleTex(UPItems.ZULOGAE_DISC);
         singleTex(UPItems.ENCASED_DISC);
+        singleTex(UPItems.OPALESENCE_DISC);
         singleTex(UPItems.RAW_MAMMOTH);
         singleTex(UPItems.MAMMOTH_MEATBALL);
         singleTex(UPItems.COOKED_MAMMOTH);

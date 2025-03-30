@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-26T13:51:11.7690424	Item Models: unusualprehistory
+// 1.20.1	2025-03-29T13:22:52.1235321	Item Models: unusualprehistory
 fa55f567c295cf4dd68b82024d508fa7c97626f4 assets/unusualprehistory/models/item/amber.json
 728259086070ef1e799652ab2b9ca4701f9f0104 assets/unusualprehistory/models/item/amber_block.json
 880e29a540337d3f6b8590ec99b1b3e34d287ac0 assets/unusualprehistory/models/item/amber_fossil.json
@@ -199,6 +199,7 @@ d15e2ba850115c53cfcbdb2183716376bc3bc86f assets/unusualprehistory/models/item/me
 5fbf2721ae621ac28c31b15c5b6c89eaa6aff925 assets/unusualprehistory/models/item/nyctoraptor_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/nyctoraptor_spawn_egg.json
 d9403d8469308204410b867529097129c4d387c9 assets/unusualprehistory/models/item/opal.json
+63c4e4e7f70e99cf427289a25e4bab28d68904d2 assets/unusualprehistory/models/item/opalescence_disc.json
 374f66a66af8ec9d3f2841d79b32b4c8979f16dc assets/unusualprehistory/models/item/opalescent_pearl.json
 ac07907ace280525d01567a6bc5e614e12bd9e97 assets/unusualprehistory/models/item/opalescent_shuriken.json
 e6e3d5394bbf7c82c0dac4fb92b80af36513bbdc assets/unusualprehistory/models/item/opal_block.json

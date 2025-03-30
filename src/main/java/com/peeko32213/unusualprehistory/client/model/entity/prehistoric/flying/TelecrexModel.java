@@ -35,17 +35,10 @@ public class TelecrexModel extends GeoModel<TelecrexEntity> {
 
         CoreGeoBone head = this.getAnimationProcessor().getBone("head");
 
-        CoreGeoBone root = this.getAnimationProcessor().getBone("root");
-
-        if(animatable.isFlying() && !animatable.onGround()) {
-            root.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F))));
-            root.setRotZ(-((entityData.netHeadYaw() * ((float) Math.PI / 180F))));
-        }
-
         if (animatable.isBaby()) {
-            head.setScaleX(1.5F);
-            head.setScaleY(1.5F);
-            head.setScaleZ(1.5F);
+            head.setScaleX(1.75F);
+            head.setScaleY(1.75F);
+            head.setScaleZ(1.75F);
         } else {
             head.setScaleX(1.0F);
             head.setScaleY(1.0F);

@@ -48,6 +48,8 @@ public class UPEntityTypeTags {
     public static final TagKey<EntityType<?>> TAR_WALKABLE_ON_MOBS= entityTypeTag("tar_walkable_on_mobs");
     public static final TagKey<EntityType<?>> TAR_WALKABLE_THROUGH_MOBS= entityTypeTag("tar_walkable_through_mobs");
 
+    public static final TagKey<EntityType<?>> SCATTERS_TELECREX= entityTypeTag("scatters_telecrex");
+
     private static TagKey<EntityType<?>> entityTypeTag(String name) {
         return TagUtil.entityTypeTag(UnusualPrehistory.MODID, name);
     }

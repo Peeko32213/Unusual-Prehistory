@@ -58,6 +58,8 @@ public class UPItemTags {
 
     public static final TagKey<Item> OPAL_GEMS = itemTag("opal_gems");
 
+    public static final TagKey<Item> TELECREX_FOOD = itemTag("telecrex_food");
+
     private static TagKey<Item> itemTag(String name) {
         return TagUtil.itemTag(UnusualPrehistory.MODID, name);
     }

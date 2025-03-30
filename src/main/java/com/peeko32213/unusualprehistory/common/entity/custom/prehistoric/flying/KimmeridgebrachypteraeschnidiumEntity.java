@@ -8,6 +8,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEnt
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -32,6 +33,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -65,7 +67,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.function.IntFunction;
 
-public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IBookEntity, IVariantEntity {
+public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity implements IVariantEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Nullable
@@ -84,6 +86,21 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     private static final RawAnimation KIMMER_IDLE_1 = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.idle1");
     private static final RawAnimation KIMMER_IDLE_2 = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.idle2");
     private static final RawAnimation KIMMER_PREEN = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.preen");
+
+    // Body control / navigation
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        if(this.isFlying()) {
+            helper.bodyLagMoving = 0.05F;
+            helper.bodyLagStill = 0.1F;
+        }
+        else {
+            helper.bodyLagMoving = 0.4F;
+            helper.bodyLagStill = 0.25F;
+        }
+        return helper;
+    }
 
     public KimmeridgebrachypteraeschnidiumEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);

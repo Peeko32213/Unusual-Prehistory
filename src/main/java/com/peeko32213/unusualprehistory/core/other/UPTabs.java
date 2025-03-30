@@ -107,6 +107,7 @@ public class UPTabs {
                     // Discs
                     entries.accept(UPItems.ZULOGAE_DISC.get());
                     entries.accept(UPItems.ENCASED_DISC.get());
+                    entries.accept(UPItems.OPALESENCE_DISC.get());
 
                     // Science gadgets and stuff
                     entries.accept(UPBlocks.ANALYZER.get());

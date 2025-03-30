@@ -87,39 +87,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         }
     }
 
-    // Interact
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-        InteractionResult type = super.mobInteract(player, hand);
-
-        if (!interactionresult.consumesAction() && !type.consumesAction()) {
-            if (isTame() && isOwnedBy(player) && !isFood(itemstack) && hand == InteractionHand.MAIN_HAND) {
-                if (!player.isShiftKeyDown() && !isBaby() && isSaddled() && isTame() && isOwnedBy(player)) {
-                    if(!level().isClientSide) {
-                        player.startRiding(this);
-                    }
-                }
-                else if (canOwnerCommand(player)) {
-                    this.setCommand(this.getCommand() + 1);
-                    if (this.getCommand() == 3) {
-                        this.setCommand(0);
-                    }
-                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
-                    boolean sit = this.getCommand() == 1;
-                    if (sit) {
-                        this.setOrderedToSit(true);
-                    }
-                    else if(this.isInSittingPose()) {
-                        this.setIsStandingUp(true);
-                    }
-                    return InteractionResult.SUCCESS;
-                }
-            }
-        }
-        return type;
-    }
-
     // Heal on kill
     public void killed() {
         this.heal(getKillHealAmount());

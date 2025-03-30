@@ -234,6 +234,13 @@ public class UPItemTagsProvider extends ItemTagsProvider {
                 .add(Items.FIRE_CHARGE)
         ;
 
+        tag(UPItemTags.TELECREX_FOOD)
+                .add(Items.MELON_SEEDS)
+                .add(Items.BEETROOT_SEEDS)
+                .add(Items.PUMPKIN_SEEDS)
+                .add(Items.WHEAT_SEEDS)
+        ;
+
         tag(UPItemTags.OPAL_GEMS)
                 .add(UPItems.OPAL.get())
                 .add(UPItems.FIRE_OPAL.get())
@@ -438,6 +445,7 @@ public class UPItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.MUSIC_DISCS)
                 .add(UPItems.ZULOGAE_DISC.get())
                 .add(UPItems.ENCASED_DISC.get())
+                .add(UPItems.OPALESENCE_DISC.get())
         ;
 
         tag(ItemTags.ARROWS)

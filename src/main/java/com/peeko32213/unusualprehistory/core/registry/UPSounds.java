@@ -179,6 +179,11 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> TALPANAS_IDLE = createSoundEvent("talpanas_idle");
     public static final RegistryObject<SoundEvent> TALPANAS_PANIC = createSoundEvent("talpanas_panic");
 
+    public static final RegistryObject<SoundEvent> TELECREX_DEATH = createSoundEvent("telecrex_death");
+    public static final RegistryObject<SoundEvent> TELECREX_HURT = createSoundEvent("telecrex_hurt");
+    public static final RegistryObject<SoundEvent> TELECREX_IDLE = createSoundEvent("telecrex_idle");
+    public static final RegistryObject<SoundEvent> TELECREX_FLAP = createSoundEvent("telecrex_flap");
+
     public static final RegistryObject<SoundEvent> CROCARINA = createSoundEvent("crocarina");
 
     public static final RegistryObject<SoundEvent> BARINA_DEATH = createSoundEvent("barina_death");
@@ -195,8 +200,8 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> SMILODON_IDLE = createSoundEvent("smilodon_idle");
 
     public static final RegistryObject<SoundEvent> ZULOGAE_DISC = createSoundEvent("zulogae_disc");
-
     public static final RegistryObject<SoundEvent> ENCASED_DISC = createSoundEvent("encased_disc");
+    public static final RegistryObject<SoundEvent> OPALESENCE_DISC = createSoundEvent("opalescence_disc");
 
     public static final RegistryObject<SoundEvent> PALAEO_DEATH = createSoundEvent("palaeo_death");
     public static final RegistryObject<SoundEvent> PALAEO_BITE = createSoundEvent("palaeo_bite");

@@ -103,6 +103,7 @@ public class UPLanguageGenerator extends LanguageProvider {
 
         addItem(UPItems.ZULOGAE_DISC, "Music Disc");
         addItem(UPItems.ENCASED_DISC, "Music Disc");
+        addItem(UPItems.OPALESENCE_DISC, "Music Disc");
 
         addItem(UPItems.ANIMAL_DNA_BOTTLES, "Flask of Prehistoric Animal DNA");
         addItem(UPItems.PLANT_DNA_BOTTLES, "Flask of Prehistoric Plant DNA");
@@ -719,6 +720,11 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.TALPANAS_IDLE, "Talpanas quacks");
         addSound(UPSounds.TALPANAS_PANIC, "Talpanas panics");
 
+        addSound(UPSounds.TELECREX_DEATH, "Telecrex dies");
+        addSound(UPSounds.TELECREX_HURT, "Telecrex hurts");
+        addSound(UPSounds.TELECREX_IDLE, "Telecrex squawks");
+        addSound(UPSounds.TELECREX_FLAP, "Telecrex flaps");
+
         addSound(UPSounds.CROCARINA, "Crocarina plays");
 
         addSound(UPSounds.BARINA_DEATH, "Barinasuchus dies");
@@ -728,6 +734,7 @@ public class UPLanguageGenerator extends LanguageProvider {
 
         addSound(UPSounds.ZULOGAE_DISC, "Music Disc");
         addSound(UPSounds.ENCASED_DISC, "Music Disc");
+        addSound(UPSounds.OPALESENCE_DISC, "Music Disc");
 
         addSound(UPSounds.MEGATHER_DEATH, "Megatherium dies");
         addSound(UPSounds.MEGATHER_HURT, "Megatherium hurts");
@@ -995,6 +1002,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_3.player", "%s was shot by %s");
         add("item.unusualprehistory.zulogae_disc.desc", "Shroomy - Zulogae");
         add("item.unusualprehistory.encased_disc.desc", "TheValiantSquidward - Encased");
+        add("item.unusualprehistory.opalescence_disc.desc", "ChipsTheCat - Opalesence");
 
         add("death.attack.sludge_0.player", "%s was slapped to death by %s");
 
