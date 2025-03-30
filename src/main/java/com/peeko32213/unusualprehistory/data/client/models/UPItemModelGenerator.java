@@ -205,6 +205,8 @@ public class UPItemModelGenerator extends ItemModelProvider {
         dnaTex(UPItems.PARACER_DNA);
         dnaTex(UPItems.SMILODON_DNA);
         dnaTex(UPItems.TALPANAS_DNA);
+        dnaTex(UPItems.TELECREX_DNA);
+        dnaTex(UPItems.TITANONARKE_DNA);
         dnaTex(UPItems.ANOSTYLOSTRAMA_DNA);
         dnaTex(UPItems.ARCHAEFRUCTUS_DNA);
         dnaTex(UPItems.ARCHAO_DNA);
@@ -218,6 +220,9 @@ public class UPItemModelGenerator extends ItemModelProvider {
         dnaTex(UPItems.SARR_DNA);
         dnaTex(UPItems.ANIMAL_DNA_BOTTLES);
         dnaTex(UPItems.PLANT_DNA_BOTTLES);
+
+        // Eggs
+        eggTex(UPItems.TELECREX_EGG);
 
         // Embryos
         embryoTex(UPItems.SMILODON_EMBRYO);

@@ -245,7 +245,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addPrehistoricEgg(UPEntities.MEGALANIA, "Megalania Egg");
         addPrehistoricEgg(UPEntities.PSILOPTERUS, "Psilopterus Egg");
         addPrehistoricEgg(UPEntities.TALPANAS, "Talpanas Egg");
-        addPrehistoricEgg(UPEntities.TELECREX, "Telecrex Egg");
 
         // Spawn eggs
         addItem(UPItems.AMMON_SPAWN_EGG, "Ammonite Spawn Egg");
@@ -314,6 +313,9 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.SCHLUMBERGERITES_SPAWN_EGG, "Schlumbergerites Spawn Egg");
         addItem(UPItems.TITANONARKE_SPAWN_EGG, "Titanonarke Spawn Egg");
 
+        // Eggs
+        addItem(UPItems.TELECREX_EGG, "Telecrex Egg");
+
         //TAR
         addBlock(UPBlocks.TAR, "Tar Block");
         addBlock(UPBlocks.SPLATTERED_TAR, "Splattered Tar");
@@ -381,6 +383,8 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.PALAEO_DNA, "Bottle of Palaeolophis DNA");
         addItem(UPItems.MEGALANIA_DNA, "Bottle of Megalania DNA");
         addItem(UPItems.TALPANAS_DNA, "Bottle of Talpanas DNA");
+        addItem(UPItems.TELECREX_DNA, "Bottle of Telecrex DNA");
+        addItem(UPItems.TITANONARKE_DNA, "Bottle of Titanonarke DNA");
         addItem(UPItems.ZULOAGAE_DNA, "Bottle of Zuloagae DNA");
         addItem(UPItems.RAIGUENRAYUN_DNA, "Bottle of Raiguenrayun DNA");
         addItem(UPItems.FOXII_DNA, "Bottle of Foxii DNA");

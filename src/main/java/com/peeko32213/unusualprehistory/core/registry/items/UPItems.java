@@ -142,6 +142,8 @@ public class UPItems {
     public static final RegistryObject<Item> PARACER_DNA = ITEMS.register("paraceratherium_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SMILODON_DNA = ITEMS.register("smilodon_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TALPANAS_DNA = ITEMS.register("talpanas_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TELECREX_DNA = ITEMS.register("telecrex_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TITANONARKE_DNA = ITEMS.register("titanonarke_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> OTAROCYON_DNA = ITEMS.register("otarocyon_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PSILO_DNA = ITEMS.register("psilopterus_dna_bottle", () -> new Item(new Item.Properties()));
 
@@ -283,6 +285,9 @@ public class UPItems {
     public static final RegistryObject<ForgeSpawnEggItem> ULUG_SPAWN_EGG = registerSpawnEggs("ulughbegsaurus_spawn_egg", UPEntities.ULUG , 0x6e5953, 0x466dc2);
     public static final RegistryObject<ForgeSpawnEggItem> VELOCIRAPTOR_SPAWN_EGG = registerSpawnEggs("velociraptor_spawn_egg", UPEntities.VELOCIRAPTOR, 0xdfd9c7, 0x4a4242);
     public static final RegistryObject<ForgeSpawnEggItem> XIPH_SPAWN_EGG = registerSpawnEggs("xiphactinus_spawn_egg", UPEntities.XIPH , 0x9eacbe, 0x21262a);
+
+    // Eggs
+    public static final RegistryObject<Item> TELECREX_EGG = ITEMS.register("telecrex_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
 
     public static final RegistryObject<Item> MAJUNGA_HELMET = ITEMS.register("majungasaurus_helmet", () -> new MajungasaurusHelmetItem(UPArmorMaterial.MAJUNGA, ArmorItem.Type.HELMET, new Item.Properties(), 3.0));
 

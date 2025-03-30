@@ -356,10 +356,9 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "talpanas").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x2b211c, 0x8ca6ad);
 
-    public static final RegistryObject<EntityType<TelecrexEntity>> TELECREX = registerPrehistoricCreatureWithEgg("telecrex",
+    public static final RegistryObject<EntityType<TelecrexEntity>> TELECREX = ENTITIES.register("telecrex",
             () -> EntityType.Builder.of(TelecrexEntity::new, MobCategory.CREATURE).sized(0.7F, 1.1F)
-                    .build(new ResourceLocation(UnusualPrehistory.MODID, "telecrex").toString()),
-            EggSize.SMALL, EggVariant.SPOTS, 1200, 0x423025, 0xbcab39);
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "telecrex").toString()));
 
     public static final RegistryObject<EntityType<TitanonarkeEntity>> TITANONARKE = ENTITIES.register("titanonarke",
             () -> EntityType.Builder.of(TitanonarkeEntity::new, MobCategory.CREATURE).sized(1.5F, 0.35F)
@@ -375,7 +374,7 @@ public class UPEntities {
             () -> EntityType.Builder.of(SludgeEntity::new, MobCategory.MONSTER).sized(2.0f, 2.0f)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "sludge").toString()));
 
-    // Non-living mobs
+    // Non-living entities
     public static final RegistryObject<EntityType<AmberShotEntity>> AMBER_SHOT = ENTITIES.register(
             "amber_shot", () -> EntityType.Builder.<AmberShotEntity>of(AmberShotEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).clientTrackingRange(9)
@@ -414,8 +413,10 @@ public class UPEntities {
                     .sized(2, 2)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "palaeo_book_palaeo").toString()));
 
-    //Plants
+    // Eggs
+    public static final RegistryObject<EntityType<TelecrexEgg>> TELECREX_EGG = ENTITIES.register("telecrex_egg", () -> registerEntity(EntityType.Builder.of(TelecrexEgg::new, MobCategory.MISC).sized(0.25F, 0.25F).setCustomClientFactory(TelecrexEgg::new).fireImmune(), "telecrex_egg"));
 
+    // Plants
     public static final RegistryObject<EntityType<EntityPlant>> FOXXI_SAPLING = ENTITIES.register("foxxi_sapling",
             () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
                     .noSummon()
@@ -538,6 +539,10 @@ public class UPEntities {
             () -> EntityType.Builder.<PrehistoricEggEntity>of(PrehistoricEggEntity::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F)
                     .build(modPrefix("prehistoric_egg").toString()));
+
+    private static EntityType registerEntity(EntityType.Builder builder, String entityName) {
+        return builder.build(entityName);
+    }
 
     private static <T extends EntityType<?>> RegistryObject<T> registerPrehistoricCreatureWithEgg(String name, Supplier<? extends T> entity, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor) {
         RegistryObject<T> prehistoric = ENTITIES.register(name, entity);

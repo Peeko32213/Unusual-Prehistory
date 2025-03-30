@@ -65,6 +65,8 @@ public class UPItemTagsProvider extends ItemTagsProvider {
                 .add(UPItems.ENCRUSTED_DNA.get())
                 .add(UPItems.GIGANTO_DNA.get())
                 .add(UPItems.SMILODON_DNA.get())
+                .add(UPItems.TELECREX_DNA.get())
+                .add(UPItems.TITANONARKE_DNA.get())
                 .add(UPItems.MEGATHERIUM_DNA.get())
                 .add(UPItems.PARACER_DNA.get())
                 .add(UPItems.MAMMOTH_DNA.get())

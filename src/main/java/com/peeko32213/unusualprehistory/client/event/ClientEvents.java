@@ -170,6 +170,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.OPALESCENT_SHURIKEN.get(), OpalescentShurikenRenderer::new);
         event.registerEntityRenderer(UPEntities.PSITTACCO_ARROW.get(), PsittaccoArrowRenderer::new);
         event.registerEntityRenderer(UPEntities.THROWABLE_FALLING_BLOCK.get(), ThrowableFallingBlockRenderer::new);
+        event.registerEntityRenderer(UPEntities.TELECREX_EGG.get(), ThrownItemRenderer::new);
 
         // Eggs
         event.registerEntityRenderer(UPEntities.PREHISTORIC_EGG.get(), e -> new PrehistoricEggRenderer(e, new PrehistoricEggModel()));

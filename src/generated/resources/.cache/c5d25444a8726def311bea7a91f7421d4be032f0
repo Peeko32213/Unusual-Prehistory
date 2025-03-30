@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-29T13:22:52.1235321	Item Models: unusualprehistory
+// 1.20.1	2025-03-30T10:38:14.0119414	Item Models: unusualprehistory
 fa55f567c295cf4dd68b82024d508fa7c97626f4 assets/unusualprehistory/models/item/amber.json
 728259086070ef1e799652ab2b9ca4701f9f0104 assets/unusualprehistory/models/item/amber_block.json
 880e29a540337d3f6b8590ec99b1b3e34d287ac0 assets/unusualprehistory/models/item/amber_fossil.json
@@ -309,8 +309,10 @@ c47430a2a6870647bb039f5985ca5ce447f19cb1 assets/unusualprehistory/models/item/ta
 61e20025740d2c542054fe7894e9727fe2039318 assets/unusualprehistory/models/item/tartuosteus_dna_bottle.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/tartuosteus_spawn_egg.json
 1681711c9e3bd0b90ecdbc6a635f6b369f1a437d assets/unusualprehistory/models/item/tar_fossil.json
+4066a9b3f07590491506e8fdc96e54aa3d222e4d assets/unusualprehistory/models/item/telecrex_dna_bottle.json
 787f0cf57dd3e75cd54009a6e0ee3a46da6e30a1 assets/unusualprehistory/models/item/telecrex_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/telecrex_spawn_egg.json
+43db5fece653d83c8b76aba82526d9ea08c0d09a assets/unusualprehistory/models/item/titanonarke_dna_bottle.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/titanonarke_spawn_egg.json
 0c6170c1f224978bf00967d53515bad8386f8042 assets/unusualprehistory/models/item/triceratops_dna_bottle.json
 f601681a87507a216107a40da9acc9903c9b917e assets/unusualprehistory/models/item/triceratops_horn.json

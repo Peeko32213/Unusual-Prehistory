@@ -281,6 +281,8 @@ public class UPTabs {
                     entries.accept(UPItems.PSILO_DNA.get());
                     entries.accept(UPItems.SMILODON_DNA.get());
                     entries.accept(UPItems.TALPANAS_DNA.get());
+                    entries.accept(UPItems.TELECREX_DNA.get());
+                    entries.accept(UPItems.TITANONARKE_DNA.get());
 
                     // Plant DNA
                     entries.accept(UPItems.ANOSTYLOSTRAMA_DNA.get());
@@ -311,6 +313,9 @@ public class UPTabs {
                     entries.accept(UPBlocks.ERYON_EGGS.get());
                     entries.accept(UPBlocks.KIMMER_EGGS.get());
                     entries.accept(UPBlocks.OPHIDION_EGGS.get());
+
+                    // Eggs
+                    entries.accept(UPItems.TELECREX_EGG.get());
 
                     // Entity eggs
                     UPItems.ITEMS.getEntries().forEach(eggItem ->{

@@ -1,4 +1,25 @@
 {
   "input": ["unusualprehistory:tar_fossil"],
-  "entries": []
+  "entries": [
+    {
+      "weight": 50,
+      "item": "minecraft:bone"
+    },
+    {
+      "weight": 40,
+      "item": "minecraft:dirt"
+    },
+    {
+      "weight": 30,
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:telecrex_dna_bottle"
+    },
+    {
+      "weight": 15,
+      "item": "unusualprehistory:titanonarke_dna_bottle"
+    }
+  ]
 }
