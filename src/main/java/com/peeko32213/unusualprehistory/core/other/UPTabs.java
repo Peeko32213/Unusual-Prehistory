@@ -246,10 +246,9 @@ public class UPTabs {
                     entries.accept(UPItems.BALAUR_DNA.get());
                     entries.accept(UPItems.BEELZ_DNA.get());
                     entries.accept(UPItems.BRACHI_DNA.get());
-                    entries.accept(UPItems.ENCRUSTED_DNA.get());
                     entries.accept(UPItems.ERYON_DNA.get());
                     entries.accept(UPItems.GLOBIDENS_DNA.get());
-                    entries.accept(UPItems.HWACHA_DNA.get());
+                    entries.accept(UPItems.GUANLINGSAURUS_DNA.get());
                     entries.accept(UPItems.KAPRO_DNA.get());
                     entries.accept(UPItems.KENTRO_DNA.get());
                     entries.accept(UPItems.KIMMER_DNA.get());
@@ -258,9 +257,12 @@ public class UPTabs {
                     entries.accept(UPItems.MAJUNGA_DNA.get());
                     entries.accept(UPItems.OVIRAPTOR_DNA.get());
                     entries.accept(UPItems.PACHY_DNA.get());
+                    entries.accept(UPItems.PANACANTHOCARIS_DNA.get());
+                    entries.accept(UPItems.PROSCINETES_DNA.get());
                     entries.accept(UPItems.PROTOSPHYRAENA_DNA.get());
                     entries.accept(UPItems.PSITTACO_DNA.get());
                     entries.accept(UPItems.PTERODAUSTRO_DNA.get());
+                    entries.accept(UPItems.SCHLUMBERGERITES_DNA.get());
                     entries.accept(UPItems.TANY_DNA.get());
                     entries.accept(UPItems.TRIKE_DNA.get());
                     entries.accept(UPItems.TYRANNO_DNA.get());
@@ -268,10 +270,17 @@ public class UPTabs {
                     entries.accept(UPItems.VELOCI_DNA.get());
                     entries.accept(UPItems.XIPHACT_DNA.get());
 
+                    // Creatures of mesozoic fiction DNA
+                    entries.accept(UPItems.ENCRUSTED_DNA.get());
+                    entries.accept(UPItems.HWACHA_DNA.get());
+                    entries.accept(UPItems.NYCTORAPTOR_DNA.get());
+
                     // Ceno DNA
                     entries.accept(UPItems.BARINA_DNA.get());
+                    entries.accept(UPItems.CORONODON_DNA.get());
                     entries.accept(UPItems.GIGANTO_DNA.get());
                     entries.accept(UPItems.MAMMOTH_DNA.get());
+                    entries.accept(UPItems.MEGALAMPRIS_DNA.get());
                     entries.accept(UPItems.MEGALANIA_DNA.get());
                     entries.accept(UPItems.MEGATHERIUM_DNA.get());
                     entries.accept(UPItems.OPHIO_DNA.get());
@@ -285,21 +294,25 @@ public class UPTabs {
                     entries.accept(UPItems.TITANONARKE_DNA.get());
 
                     // Plant DNA
-                    entries.accept(UPItems.ANOSTYLOSTRAMA_DNA.get());
-                    entries.accept(UPItems.ARCHAEFRUCTUS_DNA.get());
                     entries.accept(UPItems.ARCHAO_DNA.get());
                     entries.accept(UPItems.BENNET_DNA.get());
-                    entries.accept(UPItems.CLATHRODICTYON_DNA.get());
                     entries.accept(UPItems.DRYO_DNA.get());
                     entries.accept(UPItems.FOXII_DNA.get());
                     entries.accept(UPItems.GINKGO_DNA.get());
                     entries.accept(UPItems.HORSETAIL_DNA.get());
                     entries.accept(UPItems.LEEFRUCTUS_DNA.get());
-                    entries.accept(UPItems.NELUMBITES_DNA.get());
-                    entries.accept(UPItems.QUEREUXIA_DNA.get());
                     entries.accept(UPItems.RAIGUENRAYUN_DNA.get());
                     entries.accept(UPItems.SARR_DNA.get());
                     entries.accept(UPItems.ZULOAGAE_DNA.get());
+
+                    // Water plant DNA
+                    entries.accept(UPItems.ARCHAEFRUCTUS_DNA.get());
+                    entries.accept(UPItems.NELUMBITES_DNA.get());
+                    entries.accept(UPItems.QUEREUXIA_DNA.get());
+
+                    // Coral DNA
+                    entries.accept(UPItems.ANOSTYLOSTRAMA_DNA.get());
+                    entries.accept(UPItems.CLATHRODICTYON_DNA.get());
 
                     // Water eggs
                     entries.accept(UPBlocks.AMON_EGGS.get());

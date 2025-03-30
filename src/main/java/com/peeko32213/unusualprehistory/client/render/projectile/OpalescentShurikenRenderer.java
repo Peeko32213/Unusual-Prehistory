@@ -9,8 +9,9 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,9 +40,26 @@ public class OpalescentShurikenRenderer extends EntityRenderer<OpalescentShurike
             matrixStackIn.scale(this.scale, this.scale, this.scale);
             matrixStackIn.scale(shurikenScale, shurikenScale, shurikenScale);
 
-            matrixStackIn.mulPose(Axis.XP.rotationDegrees(90));
-            matrixStackIn.mulPose(Axis.ZP.rotationDegrees(-(entity.tickCount + partialTicks) * 40 % 360));
-            matrixStackIn.translate(-0.03125, -0.09375, 0);
+            if(!entity.inGround) {
+                matrixStackIn.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) - 90.0F));
+                matrixStackIn.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot())));
+                matrixStackIn.mulPose(Axis.ZP.rotationDegrees(-135.0F));
+
+                matrixStackIn.mulPose(Axis.YP.rotationDegrees(180.0F));
+                matrixStackIn.translate(0.0F, -0.175F, 0.0F);
+
+                matrixStackIn.mulPose(Axis.ZP.rotationDegrees(-(entity.tickCount + partialTicks) * 90 % 360));
+            }
+            else {
+                matrixStackIn.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) - 90.0F));
+                matrixStackIn.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot())));
+                matrixStackIn.mulPose(Axis.ZP.rotationDegrees(-135.0F));
+
+                matrixStackIn.mulPose(Axis.YP.rotationDegrees(180.0F));
+                matrixStackIn.translate(0.0F, -0.175F, 0.0F);
+            }
+
+
             this.itemRenderer.renderStatic(entity.getItem(), ItemDisplayContext.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn, entity.level(), entity.getId());
             matrixStackIn.popPose();
             super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
@@ -49,7 +67,7 @@ public class OpalescentShurikenRenderer extends EntityRenderer<OpalescentShurike
     }
 
     @Override
-    public ResourceLocation getTextureLocation(OpalescentShuriken entity) {
-        return InventoryMenu.BLOCK_ATLAS;
+    public ResourceLocation getTextureLocation(OpalescentShuriken shuriken) {
+        return TextureAtlas.LOCATION_BLOCKS;
     }
 }

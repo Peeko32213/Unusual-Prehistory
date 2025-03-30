@@ -103,6 +103,13 @@ public class UPItemTagsProvider extends ItemTagsProvider {
                 .add(UPItems.GLOBIDENS_DNA.get())
                 .add(UPItems.ARCHELON_DNA.get())
                 .add(UPItems.ESTEMMENO_DNA.get())
+                .add(UPItems.GUANLINGSAURUS_DNA.get())
+                .add(UPItems.MEGALAMPRIS_DNA.get())
+                .add(UPItems.NYCTORAPTOR_DNA.get())
+                .add(UPItems.PANACANTHOCARIS_DNA.get())
+                .add(UPItems.PROSCINETES_DNA.get())
+                .add(UPItems.CORONODON_DNA.get())
+                .add(UPItems.SCHLUMBERGERITES_DNA.get())
         ;
 
         tag(UPItemTags.FOSSILS)

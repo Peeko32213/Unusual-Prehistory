@@ -105,36 +105,43 @@ public class UPItems {
     public static final RegistryObject<Item> ANTARCTO_DNA = ITEMS.register("antarctopelta_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ANURO_DNA = ITEMS.register("anurognathus_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> AUSTRO_DNA = ITEMS.register("austroraptor_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> BALAUR_DNA = ITEMS.register("balaur_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> BEELZ_DNA = ITEMS.register("beelzebufo_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> BRACHI_DNA = ITEMS.register("brachiosaurus_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ENCRUSTED_DNA = ITEMS.register("encrusted_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ERYON_DNA = ITEMS.register("eryon_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GLOBIDENS_DNA = ITEMS.register("globidens_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GUANLINGSAURUS_DNA = ITEMS.register("guanlingsaurus_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> HWACHA_DNA = ITEMS.register("hwachavenator_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> KENTRO_DNA = ITEMS.register("kentrosaurus_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> KIMMER_DNA = ITEMS.register("kimmeridgebrachypteraeschnidium_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MAJUNGA_DNA = ITEMS.register("majungasaurus_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> NYCTORAPTOR_DNA = ITEMS.register("nyctoraptor_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PACHY_DNA = ITEMS.register("pachycephalosaurus_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PANACANTHOCARIS_DNA = ITEMS.register("panacanthocaris_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PROSCINETES_DNA = ITEMS.register("proscinetes_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PROTOSPHYRAENA_DNA = ITEMS.register("protosphyraena_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TRIKE_DNA = ITEMS.register("triceratops_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TYRANNO_DNA = ITEMS.register("tyrannosaurus_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ULUGH_DNA = ITEMS.register("ulughbegsaurus_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> VELOCI_DNA = ITEMS.register("velociraptor_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> OVIRAPTOR_DNA = ITEMS.register("oviraptor_dna_bottle", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> GLOBIDENS_DNA = ITEMS.register("globidens_dna_bottle", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> XIPHACT_DNA = ITEMS.register("xiphactinus_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> LEEDS_DNA = ITEMS.register("leedsichthys_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> LONGI_DNA = ITEMS.register("longisquama_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> KAPRO_DNA = ITEMS.register("kaprosuchus_dna_bottle", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> BALAUR_DNA = ITEMS.register("balaur_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PTERODAUSTRO_DNA = ITEMS.register("pterodaustro_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ARCHELON_DNA = ITEMS.register("archelon_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PSITTACO_DNA = ITEMS.register("psittacosaurus_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TANY_DNA = ITEMS.register("tanystropheus_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> XIPHACT_DNA = ITEMS.register("xiphactinus_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SCHLUMBERGERITES_DNA = ITEMS.register("schlumbergerites_dna_bottle", () -> new Item(new Item.Properties()));
 
     // Ceno dna
     public static final RegistryObject<Item> BARINA_DNA = ITEMS.register("barinasuchus_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CORONODON_DNA = ITEMS.register("coronodon_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GIGANTO_DNA = ITEMS.register("gigantopithecus_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MAMMOTH_DNA = ITEMS.register("mammoth_dna_bottle", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MEGALAMPRIS_DNA = ITEMS.register("megalampris_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MEGALANIA_DNA = ITEMS.register("megalania_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MEGATHERIUM_DNA = ITEMS.register("megatherium_dna_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> OPHIO_DNA = ITEMS.register("ophiodon_ozymandias_dna_bottle", () -> new Item(new Item.Properties()));
@@ -331,7 +338,7 @@ public class UPItems {
 
     public static final RegistryObject<Item> OPALESCENT_PEARL =  ITEMS.register("opalescent_pearl", () -> new OpalescentPearlItem((new Item.Properties()).stacksTo(16)));
 
-    public static final RegistryObject<Item> OPALESCENT_SHURIKEN =  ITEMS.register("opalescent_shuriken", () -> new OpalescentShurikenItem((new Item.Properties()).stacksTo(16)));
+    public static final RegistryObject<Item> OPALESCENT_SHURIKEN =  ITEMS.register("opalescent_shuriken", () -> new OpalescentShurikenItem((new Item.Properties()).stacksTo(64)));
 
     public static final RegistryObject<Item> SMILO_FUR = ITEMS.register("smilodon_fur", () -> new Item(new Item.Properties()));
 
@@ -351,15 +358,13 @@ public class UPItems {
     
     public static final RegistryObject<Item> PSITTACOSAURUS_QUILL = ITEMS.register("psittacosaurus_quill", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> YIXIAN_RAMPAGE_BOTTLE = ITEMS.register("yixian_rampage_bottle", () -> new RabiesFlaskItem((new Item.Properties()).stacksTo(16), true, false));
+    public static final RegistryObject<Item> YIXIAN_RAMPAGE_BOTTLE = ITEMS.register("yixian_rampage_bottle", () -> new RabiesFlaskItem((new Item.Properties()).stacksTo(16)));
     public static final RegistryObject<Item> DORMANT_RAMPAGE_BOTTLE = ITEMS.register("dormant_rampage_bottle", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("jawless_fish_bucket", () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> QUILL_REMEDY = ITEMS.register("quill_remedy", () -> new RampageRemedyItem(new Item.Properties()));
-
     public static final RegistryObject<Item> AMBER_IDOL = ITEMS.register("amber_idol", () -> new Item(new Item.Properties()));
-
     public static final RegistryObject<Item> PSITTACCO_ARROW = ITEMS.register("psittacosaurus_arrow", () -> new PsittaccoArrow(new Item.Properties()));
 
     private static RegistryObject<ForgeSpawnEggItem> registerSpawnEggs(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {

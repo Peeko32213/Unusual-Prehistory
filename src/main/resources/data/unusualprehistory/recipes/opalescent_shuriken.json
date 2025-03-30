@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " O ",
-    "OOO",
+    "O O",
     " O "
   ],
   "key": {

@@ -179,6 +179,9 @@ public class TelecrexEntity extends PrehistoricEntity {
         if (this.isFlying()) {
             helper.bodyLagMoving = 0.02F;
             helper.bodyLagStill = 0.08F;
+        } else if (this.isSprinting() && !this.isFlying()) {
+            helper.bodyLagMoving = 0.65F;
+            helper.bodyLagStill = 0.3F;
         } else {
             helper.bodyLagMoving = 0.5F;
             helper.bodyLagStill = 0.25F;

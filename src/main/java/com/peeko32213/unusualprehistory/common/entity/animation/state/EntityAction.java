@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.common.entity.animation.state;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.core.registry.entities.EntityActionsRegistry;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntityActionsRegistry;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.function.Consumer;
@@ -11,7 +11,7 @@ public class EntityAction {
     public static final Codec<EntityAction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("time_to_perform_action").forGetter(EntityAction::getTimeToPerformAction),
             Codec.INT.fieldOf("times_to_perform").forGetter(EntityAction::getTimesToPerform),
-            EntityActionsRegistry.CODEC.fieldOf("action_id").forGetter(EntityAction::getAction)
+            UPEntityActionsRegistry.CODEC.fieldOf("action_id").forGetter(EntityAction::getAction)
     ).apply(instance, EntityAction::new));
 
     private final int timeToPerformAction;
@@ -45,6 +45,6 @@ public class EntityAction {
     }
 
     public static EntityAction getDefaultInstance() {
-        return new EntityAction(0,1, EntityActionsRegistry.DEFAULT);
+        return new EntityAction(0,1, UPEntityActionsRegistry.DEFAULT);
     }
 }

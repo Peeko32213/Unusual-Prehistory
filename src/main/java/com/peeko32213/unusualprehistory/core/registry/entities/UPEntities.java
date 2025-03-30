@@ -104,7 +104,7 @@ public class UPEntities {
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hyneria").toString()));
 
     public static final RegistryObject<EntityType<HynerpetonEntity>> HYNERPETON = registerPrehistoricCreatureWithEgg("hynerpteon",
-            () -> EntityType.Builder.of(HynerpetonEntity::new, MobCategory.CREATURE).sized(3.0F, 3.25F)
+            () -> EntityType.Builder.of(HynerpetonEntity::new, MobCategory.CREATURE).sized(1.2F, 0.9F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "hynerpteon").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x140f0e, 0xc8b523);
 

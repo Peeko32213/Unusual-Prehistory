@@ -399,6 +399,8 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.EDAPHO_DNA, "Bottle of Edaphosaurus DNA");
         addItem(UPItems.OVIRAPTOR_DNA, "Bottle of Oviraptor DNA");
         addItem(UPItems.GLOBIDENS_DNA, "Bottle of Globidens DNA");
+        addItem(UPItems.GUANLINGSAURUS_DNA, "Bottle of Guanlingsaurus DNA");
+        addItem(UPItems.MEGALAMPRIS_DNA, "Bottle of Megalampris DNA");
         addItem(UPItems.OTAROCYON_DNA, "Bottle of Otarocyon DNA");
         addItem(UPItems.LONGI_DNA, "Bottle of Longisquama DNA");
         addItem(UPItems.JAWLESS_FISH_DNA, "Bottle of Furcacauda DNA");
@@ -413,6 +415,11 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.PTERODAUSTRO_DNA, "Bottle of Pterodaustro DNA");
         addItem(UPItems.ARCHELON_DNA, "Bottle of Archelon DNA");
         addItem(UPItems.PROTOSPHYRAENA_DNA, "Bottle of Protosphyraena DNA");
+        addItem(UPItems.NYCTORAPTOR_DNA, "Bottle of Nyctoraptor DNA");
+        addItem(UPItems.PANACANTHOCARIS_DNA, "Bottle of Panacanthocaris DNA");
+        addItem(UPItems.PROSCINETES_DNA, "Bottle of Proscinetes DNA");
+        addItem(UPItems.CORONODON_DNA, "Bottle of Coronodon DNA");
+        addItem(UPItems.SCHLUMBERGERITES_DNA, "Bottle of Schlumbergerites DNA");
 
         //CORALS
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");

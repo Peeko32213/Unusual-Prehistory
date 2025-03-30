@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
-import com.peeko32213.unusualprehistory.common.data.PrehistoricEntityJsonDataManager;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaCodec;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaJsonManager;
@@ -140,7 +139,6 @@ public class ServerEvents {
         event.addListener(new AnalyzerRecipeJsonManager());
         event.addListener(new LootFruitJsonManager());
         event.addListener(new EncyclopediaJsonManager());
-        event.addListener(new PrehistoricEntityJsonDataManager());
     }
 
     @SubscribeEvent
@@ -178,7 +176,7 @@ public class ServerEvents {
 
                 if (offender instanceof LivingEntity && ((LivingEntity) offender).hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
                     //rabies spread
-                    entity.addEffect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), -1));
+                    entity.addEffect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), 120000));
                     event.setAmount(event.getAmount()/4);
                     //rabid animals only deal quarter damage to each other
                 }
@@ -303,8 +301,6 @@ public class ServerEvents {
         }
     }
 
-    // Unfinished piss and rabies
-
     //This is already added  to the entity no need to check it every tick
     //@SubscribeEvent
     ////cant be canceled
@@ -325,10 +321,6 @@ public class ServerEvents {
 
     @SubscribeEvent
     public void thingsThatCannotBeMilkedEvent(MobEffectEvent.Remove event) {
-        if (event.getEffect() instanceof RampageEffect && !event.getEntity().hasEffect(UPEffects.RABIES_VACCINE.get())) {
-            //rabies can't be milked away unless you are vaccinated
-            event.setCanceled(true);
-        }
 
         if (event.getEffect() instanceof RampageRemedyEffect) {
 
@@ -339,7 +331,6 @@ public class ServerEvents {
                         capability.playerVaccinationTime = 0;
                         System.out.println(capability.playerVaccinationTime);
                     }
-                    //set vac time to 0 if the player has no vacc effect
 
                 });
 

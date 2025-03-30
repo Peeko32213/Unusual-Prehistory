@@ -11,20 +11,14 @@ import java.util.function.Consumer;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
-public class EntityActionsRegistry {
+public class UPEntityActionsRegistry {
     private static final BiMap<ResourceLocation, Consumer<LivingEntity>> ACTIONS = HashBiMap.create();
 
-
-
     public static Consumer<LivingEntity> DEFAULT = entity -> {};
-
-
 
     public static void register() {
         register(modPrefix("default"), DEFAULT);
     }
-
-
 
     public static void register(ResourceLocation id, Consumer<LivingEntity> action) {
         ACTIONS.put(id, action);

@@ -2,8 +2,6 @@ package com.peeko32213.unusualprehistory;
 
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
 import com.peeko32213.unusualprehistory.common.data.PrehistoricEgg;
-import com.peeko32213.unusualprehistory.common.data.attack.EntityAttack;
-import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedDataRegistry;
 import com.peeko32213.unusualprehistory.core.other.UPTabs;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockSubRegistryHelper;
@@ -19,8 +17,6 @@ import com.peeko32213.unusualprehistory.data.client.UPLanguageGenerator;
 import com.peeko32213.unusualprehistory.data.client.models.UPBlockstateGenerator;
 import com.peeko32213.unusualprehistory.data.client.models.UPItemModelGenerator;
 import com.peeko32213.unusualprehistory.data.UPDatapackBuiltinEntriesProvider;
-import com.peeko32213.unusualprehistory.data.server.entitydata.UPEntityDataGenerator;
-import com.peeko32213.unusualprehistory.data.server.entitydata.UPEntityGoalGenerator;
 import com.peeko32213.unusualprehistory.data.server.loot.UPGlobalLootModifiersProvider;
 import com.peeko32213.unusualprehistory.data.server.loot.UPLootProvider;
 import com.peeko32213.unusualprehistory.data.server.recipes.UPRecipeGenerator;
@@ -102,7 +98,6 @@ public class UnusualPrehistory {
 
         context.registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.COMMON);
 
-        EntityActionsRegistry.register();
         REGISTRY_HELPER.register(bus);
 
         // Register stuff
@@ -130,18 +125,8 @@ public class UnusualPrehistory {
         UPStructures.STRUCTURE_TYPES.register(bus);
         UPStructureProcessors.STRUCTURE_PROCESSORS.register(bus);
 
-        //register custom registry
-        UPRegistry.ENTITY_ATTACKS_TYPE_SERIALIZER.register(bus);
-        UPAttackRegistry.ENTITY_ATTACK.register(bus);
-
-
-        //Register goalsmith goals
-        UPGoalRegistry.GOAL_TYPE_SERIALIZER.register(bus);
-        UPSpawnPredicateRegistry.PREDICATE_SERIALIZER.register(bus);
-
         bus.addListener((DataPackRegistryEvent.NewRegistry event) -> {
             event.dataPackRegistry(UPRegistry.Keys.PREHISTORIC_EGG, PrehistoricEgg.CODEC);
-            event.dataPackRegistry(UPRegistry.Keys.ENTITY_ATTACKS, EntityAttack.DIRECT_CODEC);
         });
 
 
@@ -158,7 +143,6 @@ public class UnusualPrehistory {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             UPEntityPlacement.entityPlacement();
-            SerializableSynchedDataRegistry.register();
         });
         UPMessages.register();
     }
@@ -189,9 +173,7 @@ public class UnusualPrehistory {
         generator.addProvider(server, new UPRecipeGenerator(output));
         generator.addProvider(server, new UPPaintingTagsProvider(output, provider, helper));
         generator.addProvider(server, UPLootProvider.create(output));
-        generator.addProvider(server, new UPEntityGoalGenerator(output));
         generator.addProvider(server, new UPInstrumentTagsProvider(output, provider,helper));
-        generator.addProvider(server, new UPEntityDataGenerator(output));
         generator.addProvider(server, new UPGlobalLootModifiersProvider(output));
 //        generator.addProvider(true,new AdvancementProvider(packOutput, provider, helper));
 //        generator.addProvider(event.includeServer(), new DamageTypeTagsGenerator(packOutput, lookupProvider, helper));

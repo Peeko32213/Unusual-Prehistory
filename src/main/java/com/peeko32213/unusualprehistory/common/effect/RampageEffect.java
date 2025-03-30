@@ -10,8 +10,10 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.UUID;
 
 public class RampageEffect extends MobEffect {
@@ -89,5 +91,9 @@ public class RampageEffect extends MobEffect {
 
     public @NotNull String getDescriptionId() {
         return "unusualprehistory.potion.rampage";
+    }
+
+    public List<ItemStack> getCurativeItems() {
+        return List.of();
     }
 }

@@ -21,7 +21,8 @@ public class RampageRemedyItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
         if (!pInteractionTarget.hasEffect(UPEffects.RABIES_VACCINE.get())) {
-            pInteractionTarget.addEffect(new MobEffectInstance(UPEffects.RABIES_VACCINE.get(), -1));
+            pInteractionTarget.addEffect(new MobEffectInstance(UPEffects.RABIES_VACCINE.get(), 1800));
+            pInteractionTarget.removeEffect(UPEffects.YIXIAN_RAMPAGE.get());
             pStack.shrink(1);
             pPlayer.addItem(new ItemStack(UPItems.PSITTACOSAURUS_QUILL.get(), 1));
             return InteractionResult.SUCCESS;
@@ -34,7 +35,8 @@ public class RampageRemedyItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         if (!pPlayer.hasEffect(UPEffects.RABIES_VACCINE.get())) {
-            pPlayer.addEffect(new MobEffectInstance(UPEffects.RABIES_VACCINE.get(), -1));
+            pPlayer.addEffect(new MobEffectInstance(UPEffects.RABIES_VACCINE.get(), 1800));
+            pPlayer.removeEffect(UPEffects.YIXIAN_RAMPAGE.get());
             pPlayer.getItemInHand(pUsedHand).shrink(1);
             pPlayer.addItem(new ItemStack(UPItems.PSITTACOSAURUS_QUILL.get(), 1));
         }
