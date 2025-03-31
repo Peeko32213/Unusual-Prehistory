@@ -19,7 +19,7 @@ public class OpalescentPearlItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.ENDER_PEARL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
-        pPlayer.getCooldowns().addCooldown(this, 20);
+        pPlayer.getCooldowns().addCooldown(this, 60);
         if (!pLevel.isClientSide) {
             OpalescentPearl thrownOpalescentPearl = new OpalescentPearl(pLevel, pPlayer);
             thrownOpalescentPearl.setItem(itemstack);
