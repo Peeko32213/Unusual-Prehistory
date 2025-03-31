@@ -135,110 +135,110 @@ public class UPItemModelGenerator extends ItemModelProvider {
         blockItemWithItemTexture(UPBlocks.ZULOAGAE_DOOR);
 
         // Fossils
-        fossilTex(UPItems.PALEO_FOSSIL);
-        fossilTex(UPItems.MEZO_FOSSIL);
-        fossilTex(UPItems.PLANT_FOSSIL);
-        fossilTex(UPItems.TAR_FOSSIL);
-        fossilTex(UPItems.FROZEN_FOSSIL);
-        fossilTex(UPItems.DEFROSTED_FROZEN_FOSSIL);
-        fossilTex(UPItems.AMBER_FOSSIL);
-        fossilTex(UPItems.OPAL_FOSSIL);
-        fossilTex(UPItems.FIRE_OPAL_FOSSIL);
-        fossilTex(UPItems.BOULDER_OPAL_FOSSIL);
-        fossilTex(UPItems.BLACK_OPAL_FOSSIL);
+        fossilItem(UPItems.PALEO_FOSSIL);
+        fossilItem(UPItems.MEZO_FOSSIL);
+        fossilItem(UPItems.PLANT_FOSSIL);
+        fossilItem(UPItems.TAR_FOSSIL);
+        fossilItem(UPItems.FROZEN_FOSSIL);
+        fossilItem(UPItems.DEFROSTED_FROZEN_FOSSIL);
+        fossilItem(UPItems.AMBER_FOSSIL);
+        fossilItem(UPItems.OPAL_FOSSIL);
+        fossilItem(UPItems.FIRE_OPAL_FOSSIL);
+        fossilItem(UPItems.BOULDER_OPAL_FOSSIL);
+        fossilItem(UPItems.BLACK_OPAL_FOSSIL);
 
         // DNA
-        dnaTex(UPItems.ZULOAGAE_DNA);
-        dnaTex(UPItems.RAIGUENRAYUN_DNA);
-        dnaTex(UPItems.FOXII_DNA);
-        dnaTex(UPItems.DRYO_DNA);
-        dnaTex(UPItems.DIPLO_DNA);
-        dnaTex(UPItems.KIMMER_DNA);
-        dnaTex(UPItems.HYNERIA_DNA);
-        dnaTex(UPItems.OPHIO_DNA);
-        dnaTex(UPItems.PROTOSPHYRAENA_DNA);
-        dnaTex(UPItems.PTERY_DNA);
-        dnaTex(UPItems.EDAPHO_DNA);
-        dnaTex(UPItems.XIPHACT_DNA);
-        dnaTex(UPItems.OVIRAPTOR_DNA);
-        dnaTex(UPItems.GLOBIDENS_DNA);
-        dnaTex(UPItems.GUANLINGSAURUS_DNA);
-        dnaTex(UPItems.MEGALAMPRIS_DNA);
-        dnaTex(UPItems.ESTEMMENO_DNA);
-        dnaTex(UPItems.OTAROCYON_DNA);
-        dnaTex(UPItems.LONGI_DNA);
-        dnaTex(UPItems.TARTUO_DNA);
-        dnaTex(UPItems.TANY_DNA);
-        dnaTex(UPItems.PSITTACO_DNA);
-        dnaTex(UPItems.KAPRO_DNA);
-        dnaTex(UPItems.PSILO_DNA);
-        dnaTex(UPItems.HYNERP_DNA);
-        dnaTex(UPItems.BALAUR_DNA);
-        dnaTex(UPItems.PTERODAUSTRO_DNA);
-        dnaTex(UPItems.ARCHELON_DNA);
-        dnaTex(UPItems.JAWLESS_FISH_DNA);
-        dnaTex(UPItems.LEEDS_DNA);
-        dnaTex(UPItems.AMMONITE_DNA);
-        dnaTex(UPItems.COTY_DNA);
-        dnaTex(UPItems.DUNK_DNA);
-        dnaTex(UPItems.SCAU_DNA);
-        dnaTex(UPItems.STETHA_DNA);
-        dnaTex(UPItems.ANTARCTO_DNA);
-        dnaTex(UPItems.ANURO_DNA);
-        dnaTex(UPItems.AUSTRO_DNA);
-        dnaTex(UPItems.BEELZ_DNA);
-        dnaTex(UPItems.BRACHI_DNA);
-        dnaTex(UPItems.ENCRUSTED_DNA);
-        dnaTex(UPItems.ERYON_DNA);
-        dnaTex(UPItems.HWACHA_DNA);
-        dnaTex(UPItems.KENTRO_DNA);
-        dnaTex(UPItems.MAJUNGA_DNA);
-        dnaTex(UPItems.PACHY_DNA);
-        dnaTex(UPItems.TRIKE_DNA);
-        dnaTex(UPItems.TYRANNO_DNA);
-        dnaTex(UPItems.ULUGH_DNA);
-        dnaTex(UPItems.VELOCI_DNA);
-        dnaTex(UPItems.BARINA_DNA);
-        dnaTex(UPItems.GIGANTO_DNA);
-        dnaTex(UPItems.MAMMOTH_DNA);
-        dnaTex(UPItems.MEGALANIA_DNA);
-        dnaTex(UPItems.MEGATHERIUM_DNA);
-        dnaTex(UPItems.PALAEO_DNA);
-        dnaTex(UPItems.PARACER_DNA);
-        dnaTex(UPItems.SMILODON_DNA);
-        dnaTex(UPItems.TALPANAS_DNA);
-        dnaTex(UPItems.TELECREX_DNA);
-        dnaTex(UPItems.TITANONARKE_DNA);
-        dnaTex(UPItems.ANOSTYLOSTRAMA_DNA);
-        dnaTex(UPItems.ARCHAEFRUCTUS_DNA);
-        dnaTex(UPItems.ARCHAO_DNA);
-        dnaTex(UPItems.BENNET_DNA);
-        dnaTex(UPItems.CLATHRODICTYON_DNA);
-        dnaTex(UPItems.GINKGO_DNA);
-        dnaTex(UPItems.HORSETAIL_DNA);
-        dnaTex(UPItems.LEEFRUCTUS_DNA);
-        dnaTex(UPItems.NELUMBITES_DNA);
-        dnaTex(UPItems.QUEREUXIA_DNA);
-        dnaTex(UPItems.SARR_DNA);
-        dnaTex(UPItems.NYCTORAPTOR_DNA);
-        dnaTex(UPItems.PANACANTHOCARIS_DNA);
-        dnaTex(UPItems.PROSCINETES_DNA);
-        dnaTex(UPItems.CORONODON_DNA);
-        dnaTex(UPItems.SCHLUMBERGERITES_DNA);
-        dnaTex(UPItems.ANIMAL_DNA_BOTTLES);
-        dnaTex(UPItems.PLANT_DNA_BOTTLES);
+        dnaItem(UPItems.ZULOAGAE_DNA);
+        dnaItem(UPItems.RAIGUENRAYUN_DNA);
+        dnaItem(UPItems.FOXII_DNA);
+        dnaItem(UPItems.DRYO_DNA);
+        dnaItem(UPItems.DIPLO_DNA);
+        dnaItem(UPItems.KIMMER_DNA);
+        dnaItem(UPItems.HYNERIA_DNA);
+        dnaItem(UPItems.OPHIO_DNA);
+        dnaItem(UPItems.PROTOSPHYRAENA_DNA);
+        dnaItem(UPItems.PTERY_DNA);
+        dnaItem(UPItems.EDAPHO_DNA);
+        dnaItem(UPItems.XIPHACT_DNA);
+        dnaItem(UPItems.OVIRAPTOR_DNA);
+        dnaItem(UPItems.GLOBIDENS_DNA);
+        dnaItem(UPItems.GUANLINGSAURUS_DNA);
+        dnaItem(UPItems.MEGALAMPRIS_DNA);
+        dnaItem(UPItems.ESTEMMENO_DNA);
+        dnaItem(UPItems.OTAROCYON_DNA);
+        dnaItem(UPItems.LONGI_DNA);
+        dnaItem(UPItems.TARTUO_DNA);
+        dnaItem(UPItems.TANY_DNA);
+        dnaItem(UPItems.PSITTACO_DNA);
+        dnaItem(UPItems.KAPRO_DNA);
+        dnaItem(UPItems.PSILO_DNA);
+        dnaItem(UPItems.HYNERP_DNA);
+        dnaItem(UPItems.BALAUR_DNA);
+        dnaItem(UPItems.PTERODAUSTRO_DNA);
+        dnaItem(UPItems.ARCHELON_DNA);
+        dnaItem(UPItems.JAWLESS_FISH_DNA);
+        dnaItem(UPItems.LEEDS_DNA);
+        dnaItem(UPItems.AMMONITE_DNA);
+        dnaItem(UPItems.COTY_DNA);
+        dnaItem(UPItems.DUNK_DNA);
+        dnaItem(UPItems.SCAU_DNA);
+        dnaItem(UPItems.STETHA_DNA);
+        dnaItem(UPItems.ANTARCTO_DNA);
+        dnaItem(UPItems.ANURO_DNA);
+        dnaItem(UPItems.AUSTRO_DNA);
+        dnaItem(UPItems.BEELZ_DNA);
+        dnaItem(UPItems.BRACHI_DNA);
+        dnaItem(UPItems.ENCRUSTED_DNA);
+        dnaItem(UPItems.ERYON_DNA);
+        dnaItem(UPItems.HWACHA_DNA);
+        dnaItem(UPItems.KENTRO_DNA);
+        dnaItem(UPItems.MAJUNGA_DNA);
+        dnaItem(UPItems.PACHY_DNA);
+        dnaItem(UPItems.TRIKE_DNA);
+        dnaItem(UPItems.TYRANNO_DNA);
+        dnaItem(UPItems.ULUGH_DNA);
+        dnaItem(UPItems.VELOCI_DNA);
+        dnaItem(UPItems.BARINA_DNA);
+        dnaItem(UPItems.GIGANTO_DNA);
+        dnaItem(UPItems.MAMMOTH_DNA);
+        dnaItem(UPItems.MEGALANIA_DNA);
+        dnaItem(UPItems.MEGATHERIUM_DNA);
+        dnaItem(UPItems.PALAEO_DNA);
+        dnaItem(UPItems.PARACER_DNA);
+        dnaItem(UPItems.SMILODON_DNA);
+        dnaItem(UPItems.TALPANAS_DNA);
+        dnaItem(UPItems.TELECREX_DNA);
+        dnaItem(UPItems.TITANONARKE_DNA);
+        dnaItem(UPItems.ANOSTYLOSTRAMA_DNA);
+        dnaItem(UPItems.ARCHAEFRUCTUS_DNA);
+        dnaItem(UPItems.ARCHAO_DNA);
+        dnaItem(UPItems.BENNET_DNA);
+        dnaItem(UPItems.CLATHRODICTYON_DNA);
+        dnaItem(UPItems.GINKGO_DNA);
+        dnaItem(UPItems.HORSETAIL_DNA);
+        dnaItem(UPItems.LEEFRUCTUS_DNA);
+        dnaItem(UPItems.NELUMBITES_DNA);
+        dnaItem(UPItems.QUEREUXIA_DNA);
+        dnaItem(UPItems.SARR_DNA);
+        dnaItem(UPItems.NYCTORAPTOR_DNA);
+        dnaItem(UPItems.PANACANTHOCARIS_DNA);
+        dnaItem(UPItems.PROSCINETES_DNA);
+        dnaItem(UPItems.CORONODON_DNA);
+        dnaItem(UPItems.SCHLUMBERGERITES_DNA);
+        dnaItem(UPItems.ANIMAL_DNA_BOTTLES);
+        dnaItem(UPItems.PLANT_DNA_BOTTLES);
 
         // Eggs
-        eggTex(UPItems.TELECREX_EGG);
+        eggItem(UPItems.TELECREX_EGG);
 
         // Embryos
-        embryoTex(UPItems.SMILODON_EMBRYO);
-        embryoTex(UPItems.MAMMOTH_EMBRYO);
-        embryoTex(UPItems.MEGATH_EMBRYO);
-        embryoTex(UPItems.GIGANTO_EMBRYO);
-        embryoTex(UPItems.PARACER_EMBRYO);
-        embryoTex(UPItems.PALAEO_EMBRYO);
-        embryoTex(UPItems.OTAROCYON_EMBRYO);
+        embryoItem(UPItems.SMILODON_EMBRYO);
+        embryoItem(UPItems.MAMMOTH_EMBRYO);
+        embryoItem(UPItems.MEGATH_EMBRYO);
+        embryoItem(UPItems.GIGANTO_EMBRYO);
+        embryoItem(UPItems.PARACER_EMBRYO);
+        embryoItem(UPItems.PALAEO_EMBRYO);
+        embryoItem(UPItems.OTAROCYON_EMBRYO);
 
         // Eggs
         for(RegistryObject<?> object : UPEntities.prehistorics) {
@@ -399,19 +399,19 @@ public class UPItemModelGenerator extends ItemModelProvider {
         return generated(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
     }
 
-    private ItemModelBuilder fossilTex(RegistryObject<Item> item) {
+    private ItemModelBuilder fossilItem(RegistryObject<Item> item) {
         return generated(item.getId().getPath(), prefix("item/fossils/" + item.getId().getPath()));
     }
 
-    private ItemModelBuilder dnaTex(RegistryObject<Item> item) {
+    private ItemModelBuilder dnaItem(RegistryObject<Item> item) {
         return generated(item.getId().getPath(), prefix("item/dna/" + item.getId().getPath()));
     }
 
-    private ItemModelBuilder eggTex(RegistryObject<Item> item) {
+    private ItemModelBuilder eggItem(RegistryObject<Item> item) {
         return generated(item.getId().getPath(), prefix("item/eggs/" + item.getId().getPath()));
     }
 
-    private ItemModelBuilder embryoTex(RegistryObject<Item> item) {
+    private ItemModelBuilder embryoItem(RegistryObject<Item> item) {
         return generated(item.getId().getPath(), prefix("item/embryos/" + item.getId().getPath()));
     }
 
