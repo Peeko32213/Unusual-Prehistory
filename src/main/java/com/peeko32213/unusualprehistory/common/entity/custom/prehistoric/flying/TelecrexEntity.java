@@ -58,6 +58,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class TelecrexEntity extends PrehistoricEntity {
 
@@ -101,6 +102,14 @@ public class TelecrexEntity extends PrehistoricEntity {
     private static final EntityDataAccessor<Boolean> LOOKOUT1 = SynchedEntityData.defineId(TelecrexEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> LOOKOUT2 = SynchedEntityData.defineId(TelecrexEntity.class, EntityDataSerializers.BOOLEAN);
 
+
+    private static final Predicate<LivingEntity> TELECREX_STARTING_PREDICATE = (e -> {
+        if(e instanceof TelecrexEntity entity) {
+            return !entity.isFlying() && !entity.getMoveControl().hasWanted() && entity.onGround();
+        }
+        return false;
+    });
+
     // Idle actions
 //    private static final EntityAction TELECREX_PECK_ACTION = new EntityAction(0, (e) -> {}, 1);
 //
@@ -118,6 +127,7 @@ public class TelecrexEntity extends PrehistoricEntity {
             StateHelper.Builder.state(PREEN1, "telecrex_preen1")
                     .playTime(60)
                     .stopTime(130)
+                    .startingPredicate(TELECREX_STARTING_PREDICATE)
                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
                     .entityAction(TELECREX_PREEN1_ACTION)
                     .build();
@@ -128,6 +138,7 @@ public class TelecrexEntity extends PrehistoricEntity {
             StateHelper.Builder.state(PREEN2, "telecrex_preen2")
                     .playTime(60)
                     .stopTime(130)
+                    .startingPredicate(TELECREX_STARTING_PREDICATE)
                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
                     .entityAction(TELECREX_PREEN2_ACTION)
                     .build();
@@ -138,6 +149,7 @@ public class TelecrexEntity extends PrehistoricEntity {
             StateHelper.Builder.state(LOOKOUT1, "telecrex_lookout1")
                     .playTime(40)
                     .stopTime(120)
+                    .startingPredicate(TELECREX_STARTING_PREDICATE)
                     .entityAction(TELECREX_LOOKOUT1_ACTION)
                     .build();
 
@@ -147,6 +159,7 @@ public class TelecrexEntity extends PrehistoricEntity {
             StateHelper.Builder.state(LOOKOUT2, "telecrex_lookout2")
                     .playTime(40)
                     .stopTime(120)
+                    .startingPredicate(TELECREX_STARTING_PREDICATE)
                     .entityAction(TELECREX_LOOKOUT2_ACTION)
                     .build();
 
@@ -225,11 +238,7 @@ public class TelecrexEntity extends PrehistoricEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new RandomStateGoal<>(this) {
-        public boolean canUse() {
-                return !isFlying() && !getMoveControl().hasWanted() && onGround() && super.canUse();
-            }
-        });
+        this.goalSelector.addGoal(1, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new PanicGoal(this, 1.5D));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
