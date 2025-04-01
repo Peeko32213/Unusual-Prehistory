@@ -239,6 +239,7 @@ public class UPItemModelGenerator extends ItemModelProvider {
         embryoItem(UPItems.PARACER_EMBRYO);
         embryoItem(UPItems.PALAEO_EMBRYO);
         embryoItem(UPItems.OTAROCYON_EMBRYO);
+        embryoItem(UPItems.UNICORN_EMBRYO);
 
         // Eggs
         for(RegistryObject<?> object : UPEntities.prehistorics) {
@@ -246,8 +247,9 @@ public class UPItemModelGenerator extends ItemModelProvider {
         }
 
         // Fossil skeleton items
-        singleTex(UPItems.TRIKE_SKELETON);
-        singleTex(UPItems.TYRANNO_SKELETON);
+        basicItem(UPItems.TRIKE_SKELETON);
+        basicItem(UPItems.TYRANNO_SKELETON);
+        basicItem(UPItems.UNICORN_SKELETON);
 
         // Bottle items
         singleTex(UPItems.CAPTURED_KIMMER_BOTTLE);

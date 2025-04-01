@@ -320,6 +320,28 @@
     "subtitle": "unusualprehistory.sound.subtitle.beelze_death"
   },
 
+  "unicorn_idle": {
+    "sounds": [
+      "unusualprehistory:entity/unicorn/unicorn_idle_0",
+      "unusualprehistory:entity/unicorn/unicorn_idle_1",
+      "unusualprehistory:entity/unicorn/unicorn_idle_2",
+      "unusualprehistory:entity/unicorn/unicorn_idle_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.unicorn_idle"
+  },
+  "unicorn_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/unicorn/unicorn_hurt_0"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.unicorn_hurt"
+  },
+  "unicorn_death": {
+    "sounds": [
+      "unusualprehistory:entity/unicorn/unicorn_death_0"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.unicorn_death"
+  },
+
   "tyrannosaurus_bite": {
     "sounds": [
         "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_bite_0",
@@ -1304,18 +1326,5 @@
       "unusualprehistory:entity/leedsichthys/leedsichthys_death_3"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.leedsichthys_death"
-  },
-
-  "jarate_explode": {
-    "sounds": [
-        "unusualprehistory:entity/projectile/jarate/jarate_explode"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.jarate_explode"
-  },
-  "jarate_sniper": {
-    "sounds": [
-        "unusualprehistory:entity/projectile/jarate/jarate_sniper"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.jarate_sniper"
   }
 }

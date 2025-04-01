@@ -1,0 +1,448 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.unicorn_skeleton.roar": {
+			"loop": true,
+			"bones": {
+				"Unicorn": {
+					"rotation": [-30, 0, 0],
+					"position": [0, 0, -18]
+				},
+				"Neck": {
+					"rotation": [-15, 0, 0]
+				},
+				"Head": {
+					"rotation": [-12.5, 0, 0]
+				},
+				"Tail": {
+					"rotation": [0, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [-65, 0, 0],
+					"position": [0, 3, 0]
+				},
+				"L_leg": {
+					"rotation": [-20, 0, 0]
+				},
+				"Jaw": {
+					"rotation": [27.5, 0, 0]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.roar_pose": {
+			"loop": true,
+			"bones": {
+				"Unicorn": {
+					"rotation": [-30, 0, 0],
+					"position": [0, 0, -18]
+				},
+				"Neck": {
+					"rotation": [-15, 0, 0]
+				},
+				"Head": {
+					"rotation": [-12.5, 0, 0]
+				},
+				"Tail": {
+					"rotation": [0, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [-65, 0, 0],
+					"position": [0, 3, 0]
+				},
+				"L_leg": {
+					"rotation": [-20, 0, 0]
+				},
+				"Jaw": {
+					"rotation": [27.5, 0, 0]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.walk": {
+			"loop": true,
+			"bones": {
+				"Neck": {
+					"rotation": [-7.5, 0, 0]
+				},
+				"Head": {
+					"rotation": [0.72868, -10.90401, -26.41545]
+				},
+				"Jaw": {
+					"rotation": [5, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [0, -17.5, 0],
+					"position": [0, 0, 0]
+				},
+				"L_leg": {
+					"rotation": [-24.80569, 24.31756, -13.48163],
+					"position": [-2, 0, 0]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.walk_pose": {
+			"loop": true,
+			"bones": {
+				"Neck": {
+					"rotation": [-7.5, 0, 0]
+				},
+				"Head": {
+					"rotation": [0.72868, -10.90401, -26.41545]
+				},
+				"Jaw": {
+					"rotation": [5, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [0, -17.5, 0],
+					"position": [0, 0, 0]
+				},
+				"L_leg": {
+					"rotation": [-24.80569, 24.31756, -13.48163],
+					"position": [-2, 0, 0]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.charge": {
+			"loop": true,
+			"bones": {
+				"Upper_body": {
+					"rotation": [22.5, 0, 0],
+					"position": [0, 5, 9]
+				},
+				"Neck": {
+					"rotation": [37.47365, -1.5216, 1.98385]
+				},
+				"Head": {
+					"rotation": [-12.46271, -0.86717, -4.92442]
+				},
+				"Jaw": {
+					"rotation": [5, 0, 0],
+					"position": [0, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [0, -30, 0],
+					"position": [1, 0, 2]
+				},
+				"L_leg": {
+					"rotation": [27.89277, 12.94491, 12.1075],
+					"position": [-1, 0, -1]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.charge_pose": {
+			"loop": true,
+			"bones": {
+				"Upper_body": {
+					"rotation": [22.5, 0, 0],
+					"position": [0, 5, 9]
+				},
+				"Neck": {
+					"rotation": [37.47365, -1.5216, 1.98385]
+				},
+				"Head": {
+					"rotation": [-12.46271, -0.86717, -4.92442]
+				},
+				"Jaw": {
+					"rotation": [5, 0, 0],
+					"position": [0, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [0, -30, 0],
+					"position": [1, 0, 2]
+				},
+				"L_leg": {
+					"rotation": [27.89277, 12.94491, 12.1075],
+					"position": [-1, 0, -1]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.reconstruction_1": {
+			"loop": true,
+			"bones": {
+				"Upper_body": {
+					"rotation": [17.5, 0, 0],
+					"position": [0, 0, 10]
+				},
+				"Head": {
+					"rotation": [-100, 0, 0],
+					"position": [0, 15, 39]
+				},
+				"Jaw": {
+					"rotation": [17.5, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [5.019, -4.98093, -0.43688]
+				},
+				"L_leg": {
+					"rotation": [0, 25, 0],
+					"position": [0, 0, 4]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.reconstruction_1_pose": {
+			"loop": true,
+			"bones": {
+				"Upper_body": {
+					"rotation": [17.5, 0, 0],
+					"position": [0, 0, 10]
+				},
+				"Head": {
+					"rotation": [-100, 0, 0],
+					"position": [0, 15, 39]
+				},
+				"Jaw": {
+					"rotation": [17.5, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [5.019, -4.98093, -0.43688]
+				},
+				"L_leg": {
+					"rotation": [0, 25, 0],
+					"position": [0, 0, 4]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.reconstruction_2": {
+			"loop": true,
+			"bones": {
+				"Unicorn": {
+					"position": [0, -18, 0]
+				},
+				"Upper_body": {
+					"rotation": [-70, 0, 0],
+					"position": [0, 41, -22]
+				},
+				"Neck": {
+					"rotation": [0, 0, 180],
+					"position": [0, 4, 7],
+					"scale": [0.98, 0.97, 1]
+				},
+				"Head": {
+					"rotation": [-45, 0, 0],
+					"position": [0, -4, 0]
+				},
+				"Jaw": {
+					"rotation": [25, 0, 0],
+					"position": [0, 0, 2]
+				},
+				"Tail": {
+					"position": [0, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [15, 0, 0],
+					"position": [0, 24, 15]
+				},
+				"L_leg": {
+					"position": [0, 18, 13]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.fucked_up_reconstruction": {
+			"loop": true,
+			"bones": {
+				"Unicorn": {
+					"position": [0, 0, 17]
+				},
+				"Upper_body": {
+					"rotation": [114.43385, 3.24028, -8.40732],
+					"position": [-3, 67, 17]
+				},
+				"Head": {
+					"rotation": [-145, 0, 0],
+					"position": [0, 0, -6],
+					"scale": [1.03, 1, 1.03]
+				},
+				"Jaw": {
+					"rotation": [0.15838, -8.99862, -1.01246],
+					"position": [-4, -2, 33]
+				},
+				"R_leg": {
+					"rotation": [0, -117.5, 0],
+					"position": [0, 0, 18],
+					"scale": 0
+				},
+				"L_leg": {
+					"position": [4, 0, -6]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.reconstruction_2_pose": {
+			"loop": true,
+			"bones": {
+				"Unicorn": {
+					"position": [0, -18, 0]
+				},
+				"Upper_body": {
+					"rotation": [-70, 0, 0],
+					"position": [0, 41, -22]
+				},
+				"Neck": {
+					"rotation": [0, 0, 180],
+					"position": [0, 4, 7],
+					"scale": [0.98, 0.97, 1]
+				},
+				"Head": {
+					"rotation": [-45, 0, 0],
+					"position": [0, -4, 0]
+				},
+				"Jaw": {
+					"rotation": [25, 0, 0],
+					"position": [0, 0, 2]
+				},
+				"Tail": {
+					"position": [0, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [15, 0, 0],
+					"position": [0, 24, 15]
+				},
+				"L_leg": {
+					"position": [0, 18, 13]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.fucked_up_reconstruction_pose": {
+			"loop": true,
+			"bones": {
+				"Unicorn": {
+					"position": [0, 0, 17]
+				},
+				"Upper_body": {
+					"rotation": [114.43385, 3.24028, -8.40732],
+					"position": [-3, 67, 17]
+				},
+				"Head": {
+					"rotation": [-145, 0, 0],
+					"position": [0, 0, -6],
+					"scale": [1.03, 1, 1.03]
+				},
+				"Jaw": {
+					"rotation": [0.15838, -8.99862, -1.01246],
+					"position": [-4, -2, 33]
+				},
+				"R_leg": {
+					"rotation": [0, -117.5, 0],
+					"position": [0, 0, 18],
+					"scale": 0
+				},
+				"L_leg": {
+					"position": [4, 0, -6]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.worm": {
+			"loop": true,
+			"bones": {
+				"Unicorn": {
+					"rotation": [65, 0, 0],
+					"position": [0, 14, 9]
+				},
+				"Neck": {
+					"rotation": [-35, 0, 0],
+					"position": [0, 1, -1]
+				},
+				"Head": {
+					"rotation": [-55, 0, 0],
+					"position": [0, -5, 3]
+				},
+				"Jaw": {
+					"rotation": [162.5, 0, 0],
+					"position": [0, 48, 0]
+				},
+				"Tail": {
+					"rotation": [-90, 0, 0],
+					"position": [0, 1, 8]
+				},
+				"R_leg": {
+					"scale": 0
+				},
+				"L_leg": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.unicorn_skeleton.worm_pose": {
+			"loop": true,
+			"bones": {
+				"Unicorn": {
+					"rotation": [65, 0, 0],
+					"position": [0, 14, 9]
+				},
+				"Neck": {
+					"rotation": [-35, 0, 0],
+					"position": [0, 1, -1]
+				},
+				"Head": {
+					"rotation": [-55, 0, 0],
+					"position": [0, -5, 3]
+				},
+				"Jaw": {
+					"rotation": [162.5, 0, 0],
+					"position": [0, 48, 0]
+				},
+				"Tail": {
+					"rotation": [-90, 0, 0],
+					"position": [0, 1, 8]
+				},
+				"R_leg": {
+					"scale": 0
+				},
+				"L_leg": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.unicorn_skeleton.dead": {
+			"loop": true,
+			"bones": {
+				"Unicorn": {
+					"position": [0, -4, 0]
+				},
+				"Upper_body": {
+					"rotation": [50, 0, 0]
+				},
+				"Head": {
+					"rotation": [-70.76699, 34.76867, -36.01341]
+				},
+				"Jaw": {
+					"rotation": [17.5, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [-57.5, 0, -80],
+					"position": [6, -14, -20]
+				},
+				"L_leg": {
+					"rotation": [-14.33501, 4.46375, 74.43839],
+					"position": [-8, -14, -15]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.dead_pose": {
+			"loop": true,
+			"bones": {
+				"Unicorn": {
+					"position": [0, -4, 0]
+				},
+				"Upper_body": {
+					"rotation": [50, 0, 0]
+				},
+				"Head": {
+					"rotation": [-70.76699, 34.76867, -36.01341]
+				},
+				"Jaw": {
+					"rotation": [17.5, 0, 0]
+				},
+				"R_leg": {
+					"rotation": [-57.5, 0, -80],
+					"position": [6, -14, -20]
+				},
+				"L_leg": {
+					"rotation": [-14.33501, 4.46375, 74.43839],
+					"position": [-8, -14, -15]
+				}
+			}
+		},
+		"animation.unicorn_skeleton.base_pose": {
+			"loop": true
+		}
+	}
+}

@@ -144,6 +144,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.PARACER_EMBRYO, "Paraceratherium Embryo");
         addItem(UPItems.PALAEO_EMBRYO, "Palaeolophis Embryo");
         addItem(UPItems.OTAROCYON_EMBRYO, "Otarocyon Embryo");
+        addItem(UPItems.UNICORN_EMBRYO, "Unicorn Embryo");
 
         //DINO DROPS
         addItem(UPItems.TYRANNO_SCALE, "Tyrannosaurus Scale");
@@ -340,6 +341,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         // Skeletons
         addItem(UPItems.TRIKE_SKELETON, "Triceratops Skeleton");
         addItem(UPItems.TYRANNO_SKELETON, "Tyrannosaurus Skeleton");
+        addItem(UPItems.UNICORN_SKELETON, "Unicorn Skeleton");
 
         //FLASKS
         addItem(UPItems.CAPTURED_KIMMER_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
@@ -558,6 +560,8 @@ public class UPLanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.SMILODON, "Smilodon");
         addEntityType(UPEntities.TALPANAS, "Talpanas");
         addEntityType(UPEntities.TELECREX, "Telecrex");
+        addEntityType(UPEntities.TITANONARKE, "Titanonarke");
+        addEntityType(UPEntities.UNICORN, "Unicorn");
 
         // Misc mobs
         addEntityType(UPEntities.ENCRUSTED, "Encrusted");
@@ -599,6 +603,10 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ESTEMME_IDLE, "Estemmenosuchus groans");
         addSound(UPSounds.ESTEMME_HURT, "Estemmenosuchus hurts");
         addSound(UPSounds.ESTEMME_DEATH, "Estemmenosuchus dies");
+
+        addSound(UPSounds.UNICORN_IDLE, "Unicorn groans");
+        addSound(UPSounds.UNICORN_HURT, "Unicorn hurts");
+        addSound(UPSounds.UNICORN_DEATH, "Unicorn dies");
 
         addSound(UPSounds.AMMONITE_HURT, "Ammonite hurts");
         addSound(UPSounds.AMMONITE_DEATH, "Ammonite dies");
@@ -781,9 +789,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.LEEDS_FLOP, "Leedsichthys flops");
         addSound(UPSounds.LEEDS_HURT, "Leedsichthys hurts");
         addSound(UPSounds.LEEDS_DEATH, "Leedsichthys dies");
-
-        addSound(UPSounds.JARATE_EXPLODE, "Jarate impacts");
-        addSound(UPSounds.JARATE_SNIPER, "Jarate!");
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");
         add("entity.unusualprehistory.all.command_1", "%s is following");

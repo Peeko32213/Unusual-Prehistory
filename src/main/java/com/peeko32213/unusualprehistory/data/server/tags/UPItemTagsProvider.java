@@ -11,6 +11,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -210,6 +211,18 @@ public class UPItemTagsProvider extends ItemTagsProvider {
                 .add(Items.MUTTON)
         ;
 
+        tag(UPItemTags.UNICORN_FOOD_ITEMS)
+                .add(Items.COOKIE)
+                .add(Items.PUMPKIN_PIE)
+                .add(Items.CAKE)
+        ;
+
+        tag(UPItemTags.UNICORN_FOOD_ITEMS)
+                .add(Items.COOKIE)
+                .add(Items.PUMPKIN_PIE)
+                .add(Items.CAKE)
+        ;
+
         tag(UPItemTags.ORGANIC_OOZE)
                 .add(UPItems.ORGANIC_OOZE.get());
 
@@ -255,6 +268,14 @@ public class UPItemTagsProvider extends ItemTagsProvider {
                 .add(UPItems.FIRE_OPAL.get())
                 .add(UPItems.BOULDER_OPAL.get())
                 .add(UPItems.BLACK_OPAL.get())
+        ;
+
+        tag(UPItemTags.HIDDEN_ITEMS)
+                .add(UPItems.UNICORN_SKELETON.get())
+                .add(UPItems.UNICORN_EMBRYO.get())
+                .add(UPBlocks.FOSSIL_ORES.get().asItem())
+                .add(UPItems.PLANT_DNA_BOTTLES.get())
+                .add(UPItems.ANIMAL_DNA_BOTTLES.get())
         ;
 
         tag(ItemTags.PLANKS)
@@ -386,7 +407,6 @@ public class UPItemTagsProvider extends ItemTagsProvider {
                 .add(UPItems.GINKGO_DNA.get())
                 .add(UPItems.FOXII_DNA.get())
                 .add(UPItems.DRYO_DNA.get());
-
 
         tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_PALEO)
                 .add(Items.COAL)

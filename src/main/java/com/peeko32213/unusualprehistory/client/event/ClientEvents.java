@@ -11,6 +11,7 @@ import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.aquatic.
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.semi_aquatic.*;
 import com.peeko32213.unusualprehistory.client.model.entity.iceberg.IcebergMammothModel;
 import com.peeko32213.unusualprehistory.client.model.entity.iceberg.IcebergSmilodonModel;
+import com.peeko32213.unusualprehistory.client.model.entity.skeleton.UnicornSkeletonModel;
 import com.peeko32213.unusualprehistory.client.model.plant.PlantModel;
 import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.particles.ElectricAttackParticle;
@@ -36,6 +37,7 @@ import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.DisplayRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -148,6 +150,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
         event.registerEntityRenderer(UPEntities.TELECREX.get(), TelecrexRenderer::new);
         event.registerEntityRenderer(UPEntities.TITANONARKE.get(), e -> new PrehistoricRenderer<>(e, new TitanonarkeModel()));
+        event.registerEntityRenderer(UPEntities.UNICORN.get(), e -> new AgeableMobRenderer<>(e, new UnicornModel()));
 
         // Monsters
         event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
@@ -156,6 +159,7 @@ public final class ClientEvents {
         // Fossils
         event.registerEntityRenderer(UPEntities.TYRANNO_SKELETON.get(), e -> new LivingEntityRenderer<>(e, new TyrannosaurusSkeletonModel()));
         event.registerEntityRenderer(UPEntities.TRIKE_SKELETON.get(), e -> new LivingEntityRenderer<>(e, new TriceratopsSkeletonModel()));
+        event.registerEntityRenderer(UPEntities.UNICORN_SKELETON.get(), e -> new LivingEntityRenderer<>(e, new UnicornSkeletonModel()));
 
         // Non-living mobs
         event.registerEntityRenderer(UPEntities.ICEBERG_MAMMOTH.get(), e -> new LivingEntityRenderer<>(e, new IcebergMammothModel()));

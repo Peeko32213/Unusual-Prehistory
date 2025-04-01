@@ -19,6 +19,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.EncrustedEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.SludgeEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.*;
+import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.UnicornSkeleton;
 import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.common.entity.projectile.*;
 import com.peeko32213.unusualprehistory.common.item.PrehistoricEggItem;
@@ -57,6 +58,13 @@ public class UPEntities {
                     .sized(3.0F, 3.75F)
                     .setTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "triceratops_skeleton").toString()));
+
+    public static final RegistryObject<EntityType<UnicornSkeleton>> UNICORN_SKELETON = ENTITIES.register("unicorn_skeleton",
+            () -> EntityType.Builder.<UnicornSkeleton>of(UnicornSkeleton::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(1.2F, 3.0F)
+                    .setTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "unicorn_skeleton").toString()));
 
     // Frozen
     public static final RegistryObject<EntityType<IcebergMammoth>> ICEBERG_MAMMOTH = ENTITIES.register("iceberg_mammoth",
@@ -363,6 +371,10 @@ public class UPEntities {
     public static final RegistryObject<EntityType<TitanonarkeEntity>> TITANONARKE = ENTITIES.register("titanonarke",
             () -> EntityType.Builder.of(TitanonarkeEntity::new, MobCategory.CREATURE).sized(1.5F, 0.35F)
                     .build(new ResourceLocation(UnusualPrehistory.MODID, "titanonarke").toString()));
+
+    public static final RegistryObject<EntityType<UnicornEntity>> UNICORN = ENTITIES.register("unicorn",
+            () -> EntityType.Builder.of(UnicornEntity::new, MobCategory.CREATURE).sized(1.2F, 3.0F)
+                    .build(new ResourceLocation(UnusualPrehistory.MODID, "unicorn").toString()));
 
     // Misc mobs
     public static final RegistryObject<EntityType<EncrustedEntity>> ENCRUSTED = registerPrehistoricCreatureWithEgg("encrusted",

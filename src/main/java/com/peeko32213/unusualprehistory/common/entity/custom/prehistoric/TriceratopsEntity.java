@@ -618,6 +618,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         if (!uuid.equals(this.lastLightningBoltUUID)) {
             this.setSkeletal((!this.isSkeletal() || this.isSkeletal()) != this.isSkeletal());
             this.lastLightningBoltUUID = uuid;
+            this.playSound(SoundEvents.SKELETON_DEATH, 2.0F, 1.0F);
         }
     }
 

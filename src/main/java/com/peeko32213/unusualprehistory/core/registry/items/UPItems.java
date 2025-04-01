@@ -85,6 +85,7 @@ public class UPItems {
     // Fossil skeletons
     public static final RegistryObject<Item> TRIKE_SKELETON = ITEMS.register("triceratops_skeleton", () -> new SkeletonItem(UPEntities.TRIKE_SKELETON, new Item.Properties()));
     public static final RegistryObject<Item> TYRANNO_SKELETON = ITEMS.register("tyrannosaurus_skeleton", () -> new SkeletonItem(UPEntities.TYRANNO_SKELETON, new Item.Properties()));
+    public static final RegistryObject<Item> UNICORN_SKELETON = ITEMS.register("unicorn_skeleton", () -> new SkeletonItem(UPEntities.UNICORN_SKELETON, new Item.Properties()));
 
     // Palaeo dna
     public static final RegistryObject<Item> AMMONITE_DNA = ITEMS.register("ammonite_dna_bottle", () -> new Item(new Item.Properties()));
@@ -191,6 +192,9 @@ public class UPItems {
 
     public static final RegistryObject<Item> OTAROCYON_EMBRYO = ITEMS.register("otarocyon_embryo",
             () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPEntityTypeTags.OTAROCYON_EMBRYO_ATTACH_TO, UPEntities.OTAROCYON, 1000));
+
+    public static final RegistryObject<Item> UNICORN_EMBRYO = ITEMS.register("unicorn_embryo",
+            () -> new AnimalAttacherItem(new Item.Properties().stacksTo(64), UPEntityTypeTags.OTAROCYON_EMBRYO_ATTACH_TO, UPEntities.UNICORN, 1000));
 
     public static final RegistryObject<Item> ORGANIC_OOZE = ITEMS.register("organic_ooze", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> BEELZ_SALIVA = ITEMS.register("beelzebufo_saliva", () -> new Item(new Item.Properties()));

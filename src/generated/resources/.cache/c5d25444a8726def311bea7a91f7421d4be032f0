@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-30T20:28:02.3286566	Item Models: unusualprehistory
+// 1.20.1	2025-04-01T11:55:53.9973931	Item Models: unusualprehistory
 fa55f567c295cf4dd68b82024d508fa7c97626f4 assets/unusualprehistory/models/item/amber.json
 728259086070ef1e799652ab2b9ca4701f9f0104 assets/unusualprehistory/models/item/amber_block.json
 880e29a540337d3f6b8590ec99b1b3e34d287ac0 assets/unusualprehistory/models/item/amber_fossil.json
@@ -333,6 +333,8 @@ eb2ea033dac67ca71107109f0c80e6918bcba496 assets/unusualprehistory/models/item/tr
 bc28959a187b5dbad158a23cf16ecd62c94116d3 assets/unusualprehistory/models/item/ulughbegsaurus_dna_bottle.json
 7d966907f9e0ae5f7517f8ca67ec5c4f7cd09431 assets/unusualprehistory/models/item/ulughbegsaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/ulughbegsaurus_spawn_egg.json
+db86ae61634d0466ef33007cbdf87bf5ee9a313d assets/unusualprehistory/models/item/unicorn_embryo.json
+93a978542dcdd55122ac40b0517d4e78d124deb4 assets/unusualprehistory/models/item/unicorn_skeleton.json
 18b66734b2d97a3aa6919b69e58b0dae373a6c0c assets/unusualprehistory/models/item/velociraptor_dna_bottle.json
 9a084933f9b9846436be2e55d52e1c4c6d366903 assets/unusualprehistory/models/item/velociraptor_feathers.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/velociraptor_spawn_egg.json

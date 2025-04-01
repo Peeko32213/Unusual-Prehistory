@@ -10,6 +10,7 @@ public class UPItemTags {
 
     public static final TagKey<Item> EDAPHO_FOOD_ITEMS = itemTag("edaphosaurus_food_items");
     public static final TagKey<Item> ESTEMME_FOOD_ITEMS = itemTag("estemmenosuchus_food_items");
+    public static final TagKey<Item> UNICORN_FOOD_ITEMS = itemTag("unicorn_food_items");
 
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = itemTag("allowed_fridge_items");
     public static final TagKey<Item> ANALYZER_ITEMS_INPUT = itemTag("analyzer_items");
@@ -59,6 +60,8 @@ public class UPItemTags {
     public static final TagKey<Item> OPAL_GEMS = itemTag("opal_gems");
 
     public static final TagKey<Item> TELECREX_FOOD = itemTag("telecrex_food");
+
+    public static final TagKey<Item> HIDDEN_ITEMS = itemTag("hidden_items");
 
     private static TagKey<Item> itemTag(String name) {
         return TagUtil.itemTag(UnusualPrehistory.MODID, name);

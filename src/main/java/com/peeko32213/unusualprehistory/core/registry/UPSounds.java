@@ -37,6 +37,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> ESTEMME_HURT = createSoundEvent("estemmenosuchus_hurt");
     public static final RegistryObject<SoundEvent> ESTEMME_DEATH = createSoundEvent("estemmenosuchus_death");
 
+    public static final RegistryObject<SoundEvent> UNICORN_IDLE = createSoundEvent("unicorn_idle");
+    public static final RegistryObject<SoundEvent> UNICORN_HURT = createSoundEvent("unicorn_hurt");
+    public static final RegistryObject<SoundEvent> UNICORN_DEATH = createSoundEvent("unicorn_death");
+
     public static final RegistryObject<SoundEvent> AMMONITE_HURT = createSoundEvent("ammonite_hurt");
     public static final RegistryObject<SoundEvent> AMMONITE_DEATH = createSoundEvent("ammonite_death");
     public static final RegistryObject<SoundEvent> AMMONITE_FLOP = createSoundEvent("ammonite_flop");
@@ -221,9 +225,6 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> SLUDGE_IDLE = createSoundEvent("sludge_idle");
     public static final RegistryObject<SoundEvent> SLUDGE_SLAM = createSoundEvent("sludge_slam");
     public static final RegistryObject<SoundEvent> SLUDGE_SLAP = createSoundEvent("sludge_slap");
-
-    public static final RegistryObject<SoundEvent> JARATE_EXPLODE = createSoundEvent("jarate_explode");
-    public static final RegistryObject<SoundEvent> JARATE_SNIPER = createSoundEvent("jarate_sniper");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));

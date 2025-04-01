@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityActi
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TelecrexFlightGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TelecrexScatterGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
@@ -105,7 +106,7 @@ public class TelecrexEntity extends PrehistoricEntity {
 
     private static final Predicate<LivingEntity> TELECREX_STARTING_PREDICATE = (e -> {
         if(e instanceof TelecrexEntity entity) {
-            return !entity.isFlying() && !entity.getMoveControl().hasWanted() && entity.onGround();
+            return !entity.isFlying() && !entity.getMoveControl().hasWanted() && !entity.isSprinting() && entity.onGround();
         }
         return false;
     });
@@ -240,7 +241,7 @@ public class TelecrexEntity extends PrehistoricEntity {
         super.registerGoals();
         this.goalSelector.addGoal(1, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new PanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(2, new PrehistoricPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new TelecrexFlightGoal(this));
         this.goalSelector.addGoal(4, new TelecrexScatterGoal(this));
@@ -300,7 +301,7 @@ public class TelecrexEntity extends PrehistoricEntity {
             this.heal(2);
             return InteractionResult.SUCCESS;
         }
-        return super.mobInteract(player, hand);
+        return InteractionResult.FAIL;
     }
 
     public void tick() {
@@ -515,7 +516,7 @@ public class TelecrexEntity extends PrehistoricEntity {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && this.onGround()) {
             if(this.isSprinting()) {
                 event.setAndContinue(TELECREX_WALK);
-                event.getController().setAnimationSpeed(1.25F);
+                event.getController().setAnimationSpeed(1.4F);
             }
             else event.setAndContinue(TELECREX_WALK);
             event.getController().setAnimationSpeed(1.0F);

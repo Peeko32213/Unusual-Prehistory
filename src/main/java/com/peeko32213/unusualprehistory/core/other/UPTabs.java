@@ -8,6 +8,7 @@ import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManag
 import com.peeko32213.unusualprehistory.common.item.MusicalTameItem;
 import com.peeko32213.unusualprehistory.common.item.PrehistoricEggItem;
 import com.peeko32213.unusualprehistory.core.other.tags.UPInstrumentTags;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.core.HolderLookup;
@@ -469,7 +470,7 @@ public class UPTabs {
                     entries.accept(UPBlocks.ZULOAGAE_HANGING_SIGN.getFirst().get());
 
                     // Unsorted stuff
-                    if(!(item.get() instanceof ForgeSpawnEggItem) && !item.get().getDefaultInstance().is(UPItems.CROCARINA.get()) && !item.get().getDefaultInstance().is(UPBlocks.FRUIT_LOOT_BOX.get().asItem()) && !item.get().getDefaultInstance().is(UPItems.ANIMAL_DNA_BOTTLES.get()) && !item.get().getDefaultInstance().is(UPItems.PLANT_DNA_BOTTLES.get()) && !item.get().getDefaultInstance().is(UPBlocks.FOSSIL_ORES.get().asItem()) && !(item.get() instanceof PrehistoricEggItem)) {
+                    if(!(item.get() instanceof ForgeSpawnEggItem) && !item.get().getDefaultInstance().is(UPItems.CROCARINA.get()) && !item.get().getDefaultInstance().is(UPBlocks.FRUIT_LOOT_BOX.get().asItem()) && !item.get().getDefaultInstance().is(UPItemTags.HIDDEN_ITEMS) && !(item.get() instanceof PrehistoricEggItem)) {
                         entries.accept(item.get());
                     }
                 }

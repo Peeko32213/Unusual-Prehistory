@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-30T20:28:02.3333359	unusualprehistory Item Tags
+// 1.20.1	2025-04-01T11:59:12.411365	unusualprehistory Item Tags
 0e007da7010fb59ad16ba8721022e513aafaa8d5 data/minecraft/tags/items/arrows.json
 7fb79063f8a205257a5de1bf232fff4dcac02b8f data/minecraft/tags/items/buttons.json
 500835e6514e02057dbd99458db517ebab81f3d9 data/minecraft/tags/items/fishes.json
@@ -40,6 +40,7 @@ ad12969b370b048b2daf89039685b224041764dc data/unusualprehistory/tags/items/estem
 291718131b430f202c603d9f307f34ade8dc2264 data/unusualprehistory/tags/items/filled_flasks.json
 ff158dc1741e31aa81e15bc84006af8cfb64ce9d data/unusualprehistory/tags/items/fossils.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/unusualprehistory/tags/items/foxxi.json
+fad721eae07998b1b28aa5d88b9cb08785ca6b26 data/unusualprehistory/tags/items/hidden_items.json
 601842f29ede5ec3edbc19a93d51d11f67f2836d data/unusualprehistory/tags/items/hwacha_food.json
 47be456ad97366b91300f74739cd8cac544f698d data/unusualprehistory/tags/items/hynerpeton_igniters.json
 9a167887814f36e0277c10df98c76f8299730929 data/unusualprehistory/tags/items/kentro_food.json
@@ -52,4 +53,5 @@ a0ae93ebb6c1e0daf4745c49f8aadf5984b46e48 data/unusualprehistory/tags/items/pachy
 cd895cf19d27aba603bda83fb6e09625533e6abb data/unusualprehistory/tags/items/triceratops_food.json
 506d6476cc7794fbbf746c92c5bd837843613273 data/unusualprehistory/tags/items/triceratops_tames.json
 d1babc0d187228a0d645e8b086ae13d5490028e2 data/unusualprehistory/tags/items/ulugh_food.json
+444afb3b8cd1982f563d611e5e6bc4e23a8b90e5 data/unusualprehistory/tags/items/unicorn_food_items.json
 0485cb374748be6448bddf4209c6e11d0efde57e data/unusualprehistory/tags/items/zuloagae.json
