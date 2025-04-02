@@ -80,7 +80,7 @@ public class UPItems {
     public static final RegistryObject<Item> VELOCI_SHIELD = item("veloci_shield", () -> new VelociraptorShieldItem(new Item.Properties().durability(800).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> MAJUNGA_SCUTE = translatedItem("majungasaurus_scute", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ADORNED_STAFF = translatedItem("adorned_staff", () -> new Item(new Item.Properties().durability(100).rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> GROG = item("grog", () -> new UPDrinkItem(drinkItem().food(UPFood.GROG), true, false));
+    public static final RegistryObject<Item> GROG = item("grog_bottle", () -> new UPDrinkItem(drinkItem().food(UPFood.GROG), true, false));
     public static final RegistryObject<Item> CAPTURED_KIMMER_BOTTLE = item("kimmeridgebrachypteraeschnidium_bottle", () -> new CaptureFlaskItem(UPEntities.KIMMER::get, Items.GLASS_BOTTLE, false, new Item.Properties().stacksTo(1)));
 
     // Fossil skeletons
@@ -273,7 +273,6 @@ public class UPItems {
     public static final RegistryObject<Item> TRICERATOPS_SPAWN_EGG = spawnEgg("triceratops", UPEntities.TRICERATOPS, 0x45452a, 0x9c2f2f);
     public static final RegistryObject<Item> TYRANNOSAURUS_SPAWN_EGG = spawnEgg("tyrannosaurus", UPEntities.TYRANNOSAURUS, 0x3e2025, 0xa23a47);
     public static final RegistryObject<Item> ULUG_SPAWN_EGG = spawnEgg("ulughbegsaurus", UPEntities.ULUG , 0x6e5953, 0x466dc2);
-    public static final RegistryObject<Item> UNICORN_SPAWN_EGG = spawnEgg("unicorn", UPEntities.UNICORN , 0x6f5848, 0xf2e2c8);
     public static final RegistryObject<Item> VELOCIRAPTOR_SPAWN_EGG = spawnEgg("velociraptor", UPEntities.VELOCIRAPTOR, 0xdfd9c7, 0x4a4242);
     public static final RegistryObject<Item> XIPH_SPAWN_EGG = spawnEgg("xiphactinus", UPEntities.XIPH , 0x9eacbe, 0x21262a);
 
@@ -341,7 +340,7 @@ public class UPItems {
     public static final RegistryObject<Item> YIXIAN_RAMPAGE_BOTTLE = item("yixian_rampage_bottle", () -> new RabiesFlaskItem((new Item.Properties()).stacksTo(16)));
     public static final RegistryObject<Item> DORMANT_RAMPAGE_BOTTLE = item("dormant_rampage_bottle", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = translatedItem("jawless_fish_bucket", () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = item("jawless_fish_bucket", () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> QUILL_REMEDY = item("quill_remedy", () -> new RampageRemedyItem(new Item.Properties()));
     public static final RegistryObject<Item> AMBER_IDOL = translatedItem("amber_idol", () -> new Item(new Item.Properties()));

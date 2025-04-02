@@ -297,6 +297,23 @@ public class UPItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.PSITTACCO_ARROW);
         singleTex(UPItems.QUILL_REMEDY);
 
+        basicItem(UPItems.ADORNED_STAFF);
+        basicItem(UPItems.AMBER_GUMMY);
+        basicItem(UPItems.ORGANIC_OOZE);
+        basicItem(UPItems.SHELL_SHARD);
+        basicItem(UPBlocks.AMMONITE_SHELL.get().asItem());
+        basicItem(UPItems.MEAT_ON_A_STICK);
+        basicItem(UPItems.WARPICK);
+        basicItem(UPItems.SHEDSCALE_BOOTS);
+        basicItem(UPItems.SHEDSCALE_CHESTPLATE);
+        basicItem(UPItems.SHEDSCALE_HELMET);
+        basicItem(UPItems.SHEDSCALE_LEGGINGS);
+        basicItem(UPItems.TYRANTS_CROWN);
+        basicItem(UPItems.SLOTH_POUCH);
+        basicItem(UPItems.GROG);
+        basicItem(UPBlocks.ZULOAGAE.get().asItem());
+        basicItem(UPBlocks.QUEREUXIA.get().asItem());
+
         // Amber
         singleTex(UPItems.AMBER);
         singleTex(UPItems.AMBER_IDOL);

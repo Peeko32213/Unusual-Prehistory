@@ -1,11 +1,18 @@
 {
   "values": [
-    "unusualprehistory:petrified_wood",
-    "unusualprehistory:stripped_petrified_wood",
     "unusualprehistory:dryo_log",
     "unusualprehistory:dryo_wood",
-    "unusualprehistory:stripped_dryo_wood",
     "unusualprehistory:stripped_dryo_log",
-    "unusualprehistory:zuloagae_block"
+    "unusualprehistory:stripped_dryo_wood",
+    "unusualprehistory:foxxi_log",
+    "unusualprehistory:foxxi_wood",
+    "unusualprehistory:stripped_foxxi_log",
+    "unusualprehistory:stripped_foxxi_wood",
+    "unusualprehistory:ginkgo_log",
+    "unusualprehistory:ginkgo_wood",
+    "unusualprehistory:stripped_ginkgo_log",
+    "unusualprehistory:stripped_ginkgo_wood",
+    "unusualprehistory:zuloagae_block",
+    "unusualprehistory:stripped_zuloagae_block"
   ]
 }

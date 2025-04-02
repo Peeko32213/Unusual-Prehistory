@@ -3,488 +3,304 @@ package com.peeko32213.unusualprehistory.data.server.tags;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.teamabnormals.blueprint.core.data.server.tags.BlueprintItemTagsProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
-public class UPItemTagsProvider extends ItemTagsProvider {
-    public UPItemTagsProvider(PackOutput p_275343_, CompletableFuture<HolderLookup.Provider> p_275729_,
-                              CompletableFuture<TagLookup<Block>> p_275322_, @Nullable ExistingFileHelper existingFileHelper) {
-        super(p_275343_, p_275729_, p_275322_, UnusualPrehistory.MODID, existingFileHelper);
+import static com.peeko32213.unusualprehistory.core.registry.items.UPItems.*;
+
+public class UPItemTagsProvider extends BlueprintItemTagsProvider {
+
+    public UPItemTagsProvider(PackOutput output, CompletableFuture<Provider> provider, CompletableFuture<TagsProvider.TagLookup<Block>> lookup, ExistingFileHelper helper) {
+        super(UnusualPrehistory.MODID, output, provider, lookup, helper);
     }
 
     @Override
-    protected void addTags(HolderLookup.@NotNull Provider pProvider) {
+    protected void addTags(HolderLookup.Provider provider) {
 
-        tag(UPItemTags.ALLOWED_FRIDGE_ITEMS)
-                .addTag(UPItemTags.DNA_FLASKS);
+        this.copyWoodsetTags();
 
-        tag(UPItemTags.FILLED_FLASKS)
-                .addTag(UPItemTags.DNA_FLASKS);
+        this.copy(BlockTags.SLABS, ItemTags.SLABS);
+        this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
+        this.copy(BlockTags.WALLS, ItemTags.WALLS);
+        this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+        this.copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
 
-        tag(UPItemTags.DNA_FLASKS)
-                .add(UPItems.AMMONITE_DNA.get())
-                .add(UPItems.QUEREUXIA_DNA.get())
-                .add(UPItems.NELUMBITES_DNA.get())
-                .add(UPItems.CLATHRODICTYON_DNA.get())
-                .add(UPItems.ARCHAEFRUCTUS_DNA.get())
-                .add(UPItems.ANOSTYLOSTRAMA_DNA.get())
-                .add(UPItems.LEEFRUCTUS_DNA.get())
-                .add(UPItems.ARCHAO_DNA.get())
-                .add(UPItems.SARR_DNA.get())
-                .add(UPItems.BENNET_DNA.get())
-                .add(UPItems.HORSETAIL_DNA.get())
-                .add(UPItems.ERYON_DNA.get())
-                .add(UPItems.PACHY_DNA.get())
-                .add(UPItems.TRIKE_DNA.get())
-                .add(UPItems.VELOCI_DNA.get())
-                .add(UPItems.TYRANNO_DNA.get())
-                .add(UPItems.BRACHI_DNA.get())
-                .add(UPItems.SCAU_DNA.get())
-                .add(UPItems.COTY_DNA.get())
-                .add(UPItems.ANURO_DNA.get())
-                .add(UPItems.BEELZ_DNA.get())
-                .add(UPItems.MAJUNGA_DNA.get())
-                .add(UPItems.DUNK_DNA.get())
-                .add(UPItems.STETHA_DNA.get())
-                .add(UPItems.HWACHA_DNA.get())
-                .add(UPItems.KENTRO_DNA.get())
-                .add(UPItems.ULUGH_DNA.get())
-                .add(UPItems.AUSTRO_DNA.get())
-                .add(UPItems.ANTARCTO_DNA.get())
-                .add(UPItems.ENCRUSTED_DNA.get())
-                .add(UPItems.GIGANTO_DNA.get())
-                .add(UPItems.SMILODON_DNA.get())
-                .add(UPItems.TELECREX_DNA.get())
-                .add(UPItems.TITANONARKE_DNA.get())
-                .add(UPItems.MEGATHERIUM_DNA.get())
-                .add(UPItems.PARACER_DNA.get())
-                .add(UPItems.MAMMOTH_DNA.get())
-                .add(UPItems.BARINA_DNA.get())
-                .add(UPItems.PALAEO_DNA.get())
-                .add(UPItems.MEGALANIA_DNA.get())
-                .add(UPItems.TALPANAS_DNA.get())
-                .add(UPItems.ZULOAGAE_DNA.get())
-                .add(UPItems.RAIGUENRAYUN_DNA.get())
-                .add(UPItems.FOXII_DNA.get())
-                .add(UPItems.GINKGO_DNA.get())
-                .add(UPItems.DRYO_DNA.get())
-                .add(UPItems.KIMMER_DNA.get())
-                .add(UPItems.DIPLO_DNA.get())
-                .add(UPItems.HYNERIA_DNA.get())
-                .add(UPItems.OTAROCYON_DNA.get())
-                .add(UPItems.LONGI_DNA.get())
-                .add(UPItems.JAWLESS_FISH_DNA.get())
-                .add(UPItems.TARTUO_DNA.get())
-                .add(UPItems.TANY_DNA.get())
-                .add(UPItems.PSITTACO_DNA.get())
-                .add(UPItems.KAPRO_DNA.get())
-                .add(UPItems.PSILO_DNA.get())
-                .add(UPItems.OPHIO_DNA.get())
-                .add(UPItems.HYNERP_DNA.get())
-                .add(UPItems.BALAUR_DNA.get())
-                .add(UPItems.PTERY_DNA.get())
-                .add(UPItems.EDAPHO_DNA.get())
-                .add(UPItems.HYNERP_DNA.get())
-                .add(UPItems.LEEDS_DNA.get())
-                .add(UPItems.PTERODAUSTRO_DNA.get())
-                .add(UPItems.XIPHACT_DNA.get())
-                .add(UPItems.OVIRAPTOR_DNA.get())
-                .add(UPItems.GLOBIDENS_DNA.get())
-                .add(UPItems.ARCHELON_DNA.get())
-                .add(UPItems.ESTEMMENO_DNA.get())
-                .add(UPItems.GUANLINGSAURUS_DNA.get())
-                .add(UPItems.MEGALAMPRIS_DNA.get())
-                .add(UPItems.NYCTORAPTOR_DNA.get())
-                .add(UPItems.PANACANTHOCARIS_DNA.get())
-                .add(UPItems.PROSCINETES_DNA.get())
-                .add(UPItems.CORONODON_DNA.get())
-                .add(UPItems.SCHLUMBERGERITES_DNA.get())
-        ;
+        this.copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
+        this.copy(BlockTags.TALL_FLOWERS, ItemTags.TALL_FLOWERS);
+        this.copy(BlockTags.FLOWERS, ItemTags.FLOWERS);
 
-        tag(UPItemTags.FOSSILS)
-                .add(UPItems.AMBER_FOSSIL.get())
-                .add(UPItems.PLANT_FOSSIL.get())
-                .add(UPItems.MEZO_FOSSIL.get())
-                .add(UPItems.PALEO_FOSSIL.get())
-                .add(UPItems.FROZEN_FOSSIL.get())
-                .add(UPItems.OPAL_FOSSIL.get())
-                .add(UPItems.FIRE_OPAL_FOSSIL.get())
-                .add(UPItems.BOULDER_OPAL_FOSSIL.get())
-                .add(UPItems.BLACK_OPAL_FOSSIL.get())
-                .add(UPItems.TAR_FOSSIL.get());
+        this.tag(UPItemTags.ALLOWED_FRIDGE_ITEMS).addTag(UPItemTags.DNA_BOTTLES);
+        this.tag(UPItemTags.FILLED_FLASKS).addTag(UPItemTags.DNA_BOTTLES);
 
-        tag(UPItemTags.ANALYZER_ITEMS_INPUT)
-                .addTag(UPItemTags.FOSSILS)
-                .addTag(UPItemTags.PETRIFIED_WOOD)
-        ;
+        this.tag(UPItemTags.DNA_BOTTLES).add(
+                AMMONITE_DNA.get(),
+                QUEREUXIA_DNA.get(),
+                NELUMBITES_DNA.get(),
+                CLATHRODICTYON_DNA.get(),
+                ARCHAEFRUCTUS_DNA.get(),
+                ANOSTYLOSTRAMA_DNA.get(),
+                LEEFRUCTUS_DNA.get(),
+                ARCHAO_DNA.get(),
+                SARR_DNA.get(),
+                BENNET_DNA.get(),
+                HORSETAIL_DNA.get(),
+                ERYON_DNA.get(),
+                PACHY_DNA.get(),
+                TRIKE_DNA.get(),
+                VELOCI_DNA.get(),
+                TYRANNO_DNA.get(),
+                BRACHI_DNA.get(),
+                SCAU_DNA.get(),
+                COTY_DNA.get(),
+                ANURO_DNA.get(),
+                BEELZ_DNA.get(),
+                MAJUNGA_DNA.get(),
+                DUNK_DNA.get(),
+                STETHA_DNA.get(),
+                HWACHA_DNA.get(),
+                KENTRO_DNA.get(),
+                ULUGH_DNA.get(),
+                AUSTRO_DNA.get(),
+                ANTARCTO_DNA.get(),
+                ENCRUSTED_DNA.get(),
+                GIGANTO_DNA.get(),
+                SMILODON_DNA.get(),
+                TELECREX_DNA.get(),
+                TITANONARKE_DNA.get(),
+                MEGATHERIUM_DNA.get(),
+                PARACER_DNA.get(),
+                MAMMOTH_DNA.get(),
+                BARINA_DNA.get(),
+                PALAEO_DNA.get(),
+                MEGALANIA_DNA.get(),
+                TALPANAS_DNA.get(),
+                ZULOAGAE_DNA.get(),
+                RAIGUENRAYUN_DNA.get(),
+                FOXII_DNA.get(),
+                GINKGO_DNA.get(),
+                DRYO_DNA.get(),
+                KIMMER_DNA.get(),
+                DIPLO_DNA.get(),
+                HYNERIA_DNA.get(),
+                OTAROCYON_DNA.get(),
+                LONGI_DNA.get(),
+                JAWLESS_FISH_DNA.get(),
+                TARTUO_DNA.get(),
+                TANY_DNA.get(),
+                PSITTACO_DNA.get(),
+                KAPRO_DNA.get(),
+                PSILO_DNA.get(),
+                OPHIO_DNA.get(),
+                HYNERP_DNA.get(),
+                BALAUR_DNA.get(),
+                PTERY_DNA.get(),
+                EDAPHO_DNA.get(),
+                HYNERP_DNA.get(),
+                LEEDS_DNA.get(),
+                PTERODAUSTRO_DNA.get(),
+                XIPHACT_DNA.get(),
+                OVIRAPTOR_DNA.get(),
+                GLOBIDENS_DNA.get(),
+                ARCHELON_DNA.get(),
+                ESTEMMENO_DNA.get(),
+                GUANLINGSAURUS_DNA.get(),
+                MEGALAMPRIS_DNA.get(),
+                NYCTORAPTOR_DNA.get(),
+                PANACANTHOCARIS_DNA.get(),
+                PROSCINETES_DNA.get(),
+                CORONODON_DNA.get(),
+                SCHLUMBERGERITES_DNA.get()
+        );
 
-        tag(UPItemTags.KENTRO_FOOD)
-                .add(UPBlocks.HORSETAIL.get().asItem())
-                .add(UPBlocks.TALL_HORSETAIL.get().asItem())
-        ;
+        this.tag(UPItemTags.FOSSILS).add(
+                AMBER_FOSSIL.get(),
+                PLANT_FOSSIL.get(),
+                MEZO_FOSSIL.get(),
+                PALEO_FOSSIL.get(),
+                FROZEN_FOSSIL.get(),
+                OPAL_FOSSIL.get(), FIRE_OPAL_FOSSIL.get(), BOULDER_OPAL_FOSSIL.get(), BLACK_OPAL_FOSSIL.get(),
+                TAR_FOSSIL.get()
+        );
 
-        tag(UPItemTags.MAJUNGA_FOOD)
-                .add(UPItems.RAW_COTY.get())
-        ;
+        this.tag(UPItemTags.ANALYZER_ITEMS_INPUT).addTag(UPItemTags.FOSSILS);
 
-        tag(UPItemTags.ULUGH_FOOD)
-                .add(UPItems.RAW_COTY.get())
-        ;
+        this.tag(UPItemTags.KENTRO_FOOD).add(
+                UPBlocks.HORSETAIL.get().asItem(),
+                UPBlocks.TALL_HORSETAIL.get().asItem()
+        );
 
-        tag(UPItemTags.TRICERATOPS_FOOD)
-                .add(UPItems.GINKGO_FRUIT.get())
-                .add(UPBlocks.HORSETAIL.get().asItem())
-                .add(UPBlocks.TALL_HORSETAIL.get().asItem())
-                .add(Items.SWEET_BERRIES)
-        ;
+        this.tag(UPItemTags.MAJUNGA_FOOD).add(
+                RAW_COTY.get()
+        );
 
-        tag(UPItemTags.TRICERATOPS_TAMES)
-                .add(UPItems.GINKGO_FRUIT.get())
-        ;
+        this.tag(UPItemTags.ULUGH_FOOD).add(
+                RAW_COTY.get()
+        );
 
-        tag(UPItemTags.COTY_FOOD)
-                .add(Items.MELON_SLICE)
-                .add(Items.MELON_SEEDS)
-                .add(Items.GLISTERING_MELON_SLICE)
-        ;
-        tag(UPItemTags.COTY_FERMENTERS)
-                .add(Items.SWEET_BERRIES)
-                .add(Items.GLOW_BERRIES)
-        ;
+        this.tag(UPItemTags.TRICERATOPS_FOOD).add(
+                GINKGO_FRUIT.get(),
+                UPBlocks.HORSETAIL.get().asItem(),
+                UPBlocks.TALL_HORSETAIL.get().asItem(),
+                Items.SWEET_BERRIES
+        );
 
-        tag(UPItemTags.HWACHA_FOOD)
-        ;
+        this.tag(UPItemTags.TRICERATOPS_TAMES).add(
+                GINKGO_FRUIT.get()
+        );
 
-        tag(UPItemTags.HWACHA_TAMES)
-                .add(Items.BEEF)
-                .add(Items.PORKCHOP)
-                .add(Items.CHICKEN)
-                .add(Items.MUTTON)
-                .add(Items.RABBIT)
-        ;
+        this.tag(UPItemTags.COTY_FOOD).add(
+                Items.MELON_SLICE,
+                Items.MELON_SEEDS,
+                Items.GLISTERING_MELON_SLICE
+        );
 
-        tag(UPItemTags.BARINA_FOOD)
-                .add(Items.BEEF)
-                .add(Items.PORKCHOP)
-                .add(Items.CHICKEN)
-                .add(Items.MUTTON)
-                .add(Items.RABBIT)
-        ;
+        this.tag(UPItemTags.COTY_FERMENTERS).add(
+                Items.SWEET_BERRIES,
+                Items.GLOW_BERRIES
+        );
 
-        tag(UPItemTags.PACHY_FOOD)
-                .add(UPItems.RAW_GINKGO_SEEDS.get());
+        this.tag(UPItemTags.HWACHA_FOOD);
 
-        tag(UPItemTags.EDAPHO_FOOD_ITEMS)
-                .add(UPItems.RAW_GINKGO_SEEDS.get())
-                .add(UPItems.GINKGO_FRUIT.get())
-                .add(UPBlocks.HORSETAIL.get().asItem())
-                .add(UPBlocks.TALL_HORSETAIL.get().asItem())
-                .add(Items.CARROT)
-                .add(Items.POTATO)
-        ;
+        this.tag(UPItemTags.HWACHA_TAMES).add(
+                Items.BEEF,
+                Items.PORKCHOP,
+                Items.CHICKEN,
+                Items.MUTTON,
+                Items.RABBIT
+        );
 
-        tag(UPItemTags.ESTEMME_FOOD_ITEMS)
-                .add(UPItems.RAW_COTY.get())
-                .add(UPItems.GINKGO_FRUIT.get())
-                .add(UPBlocks.HORSETAIL.get().asItem())
-                .add(UPBlocks.TALL_HORSETAIL.get().asItem())
-                .add(Items.MELON_SLICE)
-                .add(Items.APPLE)
-                .add(Items.SWEET_BERRIES)
-                .add(Items.GLOW_BERRIES)
-                .add(Items.BEEF)
-                .add(Items.PORKCHOP)
-                .add(Items.CHICKEN)
-                .add(Items.RABBIT)
-                .add(Items.MUTTON)
-        ;
+        this.tag(UPItemTags.BARINA_FOOD).add(
+                Items.BEEF,
+                Items.PORKCHOP,
+                Items.CHICKEN,
+                Items.MUTTON,
+                Items.RABBIT
+        );
 
-        tag(UPItemTags.UNICORN_FOOD_ITEMS)
-                .add(Items.COOKIE)
-                .add(Items.PUMPKIN_PIE)
-                .add(Items.CAKE)
-        ;
+        this.tag(UPItemTags.PACHY_FOOD)
+                .add(RAW_GINKGO_SEEDS.get());
 
-        tag(UPItemTags.UNICORN_FOOD_ITEMS)
-                .add(Items.COOKIE)
-                .add(Items.PUMPKIN_PIE)
-                .add(Items.CAKE)
-        ;
+        this.tag(UPItemTags.EDAPHO_FOOD_ITEMS).add(
+                RAW_GINKGO_SEEDS.get(),
+                GINKGO_FRUIT.get(),
+                UPBlocks.HORSETAIL.get().asItem(),
+                UPBlocks.TALL_HORSETAIL.get().asItem(),
+                Items.CARROT,
+                Items.POTATO
+        );
 
-        tag(UPItemTags.ORGANIC_OOZE)
-                .add(UPItems.ORGANIC_OOZE.get());
+        this.tag(UPItemTags.ESTEMME_FOOD_ITEMS).add(
+                RAW_COTY.get(),
+                GINKGO_FRUIT.get(),
+                UPBlocks.HORSETAIL.get().asItem(),
+                UPBlocks.TALL_HORSETAIL.get().asItem(),
+                Items.MELON_SLICE,
+                Items.APPLE,
+                Items.SWEET_BERRIES,
+                Items.GLOW_BERRIES,
+                Items.BEEF,
+                Items.PORKCHOP,
+                Items.CHICKEN,
+                Items.RABBIT,
+                Items.MUTTON
+        );
 
-        tag(ItemTags.LEAVES)
-                .add(UPBlocks.DRYO_LEAVES.get().asItem())
-                .add(UPBlocks.GINKGO_LEAVES.get().asItem())
-        ;
+        this.tag(UPItemTags.UNICORN_FOOD_ITEMS).add(
+                Items.COOKIE,
+                Items.PUMPKIN_PIE,
+                Items.CAKE
+        );
 
-        tag(UPItemTags.PETRIFIED_WOOD)
-                .add(UPBlocks.PETRIFIED_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_PETRIFIED_WOOD.get().asItem())
-        ;
+        this.tag(UPItemTags.ORGANIC_OOZE).add(
+                ORGANIC_OOZE.get()
+        );
 
-        tag(UPItemTags.FOXXI)
-        ;
+        this.tag(UPItemTags.HYNERPETON_IGNITERS).add(
+                Items.FLINT_AND_STEEL,
+                Items.FIRE_CHARGE
+        );
 
-        tag(UPItemTags.DRYO)
-                .add(UPBlocks.DRYO_LOG.get().asItem())
-                .add(UPBlocks.DRYO_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_DRYO_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_DRYO_LOG.get().asItem())
-        ;
+        this.tag(UPItemTags.TELECREX_FOOD).add(
+                Items.MELON_SEEDS,
+                Items.BEETROOT_SEEDS,
+                Items.PUMPKIN_SEEDS,
+                Items.WHEAT_SEEDS
+        );
 
-        tag(UPItemTags.ZULOAGAE)
-                .add(UPBlocks.ZULOAGAE_BLOCK.get().asItem())
-                .add(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get().asItem())
-        ;
+        this.tag(UPItemTags.OPAL_GEMS).add(
+                OPAL.get(),
+                FIRE_OPAL.get(),
+                BOULDER_OPAL.get(),
+                BLACK_OPAL.get()
+        );
 
-        tag(UPItemTags.HYNERPETON_IGNITERS)
-                .add(Items.FLINT_AND_STEEL)
-                .add(Items.FIRE_CHARGE)
-        ;
+        this.tag(UPItemTags.HIDDEN_ITEMS).add(
+                UNICORN_SKELETON.get(),
+                UNICORN_EMBRYO.get(),
+                PLANT_DNA_BOTTLES.get(),
+                ANIMAL_DNA_BOTTLES.get(),
+                UPBlocks.FOSSIL_ORES.get().asItem()
+        );
 
-        tag(UPItemTags.TELECREX_FOOD)
-                .add(Items.MELON_SEEDS)
-                .add(Items.BEETROOT_SEEDS)
-                .add(Items.PUMPKIN_SEEDS)
-                .add(Items.WHEAT_SEEDS)
-        ;
+        this.tag(ItemTags.FISHES).add(
+                RAW_SCAU.get(),
+                COOKED_SCAU.get(),
+                GOLDEN_SCAU.get()
+        );
 
-        tag(UPItemTags.OPAL_GEMS)
-                .add(UPItems.OPAL.get())
-                .add(UPItems.FIRE_OPAL.get())
-                .add(UPItems.BOULDER_OPAL.get())
-                .add(UPItems.BLACK_OPAL.get())
-        ;
+        this.tag(ItemTags.MUSIC_DISCS).add(
+                ZULOGAE_DISC.get(),
+                ENCASED_DISC.get(),
+                OPALESENCE_DISC.get()
+        );
 
-        tag(UPItemTags.HIDDEN_ITEMS)
-                .add(UPItems.UNICORN_SKELETON.get())
-                .add(UPItems.UNICORN_EMBRYO.get())
-                .add(UPItems.UNICORN_SPAWN_EGG.get())
-                .add(UPBlocks.FOSSIL_ORES.get().asItem())
-                .add(UPItems.PLANT_DNA_BOTTLES.get())
-                .add(UPItems.ANIMAL_DNA_BOTTLES.get())
-        ;
-
-        tag(ItemTags.PLANKS)
-                .add(UPBlocks.GINKGO_PLANKS.get().asItem())
-                .add(UPBlocks.DRYO_PLANKS.get().asItem())
-                .add(UPBlocks.ZULOAGAE_PLANKS.get().asItem())
-        ;
-
-        tag(ItemTags.LOGS_THAT_BURN)
-                .add(UPBlocks.GINKGO_LOG.get().asItem())
-                .add(UPBlocks.STRIPPED_GINKGO_LOG.get().asItem())
-                .add(UPBlocks.GINKGO_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_GINKGO_WOOD.get().asItem())
-
-                .add(UPBlocks.DRYO_LOG.get().asItem())
-                .add(UPBlocks.STRIPPED_DRYO_LOG.get().asItem())
-                .add(UPBlocks.DRYO_WOOD.get().asItem())
-                .add(UPBlocks.STRIPPED_DRYO_WOOD.get().asItem())
-
-                .add(UPBlocks.ZULOAGAE_BLOCK.get().asItem())
-                .add(UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get().asItem())
-
-        ;
-
-        tag(ItemTags.SAPLINGS)
-                .add(UPBlocks.GINKGO_SAPLING.get().asItem())
-                .add(UPBlocks.FOXII_SAPLING.get().asItem())
-                .add(UPBlocks.DRYO_SAPLING.get().asItem())
-                .add(UPBlocks.ZULOAGAE_SAPLING.get().asItem())
-        ;
-
-        tag(ItemTags.SMALL_FLOWERS)
-                .add(UPBlocks.LEEFRUCTUS.get().asItem())
-                .add(UPBlocks.SARACENIA.get().asItem())
-                .add(UPBlocks.BENNETTITALES.get().asItem())
-                .add(UPBlocks.ARCHAEOSIGILARIA.get().asItem());
-
-        tag(ItemTags.TALL_FLOWERS)
-                .add(UPBlocks.TALL_SARACENIA.get().asItem())
-                .add(UPBlocks.RAIGUENRAYUN.get().asItem());
-
-        tag(ItemTags.WOODEN_FENCES)
-                .add(UPBlocks.GINKGO_FENCE.get().asItem())
-                .add(UPBlocks.DRYO_FENCE.get().asItem())
-                .add(UPBlocks.ZULOAGAE_FENCE.get().asItem());
-
-        tag(ItemTags.WOODEN_DOORS)
-                .add(UPBlocks.GINKGO_DOOR.get().asItem())
-                .add(UPBlocks.DRYO_DOOR.get().asItem())
-                .add(UPBlocks.ZULOAGAE_DOOR.get().asItem())
-        ;
-
-        tag(ItemTags.WOODEN_SLABS)
-                .add(UPBlocks.GINKGO_SLAB.get().asItem())
-                .add(UPBlocks.DRYO_SLAB.get().asItem())
-                .add(UPBlocks.ZULOAGAE_SLAB.get().asItem())
-        ;
-
-        tag(ItemTags.WOODEN_STAIRS)
-                .add(UPBlocks.GINKGO_STAIRS.get().asItem())
-                .add(UPBlocks.DRYO_STAIRS.get().asItem())
-                .add(UPBlocks.ZULOAGAE_STAIRS.get().asItem())
-        ;
-
-        tag(ItemTags.WOODEN_PRESSURE_PLATES)
-                .add(UPBlocks.GINKGO_PRESSURE_PLATE.get().asItem())
-                .add(UPBlocks.DRYO_PRESSURE_PLATE.get().asItem())
-                .add(UPBlocks.ZULOAGAE_PRESSURE_PLATE.get().asItem())
-        ;
-
-        tag(ItemTags.WOODEN_TRAPDOORS)
-                .add(UPBlocks.GINKGO_TRAPDOOR.get().asItem())
-                .add(UPBlocks.DRYO_TRAPDOOR.get().asItem())
-                .add(UPBlocks.ZULOAGAE_TRAPDOOR.get().asItem())
-        ;
-
-        tag(ItemTags.FISHES)
-                .add(UPItems.RAW_SCAU.get())
-                .add(UPItems.COOKED_SCAU.get())
-                .add(UPItems.GOLDEN_SCAU.get())
-        ;
-
-        tag(ItemTags.BUTTONS)
-                .add(UPBlocks.AMBER_BUTTON.get().asItem())
-                .add(UPBlocks.GINKGO_BUTTON.get().asItem())
-                .add(UPBlocks.DRYO_BUTTON.get().asItem())
-                .add(UPBlocks.ZULOAGAE_BUTTON.get().asItem());
-        ;
-
-        tag(ItemTags.WOODEN_BUTTONS)
-                .add(UPBlocks.GINKGO_BUTTON.get().asItem())
-                .add(UPBlocks.DRYO_BUTTON.get().asItem())
-                .add(UPBlocks.ZULOAGAE_BUTTON.get().asItem())
-        ;
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_MESOZOIC)
-                .add(Items.COAL)
-                .add(Items.COBBLESTONE)
-                .add(Items.BONE)
-                .add(UPItems.AMMONITE_DNA.get())
-                .add(UPItems.ANURO_DNA.get())
-                .add(UPItems.BEELZ_DNA.get())
-                .add(UPItems.KENTRO_DNA.get())
-                .add(UPItems.MAJUNGA_DNA.get())
-                .add(UPItems.ANTARCTO_DNA.get())
-                .add(UPItems.AUSTRO_DNA.get())
-                .add(UPItems.VELOCI_DNA.get())
-                .add(UPItems.PACHY_DNA.get())
-                .add(UPItems.ERYON_DNA.get())
-                .add(UPItems.ULUGH_DNA.get())
-                .add(UPItems.KIMMER_DNA.get())
-        ;
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_AMBER)
-                .add(UPItems.BRACHI_DNA.get())
-                .add(UPItems.TYRANNO_DNA.get())
-                .add(UPItems.TRIKE_DNA.get())
-                .add(UPItems.HWACHA_DNA.get())
-                .add(UPItems.ENCRUSTED_DNA.get())
-        ;
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_ENCRUSTED)
-                .add(UPItems.ENCRUSTED_DNA.get());
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_GINKGO)
-                .add(UPItems.GINKGO_DNA.get());
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_PETRIFIED)
-                .add(UPItems.GINKGO_DNA.get())
-                .add(UPItems.FOXII_DNA.get())
-                .add(UPItems.DRYO_DNA.get());
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_PALEO)
-                .add(Items.COAL)
-                .add(Items.COBBLESTONE)
-                .add(Items.BONE)
-                .add(UPItems.AMMONITE_DNA.get())
-                .add(UPItems.SCAU_DNA.get())
-                .add(UPItems.COTY_DNA.get())
-                .add(UPItems.STETHA_DNA.get())
-                .add(UPItems.DUNK_DNA.get())
-                .add(UPItems.DIPLO_DNA.get())
-                .add(UPItems.HYNERIA_DNA.get())
-        ;
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_PLANT)
-                .add(Items.COAL)
-                .add(Items.COBBLESTONE)
-                .add(Blocks.MOSS_BLOCK.asItem())
-                .add(Blocks.MOSS_CARPET.asItem())
-                .add(Blocks.FERN.asItem())
-                .add(Blocks.LARGE_FERN.asItem())
-                .add(UPItems.HORSETAIL_DNA.get())
-                .add(UPItems.NELUMBITES_DNA.get())
-                .add(UPItems.ANOSTYLOSTRAMA_DNA.get())
-                .add(UPItems.LEEFRUCTUS_DNA.get())
-                .add(UPItems.BENNET_DNA.get())
-                .add(UPItems.SARR_DNA.get())
-                .add(UPItems.ARCHAO_DNA.get())
-                .add(UPItems.QUEREUXIA_DNA.get())
-                .add(UPItems.GINKGO_DNA.get())
-                .add(UPItems.CLATHRODICTYON_DNA.get())
-                .add(UPItems.ARCHAEFRUCTUS_DNA.get())
-                .add(UPItems.ZULOAGAE_DNA.get())
-                .add(UPItems.RAIGUENRAYUN_DNA.get())
-                .add(UPItems.FOXII_DNA.get())
-                .add(UPItems.DRYO_DNA.get());
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_FROZEN)
-                .add(Items.ICE)
-                .add(UPItems.MAMMOTH_DNA.get())
-                .add(UPItems.MEGATHERIUM_DNA.get())
-                .add(UPItems.SMILODON_DNA.get());
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_TAR)
-                .add(Items.COAL)
-                .add(UPItems.MEGALANIA_DNA.get())
-                .add(UPItems.BARINA_DNA.get())
-                .add(UPItems.PARACER_DNA.get())
-                .add(UPItems.GIGANTO_DNA.get())
-                .add(UPItems.TALPANAS_DNA.get())
-        ;
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_OPAL)
-                .add(UPItems.PALAEO_DNA.get())
-        ;
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_RAW_COTY)
-                .add(UPItems.COTY_DNA.get());
-
-        tag(UPItemTags.ANALYZER_ITEMS_OUTPUT_TREE)
-                .add(Items.COAL)
-                .add(Items.COBBLESTONE)
-                .add(UPItems.GINKGO_DNA.get());
-
-        tag(ItemTags.MUSIC_DISCS)
-                .add(UPItems.ZULOGAE_DISC.get())
-                .add(UPItems.ENCASED_DISC.get())
-                .add(UPItems.OPALESENCE_DISC.get())
-        ;
-
-        tag(ItemTags.ARROWS)
-                .add(UPItems.PSITTACCO_ARROW.get())
-        ;
+        this.tag(ItemTags.ARROWS).add(
+                PSITTACCO_ARROW.get()
+        );
 
     }
 
     @Override
-    public @NotNull String getName() { return UnusualPrehistory.MODID + " Item Tags";}
+    public void copyWoodsetTags() {
+        this.copyWoodenTags();
+        this.copyLeavesTags();
+    }
 
+    @Override
+    public void copyLeavesTags() {
+        this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
+        this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
+    }
+
+    @Override
+    public void copyWoodenTags() {
+        this.copyWoodenTags(true);
+    }
+
+    @Override
+    public void copyWoodenTags(boolean flammable) {
+        this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
+        this.copy(!flammable ? BlockTags.LOGS : BlockTags.LOGS_THAT_BURN, !flammable ? ItemTags.LOGS : ItemTags.LOGS_THAT_BURN);
+        this.copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
+        this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
+        this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
+        this.copy(BlockTags.FENCE_GATES, ItemTags.FENCE_GATES);
+        this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
+        this.copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
+        this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
+        this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
+        this.copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
+        this.copy(BlockTags.CEILING_HANGING_SIGNS, ItemTags.HANGING_SIGNS);
+    }
 }

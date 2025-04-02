@@ -290,7 +290,7 @@
          }
 
          if (!this.isInWater()) {
-             if (getBooleanState(IDLE_1_AC) && level().getBlockState(this.blockPosition().below()).is(UPBlockTags.DIPLO_DIGS)) {
+             if (getBooleanState(IDLE_1_AC) && level().getBlockState(this.blockPosition().below()).is(UPBlockTags.DIPLO_BURROWS)) {
                  return event.setAndContinue(DIPLOCAULUS_BURROW_HOLD);
              } else {
                  return PlayState.CONTINUE;

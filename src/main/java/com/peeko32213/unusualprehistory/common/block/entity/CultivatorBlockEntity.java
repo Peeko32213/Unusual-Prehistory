@@ -291,7 +291,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
 
 
     public boolean canTakeItem(int slot, ItemStack stack) {
-        if(slot == 0 && stack.is(UPItemTags.DNA_FLASKS)){
+        if(slot == 0 && stack.is(UPItemTags.DNA_BOTTLES)){
             return true;
         }
         if(slot == 1 && stack.is(UPItems.ORGANIC_OOZE.get())) {

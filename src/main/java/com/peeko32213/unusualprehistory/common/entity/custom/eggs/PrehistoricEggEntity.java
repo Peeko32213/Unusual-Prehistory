@@ -104,7 +104,7 @@ public class PrehistoricEggEntity extends BasePrehistoricEggEntity {
                 BlockState blockState = level.getBlockState(currentPosition);
                 // Check if the block is hatchable
                 cachedBlockStatePos.clear();
-                if (blockState.is(UPBlockTags.DINO_HATCHABLE_BLOCKS)) {
+                if (blockState.is(UPBlockTags.EGG_ACCELERATORS)) {
 
                     cachedBlockStatePos.put(currentPosition, CORRECT_BLOCK_EXTRA_TIME);
                     increaseTime += CORRECT_BLOCK_EXTRA_TIME; // Increase time for correct block

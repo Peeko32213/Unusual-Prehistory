@@ -15,21 +15,7 @@ public class UPItemTags {
     public static final TagKey<Item> ALLOWED_FRIDGE_ITEMS = itemTag("allowed_fridge_items");
     public static final TagKey<Item> ANALYZER_ITEMS_INPUT = itemTag("analyzer_items");
 
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_MESOZOIC = itemTag("analyzer_items_output_mezo_fossil");
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_PALEO = itemTag("analyzer_items_output_paleo_fossil");
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_AMBER = itemTag("analyzer_items_output_amber_fossil");
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_ENCRUSTED= itemTag("analyzer_items_output_encrusted_organ");
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_GINKGO = itemTag("analyzer_items_output_ginkgo_fruit");
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_PETRIFIED = itemTag("analyzer_items_output_petrified");
-
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_PLANT = itemTag("analyzer_items_output_plant_fossil");
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_TAR = itemTag("analyzer_items_output_tar_fossil");
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_OPAL = itemTag("analyzer_items_output_opal_fossil");
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_FROZEN = itemTag("analyzer_items_output_frozen_fossil");
-
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_RAW_COTY = itemTag("analyzer_items_output_raw_coty");
-    public static final TagKey<Item> ANALYZER_ITEMS_OUTPUT_TREE = itemTag("analyzer_items_output_tree");
-    public static final TagKey<Item> DNA_FLASKS = itemTag("dna_flasks");
+    public static final TagKey<Item> DNA_BOTTLES = itemTag("dna_bottles");
     public static final TagKey<Item> FILLED_FLASKS = itemTag( "filled_flasks");
     public static final TagKey<Item> FOSSILS = itemTag("fossils");
     public static final TagKey<Item> ORGANIC_OOZE = itemTag("organic_ooze");
@@ -50,6 +36,7 @@ public class UPItemTags {
     public static final TagKey<Item> COTY_FERMENTERS = itemTag("cotylorhynchus_fermenting");
 
     public static final TagKey<Item> PACHY_FOOD = itemTag("pachy_food");
+
     public static final TagKey<Item> PETRIFIED_WOOD = itemTag("petrified_wood");
     public static final TagKey<Item> FOXXI = itemTag("foxxi");
     public static final TagKey<Item> DRYO = itemTag("dryo");

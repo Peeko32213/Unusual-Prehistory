@@ -82,7 +82,7 @@ public class DinosaurWaterEggBlock extends Block {
     }
 
     public static boolean isProperHabitat(BlockGetter reader, BlockPos pos) {
-        return reader.getBlockState(pos).is(UPBlockTags.DINO_HATCHABLE_BLOCKS);
+        return reader.getBlockState(pos).is(UPBlockTags.EGG_ACCELERATORS);
     }
 
     private static int getSpawnHatchDelay(RandomSource randomSource) {

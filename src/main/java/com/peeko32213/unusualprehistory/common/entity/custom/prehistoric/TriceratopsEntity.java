@@ -582,17 +582,6 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     @Override
     public void aiStep() {
         super.aiStep();
-
-        // Break blocks while angry
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isAggressive() && !this.isTame()) {
-            AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
-            for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                BlockState blockstate = this.level().getBlockState(blockpos);
-                if (blockstate.is(UPBlockTags.TRIKE_BREAKABLES)) {
-                     this.level().destroyBlock(blockpos, true, this);
-                }
-            }
-        }
     }
 
     // Variants

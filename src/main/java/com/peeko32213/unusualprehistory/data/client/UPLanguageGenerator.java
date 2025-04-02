@@ -46,6 +46,9 @@ public class UPLanguageGenerator extends LanguageProvider {
         // Items
         UPItems.AUTO_TRANSLATE.forEach(this::forItem);
 
+        // Paintings
+        UPPaintings.PAINTING_TRANSLATIONS.forEach(this::addPainting);
+
         // Untranslated blocks
 
         addBlock(UPBlocks.DRYO_LOG, "Dryophyllum Log");
@@ -146,9 +149,9 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.GINKGO_BOAT.getFirst(), "Ginkgo Boat");
         addItem(UPItems.GINKGO_BOAT.getSecond(), "Ginkgo Chest Boat");
 
-        addItem(UPItems.ZULOGAE_DISC, "Music Disc");
-        addItem(UPItems.ENCASED_DISC, "Music Disc");
-        addItem(UPItems.OPALESENCE_DISC, "Music Disc");
+        addMusicDisc(UPItems.ZULOGAE_DISC, "Shroomy - Zulogae");
+        addMusicDisc(UPItems.ENCASED_DISC, "TheValiantSquidward - Encased");
+        addMusicDisc(UPItems.OPALESENCE_DISC, "ChipsTheCat - Opalesence");
 
         addItem(UPItems.ANIMAL_DNA_BOTTLES, "Flask of Prehistoric Animal DNA");
         addItem(UPItems.PLANT_DNA_BOTTLES, "Flask of Prehistoric Plant DNA");
@@ -165,11 +168,12 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.RAW_MAMMOTH, "Raw Mammoth");
 
         // Buckets
-        addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");
-        addItem(UPItems.AMMON_BUCKET, "Bucket of Ammonite");
-        addItem(UPItems.STETHA_BUCKET, "Bucket of Stethacanthus");
-        addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
-        addItem(UPItems.PALAEO_BUCKET, "Bucket of Palaeolophis Hatchling");
+        addBucketItem(UPItems.BEELZE_BUCKET.get());
+        addBucketItem(UPItems.AMMON_BUCKET.get());
+        addBucketItem(UPItems.STETHA_BUCKET.get());
+        addBucketItem(UPItems.SCAU_BUCKET.get());
+        addBucketItem(UPItems.PALAEO_BUCKET.get());
+        addBucketItem(UPItems.JAWLESS_FISH_BUCKET.get());
 
         // Entity Eggs
         addPrehistoricEgg(UPEntities.COTY, "Cotylorhynchus Egg");
@@ -217,83 +221,85 @@ public class UPLanguageGenerator extends LanguageProvider {
 
         // Bottles
         addItem(UPItems.CAPTURED_KIMMER_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
-        addItem(UPItems.STETHA_DNA, "Bottle of Stethacanthus DNA");
-        addItem(UPItems.DUNK_DNA, "Bottle of Dunkleosteus DNA");
-        addItem(UPItems.MAJUNGA_DNA, "Bottle of Majungasaurus DNA");
-        addItem(UPItems.AMMONITE_DNA, "Bottle of Ammonite DNA");
-        addItem(UPItems.ANURO_DNA, "Bottle of Anurognathus DNA");
-        addItem(UPItems.BEELZ_DNA, "Bottle of Beelzebufo DNA");
-        addItem(UPItems.COTY_DNA, "Bottle of Cotylorhynchus DNA");
-        addItem(UPItems.SCAU_DNA, "Bottle of Scaumenacia DNA");
-        addItem(UPItems.BRACHI_DNA, "Bottle of Brachiosaurus DNA");
-        addItem(UPItems.TYRANNO_DNA, "Bottle of Tyrannosaurus DNA");
-        addItem(UPItems.VELOCI_DNA, "Bottle of Velociraptor DNA");
-        addItem(UPItems.TRIKE_DNA, "Bottle of Triceratops DNA");
-        addItem(UPItems.PACHY_DNA, "Bottle of Pachycephalosaurus DNA");
-        addItem(UPItems.ENCRUSTED_DNA, "Bottle of Encrusted DNA");
-        addItem(UPItems.ERYON_DNA, "Bottle of Eryon DNA");
-        addItem(UPItems.HORSETAIL_DNA, "Bottle of Horsetail DNA");
-        addItem(UPItems.LEEFRUCTUS_DNA, "Bottle of Leefructus DNA");
-        addItem(UPItems.GINKGO_DNA, "Bottle of Ginkgo DNA");
-        addItem(UPItems.BENNET_DNA, "Bottle of Bennettitales DNA");
-        addItem(UPItems.SARR_DNA, "Bottle of Sarracenia DNA");
-        addItem(UPItems.ARCHAO_DNA, "Bottle of Archaeosigillaria DNA");
-        addItem(UPItems.ANOSTYLOSTRAMA_DNA, "Bottle of Anostylostroma DNA");
-        addItem(UPItems.CLATHRODICTYON_DNA, "Bottle of Clathrodictyon DNA");
-        addItem(UPItems.ARCHAEFRUCTUS_DNA, "Bottle of Archaefructus DNA");
-        addItem(UPItems.NELUMBITES_DNA, "Bottle of Nelumbites DNA");
-        addItem(UPItems.QUEREUXIA_DNA, "Bottle of Quereuxia DNA");
-        addItem(UPItems.ANTARCTO_DNA, "Bottle of Antarctopelta DNA");
-        addItem(UPItems.AUSTRO_DNA, "Bottle of Austroraptor DNA");
-        addItem(UPItems.HWACHA_DNA, "Bottle of Hwachavenator DNA");
-        addItem(UPItems.KENTRO_DNA, "Bottle of Kentrosaurus DNA");
-        addItem(UPItems.ULUGH_DNA, "Bottle of Ulughbegsaurus DNA");
-        addItem(UPItems.GIGANTO_DNA, "Bottle of Gigantopithecus DNA");
-        addItem(UPItems.SMILODON_DNA, "Bottle of Smilodon DNA");
-        addItem(UPItems.MEGATHERIUM_DNA, "Bottle of Megatherium DNA");
-        addItem(UPItems.PARACER_DNA, "Bottle of Paraceratherium DNA");
-        addItem(UPItems.MAMMOTH_DNA, "Bottle of Mammoth DNA");
-        addItem(UPItems.BARINA_DNA, "Bottle of Barinasuchus DNA");
-        addItem(UPItems.PALAEO_DNA, "Bottle of Palaeolophis DNA");
-        addItem(UPItems.MEGALANIA_DNA, "Bottle of Megalania DNA");
-        addItem(UPItems.TALPANAS_DNA, "Bottle of Talpanas DNA");
-        addItem(UPItems.TELECREX_DNA, "Bottle of Telecrex DNA");
-        addItem(UPItems.TITANONARKE_DNA, "Bottle of Titanonarke DNA");
-        addItem(UPItems.ZULOAGAE_DNA, "Bottle of Zuloagae DNA");
-        addItem(UPItems.RAIGUENRAYUN_DNA, "Bottle of Raiguenrayun DNA");
-        addItem(UPItems.FOXII_DNA, "Bottle of Foxii DNA");
-        addItem(UPItems.DRYO_DNA, "Bottle of Dryophyllum DNA");
-        addItem(UPItems.KIMMER_DNA, "Bottle of Kimmeridgebrachypteraeschnidium DNA");
-        addItem(UPItems.DIPLO_DNA, "Bottle of Diplocaulus DNA");
-        addItem(UPItems.HYNERIA_DNA, "Bottle of Hyneria DNA");
-        addItem(UPItems.OPHIO_DNA, "Bottle of Ophiodon Ozymandias DNA");
-        addItem(UPItems.ESTEMMENO_DNA, "Bottle of Estemmenosuchus DNA");
-        addItem(UPItems.XIPHACT_DNA, "Bottle of Xiphactinus DNA");
-        addItem(UPItems.PTERY_DNA, "Bottle of Pterygotus DNA");
-        addItem(UPItems.EDAPHO_DNA, "Bottle of Edaphosaurus DNA");
-        addItem(UPItems.OVIRAPTOR_DNA, "Bottle of Oviraptor DNA");
-        addItem(UPItems.GLOBIDENS_DNA, "Bottle of Globidens DNA");
-        addItem(UPItems.GUANLINGSAURUS_DNA, "Bottle of Guanlingsaurus DNA");
-        addItem(UPItems.MEGALAMPRIS_DNA, "Bottle of Megalampris DNA");
-        addItem(UPItems.OTAROCYON_DNA, "Bottle of Otarocyon DNA");
-        addItem(UPItems.LONGI_DNA, "Bottle of Longisquama DNA");
-        addItem(UPItems.JAWLESS_FISH_DNA, "Bottle of Furcacauda DNA");
-        addItem(UPItems.TARTUO_DNA, "Bottle of Tartuosteus DNA");
-        addItem(UPItems.TANY_DNA, "Bottle of Tanystropheus DNA");
-        addItem(UPItems.PSITTACO_DNA, "Bottle of Psittacosaurus DNA");
-        addItem(UPItems.KAPRO_DNA, "Bottle of Kaprosuchus DNA");
-        addItem(UPItems.PSILO_DNA, "Bottle of Psilopterus DNA");
-        addItem(UPItems.HYNERP_DNA, "Bottle of Hynerpeton DNA");
-        addItem(UPItems.BALAUR_DNA, "Bottle of Balaur DNA");
-        addItem(UPItems.LEEDS_DNA, "Bottle of Leedsichthys DNA");
-        addItem(UPItems.PTERODAUSTRO_DNA, "Bottle of Pterodaustro DNA");
-        addItem(UPItems.ARCHELON_DNA, "Bottle of Archelon DNA");
-        addItem(UPItems.PROTOSPHYRAENA_DNA, "Bottle of Protosphyraena DNA");
-        addItem(UPItems.NYCTORAPTOR_DNA, "Bottle of Nyctoraptor DNA");
-        addItem(UPItems.PANACANTHOCARIS_DNA, "Bottle of Panacanthocaris DNA");
-        addItem(UPItems.PROSCINETES_DNA, "Bottle of Proscinetes DNA");
-        addItem(UPItems.CORONODON_DNA, "Bottle of Coronodon DNA");
+
+        // DNA
+        addDNAItem(UPItems.STETHA_DNA.get());
+        addDNAItem(UPItems.DUNK_DNA.get());
+        addDNAItem(UPItems.MAJUNGA_DNA.get());
+        addDNAItem(UPItems.AMMONITE_DNA.get());
+        addDNAItem(UPItems.ANURO_DNA.get());
+        addDNAItem(UPItems.BEELZ_DNA.get());
+        addDNAItem(UPItems.COTY_DNA.get());
+        addDNAItem(UPItems.SCAU_DNA.get());
+        addDNAItem(UPItems.BRACHI_DNA.get());
+        addDNAItem(UPItems.TYRANNO_DNA.get());
+        addDNAItem(UPItems.VELOCI_DNA.get());
+        addDNAItem(UPItems.TRIKE_DNA.get());
+        addDNAItem(UPItems.PACHY_DNA.get());
+        addDNAItem(UPItems.ENCRUSTED_DNA.get());
+        addDNAItem(UPItems.ERYON_DNA.get());
+        addDNAItem(UPItems.HORSETAIL_DNA.get());
+        addDNAItem(UPItems.LEEFRUCTUS_DNA.get());
+        addDNAItem(UPItems.GINKGO_DNA.get());
+        addDNAItem(UPItems.BENNET_DNA.get());
+        addDNAItem(UPItems.SARR_DNA.get());
+        addDNAItem(UPItems.ARCHAO_DNA.get());
+        addDNAItem(UPItems.ANOSTYLOSTRAMA_DNA.get());
+        addDNAItem(UPItems.CLATHRODICTYON_DNA.get());
+        addDNAItem(UPItems.ARCHAEFRUCTUS_DNA.get());
+        addDNAItem(UPItems.NELUMBITES_DNA.get());
+        addDNAItem(UPItems.QUEREUXIA_DNA.get());
+        addDNAItem(UPItems.ANTARCTO_DNA.get());
+        addDNAItem(UPItems.AUSTRO_DNA.get());
+        addDNAItem(UPItems.HWACHA_DNA.get());
+        addDNAItem(UPItems.KENTRO_DNA.get());
+        addDNAItem(UPItems.ULUGH_DNA.get());
+        addDNAItem(UPItems.GIGANTO_DNA.get());
+        addDNAItem(UPItems.SMILODON_DNA.get());
+        addDNAItem(UPItems.MEGATHERIUM_DNA.get());
+        addDNAItem(UPItems.PARACER_DNA.get());
+        addDNAItem(UPItems.MAMMOTH_DNA.get());
+        addDNAItem(UPItems.BARINA_DNA.get());
+        addDNAItem(UPItems.PALAEO_DNA.get());
+        addDNAItem(UPItems.MEGALANIA_DNA.get());
+        addDNAItem(UPItems.TALPANAS_DNA.get());
+        addDNAItem(UPItems.TELECREX_DNA.get());
+        addDNAItem(UPItems.TITANONARKE_DNA.get());
+        addDNAItem(UPItems.ZULOAGAE_DNA.get());
+        addDNAItem(UPItems.RAIGUENRAYUN_DNA.get());
+        addDNAItem(UPItems.FOXII_DNA.get());
+        addDNAItem(UPItems.DRYO_DNA.get());
+        addDNAItem(UPItems.KIMMER_DNA.get());
+        addDNAItem(UPItems.DIPLO_DNA.get());
+        addDNAItem(UPItems.HYNERIA_DNA.get());
+        addDNAItem(UPItems.OPHIO_DNA.get());
+        addDNAItem(UPItems.ESTEMMENO_DNA.get());
+        addDNAItem(UPItems.XIPHACT_DNA.get());
+        addDNAItem(UPItems.PTERY_DNA.get());
+        addDNAItem(UPItems.EDAPHO_DNA.get());
+        addDNAItem(UPItems.OVIRAPTOR_DNA.get());
+        addDNAItem(UPItems.GLOBIDENS_DNA.get());
+        addDNAItem(UPItems.GUANLINGSAURUS_DNA.get());
+        addDNAItem(UPItems.MEGALAMPRIS_DNA.get());
+        addDNAItem(UPItems.OTAROCYON_DNA.get());
+        addDNAItem(UPItems.LONGI_DNA.get());
+        addDNAItem(UPItems.JAWLESS_FISH_DNA.get());
+        addDNAItem(UPItems.TARTUO_DNA.get());
+        addDNAItem(UPItems.TANY_DNA.get());
+        addDNAItem(UPItems.PSITTACO_DNA.get());
+        addDNAItem(UPItems.PSILO_DNA.get());
+        addDNAItem(UPItems.HYNERP_DNA.get());
+        addDNAItem(UPItems.BALAUR_DNA.get());
+        addDNAItem(UPItems.LEEDS_DNA.get());
+        addDNAItem(UPItems.PTERODAUSTRO_DNA.get());
+        addDNAItem(UPItems.ARCHELON_DNA.get());
+        addDNAItem(UPItems.PROTOSPHYRAENA_DNA.get());
+        addDNAItem(UPItems.NYCTORAPTOR_DNA.get());
+        addDNAItem(UPItems.PANACANTHOCARIS_DNA.get());
+        addDNAItem(UPItems.PROSCINETES_DNA.get());
+        addDNAItem(UPItems.CORONODON_DNA.get());
         addDNAItem(UPItems.SCHLUMBERGERITES_DNA.get());
+        addDNAItem(UPItems.KAPRO_DNA.get());
 
         // Corals
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");
@@ -425,13 +431,15 @@ public class UPLanguageGenerator extends LanguageProvider {
         addEntityType(UPEntities.SMILODON, "Smilodon");
         addEntityType(UPEntities.TALPANAS, "Talpanas");
 
-        // Non-living mobs
+        // Projectiles
         addEntityType(UPEntities.AMBER_SHOT, "Amber Shot");
         addEntityType(UPEntities.HWACHA_SPIKE, "Hwachavenator Pin");
+
+        // Misc entities
         addEntityType(UPEntities.ICEBERG_MAMMOTH, "Frozen Mammoth");
         addEntityType(UPEntities.ICEBERG_SMILODON, "Frozen Smilodon");
 
-        //SOUNDS
+        // Sounds
         addSound(UPSounds.BEELZE_IDLE, "Beelzebufo croaks");
         addSound(UPSounds.BEELZE_ATTACK, "Beelzebufo chomps");
         addSound(UPSounds.BEELZE_HURT, "Beelzebufo hurts");
@@ -872,9 +880,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         add("death.attack.hwacha_1.player", "%s was shredded by %s");
         add("death.attack.hwacha_2.player", "%s was turned to fine paste by %s");
         add("death.attack.hwacha_3.player", "%s was shot by %s");
-        add("item.unusualprehistory.zulogae_disc.desc", "Shroomy - Zulogae");
-        add("item.unusualprehistory.encased_disc.desc", "TheValiantSquidward - Encased");
-        add("item.unusualprehistory.opalescence_disc.desc", "ChipsTheCat - Opalesence");
 
         add("death.attack.sludge_0.player", "%s was slapped to death by %s");
 
@@ -920,14 +925,11 @@ public class UPLanguageGenerator extends LanguageProvider {
         addEffect(UPEffects.RABIES_VACCINE, "M-Lyssavirus Vaccine");
 
         // Block entities
-        addBETranslatable("analyzer", "                            Analyzer");
+        addBETranslatable("analyzer", "                          Analyzer");
         addBETranslatable("analyzer_jei", "Analyzer");
         addBETranslatable("dna_fridge", "DNA Fridge");
         addBETranslatable("cultivator", "Cultivator");
         addBETranslatable("cultivator_jei", "Cultivator");
-
-        // Paintings
-        add(UPPaintings.PERISCOPE, "Periscope", "ChipsTheCat");
 
         // Built in datapacks
         add("pack.unusualprehistory.natural_prehistoric_generation.title", "Natural Prehistoric Generation");
@@ -948,18 +950,15 @@ public class UPLanguageGenerator extends LanguageProvider {
     }
 
     private void addDNAItem(Item... items) {
-        List.of(items).forEach((item -> this.add(item, "Bottle of " + format(ForgeRegistries.ITEMS.getKey(item)).replace(" Bottle", ""))));
+        List.of(items).forEach((item -> this.add(item, "Bottle of " + format(ForgeRegistries.ITEMS.getKey(item)).replace(" Dna Bottle", "") + " DNA")));
+    }
+
+    private void addBucketItem(Item... items) {
+        List.of(items).forEach((item -> this.add(item, "Bucket of " + format(ForgeRegistries.ITEMS.getKey(item)).replace(" Bucket", ""))));
     }
 
     public void addSound(Supplier<? extends SoundEvent> key, String name){
         add(UnusualPrehistory.MODID + ".sound.subtitle." + key.get().getLocation().getPath(), name);
-    }
-
-    private void add(RegistryObject<PaintingVariant> variant, String title, String author) {
-        ResourceLocation name = variant.getId();
-        String key = "painting." + name.getNamespace() + "." + name.getPath() + ".";
-        this.add(key + "title", title);
-        this.add(key + "author", author);
     }
 
     public void addTabName(CreativeModeTab key, String name){
@@ -982,6 +981,17 @@ public class UPLanguageGenerator extends LanguageProvider {
         add("item.minecraft.potion.effect." + regName, name);
         add("item.minecraft.splash_potion.effect." + regName, "Splash " + name);
         add("item.minecraft.lingering_potion.effect." + regName, "Lingering " + name);
+    }
+
+    protected void addPainting(String name, String author) {
+        add("painting." + UnusualPrehistory.MODID + "." + name + ".title",  UPTextUtils.createTranslation(name));
+        add("painting." + UnusualPrehistory.MODID + "." + name + ".author",  author);
+    }
+
+    protected void addMusicDisc(Supplier<? extends Item> item, String description) {
+        String disc = item.get().getDescriptionId();
+        add(disc, "Music Disc");
+        add(disc + ".desc", description);
     }
 
     protected void forBlock(Supplier<? extends Block> block) {

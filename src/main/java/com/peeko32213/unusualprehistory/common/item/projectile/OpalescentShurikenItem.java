@@ -22,7 +22,7 @@ public class OpalescentShurikenItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.EGG_THROW, SoundSource.PLAYERS, 0.5F, 0.4F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
-        playerIn.getCooldowns().addCooldown(this, 3);
+        playerIn.getCooldowns().addCooldown(this, 5);
         if (!worldIn.isClientSide()) {
             OpalescentShuriken shuriken = new OpalescentShuriken(worldIn, playerIn);
             shuriken.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, 2.45F, 0.8F);
